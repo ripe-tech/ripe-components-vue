@@ -16,7 +16,7 @@
         "url": "git+https://github.com/ripe-tech/ripe-components-vue.git"
     },
     "license": "Apache-2.0",
-    "author": "Hive Solutions",
+    "author": "Platforme",
     "files": [
         "index.html",
         "css/**/*.css",
