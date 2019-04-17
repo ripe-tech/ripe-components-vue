@@ -18,8 +18,9 @@
     "license": "Apache-2.0",
     "author": "Platforme",
     "files": [
-        "index.html",
-        "css/**/*.css",
+        "index.js",
+        "LICENSE",
+        "dist/**/*",
         "js/**/*.js",
         "res/**/*.ico",
         "res/**/*.png",
