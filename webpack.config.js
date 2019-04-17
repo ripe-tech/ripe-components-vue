@@ -7,7 +7,7 @@ const info = require("./package.json");
 
 const banner = [
     "ripe-components-vue v" + info.version,
-    "(c) " + new Date().getFullYear() + " " + info.author,
+    "(c) 2010-" + new Date().getFullYear() + " " + info.author,
     info.homepage
 ].join("\n");
 
