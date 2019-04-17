@@ -1,0 +1,54 @@
+{
+    "name": "ripe-components-vue",
+    "version": "0.1.0",
+    "description": "RIPE Components for Vue.js",
+    "keywords": [
+        "components",
+        "vue",
+        "ripe"
+    ],
+    "homepage": "https://github.com/ripe-tech/ripe-components-vue#readme",
+    "bugs": {
+        "url": "https://github.com/ripe-tech/ripe-components-vue/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ripe-tech/ripe-components-vue.git"
+    },
+    "license": "Apache-2.0",
+    "author": "Hive Solutions",
+    "files": [
+        "index.html",
+        "css/**/*.css",
+        "js/**/*.js",
+        "res/**/*.ico",
+        "res/**/*.png",
+        "test/**/*.js",
+        "vue/**/*.js",
+        "vue/**/*.vue"
+    ],
+    "main": "js/main.js",
+    "scripts": {
+        "build": "webpack --mode production --config webpack.config.js",
+        "build-dev": "webpack --mode development --config webpack.config.js",
+        "dev": "webpack-dev-server --config webpack.config.js --mode development --watch --hot",
+        "lint": "eslint \"./**/*.{js,vue}\"",
+        "lint-all": "npm run lint && npm run stylelint",
+        "lint-fix": "eslint \"./**/*.{js,vue}\" --fix",
+        "prettier": "prettier \"./**/*.{js,vue,json}\" --write",
+        "pretty": "npm run prettier && npm run lint-fix && npm run stylelint-fix",
+        "stylelint": "stylelint \"./**/*.{css,scss,vue}\"",
+        "stylelint-fix": "stylelint \"./**/*.{css,scss,vue}\" --fix",
+        "test": "mocha --recursive",
+        "upgrade": "npx sort-package-json && ncu -u",
+        "webpack": "webpack --config webpack.config.js"
+    },
+    "dependencies": {
+        "loaders.css": "^0.1.2",
+        "vue": "^2.6.10",
+        "vue-global-events": "^1.1.2"
+    },
+    "devDependencies": {
+        "uxf-webpack": "^0.2.11"
+    }
+}
