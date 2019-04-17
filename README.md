@@ -1,3 +1,3 @@
-# RIPE Components Vue.js
+# RIPE Components for Vue.js
 
 Library of shared components to be re-used in [Vue.js](https://vuejs.org/)
