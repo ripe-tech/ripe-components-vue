@@ -6,6 +6,4 @@ const install = Vue => {
 
 export { HelloPlatforme };
 
-export default {
-    install
-};
+export default install;
