@@ -28,7 +28,7 @@
         "vue/**/*.js",
         "vue/**/*.vue"
     ],
-    "main": "index.js",
+    "main": "dist/ripe-components-vue.min.js",
     "scripts": {
         "build": "webpack --mode production --config webpack.config.js",
         "build-dev": "webpack --mode development --config webpack.config.js",
