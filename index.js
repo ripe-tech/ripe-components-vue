@@ -1,1 +1,1 @@
-export { HelloPlatforme } from "./vue/hello.vue";
+export * from "./vue";
