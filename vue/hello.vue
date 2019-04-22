@@ -11,9 +11,7 @@
 </style>
 
 <script>
-import Vue from "vue";
-
-export const HelloPlatforme = Vue.component("hello-platforme", {});
+export const HelloPlatforme = {};
 
 export default HelloPlatforme;
 </script>

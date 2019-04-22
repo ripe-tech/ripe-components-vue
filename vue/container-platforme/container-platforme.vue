@@ -1,0 +1,29 @@
+<template>
+    <div class="container-platforme">
+        <slot />
+    </div>
+</template>
+
+<style scoped>
+.container-platforme {
+    background-color: #ffffff;
+    border-radius: 8px 8px 8px 8px;
+    box-shadow: 0px 6px 15px rgba(36, 37, 38, 0.08);
+    margin: 32px auto 32px auto;
+    max-width: 1240px;
+    overflow: hidden;
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.container-platforme:hover {
+    box-shadow: 5px 12px 20px rgba(36, 37, 38, 0.13);
+}
+</style>
+
+<script>
+import Vue from "vue";
+
+export const ContainerPlatforme = Vue.component("container-platforme", {});
+
+export default ContainerPlatforme;
+</script>
