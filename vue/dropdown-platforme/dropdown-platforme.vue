@@ -72,8 +72,6 @@
 </style>
 
 <script>
-import Vue from "vue";
-
 export const DropdownPlatforme = {
     name: "dropdown-platforme",
     props: {
