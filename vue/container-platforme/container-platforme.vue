@@ -21,9 +21,7 @@
 </style>
 
 <script>
-import Vue from "vue";
-
-export const ContainerPlatforme = Vue.component("container-platforme", {});
+export const ContainerPlatforme = {};
 
 export default ContainerPlatforme;
 </script>
