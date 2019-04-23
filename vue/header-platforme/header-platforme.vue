@@ -25,9 +25,24 @@
                     </template>
                 </search-platforme>
             </div>
-            <div class="header-right" v-if="account" ref="headerRight" v-on:click="toggleDropdown">
+            <div
+                class="header-apps"
+                ref="header-apps"
+                v-on:click="appsDropdownVisible = !appsDropdownVisible"
+            >
+                <img src="~./assets/apps.svg" />
+            </div>
+            <div
+                class="header-account"
+                v-if="account"
+                ref="headerAccount"
+                v-on:click="accountDropdownVisible = !accountDropdownVisible"
+            >
                 <img v-bind:src="account.avatar_url" />
-                <dropdown-platforme v-bind:items="dropdownItems" v-bind:visible="dropdownVisible" />
+                <dropdown-platforme
+                    v-bind:items="accountDropdownItems"
+                    v-bind:visible="accountDropdownVisible"
+                />
             </div>
         </div>
     </div>
@@ -103,7 +118,7 @@
     vertical-align: middle;
 }
 
-.header-platforme > .header-container > .header-right {
+.header-platforme > .header-container > .header-account {
     cursor: pointer;
     float: right;
     font-size: 0px;
@@ -113,23 +128,32 @@
     text-align: right;
 }
 
-.header-platforme > .header-container > .header-right > * {
+.header-platforme > .header-container > .header-account > * {
     vertical-align: middle;
 }
 
-.header-platforme > .header-container > .header-right > img {
+.header-platforme > .header-container > .header-account > img {
     border-radius: 38px 38px 38px 38px;
     height: 38px;
     width: 38px;
 }
 
-.header-platforme > .header-container > .header-right ::v-deep .dropdown-platforme {
+.header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme {
     right: -12px;
     top: -6px;
 }
 
-.header-platforme > .header-container > .header-right ::v-deep .dropdown-platforme li:last-child {
+.header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme li:last-child {
     border-top: 1px solid $border-color;
+}
+
+.header-platforme > .header-container > .header-apps ::v-deep .dropdown-platforme {
+    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.07);
+}
+
+.header-platforme > .header-container > .header-apps ::v-deep .dropdown-platforme li img {
+    height: 40px;
+    width: 40px;
 }
 </style>
 
@@ -148,14 +172,15 @@ export const HeaderPlatforme = {
     data: function() {
         return {
             searchFilter: null,
-            dropdownVisible: false
+            appsDropdownVisible: false,
+            accountDropdownVisible: false
         };
     },
     computed: {
         account() {
             return this.$root.account;
         },
-        dropdownItems() {
+        accountDropdownItems() {
             const items = [{ id: "email", text: this.account.email }];
             const { name, company, position } = this.account.meta;
             name && items.push({ id: "name", text: name });
@@ -179,9 +204,6 @@ export const HeaderPlatforme = {
     methods: {
         toggleBurger() {
             this.$bus.$emit("toggle-side");
-        },
-        toggleDropdown() {
-            this.dropdownVisible = !this.dropdownVisible;
         },
         handleOutsideClick(event) {
             const dropdown = this.$refs.headerRight;
