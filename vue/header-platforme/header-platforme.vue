@@ -1,5 +1,5 @@
 <template>
-    <div class="header-platforme full-width">
+    <div class="header-platforme full-width" v-bind:class="{ 'no-side': !sideMenu }">
         <global-events v-on:keyup.esc="dropdownVisible = false" />
         <div class="header-container">
             <div class="header-left">
@@ -7,6 +7,7 @@
                     class="hamburger"
                     focusable="false"
                     viewBox="0 0 24 24"
+                    v-if="sideMenu"
                     v-on:click="toggleBurger"
                 >
                     <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
@@ -15,7 +16,7 @@
                     <img class="header-logo" v-bind:src="logo" />
                 </router-link>
                 <search-platforme
-                    placeholder="Seach RIPE Pulse"
+                    v-bind:placeholder="searchPlaceholder"
                     v-bind:grow="true"
                     v-bind:value.sync="searchFilter"
                     v-bind:suggestions="searchSuggestions"
@@ -116,6 +117,10 @@
     text-align: left;
 }
 
+.header-platforme.no-side > .header-container > .header-left {
+    padding-left: 36px;
+}
+
 .header-platforme > .header-container > .header-left > * {
     vertical-align: middle;
 }
@@ -210,9 +215,17 @@
 <script>
 export const HeaderPlatforme = {
     props: {
+        sideMenu: {
+            type: Boolean,
+            default: true
+        },
         logo: {
             type: String,
             default: null
+        },
+        searchPlaceholder: {
+            type: String,
+            default: "Search RIPE"
         },
         searchSuggestions: {
             type: Array,
