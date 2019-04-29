@@ -21,6 +21,7 @@
             type="text"
             v-bind:value="value"
             v-bind:placeholder="placeholder"
+            ref="input"
             v-on:input="$emit('update:value', $event.target.value)"
             v-on:focus="focused = true"
             v-on:blur="focused = false"
@@ -147,6 +148,10 @@ export const SearchPlatforme = {
         suggestions: {
             type: Array,
             default: () => []
+        },
+        autofocus: {
+            type: Boolean,
+            default: false
         }
     },
     data: function() {
@@ -165,6 +170,9 @@ export const SearchPlatforme = {
                 }, 100);
             }
         }
+    },
+    mounted: function() {
+        this.autofocus && this.$refs.input.focus();
     }
 };
 
