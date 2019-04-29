@@ -93,6 +93,15 @@ ul li:hover {
 .footer-logo > a > img {
     display: block;
 }
+
+.footer-logo,
+.footer-logo:not(.button-no-style) {
+    background: transparent none no-repeat left 0px;
+    border-bottom: none;
+    cursor: pointer;
+    display: inline-block;
+    padding: 0px 0px 0px 0px;
+}
 </style>
 
 <script>
