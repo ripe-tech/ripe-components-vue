@@ -25,9 +25,35 @@
                     </template>
                 </search-platforme>
             </div>
-            <div class="header-right" v-if="account" ref="headerRight" v-on:click="toggleDropdown">
+            <div
+                class="header-account"
+                v-if="account"
+                ref="headerAccount"
+                v-on:click="accountDropdownVisible = !accountDropdownVisible"
+            >
                 <img v-bind:src="account.avatar_url" />
-                <dropdown-platforme v-bind:items="dropdownItems" v-bind:visible="dropdownVisible" />
+                <dropdown-platforme
+                    v-bind:items="accountDropdownItems"
+                    v-bind:visible="accountDropdownVisible"
+                />
+            </div>
+            <div
+                class="header-apps"
+                ref="headerApps"
+                v-on:click="appsDropdownVisible = !appsDropdownVisible"
+            >
+                <img src="~./assets/apps.svg" />
+                <dropdown-platforme
+                    v-bind:items="appsDropdownItems"
+                    v-bind:visible="appsDropdownVisible"
+                >
+                    <template slot-scope="{ item: { id, text, image, link } }">
+                        <a v-bind:href="link">
+                            <img v-bind:src="image" v-bind:alt="text" />
+                            <p>{{ text }}</p>
+                        </a>
+                    </template>
+                </dropdown-platforme>
             </div>
         </div>
     </div>
@@ -103,7 +129,8 @@
     vertical-align: middle;
 }
 
-.header-platforme > .header-container > .header-right {
+.header-platforme > .header-container > .header-account,
+.header-platforme > .header-container > .header-apps {
     cursor: pointer;
     float: right;
     font-size: 0px;
@@ -113,23 +140,70 @@
     text-align: right;
 }
 
-.header-platforme > .header-container > .header-right > * {
+.header-platforme > .header-container > .header-account > * {
     vertical-align: middle;
 }
 
-.header-platforme > .header-container > .header-right > img {
+.header-platforme > .header-container > .header-account > img {
     border-radius: 38px 38px 38px 38px;
     height: 38px;
     width: 38px;
 }
 
-.header-platforme > .header-container > .header-right ::v-deep .dropdown-platforme {
+.header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme {
     right: -12px;
     top: -6px;
 }
 
-.header-platforme > .header-container > .header-right ::v-deep .dropdown-platforme li:last-child {
+.header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme li:last-child {
     border-top: 1px solid $border-color;
+}
+
+.header-platforme > .header-container > .header-apps {
+    margin-right: 6px;
+}
+
+.header-platforme > .header-container > .header-apps > img {
+    vertical-align: middle;
+}
+
+.header-platforme > .header-container > .header-apps ::v-deep .dropdown-platforme {
+    background-color: #ffffff;
+    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.07);
+    box-sizing: border-box;
+    cursor: auto;
+    font-size: 0px;
+    line-height: normal;
+    margin-right: -12px;
+    margin-top: -6px;
+    max-width: 320px;
+    padding: 10px;
+    position: static;
+    text-align: left;
+    white-space: pre;
+}
+
+.header-platforme > .header-container > .header-apps ::v-deep .dropdown-platforme li {
+    display: inline-block;
+    font-size: 12px;
+    margin: 0px 0px 0px 0px;
+    padding: 20px 10px 20px 10px;
+    text-align: center;
+    width: 80px;
+}
+
+.header-platforme > .header-container > .header-apps ::v-deep .dropdown-platforme li a {
+    border-bottom: none;
+    color: #000000;
+}
+
+.header-platforme > .header-container > .header-apps ::v-deep .dropdown-platforme li img {
+    height: 40px;
+    width: 40px;
+}
+
+.header-platforme > .header-container > .header-apps ::v-deep .dropdown-platforme li p {
+    margin: 0px;
 }
 </style>
 
@@ -148,14 +222,15 @@ export const HeaderPlatforme = {
     data: function() {
         return {
             searchFilter: null,
-            dropdownVisible: false
+            appsDropdownVisible: false,
+            accountDropdownVisible: false
         };
     },
     computed: {
         account() {
             return this.$root.account;
         },
-        dropdownItems() {
+        accountDropdownItems() {
             const items = [{ id: "email", text: this.account.email }];
             const { name, company, position } = this.account.meta;
             name && items.push({ id: "name", text: name });
@@ -163,6 +238,34 @@ export const HeaderPlatforme = {
             position && items.push({ id: "position", text: position });
             items.push({ id: "signout", text: "Sign out", link: "/signout" });
             return items;
+        },
+        appsDropdownItems() {
+            return [
+                {
+                    id: "core",
+                    text: "Core",
+                    image: require("./assets/core.svg"),
+                    link: "http://sandbox.platforme.com"
+                },
+                {
+                    id: "copper",
+                    text: "Copper",
+                    image: require("./assets/copper.svg"),
+                    link: "http://ripe-copper-test.platforme.com"
+                },
+                {
+                    id: "pulse",
+                    text: "Pulse",
+                    image: require("./assets/pulse.svg"),
+                    link: "http://ripe-pulse-test.platforme.com"
+                },
+                {
+                    id: "retail",
+                    text: "Retail",
+                    image: require("./assets/retail.svg"),
+                    link: "http://ripe-retail-test.platforme.com"
+                }
+            ];
         }
     },
     watch: {
@@ -180,16 +283,14 @@ export const HeaderPlatforme = {
         toggleBurger() {
             this.$bus.$emit("toggle-side");
         },
-        toggleDropdown() {
-            this.dropdownVisible = !this.dropdownVisible;
-        },
         handleOutsideClick(event) {
-            const dropdown = this.$refs.headerRight;
-            if (!dropdown) {
-                return;
+            const appsDropdown = this.$refs.headerApps;
+            const accountDropdown = this.$refs.headerAccount;
+            if (event.target !== appsDropdown && !appsDropdown.contains(event.target)) {
+                this.appsDropdownVisible = false;
             }
-            if (event.target !== dropdown && !dropdown.contains(event.target)) {
-                this.dropdownVisible = false;
+            if (event.target !== accountDropdown && !accountDropdown.contains(event.target)) {
+                this.accountDropdownVisible = false;
             }
         }
     }
