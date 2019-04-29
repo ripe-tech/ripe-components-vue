@@ -10,8 +10,8 @@
                 v-bind:initial-sort="sort"
                 v-bind:initial-reverse="reverse"
             >
-                <template slot-scope="{ item }">
-                    <slot name="item" v-bind:item="item" />
+                <template slot-scope="scope">
+                    <slot name="item" v-bind="scope" />
                 </template>
             </table-platforme>
             <div class="empty-message" v-if="items.length === 0 && loading === false">
@@ -39,37 +39,11 @@
 </style>
 
 <script>
-const parseQuery = () => {
-    const href = window.location.search;
-    const query = new URLSearchParams(href);
-    const sort = query.get("sort");
-    const reverse = query.get("reverse");
-    const filter = query.get("filter");
-    return {
-        sort: sort || undefined,
-        reverse: reverse === null ? undefined : reverse === "true",
-        filter: filter || undefined
-    };
-};
-
-const updateQuery = options => {
-    let href = window.location.search;
-    const query = new URLSearchParams(href);
-    query.set("sort", options.sort);
-    query.set("reverse", options.reverse);
-    query.set("filter", options.filter);
-    href = `${window.location.pathname}?${decodeURIComponent(query.toString())}`;
-    window.history.replaceState({}, null, href);
-};
-
 export const FilterPlatforme = {
     props: {
         filter: {
             type: String,
-            default: () => {
-                const { filter = "" } = parseQuery();
-                return filter;
-            }
+            default: ""
         },
         getItems: {
             type: Function,
@@ -93,7 +67,7 @@ export const FilterPlatforme = {
         }
     },
     data: function() {
-        const { sort = "id", reverse = false } = this.useQuery ? parseQuery() : {};
+        const { sort = "id", reverse = false } = this.useQuery ? this.parseQuery() : {};
         return {
             items: [],
             sort,
@@ -157,7 +131,8 @@ export const FilterPlatforme = {
                 this.items = !pagination ? items : [...this.items, ...items];
                 this.loading = false;
                 this.itemsToLoad = items.length === this.limit;
-                this.useQuery && updateQuery(options);
+                this.useQuery && this.updateQuery(options);
+                this.$emit("update:options", options);
             }
         },
         loading: {
@@ -184,6 +159,19 @@ export const FilterPlatforme = {
                 return;
             }
             this.start += this.limit;
+        },
+        parseQuery() {
+            const query = this.$route.query;
+            const { sort, reverse, filter } = query;
+            return {
+                sort: sort || undefined,
+                reverse: reverse === null ? undefined : reverse === "true",
+                filter: filter || undefined
+            };
+        },
+        updateQuery(options) {
+            const { sort, reverse, filter } = options;
+            this.$router.push({ query: { ...this.$route.query, sort, reverse, filter } });
         }
     }
 };
