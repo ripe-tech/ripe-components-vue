@@ -1,0 +1,199 @@
+<template>
+    <div class="header-platforme full-width">
+        <global-events v-on:keyup.esc="dropdownVisible = false" />
+        <div class="header-container">
+            <div class="header-left">
+                <svg
+                    class="hamburger"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                    v-on:click="toggleBurger"
+                >
+                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+                </svg>
+                <router-link to="/">
+                    <img class="header-logo" v-bind:src="logo" />
+                </router-link>
+                <search-platforme
+                    placeholder="Seach RIPE Pulse"
+                    v-bind:grow="true"
+                    v-bind:value.sync="searchFilter"
+                    v-bind:suggestions="searchSuggestions"
+                >
+                    <template v-slot:suggestion="{ suggestion }">
+                        <slot name="suggestion" v-bind:suggestion="suggestion" />
+                    </template>
+                </search-platforme>
+            </div>
+            <div class="header-right" v-if="account" ref="headerRight" v-on:click="toggleDropdown">
+                <img v-bind:src="account.avatar_url" />
+                <dropdown-platforme v-bind:items="dropdownItems" v-bind:visible="dropdownVisible" />
+            </div>
+        </div>
+    </div>
+</template>
+
+<style lang="scss" scoped>
+@import "css/variables.scss";
+
+.hamburger {
+    border-radius: 34px 34px 34px 34px;
+    cursor: pointer;
+    height: 24px;
+    margin-right: 16px;
+    padding: 12px 12px 12px 12px;
+    transition: background-color 0.15s ease;
+    width: 24px;
+}
+
+.hamburger:hover {
+    background-color: rgba(60, 64, 67, 0.08);
+    outline: none;
+}
+
+.header-platforme {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e4e8f0;
+    height: 60px;
+    line-height: 60px;
+    padding: 0px 0px 0px 0px;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 10;
+}
+
+.app.first .header-platforme {
+    animation: fade-into-drop 0.45s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.header-platforme > .header-container {
+    box-sizing: border-box;
+    height: 60px;
+    line-height: 60px;
+    margin: 0px auto 0px auto;
+    max-width: 1240px;
+    padding: 0px 12px 0px 0px;
+    text-align: left;
+}
+
+.header-platforme.full-width > .header-container {
+    max-width: 100%;
+    padding: 0px 12px 0px 12px;
+}
+
+.header-platforme > .header-container > .header-left {
+    float: left;
+    font-size: 0px;
+    height: 60px;
+    line-height: 60px;
+    text-align: left;
+}
+
+.header-platforme > .header-container > .header-left > * {
+    vertical-align: middle;
+}
+
+.header-platforme > .header-container > .header-left > a {
+    border: none;
+}
+
+.header-platforme > .header-container > .header-left > a > .header-logo {
+    height: 30px;
+    vertical-align: middle;
+}
+
+.header-platforme > .header-container > .header-right {
+    cursor: pointer;
+    float: right;
+    font-size: 0px;
+    height: 60px;
+    line-height: 60px;
+    padding: 0px 12px 0px 12px;
+    text-align: right;
+}
+
+.header-platforme > .header-container > .header-right > * {
+    vertical-align: middle;
+}
+
+.header-platforme > .header-container > .header-right > img {
+    border-radius: 38px 38px 38px 38px;
+    height: 38px;
+    width: 38px;
+}
+
+.header-platforme > .header-container > .header-right ::v-deep .dropdown-platforme {
+    right: -12px;
+    top: -6px;
+}
+
+.header-platforme > .header-container > .header-right ::v-deep .dropdown-platforme li:last-child {
+    border-top: 1px solid $border-color;
+}
+</style>
+
+<script>
+export const HeaderPlatforme = {
+    props: {
+        logo: {
+            type: String,
+            default: null
+        },
+        searchSuggestions: {
+            type: Array,
+            default: () => []
+        }
+    },
+    data: function() {
+        return {
+            searchFilter: null,
+            dropdownVisible: false
+        };
+    },
+    computed: {
+        account() {
+            return this.$root.account;
+        },
+        dropdownItems() {
+            const items = [{ id: "email", text: this.account.email }];
+            const { name, company, position } = this.account.meta;
+            name && items.push({ id: "name", text: name });
+            company && items.push({ id: "company", text: company });
+            position && items.push({ id: "position", text: position });
+            items.push({ id: "signout", text: "Sign out", link: "/signout" });
+            return items;
+        }
+    },
+    watch: {
+        searchFilter(value) {
+            this.$emit("search-filter", value);
+        }
+    },
+    created() {
+        document.addEventListener("click", this.handleOutsideClick);
+    },
+    destroyed() {
+        document.removeEventListener("click", this.handleOutsideClick);
+    },
+    methods: {
+        toggleBurger() {
+            this.$bus.$emit("toggle-side");
+        },
+        toggleDropdown() {
+            this.dropdownVisible = !this.dropdownVisible;
+        },
+        handleOutsideClick(event) {
+            const dropdown = this.$refs.headerRight;
+            if (!dropdown) {
+                return;
+            }
+            if (event.target !== dropdown && !dropdown.contains(event.target)) {
+                this.dropdownVisible = false;
+            }
+        }
+    }
+};
+
+export default HeaderPlatforme;
+</script>

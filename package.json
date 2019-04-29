@@ -51,6 +51,7 @@
         "vue-global-events": "^1.1.2"
     },
     "devDependencies": {
+        "url-loader": "^1.1.2",
         "uxf-webpack": "^0.2.11"
     }
 }
