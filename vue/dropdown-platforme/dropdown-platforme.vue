@@ -23,6 +23,48 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
+.slide-enter-active,
+.slide-leave-active {
+    -o-transition: opacity 0.1s cubic-bezier(0.645, 0.045, 0.355, 1),
+        transform 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -ms-transition: opacity 0.1s cubic-bezier(0.645, 0.045, 0.355, 1),
+        transform 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -moz-transition: opacity 0.1s cubic-bezier(0.645, 0.045, 0.355, 1),
+        transform 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -khtml-transition: opacity 0.1s cubic-bezier(0.645, 0.045, 0.355, 1),
+        transform 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -webkit-transition: opacity 0.1s cubic-bezier(0.645, 0.045, 0.355, 1),
+        transform 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: opacity 0.1s cubic-bezier(0.645, 0.045, 0.355, 1),
+        transform 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.slide-enter,
+.slide-leave-to {
+    -o-opacity: 0;
+    -ms-opacity: 0;
+    -moz-opacity: 0;
+    -khtml-opacity: 0;
+    -webkit-opacity: 0;
+    opacity: 0;
+    -o-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    -moz-transform: translateY(-10px);
+    -khtml-transform: translateY(-10px);
+    -webkit-transform: translateY(-10px);
+    transform: translateY(-10px);
+}
+
+.slide-enter-to,
+.slide-leave {
+    -o-opacity: 1;
+    -ms-opacity: 1;
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    -webkit-opacity: 1;
+    opacity: 1;
+}
+
 .dropdown-container {
     position: relative;
     width: 100%;
