@@ -40,6 +40,7 @@
         "pretty": "npm run prettier && npm run lint-fix && npm run stylelint-fix",
         "stylelint": "stylelint \"./**/*.{css,scss,vue}\"",
         "stylelint-fix": "stylelint \"./**/*.{css,scss,vue}\" --fix",
+        "storybook": "start-storybook -p 9001 -c .storybook",
         "test": "mocha --recursive",
         "upgrade": "npx sort-package-json && ncu -u",
         "watch": "webpack --config webpack.config.js --watch",
@@ -51,6 +52,9 @@
         "vue-global-events": "^1.1.2"
     },
     "devDependencies": {
+        "@storybook/addon-knobs": "^5.0.11",
+        "@storybook/vue": "^5.0.11",
+        "babel-preset-vue": "^2.0.2",
         "url-loader": "^1.1.2",
         "uxf-webpack": "^0.2.11"
     }
