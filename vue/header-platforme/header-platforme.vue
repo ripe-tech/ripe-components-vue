@@ -208,7 +208,8 @@
 }
 
 .header-platforme > .header-container > .header-apps ::v-deep .dropdown-platforme li p {
-    margin: 0px;
+    margin: 6px 0px 0px 0px;
+    font-weight: 600;
 }
 </style>
 
