@@ -54,7 +54,8 @@
 .side-platforme ul > li.separator {
     border-top: 1px solid $border-color;
     cursor: default;
-    margin: 12px 0px 12px 0px;
+    height: 0px;
+    margin: 6px 0px 6px 0px;
     padding: 0px 0px 0px 0px;
 }
 
@@ -71,6 +72,10 @@
     display: inline-block;
     padding: 12px 24px 12px 24px;
     width: 100%;
+}
+
+.side-platforme ul > li.separator span {
+    padding: 0px;
 }
 </style>
 
