@@ -12,6 +12,7 @@
     background-color: #0b57af;
     border-radius: 5px;
     color: #ffffff;
+    cursor: pointer;
     font-size: 13px;
     font-weight: 600;
     height: 50px;
