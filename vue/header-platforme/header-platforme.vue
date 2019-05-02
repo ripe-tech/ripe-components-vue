@@ -1,6 +1,6 @@
 <template>
     <div class="header-platforme full-width" v-bind:class="{ 'no-side': !sideMenu }">
-        <global-events v-on:keyup.esc="dropdownVisible = false" />
+        <global-events v-on:keydown.esc="dropdownVisible = false" />
         <div class="header-container">
             <div class="header-left">
                 <svg

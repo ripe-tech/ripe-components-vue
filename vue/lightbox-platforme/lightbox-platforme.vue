@@ -1,6 +1,6 @@
 <template>
     <div class="lightbox-platforme">
-        <global-events v-on:keyup.esc="close" />
+        <global-events v-on:keydown.esc="close" />
         <img v-bind:src="image" v-bind:alt="alt" v-on:click="event => $emit('click', event)" />
         <transition name="fade">
             <div class="lightbox-container" v-show="visible" v-on:click="$emit('close')">

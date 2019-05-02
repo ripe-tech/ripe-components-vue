@@ -1,6 +1,6 @@
 <template>
     <div class="side-platforme" v-bind:class="visible ? 'visible' : 'invisible'">
-        <global-events v-on:keyup.esc="visible = false" />
+        <global-events v-on:keydown.esc="visible = false" />
         <ul>
             <li
                 v-bind:class="[link.id, { selected: link.selected }]"
