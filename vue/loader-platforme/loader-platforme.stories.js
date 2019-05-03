@@ -1,12 +1,9 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, color, number } from "@storybook/addon-knobs";
 
-import { LoaderPlatforme } from "./loader-platforme.vue";
-
 storiesOf("Loader", module)
     .addDecorator(withKnobs)
     .add("Ball Pulse", () => ({
-        components: { loader: LoaderPlatforme },
         props: {
             count: {
                 default: number("Count", 3, { min: 1, max: 3 })
@@ -24,12 +21,11 @@ storiesOf("Loader", module)
         },
         template: `
             <div>
-                <loader v-bind:count="count" v-bind:loader-style="style"></loader>
+                <loader-platforme v-bind:count="count" v-bind:loader-style="style"></loader-platforme>
             </div>
         `
     }))
     .add("Line Scale", () => ({
-        components: { loader: LoaderPlatforme },
         props: {
             count: {
                 default: number("Count", 5, { min: 1, max: 5 })
@@ -47,12 +43,11 @@ storiesOf("Loader", module)
         },
         template: `
             <div>
-                <loader loader="line-scale" v-bind:count="count" v-bind:loader-style="style"></loader>
+                <loader-platforme loader="line-scale" v-bind:count="count" v-bind:loader-style="style"></loader-platforme>
             </div>
         `
     }))
     .add("Ball Scale", () => ({
-        components: { loader: LoaderPlatforme },
         props: {
             count: {
                 default: number("Count", 3, { min: 1, max: 3 })
@@ -70,7 +65,7 @@ storiesOf("Loader", module)
         },
         template: `
             <div style="padding: 20px">
-                <loader loader="ball-scale-multiple" v-bind:count="count" v-bind:loader-style="style"></loader>
+                <loader-platforme loader="ball-scale-multiple" v-bind:count="count" v-bind:loader-style="style"></loader-platforme>
             </div>
         `
     }));

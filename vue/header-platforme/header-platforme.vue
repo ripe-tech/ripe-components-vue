@@ -231,6 +231,10 @@ export const HeaderPlatforme = {
         searchSuggestions: {
             type: Array,
             default: () => []
+        },
+        platformeAccount: {
+            type: Object,
+            default: () => null
         }
     },
     data: function() {
@@ -242,7 +246,7 @@ export const HeaderPlatforme = {
     },
     computed: {
         account() {
-            return this.$root.account;
+            return this.platformeAccount || this.$root.account;
         },
         accountDropdownItems() {
             const items = [{ id: "email", text: this.account.email }];
