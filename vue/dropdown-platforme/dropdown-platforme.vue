@@ -78,8 +78,8 @@
     left: 0px;
     list-style: none;
     margin: 0px 0px 0px 0px;
-    padding: 0px;
     overflow: hidden;
+    padding: 0px;
     position: absolute;
     right: 0px;
     text-align: center;
