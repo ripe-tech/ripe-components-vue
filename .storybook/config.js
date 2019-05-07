@@ -4,6 +4,8 @@ import { configure } from "@storybook/vue";
 
 import * as components from "../vue";
 
+import "./styles.css";
+
 for (let key in components) {
     Vue.component(key, components[key]);
 }
