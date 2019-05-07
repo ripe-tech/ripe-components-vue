@@ -22,7 +22,6 @@ config.externals.vue = "vue";
 
 config.plugins.push(new webpack.BannerPlugin(banner));
 
-// replaces file loader with url loader to inline image assets
 config.module.rules = config.module.rules.filter(rule => rule.loader !== "file-loader");
 config.module.rules.push({
     test: /\.(png|jpg|gif|svg|ico)$/,

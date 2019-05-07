@@ -156,6 +156,7 @@
 }
 
 .header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme {
+    left: auto;
     right: -12px;
     top: -6px;
 }
@@ -200,6 +201,7 @@
 .header-platforme > .header-container > .header-apps ::v-deep .dropdown-platforme li a {
     border-bottom: none;
     color: #000000;
+    text-decoration: none;
 }
 
 .header-platforme > .header-container > .header-apps ::v-deep .dropdown-platforme li img {
@@ -231,6 +233,10 @@ export const HeaderPlatforme = {
         searchSuggestions: {
             type: Array,
             default: () => []
+        },
+        platformeAccount: {
+            type: Object,
+            default: () => null
         }
     },
     data: function() {
@@ -242,7 +248,7 @@ export const HeaderPlatforme = {
     },
     computed: {
         account() {
-            return this.$root.account;
+            return this.platformeAccount || this.$root.account;
         },
         accountDropdownItems() {
             const items = [{ id: "email", text: this.account.email }];
@@ -303,7 +309,11 @@ export const HeaderPlatforme = {
             if (event.target !== appsDropdown && !appsDropdown.contains(event.target)) {
                 this.appsDropdownVisible = false;
             }
-            if (event.target !== accountDropdown && !accountDropdown.contains(event.target)) {
+            if (
+                accountDropdown &&
+                event.target !== accountDropdown &&
+                !accountDropdown.contains(event.target)
+            ) {
                 this.accountDropdownVisible = false;
             }
         }

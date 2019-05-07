@@ -75,9 +75,11 @@
     border-radius: 5px;
     box-shadow: 0px 6px 15px rgba(36, 37, 38, 0.08);
     font-size: 15px;
+    left: 0px;
     list-style: none;
     margin: 0px 0px 0px 0px;
     overflow: hidden;
+    padding: 0px;
     position: absolute;
     right: 0px;
     text-align: center;
