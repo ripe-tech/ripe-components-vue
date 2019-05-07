@@ -4,8 +4,8 @@
     "description": "RIPE Components for Vue.js",
     "keywords": [
         "components",
-        "vue",
-        "ripe"
+        "ripe",
+        "vue"
     ],
     "homepage": "https://github.com/ripe-tech/ripe-components-vue#readme",
     "bugs": {
@@ -38,9 +38,9 @@
         "lint-fix": "eslint \"./**/*.{js,vue}\" --fix",
         "prettier": "prettier \"./**/*.{js,vue,json}\" --write",
         "pretty": "npm run prettier && npm run lint-fix && npm run stylelint-fix",
+        "storybook": "start-storybook -p 9001 -c .storybook",
         "stylelint": "stylelint \"./**/*.{css,scss,vue}\"",
         "stylelint-fix": "stylelint \"./**/*.{css,scss,vue}\" --fix",
-        "storybook": "start-storybook -p 9001 -c .storybook",
         "test": "mocha --recursive",
         "upgrade": "npx sort-package-json && ncu -u",
         "watch": "webpack --config webpack.config.js --watch",
