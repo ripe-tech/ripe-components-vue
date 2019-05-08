@@ -7,6 +7,7 @@
             iconVisible ? '' : 'icon-invisible'
         ]"
     >
+        <global-events v-on:keydown.esc="blur()"/>
         <slot name="icon">
             <svg
                 focusable="false"
@@ -187,6 +188,13 @@ export const SearchPlatforme = {
     },
     mounted: function() {
         this.autofocus && this.$refs.input.focus();
+    },
+    methods: {
+        blur() {
+            debugger;
+            console.info("cenas");
+            this.$refs.input.blur();
+        }
     }
 };
 

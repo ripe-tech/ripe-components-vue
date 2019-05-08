@@ -1,7 +1,8 @@
 <template>
     <div class="dropdown-container">
+        <global-events v-on:keydown.esc="hide()"/>
         <transition name="slide">
-            <ul class="dropdown-platforme" v-show="visible">
+            <ul class="dropdown-platforme" v-show="isVisible">
                 <li
                     class="dropdown-item"
                     v-bind:click="() => $emit('item-clicked', item)"
@@ -126,6 +127,26 @@ export const DropdownPlatforme = {
         visible: {
             type: Boolean,
             default: true
+        }
+    },
+    data: function() {
+        return {
+            visibleData: true
+        };
+    },
+    watch: {
+        visible(value) {
+            this.visibleData = value;
+        }
+    },
+    computed: {
+        isVisible() {
+            return this.visible && this.visibleData;
+        }
+    },
+    methods: {
+        hide() {
+            this.visibleData = false;
         }
     }
 };
