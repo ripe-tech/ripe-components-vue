@@ -1,9 +1,10 @@
 <template>
-    <div class="button button-no-style button-platforme" v-on:click="() => this.$emit('click')">
+    <div class="button button-no-style button-platforme" v-on:click="click" v-bind:class="{ 'loading': loading }">
+        <loader-platforme loader="ball-scale-multiple" class="loader" v-bind:loader-style="style()" v-show="loading" />
         <span class="button-logo">
-            <img src="./assets/platforme_id.svg" />
+            <img src="./assets/platforme_id.svg" v-show="!loading" />
         </span>
-        <span class="button-text">Sign in with Platforme ID</span>
+        <span class="button-text">{{ text }}</span>
     </div>
 </template>
 
@@ -48,10 +49,42 @@
     height: 26px;
     vertical-align: middle;
 }
+
+.button.button-platforme > .loader {
+    top: 35px;
+    left: 33px;
+}
+
+.button.button-platforme > .loader ::v-deep > div {
+    height: 40px;
+    width: 40px;
+}
 </style>
 
 <script>
-export const ButtonPlatforme = {};
+export const ButtonPlatforme = {
+    data: function() {
+        return {
+            loading: false
+        };
+    },
+computed: {
+    text: function () {
+      return this.loading ? "Signing in Platforme ID..." : "Sign in with Platforme ID"
+    }
+  },
+    methods: {
+        click() {
+            this.loading = true;
+            this.$emit("click");
+        },
+        style() {
+            return {
+                "background-color": "#ffffff"
+            };
+        }
+    }
+};
 
 export default ButtonPlatforme;
 </script>
