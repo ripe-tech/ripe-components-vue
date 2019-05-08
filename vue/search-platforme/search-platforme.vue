@@ -77,13 +77,13 @@
     border: 1px solid transparent;
     box-sizing: border-box;
     font-size: 13px;
-    height: 32px;
-    line-height: 32px;
+    height: 34px;
+    line-height: 34px;
     margin-left: 24px;
     padding-left: 33px;
     padding-right: 12px;
     transition: width 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
-    width: 260px;
+    width: 304px;
 }
 
 .search-platforme.icon-invisible > input[type="text"] {
