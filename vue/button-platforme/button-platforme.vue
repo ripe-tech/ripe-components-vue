@@ -1,6 +1,15 @@
 <template>
-    <div class="button button-no-style button-platforme" v-on:click="click" v-bind:class="{ 'loading': loading }">
-        <loader-platforme loader="ball-scale-multiple" class="loader" v-bind:loader-style="style()" v-show="loading" />
+    <div
+        class="button button-no-style button-platforme"
+        v-bind:class="{ loading: loading }"
+        v-on:click="click"
+    >
+        <loader-platforme
+            loader="ball-scale-multiple"
+            class="loader"
+            v-bind:loader-style="style()"
+            v-show="loading"
+        />
         <span class="button-logo">
             <img src="./assets/platforme_id.svg" v-show="!loading" />
         </span>
@@ -51,8 +60,8 @@
 }
 
 .button.button-platforme > .loader {
-    top: 35px;
     left: 35px;
+    top: 35px;
 }
 
 .button.button-platforme > .loader ::v-deep > div {
@@ -68,11 +77,11 @@ export const ButtonPlatforme = {
             loading: false
         };
     },
-computed: {
-    text: function () {
-      return this.loading ? "Signing in Platforme ID..." : "Sign in with Platforme ID"
-    }
-  },
+    computed: {
+        text: function() {
+            return this.loading ? "Signing in Platforme ID..." : "Sign in with Platforme ID";
+        }
+    },
     methods: {
         click() {
             this.loading = true;
