@@ -64,7 +64,6 @@
     margin-left: 32px;
     margin-top: 6px;
     position: absolute;
-    transition: fill 0.2s ease 0.1s;
     width: 20px;
 }
 
