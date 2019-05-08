@@ -52,7 +52,7 @@
 
 .button.button-platforme > .loader {
     top: 35px;
-    left: 33px;
+    left: 35px;
 }
 
 .button.button-platforme > .loader ::v-deep > div {
