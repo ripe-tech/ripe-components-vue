@@ -1,11 +1,13 @@
 import { storiesOf } from "@storybook/vue";
-import { boolean } from "@storybook/addon-knobs";
+import { withKnobs, boolean } from "@storybook/addon-knobs";
 
-storiesOf("Search", module).add("Default", () => ({
-    props: {
-        iconVisible: {
-            default: boolean("Icon Visible", true)
-        }
-    },
-    template: "<search-platforme></search-platforme>"
-}));
+storiesOf("Input", module)
+    .addDecorator(withKnobs)
+    .add("Search", () => ({
+        props: {
+            iconVisible: {
+                default: boolean("Icon Visible", true)
+            }
+        },
+        template: "<search-platforme v-bind:icon-visible='iconVisible'></search-platforme>"
+    }));

@@ -9,7 +9,7 @@ storiesOf("Loader", module)
                 default: number("Count", 3, { min: 1, max: 3 })
             },
             color: {
-                default: color("color", "#5d5d5d")
+                default: color("Color", "#5d5d5d")
             }
         },
         computed: {

@@ -6,9 +6,9 @@ const style = {
     "max-width": "200px"
 };
 
-storiesOf("Progress Bar", module)
+storiesOf("Progress", module)
     .addDecorator(withKnobs)
-    .add("Default", () => ({
+    .add("Progress Bar", () => ({
         props: {
             steps: {
                 default: number("Steps", 3, { min: 0 })
