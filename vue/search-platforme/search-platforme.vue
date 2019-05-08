@@ -1,7 +1,11 @@
 <template>
     <div
         class="search-platforme"
-        v-bind:class="[focused ? 'focus' : 'unfocus', grow ? 'grow' : '', iconVisible ? '' : 'icon-invisible']"
+        v-bind:class="[
+            focused ? 'focus' : 'unfocus',
+            grow ? 'grow' : '',
+            iconVisible ? '' : 'icon-invisible'
+        ]"
     >
         <slot name="icon">
             <svg
@@ -71,6 +75,7 @@
 .search-platforme > input[type="text"] {
     background-color: #f2f2f2;
     border: 1px solid transparent;
+    box-sizing: border-box;
     font-size: 13px;
     height: 32px;
     line-height: 32px;
@@ -79,7 +84,6 @@
     padding-right: 12px;
     transition: width 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
     width: 260px;
-    box-sizing: border-box;
 }
 
 .search-platforme.icon-invisible > input[type="text"] {
