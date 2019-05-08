@@ -50,6 +50,10 @@
     width: 50px;
 }
 
+.button.button-platforme.loading > span.button-logo {
+    opacity: 0.7;
+}
+
 .button.button-platforme:hover > span.button-logo {
     background-color: #143b78;
 }
