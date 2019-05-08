@@ -3,7 +3,7 @@
         class="search-platforme"
         v-bind:class="[focused ? 'focus' : 'unfocus', grow ? 'grow' : '']"
     >
-        <slot name="icon">
+        <slot name="icon" v-show="iconVisible">
             <svg
                 focusable="false"
                 height="24px"
@@ -141,17 +141,21 @@ export const SearchPlatforme = {
             type: String,
             default: "Search"
         },
-        grow: {
-            type: Boolean,
-            default: false
-        },
         suggestions: {
             type: Array,
             default: () => []
         },
+        grow: {
+            type: Boolean,
+            default: false
+        },
         autofocus: {
             type: Boolean,
             default: false
+        },
+        iconVisible: {
+            type: Boolean,
+            default: true
         }
     },
     data: function() {
