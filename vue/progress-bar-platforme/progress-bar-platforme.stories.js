@@ -17,7 +17,7 @@ storiesOf("Progress", module)
                 default: number("Current step", 1)
             },
             color: {
-                default: color("color", "#4071f2")
+                default: color("Color", "#4071f2")
             }
         },
         data() {
