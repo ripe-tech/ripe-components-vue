@@ -6,7 +6,7 @@ storiesOf("Input", module)
     .add("Search", () => ({
         props: {
             iconVisible: {
-                default: boolean("Icon Visible", false)
+                default: boolean("Icon Visible", true)
             }
         },
         template: "<search-platforme v-bind:icon-visible='iconVisible'></search-platforme>"
