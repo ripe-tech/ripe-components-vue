@@ -33,7 +33,7 @@
     padding: 40px 40px 40px 40px;
     position: fixed;
     right: 0px;
-    top: 60px;
+    top: 0px;
     z-index: 10;
 }
 
