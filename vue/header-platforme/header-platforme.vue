@@ -158,6 +158,7 @@
 .header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme {
     left: auto;
     right: -12px;
+    text-align: left;
     top: -6px;
 }
 

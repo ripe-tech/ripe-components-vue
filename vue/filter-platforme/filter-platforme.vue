@@ -177,7 +177,7 @@ export const FilterPlatforme = {
         },
         updateQuery(options) {
             const { sort, reverse, filter } = options;
-            this.$router.push({ query: { ...this.$route.query, sort, reverse, filter } });
+            this.$router.replace({ query: { ...this.$route.query, sort, reverse, filter } });
         }
     }
 };

@@ -191,8 +191,6 @@ export const SearchPlatforme = {
     },
     methods: {
         blur() {
-            debugger;
-            console.info("cenas");
             this.$refs.input.blur();
         }
     }

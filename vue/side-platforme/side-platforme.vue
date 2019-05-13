@@ -102,6 +102,12 @@ export const SidePlatforme = {
         }
     },
     mounted: function() {
+        this.$bus.$on("show-side", payLoad => {
+            this.visible = true;
+        });
+        this.$bus.$on("hide-side", payLoad => {
+            this.visible = false;
+        });
         this.$bus.$on("toggle-side", payLoad => {
             this.visible = !this.visible;
         });

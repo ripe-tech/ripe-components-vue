@@ -72,10 +72,11 @@
 }
 
 .dropdown-platforme {
-    border: 1px solid $border-color;
+    border: 1px solid #dddddd;
     border-radius: 5px;
-    box-shadow: 0px 6px 15px rgba(36, 37, 38, 0.08);
-    font-size: 15px;
+    box-shadow: 1px 2px 5px rgba(20, 20, 20, 0.1);
+    font-size: 14px;
+    font-weight: 600;
     left: 0px;
     list-style: none;
     margin: 0px 0px 0px 0px;
@@ -83,7 +84,6 @@
     padding: 0px;
     position: absolute;
     right: 0px;
-    text-align: center;
 }
 
 .dropdown-platforme > .dropdown-item {
