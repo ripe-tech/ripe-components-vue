@@ -123,6 +123,12 @@ export const FilterPlatforme = {
                     return;
                 }
 
+                // in case either the items are not defined or are null
+                // an immediate return of the control flow is performed
+                if (items === undefined || items === null) {
+                    return;
+                }
+
                 // if this request was triggered for pagination then
                 // appends the new items to the current items, otherwise
                 // replaces the current items
