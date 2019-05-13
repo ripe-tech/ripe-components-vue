@@ -7,7 +7,7 @@
             iconVisible ? '' : 'icon-invisible'
         ]"
     >
-        <global-events v-on:keydown.esc="blur()"/>
+        <global-events v-on:keydown.esc="blur()" />
         <slot name="icon">
             <svg
                 focusable="false"

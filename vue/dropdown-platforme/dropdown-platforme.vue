@@ -1,6 +1,6 @@
 <template>
     <div class="dropdown-container">
-        <global-events v-on:keydown.esc="hide()"/>
+        <global-events v-on:keydown.esc="hide()" />
         <transition name="slide">
             <ul class="dropdown-platforme" v-show="isVisible">
                 <li
