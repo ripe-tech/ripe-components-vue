@@ -78,6 +78,10 @@
     outline: none;
 }
 
+.hamburger:active {
+    background-color: rgba(60, 64, 67, 0.2);
+}
+
 .header-platforme {
     background-color: #ffffff;
     border-bottom: 1px solid #e4e8f0;
