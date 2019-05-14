@@ -94,7 +94,6 @@
     line-height: normal;
     margin: 0px 0px 0px 0px;
     overflow: hidden;
-    padding: 12px 16px 12px 16px;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
@@ -104,8 +103,16 @@
     background-color: $selected-color;
 }
 
+.dropdown-platforme > .dropdown-item:active {
+    background-color: $active-color;
+}
+
 .dropdown-platforme > .dropdown-item.separator {
     border-top: 1px solid $border-color;
+}
+
+.dropdown-platforme > .dropdown-item > * {
+    padding: 12px 16px 12px 16px;
 }
 
 .dropdown-platforme > .dropdown-item > a {
