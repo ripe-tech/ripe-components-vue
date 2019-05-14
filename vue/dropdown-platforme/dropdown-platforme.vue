@@ -5,6 +5,7 @@
             <ul class="dropdown-platforme" v-show="isVisible">
                 <li
                     class="dropdown-item"
+                    v-bind:class="{ separator: item.separator }"
                     v-bind:click="() => $emit('item-clicked', item)"
                     v-for="item in items"
                     v-bind:key="item.id"
@@ -75,6 +76,7 @@
     border: 1px solid #dddddd;
     border-radius: 5px;
     box-shadow: 1px 2px 5px rgba(20, 20, 20, 0.1);
+    color: #4d4d4d;
     font-size: 14px;
     font-weight: 600;
     left: 0px;
@@ -102,17 +104,20 @@
     background-color: $selected-color;
 }
 
+.dropdown-platforme > .dropdown-item.separator {
+    border-top: 1px solid $border-color;
+}
+
 .dropdown-platforme > .dropdown-item > a {
     border-bottom: none;
     color: #4d4d4d;
     display: block;
-    font-weight: 600;
     padding-bottom: 0px;
 }
 
 .dropdown-platforme > .dropdown-item:hover > a,
 .dropdown-platforme > .dropdown-item.selected > a {
-    color: #4078c0;
+    color: #000000;
 }
 </style>
 

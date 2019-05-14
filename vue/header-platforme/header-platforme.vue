@@ -160,14 +160,26 @@
 }
 
 .header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme {
+    color: #6d6d6d;
+    font-size: 13px;
     left: auto;
+    min-width: 180px;
     right: -12px;
     text-align: left;
     top: -6px;
 }
 
-.header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme li:last-child {
-    border-top: 1px solid $border-color;
+.header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme > .dropdown-item {
+    padding: 8px 14px 8px 14px;
+}
+
+.header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme > .dropdown-item > a {
+    color: #6d6d6d;
+}
+
+.header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme > .dropdown-item:hover > a,
+.header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme > .dropdown-item.selected > a {
+    color: #000000;
 }
 
 .header-platforme > .header-container > .header-apps {
@@ -256,11 +268,11 @@ export const HeaderPlatforme = {
             return this.platformeAccount || this.$root.account;
         },
         accountDropdownItems() {
-            const items = [{ id: "email", text: this.account.email }];
-            const { name, company, position } = this.account.meta;
-            name && items.push({ id: "name", text: name });
-            company && items.push({ id: "company", text: company });
-            position && items.push({ id: "position", text: position });
+            const items = [];
+            const { name, email } = this.account.meta;
+            items.push({ id: "name", text: name || email });
+            items.push({ id: "buckets", text: "Buckets" });
+            items.push({ id: "settings", text: "Account settings", separator: true });
             items.push({ id: "signout", text: "Sign out", link: "/signout" });
             return items;
         },
