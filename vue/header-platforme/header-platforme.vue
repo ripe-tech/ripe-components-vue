@@ -41,7 +41,7 @@
             </div>
             <div
                 class="header-apps"
-                v-if="headerApps && Object.entries(appsDropdownItems.length).length > 0"
+                v-if="headerApps && appsDropdownItems.length > 0"
                 ref="headerApps"
                 v-on:click="appsDropdownVisible = !appsDropdownVisible"
             >
@@ -297,8 +297,8 @@ export const HeaderPlatforme = {
             const items = [];
             for (const value of ["core", "copper", "pulse", "retail"]) {
                 if (!this.apps[value]) continue;
-                const app = this.app[value];
-                items.append({
+                const app = this.apps[value];
+                items.push({
                     id: app.id || value,
                     text: app.text || value.charAt(0).toUpperCase() + value.slice(1),
                     image: app.image || require(`./assets/${value}.svg`),
