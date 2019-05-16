@@ -20,6 +20,7 @@
                     v-bind:grow="true"
                     v-bind:value.sync="searchFilter"
                     v-bind:suggestions="searchSuggestions"
+                    v-if="search"
                 >
                     <template v-slot:suggestion="{ suggestion }">
                         <slot name="suggestion" v-bind:suggestion="suggestion" />
@@ -40,6 +41,7 @@
             </div>
             <div
                 class="header-apps"
+                v-if="headerApps && Object.entries(appsDropdownItems.length).length > 0"
                 ref="headerApps"
                 v-on:click="appsDropdownVisible = !appsDropdownVisible"
             >
@@ -122,7 +124,7 @@
 }
 
 .header-platforme.no-side > .header-container > .header-left {
-    padding-left: 36px;
+    padding-left: 12px;
 }
 
 .header-platforme > .header-container > .header-left > * {
@@ -242,6 +244,14 @@ export const HeaderPlatforme = {
             type: Boolean,
             default: true
         },
+        search: {
+            type: Boolean,
+            default: true
+        },
+        headerApps: {
+            type: Boolean,
+            default: true
+        },
         logo: {
             type: String,
             default: null
@@ -257,6 +267,10 @@ export const HeaderPlatforme = {
         platformeAccount: {
             type: Object,
             default: () => null
+        },
+        apps: {
+            type: Object,
+            default: () => ({})
         }
     },
     data: function() {
@@ -280,32 +294,18 @@ export const HeaderPlatforme = {
             return items;
         },
         appsDropdownItems() {
-            return [
-                {
-                    id: "core",
-                    text: "Core",
-                    image: require("./assets/core.svg"),
-                    link: "http://sandbox.platforme.com"
-                },
-                {
-                    id: "copper",
-                    text: "Copper",
-                    image: require("./assets/copper.svg"),
-                    link: "http://ripe-copper-test.platforme.com"
-                },
-                {
-                    id: "pulse",
-                    text: "Pulse",
-                    image: require("./assets/pulse.svg"),
-                    link: "http://ripe-pulse-test.platforme.com"
-                },
-                {
-                    id: "retail",
-                    text: "Retail",
-                    image: require("./assets/retail.svg"),
-                    link: "http://ripe-retail-test.platforme.com"
-                }
-            ];
+            const items = [];
+            for (const value of ["core", "copper", "pulse", "retail"]) {
+                if (!this.apps[value]) continue;
+                const app = this.app[value];
+                items.append({
+                    id: app.id || value,
+                    text: app.text || value.charAt(0).toUpperCase() + value.slice(1),
+                    image: app.image || require(`./assets/${value}.svg`),
+                    link: app.link || `https://${value}.platforme.com"`
+                });
+            }
+            return items;
         }
     },
     watch: {
@@ -326,7 +326,11 @@ export const HeaderPlatforme = {
         handleOutsideClick(event) {
             const appsDropdown = this.$refs.headerApps;
             const accountDropdown = this.$refs.headerAccount;
-            if (event.target !== appsDropdown && !appsDropdown.contains(event.target)) {
+            if (
+                appsDropdown &&
+                event.target !== appsDropdown &&
+                !appsDropdown.contains(event.target)
+            ) {
                 this.appsDropdownVisible = false;
             }
             if (
