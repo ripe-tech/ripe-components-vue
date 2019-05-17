@@ -212,6 +212,7 @@
 }
 
 .header-platforme > .header-container > .header-apps ::v-deep .dropdown-platforme li {
+    border-radius: 8px 8px 8px 8px;
     display: inline-block;
     font-size: 12px;
     margin: 0px 0px 0px 0px;
