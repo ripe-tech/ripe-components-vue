@@ -25,7 +25,7 @@ const partMixin = {
         },
         ensurePermission(token) {
             if (!this.hasPermission(token)) {
-                this.handleError(null, "Not enough permissions");
+                this.handleError(null, "Not enough permissions", 403);
                 return false;
             }
             return true;
