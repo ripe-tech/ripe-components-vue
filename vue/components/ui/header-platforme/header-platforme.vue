@@ -178,9 +178,9 @@
     font-size: 13px;
     left: auto;
     min-width: 180px;
-    right: -12px;
+    margin-right: -6px;
     text-align: left;
-    top: -6px;
+    margin-top: -4px;
 }
 
 .header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme > .dropdown-item > * {
@@ -227,8 +227,8 @@
     cursor: auto;
     font-size: 0px;
     line-height: normal;
-    margin-right: -12px;
-    margin-top: -6px;
+    margin-right: -6px;
+    margin-top: -4px;
     max-width: 320px;
     padding: 10px;
     position: static;
