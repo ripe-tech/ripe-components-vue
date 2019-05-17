@@ -3,6 +3,10 @@ const ripeMixin = {
         toTokensM(tokens) {
             const tokensM = {};
 
+            if (tokens === undefined) return tokensM;
+            if (tokens === null) return tokensM;
+            if (!Array.isArray(tokens)) return tokensM;
+
             for (const token of tokens) {
                 let tokensC = tokensM;
                 const tokenL = token.split(".");
@@ -27,6 +31,7 @@ const ripeMixin = {
         hasPermission(token, tokensM = null) {
             tokensM = tokensM || this.tokens;
             if (!token) return true;
+            if (tokensM === undefined || tokensM === null) return false;
 
             const tokenL = token.split(".");
             for (const tokenP of tokenL) {
