@@ -1,7 +1,7 @@
 <template>
     <div class="error-platforme">
         <div class="error-message">
-            <img v-if="image" v-bind:src="image" />
+            <img v-bind:src="image" v-if="image" />
             <span>{{ message }}</span>
             <div>
                 <router-link
@@ -42,8 +42,6 @@
 </style>
 
 <script>
-import Vue from "vue";
-
 export const ErrorPlatforme = {
     props: {
         message: {
