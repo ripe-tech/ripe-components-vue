@@ -1,3 +1,4 @@
+import { OAuthPlatforme } from "./parts/oauth-platforme/oauth-platforme.vue";
 import { ButtonPlatforme } from "./ui/button-platforme/button-platforme.vue";
 import { ContainerPlatforme } from "./ui/container-platforme/container-platforme.vue";
 import { DropdownPlatforme } from "./ui/dropdown-platforme/dropdown-platforme.vue";
@@ -11,9 +12,9 @@ import { ProgressBarPlatforme } from "./ui/progress-bar-platforme/progress-bar-p
 import { SearchPlatforme } from "./ui/search-platforme/search-platforme.vue";
 import { SidePlatforme } from "./ui/side-platforme/side-platforme.vue";
 import { TablePlatforme } from "./ui/table-platforme/table-platforme.vue";
-import { OAuth } from "./parts/oauth/oauth.vue";
 
 const install = Vue => {
+    Vue.component("oauth-platforme", OAuthPlatforme);
     Vue.component("button-platforme", ButtonPlatforme);
     Vue.component("container-platforme", ContainerPlatforme);
     Vue.component("dropdown-platforme", DropdownPlatforme);
@@ -27,10 +28,10 @@ const install = Vue => {
     Vue.component("search-platforme", SearchPlatforme);
     Vue.component("side-platforme", SidePlatforme);
     Vue.component("table-platforme", TablePlatforme);
-    Vue.component("oauth", OAuth);
 };
 
 export {
+    OAuthPlatforme,
     ButtonPlatforme,
     ContainerPlatforme,
     DropdownPlatforme,
@@ -44,7 +45,6 @@ export {
     SearchPlatforme,
     SidePlatforme,
     TablePlatforme,
-    OAuth,
     install
 };
 

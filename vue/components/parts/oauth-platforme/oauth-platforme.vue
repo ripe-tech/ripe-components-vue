@@ -32,7 +32,7 @@ import Vue from "vue";
 
 import { partMixin } from "../../../mixins";
 
-export const OAuth = Vue.component("oauth", {
+export const OAuthPlatforme = Vue.component("oauth-platforme", {
     mixins: [partMixin],
         props: {
         next: {
@@ -45,9 +45,9 @@ export const OAuth = Vue.component("oauth", {
             debugger;
             const code = this.getQueryParam("code");
             console.info(code);
+            console.info(this);
             console.info(this.$ripeIdApi);
             await this.$ripeIdApi.oauthAccess(code);
-            console.info("access");
             const result = await this.$ripeIdApi.issueToken();
             const account = await this.$ripeIdApi.selfAccount();
             const acl = await this.$ripeIdApi.aclAccount();
@@ -75,5 +75,5 @@ export const OAuth = Vue.component("oauth", {
     }
 });
 
-export default OAuth;
+export default OAuthPlatforme;
 </script>
