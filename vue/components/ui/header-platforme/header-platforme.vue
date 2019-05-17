@@ -158,10 +158,10 @@
 }
 
 .header-platforme > .header-container > .header-account > img {
-    border-radius: 38px 38px 38px 38px;
-    height: 38px;
-    padding: 4px 4px 4px 4px;
-    width: 38px;
+    border-radius: 34px 34px 34px 34px;
+    height: 34px;
+    padding: 6px 6px 6px 6px;
+    width: 34px;
 }
 
 .header-platforme > .header-container > .header-account > img:hover {
