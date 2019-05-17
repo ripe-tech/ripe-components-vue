@@ -160,8 +160,8 @@
 .header-platforme > .header-container > .header-account > img {
     border-radius: 38px 38px 38px 38px;
     height: 38px;
-    width: 38px;
     padding: 4px 4px 4px 4px;
+    width: 38px;
 }
 
 .header-platforme > .header-container > .header-account > img:hover {
@@ -183,19 +183,43 @@
     top: -6px;
 }
 
-.header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme > .dropdown-item > * {
+.header-platforme
+    > .header-container
+    > .header-account
+    ::v-deep
+    .dropdown-platforme
+    > .dropdown-item
+    > * {
     box-sizing: border-box;
     display: inline-block;
     padding: 8px 14px 8px 14px;
     width: 100%;
 }
 
-.header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme > .dropdown-item > a {
+.header-platforme
+    > .header-container
+    > .header-account
+    ::v-deep
+    .dropdown-platforme
+    > .dropdown-item
+    > a {
     color: #6d6d6d;
 }
 
-.header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme > .dropdown-item:hover > a,
-.header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme > .dropdown-item.selected > a {
+.header-platforme
+    > .header-container
+    > .header-account
+    ::v-deep
+    .dropdown-platforme
+    > .dropdown-item:hover
+    > a,
+.header-platforme
+    > .header-container
+    > .header-account
+    ::v-deep
+    .dropdown-platforme
+    > .dropdown-item.selected
+    > a {
     color: #000000;
 }
 
@@ -205,10 +229,10 @@
 }
 
 .header-platforme > .header-container > .header-apps > img {
-    vertical-align: middle;
-    padding: 12px 12px 12px 12px;
     border-radius: 24px 24px 24px 24px;
     height: 22px;
+    padding: 12px 12px 12px 12px;
+    vertical-align: middle;
 }
 
 .header-platforme > .header-container > .header-apps > img:hover {
