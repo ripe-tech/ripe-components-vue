@@ -224,7 +224,7 @@
     border-bottom: none;
     color: #000000;
     display: inline-block;
-    padding: 20px 10px 20px 10px;
+    padding: 16px 10px 16px 10px;
     text-decoration: none;
     width: 80px;
 }
