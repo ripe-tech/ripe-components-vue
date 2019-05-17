@@ -44,18 +44,15 @@ export const OAuthPlatforme = Vue.component("oauth-platforme", {
         try {
             debugger;
             const code = this.getQueryParam("code");
-            console.info(code);
-            console.info(this);
-            console.info(this.$ripeIdApi);
-            await this.$ripeIdApi.oauthAccess(code);
-            const result = await this.$ripeIdApi.issueToken();
-            const account = await this.$ripeIdApi.selfAccount();
-            const acl = await this.$ripeIdApi.aclAccount();
+            await this.$root.$ripeIdApi.oauthAccess(code);
+            const result = await this.$root.$ripeIdApi.issueToken();
+            const account = await this.$root.$ripeIdApi.selfAccount();
+            const acl = await this.$root.$ripeIdApi.aclAccount();
             localStorage.setItem("token", result.token);
             localStorage.setItem("account", JSON.stringify(account));
             localStorage.setItem("acl", JSON.stringify(acl.tokens));
             await this.$root.login();
-            this.$router.push({ name: this.next });
+            this.$root.$router.push({ name: this.next });
         } catch (err) {
             this.handleError(err);
         }

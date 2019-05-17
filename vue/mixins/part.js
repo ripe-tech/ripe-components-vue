@@ -15,7 +15,7 @@ const partMixin = {
             code = code || err.code;
             const query = { message: message || err.message };
             if (code) query.code = code;
-            this.$router.push({
+            this.$root.$router.push({
                 name: "error",
                 query: query
             });
