@@ -222,10 +222,10 @@
 .header-platforme > .header-container > .header-apps ::v-deep .dropdown-platforme li a {
     border-bottom: none;
     color: #000000;
-    text-decoration: none;
-    padding: 20px 10px 20px 10px;
-    width: 80px;
     display: inline-block;
+    padding: 20px 10px 20px 10px;
+    text-decoration: none;
+    width: 80px;
 }
 
 .header-platforme > .header-container > .header-apps ::v-deep .dropdown-platforme li img {
