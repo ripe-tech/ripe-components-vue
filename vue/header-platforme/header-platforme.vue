@@ -215,15 +215,17 @@
     display: inline-block;
     font-size: 12px;
     margin: 0px 0px 0px 0px;
-    padding: 20px 10px 20px 10px;
+    padding: 0px 0px 0px 0px;
     text-align: center;
-    width: 80px;
 }
 
 .header-platforme > .header-container > .header-apps ::v-deep .dropdown-platforme li a {
     border-bottom: none;
     color: #000000;
     text-decoration: none;
+    padding: 20px 10px 20px 10px;
+    width: 80px;
+    display: inline-block;
 }
 
 .header-platforme > .header-container > .header-apps ::v-deep .dropdown-platforme li img {
