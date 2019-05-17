@@ -1,3 +1,4 @@
+import { ErrorPlatforme } from "./parts/error-platforme/error-platforme.vue";
 import { OAuthPlatforme } from "./parts/oauth-platforme/oauth-platforme.vue";
 import { ButtonPlatforme } from "./ui/button-platforme/button-platforme.vue";
 import { ContainerPlatforme } from "./ui/container-platforme/container-platforme.vue";
@@ -14,6 +15,7 @@ import { SidePlatforme } from "./ui/side-platforme/side-platforme.vue";
 import { TablePlatforme } from "./ui/table-platforme/table-platforme.vue";
 
 const install = Vue => {
+    Vue.component("error-platforme", ErrorPlatforme);
     Vue.component("oauth-platforme", OAuthPlatforme);
     Vue.component("button-platforme", ButtonPlatforme);
     Vue.component("container-platforme", ContainerPlatforme);
@@ -31,6 +33,7 @@ const install = Vue => {
 };
 
 export {
+    ErrorPlatforme,
     OAuthPlatforme,
     ButtonPlatforme,
     ContainerPlatforme,
