@@ -177,10 +177,10 @@
     color: #6d6d6d;
     font-size: 13px;
     left: auto;
-    min-width: 180px;
     margin-right: -6px;
-    text-align: left;
     margin-top: -4px;
+    min-width: 180px;
+    text-align: left;
 }
 
 .header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme > .dropdown-item > * {
