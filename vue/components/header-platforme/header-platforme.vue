@@ -29,6 +29,7 @@
             </div>
             <div
                 class="header-account"
+                v-bind:class="{ active: accountDropdownVisible }"
                 v-if="account"
                 ref="headerAccount"
                 v-on:click="accountDropdownVisible = !accountDropdownVisible"
@@ -41,6 +42,7 @@
             </div>
             <div
                 class="header-apps"
+                v-bind:class="{ active: appsDropdownVisible }"
                 v-if="headerApps && appsDropdownItems.length > 0"
                 ref="headerApps"
                 v-on:click="appsDropdownVisible = !appsDropdownVisible"
@@ -147,7 +149,7 @@
     font-size: 0px;
     height: 60px;
     line-height: 60px;
-    padding: 0px 12px 0px 12px;
+    padding: 0px 12px 0px 6px;
     text-align: right;
 }
 
@@ -159,6 +161,16 @@
     border-radius: 38px 38px 38px 38px;
     height: 38px;
     width: 38px;
+    padding: 4px 4px 4px 4px;
+}
+
+.header-platforme > .header-container > .header-account > img:hover {
+    background-color: rgba(60, 64, 67, 0.08);
+}
+
+.header-platforme > .header-container > .header-account > img:active,
+.header-platforme > .header-container > .header-account.active > img {
+    background-color: rgba(60, 64, 67, 0.2);
 }
 
 .header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme {
@@ -189,10 +201,23 @@
 
 .header-platforme > .header-container > .header-apps {
     margin-right: 6px;
+    padding: 0px 0px 0px 0px;
 }
 
 .header-platforme > .header-container > .header-apps > img {
     vertical-align: middle;
+    padding: 12px 12px 12px 12px;
+    border-radius: 24px 24px 24px 24px;
+    height: 22px;
+}
+
+.header-platforme > .header-container > .header-apps > img:hover {
+    background-color: rgba(60, 64, 67, 0.08);
+}
+
+.header-platforme > .header-container > .header-apps > img:active,
+.header-platforme > .header-container > .header-apps.active > img {
+    background-color: rgba(60, 64, 67, 0.2);
 }
 
 .header-platforme > .header-container > .header-apps ::v-deep .dropdown-platforme {
@@ -298,13 +323,13 @@ export const HeaderPlatforme = {
         },
         appsDropdownItems() {
             const items = [];
-            for (const value of ["core", "copper", "pulse", "retail"]) {
+            for (const value of ["copper", "pulse"]) {
                 if (!this.apps[value]) continue;
                 const app = this.apps[value];
                 items.push({
                     id: app.id || value,
                     text: app.text || value.charAt(0).toUpperCase() + value.slice(1),
-                    image: app.image || require(`./assets/${value}.svg`),
+                    image: app.image || require(`./assets/apps/${value}.svg`),
                     link: app.link || `https://${value}.platforme.com"`
                 });
             }
