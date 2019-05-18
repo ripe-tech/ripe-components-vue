@@ -11,7 +11,7 @@
             v-show="loading"
         />
         <span class="button-logo">
-            <img src="./assets/platforme_id.svg" v-show="!loading" />
+            <img src="~./assets/platforme_id.svg" v-show="!loading" />
         </span>
         <span class="button-text">{{ text }}</span>
     </div>
