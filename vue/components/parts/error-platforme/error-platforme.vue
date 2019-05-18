@@ -10,7 +10,7 @@
                     }"
                     v-if="isAuth"
                 >
-                    {{ loginMessage }}}
+                    {{ loginMessage }}
                 </router-link>
             </div>
         </div>
