@@ -96,7 +96,8 @@
 
 .search-platforme > input[type="text"]:focus {
     background-color: #ffffff;
-    border-color: #8d8d8d;
+    border-color: #dddddd;
+    box-shadow: 0px 1px 8px 0px rgba(32, 33, 36, 0.14);
 }
 
 .search-platforme.grow > input[type="text"]:focus {
