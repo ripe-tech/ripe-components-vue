@@ -315,7 +315,7 @@ export const HeaderPlatforme = {
         accountDropdownItems() {
             const items = [];
             const { name, email } = this.account.meta;
-            items.push({ id: "name", text: name || email });
+            items.push({ id: "name", text: name || email || this.account.email });
             items.push({ id: "buckets", text: "Buckets" });
             items.push({ id: "settings", text: "Account settings", separator: true });
             items.push({ id: "signout", text: "Sign out", link: "/signout" });
