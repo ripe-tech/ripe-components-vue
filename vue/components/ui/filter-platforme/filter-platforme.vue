@@ -100,7 +100,7 @@ export const FilterPlatforme = {
                 // if the sort or the filter string have changed then
                 // resets the start parameter as the current items
                 // will be invalid
-                if (this.start !== 0 && oldOptions && this.start === oldOptions["start"]) {
+                if (this.start !== 0 && oldOptions && this.start === oldOptions.start) {
                     this.start = 0;
                     return;
                 }
