@@ -3,7 +3,7 @@
         <global-events v-on:keydown.esc="visible = false" />
         <ul>
             <li
-                v-bind:class="[link.id, { selected: link.selected }]"
+                v-bind:class="[link.id, { selected: link.selected, disabled: link.disabled }]"
                 v-for="(link, index) in links"
                 v-bind:key="link.id + index"
             >
@@ -43,12 +43,18 @@
     font-weight: 600;
     margin: 12px 0px 12px 0px;
     text-align: left;
+    user-select: none;
 }
 
 .side-platforme ul > li {
     cursor: pointer;
     margin: 0px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
+}
+
+.side-platforme ul > li.disabled {
+    color: #e2e2e2;
+    cursor: default;
 }
 
 .side-platforme ul > li.separator {
@@ -63,6 +69,12 @@
 .side-platforme ul > li.selected {
     background-color: $selected-color;
     color: #4078c0;
+}
+
+.side-platforme ul > li.disabled:hover,
+.side-platforme ul > li.disabled.selected {
+    background-color: transparent;
+    color: #e2e2e2;
 }
 
 .side-platforme ul > li a,

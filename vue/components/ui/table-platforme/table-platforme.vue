@@ -2,7 +2,11 @@
     <table>
         <thead>
             <tr>
-                <th v-for="column in columns" v-bind:key="column.id">
+                <th
+                    v-bind:style="{ width: column.width }"
+                    v-for="column in columns"
+                    v-bind:key="column.id"
+                >
                     <slot name="column" v-bind:column="column">
                         <div
                             class="column"
