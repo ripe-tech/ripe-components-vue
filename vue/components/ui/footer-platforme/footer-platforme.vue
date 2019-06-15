@@ -49,9 +49,9 @@ ul li {
 }
 
 ul li.copy {
+    color: #6d6d6d;
     font-size: 11px;
     font-weight: 600;
-    color: #6d6d6d;
 }
 
 ul li:hover {
@@ -60,20 +60,20 @@ ul li:hover {
 
 .links-left,
 .links-right {
-    width: calc(50% - 35px);
     overflow: visible;
+    width: calc(50% - 35px);
 }
 
 .links-left {
     float: left;
-    text-align: left;
     line-height: 60px;
+    text-align: left;
 }
 
 .links-right {
     float: right;
-    text-align: right;
     line-height: 60px;
+    text-align: right;
 }
 
 .links-left ul li {
