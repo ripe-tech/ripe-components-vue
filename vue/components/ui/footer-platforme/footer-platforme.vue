@@ -2,7 +2,9 @@
     <div class="footer-platforme">
         <div class="links-left">
             <ul>
-                <li>© 2019 Platforme International</li>
+                <li class="copy">
+                    © 2019 Platforme International
+                </li>
                 <li><a href="https://www.platforme.com/terms" target="_blank">Terms</a></li>
                 <li><a href="https://www.platforme.com/privacy" target="_blank">Privacy</a></li>
             </ul>
@@ -13,7 +15,7 @@
                 <li><a href="#">Pricing</a></li>
                 <li><a href="https://docs.platforme.com" target="_blank">API</a></li>
                 <li><a href="https://docs.platforme.com" target="_blank">Training</a></li>
-                <li><a href="#">Blog</a></li>
+                <li><a href="https://dev.platforme.com">DevPortal</a></li>
                 <li><a href="https://www.platforme.com" target="_blank">About</a></li>
             </ul>
         </div>
@@ -46,17 +48,31 @@ ul li {
     font-size: 12px;
 }
 
+ul li.copy {
+    font-size: 11px;
+    font-weight: 600;
+    color: #6d6d6d;
+}
+
 ul li:hover {
     background-color: transparent;
 }
 
+.links-left,
+.links-right {
+    width: calc(50% - 35px);
+    overflow: visible;
+}
+
 .links-left {
     float: left;
+    text-align: left;
     line-height: 60px;
 }
 
 .links-right {
     float: right;
+    text-align: right;
     line-height: 60px;
 }
 
