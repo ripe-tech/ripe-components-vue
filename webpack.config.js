@@ -25,10 +25,7 @@ config.plugins.push(new webpack.BannerPlugin(banner));
 config.module.rules = config.module.rules.filter(rule => rule.loader !== "file-loader");
 config.module.rules.push({
     test: /\.(png|jpg|gif|svg|ico)$/,
-    loader: "url-loader",
-    options: {
-        limit: Infinity
-    }
+    loader: "url-loader"
 });
 
 module.exports = config;

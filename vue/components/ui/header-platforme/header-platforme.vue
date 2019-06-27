@@ -177,7 +177,7 @@
     color: #6d6d6d;
     font-size: 13px;
     left: auto;
-    margin-right: -6px;
+    margin-left: -130px;
     margin-top: -4px;
     min-width: 180px;
     text-align: left;

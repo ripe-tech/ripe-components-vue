@@ -79,13 +79,11 @@
     color: #4d4d4d;
     font-size: 14px;
     font-weight: 600;
-    left: 0px;
     list-style: none;
     margin: 0px 0px 0px 0px;
     overflow: hidden;
     padding: 0px;
     position: absolute;
-    right: 0px;
 }
 
 .dropdown-platforme > .dropdown-item {
