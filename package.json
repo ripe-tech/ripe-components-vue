@@ -52,11 +52,11 @@
         "vue-global-events": "^1.1.2"
     },
     "devDependencies": {
-        "@storybook/addon-knobs": "^5.1.8",
-        "@storybook/addon-storysource": "^5.1.8",
-        "@storybook/vue": "^5.1.8",
+        "@storybook/addon-knobs": "^5.1.9",
+        "@storybook/addon-storysource": "^5.1.9",
+        "@storybook/vue": "^5.1.9",
         "babel-preset-vue": "^2.0.2",
-        "url-loader": "^2.0.0",
+        "url-loader": "^2.0.1",
         "uxf-webpack": "^0.2.11"
     }
 }
