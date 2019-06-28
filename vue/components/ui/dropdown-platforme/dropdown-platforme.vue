@@ -6,7 +6,7 @@
                 <li
                     class="dropdown-item"
                     v-bind:class="{ separator: item.separator }"
-                    v-for="item in items"
+                    v-for="item in items.filter(v => v !== null && v !== undefined)"
                     v-bind:key="item.id"
                     v-on:click.stop="click(item)"
                 >
