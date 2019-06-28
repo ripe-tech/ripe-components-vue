@@ -32,12 +32,12 @@
                 v-bind:class="{ active: accountDropdownVisible }"
                 v-if="account"
                 ref="headerAccount"
-                v-on:click="accountDropdownVisible = !accountDropdownVisible"
+                v-on:click.stop="hideAccount"
             >
                 <img v-bind:src="account.avatar_url" />
                 <dropdown-platforme
                     v-bind:items="accountDropdownItems"
-                    v-bind:visible="accountDropdownVisible"
+                    v-bind:visible.sync="accountDropdownVisible"
                 />
             </div>
             <div
@@ -45,12 +45,12 @@
                 v-bind:class="{ active: appsDropdownVisible }"
                 v-if="headerApps && appsDropdownItems.length > 0"
                 ref="headerApps"
-                v-on:click="appsDropdownVisible = !appsDropdownVisible"
+                v-on:click.stop="hideApps"
             >
                 <img src="~./assets/apps.svg" />
                 <dropdown-platforme
                     v-bind:items="appsDropdownItems"
-                    v-bind:visible="appsDropdownVisible"
+                    v-bind:visible.sync="appsDropdownVisible"
                 >
                     <template slot-scope="{ item: { id, text, image, link } }">
                         <a v-bind:href="link">
@@ -341,33 +341,19 @@ export const HeaderPlatforme = {
             this.$emit("search-filter", value);
         }
     },
-    created() {
-        document.addEventListener("click", this.handleOutsideClick);
-    },
-    destroyed() {
-        document.removeEventListener("click", this.handleOutsideClick);
-    },
     methods: {
         toggleBurger() {
             this.$bus.$emit("toggle-side");
         },
-        handleOutsideClick(event) {
-            const appsDropdown = this.$refs.headerApps;
-            const accountDropdown = this.$refs.headerAccount;
-            if (
-                appsDropdown &&
-                event.target !== appsDropdown &&
-                !appsDropdown.contains(event.target)
-            ) {
-                this.appsDropdownVisible = false;
-            }
-            if (
-                accountDropdown &&
-                event.target !== accountDropdown &&
-                !accountDropdown.contains(event.target)
-            ) {
-                this.accountDropdownVisible = false;
-            }
+        hideAccount() {
+            const status = this.accountDropdownVisible;
+            document.body.click();
+            this.accountDropdownVisible = !status;
+        },
+        hideApps() {
+            const status = this.appsDropdownVisible;
+            document.body.click();
+            this.appsDropdownVisible = !status;
         }
     }
 };

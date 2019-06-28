@@ -1,14 +1,14 @@
 <template>
     <div class="dropdown-container">
-        <global-events v-on:keydown.esc="hide()" />
+        <global-events v-on:keydown.esc="handleGlobal()" />
         <transition name="slide">
             <ul class="dropdown-platforme" v-show="isVisible">
                 <li
                     class="dropdown-item"
                     v-bind:class="{ separator: item.separator }"
-                    v-bind:click="() => $emit('item-clicked', item)"
                     v-for="item in items"
                     v-bind:key="item.id"
+                    v-on:click.stop="click(item)"
                 >
                     <slot v-bind:item="item">
                         <router-link v-bind:to="item.link" v-if="item.link">
@@ -137,6 +137,10 @@ export const DropdownPlatforme = {
         visible: {
             type: Boolean,
             default: true
+        },
+        globalEvents: {
+            type: Boolean,
+            default: true
         }
     },
     data: function() {
@@ -154,9 +158,34 @@ export const DropdownPlatforme = {
             return this.visible && this.visibleData;
         }
     },
+    created: function() {
+        document.addEventListener("click", this.handleGlobal);
+    },
+    destroyed: function() {
+        document.removeEventListener("click", this.handleGlobal);
+    },
     methods: {
+        click(item) {
+            this.$emit("item-clicked", item);
+            this.hide();
+        },
+        toggle() {
+            this.visibleData = !this.visibleData;
+            this.$emit("update:visible", this.visibleData);
+        },
+        show() {
+            if (this.visibleData) return;
+            this.visibleData = true;
+            this.$emit("update:visible", this.visibleData);
+        },
         hide() {
+            if (!this.visibleData) return;
             this.visibleData = false;
+            this.$emit("update:visible", this.visibleData);
+        },
+        handleGlobal() {
+            if (!this.globalEvents) return;
+            this.hide();
         }
     }
 };
