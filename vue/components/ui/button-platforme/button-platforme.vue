@@ -17,7 +17,9 @@
     </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "css/variables.scss";
+
 .button.button-platforme {
     background-color: #0b57af;
     border-radius: 5px;

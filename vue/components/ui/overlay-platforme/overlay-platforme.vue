@@ -4,7 +4,9 @@
     </transition>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "css/variables.scss";
+
 .overlay {
     background-color: #000000;
     bottom: 0px;

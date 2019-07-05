@@ -4,7 +4,9 @@
     </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "css/variables.scss";
+
 .container-platforme {
     background-color: #ffffff;
     border-radius: 8px 8px 8px 8px;

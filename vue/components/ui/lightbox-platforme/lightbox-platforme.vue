@@ -12,7 +12,9 @@
     </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "css/variables.scss";
+
 .lightbox-platforme {
     display: inline-block;
 }

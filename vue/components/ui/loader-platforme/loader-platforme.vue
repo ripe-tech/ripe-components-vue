@@ -4,7 +4,9 @@
     </div>
 </template>
 
-<style scoped></style>
+<style lang="scss" scoped>
+@import "css/variables.scss";
+</style>
 
 <script>
 import "loaders.css";

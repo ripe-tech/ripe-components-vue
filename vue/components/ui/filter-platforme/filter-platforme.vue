@@ -24,7 +24,9 @@
     </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "css/variables.scss";
+
 .loader {
     display: none;
     margin: 24px 0px 24px 0px;

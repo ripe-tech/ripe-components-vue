@@ -4,7 +4,9 @@
     </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "css/variables.scss";
+
 .progress-bar {
     background-color: #d5d6ee;
     height: 4px;

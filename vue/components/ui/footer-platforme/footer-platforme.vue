@@ -29,7 +29,9 @@
     </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "css/variables.scss";
+
 .footer-platforme {
     border-top: 1px solid #f0f0f0;
     margin: 64px auto 20px auto;

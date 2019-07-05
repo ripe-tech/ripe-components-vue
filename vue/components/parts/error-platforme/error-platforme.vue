@@ -17,7 +17,9 @@
     </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "css/variables.scss";
+
 .error-platforme {
     align-items: center;
     display: flex;
