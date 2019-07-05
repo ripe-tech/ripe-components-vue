@@ -174,7 +174,7 @@
 }
 
 .header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme {
-    color: #6d6d6d;
+    color: $lower-color;
     font-size: 13px;
     left: auto;
     margin-left: -130px;
@@ -191,12 +191,12 @@
 }
 
 .header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme > .dropdown-item > a {
-    color: #6d6d6d;
+    color: $lower-color;
 }
 
 .header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme > .dropdown-item:hover > a,
 .header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme > .dropdown-item.selected > a {
-    color: #000000;
+    color: $higher-color;
 }
 
 .header-platforme > .header-container > .header-apps {

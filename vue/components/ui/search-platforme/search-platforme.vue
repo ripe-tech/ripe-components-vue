@@ -138,7 +138,7 @@
 
 .search-platforme > .suggestions > .suggestion:hover > a,
 .search-platforme > .suggestions > .suggestion.selected > a {
-    color: #4078c0;
+    color: $link-hover-color;
 }
 </style>
 

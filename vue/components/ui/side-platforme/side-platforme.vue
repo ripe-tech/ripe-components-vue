@@ -68,7 +68,7 @@
 .side-platforme ul > li:hover,
 .side-platforme ul > li.selected {
     background-color: $selected-color;
-    color: #4078c0;
+    color: $link-hover-color;
 }
 
 .side-platforme ul > li.disabled:hover,
