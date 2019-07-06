@@ -65,7 +65,7 @@ tbody tr:hover {
 }
 
 th {
-    color: #afafba;
+    color: $label-color;
     font-size: 12px;
     font-weight: 800;
     height: 36px;
