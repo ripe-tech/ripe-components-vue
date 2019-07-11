@@ -52,8 +52,8 @@
                     v-bind:items="appsDropdownItems"
                     v-bind:visible.sync="appsDropdownVisible"
                 >
-                    <template slot-scope="{ item: { id, text, image, link } }">
-                        <a v-bind:href="link">
+                    <template slot-scope="{ item: { id, text, image, link, elem_class } }">
+                        <a v-bind:href="link" v-bind:class="[elem_class]" >
                             <img v-bind:src="image" v-bind:alt="text" />
                             <p>{{ text }}</p>
                         </a>
@@ -329,6 +329,7 @@ export const HeaderPlatforme = {
                 items.push({
                     id: app.id || value,
                     text: app.text || value.charAt(0).toUpperCase() + value.slice(1),
+                    elem_class: value,
                     image: app.image || require(`./assets/apps/${value}.svg`),
                     link: app.link || `https://${value}.platforme.com"`
                 });

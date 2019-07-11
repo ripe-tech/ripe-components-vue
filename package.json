@@ -43,7 +43,7 @@
         "stylelint-fix": "stylelint \"./**/*.{css,scss,vue}\" --fix",
         "test": "mocha --recursive",
         "upgrade": "npx sort-package-json && ncu -u",
-        "watch": "webpack --config webpack.config.js --watch",
+        "watch": "webpack --config webpack.config.js --mode development --watch",
         "webpack": "webpack --config webpack.config.js"
     },
     "dependencies": {
