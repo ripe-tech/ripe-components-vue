@@ -1,5 +1,3 @@
 import { Assets } from "./assets";
 
-export {
-    Assets
-};
+export { Assets };
