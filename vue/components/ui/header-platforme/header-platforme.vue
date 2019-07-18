@@ -249,9 +249,9 @@
     border-bottom: none;
     color: #000000;
     display: inline-block;
-    padding: 16px 10px 16px 10px;
+    padding: 16px 6px 16px 6px;
     text-decoration: none;
-    width: 80px;
+    width: 100px;
 }
 
 .header-platforme > .header-container > .header-apps ::v-deep .dropdown-platforme li img {
