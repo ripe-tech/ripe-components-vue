@@ -7,7 +7,11 @@ export class Assets {
         let values = {};
         if (this.options.assetsUrl) {
             const response = await fetch(this.options.assetsUrl);
-            values = await response.json();
+            try {
+                values = await response.json();
+            } catch (err) {
+                values = {};
+            }
         }
         Object.assign(this, values);
     }
