@@ -1,4 +1,7 @@
-const oauthMixin = {
+import Vue from "vue";
+import { partMixin } from "./part";
+
+const oauthMixin = Vue.util.mergeOptions(partMixin, {
     methods: {
         async oauth(next) {
             try {
@@ -28,6 +31,6 @@ const oauthMixin = {
             return null;
         }
     }
-};
+});
 
 export { oauthMixin };
