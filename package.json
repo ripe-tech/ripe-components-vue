@@ -32,6 +32,7 @@
     "scripts": {
         "build": "webpack --mode production --config webpack.config.js",
         "build-dev": "webpack --mode development --config webpack.config.js",
+        "build-storybook": "build-storybook -c .storybook -o storybook",
         "dev": "webpack-dev-server --config webpack.config.js --mode development --watch --hot",
         "lint": "eslint \"./**/*.{js,vue}\"",
         "lint-all": "npm run lint && npm run stylelint",
