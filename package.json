@@ -37,6 +37,7 @@
         "lint": "eslint \"./**/*.{js,vue}\"",
         "lint-all": "npm run lint && npm run stylelint",
         "lint-fix": "eslint \"./**/*.{js,vue}\" --fix",
+        "now-build": "npm run build && npm run build-storybook",
         "prettier": "prettier \"./**/*.{js,vue,json}\" --write",
         "pretty": "npm run prettier && npm run lint-fix && npm run stylelint-fix",
         "storybook": "start-storybook -p 9001 -c .storybook",
