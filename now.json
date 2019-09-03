@@ -6,10 +6,10 @@
             "use": "@now/static-build",
             "config": {
                 "distDir": "storybook"
-            },
-            "scripts": {
-                "build": "npm run build-storybook"
             }
         }
-    ]
+    ],
+    "scripts": {
+        "build": "npm run build-storybook"
+    }
 }
