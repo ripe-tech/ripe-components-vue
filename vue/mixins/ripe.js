@@ -42,7 +42,7 @@ const ripeMixin = {
             }
 
             const isDict = typeof tokensM === "object";
-            const result = isDict ? tokensM["_"] || false : tokensM;
+            const result = isDict ? tokensM._ || false : tokensM;
 
             return Boolean(result);
         }
