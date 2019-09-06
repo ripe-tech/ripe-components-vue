@@ -34,7 +34,7 @@
 
 .footer-platforme {
     border-top: 1px solid #f0f0f0;
-    margin: 64px auto 20px auto;
+    margin: 64px auto 0px auto;
     max-width: 1240px;
 }
 
