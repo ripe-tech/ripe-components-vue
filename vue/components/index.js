@@ -13,8 +13,7 @@ import { ProgressBarPlatforme } from "./ui/progress-bar-platforme/progress-bar-p
 import { SearchPlatforme } from "./ui/search-platforme/search-platforme.vue";
 import { SidePlatforme } from "./ui/side-platforme/side-platforme.vue";
 import { TablePlatforme } from "./ui/table-platforme/table-platforme.vue";
-import { logentry } from "./ui/log-entry-platforme/log-entry-platforme.vue";
-import { logcontainer } from "./ui/logging-container-platforme/logging-container-platforme.vue";
+import { LoggingContainer } from "./ui/logging-container-platforme/logging-container-platforme.vue";
 
 const install = Vue => {
     Vue.component("error-platforme", ErrorPlatforme);
@@ -32,8 +31,7 @@ const install = Vue => {
     Vue.component("search-platforme", SearchPlatforme);
     Vue.component("side-platforme", SidePlatforme);
     Vue.component("table-platforme", TablePlatforme);
-    Vue.component("logging-container-platforme", logcontainer);
-    Vue.component("og-entry-platforme", logentry);
+    Vue.component("logging-container-platforme", LoggingContainer);
 };
 
 export {

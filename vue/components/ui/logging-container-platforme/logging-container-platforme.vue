@@ -1,15 +1,11 @@
 <template>
-  <div class="logging-container">
-
-      <div
-        v-for="entry in entries"
-        v-bind:key= entry.mesage>
-        <log-entry
-            v-bind:entry = entry.entry>
-        </log-entry>
-      </div>
-
-  </div>
+    <div class="logging-container">
+        <div v-for="entry in entries" v-bind:key="entry.index">
+            <div class="log-entry">
+                {{ entry }}
+            </div>
+        </div>
+    </div>
 </template>
 
 <style>
@@ -25,22 +21,19 @@
     width: 100%;
 }
 
+.log-entry {
+    padding: 2px;
+}
 </style>
 
 <script>
 import Vue from "vue";
 
-export const logcontainer = Vue.component("logging-container-platforme", {
-    data(){
-        return{
-            entries:[
-                { entry: "5:26:53 PM: WARNING in ./vue/components/logging/log.vue?vue&type=script&lang=js& 1:195-198"},
-                { entry: "5:26:53 PM: WARNING in ./vue/components/logging/log.vue?vue&type=script&lang=js& 1:195-198"},
-                { entry: "5:26:53 PM: WARNING in ./vue/components/logging/log.vue?vue&type=script&lang=js& 1:195-198"},
-            ]
-        }
+export const LoggingContainer = Vue.component("logging-container-platforme", {
+    props: {
+        entries: []
     }
 });
 
-export default logcontainer;
+export default LoggingContainer;
 </script>
