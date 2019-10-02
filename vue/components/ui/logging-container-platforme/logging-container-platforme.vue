@@ -29,11 +29,14 @@
 <script>
 import Vue from "vue";
 
-export const LoggingContainer = Vue.component("logging-container-platforme", {
+export const LogPlatforme = Vue.component("logging-container-platforme", {
     props: {
-        entries: []
+        entries: {
+            type: Array,
+            required: true
+        }
     }
 });
 
-export default LoggingContainer;
+export default LogPlatforme;
 </script>
