@@ -1,14 +1,12 @@
 <template>
-    <div
-        class="generic-field-platforme"
-    >
+    <div class="generic-field-platforme">
         <global-events v-on:keydown.esc="blur()" />
         <input
             v-bind:type="type"
             v-bind:value="value"
             v-bind:placeholder="placeholder"
-            v-bind:required='required'
-            v-bind:autofocus='autofocus'
+            v-bind:required="required"
+            v-bind:autofocus="autofocus"
             ref="input"
             v-on:input="$emit('update:value', $event.target.value)"
             v-on:focus="focused = true"
@@ -53,7 +51,6 @@
 .generic-field-platforme.grow > input:focus {
     width: 340px;
 }
-
 </style>
 
 <script>

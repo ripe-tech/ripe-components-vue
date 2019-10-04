@@ -13,6 +13,7 @@ import { ProgressBarPlatforme } from "./ui/progress-bar-platforme/progress-bar-p
 import { SearchPlatforme } from "./ui/search-platforme/search-platforme.vue";
 import { SidePlatforme } from "./ui/side-platforme/side-platforme.vue";
 import { TablePlatforme } from "./ui/table-platforme/table-platforme.vue";
+import { genericFieldPlatforme } from "./ui/generic-field-platforme/generic-field-platforme.vue";
 
 const install = Vue => {
     Vue.component("error-platforme", ErrorPlatforme);
@@ -30,6 +31,7 @@ const install = Vue => {
     Vue.component("search-platforme", SearchPlatforme);
     Vue.component("side-platforme", SidePlatforme);
     Vue.component("table-platforme", TablePlatforme);
+    Vue.component("generic-field-platforme", genericFieldPlatforme);
 };
 
 export {
@@ -48,6 +50,7 @@ export {
     SearchPlatforme,
     SidePlatforme,
     TablePlatforme,
+    genericFieldPlatforme,
     install
 };
 

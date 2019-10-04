@@ -6,7 +6,22 @@ storiesOf("Input", module)
     .add("Generic", () => ({
         props: {
             type: {
-                default: select("Type", ["Text","Number","Email","Password","Tel","Time","Url","Date","Range","Hidden"],"text")
+                default: select(
+                    "Type",
+                    [
+                        "Text",
+                        "Number",
+                        "Email",
+                        "Password",
+                        "Tel",
+                        "Time",
+                        "Url",
+                        "Date",
+                        "Range",
+                        "Hidden"
+                    ],
+                    "text"
+                )
             },
             placeholder: {
                 default: text("Placeholder Text", "Placeholder here")
