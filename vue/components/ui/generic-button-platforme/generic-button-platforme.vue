@@ -1,14 +1,13 @@
 <template>
     <button
         class="button button-content"
-        v-bind:class="{ 
-            arrow : arrowAnimation,
-            scale : scaleAnimation
-         }"
-        
+        v-bind:class="{
+            arrow: arrowAnimation,
+            scale: scaleAnimation
+        }"
         v-bind:style="{
             'background-color': backgroundColor,
-            'color': textColor,
+            color: textColor,
             'border-color': borderColor
         }"
     >
@@ -22,8 +21,7 @@
 }
 
 .button-content.arrow::after {
-    background-image: url(https://d3moonnr9fkxfg.cloudfront.net/royal-canin.sprite--brand3--xs.svg?v=8-7-8);
-    background-position: 45.45% 85.71%;
+    background-image: url("~./assets/right-arrow.svg");
     background-repeat: no-repeat;
     content: "";
     display: inline-block;

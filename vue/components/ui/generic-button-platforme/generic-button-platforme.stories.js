@@ -26,7 +26,7 @@ storiesOf("Generic Button", module)
         },
         template: `
             <div>
-                <generic-button-platforme 
+                <generic-button-platforme
                     v-bind:text="text"
                     v-bind:backgroundColor="backgroundColor"
                     v-bind:textColor="textColor"
