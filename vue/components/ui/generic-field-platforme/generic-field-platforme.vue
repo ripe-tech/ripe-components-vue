@@ -1,18 +1,17 @@
 <template>
-    <div class="generic-field-platforme">
-        <global-events v-on:keydown.esc="blur()" />
-        <input
-            v-bind:type="type"
-            v-bind:value="value"
-            v-bind:placeholder="placeholder"
-            v-bind:required="required"
-            v-bind:autofocus="autofocus"
-            ref="input"
-            v-on:input="$emit('update:value', $event.target.value)"
-            v-on:focus="focused = true"
-            v-on:blur="focused = false"
-        />
-    </div>
+    <input
+        class="generic-field-platforme"
+        v-bind:type="type"
+        v-bind:value="value"
+        v-bind:placeholder="placeholder"
+        v-bind:required="required"
+        v-bind:autofocus="autofocus"
+        ref="input"
+        v-on:input="$emit('update:value', $event.target.value)"
+        v-on:focus="focused = true"
+        v-on:blur="focused = false"
+        v-on:keydown.esc="blur()"
+    />
 </template>
 
 <style lang="scss" scoped>
@@ -24,7 +23,7 @@
     line-height: 34px;
 }
 
-.generic-field-platforme > input {
+.generic-field-platforme {
     background-color: #f2f2f2;
     border: 1px solid transparent;
     box-sizing: border-box;
@@ -38,17 +37,17 @@
     width: 304px;
 }
 
-.generic-field-platforme > input:hover {
+.generic-field-platforme:hover {
     border-color: #dddddd;
 }
 
-.generic-field-platforme > input:focus {
+.generic-field-platforme:focus {
     background-color: #ffffff;
     border-color: #dddddd;
     box-shadow: 0px 1px 8px 0px rgba(32, 33, 36, 0.14);
 }
 
-.generic-field-platforme.grow > input:focus {
+.generic-field-platforme.grow:focus {
     width: 340px;
 }
 </style>
