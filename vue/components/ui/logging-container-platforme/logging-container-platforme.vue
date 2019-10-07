@@ -33,7 +33,7 @@ export const LogPlatforme = Vue.component("logging-container-platforme", {
     props: {
         entries: {
             type: Array,
-            default: function () { return [] },
+            default: function () { return []; },
             required: false
         }
     }
