@@ -84,7 +84,7 @@ export const GenericButtonPlatforme = {
         },
         backgroundColor: {
             type: String,
-            default: "#40c4ff"
+            default: "#0957AF"
         },
         textColor: {
             type: String,
