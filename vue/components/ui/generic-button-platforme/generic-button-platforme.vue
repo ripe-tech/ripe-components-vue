@@ -7,7 +7,7 @@
         }"
         v-bind:style="{
             'background-color': backgroundColor,
-            color: textColor,
+            'color': textColor,
             'border-color': borderColor
         }"
     >
