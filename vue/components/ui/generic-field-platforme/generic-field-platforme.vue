@@ -60,6 +60,10 @@ export const genericFieldPlatforme = {
             type: String,
             default: null
         },
+        type: {
+            type: String,
+            default: "text"
+        },
         placeholder: {
             type: String,
             default: "Name"
@@ -71,10 +75,6 @@ export const genericFieldPlatforme = {
         required: {
             type: Boolean,
             default: false
-        },
-        type: {
-            type: String,
-            default: "text"
         }
     },
     data: function() {

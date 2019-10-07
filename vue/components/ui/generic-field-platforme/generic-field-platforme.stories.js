@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, boolean, color, number, text, select } from "@storybook/addon-knobs";
+import { withKnobs, boolean, text, select } from "@storybook/addon-knobs";
 
 storiesOf("Input", module)
     .addDecorator(withKnobs)
