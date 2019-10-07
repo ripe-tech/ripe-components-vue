@@ -9,7 +9,7 @@ storiesOf("Generic Button", module)
                 default: boolean("Scale Animation", false)
             },
             arrowAnimation: {
-                default: boolean("Arrow Animation", true)
+                default: boolean("Arrow Animation", false)
             },
             text: {
                 default: text("Button Text", "Click")
@@ -18,10 +18,10 @@ storiesOf("Generic Button", module)
                 default: color("Text Color", "#ffffff")
             },
             borderColor: {
-                default: color("Border Color", "#40c4ff")
+                default: color("Border Color", "#0957AF")
             },
             backgroundColor: {
-                default: color("Background Color", "#40c4ff")
+                default: color("Background Color", "#0957AF")
             }
         },
         template: `
