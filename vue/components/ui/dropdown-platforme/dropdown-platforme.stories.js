@@ -7,6 +7,9 @@ storiesOf("Dropdown", module)
         props: {
             visible: {
                 default: boolean("Visible", true)
+            },
+            visibleData: {
+                default: boolean("Visible Data", false)
             }
         },
         data() {
@@ -29,7 +32,7 @@ storiesOf("Dropdown", module)
         },
         template: `
             <div style="max-width: 200px">
-                <dropdown-platforme v-bind:items="items" v-bind:visible="visible"></dropdown-platforme>
+                <dropdown-platforme v-bind:items="items" v-bind:visible="visible" v-bind:visibleData="visibleData"></dropdown-platforme>
             </div>
         `
     }))

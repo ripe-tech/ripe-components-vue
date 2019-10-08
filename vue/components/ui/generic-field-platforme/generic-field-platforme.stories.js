@@ -24,18 +24,16 @@ storiesOf("Input", module)
                 )
             },
             placeholder: {
-                default: text("Placeholder Text", "Placeholder here")
+                default: text("Placeholder", "Placeholder here")
             },
             required: {
-                default: boolean("Is Required", false)
+                default: boolean("Required", false)
             },
             autofocus: {
                 default: boolean("Autofocus", false)
             }
         },
         template: `
-            <div>
-                <generic-field-platforme v-bind:placeholder='placeholder' v-bind:required='required' v-bind:autofocus='autofocus' v-bind:type='type' ></generic-field-platforme>
-            </div>
+            <generic-field-platforme v-bind:placeholder='placeholder' v-bind:required='required' v-bind:autofocus='autofocus' v-bind:type='type' ></generic-field-platforme>
         `
     }));
