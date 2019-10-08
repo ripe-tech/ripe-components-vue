@@ -33,7 +33,6 @@
 
 .selector-container {
     display: inline-block;
-    //width: 100%;
     margin-left: 24px;
     position: relative;
 }
@@ -47,7 +46,6 @@
     caret-color: rgb(123, 123, 123);
     color: #7b7b7b;
     column-rule-color: rgb(123, 123, 123);
-    //width: 100%;
     cursor: pointer;
     font-size: 13px;
     outline: rgb(123, 123, 123) none 0px;
