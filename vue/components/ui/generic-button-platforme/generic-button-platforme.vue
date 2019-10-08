@@ -9,26 +9,6 @@
 </template>
 
 <style scoped>
-.button.arrow:hover:not(:disabled)::after {
-    right: 0px;
-}
-
-.button.arrow::after {
-    background-image: url("~./assets/right-arrow.svg");
-    background-repeat: no-repeat;
-    content: "";
-    display: inline-block;
-    height: 32px;
-    overflow: hidden;
-    position: absolute;
-    right: -32px;
-    top: 50%;
-    transform: translateY(-50%);
-    transform-origin: 50% 50%;
-    transition: 0.2s;
-    width: 32px;
-}
-
 .button {
     border: 2px solid;
     border-radius: 999px;
@@ -50,9 +30,30 @@
     width: auto;
 }
 
+.button.arrow::after {
+    background-image: url("~./assets/right-arrow.svg");
+    background-repeat: no-repeat;
+    content: "";
+    display: inline-block;
+    height: 32px;
+    overflow: hidden;
+    position: absolute;
+    right: -32px;
+    top: 50%;
+    transform: translateY(-50%);
+    transform-origin: 50% 50%;
+    transition: 0.2s;
+    width: 32px;
+}
+
 .button.scale:hover {
     transform: scale(1.1);
 }
+
+.button.arrow:hover:not(:disabled)::after {
+    right: 0px;
+}
+
 </style>
 
 <script>
