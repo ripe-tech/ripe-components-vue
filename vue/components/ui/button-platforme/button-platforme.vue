@@ -7,7 +7,7 @@
         <loader-platforme
             loader="ball-scale-multiple"
             class="loader"
-            v-bind:loader-style="style()"
+            v-bind:loader-style="loaderStyle"
             v-show="loading"
         />
         <span class="button-logo">
@@ -78,6 +78,26 @@
 
 <script>
 export const ButtonPlatforme = {
+    props: {
+        text: {
+            type: String,
+            default: "Sign in with Platforme ID"
+        },
+        loadingText: {
+            type: Number,
+            default: "Signing in Platforme ID..."
+        },
+        mode: {
+            type: String,
+            default: "loading"
+        },
+        loaderStyle: {
+            type: Object,
+            default: () => {
+                return { "background-color": "#ffffff" };
+            }
+        }
+    },
     data: function() {
         return {
             loading: false
@@ -85,18 +105,17 @@ export const ButtonPlatforme = {
     },
     computed: {
         text: function() {
-            return this.loading ? "Signing in Platforme ID..." : "Sign in with Platforme ID";
+            return this.loading ? this.loadingText : this.text;
         }
     },
     methods: {
         click() {
-            this.loading = true;
+            switch (this.mode) {
+                case "loading":
+                    this.loading = true;
+                    break;
+            }
             this.$emit("click");
-        },
-        style() {
-            return {
-                "background-color": "#ffffff"
-            };
         }
     }
 };
