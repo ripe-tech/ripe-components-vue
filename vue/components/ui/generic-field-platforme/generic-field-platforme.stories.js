@@ -20,20 +20,37 @@ storiesOf("Input", module)
                         "Range",
                         "Hidden"
                     ],
-                    "text"
+                    "Text"
                 )
             },
             placeholder: {
                 default: text("Placeholder", "Name")
+            },
+            width: {
+                default: text("Width", "304")
+            },
+            height: {
+                default: text("Height", "34")
             },
             required: {
                 default: boolean("Required", false)
             },
             autofocus: {
                 default: boolean("Autofocus", false)
+            },
+            iconVisible: {
+                default: boolean("Has icon", true)
+            },
+            iconSrc: {
+                default: text("Icon URL", "https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/debian.svg")
+            },
+            value: {
+                default: text("Initial Value", "")
             }
         },
         template: `
-            <generic-field-platforme v-bind:placeholder='placeholder' v-bind:required='required' v-bind:autofocus='autofocus' v-bind:type='type' ></generic-field-platforme>
+            <generic-field-platforme v-bind:value='value' v-bind:placeholder='placeholder'
+            v-bind:required='required' v-bind:autofocus='autofocus'
+            v-bind:type='type' v-bind:iconSrc='iconSrc' v-bind:iconVisible='iconVisible' v-bind:width='width' v-bind:height='height'></generic-field-platforme>
         `
     }));
