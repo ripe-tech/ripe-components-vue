@@ -24,7 +24,7 @@ storiesOf("Input", module)
                 )
             },
             placeholder: {
-                default: text("Placeholder", "Placeholder here")
+                default: text("Placeholder", "Name")
             },
             required: {
                 default: boolean("Required", false)

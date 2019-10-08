@@ -6,7 +6,7 @@ storiesOf("Input", module)
     .add("Textarea", () => ({
         props: {
             placeholder: {
-                default: text("Placeholder", "Placeholder here")
+                default: text("Placeholder", "Write a note")
             },
             maxLength: {
                 default: number("Char limit", 1000)
