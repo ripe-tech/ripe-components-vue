@@ -79,7 +79,7 @@
 <script>
 export const ButtonPlatforme = {
     props: {
-        text: {
+        normalText: {
             type: String,
             default: "Sign in with Platforme ID"
         },
@@ -103,7 +103,7 @@ export const ButtonPlatforme = {
     },
     computed: {
         text: function() {
-            return this.loading ? this.loadingText : this.text;
+            return this.loading ? this.loadingText : this.normalText;
         }
     },
     methods: {

@@ -3,13 +3,13 @@ import { text } from "@storybook/addon-knobs";
 
 storiesOf("Button", module).add("Base", () => ({
     props: {
-        text: {
-            default: text("Text", "Button")
+        normalText: {
+            default: text("Text Normal", "Button")
         },
-        textLoading: {
+        loadingText: {
             default: text("Text Loading", "Loading...")
         }
     },
     template:
-        '<button-platforme v-bind:text="text" v-bind:text-loading="textLoading"></button-platforme>'
+        '<button-platforme v-bind:normal-text="normalText" v-bind:loading-text="loadingText"></button-platforme>'
 }));
