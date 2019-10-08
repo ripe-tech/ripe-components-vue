@@ -67,7 +67,7 @@
 
 <script>
 export const selectorPlatforme = {
-    name: "dropdown-platforme",
+    name: "selector-platforme",
     props: {
         items: {
             type: Array,
