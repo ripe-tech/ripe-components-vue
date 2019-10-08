@@ -1,19 +1,19 @@
 <template>
-        <textarea
-            class="textarea-platforme"
-            v-bind:value="value"
-            v-bind:placeholder="placeholder"
-            v-bind:required="required"
-            v-bind:autoFocus="autoFocus"
-            v-bind:maxLength='maxLength'
-            v-bind:cols='cols'
-            v-bind:rows='rows'
-            ref="input"
-            v-on:input="$emit('update:value', $event.target.value)"
-            v-on:focus="focused = true"
-            v-on:blur="focused = false"
-            v-on:keydown.esc="blur()"
-        />
+    <textarea
+        class="textarea-platforme"
+        v-bind:value="value"
+        v-bind:placeholder="placeholder"
+        v-bind:required="required"
+        v-bind:autoFocus="autoFocus"
+        v-bind:maxLength="maxLength"
+        v-bind:cols="cols"
+        v-bind:rows="rows"
+        ref="input"
+        v-on:input="$emit('update:value', $event.target.value)"
+        v-on:focus="focused = true"
+        v-on:blur="focused = false"
+        v-on:keydown.esc="blur()"
+    />
 </template>
 
 <style lang="scss" scoped>
@@ -23,12 +23,12 @@
     background-color: #f2f2f2;
     border: 1px solid transparent;
     box-sizing: border-box;
-    padding-top: 6px;
     font-size: 13px;
     line-height: 20px;
     margin-left: 24px;
     padding-left: 12px;
     padding-right: 12px;
+    padding-top: 6px;
 }
 
 .textarea-platforme:hover {

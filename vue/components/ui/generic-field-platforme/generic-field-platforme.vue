@@ -18,15 +18,10 @@
 @import "css/variables.scss";
 
 .generic-field-platforme {
-    display: inline-block;
-    height: 34px;
-    line-height: 34px;
-}
-
-.generic-field-platforme {
     background-color: #f2f2f2;
     border: 1px solid transparent;
     box-sizing: border-box;
+    display: inline-block;
     font-size: 13px;
     height: 34px;
     line-height: 34px;
