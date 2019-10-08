@@ -26,8 +26,6 @@ storiesOf("Input", module)
             };
         },
         template: `
-            <div style="max-width: 200px">
-                <selector-platforme v-bind:items="items"></selector-platforme>
-            </div>
+            <selector-platforme v-bind:items="items"></selector-platforme>
         `
     }));
