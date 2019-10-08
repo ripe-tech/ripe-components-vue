@@ -25,7 +25,6 @@
     box-sizing: border-box;
     font-size: 13px;
     line-height: 20px;
-    margin-left: 24px;
     padding-left: 12px;
     padding-right: 12px;
     padding-top: 6px;

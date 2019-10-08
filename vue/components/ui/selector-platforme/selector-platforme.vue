@@ -33,7 +33,6 @@
 
 .selector-container {
     display: inline-block;
-    margin-left: 24px;
     position: relative;
 }
 

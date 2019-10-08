@@ -25,7 +25,6 @@
     font-size: 13px;
     height: 34px;
     line-height: 34px;
-    margin-left: 24px;
     padding-left: 12px;
     padding-right: 12px;
     transition: width 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
