@@ -10,10 +10,8 @@ storiesOf("Logging Containter", module)
             }
         },
         template: `
-    <div>
-        <logging-container-platforme
-            v-bind:entries="entries"
-            />
-    </div>
-`
+                <div>
+                    <logging-container-platforme v-bind:entries="entries" />
+                </div>
+            `
     }));

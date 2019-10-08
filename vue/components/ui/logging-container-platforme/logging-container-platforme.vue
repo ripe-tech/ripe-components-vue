@@ -35,7 +35,7 @@ export const LogPlatforme = Vue.component("logging-container-platforme", {
             type: Array,
             default: function() {
                 return [];
-                },
+            },
             required: false
         }
     }
