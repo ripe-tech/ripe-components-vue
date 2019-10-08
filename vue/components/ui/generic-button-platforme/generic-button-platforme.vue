@@ -53,7 +53,6 @@
 .button.arrow:hover:not(:disabled)::after {
     right: 0px;
 }
-
 </style>
 
 <script>
