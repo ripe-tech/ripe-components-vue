@@ -41,6 +41,9 @@ storiesOf("Input", module)
             iconVisible: {
                 default: boolean("Has icon", true)
             },
+            disabled: {
+                default: boolean("Disabled", false)
+            },
             iconSrc: {
                 default: text(
                     "Icon URL",
@@ -54,6 +57,7 @@ storiesOf("Input", module)
         template: `
             <generic-field-platforme v-bind:value='value' v-bind:placeholder='placeholder'
             v-bind:required='required' v-bind:autofocus='autofocus'
-            v-bind:type='type' v-bind:iconSrc='iconSrc' v-bind:iconVisible='iconVisible' v-bind:width='width' v-bind:height='height'></generic-field-platforme>
+            v-bind:type='type' v-bind:iconSrc='iconSrc' v-bind:iconVisible='iconVisible' v-bind:width='width' v-bind:height='height'
+            v-bind:disabled='disabled'></generic-field-platforme>
         `
     }));

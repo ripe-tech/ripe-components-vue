@@ -3,9 +3,10 @@
         <img class="icon" v-bind:src="iconSrc" v-if="iconSrc" v-show="iconVisible" />
         <input
             class="generic-field-platforme"
-            v-bind:class="[iconVisible ? '' : 'icon-invisible']"
+            v-bind:class="[iconVisible ? '' : 'icon-invisible', disabled ? 'disabled' : '']"
             v-bind:type="type"
             v-bind:value="value"
+            v-bind:disabled="disabled"
             v-bind:placeholder="placeholder"
             v-bind:required="required"
             v-bind:autofocus="autofocus"
@@ -25,6 +26,12 @@
 .generic-field-container {
     align-items: center;
     display: inline-flex;
+}
+
+.disabled:hover {
+    background-color: #dadada;
+    border-color: #ff9b9b !important;
+    cursor: not-allowed;
 }
 
 .generic-field-platforme {
@@ -88,6 +95,10 @@ export const GenericFieldPlatforme = {
             default: "34"
         },
         autofocus: {
+            type: Boolean,
+            default: false
+        },
+        disabled: {
             type: Boolean,
             default: false
         },
