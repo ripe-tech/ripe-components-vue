@@ -1,26 +1,19 @@
 <template>
     <button
-        class="button button-content"
-        v-bind:class="{
-            arrow: arrowAnimation,
-            scale: scaleAnimation
-        }"
-        v-bind:style="{
-            'background-color': backgroundColor,
-            'color': textColor,
-            'border-color': borderColor
-        }"
+        class="button"
+        v-bind:class="{ arrow: arrowAnimation, scale: scaleAnimation }"
+        v-bind:style="{ backgroundColor: backgroundColor, color: textColor, borderColor: borderColor }"
     >
         {{ text }}
     </button>
 </template>
 
 <style scoped>
-.button-content.arrow:hover:not(:disabled)::after {
+.button.arrow:hover:not(:disabled)::after {
     right: 0px;
 }
 
-.button-content.arrow::after {
+.button.arrow::after {
     background-image: url("~./assets/right-arrow.svg");
     background-repeat: no-repeat;
     content: "";
@@ -42,7 +35,7 @@
     cursor: pointer;
     display: inline-block;
     font-size: 14px;
-    font-weight: 300;
+    font-weight: 500;
     line-height: inherit;
     outline: none;
     overflow: hidden;
@@ -59,18 +52,6 @@
 
 .button.scale:hover {
     transform: scale(1.1);
-}
-
-button {
-    appearance: button;
-    border-image: initial;
-    border-style: solid;
-    margin: 0px 0px 0px 0px;
-    padding: 1px 7px 2px;
-}
-
-.button-content {
-    font-weight: 500;
 }
 </style>
 
