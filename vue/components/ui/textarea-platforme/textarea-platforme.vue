@@ -19,18 +19,16 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-
-
 .textarea-platforme {
     background-color: #f2f2f2;
     border: 1px solid transparent;
     box-sizing: border-box;
+    padding-top: 6px;
     font-size: 13px;
     line-height: 20px;
     margin-left: 24px;
     padding-left: 12px;
     padding-right: 12px;
-    font-family: Lato, sans-serif;
 }
 
 .textarea-platforme:hover {
