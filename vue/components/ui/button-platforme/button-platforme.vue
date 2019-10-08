@@ -93,9 +93,7 @@ export const ButtonPlatforme = {
         },
         loaderStyle: {
             type: Object,
-            default: () => {
-                return { "background-color": "#ffffff" };
-            }
+            default: () => ({ "background-color": "#ffffff" })
         }
     },
     data: function() {
