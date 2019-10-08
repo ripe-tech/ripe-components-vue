@@ -1,15 +1,9 @@
 <template>
     <div class="generic-field-container">
-        <img
-            class="icon"
-            v-if="iconSrc" v-bind:src="iconSrc"
-            v-show="iconVisible"
-            />
+        <img class="icon" v-bind:src="iconSrc" v-if="iconSrc" v-show="iconVisible" />
         <input
             class="generic-field-platforme"
-            v-bind:class="[
-                iconVisible ? '' : 'icon-invisible'
-            ]"
+            v-bind:class="[iconVisible ? '' : 'icon-invisible']"
             v-bind:type="type"
             v-bind:value="value"
             v-bind:placeholder="placeholder"
@@ -29,8 +23,8 @@
 @import "css/variables.scss";
 
 .generic-field-container {
-    display: inline-flex;
     align-items: center;
+    display: inline-flex;
 }
 
 .generic-field-platforme {
@@ -65,14 +59,9 @@
     padding-left: 12px;
 }
 
-.generic-field-platforme:hover {
-    border-color: #dddddd;
-}
-
 .generic-field-platforme.grow:focus {
     width: 340px;
 }
-
 </style>
 
 <script>

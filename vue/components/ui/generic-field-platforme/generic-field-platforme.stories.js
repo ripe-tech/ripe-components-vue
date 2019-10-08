@@ -42,7 +42,10 @@ storiesOf("Input", module)
                 default: boolean("Has icon", true)
             },
             iconSrc: {
-                default: text("Icon URL", "https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/debian.svg")
+                default: text(
+                    "Icon URL",
+                    "https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/debian.svg"
+                )
             },
             value: {
                 default: text("Initial Value", "")
