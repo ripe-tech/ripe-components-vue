@@ -64,7 +64,7 @@
 </style>
 
 <script>
-export const selectorPlatforme = {
+export const SelectorPlatforme = {
     name: "selector-platforme",
     props: {
         items: {
@@ -73,5 +73,5 @@ export const selectorPlatforme = {
         }
     }
 };
-export default selectorPlatforme;
+export default SelectorPlatforme;
 </script>

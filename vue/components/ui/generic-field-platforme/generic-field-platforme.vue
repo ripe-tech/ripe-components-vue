@@ -48,7 +48,7 @@
 </style>
 
 <script>
-export const genericFieldPlatforme = {
+export const GenericFieldPlatforme = {
     props: {
         value: {
             type: String,
@@ -98,5 +98,5 @@ export const genericFieldPlatforme = {
     }
 };
 
-export default genericFieldPlatforme;
+export default GenericFieldPlatforme;
 </script>

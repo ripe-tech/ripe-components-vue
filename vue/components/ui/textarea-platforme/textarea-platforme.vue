@@ -47,7 +47,7 @@
 </style>
 
 <script>
-export const textareaPlatforme = {
+export const TextareaPlatforme = {
     props: {
         value: {
             type: String,
@@ -109,5 +109,5 @@ export const textareaPlatforme = {
     }
 };
 
-export default textareaPlatforme;
+export default TextareaPlatforme;
 </script>
