@@ -1,64 +1,60 @@
 <template>
     <div class="selector-container">
-        <div class="select__arrow"></div>
-        <select class="selector">
-            <option id="OPTION_1">Option1</option>
-            <option id="OPTION_2">Option2</option>
+
+        <svg class="select__arrow" fill="#7b7b7b" height="24" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"></path>
+<path d="M0-.75h24v24H0z" fill="none"></path>
+</svg>
+        <select class="selector" required>
+            <option selected disabled value="">Select one</option>
+            <option
+                class="option"
+                v-for="item in items.filter(v => v !== null && v !== undefined)"
+                v-bind:key="item.id"
+                v-bind:id="item.id"
+                v-bind:value="item.value"
+            >
+            {{item.text}}
+            </option>
         </select>
     </div>
 </template>
-
-
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
 .selector-container{
-      position: relative;
-     display: inline-block;
+    position: relative;
+    display: inline-block;
+    //width: 100%;
+    margin-left: 24px;
 }
 
 .selector {
-    color: rgb(123, 123, 123);
+    color: #7b7b7b;
+    //width: 100%;
     cursor: pointer;
-    height: 38px;
-    text-decoration: none solid rgb(123, 123, 123);
-    text-size-adjust: 100%;
-    width: 200px;
     column-rule-color: rgb(123, 123, 123);
     perspective-origin: 100px 19px;
     transform-origin: 100px 19px;
     caret-color: rgb(123, 123, 123);
-    background: rgb(230, 230, 230) none repeat scroll 0% 0% / auto padding-box border-box;
+    background: #f2f2f2 none repeat scroll 0% 0% / auto padding-box border-box;
     border: 0px none rgb(123, 123, 123);
-    font: normal normal 400 normal 16px / 18.4px sans-serif;
     outline: rgb(123, 123, 123) none 0px;
-    padding: 10px 15px;
+    border-radius: 0px;
+    font-size: 13px;
+    padding: 9px 12px;
+    padding-right: 34px;
     -webkit-appearance: none;
     -moz-appearance: none;
 }
 
-
-
 .select__arrow {
   position: absolute;
-  top: 16px;
-  right: 15px;
-  width: 0;
-  height: 0;
+  top: 7px;
+  right: 10px;
   pointer-events: none;
-  border-style: solid;
-  border-width: 8px 5px 0 5px;
-  border-color: #7b7b7b transparent transparent transparent;
 }
-.select select:hover ~ .select__arrow,
-.select select:focus ~ .select__arrow {
-  border-top-color: #000;
-}
-.select select:disabled ~ .select__arrow {
-  border-top-color: #ccc;
-}
-
 </style>
 
 <script>
@@ -71,7 +67,5 @@ export const selectorPlatforme = {
         }
     }
 };
-
-
 export default selectorPlatforme;
 </script>
