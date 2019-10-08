@@ -1,4 +1,5 @@
-import { storiesOf, text } from "@storybook/vue";
+import { storiesOf } from "@storybook/vue";
+import { text } from "@storybook/addon-knobs";
 
 storiesOf("Button", module).add("Base", () => ({
     props: {
