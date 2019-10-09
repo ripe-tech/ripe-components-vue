@@ -1,10 +1,10 @@
 <template>
-    <div class="field-container">
+    <div class="field-container" v-bind:style="{ width: width, height: height }">
         <img class="icon" v-bind:src="iconSrc" v-if="iconSrc" v-show="iconVisible" />
         <input
             class="field-platforme"
             v-bind:class="[{ iconVisible: iconVisible, disabled: disabled }]"
-            v-bind:style="{ width: width, height: height}"
+            v-bind:style="{ width: width, height: height }"
             v-bind:type="type"
             v-bind:value="value"
             v-bind:disabled="disabled"
