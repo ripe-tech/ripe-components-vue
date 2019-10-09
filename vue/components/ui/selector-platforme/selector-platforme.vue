@@ -13,7 +13,7 @@
         </svg>
         <select class="selector" required>
             <option selected disabled value="">
-                {{ selectLabel }}
+                {{ label }}
             </option>
             <option
                 class="option"
@@ -70,7 +70,7 @@ export const SelectorPlatforme = {
             type: Array,
             default: () => []
         },
-        selectLabel: {
+        label: {
             type: String,
             default: "Select one"
         }

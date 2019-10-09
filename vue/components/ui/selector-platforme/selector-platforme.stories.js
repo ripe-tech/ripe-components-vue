@@ -5,7 +5,7 @@ storiesOf("Input", module)
     .addDecorator(withKnobs)
     .add("Selector", () => ({
         props: {
-            selectLabel: {
+            label: {
                 default: text("Label", "Select one")
             }
         },
@@ -31,6 +31,6 @@ storiesOf("Input", module)
             };
         },
         template: `
-            <selector-platforme v-bind:items="items" v-bind:selectLabel="selectLabel"></selector-platforme>
+            <selector-platforme v-bind:items="items" v-bind:label="label"></selector-platforme>
         `
     }));
