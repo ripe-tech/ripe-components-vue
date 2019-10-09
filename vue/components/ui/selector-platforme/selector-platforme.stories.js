@@ -1,9 +1,14 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs } from "@storybook/addon-knobs";
+import { withKnobs, text } from "@storybook/addon-knobs";
 
 storiesOf("Input", module)
     .addDecorator(withKnobs)
     .add("Selector", () => ({
+        props: {
+            selectLabel: {
+                default: text("Label", "Select one")
+            }
+        },
         data() {
             return {
                 items: [
@@ -26,6 +31,6 @@ storiesOf("Input", module)
             };
         },
         template: `
-            <selector-platforme v-bind:items="items"></selector-platforme>
+            <selector-platforme v-bind:items="items" v-bind:selectLabel="selectLabel"></selector-platforme>
         `
     }));
