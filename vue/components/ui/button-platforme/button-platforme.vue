@@ -16,7 +16,7 @@
         <span class="button-text">{{ text }}</span>
     </div>
 </template>
- 
+
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
