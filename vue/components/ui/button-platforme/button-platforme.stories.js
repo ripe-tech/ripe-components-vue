@@ -1,15 +1,20 @@
 import { storiesOf } from "@storybook/vue";
-import { text } from "@storybook/addon-knobs";
+import { withKnobs, text, boolean } from "@storybook/addon-knobs";
 
-storiesOf("Button", module).add("Base", () => ({
-    props: {
-        normalText: {
-            default: text("Text Normal", "Button")
+storiesOf("Button", module)
+    .addDecorator(withKnobs)
+    .add("Base", () => ({
+        props: {
+            normalText: {
+                default: text("Text Normal", "Button")
+            },
+            loadingText: {
+                default: text("Text Loading", "Loading...")
+            },
+            logo: {
+                default: boolean("Logo", true)
+            }
         },
-        loadingText: {
-            default: text("Text Loading", "Loading...")
-        }
-    },
-    template:
-        '<button-platforme v-bind:normal-text="normalText" v-bind:loading-text="loadingText"></button-platforme>'
-}));
+        template:
+            '<button-platforme v-bind:normal-text="normalText" v-bind:loading-text="loadingText" v-bind:logo="logo" ></button-platforme>'
+    }));

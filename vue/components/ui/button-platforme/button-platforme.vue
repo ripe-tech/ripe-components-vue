@@ -10,7 +10,7 @@
             v-bind:loader-style="loaderStyle"
             v-show="loading"
         />
-        <span class="button-logo">
+        <span class="button-logo" v-if="logo">
             <img src="~./assets/platforme_id.svg" v-show="!loading" />
         </span>
         <span class="button-text">{{ text }}</span>
@@ -86,6 +86,10 @@ export const ButtonPlatforme = {
         loadingText: {
             type: Number,
             default: "Signing in Platforme ID..."
+        },
+        logo: {
+            type: Boolean,
+            default: true
         },
         mode: {
             type: String,
