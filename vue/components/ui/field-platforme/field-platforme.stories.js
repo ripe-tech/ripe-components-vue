@@ -16,10 +16,10 @@ storiesOf("Input", module)
                 default: text("Placeholder", "Name")
             },
             width: {
-                default: text("Width", "304")
+                default: text("Width", "304px")
             },
             height: {
-                default: text("Height", "34")
+                default: text("Height", "34px")
             },
             required: {
                 default: boolean("Required", false)

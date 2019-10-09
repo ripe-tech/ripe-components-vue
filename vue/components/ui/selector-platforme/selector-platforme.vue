@@ -1,24 +1,16 @@
 <template>
     <div class="selector-container">
-        <svg
-            class="select_arrow"
-            fill="#7b7b7b"
-            height="24"
-            viewBox="0 0 24 24"
-            width="20"
-            xmlns="http://www.w3.org/2000/svg"
+        <img class="select_arrow" src="~./assets/arrow.svg"/>
+        <select class="selector"
+        v-bind:required="required"
         >
-            <path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z" />
-            <path d="M0-.75h24v24H0z" fill="none" />
-        </svg>
-        <select class="selector" required>
             <option selected disabled value="">
                 {{ label }}
             </option>
             <option
                 class="option"
                 v-bind:value="item.value"
-                v-for="item in items.filter(v => v !== null && v !== undefined)"
+                v-for="item in items"
                 v-bind:id="item.id"
                 v-bind:key="item.id"
             >
@@ -46,15 +38,15 @@
 .selector {
     -webkit-appearance: none;
     -moz-appearance: none;
-    background: #f2f2f2 none repeat scroll 0% 0% / auto padding-box border-box;
-    border: 0px none rgb(123, 123, 123);
+    background: #f2f2f2;
+    border: 0px none #7b7b7b;
     border-radius: 0px;
-    caret-color: rgb(123, 123, 123);
+    caret-color: #7b7b7b;
     color: #7b7b7b;
-    column-rule-color: rgb(123, 123, 123);
+    column-rule-color: #7b7b7b;
     cursor: pointer;
     font-size: 13px;
-    outline: rgb(123, 123, 123) none 0px;
+    outline: #7b7b7b none 0px;
     padding: 9px 12px;
     padding-right: 34px;
     perspective-origin: 100px 19px;
@@ -73,6 +65,10 @@ export const SelectorPlatforme = {
         label: {
             type: String,
             default: "Select one"
+        },
+        required: {
+            type: Boolean,
+            default: false
         }
     }
 };

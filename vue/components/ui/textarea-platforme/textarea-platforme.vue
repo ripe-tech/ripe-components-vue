@@ -34,7 +34,7 @@
 .textarea-platforme:focus {
     background-color: #ffffff;
     border-color: #dddddd;
-    box-shadow: 0px 1px 8px 0px rgba(32, 33, 36, 0.14);
+    box-shadow: 0px 1px 8px 0px #20212424;
 }
 </style>
 
@@ -73,12 +73,6 @@ export const TextareaPlatforme = {
             type: Boolean,
             default: false
         }
-    },
-    data: function() {
-        return {
-            focused: false,
-            suggestionsVisible: false
-        };
     },
     methods: {
         blur() {

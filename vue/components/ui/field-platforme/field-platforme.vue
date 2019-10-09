@@ -4,7 +4,7 @@
         <input
             class="field-platforme"
             v-bind:class="[{ iconVisible: iconVisible, disabled: disabled }]"
-            v-bind:style="{ width: width + 'px', height: height + 'px' }"
+            v-bind:style="{ width: width, height: height}"
             v-bind:type="type"
             v-bind:value="value"
             v-bind:disabled="disabled"
@@ -50,7 +50,7 @@
 .field-platforme:focus {
     background-color: #ffffff;
     border-color: #dddddd;
-    box-shadow: 0px 1px 8px 0px rgba(32, 33, 36, 0.14);
+    box-shadow: 0px 1px 8px 0px #20212424;
 }
 
 .field-platforme.iconVisible {
@@ -81,11 +81,11 @@ export const FieldPlatforme = {
         },
         width: {
             type: String,
-            default: "304"
+            default: "304px"
         },
         height: {
             type: String,
-            default: "34"
+            default: "34px"
         },
         autofocus: {
             type: Boolean,
@@ -106,7 +106,7 @@ export const FieldPlatforme = {
     },
     computed: {
         iconVisible: function() {
-            return this.iconSrc !== "" && this.iconSrc !== null;
+            return Boolean(this.iconSrc);
         }
     },
     methods: {
