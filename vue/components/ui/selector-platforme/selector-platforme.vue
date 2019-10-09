@@ -1,7 +1,7 @@
 <template>
     <div class="selector-container">
         <svg
-            class="select__arrow"
+            class="select_arrow"
             fill="#7b7b7b"
             height="24"
             viewBox="0 0 24 24"
@@ -36,7 +36,7 @@
     position: relative;
 }
 
-.select__arrow {
+.select_arrow {
     pointer-events: none;
     position: absolute;
     right: 10px;
