@@ -9,7 +9,6 @@
         v-bind:cols="cols"
         v-bind:rows="rows"
         ref="input"
-        v-on:input="$emit('update:value', $event.target.value)"
         v-on:keydown.esc="blur()"
     />
 </template>
