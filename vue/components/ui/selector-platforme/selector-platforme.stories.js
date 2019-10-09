@@ -10,6 +10,12 @@ storiesOf("Input", module)
             },
             required: {
                 default: boolean("Required", false)
+            },
+            width: {
+                default: text("Width", "")
+            },
+            height: {
+                default: text("Height", "")
             }
         },
         data() {
@@ -34,6 +40,6 @@ storiesOf("Input", module)
             };
         },
         template: `
-            <selector-platforme v-bind:items="items" v-bind:label="label" v-bind:required="required"></selector-platforme>
+            <selector-platforme v-bind:items="items" v-bind:width="width" v-bind:height="height" v-bind:label="label" v-bind:required="required"></selector-platforme>
         `
     }));

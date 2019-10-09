@@ -1,8 +1,10 @@
 <template>
-    <div class="selector-container">
-        <img class="select_arrow" src="~./assets/arrow.svg"/>
-        <select class="selector"
-        v-bind:required="required"
+    <div class="selector-container" v-bind:style="{ width: width, height: height }">
+        <img class="select_arrow" src="~./assets/arrow.svg" />
+        <select
+            class="selector"
+            v-bind:style="{ width: width, height: height }"
+            v-bind:required="required"
         >
             <option selected disabled value="">
                 {{ label }}
@@ -50,6 +52,7 @@
     padding: 9px 12px;
     padding-right: 34px;
     perspective-origin: 100px 19px;
+    text-align-last: center;
     transform-origin: 100px 19px;
 }
 </style>
@@ -65,6 +68,14 @@ export const SelectorPlatforme = {
         label: {
             type: String,
             default: "Select one"
+        },
+        width: {
+            type: String,
+            default: ""
+        },
+        height: {
+            type: String,
+            default: ""
         },
         required: {
             type: Boolean,
