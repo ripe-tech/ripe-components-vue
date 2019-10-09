@@ -8,18 +8,7 @@ storiesOf("Input", module)
             type: {
                 default: select(
                     "Type",
-                    [
-                        "Text",
-                        "Number",
-                        "Email",
-                        "Password",
-                        "Tel",
-                        "Time",
-                        "Url",
-                        "Date",
-                        "Range",
-                        "Hidden"
-                    ],
+                    ["Text", "Number", "Email", "Password","Tel", "Time", "Url", "Date", "Range", "Hidden"],
                     "Text"
                 )
             },
