@@ -36,6 +36,13 @@
     position: relative;
 }
 
+.select__arrow {
+    pointer-events: none;
+    position: absolute;
+    right: 10px;
+    top: 7px;
+}
+
 .selector {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -52,13 +59,6 @@
     padding-right: 34px;
     perspective-origin: 100px 19px;
     transform-origin: 100px 19px;
-}
-
-.select__arrow {
-    pointer-events: none;
-    position: absolute;
-    right: 10px;
-    top: 7px;
 }
 </style>
 

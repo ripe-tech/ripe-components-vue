@@ -3,7 +3,7 @@ import { withKnobs, boolean, text, select } from "@storybook/addon-knobs";
 
 storiesOf("Input", module)
     .addDecorator(withKnobs)
-    .add("Generic", () => ({
+    .add("Field", () => ({
         props: {
             type: {
                 default: select(
@@ -27,9 +27,6 @@ storiesOf("Input", module)
             autofocus: {
                 default: boolean("Autofocus", false)
             },
-            iconVisible: {
-                default: boolean("Has icon", true)
-            },
             disabled: {
                 default: boolean("Disabled", false)
             },
@@ -44,9 +41,9 @@ storiesOf("Input", module)
             }
         },
         template: `
-            <generic-field-platforme v-bind:value='value' v-bind:placeholder='placeholder'
+            <field-platforme v-bind:value='value' v-bind:placeholder='placeholder'
             v-bind:required='required' v-bind:autofocus='autofocus'
-            v-bind:type='type' v-bind:iconSrc='iconSrc' v-bind:iconVisible='iconVisible' v-bind:width='width' v-bind:height='height'
-            v-bind:disabled='disabled'></generic-field-platforme>
+            v-bind:type='type' v-bind:iconSrc='iconSrc' v-bind:width='width' v-bind:height='height'
+            v-bind:disabled='disabled'></field-platforme>
         `
     }));

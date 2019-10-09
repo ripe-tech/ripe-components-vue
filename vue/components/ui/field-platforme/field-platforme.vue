@@ -1,20 +1,17 @@
 <template>
-    <div class="generic-field-container">
+    <div class="field-container">
         <img class="icon" v-bind:src="iconSrc" v-if="iconSrc" v-show="iconVisible" />
         <input
-            class="generic-field-platforme"
-            v-bind:class="[iconVisible ? '' : 'icon-invisible', disabled ? 'disabled' : '']"
+            class="field-platforme"
+            v-bind:class="[{ iconVisible: iconVisible, disabled: disabled }]"
+            v-bind:style="{ width: width + 'px', height: height + 'px' }"
             v-bind:type="type"
             v-bind:value="value"
             v-bind:disabled="disabled"
             v-bind:placeholder="placeholder"
             v-bind:required="required"
             v-bind:autofocus="autofocus"
-            v-bind:style="'width: ' + width + 'px; ' + 'height: ' + height + 'px;'"
             ref="input"
-            v-on:input="$emit('update:value', $event.target.value)"
-            v-on:focus="focused = true"
-            v-on:blur="focused = false"
             v-on:keydown.esc="blur()"
         />
     </div>
@@ -23,26 +20,9 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.generic-field-container {
+.field-container {
     align-items: center;
     display: inline-flex;
-}
-
-.disabled:hover {
-    background-color: #dadada;
-    border-color: #ff9b9b !important;
-    cursor: not-allowed;
-}
-
-.generic-field-platforme {
-    background-color: #f2f2f2;
-    border: 1px solid transparent;
-    box-sizing: border-box;
-    font-size: 13px;
-    line-height: 34px;
-    padding-left: 33px;
-    padding-right: 12px;
-    transition: width 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
 }
 
 .icon {
@@ -52,27 +32,40 @@
     width: 20px;
 }
 
-.generic-field-platforme:hover {
+.field-platforme {
+    background-color: #f2f2f2;
+    border: 1px solid transparent;
+    box-sizing: border-box;
+    font-size: 13px;
+    line-height: 34px;
+    padding-left: 12px;
+    padding-right: 12px;
+    transition: width 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.field-platforme:hover {
     border-color: #dddddd;
 }
 
-.generic-field-platforme:focus {
+.field-platforme:focus {
     background-color: #ffffff;
     border-color: #dddddd;
     box-shadow: 0px 1px 8px 0px rgba(32, 33, 36, 0.14);
 }
 
-.generic-field-platforme.icon-invisible {
-    padding-left: 12px;
+.field-platforme.iconVisible {
+    padding-left: 33px;
 }
 
-.generic-field-platforme.grow:focus {
-    width: 340px;
+.field-platforme.disabled:hover {
+    background-color: #dadada;
+    border-color: #ff9b9b;
+    cursor: not-allowed;
 }
 </style>
 
 <script>
-export const GenericFieldPlatforme = {
+export const FieldPlatforme = {
     props: {
         value: {
             type: String,
@@ -106,28 +99,15 @@ export const GenericFieldPlatforme = {
             type: Boolean,
             default: true
         },
-        iconVisible: {
-            type: Boolean,
-            default: false
-        },
         iconSrc: {
             type: String,
             default: null
         }
     },
-    watch: {
-        focused(isFocused) {
-            if (isFocused) {
-                this.suggestionsVisible = true;
-            } else {
-                setTimeout(() => {
-                    this.suggestionsVisible = false;
-                }, 100);
-            }
+    computed: {
+        iconVisible: function() {
+            return this.iconSrc !== "" && this.iconSrc !== null;
         }
-    },
-    mounted: function() {
-        this.autofocus && this.$refs.input.focus();
     },
     methods: {
         blur() {
@@ -136,5 +116,5 @@ export const GenericFieldPlatforme = {
     }
 };
 
-export default GenericFieldPlatforme;
+export default FieldPlatforme;
 </script>

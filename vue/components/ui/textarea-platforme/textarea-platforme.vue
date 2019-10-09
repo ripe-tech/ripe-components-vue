@@ -10,8 +10,6 @@
         v-bind:rows="rows"
         ref="input"
         v-on:input="$emit('update:value', $event.target.value)"
-        v-on:focus="focused = true"
-        v-on:blur="focused = false"
         v-on:keydown.esc="blur()"
     />
 </template>
@@ -38,10 +36,6 @@
     background-color: #ffffff;
     border-color: #dddddd;
     box-shadow: 0px 1px 8px 0px rgba(32, 33, 36, 0.14);
-}
-
-.textarea-platforme.grow:focus {
-    width: 340px;
 }
 </style>
 
@@ -86,20 +80,6 @@ export const TextareaPlatforme = {
             focused: false,
             suggestionsVisible: false
         };
-    },
-    watch: {
-        focused(value) {
-            if (value) {
-                this.suggestionsVisible = true;
-            } else {
-                setTimeout(() => {
-                    this.suggestionsVisible = false;
-                }, 100);
-            }
-        }
-    },
-    mounted: function() {
-        this.autoFocus && this.$refs.input.focus();
     },
     methods: {
         blur() {
