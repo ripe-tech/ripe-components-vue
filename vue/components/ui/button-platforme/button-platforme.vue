@@ -84,7 +84,7 @@ export const ButtonPlatforme = {
             default: "Sign in with Platforme ID"
         },
         loadingText: {
-            type: Number,
+            type: String,
             default: "Signing in Platforme ID..."
         },
         logo: {
