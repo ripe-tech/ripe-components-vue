@@ -86,6 +86,11 @@
     width: 100%;
 }
 
+.side-platforme ul > li:not(.selected) a,
+.side-platforme ul > li:not(.selected) span {
+    color: #000000;
+}
+
 .side-platforme ul > li.separator span {
     padding: 0px;
 }
