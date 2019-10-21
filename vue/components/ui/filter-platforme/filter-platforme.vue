@@ -180,6 +180,13 @@ export const FilterPlatforme = {
         updateQuery(options) {
             const { sort, reverse, filter } = options;
             this.$router.replace({ query: { ...this.$route.query, sort, reverse, filter } });
+        },
+        changeItem(index, item) {
+            if (item) {
+                this.items.$set(index, item);
+            } else {
+                this.items.splice(index, 1);
+            }
         }
     }
 };
