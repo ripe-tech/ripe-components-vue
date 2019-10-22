@@ -40,7 +40,7 @@ const scrollMixin = {
             if (bottomScroll) {
                 return;
             }
-            this.loadMore();
+            this.getFilter().loadMore();
         },
         filterUpdated() {
             this.scrollTop && this.scrollToTop();
