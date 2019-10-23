@@ -91,6 +91,11 @@
     color: #000000;
 }
 
+.side-platforme ul > li.disabled a,
+.side-platforme ul > li.disabled span {
+    color: #e2e2e2;
+}
+
 .side-platforme ul > li.separator span {
     padding: 0px;
 }
