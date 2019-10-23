@@ -16,7 +16,7 @@ import { SidePlatforme } from "./ui/side-platforme/side-platforme.vue";
 import { TablePlatforme } from "./ui/table-platforme/table-platforme.vue";
 
 const install = Vue => {
-    if (!Vue.options.components["RouterLink"]) {
+    if (!Vue.options.components.RouterLink) {
         Vue.component("router-link", RouterLink);
     }
     Vue.component("error-platforme", ErrorPlatforme);
