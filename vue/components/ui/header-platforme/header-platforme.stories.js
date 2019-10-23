@@ -5,6 +5,7 @@ storiesOf("Header", module).add("Platforme", () => ({
         return {
             mockLinks: [
                 { id: "enabled", text: "Enabled" },
+                { id: "selected", text: "Selected", selected: true },
                 { id: "separator" },
                 { id: "disabled", text: "Disabled", disabled: true }
             ],
@@ -22,7 +23,7 @@ storiesOf("Header", module).add("Platforme", () => ({
     template: `
         <div>
             <overlay-platforme></overlay-platforme>
-            <side-platforme> v-bind:links="mockLinks"</side-platforme>
+            <side-platforme v-bind:links="mockLinks"></side-platforme>
             <header-platforme v-bind:platforme-account="mockAccount"></header-platforme>
         </div>`
 }));

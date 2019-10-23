@@ -1,3 +1,4 @@
+import { RouterLink } from "./mock/router-link/router-link.vue";
 import { ErrorPlatforme } from "./parts/error-platforme/error-platforme.vue";
 import { OAuthPlatforme } from "./parts/oauth-platforme/oauth-platforme.vue";
 import { ButtonPlatforme } from "./ui/button-platforme/button-platforme.vue";
@@ -15,6 +16,9 @@ import { SidePlatforme } from "./ui/side-platforme/side-platforme.vue";
 import { TablePlatforme } from "./ui/table-platforme/table-platforme.vue";
 
 const install = Vue => {
+    if (!Vue.options.components["router-link"]) {
+        Vue.component("router-link", RouterLink);
+    }
     Vue.component("error-platforme", ErrorPlatforme);
     Vue.component("oauth-platforme", OAuthPlatforme);
     Vue.component("button-platforme", ButtonPlatforme);
@@ -33,6 +37,7 @@ const install = Vue => {
 };
 
 export {
+    RouterLink,
     ErrorPlatforme,
     OAuthPlatforme,
     ButtonPlatforme,

@@ -42,6 +42,7 @@
     font-size: 15px;
     font-weight: 600;
     margin: 12px 0px 12px 0px;
+    padding: 0px 0px 0px 0px;
     text-align: left;
     user-select: none;
 }
