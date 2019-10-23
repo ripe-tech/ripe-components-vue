@@ -3,6 +3,11 @@ import { storiesOf } from "@storybook/vue";
 storiesOf("Header", module).add("Platforme", () => ({
     data: function() {
         return {
+            mockLinks: [
+                { id: "enabled", text: "Enabled" },
+                { id: "separator" },
+                { id: "disabled", text: "Disabled", disabled: true }
+            ],
             mockAccount: {
                 email: "john_doe@platforme.com",
                 avatar_url: "http://i.pravatar.cc",
@@ -17,7 +22,7 @@ storiesOf("Header", module).add("Platforme", () => ({
     template: `
         <div>
             <overlay-platforme></overlay-platforme>
-            <side-platforme></side-platforme>
+            <side-platforme> v-bind:links="mockLinks"</side-platforme>
             <header-platforme v-bind:platforme-account="mockAccount"></header-platforme>
         </div>`
 }));
