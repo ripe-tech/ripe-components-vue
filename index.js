@@ -1,4 +1,4 @@
-import install from "./vue";
+import { install } from "./vue";
 
 export * from "./js";
 export * from "./vue";
