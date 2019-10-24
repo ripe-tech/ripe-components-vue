@@ -180,6 +180,12 @@ export const FilterPlatforme = {
         updateQuery(options) {
             const { sort, reverse, filter } = options;
             this.$router.replace({ query: { ...this.$route.query, sort, reverse, filter } });
+        },
+        setItem(index, item) {
+            this.items.$set(index, item);
+        },
+        removeItem(index) {
+            this.items.splice(index, 1);
         }
     }
 };
