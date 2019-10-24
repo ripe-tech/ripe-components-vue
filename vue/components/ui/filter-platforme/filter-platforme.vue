@@ -107,38 +107,12 @@ export const FilterPlatforme = {
                     return;
                 }
 
-                // saves the signature that triggered this request
-                const signature = this.signature;
-                this.loading = true;
+                // runs the internal filter refresh logic, that should
+                // trigger underlying remote operations (async call)
+                await this.refresh();
 
-                // waits for a short time for new get items requests
-                // which would make this request unnecessary
-                await new Promise(resolve => setTimeout(resolve, this.filterTimeout));
-                if (this.signature !== signature) {
-                    return;
-                }
-
-                // makes the items request and checks if it is still
-                // to be used when the result is retrieved
-                const items = await this.getItems(options);
-                if (this.signature !== signature) {
-                    return;
-                }
-
-                // in case either the items are not defined or are null
-                // an immediate return of the control flow is performed
-                if (items === undefined || items === null) {
-                    return;
-                }
-
-                // if this request was triggered for pagination then
-                // appends the new items to the current items, otherwise
-                // replaces the current items
-                const pagination = this.start > 0;
-                this.tableTransition = pagination || this.items.length === 0 ? "fade" : "";
-                this.items = !pagination ? items : [...this.items, ...items];
-                this.loading = false;
-                this.itemsToLoad = items.length === this.limit;
+                // updates the top level query for the current page
+                // and triggers the update event (for listeners)
                 this.useQuery && this.updateQuery(options);
                 this.$emit("update:options", options);
             }
@@ -186,6 +160,41 @@ export const FilterPlatforme = {
         },
         removeItem(index) {
             this.items.splice(index, 1);
+        },
+        async refresh() {
+            // saves the signature that triggered this request
+            const options = this.options;
+            const signature = this.signature;
+            this.loading = true;
+
+            // waits for a short time for new get items requests
+            // which would make this request unnecessary
+            await new Promise(resolve => setTimeout(resolve, this.filterTimeout));
+            if (this.signature !== signature) {
+                return;
+            }
+
+            // makes the items request and checks if it is still
+            // to be used when the result is retrieved
+            const items = await this.getItems(options);
+            if (this.signature !== signature) {
+                return;
+            }
+
+            // in case either the items are not defined or are null
+            // an immediate return of the control flow is performed
+            if (items === undefined || items === null) {
+                return;
+            }
+
+            // if this request was triggered for pagination then
+            // appends the new items to the current items, otherwise
+            // replaces the current items
+            const pagination = this.start > 0;
+            this.tableTransition = pagination || this.items.length === 0 ? "fade" : "";
+            this.items = !pagination ? items : [...this.items, ...items];
+            this.loading = false;
+            this.itemsToLoad = items.length === this.limit;
         }
     }
 };
