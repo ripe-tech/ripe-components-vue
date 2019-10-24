@@ -181,12 +181,11 @@ export const FilterPlatforme = {
             const { sort, reverse, filter } = options;
             this.$router.replace({ query: { ...this.$route.query, sort, reverse, filter } });
         },
-        changeItem(index, item) {
-            if (item) {
-                this.items.$set(index, item);
-            } else {
-                this.items.splice(index, 1);
-            }
+        setItem(index, item) {
+            if (item) this.items.$set(index, item);
+        },
+        removeItem(index) {
+            this.items.splice(index, 1);
         }
     }
 };
