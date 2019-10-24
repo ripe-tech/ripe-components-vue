@@ -107,7 +107,12 @@ export const FilterPlatforme = {
                     return;
                 }
 
+                // runs the internal filter refresh logic, that should
+                // trigger underlying remote operations (async call)
                 await this.refresh();
+
+                // updates the top level query for the current page
+                // and triggers the update event (for listeners)
                 this.useQuery && this.updateQuery(options);
                 this.$emit("update:options", options);
             }
