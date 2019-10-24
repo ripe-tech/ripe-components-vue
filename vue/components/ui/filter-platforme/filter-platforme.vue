@@ -182,7 +182,8 @@ export const FilterPlatforme = {
             this.$router.replace({ query: { ...this.$route.query, sort, reverse, filter } });
         },
         setItem(index, item) {
-            if (item) this.items.$set(index, item);
+            if (!item) throw new Error("Trying to set listing with a null item");
+            this.items.$set(index, item);
         },
         removeItem(index) {
             this.items.splice(index, 1);
