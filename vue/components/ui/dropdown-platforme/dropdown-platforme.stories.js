@@ -23,6 +23,17 @@ storiesOf("Dropdown", module)
                     {
                         id: "text_3",
                         text: "Text 3"
+                    },
+                    {
+                        id: "text_platforme",
+                        text: "Text Platforme",
+                        href: "https://www.platforme.com"
+                    },
+                    {
+                        id: "text_platforme_blank",
+                        text: "Text Platforme Blank",
+                        href: "https://www.platforme.com",
+                        target: "_blank"
                     }
                 ]
             };
