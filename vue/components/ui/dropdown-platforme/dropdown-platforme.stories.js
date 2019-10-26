@@ -9,7 +9,7 @@ storiesOf("Dropdown", module)
                 default: boolean("Visible", true)
             }
         },
-        data() {
+        data: function() {
             return {
                 items: [
                     {
@@ -50,7 +50,7 @@ storiesOf("Dropdown", module)
                 default: boolean("Visible", true)
             }
         },
-        data() {
+        data: function() {
             return {
                 items: [
                     {

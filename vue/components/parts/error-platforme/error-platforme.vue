@@ -67,8 +67,7 @@ export const ErrorPlatforme = {
         isAuth() {
             return [401, 403, 440, 499].includes(this.code);
         }
-    },
-    async created() {}
+    }
 };
 
 export default ErrorPlatforme;

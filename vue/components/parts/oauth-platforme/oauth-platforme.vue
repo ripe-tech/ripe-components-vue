@@ -44,7 +44,7 @@ export const OAuthPlatforme = {
             default: null
         }
     },
-    created() {
+    created: function() {
         this.oauth(this.next);
     }
 };

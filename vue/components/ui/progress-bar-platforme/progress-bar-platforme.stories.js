@@ -20,7 +20,7 @@ storiesOf("Progress", module)
                 default: color("Color", "#4071f2")
             }
         },
-        data() {
+        data: function() {
             return { style };
         },
         template: `

@@ -72,8 +72,8 @@ export const FilterPlatforme = {
         const { sort = "id", reverse = false } = this.useQuery ? this.parseQuery() : {};
         return {
             items: [],
-            sort,
-            reverse,
+            sort: sort,
+            reverse: reverse,
             start: 0,
             itemsToLoad: true,
             loading: false,
@@ -98,7 +98,7 @@ export const FilterPlatforme = {
         options: {
             deep: true,
             immediate: true,
-            async handler(options, oldOptions) {
+            handler: async function(options, oldOptions) {
                 // if the sort or the filter string have changed then
                 // resets the start parameter as the current items
                 // will be invalid
@@ -118,13 +118,13 @@ export const FilterPlatforme = {
             }
         },
         loading: {
-            handler(value) {
+            handler: function(value) {
                 this.$emit("update:loading", value);
             },
             immediate: true
         },
         items: {
-            handler(value) {
+            handler: function(value) {
                 this.$emit("update:items", value);
             },
             immediate: true
