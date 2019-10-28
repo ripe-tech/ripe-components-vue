@@ -91,14 +91,20 @@
 .side-platforme ul > li span {
     border: none;
     box-sizing: border-box;
+    color: $main-color;
     display: inline-block;
     padding: 12px 24px 12px 24px;
     width: 100%;
 }
 
+.side-platforme ul > li.selected a,
+.side-platforme ul > li.selected span {
+    color: $link-hover-color;
+}
+
 .side-platforme ul > li.disabled a,
 .side-platforme ul > li.disabled span {
-    color: #e2e2e2;
+    color: $disabled-color;
 }
 
 .side-platforme ul > li.separator span {
