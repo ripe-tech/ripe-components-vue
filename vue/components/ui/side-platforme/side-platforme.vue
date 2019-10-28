@@ -66,15 +66,24 @@
     padding: 0px 0px 0px 0px;
 }
 
+.side-platforme ul > li:not(.separator) {
+    border-left: 4px solid transparent;
+}
+
 .side-platforme ul > li:hover,
 .side-platforme ul > li.selected {
     background-color: $selected-color;
+}
+
+.side-platforme ul > li.selected {
+    border-left-color: $link-hover-color;
     color: $link-hover-color;
 }
 
 .side-platforme ul > li.disabled:hover,
 .side-platforme ul > li.disabled.selected {
     background-color: transparent;
+    border-left-color: solid transparent;
     color: #e2e2e2;
 }
 
@@ -85,11 +94,6 @@
     display: inline-block;
     padding: 12px 24px 12px 24px;
     width: 100%;
-}
-
-.side-platforme ul > li:not(.selected) a,
-.side-platforme ul > li:not(.selected) span {
-    color: #000000;
 }
 
 .side-platforme ul > li.disabled a,
