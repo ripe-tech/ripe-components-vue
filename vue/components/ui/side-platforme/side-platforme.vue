@@ -39,7 +39,7 @@
 }
 
 .side-platforme ul {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
     margin: 12px 0px 12px 0px;
     padding: 0px 0px 0px 0px;
