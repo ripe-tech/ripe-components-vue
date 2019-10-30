@@ -109,7 +109,10 @@ export const FilterPlatforme = {
 
                 // runs the internal filter refresh logic, that should
                 // trigger underlying remote operations (async call)
-                await this.refresh();
+                // in case no effective refresh was performed there's
+                // nothing remaining to be done (returns control flow)
+                const refreshed = await this.refresh();
+                if (!refreshed) return;
 
                 // updates the top level query for the current page
                 // and triggers the update event (for listeners)
@@ -177,20 +180,20 @@ export const FilterPlatforme = {
             // which would make this request unnecessary
             await new Promise(resolve => setTimeout(resolve, this.filterTimeout));
             if (this.signature !== signature) {
-                return;
+                return false;
             }
 
             // makes the items request and checks if it is still
             // to be used when the result is retrieved
             const items = await this.getItems(options);
             if (this.signature !== signature) {
-                return;
+                return false;
             }
 
             // in case either the items are not defined or are null
             // an immediate return of the control flow is performed
             if (items === undefined || items === null) {
-                return;
+                return false;
             }
 
             // if this request was triggered for pagination then
@@ -201,6 +204,8 @@ export const FilterPlatforme = {
             this.items = !pagination ? items : [...this.items, ...items];
             this.loading = false;
             this.itemsToLoad = items.length === this.limit;
+
+            return true;
         }
     }
 };
