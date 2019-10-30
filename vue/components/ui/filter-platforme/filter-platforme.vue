@@ -205,6 +205,8 @@ export const FilterPlatforme = {
             this.loading = false;
             this.itemsToLoad = items.length === this.limit;
 
+            // returns a valid value as an "effective" refresh operation
+            // has just been performed (all tests passed)
             return true;
         }
     }
