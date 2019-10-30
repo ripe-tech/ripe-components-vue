@@ -161,8 +161,14 @@ export const FilterPlatforme = {
         removeItem(index) {
             this.items.splice(index, 1);
         },
-        async refresh() {
-            // saves the signature that triggered this request
+        async refresh(force = true) {
+            // in case there's a request already being handled and
+            // the force flag is not set returns immediately, not
+            // going to override the request
+            if (!force && this.loading) return false;
+
+            // saves the signature that triggered this request and
+            // marks the current component as loading
             const options = this.options;
             const signature = this.signature;
             this.loading = true;
