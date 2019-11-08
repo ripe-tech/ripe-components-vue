@@ -4,6 +4,7 @@
         v-bind:src="src"
         v-bind:alt="alt"
         v-on:load="loaded = true"
+        v-on:click="event => $emit('click', event)"
     />
 </template>
 
@@ -12,7 +13,7 @@
 
 img {
     opacity: 0;
-    transition: opacity 0.15s ease-out;
+    transition: opacity 0.35s ease-out;
 }
 
 img.loaded {
