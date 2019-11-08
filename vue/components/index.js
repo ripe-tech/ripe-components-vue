@@ -7,6 +7,7 @@ import { DropdownPlatforme } from "./ui/dropdown-platforme/dropdown-platforme.vu
 import { FilterPlatforme } from "./ui/filter-platforme/filter-platforme.vue";
 import { FooterPlatforme } from "./ui/footer-platforme/footer-platforme.vue";
 import { HeaderPlatforme } from "./ui/header-platforme/header-platforme.vue";
+import { ImagePlatforme } from "./ui/image-platforme/image-platforme.vue";
 import { LightboxPlatforme } from "./ui/lightbox-platforme/lightbox-platforme.vue";
 import { LoaderPlatforme } from "./ui/loader-platforme/loader-platforme.vue";
 import { OverlayPlatforme } from "./ui/overlay-platforme/overlay-platforme.vue";
@@ -27,6 +28,7 @@ const install = Vue => {
     Vue.component("filter-platforme", FilterPlatforme);
     Vue.component("footer-platforme", FooterPlatforme);
     Vue.component("header-platforme", HeaderPlatforme);
+    Vue.component("image-platforme", ImagePlatforme);
     Vue.component("loader-platforme", LoaderPlatforme);
     Vue.component("lightbox-platforme", LightboxPlatforme);
     Vue.component("overlay-platforme", OverlayPlatforme);
@@ -46,6 +48,7 @@ export {
     FilterPlatforme,
     FooterPlatforme,
     HeaderPlatforme,
+    ImagePlatforme,
     LoaderPlatforme,
     LightboxPlatforme,
     OverlayPlatforme,
