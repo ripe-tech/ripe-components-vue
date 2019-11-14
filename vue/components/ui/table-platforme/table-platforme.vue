@@ -98,6 +98,28 @@ table ::v-deep td.image img {
     width: auto;
 }
 
+table ::v-deep td > * {
+    vertical-align: middle;
+}
+
+table ::v-deep td a {
+    border: none;
+    display: inline-block;
+    height: 20px;
+    padding: 0px 0px 0px 0px;
+}
+
+table ::v-deep td.icons .icon {
+    height: 20px;
+    margin-right: 4px;
+    opacity: 0.6;
+    transition: opacity 0.125s ease-in-out;
+}
+
+table ::v-deep td.icons .icon:hover {
+    opacity: 1;
+}
+
 .column {
     transition: color 0.1s ease-in;
 }
