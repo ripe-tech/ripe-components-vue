@@ -91,22 +91,18 @@ table ::v-deep td > * {
     vertical-align: middle;
 }
 
-table ::v-deep td.image img {
-    height: auto;
-    max-height: 100%;
-    max-width: 100%;
-    width: auto;
-}
-
-table ::v-deep td > * {
-    vertical-align: middle;
-}
-
 table ::v-deep td a {
     border: none;
     display: inline-block;
     height: 20px;
     padding: 0px 0px 0px 0px;
+}
+
+table ::v-deep td.image img {
+    height: auto;
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
 }
 
 table ::v-deep td.icons .icon {
