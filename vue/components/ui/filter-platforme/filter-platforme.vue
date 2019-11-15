@@ -145,8 +145,7 @@ export const FilterPlatforme = {
             }
             this.start += this.limit;
         },
-        parseQuery() {
-            const query = this.$route.query;
+        parseQuery(query = this.$route.query) {
             const { sort, reverse, filter } = query;
             return {
                 sort: sort || undefined,
@@ -154,9 +153,23 @@ export const FilterPlatforme = {
                 filter: filter || undefined
             };
         },
+        isSameQuery(left, right) {
+            const parsedLeft = this.parseQuery(left);
+            const parsedRight = this.parseQuery(right);
+
+            return (
+                parsedLeft.sort === parsedRight.sort &&
+                parsedLeft.reverse === parsedRight.reverse &&
+                parsedLeft.filter === parsedRight.filter
+            );
+        },
         updateQuery(options) {
             const { sort, reverse, filter } = options;
-            this.$router.replace({ query: { ...this.$route.query, sort, reverse, filter } });
+            const current = this.$route.query;
+
+            if (this.isSameQuery(current, { sort, reverse, filter })) return;
+
+            this.$router.replace({ query: { ...current, sort, reverse, filter } });
         },
         setItem(index, item) {
             this.items.$set(index, item);
