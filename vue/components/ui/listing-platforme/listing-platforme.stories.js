@@ -1,10 +1,8 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text } from "@storybook/addon-knobs";
-import StoryRouter from "storybook-vue-router";
 
 storiesOf("Listing", module)
     .addDecorator(withKnobs)
-    .addDecorator(StoryRouter())
     .add("Mock", () => ({
         props: {
             context: {
@@ -61,6 +59,7 @@ storiesOf("Listing", module)
                     v-bind:columns="columns"
                     v-bind:get-items="getItems"
                     v-bind:name="'jobs'"
+                    v-bind:use-query="false"
                     v-bind:filter-fields="filterFields"
                 >
                     <template v-slot:icons>

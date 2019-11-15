@@ -24,7 +24,7 @@
                 v-bind:get-items="getItemsWithParams"
                 v-bind:columns="columns"
                 v-bind:filter="filter"
-                v-bind:use-query="true"
+                v-bind:use-query="useQuery"
                 v-bind:loading.sync="loading"
                 v-bind:items.sync="items"
                 v-bind:options.sync="filterOptions"
@@ -310,6 +310,10 @@ export const ListingPlatforme = {
         filterText: {
             type: String,
             default: null
+        },
+        useQuery: {
+            type: Boolean,
+            default: true
         }
     },
     data: function() {
