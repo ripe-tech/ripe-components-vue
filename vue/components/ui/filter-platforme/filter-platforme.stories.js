@@ -1,6 +1,6 @@
 import { storiesOf } from "@storybook/vue";
 
-storiesOf("Input", module).add("Filter", () => ({
+storiesOf("Filter", module).add("Filter", () => ({
     props: {
         filterColumns: {
             type: Array,
@@ -9,44 +9,9 @@ storiesOf("Input", module).add("Filter", () => ({
                 { id: "name", title: "Name" },
                 { id: "car", title: "Car" }
             ]
-        },
-        getItems: {
-            type: Array,
-            default: () => [
-                {
-                    id: 1,
-                    name: "John",
-                    car: "Mercedes Benz"
-                },
-                {
-                    id: 2,
-                    name: "Marie",
-                    car: "Volvo"
-                },
-                {
-                    id: 3,
-                    name: "Anna",
-                    car: "Land Rover"
-                }
-            ]
-
         }
     },
-    computed: {
-        matches() {
-          return this.search
-            ? this.editions.filter(edition => {
-              let match = false
-              for (let key in edition) {
-                if (edition[key].toLowerCase().includes(this.search.toLowerCase())) {
-                  return true
-                }
-              }
-            })
-            : this.editions
-        }
-      },        
-      methods: {
+    methods: {
         getItems({ options = {}, params = {} } = {}) {
             return [
                 {
@@ -69,10 +34,17 @@ storiesOf("Input", module).add("Filter", () => ({
     },
     template: `
     <div>
+    <container-platforme>
+    <div class="container-header">
+        <div class="container-header-right">
+            <search-platforme placeholder="Search Orders" v-bind:value.sync="filter" />
+        </div>
+    </div>
       <filter-platforme 
       v-bind:getItems="getItems"
       v-bind:columns="filterColumns"
       v-bind:filter="filter"
+      v-bind:options.sync="filterOptions"
       >
       <template v-slot:item="{ item, index, addFilter }">
         <td class="id">
@@ -87,6 +59,6 @@ storiesOf("Input", module).add("Filter", () => ({
         </template>
       </filter-platforme>
     </div>
-
+<container-platforme/>
     `
 }));
