@@ -40,6 +40,7 @@ table {
     margin: 0px 0px 0px 0px;
     margin: 20px 0px 32px 0px;
     table-layout: fixed;
+    text-align: center;
     width: 100%;
 }
 
