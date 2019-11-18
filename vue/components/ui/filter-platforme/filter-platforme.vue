@@ -148,7 +148,8 @@ export const FilterPlatforme = {
             }
             this.start += this.limit;
         },
-        parseQuery(query = this.$route.query) {
+        parseQuery() {
+            const query = this.$route.query;
             const { sort, reverse, filter } = query;
             return {
                 sort: sort || undefined,
