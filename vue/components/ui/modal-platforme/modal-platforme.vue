@@ -196,6 +196,16 @@ export const ModalPlatforme = {
             this.visibleData = value;
         }
     },
+    mounted: function() {
+        this.$bus.$on("show-modal", modalName => {
+            if (modalName !=== this.name) return;
+            this.show();
+        });
+        this.$bus.$on("hide-modal", modalName => {
+            if (modalName !=== this.name) return;
+            this.hide();
+        });
+    },
     methods: {
         show() {
             if (this.visibleData) return;
