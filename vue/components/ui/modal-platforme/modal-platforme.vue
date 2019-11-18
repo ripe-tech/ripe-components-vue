@@ -198,11 +198,11 @@ export const ModalPlatforme = {
     },
     mounted: function() {
         this.$bus.$on("show-modal", modalName => {
-            if (modalName !=== this.name) return;
+            if (modalName !== this.name) return;
             this.show();
         });
         this.$bus.$on("hide-modal", modalName => {
-            if (modalName !=== this.name) return;
+            if (modalName !== this.name) return;
             this.hide();
         });
     },
