@@ -41,6 +41,8 @@
 </style>
 
 <script>
+import { equal } from "yonius";
+
 export const FilterPlatforme = {
     props: {
         filter: {
@@ -156,7 +158,18 @@ export const FilterPlatforme = {
         },
         updateQuery(options) {
             const { sort, reverse, filter } = options;
-            this.$router.replace({ query: { ...this.$route.query, sort, reverse, filter } });
+
+            const current = this.$route.query;
+            const next = {
+                ...current,
+                sort: String(sort),
+                reverse: String(reverse),
+                filter: String(filter)
+            };
+
+            if (equal(current, next)) return;
+
+            this.$router.replace({ query: next });
         },
         setItem(index, item) {
             this.items.$set(index, item);
