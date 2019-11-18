@@ -5,16 +5,17 @@ storiesOf("Button Color", module)
     .addDecorator(withKnobs)
     .add("Button Color", () => ({
         props: {
-            text: {
-                default: text("Text", "Button Color")
-            },
             secondary: {
                 default: boolean("Secondary", false)
+            },
+            color: {
+                default: text("Color", "")
             }
         },
         template: `
             <div>
-                <button-color-platforme v-bind:text="text" v-bind:secondary="secondary"></button-color-platforme>
+                <button-color-platforme v-bind:text="'Normal Button'" v-bind:secondary="secondary" v-bind:color="color"></button-color-platforme>
+                <button-color-platforme v-bind:text="'Small Button'" v-bind:secondary="secondary" v-bind:small="true" v-bind:color="color"></button-color-platforme>
             </div>
         `
     }));

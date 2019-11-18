@@ -5,8 +5,8 @@ storiesOf("Modal", module)
     .addDecorator(withKnobs)
     .add("Modal", () => ({
         props: {
-            applyText: {
-                default: text("Apply text", "Ok")
+            confirmText: {
+                default: text("Confirm text", "Confirm")
             },
             buttonClose: {
                 default: boolean("Button close", true)
@@ -49,7 +49,7 @@ storiesOf("Modal", module)
         template: `
             <div>
                 <modal-platforme
-                    v-bind:apply-text="applyText"
+                    v-bind:confirm-text="confirmText"
                     v-bind:button-close="buttonClose"
                     v-bind:cancel-text="cancelText"
                     v-bind:global-events="globalEvents"

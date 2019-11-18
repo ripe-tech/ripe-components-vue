@@ -23,15 +23,17 @@
                     <button-color-platforme
                         v-bind:class="'button-cancel'"
                         v-bind:secondary="true"
+                        v-bind:small="true"
                         v-bind:text="cancelText"
                         v-if="cancelText"
                         v-on:click="cancel"
                     />
                     <button-color-platforme
-                        v-bind:class="'button-apply'"
-                        v-bind:text="applyText"
-                        v-if="applyText"
-                        v-on:click="apply"
+                        v-bind:class="'button-confirm'"
+                        v-bind:small="true"
+                        v-bind:text="confirmText"
+                        v-if="confirmText"
+                        v-on:click="confirm"
                     />
                 </div>
             </div>
@@ -137,7 +139,7 @@ body.mobile .modal > .modal-container > .button.button-close > img {
 export const ModalPlatforme = {
     name: "modal-platforme",
     props: {
-        applyText: {
+        confirmText: {
             type: String,
             default: null
         },
@@ -217,8 +219,8 @@ export const ModalPlatforme = {
             this.visibleData = false;
             this.$emit("update:visible", this.visibleData);
         },
-        apply() {
-            this.$emit("click:apply");
+        confirm() {
+            this.$emit("click:confirm");
             this.hide();
         },
         cancel() {
