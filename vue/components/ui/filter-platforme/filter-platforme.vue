@@ -42,10 +42,8 @@
 
 <script>
 import { equal } from "yonius";
-import { utilsMixin } from "../../../mixins";
 
 export const FilterPlatforme = {
-    mixins: [utilsMixin],
     props: {
         filter: {
             type: String,
