@@ -41,7 +41,10 @@
 </style>
 
 <script>
+import { utilsMixin } from "../../../mixins";
+
 export const FilterPlatforme = {
+    mixins: [utilsMixin],
     props: {
         filter: {
             type: String,
@@ -153,21 +156,11 @@ export const FilterPlatforme = {
                 filter: filter || undefined
             };
         },
-        isSameQuery(left, right) {
-            const parsedLeft = this.parseQuery(left);
-            const parsedRight = this.parseQuery(right);
-
-            return (
-                parsedLeft.sort === parsedRight.sort &&
-                parsedLeft.reverse === parsedRight.reverse &&
-                parsedLeft.filter === parsedRight.filter
-            );
-        },
         updateQuery(options) {
             const { sort, reverse, filter } = options;
             const current = this.$route.query;
 
-            if (this.isSameQuery(current, { sort, reverse, filter })) return;
+            if (this.isObjectEqual(current, { sort, reverse, filter })) return;
 
             this.$router.replace({ query: { ...current, sort, reverse, filter } });
         },

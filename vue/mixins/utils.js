@@ -32,6 +32,34 @@ const utilsMixin = {
         },
         normalize(value) {
             return value.split("_").join(" ");
+        },
+        /**
+         * Checks whether two objects are equal, including nested properties. Two properties
+         * are deemed equal when their string comparison is the same.
+         *
+         * @param {Object} a One of the objects to check for equality.
+         * @param {Object} b The other object to check for equality.
+         * @returns {Boolean} 'true' if the objects are equal, 'false' otherwise.
+         */
+        isObjectEqual(a = {}, b = {}) {
+            if (!a || !b) return a === b;
+
+            const aKeys = Object.keys(a);
+            const bKeys = Object.keys(b);
+
+            if (aKeys.length !== bKeys.length) {
+                return false;
+            }
+
+            return aKeys.every(key => {
+                const aVal = a[key];
+                const bVal = b[key];
+
+                if (typeof aVal === "object" && typeof bVal === "object")
+                    { return this.isObjectEqual(aVal, bVal); }
+
+                return String(aVal) === String(bVal);
+            });
         }
     }
 };
