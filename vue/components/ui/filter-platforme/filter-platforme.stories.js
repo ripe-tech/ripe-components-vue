@@ -33,26 +33,23 @@ storiesOf("Filter", module).add("Filter", () => ({
         }
     },
     template: `
-    <div class="container-header">
-    <div class="container-header-right">
-        <search-platforme placeholder="Search Orders" v-bind:value.sync="filter" />
-    </div>
-      <filter-platforme 
-      v-bind:getItems="getItems"
-      v-bind:columns="filterColumns" 
-      >
-      <template v-slot:item="{ item, index }">
-        <td class="id" style="text-align:center">
-            {{ item.id }}
-        </td>
-        <td class="user" style="text-align:center">
-            {{ item.name }}
-        </td>
-        <td class="device" style="text-align:center">
-            {{ item.car }}
-        </td>
-        </template>
-      </filter-platforme>
+    <div>
+        <filter-platforme 
+            v-bind:getItems="getItems"
+            v-bind:columns="filterColumns" 
+        >
+            <template v-slot:item="{ item, index }">
+                <td class="id">
+                    {{ item.id }}
+                </td>
+                <td class="user">
+                    {{ item.name }}
+                </td>
+                <td class="device">
+                    {{ item.car }}
+                </td>
+                </template>
+        </filter-platforme>
     </div>
     `
 }));
