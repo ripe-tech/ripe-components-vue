@@ -32,45 +32,6 @@ const utilsMixin = {
         },
         normalize(value) {
             return value.split("_").join(" ");
-        },
-        /**
-         * Checks whether two objects are equal, including nested properties.
-         *
-         * @param {Object} a One of the objects to check for equality.
-         * @param {Object} b The other object to check for equality.
-         * @param {String} compareStrategy The property comparison strategy to use.
-         * @returns {Boolean} 'true' if the objects are equal, 'false' otherwise.
-         */
-        isObjectEqual(a = {}, b = {}, compareStrategy = "string") {
-            if (!a || !b) return a === b;
-
-            const aKeys = Object.keys(a);
-            const bKeys = Object.keys(b);
-
-            if (aKeys.length !== bKeys.length) {
-                return false;
-            }
-
-            let compareFunction;
-
-            switch (compareStrategy) {
-                case "string":
-                    compareFunction = (left, right) => String(left) === String(right);
-                    break;
-                default:
-                    throw new Error(`Unknown compare strategy '${compareStrategy}'`);
-            }
-
-            return aKeys.every(key => {
-                const aVal = a[key];
-                const bVal = b[key];
-
-                if (typeof aVal === "object" && typeof bVal === "object") {
-                    return this.isObjectEqual(aVal, bVal);
-                }
-
-                return compareFunction(aVal, bVal);
-            });
         }
     }
 };

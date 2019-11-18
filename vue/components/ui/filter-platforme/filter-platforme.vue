@@ -41,6 +41,7 @@
 </style>
 
 <script>
+import { equal } from "yonius";
 import { utilsMixin } from "../../../mixins";
 
 export const FilterPlatforme = {
@@ -159,11 +160,18 @@ export const FilterPlatforme = {
         },
         updateQuery(options) {
             const { sort, reverse, filter } = options;
+
             const current = this.$route.query;
+            const next = {
+                ...current,
+                sort: String(sort),
+                reverse: String(reverse),
+                filter: String(filter)
+            };
 
-            if (this.isObjectEqual(current, { sort, reverse, filter })) return;
+            if (equal(current, next)) return;
 
-            this.$router.replace({ query: { ...current, sort, reverse, filter } });
+            this.$router.replace({ query: next });
         },
         setItem(index, item) {
             this.items.$set(index, item);
