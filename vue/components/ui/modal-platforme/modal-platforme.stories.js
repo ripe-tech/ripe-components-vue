@@ -20,6 +20,9 @@ storiesOf("Modal", module)
             name: {
                 default: text("Name", "Modal")
             },
+            text: {
+                default: text("Text", "This is a modal.")
+            },
             title: {
                 default: text("Title", "RIPE Components Vue")
             },
@@ -57,7 +60,7 @@ storiesOf("Modal", module)
                     v-bind:sub-title="subTitle"
                     v-bind:visible="visible"
                 >
-                    <p>This is a modal.</p>
+                    <p>{{ text }}</p>
                 </modal-platforme>
             </div>
         `

@@ -1,15 +1,5 @@
 <template>
-    <transition
-        name="fade"
-        v-on:before-enter="beforeEnter"
-        v-on:enter="enter"
-        v-on:after-enter="afterEnter"
-        v-on:enter-cancelled="enterCancelled"
-        v-on:before-leave="beforeLeave"
-        v-on:leave="leave"
-        v-on:after-leave="afterLeave"
-        v-on:leave-cancelled="leaveCancelled"
-    >
+    <transition name="fade">
         <div v-bind:class="['modal', className]" v-show="isVisible" v-bind:id="className">
             <global-events v-on:keydown.esc="handleGlobal" />
             <div
@@ -30,20 +20,19 @@
                     <slot />
                 </div>
                 <div class="buttons-container">
-                    <div
-                        class="button button-color button-color-secondary button-cancel"
+                    <button-color-platforme
+                        v-bind:class="'button-cancel'"
+                        v-bind:secondary="true"
+                        v-bind:text="cancelText"
                         v-if="cancelText"
                         v-on:click="cancel"
-                    >
-                        {{ cancelText }}
-                    </div>
-                    <div
-                        class="button button-color button-apply"
+                    />
+                    <button-color-platforme
+                        v-bind:class="'button-apply'"
+                        v-bind:text="applyText"
                         v-if="applyText"
                         v-on:click="apply"
-                    >
-                        {{ applyText }}
-                    </div>
+                    />
                 </div>
             </div>
         </div>
@@ -97,15 +86,14 @@
     overflow-y: auto;
     padding: 40px 40px 40px 40px;
     position: relative;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 25%;
     transition: opacity 0.125s ease-out 0.125s, transform 0.25s ease-in-out 0.125s;
 }
 
 body.tablet .modal > .modal-container,
 body.mobile .modal > .modal-container {
     box-sizing: border-box;
-    max-height: 90%;
+    max-height: 100%;
     max-width: 100%;
     padding: 20px 10px 20px 10px;
 }
@@ -113,12 +101,10 @@ body.mobile .modal > .modal-container {
 .modal.fade-enter > .modal-container,
 .modal.fade-leave-to > .modal-container {
     opacity: 0;
-    transform: translateY(-48%);
 }
 
 .modal.fade-enter-to > .modal-container {
     opacity: 1;
-    transform: translateY(-50%);
 }
 
 .modal > .modal-container > .button.button-close {
@@ -140,24 +126,6 @@ body.mobile .modal > .modal-container {
 body.mobile .modal > .modal-container > .button.button-close > img {
     height: 15px;
     width: 15px;
-}
-
-.modal > .modal-container > .modal-content {
-    opacity: 1;
-    transition: opacity 0.25s ease-in-out 0.125s;
-}
-
-.modal.fade-enter > .modal-container > .modal-content,
-.modal.fade-leave-to > .modal-container > .modal-content {
-    opacity: 0;
-}
-
-.modal.fade-enter-to > .modal-container > .modal-content {
-    opacity: 1;
-}
-
-.modal > .modal-container > .buttons-container > .button {
-    display: inline-block;
 }
 
 .modal > .modal-container > .buttons-container > .button.button-cancel {
@@ -248,7 +216,7 @@ export const ModalPlatforme = {
             this.hide();
         },
         handleClose() {
-            this.hide()
+            this.hide();
         },
         handleGlobal() {
             if (!this.globalEvents) return;
@@ -257,30 +225,6 @@ export const ModalPlatforme = {
         handleOverlayLeave() {
             if (!this.overlayLeave) return;
             this.hide();
-        },
-        beforeEnter() {
-            this.$emit("before_enter");
-        },
-        enter() {
-            this.$emit("enter");
-        },
-        afterEnter() {
-            this.$emit("after_enter");
-        },
-        enterCancelled() {
-            this.$emit("enter_cancelled");
-        },
-        beforeLeave() {
-            this.$emit("before_leave");
-        },
-        leave() {
-            this.$emit("leave");
-        },
-        afterLeave() {
-            this.$emit("after_leave");
-        },
-        leaveCancelled() {
-            this.$emit("leave_cancelled");
         }
     }
 };
