@@ -6,7 +6,7 @@ storiesOf("Button Color", module)
     .add("Button Color", () => ({
         props: {
             text: {
-                default: text("Text", "Ok")
+                default: text("Text", "Button Color")
             },
             secondary: {
                 default: boolean("Secondary", false)
