@@ -5,14 +5,26 @@ storiesOf("Modal", module)
     .addDecorator(withKnobs)
     .add("Modal", () => ({
         props: {
+            applyText: {
+                default: text("Apply text", "Ok")
+            },
             buttonClose: {
                 default: boolean("Button close", true)
+            },
+            cancelText: {
+                default: text("Cancel text", "Cancel")
             },
             globalEvents: {
                 default: boolean("Global events", true)
             },
             name: {
                 default: text("Name", "Modal")
+            },
+            title: {
+                default: text("Title", "RIPE Components Vue")
+            },
+            subTitle: {
+                default: text("Sub-title", "Modal")
             },
             overlay: {
                 default: boolean("Overlay", true)
@@ -34,11 +46,15 @@ storiesOf("Modal", module)
         template: `
             <div>
                 <modal-platforme
+                    v-bind:apply-text="applyText"
                     v-bind:button-close="buttonClose"
+                    v-bind:cancel-text="cancelText"
                     v-bind:global-events="globalEvents"
                     v-bind:name="name"
                     v-bind:overlay="overlay"
                     v-bind:overlay-leave="overlayLeave"
+                    v-bind:title="title"
+                    v-bind:sub-title="subTitle"
                     v-bind:visible="visible"
                 >
                     <p>This is a modal.</p>
