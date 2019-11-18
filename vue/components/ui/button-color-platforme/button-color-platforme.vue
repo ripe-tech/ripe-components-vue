@@ -14,19 +14,19 @@
 .button-color {
     background-color: #000000;
     border: 1px solid #0d0d0d;
+    border-radius: 6px 6px 6px 6px;
     box-sizing: border-box;
     color: #ffffff;
     cursor: pointer;
     display: inline-block;
     font-size: 13px;
-    letter-spacing: 0.5px;
     height: 40px;
+    letter-spacing: 0.5px;
     line-height: 40px;
     min-width: 160px;
     padding: 0px 20px 0px 20px;
-    border-radius: 6px 6px 6px 6px;
-    user-select: none;
     text-align: center;
+    user-select: none;
 }
 
 .button-color.disabled {
