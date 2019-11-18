@@ -30,35 +30,40 @@ storiesOf("Filter", module).add("Filter", () => ({
                     car: "Renault"
                 }
             ];
+        },
+        getFilter() {
+            return this.$refs.orderFilter;
+        },
+        addFilter(key, value) {
+            const base = `${key}=`;
+            const tuple = `${key}=${value}`;
+            if (this.filter && this.filter.search(base) !== -1) return;
+            this.filter += this.filter ? ` and ${tuple}` : tuple;
+            this.showScrollTop = true;
+            this.scrollTop = true;
         }
     },
     template: `
-    <div>
-    <container-platforme>
     <div class="container-header">
-        <div class="container-header-right">
-            <search-platforme placeholder="Search Orders" v-bind:value.sync="filter" />
-        </div>
+    <div class="container-header-right">
+        <search-platforme placeholder="Search Orders" v-bind:value.sync="filter" />
     </div>
       <filter-platforme 
       v-bind:getItems="getItems"
-      v-bind:columns="filterColumns"
-      v-bind:filter="filter"
-      v-bind:options.sync="filterOptions"
+      v-bind:columns="filterColumns" 
       >
-      <template v-slot:item="{ item, index, addFilter }">
-        <td class="id">
+      <template v-slot:item="{ item, index }">
+        <td class="id" style="text-align:center">
             {{ item.id }}
         </td>
-        <td class="user" v-on:click="addFilter('user', item.user)">
-            {{ item.name || "-" }}
+        <td class="user" style="text-align:center">
+            {{ item.name }}
         </td>
-        <td class="device" v-on:click="addFilter('device', item.device)">
+        <td class="device" style="text-align:center">
             {{ item.car }}
         </td>
         </template>
       </filter-platforme>
     </div>
-<container-platforme/>
     `
 }));
