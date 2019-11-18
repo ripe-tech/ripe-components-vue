@@ -11,15 +11,15 @@
         v-on:leave-cancelled="leaveCancelled"
     >
         <div v-bind:class="['modal', className]" v-show="isVisible" v-bind:id="className">
-            <global-events v-on:keydown.esc="hide" />
+            <global-events v-on:keydown.esc="handleGlobal" />
             <div
                 class="modal-overlay"
                 v-bind:class="{ clickable: overlayLeave }"
                 v-if="overlay"
-                v-on:click="overlayLeave && hide()"
+                v-on:click="handleOverlayLeave"
             />
             <div class="modal-container">
-                <div class="button button-close" v-if="buttonClose" v-on:click="hide()">
+                <div class="button button-close" v-if="buttonClose" v-on:click="handleClose">
                     <slot name="button-close-content">
                         <img src="~./assets/close.svg" />
                     </slot>
@@ -247,8 +247,15 @@ export const ModalPlatforme = {
             this.$emit("click:cancel");
             this.hide();
         },
+        handleClose() {
+            this.hide()
+        },
         handleGlobal() {
             if (!this.globalEvents) return;
+            this.hide();
+        },
+        handleOverlayLeave() {
+            if (!this.overlayLeave) return;
             this.hide();
         },
         beforeEnter() {
