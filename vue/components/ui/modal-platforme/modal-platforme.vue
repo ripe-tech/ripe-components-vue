@@ -20,21 +20,23 @@
                     <slot />
                 </div>
                 <div class="buttons-container">
-                    <button-color-platforme
-                        v-bind:class="'button-cancel'"
-                        v-bind:secondary="true"
-                        v-bind:small="true"
-                        v-bind:text="cancelText"
-                        v-if="cancelText"
-                        v-on:click="cancel"
-                    />
-                    <button-color-platforme
-                        v-bind:class="'button-confirm'"
-                        v-bind:small="true"
-                        v-bind:text="confirmText"
-                        v-if="confirmText"
-                        v-on:click="confirm"
-                    />
+                    <slot name="buttons-content">
+                        <button-color-platforme
+                            v-bind:class="'button-cancel'"
+                            v-bind:secondary="true"
+                            v-bind:small="true"
+                            v-bind:text="cancelText"
+                            v-if="buttonCancel && cancelText"
+                            v-on:click="cancel"
+                        />
+                        <button-color-platforme
+                            v-bind:class="'button-confirm'"
+                            v-bind:small="true"
+                            v-bind:text="confirmText"
+                            v-if="buttonConfirm && confirmText"
+                            v-on:click="confirm"
+                        />
+                    </slot>
                 </div>
             </div>
         </div>
@@ -143,13 +145,21 @@ export const ModalPlatforme = {
             type: String,
             default: null
         },
-        buttonClose: {
-            type: Boolean,
-            default: true
-        },
         cancelText: {
             type: String,
             default: null
+        },
+        buttonConfirm: {
+            type: Boolean,
+            default: true
+        },
+        buttonCancel: {
+            type: Boolean,
+            default: true
+        },
+        buttonClose: {
+            type: Boolean,
+            default: true
         },
         globalEvents: {
             type: Boolean,
