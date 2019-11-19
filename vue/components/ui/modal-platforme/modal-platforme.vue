@@ -10,9 +10,9 @@
                 v-on:click="onOverlayClick"
             />
             <div class="modal-container">
-                <div class="button button-close" v-if="buttonClose" v-on:click="handleClose">
+                <div class="button button-close" v-if="buttonClose">
                     <slot name="button-close-content">
-                        <img src="~./assets/close.svg" />
+                        <img src="~./assets/close.svg" v-on:click="handleClose" />
                     </slot>
                 </div>
                 <h1 class="title" v-if="title">{{ title }}</h1>
@@ -72,35 +72,27 @@
     opacity: 1;
 }
 
-.modal > .modal-overlay {
-    background-color: rgba(0, 0, 0, 0.5);
-    height: 100%;
-    left: 0px;
-    position: absolute;
-    top: 0px;
-    width: 100%;
-}
-
 .modal > .modal-container {
     background-color: #ffffff;
     border-radius: 4px 4px 4px 4px;
     box-shadow: 0px 0px 12px #2d2d2d;
+    box-sizing: border-box;
     display: inline-block;
     max-height: 80%;
+    max-height: 100%;
+    max-width: 100%;
     opacity: 1;
     overflow-y: auto;
-    padding: 40px 40px 40px 40px;
+    padding: 20px 26px 20px 26px;
     position: relative;
     top: 25%;
     transition: opacity 0.125s ease-out 0.125s, transform 0.25s ease-in-out 0.125s;
+    width: 460px;
 }
 
 body.tablet .modal > .modal-container,
 body.mobile .modal > .modal-container {
-    box-sizing: border-box;
-    max-height: 100%;
-    max-width: 100%;
-    padding: 20px 10px 20px 10px;
+    padding: 14px 20px 14px 20px;
 }
 
 .modal.fade-enter > .modal-container,
@@ -113,15 +105,18 @@ body.mobile .modal > .modal-container {
 }
 
 .modal > .modal-container > .button.button-close {
+    box-sizing: border-box;
     left: 0px;
     margin: auto;
     padding: 5px 5px 5px 5px;
     position: absolute;
-    text-align: left;
+    text-align: right;
     top: 0px;
+    width: 100%;
 }
 
 .modal > .modal-container > .button.button-close > img {
+    cursor: pointer;
     height: 25px;
     margin: auto;
     vertical-align: middle;
@@ -135,6 +130,20 @@ body.mobile .modal > .modal-container > .button.button-close > img {
 
 .modal > .modal-container > .buttons-container > .button.button-cancel {
     margin-right: 20px;
+}
+
+.modal > .modal-container > .title {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0px 0px 12px 0px;
+    text-align: left;
+}
+
+.modal > .modal-container > .modal-content {
+    font-size: 13px;
+    font-weight: 500;
+    margin: 20px 0px 20px 0px;
+    text-align: left;
 }
 </style>
 
