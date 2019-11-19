@@ -1,9 +1,9 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, boolean } from "@storybook/addon-knobs";
 
-storiesOf("Lightbox", module)
+storiesOf("Image", module)
     .addDecorator(withKnobs)
-    .add("Image", () => ({
+    .add("Lightbox", () => ({
         props: {
             visible: {
                 default: boolean("Visible", false)

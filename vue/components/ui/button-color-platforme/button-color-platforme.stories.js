@@ -1,9 +1,9 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text, boolean } from "@storybook/addon-knobs";
 
-storiesOf("Button Color", module)
+storiesOf("Button", module)
     .addDecorator(withKnobs)
-    .add("Button Color", () => ({
+    .add("Color", () => ({
         props: {
             secondary: {
                 default: boolean("Secondary", false)

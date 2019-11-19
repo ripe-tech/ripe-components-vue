@@ -32,6 +32,7 @@
     margin: 24px 0px 24px 0px;
     opacity: 0;
     pointer-events: none;
+    text-align: center;
 }
 
 .loading .loader {

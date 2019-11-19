@@ -3,7 +3,7 @@ import { withKnobs, text, boolean } from "@storybook/addon-knobs";
 
 storiesOf("Button", module)
     .addDecorator(withKnobs)
-    .add("Base", () => ({
+    .add("Platforme ID", () => ({
         props: {
             normalText: {
                 default: text("Text Normal", "Button")

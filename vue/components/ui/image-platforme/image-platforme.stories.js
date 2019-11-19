@@ -3,7 +3,7 @@ import { withKnobs, text } from "@storybook/addon-knobs";
 
 storiesOf("Image", module)
     .addDecorator(withKnobs)
-    .add("Base", () => ({
+    .add("Simple", () => ({
         props: {
             src: {
                 default: text("Source", "https://cdn.platforme.com/images/favicon.png")
