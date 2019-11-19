@@ -76,19 +76,19 @@ export const AlertPlatforme = {
 
             this.visible = true;
         },
-        onUpdateVisible(visible) {
-            if (visible) return;
-            this.onDone("alert_cancel");
-        },
-        onConfirm() {
-            this.onDone("alert_confirm");
-        },
-        onCancel() {
-            this.onDone("alert_cancel");
-        },
-        onDone(event) {
+        markDone(event) {
             this.$bus.$emit(event);
             this.visible = false;
+        },
+        onUpdateVisible(visible) {
+            if (visible) return;
+            this.markDone("alert_cancel");
+        },
+        onConfirm() {
+            this.markDone("alert_confirm");
+        },
+        onCancel() {
+            this.markDone("alert_cancel");
         }
     }
 };

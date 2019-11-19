@@ -30,7 +30,8 @@ const partMixin = {
             }
             return true;
         },
-        async alert(options) {
+        async alert(message, options = {}) {
+            options.text = message;
             const promise = new Promise((resolve, reject) => {
                 try {
                     this.$bus.$on("alert_confirm", () => resolve(true));
@@ -39,17 +40,8 @@ const partMixin = {
                     reject(err);
                 }
             });
-
             this.$bus.$emit("alert", options);
-
-            return promise;
-        },
-        async doAlert(options, action) {
-            const confirmed = await this.alert(options);
-
-            if (!confirmed) return;
-
-            const result = await action();
+            const result = await promise;
             return result;
         }
     }
