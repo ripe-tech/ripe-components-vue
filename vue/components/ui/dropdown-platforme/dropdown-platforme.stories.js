@@ -72,7 +72,7 @@ storiesOf("Dropdown", module)
         template: `
             <div style="max-width: 200px">
                 <dropdown-platforme v-bind:items="items" v-bind:visible="visible">
-                    <template slot-scope="{ item: { id, text, subtext } }">
+                    <template v-slot="{ item: { id, text, subtext } }">
                         <b>{{ text }}</b>
                         <pre v-if="subtext">{{ subtext }}</pre>
                     </template>

@@ -10,8 +10,8 @@
                 v-bind:initial-sort="sort"
                 v-bind:initial-reverse="reverse"
             >
-                <template slot-scope="scope">
-                    <slot name="item" v-bind="scope" />
+                <template v-slot="{ item, index }">
+                    <slot name="item" v-bind:item="item" v-bind:index="index" />
                 </template>
             </table-platforme>
             <div class="empty-message" v-if="items.length === 0 && loading === false">
