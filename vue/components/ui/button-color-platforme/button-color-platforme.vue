@@ -110,7 +110,11 @@ export const ButtonColorPlatforme = {
                 "button-color-secondary": this.secondary,
                 "button-color-small": this.small
             };
-            base["button-color-" + this.color] = this.color;
+
+            if (this.color) {
+                base["button-color-" + this.color] = this.color;
+            }
+
             return base;
         }
     }
