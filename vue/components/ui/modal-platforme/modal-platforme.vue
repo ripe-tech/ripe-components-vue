@@ -109,6 +109,7 @@ body.mobile .modal > .modal-container {
     margin: auto;
     padding: 4px 4px 4px 4px;
     pointer-events: all;
+    transition: background-color 0.15s ease-in-out;
     user-select: none;
     vertical-align: middle;
     width: 25px;
@@ -141,7 +142,7 @@ body.mobile .modal > .modal-container > .button.button-close > img {
 }
 
 .modal > .modal-container > .title {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
     letter-spacing: 0.5px;
     margin: 0px 0px 12px 0px;
@@ -149,7 +150,7 @@ body.mobile .modal > .modal-container > .button.button-close > img {
 }
 
 .modal > .modal-container > .sub-title {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     letter-spacing: 0.5px;
     margin: 0px 0px 12px 0px;
@@ -157,11 +158,11 @@ body.mobile .modal > .modal-container > .button.button-close > img {
 }
 
 .modal > .modal-container > .modal-content {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
     letter-spacing: 0.25px;
-    line-height: 20px;
-    margin: 20px 0px 24px 0px;
+    line-height: 22px;
+    margin: 22px 0px 26px 0px;
     text-align: left;
 }
 </style>

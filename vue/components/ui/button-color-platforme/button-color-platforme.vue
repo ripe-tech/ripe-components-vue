@@ -29,6 +29,7 @@
     min-width: 180px;
     padding: 0px 20px 0px 20px;
     text-align: center;
+    transition: background-color 0.15s ease-in-out;
     user-select: none;
 }
 
@@ -56,6 +57,7 @@
     background-color: #ffffff;
     border: solid 1px #e4e8f0;
     color: #57626e;
+    transition: none;
 }
 
 .button-color.button-color-secondary.disabled,
