@@ -10,7 +10,7 @@ storiesOf("Modal", module)
             },
             buttonsAlignment: {
                 default: select(
-                    "Buttons alignment",
+                    "Buttons Alignment",
                     {
                         Center: "center",
                         Right: "right",
@@ -20,13 +20,13 @@ storiesOf("Modal", module)
                 )
             },
             buttonClose: {
-                default: boolean("Button close", true)
+                default: boolean("Button Close", true)
             },
             cancelText: {
-                default: text("Cancel text", "Cancel")
+                default: text("Cancel Text", "Cancel")
             },
             globalEvents: {
-                default: boolean("Global events", true)
+                default: boolean("Global Events", true)
             },
             name: {
                 default: text("Name", "Modal")
@@ -41,13 +41,13 @@ storiesOf("Modal", module)
                 default: text("Title", "Do you want to cancel the Job #1?")
             },
             subTitle: {
-                default: text("Sub-title", "")
+                default: text("Sub-Title", "")
             },
             overlay: {
                 default: boolean("Overlay", true)
             },
             overlayLeave: {
-                default: boolean("Overlay leave", true)
+                default: boolean("Overlay Leave", true)
             },
             visible: {
                 default: boolean("Visible", true)
