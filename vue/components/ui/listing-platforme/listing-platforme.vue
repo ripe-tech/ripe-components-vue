@@ -296,7 +296,8 @@ export const ListingPlatforme = {
             required: true
         },
         filterFields: {
-            type: Object
+            type: Object,
+            default: null
         },
         notFoundText: {
             type: String,
@@ -334,13 +335,13 @@ export const ListingPlatforme = {
             this.scrollTop = true;
         },
         async getItemsWithParams(options) {
-            const filter = {
+            options = this.filterFields ? {
                 params: this.getFilterParams({
                     options: options,
                     filterFields: this.filterFields
                 })
-            };
-            const items = await this.getItems(filter, options);
+            } : options;
+            const items = await this.getItems(options);
             return items;
         },
         setItem(index, item) {
