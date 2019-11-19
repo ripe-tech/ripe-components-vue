@@ -6,7 +6,7 @@ storiesOf("Overlay", module)
     .add("Overlay", () => ({
         props: {
             visible: {
-                default: boolean("Visible", false)
+                default: boolean("Visible", true)
             }
         },
         template: "<overlay-platforme v-bind:visible='visible'></overlay-platforme>"
