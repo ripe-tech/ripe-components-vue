@@ -19,8 +19,10 @@ input[type="text"] {
     border: 1px solid transparent;
     border-radius: 6px 6px 6px 6px;
     box-sizing: border-box;
+    font-family: $font-family;
     font-size: 13px;
     height: 34px;
+    letter-spacing: 0.25px;
     line-height: 34px;
     outline: none;
     padding-left: 12px;
