@@ -1,6 +1,7 @@
 import { RouterLink } from "./mock/router-link/router-link.vue";
 import { ErrorPlatforme } from "./parts/error-platforme/error-platforme.vue";
 import { OAuthPlatforme } from "./parts/oauth-platforme/oauth-platforme.vue";
+import { AlertPlatforme } from "./ui/alert-platforme/alert-platforme.vue";
 import { ButtonColorPlatforme } from "./ui/button-color-platforme/button-color-platforme.vue";
 import { ButtonPlatforme } from "./ui/button-platforme/button-platforme.vue";
 import { ContainerPlatforme } from "./ui/container-platforme/container-platforme.vue";
@@ -26,6 +27,7 @@ const install = Vue => {
     }
     Vue.component("error-platforme", ErrorPlatforme);
     Vue.component("oauth-platforme", OAuthPlatforme);
+    Vue.component("alert-platforme", AlertPlatforme);
     Vue.component("button-color-platforme", ButtonColorPlatforme);
     Vue.component("button-platforme", ButtonPlatforme);
     Vue.component("container-platforme", ContainerPlatforme);
@@ -50,6 +52,7 @@ export {
     RouterLink,
     ErrorPlatforme,
     OAuthPlatforme,
+    AlertPlatforme,
     ButtonColorPlatforme,
     ButtonPlatforme,
     ContainerPlatforme,
