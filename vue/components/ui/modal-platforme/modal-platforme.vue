@@ -20,7 +20,7 @@
                 <div class="modal-content">
                     <slot />
                 </div>
-                <div class="buttons-container">
+                <div class="buttons-container" v-bind:style="{ 'text-align': buttonsAlignment }">
                     <slot name="buttons-content">
                         <button-color-platforme
                             v-bind:class="'button-cancel'"
@@ -108,7 +108,7 @@ body.mobile .modal > .modal-container {
     box-sizing: border-box;
     left: 0px;
     margin: auto;
-    padding: 5px 5px 5px 5px;
+    padding: 12px 14px 12px 14px;
     position: absolute;
     text-align: right;
     top: 0px;
@@ -116,9 +116,11 @@ body.mobile .modal > .modal-container {
 }
 
 .modal > .modal-container > .button.button-close > img {
+    border-radius: 26px 26px 26px 26px;
     cursor: pointer;
     height: 25px;
     margin: auto;
+    padding: 4px 4px 4px 4px;
     vertical-align: middle;
     width: 25px;
 }
@@ -128,8 +130,21 @@ body.mobile .modal > .modal-container > .button.button-close > img {
     width: 15px;
 }
 
-.modal > .modal-container > .buttons-container > .button.button-cancel {
-    margin-right: 20px;
+.modal > .modal-container > .button.button-close > img:hover {
+    background-color: #f2f2f2;
+}
+
+.modal > .modal-container > .buttons-container > .button {
+    margin: 0px 6px 0px 6px;
+    min-width: 146px;
+}
+
+.modal > .modal-container > .buttons-container > .button:first-child {
+    margin-left: 0px;
+}
+
+.modal > .modal-container > .buttons-container > .button:last-child {
+    margin-right: 0px;
 }
 
 .modal > .modal-container > .title {
@@ -139,10 +154,17 @@ body.mobile .modal > .modal-container > .button.button-close > img {
     text-align: left;
 }
 
+.modal > .modal-container > .sub-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0px 0px 12px 0px;
+    text-align: left;
+}
+
 .modal > .modal-container > .modal-content {
     font-size: 13px;
     font-weight: 500;
-    margin: 20px 0px 20px 0px;
+    margin: 20px 0px 24px 0px;
     text-align: left;
 }
 </style>
@@ -158,6 +180,10 @@ export const ModalPlatforme = {
         cancelText: {
             type: String,
             default: null
+        },
+        buttonsAlignment: {
+            type: String,
+            default: "center"
         },
         buttonConfirm: {
             type: Boolean,

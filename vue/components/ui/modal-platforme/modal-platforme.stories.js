@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, boolean } from "@storybook/addon-knobs";
+import { withKnobs, text, boolean, select } from "@storybook/addon-knobs";
 
 storiesOf("Modal", module)
     .addDecorator(withKnobs)
@@ -7,6 +7,17 @@ storiesOf("Modal", module)
         props: {
             confirmText: {
                 default: text("Confirm text", "Confirm")
+            },
+            buttonsAlignment: {
+                default: select(
+                    "Buttons alignment",
+                    {
+                        Center: "center",
+                        Right: "right",
+                        Left: "left"
+                    },
+                    "center"
+                )
             },
             buttonClose: {
                 default: boolean("Button close", true)
@@ -21,13 +32,16 @@ storiesOf("Modal", module)
                 default: text("Name", "Modal")
             },
             text: {
-                default: text("Text", "This is a modal.")
+                default: text(
+                    "Text",
+                    "This action is irreversible and you will lose your current progress."
+                )
             },
             title: {
-                default: text("Title", "RIPE Components Vue")
+                default: text("Title", "Do you want to cancel the Job #1?")
             },
             subTitle: {
-                default: text("Sub-title", "Modal")
+                default: text("Sub-title", "")
             },
             overlay: {
                 default: boolean("Overlay", true)
@@ -50,6 +64,7 @@ storiesOf("Modal", module)
             <div>
                 <modal-platforme
                     v-bind:confirm-text="confirmText"
+                    v-bind:buttons-alignment="buttonsAlignment"
                     v-bind:button-close="buttonClose"
                     v-bind:cancel-text="cancelText"
                     v-bind:global-events="globalEvents"
