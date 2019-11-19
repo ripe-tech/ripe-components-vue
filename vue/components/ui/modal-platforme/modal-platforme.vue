@@ -9,7 +9,7 @@
                 ref="overlay"
                 v-on:click="onOverlayClick"
             />
-            <div class="modal-container">
+            <div class="modal-container" v-bind:style="{ top: String(paddingTop) + 'px' }" ref="modalContainer">
                 <div class="button button-close" v-if="buttonClose">
                     <slot name="button-close-content">
                         <img src="~./assets/close.svg" v-on:click="handleClose" />
@@ -46,6 +46,7 @@
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
+@import "css/animations.scss";
 
 .modal {
     bottom: 0px;
@@ -59,6 +60,7 @@
 }
 
 .modal > .modal-container {
+    animation: fade-grow-rise 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
     background-color: #ffffff;
     border-radius: 4px 4px 4px 4px;
     box-shadow: 0px 0px 24px #000000;
@@ -71,8 +73,6 @@
     overflow-y: auto;
     padding: 20px 26px 20px 26px;
     position: relative;
-    top: 25%;
-    transition: opacity 0.125s ease-out 0.125s, transform 0.25s ease-in-out 0.125s;
     width: 460px;
 }
 
@@ -81,13 +81,8 @@ body.mobile .modal > .modal-container {
     padding: 14px 20px 14px 20px;
 }
 
-.modal.fade-enter > .modal-container,
 .modal.fade-leave-to > .modal-container {
-    opacity: 0;
-}
-
-.modal.fade-enter-to > .modal-container {
-    opacity: 1;
+    animation: fade-shrink-visibility 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 .modal > .modal-container > .button.button-close {
@@ -222,12 +217,16 @@ export const ModalPlatforme = {
     },
     data: function() {
         return {
-            visibleData: true
+            visibleData: true,
+            paddingTop: 0
         };
     },
     watch: {
         visible(value) {
             this.visibleData = value;
+        },
+        isVisible() {
+            this.$nextTick(() => this.calculate());
         }
     },
     mounted: function() {
@@ -239,6 +238,11 @@ export const ModalPlatforme = {
             if (modalName !== this.name) return;
             this.hide();
         });
+        window.addEventListener("resize", this.onWindowResize);
+        this.calculate();
+    },
+    destroyed: function() {
+        window.removeEventListener("resize", this.onWindowResize);
     },
     methods: {
         show() {
@@ -259,6 +263,10 @@ export const ModalPlatforme = {
             this.$emit("click:cancel");
             this.hide();
         },
+        calculate() {
+            if (this.$refs.modalContainer.clientHeight === 0) return;
+            this.paddingTop = window.innerHeight / 2 - this.$refs.modalContainer.clientHeight / 2;
+        },
         handleClose() {
             this.hide();
         },
@@ -269,6 +277,9 @@ export const ModalPlatforme = {
         onOverlayClick() {
             if (!this.overlayLeave) return;
             this.hide();
+        },
+        onWindowResize() {
+            this.calculate();
         }
     }
 };
