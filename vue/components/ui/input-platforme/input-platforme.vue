@@ -15,7 +15,6 @@
 @import "css/variables.scss";
 
 input[type="text"] {
-    appearance: none;
     background-color: #f2f2f2;
     border: 1px solid transparent;
     border-radius: 6px 6px 6px 6px;

@@ -1,6 +1,12 @@
 <template>
     <div class="button button-color" v-bind:class="style" v-on:click="handleClick">
-        {{ text }}
+        <loader-platforme
+            loader="ball-scale-multiple"
+            class="loader"
+            v-bind:loader-style="loaderStyle"
+            v-show="loading"
+        />
+        <span v-show="!loading">{{ text }}</span>
     </div>
 </template>
 
@@ -76,6 +82,23 @@
     border: solid 1px #e96760;
     color: #ffffff;
 }
+
+.button-color ::v-deep .loader {
+    display: inline-block;
+    transform: translateY(-22px);
+    width: 32px;
+}
+
+.button-color ::v-deep .loader > div {
+    background-color: #ffffff;
+    height: 32px;
+    left: 0px;
+    width: 32px;
+}
+
+.button-color.button-color-secondary ::v-deep .loader > div {
+    background-color: #2d2d2d;
+}
 </style>
 
 <script>
@@ -97,6 +120,14 @@ export const ButtonColorPlatforme = {
         text: {
             type: String,
             default: null
+        },
+        loading: {
+            type: Boolean,
+            default: false
+        },
+        loaderStyle: {
+            type: Object,
+            default: () => ({})
         }
     },
     methods: {
@@ -108,7 +139,8 @@ export const ButtonColorPlatforme = {
         style() {
             const base = {
                 "button-color-secondary": this.secondary,
-                "button-color-small": this.small
+                "button-color-small": this.small,
+                loading: this.loading
             };
             base["button-color-" + this.color] = this.color;
             return base;
