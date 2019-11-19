@@ -8,18 +8,14 @@
 @import "css/variables.scss";
 
 .overlay {
-    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0.7);
     bottom: 0px;
     display: block;
     left: 0px;
-    opacity: 0.7;
+    opacity: 1;
     position: fixed;
     right: 0px;
     top: 0px;
-}
-
-.fade-enter-active,
-.fade-leave-active {
     transition: opacity 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 

@@ -9,7 +9,11 @@
                 ref="overlay"
                 v-on:click="onOverlayClick"
             />
-            <div class="modal-container" v-bind:style="{ top: String(paddingTop) + 'px' }" ref="modalContainer">
+            <div
+                class="modal-container"
+                v-bind:style="{ top: String(paddingTop) + 'px' }"
+                ref="modalContainer"
+            >
                 <div class="button button-close" v-if="buttonClose">
                     <slot name="button-close-content">
                         <img src="~./assets/close.svg" v-on:click="handleClose" />
@@ -56,6 +60,7 @@
     right: 0px;
     text-align: center;
     top: 0px;
+    transition: opacity 0.25s;
     z-index: 10;
 }
 
@@ -81,8 +86,8 @@ body.mobile .modal > .modal-container {
     padding: 14px 20px 14px 20px;
 }
 
-.modal.fade-leave-to > .modal-container {
-    animation: fade-shrink-visibility 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+.modal.fade-leave-active > .modal-container {
+    animation: fade-shrink-visibility 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
 }
 
 .modal > .modal-container > .button.button-close {
@@ -131,6 +136,7 @@ body.mobile .modal > .modal-container > .button.button-close > img {
 .modal > .modal-container > .title {
     font-size: 16px;
     font-weight: 600;
+    letter-spacing: 0.5px;
     margin: 0px 0px 12px 0px;
     text-align: left;
 }
@@ -138,6 +144,7 @@ body.mobile .modal > .modal-container > .button.button-close > img {
 .modal > .modal-container > .sub-title {
     font-size: 14px;
     font-weight: 600;
+    letter-spacing: 0.5px;
     margin: 0px 0px 12px 0px;
     text-align: left;
 }
@@ -145,6 +152,7 @@ body.mobile .modal > .modal-container > .button.button-close > img {
 .modal > .modal-container > .modal-content {
     font-size: 13px;
     font-weight: 500;
+    letter-spacing: 0.25px;
     margin: 20px 0px 24px 0px;
     text-align: left;
 }

@@ -37,11 +37,18 @@
     bottom: 0px;
     box-sizing: border-box;
     left: 0px;
+    opacity: 1;
     padding: 40px 40px 40px 40px;
     position: fixed;
     right: 0px;
     top: 0px;
+    transition: opacity 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
     z-index: 10;
+}
+
+.lightbox-container.fade-enter,
+.lightbox-container.fade-leave-to {
+    opacity: 0;
 }
 
 .lightbox-container .image-container {
