@@ -125,6 +125,10 @@
     vertical-align: middle;
 }
 
+.listing .container-header-right .search-platforme {
+    margin-left: 24px;
+}
+
 .listing.loading .container-header-right .search-platforme ::v-deep svg {
     display: none;
 }
