@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, boolean } from "@storybook/addon-knobs";
+import { withKnobs, select, boolean } from "@storybook/addon-knobs";
 
 storiesOf("Button", module)
     .addDecorator(withKnobs)
@@ -9,7 +9,15 @@ storiesOf("Button", module)
                 default: boolean("Secondary", false)
             },
             color: {
-                default: text("Color", "")
+                default: select(
+                    "Color",
+                    {
+                        None: "",
+                        Red: "red",
+                        White: "white"
+                    },
+                    ""
+                )
             }
         },
         template: `

@@ -20,6 +20,7 @@ import { ProgressBarPlatforme } from "./ui/progress-bar-platforme/progress-bar-p
 import { SearchPlatforme } from "./ui/search-platforme/search-platforme.vue";
 import { SidePlatforme } from "./ui/side-platforme/side-platforme.vue";
 import { TablePlatforme } from "./ui/table-platforme/table-platforme.vue";
+import { TagPlatforme } from "./ui/tag-platforme/tag-platforme.vue";
 
 const install = Vue => {
     if (!Vue.options.components.RouterLink) {
@@ -46,6 +47,7 @@ const install = Vue => {
     Vue.component("search-platforme", SearchPlatforme);
     Vue.component("side-platforme", SidePlatforme);
     Vue.component("table-platforme", TablePlatforme);
+    Vue.component("tag-platforme", TagPlatforme);
 };
 
 export {
@@ -71,6 +73,7 @@ export {
     SearchPlatforme,
     SidePlatforme,
     TablePlatforme,
+    TagPlatforme,
     install
 };
 
