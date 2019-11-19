@@ -1,9 +1,9 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text } from "@storybook/addon-knobs";
 
-storiesOf("Listing", module)
+storiesOf("Data", module)
     .addDecorator(withKnobs)
-    .add("Mock", () => ({
+    .add("Listing", () => ({
         props: {
             context: {
                 type: Object,

@@ -1,6 +1,6 @@
 import { storiesOf } from "@storybook/vue";
 
-storiesOf("Filter", module).add("Filter", () => ({
+storiesOf("Data", module).add("Filter", () => ({
     props: {
         filterColumns: {
             type: Array,
