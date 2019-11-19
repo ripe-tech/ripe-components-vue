@@ -9,10 +9,5 @@ storiesOf("Overlay", module)
                 default: boolean("Visible", false)
             }
         },
-        watch: {
-            visible: function(value) {
-                value ? this.$bus.$emit("show-overlay") : this.$bus.$emit("hide-overlay");
-            }
-        },
-        template: "<overlay-platforme></overlay-platforme>"
+        template: "<overlay-platforme v-bind:visible='visible'></overlay-platforme>"
     }));

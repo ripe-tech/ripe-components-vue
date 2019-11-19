@@ -2,11 +2,12 @@
     <transition name="fade">
         <div v-bind:class="['modal', className]" v-show="isVisible" v-bind:id="className">
             <global-events v-on:keydown.esc="handleGlobal" />
-            <div
-                class="modal-overlay"
+            <overlay-platforme
                 v-bind:class="{ clickable: overlayLeave }"
+                v-bind:visible="isVisible"
                 v-if="overlay"
-                v-on:click="handleOverlayLeave"
+                ref="overlay"
+                v-on:click="onOverlayClick"
             />
             <div class="modal-container">
                 <div class="button button-close" v-if="buttonClose" v-on:click="handleClose">
@@ -244,7 +245,7 @@ export const ModalPlatforme = {
             if (!this.globalEvents) return;
             this.hide();
         },
-        handleOverlayLeave() {
+        onOverlayClick() {
             if (!this.overlayLeave) return;
             this.hide();
         }

@@ -1,6 +1,6 @@
 <template>
     <transition name="fade">
-        <div class="overlay" v-show="visible" v-on:click="onClick" />
+        <div class="overlay" v-show="isVisible" v-on:click="onClick" />
     </transition>
 </template>
 
@@ -31,25 +31,54 @@
 
 <script>
 export const OverlayPlatforme = {
+    name: "overlay-platforme",
+    props: {
+        visible: {
+            type: Boolean,
+            default: false
+        },
+        global: {
+            type: Boolean,
+            default: false
+        }
+    },
     data: function() {
         return {
-            visible: false
+            visibleData: !this.global
         };
+    },
+    computed: {
+        isVisible() {
+            return this.visible && this.visibleData;
+        }
     },
     created: function() {
         this.$bus.$on("show-overlay", () => {
-            this.visible = true;
+            if (!this.global) return;
+            this.show();
         });
         this.$bus.$on("hide-overlay", () => {
-            this.visible = false;
+            if (!this.global) return;
+            this.hide();
         });
         this.$bus.$on("toggle-overlay", payLoad => {
-            this.visible = !this.visible;
+            if (!this.global) return;
+            this.toggle();
         });
     },
     methods: {
+        show() {
+            this.visibleData = true;
+        },
+        hide() {
+            this.visibleData = false;
+        },
+        toggle() {
+            this.visibleData = !this.visibleData;
+        },
         onClick() {
             this.$bus.$emit("overlay-clicked");
+            this.$emit("click");
         }
     }
 };

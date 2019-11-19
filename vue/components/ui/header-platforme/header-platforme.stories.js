@@ -22,7 +22,7 @@ storiesOf("Header", module).add("Platforme", () => ({
     },
     template: `
         <div>
-            <overlay-platforme></overlay-platforme>
+            <overlay-platforme v-bind:visible='true' v-bind:global='true'></overlay-platforme>
             <side-platforme v-bind:links="mockLinks"></side-platforme>
             <header-platforme v-bind:platforme-account="mockAccount"></header-platforme>
         </div>`
