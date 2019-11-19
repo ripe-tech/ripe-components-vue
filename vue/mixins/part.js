@@ -29,6 +29,20 @@ const partMixin = {
                 return false;
             }
             return true;
+        },
+        async alert(message, options = {}) {
+            options.text = message;
+            const promise = new Promise((resolve, reject) => {
+                try {
+                    this.$bus.$on("alert_confirm", () => resolve(true));
+                    this.$bus.$on("alert_cancel", () => resolve(false));
+                } catch (err) {
+                    reject(err);
+                }
+            });
+            this.$bus.$emit("alert", options);
+            const result = await promise;
+            return result;
         }
     }
 };

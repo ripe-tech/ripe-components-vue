@@ -55,27 +55,13 @@
     right: 0px;
     text-align: center;
     top: 0px;
-    transition: opacity 0.125s ease-in-out;
     z-index: 10;
-}
-
-.modal.fade-enter,
-.modal.fade-leave-to {
-    opacity: 0;
-}
-
-.modal.fade-leave-active {
-    transition-delay: 0.25s;
-}
-
-.modal.fade-enter-to {
-    opacity: 1;
 }
 
 .modal > .modal-container {
     background-color: #ffffff;
     border-radius: 4px 4px 4px 4px;
-    box-shadow: 0px 0px 12px #2d2d2d;
+    box-shadow: 0px 0px 24px #000000;
     box-sizing: border-box;
     display: inline-block;
     max-height: 80%;
