@@ -29,7 +29,7 @@
     min-width: 180px;
     padding: 0px 20px 0px 20px;
     text-align: center;
-    transition: background-color 0.15s ease-in-out;
+    transition: background-color 0.1s ease-in-out;
     user-select: none;
 }
 
@@ -41,7 +41,9 @@
 }
 
 .button-color.disabled {
-    border-color: #6d6d6d;
+    cursor: default;
+    opacity: 0.4;
+    pointer-events: none;
 }
 
 .button-color:hover {
@@ -58,11 +60,6 @@
     border: solid 1px #e4e8f0;
     color: #57626e;
     transition: none;
-}
-
-.button-color.button-color-secondary.disabled,
-.button-color.button-color-white.disabled {
-    border-color: #cccccc;
 }
 
 .button-color.button-color-secondary:hover,
@@ -123,6 +120,10 @@ export const ButtonColorPlatforme = {
             type: String,
             default: null
         },
+        disabled: {
+            type: Boolean,
+            default: false
+        },
         loading: {
             type: Boolean,
             default: false
@@ -142,6 +143,7 @@ export const ButtonColorPlatforme = {
             const base = {
                 "button-color-secondary": this.secondary,
                 "button-color-small": this.small,
+                disabled: this.disabled,
                 loading: this.loading
             };
             base["button-color-" + this.color] = this.color;
