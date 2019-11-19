@@ -34,7 +34,7 @@ storiesOf("Modal", module)
             text: {
                 default: text(
                     "Text",
-                    "This action is irreversible and you will lose your current progress."
+                    "This action is irreversible and you will lose your current progress. This is considered to be a very dangerous operation!"
                 )
             },
             title: {

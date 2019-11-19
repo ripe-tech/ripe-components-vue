@@ -95,6 +95,7 @@ body.mobile .modal > .modal-container {
     left: 0px;
     margin: auto;
     padding: 12px 14px 12px 14px;
+    pointer-events: none;
     position: absolute;
     text-align: right;
     top: 0px;
@@ -107,6 +108,8 @@ body.mobile .modal > .modal-container {
     height: 25px;
     margin: auto;
     padding: 4px 4px 4px 4px;
+    pointer-events: all;
+    user-select: none;
     vertical-align: middle;
     width: 25px;
 }
@@ -118,6 +121,10 @@ body.mobile .modal > .modal-container > .button.button-close > img {
 
 .modal > .modal-container > .button.button-close > img:hover {
     background-color: #f2f2f2;
+}
+
+.modal > .modal-container > .buttons-container {
+    user-select: none;
 }
 
 .modal > .modal-container > .buttons-container > .button {
@@ -153,6 +160,7 @@ body.mobile .modal > .modal-container > .button.button-close > img {
     font-size: 13px;
     font-weight: 500;
     letter-spacing: 0.25px;
+    line-height: 20px;
     margin: 20px 0px 24px 0px;
     text-align: left;
 }
