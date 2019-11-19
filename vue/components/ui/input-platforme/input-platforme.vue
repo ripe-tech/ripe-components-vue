@@ -6,8 +6,8 @@
         v-bind:placeholder="placeholder"
         ref="input"
         v-on:input="$emit('update:value', $event.target.value)"
-        v-on:focus="focused = true"
-        v-on:blur="focused = false"
+        v-on:focus="focused()"
+        v-on:blur="blurred()"
     />
 </template>
 
@@ -57,17 +57,21 @@ export const InputPlatforme = {
             default: false
         }
     },
-    data: function() {
-        return {
-            focused: false
-        };
-    },
     mounted: function() {
-        this.autofocus && this.$refs.input.focus();
+        this.autofocus && this.focus();
     },
     methods: {
+        focus() {
+            this.$refs.input.focus();
+        },
         blur() {
             this.$refs.input.blur();
+        },
+        focused() {
+            this.$emit("focus");
+        },
+        blurred() {
+            this.$emit("blur");
         }
     }
 };

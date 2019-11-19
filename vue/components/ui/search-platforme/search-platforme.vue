@@ -23,12 +23,12 @@
                 <path d="M0 0h24v24H0z" fill="none" />
             </svg>
         </slot>
-        <input
-            type="text"
+        <input-platforme
             v-bind:value="value"
             v-bind:placeholder="placeholder"
+            v-bind:autofocus="autofocus"
             ref="input"
-            v-on:input="$emit('update:value', $event.target.value)"
+            v-on:update:value="$emit('update:value', $event)"
             v-on:focus="focused = true"
             v-on:blur="focused = false"
         />
@@ -55,6 +55,7 @@
 
 .search-platforme {
     display: inline-block;
+    font-size: 0px;
     height: 34px;
     line-height: 34px;
 }
@@ -62,8 +63,8 @@
 .search-platforme > svg {
     display: inline-block;
     fill: #d0d0d0;
-    margin-left: 32px;
-    margin-top: 6px;
+    margin-left: 8px;
+    margin-top: 5px;
     position: absolute;
     width: 20px;
 }
@@ -72,35 +73,15 @@
     fill: #2d2d2d;
 }
 
-.search-platforme > input[type="text"] {
-    background-color: #f2f2f2;
-    border: 1px solid transparent;
-    box-sizing: border-box;
-    font-size: 13px;
-    height: 34px;
-    line-height: 34px;
-    margin-left: 24px;
+.search-platforme ::v-deep input[type="text"] {
     padding-left: 33px;
-    padding-right: 12px;
-    transition: width 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
-    width: 304px;
 }
 
-.search-platforme.icon-invisible > input[type="text"] {
+.search-platforme.icon-invisible ::v-deep input[type="text"] {
     padding-left: 12px;
 }
 
-.search-platforme > input[type="text"]:hover {
-    border-color: #dddddd;
-}
-
-.search-platforme > input[type="text"]:focus {
-    background-color: #ffffff;
-    border-color: #dddddd;
-    box-shadow: 0px 1px 8px 0px rgba(32, 33, 36, 0.14);
-}
-
-.search-platforme.grow > input[type="text"]:focus {
+.search-platforme.grow ::v-deep input[type="text"]:focus {
     width: 340px;
 }
 
@@ -186,9 +167,6 @@ export const SearchPlatforme = {
                 }, 100);
             }
         }
-    },
-    mounted: function() {
-        this.autofocus && this.$refs.input.focus();
     },
     methods: {
         blur() {
