@@ -1,7 +1,7 @@
 <template>
-    <label class="label" v-bind:class="{ 'label-small': small }" v-bind:for="target">{{
-        text
-    }}</label>
+    <label class="label" v-bind:class="{ 'label-small': small }" v-bind:for="target">
+        {{ text }}
+    </label>
 </template>
 
 <style lang="scss" scoped>
