@@ -51,8 +51,8 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.highlight:hover,
-.highlight.hover {
+::v-deep .highlight:hover,
+::v-deep .highlight.hover {
     color: $link-hover-color;
 }
 
@@ -353,7 +353,7 @@ export const ListingPlatforme = {
         }
     },
     beforeRouteUpdate: function(to, from, next) {
-        this.filter = to.query.filter;
+        this.filter = to.query.filter || "";
         next();
     }
 };
