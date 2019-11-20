@@ -3,6 +3,7 @@ import { ErrorPlatforme } from "./parts/error-platforme/error-platforme.vue";
 import { OAuthPlatforme } from "./parts/oauth-platforme/oauth-platforme.vue";
 import { AlertPlatforme } from "./ui/alert-platforme/alert-platforme.vue";
 import { ButtonColorPlatforme } from "./ui/button-color-platforme/button-color-platforme.vue";
+import { ButtonIconPlatforme } from "./ui/button-icon-platforme/button-icon-platforme.vue";
 import { ButtonPlatforme } from "./ui/button-platforme/button-platforme.vue";
 import { ContainerPlatforme } from "./ui/container-platforme/container-platforme.vue";
 import { DropdownPlatforme } from "./ui/dropdown-platforme/dropdown-platforme.vue";
@@ -30,6 +31,7 @@ const install = Vue => {
     Vue.component("oauth-platforme", OAuthPlatforme);
     Vue.component("alert-platforme", AlertPlatforme);
     Vue.component("button-color-platforme", ButtonColorPlatforme);
+    Vue.component("button-icon-platforme", ButtonIconPlatforme);
     Vue.component("button-platforme", ButtonPlatforme);
     Vue.component("container-platforme", ContainerPlatforme);
     Vue.component("dropdown-platforme", DropdownPlatforme);
@@ -56,6 +58,7 @@ export {
     OAuthPlatforme,
     AlertPlatforme,
     ButtonColorPlatforme,
+    ButtonIconPlatforme,
     ButtonPlatforme,
     ContainerPlatforme,
     DropdownPlatforme,

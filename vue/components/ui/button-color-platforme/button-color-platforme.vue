@@ -146,7 +146,11 @@ export const ButtonColorPlatforme = {
                 disabled: this.disabled,
                 loading: this.loading
             };
-            base["button-color-" + this.color] = this.color;
+
+            if (this.color) {
+                base["button-color-" + this.color] = this.color;
+            }
+
             return base;
         }
     }

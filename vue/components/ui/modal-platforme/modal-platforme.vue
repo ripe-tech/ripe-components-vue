@@ -16,7 +16,11 @@
             >
                 <div class="button button-close" v-if="buttonClose">
                     <slot name="button-close-content">
-                        <img src="~./assets/close.svg" v-on:click="handleClose" />
+                        <button-icon-platforme
+                            v-bind:icon="'close'"
+                            v-bind:size="30"
+                            v-on:click="handleClose"
+                        />
                     </slot>
                 </div>
                 <h1 class="title" v-if="title">{{ title }}</h1>
@@ -100,28 +104,6 @@ body.mobile .modal > .modal-container {
     text-align: right;
     top: 0px;
     width: 100%;
-}
-
-.modal > .modal-container > .button.button-close > img {
-    border-radius: 26px 26px 26px 26px;
-    cursor: pointer;
-    height: 25px;
-    margin: auto;
-    padding: 4px 4px 4px 4px;
-    pointer-events: all;
-    transition: background-color 0.15s ease-in-out;
-    user-select: none;
-    vertical-align: middle;
-    width: 25px;
-}
-
-body.mobile .modal > .modal-container > .button.button-close > img {
-    height: 15px;
-    width: 15px;
-}
-
-.modal > .modal-container > .button.button-close > img:hover {
-    background-color: #f2f2f2;
 }
 
 .modal > .modal-container > .buttons-container {
