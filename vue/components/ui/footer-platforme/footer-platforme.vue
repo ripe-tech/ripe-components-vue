@@ -39,6 +39,11 @@
     padding-bottom: 20px;
 }
 
+a {
+    color: #4078c0;
+    text-decoration: none;
+}
+
 ul {
     display: inline-block;
     list-style: none;
