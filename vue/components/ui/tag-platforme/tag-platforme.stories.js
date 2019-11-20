@@ -8,19 +8,32 @@ storiesOf("Components", module)
             text: {
                 default: text("Text", "This is a tag")
             },
+            size: {
+                default: select(
+                    "Size",
+                    {
+                        Medium: "medium",
+                        Small: "small",
+                        Large: "large"
+                    },
+                    "medium"
+                )
+            },
             color: {
                 default: select(
                     "Color",
                     {
+                        Black: "black",
                         Grey: "grey",
                         Orange: "orange",
                         Blue: "blue",
                         Green: "green",
-                        Red: "red"
+                        Red: "red",
+                        Purple: "purple"
                     },
-                    "grey"
+                    "black"
                 )
             }
         },
-        template: '<tag-platforme v-bind:color="color" v-bind:text="text" />'
+        template: '<tag-platforme v-bind:size="size" v-bind:color="color" v-bind:text="text" />'
     }));

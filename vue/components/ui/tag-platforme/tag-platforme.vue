@@ -12,36 +12,60 @@
     display: inline-block;
     font-size: 12px;
     font-weight: 600;
+    letter-spacing: 0.45px;
     overflow: hidden;
-    padding: 3px 12px 3px 12px;
+    padding: 5px 12px 5px 12px;
     text-overflow: ellipsis;
     text-transform: uppercase;
     white-space: nowrap;
 }
 
-.tag.tag-orange {
-    background-color: #eceef1;
-    color: #57626e;
+.tag.tag-small {
+    font-size: 10px;
+    letter-spacing: 0.35px;
+    padding: 4px 10px 4px 10px;
 }
 
-.tag.tag-blue {
-    background-color: #eceef1;
-    color: #57626e;
+.tag.tag-large {
+    font-size: 14px;
+    letter-spacing: 0.65px;
+    padding: 6px 14px 6px 14px;
 }
 
-.tag.tag-green {
-    background-color: #eceef1;
-    color: #57626e;
-}
-
-.tag.tag-red {
-    background-color: #eceef1;
-    color: #57626e;
+.tag,
+.tag.tag-black {
+    background-color: #1d2631;
+    color: #ffffff;
 }
 
 .tag.tag-grey {
-    background-color: #eceef1;
-    color: #57626e;
+    background-color: #57626e;
+    color: #ffffff;
+}
+
+.tag.tag-orange {
+    background-color: #fb9032;
+    color: #ffffff;
+}
+
+.tag.tag-blue {
+    background-color: #4b8dd7;
+    color: #ffffff;
+}
+
+.tag.tag-green {
+    background-color: #45a777;
+    color: #ffffff;
+}
+
+.tag.tag-red {
+    background-color: #e96760;
+    color: #ffffff;
+}
+
+.tag.tag-purple {
+    background-color: #5f60c2;
+    color: #ffffff;
 }
 </style>
 
@@ -53,6 +77,9 @@ export const TagPlatforme = {
             type: String,
             mandatory: true
         },
+        size: {
+            type: String
+        },
         color: {
             type: String,
             default: "grey"
@@ -62,6 +89,7 @@ export const TagPlatforme = {
         style() {
             const base = {};
             base["tag-" + this.color] = this.color;
+            if (this.size) base["tag-" + this.size] = this.size;
             return base;
         }
     }
