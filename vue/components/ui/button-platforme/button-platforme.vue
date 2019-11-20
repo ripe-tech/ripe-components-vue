@@ -106,7 +106,7 @@ export const ButtonPlatforme = {
         };
     },
     computed: {
-        text: function() {
+        text() {
             return this.loading ? this.loadingText : this.normalText;
         }
     },

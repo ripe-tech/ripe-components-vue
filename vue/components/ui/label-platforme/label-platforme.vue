@@ -1,5 +1,5 @@
 <template>
-    <label class="label" v-bind:class="{ 'label-small': small }" v-bind:for="target">
+    <label class="label" v-bind:class="style" v-bind:for="target">
         {{ text }}
     </label>
 </template>
@@ -16,9 +16,18 @@
 }
 
 .label.label-small {
-    color: #a4adb5;
     font-size: 11px;
     line-height: 13px;
+}
+
+.label.label-large {
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.label.label-red,
+.label.label-error {
+    color: #e96760;
 }
 </style>
 
@@ -30,13 +39,24 @@ export const LabelPlatforme = {
             type: String,
             mandatory: true
         },
-        small: {
-            type: Boolean,
-            default: false
+        size: {
+            type: String,
+            default: "normal"
+        },
+        color: {
+            type: String
         },
         target: {
             type: String,
             default: null
+        }
+    },
+    computed: {
+        style() {
+            const base = {};
+            if (this.size) base["label-" + this.size] = this.size;
+            if (this.color) base["label-" + this.color] = this.color;
+            return base;
         }
     }
 };
