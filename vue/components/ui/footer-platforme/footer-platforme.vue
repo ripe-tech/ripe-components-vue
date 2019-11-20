@@ -135,7 +135,7 @@ ul li:hover {
     width: calc(50% - 35px);
 }
 
-body.mobile .links-left,
+body.mobile .links-left,body.mobile
 .links-right {
     float: none;
     line-height: 17px;
