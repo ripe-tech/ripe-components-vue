@@ -62,12 +62,12 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.footer-platforme .mobile{
-    display:none;
+.footer-platforme .mobile {
+    display: none;
 }
 
-body.mobile .footer-platforme .desktop{
-    display:none;
+body.mobile .footer-platforme .desktop {
+    display: none;
 }
 
 body.mobile .footer-platforme .mobile {
@@ -75,8 +75,8 @@ body.mobile .footer-platforme .mobile {
 }
 
 body.mobile .container-links {
-    margin: 15px 15px 0px 15px;
     display: flex;
+    margin: 15px 15px 0px 15px;
 }
 
 .footer-platforme {
@@ -106,9 +106,9 @@ ul li {
 
 body.mobile ul li {
     display: block;
-    margin: 20px 0px 0px 0px;
-    letter-spacing: 0.7px;
     font-size: 14px;
+    letter-spacing: 0.7px;
+    margin: 20px 0px 0px 0px;
 }
 
 ul li.copy {
@@ -119,10 +119,10 @@ ul li.copy {
 
 body.mobile div .copy {
     color: #999999;
-    line-height: 17px;
     font-size: 14px;
     font-weight: 700;
     letter-spacing: 0.7px;
+    line-height: 17px;
 }
 
 ul li:hover {
@@ -135,8 +135,8 @@ ul li:hover {
     width: calc(50% - 35px);
 }
 
-body.mobile .links-left, body.mobile
-.links-right {
+body.mobile .links-left,
+body.mobile .links-right {
     float: none;
     line-height: 17px;
     overflow: visible;
@@ -170,12 +170,12 @@ body.mobile .links-left, body.mobile
 }
 
 body.mobile .container-foot {
-    margin: 5px 0px 0px 0px;
-    height: 70px;
     align-items: baseline;
-    line-height: 70px;
     display: flex;
+    height: 70px;
     justify-content: space-between;
+    line-height: 70px;
+    margin: 5px 0px 0px 0px;
 }
 
 body.mobile .foot-left {
