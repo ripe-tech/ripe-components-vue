@@ -1,6 +1,6 @@
 import { RouterLink } from "./mock/router-link/router-link.vue";
 import { ErrorPlatforme } from "./parts/error-platforme/error-platforme.vue";
-import { GlobalPlatforme } from "./parts/error-platforme/global-platforme.vue";
+import { GlobalPlatforme } from "./parts/global-platforme/global-platforme.vue";
 import { OAuthPlatforme } from "./parts/oauth-platforme/oauth-platforme.vue";
 import { AlertPlatforme } from "./ui/alert-platforme/alert-platforme.vue";
 import { ButtonColorPlatforme } from "./ui/button-color-platforme/button-color-platforme.vue";
