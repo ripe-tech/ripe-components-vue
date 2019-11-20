@@ -14,7 +14,7 @@
                 v-bind:style="{ top: String(paddingTop) + 'px' }"
                 ref="modalContainer"
             >
-                <div class="button button-close" v-if="buttonClose">
+                <div class="button button-close-container" v-if="buttonClose">
                     <slot name="button-close-content">
                         <button-icon-platforme
                             v-bind:icon="'close'"
@@ -94,7 +94,7 @@ body.mobile .modal > .modal-container {
     animation: fade-shrink-visibility 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
 }
 
-.modal > .modal-container > .button.button-close {
+.modal > .modal-container > .button.button-close-container {
     box-sizing: border-box;
     left: 0px;
     margin: auto;
@@ -104,6 +104,10 @@ body.mobile .modal > .modal-container {
     text-align: right;
     top: 0px;
     width: 100%;
+}
+
+.modal > .modal-container > .button.button-close-container ::v-deep .button-icon {
+    pointer-events: all;
 }
 
 .modal > .modal-container > .buttons-container {
