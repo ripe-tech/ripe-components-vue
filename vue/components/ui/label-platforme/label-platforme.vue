@@ -24,6 +24,7 @@
 
 <script>
 export const LabelPlatforme = {
+    name: "label-platforme",
     props: {
         text: {
             type: String,
