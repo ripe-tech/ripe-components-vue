@@ -88,11 +88,6 @@
     box-sizing: border-box;
 }
 
-.listing.fade-enter,
-.listing.fade-leave-active {
-    opacity: 1;
-}
-
 .listing ::v-deep .loader {
     opacity: 0;
     pointer-events: none;
