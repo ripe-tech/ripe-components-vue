@@ -14,9 +14,13 @@
                 v-bind:style="{ top: String(paddingTop) + 'px' }"
                 ref="modalContainer"
             >
-                <div class="button button-close" v-if="buttonClose">
+                <div class="button button-close-container" v-if="buttonClose">
                     <slot name="button-close-content">
-                        <img src="~./assets/close.svg" v-on:click="handleClose" />
+                        <button-icon-platforme
+                            v-bind:icon="'close'"
+                            v-bind:size="30"
+                            v-on:click="handleClose"
+                        />
                     </slot>
                 </div>
                 <h1 class="title" v-if="title">{{ title }}</h1>
@@ -90,34 +94,24 @@ body.mobile .modal > .modal-container {
     animation: fade-shrink-visibility 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
 }
 
-.modal > .modal-container > .button.button-close {
+.modal > .modal-container > .button.button-close-container {
     box-sizing: border-box;
     left: 0px;
     margin: auto;
     padding: 12px 14px 12px 14px;
+    pointer-events: none;
     position: absolute;
     text-align: right;
     top: 0px;
     width: 100%;
 }
 
-.modal > .modal-container > .button.button-close > img {
-    border-radius: 26px 26px 26px 26px;
-    cursor: pointer;
-    height: 25px;
-    margin: auto;
-    padding: 4px 4px 4px 4px;
-    vertical-align: middle;
-    width: 25px;
+.modal > .modal-container > .button.button-close-container ::v-deep .button-icon {
+    pointer-events: all;
 }
 
-body.mobile .modal > .modal-container > .button.button-close > img {
-    height: 15px;
-    width: 15px;
-}
-
-.modal > .modal-container > .button.button-close > img:hover {
-    background-color: #f2f2f2;
+.modal > .modal-container > .buttons-container {
+    user-select: none;
 }
 
 .modal > .modal-container > .buttons-container > .button {
@@ -134,7 +128,7 @@ body.mobile .modal > .modal-container > .button.button-close > img {
 }
 
 .modal > .modal-container > .title {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
     letter-spacing: 0.5px;
     margin: 0px 0px 12px 0px;
@@ -142,7 +136,7 @@ body.mobile .modal > .modal-container > .button.button-close > img {
 }
 
 .modal > .modal-container > .sub-title {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     letter-spacing: 0.5px;
     margin: 0px 0px 12px 0px;
@@ -150,10 +144,11 @@ body.mobile .modal > .modal-container > .button.button-close > img {
 }
 
 .modal > .modal-container > .modal-content {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
     letter-spacing: 0.25px;
-    margin: 20px 0px 24px 0px;
+    line-height: 22px;
+    margin: 22px 0px 26px 0px;
     text-align: left;
 }
 </style>

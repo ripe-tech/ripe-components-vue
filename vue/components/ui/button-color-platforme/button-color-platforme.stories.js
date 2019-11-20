@@ -16,14 +16,22 @@ storiesOf("Button", module)
                         Red: "red",
                         White: "white"
                     },
-                    ""
+                    "default"
                 )
+            },
+            disabled: {
+                default: boolean("Disabled", false)
+            },
+            loading: {
+                default: boolean("Loading", false)
             }
         },
         template: `
             <div>
-                <button-color-platforme v-bind:text="'Normal Button'" v-bind:secondary="secondary" v-bind:color="color"></button-color-platforme>
-                <button-color-platforme v-bind:text="'Small Button'" v-bind:secondary="secondary" v-bind:small="true" v-bind:color="color"></button-color-platforme>
+                <button-color-platforme v-bind:text="'Normal Button'" v-bind:secondary="secondary" v-bind:color="color"
+                                        v-bind:disabled="disabled" v-bind:loading="loading"></button-color-platforme>
+                <button-color-platforme v-bind:text="'Small Button'" v-bind:secondary="secondary" v-bind:color="color"
+                                        v-bind:disabled="disabled" v-bind:loading="loading" v-bind:small="true" ></button-color-platforme>
             </div>
         `
     }));

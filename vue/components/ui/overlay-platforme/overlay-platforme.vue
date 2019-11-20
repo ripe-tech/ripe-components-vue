@@ -45,7 +45,7 @@ export const OverlayPlatforme = {
     },
     computed: {
         isVisible() {
-            return this.visible && this.visibleData;
+            return (this.visible || this.global) && this.visibleData;
         }
     },
     created: function() {

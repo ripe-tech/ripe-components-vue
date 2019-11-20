@@ -52,7 +52,7 @@
                     v-bind:items="appsDropdownItems"
                     v-bind:visible.sync="appsDropdownVisible"
                 >
-                    <template slot-scope="{ item: { id, text, image, link, cls } }">
+                    <template v-slot="{ item: { id, text, image, link, cls } }">
                         <a v-bind:href="link" v-bind:class="[cls]">
                             <img v-bind:src="image" v-bind:alt="text" />
                             <p>{{ text }}</p>
