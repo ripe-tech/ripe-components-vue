@@ -14,8 +14,15 @@
 </style>
 
 <script>
+import { deviceMixin } from "../../../mixins";
+
 export const GlobalPlatforme = {
-    name: "global-platforme"
+    name: "global-platforme",
+    mixins: [deviceMixin],
+    created: function() {
+        this.listenDeviceChange();
+        this.updateDeviceClass();
+    }
 };
 
 export default GlobalPlatforme;
