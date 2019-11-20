@@ -12,13 +12,12 @@
 @import "css/variables.scss";
 
 .button-icon {
-    border-radius: 22px 22px 22px 22px;
     box-sizing: border-box;
     cursor: pointer;
     display: inline-block;
     padding: 4px;
     text-align: center;
-    transition: background-color 0.1s ease-in-out;
+    transition: background-color 0.15s ease-in-out;
     user-select: none;
     vertical-align: middle;
 }
@@ -58,7 +57,7 @@ export const ButtonIconPlatforme = {
         },
         size: {
             type: Number,
-            default: null
+            default: 28
         }
     },
     computed: {
@@ -66,21 +65,15 @@ export const ButtonIconPlatforme = {
             return require(`./assets/${this.icon}.svg`);
         },
         style() {
-            const base = {};
-
-            if (this.size) {
-                base.width = `${this.size}px`;
-            }
-
-            return base;
+            return {
+                width: `${this.size}px`,
+                padding: `${parseInt(this.size / 4.5)}px`,
+                "border-radius": `${this.size}px`
+            };
         },
         classes() {
             const base = {};
-
-            if (this.color) {
-                base["button-icon-" + this.color] = this.color;
-            }
-
+            if (this.color) base["button-icon-" + this.color] = this.color;
             return base;
         }
     },

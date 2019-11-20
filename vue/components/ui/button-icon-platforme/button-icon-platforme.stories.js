@@ -11,7 +11,10 @@ storiesOf("Button", module)
                     {
                         Close: "close",
                         "Zoom In": "zoom-in",
-                        "Zoom Out": "zoom-out"
+                        "Zoom Out": "zoom-out",
+                        Chat: "chat",
+                        Cart: "cart",
+                        Walking: "walking"
                     },
                     "close"
                 )
