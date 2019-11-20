@@ -330,12 +330,14 @@ export const ListingPlatforme = {
             this.scrollTop = true;
         },
         async getItemsWithParams(options) {
-            options = this.filterFields ? {
-                params: this.getFilterParams({
-                    options: options,
-                    filterFields: this.filterFields
-                })
-            } : options;
+            options = this.filterFields
+                ? {
+                      params: this.getFilterParams({
+                          options: options,
+                          filterFields: this.filterFields
+                      })
+                  }
+                : options;
             const items = await this.getItems(options);
             return items;
         },
