@@ -16,7 +16,11 @@
             >
                 <div class="button button-close" v-if="buttonClose">
                     <slot name="button-close-content">
-                        <button-icon-platforme v-bind:icon="'close'" v-bind:size="30" v-on:click="handleClose" />
+                        <button-icon-platforme
+                            v-bind:icon="'close'"
+                            v-bind:size="30"
+                            v-on:click="handleClose"
+                        />
                     </slot>
                 </div>
                 <h1 class="title" v-if="title">{{ title }}</h1>
