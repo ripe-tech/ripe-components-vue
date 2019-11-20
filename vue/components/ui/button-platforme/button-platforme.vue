@@ -33,7 +33,7 @@
     max-width: 320px;
     text-align: center;
     text-transform: uppercase;
-    transition: background-color 0.1s ease-in-out, transform 0.1s ease-in-out;
+    transition: background-color 0.15s ease-in-out, opacity 0.15s ease-in-out, transform 0.15s ease-in-out;
 }
 
 .button.button-platforme:hover {
@@ -48,7 +48,7 @@
     height: 50px;
     line-height: 50px;
     text-align: center;
-    transition: background-color 0.1s ease-in-out;
+    transition: background-color 0.15s ease-in-out;
     width: 50px;
 }
 
