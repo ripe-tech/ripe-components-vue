@@ -72,7 +72,7 @@
     cursor: pointer;
     height: 24px;
     margin-right: 16px;
-    padding: 12px 12px 12px 12px;
+    padding: 12px 12px 12px 10px;
     transition: background-color 0.15s ease;
     width: 24px;
 }
@@ -108,13 +108,13 @@
     line-height: 60px;
     margin: 0px auto 0px auto;
     max-width: 1240px;
-    padding: 0px 12px 0px 0px;
+    padding: 0px 10px 0px 0px;
     text-align: left;
 }
 
 .header-platforme.full-width > .header-container {
     max-width: 100%;
-    padding: 0px 12px 0px 12px;
+    padding: 0px 10px 0px 10px;
 }
 
 .header-platforme > .header-container > .header-left {
@@ -149,7 +149,7 @@
     font-size: 0px;
     height: 60px;
     line-height: 60px;
-    padding: 0px 12px 0px 6px;
+    padding: 0px 8px 0px 4px;
     text-align: right;
 }
 
@@ -200,14 +200,16 @@
 }
 
 .header-platforme > .header-container > .header-apps {
-    margin-right: 6px;
+    margin-right: 75px;
     padding: 0px 0px 0px 0px;
+    position: fixed;
+    right: 0px;
 }
 
 .header-platforme > .header-container > .header-apps > img {
     border-radius: 24px 24px 24px 24px;
-    height: 22px;
-    padding: 12px 12px 12px 12px;
+    height: 30px;
+    padding: 12px 10px 12px 12px;
     vertical-align: middle;
 }
 
