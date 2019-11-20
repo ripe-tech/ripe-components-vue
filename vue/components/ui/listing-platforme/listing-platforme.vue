@@ -51,8 +51,8 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.highlight:hover,
-.highlight.hover {
+::v-deep .highlight:hover,
+::v-deep .highlight.hover {
     color: $link-hover-color;
 }
 
@@ -85,16 +85,7 @@
 }
 
 .listing {
-    background: #f6f6f6;
     box-sizing: border-box;
-    height: 100%;
-    min-height: 100vh;
-    padding-top: 61px;
-}
-
-.listing.fade-enter,
-.listing.fade-leave-active {
-    opacity: 1;
 }
 
 .listing ::v-deep .loader {
@@ -172,19 +163,19 @@
     margin-bottom: 0px;
 }
 
-.column-container {
+.listing ::v-deep .column-container {
     display: inline-block;
     height: auto;
 }
 
-.column-container > .name,
-.column-container > .details {
+.listing ::v-deep .column-container > .name,
+.listing ::v-deep .column-container > .details {
     display: block;
     line-height: 14px;
     word-break: break-word;
 }
 
-.column-container > .details {
+.listing ::v-deep .column-container > .details {
     color: #6d6d6d;
     font-size: 10px;
     font-weight: 800;
@@ -193,8 +184,8 @@
     text-transform: uppercase;
 }
 
-.column-container > .details.highlight:hover,
-.column-container > .details.highlight.hover {
+.listing ::v-deep .column-container > .details.highlight:hover,
+.listing ::v-deep .column-container > .details.highlight.hover {
     color: $link-hover-color;
 }
 
@@ -301,7 +292,7 @@ export const ListingPlatforme = {
         },
         filterFields: {
             type: Object,
-            required: true
+            default: null
         },
         notFoundText: {
             type: String,
@@ -339,12 +330,15 @@ export const ListingPlatforme = {
             this.scrollTop = true;
         },
         async getItemsWithParams(options) {
-            const items = await this.getItems({
-                params: this.getFilterParams({
-                    options: options,
-                    filterFields: this.filterFields
-                })
-            });
+            options = this.filterFields
+                ? {
+                      params: this.getFilterParams({
+                          options: options,
+                          filterFields: this.filterFields
+                      })
+                  }
+                : options;
+            const items = await this.getItems(options);
             return items;
         },
         setItem(index, item) {
@@ -361,7 +355,7 @@ export const ListingPlatforme = {
         }
     },
     beforeRouteUpdate: function(to, from, next) {
-        this.filter = to.query.filter;
+        this.filter = to.query.filter || "";
         next();
     }
 };
