@@ -175,7 +175,7 @@ export const ModalPlatforme = {
             type: Boolean,
             default: true
         },
-        disableButtonConfirm:{
+        disableButtonConfirm: {
             type: Boolean,
             default: false
         },
@@ -183,7 +183,7 @@ export const ModalPlatforme = {
             type: Boolean,
             default: true
         },
-        disableButtonCancel:{
+        disableButtonCancel: {
             type: Boolean,
             default: false
         },
