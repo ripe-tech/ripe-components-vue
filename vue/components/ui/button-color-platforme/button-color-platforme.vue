@@ -29,7 +29,7 @@
     min-width: 180px;
     padding: 0px 20px 0px 20px;
     text-align: center;
-    transition: background-color 0.1s ease-in-out;
+    transition: background-color 0.15s ease-in-out, opacity 0.15s ease-in-out;
     user-select: none;
 }
 
@@ -59,7 +59,7 @@
     background-color: #ffffff;
     border: solid 1px #e4e8f0;
     color: #57626e;
-    transition: none;
+    transition: opacity 0.15s ease-in-out;
 }
 
 .button-color.button-color-secondary:hover,
@@ -146,7 +146,11 @@ export const ButtonColorPlatforme = {
                 disabled: this.disabled,
                 loading: this.loading
             };
-            base["button-color-" + this.color] = this.color;
+
+            if (this.color) {
+                base["button-color-" + this.color] = this.color;
+            }
+
             return base;
         }
     }
