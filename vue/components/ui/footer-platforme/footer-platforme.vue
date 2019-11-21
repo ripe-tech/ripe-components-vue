@@ -20,18 +20,10 @@
                 <link-platforme text="API" href="https://docs.platforme.com" target="_blank" />
             </li>
             <li>
-                <link-platforme
-                    text="Training"
-                    href="https://docs.platforme.com"
-                    target="_blank"
-                />
+                <link-platforme text="Training" href="https://docs.platforme.com" target="_blank" />
             </li>
             <li>
-                <link-platforme
-                    text="DevPortal"
-                    href="https://dev.platforme.com"
-                    target="_blank"
-                />
+                <link-platforme text="DevPortal" href="https://dev.platforme.com" target="_blank" />
             </li>
             <li>
                 <link-platforme text="About" href="https://www.platforme.com" target="_blank" />
