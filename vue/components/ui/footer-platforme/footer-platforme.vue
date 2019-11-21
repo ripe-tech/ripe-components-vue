@@ -5,18 +5,36 @@
                 <li class="copy">
                     © 2019 Platforme International
                 </li>
-                <li><a href="https://www.platforme.com/terms" target="_blank">Terms</a></li>
-                <li><a href="https://www.platforme.com/privacy" target="_blank">Privacy</a></li>
+                <li><link-platforme text="Terms" href="https://www.platforme.com/terms" /></li>
+                <li><link-platforme text="Privacy" href="https://www.platforme.com/privacy" /></li>
             </ul>
         </div>
         <div class="links-right">
             <ul>
-                <li><a href="mailto:info@platforme.com">Contact Platforme</a></li>
-                <li><a href="#">Pricing</a></li>
-                <li><a href="https://docs.platforme.com" target="_blank">API</a></li>
-                <li><a href="https://docs.platforme.com" target="_blank">Training</a></li>
-                <li><a href="https://dev.platforme.com">DevPortal</a></li>
-                <li><a href="https://www.platforme.com" target="_blank">About</a></li>
+                <li>
+                    <link-platforme text="Contact Platforme" href="mailto:info@platforme.com" />
+                </li>
+                <li><link-platforme text="Pricing" href="#" /></li>
+                <li>
+                    <link-platforme text="API" href="https://docs.platforme.com" target="_blank" />
+                </li>
+                <li>
+                    <link-platforme
+                        text="Training"
+                        href="https://docs.platforme.com"
+                        target="_blank"
+                    />
+                </li>
+                <li>
+                    <link-platforme
+                        text="DevPortal"
+                        href="https://dev.platforme.com"
+                        target="_blank"
+                    />
+                </li>
+                <li>
+                    <link-platforme text="About" href="https://www.platforme.com" target="_blank" />
+                </li>
             </ul>
         </div>
         <div class="links-logo">
@@ -43,6 +61,7 @@ ul {
     display: inline-block;
     list-style: none;
     margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
     width: auto;
 }
 
