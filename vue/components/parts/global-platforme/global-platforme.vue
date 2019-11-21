@@ -1,6 +1,6 @@
 <template>
     <div class="global">
-        <overlay-platforme v-bind:global="true"></overlay-platforme>
+        <overlay-platforme v-bind:global="true" />
         <alert-platforme />
     </div>
 </template>
