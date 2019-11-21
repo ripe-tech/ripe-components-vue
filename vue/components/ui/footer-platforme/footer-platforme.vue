@@ -9,26 +9,16 @@
                     <link-platforme text="Terms" href="https://www.platforme.com/terms" />
                 </li>
                 <li>
-                    <link-platforme
-                        text="Privacy"
-                        href="https://www.platforme.com/privacy"
-                    />
+                    <link-platforme text="Privacy" href="https://www.platforme.com/privacy" />
                 </li>
             </ul>
             <ul class="links-right">
                 <li>
-                    <link-platforme
-                        text="Contact Platforme"
-                        href="mailto:info@platforme.com"
-                    />
+                    <link-platforme text="Contact Platforme" href="mailto:info@platforme.com" />
                 </li>
                 <li><link-platforme text="Pricing" href="#" /></li>
                 <li>
-                    <link-platforme
-                        text="API"
-                        href="https://docs.platforme.com"
-                        target="_blank"
-                    />
+                    <link-platforme text="API" href="https://docs.platforme.com" target="_blank" />
                 </li>
                 <li>
                     <link-platforme
@@ -45,11 +35,7 @@
                     />
                 </li>
                 <li>
-                    <link-platforme
-                        text="About"
-                        href="https://www.platforme.com"
-                        target="_blank"
-                    />
+                    <link-platforme text="About" href="https://www.platforme.com" target="_blank" />
                 </li>
             </ul>
             <div class="links-logo">
@@ -135,8 +121,8 @@ ul li:hover {
 
 .links-left,
 .links-right {
-    overflow: visible;
     line-height: 60px;
+    overflow: visible;
     width: calc(50% - 35px);
 }
 
@@ -144,10 +130,10 @@ body.mobile .links-left,
 body.mobile .links-right {
     display: inline-block;
     float: none;
-    vertical-align: top;
     line-height: 17px;
     overflow: visible;
     text-align: left;
+    vertical-align: top;
     width: calc(50% - 10px);
 }
 
@@ -192,11 +178,12 @@ body.mobile .links-logo::after {
     width: 100%;
 }
 
-body.mobile .foot-left, body.mobile .foot-right {
+body.mobile .foot-left,
+body.mobile .foot-right {
     display: inline-block;
 }
 
-body.mobile .foot-left{
+body.mobile .foot-left {
     margin: 0px 0px 0px 16px;
 }
 
