@@ -200,10 +200,9 @@
 }
 
 .header-platforme > .header-container > .header-apps {
-    margin-right: 75px;
+    margin-right: 5px;
     padding: 0px 0px 0px 0px;
-    position: fixed;
-    right: 0px;
+    position: relative;
 }
 
 .header-platforme > .header-container > .header-apps > img {
@@ -229,12 +228,12 @@
     cursor: auto;
     font-size: 0px;
     line-height: normal;
-    margin-right: -6px;
-    margin-top: -4px;
     max-width: 320px;
     padding: 10px;
-    position: static;
+    position: absolute;
+    right: 0px;
     text-align: left;
+    top: 0px;
     white-space: pre;
 }
 
