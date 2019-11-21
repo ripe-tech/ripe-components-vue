@@ -1,53 +1,51 @@
 <template>
     <div class="footer-platforme">
-        <div>
-            <ul class="links-left">
-                <li class="desktop copy">
-                    © 2019 Platforme International
-                </li>
-                <li>
-                    <link-platforme text="Terms" href="https://www.platforme.com/terms" />
-                </li>
-                <li>
-                    <link-platforme text="Privacy" href="https://www.platforme.com/privacy" />
-                </li>
-            </ul>
-            <ul class="links-right">
-                <li>
-                    <link-platforme text="Contact Platforme" href="mailto:info@platforme.com" />
-                </li>
-                <li><link-platforme text="Pricing" href="#" /></li>
-                <li>
-                    <link-platforme text="API" href="https://docs.platforme.com" target="_blank" />
-                </li>
-                <li>
-                    <link-platforme
-                        text="Training"
-                        href="https://docs.platforme.com"
-                        target="_blank"
-                    />
-                </li>
-                <li>
-                    <link-platforme
-                        text="DevPortal"
-                        href="https://dev.platforme.com"
-                        target="_blank"
-                    />
-                </li>
-                <li>
-                    <link-platforme text="About" href="https://www.platforme.com" target="_blank" />
-                </li>
-            </ul>
-            <div class="links-logo">
-                <span class="mobile foot-left copy">
-                    © 2019 Platforme International
-                </span>
-                <span class="footer-logo foot-right">
-                    <a href="https://www.platforme.com" target="_blank" class="no-style">
-                        <img src="~./assets/platforme.svg" />
-                    </a>
-                </span>
-            </div>
+        <ul class="links-left">
+            <li class="desktop copy">
+                © 2019 Platforme International
+            </li>
+            <li>
+                <link-platforme text="Terms" href="https://www.platforme.com/terms" />
+            </li>
+            <li>
+                <link-platforme text="Privacy" href="https://www.platforme.com/privacy" />
+            </li>
+        </ul>
+        <ul class="links-right">
+            <li>
+                <link-platforme text="Contact Platforme" href="mailto:info@platforme.com" />
+            </li>
+            <li><link-platforme text="Pricing" href="#" /></li>
+            <li>
+                <link-platforme text="API" href="https://docs.platforme.com" target="_blank" />
+            </li>
+            <li>
+                <link-platforme
+                    text="Training"
+                    href="https://docs.platforme.com"
+                    target="_blank"
+                />
+            </li>
+            <li>
+                <link-platforme
+                    text="DevPortal"
+                    href="https://dev.platforme.com"
+                    target="_blank"
+                />
+            </li>
+            <li>
+                <link-platforme text="About" href="https://www.platforme.com" target="_blank" />
+            </li>
+        </ul>
+        <div class="links-logo">
+            <span class="mobile foot-left copy">
+                © 2019 Platforme International
+            </span>
+            <span class="footer-logo foot-right">
+                <a href="https://www.platforme.com" target="_blank" class="no-style">
+                    <img src="~./assets/platforme.svg" />
+                </a>
+            </span>
         </div>
     </div>
 </template>
@@ -107,7 +105,7 @@ ul li.copy {
     font-weight: 600;
 }
 
-body.mobile div .copy {
+body.mobile ul li.copy {
     color: #999999;
     font-size: 14px;
     font-weight: 700;
