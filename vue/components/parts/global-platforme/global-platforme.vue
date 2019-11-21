@@ -1,16 +1,12 @@
 <template>
     <div class="global">
-        <overlay-platforme v-bind:global="true" />
+        <overlay-platforme v-bind:global="true"></overlay-platforme>
         <alert-platforme />
     </div>
 </template>
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
-
-.global {
-    display: none;
-}
 </style>
 
 <script>
