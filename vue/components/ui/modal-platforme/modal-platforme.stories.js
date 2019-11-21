@@ -8,6 +8,9 @@ storiesOf("Modal", module)
             confirmText: {
                 default: text("Confirm text", "Confirm")
             },
+            disableButtonConfirm: {
+                default: boolean("Disable Button Confirm", false)
+            },
             buttonsAlignment: {
                 default: select(
                     "Buttons Alignment",
@@ -24,6 +27,9 @@ storiesOf("Modal", module)
             },
             cancelText: {
                 default: text("Cancel Text", "Cancel")
+            },
+            disableButtonCancel: {
+                default: boolean("Disable Button Cancel", false)
             },
             globalEvents: {
                 default: boolean("Global Events", true)
@@ -64,9 +70,11 @@ storiesOf("Modal", module)
             <div>
                 <modal-platforme
                     v-bind:confirm-text="confirmText"
+                    v-bind:disable-button-confirm="disableButtonConfirm"
                     v-bind:buttons-alignment="buttonsAlignment"
                     v-bind:button-close="buttonClose"
                     v-bind:cancel-text="cancelText"
+                    v-bind:disable-button-cancel="disableButtonCancel"
                     v-bind:global-events="globalEvents"
                     v-bind:name="name"
                     v-bind:overlay="overlay"
