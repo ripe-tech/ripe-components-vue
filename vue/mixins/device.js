@@ -20,7 +20,7 @@ const deviceMixin = {
         },
         updateDeviceClass() {
             const width = window.innerWidth;
-            const body = this._getBody();
+            const body = document.body;
 
             body.classList.remove(DESKTOP_CLASS);
             body.classList.remove(TABEL_CLASS);
@@ -36,12 +36,6 @@ const deviceMixin = {
             } else {
                 body.classList.add(MOBILE_CLASS);
             }
-        },
-        _getBody() {
-            if (this._body) return this._body;
-
-            this._body = document.getElementsByTagName("body")[0];
-            return this._body;
         }
     }
 };
