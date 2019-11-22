@@ -7,18 +7,14 @@ const MOBILE_WIDTH = 420;
 
 const deviceMixin = {
     methods: {
-        setTabletWidth(width, update = false) {
-            this.tabletWidth = width;
-            if (update) this.updateDeviceClass();
+        initDevice() {
+            this.listenDevice();
+            this.updateDevice();
         },
-        setMobileWidth(width, update = false) {
-            this.mobileWidth = width;
-            if (update) this.updateDeviceClass();
+        listenDevice() {
+            window.addEventListener("resize", () => this.updateDevice());
         },
-        listenDeviceChange() {
-            window.addEventListener("resize", () => this.updateDeviceClass());
-        },
-        updateDeviceClass() {
+        updateDevice() {
             const width = window.innerWidth;
             const body = document.body;
 
@@ -36,6 +32,14 @@ const deviceMixin = {
             } else {
                 body.classList.add(MOBILE_CLASS);
             }
+        },
+        setTabletWidth(width, update = false) {
+            this.tabletWidth = width;
+            if (update) this.updateDevice();
+        },
+        setMobileWidth(width, update = false) {
+            this.mobileWidth = width;
+            if (update) this.updateDevice();
         }
     }
 };

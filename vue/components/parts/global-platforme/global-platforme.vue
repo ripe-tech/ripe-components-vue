@@ -16,8 +16,7 @@ export const GlobalPlatforme = {
     name: "global-platforme",
     mixins: [deviceMixin],
     created: function() {
-        this.listenDeviceChange();
-        this.updateDeviceClass();
+        this.initDevice();
     }
 };
 
