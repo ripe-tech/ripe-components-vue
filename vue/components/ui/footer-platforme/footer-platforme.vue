@@ -64,6 +64,7 @@
 body.mobile .footer-platforme {
     border-top: none;
     margin-top: 32px;
+    padding-bottom: 0px;
 }
 
 ul {
@@ -139,7 +140,7 @@ body.mobile .links-right {
 }
 
 body.mobile .links-logo {
-    padding: 0px 18px 18px 18px;
+    padding: 0px 18px 0px 18px;
 }
 
 body.mobile .links-logo > .copy {
