@@ -38,6 +38,9 @@
             </ul>
         </div>
         <div class="links-logo">
+            <span class="copy">
+                © 2019 Platforme International
+            </span>
             <span class="footer-logo">
                 <a href="https://www.platforme.com" target="_blank" class="no-style">
                     <img src="~./assets/platforme.svg" />
@@ -52,9 +55,15 @@
 
 .footer-platforme {
     border-top: 1px solid #f0f0f0;
+    font-size: 0px;
     margin: 64px auto 0px auto;
     max-width: 1240px;
     padding-bottom: 20px;
+}
+
+body.mobile .footer-platforme {
+    border-top: none;
+    margin-top: 32px;
 }
 
 ul {
@@ -70,10 +79,14 @@ ul li {
     font-size: 12px;
 }
 
-ul li.copy {
-    color: #6d6d6d;
-    font-size: 11px;
-    font-weight: 600;
+body.mobile ul li {
+    display: block;
+    line-height: 28px;
+    padding-left: 18px;
+}
+
+body.mobile ul li.copy {
+    display: none;
 }
 
 ul li:hover {
@@ -98,6 +111,16 @@ ul li:hover {
     text-align: right;
 }
 
+body.mobile .links-left,
+body.mobile .links-right {
+    display: inline-block;
+    float: none;
+    line-height: 0px;
+    text-align: left;
+    vertical-align: top;
+    width: 50%;
+}
+
 .links-left ul li {
     margin-right: 12px;
 }
@@ -109,6 +132,30 @@ ul li:hover {
 .links-logo {
     height: 60px;
     line-height: 60px;
+}
+
+.links-logo > .copy {
+    display: none;
+}
+
+body.mobile .links-logo {
+    padding: 0px 18px 18px 18px;
+}
+
+body.mobile .links-logo > .copy {
+    display: block;
+    float: left;
+}
+
+body.mobile .links-logo > .footer-logo {
+    display: block;
+    float: right;
+}
+
+.copy {
+    color: #6d6d6d;
+    font-size: 11px;
+    font-weight: 600;
 }
 
 .footer-logo {
@@ -130,6 +177,11 @@ ul li:hover {
 
 .footer-logo > a > img {
     display: block;
+}
+
+body.mobile .footer-logo > a > img {
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .footer-logo,
