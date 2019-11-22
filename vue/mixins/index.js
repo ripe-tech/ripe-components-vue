@@ -1,3 +1,4 @@
+export * from "./device";
 export * from "./filter";
 export * from "./oauth";
 export * from "./part";
