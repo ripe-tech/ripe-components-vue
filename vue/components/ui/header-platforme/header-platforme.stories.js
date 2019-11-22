@@ -3,6 +3,16 @@ import { storiesOf } from "@storybook/vue";
 storiesOf("Header", module).add("Platforme", () => ({
     data: function() {
         return {
+            apps: {
+                copper: {
+                    text: "Copper",
+                    link: "https://copper.platforme.com"
+                },
+                pulse: {
+                    text: "Pulse",
+                    link: "https://pulse.platforme.com"
+                }
+            },
             mockLinks: [
                 { id: "enabled", text: "Enabled" },
                 { id: "selected", text: "Selected", selected: true },
@@ -24,6 +34,6 @@ storiesOf("Header", module).add("Platforme", () => ({
         <div>
             <overlay-platforme v-bind:visible='true' v-bind:global='true'></overlay-platforme>
             <side-platforme v-bind:links="mockLinks"></side-platforme>
-            <header-platforme v-bind:platforme-account="mockAccount"></header-platforme>
+            <header-platforme v-bind:platforme-account="mockAccount" v-bind:apps="apps"></header-platforme>
         </div>`
 }));
