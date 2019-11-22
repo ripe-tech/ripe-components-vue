@@ -231,7 +231,8 @@
     margin-top: -4px;
     max-width: 320px;
     padding: 10px;
-    position: static;
+    position: absolute;
+    right: 0px;
     text-align: left;
     white-space: pre;
 }
