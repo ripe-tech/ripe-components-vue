@@ -1,20 +1,26 @@
 <template>
     <div class="label-value">
-        <slot name="label">
-            <p class="label">
-                {{ label }}
-            </p>
-        </slot>
-        <slot name="value">
-            <p class="value">
-                {{ value }}
-            </p>
-        </slot>
-        <slot name="note">
-            <p class="note" v-if="note">
-                {{ note }}
-            </p>
-        </slot>
+        <div class="label-value-component label">
+            <slot name="label">
+                <p class="label-text">
+                    {{ label }}
+                </p>
+            </slot>
+        </div>
+        <div class="label-value-component value">
+            <slot name="value">
+                <p class="value-text">
+                    {{ value }}
+                </p>
+            </slot>
+        </div>
+        <div class="label-value-component note">
+            <slot name="note">
+                <p class="note-text">
+                    {{ note }}
+                </p>
+            </slot>
+        </div>
     </div>
 </template>
 
@@ -30,12 +36,14 @@
     text-transform: uppercase;
 }
 
-.label-value .label,
-.label-value .value,
-.label-value .note {
+.label-value .label-value-component {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.label-value .label-value-component > p {
+    margin: 0px 0px 0px 0px;
 }
 
 .label-value .label {
