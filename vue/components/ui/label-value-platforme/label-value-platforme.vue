@@ -1,22 +1,16 @@
 <template>
     <div class="label-value">
-        <slot
-            name="label"
-        >
+        <slot name="label">
             <p class="label">
                 {{ label }}
             </p>
         </slot>
-        <slot
-            name="value"
-        >
+        <slot name="value">
             <p class="value">
                 {{ value }}
             </p>
         </slot>
-        <slot
-            name="note"
-        >
+        <slot name="note">
             <p class="note" v-if="note">
                 {{ note }}
             </p>
