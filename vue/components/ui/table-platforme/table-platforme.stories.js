@@ -2,18 +2,17 @@ import { storiesOf } from "@storybook/vue";
 
 storiesOf("Data", module).add("Table", () => ({
     props: {
-        mockColumns: {
+        columns: {
             type: Array,
             default: () => [
                 { id: "id", title: "ID" },
                 { id: "user", title: "User" },
                 { id: "system", title: "System" }
             ]
-        }
-    },
-    data: function() {
-        return {
-            mockItems: [
+        },
+        items: {
+            type: Array,
+            default: () => [
                 {
                     id: 1,
                     user: "Bill Gates",
@@ -30,14 +29,13 @@ storiesOf("Data", module).add("Table", () => ({
                     system: "Linux"
                 }
             ]
-        };
+        }
     },
     template: `
-    <table-platforme
-        class="table"
-        v-bind:columns="mockColumns"
-        v-bind:items="mockItems"
-    >
+        <table-platforme
+            v-bind:columns="columns"
+            v-bind:items="items"
+        >
             <template v-slot="{ item }">
                 <td class="id">
                     {{ item.id }}
@@ -49,6 +47,6 @@ storiesOf("Data", module).add("Table", () => ({
                     {{ item.system }}
                 </td>
             </template>
-    </table-platforme>
+        </table-platforme>
     `
 }));
