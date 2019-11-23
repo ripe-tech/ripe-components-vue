@@ -14,6 +14,7 @@ import { HeaderPlatforme } from "./ui/header-platforme/header-platforme.vue";
 import { ImagePlatforme } from "./ui/image-platforme/image-platforme.vue";
 import { InputPlatforme } from "./ui/input-platforme/input-platforme.vue";
 import { LabelPlatforme } from "./ui/label-platforme/label-platforme.vue";
+import { LabelValuePlatforme } from "./ui/label-value-platforme/label-value-platforme.vue";
 import { LightboxPlatforme } from "./ui/lightbox-platforme/lightbox-platforme.vue";
 import { LinkPlatforme } from "./ui/link-platforme/link-platforme.vue";
 import { ListPlatforme } from "./ui/list-platforme/list-platforme.vue";
@@ -46,6 +47,7 @@ const install = Vue => {
     Vue.component("image-platforme", ImagePlatforme);
     Vue.component("input-platforme", InputPlatforme);
     Vue.component("label-platforme", LabelPlatforme);
+    Vue.component("label-value-platforme", LabelValuePlatforme);
     Vue.component("loader-platforme", LoaderPlatforme);
     Vue.component("modal-platforme", ModalPlatforme);
     Vue.component("lightbox-platforme", LightboxPlatforme);
@@ -77,6 +79,7 @@ export {
     ImagePlatforme,
     InputPlatforme,
     LabelPlatforme,
+    LabelValuePlatforme,
     LoaderPlatforme,
     ModalPlatforme,
     LightboxPlatforme,

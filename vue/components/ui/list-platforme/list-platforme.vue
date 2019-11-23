@@ -10,16 +10,26 @@
 @import "css/variables.scss";
 
 .list > .item {
-    border: 1px solid $border-color;
+    border-bottom: 1px solid $border-color;
     padding: 28px 15px 28px 15px;
 }
 
-.list > .item ::v-deep .row {
-    display: flexbox;
+.list > .item:first-child {
+    border-top: 1px solid $border-color;
 }
 
-.list > .item ::v-deep .row > .row-item {
-    flex: 1 0;
+.list > .item ::v-deep .row {
+    font-size: 0px;
+    margin-top: 30px;
+}
+
+.list > .item ::v-deep .row:first-child {
+    margin-top: 0px;
+}
+
+.list > .item ::v-deep .row > .half {
+    display: inline-block;
+    width: 50%;
 }
 </style>
 

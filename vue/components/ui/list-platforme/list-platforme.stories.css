@@ -1,0 +1,13 @@
+.row .image {
+    height: 40px;
+    object-fit: cover;
+    width: 110px;
+}
+
+.row .order-info {
+    font-size: 0px;
+}
+
+.row .order-info > .label-value {
+    width: 50%;
+}
