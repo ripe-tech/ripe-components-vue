@@ -41,7 +41,6 @@
                         <button-color-platforme
                             v-bind:class="'button-confirm'"
                             v-bind:small="true"
-                            v-bind:disabled="confirmDisabled"
                             v-bind:text="confirmText"
                             v-if="buttonConfirm && confirmText"
                             v-on:click="confirm"
@@ -158,10 +157,6 @@ body.mobile .modal > .modal-container {
 export const ModalPlatforme = {
     name: "modal-platforme",
     props: {
-        confirmDisabled: {
-            type: Boolean,
-            default: false
-        },
         confirmText: {
             type: String,
             default: null
