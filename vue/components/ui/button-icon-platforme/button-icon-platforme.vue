@@ -66,6 +66,7 @@ export const ButtonIconPlatforme = {
         },
         style() {
             return {
+                height: `${this.size}px`,
                 width: `${this.size}px`,
                 padding: `${parseInt(this.size / 4.5)}px`,
                 "border-radius": `${this.size}px`
