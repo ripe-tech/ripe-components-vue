@@ -1,7 +1,7 @@
 <template>
     <div class="progress-bar-container">
-        <p class="label" v-bind:style="{ color: this.color }" v-if="label">
-            {{ this.label }}
+        <p class="label" v-bind:style="{ color: color }" v-if="label">
+            {{ label }}
         </p>
         <div class="progress-bar">
             <div class="fill" v-bind:style="fillStyle" />

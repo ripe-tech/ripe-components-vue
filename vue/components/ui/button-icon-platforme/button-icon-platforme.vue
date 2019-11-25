@@ -15,6 +15,7 @@
     box-sizing: border-box;
     cursor: pointer;
     display: inline-block;
+    font-size: 0px;
     padding: 4px;
     text-align: center;
     transition: background-color 0.15s ease-in-out;
