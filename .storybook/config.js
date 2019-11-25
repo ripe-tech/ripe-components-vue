@@ -12,6 +12,7 @@ for (let key in components) {
 
 Vue.component("global-events", GlobalEvents);
 Vue.prototype.$bus = new Vue();
+Vue.prototype.$device = null;
 
 const req = require.context("../vue", true, /\.stories\.js$/);
 function loadStories() {

@@ -1,6 +1,6 @@
-const DESKTOP_CLASS = "desktop";
-const TABEL_CLASS = "tablet";
-const MOBILE_CLASS = "mobile";
+const DESKTOP = "desktop";
+const TABLET = "tablet";
+const MOBILE = "mobile";
 
 const TABLET_WIDTH = 768;
 const MOBILE_WIDTH = 420;
@@ -18,20 +18,25 @@ const deviceMixin = {
             const width = window.innerWidth;
             const body = document.body;
 
-            body.classList.remove(DESKTOP_CLASS);
-            body.classList.remove(TABEL_CLASS);
-            body.classList.remove(MOBILE_CLASS);
+            body.classList.remove(DESKTOP);
+            body.classList.remove(TABLET);
+            body.classList.remove(MOBILE);
 
             const tabletWidth = this.tabletWidth || TABLET_WIDTH;
             const mobileWidth = this.mobileWidth || MOBILE_WIDTH;
 
+            let device;
             if (width > tabletWidth) {
-                body.classList.add(DESKTOP_CLASS);
+                device = DESKTOP;
             } else if (width > mobileWidth) {
-                body.classList.add(TABEL_CLASS);
+                device = TABLET;
             } else {
-                body.classList.add(MOBILE_CLASS);
+                device = MOBILE;
             }
+
+            body.classList.add(device);
+            this.$device = device;
+            this.$bus.$emit("update:device", device);
         },
         setTabletWidth(width, update = false) {
             this.tabletWidth = width;

@@ -1,5 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 
+import "./filter-platforme.stories.css";
+
 storiesOf("Data", module).add("Filter", () => ({
     props: {
         filterColumns: {
@@ -34,6 +36,7 @@ storiesOf("Data", module).add("Filter", () => ({
     },
     template: `
     <div>
+        <global-platforme />
         <filter-platforme 
             v-bind:getItems="getItems"
             v-bind:columns="filterColumns" 
@@ -48,7 +51,14 @@ storiesOf("Data", module).add("Filter", () => ({
                 <td class="device">
                     {{ item.car }}
                 </td>
-                </template>
+            </template>
+            <template v-slot:item-list="{ item, index }">
+                <div class="row"><p>{{ item.id }}</p></div>
+                <div class="row">
+                    <div class="half"><p>{{ item.name }}</p></div>
+                    <div class="half"><p>{{ item.car }}</p></div>
+                </div>
+            </template>
         </filter-platforme>
     </div>
     `

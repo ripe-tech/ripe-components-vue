@@ -9,11 +9,20 @@
                 v-bind:transition="tableTransition"
                 v-bind:initial-sort="sort"
                 v-bind:initial-reverse="reverse"
+                v-show="device === 'desktop'"
             >
                 <template v-slot="{ item, index }">
                     <slot name="item" v-bind:item="item" v-bind:index="index" />
                 </template>
             </table-platforme>
+            <list-platforme
+                v-bind:items="items"
+                v-show="device === 'tablet' || device === 'mobile'"
+            >
+                <template v-slot="{ item, index }">
+                    <slot name="item-list" v-bind:item="item" v-bind:index="index" />
+                </template>
+            </list-platforme>
             <div class="empty-message" v-if="items.length === 0 && loading === false">
                 <slot name="empty">
                     <h1>No items found</h1>
@@ -45,6 +54,7 @@
 import { equal } from "yonius";
 
 export const FilterPlatforme = {
+    name: "filter-platforme",
     props: {
         filter: {
             type: String,
@@ -71,6 +81,10 @@ export const FilterPlatforme = {
             default: false
         }
     },
+    created: function() {
+        this.$bus.$on("update:device", device => this.onDeviceUpdated(device));
+        if (this.$device) this.setDevice(this.$device);
+    },
     data: function() {
         const { sort = "id", reverse = false } = this.useQuery ? this.parseQuery() : {};
         return {
@@ -80,7 +94,8 @@ export const FilterPlatforme = {
             start: 0,
             itemsToLoad: true,
             loading: false,
-            tableTransition: ""
+            tableTransition: "",
+            device: null
         };
     },
     computed: {
@@ -222,6 +237,12 @@ export const FilterPlatforme = {
             // returns a valid value as an "effective" refresh operation
             // has just been performed (all tests passed)
             return true;
+        },
+        onDeviceUpdated(device) {
+            this.setDevice(device);
+        },
+        setDevice(device) {
+            this.device = device;
         }
     }
 };
