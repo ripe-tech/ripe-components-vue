@@ -12,7 +12,7 @@
     display: inline-block;
     font-size: 12px;
     font-weight: 600;
-    height: 15px;
+    line-height: 15px;
     letter-spacing: 0.45px;
     overflow: hidden;
     padding: 5px 12px 5px 12px;
