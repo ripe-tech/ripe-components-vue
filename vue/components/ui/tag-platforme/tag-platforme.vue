@@ -13,6 +13,7 @@
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 0.45px;
+    line-height: 15px;
     overflow: hidden;
     padding: 5px 12px 5px 12px;
     text-overflow: ellipsis;
@@ -23,12 +24,14 @@
 .tag.tag-small {
     font-size: 10px;
     letter-spacing: 0.35px;
+    line-height: 12px;
     padding: 4px 10px 4px 10px;
 }
 
 .tag.tag-large {
     font-size: 14px;
     letter-spacing: 0.65px;
+    line-height: 17px;
     padding: 6px 14px 6px 14px;
 }
 
