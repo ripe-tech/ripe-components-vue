@@ -15,12 +15,12 @@
     box-sizing: border-box;
     cursor: pointer;
     display: inline-block;
+    height: auto;
     padding: 4px;
     text-align: center;
     transition: background-color 0.15s ease-in-out;
     user-select: none;
     vertical-align: middle;
-    height: auto;
 }
 
 .button-icon:hover {
