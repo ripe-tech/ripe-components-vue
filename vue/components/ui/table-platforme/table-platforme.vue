@@ -92,6 +92,17 @@ table ::v-deep td > * {
     vertical-align: middle;
 }
 
+table ::v-deep td > a {
+    border: none;
+    margin: auto;
+    text-decoration: none;
+}
+
+table ::v-deep td > a:hover {
+    border: none;
+    text-decoration: none;
+}
+
 table ::v-deep td.image img {
     height: auto;
     max-height: 100%;
