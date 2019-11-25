@@ -179,6 +179,7 @@ export const ButtonColorPlatforme = {
             let iconColor;
 
             switch (this.color) {
+                case "":
                 case "default":
                 case "red":
                     iconColor = "white";
@@ -190,7 +191,7 @@ export const ButtonColorPlatforme = {
                     iconColor = "black";
             }
 
-            return require(`./assets/icons-${iconColor}/${this.icon}.svg`);
+            return require(`./../assets/icons-${iconColor}/${this.icon}.svg`);
         },
         classes() {
             const base = {

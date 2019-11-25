@@ -62,7 +62,7 @@ export const ButtonIconPlatforme = {
     },
     computed: {
         iconPath() {
-            return require(`./assets/${this.icon}.svg`);
+            return require(`./../assets/icons-black/${this.icon}.svg`);
         },
         style() {
             return {
