@@ -32,6 +32,10 @@ storiesOf("Button", module)
                                         v-bind:disabled="disabled" v-bind:loading="loading"></button-color-platforme>
                 <button-color-platforme v-bind:text="'Small Button'" v-bind:secondary="secondary" v-bind:color="color"
                                         v-bind:disabled="disabled" v-bind:loading="loading" v-bind:small="true" ></button-color-platforme>
+                <button-color-platforme v-bind:text="'Normal Button'" v-bind:secondary="secondary" v-bind:color="color"
+                                        v-bind:disabled="disabled" v-bind:loading="loading" v-bind:icon="'add'"></button-color-platforme>
+                <button-color-platforme v-bind:text="'Small Button'" v-bind:secondary="secondary" v-bind:color="color"
+                                        v-bind:disabled="disabled" v-bind:loading="loading" v-bind:small="true" v-bind:icon="'add'"></button-color-platforme>
             </div>
         `
     }));

@@ -1,5 +1,12 @@
 <template>
-    <div class="button button-color" v-bind:class="style" v-on:click="handleClick">
+    <div
+        class="button button-color"
+        v-bind:class="classes"
+        v-bind:style="style"
+        v-on:click="handleClick"
+        v-on:mouseover="onMouseover"
+        v-on:mouseout="onMouseout"
+    >
         <loader-platforme
             loader="ball-scale-multiple"
             class="loader"
@@ -33,11 +40,25 @@
     user-select: none;
 }
 
+.button-color.button-color-icon {
+    background-position: left 15px center;
+    background-repeat: no-repeat;
+    background-size: 26px;
+    padding-left: 50px;
+    text-align: right;
+}
+
 .button-color.button-color-small {
     font-size: 12px;
     height: 32px;
     line-height: 32px;
     min-width: 160px;
+}
+
+.button-color.button-color-small.button-color-icon {
+    background-position: left 15px center;
+    background-size: 20px;
+    padding-left: 44px;
 }
 
 .button-color.disabled {
@@ -131,24 +152,64 @@ export const ButtonColorPlatforme = {
         loaderStyle: {
             type: Object,
             default: () => ({})
+        },
+        icon: {
+            type: String,
+            default: null
         }
     },
+    data: function() {
+        return {
+            hover: false
+        };
+    },
     methods: {
+        onMouseover() {
+            this.hover = true;
+        },
+        onMouseout() {
+            this.hover = false;
+        },
         handleClick() {
             this.$emit("click");
         }
     },
     computed: {
-        style() {
+        iconPath() {
+            let iconColor;
+
+            switch (this.color) {
+                case "default":
+                case "red":
+                    iconColor = "white";
+                    break;
+                case "white":
+                    iconColor = this.hover ? "white" : "black";
+                    break;
+                default:
+                    iconColor = "black";
+            }
+
+            return require(`./assets/icons-${iconColor}/${this.icon}.svg`);
+        },
+        classes() {
             const base = {
                 "button-color-secondary": this.secondary,
                 "button-color-small": this.small,
+                "button-color-icon": this.icon,
                 disabled: this.disabled,
                 loading: this.loading
             };
 
-            if (this.color) {
-                base["button-color-" + this.color] = this.color;
+            if (this.color) base["button-color-" + this.color] = this.color;
+
+            return base;
+        },
+        style() {
+            const base = {};
+
+            if (this.icon) {
+                base["background-image"] = `url(${this.iconPath})`;
             }
 
             return base;
