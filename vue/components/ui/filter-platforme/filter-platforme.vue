@@ -45,6 +45,7 @@
 import { equal } from "yonius";
 
 export const FilterPlatforme = {
+    name: "filter-platforme",
     props: {
         filter: {
             type: String,

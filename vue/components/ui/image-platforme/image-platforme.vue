@@ -23,6 +23,7 @@ img.loaded {
 
 <script>
 export const ImagePlatforme = {
+    name: "image-platforme",
     props: {
         src: {
             type: String,

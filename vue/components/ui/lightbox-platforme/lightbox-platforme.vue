@@ -76,6 +76,7 @@
 
 <script>
 export const LightboxPlatforme = {
+    name: "lightbox-platforme",
     props: {
         image: {
             type: String,

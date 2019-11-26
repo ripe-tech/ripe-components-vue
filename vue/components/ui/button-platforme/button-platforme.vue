@@ -80,6 +80,7 @@
 
 <script>
 export const ButtonPlatforme = {
+    name: "button-platforme",
     props: {
         normalText: {
             type: String,
