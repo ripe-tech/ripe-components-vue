@@ -45,6 +45,7 @@
 
 <script>
 export const ErrorPlatforme = {
+    name: "error-platforme",
     props: {
         message: {
             type: String,

@@ -196,7 +196,9 @@ body.mobile .footer-logo > a > img {
 </style>
 
 <script>
-export const FooterPlatforme = {};
+export const FooterPlatforme = {
+    name: "footer-platforme"
+};
 
 export default FooterPlatforme;
 </script>

@@ -140,6 +140,7 @@ table ::v-deep td.image img {
 
 <script>
 export const TablePlatforme = {
+    name: "table-platforme",
     props: {
         columns: {
             type: Array,

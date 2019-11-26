@@ -268,6 +268,7 @@
 
 <script>
 export const HeaderPlatforme = {
+    name: "header-platforme",
     props: {
         sideMenu: {
             type: Boolean,
