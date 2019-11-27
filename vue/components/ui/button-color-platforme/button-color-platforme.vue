@@ -48,15 +48,15 @@
     min-width: 160px;
 }
 
+.button-color.button-color-default:hover {
+    background-color: $grey;
+    border-color: $grey;
+}
+
 .button-color.button-color-default,
 .button-color.button-color-default:active {
     background-color: $dark-blue;
     border-color: $dark-blue;
-}
-
-.button-color.button-color-default:hover {
-    background-color: $grey;
-    border-color: $grey;
 }
 
 .button-color.button-color-default.disabled,
