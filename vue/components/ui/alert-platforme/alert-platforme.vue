@@ -10,6 +10,8 @@
         v-bind:title="title"
         v-bind:sub-title="subTitle"
         v-bind:visible="visible"
+        v-bind:loading="loading"
+        v-bind:auto-hide="false"
         v-on:update:visible="onUpdateVisible"
         v-on:click:confirm="onConfirm"
         v-on:click:cancel="onCancel"
@@ -35,7 +37,9 @@ export const AlertPlatforme = {
             title: null,
             subTitle: null,
             text: null,
-            visible: false
+            task: null,
+            visible: false,
+            loading: false
         };
     },
     watch: {},
@@ -57,8 +61,9 @@ export const AlertPlatforme = {
                 overlay,
                 overlayLeave,
                 title,
+                subTitle,
                 text,
-                subTitle
+                task
             } = options;
 
             this.confirmText = confirmText || "Confirm";
@@ -73,21 +78,31 @@ export const AlertPlatforme = {
             this.title = title;
             this.subTitle = subTitle;
             this.text = text;
+            this.task = task || null;
 
             this.visible = true;
+            this.loading = false;
         },
         markDone(event) {
             this.$bus.$emit(event);
             this.visible = false;
         },
-        onUpdateVisible(visible) {
+        async onUpdateVisible(visible) {
             if (visible) return;
             this.markDone("alert_cancel");
         },
-        onConfirm() {
+        async onConfirm() {
+            if (this.task) {
+                try {
+                    this.loading = true;
+                    await this.task(this);
+                } catch (err) {
+                    console.err(err);
+                }
+            }
             this.markDone("alert_confirm");
         },
-        onCancel() {
+        async onCancel() {
             this.markDone("alert_cancel");
         }
     }

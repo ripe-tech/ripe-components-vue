@@ -35,6 +35,7 @@
                             v-bind:secondary="true"
                             v-bind:small="true"
                             v-bind:text="cancelText"
+                            v-bind:disabled="loading"
                             v-if="buttonCancel && cancelText"
                             v-on:click="cancel"
                         />
@@ -42,6 +43,8 @@
                             v-bind:class="'button-confirm'"
                             v-bind:small="true"
                             v-bind:text="confirmText"
+                            v-bind:disabled="loading"
+                            v-bind:loading="loading"
                             v-if="buttonConfirm && confirmText"
                             v-on:click="confirm"
                         />
@@ -185,6 +188,10 @@ export const ModalPlatforme = {
             type: Boolean,
             default: true
         },
+        autoHide: {
+            type: Boolean,
+            default: true
+        },
         name: {
             type: String,
             mandatory: true
@@ -206,6 +213,10 @@ export const ModalPlatforme = {
             default: null
         },
         visible: {
+            type: Boolean,
+            default: false
+        },
+        loading: {
             type: Boolean,
             default: false
         }
@@ -260,11 +271,11 @@ export const ModalPlatforme = {
         },
         confirm() {
             this.$emit("click:confirm");
-            this.hide();
+            if (this.autoHide) this.hide();
         },
         cancel() {
             this.$emit("click:cancel");
-            this.hide();
+            if (this.autoHid) this.hide();
         },
         calculate() {
             if (this.$refs.modalContainer.clientHeight === 0) return;
