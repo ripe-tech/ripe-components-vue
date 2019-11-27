@@ -33,7 +33,8 @@
     max-width: 320px;
     text-align: center;
     text-transform: uppercase;
-    transition: background-color 0.15s ease-in-out, opacity 0.15s ease-in-out,
+    transition: background-color 0.15s ease-in-out,
+        opacity 0.15s ease-in-out,
         transform 0.15s ease-in-out;
 }
 
