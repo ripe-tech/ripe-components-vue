@@ -14,8 +14,7 @@
 @import "css/variables.scss";
 
 .button-color {
-    background-color: #000000;
-    border: 1px solid #000000;
+    border: 2px solid;
     border-radius: 6px 6px 6px 6px;
     box-sizing: border-box;
     color: $white;
@@ -33,6 +32,15 @@
     user-select: none;
 }
 
+.button-color.disabled {
+    color: $font-disabled;
+    cursor: not-allowed;
+}
+
+.button-color:focus {
+    border-color: $button-focus;
+}
+
 .button-color.button-color-small {
     font-size: 12px;
     height: 32px;
@@ -40,165 +48,152 @@
     min-width: 160px;
 }
 
-.button-color.button-color-default.disabled {
-    background-color: #eceef1;
-    border: 2px solid #eceef1;
-    color: #a4adb5;
-    cursor: not-allowed;
-}
-
-.button-color.button-color-secondary.disabled,
-.button-color.button-color-white.disabled {
-    border: solid 2px #e4e8f0;
-    color: #a4adb5;
-    cursor: not-allowed;
-    pointer-events: none;
+.button-color.button-color-default,
+.button-color.button-color-default:active {
+    background-color: $button-default;
+    border-color: $button-default;
 }
 
 .button-color.button-color-default:hover {
-    background-color: #57626e;
+    background-color: $button-default-hover;
+    border-color: $button-default-hover;
 }
 
-.button-color.button-color-default:active {
-    background-color: #1d2631;
-}
-
-.button-color.button-color-default:focus {
-    border: 2px solid #5ba4f6;
+.button-color.button-color-default.disabled,
+.button-color.button-color-default.disabled:hover {
+    background-color: $button-default-disabled;
+    border-color: $button-default-disabled;
 }
 
 .button-color.button-color-secondary,
 .button-color.button-color-white {
-    background-color: #ffffff;
-    border: solid 2px #e4e8f0;
-    color: #57626e;
-    transition: opacity 0.15s ease-in-out;
+    background-color: $white;
+    border-color: $button-white;
+    color: $button-white;
+}
+
+.button-color.button-color-secondary.disabled,
+.button-color.button-color-white.disabled {
+    border-color: $button-white-disabled;
 }
 
 .button-color.button-color-secondary:hover,
 .button-color.button-color-white:hover {
-    background-color: #ffffff;
-    border: 2px solid #57626e;
-    color: #57626e;
+    background-color: $white;
+    border-color: $button-white;
+    color: $button-white;
 }
 
 .button-color.button-color-secondary:active,
 .button-color.button-color-white:active {
-    background-color: #ffffff;
-    border: 2px solid #0d0d0d;
-    color: #0d0d0d;
+    background-color: $white;
+    border-color: $button-white-active;
+    color: $button-white-active;
 }
 
 .button-color.button-color-secondary:focus,
 .button-color.button-color-white:focus {
-    background-color: #ffffff;
-    border: 2px solid #4b8dd7;
-    color: #1d2631;
+    background-color: $white;
+    color: $button-default;
 }
 
 .button-color.button-color-red {
-    background-color: #e96760;
-    border: solid 2px #e96760;
-    color: #ffffff;
+    background-color: $button-red;
+    border-color: $button-red;
 }
 
 .button-color.button-color-red:hover {
-    background-color: #f58a84;
-    border: 2px solid #f58a84;
+    background-color: $button-red-hover;
+    border-color: $button-red-hover;
 }
 
 .button-color.button-color-red:active {
-    background-color: #ce544d;
-    border: 2px solid #ce544d;
+    background-color: $button-red-active;
+    border-color: $button-red-active;
 }
 
 .button-color.button-color-red.disabled {
-    background-color: #ffe4e2;
-    border: 2px solid #ffe4e2;
-    color: #a4adb5;
-    cursor: not-allowed;
+    background-color: $button-red-disabled;
+    border-color: $button-red-disabled;
 }
 
 .button-color.button-color-blue {
-    background-color: #4b8dd7;
-    border: solid 2px #4b8dd7;
+    background-color: $button-blue;
+    border-color: $button-blue;
 }
 
 .button-color.button-color-blue:hover {
-    background-color: #73b0f5;
-    border: 2px solid #73b0f5;
+    background-color: $button-blue-hover;
+    border-color: $button-blue-hover;
 }
 
 .button-color.button-color-blue:active {
-    background-color: #3066a3;
-    border: 2px solid #3066a3;
+    background-color: $button-blue-active;
+    border-color: $button-blue-active;
 }
 
 .button-color.button-color-blue.disabled {
-    background-color: #e5f3ff;
-    border: solid 2px #e5f3ff;
-    color: #a4adb5;
-    cursor: not-allowed;
+    background-color: $button-blue-disabled;
+    border-color: $button-blue-disabled;
+    color: $font-disabled;
 }
 
 .button-color.button-color-green {
-    background-color: #45a777;
-    border: solid 2px #45a777;
+    background-color: $button-green;
+    border-color: $button-green;
 }
 
 .button-color.button-color-green:hover {
-    background-color: #74dca9;
-    border: 2px solid #74dca9;
+    background-color: $button-green-hover;
+    border-color: $button-green-hover;
 }
 
 .button-color.button-color-green:active {
-    background-color: #318c60;
-    border: 2px solid #318c60;
+    background-color: $button-green-active;
+    border-color: $button-green-active;
 }
 
 .button-color.button-color-green.disabled {
-    background-color: #dcfce7;
-    border: solid 2px #dcfce7;
-    color: #a4adb5;
-    cursor: not-allowed;
+    background-color: $button-green-disabled;
+    border-color: $button-green-disabled;
+    color: $font-disabled;
 }
 
 .button-color.button-color-yellow {
-    background-color: #ffd422;
-    border: solid 2px #ffd422;
+    background-color: $button-yellow;
+    border-color: $button-yellow;
 }
 
 .button-color.button-color-yellow:hover {
-    background-color: #ffe473;
-    border: 2px solid #ffe473;
+    background-color: $button-yellow-hover;
+    border-color: $button-yellow-hover;
 }
 
 .button-color.button-color-yellow:active {
-    background-color: #e0bb25;
-    border: 2px solid #e0bb25;
+    background-color: $button-yellow-active;
+    border-color: $button-yellow-active;
 }
 
 .button-color.button-color-orange.disabled,
 .button-color.button-color-yellow.disabled {
-    background-color: #ffead0;
-    border: solid 2px #ffead0;
-    color: #a4adb5;
-    cursor: not-allowed;
+    background-color: $button-yellow-disabled;
+    border-color: $button-yellow-disabled;
+    color: $font-disabled;
 }
 
 .button-color.button-color-orange {
-    background-color: #ff8a00;
-    border: solid 2px #ff8a00;
+    background-color: $button-orange;
+    border-color: $button-orange;
 }
 
 .button-color.button-color-orange:hover {
-    background-color: #fbb766;
-    border: 2px solid #fbb766;
+    background-color: $button-orange-hover;
+    border-color: $button-orange-hover;
 }
 
 .button-color.button-color-orange:active {
-    background-color: #e07c06;
-    border: 2px solid #e07c06;
+    background-color: $button-orange-active;
+    border-color: $button-orange-active;
 }
 
 .button-color ::v-deep .loader {
@@ -208,7 +203,7 @@
 }
 
 .button-color ::v-deep .loader > div {
-    background-color: $white;
+    background-color: #fcd9d9;
     height: 32px;
     left: 0px;
     width: 32px;

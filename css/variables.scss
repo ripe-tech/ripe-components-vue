@@ -11,3 +11,42 @@ $link-color: #4078c0;
 $link-hover-color: #4078c0;
 $label-color: #8d8d8d;
 $font-family: Lato, sans-serif;
+$white: #ffffff;
+
+/** Button Color Variables **/
+
+$font-disabled: #a4adb5;
+$button-focus: #5ba4f6;
+
+$button-default: #1d2631;
+$button-default-hover: #57626e;
+$button-default-disabled: #eceef1;
+
+$button-white-border: #e4e8f0;
+$button-white: #57626e;
+$button-white-disabled: #e4e8f0;
+$button-white-active: #0d0d0d;
+
+$button-red: #e96760;
+$button-red-hover: #f58a84;
+$button-red-active: #ce544d;
+$button-red-disabled: #ffe4e2;
+
+$button-blue: #4b8dd7;
+$button-blue-hover: #73b0f5;
+$button-blue-active: #3066a3;
+$button-blue-disabled: #e5f3ff;
+
+$button-green: #45a777;
+$button-green-hover: #74dca9;
+$button-green-active: #318c60;
+$button-green-disabled: #dcfce7;
+
+$button-yellow: #ffd422;
+$button-yellow-hover: #ffe473;
+$button-yellow-active: #e0bb25;
+$button-yellow-disabled: #ffead0;
+
+$button-orange: #ff8a00;
+$button-orange-hover: #fbb766;
+$button-orange-active: #e07c06;
