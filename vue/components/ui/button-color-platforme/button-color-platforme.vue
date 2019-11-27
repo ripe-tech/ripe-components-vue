@@ -18,7 +18,7 @@
     border: 1px solid #000000;
     border-radius: 6px 6px 6px 6px;
     box-sizing: border-box;
-    color: #ffffff;
+    color: $white;
     cursor: pointer;
     display: inline-block;
     font-size: 13px;
@@ -56,9 +56,9 @@
 
 .button-color.button-color-secondary,
 .button-color.button-color-white {
-    background-color: #ffffff;
+    background-color: $white;
     border: solid 1px #e4e8f0;
-    color: #57626e;
+    color: $grey;
     transition: opacity 0.15s ease-in-out;
 }
 
@@ -66,20 +66,20 @@
 .button-color.button-color-white:hover {
     background-color: #000000;
     border: 1px solid #000000;
-    color: #ffffff;
+    color: $white;
 }
 
 .button-color.button-color-secondary:active,
 .button-color.button-color-white:active {
     background-color: #2d2d2d;
     border: 1px solid #2d2d2d;
-    color: #ffffff;
+    color: $white;
 }
 
 .button-color.button-color-red {
-    background-color: #e96760;
-    border: solid 1px #e96760;
-    color: #ffffff;
+    background-color: $red;
+    border: solid 1px $red;
+    color: $white;
 }
 
 .button-color ::v-deep .loader {
@@ -89,7 +89,7 @@
 }
 
 .button-color ::v-deep .loader > div {
-    background-color: #ffffff;
+    background-color: $white;
     height: 32px;
     left: 0px;
     width: 32px;
