@@ -5,15 +5,12 @@ storiesOf("Button", module)
     .addDecorator(withKnobs)
     .add("Color", () => ({
         props: {
-            secondary: {
-                default: boolean("Secondary", false)
-            },
             color: {
                 default: select(
                     "Color",
                     {
                         Default: "default",
-                        Error: "red",
+                        Red: "red",
                         White: "white",
                         Blue: "blue",
                         Green: "green",
