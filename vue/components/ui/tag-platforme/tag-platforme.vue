@@ -37,79 +37,73 @@
 
 .tag,
 .tag.tag-black {
-    background-color: #1d2631;
-    color: #ffffff;
+    background-color: $black;
+    color: $white;
 }
 
 .tag.tag-grey {
-    background-color: #57626e;
-    color: #ffffff;
+    background-color: $grey;
+    color: $white;
 }
 
 .tag.tag-orange {
-    background-color: #fb9032;
-    color: #ffffff;
+    background-color: $orange;
+    color: $white;
 }
 
 .tag.tag-blue {
-    background-color: #4b8dd7;
-    color: #ffffff;
+    background-color: $blue;
+    color: $white;
 }
 
 .tag.tag-green {
-    background-color: #45a777;
-    color: #ffffff;
+    background-color: $green;
+    color: $white;
 }
 
 .tag.tag-red {
-    background-color: #e96760;
-    color: #ffffff;
+    background-color: $red;
+    color: $white;
 }
 
 .tag.tag-purple {
-    background-color: #5f60c2;
-    color: #ffffff;
+    background-color: $purple;
+    color: $white;
 }
 
 .tag.tag-black {
-    background-color: #1d2631;
-    color: #ffffff;
+    background-color: $black;
+    color: $white;
 }
 
 .tag.tag-grey.tag-subtle {
-    background-color: #eceef1;
-    color: #000000;
-    opacity: 0.69;
+    background-color: $light-grey;
+    color: $grey;
 }
 
 .tag.tag-orange.tag-subtle {
-    background-color: #ffead0;
-    color: #fb9032;
-    opacity: 0.69;
+    background-color: $light-orange;
+    color: $orange;
 }
 
 .tag.tag-blue.tag-subtle {
-    background-color: #e5f3ff;
-    color: #4b8dd7;
-    opacity: 0.69;
+    background-color: $light-blue;
+    color: $blue;
 }
 
 .tag.tag-green.tag-subtle {
-    background-color: #dcfce7;
-    color: #45a777;
-    opacity: 0.69;
+    background-color: $light-green;
+    color: $green;
 }
 
 .tag.tag-red.tag-subtle {
-    background-color: #ffe4e2;
-    color: #e96760;
-    opacity: 0.69;
+    background-color: $light-red;
+    color: $red;
 }
 
 .tag.tag-purple.tag-subtle {
-    background-color: #e1e2ff;
-    color: #5f60c2;
-    opacity: 0.69;
+    background-color: $light-purple;
+    color: $purple;
 }
 </style>
 
