@@ -12,7 +12,7 @@ storiesOf("Button", module)
                 default: select(
                     "Color",
                     {
-                        Red: "default",
+                        Default: "default",
                         Error: "red",
                         White: "white",
                         Blue: "blue",
