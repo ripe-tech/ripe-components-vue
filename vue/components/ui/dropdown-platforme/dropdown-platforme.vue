@@ -94,7 +94,7 @@
 }
 
 .dropdown-platforme > .dropdown-item {
-    background-color: #ffffff;
+    background-color: $white;
     cursor: pointer;
     line-height: normal;
     margin: 0px 0px 0px 0px;

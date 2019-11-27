@@ -8,7 +8,7 @@
 @import "css/variables.scss";
 
 .container-platforme {
-    background-color: #ffffff;
+    background-color: $white;
     border-radius: 8px 8px 8px 8px;
     box-shadow: 0px 6px 15px rgba(36, 37, 38, 0.08);
     margin: 32px auto 32px auto;

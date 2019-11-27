@@ -57,7 +57,7 @@
 }
 
 .scroll-button {
-    background: #ffffff url("~./assets/arrow-up.svg") no-repeat center;
+    background: $white url("~./assets/arrow-up.svg") no-repeat center;
     border: none;
     border-radius: 40px;
     bottom: 20px;
@@ -263,7 +263,7 @@ input[type="text"]:hover {
 }
 
 input[type="text"]:focus {
-    background-color: #ffffff;
+    background-color: $white;
     border-color: #aaaaaa;
 }
 </style>
