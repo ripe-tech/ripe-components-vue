@@ -33,6 +33,7 @@
 import { oauthMixin } from "../../../mixins";
 
 export const OAuthPlatforme = {
+    name: "oauth-platforme",
     mixins: [oauthMixin],
     props: {
         text: {

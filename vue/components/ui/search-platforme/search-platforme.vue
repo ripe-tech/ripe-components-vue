@@ -125,6 +125,7 @@
 
 <script>
 export const SearchPlatforme = {
+    name: "search-platforme",
     props: {
         value: {
             type: String,

@@ -73,7 +73,8 @@
 }
 
 .button-color.button-color-secondary.disabled,
-.button-color.button-color-white.disabled {
+.button-color.button-color-white.disabled,
+.button-color.button-color-white.disabled:hover {
     border-color: $light-white;
     color: $medium-grey;
 }
@@ -176,7 +177,9 @@
 }
 
 .button-color.button-color-orange.disabled,
-.button-color.button-color-yellow.disabled {
+.button-color.button-color-orange.disabled:hover,
+.button-color.button-color-yellow.disabled,
+.button-color.button-color-yellow.disabled:hover, {
     background-color: $light-orange;
     border-color: $light-orange;
     color: $medium-grey;

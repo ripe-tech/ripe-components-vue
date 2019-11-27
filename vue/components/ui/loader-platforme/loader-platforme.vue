@@ -12,6 +12,7 @@
 import "loaders.css";
 
 export const LoaderPlatforme = {
+    name: "loader-platforme",
     props: {
         loader: {
             type: String,

@@ -44,6 +44,7 @@ input[type="text"]:focus {
 
 <script>
 export const InputPlatforme = {
+    name: "input-platforme",
     props: {
         value: {
             type: String,
