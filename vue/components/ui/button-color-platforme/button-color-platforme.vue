@@ -203,7 +203,7 @@
 }
 
 .button-color ::v-deep .loader > div {
-    background-color: #fcd9d9;
+    background-color: $white;
     height: 32px;
     left: 0px;
     width: 32px;
