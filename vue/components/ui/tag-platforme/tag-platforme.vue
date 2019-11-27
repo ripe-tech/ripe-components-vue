@@ -70,6 +70,47 @@
     background-color: #5f60c2;
     color: #ffffff;
 }
+
+.tag.tag-black {
+    background-color: #1d2631;
+    color: #ffffff;
+}
+
+.tag.tag-grey.tag-subtle {
+    background-color: #eceef1;
+    color: #000000;
+    opacity: 0.69;
+}
+
+.tag.tag-orange.tag-subtle {
+    background-color: #ffead0;
+    color: #fb9032;
+    opacity: 0.69;
+}
+
+.tag.tag-blue.tag-subtle {
+    background-color: #e5f3ff;
+    color: #4b8dd7;
+    opacity: 0.69;
+}
+
+.tag.tag-green.tag-subtle {
+    background-color: #dcfce7;
+    color: #45a777;
+    opacity: 0.69;
+}
+
+.tag.tag-red.tag-subtle {
+    background-color: #ffe4e2;
+    color: #e96760;
+    opacity: 0.69;
+}
+
+.tag.tag-purple.tag-subtle {
+    background-color: #e1e2ff;
+    color: #5f60c2;
+    opacity: 0.69;
+}
 </style>
 
 <script>
@@ -86,6 +127,10 @@ export const TagPlatforme = {
         color: {
             type: String,
             default: "grey"
+        },
+        subtle: {
+            type: Boolean,
+            default: true
         }
     },
     computed: {
@@ -93,6 +138,7 @@ export const TagPlatforme = {
             const base = {};
             base["tag-" + this.color] = this.color;
             if (this.size) base["tag-" + this.size] = this.size;
+            if (this.subtle) base["tag-subtle"] = this.subtle;
             return base;
         }
     }
