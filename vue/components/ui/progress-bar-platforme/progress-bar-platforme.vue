@@ -1,11 +1,28 @@
 <template>
-    <div class="progress-bar">
-        <div class="fill" v-bind:style="fillStyle" />
+    <div class="progress-bar-container">
+        <p class="label" v-bind:style="{ color: color }" v-if="label">
+            {{ label }}
+        </p>
+        <div class="progress-bar">
+            <div class="fill" v-bind:style="fillStyle" />
+        </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
+
+.progress-bar-container {
+    height: auto;
+    line-height: initial;
+}
+
+.label {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0px 0px 8px 0px;
+    text-align: center;
+}
 
 .progress-bar {
     background-color: #d5d6ee;
@@ -21,6 +38,7 @@
 
 <script>
 export const ProgressBarPlatforme = {
+    name: "progress-bar-platforme",
     props: {
         color: {
             type: String,
@@ -33,6 +51,10 @@ export const ProgressBarPlatforme = {
         currentStep: {
             type: Number,
             default: 1
+        },
+        label: {
+            type: String,
+            default: null
         }
     },
     computed: {

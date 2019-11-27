@@ -114,16 +114,16 @@ body.mobile .modal > .modal-container {
     user-select: none;
 }
 
-.modal > .modal-container > .buttons-container > .button {
+.modal > .modal-container > .buttons-container ::v-deep .button {
     margin: 0px 6px 0px 6px;
     min-width: 146px;
 }
 
-.modal > .modal-container > .buttons-container > .button:first-child {
+.modal > .modal-container > .buttons-container ::v-deep .button:first-child {
     margin-left: 0px;
 }
 
-.modal > .modal-container > .buttons-container > .button:last-child {
+.modal > .modal-container > .buttons-container ::v-deep .button:last-child {
     margin-right: 0px;
 }
 

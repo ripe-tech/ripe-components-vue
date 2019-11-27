@@ -272,6 +272,7 @@ input[type="text"]:focus {
 import { filterMixin, partMixin, utilsMixin, scrollMixin } from "../../../mixins";
 
 export const ListingPlatforme = {
+    name: "listing-platforme",
     mixins: [partMixin, filterMixin, utilsMixin, scrollMixin],
     props: {
         context: {

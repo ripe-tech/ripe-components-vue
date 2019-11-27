@@ -114,6 +114,7 @@
 
 <script>
 export const SidePlatforme = {
+    name: "side-platforme",
     props: {
         links: {
             type: Array,

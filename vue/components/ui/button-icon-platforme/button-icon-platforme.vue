@@ -15,6 +15,7 @@
     box-sizing: border-box;
     cursor: pointer;
     display: inline-block;
+    font-size: 0px;
     padding: 4px;
     text-align: center;
     transition: background-color 0.15s ease-in-out;
@@ -66,6 +67,7 @@ export const ButtonIconPlatforme = {
         },
         style() {
             return {
+                height: `${this.size}px`,
                 width: `${this.size}px`,
                 padding: `${parseInt(this.size / 4.5)}px`,
                 "border-radius": `${this.size}px`
