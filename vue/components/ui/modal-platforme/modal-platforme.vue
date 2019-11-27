@@ -275,7 +275,7 @@ export const ModalPlatforme = {
         },
         cancel() {
             this.$emit("click:cancel");
-            if (this.autoHid) this.hide();
+            if (this.autoHide) this.hide();
         },
         calculate() {
             if (this.$refs.modalContainer.clientHeight === 0) return;

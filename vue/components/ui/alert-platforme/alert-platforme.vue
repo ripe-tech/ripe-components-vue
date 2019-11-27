@@ -87,11 +87,7 @@ export const AlertPlatforme = {
             this.$bus.$emit(event);
             this.visible = false;
         },
-        async onUpdateVisible(visible) {
-            if (visible) return;
-            this.markDone("alert_cancel");
-        },
-        async onConfirm() {
+        async confirm() {
             if (this.task) {
                 try {
                     this.loading = true;
@@ -102,8 +98,18 @@ export const AlertPlatforme = {
             }
             this.markDone("alert_confirm");
         },
-        async onCancel() {
+        async cancel() {
             this.markDone("alert_cancel");
+        },
+        async onUpdateVisible(visible) {
+            if (visible) return;
+            await this.cancel();
+        },
+        async onConfirm() {
+            await this.confirm();
+        },
+        async onCancel() {
+            await this.cancel();
         }
     }
 };
