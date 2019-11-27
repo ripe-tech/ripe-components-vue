@@ -22,7 +22,7 @@
     cursor: pointer;
     display: inline-block;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: bold;
     height: 40px;
     letter-spacing: 0.5px;
     line-height: 40px;
@@ -40,46 +40,76 @@
     min-width: 160px;
 }
 
-.button-color.disabled {
-    cursor: default;
-    opacity: 0.4;
+.button-color.button-color-default.disabled {
+    background-color: #eceef1;
+    border: 2px solid #eceef1;
+    color: #a4adb5;
+    cursor: not-allowed;
+}
+
+.button-color.button-color-secondary.disabled,
+.button-color.button-color-white.disabled {
+    border: solid 2px #e4e8f0;
+    color: #a4adb5;
+    cursor: not-allowed;
     pointer-events: none;
 }
 
-.button-color:hover {
-    background-color: #4d4d4d;
+.button-color.button-color-default:hover {
+    background-color: #57626e;
 }
 
-.button-color:active {
-    background-color: #2d2d2d;
+.button-color.button-color-default:active {
+    background-color: #1d2631;
+}
+
+.button-color.button-color-default:focus {
+    border: 2px solid #5ba4f6;
 }
 
 .button-color.button-color-secondary,
 .button-color.button-color-white {
     background-color: #ffffff;
-    border: solid 1px #e4e8f0;
+    border: solid 2px #e4e8f0;
     color: #57626e;
     transition: opacity 0.15s ease-in-out;
 }
 
 .button-color.button-color-secondary:hover,
 .button-color.button-color-white:hover {
-    background-color: #000000;
-    border: 1px solid #000000;
-    color: #ffffff;
+    background-color: #ffffff;
+    border: 2px solid #57626e;
+    color: #57626e;
 }
 
 .button-color.button-color-secondary:active,
 .button-color.button-color-white:active {
-    background-color: #2d2d2d;
-    border: 1px solid #2d2d2d;
-    color: #ffffff;
+    background-color: #ffffff;
+    border: 2px solid #0d0d0d;
+    color: #0d0d0d;
+}
+
+.button-color.button-color-secondary:focus,
+.button-color.button-color-white:focus {
+    background-color: #ffffff;
+    border: 2px solid #4b8dd7;
+    color: #1d2631;
 }
 
 .button-color.button-color-red {
     background-color: #e96760;
-    border: solid 1px #e96760;
+    border: solid 2px #e96760;
     color: #ffffff;
+}
+
+.button-color.button-color-red:hover {
+    background-color: #f58a84;
+    border: 2px solid #f58a84;
+}
+
+.button-color.button-color-red:active {
+    background-color: #ce544d;
+    border: 2px solid #ce544d;
 }
 
 .button-color ::v-deep .loader {
