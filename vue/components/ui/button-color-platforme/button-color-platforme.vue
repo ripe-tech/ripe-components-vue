@@ -1,18 +1,13 @@
 <template>
-    <div
-        class="button button-color"
-        v-bind:class="classes"
-        v-bind:style="style"
-        v-on:click="handleClick"
-        v-on:mouseover="onMouseover"
-        v-on:mouseout="onMouseout"
-    >
+    <div class="button button-color" v-bind:class="classes" v-on:click="handleClick">
         <loader-platforme
             loader="ball-scale-multiple"
             class="loader"
             v-bind:loader-style="loaderStyle"
             v-show="loading"
         />
+        <img class="icon" v-bind:src="iconPath" v-if="icon && !loading" />
+        <img class="icon-hover" v-bind:src="iconHoverPath" v-if="icon && !loading" />
         <span v-show="!loading">{{ text }}</span>
     </div>
 </template>
@@ -28,7 +23,7 @@
     color: #ffffff;
     cursor: pointer;
     display: inline-block;
-    font-size: 13px;
+    font-size: 0px;
     font-weight: 600;
     height: 40px;
     letter-spacing: 0.5px;
@@ -38,27 +33,41 @@
     text-align: center;
     transition: background-color 0.15s ease-in-out, opacity 0.15s ease-in-out;
     user-select: none;
+    vertical-align: middle;
 }
 
-.button-color.button-color-icon {
-    background-position: left 15px center;
-    background-repeat: no-repeat;
-    background-size: 26px;
-    padding-left: 50px;
-    text-align: right;
+.button-color > * {
+    display: inline-block;
+    font-size: 13px;
+    line-height: 40px;
+    vertical-align: middle;
 }
 
 .button-color.button-color-small {
-    font-size: 12px;
     height: 32px;
     line-height: 32px;
     min-width: 160px;
 }
 
-.button-color.button-color-small.button-color-icon {
-    background-position: left 15px center;
-    background-size: 20px;
-    padding-left: 44px;
+.button-color.button-color-small > * {
+    font-size: 12px;
+    line-height: 32px;
+}
+
+.button-color.button-color-left {
+    text-align: left;
+}
+
+.button-color.button-color-right {
+    text-align: right;
+}
+
+.button-color.button-color-icon {
+    padding: 0px 12px 0px 12px;
+}
+
+.button-color.loading {
+    text-align: center;
 }
 
 .button-color.disabled {
@@ -105,7 +114,7 @@
 
 .button-color ::v-deep .loader {
     display: inline-block;
-    transform: translateY(-22px);
+    transform: translateY(-17px);
     width: 32px;
 }
 
@@ -118,6 +127,42 @@
 
 .button-color.button-color-secondary ::v-deep .loader > div {
     background-color: #2d2d2d;
+}
+
+.button-color .icon,
+.button-color .icon-hover {
+    float: left;
+    height: 22px;
+    margin-top: 9px;
+    width: 22px;
+}
+
+.button-color.button-color-left .icon,
+.button-color.button-color-left .icon-hover {
+    margin-right: 8px;
+}
+
+.button-color.button-color-small .icon,
+.button-color.button-color-small .icon-hover {
+    height: 18px;
+    margin-top: 7px;
+    width: 18px;
+}
+
+.button-color .icon {
+    display: inline-block;
+}
+
+.button-color:hover .icon {
+    display: none;
+}
+
+.button-color .icon-hover {
+    display: none;
+}
+
+.button-color:hover .icon-hover {
+    display: inline-block;
 }
 </style>
 
@@ -141,6 +186,10 @@ export const ButtonColorPlatforme = {
             type: String,
             default: null
         },
+        alignment: {
+            type: String,
+            default: null
+        },
         disabled: {
             type: Boolean,
             default: false
@@ -158,18 +207,7 @@ export const ButtonColorPlatforme = {
             default: null
         }
     },
-    data: function() {
-        return {
-            hover: false
-        };
-    },
     methods: {
-        onMouseover() {
-            this.hover = true;
-        },
-        onMouseout() {
-            this.hover = false;
-        },
         handleClick() {
             this.$emit("click");
         }
@@ -179,19 +217,38 @@ export const ButtonColorPlatforme = {
             let iconColor;
 
             switch (this.color) {
-                case "":
-                case "default":
-                case "red":
-                    iconColor = "white";
-                    break;
                 case "white":
-                    iconColor = this.hover ? "white" : "black";
+                    iconColor = "black";
                     break;
                 default:
-                    iconColor = "black";
+                    iconColor = "white";
+                    break;
             }
 
-            return require(`./../assets/icons-${iconColor}/${this.icon}.svg`);
+            if (this.secondary) iconColor = "black";
+
+            return require(`./../../../assets/icons/${iconColor}/${this.icon}.svg`);
+        },
+        iconHoverPath() {
+            let iconColor;
+
+            switch (this.color) {
+                case "white":
+                    iconColor = "white";
+                    break;
+                default:
+                    iconColor = "white";
+                    break;
+            }
+
+            if (this.secondary) iconColor = "white";
+
+            return require(`./../../../assets/icons/${iconColor}/${this.icon}.svg`);
+        },
+        alignmentStyle() {
+            if (this.alignment) return this.alignment;
+            if (this.icon) return "right";
+            return "center";
         },
         classes() {
             const base = {
@@ -202,15 +259,12 @@ export const ButtonColorPlatforme = {
                 loading: this.loading
             };
 
-            if (this.color) base["button-color-" + this.color] = this.color;
+            if (this.color) {
+                base["button-color-" + this.color] = this.color;
+            }
 
-            return base;
-        },
-        style() {
-            const base = {};
-
-            if (this.icon) {
-                base["background-image"] = `url(${this.iconPath})`;
+            if (this.alignmentStyle) {
+                base["button-color-" + this.alignmentStyle] = this.alignmentStyle;
             }
 
             return base;
