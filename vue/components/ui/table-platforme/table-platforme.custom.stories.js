@@ -1,6 +1,6 @@
 import { storiesOf } from "@storybook/vue";
 
-storiesOf("Data", module).add("Table", () => ({
+storiesOf("Data", module).add("Table Custom", () => ({
     props: {
         mockColumns: {
             type: Array,
@@ -37,6 +37,18 @@ storiesOf("Data", module).add("Table", () => ({
         class="table"
         v-bind:columns="mockColumns"
         v-bind:items="mockItems"
-    />
+    >
+        <template v-slot="{ item }">
+            <td class="id" style="font-weight: bold; color: #ff0000;">
+                {{ item.id }}
+            </td>
+            <td class="user" style="text-transform: uppercase;">
+                USER: {{ item.user || "-" }}
+            </td>
+            <td class="device">
+                OS: {{ item.system }}
+            </td>
+        </template>
+    </table-platforme>
     `
 }));

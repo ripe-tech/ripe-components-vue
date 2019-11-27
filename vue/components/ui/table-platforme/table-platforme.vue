@@ -23,8 +23,8 @@
         <transition-group tag="tbody" v-bind:name="transition">
             <tr v-for="(item, index) in sortedItems" v-bind:key="item.id">
                 <slot v-bind:item="item" v-bind:index="index">
-                    <td v-bind:class="column.name" v-for="column in columns" v-bind:key="column.id">
-                        {{ item[column.name] }}
+                    <td v-bind:class="column.id" v-for="column in columns" v-bind:key="column.id">
+                        {{ item[column.id] }}
                     </td>
                 </slot>
             </tr>
