@@ -30,6 +30,15 @@ a.link.hover {
 a.link.link-small {
     font-size: 12px;
 }
+
+a.link.link-disabled {
+    color: #afafba;
+    cursor: not-allowed;
+}
+
+a.link.link-disabled:hover {
+    border-color: transparent;
+}
 </style>
 
 <script>
@@ -49,6 +58,10 @@ export const LinkPlatforme = {
         target: {
             type: String
         },
+        disabled: {
+            type: Boolean,
+            default: false
+        },
         size: {
             type: String,
             default: "normal"
@@ -58,6 +71,7 @@ export const LinkPlatforme = {
         style() {
             const base = {};
             if (this.size) base["link-" + this.size] = this.size;
+            if (this.disabled) base["link-disabled"] = this.disabled;
             return base;
         }
     }
