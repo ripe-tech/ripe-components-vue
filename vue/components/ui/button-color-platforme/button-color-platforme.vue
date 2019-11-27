@@ -17,7 +17,7 @@
     border: 2px solid;
     border-radius: 6px 6px 6px 6px;
     box-sizing: border-box;
-    color: #ffffff;
+    color: $white;
     cursor: pointer;
     display: inline-block;
     font-size: 13px;
@@ -203,7 +203,7 @@
 }
 
 .button-color ::v-deep .loader > div {
-    background-color: #fcd9d9;
+    background-color: $white;
     height: 32px;
     left: 0px;
     width: 32px;
