@@ -21,7 +21,7 @@
     cursor: pointer;
     display: inline-block;
     font-size: 13px;
-    font-weight: bold;
+    font-weight: 600;
     height: 40px;
     letter-spacing: 0.5px;
     line-height: 40px;
