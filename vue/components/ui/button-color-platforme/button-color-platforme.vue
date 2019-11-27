@@ -96,6 +96,85 @@
     color: #1d2631;
 }
 
+.button-color.button-color-blue {
+    background-color: #4b8dd7;
+    border: solid 2px #4b8dd7;
+}
+
+.button-color.button-color-blue:hover {
+    background-color: #73b0f5;
+    border: 2px solid #73b0f5;
+}
+
+.button-color.button-color-blue:active {
+    background-color: #3066a3;
+    border: 2px solid #3066a3;
+}
+
+.button-color.button-color-blue.disabled {
+    background-color: #e5f3ff;
+    border: solid 2px #e5f3ff;
+    color: #a4adb5;
+}
+
+.button-color.button-color-green {
+    background-color: #45a777;
+    border: solid 2px #45a777;
+}
+
+.button-color.button-color-green:hover {
+    background-color: #74dca9;
+    border: 2px solid #74dca9;
+}
+
+.button-color.button-color-green:active {
+    background-color: #318c60;
+    border: 2px solid #318c60;
+}
+
+.button-color.button-color-green.disabled {
+    background-color: #dcfce7;
+    border: solid 2px #dcfce7;
+    color: #a4adb5;
+}
+
+.button-color.button-color-yellow {
+    background-color: #ffd422;
+    border: solid 2px #ffd422;
+}
+
+.button-color.button-color-yellow:hover {
+    background-color: #ffe473;
+    border: 2px solid #ffe473;
+}
+
+.button-color.button-color-yellow:active {
+    background-color: #e0bb25;
+    border: 2px solid #e0bb25;
+}
+
+.button-color.button-color-orange.disabled,
+.button-color.button-color-yellow.disabled {
+    background-color: #ffead0;
+    border: solid 2px #ffead0;
+    color: #a4adb5;
+}
+
+.button-color.button-color-orange {
+    background-color: #ff8a00;
+    border: solid 2px #ff8a00;
+}
+
+.button-color.button-color-orange:hover {
+    background-color: #fbb766;
+    border: 2px solid #fbb766;
+}
+
+.button-color.button-color-orange:active {
+    background-color: #e07c06;
+    border: 2px solid #e07c06;
+}
+
 .button-color.button-color-red {
     background-color: #e96760;
     border: solid 2px #e96760;
@@ -110,6 +189,12 @@
 .button-color.button-color-red:active {
     background-color: #ce544d;
     border: 2px solid #ce544d;
+}
+
+.button-color.button-color-red.disabled {
+    background-color: #ffe4e2;
+    border: 2px solid #ffe4e2;
+    color: #a4adb5;
 }
 
 .button-color ::v-deep .loader {
