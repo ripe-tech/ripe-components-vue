@@ -33,12 +33,12 @@
 }
 
 .button-color.disabled {
-    color: $font-disabled;
+    color: $medium-grey;
     cursor: not-allowed;
 }
 
 .button-color:focus {
-    border-color: $button-focus;
+    border-color: $aqcua-blue;
 }
 
 .button-color.button-color-small {
@@ -50,150 +50,151 @@
 
 .button-color.button-color-default,
 .button-color.button-color-default:active {
-    background-color: $button-default;
-    border-color: $button-default;
+    background-color: $dark-blue;
+    border-color: $dark-blue;
 }
 
 .button-color.button-color-default:hover {
-    background-color: $button-default-hover;
-    border-color: $button-default-hover;
+    background-color: $grey;
+    border-color: $grey;
 }
 
 .button-color.button-color-default.disabled,
 .button-color.button-color-default.disabled:hover {
-    background-color: $button-default-disabled;
-    border-color: $button-default-disabled;
+    background-color: $light-grey;
+    border-color: $light-grey;
 }
 
 .button-color.button-color-secondary,
 .button-color.button-color-white {
     background-color: $white;
-    border-color: $button-white;
-    color: $button-white;
+    border-color: $light-white;
+    color: $grey;
 }
 
 .button-color.button-color-secondary.disabled,
 .button-color.button-color-white.disabled {
-    border-color: $button-white-disabled;
+    border-color: $light-white;
+    color: $medium-grey;
 }
 
 .button-color.button-color-secondary:hover,
 .button-color.button-color-white:hover {
     background-color: $white;
-    border-color: $button-white;
-    color: $button-white;
+    border-color: $grey;
+    color: $grey;
 }
 
 .button-color.button-color-secondary:active,
 .button-color.button-color-white:active {
     background-color: $white;
-    border-color: $button-white-active;
-    color: $button-white-active;
+    border-color: $light-black;
+    color: $light-black;
 }
 
 .button-color.button-color-secondary:focus,
 .button-color.button-color-white:focus {
     background-color: $white;
-    color: $button-default;
+    color: $dark-blue;
 }
 
 .button-color.button-color-red {
-    background-color: $button-red;
-    border-color: $button-red;
+    background-color: $red;
+    border-color: $red;
 }
 
 .button-color.button-color-red:hover {
-    background-color: $button-red-hover;
-    border-color: $button-red-hover;
+    background-color: $medium-red;
+    border-color: $medium-red;
 }
 
 .button-color.button-color-red:active {
-    background-color: $button-red-active;
-    border-color: $button-red-active;
+    background-color: $dark-red;
+    border-color: $dark-red;
 }
 
 .button-color.button-color-red.disabled {
-    background-color: $button-red-disabled;
-    border-color: $button-red-disabled;
+    background-color: $light-red;
+    border-color: $light-red;
 }
 
 .button-color.button-color-blue {
-    background-color: $button-blue;
-    border-color: $button-blue;
+    background-color: $blue;
+    border-color: $blue;
 }
 
 .button-color.button-color-blue:hover {
-    background-color: $button-blue-hover;
-    border-color: $button-blue-hover;
+    background-color: $lighter-blue;
+    border-color: $lighter-blue;
 }
 
 .button-color.button-color-blue:active {
-    background-color: $button-blue-active;
-    border-color: $button-blue-active;
+    background-color: $active-blue;
+    border-color: $active-blue;
 }
 
 .button-color.button-color-blue.disabled {
-    background-color: $button-blue-disabled;
-    border-color: $button-blue-disabled;
-    color: $font-disabled;
+    background-color: $light-blue;
+    border-color: $light-blue;
+    color: $medium-grey;
 }
 
 .button-color.button-color-green {
-    background-color: $button-green;
-    border-color: $button-green;
+    background-color: $green;
+    border-color: $green;
 }
 
 .button-color.button-color-green:hover {
-    background-color: $button-green-hover;
-    border-color: $button-green-hover;
+    background-color: $lighter-green;
+    border-color: $lighter-green;
 }
 
 .button-color.button-color-green:active {
-    background-color: $button-green-active;
-    border-color: $button-green-active;
+    background-color: $dark-green;
+    border-color: $dark-green;
 }
 
 .button-color.button-color-green.disabled {
-    background-color: $button-green-disabled;
-    border-color: $button-green-disabled;
-    color: $font-disabled;
+    background-color: $light-green;
+    border-color: $light-green;
+    color: $medium-grey;
 }
 
 .button-color.button-color-yellow {
-    background-color: $button-yellow;
-    border-color: $button-yellow;
+    background-color: $yellow;
+    border-color: $yellow;
 }
 
 .button-color.button-color-yellow:hover {
-    background-color: $button-yellow-hover;
-    border-color: $button-yellow-hover;
+    background-color: $light-yellow;
+    border-color: $light-yellow;
 }
 
 .button-color.button-color-yellow:active {
-    background-color: $button-yellow-active;
-    border-color: $button-yellow-active;
+    background-color: $dark-yellow;
+    border-color: $dark-yellow;
 }
 
 .button-color.button-color-orange.disabled,
 .button-color.button-color-yellow.disabled {
-    background-color: $button-yellow-disabled;
-    border-color: $button-yellow-disabled;
-    color: $font-disabled;
+    background-color: $light-orange;
+    border-color: $light-orange;
+    color: $medium-grey;
 }
 
 .button-color.button-color-orange {
-    background-color: $button-orange;
-    border-color: $button-orange;
+    background-color: $orange;
+    border-color: $orange;
 }
 
 .button-color.button-color-orange:hover {
-    background-color: $button-orange-hover;
-    border-color: $button-orange-hover;
+    background-color: $dark-orange;
+    border-color: $dark-orange;
 }
 
 .button-color.button-color-orange:active {
-    background-color: $button-orange-active;
-    border-color: $button-orange-active;
+    background-color: $darker-orange;
+    border-color: $darker-orange;
 }
 
 .button-color ::v-deep .loader {
