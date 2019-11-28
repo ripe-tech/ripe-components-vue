@@ -33,7 +33,14 @@ storiesOf("Data", module)
             },
             values: {
                 type: Array,
-                default: () => ["name", "age", "car", "city", "shoes", "trousers"]
+                default: () => [
+                    { id: "name", label: "Person", value: "name", note: "age" },
+                    { id: "car", label: "Car" },
+                    { id: "city", label: "City" },
+                    { id: "shoes", label: "Shoes" },
+                    { id: "trousers", label: "Trousers" },
+                    { id: "shirt" }
+                ]
             },
             optionsItems: {
                 type: Array,
@@ -51,12 +58,13 @@ storiesOf("Data", module)
                 v-bind:title="title"
                 v-bind:image-url="imageUrl"
                 v-bind:options-items="optionsItems"
+                v-bind:item="item"
             >
-                <template v-slot:[value] v-for="value in values">
-                    <div class="label-value">
-                        <p>{{ value.toUpperCase() }}</p>
-                        <p>{{ item[value] }}</p>
-                    </div>
+                <template v-slot:shirt>
+                    <p>Custom entry</p>
+                </template>
+                <template v-slot:label-city>
+                    <p>Custom label</p>
                 </template>
             </details-platforme>
         `

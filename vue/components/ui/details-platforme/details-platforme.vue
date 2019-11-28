@@ -47,7 +47,44 @@
                 <slot name="image-footer" />
             </div>
             <div class="details-column" v-for="column in columns" v-bind:key="column">
-                <slot v-bind:name="value" v-for="value in getColumnValues(column - 1)" />
+                <slot v-bind:name="value.id" v-for="value in getColumnValues(column - 1)">
+                    <div
+                        class="label-value"
+                        v-bind:class="[value.id, `label-value-${value.id}`]"
+                        v-bind:key="value.id"
+                    >
+                        <div class="label-value-component label">
+                            <slot v-bind:name="`label-${value.id}`">
+                                <p class="label-text">
+                                    <slot v-bind:name="`label-${value.id}-text`">
+                                        {{ value.label || value.id || value.name }}
+                                    </slot>
+                                </p>
+                            </slot>
+                        </div>
+                        <div class="label-value-component value">
+                            <slot v-bind:name="`value-${value.id}`">
+                                <p class="value-text">
+                                    <slot v-bind:name="`value-${value.id}-text`">
+                                        {{ item[value.value] || item[value.id] || "-" }}
+                                    </slot>
+                                </p>
+                            </slot>
+                        </div>
+                        <div class="label-value-component note">
+                            <slot v-bind:name="`note-${value.id}`">
+                                <p
+                                    class="note-text"
+                                    v-if="value.note || $slots[`note-${value.id}-text`]"
+                                >
+                                    <slot v-bind:name="`note-${value.id}-text`">
+                                        {{ item[value.note] }}
+                                    </slot>
+                                </p>
+                            </slot>
+                        </div>
+                    </div>
+                </slot>
             </div>
         </div>
     </container-platforme>
@@ -169,6 +206,48 @@
     object-fit: contain;
     width: auto;
 }
+
+.details-platforme .label-value {
+    font-weight: 600;
+    max-width: 100%;
+    overflow: hidden;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.details-platforme .details-column .label-value {
+    min-height: 100px;
+}
+
+.details-platforme .details-column .label-value:last-child {
+    min-height: auto;
+}
+
+.details-platforme ::v-deep .label-value .label-value-component > p {
+    margin: 0px 0px 0px 0px;
+}
+
+.details-platforme ::v-deep .label-value .label {
+    color: $label-color;
+    font-size: 12px;
+    margin: 0px 0px 6px 0px;
+}
+
+.details-platforme ::v-deep .label-value .value {
+    font-size: 14px;
+    line-height: 18px;
+    margin: 6px 0px 0px 0px;
+    word-break: break-all;
+    word-break: break-word;
+}
+
+.details-platforme ::v-deep .label-value .note {
+    color: $label-color;
+    font-size: 11px;
+    line-height: 16px;
+    margin-bottom: 0px;
+    margin-top: 2px;
+}
 </style>
 
 <script>
@@ -194,6 +273,10 @@ export const DetailsPlatforme = {
         optionsItems: {
             type: Array,
             default: () => []
+        },
+        item: {
+            type: Object,
+            required: true
         }
     },
     data: function() {
