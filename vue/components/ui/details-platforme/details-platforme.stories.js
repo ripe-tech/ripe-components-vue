@@ -34,11 +34,11 @@ storiesOf("Data", module)
             values: {
                 type: Array,
                 default: () => [
-                    { id: "name", label: "Person", value: "name", note: "age" },
-                    { id: "car", label: "Car" },
-                    { id: "city", label: "City" },
-                    { id: "shoes", label: "Shoes" },
-                    { id: "trousers", label: "Trousers" },
+                    { id: "name", label: "Person", note: "age" },
+                    { id: "car" },
+                    { id: "city" },
+                    { id: "shoes" },
+                    { id: "trousers" },
                     { id: "shirt" }
                 ]
             },

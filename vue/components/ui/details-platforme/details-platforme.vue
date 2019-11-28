@@ -57,7 +57,7 @@
                             <slot v-bind:name="`label-${value.id}`">
                                 <p class="label-text">
                                     <slot v-bind:name="`label-${value.id}-text`">
-                                        {{ value.label || value.id || value.name }}
+                                        {{ value.label || value.id | capitalize || value.name }}
                                     </slot>
                                 </p>
                             </slot>
