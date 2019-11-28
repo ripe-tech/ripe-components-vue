@@ -1,30 +1,23 @@
 <template>
-    <div class="wrapper">
-        <div class="tabs">
-                <div class="tab" v-for="(item, index) in sortedItems" v-bind:key="item.id">
-                    <slot v-bind:item="item" v-bind:index="index">
-                        <input
-                            type="radio"
-                            name="css-tabs"
-                            class="tab-switch"
-                            checked
-                            v-bind:id="item.id"
-                        />
-                        <label
-                            class="tab-label"
-                            v-bind:for="item.id"
-                            v-for="tab in tabs"
-                            v-bind:key="tab.id"
-                        >{{ item[tab.id] }}</label>
-                        <div
-                            class="tab-content"
-                            v-for="content in contents"
-                            v-bind:key="content.id"
-                        >
-                                {{ item[content.id] }}
-                        </div>
-                    </slot>
-                </div>
+    <div class="tabs">
+        <div class="header">
+            <span
+                class="tab-label"
+                v-bind:class="{ active: isTabActive(index) }"
+                v-for="(tab, index) in tabs"
+                v-bind:key="tab.id"
+                v-on:click="onTabClick(index)"
+            >
+                {{ tab.title || tab.id }}
+            </span>
+        </div>
+        <div
+            class="tab"
+            v-bind:class="{ active: isTabActive(index) }"
+            v-for="(tab, index) in tabs"
+            v-bind:key="tab.id"
+        >
+            <slot v-bind:name="tab.id" v-bind:index="index" />
         </div>
     </div>
 </template>
@@ -32,82 +25,50 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-body {
-    font-family: $font-family;
-    line-height: 1.618em;
+.tabs > .header {
+    align-items: center;
+    border-radius: 2px;
+    display: flex;
+    flex-direction: row;
+    height: 30px;
+    line-height: 30px;
+    margin-top: 2px;
+    margin-left: 2px;
+    text-transform: uppercase;
 }
 
-.wrapper {
-    margin: 0 auto;
-    width: 100%;
-}
-
-.tabs {
-    height: 14.75rem;
-    margin: 3rem 0;
-    position: relative;
-}
-
-.tabs::before,
-.tabs::after {
-    content: "";
-    display: table;
-}
-
-.tabs::after {
-    clear: both;
-}
-
-.tab {
-    float: left;
-}
-
-.tab-switch {
-    display: none;
-}
-
-.tab-label {
-    color: #000;
+.tabs > .header > .tab-label {
+    color: $grey;
     cursor: pointer;
-    display: block;
-    height: 3em;
-    line-height: 2.75em;
-    padding: 0 1.618em;
-    position: relative;
-    top: 0;
-    transition: all 0.25s;
+    margin-bottom: -1px;
+    padding: 0px 16px;
 }
 
-.tab-label:hover {
-    top: -0.25rem;
-    transition: top 0.25s;
-}
-
-.tab-content {
-    border-top: 2px solid grey;
-    color: #2c3e50;
-    height: 12rem;
-    left: 0;
-    opacity: 0;
-    padding: 1.618rem;
-    position: absolute;
-    top: 2.75em;
-    transition: all 0.35s;
-    width: 100%;
-    z-index: 1;
-}
-
-.tab-switch:checked + .tab-label {
-    color: red;
-    top: -0.0625rem;
-    transition: all 0.35s;
-    z-index: 1;
-}
-
-.tab-switch:checked + label + .tab-content {
-    opacity: 1;
-    transition: all 0.35s;
+.tabs > .header > .tab-label:hover {
+    box-shadow: 0px 0px 0px 2px $blue;
+    border-radius: 6px;
+    color: $dark;
     z-index: 2;
+}
+
+.tabs > .header > .tab-label.active {
+    border-bottom: 2px solid $dark;
+    color: $dark;
+    z-index: 2;
+}
+
+.tabs > .tab {
+    opacity: 0;
+    transition: 0.5s;
+    padding: 15px;
+    position: absolute;
+    border-top: 2px solid #a4adb5;
+    width: 100%;
+}
+
+.tabs > .tab.active {
+    opacity: 1;
+    transition: 0.5s;
 }
 </style>
 
@@ -117,43 +78,16 @@ export const TabsPlatforme = {
     props: {
         tabs: {
             type: Array,
-            default: () => []
+            required: true
         },
-        contents: {
-            type: Array,
-            default: () => []
-        },
-        items: {
-            type: Array,
-            default: () => []
-        },
-        sortMethod: {
-            type: Function,
-            default: (items, tab, reverse) => {
-                return items.sort((first, second) => {
-                    const order = reverse ? -1 : 1;
-                    const sort = first[tab] > second[tab];
-                    return order * (sort ? 1 : -1);
-                });
-            }
-        },
-        transition: {
-            type: String,
-            default: null
-        },
-        initialSort: {
-            type: String,
-            default: null
-        },
-        initialReverse: {
-            type: Boolean,
-            default: false
+        initialTab: {
+            type: Number,
+            default: 0
         }
     },
     data: function() {
         return {
-            sortTab: this.initialSort,
-            reverseSort: this.initialReverse
+            currentTab: this.initialTab
         };
     },
     computed: {
@@ -167,14 +101,14 @@ export const TabsPlatforme = {
         }
     },
     methods: {
-        tabClass(tab) {
-            const order = this.reverseSort ? "ascending" : "descending";
-            return this.sortTab === tab ? `active ${order}` : "";
+        selectTab(index) {
+            this.currentTab = index;
         },
-        sort(tab) {
-            this.reverseSort = this.sortTab === tab ? !this.reverseSort : false;
-            this.sortTab = tab;
-            this.$emit("sort", this.sortTab, this.reverseSort);
+        onTabClick(index) {
+            this.selectTab(index);
+        },
+        isTabActive(index) {
+            return index === this.currentTab;
         }
     }
 };
