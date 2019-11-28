@@ -16,7 +16,7 @@
 @import "css/variables.scss";
 
 .button-color {
-    border: 2px solid;
+    border: 1px solid;
     border-radius: 6px 6px 6px 6px;
     box-sizing: border-box;
     color: $white;
@@ -30,7 +30,7 @@
     min-width: 180px;
     padding: 0px 20px 0px 20px;
     text-align: center;
-    transition: background-color 0.15s ease-in-out, opacity 0.15s ease-in-out;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, color 0.15s ease-in-out, opacity 0.15s ease-in-out;
     user-select: none;
     vertical-align: middle;
 }

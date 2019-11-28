@@ -56,13 +56,13 @@ storiesOf("Button", module)
         },
         template: `
             <div>
-                <button-color-platforme v-bind:text="'Normal Button'" v-bind:secondary="secondary" v-bind:color="color" v-bind:alignment="alignment"
+                <button-color-platforme v-bind:text="'Normal Button'" v-bind:color="color" v-bind:alignment="alignment"
                                         v-bind:disabled="disabled" v-bind:loading="loading"></button-color-platforme>
-                <button-color-platforme v-bind:text="'Small Button'" v-bind:secondary="secondary" v-bind:color="color" v-bind:alignment="alignment"
+                <button-color-platforme v-bind:text="'Small Button'" v-bind:color="color" v-bind:alignment="alignment"
                                         v-bind:disabled="disabled" v-bind:loading="loading" v-bind:small="true" ></button-color-platforme>
-                <button-color-platforme v-bind:text="'Normal Button'" v-bind:secondary="secondary" v-bind:color="color" v-bind:alignment="alignment"
+                <button-color-platforme v-bind:text="'Normal Button'" v-bind:color="color" v-bind:alignment="alignment"
                                         v-bind:disabled="disabled" v-bind:loading="loading" v-bind:icon="icon"></button-color-platforme>
-                <button-color-platforme v-bind:text="'Small Button'" v-bind:secondary="secondary" v-bind:color="color" v-bind:alignment="alignment"
+                <button-color-platforme v-bind:text="'Small Button'" v-bind:color="color" v-bind:alignment="alignment"
                                         v-bind:disabled="disabled" v-bind:loading="loading" v-bind:small="true" v-bind:icon="icon"></button-color-platforme>
             </div>
         `
