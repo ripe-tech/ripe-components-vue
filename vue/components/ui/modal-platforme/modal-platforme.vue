@@ -35,7 +35,7 @@
                             v-bind:secondary="true"
                             v-bind:small="true"
                             v-bind:text="cancelText"
-                            v-bind:disabled="loading"
+                            v-bind:disabled="loading || cancelDisabled"
                             v-if="buttonCancel && cancelText"
                             v-on:click="cancel"
                         />
@@ -43,7 +43,7 @@
                             v-bind:class="'button-confirm'"
                             v-bind:small="true"
                             v-bind:text="confirmText"
-                            v-bind:disabled="loading"
+                            v-bind:disabled="loading || confirmDisabled"
                             v-bind:loading="loading"
                             v-if="buttonConfirm && confirmText"
                             v-on:click="confirm"
@@ -164,9 +164,17 @@ export const ModalPlatforme = {
             type: String,
             default: null
         },
+        confirmDisabled: {
+            type: Boolean,
+            default: false
+        },
         cancelText: {
             type: String,
             default: null
+        },
+        cancelDisabled: {
+            type: Boolean,
+            default: false
         },
         buttonsAlignment: {
             type: String,
