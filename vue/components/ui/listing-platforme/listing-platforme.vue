@@ -51,66 +51,19 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-body.mobile .listing > .container-platforme,
-body.tablet .listing > .container-platforme {
-    padding: 10px;
-}
-
-body.mobile .listing > .container-platforme > .container-header,
-body.tablet .listing > .container-platforme > .container-header {
-    padding: 0;
-    width: 100%;
-}
-
-body.mobile .listing > .container-platforme > .container-header > .container-header-right ::v-deep,
-body.tablet .listing > .container-platforme > .container-header > .container-header-right ::v-deep {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
-body.mobile .listing > .container-platforme > .container-header > .container-header-right ::v-deep > img.logo,
-body.tablet .listing > .container-platforme > .container-header > .container-header-right ::v-deep > img.logo {
-    display: none;
-}
-
-body.mobile .listing .container-header-right .search-platforme,
-body.tablet .listing .container-header-right .search-platforme {
-    margin: 0;
-    margin-bottom: 10px;
-    width: 100%;
-}
-
-body.mobile .listing .container-header-right .search-platforme ::v-deep > .input-platforme,
-body.tablet .listing .container-header-right .search-platforme ::v-deep > .input-platforme {
-    width: 100%;
-}
-
-body.mobile .listing > .container-platforme > .container-header > .title body.tablet .listing > .container-platforme > .container-header > .title {
-    margin-bottom: 16px;
-    padding-left: 6px;
-    padding-top: 16px;
-}
-
-body.mobile .listing .filter-platforme ::v-deep table,
-body.tablet .listing .filter-platforme ::v-deep table {
-    margin-top: 50px;
-}
-
 ::v-deep .highlight:hover,
 ::v-deep .highlight.hover {
     color: $link-hover-color;
 }
 
 .scroll-button {
-    background: #ffffff url("~./assets/arrow-up.svg") no-repeat center;
+    background: $white url("~./assets/arrow-up.svg") no-repeat center;
     border: none;
     border-radius: 40px;
     bottom: 20px;
-    -webkit-box-shadow: 0px 0px 36px -15px #aaaaaa;
-    -moz-box-shadow: 0px 0px 36px -15px #aaaaaa;
-    box-shadow: 0px 0px 36px -15px #aaaaaa;
+    -webkit-box-shadow: 0px 0px 36px -15px $white;
+    -moz-box-shadow: 0px 0px 36px -15px $white;
+    box-shadow: 0px 0px 36px -15px $white;
     height: 50px;
     opacity: 0;
     outline: none;
@@ -223,7 +176,7 @@ body.tablet .listing .filter-platforme ::v-deep table {
 }
 
 .listing ::v-deep .column-container > .details {
-    color: #6d6d6d;
+    color: $grey;
     font-size: 10px;
     font-weight: 800;
     letter-spacing: 0.25px;
@@ -295,7 +248,7 @@ body.tablet .listing .filter-platforme ::v-deep table {
 }
 
 input[type="text"] {
-    background-color: #f2f2f2;
+    background-color: $border-color;
     border: 1px solid transparent;
     font-size: 13px;
     height: 32px;
@@ -306,12 +259,59 @@ input[type="text"] {
 }
 
 input[type="text"]:hover {
-    border-color: #dddddd;
+    border-color: $light-white;
 }
 
 input[type="text"]:focus {
-    background-color: #ffffff;
-    border-color: #aaaaaa;
+    background-color: $white;
+    border-color: $white;
+}
+
+body.mobile .listing > .container-platforme,
+body.tablet .listing > .container-platforme {
+    padding: 10px;
+}
+
+body.mobile .listing > .container-platforme > .container-header,
+body.tablet .listing > .container-platforme > .container-header {
+    padding: 0;
+    width: 100%;
+}
+
+body.mobile .listing > .container-platforme > .container-header > .container-header-right ::v-deep,
+body.tablet .listing > .container-platforme > .container-header > .container-header-right ::v-deep {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+body.mobile .listing > .container-platforme > .container-header > .container-header-right ::v-deep > img.logo,
+body.tablet .listing > .container-platforme > .container-header > .container-header-right ::v-deep > img.logo {
+    display: none;
+}
+
+body.mobile .listing .container-header-right .search-platforme,
+body.tablet .listing .container-header-right .search-platforme {
+    margin: 0;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+body.mobile .listing .container-header-right .search-platforme ::v-deep > .input-platforme,
+body.tablet .listing .container-header-right .search-platforme ::v-deep > .input-platforme {
+    width: 100%;
+}
+
+body.mobile .listing > .container-platforme > .container-header > .title body.tablet .listing > .container-platforme > .container-header > .title {
+    margin-bottom: 16px;
+    padding-left: 6px;
+    padding-top: 16px;
+}
+
+body.mobile .listing .filter-platforme ::v-deep table,
+body.tablet .listing .filter-platforme ::v-deep table {
+    margin-top: 50px;
 }
 </style>
 
