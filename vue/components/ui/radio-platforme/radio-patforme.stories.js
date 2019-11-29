@@ -5,20 +5,20 @@ storiesOf("Input", module)
     .addDecorator(withKnobs)
     .add("Radio", () => ({
         props: {
-            error: {
-                default: boolean("Error", false)
-            },
-            disabled: {
-                default: boolean("Disabled", false)
+            labelTitle: {
+                default: text("Label title", "Favorite Pizza")
             },
             checkedValue: {
                 default: text("Checked Value", "Pepperoni")
             },
-            labelTitle: {
-                default: text("Label title", "Favorite Pizza")
-            },
             labelFooter: {
                 default: text("Label footer", "End footer")
+            },
+            disabled: {
+                default: boolean("Disabled", false)
+            },
+            error: {
+                default: boolean("Error", false)
             }
         },
         data: function() {
@@ -42,6 +42,12 @@ storiesOf("Input", module)
                 ]
             };
         },
-        template:
-            "<radio-platforme v-bind:checkedValue='checkedValue' v-bind:itens='itens' v-bind:label-title='labelTitle' v-bind:disabled='disabled' v-bind:label-footer='labelFooter' v-bind:error='error'/>"
+        template: `<radio-platforme
+                v-bind:checkedValue = 'checkedValue'
+                v-bind:itens = 'itens'
+                v-bind:label-title = 'labelTitle'
+                v-bind:disabled = 'disabled'
+                v-bind:label-footer = 'labelFooter'
+                v-bind:error = 'error'
+            />`
     }));
