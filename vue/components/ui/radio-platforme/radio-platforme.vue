@@ -42,7 +42,8 @@
 }
 
 .title {
-    display: inline-block;
+    color: #6b778c;
+    display: block;
     padding: 0px 0px 8px 0px;
 }
 
@@ -60,17 +61,6 @@
 
 .radio-label:hover {
     opacity: 0.8;
-}
-
-.cirular-button {
-    background-color: #fafbfc;
-    border: 2px solid #dfe1e5;
-    border-radius: 50%;
-    display: inline-block;
-    height: 2px;
-    padding: 3px;
-    vertical-align: bottom;
-    width: 2px;
 }
 
 .radio {
@@ -123,7 +113,25 @@
     vertical-align: bottom;
 }
 
+.cirular-button {
+    background-color: #fafbfc;
+    border: 2px solid #dfe1e5;
+    border-radius: 50%;
+    display: inline-block;
+    height: 2px;
+    margin: 0px 0px 0px 6px;
+    padding: 3px 3px 3px 3px;
+    vertical-align: bottom;
+    width: 2px;
+}
+
+.label-text {
+    margin: 0px 0px 0px 6px;
+}
+
 .footer {
+    color: #6b778c;
+    display: block;
     padding: 8px 0px 0px 0px;
 }
 </style>
