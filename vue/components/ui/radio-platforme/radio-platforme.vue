@@ -9,13 +9,14 @@
                             disabled: disabled,
                             error: error
                         }"
+                        v-bind:disabled="disabled"
                         type="radio"
                         class="radio"
                         v-bind:value="iten.value"
                         v-bind:id="iten.value + index"
                         v-model="picked"
                     />
-                    <div class="cirular-button" />
+                    <div class="circular-button" />
                     <span class="label-text">{{ iten.label ? iten.label : iten.value }}</span>
                 </label-platforme>
             </div>
@@ -66,39 +67,39 @@
     display: none;
 }
 
-.radio:checked + .cirular-button {
+.radio:checked + .circular-button {
     background-color: #ffffff;
     border-color: $dark;
     border-width: 4px;
     padding: 1px 1px 1px 1px;
 }
 
-.radio.disabled + .cirular-button {
+.radio.disabled + .circular-button {
     background-color: #f4f5f7;
     border: 2px solid #f4f5f7;
 }
 
-.radio.disabled:checked + .cirular-button {
+.radio.disabled:checked + .circular-button {
     background-color: #a6adb4;
     border-color: #f6f7f9;
     border-width: 4px;
     padding: 1px 1px 1px 1px;
 }
 
-.radio.error + .cirular-button {
+.radio.error + .circular-button {
     background-color: #f4f5f7;
     border: 2px solid $red;
 }
 
-.radio.error:checked + .cirular-button {
+.radio.error:checked + .circular-button {
     border: 4px solid $red;
 }
 
-.radio.error:focus + .cirular-button {
+.radio.error:focus + .circular-button {
     border-color: #4c9aff;
 }
 
-.radio:active + .cirular-button {
+.radio:active + .circular-button {
     background-color: $dark;
     border-color: #d6dade;
     border-width: 4px;
@@ -112,7 +113,7 @@
     vertical-align: bottom;
 }
 
-.cirular-button {
+.circular-button {
     background-color: #fafbfc;
     border: 2px solid #dfe1e5;
     border-radius: 50%;
