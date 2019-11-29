@@ -1,9 +1,9 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text, boolean } from "@storybook/addon-knobs";
 
-storiesOf("Radio", module)
+storiesOf("Input", module)
     .addDecorator(withKnobs)
-    .add("Simple", () => ({
+    .add("Radio", () => ({
         props: {
             error: {
                 default: boolean("Error", false)
