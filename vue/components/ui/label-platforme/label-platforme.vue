@@ -1,6 +1,6 @@
 <template>
     <label class="label" v-bind:class="style" v-bind:for="target">
-        {{ text }}
+        <slot> {{ text }} </slot>
     </label>
 </template>
 

@@ -21,6 +21,7 @@ import { LoaderPlatforme } from "./ui/loader-platforme/loader-platforme.vue";
 import { ModalPlatforme } from "./ui/modal-platforme/modal-platforme.vue";
 import { OverlayPlatforme } from "./ui/overlay-platforme/overlay-platforme.vue";
 import { ProgressBarPlatforme } from "./ui/progress-bar-platforme/progress-bar-platforme.vue";
+import { RadioPlatforme } from "./ui/radio-platforme/radio-platforme.vue";
 import { SearchPlatforme } from "./ui/search-platforme/search-platforme.vue";
 import { SidePlatforme } from "./ui/side-platforme/side-platforme.vue";
 import { TablePlatforme } from "./ui/table-platforme/table-platforme.vue";
@@ -52,6 +53,7 @@ const install = Vue => {
     Vue.component("listing-platforme", ListingPlatforme);
     Vue.component("overlay-platforme", OverlayPlatforme);
     Vue.component("progress-bar-platforme", ProgressBarPlatforme);
+    Vue.component("radio-platforme", RadioPlatforme);
     Vue.component("search-platforme", SearchPlatforme);
     Vue.component("side-platforme", SidePlatforme);
     Vue.component("table-platforme", TablePlatforme);
@@ -82,6 +84,7 @@ export {
     ListingPlatforme,
     OverlayPlatforme,
     ProgressBarPlatforme,
+    RadioPlatforme,
     SearchPlatforme,
     SidePlatforme,
     TablePlatforme,
