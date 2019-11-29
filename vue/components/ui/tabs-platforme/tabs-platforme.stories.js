@@ -1,14 +1,13 @@
 import { storiesOf } from "@storybook/vue";
 
-storiesOf("Components", module)
-    .add("Tabs", () => ({
-        props: {
-            mockTabs: {
-                type: Array,
-                default: () => [{ id: "id", title: "ID" }, { id: "address" }, { id: "account" }]
-            }
-        },
-        template: `
+storiesOf("Components", module).add("Tabs", () => ({
+    props: {
+        mockTabs: {
+            type: Array,
+            default: () => [{ id: "id", title: "ID" }, { id: "address" }, { id: "account" }]
+        }
+    },
+    template: `
             <tabs-platforme v-bind:tabs="mockTabs">
                 <template v-slot:id>
                     <p>ID</p>
@@ -22,4 +21,4 @@ storiesOf("Components", module)
                 </template>
             </tabs-platforme>
         `
-    }));
+}));

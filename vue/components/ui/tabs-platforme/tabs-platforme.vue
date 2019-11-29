@@ -32,8 +32,8 @@
     flex-direction: row;
     height: 30px;
     line-height: 30px;
-    margin-top: 2px;
     margin-left: 2px;
+    margin-top: 2px;
     text-transform: uppercase;
 }
 
@@ -45,8 +45,14 @@
 }
 
 .tabs > .header > .tab-label:hover {
-    box-shadow: 0px 0px 0px 2px $blue;
+    border-bottom: 2px solid #a4adb5;
+    color: $dark;
+    z-index: 2;
+}
+
+.tabs > .header > .tab-label:focus {
     border-radius: 6px;
+    box-shadow: 0px 0px 0px 2px $blue;
     color: $dark;
     z-index: 2;
 }
@@ -58,11 +64,11 @@
 }
 
 .tabs > .tab {
+    border-top: 2px solid #a4adb5;
     opacity: 0;
-    transition: 0.5s;
     padding: 15px;
     position: absolute;
-    border-top: 2px solid #a4adb5;
+    transition: 0.5s;
     width: 100%;
 }
 
