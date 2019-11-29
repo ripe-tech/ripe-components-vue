@@ -70,7 +70,7 @@
     background-color: #ffffff;
     border-color: #1d2631;
     border-width: 4px;
-    padding: 1px;
+    padding: 1px 1px 1px 1px;
 }
 
 .radio.disabled + .cirular-button {
@@ -82,7 +82,7 @@
     background-color: #a6adb4;
     border-color: #f6f7f9;
     border-width: 4px;
-    padding: 1px;
+    padding: 1px 1px 1px 1px;
 }
 
 .radio.error + .cirular-button {
@@ -102,7 +102,7 @@
     background-color: #1d2631;
     border-color: #d6dade;
     border-width: 4px;
-    padding: 1px;
+    padding: 1px 1px 1px 1px;
 }
 
 .radio-choice-text {
