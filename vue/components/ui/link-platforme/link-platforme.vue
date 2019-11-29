@@ -31,8 +31,65 @@ a.link.link-small {
     font-size: 12px;
 }
 
+a.link.link-color-black {
+    color: $black;
+}
+
+a.link.link-color-black:hover {
+    border-color: $black;
+}
+
+a.link.link-color-grey {
+    color: $grey;
+}
+
+a.link.link-color-grey:hover {
+    border-color: $grey;
+}
+
+a.link.link-color-orange {
+    color: $orange;
+}
+
+a.link.link-color-orange:hover {
+    border-color: $orange;
+}
+
+a.link.link-color-blue {
+    color: $blue;
+}
+
+a.link.link-color-blue:hover {
+    border-color: $blue;
+}
+
+a.link.link-color-green {
+    color: $green;
+}
+
+a.link.link-color-green:hover {
+    border-color: $green;
+}
+
+a.link.link-color-red {
+    color: $red;
+}
+
+a.link.link-color-red:hover {
+    border-color: $red;
+}
+
+a.link.link-color-purple {
+    color: $purple;
+}
+
+a.link.link-color-purple:hover {
+    border-color: $purple;
+}
+
 a.link.link-disabled {
-    color: #afafba;
+    border-color: transparent;
+    color: $dark-grey;
     cursor: not-allowed;
 }
 
@@ -65,6 +122,10 @@ export const LinkPlatforme = {
         size: {
             type: String,
             default: "normal"
+        },
+        color: {
+            type: String,
+            default: ""
         }
     },
     computed: {
@@ -72,6 +133,7 @@ export const LinkPlatforme = {
             const base = {};
             if (this.size) base["link-" + this.size] = this.size;
             if (this.disabled) base["link-disabled"] = this.disabled;
+            if (this.color) base["link-color-" + this.color] = this.color;
             return base;
         }
     }
