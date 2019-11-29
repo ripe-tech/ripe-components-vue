@@ -1,7 +1,7 @@
 <template>
     <a
         class="link"
-        v-bind:class="style"
+        v-bind:class="classes"
         v-bind:href="href"
         v-bind:rel="rel"
         v-bind:target="target"
@@ -17,9 +17,10 @@ a.link {
     border-bottom: 1px solid transparent;
     color: $link-color;
     cursor: pointer;
-    padding-bottom: 2px;
+    padding-bottom: 1px;
     text-decoration: none;
     transition: border-color 0.1s ease-in;
+    user-select: none;
 }
 
 a.link:hover,
@@ -96,6 +97,10 @@ a.link.link-disabled {
 a.link.link-disabled:hover {
     border-color: transparent;
 }
+
+a.link.link-disabled:active {
+    pointer-events: none;
+}
 </style>
 
 <script>
@@ -107,13 +112,16 @@ export const LinkPlatforme = {
             mandatory: true
         },
         href: {
-            type: String
+            type: String,
+            default: null
         },
         rel: {
-            type: String
+            type: String,
+            default: null
         },
         target: {
-            type: String
+            type: String,
+            default: null
         },
         disabled: {
             type: Boolean,
@@ -125,11 +133,11 @@ export const LinkPlatforme = {
         },
         color: {
             type: String,
-            default: ""
+            default: null
         }
     },
     computed: {
-        style() {
+        classes() {
             const base = {};
             if (this.size) base["link-" + this.size] = this.size;
             if (this.disabled) base["link-disabled"] = this.disabled;
