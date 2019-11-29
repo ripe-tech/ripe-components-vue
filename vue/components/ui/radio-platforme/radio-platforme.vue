@@ -4,7 +4,7 @@
         <div class="radio-group-choices">
             <div
                 class="radio-group-choice"
-                v-bind:class="{ disabled: disabled || item.disabled }"
+                v-bind:class="{ disabled: disabled || item.disabled, error: error }"
                 v-for="item in items"
                 v-bind:key="item.value"
                 v-on:click="onClick(item)"
