@@ -43,5 +43,5 @@ storiesOf("Input", module)
             };
         },
         template:
-            "<radio-platforme v-bind:checkedValue='checkedValue' v-bind:itens='itens' v-bind:label-title='labelTitle' v-bind:disabled='disabled' v-bind:label-footer='labelFooter' v-bind:error='error'></radio-platforme>"
+            "<radio-platforme v-bind:checkedValue='checkedValue' v-bind:itens='itens' v-bind:label-title='labelTitle' v-bind:disabled='disabled' v-bind:label-footer='labelFooter' v-bind:error='error'/>"
     }));
