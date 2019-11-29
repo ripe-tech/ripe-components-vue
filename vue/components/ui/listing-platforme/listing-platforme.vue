@@ -264,7 +264,7 @@ input[type="text"]:hover {
 
 input[type="text"]:focus {
     background-color: $white;
-    border-color: $white;
+    border-color: $light-grey;
 }
 
 body.mobile .listing > .container-platforme,
