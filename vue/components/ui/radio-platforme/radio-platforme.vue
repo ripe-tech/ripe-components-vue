@@ -44,7 +44,6 @@
 .title {
     color: #6b778c;
     display: block;
-    padding: 0px 0px 8px 0px;
 }
 
 .radio-choice {
@@ -126,13 +125,14 @@
 }
 
 .label-text {
+    color: #57626e;
     margin: 0px 0px 0px 6px;
 }
 
 .footer {
     color: #6b778c;
     display: block;
-    padding: 8px 0px 0px 0px;
+    padding: 4px 0px 0px 0px;
 }
 </style>
 <script>
