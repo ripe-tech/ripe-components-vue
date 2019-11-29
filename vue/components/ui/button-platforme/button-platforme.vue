@@ -23,7 +23,7 @@
 .button.button-platforme {
     background-color: #0b57af;
     border-radius: 5px;
-    color: #ffffff;
+    color: $white;
     cursor: pointer;
     font-size: 13px;
     font-weight: 600;
@@ -100,7 +100,7 @@ export const ButtonPlatforme = {
         },
         loaderStyle: {
             type: Object,
-            default: () => ({ "background-color": "#ffffff" })
+            default: () => ({ "background-color": "$white" })
         }
     },
     data: function() {
