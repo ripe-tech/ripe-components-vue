@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, boolean } from "@storybook/addon-knobs";
+import { withKnobs, text, boolean, select } from "@storybook/addon-knobs";
 
 storiesOf("Input", module)
     .addDecorator(withKnobs)
@@ -8,8 +8,17 @@ storiesOf("Input", module)
             labelTitle: {
                 default: text("Label title", "Favorite Pizza")
             },
-            checkedValue: {
-                default: text("Checked Value", "Pepperoni")
+            initialValue: {
+                default: select(
+                    "Initial Value",
+                    {
+                        Margherita: "margherita",
+                        "BBQ chicken": "bbq_chicken",
+                        Pepperoni: "pepperoni",
+                        "Hawaiian w/ pineapple": "hawaiian"
+                    },
+                    "margherita"
+                )
             },
             labelFooter: {
                 default: text("Label footer", "End footer")
@@ -19,11 +28,9 @@ storiesOf("Input", module)
             },
             error: {
                 default: boolean("Error", false)
-            }
-        },
-        data: function() {
-            return {
-                itens: [
+            },
+            items: {
+                default: () => [
                     {
                         label: "Margherita",
                         value: "margherita"
@@ -33,22 +40,37 @@ storiesOf("Input", module)
                         label: "BBQ chicken"
                     },
                     {
-                        value: "Pepperoni"
+                        value: "Pepperoni",
+                        disabled: true
                     },
                     {
                         value: "hawaiian",
                         label: "Hawaiian w/ pineapple"
                     }
                 ]
+            }
+        },
+        watch: {
+            initialValue() {
+                this.value = this.initialValue;
+            }
+        },
+        data: function() {
+            return {
+                value: this.initialValue
             };
         },
         template: `
-        <radio-platforme
-                v-bind:checkedValue = 'checkedValue'
-                v-bind:itens = 'itens'
-                v-bind:label-title = 'labelTitle'
-                v-bind:disabled = 'disabled'
-                v-bind:label-footer = 'labelFooter'
-                v-bind:error = 'error'
-        />`
+            <div>
+                <radio-platforme
+                    v-on:update:value="(newValue) => value = newValue" 
+                    v-bind:value="value"
+                    v-bind:items="items"
+                    v-bind:label-title = 'labelTitle'
+                    v-bind:disabled = 'disabled'
+                    v-bind:label-footer = 'labelFooter'
+                    v-bind:error = 'error'
+                />
+                <p>Value selected: {{ value }}</p>
+            </div>`
     }));

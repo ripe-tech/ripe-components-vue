@@ -1,33 +1,32 @@
 <template>
-    <div class="radio-platforme">
+    <div class="radio-group">
         <label-platforme class="title" v-bind:text="labelTitle" v-if="labelTitle" />
-        <div class="radio-group">
-            <div class="radio-choice" v-for="(iten, index) in itens" v-bind:key="index">
-                <label-platforme class="radio-label"
-                v-bind:class="{disabled: disabled}"
-                >
-                    <input
-                        v-bind:class="{
-                            disabled: disabled,
-                            error: error
-                        }"
-                        v-bind:disabled="disabled"
-                        type="radio"
-                        class="radio"
-                        v-bind:value="iten.value"
-                        v-bind:id="iten.value + index"
-                        v-model="picked"
-                    />
-                    <div class="circular-button" />
-                    <span class="label-text">{{ iten.label ? iten.label : iten.value }}</span>
-                </label-platforme>
+        <div class="radio-group-choices">
+            <div
+                class="radio-group-choice"
+                v-bind:class="{ disabled: disabled || item.disabled }"
+                v-for="item in items"
+                v-bind:key="item.value"
+                v-on:click="onClick(item)"
+            >
+                <input
+                    v-bind:class="{
+                        disabled: disabled,
+                        error: error
+                    }"
+                    v-bind:disabled="disabled"
+                    type="radio"
+                    class="value"
+                    v-bind:value="item.value"
+                    v-bind:checked="item.value === value"
+                    v-bind:id="item.value"
+                />
+                <div class="circular-button" v-bind:class="{ checked: item.value === value }" />
+                <label v-bind:for="item.value" class="label">
+                    {{ item.label ? item.label : item.value }}
+                </label>
             </div>
         </div>
-        <!-- DELETE ME \/ -->
-        <p v-on:click="picked = null">
-            Debug clear picked value: {{ picked ? picked : "null" }}
-        </p>
-        <!-- DELETE ME /\ -->
         <label-platforme
             class="footer"
             v-bind:size="'small'"
@@ -40,86 +39,80 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.radio-platforme {
+.radio-group {
     display: inline-block;
 }
 
-.title {
+.radio-group > .title {
     color: $pale-grey;
     display: block;
 }
 
-.radio-choice {
+.radio-group-choice {
+    cursor: pointer;
     display: block;
     padding: 3.5px 0px 3.5px 0px;
+    user-select: none;
 }
 
-.radio-label {
-    cursor: pointer;
-    display: inline-block;
-    font-size: 14px;
-    line-height: 12px;
-}
-
-.radio-label.disabled {
+.radio-group-choice.disabled > .label {
     cursor: not-allowed;
 }
 
-.radio-label:hover {
-    opacity: 0.8;
-}
-
-.radio {
+.radio-group-choice > .value {
     display: none;
 }
 
-.radio:checked + .circular-button {
+.radio-group-choice > .circular-button.checked {
     background-color: #ffffff;
     border-color: $dark;
     border-width: 4px;
     padding: 1px 1px 1px 1px;
 }
 
-.radio.disabled + .circular-button {
+.radio-group-choice.disabled {
+    cursor: not-allowed;
+}
+
+.radio-group-choice.disabled > .circular-button {
     background-color: #f4f5f7;
     border: 2px solid #f4f5f7;
 }
 
-.radio.disabled:checked + .circular-button {
+.radio-group-choice.disabled > .circular-button.checked {
     background-color: #a6adb4;
     border-color: #f6f7f9;
     border-width: 4px;
     padding: 1px 1px 1px 1px;
 }
 
-.radio.error + .circular-button {
+.radio-group-choice.error > .circular-button {
     background-color: #f4f5f7;
     border: 2px solid $red;
 }
 
-.radio.error:checked + .circular-button {
+.radio-group-choice.error > .circular-button.checked {
     border: 4px solid $red;
 }
 
-.radio.error:focus + .circular-button {
-    border-color: #4c9aff;
-}
-
-.radio:active + .circular-button {
+.radio-group-choice:active:not(.disabled) > .circular-button {
     background-color: $dark;
     border-color: #d6dade;
     border-width: 4px;
     padding: 1px 1px 1px 1px;
 }
 
-.radio-choice-text {
+.radio-group-choice > .label {
+    color: $grey;
+    cursor: pointer;
     display: inline-block;
     font-size: 14px;
     line-height: 13px;
+    margin: 0px 0px 0px 6px;
     vertical-align: bottom;
 }
 
-.circular-button {
+.radio-group-choice > .circular-button {
     background-color: #fafbfc;
     border: 2px solid #dfe1e5;
     border-radius: 50%;
@@ -131,26 +124,22 @@
     width: 2px;
 }
 
-.label-text {
-    color: $grey;
-    margin: 0px 0px 0px 6px;
-}
-
 .footer {
     color: $pale-grey;
     display: block;
     padding: 4px 0px 0px 0px;
 }
 </style>
+
 <script>
 export const RadioPlatforme = {
     name: "radio-platforme",
     props: {
-        itens: {
+        items: {
             type: Array,
             default: () => []
         },
-        checkedValue: {
+        value: {
             type: String,
             default: null
         },
@@ -171,13 +160,12 @@ export const RadioPlatforme = {
             default: false
         }
     },
-    data: function() {
-        return {
-            picked: this.checkedValue
-        };
-    },
-    mounted: function() {
-        console.log("default value", this.checkedValue);
+    methods: {
+        onClick(item) {
+            if (item.disabled) return;
+            if (this.value === item.value) return;
+            this.$emit("update:value", item.value);
+        }
     }
 };
 
