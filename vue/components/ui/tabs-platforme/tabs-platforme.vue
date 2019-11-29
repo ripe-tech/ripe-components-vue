@@ -40,8 +40,9 @@
     color: $grey;
     cursor: pointer;
     display: inline-block;
-    font-size: 12px;
+    font-size: 10px;
     font-weight: 600;
+    letter-spacing: 0.5px;
     line-height: 28px;
     margin-bottom: -2px;
     max-width: 200px;
