@@ -62,7 +62,7 @@
 .tabs > .header > .tab-label.disabled:hover {
     border-bottom: none;
     color: $grey;
-    cursor: not-allowed;
+    cursor: default;
 }
 
 .tabs > .header > .tab-label:focus,
