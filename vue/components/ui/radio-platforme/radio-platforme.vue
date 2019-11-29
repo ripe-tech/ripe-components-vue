@@ -3,7 +3,9 @@
         <label-platforme class="title" v-bind:text="labelTitle" v-if="labelTitle" />
         <div class="radio-group">
             <div class="radio-choice" v-for="(iten, index) in itens" v-bind:key="index">
-                <label-platforme class="radio-label">
+                <label-platforme class="radio-label"
+                v-bind:class="{disabled: disabled}"
+                >
                     <input
                         v-bind:class="{
                             disabled: disabled,
@@ -57,6 +59,10 @@
     display: inline-block;
     font-size: 14px;
     line-height: 12px;
+}
+
+.radio-label.disabled {
+    cursor: not-allowed;
 }
 
 .radio-label:hover {
