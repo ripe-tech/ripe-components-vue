@@ -40,13 +40,14 @@
 .tabs > .header > .tab-label {
     color: $grey;
     cursor: pointer;
-    margin-bottom: -1px;
     padding: 0px 16px;
+    transition: 0.125s;
 }
 
 .tabs > .header > .tab-label:hover {
     border-bottom: 2px solid #a4adb5;
     color: $dark;
+    transition: 0.125s;
     z-index: 2;
 }
 
@@ -65,6 +66,7 @@
 
 .tabs > .tab {
     border-top: 2px solid #a4adb5;
+    margin-top: -1px;
     opacity: 0;
     padding: 15px;
     position: absolute;
