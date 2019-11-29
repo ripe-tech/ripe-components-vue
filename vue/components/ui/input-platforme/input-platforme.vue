@@ -36,7 +36,7 @@ input[type="text"]:hover {
 }
 
 input[type="text"]:focus {
-    background-color: #ffffff;
+    background-color: $white;
     border-color: #dddddd;
     box-shadow: 0px 1px 8px 0px rgba(32, 33, 36, 0.14);
 }

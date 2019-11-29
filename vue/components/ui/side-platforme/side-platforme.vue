@@ -20,7 +20,7 @@
 @import "css/variables.scss";
 
 .side-platforme {
-    background: #ffffff;
+    background: $white;
     border-right: 1px solid #e4e8f0;
     box-shadow: 0px 6px 15px rgba(0, 0, 0, 0);
     height: 100%;
