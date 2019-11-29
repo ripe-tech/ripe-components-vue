@@ -42,14 +42,14 @@
     display: inline-block;
     font-size: 10px;
     font-weight: 600;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.75px;
     line-height: 28px;
     margin-bottom: -2px;
     max-width: 200px;
     min-height: 28px;
     padding: 0px 25px 0px 25px;
     text-transform: uppercase;
-    transition: color 0.125s ease-in-out, border-color 0.125s ease-in-out;
+    transition: color 0.1s cubic-bezier(0.645, 0.045, 0.355, 1), border-color 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
     user-select: none;
 }
 
@@ -61,7 +61,7 @@
 .tabs > .header > .tab-label.disabled,
 .tabs > .header > .tab-label.disabled:hover {
     border-bottom: none;
-    color: $grey;
+    color: $light-grey;
     cursor: default;
 }
 
@@ -79,7 +79,7 @@
     opacity: 0;
     padding: 15px 15px 15px 15px;
     position: absolute;
-    transition: opacity 0.125s ease-in;
+    transition: opacity 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
     width: 100%;
 }
 
