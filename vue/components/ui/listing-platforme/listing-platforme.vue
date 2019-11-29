@@ -51,6 +51,39 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
+body.mobile .listing > .container-platforme > .container-header {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+body.mobile .listing > .container-platforme > .container-header > .container-header-right ::v-deep {
+    float: left;
+    text-align: left;
+}
+
+body.mobile .listing > .container-platforme > .container-header > .container-header-right ::v-deep > img.logo {
+    display: none;
+}
+
+body.mobile .listing .container-header-right .search-platforme {
+    margin: 0;
+}
+
+body.mobile .listing .container-header-right .search-platforme ::v-deep > .input-platforme {
+    width: 337px;
+}
+
+body.mobile .listing > .container-platforme > .container-header > .title {
+    margin-bottom: 16px;
+    padding-left: 6px;
+    padding-top: 16px;
+}
+
+body.mobile .listing .filter-platforme ::v-deep table {
+    margin-top: 50px;
+}
+
 ::v-deep .highlight:hover,
 ::v-deep .highlight.hover {
     color: $link-hover-color;

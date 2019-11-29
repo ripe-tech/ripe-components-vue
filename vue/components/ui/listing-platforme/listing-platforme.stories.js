@@ -54,6 +54,7 @@ storiesOf("Data", module)
         },
         template: `
             <div>
+            <global-platforme />
                 <listing-platforme
                     v-bind:context="context"
                     v-bind:columns="columns"
@@ -63,8 +64,8 @@ storiesOf("Data", module)
                     v-bind:filter-fields="filterFields"
                 >
                     <template v-slot:icons>
-                        <img v-bind:src="img" v-bind:style="imgStyle" />
-                    </template>
+                        <img class="logo" v-bind:src="img" v-bind:style="imgStyle" />
+                    </template> 
                     <template v-slot:item="{ item, index, addFilter }">
                         <td class="id">
                             {{ item.id }}
