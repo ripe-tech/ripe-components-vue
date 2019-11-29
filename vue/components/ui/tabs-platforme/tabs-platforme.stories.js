@@ -4,20 +4,19 @@ storiesOf("Components", module).add("Tabs", () => ({
     props: {
         mockTabs: {
             type: Array,
-            default: () => [{ id: "id", title: "ID" }, { id: "address" }, { id: "account" }]
+            default: () => [
+                { id: "id", title: "ID", text: "ID" },
+                { id: "address" },
+                { id: "account", text: "I don't have an account!" },
+                { id: "disabled", disabled: true }
+            ]
         }
     },
     template: `
             <tabs-platforme v-bind:tabs="mockTabs">
-                <template v-slot:id>
-                    <p>ID</p>
-                </template>
                 <template v-slot:address>
                     <p>My address:</p>
                     <p>New York</p>
-                </template>
-                <template v-slot:account>
-                    <p>I don't have an account!</p>
                 </template>
             </tabs-platforme>
         `
