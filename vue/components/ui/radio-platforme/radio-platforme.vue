@@ -42,7 +42,7 @@
 }
 
 .title {
-    color: #6b778c;
+    color: $pale-grey;
     display: block;
 }
 
@@ -68,7 +68,7 @@
 
 .radio:checked + .cirular-button {
     background-color: #ffffff;
-    border-color: #1d2631;
+    border-color: $dark;
     border-width: 4px;
     padding: 1px 1px 1px 1px;
 }
@@ -87,11 +87,11 @@
 
 .radio.error + .cirular-button {
     background-color: #f4f5f7;
-    border: 2px solid #e96760;
+    border: 2px solid $red;
 }
 
 .radio.error:checked + .cirular-button {
-    border: 4px solid #e96760;
+    border: 4px solid $red;
 }
 
 .radio.error:focus + .cirular-button {
@@ -99,7 +99,7 @@
 }
 
 .radio:active + .cirular-button {
-    background-color: #1d2631;
+    background-color: $dark;
     border-color: #d6dade;
     border-width: 4px;
     padding: 1px 1px 1px 1px;
@@ -125,12 +125,12 @@
 }
 
 .label-text {
-    color: #57626e;
+    color: $grey;
     margin: 0px 0px 0px 6px;
 }
 
 .footer {
-    color: #6b778c;
+    color: $pale-grey;
     display: block;
     padding: 4px 0px 0px 0px;
 }
