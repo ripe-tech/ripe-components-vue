@@ -51,36 +51,50 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-body.mobile .listing > .container-platforme > .container-header {
+body.mobile .listing > .container-platforme,
+body.tablet .listing > .container-platforme {
+    padding: 10px;
+}
+
+body.mobile .listing > .container-platforme > .container-header,
+body.tablet .listing > .container-platforme > .container-header {
+    padding: 0;
+    width: 100%;
+}
+
+body.mobile .listing > .container-platforme > .container-header > .container-header-right ::v-deep,
+body.tablet .listing > .container-platforme > .container-header > .container-header-right ::v-deep {
+    align-items: center;
     display: flex;
     flex-direction: column;
-    padding: 15px;
+    width: 100%;
 }
 
-body.mobile .listing > .container-platforme > .container-header > .container-header-right ::v-deep {
-    float: left;
-    text-align: left;
-}
-
-body.mobile .listing > .container-platforme > .container-header > .container-header-right ::v-deep > img.logo {
+body.mobile .listing > .container-platforme > .container-header > .container-header-right ::v-deep > img.logo,
+body.tablet .listing > .container-platforme > .container-header > .container-header-right ::v-deep > img.logo {
     display: none;
 }
 
-body.mobile .listing .container-header-right .search-platforme {
+body.mobile .listing .container-header-right .search-platforme,
+body.tablet .listing .container-header-right .search-platforme {
     margin: 0;
+    margin-bottom: 10px;
+    width: 100%;
 }
 
-body.mobile .listing .container-header-right .search-platforme ::v-deep > .input-platforme {
-    width: 337px;
+body.mobile .listing .container-header-right .search-platforme ::v-deep > .input-platforme,
+body.tablet .listing .container-header-right .search-platforme ::v-deep > .input-platforme {
+    width: 100%;
 }
 
-body.mobile .listing > .container-platforme > .container-header > .title {
+body.mobile .listing > .container-platforme > .container-header > .title body.tablet .listing > .container-platforme > .container-header > .title {
     margin-bottom: 16px;
     padding-left: 6px;
     padding-top: 16px;
 }
 
-body.mobile .listing .filter-platforme ::v-deep table {
+body.mobile .listing .filter-platforme ::v-deep table,
+body.tablet .listing .filter-platforme ::v-deep table {
     margin-top: 50px;
 }
 
