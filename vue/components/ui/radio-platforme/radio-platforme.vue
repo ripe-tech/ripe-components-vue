@@ -48,7 +48,7 @@
 
 .radio-choice {
     display: block;
-    padding: 5.5px 0px 5.5px 0px;
+    padding: 3.5px 0px 3.5px 0px;
 }
 
 .radio-label {
