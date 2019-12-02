@@ -41,7 +41,6 @@
     height: 40px;
     line-height: 40px;
     padding: 0px 8px;
-    width: 300px; //TODO set this as a prop
 }
 
 .dropdown-platforme .dropdown {
@@ -51,7 +50,6 @@
     box-shadow: 0 6px 24px 0 rgba(67, 86, 100, 0.15);
     margin: 8px 0px 0px 0px;
     position: absolute;
-    width: 316px; //TODO set this as a prop
 }
 
 .dropdown-platforme .dropdown .options-container ::v-deep .option {
