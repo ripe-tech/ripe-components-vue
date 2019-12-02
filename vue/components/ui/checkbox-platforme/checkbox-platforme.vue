@@ -6,7 +6,7 @@
                 class="checkbox-choice"
                 v-bind:class="{
                     checked: values[item.value],
-                    disabled: item.disabled,
+                    disabled: disabled || item.disabled,
                     error: error || item.error
                 }"
                 v-for="(item, index) in items"
