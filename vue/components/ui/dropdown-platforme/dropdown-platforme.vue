@@ -1,12 +1,7 @@
 <template>
     <div class="dropdown-platforme">
-        <label-platforme
-            class="label"
-            v-bind:text="fieldLabel"
-            for="dropdown"
-            v-if="fieldLabel"
-        />
-        <div class="dropdown-container" id="dropdown" v-if="!isMobile">
+        <label-platforme class="label" v-bind:text="fieldLabel" for="dropdown" v-if="fieldLabel" />
+        <div class="dropdown-container" v-if="!isMobile" id="dropdown">
             <div
                 class="dropdown-button"
                 v-bind:class="{ disabled: disabled }"
@@ -63,8 +58,8 @@
     border-radius: 6px;
     height: 40px;
     line-height: 40px;
-    padding: 0px 8px;
     margin: 0px 0px 1px 1px;
+    padding: 0px 8px;
 }
 
 .dropdown-platforme .dropdown-container .dropdown-button:hover {
@@ -79,8 +74,8 @@
 }
 
 .dropdown-platforme .dropdown-container .dropdown-button:active {
-    border: solid 2px $dropdown-focus-border-color;
     background-color: $white;
+    border: solid 2px $dropdown-focus-border-color;
     margin: -1px 0px -1px 0px;
 }
 
