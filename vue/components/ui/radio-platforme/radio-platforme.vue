@@ -6,7 +6,7 @@
                 class="radio-group-choice"
                 v-bind:class="{
                     disabled: disabled || item.disabled,
-                    error: item.error,
+                    error: error || item.error,
                     checked: item.value === value
                 }"
                 v-for="item in items"
