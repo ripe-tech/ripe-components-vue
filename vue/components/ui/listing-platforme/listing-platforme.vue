@@ -293,7 +293,7 @@ body.tablet .listing > .container-platforme > .container-header > .container-hea
 
 body.mobile .listing .container-header-right .search-platforme,
 body.tablet .listing .container-header-right .search-platforme {
-    margin: 0;
+    margin: 0px 0px 0px 0px;
     margin-bottom: 10px;
     width: 100%;
 }
