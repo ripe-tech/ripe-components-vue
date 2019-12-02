@@ -1,5 +1,6 @@
 <template>
     <div class="dropdown-platforme">
+        <global-events v-on:keydown.esc="onEscKey()" />
         <label-platforme class="label" v-bind:text="fieldLabel" for="dropdown" v-if="fieldLabel" />
         <div class="dropdown-container" v-if="!isMobile" id="dropdown">
             <div
@@ -34,7 +35,7 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-//TODO on click outside and esc clicked, close dropdown
+//TODO on click outside, close dropdown
 
 .label {
     display: block;
@@ -152,6 +153,9 @@ export const DropdownPlatforme = {
         }
     },
     methods: {
+        onEscKey() {
+            this.closeDropdown();
+        },
         onDropdownButton(option)
         {
             if (!this.disabled) 
