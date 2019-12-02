@@ -5,25 +5,26 @@
                 class="dropdown-button"
                 v-bind:style="dropdownButtonStyle"
                 v-on:click="onToggleDropdown"
-            >{{ placeholder }}</div>
-            <div class="dropdown" v-show="visible" v-bind:style="dropdownStyle">
+            >
+                {{ placeholder }}
+            </div>
+            <div class="dropdown" v-bind:style="dropdownStyle" v-show="visible">
                 <div class="options-container" v-for="option in options" v-bind:key="option.id">
                     <slot name="options" v-bind:option="option">
-                        <div
-                            class="option"
-                            v-on:mousedown="onSelectOption(option)"
-                        >{{ option.text }}</div>
+                        <div class="option" v-on:mousedown="onSelectOption(option)">
+                            {{ option.text }}
+                        </div>
                     </slot>
                 </div>
             </div>
         </div>
-
-        <select class="mobile-dropdown" v-model="selectedOption.id" v-else>
-            <option
-                v-bind:value="options.id"
-                v-for="options in options"
-                v-bind:key="options.id"
-            >{{ options.text }}</option>
+        <select class="mobile-dropdown" v-else v-model="selectedOption.id">
+            <option v-bind:value="options.id" v-for="options in options" v-bind:key="options.id">
+                {{ options.text }}
+            </option>
+            <option value="empty_id" style="display:none">
+                {{ placeholder }}
+            </option>
         </select>
     </div>
 </template>
@@ -34,17 +35,17 @@
 //TODO, hover, disable, focus, etc
 //TODO add select for mobile
 
-.dropdown-platforme .dropdown-button,
-.dropdown-platforme .dropdown {
+.dropdown-platforme .dropdown-container .dropdown-button,
+.dropdown-platforme .dropdown-container .dropdown {
+    color: $dark;
     cursor: pointer;
     font-family: $font-family;
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0.3px;
-    color: $dark;
 }
 
-.dropdown-button {
+.dropdown-platforme .dropdown-container .dropdown-button {
     background: url("~./assets/chevron-down.svg") no-repeat;
     background-color: #f9fafd;
     background-position: right 12px center;
@@ -56,7 +57,7 @@
     padding: 0px 8px;
 }
 
-.dropdown-platforme .dropdown {
+.dropdown-platforme .dropdown-container .dropdown {
     background-color: $dropdown-background-color;
     border: solid 1px $dropdown-border-color;
     border-radius: 6px;
@@ -65,7 +66,7 @@
     position: absolute;
 }
 
-.dropdown-platforme .dropdown .options-container ::v-deep .option {
+.dropdown-platforme .dropdown-container .dropdown .options-container ::v-deep .option {
     height: 32px;
     line-height: 32px;
     padding: 0px 0px 0px 16px;
@@ -96,12 +97,13 @@ export const DropdownPlatforme = {
     data: function() {
         return {
             visible: false,
-            selectedOption: {id: "random_id", text: "aegagasgw"}
+            selectedOption: { id: "empty_id", text: "empty" }
         };
     },
     mounted: function() {
-        
-        this.selectedOption.id = this.options ? this.options[0].id: null;
+        //this.selectedOption.id = this.options ? this.options[0].id : null;
+        this.selectedOption.id = "empty_id";
+
     },
 
     methods: {
