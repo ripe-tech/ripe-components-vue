@@ -5,7 +5,7 @@
             <div
                 class="checkbox-choice"
                 v-bind:class="{
-                    checked: values.hasOwnProperty(item.value),
+                    checked: hasProperty(values, item.value),
                     disabled: item.disabled,
                     error: error || item.error
                 }"
@@ -13,11 +13,7 @@
                 v-bind:key="index"
                 v-on:click="onClick(item)"
             >
-                <input
-                    type="checkbox"
-                    class="checkbox"
-                    v-bind:id="item.value"
-                />
+                <input type="checkbox" class="checkbox" v-bind:id="item.value" />
                 <div class="checkbox-square" />
                 <label-platforme class="label-text" v-bind:for="item.value">
                     {{ item.label ? item.label : item.value }}
@@ -172,7 +168,7 @@ export const CheckboxPlatforme = {
             if (this.disabled || item.disabled) {
                 return;
             }
-            this.values.hasOwnProperty(item.value)
+            this.hasProperty(this.values, item.value)
                 ? this.removeItem(item.value)
                 : this.addItem(item.value);
         },
@@ -184,6 +180,9 @@ export const CheckboxPlatforme = {
         addItem(item) {
             this.$set(this.values, item, true);
             this.$emit("update:values", this.values);
+        },
+        hasProperty(obj, prop) {
+            return Object.prototype.hasOwnProperty.call(obj, prop);
         }
     }
 };
