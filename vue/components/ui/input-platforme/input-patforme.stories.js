@@ -25,9 +25,9 @@ storiesOf("Input", module)
             }
         },
         template: `
-            <input-platforme 
-                v-bind:value='value' 
-                v-bind:disabled='disabled' 
+            <input-platforme
+                v-bind:value='value'
+                v-bind:disabled='disabled'
                 v-bind:placeholder='placeholder'
                 v-bind:error='error'
                 v-bind:warning='warning'

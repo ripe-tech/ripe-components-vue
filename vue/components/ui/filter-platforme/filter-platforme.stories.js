@@ -34,9 +34,9 @@ storiesOf("Data", module).add("Filter", () => ({
     },
     template: `
     <div>
-        <filter-platforme 
+        <filter-platforme
             v-bind:getItems="getItems"
-            v-bind:columns="filterColumns" 
+            v-bind:columns="filterColumns"
         >
             <template v-slot:item="{ item, index }">
                 <td class="id">
