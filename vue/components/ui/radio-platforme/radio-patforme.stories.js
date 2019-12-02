@@ -12,12 +12,13 @@ storiesOf("Input", module)
                 default: select(
                     "Initial Value",
                     {
+                        Nothing: null,
                         Margherita: "margherita",
                         "BBQ chicken": "bbq_chicken",
                         Pepperoni: "pepperoni",
                         "Hawaiian w/ pineapple": "hawaiian"
                     },
-                    "margherita"
+                    null
                 )
             },
             labelFooter: {
@@ -40,7 +41,8 @@ storiesOf("Input", module)
                         label: "BBQ chicken"
                     },
                     {
-                        value: "Pepperoni",
+                        label: "Pepperroni",
+                        value: "pepperoni",
                         disabled: true
                     },
                     {
@@ -64,7 +66,7 @@ storiesOf("Input", module)
             <div>
                 <radio-platforme
                     v-on:update:value="(newValue) => value = newValue" 
-                    v-bind:initialValue="value"
+                    v-bind:value="value"
                     v-bind:items="items"
                     v-bind:label-title = 'labelTitle'
                     v-bind:disabled = 'disabled'

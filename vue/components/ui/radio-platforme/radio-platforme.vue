@@ -4,24 +4,21 @@
         <div class="radio-group-choices">
             <div
                 class="radio-group-choice"
-                v-bind:class="{ disabled: disabled || item.disabled, error: error }"
+                v-bind:class="{
+                    disabled: disabled || item.disabled,
+                    error: item.error,
+                    checked: item.value === value
+                }"
                 v-for="item in items"
                 v-bind:key="item.value"
                 v-on:click="onClick(item)"
             >
                 <input
-                    v-bind:class="{
-                        disabled: disabled || item.disabled,
-                        error: error
-                    }"
-                    v-bind:disabled="disabled || item.disabled"
                     type="radio"
                     class="value"
-                    v-bind:value="item.value"
-                    v-bind:checked="item.value === value"
                     v-bind:id="item.value"
                 />
-                <div class="circular-button" v-bind:class="{ checked: item.value === value }" />
+                <div class="circular-button" />
                 <label v-bind:for="item.value" class="label">
                     {{ item.label ? item.label : item.value }}
                 </label>
@@ -48,6 +45,10 @@
     display: block;
 }
 
+.radio-group-choice:hover {
+    opacity: 0.8;
+}
+
 .radio-group-choice {
     cursor: pointer;
     display: block;
@@ -63,7 +64,7 @@
     display: none;
 }
 
-.radio-group-choice > .circular-button.checked {
+.radio-group-choice.checked > .circular-button {
     background-color: #ffffff;
     border-color: $dark;
     border-width: 4px;
@@ -79,7 +80,7 @@
     border: 2px solid #f4f5f7;
 }
 
-.radio-group-choice.disabled > .circular-button.checked {
+.radio-group-choice.checked.disabled > .circular-button {
     background-color: #a6adb4;
     border-color: #f6f7f9;
     border-width: 4px;
@@ -139,7 +140,7 @@ export const RadioPlatforme = {
             type: Array,
             default: () => []
         },
-        initialValue: {
+        value: {
             type: String,
             default: null
         },
@@ -160,21 +161,10 @@ export const RadioPlatforme = {
             default: false
         }
     },
-    watch: {
-        initialValue() {
-            this.value = this.initialValue;
-        }
-    },
-    data: function() {
-        return {
-            value: this.initialValue
-        };
-    },
     methods: {
         onClick(item) {
             if (item.disabled || this.disabled) return;
             if (this.value === item.value) return;
-            this.value = item.value;
             this.$emit("update:value", item.value);
         }
     }
