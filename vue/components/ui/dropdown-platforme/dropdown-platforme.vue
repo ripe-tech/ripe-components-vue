@@ -4,7 +4,7 @@
         <div class="dropdown-container" v-if="!isMobile" id="dropdown">
             <div
                 class="dropdown-button"
-                v-bind:class="{ disabled: disabled }"
+                v-bind:class="{disabled: disabled, focused: focused}"
                 v-bind:style="dropdownButtonStyle"
                 v-on:click="onToggleDropdown"
             >
@@ -13,7 +13,7 @@
             <div class="dropdown" v-bind:style="dropdownStyle" v-show="visible">
                 <div class="options-container" v-for="option in options" v-bind:key="option.id">
                     <slot name="options" v-bind:option="option">
-                        <div class="option" v-on:mousedown="onSelectOption(option)">
+                        <div class="option" v-on:mousedown="onDropdownButton(option)">
                             {{ option.text }}
                         </div>
                     </slot>
@@ -68,12 +68,15 @@
     color: $grey;
 }
 
-.dropdown-platforme .dropdown-container .dropdown-button.disabled {
+.dropdown-platforme .dropdown-container .dropdown-button.disabled,
+.dropdown-platforme .dropdown-container .dropdown-button.disabled:active {
+    border: solid 1px #e4e8f0;
     background-color: $dropdown-disabled-background-color;
     color: $dropdown-disabled-color;
+    margin:inherit;
 }
 
-.dropdown-platforme .dropdown-container .dropdown-button:active {
+.dropdown-platforme .dropdown-container .dropdown-button.focused {
     background-color: $white;
     border: solid 2px $dropdown-focus-border-color;
     margin: -1px 0px -1px 0px;
@@ -127,6 +130,7 @@ export const DropdownPlatforme = {
     data: function() {
         return {
             visible: false,
+            focused: false,
             selectedOption: { id: "empty_id", text: "empty" }
         };
     },
@@ -136,11 +140,19 @@ export const DropdownPlatforme = {
     watch: {
         disabled() {
             if (this.disabled) this.closeDropdown();
+        },
+        visible() {
+            this.focused = this.visible;
         }
     },
     methods: {
-        onSelectOption(option) {
-            if (!this.disabled) this.selectOption(option);
+        onDropdownButton(option)
+        {
+            if (!this.disabled) 
+            {
+                this.focused = true;
+                this.selectOption(option);
+            }
         },
         selectOption(option) {
             this.$emit("update:option", option);
