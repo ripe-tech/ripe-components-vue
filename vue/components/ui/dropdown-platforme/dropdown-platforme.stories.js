@@ -8,6 +8,9 @@ storiesOf("Dropdown", module)
             placeholder: {
                 default: text("Dropdown Placeholder", "This is a placeholder text")
             },
+            fieldLabel: {
+                default: text("Field Label", "Field label")
+            },
             width: {
                 default: number("Width", 300)
             },
@@ -59,6 +62,7 @@ storiesOf("Dropdown", module)
                 <div>
                     <dropdown-platforme
                         v-bind:placeholder="selectedOption.text"
+                        v-bind:field-label="fieldLabel"
                         v-bind:width="width"
                         v-bind:is-mobile="isMobile"
                         v-bind:disabled="disabled"

@@ -1,6 +1,12 @@
 <template>
     <div class="dropdown-platforme">
-        <div class="dropdown-container" v-if="!isMobile">
+        <label-platforme
+            class="label"
+            v-bind:text="fieldLabel"
+            for="dropdown"
+            v-if="fieldLabel"
+        />
+        <div class="dropdown-container" id="dropdown" v-if="!isMobile">
             <div
                 class="dropdown-button"
                 v-bind:class="{ disabled: disabled }"
@@ -33,8 +39,6 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-//TODO, hover, disable, focus, etc
-
 .dropdown-platforme .dropdown-container .dropdown-button,
 .dropdown-platforme .dropdown-container .dropdown {
     color: $dark;
@@ -55,6 +59,7 @@
     height: 40px;
     line-height: 40px;
     padding: 0px 8px;
+    margin: 1px 1px 1px 1px;
 }
 
 .dropdown-platforme .dropdown-container .dropdown-button:hover {
@@ -68,8 +73,14 @@
     color: $dropdown-disabled-color;
 }
 
+.dropdown-platforme .dropdown-container .dropdown-button:active {
+    border: solid 2px $dropdown-focus-border-color;
+    background-color: $white;
+    margin: 0px -1px 0px 0px;
+}
+
 .dropdown-platforme .dropdown-container .dropdown {
-    background-color: $dropdown-background-color;
+    background-color: $white;
     border: solid 1px $dropdown-border-color;
     border-radius: 6px;
     box-shadow: 0 6px 24px 0 rgba(67, 86, 100, 0.15);
@@ -95,6 +106,10 @@ export const DropdownPlatforme = {
         placeholder: {
             type: String,
             required: true
+        },
+        fieldLabel: {
+            type: String,
+            default: ""
         },
         isMobile: {
             type: Boolean,
