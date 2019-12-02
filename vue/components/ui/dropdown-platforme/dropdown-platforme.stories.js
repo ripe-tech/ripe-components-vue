@@ -12,7 +12,7 @@ storiesOf("Dropdown", module)
                 default: number("Width", 300)
             },
             isMobile: {
-                default: boolean("isMobile", true)
+                default: boolean("isMobile", false)
             }
         },
         data: function() {

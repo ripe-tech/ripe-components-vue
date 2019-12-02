@@ -33,7 +33,6 @@
 @import "css/variables.scss";
 
 //TODO, hover, disable, focus, etc
-//TODO add select for mobile
 
 .dropdown-platforme .dropdown-container .dropdown-button,
 .dropdown-platforme .dropdown-container .dropdown {
