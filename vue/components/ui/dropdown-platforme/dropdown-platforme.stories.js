@@ -19,6 +19,9 @@ storiesOf("Dropdown", module)
             },
             disabled: {
                 default: boolean("Disabled", false)
+            },
+            allowTextSelection: {
+                default: boolean("Allow options text selection", true)
             }
         },
         data: function() {
@@ -66,6 +69,7 @@ storiesOf("Dropdown", module)
                         v-bind:width="width"
                         v-bind:is-mobile="isMobile"
                         v-bind:disabled="disabled"
+                        v-bind:allow-text-selection="allowTextSelection"
                         v-bind:options="options"
                         v-on:update:option="optionChanged($event)"
                     />

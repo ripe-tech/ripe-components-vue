@@ -34,6 +34,8 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
+//TODO on click outside and esc clicked, close dropdown
+
 .label {
     display: block;
     margin-bottom: 7px;
@@ -122,6 +124,10 @@ export const DropdownPlatforme = {
             type: Boolean,
             default: false
         },
+        allowTextSelection: {
+            type: Boolean,
+            default: false
+        },
         width: {
             type: Number,
             default: 300
@@ -176,6 +182,11 @@ export const DropdownPlatforme = {
             const base = {
                 width: `${this.width}px`
             };
+
+
+            if (!this.allowTextSelection) {
+                base['user-select'] = "none";
+            }
 
             return base;
         },
