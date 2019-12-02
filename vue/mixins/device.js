@@ -46,7 +46,6 @@ const deviceMixin = {
         },
         detectDevice() {
             const body = document.body;
-            console.log(body);
 
             var isMobile = _isMobile(navigator.userAgent);
             var isTablet = _isTablet(navigator.userAgent);
@@ -54,8 +53,6 @@ const deviceMixin = {
             var isDesktop = !isDevice;
             var isTouch = isDevice;
             var isMouse = isDesktop;
-            console.log(isDesktop)
-            if (isDesktop) body.classList.add(DESKTOP_DEVICE_CLASS);
             isMobile && body.classList.add(MOBILE_DEVICE_CLASS);
             isTablet && body.classList.add(TABEL_DEVICE_CLASS);
             isDevice && body.classList.add("device");
