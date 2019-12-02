@@ -1,5 +1,5 @@
 <template>
-    <div class="button button-color" v-bind:class="classes" v-on:click="handleClick">
+    <button class="button button-color" v-bind:class="classes" v-on:click="handleClick">
         <loader-platforme
             loader="ball-scale-multiple"
             class="loader"
@@ -9,7 +9,7 @@
         <img class="icon" v-bind:src="iconPath" v-if="icon && !loading" />
         <img class="icon-hover" v-bind:src="iconHoverPath" v-if="icon && !loading" />
         <span v-show="!loading">{{ text }}</span>
-    </div>
+    </button>
 </template>
 
 <style lang="scss" scoped>
