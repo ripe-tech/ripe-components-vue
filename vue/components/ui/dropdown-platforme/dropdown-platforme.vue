@@ -39,6 +39,11 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
+.label {
+    display: block;
+    margin-bottom: 7px;
+}
+
 .dropdown-platforme .dropdown-container .dropdown-button,
 .dropdown-platforme .dropdown-container .dropdown {
     color: $dark;
@@ -59,7 +64,7 @@
     height: 40px;
     line-height: 40px;
     padding: 0px 8px;
-    margin: 1px 1px 1px 1px;
+    margin: 0px 0px 1px 1px;
 }
 
 .dropdown-platforme .dropdown-container .dropdown-button:hover {
@@ -76,7 +81,7 @@
 .dropdown-platforme .dropdown-container .dropdown-button:active {
     border: solid 2px $dropdown-focus-border-color;
     background-color: $white;
-    margin: 0px -1px 0px 0px;
+    margin: -1px 0px -1px 0px;
 }
 
 .dropdown-platforme .dropdown-container .dropdown {
