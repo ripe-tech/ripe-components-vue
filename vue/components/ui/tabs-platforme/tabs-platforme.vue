@@ -50,7 +50,8 @@
     min-height: 28px;
     padding: 0px 25px 0px 25px;
     text-transform: uppercase;
-    transition: color 0.1s cubic-bezier(0.645, 0.045, 0.355, 1), border-color 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: color 0.1s cubic-bezier(0.645, 0.045, 0.355, 1),
+        border-color 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
     user-select: none;
 }
 
