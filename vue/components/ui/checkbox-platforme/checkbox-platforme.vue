@@ -43,29 +43,31 @@
 
 .checkbox-choice {
     display: block;
-    padding: 3.5px 0px 3.5px 0px;
+    line-height: 13px;
+    padding: 10px 0px 10px 0px;
     user-select: none;
-}
-
-.checkbox-label {
-    display: inline-block;
-    font-size: 14px;
-    line-height: 12px;
-}
-
-.checkbox-choice.disabled:hover,
-.checkbox-choice.disabled:hover ::v-deep label {
-    cursor: not-allowed;
 }
 
 .checkbox-choice:hover,
 .checkbox-choice:hover ::v-deep label {
     cursor: pointer;
-    opacity: 0.8;
 }
 
-.checkbox {
-    display: none;
+.checkbox-choice:hover {
+    background-color: $light-grey;
+}
+
+.checkbox-choice:hover:not(.disabled) > .checkbox-square {
+    border-color: #c1c7d0;
+}
+
+.checkbox-choice:active {
+    background-color: #dde0e2;
+}
+
+.checkbox-choice.disabled:hover,
+.checkbox-choice.disabled:hover ::v-deep label {
+    cursor: not-allowed;
 }
 
 .checkbox-choice.checked > .checkbox-square {
@@ -97,7 +99,7 @@
 
 .checkbox-choice:not(.disabled):active > .checkbox-square {
     background: url("~./assets/check-dark.svg") center / 7px 6px no-repeat #f4f5f7;
-    border: 2px solid #d6dade;
+    border: 2px solid #c3c9cf;
     padding: 3px 3px 3px 3px;
 }
 
@@ -118,6 +120,16 @@
     padding: 3px 3px 3px 3px;
     vertical-align: bottom;
     width: 2px;
+}
+
+.checkbox {
+    display: none;
+}
+
+.checkbox-label {
+    display: inline-block;
+    font-size: 14px;
+    line-height: 12px;
 }
 
 .label-text {
