@@ -8,30 +8,30 @@
                     v-bind:key="value.id"
                 >
                     <div class="label-value-component label">
-                        <slot v-bind:name="`label-${value.id}`" v-bind:item="item">
+                        <slot v-bind:name="`${value.id}-label`" v-bind:item="item">
                             <p class="label-text">
-                                <slot v-bind:name="`label-${value.id}-text`" v-bind:item="item">
+                                <slot v-bind:name="`${value.id}-label-text`" v-bind:item="item">
                                     {{ value.label || value.id || value.name }}
                                 </slot>
                             </p>
                         </slot>
                     </div>
                     <div class="label-value-component value">
-                        <slot v-bind:name="`value-${value.id}`" v-bind:item="item">
+                        <slot v-bind:name="`${value.id}-value`" v-bind:item="item">
                             <p class="value-text">
-                                <slot v-bind:name="`value-${value.id}-text`" v-bind:item="item">
+                                <slot v-bind:name="`${value.id}-value-text`" v-bind:item="item">
                                     {{ item[value.value] || item[value.id] || "-" }}
                                 </slot>
                             </p>
                         </slot>
                     </div>
                     <div class="label-value-component note">
-                        <slot v-bind:name="`note-${value.id}`" v-bind:item="item">
+                        <slot v-bind:name="`${value.id}-note`" v-bind:item="item">
                             <p
                                 class="note-text"
-                                v-if="value.note || $slots[`note-${value.id}-text`]"
+                                v-if="value.note || $slots[`${value.id}-note-text`]"
                             >
-                                <slot v-bind:name="`note-${value.id}-text`" v-bind:item="item">
+                                <slot v-bind:name="`${value.id}-note-text`" v-bind:item="item">
                                     {{ item[value.note] }}
                                 </slot>
                             </p>

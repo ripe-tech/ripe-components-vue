@@ -48,7 +48,7 @@ storiesOf("Data", module)
                 <template v-slot:shirt>
                     <p>Custom entry</p>
                 </template>
-                <template v-slot:label-city>
+                <template v-slot:city-label>
                     <p>Custom label</p>
                 </template>
             </lineup-platforme>
