@@ -259,12 +259,12 @@ input[type="text"] {
 }
 
 input[type="text"]:hover {
-    border-color: $light-white;
+    border-color: #dddddd;
 }
 
 input[type="text"]:focus {
     background-color: #ffffff;
-    border-color: $light-grey;
+    border-color: #aaaaaa;
 }
 
 body.mobile .listing > .container-platforme,
