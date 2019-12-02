@@ -1,7 +1,9 @@
 <template>
     <div class="dropdown-container">
         <div class="dropdown-platforme">
-            <button class="dropdown-button" v-on:click="onToogleDropdown" />
+            <div class="dropdown-button" v-on:click="onToogleDropdown">
+                Option text here
+            </div>
             <div class="dropdown" v-show="visible">
                 <div class="options-container" v-for="option in options" v-bind:key="option.id">
                     <slot name="options" v-bind:option="option">
@@ -18,10 +20,29 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
+//TODO, hover, disable, focus, etc
+
+.dropdown-platforme .dropdown-button,
+.dropdown-container .dropdown {
+    cursor: pointer;
+    font-family: $font-family;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    color: $dark;
+}
+
 .dropdown-button {
-    background-color: lightgray;
-    height: 20px;
-    width: 200px;
+    background: url("~./assets/chevron-down.svg") no-repeat;
+    background-color: #f9fafd;
+    background-position: right 12px center;
+    background-size: 14px 14px;
+    border: solid 1px #e4e8f0;
+    border-radius: 6px;
+    height: 40px;
+    line-height: 40px;
+    padding: 0px 8px;
+    width: 300px; //TODO set this as a prop
 }
 
 .dropdown-container .dropdown {
@@ -31,16 +52,11 @@
     box-shadow: 0 6px 24px 0 rgba(67, 86, 100, 0.15);
     margin: 8px 0px 0px 0px;
     position: absolute;
-    width: 300px; //TODO set this as a prop
+    width: 316px; //TODO set this as a prop
 }
 
 .dropdown-container .options-container ::v-deep .option {
-    color: $dark;
-    font-family: $font-family;
-    font-size: 14px;
-    font-weight: 600;
     height: 32px;
-    letter-spacing: 0.3px;
     line-height: 32px;
     padding: 0px 0px 0px 16px;
 }
