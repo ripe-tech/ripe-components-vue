@@ -87,7 +87,7 @@
 }
 
 .header-platforme {
-    background-color: #ffffff;
+    background-color: $white;
     border-bottom: 1px solid #e4e8f0;
     height: 60px;
     line-height: 60px;
@@ -221,7 +221,7 @@
 }
 
 .header-platforme > .header-container > .header-apps ::v-deep .dropdown-platforme {
-    background-color: #ffffff;
+    background-color: $white;
     box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.07);
     box-sizing: border-box;
     cursor: auto;

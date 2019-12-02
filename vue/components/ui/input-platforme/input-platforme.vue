@@ -34,7 +34,7 @@
                     v-bind:icon="'icon-check-filled'"
                     v-bind:size="32"
                 />
-                <label-platforme v-bind:text="success" />
+                <label-platforme v-bind:text="success" v-bind:color="'success'"/>
             </div>
         </div>
     </div>

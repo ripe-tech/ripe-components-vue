@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, select } from "@storybook/addon-knobs";
+import { withKnobs, text, select, boolean } from "@storybook/addon-knobs";
 
 storiesOf("Components", module)
     .addDecorator(withKnobs)
@@ -19,6 +19,9 @@ storiesOf("Components", module)
                     "medium"
                 )
             },
+            subtle: {
+                default: boolean("Subtle", false)
+            },
             color: {
                 default: select(
                     "Color",
@@ -35,5 +38,6 @@ storiesOf("Components", module)
                 )
             }
         },
-        template: '<tag-platforme v-bind:size="size" v-bind:color="color" v-bind:text="text" />'
+        template:
+            '<tag-platforme v-bind:size="size" v-bind:subtle="subtle" v-bind:color="color" v-bind:text="text" />'
     }));
