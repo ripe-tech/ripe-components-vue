@@ -1,30 +1,26 @@
 <template>
     <div class="dropdown-container">
-        <div class="options-container">
-            <div class="option">
-                Option1 example
-            </div>
-            <div class="option">
-                Option2 example
+        <div class="dropdown-platforme">
+            <div class="dropdown">
+                <div class="options-container" v-for="option in options" v-bind:key="option.id">
+                    <slot name="options" v-bind:option="option">
+                        <div class="option">{{ option.text }}</div>
+                    </slot>
+                </div>
             </div>
         </div>
-
-        <select class="dropdown-platforme">
-            <option v-bind:value="options.id" v-for="options in options" v-bind:key="options.id">
-                {{ options.text }}
-            </option>
-        </select>
     </div>
 </template>
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.dropdown-container .options-container {
+.dropdown-container .dropdown {
     margin: 8px 0px 0px 0px;
+    width: 300px; //TODO set this as a prop
 }
 
-.dropdown-container .options-container .option {
+.dropdown-container .options-container ::v-deep .option {
     color: $dark;
     font-family: $font-family;
     font-size: 14px;
@@ -35,7 +31,6 @@
     border: 1px solid gray;
     padding: 0px 0px 0px 16px;
 }
-
 </style>
 
 <script>
