@@ -1,13 +1,13 @@
 <template>
     <div class="dropdown-container">
         <div class="dropdown-platforme">
-            <div class="dropdown-button" v-on:click="onToogleDropdown">
+            <div class="dropdown-button" v-on:click="onToggleDropdown">
                 Option text here
             </div>
             <div class="dropdown" v-show="visible">
                 <div class="options-container" v-for="option in options" v-bind:key="option.id">
                     <slot name="options" v-bind:option="option">
-                        <div class="option">
+                        <div class="option" v-on:mousedown="onSelectOption(option)">
                             {{ option.text }}
                         </div>
                     </slot>
@@ -77,7 +77,13 @@ export const DropdownPlatforme = {
         };
     },
     methods: {
-        onToogleDropdown() {
+        onSelectOption(option){
+            this.selectOption(option);
+        },
+        selectOption(option){
+            console.log("Selected:" + option.text);
+        },
+        onToggleDropdown() {
             this.toggleDropdown();
         },
         toggleDropdown() {
