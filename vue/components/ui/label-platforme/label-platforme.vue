@@ -29,6 +29,11 @@
 .label.label-error {
     color: #e96760;
 }
+
+.label.label-green,
+.label.label-success {
+    color: $green;
+}
 </style>
 
 <script>
