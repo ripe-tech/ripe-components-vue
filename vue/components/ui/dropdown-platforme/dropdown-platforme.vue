@@ -18,6 +18,10 @@
 .dropdown-container .dropdown {
     margin: 8px 0px 0px 0px;
     width: 300px; //TODO set this as a prop
+    border-radius: 6px;
+    box-shadow: 0 6px 24px 0 rgba(67, 86, 100, 0.15);
+    border: solid 1px $dropdown-border-color;
+    background-color: $dropdown-background-color;
 }
 
 .dropdown-container .options-container ::v-deep .option {
@@ -28,7 +32,6 @@
     letter-spacing: 0.3px;
     line-height: 32px;
     height: 32px;
-    border: 1px solid gray;
     padding: 0px 0px 0px 16px;
 }
 </style>
