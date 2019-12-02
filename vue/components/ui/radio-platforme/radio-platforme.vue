@@ -165,10 +165,10 @@ export const RadioPlatforme = {
             this.value = this.initialValue;
         }
     },
-    data: function () {
+    data: function() {
         return {
             value: this.initialValue
-        }
+        };
     },
     methods: {
         onClick(item) {
