@@ -64,7 +64,7 @@ storiesOf("Dropdown", module)
         template: `
                 <div>
                     <dropdown-platforme
-                        v-bind:placeholder="selectedOption.text"
+                        v-bind:placeholder="placeholder"
                         v-bind:field-label="fieldLabel"
                         v-bind:width="width"
                         v-bind:is-mobile="isMobile"
