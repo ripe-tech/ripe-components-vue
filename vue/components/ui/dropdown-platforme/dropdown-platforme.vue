@@ -1,9 +1,10 @@
 <template>
     <div class="dropdown-platforme">
-        <div class="dropdown-button" v-on:click="onToggleDropdown">
+        <div class="dropdown-button" v-bind:style="dropdownButtonStyle"
+        v-on:click="onToggleDropdown">
             {{ placeholder }}
         </div>
-        <div class="dropdown" v-show="visible">
+        <div class="dropdown" v-show="visible"  v-bind:style="dropdownStyle">
             <div class="options-container" v-for="option in options" v-bind:key="option.id">
                 <slot name="options" v-bind:option="option">
                     <div class="option" v-on:mousedown="onSelectOption(option)">
@@ -71,6 +72,10 @@ export const DropdownPlatforme = {
         placeholder: {
             type: String,
             required: true
+        },
+        width: {
+            type: Number,
+            default: 300
         }
     },
     data: function() {
@@ -91,6 +96,22 @@ export const DropdownPlatforme = {
         },
         toggleDropdown() {
             this.visible = !this.visible;
+        }
+    },
+    computed: {
+        dropdownButtonStyle() {
+            const base = {
+                width: `${this.width}px`
+            };
+            
+            return base;
+        },
+        dropdownStyle() {
+            const base = {
+                width: `${ this.width + 16 }px`
+            };
+            
+            return base;
         }
     }
 };
