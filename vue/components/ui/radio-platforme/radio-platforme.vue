@@ -11,10 +11,10 @@
             >
                 <input
                     v-bind:class="{
-                        disabled: disabled,
+                        disabled: disabled || item.disabled,
                         error: error
                     }"
-                    v-bind:disabled="disabled"
+                    v-bind:disabled="disabled || item.disabled"
                     type="radio"
                     class="value"
                     v-bind:value="item.value"
@@ -162,7 +162,7 @@ export const RadioPlatforme = {
     },
     methods: {
         onClick(item) {
-            if (item.disabled) return;
+            if (item.disabled || this.disabled) return;
             if (this.value === item.value) return;
             this.$emit("update:value", item.value);
         }
