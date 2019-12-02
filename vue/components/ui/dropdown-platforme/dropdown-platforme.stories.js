@@ -1,10 +1,14 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs } from "@storybook/addon-knobs";
+import { withKnobs, text } from "@storybook/addon-knobs";
 
 storiesOf("Dropdown", module)
     .addDecorator(withKnobs)
     .add("Dropdown", () => ({
-        props: {},
+        props: {
+            placeholder: {
+                default: text("Dropdown Placeholder", "This is a placeholder text")
+            }
+        },
         data: function() {
             return {
                 options: [
@@ -28,10 +32,27 @@ storiesOf("Dropdown", module)
                         id: "option_5",
                         text: "Option 5"
                     }
-                ]
+                ],
+                selectedOption: {
+                    text: ""
+                }
             };
         },
+        methods: {
+            optionChanged(value) {
+                this.selectedOption = value;
+            }
+        },
+        mounted: function() {
+            this.selectedOption.text = this.placeholder;
+        },
         template: `
-                <dropdown-platforme v-bind:options="options"/>
+                <div>
+                    <dropdown-platforme
+                        v-bind:options="options"
+                        v-on:update:option="optionChanged($event)"
+                        v-bind:placeholder="selectedOption.text"/>
+                    <p>Selected option: {{ selectedOption.text }}</p>
+                </div>
                 `
     }));

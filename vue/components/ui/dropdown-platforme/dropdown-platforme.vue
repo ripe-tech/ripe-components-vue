@@ -1,17 +1,15 @@
 <template>
-    <div class="dropdown-container">
-        <div class="dropdown-platforme">
-            <div class="dropdown-button" v-on:click="onToggleDropdown">
-                Option text here
-            </div>
-            <div class="dropdown" v-show="visible">
-                <div class="options-container" v-for="option in options" v-bind:key="option.id">
-                    <slot name="options" v-bind:option="option">
-                        <div class="option" v-on:mousedown="onSelectOption(option)">
-                            {{ option.text }}
-                        </div>
-                    </slot>
-                </div>
+    <div class="dropdown-platforme">
+        <div class="dropdown-button" v-on:click="onToggleDropdown">
+            {{ placeholder }}
+        </div>
+        <div class="dropdown" v-show="visible">
+            <div class="options-container" v-for="option in options" v-bind:key="option.id">
+                <slot name="options" v-bind:option="option">
+                    <div class="option" v-on:mousedown="onSelectOption(option)">
+                        {{ option.text }}
+                    </div>
+                </slot>
             </div>
         </div>
     </div>
@@ -23,7 +21,7 @@
 //TODO, hover, disable, focus, etc
 
 .dropdown-platforme .dropdown-button,
-.dropdown-container .dropdown {
+.dropdown-platforme .dropdown {
     cursor: pointer;
     font-family: $font-family;
     font-size: 14px;
@@ -45,7 +43,7 @@
     width: 300px; //TODO set this as a prop
 }
 
-.dropdown-container .dropdown {
+.dropdown-platforme .dropdown {
     background-color: $dropdown-background-color;
     border: solid 1px $dropdown-border-color;
     border-radius: 6px;
@@ -55,7 +53,7 @@
     width: 316px; //TODO set this as a prop
 }
 
-.dropdown-container .options-container ::v-deep .option {
+.dropdown-platforme .dropdown .options-container ::v-deep .option {
     height: 32px;
     line-height: 32px;
     padding: 0px 0px 0px 16px;
@@ -69,6 +67,10 @@ export const DropdownPlatforme = {
         options: {
             type: Array,
             default: () => []
+        },
+        placeholder: {
+            type: String,
+            required: true
         }
     },
     data: function() {
@@ -81,7 +83,8 @@ export const DropdownPlatforme = {
             this.selectOption(option);
         },
         selectOption(option){
-            console.log("Selected:" + option.text);
+            this.$emit("update:option", option);
+            this.toggleDropdown();
         },
         onToggleDropdown() {
             this.toggleDropdown();
