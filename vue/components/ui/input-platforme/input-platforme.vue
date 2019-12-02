@@ -1,32 +1,41 @@
 <template>
-    <div>
+    <div class="input-platforme">
         <input
             type="text"
-            class="input-platforme"
+            class="input"
             v-bind:value="value"
             v-bind:placeholder="placeholder"
+            v-bind:disabled="disabled"
             ref="input"
             v-on:input="$emit('update:value', $event.target.value)"
             v-on:focus="focused()"
             v-on:blur="blurred()"
         />
-        <div class="help-text-validation">
-            <button-icon-platforme v-bind:icon="'icon-error'" v-bind:size="32" v-show="showError" />
-            <label-platforme v-bind:text="error" v-bind:color="'error'" v-show="showError" />
-
-            <button-icon-platforme
-                v-bind:icon="'icon-warning'"
-                v-bind:size="32"
-                v-show="showWarning"
-            />
-            <label-platforme v-bind:text="warning" v-show="showWarning" />
-
-            <button-icon-platforme
-                v-bind:icon="'icon-check-filled'"
-                v-bind:size="32"
-                v-show="showSuccess"
-            />
-            <label-platforme v-bind:text="success" v-bind:color="'success'" v-show="showSuccess" />
+        <div class="text">
+            <div class="text-container" v-if="showError">
+                <button-icon-platforme
+                    v-bind:color="'red'"
+                    v-bind:icon="'icon-error'"
+                    v-bind:size="32"
+                />
+                <label-platforme v-bind:color="'error'" v-bind:text="error" />
+            </div>
+            <div class="text-container" v-if="showWarning">
+                <button-icon-platforme
+                    v-bind:color="'yellow'"
+                    v-bind:icon="'icon-warning'"
+                    v-bind:size="32"
+                />
+                <label-platforme v-bind:text="warning" />
+            </div>
+            <div class="text-container" v-if="showSuccess">
+                <button-icon-platforme
+                    v-bind:color="'green'"
+                    v-bind:icon="'icon-check-filled'"
+                    v-bind:size="32"
+                />
+                <label-platforme v-bind:text="success" />
+            </div>
         </div>
     </div>
 </template>
@@ -77,31 +86,13 @@ export const InputPlatforme = {
     name: "input-platforme",
     computed: {
         showSuccess() {
-            return (
-                (this.error === null || this.error === "") &&
-                (this.warning === null || this.warning === "") &&
-                this.success !== null &&
-                this.success !== "" &&
-                !this.disabled
-            );
+            return this.success && !this.disabled
         },
         showError() {
-            return (
-                (this.success === null || this.success === "") &&
-                (this.warning === null || this.warning === "") &&
-                this.error !== null &&
-                this.error !== "" &&
-                !this.disabled
-            );
+            return this.error && !this.disabled
         },
         showWarning() {
-            return (
-                (this.success === null || this.success === "") &&
-                (this.error === null || this.error === "") &&
-                this.warning !== null &&
-                this.warning !== "" &&
-                !this.disabled
-            );
+            return this.warning && !this.disabled
         }
     },
     props: {
@@ -136,15 +127,6 @@ export const InputPlatforme = {
     },
     mounted: function() {
         this.autofocus && this.focus();
-    },
-    watch: {
-        disabled: function() {
-            this.$refs.input.disabled = !!this
-                .disabled; /*
-            this.error = null;
-            this.warning = null;
-            this.success = null; */
-        }
     },
     methods: {
         focus() {

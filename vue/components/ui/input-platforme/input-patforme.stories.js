@@ -15,13 +15,13 @@ storiesOf("Input", module)
                 default: boolean("Disabled", false)
             },
             error: {
-                default: text("Error")
+                default: text("Error", "")
             },
             warning: {
-                default: text("Warning")
+                default: text("Warning", "")
             },
             success: {
-                default: text("Success")
+                default: text("Success", "")
             }
         },
         template: `
