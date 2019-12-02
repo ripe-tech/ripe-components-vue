@@ -13,11 +13,7 @@
                 v-bind:key="item.value"
                 v-on:click="onClick(item)"
             >
-                <input
-                    type="radio"
-                    class="value"
-                    v-bind:id="item.value"
-                />
+                <input type="radio" class="value" v-bind:id="item.value" />
                 <div class="circular-button" />
                 <label v-bind:for="item.value" class="label">
                     {{ item.label ? item.label : item.value }}
@@ -46,13 +42,22 @@
 }
 
 .radio-group-choice:hover {
-    opacity: 0.8;
+    background-color: #ebecf0;
+}
+
+.radio-group-choice:hover > .circular-button {
+    border-color: #c1c7d0;
+}
+
+.radio-group-choice:active {
+    background-color: #dde0e2;
 }
 
 .radio-group-choice {
     cursor: pointer;
     display: block;
-    padding: 3.5px 0px 3.5px 0px;
+    line-height: 13px;
+    padding: 10px 0px 10px 0px;
     user-select: none;
 }
 
@@ -98,7 +103,7 @@
 
 .radio-group-choice:active:not(.disabled) > .circular-button {
     background-color: $dark;
-    border-color: #d6dade;
+    border-color: #c3c9cf;
     border-width: 4px;
     padding: 1px 1px 1px 1px;
 }
