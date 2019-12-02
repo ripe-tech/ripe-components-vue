@@ -4,8 +4,7 @@ import { withKnobs } from "@storybook/addon-knobs";
 storiesOf("Dropdown", module)
     .addDecorator(withKnobs)
     .add("Dropdown", () => ({
-        props: {
-        },
+        props: {},
         data: function() {
             return {
                 options: [
