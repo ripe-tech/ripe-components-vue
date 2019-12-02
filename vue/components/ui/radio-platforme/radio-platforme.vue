@@ -97,7 +97,7 @@
     border: 2px solid $red;
 }
 
-.radio-group-choice.error > .circular-button.checked {
+.radio-group-choice.error.checked > .circular-button {
     border: 4px solid $red;
 }
 
