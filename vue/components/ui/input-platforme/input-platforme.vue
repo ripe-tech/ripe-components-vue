@@ -86,13 +86,13 @@ export const InputPlatforme = {
     name: "input-platforme",
     computed: {
         showSuccess() {
-            return this.success && !this.disabled
+            return this.success && !this.disabled;
         },
         showError() {
-            return this.error && !this.disabled
+            return this.error && !this.disabled;
         },
         showWarning() {
-            return this.warning && !this.disabled
+            return this.warning && !this.disabled;
         }
     },
     props: {
