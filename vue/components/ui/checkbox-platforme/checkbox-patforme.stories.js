@@ -58,17 +58,21 @@ storiesOf("Input", module)
                 }
             };
         },
+        methods: {
+            setValues(newValues) {
+                this.values = newValues;
+            }
+        },
         template: `
             <div>
                 <checkbox-platforme
-                    v-on:update:values="(newValues) => values = newValues"                 
-                    v-bind:items='items'
-                    v-bind:initialValue='values'
-                    v-bind:values='values'
-                    v-bind:label-title='labelTitle'
-                    v-bind:disabled='disabled'
-                    v-bind:label-footer='labelFooter'
-                    v-bind:error='error'
+                    v-on:update:values="setValues"                 
+                    v-bind:items="items"
+                    v-bind:values="values"
+                    v-bind:label-title="labelTitle"
+                    v-bind:disabled="disabled"
+                    v-bind:label-footer="labelFooter"
+                    v-bind:error="error"
                 />
                 <p>Values: {{ values }}</p>
             </div>

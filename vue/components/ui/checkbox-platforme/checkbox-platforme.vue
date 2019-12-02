@@ -5,7 +5,7 @@
             <div
                 class="checkbox-choice"
                 v-bind:class="{
-                    checked: hasProperty(values, item.value),
+                    checked: values[item.value],
                     disabled: item.disabled,
                     error: error || item.error
                 }"
@@ -57,7 +57,8 @@
     cursor: not-allowed;
 }
 
-.checkbox-choice:hover {
+.checkbox-choice:hover,
+.checkbox-choice:hover ::v-deep label {
     cursor: pointer;
     opacity: 0.8;
 }
@@ -121,6 +122,7 @@
 .label-text {
     color: $grey;
     margin: 0px 0px 0px 6px;
+    user-select: none;
 }
 
 .footer {
@@ -137,7 +139,7 @@ export const CheckboxPlatforme = {
             type: Array,
             default: () => []
         },
-        initialValue: {
+        values: {
             type: Object,
             default: () => {}
         },
@@ -158,31 +160,26 @@ export const CheckboxPlatforme = {
             default: false
         }
     },
-    data: function() {
-        return {
-            values: this.initialValue
-        };
-    },
     methods: {
         onClick(item) {
             if (this.disabled || item.disabled) {
                 return;
             }
-            this.hasProperty(this.values, item.value)
-                ? this.removeItem(item.value)
-                : this.addItem(item.value);
+            this.values[item.value] ? this.removeItem(item) : this.addItem(item);
         },
         removeItem(item) {
-            this.$delete(this.values, item);
-            this.$emit("update:values", this.values);
-            console.log(this.values);
+            this.$emit("unselected:value", item.value);
+
+            const updated = Object.assign({}, this.values);
+            delete updated[item.value];
+            this.$emit("update:values", updated);
         },
         addItem(item) {
-            this.$set(this.values, item, true);
-            this.$emit("update:values", this.values);
-        },
-        hasProperty(obj, prop) {
-            return Object.prototype.hasOwnProperty.call(obj, prop);
+            this.$emit("selected:value", item.value);
+
+            const updated = Object.assign({}, this.values);
+            updated[item.value] = true;
+            this.$emit("update:values", updated);
         }
     }
 };
