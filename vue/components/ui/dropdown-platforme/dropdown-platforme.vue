@@ -1,18 +1,30 @@
 <template>
     <div class="dropdown-platforme">
-        <div class="dropdown-button" v-bind:style="dropdownButtonStyle"
-        v-on:click="onToggleDropdown">
-            {{ placeholder }}
-        </div>
-        <div class="dropdown" v-show="visible"  v-bind:style="dropdownStyle">
-            <div class="options-container" v-for="option in options" v-bind:key="option.id">
-                <slot name="options" v-bind:option="option">
-                    <div class="option" v-on:mousedown="onSelectOption(option)">
-                        {{ option.text }}
-                    </div>
-                </slot>
+        <div class="dropdown-container" v-if="!isMobile">
+            <div
+                class="dropdown-button"
+                v-bind:style="dropdownButtonStyle"
+                v-on:click="onToggleDropdown"
+            >{{ placeholder }}</div>
+            <div class="dropdown" v-show="visible" v-bind:style="dropdownStyle">
+                <div class="options-container" v-for="option in options" v-bind:key="option.id">
+                    <slot name="options" v-bind:option="option">
+                        <div
+                            class="option"
+                            v-on:mousedown="onSelectOption(option)"
+                        >{{ option.text }}</div>
+                    </slot>
+                </div>
             </div>
         </div>
+
+        <select class="mobile-dropdown" v-model="selectedOption.id" v-else>
+            <option
+                v-bind:value="options.id"
+                v-for="options in options"
+                v-bind:key="options.id"
+            >{{ options.text }}</option>
+        </select>
     </div>
 </template>
 
@@ -20,6 +32,7 @@
 @import "css/variables.scss";
 
 //TODO, hover, disable, focus, etc
+//TODO add select for mobile
 
 .dropdown-platforme .dropdown-button,
 .dropdown-platforme .dropdown {
@@ -74,18 +87,28 @@ export const DropdownPlatforme = {
         width: {
             type: Number,
             default: 300
+        },
+        isMobile: {
+            type: Boolean,
+            default: false
         }
     },
     data: function() {
         return {
-            visible: false
+            visible: false,
+            selectedOption: {id: "random_id", text: "aegagasgw"}
         };
     },
+    mounted: function() {
+        
+        this.selectedOption.id = this.options ? this.options[0].id: null;
+    },
+
     methods: {
-        onSelectOption(option){
+        onSelectOption(option) {
             this.selectOption(option);
         },
-        selectOption(option){
+        selectOption(option) {
             this.$emit("update:option", option);
             this.toggleDropdown();
         },
@@ -101,14 +124,14 @@ export const DropdownPlatforme = {
             const base = {
                 width: `${this.width}px`
             };
-            
+
             return base;
         },
         dropdownStyle() {
             const base = {
-                width: `${ this.width + 16 }px`
+                width: `${this.width + 16}px`
             };
-            
+
             return base;
         }
     }

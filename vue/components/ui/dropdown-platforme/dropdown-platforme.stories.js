@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, number } from "@storybook/addon-knobs";
+import { withKnobs, text, number, boolean } from "@storybook/addon-knobs";
 
 storiesOf("Dropdown", module)
     .addDecorator(withKnobs)
@@ -10,6 +10,9 @@ storiesOf("Dropdown", module)
             },
             width: {
                 default: number("Width", 300)
+            },
+            isMobile: {
+                default: boolean("isMobile", false)
             }
         },
         data: function() {
@@ -54,6 +57,7 @@ storiesOf("Dropdown", module)
                     <dropdown-platforme
                         v-bind:placeholder="selectedOption.text"
                         v-bind:width="width"
+                        v-bind:is-mobile="isMobile"
                         v-bind:options="options"
                         v-on:update:option="optionChanged($event)"
                     />
