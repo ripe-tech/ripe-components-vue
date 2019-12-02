@@ -1,9 +1,9 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text } from "@storybook/addon-knobs";
 
-storiesOf("Image", module)
+storiesOf("Components", module)
     .addDecorator(withKnobs)
-    .add("Simple", () => ({
+    .add("Image", () => ({
         props: {
             src: {
                 default: text("Source", "https://cdn.platforme.com/images/favicon.png")
