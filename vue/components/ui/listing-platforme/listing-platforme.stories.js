@@ -65,7 +65,7 @@ storiesOf("Data", module)
                     >
                         <template v-slot:icons>
                             <img class="logo" v-bind:src="img" v-bind:style="imgStyle" />
-                        </template> 
+                        </template>
                         <template v-slot:item="{ item, index, addFilter }">
                             <td class="id">
                                 {{ item.id }}
