@@ -57,13 +57,13 @@
 }
 
 .scroll-button {
-    background: $white url("~./assets/arrow-up.svg") no-repeat center;
+    background: #ffffff url("~./assets/arrow-up.svg") no-repeat center;
     border: none;
     border-radius: 40px;
     bottom: 20px;
-    -webkit-box-shadow: 0px 0px 36px -15px $white;
-    -moz-box-shadow: 0px 0px 36px -15px $white;
-    box-shadow: 0px 0px 36px -15px $white;
+    -webkit-box-shadow: 0px 0px 36px -15px #ffffff;
+    -moz-box-shadow: 0px 0px 36px -15px #ffffff;
+    box-shadow: 0px 0px 36px -15px #ffffff;
     height: 50px;
     opacity: 0;
     outline: none;
@@ -176,7 +176,7 @@
 }
 
 .listing ::v-deep .column-container > .details {
-    color: $grey;
+    color: #6d6d6d;
     font-size: 10px;
     font-weight: 800;
     letter-spacing: 0.25px;
@@ -263,23 +263,23 @@ input[type="text"]:hover {
 }
 
 input[type="text"]:focus {
-    background-color: $white;
+    background-color: #ffffff;
     border-color: $light-grey;
 }
 
 body.mobile .listing > .container-platforme,
 body.tablet .listing > .container-platforme {
-    padding: 10px;
+    padding: 10px 10px 10px 10px;
 }
 
 body.mobile .listing > .container-platforme > .container-header,
 body.tablet .listing > .container-platforme > .container-header {
-    padding: 0;
+    padding: 0px 0px 0px 0px;
     width: 100%;
 }
 
-body.mobile .listing > .container-platforme > .container-header > .container-header-right ::v-deep,
-body.tablet .listing > .container-platforme > .container-header > .container-header-right ::v-deep {
+body.mobile .listing > .container-platforme > .container-header > .container-header-right,
+body.tablet .listing > .container-platforme > .container-header > .container-header-right {
     align-items: center;
     display: flex;
     flex-direction: column;
