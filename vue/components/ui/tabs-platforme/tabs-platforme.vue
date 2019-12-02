@@ -11,12 +11,13 @@
                 {{ tab.title || tab.id }}
             </div>
         </div>
-        <div class="tabs-container">
+        <div class="tabs-container" v-bind:style="{ height: `${height}px` }">
             <div
                 class="tab"
                 v-bind:class="{ visible: isTabActive(index) }"
                 v-for="(tab, index) in tabs"
                 v-bind:key="tab.id"
+                v-bind:ref="`tab-${index}`"
             >
                 <slot v-bind:name="tab.id" v-bind:index="index">
                     <p v-if="tab.text">
@@ -99,17 +100,36 @@ export const TabsPlatforme = {
         initialTab: {
             type: Number,
             default: 0
+        },
+        initialHeight: {
+            type: Number,
+            default: 0
         }
     },
     data: function() {
         return {
-            currentTab: this.initialTab
+            currentTab: this.initialTab,
+            height: this.initialHeight
         };
     },
+    mounted: function() {
+        this.setHeight();
+    },
     methods: {
+        setHeight() {
+            const tab = (this.$refs[`tab-${this.currentTab}`] || [])[0];
+            if (!tab) return this.initialHeight;
+            const style = tab.style;
+            const marginTop = parseInt(style.marginTop) || 0;
+            const marginBottom = parseInt(style.marginBottom) || 0;
+            const height = parseInt(tab.offsetHeight);
+
+            this.height = height + marginTop + marginBottom;
+        },
         selectTab(index) {
             if (this.tabs[index].disabled) return;
             this.currentTab = index;
+            this.setHeight();
             this.$emit("update:tab", this.tabs[this.currentTab], this.currentTab);
         },
         onTabClick(index) {
