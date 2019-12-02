@@ -114,23 +114,22 @@ export const TabsPlatforme = {
         };
     },
     mounted: function() {
-        this.setHeight();
+        this.updateHeight();
     },
     methods: {
-        setHeight() {
+        updateHeight() {
             const tab = (this.$refs[`tab-${this.currentTab}`] || [])[0];
             if (!tab) return this.initialHeight;
             const style = tab.style;
             const marginTop = parseInt(style.marginTop) || 0;
             const marginBottom = parseInt(style.marginBottom) || 0;
             const height = parseInt(tab.offsetHeight);
-
             this.height = height + marginTop + marginBottom;
         },
         selectTab(index) {
             if (this.tabs[index].disabled) return;
             this.currentTab = index;
-            this.setHeight();
+            this.updateHeight();
             this.$emit("update:tab", this.tabs[this.currentTab], this.currentTab);
         },
         onTabClick(index) {

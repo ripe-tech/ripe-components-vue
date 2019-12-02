@@ -13,11 +13,15 @@ storiesOf("Components", module).add("Tabs", () => ({
         }
     },
     template: `
-            <tabs-platforme v-bind:tabs="mockTabs">
-                <template v-slot:address>
-                    <p>My address:</p>
-                    <p>New York</p>
-                </template>
-            </tabs-platforme>
+            <div>
+                <tabs-platforme v-bind:tabs="mockTabs">
+                    <template v-slot:address>
+                        <p>My address:</p>
+                        <p>New York</p>
+                    </template>
+                </tabs-platforme>
+                <label-platforme v-bind:text='"This is a simple label bellow tabs"'></label-platforme>
+            </div>
+            
         `
 }));
