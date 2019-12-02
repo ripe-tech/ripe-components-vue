@@ -1,6 +1,6 @@
 import { storiesOf } from "@storybook/vue";
 
-storiesOf("Input", module).add("Link", () => ({
+storiesOf("Components", module).add("Link", () => ({
     template: `
             <div>
                 <div><link-platforme v-bind:text='"This is a normal link"'></link-platforme></div>
