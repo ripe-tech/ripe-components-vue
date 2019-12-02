@@ -44,6 +44,7 @@
 .checkbox-choice {
     display: block;
     padding: 3.5px 0px 3.5px 0px;
+    user-select: none;
 }
 
 .checkbox-label {
@@ -122,7 +123,6 @@
 .label-text {
     color: $grey;
     margin: 0px 0px 0px 6px;
-    user-select: none;
 }
 
 .footer {
