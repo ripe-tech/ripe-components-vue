@@ -5,7 +5,7 @@
             <div
                 class="checkbox-choice"
                 v-bind:class="{
-                    checked: picked.includes(item.value),
+                    checked: value.includes(item.value),
                     disabled: disabled,
                     error: error
                 }"
@@ -23,7 +23,7 @@
                     class="checkbox"
                     v-bind:value="item.value"
                     v-bind:id="item.value + index"
-                    v-model="picked"
+                    v-model="value"
                 />
                 <div class="checkbox-square" />
                 <label-platforme class="label-text" v-bind:for="item.value">
@@ -31,11 +31,6 @@
                 </label-platforme>
             </div>
         </div>
-        <!-- DELETE ME \/ -->
-        <p v-on:click="picked = []">
-            Debug clear chcked values: {{ picked ? picked : "null" }}
-        </p>
-        <!-- DELETE ME /\ -->
         <label-platforme
             class="footer"
             v-bind:size="'small'"
@@ -153,7 +148,7 @@ export const CheckboxPlatforme = {
             type: Array,
             default: () => []
         },
-        initialChoices: {
+        initialValue: {
             type: Array,
             default: () => []
         },
@@ -176,7 +171,7 @@ export const CheckboxPlatforme = {
     },
     data: function() {
         return {
-            picked: this.initialChoices
+            value: this.initialValue
         };
     },
     methods: {
@@ -184,14 +179,19 @@ export const CheckboxPlatforme = {
             if (this.disabled || item.disabled) {
                 return;
             }
-            this.picked.includes(item.value)
+            this.value.includes(item.value)
                 ? this.removeItem(item.value)
-                : this.picked.push(item.value);
+                : this.addItem(item.value);
         },
         removeItem(item) {
-            this.picked = this.picked.filter(arrItem => {
+            this.value = this.value.filter(arrItem => {
                 return item !== arrItem;
             });
+            this.$emit("update:value", this.value);
+        },
+        addItem(item) {
+            this.value.push(item);
+            this.$emit("update:value", this.value);
         }
     }
 };

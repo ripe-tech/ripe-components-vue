@@ -48,19 +48,22 @@ storiesOf("Input", module)
                         value: "tibet"
                     }
                 ],
-                initialChoices: ["japan", "China", "dubai", "Canada", "bali"]
+                value: ["japan", "China", "dubai", "Canada", "bali"]
             };
         },
         template: `
             <div>
                 <checkbox-platforme
+                    v-on:update:value="(newValue) => value = newValue"                 
                     v-bind:items='items'
-                    v-bind:initialChoices='initialChoices'
+                    v-bind:initialValue='value'
+                    v-bind:value='value'
                     v-bind:label-title='labelTitle'
                     v-bind:disabled='disabled'
                     v-bind:label-footer='labelFooter'
                     v-bind:error='error'
                 />
+                <p> Value: {{ value }} </p>
             </div>
             `
     }));
