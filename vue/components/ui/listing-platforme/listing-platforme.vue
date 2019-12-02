@@ -61,9 +61,9 @@
     border: none;
     border-radius: 40px;
     bottom: 20px;
-    -webkit-box-shadow: 0px 0px 36px -15px #ffffff;
-    -moz-box-shadow: 0px 0px 36px -15px #ffffff;
-    box-shadow: 0px 0px 36px -15px #ffffff;
+    -webkit-box-shadow: 0px 0px 36px -15px #aaaaaa;
+    -moz-box-shadow: 0px 0px 36px -15px #aaaaaa;
+    box-shadow: 0px 0px 36px -15px #aaaaaa;
     height: 50px;
     opacity: 0;
     outline: none;
@@ -248,7 +248,7 @@
 }
 
 input[type="text"] {
-    background-color: $border-color;
+    background-color: #f2f2f2;
     border: 1px solid transparent;
     font-size: 13px;
     height: 32px;
