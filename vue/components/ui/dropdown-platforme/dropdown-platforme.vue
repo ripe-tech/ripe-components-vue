@@ -3,6 +3,7 @@
         <div class="dropdown-container" v-if="!isMobile">
             <div
                 class="dropdown-button"
+                v-bind:class="{ disabled: disabled }"
                 v-bind:style="dropdownButtonStyle"
                 v-on:click="onToggleDropdown"
             >
@@ -22,7 +23,7 @@
             <option v-bind:value="options.id" v-for="options in options" v-bind:key="options.id">
                 {{ options.text }}
             </option>
-            <option value="empty_id" style="display:none">
+            <option value="empty_id" style="display: none;">
                 {{ placeholder }}
             </option>
         </select>
@@ -57,11 +58,15 @@
 }
 
 .dropdown-platforme .dropdown-container .dropdown-button:hover {
-  border: solid 1px $dropdown-border-hover-color;
-  background-color: $lightgrey;
-  color: $grey;
+    background-color: $lightgrey;
+    border: solid 1px $dropdown-border-hover-color;
+    color: $grey;
 }
 
+.dropdown-platforme .dropdown-container .dropdown-button.disabled {
+    background-color: $dropdown-disabled-background-color;
+    color: $dropdown-disabled-color;
+}
 
 .dropdown-platforme .dropdown-container .dropdown {
     background-color: $dropdown-background-color;
@@ -91,13 +96,17 @@ export const DropdownPlatforme = {
             type: String,
             required: true
         },
-        width: {
-            type: Number,
-            default: 300
-        },
         isMobile: {
             type: Boolean,
             default: false
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        },
+        width: {
+            type: Number,
+            default: 300
         }
     },
     data: function() {
@@ -107,21 +116,29 @@ export const DropdownPlatforme = {
         };
     },
     mounted: function() {
-        //this.selectedOption.id = this.options ? this.options[0].id : null;
         this.selectedOption.id = "empty_id";
-
     },
-
+    watch: {
+        disabled() {
+            if (this.disabled) this.closeDropdown();
+        }
+    },
     methods: {
         onSelectOption(option) {
-            this.selectOption(option);
+            if (!this.disabled) this.selectOption(option);
         },
         selectOption(option) {
             this.$emit("update:option", option);
             this.toggleDropdown();
         },
         onToggleDropdown() {
-            this.toggleDropdown();
+            if (!this.disabled) this.toggleDropdown();
+        },
+        openDropdown() {
+            this.visible = true;
+        },
+        closeDropdown() {
+            this.visible = false;
         },
         toggleDropdown() {
             this.visible = !this.visible;

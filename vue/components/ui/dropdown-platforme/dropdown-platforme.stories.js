@@ -13,6 +13,9 @@ storiesOf("Dropdown", module)
             },
             isMobile: {
                 default: boolean("isMobile", false)
+            },
+            disabled: {
+                default: boolean("Disabled", false)
             }
         },
         data: function() {
@@ -58,6 +61,7 @@ storiesOf("Dropdown", module)
                         v-bind:placeholder="selectedOption.text"
                         v-bind:width="width"
                         v-bind:is-mobile="isMobile"
+                        v-bind:disabled="disabled"
                         v-bind:options="options"
                         v-on:update:option="optionChanged($event)"
                     />
