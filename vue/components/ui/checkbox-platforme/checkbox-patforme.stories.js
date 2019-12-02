@@ -9,7 +9,7 @@ storiesOf("Input", module)
                 default: boolean("Error", false)
             },
             disabled: {
-                default: boolean("Disabled", false)
+                default: boolean("Disabled group", false)
             },
             labelTitle: {
                 default: text("Label title", "Holidays next year")
