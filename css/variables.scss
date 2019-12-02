@@ -1,3 +1,5 @@
+@import "colors.scss";
+
 $main-color: #1d1d1d;
 $higher-color: #000000;
 $lower-color: #2d2d2d;
@@ -9,18 +11,8 @@ $link-color: #4078c0;
 $link-hover-color: #4078c0;
 $label-color: #8d8d8d;
 $font-family: Lato, sans-serif;
-$grey: #57626e;
-$pale-grey: #6b778c;
-$light-grey: #eceef1;
-$purple: #5f60c2;
-$light-purple: #e1e2ff;
-$orange: #fb9032;
-$light-orange: #ffead0;
-$red: #e96760;
-$light-red: #ffe4e2;
-$green: #45a777;
-$light-green: #dcfce7;
-$blue: #4b8dd7;
-$light-blue: #e5f3ff;
-$yellow: #ffd422;
 $dark: #1d2631;
+$grey: #57626e;
+$light-grey: #e4e8f0;
+$blue: #4b8dd7;
+$white: #ffffff;

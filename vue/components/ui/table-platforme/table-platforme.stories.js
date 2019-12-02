@@ -37,18 +37,6 @@ storiesOf("Data", module).add("Table", () => ({
         class="table"
         v-bind:columns="mockColumns"
         v-bind:items="mockItems"
-    >
-            <template v-slot="{ item }">
-                <td class="id">
-                    {{ item.id }}
-                </td>
-                <td class="user">
-                    {{ item.user || "-" }}
-                </td>
-                <td class="device">
-                    {{ item.system }}
-                </td>
-            </template>
-    </table-platforme>
+    />
     `
 }));

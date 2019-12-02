@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, color, number } from "@storybook/addon-knobs";
 
-storiesOf("Loader", module)
+storiesOf("Loaders", module)
     .addDecorator(withKnobs)
     .add("Ball Pulse", () => ({
         props: {
