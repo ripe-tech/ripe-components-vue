@@ -5,25 +5,18 @@
             <div
                 class="checkbox-choice"
                 v-bind:class="{
-                    checked: value.includes(item.value),
-                    disabled: disabled,
-                    error: error
+                    checked: values.hasOwnProperty(item.value),
+                    disabled: item.disabled,
+                    error: error || item.error
                 }"
                 v-for="(item, index) in items"
                 v-bind:key="index"
                 v-on:click="onClick(item)"
             >
                 <input
-                    v-bind:class="{
-                        disabled: disabled,
-                        error: error
-                    }"
                     type="checkbox"
-                    v-bind:disabled="disabled"
                     class="checkbox"
-                    v-bind:value="item.value"
-                    v-bind:id="item.value + index"
-                    v-model="value"
+                    v-bind:id="item.value"
                 />
                 <div class="checkbox-square" />
                 <label-platforme class="label-text" v-bind:for="item.value">
@@ -104,7 +97,7 @@
     border: 2px solid $red;
 }
 
-.checkbox-choice:active:not(.disabled) > .checkbox-square {
+.checkbox-choice:not(.disabled):active > .checkbox-square {
     background: url("~./assets/check-dark.svg") center / 7px 6px no-repeat #f4f5f7;
     border: 2px solid #d6dade;
     padding: 3px 3px 3px 3px;
@@ -149,8 +142,8 @@ export const CheckboxPlatforme = {
             default: () => []
         },
         initialValue: {
-            type: Array,
-            default: () => []
+            type: Object,
+            default: () => {}
         },
         disabled: {
             type: Boolean,
@@ -171,7 +164,7 @@ export const CheckboxPlatforme = {
     },
     data: function() {
         return {
-            value: this.initialValue
+            values: this.initialValue
         };
     },
     methods: {
@@ -179,19 +172,18 @@ export const CheckboxPlatforme = {
             if (this.disabled || item.disabled) {
                 return;
             }
-            this.value.includes(item.value)
+            this.values.hasOwnProperty(item.value)
                 ? this.removeItem(item.value)
                 : this.addItem(item.value);
         },
         removeItem(item) {
-            this.value = this.value.filter(arrItem => {
-                return item !== arrItem;
-            });
-            this.$emit("update:value", this.value);
+            this.$delete(this.values, item);
+            this.$emit("update:values", this.values);
+            console.log(this.values);
         },
         addItem(item) {
-            this.value.push(item);
-            this.$emit("update:value", this.value);
+            this.$set(this.values, item, true);
+            this.$emit("update:values", this.values);
         }
     }
 };

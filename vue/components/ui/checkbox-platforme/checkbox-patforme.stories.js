@@ -30,7 +30,8 @@ storiesOf("Input", module)
                         value: "morroco"
                     },
                     {
-                        value: "Canada"
+                        value: "Canada",
+                        checked: true
                     },
                     {
                         value: "China"
@@ -41,29 +42,35 @@ storiesOf("Input", module)
                     },
                     {
                         label: "Bali",
-                        value: "bali"
+                        value: "bali",
+                        disabled: true
                     },
                     {
                         label: "Tibet",
                         value: "tibet"
                     }
                 ],
-                value: ["japan", "China", "dubai", "Canada", "bali"]
+                values: {
+                    japan: true,
+                    China: true,
+                    dubai: true,
+                    Canada: true
+                }
             };
         },
         template: `
             <div>
                 <checkbox-platforme
-                    v-on:update:value="(newValue) => value = newValue"                 
+                    v-on:update:values="(newValues) => values = newValues"                 
                     v-bind:items='items'
-                    v-bind:initialValue='value'
-                    v-bind:value='value'
+                    v-bind:initialValue='values'
+                    v-bind:values='values'
                     v-bind:label-title='labelTitle'
                     v-bind:disabled='disabled'
                     v-bind:label-footer='labelFooter'
                     v-bind:error='error'
                 />
-                <p> Value: {{ value }} </p>
+                <p>Values: {{ values }}</p>
             </div>
             `
     }));
