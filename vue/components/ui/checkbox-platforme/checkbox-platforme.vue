@@ -15,9 +15,9 @@
             >
                 <input type="checkbox" class="checkbox" v-bind:id="item.value" />
                 <div class="checkbox-square" />
-                <label-platforme class="label-text" v-bind:for="item.value">
+                <label class="label-text" for="item.value">
                     {{ item.label ? item.label : item.value }}
-                </label-platforme>
+                </label>
             </div>
         </div>
         <label-platforme
@@ -122,7 +122,11 @@
 
 .label-text {
     color: $grey;
+    display: inline-block;
+    font-size: 14px;
+    line-height: 12px;
     margin: 0px 0px 0px 6px;
+    vertical-align: bottom;
 }
 
 .footer {
