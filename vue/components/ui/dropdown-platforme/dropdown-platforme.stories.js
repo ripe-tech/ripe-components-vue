@@ -1,9 +1,9 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, boolean } from "@storybook/addon-knobs";
 
-storiesOf("Dropdown", module)
+storiesOf("Components", module)
     .addDecorator(withKnobs)
-    .add("Visible", () => ({
+    .add("Dropdown Visible", () => ({
         props: {
             visible: {
                 default: boolean("Visible", true)
@@ -44,7 +44,7 @@ storiesOf("Dropdown", module)
             </div>
         `
     }))
-    .add("Custom", () => ({
+    .add("Dropdown Custom", () => ({
         props: {
             visible: {
                 default: boolean("Visible", true)
