@@ -64,7 +64,7 @@ storiesOf("Input", module)
             <div>
                 <radio-platforme
                     v-on:update:value="(newValue) => value = newValue" 
-                    v-bind:value="value"
+                    v-bind:initialValue="value"
                     v-bind:items="items"
                     v-bind:label-title = 'labelTitle'
                     v-bind:disabled = 'disabled'

@@ -139,7 +139,7 @@ export const RadioPlatforme = {
             type: Array,
             default: () => []
         },
-        value: {
+        initialValue: {
             type: String,
             default: null
         },
@@ -160,10 +160,21 @@ export const RadioPlatforme = {
             default: false
         }
     },
+    watch: {
+        initialValue() {
+            this.value = this.initialValue;
+        }
+    },
+    data: function () {
+        return {
+            value: this.initialValue
+        }
+    },
     methods: {
         onClick(item) {
             if (item.disabled || this.disabled) return;
             if (this.value === item.value) return;
+            this.value = item.value;
             this.$emit("update:value", item.value);
         }
     }
