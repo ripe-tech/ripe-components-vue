@@ -56,6 +56,13 @@
     padding: 0px 8px;
 }
 
+.dropdown-platforme .dropdown-container .dropdown-button:hover {
+  border: solid 1px $dropdown-border-hover-color;
+  background-color: $lightgrey;
+  color: $grey;
+}
+
+
 .dropdown-platforme .dropdown-container .dropdown {
     background-color: $dropdown-background-color;
     border: solid 1px $dropdown-border-color;
