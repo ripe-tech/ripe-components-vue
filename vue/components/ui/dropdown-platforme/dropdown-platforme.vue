@@ -1,7 +1,8 @@
 <template>
     <div class="dropdown-container">
         <div class="dropdown-platforme">
-            <div class="dropdown">
+            <button class="dropdown-button" v-on:click="onToogleDropdown" />
+            <div class="dropdown" v-show="visible">
                 <div class="options-container" v-for="option in options" v-bind:key="option.id">
                     <slot name="options" v-bind:option="option">
                         <div class="option">{{ option.text }}</div>
@@ -15,7 +16,14 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
+.dropdown-button{
+    width: 200px;
+    height: 20px;
+    background-color: lightgray;
+}
+
 .dropdown-container .dropdown {
+    position: absolute;
     margin: 8px 0px 0px 0px;
     width: 300px; //TODO set this as a prop
     border-radius: 6px;
@@ -46,7 +54,17 @@ export const DropdownPlatforme = {
         }
     },
     data: function() {
-        return {};
+        return {
+            visible: false
+        };
+    },
+    methods: {
+        onToogleDropdown(){
+            this.toggleDropdown();
+        },
+        toggleDropdown() {
+            this.visible = !this.visible;
+        }
     }
 };
 

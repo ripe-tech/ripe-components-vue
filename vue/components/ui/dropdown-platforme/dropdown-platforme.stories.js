@@ -32,6 +32,14 @@ storiesOf("Dropdown", module)
             };
         },
         template: `
-                <dropdown-platforme v-bind:options="options" />
+        <div>
+                <dropdown-platforme v-bind:options="options"/>
+                <p>eeeeeee<p/>
+                <p>eeeeeee<p/>
+                <p>eeeeeee<p/>
+                <p>eeeeeee<p/>
+                <p>eeeeeee<p/>
+                <p>eeeeeee<p/>
+                </div>
                 `
     }));
