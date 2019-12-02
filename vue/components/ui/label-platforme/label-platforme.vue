@@ -44,7 +44,8 @@ export const LabelPlatforme = {
             default: "normal"
         },
         color: {
-            type: String
+            type: String,
+            default: null
         },
         target: {
             type: String,
