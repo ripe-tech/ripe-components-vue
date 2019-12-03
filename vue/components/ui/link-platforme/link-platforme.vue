@@ -138,8 +138,8 @@ export const LinkPlatforme = {
     computed: {
         classes() {
             const base = {};
-            if (this.size) base["link-" + this.size] = this.size;
             if (this.disabled) base["link-disabled"] = this.disabled;
+            if (this.size) base["link-" + this.size] = this.size;
             if (this.color) base["link-" + this.color] = this.color;
             return base;
         }
