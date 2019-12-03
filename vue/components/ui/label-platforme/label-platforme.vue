@@ -8,7 +8,7 @@
 @import "css/variables.scss";
 
 .label {
-    color: #57626e;
+    color: $grey;
     font-size: 12px;
     font-weight: 500;
     letter-spacing: 0.3px;
@@ -27,7 +27,7 @@
 
 .label.label-red,
 .label.label-error {
-    color: #e96760;
+    color: $red;
 }
 </style>
 
@@ -44,7 +44,8 @@ export const LabelPlatforme = {
             default: "normal"
         },
         color: {
-            type: String
+            type: String,
+            default: null
         },
         target: {
             type: String,

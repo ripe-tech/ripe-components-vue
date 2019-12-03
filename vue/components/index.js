@@ -15,6 +15,7 @@ import { ImagePlatforme } from "./ui/image-platforme/image-platforme.vue";
 import { InputPlatforme } from "./ui/input-platforme/input-platforme.vue";
 import { LabelPlatforme } from "./ui/label-platforme/label-platforme.vue";
 import { LightboxPlatforme } from "./ui/lightbox-platforme/lightbox-platforme.vue";
+import { LineupPlatforme } from "./ui/lineup-platforme/lineup-platforme.vue";
 import { LinkPlatforme } from "./ui/link-platforme/link-platforme.vue";
 import { ListingPlatforme } from "./ui/listing-platforme/listing-platforme.vue";
 import { LoaderPlatforme } from "./ui/loader-platforme/loader-platforme.vue";
@@ -24,6 +25,7 @@ import { ProgressBarPlatforme } from "./ui/progress-bar-platforme/progress-bar-p
 import { SearchPlatforme } from "./ui/search-platforme/search-platforme.vue";
 import { SidePlatforme } from "./ui/side-platforme/side-platforme.vue";
 import { TablePlatforme } from "./ui/table-platforme/table-platforme.vue";
+import { TabsPlatforme } from "./ui/tabs-platforme/tabs-platforme.vue";
 import { TagPlatforme } from "./ui/tag-platforme/tag-platforme.vue";
 
 const install = Vue => {
@@ -48,6 +50,7 @@ const install = Vue => {
     Vue.component("loader-platforme", LoaderPlatforme);
     Vue.component("modal-platforme", ModalPlatforme);
     Vue.component("lightbox-platforme", LightboxPlatforme);
+    Vue.component("lineup-platforme", LineupPlatforme);
     Vue.component("link-platforme", LinkPlatforme);
     Vue.component("listing-platforme", ListingPlatforme);
     Vue.component("overlay-platforme", OverlayPlatforme);
@@ -56,6 +59,7 @@ const install = Vue => {
     Vue.component("side-platforme", SidePlatforme);
     Vue.component("table-platforme", TablePlatforme);
     Vue.component("tag-platforme", TagPlatforme);
+    Vue.component("tabs-platforme", TabsPlatforme);
 };
 
 export {
@@ -78,6 +82,7 @@ export {
     LoaderPlatforme,
     ModalPlatforme,
     LightboxPlatforme,
+    LineupPlatforme,
     LinkPlatforme,
     ListingPlatforme,
     OverlayPlatforme,
@@ -85,6 +90,7 @@ export {
     SearchPlatforme,
     SidePlatforme,
     TablePlatforme,
+    TabsPlatforme,
     TagPlatforme,
     install
 };
