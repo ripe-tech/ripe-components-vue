@@ -49,7 +49,7 @@
 }
 
 .checkbox-choice:hover,
-.checkbox-choice:hover ::v-deep label {
+.checkbox-choice:hover label {
     cursor: pointer;
 }
 
