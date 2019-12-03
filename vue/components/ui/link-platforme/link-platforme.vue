@@ -32,59 +32,59 @@ a.link.link-small {
     font-size: 12px;
 }
 
-a.link.link-color-black {
+a.link.link-black {
     color: $black;
 }
 
-a.link.link-color-black:hover {
+a.link.link-black:hover {
     border-color: $black;
 }
 
-a.link.link-color-grey {
+a.link.link-grey {
     color: $grey;
 }
 
-a.link.link-color-grey:hover {
+a.link.link-grey:hover {
     border-color: $grey;
 }
 
-a.link.link-color-orange {
+a.link.link-orange {
     color: $orange;
 }
 
-a.link.link-color-orange:hover {
+a.link.link-orange:hover {
     border-color: $orange;
 }
 
-a.link.link-color-blue {
+a.link.link-blue {
     color: $blue;
 }
 
-a.link.link-color-blue:hover {
+a.link.link-blue:hover {
     border-color: $blue;
 }
 
-a.link.link-color-green {
+a.link.link-green {
     color: $green;
 }
 
-a.link.link-color-green:hover {
+a.link.link-green:hover {
     border-color: $green;
 }
 
-a.link.link-color-red {
+a.link.link-red {
     color: $red;
 }
 
-a.link.link-color-red:hover {
+a.link.link-red:hover {
     border-color: $red;
 }
 
-a.link.link-color-purple {
+a.link.link-purple {
     color: $purple;
 }
 
-a.link.link-color-purple:hover {
+a.link.link-purple:hover {
     border-color: $purple;
 }
 
@@ -141,7 +141,7 @@ export const LinkPlatforme = {
             const base = {};
             if (this.size) base["link-" + this.size] = this.size;
             if (this.disabled) base["link-disabled"] = this.disabled;
-            if (this.color) base["link-color-" + this.color] = this.color;
+            if (this.color) base["link-" + this.color] = this.color;
             return base;
         }
     }
