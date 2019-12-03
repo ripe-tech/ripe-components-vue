@@ -1,7 +1,7 @@
 <template>
     <div class="checkbox">
         <global-events
-            v-on:keydown.13="onEnter"
+            v-on:keydown.32="onSpace"
             v-on:keydown.8="onBackspace"
             v-on:keydown.46="onDelete"
         />
@@ -27,12 +27,7 @@
                 </label>
             </div>
         </div>
-        <label-platforme
-            class="footer"
-            v-bind:size="'small'"
-            v-bind:text="footer"
-            v-if="footer"
-        />
+        <label-platforme class="footer" v-bind:size="'small'" v-bind:text="footer" v-if="footer" />
     </div>
 </template>
 
@@ -60,6 +55,7 @@
 .choice {
     display: block;
     line-height: 13px;
+    outline: none;
     padding: 10px 6px 10px 6px;
     user-select: none;
 }
@@ -67,23 +63,6 @@
 .choice:hover,
 .choice:hover label {
     cursor: pointer;
-}
-
-.choice:hover {
-    background-color: $light-grey;
-}
-
-.choice:active {
-    background-color: #dde0e2;
-}
-
-.choice:hover:not(.disabled):not(.checked):not(.error) > .checkbox-square {
-    border-color: #c1c7d0;
-}
-
-.choice.disabled:hover,
-.choice.disabled:hover ::v-deep label {
-    cursor: not-allowed;
 }
 
 .choice > .value {
@@ -132,6 +111,10 @@
     background: url("~./assets/check-gray.svg") center / 7px 6px no-repeat #f4f5f7;
     border: 2px solid #f6f7f9;
     padding: 3px 3px 3px 3px;
+}
+
+.choice:focus > .checkbox-square {
+    border-color: $aqcua-blue;
 }
 
 .choice > .label {
@@ -200,14 +183,8 @@ export const CheckboxPlatforme = {
             const index = parseInt(document.activeElement.getAttribute("index"));
             return this.items[index];
         },
-        onEnter() {
-            this.addItem(this.getFocusedItem());
-        },
-        onBackspace() {
-            this.removeItem(this.getFocusedItem());
-        },
-        onDelete() {
-            this.removeItem(this.getFocusedItem());
+        onSpace() {
+            this.toggleItem(this.getFocusedItem());
         },
         onClick(item) {
             this.toggleItem(item);
