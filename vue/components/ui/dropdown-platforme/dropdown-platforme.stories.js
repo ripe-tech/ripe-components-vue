@@ -17,14 +17,14 @@ storiesOf("Dropdown", module)
             width: {
                 default: number("Width", 300)
             },
-            isMobile: {
-                default: boolean("isMobile", false)
-            },
             disabled: {
                 default: boolean("Disabled", false)
             },
             allowTextSelection: {
                 default: boolean("Allow text selection", true)
+            },
+            isMobile: {
+                default: boolean("[DEBUG] isMobile", false)
             }
         },
         data: function() {
@@ -57,6 +57,17 @@ storiesOf("Dropdown", module)
                 }
             };
         },
+        watch: {
+            isMobile() {
+                document.body.classList.remove("mobile");
+                document.body.classList.remove("desktop");
+                const deviceType = this.isMobile ? "mobile" : "desktop";
+                document.body.classList.add(deviceType);
+            }
+        },
+        mounted: function() {
+            document.body.classList.add("desktop");
+        },
         methods: {
             optionChanged(value) {
                 this.selectedOption = value;
@@ -69,7 +80,6 @@ storiesOf("Dropdown", module)
                         v-bind:placeholder="placeholder"
                         v-bind:field-label="fieldLabel"
                         v-bind:width="width"
-                        v-bind:is-mobile="isMobile"
                         v-bind:disabled="disabled"
                         v-bind:allow-text-selection="allowTextSelection"
                         v-bind:options="options"

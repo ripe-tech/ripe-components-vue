@@ -2,7 +2,7 @@
     <div class="dropdown-platforme">
         <global-events v-on:keydown.esc="onEscKey()" />
         <label-platforme class="label" v-bind:text="fieldLabel" for="dropdown" v-if="fieldLabel" />
-        <div class="dropdown-container" v-if="!isMobile" v-bind:id="id">
+        <div class="dropdown-container" v-bind:id="id">
             <div
                 class="dropdown-button"
                 v-bind:class="{ disabled: disabled, focused: focused }"
@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-        <select class="mobile-dropdown" v-else v-model="selectedOption.id">
+        <select class="mobile-dropdown" v-model="selectedOption.id">
             <option v-bind:value="options.id" v-for="options in options" v-bind:key="options.id">
                 {{ options.text }}
             </option>
@@ -38,6 +38,14 @@
 .label {
     display: block;
     margin-bottom: 7px;
+}
+
+body.mobile .dropdown-platforme .dropdown-container {
+    display: none;
+}
+body.desktop .dropdown-platforme .mobile-dropdown,
+body.tablet .dropdown-platforme .mobile-dropdown {
+    display: none;
 }
 
 .dropdown-platforme .dropdown-container .dropdown-button,
@@ -126,10 +134,6 @@ export const DropdownPlatforme = {
         fieldLabel: {
             type: String,
             default: ""
-        },
-        isMobile: {
-            type: Boolean,
-            default: false
         },
         disabled: {
             type: Boolean,
