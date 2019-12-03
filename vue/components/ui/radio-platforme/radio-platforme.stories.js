@@ -68,10 +68,10 @@ storiesOf("Input", module)
                     v-on:update:value="(newValue) => value = newValue" 
                     v-bind:value="value"
                     v-bind:items="items"
-                    v-bind:label-title = 'labelTitle'
-                    v-bind:disabled = 'disabled'
-                    v-bind:label-footer = 'labelFooter'
-                    v-bind:error = 'error'
+                    v-bind:label-title = "labelTitle"
+                    v-bind:disabled = "disabled"
+                    v-bind:label-footer = "labelFooter"
+                    v-bind:error = "error"
                 />
                 <p>Value selected: {{ value }}</p>
             </div>`
