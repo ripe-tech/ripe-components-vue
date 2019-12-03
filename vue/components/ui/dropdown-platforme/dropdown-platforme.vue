@@ -5,7 +5,7 @@
         <div class="dropdown-container" v-if="!isMobile" id="dropdown">
             <div
                 class="dropdown-button"
-                v-bind:class="{disabled: disabled, focused: focused}"
+                v-bind:class="{ disabled: disabled, focused: focused }"
                 v-bind:style="dropdownButtonStyle"
                 v-on:click="onToggleDropdown"
             >
@@ -73,10 +73,10 @@
 
 .dropdown-platforme .dropdown-container .dropdown-button.disabled,
 .dropdown-platforme .dropdown-container .dropdown-button.disabled:active {
-    border: solid 1px #e4e8f0;
     background-color: $dropdown-disabled-background-color;
+    border: solid 1px #e4e8f0;
     color: $dropdown-disabled-color;
-    margin:inherit;
+    margin: inherit;
 }
 
 .dropdown-platforme .dropdown-container .dropdown-button.focused {
@@ -101,14 +101,12 @@
 }
 
 .dropdown-platforme .dropdown-container .dropdown .options-container ::v-deep .option:hover {
-    background-color:$lightgrey;
+    background-color: $lightgrey;
 }
 
 .dropdown-platforme .dropdown-container .dropdown .options-container ::v-deep .option:active {
     background-color: $option-pressed-color;
 }
-
-
 </style>
 
 <script>
@@ -163,10 +161,8 @@ export const DropdownPlatforme = {
         onEscKey() {
             this.closeDropdown();
         },
-        onDropdownButton(option)
-        {
-            if (!this.disabled) 
-            {
+        onDropdownButton(option) {
+            if (!this.disabled) {
                 this.focused = true;
                 this.selectOption(option);
             }
@@ -195,9 +191,8 @@ export const DropdownPlatforme = {
                 width: `${this.width}px`
             };
 
-
             if (!this.allowTextSelection) {
-                base['user-select'] = "none";
+                base["user-select"] = "none";
             }
 
             return base;
@@ -208,7 +203,7 @@ export const DropdownPlatforme = {
             };
 
             if (!this.allowTextSelection) {
-                base['user-select'] = "none";
+                base["user-select"] = "none";
             }
 
             return base;
