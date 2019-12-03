@@ -1,40 +1,27 @@
 <template>
-    <div class="input-platforme">
+    <div class="input">
         <input
             type="text"
-            class="input"
             v-bind:value="value"
             v-bind:placeholder="placeholder"
             v-bind:disabled="disabled"
             ref="input"
             v-on:input="$emit('update:value', $event.target.value)"
-            v-on:focus="focused()"
-            v-on:blur="blurred()"
+            v-on:focus="onFocused"
+            v-on:blur="onBlurred"
         />
         <div class="text">
-            <div class="text-container" v-if="showError">
-                <button-icon-platforme
-                    v-bind:color="'red'"
-                    v-bind:icon="'icon-error'"
-                    v-bind:size="32"
-                />
+            <div class="text-container" v-if="error">
+                <span class="input-text-error" />
                 <label-platforme v-bind:color="'error'" v-bind:text="error" />
             </div>
-            <div class="text-container" v-if="showWarning">
-                <button-icon-platforme
-                    v-bind:color="'yellow'"
-                    v-bind:icon="'icon-warning'"
-                    v-bind:size="32"
-                />
+            <div class="text-container" v-if="warning">
+                <span class="input-text-warning" />
                 <label-platforme v-bind:text="warning" />
             </div>
-            <div class="text-container" v-if="showSuccess">
-                <button-icon-platforme
-                    v-bind:color="'green'"
-                    v-bind:icon="'icon-check-filled'"
-                    v-bind:size="32"
-                />
-                <label-platforme v-bind:text="success" v-bind:color="'success'"/>
+            <div class="text-container" v-if="success">
+                <span class="input-text-success" />
+                <label-platforme v-bind:text="success" v-bind:color="'success'" />
             </div>
         </div>
     </div>
@@ -42,11 +29,10 @@
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
-@import "css/colors.scss";
 
 input[type="text"] {
     background-color: #f2f2f2;
-    border: solid 1px $light-white;
+    border: 1px solid $light-white;
     border-radius: 6px 6px 6px 6px;
     box-sizing: border-box;
     font-family: $font-family;
@@ -62,8 +48,8 @@ input[type="text"] {
 }
 
 input[type="text"]:hover {
-    background-color: #ebeef1;
-    border: solid 1px #dfe1e5;
+    background-color: $light-grey;
+    border-color: #dfe1e5;
 }
 
 input[type="text"]:focus {
@@ -77,25 +63,32 @@ input[type="text"]:disabled {
     border-color: transparent;
 }
 
-.help-text-validation {
-    display: block;
+.input-text-success {
+    background: url("~./../../../assets/icons/green/icon-check-filled.svg") no-repeat;
+    display: inline-block;
+    height: 16px;
+    vertical-align: top;
+    width: 15px;
+}
+
+.input-text-warning {
+    background: url("~./../../../assets/icons/yellow/icon-warning.svg") no-repeat;
+    display: inline-block;
+    height: 11px;
+    width: 13px;
+}
+
+.input-text-error {
+    background: url("~./../../../assets/icons/red/icon-error.svg") no-repeat;
+    display: inline-block;
+    height: 11px;
+    width: 13px;
 }
 </style>
 
 <script>
 export const InputPlatforme = {
     name: "input-platforme",
-    computed: {
-        showSuccess() {
-            return this.success && !this.disabled;
-        },
-        showError() {
-            return this.error && !this.disabled;
-        },
-        showWarning() {
-            return this.warning && !this.disabled;
-        }
-    },
     props: {
         value: {
             type: String,
@@ -136,10 +129,10 @@ export const InputPlatforme = {
         blur() {
             this.$refs.input.blur();
         },
-        focused() {
+        onFocused() {
             this.$emit("focus");
         },
-        blurred() {
+        onBlurred() {
             this.$emit("blur");
         }
     }
