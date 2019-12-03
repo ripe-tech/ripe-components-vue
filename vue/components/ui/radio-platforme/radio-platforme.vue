@@ -41,6 +41,14 @@
     display: block;
 }
 
+.radio-group-choice {
+    cursor: pointer;
+    display: block;
+    line-height: 13px;
+    padding: 10px 6px 10px 6px;
+    user-select: none;
+}
+
 .radio-group-choice:hover {
     background-color: #ebecf0;
 }
@@ -53,14 +61,6 @@
     background-color: #dde0e2;
 }
 
-.radio-group-choice {
-    cursor: pointer;
-    display: block;
-    line-height: 13px;
-    padding: 10px 0px 10px 0px;
-    user-select: none;
-}
-
 .radio-group-choice.disabled > .label {
     cursor: not-allowed;
 }
@@ -69,15 +69,33 @@
     display: none;
 }
 
+.radio-group-choice.disabled {
+    cursor: not-allowed;
+}
+
+.radio-group-choice > .circular-button {
+    background-color: #fafbfc;
+    border: 2px solid #dfe1e5;
+    border-radius: 50%;
+    display: inline-block;
+    height: 2px;
+    padding: 3px 3px 3px 3px;
+    vertical-align: bottom;
+    width: 2px;
+}
+
+.radio-group-choice:active:not(.disabled) > .circular-button {
+    background-color: $dark;
+    border-color: #c3c9cf;
+    border-width: 4px;
+    padding: 1px 1px 1px 1px;
+}
+
 .radio-group-choice.checked > .circular-button {
     background-color: #ffffff;
     border-color: $dark;
     border-width: 4px;
     padding: 1px 1px 1px 1px;
-}
-
-.radio-group-choice.disabled {
-    cursor: not-allowed;
 }
 
 .radio-group-choice.disabled > .circular-button {
@@ -101,13 +119,6 @@
     border: 4px solid $red;
 }
 
-.radio-group-choice:active:not(.disabled) > .circular-button {
-    background-color: $dark;
-    border-color: #c3c9cf;
-    border-width: 4px;
-    padding: 1px 1px 1px 1px;
-}
-
 .radio-group-choice > .label {
     color: $grey;
     cursor: pointer;
@@ -118,19 +129,7 @@
     vertical-align: bottom;
 }
 
-.radio-group-choice > .circular-button {
-    background-color: #fafbfc;
-    border: 2px solid #dfe1e5;
-    border-radius: 50%;
-    display: inline-block;
-    height: 2px;
-    margin: 0px 0px 0px 6px;
-    padding: 3px 3px 3px 3px;
-    vertical-align: bottom;
-    width: 2px;
-}
-
-.footer {
+.radio-group > .footer {
     color: $pale-grey;
     display: block;
     padding: 4px 0px 0px 0px;
