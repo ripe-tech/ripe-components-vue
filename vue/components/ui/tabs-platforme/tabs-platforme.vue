@@ -4,9 +4,11 @@
             <div
                 class="tab-label"
                 v-bind:class="{ active: isTabActive(index), disabled: tab.disabled }"
+                tabindex="0"
                 v-for="(tab, index) in tabs"
                 v-bind:key="tab.id"
-                v-on:click="onTabClick(index)"
+                v-on:click="onClick(index)"
+                v-on:keydown.13="onEnter(index)"
             >
                 {{ tab.title || tab.id }}
             </div>
@@ -117,6 +119,22 @@ export const TabsPlatforme = {
         this.updateHeight();
     },
     methods: {
+        onEnter(index) {
+            this.selectTab(index);
+        },
+        onClick(index) {
+            this.selectTab(index);
+        },
+        selectTab(index) {
+            if (this.tabs[index].disabled) return;
+            if (this.currentTab === index) return;
+            this.currentTab = index;
+            this.updateHeight();
+            this.$emit("update:tab", this.tabs[this.currentTab], this.currentTab);
+        },
+        isTabActive(index) {
+            return index === this.currentTab;
+        },
         updateHeight() {
             const tab = (this.$refs[`tab-${this.currentTab}`] || [])[0];
             if (!tab) return this.initialHeight;
@@ -125,18 +143,6 @@ export const TabsPlatforme = {
             const marginBottom = parseInt(style.marginBottom) || 0;
             const height = parseInt(tab.offsetHeight);
             this.height = height + marginTop + marginBottom;
-        },
-        selectTab(index) {
-            if (this.tabs[index].disabled) return;
-            this.currentTab = index;
-            this.updateHeight();
-            this.$emit("update:tab", this.tabs[this.currentTab], this.currentTab);
-        },
-        onTabClick(index) {
-            this.selectTab(index);
-        },
-        isTabActive(index) {
-            return index === this.currentTab;
         }
     }
 };
