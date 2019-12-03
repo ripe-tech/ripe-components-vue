@@ -42,6 +42,7 @@
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
+@import "css/colors.scss";
 
 input[type="text"] {
     background-color: #f2f2f2;
