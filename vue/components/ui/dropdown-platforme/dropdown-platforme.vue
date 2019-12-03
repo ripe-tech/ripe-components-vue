@@ -112,7 +112,7 @@ body.tablet .dropdown-platforme .mobile-dropdown {
 }
 
 .dropdown-platforme .dropdown-container .dropdown .options-container ::v-deep .option:active {
-    background-color: $option-pressed-color;
+    background-color: $option-pressed-background-color;
 }
 </style>
 
