@@ -23,7 +23,9 @@
         <transition-group tag="tbody" v-bind:name="transition">
             <tr v-for="(item, index) in sortedItems" v-bind:key="item.id">
                 <slot v-bind:item="item" v-bind:index="index">
-                    <td v-for="column in columns" v-bind:key="column.id" />
+                    <td v-bind:class="column.id" v-for="column in columns" v-bind:key="column.id">
+                        {{ item[column.id] }}
+                    </td>
                 </slot>
             </tr>
         </transition-group>
@@ -140,6 +142,7 @@ table ::v-deep td.image img {
 
 <script>
 export const TablePlatforme = {
+    name: "table-platforme",
     props: {
         columns: {
             type: Array,

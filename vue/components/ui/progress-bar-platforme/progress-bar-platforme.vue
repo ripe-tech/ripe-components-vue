@@ -38,6 +38,7 @@
 
 <script>
 export const ProgressBarPlatforme = {
+    name: "progress-bar-platforme",
     props: {
         color: {
             type: String,

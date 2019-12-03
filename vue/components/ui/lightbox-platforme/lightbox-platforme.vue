@@ -59,7 +59,7 @@
 }
 
 .lightbox-container .image-container img {
-    background: #ffffff;
+    background: $white;
     border-radius: 4px 4px 4px 4px;
     box-shadow: 0px 0px 24px rgba(32, 32, 32, 0.8);
     cursor: pointer;
@@ -76,6 +76,7 @@
 
 <script>
 export const LightboxPlatforme = {
+    name: "lightbox-platforme",
     props: {
         image: {
             type: String,

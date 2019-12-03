@@ -23,6 +23,7 @@
             <filter-platforme
                 v-bind:get-items="getItemsWithParams"
                 v-bind:columns="columns"
+                v-bind:values="values"
                 v-bind:filter="filter"
                 v-bind:use-query="useQuery"
                 v-bind:loading.sync="loading"
@@ -43,6 +44,14 @@
                     <h1 v-if="notFoundText">{{ notFoundText }}</h1>
                     <h1 v-else>No {{ name }} found</h1>
                 </template>
+                <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
+                <template
+                    v-for="slot in Object.keys($scopedSlots)"
+                    v-bind:slot="slot"
+                    slot-scope="scope"
+                >
+                    <slot v-bind:name="slot" v-bind="scope" />
+                </template>
             </filter-platforme>
         </container-platforme>
     </div>
@@ -57,7 +66,7 @@
 }
 
 .scroll-button {
-    background: #ffffff url("~./assets/arrow-up.svg") no-repeat center;
+    background: $white url("~./assets/arrow-up.svg") no-repeat center;
     border: none;
     border-radius: 40px;
     bottom: 20px;
@@ -263,7 +272,7 @@ input[type="text"]:hover {
 }
 
 input[type="text"]:focus {
-    background-color: #ffffff;
+    background-color: $white;
     border-color: #aaaaaa;
 }
 </style>
@@ -272,6 +281,7 @@ input[type="text"]:focus {
 import { filterMixin, partMixin, utilsMixin, scrollMixin } from "../../../mixins";
 
 export const ListingPlatforme = {
+    name: "listing-platforme",
     mixins: [partMixin, filterMixin, utilsMixin, scrollMixin],
     props: {
         context: {
@@ -279,6 +289,10 @@ export const ListingPlatforme = {
             default: () => ({})
         },
         columns: {
+            type: Array,
+            required: true
+        },
+        values: {
             type: Array,
             required: true
         },

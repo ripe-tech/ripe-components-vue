@@ -12,6 +12,7 @@
     display: inline-block;
     font-size: 12px;
     font-weight: 600;
+    height: 15px;
     letter-spacing: 0.45px;
     line-height: 15px;
     overflow: hidden;
@@ -23,6 +24,7 @@
 
 .tag.tag-small {
     font-size: 10px;
+    height: 12px;
     letter-spacing: 0.35px;
     line-height: 12px;
     padding: 4px 10px 4px 10px;
@@ -30,6 +32,7 @@
 
 .tag.tag-large {
     font-size: 14px;
+    height: 17px;
     letter-spacing: 0.65px;
     line-height: 17px;
     padding: 6px 14px 6px 14px;
@@ -37,38 +40,73 @@
 
 .tag,
 .tag.tag-black {
-    background-color: #1d2631;
-    color: #ffffff;
+    background-color: $black;
+    color: $white;
 }
 
 .tag.tag-grey {
-    background-color: #57626e;
-    color: #ffffff;
+    background-color: $grey;
+    color: $white;
 }
 
 .tag.tag-orange {
-    background-color: #fb9032;
-    color: #ffffff;
+    background-color: $orange;
+    color: $white;
 }
 
 .tag.tag-blue {
-    background-color: #4b8dd7;
-    color: #ffffff;
+    background-color: $blue;
+    color: $white;
 }
 
 .tag.tag-green {
-    background-color: #45a777;
-    color: #ffffff;
+    background-color: $green;
+    color: $white;
 }
 
 .tag.tag-red {
-    background-color: #e96760;
-    color: #ffffff;
+    background-color: $red;
+    color: $white;
 }
 
 .tag.tag-purple {
-    background-color: #5f60c2;
-    color: #ffffff;
+    background-color: $purple;
+    color: $white;
+}
+
+.tag.tag-black {
+    background-color: $black;
+    color: $white;
+}
+
+.tag.tag-grey.tag-subtle {
+    background-color: $light-grey;
+    color: $grey;
+}
+
+.tag.tag-orange.tag-subtle {
+    background-color: $light-orange;
+    color: $orange;
+}
+
+.tag.tag-blue.tag-subtle {
+    background-color: $light-blue;
+    color: $blue;
+}
+
+.tag.tag-green.tag-subtle {
+    background-color: $light-green;
+    color: $green;
+}
+
+.tag.tag-red.tag-subtle {
+    background-color: $light-red;
+    color: $red;
+}
+
+.tag.tag-purple.tag-subtle {
+    background-color: $light-purple;
+    color: $purple;
 }
 </style>
 
@@ -86,6 +124,10 @@ export const TagPlatforme = {
         color: {
             type: String,
             default: "grey"
+        },
+        subtle: {
+            type: Boolean,
+            default: true
         }
     },
     computed: {
@@ -93,6 +135,7 @@ export const TagPlatforme = {
             const base = {};
             base["tag-" + this.color] = this.color;
             if (this.size) base["tag-" + this.size] = this.size;
+            if (this.subtle) base["tag-subtle"] = this.subtle;
             return base;
         }
     }

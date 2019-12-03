@@ -35,6 +35,7 @@
                             v-bind:secondary="true"
                             v-bind:small="true"
                             v-bind:text="cancelText"
+                            v-bind:disabled="loading || cancelDisabled"
                             v-if="buttonCancel && cancelText"
                             v-on:click="cancel"
                         />
@@ -42,6 +43,8 @@
                             v-bind:class="'button-confirm'"
                             v-bind:small="true"
                             v-bind:text="confirmText"
+                            v-bind:disabled="loading || confirmDisabled"
+                            v-bind:loading="loading"
                             v-if="buttonConfirm && confirmText"
                             v-on:click="confirm"
                         />
@@ -70,7 +73,7 @@
 
 .modal > .modal-container {
     animation: fade-grow-rise 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
-    background-color: #ffffff;
+    background-color: $white;
     border-radius: 4px 4px 4px 4px;
     box-shadow: 0px 0px 24px #000000;
     box-sizing: border-box;
@@ -161,9 +164,17 @@ export const ModalPlatforme = {
             type: String,
             default: null
         },
+        confirmDisabled: {
+            type: Boolean,
+            default: false
+        },
         cancelText: {
             type: String,
             default: null
+        },
+        cancelDisabled: {
+            type: Boolean,
+            default: false
         },
         buttonsAlignment: {
             type: String,
@@ -182,6 +193,10 @@ export const ModalPlatforme = {
             default: true
         },
         globalEvents: {
+            type: Boolean,
+            default: true
+        },
+        autoHide: {
             type: Boolean,
             default: true
         },
@@ -206,6 +221,10 @@ export const ModalPlatforme = {
             default: null
         },
         visible: {
+            type: Boolean,
+            default: false
+        },
+        loading: {
             type: Boolean,
             default: false
         }
@@ -260,11 +279,11 @@ export const ModalPlatforme = {
         },
         confirm() {
             this.$emit("click:confirm");
-            this.hide();
+            if (this.autoHide) this.hide();
         },
         cancel() {
             this.$emit("click:cancel");
-            this.hide();
+            if (this.autoHide) this.hide();
         },
         calculate() {
             if (this.$refs.modalContainer.clientHeight === 0) return;

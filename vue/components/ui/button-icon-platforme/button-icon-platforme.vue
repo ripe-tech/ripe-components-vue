@@ -24,19 +24,19 @@
 }
 
 .button-icon:hover {
-    background-color: #eceef1;
+    background-color: $light-grey;
 }
 
 .button-icon.button-icon-white {
-    background-color: #ffffff;
+    background-color: $white;
 }
 
 .button-icon.button-icon-white:hover {
-    background-color: #eceef1;
+    background-color: $light-grey;
 }
 
 .button-icon.button-icon-grey {
-    background-color: #eceef1;
+    background-color: $light-grey;
 }
 
 .button-icon.button-icon-grey:hover {
@@ -63,7 +63,7 @@ export const ButtonIconPlatforme = {
     },
     computed: {
         iconPath() {
-            return require(`./assets/${this.icon}.svg`);
+            return require(`./../../../assets/icons/black/${this.icon}.svg`);
         },
         style() {
             return {

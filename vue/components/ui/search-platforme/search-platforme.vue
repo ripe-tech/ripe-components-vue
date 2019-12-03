@@ -95,7 +95,7 @@
 }
 
 .search-platforme > .suggestions > .suggestion {
-    background-color: #ffffff;
+    background-color: $white;
     border-bottom: 1px solid $border-color;
     padding: 2px 16px 2px 16px;
     text-transform: capitalize;
@@ -125,6 +125,7 @@
 
 <script>
 export const SearchPlatforme = {
+    name: "search-platforme",
     props: {
         value: {
             type: String,
