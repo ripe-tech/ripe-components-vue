@@ -33,14 +33,15 @@
 
 .textarea textarea {
     background-color: #f9fafd;
-    border: solid 1px $light-white;
+    border: 1px solid $light-white;
     border-radius: 6px;
+    box-sizing: border-box;
     color: $grey;
     display: block;
     font-family: $font-family;
     font-size: 14px;
     letter-spacing: 0.3px;
-    margin: 1px;
+    line-height: 20px;
     outline: none;
     padding: 8px 8px 8px 8px;
 }
@@ -58,14 +59,14 @@
 
 .textarea textarea:hover {
     background-color: $light-grey;
-    border: solid 1px #dfe1e5;
+    border: 1px solid #dfe1e5;
 }
 
 .textarea textarea:focus {
     background-color: $white;
-    border: solid 2px $aqcua-blue;
+    border: 2px solid $aqcua-blue;
     color: $black;
-    margin: -1px 0px -1px 0px;
+    padding: 7px 7px 7px 7px;
 }
 
 .textarea .label-description {
@@ -112,7 +113,7 @@ export const TextareaPlatforme = {
         },
         initialHeight: {
             type: Number,
-            default: 50
+            default: 78
         },
         resize: {
             type: Boolean,

@@ -27,7 +27,7 @@ storiesOf("Input", module)
                 default: number("Initial Width", 250)
             },
             initialHeight: {
-                default: number("Initial Height", 50)
+                default: number("Initial Height", 78)
             },
             resize: {
                 default: boolean("Resize", true)
