@@ -20,7 +20,6 @@ a.link {
     padding-bottom: 1px;
     text-decoration: none;
     transition: border-color 0.1s ease-in;
-    user-select: none;
 }
 
 a.link:hover,
