@@ -69,7 +69,7 @@ body.tablet .dropdown-platforme .mobile-dropdown {
     height: 40px;
     line-height: 40px;
     margin: 0px 0px 1px 1px;
-    padding: 0px 8px;
+    padding: 0px 8px 0px 8px;
 }
 
 .dropdown-platforme .dropdown-container .dropdown-button:hover {
@@ -134,7 +134,7 @@ export const DropdownPlatforme = {
         },
         fieldLabel: {
             type: String,
-            default: ""
+            default: null
         },
         disabled: {
             type: Boolean,
