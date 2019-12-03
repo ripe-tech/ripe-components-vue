@@ -36,7 +36,6 @@
 @import "css/variables.scss";
 
 //TODO on click outside, close dropdown
-//TODO hover, focus, etc on dropdown options
 
 .label {
     display: block;
@@ -100,6 +99,16 @@
     line-height: 32px;
     padding: 0px 0px 0px 16px;
 }
+
+.dropdown-platforme .dropdown-container .dropdown .options-container ::v-deep .option:hover {
+    background-color:$lightgrey;
+}
+
+.dropdown-platforme .dropdown-container .dropdown .options-container ::v-deep .option:active {
+    background-color: $option-pressed-color;
+}
+
+
 </style>
 
 <script>
