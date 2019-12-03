@@ -14,14 +14,14 @@
             <div class="dropdown" v-bind:style="dropdownStyle" v-show="visible">
                 <div class="options-container">
                     <slot v-bind:name="`options-${option-id}`" v-bind:option="option" v-for="option in options">
-                        <div class="option" v-on:click="onDropdownSelect(option)" v-bind:key="option.id">
+                        <div class="option" v-on:click="onDropdownSelect(option.id)" v-bind:key="option.id">
                             {{ option.text }}
                         </div>
                     </slot>
                 </div>
             </div>
         </div>
-        <select class="mobile-dropdown" v-on:change="onDropdownSelect(value)">
+        <select class="mobile-dropdown" v-on:change="onDropdownSelect($event.target.value)">
             <option v-bind:value="options.id" v-for="options in options" v-bind:key="options.id">
                 {{ options.text }}
             </option>
@@ -157,7 +157,7 @@ export const DropdownPlatforme = {
         return {
             visible: false,
             focused: false,
-            selectedOption: { id: this.value, text: this.placeholder }
+            selectedOption: this.getOption(this.value)
         };
     },
     mounted: function() {
@@ -174,7 +174,7 @@ export const DropdownPlatforme = {
             this.focused = this.visible;
         },
         value() {
-            this.selectedOption = this.options.find(option => option.id === this.value);
+            this.selectedOption = this.getOption(this.value);
         }
     },
     methods: {
@@ -187,15 +187,13 @@ export const DropdownPlatforme = {
         onEscKey() {
             this.closeDropdown();
         },
-        onDropdownSelect(option) {
+        onDropdownSelect(optionId) {
             if (this.disabled) return;
-            
-            console.log(option);
-            //this.focused = true;
-            //this.selectOption(option);
+            this.focused = true;
+            this.selectOption(optionId);
         },
-        selectOption(option) {
-            this.$emit("update:value", option.id);
+        selectOption(optionId) {
+            this.$emit("update:value", optionId);
             this.toggleDropdown();
         },
         onToggleDropdown() {
@@ -209,6 +207,15 @@ export const DropdownPlatforme = {
         },
         toggleDropdown() {
             this.visible = !this.visible;
+        },
+        getOption(optionID) {
+            if(optionID === "placeholder_id")
+            {
+                return { id: optionID, text: this.placeholder };
+            } 
+            else {
+                return this.options.find(option => option.id === optionID);
+            } 
         }
     },
     computed: {
