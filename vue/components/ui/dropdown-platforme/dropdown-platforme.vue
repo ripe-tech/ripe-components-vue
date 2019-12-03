@@ -43,6 +43,7 @@
 body.mobile .dropdown-platforme .dropdown-container {
     display: none;
 }
+
 body.desktop .dropdown-platforme .mobile-dropdown,
 body.tablet .dropdown-platforme .mobile-dropdown {
     display: none;
