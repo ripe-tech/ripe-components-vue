@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text, number, boolean } from "@storybook/addon-knobs";
 
-storiesOf("Dropdown", module)
+storiesOf("Components", module)
     .addDecorator(withKnobs)
     .add("Dropdown", () => ({
         props: {

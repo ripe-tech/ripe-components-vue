@@ -6,7 +6,7 @@ const style = {
     "max-width": "200px"
 };
 
-storiesOf("Progress", module)
+storiesOf("Components", module)
     .addDecorator(withKnobs)
     .add("Progress Bar", () => ({
         props: {
