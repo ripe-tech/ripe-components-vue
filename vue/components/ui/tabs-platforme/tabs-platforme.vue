@@ -58,15 +58,12 @@
 }
 
 .tabs > .header > .tab-label.active {
-    border-bottom: 2px solid $black;
+    border-bottom-color: $black;
     color: $black;
 }
 
-.tabs > .header > .tab-label.disabled,
-.tabs > .header > .tab-label.disabled:hover {
-    border-bottom: none;
-    color: $light-grey;
-    cursor: default;
+.tabs > .header > .tab-label:focus {
+    outline: none;
 }
 
 .tabs > .header > .tab-label:focus,
@@ -75,8 +72,11 @@
     color: $black;
 }
 
-.tabs > .header > .tab-label:focus {
-    outline: none;
+.tabs > .header > .tab-label.disabled,
+.tabs > .header > .tab-label.disabled:hover {
+    border-bottom-color: transparent;
+    color: $light-grey;
+    cursor: default;
 }
 
 .tabs > .tabs-container > .tab {
@@ -116,26 +116,26 @@ export const TabsPlatforme = {
         };
     },
     mounted: function() {
-        this.updateHeight();
+        this._updateHeight();
     },
     methods: {
+        selectTab(index) {
+            if (this.tabs[index].disabled) return;
+            if (this.currentTab === index) return;
+            this.currentTab = index;
+            this._updateHeight();
+            this.$emit("update:tab", this.tabs[this.currentTab], this.currentTab);
+        },
+        isTabActive(index) {
+            return index === this.currentTab;
+        },
         onEnter(index) {
             this.selectTab(index);
         },
         onClick(index) {
             this.selectTab(index);
         },
-        selectTab(index) {
-            if (this.tabs[index].disabled) return;
-            if (this.currentTab === index) return;
-            this.currentTab = index;
-            this.updateHeight();
-            this.$emit("update:tab", this.tabs[this.currentTab], this.currentTab);
-        },
-        isTabActive(index) {
-            return index === this.currentTab;
-        },
-        updateHeight() {
+        _updateHeight() {
             const tab = (this.$refs[`tab-${this.currentTab}`] || [])[0];
             if (!tab) return this.initialHeight;
             const style = tab.style;
