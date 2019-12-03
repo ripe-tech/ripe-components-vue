@@ -22,9 +22,6 @@ storiesOf("Components", module)
             },
             allowTextSelection: {
                 default: boolean("Allow text selection", true)
-            },
-            isMobile: {
-                default: boolean("[DEBUG] isMobile", false)
             }
         },
         data: function() {
@@ -57,17 +54,6 @@ storiesOf("Components", module)
                 }
             };
         },
-        watch: {
-            isMobile() {
-                document.body.classList.remove("mobile");
-                document.body.classList.remove("desktop");
-                const deviceType = this.isMobile ? "mobile" : "desktop";
-                document.body.classList.add(deviceType);
-            }
-        },
-        mounted: function() {
-            document.body.classList.add("desktop");
-        },
         methods: {
             optionChanged(value) {
                 this.selectedOption = value;
@@ -75,6 +61,7 @@ storiesOf("Components", module)
         },
         template: `
                 <div>
+                    <global-platforme/>
                     <dropdown-platforme
                         v-bind:id="id"
                         v-bind:placeholder="placeholder"
