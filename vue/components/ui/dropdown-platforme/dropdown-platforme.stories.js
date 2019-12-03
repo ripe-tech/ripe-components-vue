@@ -49,6 +49,7 @@ storiesOf("Dropdown", module)
                     }
                 ],
                 selectedOption: {
+                    id: "",
                     text: ""
                 }
             };
@@ -57,9 +58,6 @@ storiesOf("Dropdown", module)
             optionChanged(value) {
                 this.selectedOption = value;
             }
-        },
-        mounted: function() {
-            this.selectedOption.text = this.placeholder;
         },
         template: `
                 <div>

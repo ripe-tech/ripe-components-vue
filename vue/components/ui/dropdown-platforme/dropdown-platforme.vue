@@ -9,7 +9,7 @@
                 v-bind:style="dropdownButtonStyle"
                 v-on:click="onToggleDropdown"
             >
-                {{ placeholder }}
+                {{ selectedOption.text }}
             </div>
             <div class="dropdown" v-bind:style="dropdownStyle" v-show="visible">
                 <div class="options-container" v-for="option in options" v-bind:key="option.id">
@@ -25,7 +25,7 @@
             <option v-bind:value="options.id" v-for="options in options" v-bind:key="options.id">
                 {{ options.text }}
             </option>
-            <option value="empty_id" style="display: none;">
+            <option value="placeholder_id" style="display: none;">
                 {{ placeholder }}
             </option>
         </select>
@@ -36,6 +36,7 @@
 @import "css/variables.scss";
 
 //TODO on click outside, close dropdown
+//TODO hover, focus, etc on dropdown options
 
 .label {
     display: block;
@@ -138,11 +139,8 @@ export const DropdownPlatforme = {
         return {
             visible: false,
             focused: false,
-            selectedOption: { id: "empty_id", text: "empty" }
+            selectedOption: { id: "placeholder_id", text: this.placeholder }
         };
-    },
-    mounted: function() {
-        this.selectedOption.id = "empty_id";
     },
     watch: {
         disabled() {
@@ -166,6 +164,7 @@ export const DropdownPlatforme = {
         },
         selectOption(option) {
             this.$emit("update:option", option);
+            this.selectedOption = option;
             this.toggleDropdown();
         },
         onToggleDropdown() {
