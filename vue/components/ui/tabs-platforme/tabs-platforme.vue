@@ -4,9 +4,11 @@
             <div
                 class="tab-label"
                 v-bind:class="{ active: isTabActive(index), disabled: tab.disabled }"
+                tabindex="0"
                 v-for="(tab, index) in tabs"
                 v-bind:key="tab.id"
-                v-on:click="onTabClick(index)"
+                v-on:click="onClick(index)"
+                v-on:keydown.13="onEnter(index)"
             >
                 {{ tab.title || tab.id }}
             </div>
@@ -56,15 +58,12 @@
 }
 
 .tabs > .header > .tab-label.active {
-    border-bottom: 2px solid $black;
+    border-bottom-color: $black;
     color: $black;
 }
 
-.tabs > .header > .tab-label.disabled,
-.tabs > .header > .tab-label.disabled:hover {
-    border-bottom: none;
-    color: $light-grey;
-    cursor: default;
+.tabs > .header > .tab-label:focus {
+    outline: none;
 }
 
 .tabs > .header > .tab-label:focus,
@@ -73,8 +72,11 @@
     color: $black;
 }
 
-.tabs > .header > .tab-label:focus {
-    outline: none;
+.tabs > .header > .tab-label.disabled,
+.tabs > .header > .tab-label.disabled:hover {
+    border-bottom-color: transparent;
+    color: $light-grey;
+    cursor: default;
 }
 
 .tabs > .tabs-container > .tab {
@@ -114,10 +116,26 @@ export const TabsPlatforme = {
         };
     },
     mounted: function() {
-        this.updateHeight();
+        this._updateHeight();
     },
     methods: {
-        updateHeight() {
+        selectTab(index) {
+            if (this.tabs[index].disabled) return;
+            if (this.currentTab === index) return;
+            this.currentTab = index;
+            this._updateHeight();
+            this.$emit("update:tab", this.tabs[this.currentTab], this.currentTab);
+        },
+        isTabActive(index) {
+            return index === this.currentTab;
+        },
+        onEnter(index) {
+            this.selectTab(index);
+        },
+        onClick(index) {
+            this.selectTab(index);
+        },
+        _updateHeight() {
             const tab = (this.$refs[`tab-${this.currentTab}`] || [])[0];
             if (!tab) return this.initialHeight;
             const style = tab.style;
@@ -125,18 +143,6 @@ export const TabsPlatforme = {
             const marginBottom = parseInt(style.marginBottom) || 0;
             const height = parseInt(tab.offsetHeight);
             this.height = height + marginTop + marginBottom;
-        },
-        selectTab(index) {
-            if (this.tabs[index].disabled) return;
-            this.currentTab = index;
-            this.updateHeight();
-            this.$emit("update:tab", this.tabs[this.currentTab], this.currentTab);
-        },
-        onTabClick(index) {
-            this.selectTab(index);
-        },
-        isTabActive(index) {
-            return index === this.currentTab;
         }
     }
 };
