@@ -32,6 +32,7 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
+
 .radio-group {
     display: inline-block;
 }
@@ -53,24 +54,16 @@
     background-color: #ebecf0;
 }
 
-.radio-group-choice:hover > .circular-button {
-    border-color: #c1c7d0;
-}
-
 .radio-group-choice:active {
     background-color: #dde0e2;
 }
 
-.radio-group-choice.disabled > .label {
+.radio-group-choice.disabled {
     cursor: not-allowed;
 }
 
 .radio-group-choice > .value {
     display: none;
-}
-
-.radio-group-choice.disabled {
-    cursor: not-allowed;
 }
 
 .radio-group-choice > .circular-button {
@@ -84,6 +77,10 @@
     width: 2px;
 }
 
+.radio-group-choice:hover > .circular-button {
+    border-color: #c1c7d0;
+}
+
 .radio-group-choice:active:not(.disabled) > .circular-button {
     background-color: $dark;
     border-color: #c3c9cf;
@@ -92,7 +89,7 @@
 }
 
 .radio-group-choice.checked > .circular-button {
-    background-color: #ffffff;
+    background-color: $white;
     border-color: $dark;
     border-width: 4px;
     padding: 1px 1px 1px 1px;
@@ -114,7 +111,7 @@
 
 .radio-group-choice.checked.disabled > .circular-button {
     background-color: #a6adb4;
-    border-color: #f6f7f9;
+    border-color: $pale-grey;
     border-width: 4px;
     padding: 1px 1px 1px 1px;
 }
@@ -127,6 +124,10 @@
     line-height: 13px;
     margin: 0px 0px 0px 6px;
     vertical-align: bottom;
+}
+
+.radio-group-choice.disabled > .label {
+    cursor: not-allowed;
 }
 
 .radio-group > .footer {
@@ -162,7 +163,7 @@ export const RadioPlatforme = {
         },
         labelFooter: {
             type: String,
-            default: false
+            default: null
         }
     },
     methods: {
