@@ -98,6 +98,15 @@
     padding: 1px 1px 1px 1px;
 }
 
+.radio-group-choice.error > .circular-button {
+    background-color: #f4f5f7;
+    border: 2px solid $red;
+}
+
+.radio-group-choice.error.checked > .circular-button {
+    border: 4px solid $red;
+}
+
 .radio-group-choice.disabled > .circular-button {
     background-color: #f4f5f7;
     border: 2px solid #f4f5f7;
@@ -108,15 +117,6 @@
     border-color: #f6f7f9;
     border-width: 4px;
     padding: 1px 1px 1px 1px;
-}
-
-.radio-group-choice.error > .circular-button {
-    background-color: #f4f5f7;
-    border: 2px solid $red;
-}
-
-.radio-group-choice.error.checked > .circular-button {
-    border: 4px solid $red;
 }
 
 .radio-group-choice > .label {

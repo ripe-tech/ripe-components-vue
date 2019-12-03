@@ -24,11 +24,11 @@ storiesOf("Input", module)
             labelFooter: {
                 default: text("Label footer", "End footer")
             },
-            disabled: {
-                default: boolean("Disabled", false)
-            },
             error: {
                 default: boolean("Error", false)
+            },
+            disabled: {
+                default: boolean("Disabled", false)
             },
             items: {
                 default: () => [
