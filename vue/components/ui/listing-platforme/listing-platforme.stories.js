@@ -1,6 +1,8 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text } from "@storybook/addon-knobs";
 
+import "./listing-platforme.stories.css";
+
 storiesOf("Data", module)
     .addDecorator(withKnobs)
     .add("Listing", () => ({
@@ -55,29 +57,29 @@ storiesOf("Data", module)
         template: `
             <div>
                 <global-platforme />
-                    <listing-platforme
-                        v-bind:context="context"
-                        v-bind:columns="columns"
-                        v-bind:get-items="getItems"
-                        v-bind:name="'jobs'"
-                        v-bind:use-query="false"
-                        v-bind:filter-fields="filterFields"
-                    >
-                        <template v-slot:icons>
-                            <img class="logo" v-bind:src="img" v-bind:style="imgStyle" />
-                        </template>
-                        <template v-slot:item="{ item, index, addFilter }">
-                            <td class="id">
-                                {{ item.id }}
-                            </td>
-                            <td class="user" v-on:click="addFilter('user', item.user)">
-                                {{ item.user || "-" }}
-                            </td>
-                            <td class="device" v-on:click="addFilter('device', item.device)">
-                                {{ item.device }}
-                            </td>
-                        </template>
-                    </listing-platforme>
+                <listing-platforme
+                    v-bind:context="context"
+                    v-bind:columns="columns"
+                    v-bind:get-items="getItems"
+                    v-bind:name="'jobs'"
+                    v-bind:use-query="false"
+                    v-bind:filter-fields="filterFields"
+                >
+                    <template v-slot:icons>
+                        <img class="logo" v-bind:src="img" v-bind:style="imgStyle" />
+                    </template>
+                    <template v-slot:item="{ item, index, addFilter }">
+                        <td class="id">
+                            {{ item.id }}
+                        </td>
+                        <td class="user" v-on:click="addFilter('user', item.user)">
+                            {{ item.user || "-" }}
+                        </td>
+                        <td class="device" v-on:click="addFilter('device', item.device)">
+                            {{ item.device }}
+                        </td>
+                    </template>
+                </listing-platforme>
             </div>
         `
     }));

@@ -1,0 +1,4 @@
+body.tablet .logo,
+body.mobile .logo {
+    display: none;
+}
