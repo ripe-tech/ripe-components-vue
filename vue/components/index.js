@@ -59,6 +59,7 @@ const install = Vue => {
     Vue.component("search-platforme", SearchPlatforme);
     Vue.component("side-platforme", SidePlatforme);
     Vue.component("table-platforme", TablePlatforme);
+    Vue.component("tabs-platforme", TabsPlatforme);
     Vue.component("tag-platforme", TagPlatforme);
     Vue.component("textarea-platforme", TextareaPlatforme);
 };
