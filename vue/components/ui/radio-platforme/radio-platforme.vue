@@ -1,15 +1,22 @@
 <template>
     <div class="radio-group">
+        <global-events
+            v-on:keydown.13="onEnter"
+            v-on:keydown.8="onBackspace"
+            v-on:keydown.46="onDelete"
+        />
         <label-platforme class="title" v-bind:text="labelTitle" v-if="labelTitle" />
-        <div class="radio-group-choices">
+        <div class="choices">
             <div
-                class="radio-group-choice"
+                class="choice"
                 v-bind:class="{
                     disabled: disabled || item.disabled,
                     error: error || item.error,
                     checked: item.value === value
                 }"
-                v-for="item in items"
+                v-bind:index="index"
+                tabindex="0"
+                v-for="(item, index) in items"
                 v-bind:key="item.value"
                 v-on:click="onClick(item)"
             >
@@ -41,7 +48,7 @@
     display: block;
 }
 
-.radio-group-choice {
+.choice {
     cursor: pointer;
     display: block;
     line-height: 13px;
@@ -49,23 +56,23 @@
     user-select: none;
 }
 
-.radio-group-choice:hover {
+.choice:hover {
     background-color: #ebecf0;
 }
 
-.radio-group-choice:active {
+.choice:active {
     background-color: #dde0e2;
 }
 
-.radio-group-choice.disabled {
+.choice.disabled {
     cursor: not-allowed;
 }
 
-.radio-group-choice > .value {
+.choice > .value {
     display: none;
 }
 
-.radio-group-choice > .circular-button {
+.choice > .circular-button {
     background-color: #fafbfc;
     border: 2px solid #dfe1e5;
     border-radius: 50%;
@@ -76,46 +83,46 @@
     width: 2px;
 }
 
-.radio-group-choice:hover > .circular-button {
+.choice:hover > .circular-button {
     border-color: #c1c7d0;
 }
 
-.radio-group-choice:active:not(.disabled) > .circular-button {
+.choice:active:not(.disabled) > .circular-button {
     background-color: $dark;
     border-color: #c3c9cf;
     border-width: 4px;
     padding: 1px 1px 1px 1px;
 }
 
-.radio-group-choice.checked > .circular-button {
+.choice.checked > .circular-button {
     background-color: $white;
     border-color: $dark;
     border-width: 4px;
     padding: 1px 1px 1px 1px;
 }
 
-.radio-group-choice.error > .circular-button {
+.choice.error > .circular-button {
     background-color: #f4f5f7;
     border: 2px solid $red;
 }
 
-.radio-group-choice.error.checked > .circular-button {
+.choice.error.checked > .circular-button {
     border: 4px solid $red;
 }
 
-.radio-group-choice.disabled > .circular-button {
+.choice.disabled > .circular-button {
     background-color: #f4f5f7;
     border: 2px solid #f4f5f7;
 }
 
-.radio-group-choice.checked.disabled > .circular-button {
+.choice.checked.disabled > .circular-button {
     background-color: #a6adb4;
     border-color: $pale-grey;
     border-width: 4px;
     padding: 1px 1px 1px 1px;
 }
 
-.radio-group-choice > .label {
+.choice > .label {
     color: $grey;
     cursor: pointer;
     display: inline-block;
@@ -125,7 +132,7 @@
     vertical-align: bottom;
 }
 
-.radio-group-choice.disabled > .label {
+.choice.disabled > .label {
     cursor: not-allowed;
 }
 
@@ -166,10 +173,31 @@ export const RadioPlatforme = {
         }
     },
     methods: {
+        onEnter() {
+            this.setItem(this.getFocusedItem());
+        },
+        onBackspace() {
+            this.unsetItem(this.getFocusedItem());
+        },
+        onDelete() {
+            this.unsetItem(this.getFocusedItem());
+        },
         onClick(item) {
+            this.setItem(item);
+        },
+        getFocusedItem() {
+            const index = parseInt(document.activeElement.getAttribute("index"));
+            return this.items[index];
+        },
+        setItem(item) {
             if (item.disabled || this.disabled) return;
             if (this.value === item.value) return;
             this.$emit("update:value", item.value);
+        },
+        unsetItem(item) {
+            if (item.disabled || this.disabled) return;
+            if (this.value !== item.value) return;
+            this.$emit("update:value", null);
         }
     }
 };
