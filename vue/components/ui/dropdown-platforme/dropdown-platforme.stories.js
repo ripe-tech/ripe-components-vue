@@ -5,6 +5,9 @@ storiesOf("Dropdown", module)
     .addDecorator(withKnobs)
     .add("Dropdown", () => ({
         props: {
+            id: {
+                default: text("Dropdown Id", "dropdown-platforme-id")
+            },
             placeholder: {
                 default: text("Dropdown Placeholder", "This is a placeholder text")
             },
@@ -62,6 +65,7 @@ storiesOf("Dropdown", module)
         template: `
                 <div>
                     <dropdown-platforme
+                        v-bind:id="id"
                         v-bind:placeholder="placeholder"
                         v-bind:field-label="fieldLabel"
                         v-bind:width="width"

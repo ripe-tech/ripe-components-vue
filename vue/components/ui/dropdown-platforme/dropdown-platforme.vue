@@ -2,7 +2,7 @@
     <div class="dropdown-platforme">
         <global-events v-on:keydown.esc="onEscKey()" />
         <label-platforme class="label" v-bind:text="fieldLabel" for="dropdown" v-if="fieldLabel" />
-        <div class="dropdown-container" v-if="!isMobile" id="dropdown">
+        <div class="dropdown-container" v-if="!isMobile" v-bind:id="id">
             <div
                 class="dropdown-button"
                 v-bind:class="{ disabled: disabled, focused: focused }"
@@ -34,8 +34,6 @@
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
-
-//TODO on click outside, close dropdown
 
 .label {
     display: block;
@@ -113,6 +111,10 @@
 export const DropdownPlatforme = {
     name: "dropdown-platforme",
     props: {
+        id: {
+            type: String,
+            required: true
+        },
         options: {
             type: Array,
             default: () => []
@@ -149,6 +151,12 @@ export const DropdownPlatforme = {
             selectedOption: { id: "placeholder_id", text: this.placeholder }
         };
     },
+    mounted: function() {
+        document.addEventListener("click", this.onClick);
+    },
+    destroyed: function() {
+        window.removeEventListener("click", this.onClick);
+    },
     watch: {
         disabled() {
             if (this.disabled) this.closeDropdown();
@@ -158,6 +166,12 @@ export const DropdownPlatforme = {
         }
     },
     methods: {
+        onClick(event) {
+            const dropdownElement = document.getElementById(this.id);
+            const targetElement = event.target;
+
+            if (!dropdownElement.contains(targetElement)) this.closeDropdown();
+        },
         onEscKey() {
             this.closeDropdown();
         },
