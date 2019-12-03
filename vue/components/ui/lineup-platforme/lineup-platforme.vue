@@ -1,6 +1,6 @@
 <template>
     <transition-group tag="div" v-bind:name="transition" class="lineup">
-        <div class="item" v-for="(item, index) in items" v-bind:key="index">
+        <div class="item" v-for="(item, index) in items" v-bind:key="item.id">
             <slot v-bind:name="value.id" v-bind:item="item" v-for="value in values">
                 <div
                     class="label-value"

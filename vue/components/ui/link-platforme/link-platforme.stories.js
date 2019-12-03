@@ -25,22 +25,22 @@ storiesOf("Components", module)
             }
         },
         template: `
-                <div>
-                    <link-platforme
-                        v-bind:text='"This is a normal link"'
-                        v-bind:href="'http://platforme.com'"
-                        v-bind:disabled='disabled'
-                        v-bind:color='color'
-                    >
-                    </link-platforme>
-                    <link-platforme
-                        v-bind:text='"This is a small link"'
-                        v-bind:href="'http://platforme.com'"
-                        v-bind:disabled='disabled'
-                        v-bind:size='"small"
-                        'v-bind:color='color'
-                    >
-                    </link-platforme>
-                </div>
+            <div>
+                <link-platforme
+                    v-bind:text='"This is a normal link"'
+                    v-bind:href="'http://platforme.com'"
+                    v-bind:disabled='disabled'
+                    v-bind:color='color'
+                >
+                </link-platforme>
+                <link-platforme
+                    v-bind:text='"This is a small link"'
+                    v-bind:href="'http://platforme.com'"
+                    v-bind:disabled='disabled'
+                    v-bind:size='"small"
+                    'v-bind:color='color'
+                >
+                </link-platforme>
+            </div>
         `
     }));

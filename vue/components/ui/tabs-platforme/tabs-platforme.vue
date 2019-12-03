@@ -56,8 +56,8 @@
 }
 
 .tabs > .header > .tab-label.active {
-    border-bottom: 2px solid $dark;
-    color: $dark;
+    border-bottom: 2px solid $black;
+    color: $black;
 }
 
 .tabs > .header > .tab-label.disabled,
@@ -69,8 +69,8 @@
 
 .tabs > .header > .tab-label:focus,
 .tabs > .header > .tab-label:hover {
-    border-bottom-color: $dark;
-    color: $dark;
+    border-bottom-color: $black;
+    color: $black;
 }
 
 .tabs > .header > .tab-label:focus {
