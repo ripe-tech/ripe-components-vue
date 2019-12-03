@@ -1,17 +1,16 @@
 <template>
-    <div class="dropdown-platforme">
+    <div class="dropdown-platforme" v-bind:style="dropdownStyle">
         <global-events v-on:keydown.esc="onEscKey()" />
         <label-platforme v-bind:text="fieldLabel" for="dropdown" v-if="fieldLabel" />
         <div class="dropdown-container" v-bind:id="id">
             <div
                 class="dropdown-button"
                 v-bind:class="{ disabled: disabled, focused: focused }"
-                v-bind:style="dropdownButtonStyle"
                 v-on:click="onToggleDropdown"
             >
                 {{ selectedOption.text }}
             </div>
-            <div class="dropdown" v-bind:style="dropdownStyle" v-show="visible">
+            <div class="dropdown" v-bind:style="dropdownOptionsStyle" v-show="visible">
                 <div class="options-container">
                     <slot
                         v-bind:name="`options-${option - id}`"
@@ -227,7 +226,7 @@ export const DropdownPlatforme = {
         }
     },
     computed: {
-        dropdownButtonStyle() {
+        dropdownStyle() {
             const base = {
                 width: `${this.width}px`
             };
@@ -238,7 +237,7 @@ export const DropdownPlatforme = {
 
             return base;
         },
-        dropdownStyle() {
+        dropdownOptionsStyle() {
             const base = {
                 width: `${this.width + 16}px`
             };
