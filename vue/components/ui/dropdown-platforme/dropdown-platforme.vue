@@ -14,7 +14,7 @@
             <div class="dropdown" v-bind:style="dropdownStyle" v-show="visible">
                 <div class="options-container" v-for="option in options" v-bind:key="option.id">
                     <slot name="options" v-bind:option="option">
-                        <div class="option" v-on:mousedown="onDropdownButton(option)">
+                        <div class="option" v-on:mouseup="onDropdownButton(option)">
                             {{ option.text }}
                         </div>
                     </slot>
