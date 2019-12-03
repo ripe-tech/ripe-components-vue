@@ -1,7 +1,7 @@
 <template>
-    <div class="checkbox-platforme">
+    <div class="checkbox-group">
         <label-platforme class="title" v-bind:text="labelTitle" v-if="labelTitle" />
-        <div class="checkbox-group">
+        <div class="checkbox-group-choices">
             <div
                 class="checkbox-choice"
                 v-bind:class="{
@@ -13,9 +13,9 @@
                 v-bind:key="index"
                 v-on:click="onClick(item)"
             >
-                <input type="checkbox" class="checkbox" v-bind:id="item.value" />
+                <input type="checkbox" class="value" v-bind:id="item.value" />
                 <div class="checkbox-square" />
-                <label class="label-text" for="item.value">
+                <label class="label" for="item.value">
                     {{ item.label ? item.label : item.value }}
                 </label>
             </div>
@@ -32,11 +32,11 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.checkbox-platforme {
+.checkbox-group {
     display: inline-block;
 }
 
-.title {
+.checkbox-group > .title {
     color: $pale-grey;
     display: block;
 }
@@ -44,7 +44,7 @@
 .checkbox-choice {
     display: block;
     line-height: 13px;
-    padding: 10px 0px 10px 0px;
+    padding: 10px 6px 10px 6px;
     user-select: none;
 }
 
@@ -57,12 +57,12 @@
     background-color: $light-grey;
 }
 
-.checkbox-choice:hover:not(.disabled) > .checkbox-square {
-    border-color: #c1c7d0;
-}
-
 .checkbox-choice:active {
     background-color: #dde0e2;
+}
+
+.checkbox-choice:hover:not(.disabled):not(.checked):not(.error) > .checkbox-square {
+    border-color: #c1c7d0;
 }
 
 .checkbox-choice.disabled:hover,
@@ -70,20 +70,24 @@
     cursor: not-allowed;
 }
 
-.checkbox-choice.checked > .checkbox-square {
-    background: url("~./assets/check.svg") center / 7px 6px no-repeat $dark;
-    border: 2px solid $dark;
+.checkbox-choice > .value {
+    display: none;
+}
+
+.checkbox-choice > .checkbox-square {
+    background-color: #fafbfc;
+    border: 2px solid #dfe1e5;
+    border-radius: 2px 2px 2px 2px;
+    display: inline-block;
+    height: 2px;
     padding: 3px 3px 3px 3px;
+    vertical-align: bottom;
+    width: 2px;
 }
 
-.checkbox-choice.disabled > .checkbox-square {
-    background: none center / 7px 6px no-repeat #f4f5f7;
-    border: 2px solid #f4f5f7;
-}
-
-.checkbox-choice.disabled.checked > .checkbox-square {
-    background: url("~./assets/check-gray.svg") center / 7px 6px no-repeat #f4f5f7;
-    border: 2px solid #f6f7f9;
+.checkbox-choice:not(.disabled):not(.error):active > .checkbox-square {
+    background: url("~./assets/check-dark.svg") center / 7px 6px no-repeat #f4f5f7;
+    border: 2px solid #c3c9cf;
     padding: 3px 3px 3px 3px;
 }
 
@@ -92,47 +96,29 @@
     border: 2px solid $dark-peach;
 }
 
+.checkbox-choice.disabled > .checkbox-square {
+    background: none center / 7px 6px no-repeat #f4f5f7;
+    border: 2px solid #f4f5f7;
+}
+
+.checkbox-choice.checked > .checkbox-square {
+    background: url("~./assets/check.svg") center / 7px 6px no-repeat $dark;
+    border: 2px solid $dark;
+    padding: 3px 3px 3px 3px;
+}
+
 .checkbox-choice.error.checked > .checkbox-square {
     background: url("~./assets/check.svg") center / 7px 6px no-repeat $dark;
     border: 2px solid $dark-peach;
 }
 
-.checkbox-choice:not(.disabled):active > .checkbox-square {
-    background: url("~./assets/check-dark.svg") center / 7px 6px no-repeat #f4f5f7;
-    border: 2px solid #c3c9cf;
+.checkbox-choice.disabled.checked > .checkbox-square {
+    background: url("~./assets/check-gray.svg") center / 7px 6px no-repeat #f4f5f7;
+    border: 2px solid #f6f7f9;
     padding: 3px 3px 3px 3px;
 }
 
-.checkbox-choice-text {
-    display: inline-block;
-    font-size: 14px;
-    line-height: 13px;
-    vertical-align: bottom;
-}
-
-.checkbox-square {
-    background-color: #fafbfc;
-    border: 2px solid #dfe1e5;
-    border-radius: 2px 2px 2px 2px;
-    display: inline-block;
-    height: 2px;
-    margin: 0px 0px 0px 6px;
-    padding: 3px 3px 3px 3px;
-    vertical-align: bottom;
-    width: 2px;
-}
-
-.checkbox {
-    display: none;
-}
-
-.checkbox-label {
-    display: inline-block;
-    font-size: 14px;
-    line-height: 12px;
-}
-
-.label-text {
+.checkbox-choice > .label {
     color: $grey;
     display: inline-block;
     font-size: 14px;
@@ -141,7 +127,7 @@
     vertical-align: bottom;
 }
 
-.footer {
+.checkbox-group > .footer {
     color: $pale-grey;
     display: block;
     padding: 4px 0px 0px 0px;
