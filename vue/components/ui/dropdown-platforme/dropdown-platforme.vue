@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-        <select class="mobile-dropdown" v-on:change="onDropdownSelect($event.target.value)">
+        <select class="mobile-dropdown" v-bind:value="value" v-on:change="onDropdownSelect($event.target.value)">
             <option v-bind:value="options.id" v-for="options in options" v-bind:key="options.id">
                 {{ options.text }}
             </option>
