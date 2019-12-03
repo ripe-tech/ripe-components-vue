@@ -49,8 +49,8 @@ storiesOf("Components", module)
                     }
                 ],
                 selectedOption: {
-                    id: "",
-                    text: ""
+                    id: null,
+                    text: null
                 }
             };
         },
@@ -60,19 +60,19 @@ storiesOf("Components", module)
             }
         },
         template: `
-                <div>
-                    <global-platforme/>
-                    <dropdown-platforme
-                        v-bind:id="id"
-                        v-bind:placeholder="placeholder"
-                        v-bind:field-label="fieldLabel"
-                        v-bind:width="width"
-                        v-bind:disabled="disabled"
-                        v-bind:allow-text-selection="allowTextSelection"
-                        v-bind:options="options"
-                        v-on:update:option="optionChanged($event)"
-                    />
-                    <p>Selected option: {{ selectedOption.text }}</p>
-                </div>
-                `
+            <div>
+                <global-platforme/>
+                <dropdown-platforme
+                    v-bind:id="id"
+                    v-bind:placeholder="placeholder"
+                    v-bind:field-label="fieldLabel"
+                    v-bind:width="width"
+                    v-bind:disabled="disabled"
+                    v-bind:allow-text-selection="allowTextSelection"
+                    v-bind:options="options"
+                    v-on:update:option="optionChanged($event)"
+                />
+                <p>Selected option: {{ selectedOption.text }}</p>
+            </div>
+            `
     }));
