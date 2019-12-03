@@ -93,7 +93,7 @@
 
 .checkbox-choice.error > .checkbox-square {
     background-color: #f4f5f7;
-    border: 2px solid $dark-peach;
+    border: 2px solid $dark-red;
 }
 
 .checkbox-choice.disabled > .checkbox-square {
@@ -109,7 +109,7 @@
 
 .checkbox-choice.error.checked > .checkbox-square {
     background: url("~./assets/check.svg") center / 7px 6px no-repeat $dark;
-    border: 2px solid $dark-peach;
+    border: 2px solid $dark-red;
 }
 
 .checkbox-choice.disabled.checked > .checkbox-square {
