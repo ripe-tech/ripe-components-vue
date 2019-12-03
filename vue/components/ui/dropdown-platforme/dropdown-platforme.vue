@@ -198,6 +198,10 @@ export const DropdownPlatforme = {
                 width: `${this.width + 16}px`
             };
 
+            if (!this.allowTextSelection) {
+                base['user-select'] = "none";
+            }
+
             return base;
         }
     }

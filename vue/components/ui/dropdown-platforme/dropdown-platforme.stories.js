@@ -21,7 +21,7 @@ storiesOf("Dropdown", module)
                 default: boolean("Disabled", false)
             },
             allowTextSelection: {
-                default: boolean("Allow options text selection", true)
+                default: boolean("Allow text selection", true)
             }
         },
         data: function() {
