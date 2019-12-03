@@ -167,6 +167,9 @@ export const CheckboxPlatforme = {
             if (this.disabled || item.disabled) {
                 return;
             }
+            this.toggleItem(item);
+        },
+        toggleItem(item) {
             this.values[item.value] ? this.removeItem(item) : this.addItem(item);
         },
         removeItem(item) {
