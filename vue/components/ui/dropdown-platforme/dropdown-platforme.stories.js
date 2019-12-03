@@ -21,7 +21,7 @@ storiesOf("Components", module)
                 default: boolean("Disabled", false)
             },
             allowTextSelection: {
-                default: boolean("Allow text selection", true)
+                default: boolean("Allow text selection", false)
             }
         },
         data: function() {
