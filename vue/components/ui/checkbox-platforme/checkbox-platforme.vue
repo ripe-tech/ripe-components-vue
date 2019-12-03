@@ -1,14 +1,21 @@
 <template>
-    <div class="checkbox-group">
+    <div class="checkbox">
+        <global-events
+            v-on:keydown.13="onEnter"
+            v-on:keydown.8="onBackspace"
+            v-on:keydown.46="onDelete"
+        />
         <label-platforme class="title" v-bind:text="labelTitle" v-if="labelTitle" />
-        <div class="checkbox-group-choices">
+        <div class="choices">
             <div
-                class="checkbox-choice"
+                class="choice"
                 v-bind:class="{
                     checked: values[item.value],
                     disabled: disabled || item.disabled,
                     error: error || item.error
                 }"
+                v-bind:index="index"
+                tabindex="0"
                 v-for="(item, index) in items"
                 v-bind:key="index"
                 v-on:click="onClick(item)"
@@ -32,49 +39,49 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.checkbox-group {
+.checkbox {
     display: inline-block;
 }
 
-.checkbox-group > .title {
+.checkbox > .title {
     color: $pale-grey;
     display: block;
 }
 
-.checkbox-choice {
+.choice {
     display: block;
     line-height: 13px;
     padding: 10px 6px 10px 6px;
     user-select: none;
 }
 
-.checkbox-choice:hover,
-.checkbox-choice:hover label {
+.choice:hover,
+.choice:hover label {
     cursor: pointer;
 }
 
-.checkbox-choice:hover {
+.choice:hover {
     background-color: $light-grey;
 }
 
-.checkbox-choice:active {
+.choice:active {
     background-color: #dde0e2;
 }
 
-.checkbox-choice:hover:not(.disabled):not(.checked):not(.error) > .checkbox-square {
+.choice:hover:not(.disabled):not(.checked):not(.error) > .checkbox-square {
     border-color: #c1c7d0;
 }
 
-.checkbox-choice.disabled:hover,
-.checkbox-choice.disabled:hover ::v-deep label {
+.choice.disabled:hover,
+.choice.disabled:hover ::v-deep label {
     cursor: not-allowed;
 }
 
-.checkbox-choice > .value {
+.choice > .value {
     display: none;
 }
 
-.checkbox-choice > .checkbox-square {
+.choice > .checkbox-square {
     background-color: #fafbfc;
     border: 2px solid #dfe1e5;
     border-radius: 2px 2px 2px 2px;
@@ -85,40 +92,40 @@
     width: 2px;
 }
 
-.checkbox-choice:not(.disabled):not(.error):active > .checkbox-square {
+.choice:not(.disabled):not(.error):active > .checkbox-square {
     background: url("~./assets/check-dark.svg") center / 7px 6px no-repeat #f4f5f7;
     border: 2px solid #c3c9cf;
     padding: 3px 3px 3px 3px;
 }
 
-.checkbox-choice.error > .checkbox-square {
+.choice.error > .checkbox-square {
     background-color: #f4f5f7;
     border: 2px solid $dark-red;
 }
 
-.checkbox-choice.disabled > .checkbox-square {
+.choice.disabled > .checkbox-square {
     background: none center / 7px 6px no-repeat #f4f5f7;
     border: 2px solid #f4f5f7;
 }
 
-.checkbox-choice.checked > .checkbox-square {
+.choice.checked > .checkbox-square {
     background: url("~./assets/check.svg") center / 7px 6px no-repeat $dark;
     border: 2px solid $dark;
     padding: 3px 3px 3px 3px;
 }
 
-.checkbox-choice.error.checked > .checkbox-square {
+.choice.error.checked > .checkbox-square {
     background: url("~./assets/check.svg") center / 7px 6px no-repeat $dark;
     border: 2px solid $dark-red;
 }
 
-.checkbox-choice.disabled.checked > .checkbox-square {
+.choice.disabled.checked > .checkbox-square {
     background: url("~./assets/check-gray.svg") center / 7px 6px no-repeat #f4f5f7;
     border: 2px solid #f6f7f9;
     padding: 3px 3px 3px 3px;
 }
 
-.checkbox-choice > .label {
+.choice > .label {
     color: $grey;
     display: inline-block;
     font-size: 14px;
@@ -127,7 +134,7 @@
     vertical-align: bottom;
 }
 
-.checkbox-group > .footer {
+.checkbox > .footer {
     color: $pale-grey;
     display: block;
     padding: 4px 0px 0px 0px;
@@ -163,16 +170,29 @@ export const CheckboxPlatforme = {
         }
     },
     methods: {
+        onEnter() {
+            this.addItem(this.getFocusedItem());
+        },
+        onBackspace() {
+            this.removeItem(this.getFocusedItem());
+        },
+        onDelete() {
+            this.removeItem(this.getFocusedItem());
+        },
         onClick(item) {
-            if (this.disabled || item.disabled) {
-                return;
-            }
             this.toggleItem(item);
+        },
+        getFocusedItem() {
+            const index = parseInt(document.activeElement.getAttribute("index"));
+            return this.items[index];
         },
         toggleItem(item) {
             this.values[item.value] ? this.removeItem(item) : this.addItem(item);
         },
         removeItem(item) {
+            if (this.disabled || item.disabled) return;
+            if (!this.values[item.value]) return;
+
             this.$emit("unselected:value", item.value);
 
             const updated = Object.assign({}, this.values);
@@ -180,6 +200,9 @@ export const CheckboxPlatforme = {
             this.$emit("update:values", updated);
         },
         addItem(item) {
+            if (this.disabled || item.disabled) return;
+            if (this.values[item.value]) return;
+
             this.$emit("selected:value", item.value);
 
             const updated = Object.assign({}, this.values);
