@@ -32,7 +32,6 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-
 .radio-group {
     display: inline-block;
 }
