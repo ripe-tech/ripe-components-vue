@@ -52,26 +52,31 @@ storiesOf("Input", module)
                 ]
             }
         },
-        watch: {
-            initialValue() {
-                this.value = this.initialValue;
-            }
-        },
         data: function() {
             return {
                 value: this.initialValue
             };
         },
+        watch: {
+            initialValue() {
+                this.value = this.initialValue;
+            }
+        },
+        methods: {
+            onValue(value) {
+                this.value = value;
+            }
+        },
         template: `
             <div>
                 <radio-platforme
-                    v-on:update:value="(newValue) => value = newValue" 
+                    v-on:update:value="value => onValue(value)" 
                     v-bind:value="value"
                     v-bind:items="items"
-                    v-bind:label-title = "labelTitle"
-                    v-bind:disabled = "disabled"
-                    v-bind:label-footer = "labelFooter"
-                    v-bind:error = "error"
+                    v-bind:label-title="labelTitle"
+                    v-bind:disabled="disabled"
+                    v-bind:label-footer="labelFooter"
+                    v-bind:error="error"
                 />
                 <p>Value selected: {{ value }}</p>
             </div>`
