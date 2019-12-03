@@ -11,11 +11,11 @@ storiesOf("Input", module)
             disabled: {
                 default: boolean("Disabled group", false)
             },
-            labelTitle: {
-                default: text("Label title", "Holidays next year")
+            header: {
+                default: text("Header", "Start header")
             },
-            labelFooter: {
-                default: text("Label footer", "End footer")
+            footer: {
+                default: text("Footer", "End footer")
             }
         },
         data: function() {
@@ -69,9 +69,9 @@ storiesOf("Input", module)
                     v-on:update:values="setValues"                 
                     v-bind:items="items"
                     v-bind:values="values"
-                    v-bind:label-title="labelTitle"
                     v-bind:disabled="disabled"
-                    v-bind:label-footer="labelFooter"
+                    v-bind:header="header"
+                    v-bind:footer="footer"
                     v-bind:error="error"
                 />
                 <p>Values: {{ values }}</p>

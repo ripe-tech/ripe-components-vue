@@ -5,7 +5,7 @@
             v-on:keydown.8="onBackspace"
             v-on:keydown.46="onDelete"
         />
-        <label-platforme class="title" v-bind:text="labelTitle" v-if="labelTitle" />
+        <label-platforme class="header" v-bind:text="header" v-if="header" />
         <div class="choices">
             <div
                 class="choice"
@@ -30,8 +30,8 @@
         <label-platforme
             class="footer"
             v-bind:size="'small'"
-            v-bind:text="labelFooter"
-            v-if="labelFooter"
+            v-bind:text="footer"
+            v-if="footer"
         />
     </div>
 </template>
@@ -43,9 +43,18 @@
     display: inline-block;
 }
 
-.checkbox > .title {
+.checkbox > .header,
+.checkbox > .footer {
     color: $pale-grey;
     display: block;
+}
+
+.checkbox > .header {
+    padding: 0px 0px 4px 0px;
+}
+
+.checkbox > .footer {
+    padding: 4px 0px 0px 0px;
 }
 
 .choice {
@@ -133,12 +142,6 @@
     margin: 0px 0px 0px 6px;
     vertical-align: bottom;
 }
-
-.checkbox > .footer {
-    color: $pale-grey;
-    display: block;
-    padding: 4px 0px 0px 0px;
-}
 </style>
 <script>
 export const CheckboxPlatforme = {
@@ -160,11 +163,11 @@ export const CheckboxPlatforme = {
             type: Boolean,
             default: false
         },
-        labelTitle: {
+        header: {
             type: String,
             default: null
         },
-        labelFooter: {
+        footer: {
             type: String,
             default: false
         }
