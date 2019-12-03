@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, number, boolean, select} from "@storybook/addon-knobs";
+import { withKnobs, text, number, boolean, select } from "@storybook/addon-knobs";
 
 storiesOf("Components", module)
     .addDecorator(withKnobs)
@@ -68,13 +68,11 @@ storiesOf("Components", module)
         watch: {
             initialValue() {
                 this.value = this.initialValue;
-                //console.log("initialValue watcher called");
             }
         },
         methods: {
             onValue(value) {
                 this.value = value;
-                //console.log("Valor: " + value);
             },
             optionChanged(value) {
                 this.selectedOption = value;

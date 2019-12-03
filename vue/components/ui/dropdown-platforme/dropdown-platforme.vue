@@ -13,15 +13,27 @@
             </div>
             <div class="dropdown" v-bind:style="dropdownStyle" v-show="visible">
                 <div class="options-container">
-                    <slot v-bind:name="`options-${option-id}`" v-bind:option="option" v-for="option in options">
-                        <div class="option" v-on:click="onDropdownSelect(option.id)" v-bind:key="option.id">
+                    <slot
+                        v-bind:name="`options-${option - id}`"
+                        v-bind:option="option"
+                        v-for="option in options"
+                    >
+                        <div
+                            class="option"
+                            v-bind:key="option.id"
+                            v-on:click="onDropdownSelect(option.id)"
+                        >
                             {{ option.text }}
                         </div>
                     </slot>
                 </div>
             </div>
         </div>
-        <select class="mobile-dropdown" v-bind:value="value" v-on:change="onDropdownSelect($event.target.value)">
+        <select
+            class="mobile-dropdown"
+            v-bind:value="value"
+            v-on:change="onDropdownSelect($event.target.value)"
+        >
             <option v-bind:value="options.id" v-for="options in options" v-bind:key="options.id">
                 {{ options.text }}
             </option>
@@ -209,13 +221,9 @@ export const DropdownPlatforme = {
             this.visible = !this.visible;
         },
         getOption(optionID) {
-            if(optionID === "placeholder_id")
-            {
-                return { id: optionID, text: this.placeholder };
-            } 
-            else {
-                return this.options.find(option => option.id === optionID);
-            } 
+            return optionID === "placeholder_id"
+                ? { id: optionID, text: this.placeholder }
+                : this.options.find(option => option.id === optionID);
         }
     },
     computed: {
