@@ -27,6 +27,7 @@ import { SidePlatforme } from "./ui/side-platforme/side-platforme.vue";
 import { TablePlatforme } from "./ui/table-platforme/table-platforme.vue";
 import { TabsPlatforme } from "./ui/tabs-platforme/tabs-platforme.vue";
 import { TagPlatforme } from "./ui/tag-platforme/tag-platforme.vue";
+import { TextareaPlatforme } from "./ui/textarea-platforme/textarea-platforme.vue";
 
 const install = Vue => {
     if (!Vue.options.components.RouterLink) {
@@ -59,7 +60,7 @@ const install = Vue => {
     Vue.component("side-platforme", SidePlatforme);
     Vue.component("table-platforme", TablePlatforme);
     Vue.component("tag-platforme", TagPlatforme);
-    Vue.component("tabs-platforme", TabsPlatforme);
+    Vue.component("textarea-platforme", TextareaPlatforme);
 };
 
 export {
@@ -92,6 +93,7 @@ export {
     TablePlatforme,
     TabsPlatforme,
     TagPlatforme,
+    TextareaPlatforme,
     install
 };
 
