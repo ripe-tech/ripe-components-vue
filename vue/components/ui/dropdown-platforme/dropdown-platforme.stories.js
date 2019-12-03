@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, number, boolean } from "@storybook/addon-knobs";
+import { withKnobs, text, number, boolean, select} from "@storybook/addon-knobs";
 
 storiesOf("Components", module)
     .addDecorator(withKnobs)
@@ -9,7 +9,21 @@ storiesOf("Components", module)
                 default: text("Dropdown Id", "dropdown-platforme-id")
             },
             placeholder: {
-                default: text("Dropdown Placeholder", "This is a placeholder text")
+                default: text("Placeholder", "This is a placeholder text")
+            },
+            initialValue: {
+                default: select(
+                    "Initial Value",
+                    {
+                        Placeholder: "placeholder_id",
+                        "Option 1": "option_1",
+                        "Option 2": "option_2",
+                        "Option 3": "option_3",
+                        "Option 4": "option_4",
+                        "Option 5": "option_5"
+                    },
+                    "placeholder_id"
+                )
             },
             fieldLabel: {
                 default: text("Field Label", "Field label")
@@ -48,13 +62,20 @@ storiesOf("Components", module)
                         text: "Option 5"
                     }
                 ],
-                selectedOption: {
-                    id: null,
-                    text: null
-                }
+                value: this.initialValue
             };
         },
+        watch: {
+            initialValue() {
+                this.value = this.initialValue;
+                //console.log("initialValue watcher called");
+            }
+        },
         methods: {
+            onValue(value) {
+                this.value = value;
+                //console.log("Valor: " + value);
+            },
             optionChanged(value) {
                 this.selectedOption = value;
             }
@@ -70,9 +91,10 @@ storiesOf("Components", module)
                     v-bind:disabled="disabled"
                     v-bind:allow-text-selection="allowTextSelection"
                     v-bind:options="options"
-                    v-on:update:option="optionChanged($event)"
-                />
-                <p>Selected option: {{ selectedOption.text }}</p>
+                    v-bind:value="value"
+                    v-on:update:value="value => onValue(value)">
+                </dropdown-platforme>
+                <p>Selected option: {{ value }}</p>
             </div>
             `
     }));

@@ -1,7 +1,7 @@
 <template>
     <div class="dropdown-platforme">
         <global-events v-on:keydown.esc="onEscKey()" />
-        <label-platforme class="label" v-bind:text="fieldLabel" for="dropdown" v-if="fieldLabel" />
+        <label-platforme v-bind:text="fieldLabel" for="dropdown" v-if="fieldLabel" />
         <div class="dropdown-container" v-bind:id="id">
             <div
                 class="dropdown-button"
@@ -12,16 +12,16 @@
                 {{ selectedOption.text }}
             </div>
             <div class="dropdown" v-bind:style="dropdownStyle" v-show="visible">
-                <div class="options-container" v-for="option in options" v-bind:key="option.id">
-                    <slot name="options" v-bind:option="option">
-                        <div class="option" v-on:click="onDropdownButtonClick(option)">
+                <div class="options-container">
+                    <slot v-bind:name="`options-${option-id}`" v-bind:option="option" v-for="option in options">
+                        <div class="option" v-on:click="onDropdownSelect(option)" v-bind:key="option.id">
                             {{ option.text }}
                         </div>
                     </slot>
                 </div>
             </div>
         </div>
-        <select class="mobile-dropdown" v-model="selectedOption.id">
+        <select class="mobile-dropdown" v-on:change="onDropdownSelect(value)">
             <option v-bind:value="options.id" v-for="options in options" v-bind:key="options.id">
                 {{ options.text }}
             </option>
@@ -128,6 +128,10 @@ export const DropdownPlatforme = {
             type: Array,
             default: () => []
         },
+        value: {
+            type: String,
+            default: null
+        },
         placeholder: {
             type: String,
             required: true
@@ -153,7 +157,7 @@ export const DropdownPlatforme = {
         return {
             visible: false,
             focused: false,
-            selectedOption: { id: "placeholder_id", text: this.placeholder }
+            selectedOption: { id: this.value, text: this.placeholder }
         };
     },
     mounted: function() {
@@ -168,6 +172,9 @@ export const DropdownPlatforme = {
         },
         visible() {
             this.focused = this.visible;
+        },
+        value() {
+            this.selectedOption = this.options.find(option => option.id === this.value);
         }
     },
     methods: {
@@ -180,15 +187,15 @@ export const DropdownPlatforme = {
         onEscKey() {
             this.closeDropdown();
         },
-        onDropdownButtonClick(option) {
-            if (!this.disabled) {
-                this.focused = true;
-                this.selectOption(option);
-            }
+        onDropdownSelect(option) {
+            if (this.disabled) return;
+            
+            console.log(option);
+            //this.focused = true;
+            //this.selectOption(option);
         },
         selectOption(option) {
-            this.$emit("update:option", option);
-            this.selectedOption = option;
+            this.$emit("update:value", option.id);
             this.toggleDropdown();
         },
         onToggleDropdown() {
