@@ -173,24 +173,18 @@ export const CheckboxPlatforme = {
         }
     },
     methods: {
-        onEnter() {
-            this.addItem(this.getFocusedItem());
-        },
-        onBackspace() {
-            this.removeItem(this.getFocusedItem());
-        },
-        onDelete() {
-            this.removeItem(this.getFocusedItem());
-        },
-        onClick(item) {
-            this.toggleItem(item);
-        },
-        getFocusedItem() {
-            const index = parseInt(document.activeElement.getAttribute("index"));
-            return this.items[index];
-        },
         toggleItem(item) {
             this.values[item.value] ? this.removeItem(item) : this.addItem(item);
+        },
+        addItem(item) {
+            if (this.disabled || item.disabled) return;
+            if (this.values[item.value]) return;
+
+            this.$emit("selected:value", item.value);
+
+            const updated = Object.assign({}, this.values);
+            updated[item.value] = true;
+            this.$emit("update:values", updated);
         },
         removeItem(item) {
             if (this.disabled || item.disabled) return;
@@ -202,15 +196,21 @@ export const CheckboxPlatforme = {
             delete updated[item.value];
             this.$emit("update:values", updated);
         },
-        addItem(item) {
-            if (this.disabled || item.disabled) return;
-            if (this.values[item.value]) return;
-
-            this.$emit("selected:value", item.value);
-
-            const updated = Object.assign({}, this.values);
-            updated[item.value] = true;
-            this.$emit("update:values", updated);
+        getFocusedItem() {
+            const index = parseInt(document.activeElement.getAttribute("index"));
+            return this.items[index];
+        },
+        onEnter() {
+            this.addItem(this.getFocusedItem());
+        },
+        onBackspace() {
+            this.removeItem(this.getFocusedItem());
+        },
+        onDelete() {
+            this.removeItem(this.getFocusedItem());
+        },
+        onClick(item) {
+            this.toggleItem(item);
         }
     }
 };
