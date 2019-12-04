@@ -1,10 +1,5 @@
 <template>
     <div class="radio-group">
-        <global-events
-            v-on:keydown.13="onEnter"
-            v-on:keydown.8="onBackspace"
-            v-on:keydown.46="onDelete"
-        />
         <label-platforme class="title" v-bind:text="labelTitle" v-if="labelTitle" />
         <div class="choices">
             <div
@@ -15,9 +10,13 @@
                     checked: item.value === value
                 }"
                 v-bind:index="index"
-                tabindex="0"
+                v-bind:tabindex="index === 0 ? 0 : -1"
                 v-for="(item, index) in items"
                 v-bind:key="item.value"
+                v-bind:ref="`choice-${index}`"
+                v-on:keydown.32="onSpacebar(item)"
+                v-on:keydown.38="onArrowUp(index)"
+                v-on:keydown.40="onArrowDown(index)"
                 v-on:click="onClick(item)"
             >
                 <input type="radio" class="value" v-bind:id="item.value" />
@@ -173,21 +172,23 @@ export const RadioPlatforme = {
         }
     },
     methods: {
-        onEnter() {
-            this.setItem(this.getFocusedItem());
+        onSpacebar(item) {
+            this.setItem(item);
         },
-        onBackspace() {
-            this.unsetItem(this.getFocusedItem());
+        onArrowUp(index) {
+            if (index === 0) return;
+
+            this.$refs[`choice-${index - 1}`][0].focus();
+            this.setItem(this.items[index - 1]);
         },
-        onDelete() {
-            this.unsetItem(this.getFocusedItem());
+        onArrowDown(index) {
+            if (index >= this.items.length - 1) return;
+
+            this.$refs[`choice-${index + 1}`][0].focus();
+            this.setItem(this.items[index + 1]);
         },
         onClick(item) {
             this.setItem(item);
-        },
-        getFocusedItem() {
-            const index = parseInt(document.activeElement.getAttribute("index"));
-            return this.items[index];
         },
         setItem(item) {
             if (item.disabled || this.disabled) return;
