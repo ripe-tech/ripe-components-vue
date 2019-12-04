@@ -167,7 +167,8 @@ body.tablet .select-platforme .mobile-dropdown {
 
 <script>
 // TODO
-// Use select-platforme
+// Use make dropdown-platforme visible work?
+// Make dropdown-platforme width correct
 
 export const SelectPlatforme = {
     name: "select-platforme",

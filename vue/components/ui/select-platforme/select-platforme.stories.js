@@ -139,6 +139,9 @@ storiesOf("Components", module)
             },
             allowTextSelection: {
                 default: boolean("Allow text selection", false)
+            },
+            visible: {
+                default: boolean("Visible", true)
             }
         },
         data: function() {
@@ -197,7 +200,7 @@ storiesOf("Components", module)
                     v-on:update:value="value => onValue(value)" 
                 >
                     <template v-slot:dropdown-slot>
-                        <dropdown-platforme v-bind:items="options" v-bind:visible="true"/>
+                        <dropdown-platforme v-bind:items="options" v-bind:visible="visible"/>
                     </template>
                     <template v-slot:option-option_4>
                         <p style="color: blue">Special option</p>
