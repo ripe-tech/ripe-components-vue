@@ -165,6 +165,10 @@ body.tablet .dropdown-platforme .mobile-dropdown {
 </style>
 
 <script>
+//TODO 
+// Fix highlight
+// Use dropdown-platforme
+
 export const DropdownPlatforme = {
     name: "dropdown-platforme",
     props: {
