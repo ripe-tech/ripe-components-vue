@@ -10,7 +10,7 @@
             >
                 {{ selectedOption.text }}
             </div>
-            <div class="dropdown" v-bind:style="dropdownOptionsStyle" v-show="visible">
+            <div class="dropdown" v-bind:style="dropdownStyle" v-show="visible">
                 <div class="options-container">
                     <slot
                         v-bind:name="`option-${option.id}`"
@@ -250,20 +250,7 @@ export const DropdownPlatforme = {
                 width: `${this.width}px`
             };
 
-            if (!this.allowTextSelection) {
-                base["user-select"] = "none";
-            }
-
-            return base;
-        },
-        dropdownOptionsStyle() {
-            const base = {
-                width: `${this.width + 16}px`
-            };
-
-            if (!this.allowTextSelection) {
-                base["user-select"] = "none";
-            }
+            if (!this.allowTextSelection) base["user-select"] = "none";
 
             return base;
         }
