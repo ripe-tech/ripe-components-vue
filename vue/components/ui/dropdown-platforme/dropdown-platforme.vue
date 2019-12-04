@@ -132,6 +132,7 @@ body.tablet .dropdown-platforme .mobile-dropdown {
     background-color: $white;
     border: solid 2px $dropdown-focus-border-color;
     margin: -1px 0px -1px 0px;
+    outline: none;
 }
 
 .dropdown-platforme .dropdown-container .dropdown {
