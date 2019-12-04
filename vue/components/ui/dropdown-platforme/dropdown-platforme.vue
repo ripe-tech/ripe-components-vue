@@ -148,7 +148,6 @@ body.tablet .dropdown-platforme .mobile-dropdown {
     padding: 0px 0px 0px 16px;
 }
 
-.dropdown-platforme
 .dropdown-platforme .dropdown-container .dropdown .options-container ::v-deep .option.keyboardHighlighted,
 .dropdown-platforme .dropdown-container .dropdown .options-container ::v-deep .option:hover {
     background-color: $lightgrey;
