@@ -7,7 +7,7 @@ import { ButtonColorPlatforme } from "./ui/button-color-platforme/button-color-p
 import { ButtonIconPlatforme } from "./ui/button-icon-platforme/button-icon-platforme.vue";
 import { ButtonPlatforme } from "./ui/button-platforme/button-platforme.vue";
 import { ContainerPlatforme } from "./ui/container-platforme/container-platforme.vue";
-import { DropdownPlatforme } from "./ui/dropdown-platforme/dropdown-platforme.vue";
+import { SelectPlatforme } from "./ui/select-platforme/select-platforme.vue";
 import { FilterPlatforme } from "./ui/filter-platforme/filter-platforme.vue";
 import { FooterPlatforme } from "./ui/footer-platforme/footer-platforme.vue";
 import { HeaderPlatforme } from "./ui/header-platforme/header-platforme.vue";
@@ -38,7 +38,7 @@ const install = Vue => {
     Vue.component("button-icon-platforme", ButtonIconPlatforme);
     Vue.component("button-platforme", ButtonPlatforme);
     Vue.component("container-platforme", ContainerPlatforme);
-    Vue.component("dropdown-platforme", DropdownPlatforme);
+    Vue.component("select-platforme", SelectPlatforme);
     Vue.component("filter-platforme", FilterPlatforme);
     Vue.component("footer-platforme", FooterPlatforme);
     Vue.component("header-platforme", HeaderPlatforme);
@@ -68,7 +68,7 @@ export {
     ButtonIconPlatforme,
     ButtonPlatforme,
     ContainerPlatforme,
-    DropdownPlatforme,
+    SelectPlatforme,
     FilterPlatforme,
     FooterPlatforme,
     HeaderPlatforme,

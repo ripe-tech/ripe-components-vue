@@ -1,8 +1,6 @@
 <template>
-    <div class="dropdown-platforme" v-bind:style="dropdownStyle">
-        <global-events
-            v-on:click="onClick($event)"
-        />
+    <div class="select-platforme" v-bind:style="dropdownStyle">
+        <global-events v-on:click="onClick($event)" />
         <label-platforme
             class="label-field"
             v-bind:text="fieldLabel"
@@ -13,19 +11,19 @@
             <div
                 class="dropdown-button"
                 v-bind:class="{ disabled: disabled }"
+                tabindex="0"
                 v-bind:id="`dropdown-button-${id}`"
                 v-on:click="onToggleDropdown"
-                tabindex="0"
-                v-on:keydown="onKey($event.key)"
-                v-on:keydown.esc="onEscKey()"
-                v-on:keydown.up="onArrowUpKey()"
-                v-on:keydown.down="onArrowDownKey()"
-                v-on:keydown.left="onArrowLeftKey()"
-                v-on:keydown.right="onArrowRightKey()"
+                v-on:keydown.exact="onKey($event.key)"
+                v-on:keydown.esc.exact="onEscKey()"
+                v-on:keydown.up.exact="onArrowUpKey()"
+                v-on:keydown.down.exact="onArrowDownKey()"
+                v-on:keydown.left.exact="onArrowLeftKey()"
+                v-on:keydown.right.exact="onArrowRightKey()"
                 v-on:keydown.alt.down="onAltDownKey()"
                 v-on:keydown.alt.up="onAltUpKey()"
-                v-on:keydown.enter="onEnterKey()"
-                v-on:keydown.space="onSpaceKey()"
+                v-on:keydown.enter.exact="onEnterKey()"
+                v-on:keydown.space.exact="onSpaceKey()"
             >
                 {{ selectedOption.text }}
             </div>
@@ -82,17 +80,17 @@
     margin-bottom: 7px;
 }
 
-body.mobile .dropdown-platforme .dropdown-container {
+body.mobile .select-platforme .dropdown-container {
     display: none;
 }
 
-body.desktop .dropdown-platforme .mobile-dropdown,
-body.tablet .dropdown-platforme .mobile-dropdown {
+body.desktop .select-platforme .mobile-dropdown,
+body.tablet .select-platforme .mobile-dropdown {
     display: none;
 }
 
-.dropdown-platforme .dropdown-container .dropdown-button,
-.dropdown-platforme .dropdown-container .dropdown {
+.select-platforme .dropdown-container .dropdown-button,
+.select-platforme .dropdown-container .dropdown {
     color: $dark;
     cursor: pointer;
     font-family: $font-family;
@@ -101,7 +99,7 @@ body.tablet .dropdown-platforme .mobile-dropdown {
     letter-spacing: 0.3px;
 }
 
-.dropdown-platforme .dropdown-container .dropdown-button {
+.select-platforme .dropdown-container .dropdown-button {
     background: url("~./assets/chevron-down.svg") no-repeat;
     background-color: #f9fafd;
     background-position: right 12px center;
@@ -114,28 +112,28 @@ body.tablet .dropdown-platforme .mobile-dropdown {
     padding: 0px 8px 0px 8px;
 }
 
-.dropdown-platforme .dropdown-container .dropdown-button:hover {
+.select-platforme .dropdown-container .dropdown-button:hover {
     background-color: $lightgrey;
     border: solid 1px $dropdown-border-hover-color;
     color: $grey;
 }
 
-.dropdown-platforme .dropdown-container .dropdown-button.disabled,
-.dropdown-platforme .dropdown-container .dropdown-button.disabled:active {
+.select-platforme .dropdown-container .dropdown-button.disabled,
+.select-platforme .dropdown-container .dropdown-button.disabled:active {
     background-color: $dropdown-disabled-background-color;
     border: solid 1px #e4e8f0;
     color: $dropdown-disabled-color;
     margin: inherit;
 }
 
-.dropdown-platforme .dropdown-container .dropdown-button:focus {
+.select-platforme .dropdown-container .dropdown-button:focus {
     background-color: $white;
     border: solid 2px $dropdown-focus-border-color;
     margin: -1px 0px -1px 0px;
     outline: none;
 }
 
-.dropdown-platforme .dropdown-container .dropdown {
+.select-platforme .dropdown-container .dropdown {
     background-color: $white;
     border: solid 1px $dropdown-border-color;
     border-radius: 6px;
@@ -144,18 +142,18 @@ body.tablet .dropdown-platforme .mobile-dropdown {
     position: absolute;
 }
 
-.dropdown-platforme .dropdown-container .dropdown .options-container ::v-deep .option {
+.select-platforme .dropdown-container .dropdown .options-container ::v-deep .option {
     height: 32px;
     line-height: 32px;
     padding: 0px 0px 0px 16px;
 }
 
-.dropdown-platforme .dropdown-container .dropdown .options-container ::v-deep .option.keyboardHighlighted,
-.dropdown-platforme .dropdown-container .dropdown .options-container ::v-deep .option:hover {
+.select-platforme .dropdown-container .dropdown .options-container ::v-deep .option.keyboardHighlighted,
+.select-platforme .dropdown-container .dropdown .options-container ::v-deep .option:hover {
     background-color: $lightgrey;
 }
 
-.dropdown-platforme .dropdown-container .dropdown .options-container ::v-deep .option:active {
+.select-platforme .dropdown-container .dropdown .options-container ::v-deep .option:active {
     background-color: $option-pressed-background-color;
 }
 
@@ -166,11 +164,11 @@ body.tablet .dropdown-platforme .mobile-dropdown {
 </style>
 
 <script>
-//TODO 
-// Use dropdown-platforme
+// TODO
+// Use select-platforme
 
-export const DropdownPlatforme = {
-    name: "dropdown-platforme",
+export const SelectPlatforme = {
+    name: "select-platforme",
     props: {
         id: {
             type: String,
@@ -332,5 +330,5 @@ export const DropdownPlatforme = {
     }
 };
 
-export default DropdownPlatforme;
+export default SelectPlatforme;
 </script>

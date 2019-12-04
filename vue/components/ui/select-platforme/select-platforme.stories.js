@@ -3,10 +3,10 @@ import { withKnobs, text, number, boolean, select } from "@storybook/addon-knobs
 
 storiesOf("Components", module)
     .addDecorator(withKnobs)
-    .add("Dropdown", () => ({
+    .add("Select", () => ({
         props: {
             id: {
-                default: text("Dropdown Id", "dropdown-platforme-id")
+                default: text("Dropdown Id", "select-platforme-id")
             },
             placeholder: {
                 default: text("Placeholder", "This is a placeholder text")
@@ -84,7 +84,7 @@ storiesOf("Components", module)
         template: `
             <div>
                 <global-platforme/>
-                <dropdown-platforme
+                <select-platforme
                     v-bind:id="id"
                     v-bind:placeholder="placeholder"
                     v-bind:field-label="fieldLabel"
@@ -98,7 +98,7 @@ storiesOf("Components", module)
                     <template v-slot:option-option_4>
                         <p style="color: blue">Special option</p>
                     </template>
-                </dropdown-platforme>
+                </select-platforme>
                 <p>Selected option: {{ value }}</p>
             </div>
             `
