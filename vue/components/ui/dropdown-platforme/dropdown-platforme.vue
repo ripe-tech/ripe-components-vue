@@ -1,118 +1,135 @@
 <template>
-    <div class="dropdown-platforme">
-        <global-events v-on:keydown.esc="onEscKey()" />
-        <label-platforme class="label" v-bind:text="fieldLabel" for="dropdown" v-if="fieldLabel" />
-        <div class="dropdown-container" v-bind:id="id">
-            <div
-                class="dropdown-button"
-                v-bind:class="{ disabled: disabled, focused: focused }"
-                v-bind:style="dropdownButtonStyle"
-                v-on:click="onToggleDropdown"
-            >
-                {{ selectedOption.text }}
-            </div>
-            <div class="dropdown" v-bind:style="dropdownStyle" v-show="visible">
-                <div class="options-container" v-for="option in options" v-bind:key="option.id">
-                    <slot name="options" v-bind:option="option">
-                        <div class="option" v-on:mouseup="onDropdownButton(option)">
-                            {{ option.text }}
-                        </div>
+    <div class="dropdown-container">
+        <global-events v-on:keydown.esc="handleGlobal()" />
+        <transition name="slide">
+            <ul class="dropdown-platforme" v-show="isVisible">
+                <li
+                    class="dropdown-item"
+                    v-bind:class="{ separator: item.separator }"
+                    v-for="item in items.filter(v => v !== null && v !== undefined)"
+                    v-bind:key="item.id"
+                    v-on:click.stop="click(item)"
+                >
+                    <slot v-bind:item="item">
+                        <router-link v-bind:to="item.link" v-if="item.link">
+                            {{ item.text }}
+                        </router-link>
+                        <a
+                            v-bind:href="item.href"
+                            v-bind:target="item.target || '_self'"
+                            v-else-if="item.href"
+                        >
+                            {{ item.text }}
+                        </a>
+                        <span v-else>{{ item.text }}</span>
                     </slot>
-                </div>
-            </div>
-        </div>
-        <select class="mobile-dropdown" v-model="selectedOption.id">
-            <option v-bind:value="options.id" v-for="options in options" v-bind:key="options.id">
-                {{ options.text }}
-            </option>
-            <option value="placeholder_id" style="display: none;">
-                {{ placeholder }}
-            </option>
-        </select>
+                </li>
+            </ul>
+        </transition>
     </div>
 </template>
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.label {
-    display: block;
-    margin-bottom: 7px;
+.slide-enter-active,
+.slide-leave-active {
+    -o-transition: opacity 0.1s cubic-bezier(0.645, 0.045, 0.355, 1),
+        transform 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -ms-transition: opacity 0.1s cubic-bezier(0.645, 0.045, 0.355, 1),
+        transform 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -moz-transition: opacity 0.1s cubic-bezier(0.645, 0.045, 0.355, 1),
+        transform 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -khtml-transition: opacity 0.1s cubic-bezier(0.645, 0.045, 0.355, 1),
+        transform 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -webkit-transition: opacity 0.1s cubic-bezier(0.645, 0.045, 0.355, 1),
+        transform 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: opacity 0.1s cubic-bezier(0.645, 0.045, 0.355, 1),
+        transform 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-body.mobile .dropdown-platforme .dropdown-container {
-    display: none;
+.slide-enter,
+.slide-leave-to {
+    -o-opacity: 0;
+    -ms-opacity: 0;
+    -moz-opacity: 0;
+    -khtml-opacity: 0;
+    -webkit-opacity: 0;
+    opacity: 0;
+    -o-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    -moz-transform: translateY(-10px);
+    -khtml-transform: translateY(-10px);
+    -webkit-transform: translateY(-10px);
+    transform: translateY(-10px);
 }
 
-body.desktop .dropdown-platforme .mobile-dropdown,
-body.tablet .dropdown-platforme .mobile-dropdown {
-    display: none;
+.slide-enter-to,
+.slide-leave {
+    -o-opacity: 1;
+    -ms-opacity: 1;
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    -webkit-opacity: 1;
+    opacity: 1;
 }
 
-.dropdown-platforme .dropdown-container .dropdown-button,
-.dropdown-platforme .dropdown-container .dropdown {
-    color: $dark;
-    cursor: pointer;
-    font-family: $font-family;
+.dropdown-container {
+    position: relative;
+    width: 100%;
+}
+
+.dropdown-platforme {
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    box-shadow: 1px 2px 5px rgba(20, 20, 20, 0.1);
+    color: #4d4d4d;
     font-size: 14px;
     font-weight: 600;
-    letter-spacing: 0.3px;
-}
-
-.dropdown-platforme .dropdown-container .dropdown-button {
-    background: url("~./assets/chevron-down.svg") no-repeat;
-    background-color: #f9fafd;
-    background-position: right 12px center;
-    background-size: 14px 14px;
-    border: solid 1px #e4e8f0;
-    border-radius: 6px;
-    height: 40px;
-    line-height: 40px;
-    margin: 0px 0px 1px 1px;
-    padding: 0px 8px;
-}
-
-.dropdown-platforme .dropdown-container .dropdown-button:hover {
-    background-color: $lightgrey;
-    border: solid 1px $dropdown-border-hover-color;
-    color: $grey;
-}
-
-.dropdown-platforme .dropdown-container .dropdown-button.disabled,
-.dropdown-platforme .dropdown-container .dropdown-button.disabled:active {
-    background-color: $dropdown-disabled-background-color;
-    border: solid 1px #e4e8f0;
-    color: $dropdown-disabled-color;
-    margin: inherit;
-}
-
-.dropdown-platforme .dropdown-container .dropdown-button.focused {
-    background-color: $white;
-    border: solid 2px $dropdown-focus-border-color;
-    margin: -1px 0px -1px 0px;
-}
-
-.dropdown-platforme .dropdown-container .dropdown {
-    background-color: $white;
-    border: solid 1px $dropdown-border-color;
-    border-radius: 6px;
-    box-shadow: 0 6px 24px 0 rgba(67, 86, 100, 0.15);
-    margin: 8px 0px 0px 0px;
+    list-style: none;
+    margin: 0px 0px 0px 0px;
+    overflow: hidden;
+    padding: 0px;
     position: absolute;
 }
 
-.dropdown-platforme .dropdown-container .dropdown .options-container ::v-deep .option {
-    height: 32px;
-    line-height: 32px;
-    padding: 0px 0px 0px 16px;
+.dropdown-platforme > .dropdown-item {
+    background-color: $white;
+    cursor: pointer;
+    line-height: normal;
+    margin: 0px 0px 0px 0px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.dropdown-platforme .dropdown-container .dropdown .options-container ::v-deep .option:hover {
-    background-color: $lightgrey;
+.dropdown-platforme > .dropdown-item:hover,
+.dropdown-platforme > .dropdown-item.selected {
+    background-color: $selected-color;
 }
 
-.dropdown-platforme .dropdown-container .dropdown .options-container ::v-deep .option:active {
-    background-color: $option-pressed-color;
+.dropdown-platforme > .dropdown-item:active {
+    background-color: $active-color;
+}
+
+.dropdown-platforme > .dropdown-item.separator {
+    border-top: 1px solid $border-color;
+}
+
+.dropdown-platforme > .dropdown-item > * {
+    padding: 12px 16px 12px 16px;
+}
+
+.dropdown-platforme > .dropdown-item > a {
+    border-bottom: none;
+    color: #4d4d4d;
+    display: block;
+    padding-bottom: 0px;
+}
+
+.dropdown-platforme > .dropdown-item:hover > a,
+.dropdown-platforme > .dropdown-item.selected > a {
+    color: #000000;
 }
 </style>
 
@@ -120,112 +137,62 @@ body.tablet .dropdown-platforme .mobile-dropdown {
 export const DropdownPlatforme = {
     name: "dropdown-platforme",
     props: {
-        id: {
-            type: String,
-            required: true
-        },
-        options: {
+        items: {
             type: Array,
             default: () => []
         },
-        placeholder: {
-            type: String,
-            required: true
-        },
-        fieldLabel: {
-            type: String,
-            default: ""
-        },
-        disabled: {
+        visible: {
             type: Boolean,
-            default: false
+            default: true
         },
-        allowTextSelection: {
+        globalEvents: {
             type: Boolean,
-            default: false
-        },
-        width: {
-            type: Number,
-            default: 300
+            default: true
         }
     },
     data: function() {
         return {
-            visible: false,
-            focused: false,
-            selectedOption: { id: "placeholder_id", text: this.placeholder }
+            visibleData: true
         };
     },
-    mounted: function() {
-        document.addEventListener("click", this.onClick);
-    },
-    destroyed: function() {
-        window.removeEventListener("click", this.onClick);
-    },
     watch: {
-        disabled() {
-            if (this.disabled) this.closeDropdown();
-        },
-        visible() {
-            this.focused = this.visible;
-        }
-    },
-    methods: {
-        onClick(event) {
-            const dropdownElement = document.getElementById(this.id);
-            const targetElement = event.target;
-
-            if (!dropdownElement.contains(targetElement)) this.closeDropdown();
-        },
-        onEscKey() {
-            this.closeDropdown();
-        },
-        onDropdownButton(option) {
-            if (!this.disabled) {
-                this.focused = true;
-                this.selectOption(option);
-            }
-        },
-        selectOption(option) {
-            this.$emit("update:option", option);
-            this.selectedOption = option;
-            this.toggleDropdown();
-        },
-        onToggleDropdown() {
-            if (!this.disabled) this.toggleDropdown();
-        },
-        openDropdown() {
-            this.visible = true;
-        },
-        closeDropdown() {
-            this.visible = false;
-        },
-        toggleDropdown() {
-            this.visible = !this.visible;
+        visible(value) {
+            this.visibleData = value;
         }
     },
     computed: {
-        dropdownButtonStyle() {
-            const base = {
-                width: `${this.width}px`
-            };
-
-            if (!this.allowTextSelection) {
-                base["user-select"] = "none";
-            }
-
-            return base;
+        isVisible() {
+            return this.visible && this.visibleData;
+        }
+    },
+    created: function() {
+        document.addEventListener("click", this.handleGlobal);
+    },
+    destroyed: function() {
+        document.removeEventListener("click", this.handleGlobal);
+    },
+    methods: {
+        click(item) {
+            this.$emit("item-clicked", item);
+            this.hide();
         },
-        dropdownStyle() {
-            const base = {
-                width: `${this.width + 16}px`
-            };
-
-            if (!this.allowTextSelection) {
-                base["user-select"] = "none";
-            }
-
-            return base;
+        toggle() {
+            this.visibleData = !this.visibleData;
+            this.$emit("update:visible", this.visibleData);
+        },
+        show() {
+            if (this.visibleData) return;
+            this.visibleData = true;
+            this.$emit("update:visible", this.visibleData);
+        },
+        hide() {
+            if (!this.visibleData) return;
+            this.visibleData = false;
+            this.$emit("update:visible", this.visibleData);
+        },
+        handleGlobal() {
+            if (!this.globalEvents) return;
+            this.hide();
         }
     }
 };
