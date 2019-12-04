@@ -24,14 +24,28 @@ storiesOf("Input", module)
                 default: text("Success", "")
             }
         },
+        data: function() {
+            return {
+                text: this.value
+            };
+        },
+        methods: {
+            onValue(value) {
+                this.text = value;
+            }
+        },
         template: `
-            <input-platforme
-                v-bind:value='value'
-                v-bind:disabled='disabled'
-                v-bind:placeholder='placeholder'
-                v-bind:error='error'
-                v-bind:warning='warning'
-                v-bind:success='success'
-            />
+            <div>
+                <input-platforme
+                    v-bind:value="value"
+                    v-bind:disabled="disabled"
+                    v-bind:placeholder="placeholder"
+                    v-bind:error="error"
+                    v-bind:warning="warning"
+                    v-bind:success="success"
+                    v-on:update:value="onValue"
+                />
+                <p>Text: {{ text }}</p>
+            </div>
         `
     }));

@@ -6,21 +6,21 @@
             v-bind:placeholder="placeholder"
             v-bind:disabled="disabled"
             ref="input"
-            v-on:input="$emit('update:value', $event.target.value)"
+            v-on:input="onInput($event.target.value)"
             v-on:focus="onFocused"
             v-on:blur="onBlurred"
         />
         <div class="text">
             <div class="text-container" v-if="error">
-                <span class="input-text-error" />
+                <span class="icon icon-error" />
                 <label-platforme v-bind:color="'error'" v-bind:text="error" />
             </div>
             <div class="text-container" v-if="warning">
-                <span class="input-text-warning" />
+                <span class="icon icon-warning" />
                 <label-platforme v-bind:text="warning" />
             </div>
             <div class="text-container" v-if="success">
-                <span class="input-text-success" />
+                <span class="icon icon-success" />
                 <label-platforme v-bind:text="success" v-bind:color="'success'" />
             </div>
         </div>
@@ -63,26 +63,25 @@ input[type="text"]:disabled {
     border-color: transparent;
 }
 
-.input-text-success {
-    background: url("~./../../../assets/icons/green/icon-check-filled.svg") no-repeat;
+.icon {
+    background-position: center;
+    background-repeat: no-repeat;
     display: inline-block;
-    height: 16px;
-    vertical-align: top;
+    height: 15px;
+    vertical-align: middle;
     width: 15px;
 }
 
-.input-text-warning {
-    background: url("~./../../../assets/icons/yellow/icon-warning.svg") no-repeat;
-    display: inline-block;
-    height: 11px;
-    width: 13px;
+.icon-success {
+    background-image: url("~./assets/check-filled.svg");
 }
 
-.input-text-error {
-    background: url("~./../../../assets/icons/red/icon-error.svg") no-repeat;
-    display: inline-block;
-    height: 11px;
-    width: 13px;
+.icon-warning {
+    background-image: url("~./assets/warning.svg");
+}
+
+.icon-error {
+    background-image: url("~./assets/error.svg");
 }
 </style>
 
@@ -123,11 +122,17 @@ export const InputPlatforme = {
         this.autofocus && this.focus();
     },
     methods: {
+        setValue(value) {
+            this.$emit("update:value", value);
+        },
         focus() {
             this.$refs.input.focus();
         },
         blur() {
             this.$refs.input.blur();
+        },
+        onInput(value) {
+            this.setValue(value);
         },
         onFocused() {
             this.$emit("focus");
