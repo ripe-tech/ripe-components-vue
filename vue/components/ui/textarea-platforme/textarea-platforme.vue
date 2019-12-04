@@ -1,11 +1,6 @@
 <template>
     <div class="textarea">
-        <label-platforme
-            class="label-description"
-            v-bind:text="descriptionLabel"
-            v-bind:for="id"
-            v-if="descriptionLabel"
-        />
+        <label-platforme class="header" v-bind:text="header" v-bind:for="id" v-if="header" />
         <textarea
             v-bind:style="textAreaStyle"
             v-bind:value="value"
@@ -15,11 +10,11 @@
             v-on:input="onInput($event.target.value)"
         />
         <label-platforme
-            class="label-help"
+            class="footer"
             v-bind:size="'small'"
-            v-bind:text="helpLabel"
+            v-bind:text="footer"
             v-bind:for="id"
-            v-if="helpLabel"
+            v-if="footer"
         />
     </div>
 </template>
@@ -69,11 +64,11 @@
     padding: 7px 7px 7px 7px;
 }
 
-.textarea .label-description {
+.textarea .header {
     margin-bottom: 7px;
 }
 
-.textarea .label-help {
+.textarea .footer {
     color: $medium-grey;
     margin-top: 4px;
 }
@@ -95,11 +90,11 @@ export const TextareaPlatforme = {
             type: String,
             default: null
         },
-        descriptionLabel: {
+        header: {
             type: String,
             default: null
         },
-        helpLabel: {
+        footer: {
             type: String,
             default: null
         },

@@ -14,10 +14,10 @@ storiesOf("Input", module)
             placeholder: {
                 default: text("Placeholder", "This is a placeholder")
             },
-            descriptionLabel: {
+            header: {
                 default: text("Description text", "Description")
             },
-            helpLabel: {
+            footer: {
                 default: text("Help text", "Help or instruction text goes here")
             },
             disabled: {
@@ -50,8 +50,8 @@ storiesOf("Input", module)
                     v-bind:value="value"
                     v-on:update:value="value => onValue(value)"
                     v-bind:placeholder="placeholder"
-                    v-bind:description-label="descriptionLabel"
-                    v-bind:help-label="helpLabel"
+                    v-bind:header="header"
+                    v-bind:footer="footer"
                     v-bind:disabled="disabled"
                     v-bind:initial-width="initialWidth"
                     v-bind:initial-height="initialHeight"
