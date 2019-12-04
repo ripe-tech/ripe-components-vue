@@ -1,8 +1,8 @@
 <template>
     <div class="dropdown-platforme" v-bind:style="dropdownStyle">
         <global-events v-on:keydown.esc="onEscKey()" />
-        <label-platforme v-bind:text="fieldLabel" for="dropdown" v-if="fieldLabel" />
-        <div class="dropdown-container" v-bind:id="id">
+        <label-platforme  class="label-field" v-bind:text="fieldLabel" v-bind:for="`dropdown-${id}`" v-if="fieldLabel" />
+        <div class="dropdown-container" v-bind:id="`dropdown-${id}`">
             <div
                 class="dropdown-button"
                 v-bind:class="{ disabled: disabled, focused: focused }"
@@ -40,6 +40,13 @@
                 {{ placeholder }}
             </option>
         </select>
+        <label-platforme
+            class="label-help"
+            v-bind:size="'small'"
+            v-bind:text="helpLabel"
+            v-bind:for="`dropdown-${id}`"
+            v-if="helpLabel"
+        />
     </div>
 </template>
 
@@ -48,6 +55,9 @@
 
 .label {
     display: block;
+}
+
+.label-field {
     margin-bottom: 7px;
 }
 
@@ -125,6 +135,11 @@ body.tablet .dropdown-platforme .mobile-dropdown {
 .dropdown-platforme .dropdown-container .dropdown .options-container ::v-deep .option:active {
     background-color: $option-pressed-background-color;
 }
+
+.label-help {
+    color: $medium-grey;
+    margin-top: 4px;
+}
 </style>
 
 <script>
@@ -148,6 +163,10 @@ export const DropdownPlatforme = {
             required: true
         },
         fieldLabel: {
+            type: String,
+            default: null
+        },
+        helpLabel: {
             type: String,
             default: null
         },
@@ -190,7 +209,7 @@ export const DropdownPlatforme = {
     },
     methods: {
         onClick(event) {
-            const dropdownElement = document.getElementById(this.id);
+            const dropdownElement = document.getElementById(`dropdown-${this.id}`);
             const targetElement = event.target;
 
             if (!dropdownElement.contains(targetElement)) this.closeDropdown();
