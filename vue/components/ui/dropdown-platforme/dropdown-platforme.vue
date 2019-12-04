@@ -167,7 +167,6 @@ body.tablet .dropdown-platforme .mobile-dropdown {
 
 <script>
 //TODO 
-// Fix highlight
 // Use dropdown-platforme
 
 export const DropdownPlatforme = {
