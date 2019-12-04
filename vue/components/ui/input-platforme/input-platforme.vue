@@ -59,7 +59,7 @@ input[type="text"]:focus {
 }
 
 input[type="text"]:disabled {
-    background-color: $pale-grey;
+    background-color: $light-grey;
     border-color: transparent;
 }
 
