@@ -9,6 +9,7 @@ storiesOf("Data", module)
                 type: Array,
                 default: () => [
                     {
+                        id: 0,
                         name: "Theodore",
                         age: 14,
                         car: "Toyota Prius",
@@ -18,6 +19,7 @@ storiesOf("Data", module)
                         shirt: "Antonio Morato"
                     },
                     {
+                        id: 1,
                         name: "Pepe",
                         age: 48,
                         car: "Toyota Yaris",
