@@ -37,7 +37,7 @@
                     >
                         <div
                             class="option"
-                            v-bind:class="{ testingSelection: idx === selectedIdx }"
+                            v-bind:class="{ keyboardHighlighted: idx === selectedIdx }"
                             v-bind:key="option.id"
                             v-on:click="onDropdownSelect(option.id)"
                         >
@@ -148,6 +148,7 @@ body.tablet .dropdown-platforme .mobile-dropdown {
     padding: 0px 0px 0px 16px;
 }
 
+.dropdown-platforme .dropdown-container .dropdown .options-container ::v-deep .option.keyboardHighlighted,
 .dropdown-platforme .dropdown-container .dropdown .options-container ::v-deep .option:hover {
     background-color: $lightgrey;
 }
@@ -159,10 +160,6 @@ body.tablet .dropdown-platforme .mobile-dropdown {
 .label-help {
     color: $medium-grey;
     margin-top: 4px;
-}
-
-.testingSelection {
-    background-color: lightblue;
 }
 </style>
 
