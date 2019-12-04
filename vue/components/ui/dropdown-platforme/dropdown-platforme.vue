@@ -23,6 +23,7 @@
             <div
                 class="dropdown-button"
                 v-bind:class="{ disabled: disabled, focused: focused }"
+                v-bind:id="`dropdown-button-${id}`"
                 v-on:click="onToggleDropdown"
             >
                 {{ selectedOption.text }}
@@ -148,11 +149,7 @@ body.tablet .dropdown-platforme .mobile-dropdown {
 }
 
 .dropdown-platforme
-    .dropdown-container
-    .dropdown
-    .options-container
-    ::v-deep
-    .option.keyboardHighlighted,
+.dropdown-platforme .dropdown-container .dropdown .options-container ::v-deep .option.keyboardHighlighted,
 .dropdown-platforme .dropdown-container .dropdown .options-container ::v-deep .option:hover {
     background-color: $lightgrey;
 }
@@ -322,6 +319,8 @@ export const DropdownPlatforme = {
             this.selectedIdx = this.options.length - 1;
         },
         highlightFirstMatchedOption(key) {
+            if (!this.focused) return;
+
             for (let i = 0; i < this.options.length; i++) {
                 if (this.options[i].text.charAt(0).toUpperCase() === key.toUpperCase()) {
                     this.selectedIdx = i;
