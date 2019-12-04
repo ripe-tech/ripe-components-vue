@@ -1,9 +1,27 @@
 <template>
     <div class="dropdown-platforme" v-bind:style="dropdownStyle">
-        <global-events v-on:keydown.esc="onEscKey()" />
-        <label-platforme  class="label-field" v-bind:text="fieldLabel" v-bind:for="`dropdown-${id}`" v-if="fieldLabel" />
+        <global-events
+            v-on:click="onClick($event)"
+            v-on:keydown="onKey($event.key)"
+            v-on:keydown.esc="onEscKey()"
+            v-on:keydown.up="onArrowUpKey()"
+            v-on:keydown.down="onArrowDownKey()"
+            v-on:keydown.left="onArrowLeftKey()"
+            v-on:keydown.right="onArrowRightKey()"
+            v-on:keydown.alt.down="onAltDownKey()"
+            v-on:keydown.alt.up="onAltUpKey()"
+            v-on:keydown.enter="onEnterKey()"
+            v-on:keydown.space="onSpaceKey()"
+        />
+        <label-platforme
+            class="label-field"
+            v-bind:text="fieldLabel"
+            v-bind:for="`dropdown-${id}`"
+            v-if="fieldLabel"
+        />
         <div class="dropdown-container" v-bind:id="`dropdown-${id}`">
             <div
+                v-bind:id="`dropdown-button-${id}`"
                 class="dropdown-button"
                 v-bind:class="{ disabled: disabled, focused: focused }"
                 v-on:click="onToggleDropdown"
@@ -15,10 +33,11 @@
                     <slot
                         v-bind:name="`option-${option.id}`"
                         v-bind:option="option"
-                        v-for="option in options"
+                        v-for="(option, idx) in options"
                     >
                         <div
                             class="option"
+                            v-bind:class="{ testingSelection: idx === selectedIdx }"
                             v-bind:key="option.id"
                             v-on:click="onDropdownSelect(option.id)"
                         >
@@ -55,6 +74,7 @@
 
 .label {
     display: block;
+    user-select: text;
 }
 
 .label-field {
@@ -140,6 +160,10 @@ body.tablet .dropdown-platforme .mobile-dropdown {
     color: $medium-grey;
     margin-top: 4px;
 }
+
+.testingSelection {
+    background-color: lightblue;
+}
 </style>
 
 <script>
@@ -187,14 +211,9 @@ export const DropdownPlatforme = {
         return {
             visible: false,
             focused: false,
-            selectedOption: this.getOption(this.value)
+            selectedOption: this.getOption(this.value),
+            selectedIdx: null
         };
-    },
-    mounted: function() {
-        document.addEventListener("click", this.onClick);
-    },
-    destroyed: function() {
-        window.removeEventListener("click", this.onClick);
     },
     watch: {
         disabled() {
@@ -214,17 +233,52 @@ export const DropdownPlatforme = {
 
             if (!dropdownElement.contains(targetElement)) this.closeDropdown();
         },
+        onKey(key) {
+            this.highlightFirstMatchedOption(key);
+        },
         onEscKey() {
             this.closeDropdown();
+        },
+        onArrowUpKey() {
+            this.highlightPreviousOption();
+        },
+        onArrowDownKey() {
+            this.highlightNextOption();
+        },
+        onArrowLeftKey() {
+            this.highlightPreviousOption();
+        },
+        onArrowRightKey() {
+            this.highlightNextOption();
+        },
+        onAltUpKey() {
+            this.highlightFirstOption();
+        },
+        onAltDownKey() {
+            this.highlightLastOption();
+        },
+        onEnterKey() {
+            this.selectOptionByIndex(this.selectedIdx);
+        },
+        onSpaceKey(){
+            this.selectOptionByIndex(this.selectedIdx);
         },
         onDropdownSelect(optionId) {
             if (this.disabled) return;
             this.focused = true;
-            this.selectOption(optionId);
+            this.selectOptionById(optionId);
         },
-        selectOption(optionId) {
+        selectOptionById(optionId) {
             this.$emit("update:value", optionId);
             this.toggleDropdown();
+        },
+        selectOptionByIndex(index) {
+            if(index === null) return;
+
+            if(index < 0 || index > this.options.length -1)
+                throw 'Invalid index value';
+
+            this.selectOptionById(this.options[index].id);
         },
         onToggleDropdown() {
             if (!this.disabled) this.toggleDropdown();
@@ -242,6 +296,36 @@ export const DropdownPlatforme = {
             return optionID === "placeholder_id"
                 ? { id: optionID, text: this.placeholder }
                 : this.options.find(option => option.id === optionID);
+        },
+        highlightPreviousOption() {
+            if(!this.focused) return;
+
+            if(this.selectedIdx === null) this.selectedIdx = 0;
+            else if(this.selectedIdx > 0 ) this.selectedIdx--;
+        },
+        highlightNextOption() {
+            if(!this.focused) return;
+
+            if(this.selectedIdx === null) this.selectedIdx = 0;
+            else if(this.selectedIdx < this.options.length - 1) this.selectedIdx++;
+        },
+        highlightFirstOption() {
+            if(!this.focused) return;
+
+            this.selectedIdx = 0;
+        },
+        highlightLastOption() {
+            if(!this.focused) return;
+            
+            this.selectedIdx = this.options.length - 1;
+        },
+        highlightFirstMatchedOption(key) {
+            for (let i = 0; i < this.options.length; i++) {
+                if(this.options[i].text.charAt(0).toUpperCase() === key.toUpperCase()){
+                    this.selectedIdx = i;
+                    return;
+                }
+            }
         }
     },
     computed: {

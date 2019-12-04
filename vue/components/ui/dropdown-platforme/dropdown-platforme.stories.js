@@ -16,11 +16,11 @@ storiesOf("Components", module)
                     "Initial Value",
                     {
                         Placeholder: "placeholder_id",
-                        "Option 1": "option_1",
-                        "Option 2": "option_2",
-                        "Option 3": "option_3",
-                        "Option 4": "option_4",
-                        "Option 5": "option_5"
+                        A: "option_1",
+                        B: "option_2",
+                        C: "option_3",
+                        D: "option_4",
+                        E: "option_5"
                     },
                     "placeholder_id"
                 )
@@ -46,23 +46,23 @@ storiesOf("Components", module)
                 options: [
                     {
                         id: "option_1",
-                        text: "Option 1"
+                        text: "A"
                     },
                     {
                         id: "option_2",
-                        text: "Option 2"
+                        text: "B"
                     },
                     {
                         id: "option_3",
-                        text: "Option 3"
+                        text: "C"
                     },
                     {
                         id: "option_4",
-                        text: "Option 4"
+                        text: "D"
                     },
                     {
                         id: "option_5",
-                        text: "Option 5"
+                        text: "E"
                     }
                 ],
                 value: this.initialValue
