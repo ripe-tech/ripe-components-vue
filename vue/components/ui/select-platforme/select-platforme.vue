@@ -28,6 +28,7 @@
                 {{ selectedOption.text }}
             </div>
             <div class="dropdown" v-bind:style="dropdownStyle" v-show="visible">
+                <slot v-bind:name="`dropdown-slot`">
                 <div class="options-container">
                     <slot
                         v-bind:name="`option-${option.id}`"
@@ -44,6 +45,7 @@
                         </div>
                     </slot>
                 </div>
+                </slot>
             </div>
         </div>
         <select
