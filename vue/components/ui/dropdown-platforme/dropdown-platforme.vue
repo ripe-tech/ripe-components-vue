@@ -13,7 +13,7 @@
             <div class="dropdown" v-bind:style="dropdownOptionsStyle" v-show="visible">
                 <div class="options-container">
                     <slot
-                        v-bind:name="`options-${option - id}`"
+                        v-bind:name="`option-${option.id}`"
                         v-bind:option="option"
                         v-for="option in options"
                     >

@@ -95,6 +95,9 @@ storiesOf("Components", module)
                     v-bind:options="options"
                     v-bind:value="value"
                     v-on:update:value="value => onValue(value)">
+                    <template v-slot:option-option_4>
+                        <p style="color: blue">Special option</p>
+                    </template>
                 </dropdown-platforme>
                 <p>Selected option: {{ value }}</p>
             </div>
