@@ -6,6 +6,7 @@ import { AlertPlatforme } from "./ui/alert-platforme/alert-platforme.vue";
 import { ButtonColorPlatforme } from "./ui/button-color-platforme/button-color-platforme.vue";
 import { ButtonIconPlatforme } from "./ui/button-icon-platforme/button-icon-platforme.vue";
 import { ButtonPlatforme } from "./ui/button-platforme/button-platforme.vue";
+import { CheckboxPlatforme } from "./ui/checkbox-platforme/checkbox-platforme.vue";
 import { ContainerPlatforme } from "./ui/container-platforme/container-platforme.vue";
 import { DropdownPlatforme } from "./ui/dropdown-platforme/dropdown-platforme.vue";
 import { FilterPlatforme } from "./ui/filter-platforme/filter-platforme.vue";
@@ -27,6 +28,7 @@ import { SidePlatforme } from "./ui/side-platforme/side-platforme.vue";
 import { TablePlatforme } from "./ui/table-platforme/table-platforme.vue";
 import { TabsPlatforme } from "./ui/tabs-platforme/tabs-platforme.vue";
 import { TagPlatforme } from "./ui/tag-platforme/tag-platforme.vue";
+import { TextareaPlatforme } from "./ui/textarea-platforme/textarea-platforme.vue";
 
 const install = Vue => {
     if (!Vue.options.components.RouterLink) {
@@ -39,6 +41,7 @@ const install = Vue => {
     Vue.component("button-color-platforme", ButtonColorPlatforme);
     Vue.component("button-icon-platforme", ButtonIconPlatforme);
     Vue.component("button-platforme", ButtonPlatforme);
+    Vue.component("checkbox-platforme", CheckboxPlatforme);
     Vue.component("container-platforme", ContainerPlatforme);
     Vue.component("dropdown-platforme", DropdownPlatforme);
     Vue.component("filter-platforme", FilterPlatforme);
@@ -58,8 +61,9 @@ const install = Vue => {
     Vue.component("search-platforme", SearchPlatforme);
     Vue.component("side-platforme", SidePlatforme);
     Vue.component("table-platforme", TablePlatforme);
-    Vue.component("tag-platforme", TagPlatforme);
     Vue.component("tabs-platforme", TabsPlatforme);
+    Vue.component("tag-platforme", TagPlatforme);
+    Vue.component("textarea-platforme", TextareaPlatforme);
 };
 
 export {
@@ -71,6 +75,7 @@ export {
     ButtonColorPlatforme,
     ButtonIconPlatforme,
     ButtonPlatforme,
+    CheckboxPlatforme,
     ContainerPlatforme,
     DropdownPlatforme,
     FilterPlatforme,
@@ -92,6 +97,7 @@ export {
     TablePlatforme,
     TabsPlatforme,
     TagPlatforme,
+    TextareaPlatforme,
     install
 };
 
