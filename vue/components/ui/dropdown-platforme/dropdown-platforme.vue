@@ -2,16 +2,6 @@
     <div class="dropdown-platforme" v-bind:style="dropdownStyle">
         <global-events
             v-on:click="onClick($event)"
-            v-on:keydown="onKey($event.key)"
-            v-on:keydown.esc="onEscKey()"
-            v-on:keydown.up="onArrowUpKey()"
-            v-on:keydown.down="onArrowDownKey()"
-            v-on:keydown.left="onArrowLeftKey()"
-            v-on:keydown.right="onArrowRightKey()"
-            v-on:keydown.alt.down="onAltDownKey()"
-            v-on:keydown.alt.up="onAltUpKey()"
-            v-on:keydown.enter="onEnterKey()"
-            v-on:keydown.space="onSpaceKey()"
         />
         <label-platforme
             class="label-field"
@@ -22,9 +12,20 @@
         <div class="dropdown-container" v-bind:id="`dropdown-${id}`">
             <div
                 class="dropdown-button"
-                v-bind:class="{ disabled: disabled, focused: focused }"
+                v-bind:class="{ disabled: disabled }"
                 v-bind:id="`dropdown-button-${id}`"
                 v-on:click="onToggleDropdown"
+                tabindex="0"
+                v-on:keydown="onKey($event.key)"
+                v-on:keydown.esc="onEscKey()"
+                v-on:keydown.up="onArrowUpKey()"
+                v-on:keydown.down="onArrowDownKey()"
+                v-on:keydown.left="onArrowLeftKey()"
+                v-on:keydown.right="onArrowRightKey()"
+                v-on:keydown.alt.down="onAltDownKey()"
+                v-on:keydown.alt.up="onAltUpKey()"
+                v-on:keydown.enter="onEnterKey()"
+                v-on:keydown.space="onSpaceKey()"
             >
                 {{ selectedOption.text }}
             </div>
@@ -127,7 +128,7 @@ body.tablet .dropdown-platforme .mobile-dropdown {
     margin: inherit;
 }
 
-.dropdown-platforme .dropdown-container .dropdown-button.focused {
+.dropdown-platforme .dropdown-container .dropdown-button:focus {
     background-color: $white;
     border: solid 2px $dropdown-focus-border-color;
     margin: -1px 0px -1px 0px;
@@ -207,7 +208,6 @@ export const DropdownPlatforme = {
     data: function() {
         return {
             visible: false,
-            focused: false,
             selectedOption: this.getOption(this.value),
             selectedIdx: null
         };
@@ -215,9 +215,6 @@ export const DropdownPlatforme = {
     watch: {
         disabled() {
             if (this.disabled) this.closeDropdown();
-        },
-        visible() {
-            this.focused = this.visible;
         },
         value() {
             this.selectedOption = this.getOption(this.value);
@@ -262,7 +259,7 @@ export const DropdownPlatforme = {
         },
         onDropdownSelect(optionId) {
             if (this.disabled) return;
-            this.focused = true;
+
             this.selectOptionById(optionId);
         },
         selectOptionById(optionId) {
@@ -296,30 +293,20 @@ export const DropdownPlatforme = {
                 : this.options.find(option => option.id === optionID);
         },
         highlightPreviousOption() {
-            if (!this.focused) return;
-
             if (this.selectedIdx === null) this.selectedIdx = 0;
             else if (this.selectedIdx > 0) this.selectedIdx--;
         },
         highlightNextOption() {
-            if (!this.focused) return;
-
             if (this.selectedIdx === null) this.selectedIdx = 0;
             else if (this.selectedIdx < this.options.length - 1) this.selectedIdx++;
         },
         highlightFirstOption() {
-            if (!this.focused) return;
-
             this.selectedIdx = 0;
         },
         highlightLastOption() {
-            if (!this.focused) return;
-
             this.selectedIdx = this.options.length - 1;
         },
         highlightFirstMatchedOption(key) {
-            if (!this.focused) return;
-
             for (let i = 0; i < this.options.length; i++) {
                 if (this.options[i].text.charAt(0).toUpperCase() === key.toUpperCase()) {
                     this.selectedIdx = i;
