@@ -21,7 +21,6 @@
         />
         <div class="dropdown-container" v-bind:id="`dropdown-${id}`">
             <div
-                v-bind:id="`dropdown-button-${id}`"
                 class="dropdown-button"
                 v-bind:class="{ disabled: disabled, focused: focused }"
                 v-on:click="onToggleDropdown"
@@ -148,7 +147,12 @@ body.tablet .dropdown-platforme .mobile-dropdown {
     padding: 0px 0px 0px 16px;
 }
 
-.dropdown-platforme .dropdown-container .dropdown .options-container ::v-deep .option.keyboardHighlighted,
+.dropdown-platforme
+    .dropdown-container
+    .dropdown
+    .options-container
+    ::v-deep
+    .option.keyboardHighlighted,
 .dropdown-platforme .dropdown-container .dropdown .options-container ::v-deep .option:hover {
     background-color: $lightgrey;
 }
@@ -257,7 +261,7 @@ export const DropdownPlatforme = {
         onEnterKey() {
             this.selectOptionByIndex(this.selectedIdx);
         },
-        onSpaceKey(){
+        onSpaceKey() {
             this.selectOptionByIndex(this.selectedIdx);
         },
         onDropdownSelect(optionId) {
@@ -270,10 +274,11 @@ export const DropdownPlatforme = {
             this.toggleDropdown();
         },
         selectOptionByIndex(index) {
-            if(index === null) return;
+            if (index === null) return;
 
-            if(index < 0 || index > this.options.length -1)
-                throw 'Invalid index value';
+            if (index < 0 || index > this.options.length - 1) {
+                throw new Error("Invalid index value");
+            }
 
             this.selectOptionById(this.options[index].id);
         },
@@ -295,30 +300,30 @@ export const DropdownPlatforme = {
                 : this.options.find(option => option.id === optionID);
         },
         highlightPreviousOption() {
-            if(!this.focused) return;
+            if (!this.focused) return;
 
-            if(this.selectedIdx === null) this.selectedIdx = 0;
-            else if(this.selectedIdx > 0 ) this.selectedIdx--;
+            if (this.selectedIdx === null) this.selectedIdx = 0;
+            else if (this.selectedIdx > 0) this.selectedIdx--;
         },
         highlightNextOption() {
-            if(!this.focused) return;
+            if (!this.focused) return;
 
-            if(this.selectedIdx === null) this.selectedIdx = 0;
-            else if(this.selectedIdx < this.options.length - 1) this.selectedIdx++;
+            if (this.selectedIdx === null) this.selectedIdx = 0;
+            else if (this.selectedIdx < this.options.length - 1) this.selectedIdx++;
         },
         highlightFirstOption() {
-            if(!this.focused) return;
+            if (!this.focused) return;
 
             this.selectedIdx = 0;
         },
         highlightLastOption() {
-            if(!this.focused) return;
-            
+            if (!this.focused) return;
+
             this.selectedIdx = this.options.length - 1;
         },
         highlightFirstMatchedOption(key) {
             for (let i = 0; i < this.options.length; i++) {
-                if(this.options[i].text.charAt(0).toUpperCase() === key.toUpperCase()){
+                if (this.options[i].text.charAt(0).toUpperCase() === key.toUpperCase()) {
                     this.selectedIdx = i;
                     return;
                 }
