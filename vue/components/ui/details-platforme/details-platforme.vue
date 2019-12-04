@@ -3,31 +3,48 @@
         <div class="container-header">
             <div class="header-buttons">
                 <slot name="header-buttons">
-                    <span class="button-stats" v-on:click="onStatsClick">
-                        <img src="~./assets/stats.svg" />
-                    </span>
-                    <span class="button-previous" v-on:click="onPreviousClick">
-                        <img src="~./assets/chevron-left.svg" />
-                    </span>
-                    <span class="button-next" v-on:click="onNextClick">
-                        <img src="~./assets/chevron-right.svg" />
-                    </span>
-                    <span class="button-refresh" v-on:click="onRefreshClick">
-                        <img src="~./assets/refresh.svg" />
-                    </span>
-                    <span
-                        class="button-options"
-                        v-bind:class="{ active: optionsVisible }"
-                        v-if="optionsItems.length > 0"
-                        v-on:click.stop="options"
+                    <div class="header-button">
+                        <span class="button-stats" v-on:click="onStatsClick">
+                            <img src="~./assets/stats.svg" />
+                        </span>
+                        <p>Orders</p>
+                    </div>
+                    <div class="header-button">
+                        <span class="button-previous" v-on:click="onPreviousClick">
+                            <img src="~./assets/chevron-left.svg" />
+                        </span>
+                        <p>Previous</p>
+                    </div>
+                    <div class="header-button">
+                        <span class="button-next" v-on:click="onNextClick">
+                            <img src="~./assets/chevron-right.svg" />
+                        </span>
+                        <p>Next</p>
+                    </div>
+                    <div class="header-button">
+                        <span class="button-refresh" v-on:click="onRefreshClick">
+                            <img src="~./assets/refresh.svg" />
+                        </span>
+                        <p>Refresh</p>
+                    </div>
+                    <div
+                        class="header-button"
+                        v-bind:class="{ invisible: optionsItems.length === 0 && loaded !== false }"
                     >
-                        <img src="~./assets/options.svg" />
-                        <dropdown-platforme
-                            v-bind:items="optionsItems"
-                            v-bind:visible.sync="optionsVisible"
-                            v-on:item-clicked="onOptionsItemClick"
-                        />
-                    </span>
+                        <span
+                            class="button-options"
+                            v-bind:class="{ active: optionsVisible }"
+                            v-on:click.stop="options"
+                        >
+                            <img src="~./assets/options.svg" />
+                            <dropdown-platforme
+                                v-bind:items="optionsItems"
+                                v-bind:visible.sync="optionsVisible"
+                                v-on:item-clicked="onOptionsItemClick"
+                            />
+                        </span>
+                        <p>Status</p>
+                    </div>
                 </slot>
             </div>
             <h1 class="title">{{ title }}</h1>
@@ -93,14 +110,30 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
+.details-platforme {
+    min-height: 430px;
+}
+
+body.tablet .details,
+body.mobile .details {
+    padding: 0px 0px 0px 0px;
+}
+
+body.tablet .details-platforme,
+body.mobile .details-platforme {
+    border: none;
+    margin: 0px;
+}
+
 .details-platforme .container-header {
     font-size: 0px;
     padding: 24px 24px 20px 24px;
     text-align: left;
 }
 
-.details-platforme {
-    min-height: 430px;
+body.tablet .details-platforme .container-header,
+body.mobile .details-platforme .container-header {
+    padding: 20px 15px 17px 15px;
 }
 
 .details-platforme .header-buttons {
@@ -110,7 +143,26 @@
     user-select: none;
 }
 
-.details-platforme .header-buttons > span {
+body.tablet .details-platforme .header-buttons,
+body.mobile .details-platforme .header-buttons {
+    animation: none;
+    background-color: #ffffff;
+    border-top: 1px solid #e4e8f0;
+    bottom: 0px;
+    display: flex;
+    left: 0px;
+    position: fixed;
+    text-align: justify;
+    transition: none;
+    width: 100%;
+    z-index: 10;
+}
+
+.details-platforme .header-buttons > div {
+    display: inline-block;
+}
+
+.details-platforme .header-buttons span {
     border-radius: 36px 36px 36px 36px;
     cursor: pointer;
     display: inline-block;
@@ -124,21 +176,58 @@
     width: 36px;
 }
 
-.details-platforme .header-buttons > span:hover {
+.details-platforme .header-buttons span:hover {
     background-color: #f2f2f2;
 }
 
-.details-platforme .header-buttons > span.active,
-.details-platforme .header-buttons > span:active {
+.details-platforme .header-buttons span.active,
+.details-platforme .header-buttons span:active {
     background-color: #e2e2e2;
 }
 
-.details-platforme .header-buttons > span > img {
+.details-platforme .header-buttons span > img {
     opacity: 0.5;
 }
 
-.details-platforme .header-buttons > span:hover > img {
+.details-platforme .header-buttons span:hover > img {
     opacity: 1;
+}
+
+.header-buttons > .header-button > p {
+    display: none;
+}
+
+body.tablet .header-buttons > .header-button,
+body.mobile .header-buttons > .header-button {
+    display: inline-block;
+    flex: auto;
+    margin: 8px 0px 8px 0px;
+    text-align: center;
+}
+
+body.tablet .header-buttons > .header-button.invisible,
+body.mobile .header-buttons > .header-button.invisible {
+    opacity: 0;
+}
+
+body.tablet .header-buttons > .header-button > p,
+body.mobile .header-buttons > .header-button > p {
+    color: #57626e;
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.28px;
+    margin: 0px 0px 0px 0px;
+}
+
+body.tablet .header-buttons > .header-button > span > img,
+body.mobile .header-buttons > .header-button > span > img {
+    height: 20px;
+    width: 20px;
+}
+
+body.tablet .order-dates,
+body.mobile .order-dates {
+    display: none;
 }
 
 .details-platforme .button-options ::v-deep .dropdown-platforme {
@@ -148,6 +237,13 @@
     margin-top: 6px;
     min-width: 180px;
     text-align: left;
+}
+
+body.tablet .button-options ::v-deep .dropdown-platforme,
+body.mobile .button-options ::v-deep .dropdown-platforme {
+    bottom: 40px;
+    margin: 0px 0px 0px 0px;
+    right: 0;
 }
 
 .details-platforme .button-options ::v-deep .dropdown-platforme > .dropdown-item {
@@ -164,6 +260,11 @@
     margin: 0px 0px 0px 0px;
     text-align: left;
     width: 40%;
+}
+
+body.tablet .details-platforme .title,
+body.mobile .details-platforme .title {
+    width: 100%;
 }
 
 .details-platforme .header-center {
@@ -187,10 +288,33 @@
     width: 15%;
 }
 
+body.tablet .details-platforme .details-column,
+body.mobile .details-platforme .details-column {
+    padding: 0px 0px 0px 20px;
+    text-align: center;
+    width: 50%;
+}
+
+body.tablet .details-platforme .details-column .order-report,
+body.mobile .details-platforme .details-column .order-report {
+    background-color: #1d2631;
+    border-radius: 6px;
+    box-sizing: border-box;
+    margin: 5px 0px 25px 0px;
+    padding: 18px 14px 18px 14px;
+    width: 100%;
+}
+
 .details-platforme .details-column.details-column-image {
     padding: 0px 10% 0px 0px;
     text-align: center;
     width: 40%;
+}
+
+body.tablet .details-column.details-column-image,
+body.mobile .details-column.details-column-image {
+    padding: 0px 0px 0px 0px;
+    width: 100%;
 }
 
 .details-platforme .details-column:last-child {
@@ -217,6 +341,14 @@
 
 .details-platforme .details-column .label-value {
     min-height: 100px;
+}
+
+body.tablet .details-platforme .details-column .label-value,
+body.mobile .details-platforme .details-column .label-value {
+    height: 80px;
+    margin-top: 30px;
+    min-height: unset;
+    overflow: hidden;
 }
 
 .details-platforme .details-column .label-value:last-child {
@@ -277,6 +409,10 @@ export const DetailsPlatforme = {
         item: {
             type: Object,
             required: true
+        },
+        loaded: {
+            type: Boolean,
+            default: null
         }
     },
     data: function() {
