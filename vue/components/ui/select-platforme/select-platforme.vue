@@ -29,6 +29,7 @@
             </div>
             <slot v-bind:name="`dropdown-slot`">
                 <dropdown-platforme
+                    class="dropdown"
                     v-bind:items="options"
                     v-bind:visible="dropdownVisible"
                     v-bind:global-events="false"
@@ -81,7 +82,7 @@ body.tablet .select-platforme .mobile-dropdown {
 }
 
 .select-platforme .dropdown-container .dropdown-button,
-.select-platforme .dropdown-container ::v-deep .dropdown {
+.select-platforme .dropdown-container ::v-deep .dropdown-platforme {
     color: $dark;
     cursor: pointer;
     font-family: $font-family;
@@ -124,7 +125,7 @@ body.tablet .select-platforme .mobile-dropdown {
     outline: none;
 }
 
-.select-platforme .dropdown-container ::v-deep .dropdown {
+.select-platforme .dropdown-container ::v-deep .dropdown-platforme{
     background-color: $white;
     border: solid 1px $dropdown-border-color;
     border-radius: 6px;
@@ -133,18 +134,18 @@ body.tablet .select-platforme .mobile-dropdown {
     position: absolute;
 }
 
-.select-platforme .dropdown-container ::v-deep .dropdown .options-container .option {
+.select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item {
     height: 32px;
     line-height: 32px;
     padding: 0px 0px 0px 16px;
 }
 
-.select-platforme .dropdown-container ::v-deep .dropdown .options-container .option.keyboardHighlighted,
-.select-platforme .dropdown-container ::v-deep .dropdown .options-container .option:hover {
+.select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item.keyboardHighlighted,
+.select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item:hover {
     background-color: $lightgrey;
 }
 
-.select-platforme .dropdown-container ::v-deep .dropdown .options-container .option:active {
+.select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item:active {
     background-color: $option-pressed-background-color;
 }
 
