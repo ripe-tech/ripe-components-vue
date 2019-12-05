@@ -4,6 +4,7 @@
         class="input-platforme"
         v-bind:value="value"
         v-bind:placeholder="placeholder"
+        v-bind:disabled="disabled"
         ref="input"
         v-on:input="onInput($event.target.value)"
         v-on:focus="onFocus"

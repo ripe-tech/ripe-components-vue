@@ -27,7 +27,7 @@ storiesOf("Input", module)
         },
         template: `
             <div>
-                <input-platforme v-bind:value="value" v-bind:placeholder="placeholder" v-on:update:value="onValue"></input-platforme>
+                <input-platforme v-bind:value="value" v-bind:placeholder="placeholder" v-on:update:value="onValue" v-bind:disabled="disabled"></input-platforme>
                 <p>Text: {{ text }}</p>
             </div>
         `
