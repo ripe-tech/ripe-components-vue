@@ -74,7 +74,7 @@ export const InputPlatforme = {
     },
     methods: {
         setValue(value) {
-            this.$emit('update:value', value);
+            this.$emit("update:value", value);
         },
         focus() {
             this.$refs.input.focus();
