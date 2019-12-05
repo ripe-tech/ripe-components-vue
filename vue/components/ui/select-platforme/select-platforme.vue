@@ -166,9 +166,6 @@ body.tablet .select-platforme .mobile-dropdown {
 </style>
 
 <script>
-// TODO
-// Fix dropdown-slot not inheriting width
-
 export const SelectPlatforme = {
     name: "select-platforme",
     props: {
