@@ -27,8 +27,8 @@
             >
                 {{ selectedOption.text }}
             </div>
-            <div class="dropdown" v-bind:style="dropdownStyle" v-show="dropdownVisible">
-                <slot v-bind:name="`dropdown-slot`">
+            <slot v-bind:name="`dropdown-slot`">
+                <div class="dropdown" v-bind:style="dropdownStyle" v-show="dropdownVisible">
                     <div class="options-container">
                         <slot
                             v-bind:name="`option-${option.id}`"
@@ -45,8 +45,8 @@
                             </div>
                         </slot>
                     </div>
-                </slot>
-            </div>
+                </div>
+            </slot>
         </div>
         <select
             class="mobile-dropdown"

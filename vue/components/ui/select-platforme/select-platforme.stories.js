@@ -25,6 +25,9 @@ storiesOf("Components", module)
                     "placeholder_id"
                 )
             },
+            initialDropdownVisible: {
+                default: boolean("Initial Dropdown Visible", false)
+            },
             fieldLabel: {
                 default: text("Field Label", "Field label")
             },
@@ -100,7 +103,7 @@ storiesOf("Components", module)
                     v-bind:value="value"
                     v-bind:dropdown-visible="dropdownVisible"
                     v-on:update:value="value => onValue(value)"
-                    v-on:update:dropdownVisible="dropdownVisible => onDropdownVisible(dropdownVisible)"
+                    v-on:update:dropdownVisible="value => onDropdownVisible(value)"
                 >
                     <template v-slot:option-option_4>
                         <p style="color: blue">Special option</p>
@@ -132,6 +135,9 @@ storiesOf("Components", module)
                     "placeholder_id"
                 )
             },
+            initialDropdownVisible: {
+                default: boolean("Initial Dropdown Visible", false)
+            },
             fieldLabel: {
                 default: text("Field Label", "Field label")
             },
@@ -207,13 +213,14 @@ storiesOf("Components", module)
                     v-bind:value="value"
                     v-bind:dropdown-visible="dropdownVisible"
                     v-on:update:value="value => onValue(value)"
-                    v-on:update:dropdownVisible="dropdownVisible => onDropdownVisible(dropdownVisible)"
+                    v-on:update:dropdownVisible="value => onDropdownVisible(value)"
                 >
-                    <template v-slot:dropdown-slot>
-                        <dropdown-platforme
+                    <template v-slot:dropdown-slot>  
+                    <dropdown-platforme
                             v-bind:items="options"
                             v-bind:visible="dropdownVisible"
                             v-bind:global-events="false"
+                            v-on:update:visible="value => onDropdownVisible(value)"
                         />
                     </template>
                     <template v-slot:option-option_4>
