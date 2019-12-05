@@ -6,7 +6,9 @@ import { AlertPlatforme } from "./ui/alert-platforme/alert-platforme.vue";
 import { ButtonColorPlatforme } from "./ui/button-color-platforme/button-color-platforme.vue";
 import { ButtonIconPlatforme } from "./ui/button-icon-platforme/button-icon-platforme.vue";
 import { ButtonPlatforme } from "./ui/button-platforme/button-platforme.vue";
+import { CheckboxPlatforme } from "./ui/checkbox-platforme/checkbox-platforme.vue";
 import { ContainerPlatforme } from "./ui/container-platforme/container-platforme.vue";
+import { DropdownPlatforme } from "./ui/dropdown-platforme/dropdown-platforme.vue";
 import { SelectPlatforme } from "./ui/select-platforme/select-platforme.vue";
 import { FilterPlatforme } from "./ui/filter-platforme/filter-platforme.vue";
 import { FooterPlatforme } from "./ui/footer-platforme/footer-platforme.vue";
@@ -15,6 +17,7 @@ import { ImagePlatforme } from "./ui/image-platforme/image-platforme.vue";
 import { InputPlatforme } from "./ui/input-platforme/input-platforme.vue";
 import { LabelPlatforme } from "./ui/label-platforme/label-platforme.vue";
 import { LightboxPlatforme } from "./ui/lightbox-platforme/lightbox-platforme.vue";
+import { LineupPlatforme } from "./ui/lineup-platforme/lineup-platforme.vue";
 import { LinkPlatforme } from "./ui/link-platforme/link-platforme.vue";
 import { ListingPlatforme } from "./ui/listing-platforme/listing-platforme.vue";
 import { LoaderPlatforme } from "./ui/loader-platforme/loader-platforme.vue";
@@ -24,7 +27,9 @@ import { ProgressBarPlatforme } from "./ui/progress-bar-platforme/progress-bar-p
 import { SearchPlatforme } from "./ui/search-platforme/search-platforme.vue";
 import { SidePlatforme } from "./ui/side-platforme/side-platforme.vue";
 import { TablePlatforme } from "./ui/table-platforme/table-platforme.vue";
+import { TabsPlatforme } from "./ui/tabs-platforme/tabs-platforme.vue";
 import { TagPlatforme } from "./ui/tag-platforme/tag-platforme.vue";
+import { TextareaPlatforme } from "./ui/textarea-platforme/textarea-platforme.vue";
 
 const install = Vue => {
     if (!Vue.options.components.RouterLink) {
@@ -37,7 +42,9 @@ const install = Vue => {
     Vue.component("button-color-platforme", ButtonColorPlatforme);
     Vue.component("button-icon-platforme", ButtonIconPlatforme);
     Vue.component("button-platforme", ButtonPlatforme);
+    Vue.component("checkbox-platforme", CheckboxPlatforme);
     Vue.component("container-platforme", ContainerPlatforme);
+    Vue.component("dropdown-platforme", DropdownPlatforme);
     Vue.component("select-platforme", SelectPlatforme);
     Vue.component("filter-platforme", FilterPlatforme);
     Vue.component("footer-platforme", FooterPlatforme);
@@ -48,6 +55,7 @@ const install = Vue => {
     Vue.component("loader-platforme", LoaderPlatforme);
     Vue.component("modal-platforme", ModalPlatforme);
     Vue.component("lightbox-platforme", LightboxPlatforme);
+    Vue.component("lineup-platforme", LineupPlatforme);
     Vue.component("link-platforme", LinkPlatforme);
     Vue.component("listing-platforme", ListingPlatforme);
     Vue.component("overlay-platforme", OverlayPlatforme);
@@ -55,7 +63,9 @@ const install = Vue => {
     Vue.component("search-platforme", SearchPlatforme);
     Vue.component("side-platforme", SidePlatforme);
     Vue.component("table-platforme", TablePlatforme);
+    Vue.component("tabs-platforme", TabsPlatforme);
     Vue.component("tag-platforme", TagPlatforme);
+    Vue.component("textarea-platforme", TextareaPlatforme);
 };
 
 export {
@@ -67,7 +77,9 @@ export {
     ButtonColorPlatforme,
     ButtonIconPlatforme,
     ButtonPlatforme,
+    CheckboxPlatforme,
     ContainerPlatforme,
+    DropdownPlatforme,
     SelectPlatforme,
     FilterPlatforme,
     FooterPlatforme,
@@ -78,6 +90,7 @@ export {
     LoaderPlatforme,
     ModalPlatforme,
     LightboxPlatforme,
+    LineupPlatforme,
     LinkPlatforme,
     ListingPlatforme,
     OverlayPlatforme,
@@ -85,7 +98,9 @@ export {
     SearchPlatforme,
     SidePlatforme,
     TablePlatforme,
+    TabsPlatforme,
     TagPlatforme,
+    TextareaPlatforme,
     install
 };
 

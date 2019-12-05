@@ -77,7 +77,7 @@
 }
 
 .button-color:hover {
-    background-color: #4d4d4d;
+    background-color: #5d5d5d;
 }
 
 .button-color:active {

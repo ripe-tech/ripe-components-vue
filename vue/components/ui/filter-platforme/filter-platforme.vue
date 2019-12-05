@@ -14,6 +14,16 @@
                     <slot name="item" v-bind:item="item" v-bind:index="index" />
                 </template>
             </table-platforme>
+            <lineup-platforme v-bind:items="items" v-bind:values="values">
+                <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
+                <template
+                    v-for="slot in Object.keys($scopedSlots)"
+                    v-bind:slot="slot"
+                    slot-scope="scope"
+                >
+                    <slot v-bind:name="slot" v-bind="scope" />
+                </template>
+            </lineup-platforme>
             <div class="empty-message" v-if="items.length === 0 && loading === false">
                 <slot name="empty">
                     <h1>No items found</h1>
@@ -26,6 +36,18 @@
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
+
+body.mobile .table {
+    display: none;
+}
+
+.lineup {
+    display: none;
+}
+
+body.mobile .lineup {
+    display: block;
+}
 
 .loader {
     display: none;
@@ -58,6 +80,10 @@ export const FilterPlatforme = {
         columns: {
             type: Array,
             default: () => []
+        },
+        values: {
+            type: Array,
+            required: true
         },
         limit: {
             type: Number,

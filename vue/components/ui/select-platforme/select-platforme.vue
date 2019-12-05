@@ -27,24 +27,26 @@
             >
                 {{ selectedOption.text }}
             </div>
-            <div class="dropdown" v-bind:style="dropdownStyle" v-show="visible">
-                <div class="options-container">
-                    <slot
-                        v-bind:name="`option-${option.id}`"
-                        v-bind:option="option"
-                        v-for="(option, idx) in options"
-                    >
-                        <div
-                            class="option"
-                            v-bind:class="{ keyboardHighlighted: idx === selectedIdx }"
-                            v-bind:key="option.id"
-                            v-on:click="onDropdownSelect(option.id)"
+            <slot v-bind:name="`dropdown-slot`">
+                <div class="dropdown" v-bind:style="dropdownStyle" v-show="dropdownVisible">
+                    <div class="options-container">
+                        <slot
+                            v-bind:name="`option-${option.id}`"
+                            v-bind:option="option"
+                            v-for="(option, idx) in options"
                         >
-                            {{ option.text }}
-                        </div>
-                    </slot>
+                            <div
+                                class="option"
+                                v-bind:class="{ keyboardHighlighted: idx === selectedIdx }"
+                                v-bind:key="option.id"
+                                v-on:click="onDropdownSelect(option.id)"
+                            >
+                                {{ option.text }}
+                            </div>
+                        </slot>
+                    </div>
                 </div>
-            </div>
+            </slot>
         </div>
         <select
             class="mobile-dropdown"
@@ -90,7 +92,7 @@ body.tablet .select-platforme .mobile-dropdown {
 }
 
 .select-platforme .dropdown-container .dropdown-button,
-.select-platforme .dropdown-container .dropdown {
+.select-platforme .dropdown-container ::v-deep .dropdown {
     color: $dark;
     cursor: pointer;
     font-family: $font-family;
@@ -133,7 +135,7 @@ body.tablet .select-platforme .mobile-dropdown {
     outline: none;
 }
 
-.select-platforme .dropdown-container .dropdown {
+.select-platforme .dropdown-container ::v-deep .dropdown {
     background-color: $white;
     border: solid 1px $dropdown-border-color;
     border-radius: 6px;
@@ -142,18 +144,18 @@ body.tablet .select-platforme .mobile-dropdown {
     position: absolute;
 }
 
-.select-platforme .dropdown-container .dropdown .options-container ::v-deep .option {
+.select-platforme .dropdown-container ::v-deep .dropdown .options-container .option {
     height: 32px;
     line-height: 32px;
     padding: 0px 0px 0px 16px;
 }
 
-.select-platforme .dropdown-container .dropdown .options-container ::v-deep .option.keyboardHighlighted,
-.select-platforme .dropdown-container .dropdown .options-container ::v-deep .option:hover {
+.select-platforme .dropdown-container ::v-deep .dropdown .options-container .option.keyboardHighlighted,
+.select-platforme .dropdown-container ::v-deep .dropdown .options-container .option:hover {
     background-color: $lightgrey;
 }
 
-.select-platforme .dropdown-container .dropdown .options-container ::v-deep .option:active {
+.select-platforme .dropdown-container ::v-deep .dropdown .options-container .option:active {
     background-color: $option-pressed-background-color;
 }
 
@@ -165,7 +167,7 @@ body.tablet .select-platforme .mobile-dropdown {
 
 <script>
 // TODO
-// Use select-platforme
+// Fix dropdown-slot not inheriting width
 
 export const SelectPlatforme = {
     name: "select-platforme",
@@ -181,6 +183,10 @@ export const SelectPlatforme = {
         value: {
             type: String,
             default: null
+        },
+        dropdownVisible: {
+            type: Boolean,
+            default: false
         },
         placeholder: {
             type: String,
@@ -209,7 +215,6 @@ export const SelectPlatforme = {
     },
     data: function() {
         return {
-            visible: false,
             selectedOption: this.getOption(this.value),
             selectedIdx: null
         };
@@ -281,13 +286,13 @@ export const SelectPlatforme = {
             if (!this.disabled) this.toggleDropdown();
         },
         openDropdown() {
-            this.visible = true;
+            this.$emit("update:dropdownVisible", true);
         },
         closeDropdown() {
-            this.visible = false;
+            this.$emit("update:dropdownVisible", false);
         },
         toggleDropdown() {
-            this.visible = !this.visible;
+            this.$emit("update:dropdownVisible", !this.dropdownVisible);
         },
         getOption(optionID) {
             return optionID === "placeholder_id"
