@@ -36,7 +36,9 @@
                     v-bind:global-events="false"
                     v-on:update:visible="value => onVisible(value)"
                     v-on:item-clicked="value => onDropdownSelect(value.id)"
-                />
+                >
+                    <slot v-bind:slot="'item-option_4'"></slot>
+                </dropdown-platforme>
         </div>
         <select
             class="mobile-dropdown"

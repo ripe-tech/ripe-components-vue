@@ -10,7 +10,7 @@
                     v-bind:key="item.id"
                     v-on:click.stop="click(item)"
                 >
-                    <slot v-bind:item="item">
+                    <slot v-bind:name="`item-${item.id}`" v-bind:item="item">
                         <router-link v-bind:to="item.link" v-if="item.link">
                             {{ item.text }}
                         </router-link>

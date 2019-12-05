@@ -215,6 +215,9 @@ storiesOf("Components", module)
                     v-on:update:value="value => onValue(value)"
                     v-on:update:dropdownVisible="value => onDropdownVisible(value)"
                 >
+                <div>
+                    Special Option
+                </div>
                 </select-platforme>
             </div>
             `
