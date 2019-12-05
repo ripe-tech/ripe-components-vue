@@ -158,24 +158,27 @@ storiesOf("Components", module)
             return {
                 options: [
                     {
-                        id: "option_1",
-                        text: "A"
+                        id: "text_1",
+                        text: "Text 1"
                     },
                     {
-                        id: "option_2",
-                        text: "B"
+                        id: "text_2",
+                        text: "Text 2"
                     },
                     {
-                        id: "option_3",
-                        text: "C"
+                        id: "text_3",
+                        text: "Text 3"
                     },
                     {
-                        id: "option_4",
-                        text: "D"
+                        id: "text_platforme",
+                        text: "Text Platforme",
+                        href: "https://www.platforme.com"
                     },
                     {
-                        id: "option_5",
-                        text: "E"
+                        id: "text_platforme_blank",
+                        text: "Text Platforme Blank",
+                        href: "https://www.platforme.com",
+                        target: "_blank"
                     }
                 ],
                 value: this.initialValue,
