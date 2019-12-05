@@ -92,7 +92,7 @@ body.tablet .select-platforme .mobile-dropdown {
 }
 
 .select-platforme .dropdown-container .dropdown-button,
-.select-platforme .dropdown-container .dropdown {
+.select-platforme .dropdown-container ::v-deep .dropdown {
     color: $dark;
     cursor: pointer;
     font-family: $font-family;
@@ -135,7 +135,7 @@ body.tablet .select-platforme .mobile-dropdown {
     outline: none;
 }
 
-.select-platforme .dropdown-container .dropdown {
+.select-platforme .dropdown-container ::v-deep .dropdown {
     background-color: $white;
     border: solid 1px $dropdown-border-color;
     border-radius: 6px;
@@ -144,18 +144,18 @@ body.tablet .select-platforme .mobile-dropdown {
     position: absolute;
 }
 
-.select-platforme .dropdown-container .dropdown .options-container ::v-deep .option {
+.select-platforme .dropdown-container ::v-deep .dropdown .options-container .option {
     height: 32px;
     line-height: 32px;
     padding: 0px 0px 0px 16px;
 }
 
-.select-platforme .dropdown-container .dropdown .options-container ::v-deep .option.keyboardHighlighted,
-.select-platforme .dropdown-container .dropdown .options-container ::v-deep .option:hover {
+.select-platforme .dropdown-container ::v-deep .dropdown .options-container .option.keyboardHighlighted,
+.select-platforme .dropdown-container ::v-deep .dropdown .options-container .option:hover {
     background-color: $lightgrey;
 }
 
-.select-platforme .dropdown-container .dropdown .options-container ::v-deep .option:active {
+.select-platforme .dropdown-container ::v-deep .dropdown .options-container .option:active {
     background-color: $option-pressed-background-color;
 }
 
