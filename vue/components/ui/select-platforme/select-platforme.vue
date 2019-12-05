@@ -28,38 +28,13 @@
                 {{ selectedOption.text }}
             </div>
             <slot v-bind:name="`dropdown-slot`">
-
-
-                <div class="teste">
-                    <dropdown-platforme
-                        v-bind:items="options"
-                        v-bind:visible="dropdownVisible"
-                        v-bind:global-events="false"
-                        v-on:update:visible="value => onVisible(value)"
-                        v-on:item-clicked="value => onDropdownSelect(value.id)"
-                    />
-                </div>
-                <!--
-                <div class="dropdown" v-bind:style="dropdownStyle" v-show="dropdownVisible">
-                    <div class="options-container">
-                        <slot
-                            v-bind:name="`option-${option.id}`"
-                            v-bind:option="option"
-                            v-for="(option, idx) in options"
-                        >
-                            <div
-                                class="option"
-                                v-bind:class="{ keyboardHighlighted: idx === selectedIdx }"
-                                v-bind:key="option.id"
-                                v-on:click="onDropdownSelect(option.id)"
-                            >
-                                {{ option.text }}
-                            </div>
-                        </slot>
-                    </div>
-                </div>
-                -->
-
+                <dropdown-platforme
+                    v-bind:items="options"
+                    v-bind:visible="dropdownVisible"
+                    v-bind:global-events="false"
+                    v-on:update:visible="value => onVisible(value)"
+                    v-on:item-clicked="value => onDropdownSelect(value.id)"
+                />
             </slot>
         </div>
         <select
