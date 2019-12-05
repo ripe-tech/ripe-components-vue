@@ -87,7 +87,7 @@
 .button-color.button-color-secondary,
 .button-color.button-color-white {
     background-color: $white;
-    border: solid 1px #e4e8f0;
+    border: 1px solid #e4e8f0;
     color: $grey;
     transition: opacity 0.15s ease-in-out;
 }
@@ -108,7 +108,7 @@
 
 .button-color.button-color-red {
     background-color: $red;
-    border: solid 1px $red;
+    border: 1px solid $red;
     color: $white;
 }
 
