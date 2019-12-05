@@ -65,20 +65,25 @@ storiesOf("Components", module)
                         text: "E"
                     }
                 ],
-                value: this.initialValue
+                value: this.initialValue,
+                dropdownVisible: this.initialDropdownVisible
             };
         },
         watch: {
             initialValue() {
                 this.value = this.initialValue;
+            },
+            initialDropdownVisible() {
+                this.dropdownVisible = this.initialDropdownVisible;
             }
         },
         methods: {
             onValue(value) {
                 this.value = value;
             },
-            optionChanged(value) {
-                this.selectedOption = value;
+            onDropdownVisible(value) {
+                this.dropdownVisible = value;
+                console.log("Visible: "+value);
             }
         },
         template: `
@@ -94,7 +99,10 @@ storiesOf("Components", module)
                     v-bind:allow-text-selection="allowTextSelection"
                     v-bind:options="options"
                     v-bind:value="value"
-                    v-on:update:value="value => onValue(value)">
+                    v-bind:dropdown-visible="dropdownVisible"
+                    v-on:update:value="value => onValue(value)"
+                    v-on:update:dropdownVisible="dropdownVisible => onDropdownVisible(dropdownVisible)"
+                >
                     <template v-slot:option-option_4>
                         <p style="color: blue">Special option</p>
                     </template>
@@ -179,9 +187,6 @@ storiesOf("Components", module)
         methods: {
             onValue(value) {
                 this.value = value;
-            },
-            optionChanged(value) {
-                this.selectedOption = value;
             }
         },
         template: `

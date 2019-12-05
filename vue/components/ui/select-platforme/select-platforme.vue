@@ -27,7 +27,7 @@
             >
                 {{ selectedOption.text }}
             </div>
-            <div class="dropdown" v-bind:style="dropdownStyle" v-show="visible">
+            <div class="dropdown" v-bind:style="dropdownStyle" v-show="dropdownVisible">
                 <slot v-bind:name="`dropdown-slot`">
                 <div class="options-container">
                     <slot
@@ -185,6 +185,10 @@ export const SelectPlatforme = {
             type: String,
             default: null
         },
+        dropdownVisible: {
+            type: Boolean,
+            default: false 
+        },
         placeholder: {
             type: String,
             required: true
@@ -212,7 +216,6 @@ export const SelectPlatforme = {
     },
     data: function() {
         return {
-            visible: false,
             selectedOption: this.getOption(this.value),
             selectedIdx: null
         };
@@ -284,13 +287,13 @@ export const SelectPlatforme = {
             if (!this.disabled) this.toggleDropdown();
         },
         openDropdown() {
-            this.visible = true;
+            this.$emit("update:dropdownVisible", true);
         },
         closeDropdown() {
-            this.visible = false;
+            this.$emit("update:dropdownVisible", false);
         },
         toggleDropdown() {
-            this.visible = !this.visible;
+            this.$emit("update:dropdownVisible", !this.dropdownVisible);
         },
         getOption(optionID) {
             return optionID === "placeholder_id"
