@@ -1,5 +1,5 @@
 <template>
-    <div class="select-platforme" v-bind:style="dropdownStyle">
+    <div class="select-platforme" v-bind:style="selectStyle">
         <global-events v-on:click="onClick($event)" />
         <label-platforme
             class="label-field"
@@ -31,6 +31,7 @@
                 <dropdown-platforme
                     class="dropdown"
                     v-bind:items="options"
+                    v-bind:width="dropdownWidth"
                     v-bind:visible="dropdownVisible"
                     v-bind:global-events="false"
                     v-on:update:visible="value => onVisible(value)"
@@ -203,7 +204,8 @@ export const SelectPlatforme = {
     data: function() {
         return {
             selectedOption: this.getOption(this.value),
-            selectedIdx: null
+            selectedIdx: null,
+            dropdownWidth: this.width
         };
     },
     watch: {
@@ -313,7 +315,7 @@ export const SelectPlatforme = {
         }
     },
     computed: {
-        dropdownStyle() {
+        selectStyle() {
             const base = {
                 width: `${this.width}px`
             };

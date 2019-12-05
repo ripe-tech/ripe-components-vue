@@ -1,8 +1,8 @@
 <template>
-    <div class="dropdown-container">
+    <div class="dropdown-container" >
         <global-events v-on:keydown.esc="handleGlobal()" />
         <transition name="slide">
-            <ul class="dropdown-platforme" v-show="isVisible">
+            <ul class="dropdown-platforme" v-bind:style="dropdownStyle" v-show="isVisible">
                 <li
                     class="dropdown-item"
                     v-bind:class="{ separator: item.separator }"
@@ -141,6 +141,10 @@ export const DropdownPlatforme = {
             type: Array,
             default: () => []
         },
+        width: {
+            type: Number,
+            default: null
+        },
         visible: {
             type: Boolean,
             default: true
@@ -163,6 +167,13 @@ export const DropdownPlatforme = {
     computed: {
         isVisible() {
             return this.visible && this.visibleData;
+        },
+        dropdownStyle() {
+            const base = {
+                width: `${this.width - 2}px`
+            };
+
+            return base;
         }
     },
     created: function() {
