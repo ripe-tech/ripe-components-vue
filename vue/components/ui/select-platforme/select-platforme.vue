@@ -27,7 +27,6 @@
             >
                 {{ selectedOption.text }}
             </div>
-            <slot v-bind:name="`dropdown-slot`">
                 <dropdown-platforme
                     class="dropdown"
                     v-bind:items="options"
@@ -38,7 +37,6 @@
                     v-on:update:visible="value => onVisible(value)"
                     v-on:item-clicked="value => onDropdownSelect(value.id)"
                 />
-            </slot>
         </div>
         <select
             class="mobile-dropdown"
