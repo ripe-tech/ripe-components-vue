@@ -32,6 +32,7 @@
                     class="dropdown"
                     v-bind:items="options"
                     v-bind:width="dropdownWidth"
+                    v-bind:selectedIdx="selectedIdx"
                     v-bind:visible="dropdownVisible"
                     v-bind:global-events="false"
                     v-on:update:visible="value => onVisible(value)"

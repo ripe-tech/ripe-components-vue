@@ -5,8 +5,8 @@
             <ul class="dropdown-platforme" v-bind:style="dropdownStyle" v-show="isVisible">
                 <li
                     class="dropdown-item"
-                    v-bind:class="{ separator: item.separator }"
-                    v-for="item in items.filter(v => v !== null && v !== undefined)"
+                    v-bind:class="{ separator: item.separator, keyboardHighlighted: idx === selectedIdx }"
+                    v-for="(item, idx) in items.filter(v => v !== null && v !== undefined)"
                     v-bind:key="item.id"
                     v-on:click.stop="click(item)"
                 >
@@ -144,6 +144,12 @@ export const DropdownPlatforme = {
         width: {
             type: Number,
             default: null
+        },
+        selectedIdx: {
+            type: Number,
+            default: null
+        },
+        selectedIdx: {
         },
         visible: {
             type: Boolean,
