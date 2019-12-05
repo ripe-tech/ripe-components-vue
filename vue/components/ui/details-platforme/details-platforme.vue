@@ -139,10 +139,6 @@ body.mobile .container-platforme .container-header {
     padding: 20px 15px 17px 15px;
 }
 
-.container-platforme.loading .container-header .title {
-    margin: 0px 0px 0px 0px;
-}
-
 body.tablet .container-platforme,
 body.mobile .container-platforme {
     border: none;
@@ -182,7 +178,7 @@ body.mobile .details-container.invisible ::v-deep .header-buttons {
 
 body.tablet .details,
 body.mobile .details {
-    padding: 0px 0px 0px 0px;
+    padding: 0px 0px 20px 0px;
 }
 
 .details-container .header-buttons {
@@ -205,10 +201,6 @@ body.mobile .details-container .header-buttons {
     transition: none;
     width: 100%;
     z-index: 10;
-}
-
-.details-container .header-buttons > div {
-    display: inline-block;
 }
 
 .details-container .header-buttons span {
@@ -242,10 +234,6 @@ body.mobile .details-container .header-buttons {
     opacity: 1;
 }
 
-.header-buttons > .header-button > p {
-    display: none;
-}
-
 body.tablet .header-buttons > .header-button,
 body.mobile .header-buttons > .header-button {
     display: inline-block;
@@ -257,6 +245,10 @@ body.mobile .header-buttons > .header-button {
 body.tablet .header-buttons > .header-button.invisible,
 body.mobile .header-buttons > .header-button.invisible {
     opacity: 0;
+}
+
+.header-buttons > .header-button > p {
+    display: none;
 }
 
 body.tablet .header-buttons > .header-button > p,
