@@ -28,6 +28,18 @@
                 {{ selectedOption.text }}
             </div>
             <slot v-bind:name="`dropdown-slot`">
+
+
+                <div class="teste">
+                    <dropdown-platforme
+                        v-bind:items="options"
+                        v-bind:visible="dropdownVisible"
+                        v-bind:global-events="false"
+                        v-on:update:visible="value => onVisible(value)"
+                        v-on:item-clicked="value => onDropdownSelect(value.id)"
+                    />
+                </div>
+                <!--
                 <div class="dropdown" v-bind:style="dropdownStyle" v-show="dropdownVisible">
                     <div class="options-container">
                         <slot
@@ -46,6 +58,8 @@
                         </slot>
                     </div>
                 </div>
+                -->
+
             </slot>
         </div>
         <select
@@ -265,6 +279,9 @@ export const SelectPlatforme = {
             if (this.disabled) return;
 
             this.selectOptionById(optionId);
+        },
+        onVisible(value){
+            this.$emit("update:dropdownVisible", value);
         },
         selectOptionById(optionId) {
             this.$emit("update:value", optionId);
