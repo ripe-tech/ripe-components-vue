@@ -167,8 +167,7 @@ body.tablet .select-platforme .mobile-dropdown {
 
 <script>
 // TODO
-// Use make dropdown-platforme visible work?
-// Make dropdown-platforme width correct
+// Fix dropdown-slot not inheriting width
 
 export const SelectPlatforme = {
     name: "select-platforme",
