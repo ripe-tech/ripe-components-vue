@@ -37,7 +37,7 @@
                     v-on:update:visible="value => onVisible(value)"
                     v-on:item-clicked="value => onDropdownSelect(value.id)"
                 >
-                    <slot v-bind:slot="'item-option_4'"></slot>
+                    <slot />
                 </dropdown-platforme>
         </div>
         <select
