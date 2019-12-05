@@ -1,12 +1,18 @@
+const DEVICE_CLASS = "device";
+const MOUSE_CLASS = "mouse";
+const TOUCH_CLASS = "touch";
+
 const DESKTOP_SIZE_CLASS = "desktop";
 const TABLET_SIZE_CLASS = "tablet";
 const MOBILE_SIZE_CLASS = "mobile";
-const TABLET_WIDTH = 768;
-const MOBILE_WIDTH = 420;
 
 const DESKTOP_DEVICE_CLASS = "desktop-device";
 const TABLET_DEVICE_CLASS = "tablet-device";
 const MOBILE_DEVICE_CLASS = "mobile-device";
+
+const TABLET_WIDTH = 768;
+const MOBILE_WIDTH = 420;
+
 const TABLET_DEVICE_REGEX = new RegExp(
     /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino|android|ipad|playbook|silk/i
 );
@@ -17,10 +23,6 @@ const MOBILE_DEVICE_REGEX = new RegExp(
     /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i
 );
 
-const DEVICE_CLASS = "device";
-const MOUSE_CLASS = "mouse";
-const TOUCH_CLASS = "touch";
-
 const deviceMixin = {
     methods: {
         initDevice() {
@@ -28,9 +30,11 @@ const deviceMixin = {
             this.updateSize();
             this.updateDevice();
         },
+        listenSize() {
+            window.addEventListener("resize", () => this.updateSize());
+        },
         updateDevice() {
             const body = document.body;
-
             const isMobile = this._isMobileDevice(navigator.userAgent);
             const isTablet = this._isTabletDevice(navigator.userAgent);
             const isDevice = isMobile || isTablet;
@@ -43,9 +47,6 @@ const deviceMixin = {
             isDesktop && body.classList.add(DESKTOP_DEVICE_CLASS);
             isTouch && body.classList.add(TOUCH_CLASS);
             isMouse && body.classList.add(MOUSE_CLASS);
-        },
-        listenSize() {
-            window.addEventListener("resize", () => this.updateSize());
         },
         updateSize() {
             const width = window.innerWidth;
