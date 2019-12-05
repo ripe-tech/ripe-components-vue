@@ -24,13 +24,13 @@ storiesOf("Input", module)
                 default: boolean("Disabled", false)
             },
             initialWidth: {
-                default: number("Initial Width", 250)
+                default: number("Initial Width", 280)
             },
             initialHeight: {
-                default: number("Initial Height", 78)
+                default: number("Initial Height", 98)
             },
             resize: {
-                default: boolean("Resize", true)
+                default: boolean("Resize", false)
             }
         },
         data: function() {

@@ -104,15 +104,15 @@ export const TextareaPlatforme = {
         },
         initialWidth: {
             type: Number,
-            default: 250
+            default: 280
         },
         initialHeight: {
             type: Number,
-            default: 78
+            default: 98
         },
         resize: {
             type: Boolean,
-            default: true
+            default: false
         }
     },
     methods: {
