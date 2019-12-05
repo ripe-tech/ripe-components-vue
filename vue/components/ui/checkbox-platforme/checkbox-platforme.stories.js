@@ -16,6 +16,15 @@ storiesOf("Input", module)
             },
             footer: {
                 default: text("Footer", "End footer")
+            },
+            errorText: {
+                default: text("Error Text", "")
+            },
+            warning: {
+                default: text("Warning", "")
+            },
+            success: {
+                default: text("Success", "")
             }
         },
         data: function() {
@@ -65,16 +74,23 @@ storiesOf("Input", module)
         },
         template: `
             <div>
-                <checkbox-platforme
-                    v-on:update:values="setValues"                 
-                    v-bind:items="items"
-                    v-bind:values="values"
-                    v-bind:disabled="disabled"
+                <form-input-platforme
+                    v-bind:id="id"
                     v-bind:header="header"
                     v-bind:footer="footer"
-                    v-bind:error="error"
-                />
+                    v-bind:error="errorText"
+                    v-bind:warning="warning"
+                    v-bind:success="success"
+                >
+                    <checkbox-platforme
+                        v-on:update:values="setValues"                 
+                        v-bind:items="items"
+                        v-bind:values="values"
+                        v-bind:disabled="disabled"
+                        v-bind:error="error"
+                    />
+                </form-input-platforme>
                 <p>Values: {{ values }}</p>
             </div>
-            `
+        `
     }));

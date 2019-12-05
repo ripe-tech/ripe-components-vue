@@ -1,5 +1,6 @@
 <template>
     <textarea
+        class="textarea"
         v-bind:style="textAreaStyle"
         v-bind:value="value"
         v-bind:placeholder="placeholder"
@@ -12,7 +13,7 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.textarea textarea {
+.textarea {
     background-color: #f9fafd;
     border: 1px solid $light-white;
     border-radius: 6px;
@@ -27,23 +28,23 @@
     padding: 8px 8px 8px 8px;
 }
 
-.textarea textarea::placeholder {
+.textarea::placeholder {
     color: $medium-grey;
     font-family: $font-family;
 }
 
-.textarea textarea:disabled,
-.textarea textarea:disabled:hover {
+.textarea:disabled,
+.textarea:disabled:hover {
     background-color: #f6f7f9;
     color: $medium-grey;
 }
 
-.textarea textarea:hover {
+.textarea:hover {
     background-color: $light-grey;
     border: 1px solid #dfe1e5;
 }
 
-.textarea textarea:focus {
+.textarea:focus {
     background-color: $white;
     border: 2px solid $aqcua-blue;
     color: $black;
@@ -64,14 +65,6 @@ export const TextareaPlatforme = {
             default: null
         },
         placeholder: {
-            type: String,
-            default: null
-        },
-        header: {
-            type: String,
-            default: null
-        },
-        footer: {
             type: String,
             default: null
         },
