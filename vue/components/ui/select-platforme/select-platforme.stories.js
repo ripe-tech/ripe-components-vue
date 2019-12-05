@@ -83,7 +83,6 @@ storiesOf("Components", module)
             },
             onDropdownVisible(value) {
                 this.dropdownVisible = value;
-                console.log("Visible: "+value);
             }
         },
         template: `
@@ -147,9 +146,6 @@ storiesOf("Components", module)
             },
             allowTextSelection: {
                 default: boolean("Allow text selection", false)
-            },
-            visible: {
-                default: boolean("Visible", true)
             }
         },
         data: function() {
@@ -176,17 +172,24 @@ storiesOf("Components", module)
                         text: "E"
                     }
                 ],
-                value: this.initialValue
+                value: this.initialValue,
+                dropdownVisible: this.initialDropdownVisible
             };
         },
         watch: {
             initialValue() {
                 this.value = this.initialValue;
+            },
+            initialDropdownVisible() {
+                this.dropdownVisible = this.initialDropdownVisible;
             }
         },
         methods: {
             onValue(value) {
                 this.value = value;
+            },
+            onDropdownVisible(value) {
+                this.dropdownVisible = value;
             }
         },
         template: `
@@ -202,10 +205,16 @@ storiesOf("Components", module)
                     v-bind:allow-text-selection="allowTextSelection"
                     v-bind:options="options"
                     v-bind:value="value"
-                    v-on:update:value="value => onValue(value)" 
+                    v-bind:dropdown-visible="dropdownVisible"
+                    v-on:update:value="value => onValue(value)"
+                    v-on:update:dropdownVisible="dropdownVisible => onDropdownVisible(dropdownVisible)"
                 >
                     <template v-slot:dropdown-slot>
-                        <dropdown-platforme v-bind:items="options" v-bind:visible="visible"/>
+                        <dropdown-platforme
+                            v-bind:items="options"
+                            v-bind:visible="dropdownVisible"
+                            v-bind:global-events="false"
+                        />
                     </template>
                     <template v-slot:option-option_4>
                         <p style="color: blue">Special option</p>
