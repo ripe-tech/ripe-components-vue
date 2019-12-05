@@ -1,116 +1,182 @@
 <template>
-    <container-platforme class="details-platforme">
-        <div class="container-header">
-            <div class="header-buttons">
-                <slot name="header-buttons">
-                    <div class="header-button">
-                        <span class="button-stats" v-on:click="onStatsClick">
-                            <img src="~./assets/stats.svg" />
-                        </span>
-                        <p>Orders</p>
-                    </div>
-                    <div class="header-button">
-                        <span class="button-previous" v-on:click="onPreviousClick">
-                            <img src="~./assets/chevron-left.svg" />
-                        </span>
-                        <p>Previous</p>
-                    </div>
-                    <div class="header-button">
-                        <span class="button-next" v-on:click="onNextClick">
-                            <img src="~./assets/chevron-right.svg" />
-                        </span>
-                        <p>Next</p>
-                    </div>
-                    <div class="header-button">
-                        <span class="button-refresh" v-on:click="onRefreshClick">
-                            <img src="~./assets/refresh.svg" />
-                        </span>
-                        <p>Refresh</p>
-                    </div>
-                    <div
-                        class="header-button"
-                        v-bind:class="{ invisible: optionsItems.length === 0 && loaded !== false }"
-                    >
-                        <span
-                            class="button-options"
-                            v-bind:class="{ active: optionsVisible }"
-                            v-on:click.stop="options"
+    <div class="details-platforme">
+        <container-platforme class="loading" v-if="!loaded">
+            <div class="container-header">
+                <h1 class="title" v-if="invalid">{{ invalidTitle }}</h1>
+                <h1 class="title" v-else>{{ title }}</h1>
+            </div>
+            <h1 class="order-invalid" v-if="invalid">
+                {{ invalidMsg }}
+            </h1>
+            <loader-platforme loader="line-scale" v-bind:count="5" v-else />
+        </container-platforme>
+        <container-platforme class="details-container" v-bind:class="{ invisible: !loaded }">
+            <div class="container-header">
+                <div class="header-buttons">
+                    <slot name="header-buttons">
+                        <div class="header-button">
+                            <span class="button-stats" v-on:click="onStatsClick">
+                                <img src="~./assets/stats.svg" />
+                            </span>
+                            <p>Orders</p>
+                        </div>
+                        <div class="header-button">
+                            <span class="button-previous" v-on:click="onPreviousClick">
+                                <img src="~./assets/chevron-left.svg" />
+                            </span>
+                            <p>Previous</p>
+                        </div>
+                        <div class="header-button">
+                            <span class="button-next" v-on:click="onNextClick">
+                                <img src="~./assets/chevron-right.svg" />
+                            </span>
+                            <p>Next</p>
+                        </div>
+                        <div class="header-button">
+                            <span class="button-refresh" v-on:click="onRefreshClick">
+                                <img src="~./assets/refresh.svg" />
+                            </span>
+                            <p>Refresh</p>
+                        </div>
+                        <div
+                            class="header-button"
+                            v-bind:class="{
+                                invisible: optionsItems.length === 0 && loaded !== false
+                            }"
                         >
-                            <img src="~./assets/options.svg" />
-                            <dropdown-platforme
-                                v-bind:items="optionsItems"
-                                v-bind:visible.sync="optionsVisible"
-                                v-on:item-clicked="onOptionsItemClick"
-                            />
-                        </span>
-                        <p>Status</p>
-                    </div>
-                </slot>
-            </div>
-            <h1 class="title">{{ title }}</h1>
-            <div class="header-center">
-                <slot name="header-center" />
-            </div>
-        </div>
-        <div class="details">
-            <div class="details-column details-column-image" v-if="imageUrl">
-                <lightbox-platforme
-                    class="image"
-                    v-bind:visible="lightBoxVisible"
-                    v-bind:image="imageUrl"
-                    v-on:click="onLightboxClick"
-                    v-on:close="onLightboxClose"
-                />
-                <slot name="image-footer" />
-            </div>
-            <div class="details-column" v-for="column in columns" v-bind:key="column">
-                <slot v-bind:name="value.id" v-for="value in getColumnValues(column - 1)">
-                    <div
-                        class="label-value"
-                        v-bind:class="[value.id, `label-value-${value.id}`]"
-                        v-bind:key="value.id"
-                    >
-                        <div class="label-value-component label">
-                            <slot v-bind:name="`label-${value.id}`">
-                                <p class="label-text">
-                                    <slot v-bind:name="`label-${value.id}-text`">
-                                        {{ value.label || value.id | capitalize || value.name }}
-                                    </slot>
-                                </p>
-                            </slot>
+                            <span
+                                class="button-options"
+                                v-bind:class="{ active: optionsVisible }"
+                                v-on:click.stop="options"
+                            >
+                                <img src="~./assets/options.svg" />
+                                <dropdown-platforme
+                                    v-bind:items="optionsItems"
+                                    v-bind:visible.sync="optionsVisible"
+                                    v-on:item-clicked="onOptionsItemClick"
+                                />
+                            </span>
+                            <p>Status</p>
                         </div>
-                        <div class="label-value-component value">
-                            <slot v-bind:name="`value-${value.id}`">
-                                <p class="value-text">
-                                    <slot v-bind:name="`value-${value.id}-text`">
-                                        {{ item[value.value] || item[value.id] || "-" }}
-                                    </slot>
-                                </p>
-                            </slot>
-                        </div>
-                        <div class="label-value-component note">
-                            <slot v-bind:name="`note-${value.id}`">
-                                <p
-                                    class="note-text"
-                                    v-if="value.note || $slots[`note-${value.id}-text`]"
-                                >
-                                    <slot v-bind:name="`note-${value.id}-text`">
-                                        {{ item[value.note] }}
-                                    </slot>
-                                </p>
-                            </slot>
-                        </div>
-                    </div>
-                </slot>
+                    </slot>
+                </div>
+                <h1 class="title">{{ title }}</h1>
+                <div class="header-center">
+                    <slot name="header-center" />
+                </div>
             </div>
-        </div>
-    </container-platforme>
+            <div class="details">
+                <div class="details-column details-column-image" v-if="imageUrl">
+                    <lightbox-platforme
+                        class="image"
+                        v-bind:visible="lightBoxVisible"
+                        v-bind:image="imageUrl"
+                        v-on:click="onLightboxClick"
+                        v-on:close="onLightboxClose"
+                    />
+                    <slot name="image-footer" />
+                </div>
+                <div class="details-column" v-for="column in columns" v-bind:key="column">
+                    <slot v-bind:name="value.id" v-for="value in getColumnValues(column - 1)">
+                        <div
+                            class="label-value"
+                            v-bind:class="[value.id, `label-value-${value.id}`]"
+                            v-bind:key="value.id"
+                        >
+                            <div class="label-value-component label">
+                                <slot v-bind:name="`label-${value.id}`">
+                                    <p class="label-text">
+                                        <slot v-bind:name="`label-${value.id}-text`">
+                                            {{ value.label || value.id | capitalize || value.name }}
+                                        </slot>
+                                    </p>
+                                </slot>
+                            </div>
+                            <div class="label-value-component value">
+                                <slot v-bind:name="`value-${value.id}`">
+                                    <p class="value-text">
+                                        <slot v-bind:name="`value-${value.id}-text`">
+                                            {{ item[value.value] || item[value.id] || "-" }}
+                                        </slot>
+                                    </p>
+                                </slot>
+                            </div>
+                            <div class="label-value-component note">
+                                <slot v-bind:name="`note-${value.id}`">
+                                    <p
+                                        class="note-text"
+                                        v-if="value.note || $slots[`note-${value.id}-text`]"
+                                    >
+                                        <slot v-bind:name="`note-${value.id}-text`">
+                                            {{ item[value.note] }}
+                                        </slot>
+                                    </p>
+                                </slot>
+                            </div>
+                        </div>
+                    </slot>
+                </div>
+            </div>
+        </container-platforme>
+    </div>
 </template>
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.details-platforme {
+.container-platforme.loading {
+    min-height: 430px;
+}
+
+.container-platforme .container-header {
+    font-size: 0px;
+    padding: 24px 24px 20px 24px;
+    text-align: left;
+}
+
+body.tablet .container-platforme .container-header,
+body.mobile .container-platforme .container-header {
+    padding: 20px 15px 17px 15px;
+}
+
+.container-platforme.loading .container-header .title {
+    margin: 0px 0px 0px 0px;
+}
+
+body.tablet .container-platforme,
+body.mobile .container-platforme {
+    border: none;
+    border-bottom: 1px solid #f2f2f2;
+    border-top: 1px solid #f2f2f2;
+    box-shadow: none;
+    margin: 0px 0px 0px 0px;
+}
+
+.loader,
+.order-invalid {
+    border-top: 1px solid transparent;
+    height: 38px;
+    line-height: 38px;
+    margin: 0px 0px 0px 0px;
+    padding-top: 140px;
+}
+
+.details-container.invisible {
+    border-width: 0px 0px 0px 0px;
+    height: 0px;
+    margin: 0px 0px 0px 0px;
+    min-height: 0px;
+    padding: 0px 0px 0px 0px;
+    visibility: hidden;
+    width: 0px;
+}
+
+body.tablet .details-container.invisible ::v-deep .header-buttons,
+body.mobile .details-container.invisible ::v-deep .header-buttons {
+    visibility: visible;
+}
+
+.details-container {
     min-height: 430px;
 }
 
@@ -119,32 +185,15 @@ body.mobile .details {
     padding: 0px 0px 0px 0px;
 }
 
-body.tablet .details-platforme,
-body.mobile .details-platforme {
-    border: none;
-    margin: 0px;
-}
-
-.details-platforme .container-header {
-    font-size: 0px;
-    padding: 24px 24px 20px 24px;
-    text-align: left;
-}
-
-body.tablet .details-platforme .container-header,
-body.mobile .details-platforme .container-header {
-    padding: 20px 15px 17px 15px;
-}
-
-.details-platforme .header-buttons {
+.details-container .header-buttons {
     float: right;
     font-size: 0px;
     margin-top: -12px;
     user-select: none;
 }
 
-body.tablet .details-platforme .header-buttons,
-body.mobile .details-platforme .header-buttons {
+body.tablet .details-container .header-buttons,
+body.mobile .details-container .header-buttons {
     animation: none;
     background-color: #ffffff;
     border-top: 1px solid #e4e8f0;
@@ -158,11 +207,11 @@ body.mobile .details-platforme .header-buttons {
     z-index: 10;
 }
 
-.details-platforme .header-buttons > div {
+.details-container .header-buttons > div {
     display: inline-block;
 }
 
-.details-platforme .header-buttons span {
+.details-container .header-buttons span {
     border-radius: 36px 36px 36px 36px;
     cursor: pointer;
     display: inline-block;
@@ -176,20 +225,20 @@ body.mobile .details-platforme .header-buttons {
     width: 36px;
 }
 
-.details-platforme .header-buttons span:hover {
+.details-container .header-buttons span:hover {
     background-color: #f2f2f2;
 }
 
-.details-platforme .header-buttons span.active,
-.details-platforme .header-buttons span:active {
+.details-container .header-buttons span.active,
+.details-container .header-buttons span:active {
     background-color: #e2e2e2;
 }
 
-.details-platforme .header-buttons span > img {
+.details-container .header-buttons span > img {
     opacity: 0.5;
 }
 
-.details-platforme .header-buttons span:hover > img {
+.details-container .header-buttons span:hover > img {
     opacity: 1;
 }
 
@@ -230,7 +279,7 @@ body.mobile .order-dates {
     display: none;
 }
 
-.details-platforme .button-options ::v-deep .dropdown-platforme {
+.details-container .button-options ::v-deep .dropdown-platforme {
     font-size: 13px;
     left: auto;
     margin-left: -142px;
@@ -246,11 +295,11 @@ body.mobile .button-options ::v-deep .dropdown-platforme {
     right: 0;
 }
 
-.details-platforme .button-options ::v-deep .dropdown-platforme > .dropdown-item {
+.details-container .button-options ::v-deep .dropdown-platforme > .dropdown-item {
     line-height: 32px;
 }
 
-.details-platforme .title {
+.container-platforme .title {
     color: $lower-color;
     display: inline-block;
     font-size: 26px;
@@ -262,25 +311,25 @@ body.mobile .button-options ::v-deep .dropdown-platforme {
     width: 40%;
 }
 
-body.tablet .details-platforme .title,
-body.mobile .details-platforme .title {
+body.tablet .container-platforme .title,
+body.mobile .container-platforme .title {
     width: 100%;
 }
 
-.details-platforme .header-center {
+.details-container .header-center {
     display: inline-block;
     font-size: 0px;
     vertical-align: top;
     width: 30%;
 }
 
-.details-platforme .details {
+.details-container .details {
     font-size: 0px;
     padding: 0px 24px 40px 24px;
     text-align: left;
 }
 
-.details-platforme .details-column {
+.details-container .details-column {
     box-sizing: border-box;
     display: inline-block;
     padding: 20px 20px 0px 0px;
@@ -288,15 +337,15 @@ body.mobile .details-platforme .title {
     width: 15%;
 }
 
-body.tablet .details-platforme .details-column,
-body.mobile .details-platforme .details-column {
+body.tablet .details-container .details-column,
+body.mobile .details-container .details-column {
     padding: 0px 0px 0px 20px;
     text-align: center;
     width: 50%;
 }
 
-body.tablet .details-platforme .details-column .order-report,
-body.mobile .details-platforme .details-column .order-report {
+body.tablet .details-container .details-column .order-report,
+body.mobile .details-container .details-column .order-report {
     background-color: #1d2631;
     border-radius: 6px;
     box-sizing: border-box;
@@ -305,7 +354,7 @@ body.mobile .details-platforme .details-column .order-report {
     width: 100%;
 }
 
-.details-platforme .details-column.details-column-image {
+.details-container .details-column.details-column-image {
     padding: 0px 10% 0px 0px;
     text-align: center;
     width: 40%;
@@ -317,11 +366,11 @@ body.mobile .details-column.details-column-image {
     width: 100%;
 }
 
-.details-platforme .details-column:last-child {
+.details-container .details-column:last-child {
     padding-right: 0px;
 }
 
-.details-platforme .details-column .image {
+.details-container .details-column .image {
     display: block;
     height: 250px;
     margin: 0px auto 0px auto;
@@ -331,7 +380,7 @@ body.mobile .details-column.details-column-image {
     width: auto;
 }
 
-.details-platforme .label-value {
+.details-container .label-value {
     font-weight: 600;
     max-width: 100%;
     overflow: hidden;
@@ -339,33 +388,33 @@ body.mobile .details-column.details-column-image {
     text-transform: uppercase;
 }
 
-.details-platforme .details-column .label-value {
+.details-container .details-column .label-value {
     min-height: 100px;
 }
 
-body.tablet .details-platforme .details-column .label-value,
-body.mobile .details-platforme .details-column .label-value {
+body.tablet .details-container .details-column .label-value,
+body.mobile .details-container .details-column .label-value {
     height: 80px;
     margin-top: 30px;
     min-height: unset;
     overflow: hidden;
 }
 
-.details-platforme .details-column .label-value:last-child {
+.details-container .details-column .label-value:last-child {
     min-height: auto;
 }
 
-.details-platforme ::v-deep .label-value .label-value-component > p {
+.details-container ::v-deep .label-value .label-value-component > p {
     margin: 0px 0px 0px 0px;
 }
 
-.details-platforme ::v-deep .label-value .label {
+.details-container ::v-deep .label-value .label {
     color: $label-color;
     font-size: 12px;
     margin: 0px 0px 6px 0px;
 }
 
-.details-platforme ::v-deep .label-value .value {
+.details-container ::v-deep .label-value .value {
     font-size: 14px;
     line-height: 18px;
     margin: 6px 0px 0px 0px;
@@ -373,7 +422,7 @@ body.mobile .details-platforme .details-column .label-value {
     word-break: break-word;
 }
 
-.details-platforme ::v-deep .label-value .note {
+.details-container ::v-deep .label-value .note {
     color: $label-color;
     font-size: 11px;
     line-height: 16px;
@@ -413,6 +462,22 @@ export const DetailsPlatforme = {
         loaded: {
             type: Boolean,
             default: null
+        },
+        id: {
+            type: Number,
+            default: null
+        },
+        invalid: {
+            type: Boolean,
+            default: null
+        },
+        invalidTitle: {
+            type: String,
+            default: "Order not found"
+        },
+        invalidMsg: {
+            type: String,
+            default: "Our apologies, it looks like this order doesn't exist"
         }
     },
     data: function() {
