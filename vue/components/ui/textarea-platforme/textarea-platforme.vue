@@ -1,30 +1,16 @@
 <template>
-    <div class="textarea">
-        <label-platforme class="header" v-bind:text="header" v-bind:for="id" v-if="header" />
-        <textarea
-            v-bind:style="textAreaStyle"
-            v-bind:value="value"
-            v-bind:placeholder="placeholder"
-            v-bind:disabled="disabled"
-            v-bind:id="id"
-            v-on:input="onInput($event.target.value)"
-        />
-        <label-platforme
-            class="footer"
-            v-bind:size="'small'"
-            v-bind:text="footer"
-            v-bind:for="id"
-            v-if="footer"
-        />
-    </div>
+    <textarea
+        v-bind:style="textAreaStyle"
+        v-bind:value="value"
+        v-bind:placeholder="placeholder"
+        v-bind:disabled="disabled"
+        v-bind:id="id"
+        v-on:input="onInput($event.target.value)"
+    />
 </template>
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
-
-.textarea .label {
-    display: block;
-}
 
 .textarea textarea {
     background-color: #f9fafd;
@@ -62,15 +48,6 @@
     border: 2px solid $aqcua-blue;
     color: $black;
     padding: 7px 7px 7px 7px;
-}
-
-.textarea .header {
-    margin-bottom: 7px;
-}
-
-.textarea .footer {
-    color: $medium-grey;
-    margin-top: 4px;
 }
 </style>
 

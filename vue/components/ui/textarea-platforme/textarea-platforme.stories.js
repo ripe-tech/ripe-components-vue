@@ -45,18 +45,18 @@ storiesOf("Input", module)
         },
         template: `
             <div>
-                <textarea-platforme
-                    v-bind:id="id"
-                    v-bind:value="value"
-                    v-on:update:value="value => onValue(value)"
-                    v-bind:placeholder="placeholder"
-                    v-bind:header="header"
-                    v-bind:footer="footer"
-                    v-bind:disabled="disabled"
-                    v-bind:initial-width="initialWidth"
-                    v-bind:initial-height="initialHeight"
-                    v-bind:resize="resize"
-                />
+                <form-input-platforme v-bind:id="id" v-bind:header="header" v-bind:footer="footer">
+                    <textarea-platforme
+                        v-bind:id="id"
+                        v-bind:value="value"
+                        v-on:update:value="value => onValue(value)"
+                        v-bind:placeholder="placeholder"
+                        v-bind:disabled="disabled"
+                        v-bind:initial-width="initialWidth"
+                        v-bind:initial-height="initialHeight"
+                        v-bind:resize="resize"
+                    />
+                </form-input-platforme>
                 <p>Text: {{ textAreaText }}</p>
             </div>`
     }));
