@@ -158,27 +158,24 @@ storiesOf("Components", module)
             return {
                 options: [
                     {
-                        id: "text_1",
-                        text: "Text 1"
+                        id: "option_1",
+                        text: "A"
                     },
                     {
-                        id: "text_2",
-                        text: "Text 2"
+                        id: "option_2",
+                        text: "B"
                     },
                     {
-                        id: "text_3",
-                        text: "Text 3"
+                        id: "option_3",
+                        text: "C"
                     },
                     {
-                        id: "text_platforme",
-                        text: "Text Platforme",
-                        href: "https://www.platforme.com"
+                        id: "option_4",
+                        text: "D"
                     },
                     {
-                        id: "text_platforme_blank",
-                        text: "Text Platforme Blank",
-                        href: "https://www.platforme.com",
-                        target: "_blank"
+                        id: "option_5",
+                        text: "E"
                     }
                 ],
                 value: this.initialValue,
@@ -218,17 +215,6 @@ storiesOf("Components", module)
                     v-on:update:value="value => onValue(value)"
                     v-on:update:dropdownVisible="value => onDropdownVisible(value)"
                 >
-                    <template v-slot:dropdown-slot>  
-                    <dropdown-platforme
-                            v-bind:items="options"
-                            v-bind:visible="dropdownVisible"
-                            v-bind:global-events="false"
-                            v-on:update:visible="value => onDropdownVisible(value)"
-                        />
-                    </template>
-                    <template v-slot:option-option_4>
-                        <p style="color: blue">Special option</p>
-                    </template>
                 </select-platforme>
             </div>
             `

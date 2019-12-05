@@ -149,8 +149,6 @@ export const DropdownPlatforme = {
             type: Number,
             default: null
         },
-        selectedIdx: {
-        },
         visible: {
             type: Boolean,
             default: true
