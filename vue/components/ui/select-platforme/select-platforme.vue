@@ -29,22 +29,22 @@
             </div>
             <div class="dropdown" v-bind:style="dropdownStyle" v-show="dropdownVisible">
                 <slot v-bind:name="`dropdown-slot`">
-                <div class="options-container">
-                    <slot
-                        v-bind:name="`option-${option.id}`"
-                        v-bind:option="option"
-                        v-for="(option, idx) in options"
-                    >
-                        <div
-                            class="option"
-                            v-bind:class="{ keyboardHighlighted: idx === selectedIdx }"
-                            v-bind:key="option.id"
-                            v-on:click="onDropdownSelect(option.id)"
+                    <div class="options-container">
+                        <slot
+                            v-bind:name="`option-${option.id}`"
+                            v-bind:option="option"
+                            v-for="(option, idx) in options"
                         >
-                            {{ option.text }}
-                        </div>
-                    </slot>
-                </div>
+                            <div
+                                class="option"
+                                v-bind:class="{ keyboardHighlighted: idx === selectedIdx }"
+                                v-bind:key="option.id"
+                                v-on:click="onDropdownSelect(option.id)"
+                            >
+                                {{ option.text }}
+                            </div>
+                        </slot>
+                    </div>
                 </slot>
             </div>
         </div>
@@ -186,7 +186,7 @@ export const SelectPlatforme = {
         },
         dropdownVisible: {
             type: Boolean,
-            default: false 
+            default: false
         },
         placeholder: {
             type: String,
