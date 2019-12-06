@@ -130,8 +130,8 @@ body.tablet .select-platforme .mobile-dropdown {
     background-color: red; //TODO change to a grey darker than $light-grey
 }
 
-.select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item.optionHighlight, //TODO add lighter color
-.select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item:hover {
+.select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item.optionHighlight //TODO add lighter color
+{
     background-color: $light-grey;
 }
 
