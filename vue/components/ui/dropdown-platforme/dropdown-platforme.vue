@@ -176,9 +176,9 @@ export const DropdownPlatforme = {
             return this.visible && this.visibleData;
         },
         dropdownStyle() {
-            const base = {
-                width: `${this.width - 2}px`
-            };
+            const base = {};
+
+            if(this.width) base.width = `${this.width - 2}px`;
 
             return base;
         }
