@@ -19,7 +19,7 @@
                     v-bind:id="`${id}-${item.id}`"
                     v-bind:key="item.id"
                     v-on:click.stop="click(item)"
-                    v-on:mouseover="onMouseOver(index)"
+                    v-on:mousemove="onMouseOver(index)"
                 >
                     <slot v-bind:name="`item-${item.id}`" v-bind:item="item">
                         <router-link v-bind:to="item.link" v-if="item.link">
