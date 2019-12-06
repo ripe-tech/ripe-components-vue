@@ -1,16 +1,22 @@
 <template>
     <div class="details-platforme">
+        <global-events
+            v-on:keydown.j="onKeyJ"
+            v-on:keydown.k="onKeyK"
+            v-on:keydown.left="onKeyLeft"
+            v-on:keydown.right="onKeyRight"
+        />
         <container-platforme class="loading" v-if="!loaded">
             <div class="container-header">
                 <h1 class="title" v-if="invalid">{{ invalidTitle }}</h1>
                 <h1 class="title" v-else>{{ title }}</h1>
             </div>
-            <h1 class="order-invalid" v-if="invalid">
+            <h1 class="item-invalid" v-if="invalid">
                 {{ invalidMsg }}
             </h1>
             <loader-platforme loader="line-scale" v-bind:count="5" v-else />
         </container-platforme>
-        <container-platforme class="details-container" v-bind:class="{ invisible: !loaded }">
+        <container-platforme class="details-container">
             <div class="container-header">
                 <div class="header-buttons">
                     <slot name="header-buttons">
@@ -18,7 +24,7 @@
                             <span class="button-stats" v-on:click="onStatsClick">
                                 <img src="~./assets/stats.svg" />
                             </span>
-                            <p>Orders</p>
+                            <p>{{ name }}s</p>
                         </div>
                         <div class="header-button">
                             <span class="button-previous" v-on:click="onPreviousClick">
@@ -60,12 +66,12 @@
                         </div>
                     </slot>
                 </div>
-                <h1 class="title">{{ title }}</h1>
-                <div class="header-center">
+                <h1 class="title" v-if="loaded">{{ title }}</h1>
+                <div class="header-center" v-if="loaded">
                     <slot name="header-center" />
                 </div>
             </div>
-            <div class="details">
+            <div class="details" v-if="loaded">
                 <div class="details-column details-column-image" v-if="imageUrl">
                     <lightbox-platforme
                         class="image"
@@ -76,7 +82,7 @@
                     />
                     <slot name="image-footer" />
                 </div>
-                <div class="details-column" v-for="column in columns" v-bind:key="column">
+                <div class="details-column" v-for="column in nrColumns" v-bind:key="column">
                     <slot v-bind:name="value.id" v-for="value in getColumnValues(column - 1)">
                         <div
                             class="label-value"
@@ -87,7 +93,7 @@
                                 <slot v-bind:name="`label-${value.id}`">
                                     <p class="label-text">
                                         <slot v-bind:name="`label-${value.id}-text`">
-                                            {{ value.label || value.id | capitalize || value.name }}
+                                            {{ value.label || value.id || value.name }}
                                         </slot>
                                     </p>
                                 </slot>
@@ -124,8 +130,30 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
+.container-platforme {
+    min-height: 430px;
+}
+
 .container-platforme.loading {
     min-height: 430px;
+}
+
+body.tablet .container-platforme,
+body.mobile .container-platforme {
+    border: none;
+    border-bottom: 1px solid $light-grey;
+    border-top: 1px solid $light-grey;
+    box-shadow: none;
+    margin: 0px 0px 0px 0px;
+}
+
+.container-platforme .loader,
+.container-platforme .item-invalid {
+    border-top: 1px solid transparent;
+    height: 38px;
+    line-height: 38px;
+    margin: 0px 0px 0px 0px;
+    padding-top: 140px;
 }
 
 .container-platforme .container-header {
@@ -139,60 +167,19 @@ body.mobile .container-platforme .container-header {
     padding: 20px 15px 17px 15px;
 }
 
-body.tablet .container-platforme,
-body.mobile .container-platforme {
-    border: none;
-    border-bottom: 1px solid #f2f2f2;
-    border-top: 1px solid #f2f2f2;
-    box-shadow: none;
-    margin: 0px 0px 0px 0px;
-}
-
-.loader,
-.order-invalid {
-    border-top: 1px solid transparent;
-    height: 38px;
-    line-height: 38px;
-    margin: 0px 0px 0px 0px;
-    padding-top: 140px;
-}
-
-.details-container.invisible {
-    border-width: 0px 0px 0px 0px;
-    height: 0px;
-    margin: 0px 0px 0px 0px;
-    min-height: 0px;
-    padding: 0px 0px 0px 0px;
-    visibility: hidden;
-    width: 0px;
-}
-
-body.tablet .details-container.invisible ::v-deep .header-buttons,
-body.mobile .details-container.invisible ::v-deep .header-buttons {
-    visibility: visible;
-}
-
-.details-container {
-    min-height: 430px;
-}
-
-body.tablet .details,
-body.mobile .details {
-    padding: 0px 0px 20px 0px;
-}
-
-.details-container .header-buttons {
+.container-platforme .container-header .header-buttons {
     float: right;
     font-size: 0px;
     margin-top: -12px;
+    text-transform: capitalize;
     user-select: none;
 }
 
-body.tablet .details-container .header-buttons,
-body.mobile .details-container .header-buttons {
+body.tablet .container-platforme .container-header .header-buttons,
+body.mobile .container-platforme .container-header .header-buttons {
     animation: none;
-    background-color: #ffffff;
-    border-top: 1px solid #e4e8f0;
+    background-color: $white;
+    border-top: 1px solid $light-white;
     bottom: 0px;
     display: flex;
     left: 0px;
@@ -203,7 +190,24 @@ body.mobile .details-container .header-buttons {
     z-index: 10;
 }
 
-.details-container .header-buttons span {
+.container-platforme .header-buttons .header-button {
+    display: inline-block;
+}
+
+body.tablet .container-platforme .header-buttons > .header-button,
+body.mobile .container-platforme .header-buttons > .header-button {
+    display: inline-block;
+    flex: auto;
+    margin: 8px 0px 8px 0px;
+    text-align: center;
+}
+
+body.tablet .header-buttons > .header-button.invisible,
+body.mobile .header-buttons > .header-button.invisible {
+    opacity: 0;
+}
+
+.container-platforme .header-buttons .header-button > span {
     border-radius: 36px 36px 36px 36px;
     cursor: pointer;
     display: inline-block;
@@ -217,61 +221,48 @@ body.mobile .details-container .header-buttons {
     width: 36px;
 }
 
-.details-container .header-buttons span:hover {
-    background-color: #f2f2f2;
+.container-platforme .header-buttons .header-button > span:hover {
+    background-color: $light-grey;
 }
 
-.details-container .header-buttons span.active,
-.details-container .header-buttons span:active {
-    background-color: #e2e2e2;
+.container-platforme .header-buttons .header-button > span.active,
+.container-platforme .header-buttons .header-button > span:active {
+    background-color: $dark-grey;
 }
 
-.details-container .header-buttons span > img {
+.container-platforme .header-buttons .header-button > span > img {
     opacity: 0.5;
 }
 
-.details-container .header-buttons span:hover > img {
+body.tablet .container-platforme .header-buttons > .header-button > span > img,
+body.mobile .container-platforme .header-buttons > .header-button > span > img {
+    height: 20px;
+    width: 20px;
+}
+
+.container-platforme .header-buttons .header-button > span:hover > img {
     opacity: 1;
 }
 
-body.tablet .header-buttons > .header-button,
-body.mobile .header-buttons > .header-button {
-    display: inline-block;
-    flex: auto;
-    margin: 8px 0px 8px 0px;
-    text-align: center;
-}
-
-body.tablet .header-buttons > .header-button.invisible,
-body.mobile .header-buttons > .header-button.invisible {
-    opacity: 0;
-}
-
-.header-buttons > .header-button > p {
+.container-platforme .header-buttons > .header-button > p {
     display: none;
 }
 
-body.tablet .header-buttons > .header-button > p,
-body.mobile .header-buttons > .header-button > p {
-    color: #57626e;
+body.tablet .container-platforme .header-buttons > .header-button > p,
+body.mobile .container-platforme .header-buttons > .header-button > p {
+    color: $grey;
     display: block;
     font-size: 11px;
     letter-spacing: 0.28px;
     margin: 0px 0px 0px 0px;
 }
 
-body.tablet .header-buttons > .header-button > span > img,
-body.mobile .header-buttons > .header-button > span > img {
-    height: 20px;
-    width: 20px;
+body.tablet .container-platforme .details,
+body.mobile .container-platforme .details {
+    padding: 0px 0px 20px 0px;
 }
 
-body.tablet .order-dates,
-body.mobile .order-dates {
-    display: none;
-}
-
-.details-container .button-options ::v-deep .dropdown-platforme {
+.container-platforme .button-options ::v-deep .dropdown-platforme {
     font-size: 13px;
     left: auto;
     margin-left: -142px;
@@ -287,7 +278,7 @@ body.mobile .button-options ::v-deep .dropdown-platforme {
     right: 0;
 }
 
-.details-container .button-options ::v-deep .dropdown-platforme > .dropdown-item {
+.container-platforme .button-options ::v-deep .dropdown-platforme > .dropdown-item {
     line-height: 32px;
 }
 
@@ -308,20 +299,20 @@ body.mobile .container-platforme .title {
     width: 100%;
 }
 
-.details-container .header-center {
+.container-platforme .header-center {
     display: inline-block;
     font-size: 0px;
     vertical-align: top;
     width: 30%;
 }
 
-.details-container .details {
+.container-platforme .details {
     font-size: 0px;
     padding: 0px 24px 40px 24px;
     text-align: left;
 }
 
-.details-container .details-column {
+.container-platforme .details-column {
     box-sizing: border-box;
     display: inline-block;
     padding: 20px 20px 0px 0px;
@@ -329,24 +320,14 @@ body.mobile .container-platforme .title {
     width: 15%;
 }
 
-body.tablet .details-container .details-column,
-body.mobile .details-container .details-column {
+body.tablet .container-platforme .details-column,
+body.mobile .container-platforme .details-column {
     padding: 0px 0px 0px 20px;
     text-align: center;
     width: 50%;
 }
 
-body.tablet .details-container .details-column .order-report,
-body.mobile .details-container .details-column .order-report {
-    background-color: #1d2631;
-    border-radius: 6px;
-    box-sizing: border-box;
-    margin: 5px 0px 25px 0px;
-    padding: 18px 14px 18px 14px;
-    width: 100%;
-}
-
-.details-container .details-column.details-column-image {
+.container-platforme .details-column.details-column-image {
     padding: 0px 10% 0px 0px;
     text-align: center;
     width: 40%;
@@ -358,11 +339,11 @@ body.mobile .details-column.details-column-image {
     width: 100%;
 }
 
-.details-container .details-column:last-child {
+.container-platforme .details-column:last-child {
     padding-right: 0px;
 }
 
-.details-container .details-column .image {
+.container-platforme .details-column .image {
     display: block;
     height: 250px;
     margin: 0px auto 0px auto;
@@ -372,7 +353,7 @@ body.mobile .details-column.details-column-image {
     width: auto;
 }
 
-.details-container .label-value {
+.container-platforme .label-value {
     font-weight: 600;
     max-width: 100%;
     overflow: hidden;
@@ -380,33 +361,33 @@ body.mobile .details-column.details-column-image {
     text-transform: uppercase;
 }
 
-.details-container .details-column .label-value {
+.container-platforme .details-column .label-value {
     min-height: 100px;
 }
 
-body.tablet .details-container .details-column .label-value,
-body.mobile .details-container .details-column .label-value {
+body.tablet .container-platforme .details-column .label-value,
+body.mobile .container-platforme .details-column .label-value {
     height: 80px;
     margin-top: 30px;
     min-height: unset;
     overflow: hidden;
 }
 
-.details-container .details-column .label-value:last-child {
+.container-platforme .details-column .label-value:last-child {
     min-height: auto;
 }
 
-.details-container ::v-deep .label-value .label-value-component > p {
+.container-platforme ::v-deep .label-value .label-value-component > p {
     margin: 0px 0px 0px 0px;
 }
 
-.details-container ::v-deep .label-value .label {
+.container-platforme ::v-deep .label-value .label {
     color: $label-color;
     font-size: 12px;
     margin: 0px 0px 6px 0px;
 }
 
-.details-container ::v-deep .label-value .value {
+.container-platforme ::v-deep .label-value .value {
     font-size: 14px;
     line-height: 18px;
     margin: 6px 0px 0px 0px;
@@ -414,7 +395,7 @@ body.mobile .details-container .details-column .label-value {
     word-break: break-word;
 }
 
-.details-container ::v-deep .label-value .note {
+.container-platforme ::v-deep .label-value .note {
     color: $label-color;
     font-size: 11px;
     line-height: 16px;
@@ -427,11 +408,27 @@ body.mobile .details-container .details-column .label-value {
 export const DetailsPlatforme = {
     name: "details-platforme",
     props: {
+        name: {
+            type: String,
+            required: true
+        },
         title: {
             type: String,
             required: true
         },
-        columns: {
+        invalidTitle: {
+            type: String,
+            default: "Item not found"
+        },
+        invalidMsg: {
+            type: String,
+            default: "Our apologies, it looks like this item doesn't exist"
+        },
+        optionsItems: {
+            type: Array,
+            default: () => []
+        },
+        nrColumns: {
             type: Number,
             default: 4
         },
@@ -443,33 +440,29 @@ export const DetailsPlatforme = {
             type: String,
             default: null
         },
-        optionsItems: {
-            type: Array,
-            default: () => []
+        context: {
+            type: Object,
+            required: true
         },
         item: {
             type: Object,
             required: true
         },
+        index: {
+            type: Number,
+            required: true
+        },
         loaded: {
             type: Boolean,
-            default: null
-        },
-        id: {
-            type: Number,
-            default: null
+            required: true
         },
         invalid: {
             type: Boolean,
-            default: null
+            default: false
         },
-        invalidTitle: {
-            type: String,
-            default: "Order not found"
-        },
-        invalidMsg: {
-            type: String,
-            default: "Our apologies, it looks like this order doesn't exist"
+        getItems: {
+            type: Function,
+            required: true
         }
     },
     data: function() {
@@ -480,7 +473,7 @@ export const DetailsPlatforme = {
     },
     methods: {
         getValueColumn(valueIndex) {
-            return valueIndex % this.columns;
+            return valueIndex % this.nrColumns;
         },
         getColumnValues(columnIndex) {
             return this.values.filter((value, index) => this.getValueColumn(index) === columnIndex);
@@ -489,6 +482,48 @@ export const DetailsPlatforme = {
             const status = this.optionsVisible;
             document.body.click();
             this.optionsVisible = !status;
+        },
+        async previousItem() {
+            if (this.loading || !this.index) {
+                this.triggerAnimation("slide-left-fake");
+                return;
+            }
+            const [previous] = await this.getItems({
+                ...this.context,
+                start: this.index - 1,
+                limit: 1
+            });
+            previous
+                ? this.showItem(previous, this.index - 1)
+                : this.triggerAnimation("slide-left-fake");
+        },
+        async nextItem() {
+            if (this.loading || this.index === undefined) {
+                this.triggerAnimation("slide-right-fake");
+                return;
+            }
+            const [next] = await this.getItems({
+                ...this.context,
+                start: this.index + 1,
+                limit: 1
+            });
+            next ? this.showItem(next, this.index + 1) : this.triggerAnimation("slide-right-fake");
+        },
+        showItem(item, index) {
+            this.loading = true;
+            const transition = index > this.index ? "slide-left" : "slide-right";
+            this.$router.push(
+                {
+                    name: this.name,
+                    params: { id: item.id, transition: transition },
+                    query: { ...this.$route.query, index }
+                },
+                () => (this.loading = false),
+                () => (this.loading = false)
+            );
+        },
+        triggerAnimation(animation) {
+            this.$emit("animation", animation);
         },
         onOptionsItemClick(item) {
             this.$emit(`click:${item.event}`);
@@ -503,13 +538,25 @@ export const DetailsPlatforme = {
             this.$emit("click:stats");
         },
         onPreviousClick() {
-            this.$emit("click:previous");
+            this.previousItem();
         },
         onNextClick() {
-            this.$emit("click:next");
+            this.nextItem();
         },
         onRefreshClick() {
             this.$emit("click:refresh");
+        },
+        onKeyJ() {
+            this.nextItem();
+        },
+        onKeyK() {
+            this.previousItem();
+        },
+        onKeyLeft() {
+            this.previousItem();
+        },
+        onKeyRight() {
+            this.nextItem();
         }
     }
 };
