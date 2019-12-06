@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, number } from "@storybook/addon-knobs";
+import { withKnobs, text, number, boolean } from "@storybook/addon-knobs";
 
 import "./details-platforme.stories.css";
 
@@ -11,6 +11,10 @@ storiesOf("Data", module)
                 type: String,
                 default: text("title", "Details")
             },
+            itemName: {
+                type: String,
+                default: text("Item Name", "Order")
+            },
             columns: {
                 type: Number,
                 default: number("Columns", 4)
@@ -18,6 +22,10 @@ storiesOf("Data", module)
             imageUrl: {
                 type: String,
                 default: text("Image URL", "https://cdn.platforme.com/images/platforme.square.png")
+            },
+            loaded: {
+                type: Boolean,
+                default: boolean("Item Loaded", true)
             },
             item: {
                 type: Object,
@@ -59,6 +67,8 @@ storiesOf("Data", module)
                 v-bind:image-url="imageUrl"
                 v-bind:options-items="optionsItems"
                 v-bind:item="item"
+                v-bind:name="itemName"
+                v-bind:loaded="loaded"
             >
                 <template v-slot:shirt>
                     <p>Custom entry</p>
