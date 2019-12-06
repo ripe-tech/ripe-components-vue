@@ -32,11 +32,11 @@ a.link.link-small {
 }
 
 a.link.link-black {
-    color: $black;
+    color: $dark-blue;
 }
 
 a.link.link-black:hover {
-    border-color: $black;
+    border-color: $dark-blue;
 }
 
 a.link.link-grey {

@@ -40,7 +40,7 @@
 
 .tag,
 .tag.tag-black {
-    background-color: $black;
+    background-color: $dark-blue;
     color: $white;
 }
 
@@ -75,7 +75,7 @@
 }
 
 .tag.tag-black {
-    background-color: $black;
+    background-color: $dark-blue;
     color: $white;
 }
 

@@ -60,7 +60,7 @@
 .textarea textarea:focus {
     background-color: $white;
     border: 2px solid $aqcua-blue;
-    color: $black;
+    color: $dark-blue;
     padding: 7px 7px 7px 7px;
 }
 

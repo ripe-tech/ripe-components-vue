@@ -58,8 +58,8 @@
 }
 
 .tabs > .header > .tab-label.active {
-    border-bottom-color: $black;
-    color: $black;
+    border-bottom-color: $dark-blue;
+    color: $dark-blue;
 }
 
 .tabs > .header > .tab-label:focus {
@@ -68,8 +68,8 @@
 
 .tabs > .header > .tab-label:focus,
 .tabs > .header > .tab-label:hover {
-    border-bottom-color: $black;
-    color: $black;
+    border-bottom-color: $dark-blue;
+    color: $dark-blue;
 }
 
 .tabs > .header > .tab-label.disabled,
