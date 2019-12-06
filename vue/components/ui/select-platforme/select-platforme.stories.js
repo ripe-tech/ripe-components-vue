@@ -105,9 +105,6 @@ storiesOf("Components", module)
                     v-on:update:value="value => onValue(value)"
                     v-on:update:dropdownVisible="value => onDropdownVisible(value)"
                 >
-                    <template v-slot:option-option_4>
-                        <p style="color: blue">Special option</p>
-                    </template>
                 </select-platforme>
                 <p>Selected option: {{ value }}</p>
             </div>
@@ -216,12 +213,13 @@ storiesOf("Components", module)
                     v-on:update:dropdownVisible="value => onDropdownVisible(value)"
                 >
                     <template v-bind:slot="'item-option_4'">
-                        <div>Special Option</div>
+                        <div style="color:chocolate">Special Option</div>
                     </template>
                     <template v-bind:slot="'item-option_5'">
-                        <div>Another Special Option</div>
+                        <div style="color:green">Another Special Option</div>
                     </template>
                 </select-platforme>
+                <p>Selected option: {{ value }}</p>
             </div>
             `
     }));
