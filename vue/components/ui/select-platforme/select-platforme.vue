@@ -315,20 +315,10 @@ export const SelectPlatforme = {
             const selectedElementDistance =
                 (this.highlightedIndex + 1) * highlightedElement.offsetHeight;
 
-            // Opcao 1
-            /* 
-            if (this.highlightedIndex === 1) dropdownElement.scrollTop = 0;
-            else if (dropdownElement.offsetHeight < selectedElementDistance)
-                { dropdownElement.scrollTop = selectedElementDistance - dropdownElement.offsetHeight; }
-            */
-
-            // Opcao2
-            /**/
             dropdownElement.scrollTop =
                 dropdownElement.offsetHeight < selectedElementDistance
                     ? selectedElementDistance - dropdownElement.offsetHeight
-                    : 0;
-            
+                    : 0;       
         }
     },
     computed: {
