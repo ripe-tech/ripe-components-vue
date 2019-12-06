@@ -25,7 +25,7 @@
                 v-bind:items="options"
                 v-bind:width="width"
                 v-bind:max-height="maxHeight"
-                v-bind:selected-idx="selectedIdx"
+                v-bind:highlighted-index="highlightedIndex"
                 v-bind:visible="dropdownVisible"
                 v-bind:global-events="false"
                 v-on:update:visible="value => onVisible(value)"
@@ -124,7 +124,7 @@ body.tablet .select-platforme .mobile-dropdown {
     padding: 0px 0px 0px 0px;
 }
 
-.select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item.keyboardHighlighted,
+.select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item.optionHighlighted,
 .select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item:hover {
     background-color: $light-grey;
 }
@@ -177,7 +177,7 @@ export const SelectPlatforme = {
     },
     data: function() {
         return {
-            selectedIdx: null,
+            highlightedIndex: null,
         };
     },
     watch: {
@@ -217,10 +217,10 @@ export const SelectPlatforme = {
             this.highlightLastOption();
         },
         onEnterKey() {
-            this.selectOptionByIndex(this.selectedIdx);
+            this.selectOptionByIndex(this.highlightedIndex);
         },
         onSpaceKey() {
-            this.selectOptionByIndex(this.selectedIdx);
+            this.selectOptionByIndex(this.highlightedIndex);
         },
         onDropdownSelect(optionId) {
             if (this.disabled) return;
@@ -261,23 +261,23 @@ export const SelectPlatforme = {
                 : this.options.find(option => option.id === optionID);
         },
         highlightPreviousOption() {
-            if (this.selectedIdx === null) this.selectedIdx = 0;
-            else if (this.selectedIdx > 0) this.selectedIdx--;
+            if (this.highlightedIndex === null) this.highlightedIndex = 0;
+            else if (this.highlightedIndex > 0) this.highlightedIndex--;
         },
         highlightNextOption() {
-            if (this.selectedIdx === null) this.selectedIdx = 0;
-            else if (this.selectedIdx < this.options.length - 1) this.selectedIdx++;
+            if (this.highlightedIndex === null) this.highlightedIndex = 0;
+            else if (this.highlightedIndex < this.options.length - 1) this.highlightedIndex++;
         },
         highlightFirstOption() {
-            this.selectedIdx = 0;
+            this.highlightedIndex = 0;
         },
         highlightLastOption() {
-            this.selectedIdx = this.options.length - 1;
+            this.highlightedIndex = this.options.length - 1;
         },
         highlightFirstMatchedOption(key) {
             for (let i = 0; i < this.options.length; i++) {
                 if (this.options[i].text.charAt(0).toUpperCase() === key.toUpperCase()) {
-                    this.selectedIdx = i;
+                    this.highlightedIndex = i;
                     return;
                 }
             }

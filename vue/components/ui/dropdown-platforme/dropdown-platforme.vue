@@ -7,9 +7,9 @@
                     class="dropdown-item"
                     v-bind:class="{
                         separator: item.separator,
-                        keyboardHighlighted: idx === selectedIdx
+                        optionHighlighted: index === highlightedIndex
                     }"
-                    v-for="(item, idx) in items.filter(v => v !== null && v !== undefined)"
+                    v-for="(item, index) in items.filter(v => v !== null && v !== undefined)"
                     v-bind:key="item.id"
                     v-on:click.stop="click(item)"
                 >
@@ -153,7 +153,7 @@ export const DropdownPlatforme = {
             type: Number,
             default: null    
         },
-        selectedIdx: {
+        highlightedIndex: {
             type: Number,
             default: null
         },
