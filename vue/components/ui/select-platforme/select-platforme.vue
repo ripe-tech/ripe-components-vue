@@ -142,6 +142,10 @@ body.tablet .select-platforme .mobile-dropdown {
     padding: 0px 0px 0px 16px;
 }
 
+.select-platforme .dropdown-container ::v-deep .dropdown-platforme > .dropdown-item > * {
+    padding: 0px 0px 0px 0px;
+}
+
 .select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item.keyboardHighlighted,
 .select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item:hover {
     background-color: $lightgrey;
