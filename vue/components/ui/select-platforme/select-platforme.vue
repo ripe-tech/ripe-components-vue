@@ -31,6 +31,7 @@
                 v-bind:global-events="false"
                 v-on:update:visible="value => onVisible(value)"
                 v-on:item-clicked="value => onDropdownSelect(value.id)"
+                v-on:update:highlightedIndex="value => onHighlightedIndex(value)"
             >
                 <slot v-bind:name="name" v-for="(_, name) in $slots" v-bind:slot="name" />
             </dropdown-platforme>
@@ -234,6 +235,10 @@ export const SelectPlatforme = {
         },
         onVisible(value) {
             this.$emit("update:dropdownVisible", value);
+        },
+        onHighlightedIndex(value) {
+            this.highlightedIndex = value;
+            console.log("Changing");
         },
         selectOptionById(optionId) {
             this.$emit("update:value", optionId);

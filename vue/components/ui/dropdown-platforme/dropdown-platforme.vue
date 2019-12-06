@@ -13,6 +13,7 @@
                     v-for="(item, index) in items.filter(v => v !== null && v !== undefined)"
                     v-bind:key="item.id"
                     v-on:click.stop="click(item)"
+                    v-on:mouseover="onMouseOver(index)"
                 >
                     <slot v-bind:name="`item-${item.id}`" v-bind:item="item">
                         <router-link v-bind:to="item.link" v-if="item.link">
@@ -227,6 +228,10 @@ export const DropdownPlatforme = {
         handleGlobal() {
             if (!this.globalEvents) return;
             this.hide();
+        },
+        onMouseOver(index){
+            this.$emit("update:highlightedIndex", index);
+            console.log("MouseOver on index: " + index);
         }
     }
 };
