@@ -27,18 +27,18 @@
             >
                 {{ selectedOption.text }}
             </div>
-                <dropdown-platforme
-                    class="dropdown"
-                    v-bind:items="options"
-                    v-bind:width="dropdownWidth"
-                    v-bind:selectedIdx="selectedIdx"
-                    v-bind:visible="dropdownVisible"
-                    v-bind:global-events="false"
-                    v-on:update:visible="value => onVisible(value)"
-                    v-on:item-clicked="value => onDropdownSelect(value.id)"
-                >
-                    <slot />
-                </dropdown-platforme>
+            <dropdown-platforme
+                class="dropdown"
+                v-bind:items="options"
+                v-bind:width="dropdownWidth"
+                v-bind:selected-idx="selectedIdx"
+                v-bind:visible="dropdownVisible"
+                v-bind:global-events="false"
+                v-on:update:visible="value => onVisible(value)"
+                v-on:item-clicked="value => onDropdownSelect(value.id)"
+            >
+                <slot v-bind:name="name" v-for="(_, name) in $slots" v-bind:slot="name" />
+            </dropdown-platforme>
         </div>
         <select
             class="mobile-dropdown"
@@ -127,7 +127,7 @@ body.tablet .select-platforme .mobile-dropdown {
     outline: none;
 }
 
-.select-platforme .dropdown-container ::v-deep .dropdown-platforme{
+.select-platforme .dropdown-container ::v-deep .dropdown-platforme {
     background-color: $white;
     border: solid 1px $dropdown-border-color;
     border-radius: 6px;
@@ -259,7 +259,7 @@ export const SelectPlatforme = {
 
             this.selectOptionById(optionId);
         },
-        onVisible(value){
+        onVisible(value) {
             this.$emit("update:dropdownVisible", value);
         },
         selectOptionById(optionId) {

@@ -215,11 +215,12 @@ storiesOf("Components", module)
                     v-on:update:value="value => onValue(value)"
                     v-on:update:dropdownVisible="value => onDropdownVisible(value)"
                 >
-
                     <template v-bind:slot="'item-option_4'">
                         <div>Special Option</div>
                     </template>
-
+                    <template v-bind:slot="'item-option_5'">
+                        <div>Another Special Option</div>
+                    </template>
                 </select-platforme>
             </div>
             `

@@ -1,11 +1,14 @@
 <template>
-    <div class="dropdown-container" >
+    <div class="dropdown-container">
         <global-events v-on:keydown.esc="handleGlobal()" />
         <transition name="slide">
             <ul class="dropdown-platforme" v-bind:style="dropdownStyle" v-show="isVisible">
                 <li
                     class="dropdown-item"
-                    v-bind:class="{ separator: item.separator, keyboardHighlighted: idx === selectedIdx }"
+                    v-bind:class="{
+                        separator: item.separator,
+                        keyboardHighlighted: idx === selectedIdx
+                    }"
                     v-for="(item, idx) in items.filter(v => v !== null && v !== undefined)"
                     v-bind:key="item.id"
                     v-on:click.stop="click(item)"
