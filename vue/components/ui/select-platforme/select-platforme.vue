@@ -30,7 +30,7 @@
             <dropdown-platforme
                 class="dropdown"
                 v-bind:items="options"
-                v-bind:width="dropdownWidth"
+                v-bind:width="width"
                 v-bind:selected-idx="selectedIdx"
                 v-bind:visible="dropdownVisible"
                 v-bind:global-events="false"
@@ -210,7 +210,6 @@ export const SelectPlatforme = {
         return {
             selectedOption: this.getOption(this.value),
             selectedIdx: null,
-            dropdownWidth: this.width
         };
     },
     watch: {
