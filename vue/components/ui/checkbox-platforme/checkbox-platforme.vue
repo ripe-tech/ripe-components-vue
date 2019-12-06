@@ -14,7 +14,7 @@
                 v-for="(item, index) in items"
                 v-bind:key="index"
                 v-on:click="onClick(item)"
-                v-on:keydown.32="onSpace(item)"
+                v-on:keydown.space="onSpace(item)"
             >
                 <input type="checkbox" class="value" v-bind:id="item.value" />
                 <div class="checkbox-square" />
