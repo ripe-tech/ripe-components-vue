@@ -1,12 +1,6 @@
 <template>
     <div class="select-platforme" v-bind:style="selectStyle">
         <global-events v-on:click="onClick($event)" />
-        <label-platforme
-            class="label-field"
-            v-bind:text="fieldLabel"
-            v-bind:for="`dropdown-${id}`"
-            v-if="fieldLabel"
-        />
         <div class="dropdown-container" v-bind:id="`dropdown-${id}`">
             <div
                 class="dropdown-button"
@@ -52,27 +46,11 @@
                 {{ placeholder }}
             </option>
         </select>
-        <label-platforme
-            class="label-help"
-            v-bind:size="'small'"
-            v-bind:text="helpLabel"
-            v-bind:for="`dropdown-${id}`"
-            v-if="helpLabel"
-        />
     </div>
 </template>
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
-
-.label {
-    display: block;
-    user-select: text;
-}
-
-.label-field {
-    margin-bottom: 7px;
-}
 
 body.mobile .select-platforme .dropdown-container {
     display: none;
@@ -154,11 +132,6 @@ body.tablet .select-platforme .mobile-dropdown {
 .select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item:active {
     background-color: $option-pressed-background-color;
 }
-
-.label-help {
-    color: $medium-grey;
-    margin-top: 4px;
-}
 </style>
 
 <script>
@@ -184,14 +157,6 @@ export const SelectPlatforme = {
         placeholder: {
             type: String,
             required: true
-        },
-        fieldLabel: {
-            type: String,
-            default: null
-        },
-        helpLabel: {
-            type: String,
-            default: null
         },
         disabled: {
             type: Boolean,

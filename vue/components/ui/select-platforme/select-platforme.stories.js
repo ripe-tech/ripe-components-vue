@@ -38,12 +38,6 @@ storiesOf("Components", module)
             initialDropdownVisible: {
                 default: boolean("Initial Dropdown Visible", false)
             },
-            fieldLabel: {
-                default: text("Field Label", "Field label")
-            },
-            helpLabel: {
-                default: text("Help Label", "Help information here")
-            },
             width: {
                 default: number("Width", 300)
             },
@@ -82,8 +76,6 @@ storiesOf("Components", module)
                 <select-platforme
                     v-bind:id="id"
                     v-bind:placeholder="placeholder"
-                    v-bind:field-label="fieldLabel"
-                    v-bind:help-label="helpLabel"
                     v-bind:width="width"
                     v-bind:disabled="disabled"
                     v-bind:allow-text-selection="allowTextSelection"
@@ -133,12 +125,6 @@ storiesOf("Components", module)
             initialDropdownVisible: {
                 default: boolean("Initial Dropdown Visible", false)
             },
-            fieldLabel: {
-                default: text("Field Label", "Field label")
-            },
-            helpLabel: {
-                default: text("Help Label", "Help information here")
-            },
             width: {
                 default: number("Width", 300)
             },
@@ -177,8 +163,6 @@ storiesOf("Components", module)
                 <select-platforme
                     v-bind:id="id"
                     v-bind:placeholder="placeholder"
-                    v-bind:field-label="fieldLabel"
-                    v-bind:help-label="helpLabel"
                     v-bind:width="width"
                     v-bind:disabled="disabled"
                     v-bind:allow-text-selection="allowTextSelection"
