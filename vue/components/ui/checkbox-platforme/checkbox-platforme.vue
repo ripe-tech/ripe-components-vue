@@ -1,10 +1,5 @@
 <template>
     <div class="checkbox">
-        <global-events
-            v-on:keydown.32="onSpace"
-            v-on:keydown.8="onBackspace"
-            v-on:keydown.46="onDelete"
-        />
         <label-platforme class="header" v-bind:text="header" v-if="header" />
         <div class="choices">
             <div
@@ -19,6 +14,7 @@
                 v-for="(item, index) in items"
                 v-bind:key="index"
                 v-on:click="onClick(item)"
+                v-on:keydown.32="onSpace(item)"
             >
                 <input type="checkbox" class="value" v-bind:id="item.value" />
                 <div class="checkbox-square" />
@@ -179,12 +175,8 @@ export const CheckboxPlatforme = {
             delete updated[item.value];
             this.$emit("update:values", updated);
         },
-        getFocusedItem() {
-            const index = parseInt(document.activeElement.getAttribute("index"));
-            return this.items[index];
-        },
-        onSpace() {
-            this.toggleItem(this.getFocusedItem());
+        onSpace(item) {
+            this.toggleItem(item);
         },
         onClick(item) {
             this.toggleItem(item);

@@ -79,6 +79,10 @@
     cursor: default;
 }
 
+.tabs > .tabs-container {
+    position: relative;
+}
+
 .tabs > .tabs-container > .tab {
     box-sizing: border-box;
     opacity: 0;
