@@ -7,7 +7,8 @@
                     class="dropdown-item"
                     v-bind:class="{
                         separator: item.separator,
-                        optionHighlighted: index === highlightedIndex
+                        optionHighlight: index === highlightedIndex,
+                        selectHighlight: index === selectedIndex
                     }"
                     v-for="(item, index) in items.filter(v => v !== null && v !== undefined)"
                     v-bind:key="item.id"
@@ -156,6 +157,11 @@ export const DropdownPlatforme = {
         highlightedIndex: {
             type: Number,
             default: null
+        },
+        selectedIndex: 
+        {
+            type: Number,
+            default: null           
         },
         visible: {
             type: Boolean,

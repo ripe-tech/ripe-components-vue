@@ -26,6 +26,7 @@
                 v-bind:width="width"
                 v-bind:max-height="maxHeight"
                 v-bind:highlighted-index="highlightedIndex"
+                v-bind:selected-index="selectedIndex"
                 v-bind:visible="dropdownVisible"
                 v-bind:global-events="false"
                 v-on:update:visible="value => onVisible(value)"
@@ -124,7 +125,11 @@ body.tablet .select-platforme .mobile-dropdown {
     padding: 0px 0px 0px 0px;
 }
 
-.select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item.optionHighlighted,
+.select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item.selectHighlight {
+    background-color: red; //TODO change to a grey darker than $light-grey
+}
+
+.select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item.optionHighlight, //TODO add lighter color
 .select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item:hover {
     background-color: $light-grey;
 }
@@ -295,6 +300,9 @@ export const SelectPlatforme = {
         },
         selectedOption() {
             return this.getOption(this.value).text;
+        },
+        selectedIndex() {
+            return this.options.findIndex(option => option.id === this.value)
         }
     }
 };
