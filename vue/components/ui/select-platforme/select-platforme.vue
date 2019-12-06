@@ -210,26 +210,32 @@ export const SelectPlatforme = {
             this.closeDropdown();
         },
         onArrowUpKey() {
+            this.openDropdown();
             this.highlightPreviousOption();
             this.scrollToOption();
         },
         onArrowDownKey() {
+            this.openDropdown();
             this.highlightNextOption();
             this.scrollToOption();
         },
         onArrowLeftKey() {
+            this.openDropdown();
             this.highlightPreviousOption();
             this.scrollToOption();
         },
         onArrowRightKey() {
+            this.openDropdown();
             this.highlightNextOption();
             this.scrollToOption();
         },
         onAltUpKey() {
+            this.openDropdown();
             this.highlightFirstOption();
             this.scrollToOption();
         },
         onAltDownKey() {
+            this.openDropdown();
             this.highlightLastOption();
             this.scrollToOption();
         },
