@@ -14,9 +14,9 @@
                 v-for="(item, index) in items"
                 v-bind:key="item.value"
                 v-bind:ref="`choice-${index}`"
-                v-on:keydown.32="onSpacebar(item)"
-                v-on:keydown.38="onArrowUp(index)"
-                v-on:keydown.40="onArrowDown(index)"
+                v-on:keydown.space="onSpacebar(item)"
+                v-on:keydown.up="onArrowUp(index)"
+                v-on:keydown.down="onArrowDown(index)"
                 v-on:click="onClick(item)"
             >
                 <input type="radio" class="value" v-bind:id="item.value" />
