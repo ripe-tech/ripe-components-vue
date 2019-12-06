@@ -24,6 +24,7 @@
                 class="dropdown"
                 v-bind:items="options"
                 v-bind:width="width"
+                v-bind:max-height="maxHeight"
                 v-bind:selected-idx="selectedIdx"
                 v-bind:visible="dropdownVisible"
                 v-bind:global-events="false"
@@ -168,7 +169,11 @@ export const SelectPlatforme = {
         width: {
             type: Number,
             default: 300
-        }
+        },
+        maxHeight: {
+            type: Number,
+            default: 200
+        },
     },
     data: function() {
         return {

@@ -148,6 +148,10 @@ export const DropdownPlatforme = {
             type: Number,
             default: null
         },
+        maxHeight:{
+            type: Number,
+            default: null    
+        },
         selectedIdx: {
             type: Number,
             default: null
@@ -179,6 +183,11 @@ export const DropdownPlatforme = {
             const base = {};
 
             if(this.width) base.width = `${this.width - 2}px`;
+            if(this.maxHeight)
+            {
+                base["max-height"] = `${this.maxHeight}px`;
+                base.overflow = 'overlay';
+            }
 
             return base;
         }

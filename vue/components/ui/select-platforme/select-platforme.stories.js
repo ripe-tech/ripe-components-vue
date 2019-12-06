@@ -18,7 +18,16 @@ storiesOf("Components", module)
                     { id: "option_2", text: "B" },
                     { id: "option_3", text: "C" },
                     { id: "option_4", text: "D" },
-                    { id: "option_5", text: "E" }
+                    { id: "option_5", text: "E" },
+                    { id: "option_6", text: "F" },
+                    { id: "option_7", text: "G" },
+                    { id: "option_8", text: "H" },
+                    { id: "option_9", text: "I" },
+                    { id: "option_10", text: "J" },
+                    { id: "option_11", text: "K" },
+                    { id: "option_12", text: "L" },
+                    { id: "option_13", text: "M" },
+                    { id: "option_14", text: "N" }
                 ]
             },
             initialValue: {
@@ -40,6 +49,9 @@ storiesOf("Components", module)
             },
             width: {
                 default: number("Width", 300)
+            },
+            maxHeight: {
+                default: number("Max Height", 200)
             },
             disabled: {
                 default: boolean("Disabled", false)
@@ -77,6 +89,7 @@ storiesOf("Components", module)
                     v-bind:id="id"
                     v-bind:placeholder="placeholder"
                     v-bind:width="width"
+                    v-bind:max-height="maxHeight"
                     v-bind:disabled="disabled"
                     v-bind:allow-text-selection="allowTextSelection"
                     v-bind:options="options"
@@ -128,6 +141,9 @@ storiesOf("Components", module)
             width: {
                 default: number("Width", 300)
             },
+            maxHeight: {
+                default: number("Max Height", 200)
+            },
             disabled: {
                 default: boolean("Disabled", false)
             },
@@ -135,7 +151,7 @@ storiesOf("Components", module)
                 default: boolean("Allow text selection", false)
             }
         },
-        data: function () {
+        data: function() {
             return {
                 value: this.initialValue,
                 dropdownVisible: this.initialDropdownVisible
@@ -164,6 +180,7 @@ storiesOf("Components", module)
                     v-bind:id="id"
                     v-bind:placeholder="placeholder"
                     v-bind:width="width"
+                    v-bind:max-height="maxHeight"
                     v-bind:disabled="disabled"
                     v-bind:allow-text-selection="allowTextSelection"
                     v-bind:options="options"
