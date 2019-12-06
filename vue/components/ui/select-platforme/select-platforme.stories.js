@@ -11,6 +11,16 @@ storiesOf("Components", module)
             placeholder: {
                 default: text("Placeholder", "This is a placeholder text")
             },
+            options: {
+                type: Array,
+                default: () => [
+                    { id: "option_1", text: "A" },
+                    { id: "option_2", text: "B" },
+                    { id: "option_3", text: "C" },
+                    { id: "option_4", text: "D" },
+                    { id: "option_5", text: "E" }
+                ]
+            },
             initialValue: {
                 default: select(
                     "Initial Value",
@@ -46,28 +56,6 @@ storiesOf("Components", module)
         },
         data: function() {
             return {
-                options: [
-                    {
-                        id: "option_1",
-                        text: "A"
-                    },
-                    {
-                        id: "option_2",
-                        text: "B"
-                    },
-                    {
-                        id: "option_3",
-                        text: "C"
-                    },
-                    {
-                        id: "option_4",
-                        text: "D"
-                    },
-                    {
-                        id: "option_5",
-                        text: "E"
-                    }
-                ],
                 value: this.initialValue,
                 dropdownVisible: this.initialDropdownVisible
             };
@@ -118,6 +106,16 @@ storiesOf("Components", module)
             placeholder: {
                 default: text("Placeholder", "This is a placeholder text")
             },
+            options: {
+                type: Array,
+                default: () => [
+                    { id: "option_1", text: "A" },
+                    { id: "option_2", text: "B" },
+                    { id: "option_3", text: "C" },
+                    { id: "option_4", text: "D" },
+                    { id: "option_5", text: "E" }
+                ]
+            },
             initialValue: {
                 default: select(
                     "Initial Value",
@@ -151,30 +149,8 @@ storiesOf("Components", module)
                 default: boolean("Allow text selection", false)
             }
         },
-        data: function() {
+        data: function () {
             return {
-                options: [
-                    {
-                        id: "option_1",
-                        text: "A"
-                    },
-                    {
-                        id: "option_2",
-                        text: "B"
-                    },
-                    {
-                        id: "option_3",
-                        text: "C"
-                    },
-                    {
-                        id: "option_4",
-                        text: "D"
-                    },
-                    {
-                        id: "option_5",
-                        text: "E"
-                    }
-                ],
                 value: this.initialValue,
                 dropdownVisible: this.initialDropdownVisible
             };
