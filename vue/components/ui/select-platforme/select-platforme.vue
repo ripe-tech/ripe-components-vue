@@ -127,6 +127,10 @@ body.tablet .select-platforme .mobile-dropdown {
     padding: 0px 0px 0px 0px;
 }
 
+.select-platforme .dropdown-container ::v-deep .dropdown-platforme > .dropdown-item:hover {
+    background-color: $white;
+}
+
 .select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item.selectHighlight {
     background-color: red; //TODO change to a grey darker than $light-grey
 }
