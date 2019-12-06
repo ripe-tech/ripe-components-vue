@@ -1,4 +1,16 @@
 <template>
+    <component
+        v-bind="attrs"
+        v-bind:visible="visible"
+        v-bind:loading="loading"
+        v-bind:auto-hide="false"
+        v-if="component"
+        v-bind:is="component"
+        v-on="listeners"
+        v-on:update:visible="onUpdateVisible"
+        v-on:click:confirm="onConfirm"
+        v-on:click:cancel="onCancel"
+    />
     <modal-platforme
         v-bind:confirm-text="confirmText"
         v-bind:buttons-alignment="buttonsAlignment"
@@ -12,6 +24,7 @@
         v-bind:visible="visible"
         v-bind:loading="loading"
         v-bind:auto-hide="false"
+        v-else
         v-on:update:visible="onUpdateVisible"
         v-on:click:confirm="onConfirm"
         v-on:click:cancel="onCancel"
@@ -23,8 +36,12 @@
 <script>
 export const AlertPlatforme = {
     name: "alert-platforme",
+    inheritAttrs: false,
     data: function() {
         return {
+            attrs: null,
+            listeners: null,
+            component: null,
             confirmText: null,
             cancelText: null,
             buttonsAlignment: null,
@@ -42,7 +59,6 @@ export const AlertPlatforme = {
             loading: false
         };
     },
-    watch: {},
     mounted: function() {
         this.$bus.$on("alert", options => this.show(options));
     },
@@ -51,6 +67,9 @@ export const AlertPlatforme = {
             if (this.visible) return;
 
             const {
+                attrs,
+                listeners,
+                component,
                 confirmText,
                 cancelText,
                 buttonsAlignment,
@@ -66,6 +85,8 @@ export const AlertPlatforme = {
                 task
             } = options;
 
+            this.attrs = attrs || {};
+            this.listeners = listeners || {};
             this.confirmText = confirmText || "Confirm";
             this.cancelText = cancelText || "Cancel";
             this.buttonsAlignment = buttonsAlignment;
@@ -82,6 +103,7 @@ export const AlertPlatforme = {
 
             this.visible = true;
             this.loading = false;
+            this.component = component;
         },
         markDone(event) {
             this.$bus.$emit(event);

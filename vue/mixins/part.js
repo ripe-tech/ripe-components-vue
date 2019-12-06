@@ -30,8 +30,15 @@ const partMixin = {
             }
             return true;
         },
-        async alert(message, options = {}) {
+        async alertMessage(message, options = {}) {
             options.text = message;
+            this._alert(options);
+        },
+        async alertComponent(component, options = {}) {
+            options.component = component;
+            this._alert(options);
+        },
+        async _alert(options = {}) {
             const promise = new Promise((resolve, reject) => {
                 try {
                     this.$bus.$on("alert_confirm", () => resolve(true));
