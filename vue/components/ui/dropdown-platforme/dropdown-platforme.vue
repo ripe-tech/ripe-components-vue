@@ -94,6 +94,7 @@
     overflow: hidden;
     padding: 0px;
     position: absolute;
+    box-sizing: border-box;
 }
 
 .dropdown-platforme > .dropdown-item {
@@ -182,7 +183,7 @@ export const DropdownPlatforme = {
         dropdownStyle() {
             const base = {};
 
-            if(this.width) base.width = `${this.width - 2}px`;
+            if(this.width) base.width = `${this.width}px`;
             if(this.maxHeight)
             {
                 base["max-height"] = `${this.maxHeight}px`;
