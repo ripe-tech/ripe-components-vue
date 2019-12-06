@@ -97,13 +97,13 @@
 }
 
 .choice.checked > .checkbox-square {
-    background: url("~./assets/check.svg") center / 7px 6px no-repeat $dark;
-    border: 2px solid $dark;
+    background: url("~./assets/check.svg") center / 7px 6px no-repeat $dark-blue;
+    border: 2px solid $dark-blue;
     padding: 3px 3px 3px 3px;
 }
 
 .choice.error.checked > .checkbox-square {
-    background: url("~./assets/check.svg") center / 7px 6px no-repeat $dark;
+    background: url("~./assets/check.svg") center / 7px 6px no-repeat $dark-blue;
     border: 2px solid $dark-red;
 }
 

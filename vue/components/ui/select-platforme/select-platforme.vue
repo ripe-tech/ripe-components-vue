@@ -85,7 +85,7 @@ body.tablet .select-platforme .mobile-dropdown {
 
 .select-platforme .dropdown-container .dropdown-button,
 .select-platforme .dropdown-container ::v-deep .dropdown-platforme {
-    color: $dark;
+    color: $dark-blue;
     cursor: pointer;
     font-family: $font-family;
     font-size: 14px;
@@ -116,7 +116,7 @@ body.tablet .select-platforme .mobile-dropdown {
 .select-platforme .dropdown-container .dropdown-button.disabled:active {
     background-color: $dropdown-disabled-background-color;
     border: solid 1px #e4e8f0;
-    color: $dropdown-disabled-color;
+    color: $medium-grey;
     margin: inherit;
 }
 
