@@ -107,7 +107,7 @@ body.tablet .select-platforme .mobile-dropdown {
 }
 
 .select-platforme .dropdown-container .dropdown-button:hover {
-    background-color: $lightgrey;
+    background-color: $light-grey;
     border: solid 1px $dropdown-border-hover-color;
     color: $grey;
 }
@@ -129,7 +129,7 @@ body.tablet .select-platforme .mobile-dropdown {
 
 .select-platforme .dropdown-container ::v-deep .dropdown-platforme {
     background-color: $white;
-    border: solid 1px $dropdown-border-color;
+    border: solid 1px $light-white;
     border-radius: 6px;
     box-shadow: 0 6px 24px 0 rgba(67, 86, 100, 0.15);
     margin: 8px 0px 0px 0px;
@@ -148,7 +148,7 @@ body.tablet .select-platforme .mobile-dropdown {
 
 .select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item.keyboardHighlighted,
 .select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item:hover {
-    background-color: $lightgrey;
+    background-color: $light-grey;
 }
 
 .select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item:active {
