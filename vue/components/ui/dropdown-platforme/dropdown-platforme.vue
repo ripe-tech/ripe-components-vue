@@ -2,7 +2,12 @@
     <div class="dropdown-container">
         <global-events v-on:keydown.esc="handleGlobal()" />
         <transition name="slide">
-            <ul class="dropdown-platforme" v-bind:style="dropdownStyle" v-show="isVisible">
+            <ul
+                class="dropdown-platforme"
+                v-bind:style="dropdownStyle"
+                v-show="isVisible"
+                v-bind:id="id"
+            >
                 <li
                     class="dropdown-item"
                     v-bind:class="{
@@ -11,6 +16,7 @@
                         selectHighlight: index === selectedIndex
                     }"
                     v-for="(item, index) in items.filter(v => v !== null && v !== undefined)"
+                    v-bind:id="`${id}-${item.id}`"
                     v-bind:key="item.id"
                     v-on:click.stop="click(item)"
                     v-on:mouseover="onMouseOver(index)"
@@ -88,6 +94,7 @@
     border: 1px solid #dddddd;
     border-radius: 5px;
     box-shadow: 1px 2px 5px rgba(20, 20, 20, 0.1);
+    box-sizing: border-box;
     color: #4d4d4d;
     font-size: 14px;
     font-weight: 600;
@@ -96,7 +103,6 @@
     overflow: hidden;
     padding: 0px;
     position: absolute;
-    box-sizing: border-box;
 }
 
 .dropdown-platforme > .dropdown-item {
@@ -143,6 +149,10 @@
 export const DropdownPlatforme = {
     name: "dropdown-platforme",
     props: {
+        id: {
+            type: String,
+            default: null
+        },
         items: {
             type: Array,
             default: () => []
@@ -151,18 +161,17 @@ export const DropdownPlatforme = {
             type: Number,
             default: null
         },
-        maxHeight:{
+        maxHeight: {
             type: Number,
-            default: null    
+            default: null
         },
         highlightedIndex: {
             type: Number,
             default: null
         },
-        selectedIndex: 
-        {
+        selectedIndex: {
             type: Number,
-            default: null           
+            default: null
         },
         visible: {
             type: Boolean,
@@ -190,11 +199,10 @@ export const DropdownPlatforme = {
         dropdownStyle() {
             const base = {};
 
-            if(this.width) base.width = `${this.width}px`;
-            if(this.maxHeight)
-            {
+            if (this.width) base.width = `${this.width}px`;
+            if (this.maxHeight) {
                 base["max-height"] = `${this.maxHeight}px`;
-                base.overflow = 'overlay';
+                base.overflow = "overlay";
             }
 
             return base;
@@ -229,9 +237,8 @@ export const DropdownPlatforme = {
             if (!this.globalEvents) return;
             this.hide();
         },
-        onMouseOver(index){
+        onMouseOver(index) {
             this.$emit("update:highlightedIndex", index);
-            console.log("MouseOver on index: " + index);
         }
     }
 };

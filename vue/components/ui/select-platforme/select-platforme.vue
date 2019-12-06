@@ -29,6 +29,7 @@
                 v-bind:selected-index="selectedIndex"
                 v-bind:visible="dropdownVisible"
                 v-bind:global-events="false"
+                v-bind:id="dropdownId"
                 v-on:update:visible="value => onVisible(value)"
                 v-on:item-clicked="value => onDropdownSelect(value.id)"
                 v-on:update:highlightedIndex="value => onHighlightedIndex(value)"
@@ -130,8 +131,7 @@ body.tablet .select-platforme .mobile-dropdown {
     background-color: red; //TODO change to a grey darker than $light-grey
 }
 
-.select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item.optionHighlight //TODO add lighter color
-{
+.select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item.optionHighlight { //TODO add lighter color
     background-color: $light-grey;
 }
 
@@ -179,11 +179,11 @@ export const SelectPlatforme = {
         maxHeight: {
             type: Number,
             default: 200
-        },
+        }
     },
     data: function() {
         return {
-            highlightedIndex: null,
+            highlightedIndex: null
         };
     },
     watch: {
@@ -200,27 +200,34 @@ export const SelectPlatforme = {
         },
         onKey(key) {
             this.highlightFirstMatchedOption(key);
+            this.scrollToOption();
         },
         onEscKey() {
             this.closeDropdown();
         },
         onArrowUpKey() {
             this.highlightPreviousOption();
+            this.scrollToOption();
         },
         onArrowDownKey() {
             this.highlightNextOption();
+            this.scrollToOption();
         },
         onArrowLeftKey() {
             this.highlightPreviousOption();
+            this.scrollToOption();
         },
         onArrowRightKey() {
             this.highlightNextOption();
+            this.scrollToOption();
         },
         onAltUpKey() {
             this.highlightFirstOption();
+            this.scrollToOption();
         },
         onAltDownKey() {
             this.highlightLastOption();
+            this.scrollToOption();
         },
         onEnterKey() {
             this.selectOptionByIndex(this.highlightedIndex);
@@ -238,7 +245,6 @@ export const SelectPlatforme = {
         },
         onHighlightedIndex(value) {
             this.highlightedIndex = value;
-            console.log("Changing");
         },
         selectOptionById(optionId) {
             this.$emit("update:value", optionId);
@@ -291,6 +297,34 @@ export const SelectPlatforme = {
                     return;
                 }
             }
+        },
+        scrollToOption() {
+            if (!this.highlightedIndex) return;
+
+            const highlightedElementId = `${this.dropdownId}-${
+                this.options[this.highlightedIndex].id
+            }`;
+
+            const highlightedElement = document.getElementById(highlightedElementId);
+            const dropdownElement = document.getElementById(this.dropdownId);
+
+            const selectedElementDistance =
+                (this.highlightedIndex + 1) * highlightedElement.offsetHeight;
+
+            // Opcao 1
+            /* 
+            if (this.highlightedIndex === 1) dropdownElement.scrollTop = 0;
+            else if (dropdownElement.offsetHeight < selectedElementDistance)
+                { dropdownElement.scrollTop = selectedElementDistance - dropdownElement.offsetHeight; }
+            */
+
+            // Opcao2
+            /**/
+            dropdownElement.scrollTop =
+                dropdownElement.offsetHeight < selectedElementDistance
+                    ? selectedElementDistance - dropdownElement.offsetHeight
+                    : 0;
+            
         }
     },
     computed: {
@@ -307,7 +341,10 @@ export const SelectPlatforme = {
             return this.getOption(this.value).text;
         },
         selectedIndex() {
-            return this.options.findIndex(option => option.id === this.value)
+            return this.options.findIndex(option => option.id === this.value);
+        },
+        dropdownId() {
+            return `${this.id}-dropdown-platforme`;
         }
     }
 };
