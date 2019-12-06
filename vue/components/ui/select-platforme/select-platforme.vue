@@ -25,7 +25,7 @@
                 v-on:keydown.enter.exact="onEnterKey()"
                 v-on:keydown.space.exact="onSpaceKey()"
             >
-                {{ selectedOption.text }}
+                {{ selectedOption }}
             </div>
             <dropdown-platforme
                 class="dropdown"
@@ -208,16 +208,12 @@ export const SelectPlatforme = {
     },
     data: function() {
         return {
-            selectedOption: this.getOption(this.value),
             selectedIdx: null,
         };
     },
     watch: {
         disabled() {
             if (this.disabled) this.closeDropdown();
-        },
-        value() {
-            this.selectedOption = this.getOption(this.value);
         }
     },
     methods: {
@@ -327,6 +323,9 @@ export const SelectPlatforme = {
             if (!this.allowTextSelection) base["user-select"] = "none";
 
             return base;
+        },
+        selectedOption() {
+            return this.getOption(this.value).text;
         }
     }
 };
