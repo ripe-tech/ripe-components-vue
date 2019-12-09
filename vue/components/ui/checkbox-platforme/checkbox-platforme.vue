@@ -153,28 +153,28 @@ export const CheckboxPlatforme = {
         }
     },
     methods: {
-        toggleItem(item) {
-            this.values[item.value] ? this.removeItem(item) : this.addItem(item);
-        },
-        addItem(item) {
+        selectItem(item) {
             if (this.disabled || item.disabled) return;
             if (this.values[item.value]) return;
 
-            this.$emit("selected:value", item.value);
-
             const updated = Object.assign({}, this.values);
             updated[item.value] = true;
+
+            this.$emit("selected:value", item.value);
             this.$emit("update:values", updated);
         },
-        removeItem(item) {
+        deselectItem(item) {
             if (this.disabled || item.disabled) return;
             if (!this.values[item.value]) return;
 
-            this.$emit("unselected:value", item.value);
-
             const updated = Object.assign({}, this.values);
             delete updated[item.value];
+
+            this.$emit("deselected:value", item.value);
             this.$emit("update:values", updated);
+        },
+        toggleItem(item) {
+            this.values[item.value] ? this.deselectItem(item) : this.selectItem(item);
         },
         onSpace(item) {
             this.toggleItem(item);
