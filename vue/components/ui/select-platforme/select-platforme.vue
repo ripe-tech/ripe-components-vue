@@ -76,10 +76,10 @@ body.tablet .select-platforme .mobile-dropdown {
 
 .select-platforme .dropdown-container .dropdown-button {
     background: url("~./assets/chevron-down.svg") no-repeat;
-    background-color: #f9fafd;
+    background-color: $grey-6;
     background-position: right 12px center;
     background-size: 14px 14px;
-    border: solid 1px #e4e8f0;
+    border: solid 1px $light-white;
     border-radius: 6px;
     height: 40px;
     line-height: 40px;
@@ -96,7 +96,7 @@ body.tablet .select-platforme .mobile-dropdown {
 .select-platforme .dropdown-container .dropdown-button.disabled,
 .select-platforme .dropdown-container .dropdown-button.disabled:active {
     background-color: $grey-5;
-    border: solid 1px #e4e8f0;
+    border: solid 1px $light-white;
     color: $medium-grey;
     margin: inherit;
 }
