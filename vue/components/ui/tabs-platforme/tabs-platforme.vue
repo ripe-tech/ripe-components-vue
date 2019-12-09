@@ -90,10 +90,12 @@
     position: absolute;
     transition: opacity 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
     width: 100%;
+    pointer-events: none;
 }
 
 .tabs > .tabs-container > .tab.visible {
     opacity: 1;
+    pointer-events: initial;
 }
 </style>
 
