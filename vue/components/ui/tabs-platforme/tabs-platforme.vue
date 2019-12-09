@@ -95,7 +95,7 @@
 
 .tabs > .tabs-container > .tab.visible {
     opacity: 1;
-    pointer-events: initial;
+    pointer-events: auto;
 }
 </style>
 
