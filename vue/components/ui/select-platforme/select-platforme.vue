@@ -296,12 +296,9 @@ export const SelectPlatforme = {
             this.highlightedIndex = this.options.length - 1;
         },
         highlightFirstMatchedOption(key) {
-            for (let i = 0; i < this.options.length; i++) {
-                if (this.options[i].text.charAt(0).toUpperCase() === key.toUpperCase()) {
-                    this.highlightedIndex = i;
-                    return;
-                }
-            }
+            const index = this.options.findIndex(option => option.text.charAt(0).toUpperCase() === key.toUpperCase());
+            
+            if(index > -1) this.highlightedIndex = index;
         },
         scrollToOption() {
             if (!this.highlightedIndex) return;
