@@ -5,12 +5,22 @@
             <div class="box2"></div>
         </div>
         <div class="chat-input-container">
-            <textarea-platforme
-
+            <div class="chat-input">            
+                <textarea-platforme
+                v-bind:initialHeight="100"
                 v-on:update:value="value => onTextareaValue(value)"
-                v-bind:placeholder="'placeholder text'"
+                v-bind:placeholder="'Say something here...'"
                 v-bind:resize="false"
-            />
+                />
+                <div class="chat-options">
+                    <div class="optionExample" />
+                    <div class="optionExample" />
+                    <div class="optionExample" />
+                    <div class="optionExample" />
+                    <div class="optionExample" />
+                </div>
+            </div>
+
         </div>
     </div>
 </template>
@@ -20,7 +30,7 @@
 
 .chat-container {
     display: flex;
-    height: 100px;
+    height: 350px;
 }
 
 .box1 {
@@ -35,15 +45,30 @@
 .chat-input-container {
     background-color: lightblue;
     width: 100%;
-    height: 100px;
 }
 
-.chat-input-container ::v-deep .textarea textarea {
+.chat-input-container .chat-input {
+    padding: 20px 20px 20px 20px;
+}
+
+.chat-input-container .chat-input ::v-deep .textarea textarea {
     width: 100%;
-    height: 50px;
 }
 
+.chat-input-container .chat-input .chat-options{
+    //background-color: lightseagreen;
+    margin-top:-31px;
+    font-size: 0px;
+    padding: 0px 9px 0px 9px
+}
 
+.chat-input-container .chat-input .optionExample{
+    display: inline-block;
+    height: 22px;
+    width: 22px;
+    background-color: chocolate;
+    margin: 4px 4px 4px 4px;
+}
 </style>
 
 <script>
