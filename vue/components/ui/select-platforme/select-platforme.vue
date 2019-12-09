@@ -18,7 +18,7 @@
                 v-on:keydown.enter.exact="onEnterKey()"
                 v-on:keydown.space.exact="onSpaceKey()"
             >
-                {{ selectedOption }}
+                {{ buttonText }}
             </div>
             <dropdown-platforme
                 class="dropdown"
@@ -281,11 +281,6 @@ export const SelectPlatforme = {
         toggleDropdown() {
             this.$emit("update:dropdownVisible", !this.dropdownVisible);
         },
-        getOption(optionID) {
-            return optionID === "placeholder_id"
-                ? { id: optionID, text: this.placeholder }
-                : this.options.find(option => option.id === optionID);
-        },
         highlightPreviousOption() {
             if (this.highlightedIndex === null) this.highlightedIndex = 0;
             else if (this.highlightedIndex > 0) this.highlightedIndex--;
@@ -337,8 +332,11 @@ export const SelectPlatforme = {
 
             return base;
         },
-        selectedOption() {
-            return this.getOption(this.value).text;
+        buttonText() {
+            const option = optionID === "placeholder_id"
+                    ? { id: optionID, text: this.placeholder }
+                    : this.options.find(option => option.id === optionID);
+            return option.text;
         },
         selectedIndex() {
             return this.options.findIndex(option => option.id === this.value);
