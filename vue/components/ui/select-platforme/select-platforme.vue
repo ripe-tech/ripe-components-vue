@@ -131,12 +131,12 @@ body.tablet .select-platforme .mobile-dropdown {
     background-color: $white;
 }
 
-.select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item.selectHighlight.optionHighlight,
-.select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item.selectHighlight {
+.select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item.selected.highlighted,
+.select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item.selected {
     background-color: $grey-3;
 }
 
-.select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item.optionHighlight {
+.select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item.highlighted {
     background-color: $light-grey;
 }
 </style>

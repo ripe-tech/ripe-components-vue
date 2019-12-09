@@ -12,8 +12,8 @@
                     class="dropdown-item"
                     v-bind:class="{
                         separator: item.separator,
-                        optionHighlight: index === highlightedIndex,
-                        selectHighlight: index === selectedIndex
+                        highlighted: index === highlightedIndex,
+                        selected: index === selectedIndex
                     }"
                     v-for="(item, index) in items.filter(v => v !== null && v !== undefined)"
                     v-bind:id="`${id}-${item.id}`"
