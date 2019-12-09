@@ -1,8 +1,44 @@
 <template>
     <div class="chat">
         <div class="chat-container">
-            <div class="box1"></div>
-            <div class="box2"></div>
+            <div class="box1">
+                <p>awhawhawhawh</p>
+                <p>awgwhhwahah</p>
+                <p>awgagwagw</p>
+                <p>afwaf</p>
+                <p>awgawg</p>
+                <p>eeeegwagawgeeee</p>
+                <p>awhawhawh</p>
+                <p>awhawhwahawhah</p>
+                <p>ahawhawh</p>
+                <p>eaue4u4eie4i</p>
+                <p>awhasgejrse</p>
+                <p>ue4ujes5j5rk</p>
+                <p>e5k5erieie</p>
+                <p>se5is5eisei</p>
+            </div>
+            <div class="box2">
+                <div class="files-title">
+                    Files
+                </div>
+                <div class="files-list">
+                    <p>File 1</p>
+                    <p>File 2</p>
+                    <p>File 3</p>
+                    <p>File 4</p>
+                    <p>File 5</p>
+                    <p>File 6</p>
+                    <p>File 7</p>
+                    <p>File 8</p>
+                    <p>File 9</p>
+                    <p>File 10</p>
+                    <p>File 11</p>
+                    <p>File 12</p>
+                    <p>File 13</p>
+                    <p>File 14</p>
+                    <p>File 15</p>
+                </div>
+            </div>
         </div>
         <div class="chat-input-container">
             <div class="chat-input">            
@@ -36,10 +72,21 @@
 .box1 {
     background-color: lightcoral;
     flex: 1 0;
+    overflow: auto;
 }
 .box2 {
     background-color: lightgreen;
     width: 250px;
+}
+
+.box2 .files-title{
+    height: 42px;
+    background-color: rgb(220, 255, 220);
+}
+
+.box2 .files-list{
+    height: 308px;
+    overflow: auto;
 }
 
 .chat-input-container {
