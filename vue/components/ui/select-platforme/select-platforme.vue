@@ -32,7 +32,7 @@
                 v-bind:id="dropdownId"
                 v-on:update:visible="value => onVisible(value)"
                 v-on:item-clicked="value => onDropdownSelect(value.id)"
-                v-on:update:highlightedIndex="value => onHighlightedIndex(value)"
+                v-on:highlighted="value => onHighlightedIndex(value)"
             >
                 <slot v-bind:name="name" v-for="(_, name) in $slots" v-bind:slot="name" />
             </dropdown-platforme>

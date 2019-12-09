@@ -238,7 +238,7 @@ export const DropdownPlatforme = {
             this.hide();
         },
         onMouseOver(index) {
-            this.$emit("update:highlightedIndex", index);
+            this.$emit("highlighted", index);
         }
     }
 };
