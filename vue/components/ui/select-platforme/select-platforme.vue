@@ -89,13 +89,13 @@ body.tablet .select-platforme .mobile-dropdown {
 
 .select-platforme .dropdown-container .dropdown-button:hover {
     background-color: $light-grey;
-    border: solid 1px $dropdown-border-hover-color;
+    border: solid 1px $light-grey;
     color: $grey;
 }
 
 .select-platforme .dropdown-container .dropdown-button.disabled,
 .select-platforme .dropdown-container .dropdown-button.disabled:active {
-    background-color: $dropdown-disabled-background-color;
+    background-color: $grey-5;
     border: solid 1px #e4e8f0;
     color: $medium-grey;
     margin: inherit;
@@ -103,7 +103,7 @@ body.tablet .select-platforme .mobile-dropdown {
 
 .select-platforme .dropdown-container .dropdown-button:focus {
     background-color: $white;
-    border: solid 2px $dropdown-focus-border-color;
+    border: solid 2px $aqcua-blue;
     margin: -1px 0px -1px 0px;
     outline: none;
 }
@@ -140,7 +140,7 @@ body.tablet .select-platforme .mobile-dropdown {
 }
 
 .select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item:active {
-    background-color: $option-pressed-background-color;
+    background-color: $grey-3;
 }
 </style>
 
