@@ -333,9 +333,9 @@ export const SelectPlatforme = {
             return base;
         },
         buttonText() {
-            const option = optionID === "placeholder_id"
-                    ? { id: optionID, text: this.placeholder }
-                    : this.options.find(option => option.id === optionID);
+            const option = this.value === "placeholder_id"
+                    ? { id: this.value, text: this.placeholder }
+                    : this.options.find(option => option.id === this.value);
             return option.text;
         },
         selectedIndex() {
