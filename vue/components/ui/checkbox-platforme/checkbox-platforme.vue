@@ -70,10 +70,10 @@
     border: 2px solid #dfe1e5;
     border-radius: 2px 2px 2px 2px;
     display: inline-block;
-    height: 2px;
+    height: 4px;
     padding: 3px 3px 3px 3px;
-    vertical-align: bottom;
-    width: 2px;
+    vertical-align: middle;
+    width: 4px;
 }
 
 .choice:not(.disabled):not(.error):active > .checkbox-square {
@@ -117,9 +117,9 @@
     color: $grey;
     display: inline-block;
     font-size: 14px;
-    line-height: 12px;
-    margin: 0px 0px 0px 6px;
-    vertical-align: bottom;
+    line-height: 14px;
+    margin: 0px 0px 0px 4px;
+    vertical-align: middle;
 }
 </style>
 <script>
