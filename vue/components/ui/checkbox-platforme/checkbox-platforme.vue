@@ -57,11 +57,6 @@
     width: fit-content;
 }
 
-.choice:hover,
-.choice:hover label {
-    cursor: pointer;
-}
-
 .choice > .value {
     display: none;
 }
@@ -70,6 +65,7 @@
     background-color: #fafbfc;
     border: 2px solid #dfe1e5;
     border-radius: 2px 2px 2px 2px;
+    cursor: pointer;
     display: inline-block;
     height: 4px;
     padding: 3px 3px 3px 3px;
@@ -91,6 +87,7 @@
 .choice.disabled > .checkbox-square {
     background: none center / 7px 6px no-repeat #f4f5f7;
     border: 2px solid #f4f5f7;
+    cursor: default;
 }
 
 .choice.checked > .checkbox-square {
@@ -116,11 +113,16 @@
 
 .choice > .label {
     color: $grey;
+    cursor: pointer;
     display: inline-block;
     font-size: 14px;
     line-height: 14px;
     margin: 0px 0px 0px 4px;
     vertical-align: middle;
+}
+
+.choice.disabled > .label {
+    cursor: default;
 }
 </style>
 <script>
