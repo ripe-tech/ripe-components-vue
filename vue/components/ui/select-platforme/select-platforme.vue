@@ -6,7 +6,7 @@
                 class="dropdown-button"
                 v-bind:class="{ disabled: disabled }"
                 tabindex="0"
-                v-on:click="onToggleDropdown"
+                v-on:click="onClickDropdownButton()"
                 v-on:keydown.exact="onKey($event.key)"
                 v-on:keydown.esc.exact="onEscKey()"
                 v-on:keydown.up.exact="onArrowUpKey()"
@@ -198,6 +198,9 @@ export const SelectPlatforme = {
             const targetElement = event.target;
 
             if (!dropdownElement.contains(targetElement)) this.closeDropdown();
+        },
+        onClickDropdownButton() {
+            this.onToggleDropdown();
         },
         onKey(key) {
             this.highlightFirstMatchedOption(key);
