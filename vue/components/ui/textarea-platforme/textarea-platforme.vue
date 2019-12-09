@@ -128,7 +128,7 @@ export const TextareaPlatforme = {
             const base = { };
 
             if(this.initialWidth) base.width = `${this.initialWidth}px`;
-            if(this.initialHeight) base.initialHeight = `${this.initialHeight}px`;
+            if(this.initialHeight) base.height = `${this.initialHeight}px`;
 
             if (!this.resize) {
                 base.resize = "none";
