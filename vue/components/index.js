@@ -6,6 +6,7 @@ import { AlertPlatforme } from "./ui/alert-platforme/alert-platforme.vue";
 import { ButtonColorPlatforme } from "./ui/button-color-platforme/button-color-platforme.vue";
 import { ButtonIconPlatforme } from "./ui/button-icon-platforme/button-icon-platforme.vue";
 import { ButtonPlatforme } from "./ui/button-platforme/button-platforme.vue";
+import { ChatPlatforme } from "./ui/chat-platforme/chat-platforme.vue";
 import { CheckboxPlatforme } from "./ui/checkbox-platforme/checkbox-platforme.vue";
 import { ContainerPlatforme } from "./ui/container-platforme/container-platforme.vue";
 import { DropdownPlatforme } from "./ui/dropdown-platforme/dropdown-platforme.vue";
@@ -41,6 +42,7 @@ const install = Vue => {
     Vue.component("button-color-platforme", ButtonColorPlatforme);
     Vue.component("button-icon-platforme", ButtonIconPlatforme);
     Vue.component("button-platforme", ButtonPlatforme);
+    Vue.component("chat-platforme", ChatPlatforme);
     Vue.component("checkbox-platforme", CheckboxPlatforme);
     Vue.component("container-platforme", ContainerPlatforme);
     Vue.component("dropdown-platforme", DropdownPlatforme);
@@ -75,6 +77,7 @@ export {
     ButtonColorPlatforme,
     ButtonIconPlatforme,
     ButtonPlatforme,
+    ChatPlatforme,
     CheckboxPlatforme,
     ContainerPlatforme,
     DropdownPlatforme,
