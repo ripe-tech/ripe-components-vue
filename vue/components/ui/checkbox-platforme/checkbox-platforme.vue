@@ -54,6 +54,7 @@
     outline: none;
     padding: 10px 6px 10px 6px;
     user-select: none;
+    width: fit-content;
 }
 
 .choice:hover,
