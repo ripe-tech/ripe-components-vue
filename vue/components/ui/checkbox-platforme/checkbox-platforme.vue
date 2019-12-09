@@ -10,7 +10,7 @@
                     error: error || item.error
                 }"
                 v-bind:index="index"
-                tabindex="0"
+                v-bind:tabindex="item.disabled ? '' : '0'"
                 v-for="(item, index) in items"
                 v-bind:key="index"
                 v-on:click="onClick(item)"
@@ -109,7 +109,7 @@
     padding: 3px 3px 3px 3px;
 }
 
-.choice:focus > .checkbox-square {
+.choice:focus:not(.disabled) > .checkbox-square {
     border-color: $aqcua-blue;
 }
 

@@ -9,13 +9,13 @@ storiesOf("Input", module)
                 default: boolean("Error", false)
             },
             disabled: {
-                default: boolean("Disabled group", false)
+                default: boolean("Disabled Group", false)
             },
             header: {
-                default: text("Header", "Start header")
+                default: text("Header", "Start Header")
             },
             footer: {
-                default: text("Footer", "End footer")
+                default: text("Footer", "End Footer")
             }
         },
         data: function() {
@@ -26,8 +26,8 @@ storiesOf("Input", module)
                         value: "japan"
                     },
                     {
-                        label: "Morroco",
-                        value: "morroco"
+                        label: "Morocco",
+                        value: "morocco"
                     },
                     {
                         value: "Canada",
