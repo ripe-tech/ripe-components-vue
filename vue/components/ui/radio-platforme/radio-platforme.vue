@@ -139,13 +139,13 @@ export const RadioPlatforme = {
         onArrowUp(index) {
             const newIndex = index - 1 < 0 ? this.items.length - 1 : index - 1;
 
-            // this.$refs[`choice-${newIndex}`][0].focus();
+            this.$refs[`choice-${newIndex}`][0].focus();
             this.setItem(this.items[newIndex]);
         },
         onArrowDown(index) {
             const newIndex = (index + 1) % this.items.length;
 
-            // this.$refs[`choice-${newIndex}`][0].focus();
+            this.$refs[`choice-${newIndex}`][0].focus();
             this.setItem(this.items[newIndex]);
         },
         onClick(item) {
