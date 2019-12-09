@@ -1,7 +1,7 @@
 <template>
     <div class="chat">
         <div class="chat-container">
-            <div class="box1">
+            <div class="chat-messages-container">
                 <p>awhawhawhawh</p>
                 <p>awgwhhwahah</p>
                 <p>awgagwagw</p>
@@ -17,7 +17,7 @@
                 <p>e5k5erieie</p>
                 <p>se5is5eisei</p>
             </div>
-            <div class="box2">
+            <div class="chat-files-container">
                 <div class="files-title">
                     Files
                 </div>
@@ -56,7 +56,6 @@
                     <div class="optionExample" />
                 </div>
             </div>
-
         </div>
     </div>
 </template>
@@ -69,22 +68,22 @@
     height: 350px;
 }
 
-.box1 {
+.chat-messages-container {
     background-color: lightcoral;
     flex: 1 0;
     overflow: auto;
 }
-.box2 {
+.chat-files-container {
     background-color: lightgreen;
     width: 250px;
 }
 
-.box2 .files-title{
+.chat-files-container .files-title{
     height: 42px;
     background-color: rgb(220, 255, 220);
 }
 
-.box2 .files-list{
+.chat-files-container .files-list{
     height: 308px;
     overflow: auto;
 }
