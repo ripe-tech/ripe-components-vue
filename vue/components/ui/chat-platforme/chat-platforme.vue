@@ -2,24 +2,27 @@
     <div class="chat">
         <div class="chat-container">
             <div class="chat-messages-container">
-                <p>awhawhawhawh</p>
-                <p>awgwhhwahah</p>
-                <p>awgagwagw</p>
-                <p>afwaf</p>
-                <p>awgawg</p>
-                <p>eeeegwagawgeeee</p>
-                <p>awhawhawh</p>
-                <p>awhawhwahawhah</p>
-                <p>ahawhawh</p>
-                <p>eaue4u4eie4i</p>
-                <p>awhasgejrse</p>
-                <p>ue4ujes5j5rk</p>
-                <p>e5k5erieie</p>
-                <p>se5is5eisei</p>
+                <p>Bla bla bla</p>
+                <p>Bla bla bla</p>
+                <p>Bla bla bla</p>
+                <p>Bla bla bla</p>
+                <p>Bla bla bla</p>
+                <p>Bla bla bla</p>
+                <p>Bla bla bla</p>
+                <p>Bla bla bla</p>
+                <p>Bla bla bla</p>
+                <p>Bla bla bla</p>
+                <p>Bla bla bla</p>
+                <p>Bla bla bla</p>
+                <p>Bla bla bla</p>
+                <p>Bla bla bla</p>
+                <p>Bla bla bla</p>
+                <p>Bla bla bla</p>
+                <p>Bla bla bla</p>
             </div>
             <div class="chat-files-container">
                 <div class="files-title">
-                    Files
+                    <span>Files</span> 
                 </div>
                 <div class="files-list">
                     <p>File 1</p>
@@ -63,25 +66,44 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
+.chat {
+  border: solid 2px #e4e8f0;  
+}
+
 .chat-container {
     display: flex;
     height: 350px;
 }
 
 .chat-messages-container {
-    background-color: lightcoral;
+    background-color: $grey-6;
     flex: 1 0;
     overflow: auto;
 }
+
+.chat-messages-container > p{ //TODO remove
+margin: 10px 20px;
+}
+
 .chat-files-container {
-    background-color: lightgreen;
+    background-color: $grey-6;
     width: 250px;
 }
 
 .chat-files-container .files-title{
     height: 42px;
-    background-color: rgb(220, 255, 220);
 }
+
+.chat-files-container .files-title span{
+    display: block;
+    line-height: 42px;
+    background-color: $white;
+    font-weight: bold;
+    letter-spacing: 0.7px;
+    color: $light-black;
+    margin: 0px 20px 0px 20px;
+}
+
 
 .chat-files-container .files-list{
     height: 308px;
@@ -89,11 +111,12 @@
 }
 
 .chat-input-container {
-    background-color: lightblue;
+    background-color: $grey-6;
     width: 100%;
 }
 
 .chat-input-container .chat-input {
+    border-top: solid 2px #e4e8f0; 
     padding: 20px 20px 20px 20px;
 }
 
@@ -112,7 +135,8 @@
     display: inline-block;
     height: 22px;
     width: 22px;
-    background-color: chocolate;
+    background: url("~./assets/clip.svg") center;
+    background-size: 22px 22px;
     margin: 4px 4px 4px 4px;
 }
 </style>
