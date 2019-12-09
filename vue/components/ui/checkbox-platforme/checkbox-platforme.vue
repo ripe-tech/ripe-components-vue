@@ -34,20 +34,6 @@
     display: inline-block;
 }
 
-.checkbox > .header,
-.checkbox > .footer {
-    color: $pale-grey;
-    display: block;
-}
-
-.checkbox > .header {
-    padding: 0px 0px 4px 0px;
-}
-
-.checkbox > .footer {
-    padding: 4px 0px 0px 0px;
-}
-
 .choice {
     display: block;
     line-height: 13px;
