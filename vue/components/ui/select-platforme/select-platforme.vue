@@ -273,10 +273,10 @@ export const SelectPlatforme = {
             if (!this.disabled) this.toggleDropdown();
         },
         openDropdown() {
-            this.$emit("update:dropdownVisible", true);
+            if(!this.dropdownVisible) this.$emit("update:dropdownVisible", true);
         },
         closeDropdown() {
-            this.$emit("update:dropdownVisible", false);
+            if(this.dropdownVisible) this.$emit("update:dropdownVisible", false);
         },
         toggleDropdown() {
             this.$emit("update:dropdownVisible", !this.dropdownVisible);
