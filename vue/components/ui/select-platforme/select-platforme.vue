@@ -55,12 +55,12 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-body.mobile .select-platforme .dropdown-container {
+body.mobile-device .select-platforme .dropdown-container,
+body.tablet-device .select-platforme .dropdown-container {
     display: none;
 }
 
-body.desktop .select-platforme .mobile-dropdown,
-body.tablet .select-platforme .mobile-dropdown {
+body.desktop-device .select-platforme .mobile-dropdown {
     display: none;
 }
 
