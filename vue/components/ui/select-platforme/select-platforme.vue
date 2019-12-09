@@ -131,16 +131,13 @@ body.tablet .select-platforme .mobile-dropdown {
     background-color: $white;
 }
 
+.select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item.selectHighlight.optionHighlight,
 .select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item.selectHighlight {
-    background-color: red; //TODO change to a grey darker than $light-grey
-}
-
-.select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item.optionHighlight { //TODO add lighter color
-    background-color: $light-grey;
-}
-
-.select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item:active {
     background-color: $grey-3;
+}
+
+.select-platforme .dropdown-container ::v-deep .dropdown-platforme .dropdown-item.optionHighlight {
+    background-color: $light-grey;
 }
 </style>
 
