@@ -9,6 +9,10 @@ storiesOf("Chat", module)
                 default: text("Hello Text", "Hello")
             }
         },
-        template:
-            '<chat-platforme v-bind:hello-text="helloText" />'
+        template: `
+            <div style="width:100%;height:450px;">
+                <chat-platforme v-bind:hello-text="helloText" />
+            </div>
+            `
+            
     }));
