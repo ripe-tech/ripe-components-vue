@@ -125,10 +125,10 @@ export const TextareaPlatforme = {
     },
     computed: {
         textAreaStyle() {
-            const base = { };
+            const base = {};
 
-            if(this.initialWidth) base.width = `${this.initialWidth}px`;
-            if(this.initialHeight) base.height = `${this.initialHeight}px`;
+            if (this.initialWidth) base.width = `${this.initialWidth}px`;
+            if (this.initialHeight) base.height = `${this.initialHeight}px`;
 
             if (!this.resize) {
                 base.resize = "none";

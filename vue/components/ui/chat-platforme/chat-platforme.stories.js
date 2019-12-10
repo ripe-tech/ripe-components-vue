@@ -14,5 +14,4 @@ storiesOf("Chat", module)
                 <chat-platforme v-bind:hello-text="helloText" />
             </div>
             `
-            
     }));

@@ -2,8 +2,6 @@
     <div class="chat">
         <div class="chat-container">
             <div class="chat-messages-container">
-                
-                
                 <div class="chat-message">
                     <img class="user-image" src="http://i.pravatar.cc" />
                     <div class="message-container">
@@ -16,19 +14,29 @@
                                 Lorem ipsum dolor sit amet, @consectetur ad amet, consectetur ad.
                             </span>
                             <div class="links">
-                               <link-platforme v-bind:text='"lorem-ipsum.pdf"' v-bind:href="'http://platforme.com'" v-bind:disabled="false" v-bind:size='"small"' v-bind:color='"blue"' />
-                               <link-platforme v-bind:text='"lorem-ipsum.pdf"' v-bind:href="'http://platforme.com'" v-bind:disabled="false" v-bind:size='"small"' v-bind:color='"blue"' />
+                                <link-platforme
+                                    v-bind:text="'lorem-ipsum.pdf'"
+                                    v-bind:href="'http://platforme.com'"
+                                    v-bind:disabled="false"
+                                    v-bind:size="'small'"
+                                    v-bind:color="'blue'"
+                                />
+                                <link-platforme
+                                    v-bind:text="'lorem-ipsum.pdf'"
+                                    v-bind:href="'http://platforme.com'"
+                                    v-bind:disabled="false"
+                                    v-bind:size="'small'"
+                                    v-bind:color="'blue'"
+                                />
                             </div>
                             <div class="reactions">
-                                <div class="reactionExample"></div>
-                                <div class="reactionExample"></div>
-                                <div class="reactionExample"></div>
+                                <div class="reactionExample" />
+                                <div class="reactionExample" />
+                                <div class="reactionExample" />
                             </div>
                         </div>
                     </div>
                 </div>
-
-
 
                 <div class="chat-message">
                     <img class="user-image" src="http://i.pravatar.cc" />
@@ -37,9 +45,7 @@
                             <span class="username">Username</span>
                             <span class="date">Nov 28</span>
                         </div>
-                        <span
-                            class="message"
-                        >Lorem ipsum dolor sit amet ad.</span>
+                        <span class="message">Lorem ipsum dolor sit amet ad.</span>
                     </div>
                 </div>
                 <div class="chat-message">
@@ -214,10 +220,10 @@
         <div class="chat-input-container">
             <div class="chat-input">
                 <textarea-platforme
-                    v-bind:initialHeight="100"
-                    v-on:update:value="value => onTextareaValue(value)"
+                    v-bind:initial-height="100"
                     v-bind:placeholder="'Say something here...'"
                     v-bind:resize="false"
+                    v-on:update:value="value => onTextareaValue(value)"
                 />
                 <div class="chat-options">
                     <div class="optionExample" />
@@ -249,9 +255,6 @@
     overflow: auto;
 }
 
-
-
-
 .chat-messages-container .chat-message {
     display: flex;
     margin: 29px 0px 0px 33px;
@@ -261,9 +264,9 @@
     border: solid 1px #e3e8f1;
     border-radius: 50%;
     box-shadow: 0 2px 5px 0 rgba(67, 86, 100, 0.25);
-    width: 24px;
     height: 24px;
     margin: -4px 8px 0px 0px;
+    width: 24px;
 }
 
 .chat-messages-container .chat-message .message-container {
@@ -271,57 +274,45 @@
 }
 
 .chat-messages-container .chat-message .message-container .user-information .username {
-  font-weight: bold;
-  letter-spacing: 0.7px;
-  color: #0d0d0d;
+    color: #0d0d0d;
+    font-weight: bold;
+    letter-spacing: 0.7px;
 }
 
 .chat-messages-container .chat-message .message-container .user-information .date {
-  letter-spacing: 0.3px;
-  color: #a4adb5;
+    color: #a4adb5;
+    letter-spacing: 0.3px;
 }
-
-
-
-
-
 
 .chat-messages-container .chat-message .message-container .message-content {
-
+    //message-content
 }
 
-.chat-messages-container .chat-message .message-container .message-content .message{
-  letter-spacing: 0.3px;
-  color: #0d0d0d;
+.chat-messages-container .chat-message .message-container .message-content .message {
+    color: #0d0d0d;
+    letter-spacing: 0.3px;
 }
 
-.chat-messages-container .chat-message .message-container .message-content .links{
+.chat-messages-container .chat-message .message-container .message-content .links {
     margin-top: 6px;
 }
 
-.chat-messages-container .chat-message .message-container .message-content .links .link{
+.chat-messages-container .chat-message .message-container .message-content .links .link {
     display: block;
 }
-
 
 .chat-messages-container .chat-message .message-container .message-content .reactions {
     margin: 10px 0px 0px 0px;
 }
 
-
-.chat-messages-container .chat-message .message-container .message-content .reactions .reactionExample{
+.chat-messages-container .chat-message .message-container .message-content .reactions .reactionExample {
+    background-color: #f2b738;
     //TODO remove this example
     display: inline-block;
-    width: 37px;
-    height: 24px;
     font-size: 0px; //It fixes white spaces between divs
-    background-color: orange;
+    height: 24px;
+    width: 37px;
 }
-
-
-
-
-
 
 .chat-messages-container > p {
     //TODO remove
@@ -334,17 +325,17 @@
 }
 
 .chat-files-container .files-title {
-    height: 42px;
     border: solid 1px #e4e8f0;
+    height: 42px;
 }
 
 .chat-files-container .files-title span {
-    display: block;
-    line-height: 42px;
     background-color: $white;
+    color: $light-black;
+    display: block;
     font-weight: bold;
     letter-spacing: 0.7px;
-    color: $light-black;
+    line-height: 42px;
     margin: 0px 20px 0px 20px;
 }
 
@@ -368,19 +359,19 @@
 }
 
 .chat-input-container .chat-input .chat-options {
+    font-size: 0px; //It fixes white spaces between divs
     //background-color: lightseagreen;
     margin-top: -31px;
-    font-size: 0px; //It fixes white spaces between divs
     padding: 0px 9px 0px 9px;
 }
 
 .chat-input-container .chat-input .optionExample {
-    display: inline-block;
-    height: 22px;
-    width: 22px;
     background: url("~./assets/clip.svg") center;
     background-size: 22px 22px;
+    display: inline-block;
+    height: 22px;
     margin: 4px 4px 4px 4px;
+    width: 22px;
 }
 </style>
 
@@ -395,7 +386,7 @@ export const ChatPlatforme = {
     },
     methods: {
         onTextareaValue(value) {
-            //TODO
+            // TODO
             console.log(`Textarea changed: ${value}`);
         }
     }
