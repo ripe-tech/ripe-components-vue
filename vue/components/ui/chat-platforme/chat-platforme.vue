@@ -254,7 +254,7 @@
 
 .chat-messages-container .chat-message {
     display: flex;
-    margin: 20px 0px 0px 33px;
+    margin: 29px 0px 0px 33px;
 }
 
 .chat-messages-container .chat-message .user-image {
