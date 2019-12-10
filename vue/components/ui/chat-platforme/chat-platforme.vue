@@ -258,6 +258,9 @@
 }
 
 .chat-messages-container .chat-message .user-image {
+    border: solid 1px #e3e8f1;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px 0 rgba(67, 86, 100, 0.25);
     width: 24px;
     height: 24px;
     margin: -4px 8px 0px 0px;
