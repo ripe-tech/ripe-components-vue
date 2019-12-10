@@ -140,16 +140,16 @@ export const RadioPlatforme = {
         }
     },
     methods: {
-        focusAndSetItem(index) {
+        focusAndSelectItem(index) {
             const item = this.items[index];
 
             if (item.disabled || this.disabled) return false;
-            if (this.value === item.value) return false;
 
             this.$refs[`choice-${index}`][0].focus();
-            this.setItem(item);
+            this.selectItem(item);
+            return true;
         },
-        setItem(item) {
+        selectItem(item) {
             if (item.disabled || this.disabled) return false;
             if (this.value === item.value) return false;
 
@@ -157,41 +157,28 @@ export const RadioPlatforme = {
             return true;
         },
         onSpacebar(item) {
-            this.setItem(item);
+            this.selectItem(item);
         },
         onArrowUp(index) {
-            // tries to find a suitable item to focus
-            for (let i = index + 1; i < this.items.length; i++) {
-                if (this.focusAndSetItem(i)) return;
-            }
-
-            // if it can't find an item to focus until
-            // the end of the list, searches from the
-            // beginning
-            for (let i = 0; i < index; i++) {
-                if (this.focusAndSetItem(i)) return;
+            for (let i = index - 1; i > index - this.items.length; i--) {
+                if (this.focusAndSelectItem(this.negativeModulo(i, this.items.length))) return;
             }
         },
         onArrowDown(index) {
-            // tries to find a suitable item to focus
-            for (let i = index - 1; i >= 0; i--) {
-                if (this.focusAndSetItem(i)) return;
-            }
-
-            // if it can't find an item to focus until
-            // the beginning of the list, searches from the
-            // end
-            for (let i = this.items.length - 1; i > index; i--) {
-                if (this.focusAndSetItem(i)) return;
+            for (let i = index + 1; i < index + this.items.length; i++) {
+                if (this.focusAndSelectItem(i % this.items.length)) return;
             }
         },
         onClick(item) {
-            this.setItem(item);
+            this.selectItem(item);
         },
         _getTabIndex(item, index) {
             if (this.disabled || item.disabled) return null;
 
             return this.firstEnabledIndex === index ? 0 : -1;
+        },
+        negativeModulo(nr, modulo) {
+            return ((nr % modulo) + modulo) % modulo;
         }
     }
 };
