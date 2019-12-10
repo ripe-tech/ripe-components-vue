@@ -16,7 +16,7 @@
             </h1>
             <loader-platforme loader="line-scale" v-bind:count="5" v-else />
         </container-platforme>
-        <container-platforme class="details-container">
+        <container-platforme class="details-container" v-if="loaded">
             <div class="container-header">
                 <div class="header-buttons">
                     <slot name="header-buttons">
