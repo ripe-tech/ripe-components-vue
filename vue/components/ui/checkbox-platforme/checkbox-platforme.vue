@@ -26,10 +26,6 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.checkbox {
-    display: inline-block;
-}
-
 .choice {
     display: block;
     line-height: 13px;
