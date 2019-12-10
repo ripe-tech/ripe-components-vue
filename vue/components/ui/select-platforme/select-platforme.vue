@@ -171,7 +171,7 @@ export const SelectPlatforme = {
         },
         width: {
             type: Number,
-            default: 300
+            default: null
         },
         maxHeight: {
             type: Number,
@@ -340,10 +340,9 @@ export const SelectPlatforme = {
     },
     computed: {
         selectStyle() {
-            const base = {
-                width: `${this.width}px`
-            };
+            const base = { };
 
+            if (this.width) base.width = `${this.width}px`
             if (!this.allowTextSelection) base["user-select"] = "none";
 
             return base;
