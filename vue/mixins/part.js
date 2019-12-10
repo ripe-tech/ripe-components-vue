@@ -30,6 +30,9 @@ const partMixin = {
             }
             return true;
         },
+        async alert(message, options = {}) {
+            await this.alertMessage(message, options);
+        },
         async alertMessage(message, options = {}) {
             options.text = message;
             this._alert(options);
