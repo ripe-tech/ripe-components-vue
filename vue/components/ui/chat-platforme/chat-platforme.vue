@@ -254,12 +254,13 @@
 
 .chat-messages-container .chat-message {
     display: flex;
-    margin-top: 20px;
+    margin: 20px 0px 0px 33px;
 }
 
 .chat-messages-container .chat-message .user-image {
     width: 24px;
     height: 24px;
+    margin: -4px 8px 0px 0px;
 }
 
 .chat-messages-container .chat-message .message-container {
