@@ -246,7 +246,9 @@ body.mobile .container-platforme .header-buttons > .header-button > span > img {
     width: 20px;
 }
 
-.container-platforme .header-buttons .header-button > span:hover > img {
+.container-platforme .header-buttons .header-button > span:hover > img,
+.container-platforme .header-buttons .header-button > span.active > img,
+.container-platforme .header-buttons .header-button > span:active > img {
     opacity: 1;
 }
 
