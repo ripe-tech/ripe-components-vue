@@ -8,7 +8,7 @@
                 v-for="(tab, index) in tabs"
                 v-bind:key="tab.id"
                 v-on:click="onClick(index)"
-                v-on:keydown.13="onEnter(index)"
+                v-on:keydown.enter="onEnter(index)"
             >
                 {{ tab.title || tab.id }}
             </div>
@@ -94,6 +94,7 @@
 
 .tabs > .tabs-container > .tab.visible {
     opacity: 1;
+    z-index: 1;
 }
 </style>
 

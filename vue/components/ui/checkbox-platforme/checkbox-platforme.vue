@@ -1,52 +1,30 @@
 <template>
     <div class="checkbox">
-        <label-platforme class="header" v-bind:text="header" v-if="header" />
-        <div class="choices">
-            <div
-                class="choice"
-                v-bind:class="{
-                    checked: values[item.value],
-                    disabled: disabled || item.disabled,
-                    error: error || item.error
-                }"
-                v-bind:index="index"
-                tabindex="0"
-                v-for="(item, index) in items"
-                v-bind:key="index"
-                v-on:click="onClick(item)"
-                v-on:keydown.32="onSpace(item)"
-            >
-                <input type="checkbox" class="value" v-bind:id="item.value" />
-                <div class="checkbox-square" />
-                <label class="label" for="item.value">
-                    {{ item.label ? item.label : item.value }}
-                </label>
-            </div>
+        <div
+            class="choice"
+            v-bind:class="{
+                checked: values[item.value],
+                disabled: disabled || item.disabled,
+                error: error || item.error
+            }"
+            v-bind:index="index"
+            v-bind:tabindex="item.disabled ? '' : '0'"
+            v-for="(item, index) in items"
+            v-bind:key="index"
+            v-on:click="onClick(item)"
+            v-on:keydown.space="onSpace(item)"
+        >
+            <input type="checkbox" class="value" v-bind:id="item.value" />
+            <div class="checkbox-square" />
+            <label class="label" for="item.value">
+                {{ item.label ? item.label : item.value }}
+            </label>
         </div>
-        <label-platforme class="footer" v-bind:size="'small'" v-bind:text="footer" v-if="footer" />
     </div>
 </template>
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
-
-.checkbox {
-    display: inline-block;
-}
-
-.checkbox > .header,
-.checkbox > .footer {
-    color: $pale-grey;
-    display: block;
-}
-
-.checkbox > .header {
-    padding: 0px 0px 4px 0px;
-}
-
-.checkbox > .footer {
-    padding: 4px 0px 0px 0px;
-}
 
 .choice {
     display: block;
@@ -54,11 +32,7 @@
     outline: none;
     padding: 10px 6px 10px 6px;
     user-select: none;
-}
-
-.choice:hover,
-.choice:hover label {
-    cursor: pointer;
+    width: fit-content;
 }
 
 .choice > .value {
@@ -69,11 +43,12 @@
     background-color: #fafbfc;
     border: 2px solid #dfe1e5;
     border-radius: 2px 2px 2px 2px;
+    cursor: pointer;
     display: inline-block;
-    height: 2px;
+    height: 4px;
     padding: 3px 3px 3px 3px;
-    vertical-align: bottom;
-    width: 2px;
+    vertical-align: middle;
+    width: 4px;
 }
 
 .choice:not(.disabled):not(.error):active > .checkbox-square {
@@ -90,6 +65,7 @@
 .choice.disabled > .checkbox-square {
     background: none center / 7px 6px no-repeat #f4f5f7;
     border: 2px solid #f4f5f7;
+    cursor: default;
 }
 
 .choice.checked > .checkbox-square {
@@ -109,17 +85,22 @@
     padding: 3px 3px 3px 3px;
 }
 
-.choice:focus > .checkbox-square {
+.choice:focus:not(.disabled) > .checkbox-square {
     border-color: $aqcua-blue;
 }
 
 .choice > .label {
     color: $grey;
+    cursor: pointer;
     display: inline-block;
     font-size: 14px;
-    line-height: 12px;
-    margin: 0px 0px 0px 6px;
-    vertical-align: bottom;
+    line-height: 14px;
+    margin: 0px 0px 0px 4px;
+    vertical-align: middle;
+}
+
+.choice.disabled > .label {
+    cursor: default;
 }
 </style>
 <script>
@@ -141,39 +122,31 @@ export const CheckboxPlatforme = {
         error: {
             type: Boolean,
             default: false
-        },
-        header: {
-            type: String,
-            default: null
-        },
-        footer: {
-            type: String,
-            default: false
         }
     },
     methods: {
-        toggleItem(item) {
-            this.values[item.value] ? this.removeItem(item) : this.addItem(item);
-        },
-        addItem(item) {
+        selectItem(item) {
             if (this.disabled || item.disabled) return;
             if (this.values[item.value]) return;
 
-            this.$emit("selected:value", item.value);
-
             const updated = Object.assign({}, this.values);
             updated[item.value] = true;
+
+            this.$emit("selected:value", item.value);
             this.$emit("update:values", updated);
         },
-        removeItem(item) {
+        deselectItem(item) {
             if (this.disabled || item.disabled) return;
             if (!this.values[item.value]) return;
 
-            this.$emit("unselected:value", item.value);
-
             const updated = Object.assign({}, this.values);
             delete updated[item.value];
+
+            this.$emit("deselected:value", item.value);
             this.$emit("update:values", updated);
+        },
+        toggleItem(item) {
+            this.values[item.value] ? this.deselectItem(item) : this.selectItem(item);
         },
         onSpace(item) {
             this.toggleItem(item);

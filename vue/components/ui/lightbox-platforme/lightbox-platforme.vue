@@ -43,7 +43,7 @@
     right: 0px;
     top: 0px;
     transition: opacity 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
-    z-index: 10;
+    z-index: 40;
 }
 
 .lightbox-container.fade-enter,

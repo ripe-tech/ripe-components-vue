@@ -95,7 +95,7 @@
     position: fixed;
     top: 0px;
     width: 100%;
-    z-index: 10;
+    z-index: 30;
 }
 
 .app.first .header-platforme {

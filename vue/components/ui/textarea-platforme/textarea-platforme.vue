@@ -1,32 +1,19 @@
 <template>
-    <div class="textarea">
-        <label-platforme class="header" v-bind:text="header" v-bind:for="id" v-if="header" />
-        <textarea
-            v-bind:style="textAreaStyle"
-            v-bind:value="value"
-            v-bind:placeholder="placeholder"
-            v-bind:disabled="disabled"
-            v-bind:id="id"
-            v-on:input="onInput($event.target.value)"
-        />
-        <label-platforme
-            class="footer"
-            v-bind:size="'small'"
-            v-bind:text="footer"
-            v-bind:for="id"
-            v-if="footer"
-        />
-    </div>
+    <textarea
+        class="textarea"
+        v-bind:style="textAreaStyle"
+        v-bind:value="value"
+        v-bind:placeholder="placeholder"
+        v-bind:disabled="disabled"
+        v-bind:id="id"
+        v-on:input="onInput($event.target.value)"
+    />
 </template>
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.textarea .label {
-    display: block;
-}
-
-.textarea textarea {
+.textarea {
     background-color: #f9fafd;
     border: 1px solid $light-white;
     border-radius: 6px;
@@ -41,36 +28,27 @@
     padding: 8px 8px 8px 8px;
 }
 
-.textarea textarea::placeholder {
+.textarea::placeholder {
     color: $medium-grey;
     font-family: $font-family;
 }
 
-.textarea textarea:disabled,
-.textarea textarea:disabled:hover {
+.textarea:disabled,
+.textarea:disabled:hover {
     background-color: #f6f7f9;
     color: $medium-grey;
 }
 
-.textarea textarea:hover {
+.textarea:hover {
     background-color: $lighter-grey;
     border: 1px solid #dfe1e5;
 }
 
-.textarea textarea:focus {
+.textarea:focus {
     background-color: $white;
     border: 2px solid $aqcua-blue;
     color: $black;
     padding: 7px 7px 7px 7px;
-}
-
-.textarea .header {
-    margin-bottom: 7px;
-}
-
-.textarea .footer {
-    color: $medium-grey;
-    margin-top: 4px;
 }
 </style>
 
@@ -87,14 +65,6 @@ export const TextareaPlatforme = {
             default: null
         },
         placeholder: {
-            type: String,
-            default: null
-        },
-        header: {
-            type: String,
-            default: null
-        },
-        footer: {
             type: String,
             default: null
         },

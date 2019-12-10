@@ -68,7 +68,11 @@
     text-align: center;
     top: 0px;
     transition: opacity 0.25s;
-    z-index: 10;
+    z-index: 40;
+}
+
+.modal > .overlay {
+    z-index: 0;
 }
 
 .modal > .modal-container {
@@ -231,7 +235,7 @@ export const ModalPlatforme = {
     },
     computed: {
         className() {
-            return `modal-${name}`;
+            return this.name ? `modal-${this.name}` : null;
         },
         isVisible() {
             return this.visible && this.visibleData;

@@ -1,5 +1,6 @@
 <template>
-    <modal-platforme
+    <component
+        v-bind="attrs"
         v-bind:confirm-text="confirmText"
         v-bind:buttons-alignment="buttonsAlignment"
         v-bind:button-close="buttonClose"
@@ -12,6 +13,29 @@
         v-bind:visible="visible"
         v-bind:loading="loading"
         v-bind:auto-hide="false"
+        v-if="component"
+        v-bind:is="component"
+        v-on="listeners"
+        v-on:update:visible="onUpdateVisible"
+        v-on:click:confirm="onConfirm"
+        v-on:click:cancel="onCancel"
+    />
+    <modal-platforme
+        v-bind="attrs"
+        v-bind:confirm-text="confirmText"
+        v-bind:buttons-alignment="buttonsAlignment"
+        v-bind:button-close="buttonClose"
+        v-bind:cancel-text="cancelText"
+        v-bind:global-events="globalEvents"
+        v-bind:overlay="overlay"
+        v-bind:overlay-leave="overlayLeave"
+        v-bind:title="title"
+        v-bind:sub-title="subTitle"
+        v-bind:visible="visible"
+        v-bind:loading="loading"
+        v-bind:auto-hide="false"
+        v-else
+        v-on="listeners"
         v-on:update:visible="onUpdateVisible"
         v-on:click:confirm="onConfirm"
         v-on:click:cancel="onCancel"
@@ -23,8 +47,12 @@
 <script>
 export const AlertPlatforme = {
     name: "alert-platforme",
+    inheritAttrs: false,
     data: function() {
         return {
+            attrs: null,
+            listeners: null,
+            component: null,
             confirmText: null,
             cancelText: null,
             buttonsAlignment: null,
@@ -42,7 +70,6 @@ export const AlertPlatforme = {
             loading: false
         };
     },
-    watch: {},
     mounted: function() {
         this.$bus.$on("alert", options => this.show(options));
     },
@@ -51,6 +78,8 @@ export const AlertPlatforme = {
             if (this.visible) return;
 
             const {
+                listeners,
+                component,
                 confirmText,
                 cancelText,
                 buttonsAlignment,
@@ -63,9 +92,12 @@ export const AlertPlatforme = {
                 title,
                 subTitle,
                 text,
-                task
+                task,
+                ...attrs
             } = options;
 
+            this.attrs = attrs || {};
+            this.listeners = listeners || {};
             this.confirmText = confirmText || "Confirm";
             this.cancelText = cancelText || "Cancel";
             this.buttonsAlignment = buttonsAlignment;
@@ -82,6 +114,7 @@ export const AlertPlatforme = {
 
             this.visible = true;
             this.loading = false;
+            this.component = component;
         },
         markDone(event) {
             this.$bus.$emit(event);
@@ -96,10 +129,10 @@ export const AlertPlatforme = {
                     console.err(err);
                 }
             }
-            this.markDone("alert_confirm");
+            this.markDone("alert:confirm");
         },
         async cancel() {
-            this.markDone("alert_cancel");
+            this.markDone("alert:cancel");
         },
         async onUpdateVisible(visible) {
             if (visible) return;
