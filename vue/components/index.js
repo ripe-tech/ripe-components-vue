@@ -11,6 +11,7 @@ import { ContainerPlatforme } from "./ui/container-platforme/container-platforme
 import { DropdownPlatforme } from "./ui/dropdown-platforme/dropdown-platforme.vue";
 import { FilterPlatforme } from "./ui/filter-platforme/filter-platforme.vue";
 import { FooterPlatforme } from "./ui/footer-platforme/footer-platforme.vue";
+import { FormInputPlatforme } from "./ui/form-input-platforme/form-input-platforme.vue";
 import { HeaderPlatforme } from "./ui/header-platforme/header-platforme.vue";
 import { ImagePlatforme } from "./ui/image-platforme/image-platforme.vue";
 import { InputPlatforme } from "./ui/input-platforme/input-platforme.vue";
@@ -46,6 +47,7 @@ const install = Vue => {
     Vue.component("dropdown-platforme", DropdownPlatforme);
     Vue.component("filter-platforme", FilterPlatforme);
     Vue.component("footer-platforme", FooterPlatforme);
+    Vue.component("form-input-platforme", FormInputPlatforme);
     Vue.component("header-platforme", HeaderPlatforme);
     Vue.component("image-platforme", ImagePlatforme);
     Vue.component("input-platforme", InputPlatforme);
@@ -79,6 +81,7 @@ export {
     ContainerPlatforme,
     DropdownPlatforme,
     FilterPlatforme,
+    FormInputPlatforme,
     FooterPlatforme,
     HeaderPlatforme,
     ImagePlatforme,
