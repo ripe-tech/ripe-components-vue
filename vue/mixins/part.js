@@ -44,8 +44,8 @@ const partMixin = {
         async _alert(options = {}) {
             const promise = new Promise((resolve, reject) => {
                 try {
-                    this.$bus.$on("alert_confirm", () => resolve(true));
-                    this.$bus.$on("alert_cancel", () => resolve(false));
+                    this.$bus.$on("alert:confirm", () => resolve(true));
+                    this.$bus.$on("alert:cancel", () => resolve(false));
                 } catch (err) {
                     reject(err);
                 }

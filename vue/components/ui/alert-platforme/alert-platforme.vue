@@ -1,6 +1,15 @@
 <template>
     <component
         v-bind="attrs"
+        v-bind:confirm-text="confirmText"
+        v-bind:buttons-alignment="buttonsAlignment"
+        v-bind:button-close="buttonClose"
+        v-bind:cancel-text="cancelText"
+        v-bind:global-events="globalEvents"
+        v-bind:overlay="overlay"
+        v-bind:overlay-leave="overlayLeave"
+        v-bind:title="title"
+        v-bind:sub-title="subTitle"
         v-bind:visible="visible"
         v-bind:loading="loading"
         v-bind:auto-hide="false"
@@ -12,6 +21,7 @@
         v-on:click:cancel="onCancel"
     />
     <modal-platforme
+        v-bind="attrs"
         v-bind:confirm-text="confirmText"
         v-bind:buttons-alignment="buttonsAlignment"
         v-bind:button-close="buttonClose"
@@ -25,6 +35,7 @@
         v-bind:loading="loading"
         v-bind:auto-hide="false"
         v-else
+        v-on="listeners"
         v-on:update:visible="onUpdateVisible"
         v-on:click:confirm="onConfirm"
         v-on:click:cancel="onCancel"
@@ -67,7 +78,6 @@ export const AlertPlatforme = {
             if (this.visible) return;
 
             const {
-                attrs,
                 listeners,
                 component,
                 confirmText,
@@ -82,7 +92,8 @@ export const AlertPlatforme = {
                 title,
                 subTitle,
                 text,
-                task
+                task,
+                ...attrs
             } = options;
 
             this.attrs = attrs || {};
@@ -118,10 +129,10 @@ export const AlertPlatforme = {
                     console.err(err);
                 }
             }
-            this.markDone("alert_confirm");
+            this.markDone("alert:confirm");
         },
         async cancel() {
-            this.markDone("alert_cancel");
+            this.markDone("alert:cancel");
         },
         async onUpdateVisible(visible) {
             if (visible) return;
