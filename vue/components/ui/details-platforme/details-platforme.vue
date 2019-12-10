@@ -396,7 +396,7 @@ body.mobile .container-platforme .details-column .label-value {
 
 .container-platforme ::v-deep .label-value .value {
     font-size: 14px;
-    line-height: 20px;
+    line-height: 18px;
     margin: 6px 0px 0px 0px;
     word-break: break-all;
     word-break: break-word;
