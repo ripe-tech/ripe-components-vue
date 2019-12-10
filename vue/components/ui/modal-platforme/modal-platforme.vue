@@ -86,6 +86,7 @@
     padding: 20px 26px 20px 26px;
     position: relative;
     width: 460px;
+    z-index: 20;
 }
 
 body.tablet .modal > .modal-container,
