@@ -56,8 +56,8 @@
 
 .choice:not(.disabled):not(.error):active > .radio-circle {
     background-color: #f4f5f7;
-    border: 4px solid #c3c9cf;
-    padding: 3px 3px 3px 3px;
+    border: 6px solid #c3c9cf;
+    padding: 1px 1px 1px 1px;
 }
 
 .choice.error > .radio-circle {
@@ -74,8 +74,8 @@
 .choice.checked > .radio-circle {
     background-color: $white;
     border-color: $dark;
-    border-width: 4px;
-    padding: 3px 3px 3px 3px;
+    border-width: 6px;
+    padding: 1px 1px 1px 1px;
 }
 
 .choice.error.checked > .radio-circle {
@@ -85,7 +85,7 @@
 .choice.disabled.checked > .radio-circle {
     background-color: #f4f5f7;
     border-color: #a6adb4;
-    border-width: 4px;
+    border-width: 6px;
     padding: 3px 3px 3px 3px;
 }
 
