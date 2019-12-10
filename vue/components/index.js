@@ -3,6 +3,7 @@ import { ErrorPlatforme } from "./parts/error-platforme/error-platforme.vue";
 import { GlobalPlatforme } from "./parts/global-platforme/global-platforme.vue";
 import { OAuthPlatforme } from "./parts/oauth-platforme/oauth-platforme.vue";
 import { AlertPlatforme } from "./ui/alert-platforme/alert-platforme.vue";
+import { AvatarPlatforme } from "./ui/avatar-platforme/avatar-platforme.vue";
 import { ButtonColorPlatforme } from "./ui/button-color-platforme/button-color-platforme.vue";
 import { ButtonIconPlatforme } from "./ui/button-icon-platforme/button-icon-platforme.vue";
 import { ButtonPlatforme } from "./ui/button-platforme/button-platforme.vue";
@@ -41,6 +42,7 @@ const install = Vue => {
     Vue.component("global-platforme", GlobalPlatforme);
     Vue.component("oauth-platforme", OAuthPlatforme);
     Vue.component("alert-platforme", AlertPlatforme);
+    Vue.component("avatar-platforme", AvatarPlatforme);
     Vue.component("button-color-platforme", ButtonColorPlatforme);
     Vue.component("button-icon-platforme", ButtonIconPlatforme);
     Vue.component("button-platforme", ButtonPlatforme);
@@ -78,6 +80,7 @@ export {
     GlobalPlatforme,
     OAuthPlatforme,
     AlertPlatforme,
+    AvatarPlatforme,
     ButtonColorPlatforme,
     ButtonIconPlatforme,
     ButtonPlatforme,
