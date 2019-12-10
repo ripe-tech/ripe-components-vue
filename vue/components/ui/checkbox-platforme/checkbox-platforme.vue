@@ -1,29 +1,25 @@
 <template>
     <div class="checkbox">
-        <label-platforme class="header" v-bind:text="header" v-if="header" />
-        <div class="choices">
-            <div
-                class="choice"
-                v-bind:class="{
-                    checked: values[item.value],
-                    disabled: disabled || item.disabled,
-                    error: error || item.error
-                }"
-                v-bind:index="index"
-                v-bind:tabindex="item.disabled ? '' : '0'"
-                v-for="(item, index) in items"
-                v-bind:key="index"
-                v-on:click="onClick(item)"
-                v-on:keydown.space="onSpace(item)"
-            >
-                <input type="checkbox" class="value" v-bind:id="item.value" />
-                <div class="checkbox-square" />
-                <label class="label" for="item.value">
-                    {{ item.label ? item.label : item.value }}
-                </label>
-            </div>
+        <div
+            class="choice"
+            v-bind:class="{
+                checked: values[item.value],
+                disabled: disabled || item.disabled,
+                error: error || item.error
+            }"
+            v-bind:index="index"
+            v-bind:tabindex="item.disabled ? '' : '0'"
+            v-for="(item, index) in items"
+            v-bind:key="index"
+            v-on:click="onClick(item)"
+            v-on:keydown.space="onSpace(item)"
+        >
+            <input type="checkbox" class="value" v-bind:id="item.value" />
+            <div class="checkbox-square" />
+            <label class="label" for="item.value">
+                {{ item.label ? item.label : item.value }}
+            </label>
         </div>
-        <label-platforme class="footer" v-bind:size="'small'" v-bind:text="footer" v-if="footer" />
     </div>
 </template>
 
@@ -129,14 +125,6 @@ export const CheckboxPlatforme = {
         },
         error: {
             type: Boolean,
-            default: false
-        },
-        header: {
-            type: String,
-            default: null
-        },
-        footer: {
-            type: String,
             default: false
         }
     },

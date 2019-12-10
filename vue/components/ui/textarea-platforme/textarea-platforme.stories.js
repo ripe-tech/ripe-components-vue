@@ -20,6 +20,15 @@ storiesOf("Input", module)
             footer: {
                 default: text("Help text", "Help or instruction text goes here")
             },
+            error: {
+                default: text("Error", "")
+            },
+            warning: {
+                default: text("Warning", "")
+            },
+            success: {
+                default: text("Success", "")
+            },
             disabled: {
                 default: boolean("Disabled", false)
             },
@@ -45,18 +54,26 @@ storiesOf("Input", module)
         },
         template: `
             <div>
-                <textarea-platforme
+                <form-input-platforme
                     v-bind:id="id"
-                    v-bind:value="value"
-                    v-on:update:value="value => onValue(value)"
-                    v-bind:placeholder="placeholder"
                     v-bind:header="header"
                     v-bind:footer="footer"
-                    v-bind:disabled="disabled"
-                    v-bind:initial-width="initialWidth"
-                    v-bind:initial-height="initialHeight"
-                    v-bind:resize="resize"
-                />
+                    v-bind:error="error"
+                    v-bind:warning="warning"
+                    v-bind:success="success"
+                >
+                    <textarea-platforme
+                        v-bind:id="id"
+                        v-bind:value="value"
+                        v-on:update:value="value => onValue(value)"
+                        v-bind:placeholder="placeholder"
+                        v-bind:disabled="disabled"
+                        v-bind:initial-width="initialWidth"
+                        v-bind:initial-height="initialHeight"
+                        v-bind:resize="resize"
+                    />
+                </form-input-platforme>
                 <p>Text: {{ textAreaText }}</p>
-            </div>`
+            </div>
+        `
     }));
