@@ -44,8 +44,8 @@ storiesOf("Components", module)
                     "placeholder_id"
                 )
             },
-            initialDropdownVisible: {
-                default: boolean("Initial Dropdown Visible", false)
+            initialVisible: {
+                default: boolean("Initial Visible", false)
             },
             width: {
                 default: number("Width", 300)
@@ -63,23 +63,23 @@ storiesOf("Components", module)
         data: function() {
             return {
                 value: this.initialValue,
-                dropdownVisible: this.initialDropdownVisible
+                visible: this.initialVisible
             };
         },
         watch: {
             initialValue() {
                 this.value = this.initialValue;
             },
-            initialDropdownVisible() {
-                this.dropdownVisible = this.initialDropdownVisible;
+            initialVisible() {
+                this.visible = this.initialVisible;
             }
         },
         methods: {
             onValue(value) {
                 this.value = value;
             },
-            onDropdownVisible(value) {
-                this.dropdownVisible = value;
+            onVisible(value) {
+                this.visible = value;
             }
         },
         template: `
@@ -94,9 +94,9 @@ storiesOf("Components", module)
                     v-bind:allow-text-selection="allowTextSelection"
                     v-bind:options="options"
                     v-bind:value="value"
-                    v-bind:dropdown-visible="dropdownVisible"
+                    v-bind:visible="visible"
                     v-on:update:value="value => onValue(value)"
-                    v-on:update:dropdownVisible="value => onDropdownVisible(value)"
+                    v-on:update:visible="value => onVisible(value)"
                 >
                 </select-platforme>
                 <p>Selected option: {{ value }}</p>
@@ -135,8 +135,8 @@ storiesOf("Components", module)
                     "placeholder_id"
                 )
             },
-            initialDropdownVisible: {
-                default: boolean("Initial Dropdown Visible", false)
+            initialVisible: {
+                default: boolean("Initial Visible", false)
             },
             width: {
                 default: number("Width", 300)
@@ -154,23 +154,23 @@ storiesOf("Components", module)
         data: function() {
             return {
                 value: this.initialValue,
-                dropdownVisible: this.initialDropdownVisible
+                visible: this.initialVisible
             };
         },
         watch: {
             initialValue() {
                 this.value = this.initialValue;
             },
-            initialDropdownVisible() {
-                this.dropdownVisible = this.initialDropdownVisible;
+            initialVisible() {
+                this.visible = this.initialVisible;
             }
         },
         methods: {
             onValue(value) {
                 this.value = value;
             },
-            onDropdownVisible(value) {
-                this.dropdownVisible = value;
+            onVisible(value) {
+                this.visible = value;
             }
         },
         template: `
@@ -185,9 +185,9 @@ storiesOf("Components", module)
                     v-bind:allow-text-selection="allowTextSelection"
                     v-bind:options="options"
                     v-bind:value="value"
-                    v-bind:dropdown-visible="dropdownVisible"
+                    v-bind:visible="visible"
                     v-on:update:value="value => onValue(value)"
-                    v-on:update:dropdownVisible="value => onDropdownVisible(value)"
+                    v-on:update:visible="value => onVisible(value)"
                 >
                     <template slot='item-option_4'>
                         <div style="color:chocolate">Special Option</div>

@@ -153,7 +153,7 @@ export const SelectPlatforme = {
             type: String,
             default: null
         },
-        dropdownVisible: {
+        visible: {
             type: Boolean,
             default: false
         },
@@ -181,14 +181,14 @@ export const SelectPlatforme = {
     data: function() {
         return {
             highlightedIndex: null,
-            visibleData: this.dropdownVisible
+            visibleData: this.visible
         };
     },
     watch: {
         disabled() {
             if (this.disabled) this.closeDropdown();
         },
-        dropdownVisible(value) {
+        visible(value) {
             this.visibleData = value;
         }
     },
@@ -251,7 +251,7 @@ export const SelectPlatforme = {
             this.selectOptionById(optionId);
         },
         onVisible(value) {
-            this.$emit("update:dropdownVisible", value);
+            this.$emit("update:visible", value);
         },
         onHighlightedIndex(value) {
             this.highlightedIndex = value;
@@ -275,16 +275,16 @@ export const SelectPlatforme = {
         openDropdown() {
             if (this.visibleData) return;
             this.visibleData = true;
-            this.$emit("update:dropdownVisible", this.visibleData);
+            this.$emit("update:visible", this.visibleData);
         },
         closeDropdown() {
             if (!this.visibleData) return;
             this.visibleData = false;
-            this.$emit("update:dropdownVisible", this.visibleData);
+            this.$emit("update:visible", this.visibleData);
         },
         toggleDropdown() {
             this.visibleData = !this.visibleData;
-            this.$emit("update:dropdownVisible", this.visibleData );
+            this.$emit("update:visible", this.visibleData );
         },
         highlightPreviousOption() {
             if (this.highlightedIndex === null) this.highlightedIndex = 0;
@@ -367,7 +367,7 @@ export const SelectPlatforme = {
             return this.options.findIndex(option => option.id === this.value);
         },
         isVisible() {
-            return this.dropdownVisible && this.visibleData;
+            return this.visible && this.visibleData;
         }
     }
 };
