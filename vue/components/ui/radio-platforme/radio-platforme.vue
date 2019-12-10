@@ -29,10 +29,6 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.radio {
-    display: inline-block;
-}
-
 .choice {
     display: block;
     line-height: 13px;
@@ -48,8 +44,9 @@
 
 .choice > .radio-circle {
     background-color: #fafbfc;
-    border: 2px solid #dfe1e5;
-    border-radius: 50%;
+    border: 4px solid #dfe1e5;
+    border-radius: 50% 50% 50% 50%;
+    cursor: pointer;
     display: inline-block;
     height: 2px;
     padding: 3px 3px 3px 3px;
@@ -59,7 +56,7 @@
 
 .choice:not(.disabled):not(.error):active > .radio-circle {
     background-color: #f4f5f7;
-    border: 4px solid #c3c9cf;
+    border: 6px solid #c3c9cf;
     padding: 1px 1px 1px 1px;
 }
 
@@ -77,7 +74,7 @@
 .choice.checked > .radio-circle {
     background-color: $white;
     border-color: $dark;
-    border-width: 4px;
+    border-width: 6px;
     padding: 1px 1px 1px 1px;
 }
 
@@ -88,11 +85,11 @@
 .choice.disabled.checked > .radio-circle {
     background-color: #f4f5f7;
     border-color: #a6adb4;
-    border-width: 4px;
-    padding: 1px 1px 1px 1px;
+    border-width: 6px;
+    padding: 3px 3px 3px 3px;
 }
 
-.choice:focus:not(.checked) > .radio-circle {
+.choice:focus:not(.disabled) > .radio-circle {
     border-color: $aqcua-blue;
 }
 
