@@ -24,7 +24,7 @@
 }
 
 .button-icon:hover {
-    background-color: $light-grey;
+    background-color: $lighter-grey;
 }
 
 .button-icon.button-icon-white {
@@ -32,11 +32,11 @@
 }
 
 .button-icon.button-icon-white:hover {
-    background-color: $light-grey;
+    background-color: $lighter-grey;
 }
 
 .button-icon.button-icon-grey {
-    background-color: $light-grey;
+    background-color: $lighter-grey;
 }
 
 .button-icon.button-icon-grey:hover {

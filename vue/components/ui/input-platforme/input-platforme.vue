@@ -33,7 +33,7 @@ input[type="text"] {
 }
 
 input[type="text"]:hover {
-    background-color: $light-grey;
+    background-color: $lighter-grey;
     border-color: #dfe1e5;
 }
 
@@ -44,7 +44,7 @@ input[type="text"]:focus {
 }
 
 input[type="text"]:disabled {
-    background-color: $light-grey;
+    background-color: $lighter-grey;
     border-color: transparent;
 }
 </style>

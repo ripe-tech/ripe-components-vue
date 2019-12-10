@@ -40,7 +40,7 @@
 }
 
 .textarea:hover {
-    background-color: $light-grey;
+    background-color: $lighter-grey;
     border: 1px solid #dfe1e5;
 }
 
