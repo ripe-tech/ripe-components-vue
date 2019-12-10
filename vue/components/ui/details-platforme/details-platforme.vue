@@ -16,7 +16,7 @@
             </h1>
             <loader-platforme loader="line-scale" v-bind:count="5" v-else />
         </container-platforme>
-        <container-platforme class="details-container" v-if="loaded">
+        <container-platforme class="details-container" v-else>
             <div class="container-header">
                 <div class="header-buttons">
                     <slot name="header-buttons">
@@ -409,6 +409,91 @@ body.mobile .container-platforme .details-column .label-value {
     line-height: 16px;
     margin-bottom: 0px;
     margin-top: 2px;
+}
+
+
+.fade-enter-active .container-platforme,
+.fade-leave-active .container-platforme {
+    transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.fade-enter .container-platforme,
+.fade-leave-active .container-platforme {
+    opacity: 0;
+}
+
+.fade-into .container-platforme {
+    animation: fade-into-rise 0.45s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.slide-left-enter-active,
+.slide-left-leave-active,
+.slide-right-enter-active,
+.slide-right-leave-active,
+.slide-left-leave-active .container-platforme,
+.slide-right-leave-active .container-platforme,
+.slide-left-enter-active .container-platforme,
+.slide-right-enter-active .container-platforme {
+    overflow: hidden;
+    transition: transform 0.25s ease-out, opacity 0.2s ease-in-out;
+}
+
+.slide-left-enter .container-platforme,
+.slide-right-leave-to .container-platforme {
+    opacity: 0;
+    transform: translateX(-70%);
+}
+
+.slide-left-leave-to .container-platforme,
+.slide-right-enter .container-platforme {
+    opacity: 0;
+    transform: translateX(70%);
+}
+
+@keyframes slide-left-fake {
+
+    0% {
+        transform: translateX(0px);
+    }
+
+    30% {
+        transform: translateX(-20px);
+    }
+
+    70% {
+        transform: translateX(10px);
+    }
+
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+@keyframes slide-right-fake {
+
+    0% {
+        transform: translateX(0px);
+    }
+
+    30% {
+        transform: translateX(20px);
+    }
+
+    70% {
+        transform: translateX(-10px);
+    }
+
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+.slide-left-fake .container-platforme {
+    animation: slide-left-fake 0.25s ease;
+}
+
+.slide-right-fake .container-platforme {
+    animation: slide-right-fake 0.25s ease;
 }
 </style>
 
