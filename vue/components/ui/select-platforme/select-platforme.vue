@@ -204,7 +204,7 @@ export const SelectPlatforme = {
         },
         onKey(key) {
             this.highlightFirstMatchedOption(key);
-            this.scrollToOption();
+            this.scrollToOption(null);
         },
         onEscKey() {
             this.closeDropdown();
@@ -212,32 +212,32 @@ export const SelectPlatforme = {
         onArrowUpKey() {
             this.openDropdown();
             this.highlightPreviousOption();
-            this.scrollToOption();
+            this.scrollToOption(false);
         },
         onArrowDownKey() {
             this.openDropdown();
             this.highlightNextOption();
-            this.scrollToOption();
+            this.scrollToOption(true);
         },
         onArrowLeftKey() {
             this.openDropdown();
             this.highlightPreviousOption();
-            this.scrollToOption();
+            this.scrollToOption(false);
         },
         onArrowRightKey() {
             this.openDropdown();
             this.highlightNextOption();
-            this.scrollToOption();
+            this.scrollToOption(true);
         },
         onAltUpKey() {
             this.openDropdown();
             this.highlightFirstOption();
-            this.scrollToOption();
+            this.scrollToOption(null);
         },
         onAltDownKey() {
             this.openDropdown();
             this.highlightLastOption();
-            this.scrollToOption();
+            this.scrollToOption(null);
         },
         onEnterKey() {
             this.selectOptionByIndex(this.highlightedIndex);
@@ -300,8 +300,8 @@ export const SelectPlatforme = {
             
             if(index > -1) this.highlightedIndex = index;
         },
-        scrollToOption() {
-            if (!this.highlightedIndex) return;
+        scrollToOption(isKeyDown = null) {
+            if (this.highlightedIndex === null || this.highlightedIndex < 0) return;
 
             const highlightedElementId = `${this.dropdownId}-${
                 this.options[this.highlightedIndex].id
@@ -310,10 +310,38 @@ export const SelectPlatforme = {
             const highlightedElement = document.getElementById(highlightedElementId);
             const dropdownElement = document.getElementById(this.dropdownId);
 
-            const selectedElementDistance =
-                highlightedElement.offsetTop - highlightedElement.offsetHeight;
 
-            dropdownElement.scrollTop = selectedElementDistance
+
+            const highlightedElementStartPx = (this.highlightedIndex * highlightedElement.offsetHeight);
+            const highlightedElementEndPx =  highlightedElementStartPx + highlightedElement.offsetHeight;
+
+            const visibleDropdownStartPx = dropdownElement.scrollTop;
+            const visibleDropdownEndPx = visibleDropdownStartPx + dropdownElement.offsetHeight;
+
+
+            const isHighlightedElementInView = 
+                                            highlightedElementStartPx >= visibleDropdownStartPx
+                                            && highlightedElementStartPx <= visibleDropdownEndPx 
+                                            && highlightedElementEndPx >= visibleDropdownStartPx
+                                            && highlightedElementEndPx <= visibleDropdownEndPx;
+
+            if(isHighlightedElementInView) return;
+
+            let selectedElementDistance;
+            if (isKeyDown === null){
+                //When I want to simply scroll to the highlighted option
+                //Ex: Useful for highlighting the option where the keystrokes matches the option words)
+                selectedElementDistance = highlightedElement.offsetTop - highlightedElement.offsetHeight;
+            }else {
+                //Using keyboard to move select the next or previous option in the dropdown
+                selectedElementDistance = isKeyDown ?
+                     highlightedElementEndPx - dropdownElement.offsetHeight:
+                     dropdownElement.scrollTop - highlightedElement.offsetHeight;
+            }
+
+            dropdownElement.scrollTop = selectedElementDistance;
+
+
 
         }
     },
