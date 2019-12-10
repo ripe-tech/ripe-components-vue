@@ -19,6 +19,11 @@
 @import "css/variables.scss";
 
 
+.rich-textarea ::v-deep .textarea,
+.rich-textarea ::v-deep .textarea:focus {
+    padding: 12px 47px 0px 47px;
+}
+
 
 .rich-textarea .options {
     font-size: 0px; //It fixes white spaces between divs
@@ -38,12 +43,22 @@
 </style>
 
 <script>
+//TODO: height of textarea changes with the ammount of text
+
 export const RichTextareaPlatforme = {
     name: "rich-textarea-platforme",
     props: {
         hello: {
             type: String,
             default: null
+        }
+    },
+    methods: {
+        emitValueChanged(value) {
+            this.$emit("update:value", value);
+        },
+        onTextareaValue(value) {
+            this.emitValueChanged(value);
         }
     }
 };
