@@ -89,7 +89,7 @@ a.link.link-purple:hover {
 
 a.link.link-disabled {
     border-color: transparent;
-    color: $dark-grey;
+    color: $medium-grey;
     cursor: default;
 }
 

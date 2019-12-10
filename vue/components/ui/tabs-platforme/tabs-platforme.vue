@@ -35,7 +35,7 @@
 @import "css/variables.scss";
 
 .tabs > .header {
-    border-bottom: 2px solid $light-grey;
+    border-bottom: 2px solid $lighter-grey;
 }
 
 .tabs > .header > .tab-label {
@@ -75,7 +75,7 @@
 .tabs > .header > .tab-label.disabled,
 .tabs > .header > .tab-label.disabled:hover {
     border-bottom-color: transparent;
-    color: $light-grey;
+    color: $lighter-grey;
     cursor: default;
 }
 

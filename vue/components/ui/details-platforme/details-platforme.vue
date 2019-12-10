@@ -141,8 +141,9 @@
 body.tablet .container-platforme,
 body.mobile .container-platforme {
     border: none;
-    border-bottom: 1px solid $light-grey;
-    border-top: 1px solid $light-grey;
+    border-bottom: 1px solid $lighter-grey;
+    border-radius: 0px 0px 0px 0px;
+    border-top: 1px solid $lighter-grey;
     box-shadow: none;
     margin: 0px 0px 0px 0px;
 }
@@ -222,12 +223,12 @@ body.mobile .header-buttons > .header-button.invisible {
 }
 
 .container-platforme .header-buttons .header-button > span:hover {
-    background-color: $light-grey;
+    background-color: $lighter-grey;
 }
 
 .container-platforme .header-buttons .header-button > span.active,
 .container-platforme .header-buttons .header-button > span:active {
-    background-color: $dark-grey;
+    background-color: $light-grey;
 }
 
 .container-platforme .header-buttons .header-button > span > img {
@@ -259,7 +260,7 @@ body.mobile .container-platforme .header-buttons > .header-button > p {
 
 body.tablet .container-platforme .details,
 body.mobile .container-platforme .details {
-    padding: 0px 0px 20px 0px;
+    padding: 0px 20px 20px 20px;
 }
 
 .container-platforme .button-options ::v-deep .dropdown-platforme {
@@ -322,7 +323,7 @@ body.mobile .container-platforme .title {
 
 body.tablet .container-platforme .details-column,
 body.mobile .container-platforme .details-column {
-    padding: 0px 0px 0px 20px;
+    padding-top: 10px;
     text-align: center;
     width: 50%;
 }
@@ -368,7 +369,7 @@ body.mobile .details-column.details-column-image {
 body.tablet .container-platforme .details-column .label-value,
 body.mobile .container-platforme .details-column .label-value {
     height: 80px;
-    margin-top: 30px;
+    margin-top: 20px;
     min-height: unset;
     overflow: hidden;
 }
@@ -389,7 +390,7 @@ body.mobile .container-platforme .details-column .label-value {
 
 .container-platforme ::v-deep .label-value .value {
     font-size: 14px;
-    line-height: 18px;
+    line-height: 20px;
     margin: 6px 0px 0px 0px;
     word-break: break-all;
     word-break: break-word;
