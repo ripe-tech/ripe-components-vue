@@ -203,8 +203,13 @@ body.mobile .container-platforme .header-buttons > .header-button {
     text-align: center;
 }
 
+.header-buttons > .header-button.invisible {
+    display: none;
+}
+
 body.tablet .header-buttons > .header-button.invisible,
 body.mobile .header-buttons > .header-button.invisible {
+    display: inline-block;
     opacity: 0;
 }
 
