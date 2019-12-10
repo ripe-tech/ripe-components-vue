@@ -44,48 +44,47 @@
 
 .choice > .radio-circle {
     background-color: #fafbfc;
-    border: 4px solid #dfe1e5;
+    border: 2px solid #dfe1e5;
     border-radius: 50% 50% 50% 50%;
     cursor: pointer;
     display: inline-block;
-    height: 2px;
+    height: 4px;
     padding: 3px 3px 3px 3px;
     vertical-align: middle;
-    width: 2px;
+    width: 4px;
 }
 
 .choice:not(.disabled):not(.error):active > .radio-circle {
-    background-color: #f4f5f7;
-    border: 6px solid #c3c9cf;
-    padding: 1px 1px 1px 1px;
+    background: url("~./assets/check-dark.svg") center / 4px no-repeat #f4f5f7;
+    border: 2px solid #c3c9cf;
+    padding: 3px 3px 3px 3px;
 }
 
 .choice.error > .radio-circle {
     background-color: #f4f5f7;
-    border-color: $dark-red;
+    border: 2px solid $dark-red;
 }
 
 .choice.disabled > .radio-circle {
-    background-color: #f4f5f7;
-    border-color: #f4f5f7;
+    background: #f4f5f7;
+    border: 2px solid #f4f5f7;
     cursor: default;
 }
 
 .choice.checked > .radio-circle {
-    background-color: $white;
-    border-color: $dark;
-    border-width: 6px;
-    padding: 1px 1px 1px 1px;
+    background: url("~./assets/check.svg") center / 4px no-repeat $dark;
+    border: 2px solid $dark;
+    padding: 3px 3px 3px 3px;
 }
 
 .choice.error.checked > .radio-circle {
-    border-color: $dark-red;
+    background: url("~./assets/check.svg") center / 4px no-repeat $dark;
+    border: 2px solid $dark-red;
 }
 
 .choice.disabled.checked > .radio-circle {
-    background-color: #f4f5f7;
-    border-color: #a6adb4;
-    border-width: 6px;
+    background: url("~./assets/check-gray.svg") center / 4px no-repeat #f4f5f7;
+    border: 2px solid #f6f7f9;
     padding: 3px 3px 3px 3px;
 }
 
