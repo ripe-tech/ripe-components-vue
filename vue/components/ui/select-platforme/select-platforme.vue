@@ -273,10 +273,10 @@ export const SelectPlatforme = {
             if (!this.disabled) this.toggleDropdown();
         },
         openDropdown() {
-            if(!this.dropdownVisible) this.$emit("update:dropdownVisible", true);
+            if (!this.dropdownVisible) this.$emit("update:dropdownVisible", true);
         },
         closeDropdown() {
-            if(this.dropdownVisible) this.$emit("update:dropdownVisible", false);
+            if (this.dropdownVisible) this.$emit("update:dropdownVisible", false);
         },
         toggleDropdown() {
             this.$emit("update:dropdownVisible", !this.dropdownVisible);
@@ -296,9 +296,11 @@ export const SelectPlatforme = {
             this.highlightedIndex = this.options.length - 1;
         },
         highlightFirstMatchedOption(key) {
-            const index = this.options.findIndex(option => option.text.charAt(0).toUpperCase() === key.toUpperCase());
-            
-            if(index > -1) this.highlightedIndex = index;
+            const index = this.options.findIndex(
+                option => option.text.charAt(0).toUpperCase() === key.toUpperCase()
+            );
+
+            if (index > -1) this.highlightedIndex = index;
         },
         scrollToOption(isKeyDown = null) {
             if (this.highlightedIndex === null || this.highlightedIndex < 0) return;
@@ -308,37 +310,36 @@ export const SelectPlatforme = {
             const highlightedElement = this.$refs.dropdown.$refs[optionID][0];
             const dropdownElement = this.$refs.dropdown.$refs.dropdown;
 
-            const highlightedElementStartPx = (this.highlightedIndex * highlightedElement.offsetHeight);
-            const highlightedElementEndPx =  highlightedElementStartPx + highlightedElement.offsetHeight;
+            const highlightedElementStartPx =
+                this.highlightedIndex * highlightedElement.offsetHeight;
+            const highlightedElementEndPx =
+                highlightedElementStartPx + highlightedElement.offsetHeight;
 
             const visibleDropdownStartPx = dropdownElement.scrollTop;
             const visibleDropdownEndPx = visibleDropdownStartPx + dropdownElement.offsetHeight;
 
+            const isHighlightedElementInView =
+                highlightedElementStartPx >= visibleDropdownStartPx &&
+                highlightedElementStartPx <= visibleDropdownEndPx &&
+                highlightedElementEndPx >= visibleDropdownStartPx &&
+                highlightedElementEndPx <= visibleDropdownEndPx;
 
-            const isHighlightedElementInView = 
-                                            highlightedElementStartPx >= visibleDropdownStartPx
-                                            && highlightedElementStartPx <= visibleDropdownEndPx 
-                                            && highlightedElementEndPx >= visibleDropdownStartPx
-                                            && highlightedElementEndPx <= visibleDropdownEndPx;
-
-            if(isHighlightedElementInView) return;
+            if (isHighlightedElementInView) return;
 
             let selectedElementDistance;
-            if (isKeyDown === null){
-                //When I want to simply scroll to the highlighted option
-                //Ex: Useful for highlighting the option where the keystrokes matches the option words)
-                selectedElementDistance = highlightedElement.offsetTop - highlightedElement.offsetHeight;
-            }else {
-                //Using keyboard to move select the next or previous option in the dropdown
-                selectedElementDistance = isKeyDown ?
-                     highlightedElementEndPx - dropdownElement.offsetHeight:
-                     dropdownElement.scrollTop - highlightedElement.offsetHeight;
+            if (isKeyDown === null) {
+                // When I want to simply scroll to the highlighted option
+                // Ex: Useful for highlighting the option where the keystrokes matches the option words)
+                selectedElementDistance =
+                    highlightedElement.offsetTop - highlightedElement.offsetHeight;
+            } else {
+                // Using keyboard to move select the next or previous option in the dropdown
+                selectedElementDistance = isKeyDown
+                    ? highlightedElementEndPx - dropdownElement.offsetHeight
+                    : dropdownElement.scrollTop - highlightedElement.offsetHeight;
             }
 
             dropdownElement.scrollTop = selectedElementDistance;
-
-
-
         }
     },
     computed: {
@@ -352,7 +353,8 @@ export const SelectPlatforme = {
             return base;
         },
         buttonText() {
-            const option = this.value === "placeholder_id"
+            const option =
+                this.value === "placeholder_id"
                     ? { id: this.value, text: this.placeholder }
                     : this.options.find(option => option.id === this.value);
             return option.text;
