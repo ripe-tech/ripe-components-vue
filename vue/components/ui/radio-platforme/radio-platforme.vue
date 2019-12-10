@@ -140,69 +140,50 @@ export const RadioPlatforme = {
         }
     },
     methods: {
+        focusAndSetItem(index) {
+            const item = this.items[index];
+
+            if (item.disabled || this.disabled) return false;
+            if (this.value === item.value) return false;
+
+            this.$refs[`choice-${index}`][0].focus();
+            this.setItem(item);
+        },
         setItem(item) {
-            if (item.disabled || this.disabled) return;
-            if (this.value === item.value) return;
+            if (item.disabled || this.disabled) return false;
+            if (this.value === item.value) return false;
+
             this.$emit("update:value", item.value);
+            return true;
         },
         onSpacebar(item) {
             this.setItem(item);
         },
         onArrowUp(index) {
-            let newIndex;
-
-            // tries to find a suitable item to focus
-            for (let i = index - 1; i >= 0; i--) {
-                if (!this.items[i].disabled) {
-                    newIndex = i;
-                    break;
-                }
-            }
-
-            // if it can't find an item to focus until
-            // the beginning of the list, searches from the
-            // end
-            if (newIndex === undefined) {
-                for (let i = this.items.length - 1; i > index; i--) {
-                    if (!this.items[i].disabled) {
-                        newIndex = i;
-                        break;
-                    }
-                }
-            }
-
-            if (newIndex === undefined) return;
-
-            this.$refs[`choice-${newIndex}`][0].focus();
-            this.setItem(this.items[newIndex]);
-        },
-        onArrowDown(index) {
-            let newIndex;
-
             // tries to find a suitable item to focus
             for (let i = index + 1; i < this.items.length; i++) {
-                if (!this.items[i].disabled) {
-                    newIndex = i;
-                    break;
-                }
+                if (this.focusAndSetItem(i)) return;
             }
 
             // if it can't find an item to focus until
             // the end of the list, searches from the
             // beginning
-            if (newIndex === undefined) {
-                for (let i = 0; i < index; i++) {
-                    if (!this.items[i].disabled) {
-                        newIndex = i;
-                        break;
-                    }
-                }
+            for (let i = 0; i < index; i++) {
+                if (this.focusAndSetItem(i)) return;
+            }
+        },
+        onArrowDown(index) {
+            // tries to find a suitable item to focus
+            for (let i = index - 1; i >= 0; i--) {
+                if (this.focusAndSetItem(i)) return;
             }
 
-            if (newIndex === undefined) return;
-
-            this.$refs[`choice-${newIndex}`][0].focus();
-            this.setItem(this.items[newIndex]);
+            // if it can't find an item to focus until
+            // the beginning of the list, searches from the
+            // end
+            for (let i = this.items.length - 1; i > index; i--) {
+                if (this.focusAndSetItem(i)) return;
+            }
         },
         onClick(item) {
             this.setItem(item);
