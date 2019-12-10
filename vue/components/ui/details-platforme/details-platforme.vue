@@ -1,5 +1,5 @@
 <template>
-    <div class="details-platforme">
+    <div class="details">
         <global-events
             v-on:keydown.j="onKeyJ"
             v-on:keydown.k="onKeyK"
@@ -159,13 +159,13 @@ body.mobile .container-platforme {
 
 .container-platforme .container-header {
     font-size: 0px;
-    padding: 24px 24px 20px 24px;
+    padding: 24px 24px 0px 24px;
     text-align: left;
 }
 
 body.tablet .container-platforme .container-header,
 body.mobile .container-platforme .container-header {
-    padding: 20px 15px 17px 15px;
+    padding: 20px 15px 20px 15px;
 }
 
 .container-platforme .container-header .header-buttons {
@@ -261,7 +261,7 @@ body.mobile .container-platforme .header-buttons > .header-button > p {
     color: $grey;
     display: block;
     font-size: 11px;
-    letter-spacing: 0.28px;
+    letter-spacing: 0.25px;
     margin: 0px 0px 0px 0px;
 }
 
@@ -283,7 +283,7 @@ body.tablet .button-options ::v-deep .dropdown-platforme,
 body.mobile .button-options ::v-deep .dropdown-platforme {
     bottom: 40px;
     margin: 0px 0px 0px 0px;
-    right: 0;
+    right: 0px;
 }
 
 .container-platforme .button-options ::v-deep .dropdown-platforme > .dropdown-item {
@@ -399,7 +399,6 @@ body.mobile .container-platforme .details-column .label-value {
     line-height: 18px;
     margin: 6px 0px 0px 0px;
     word-break: break-all;
-    word-break: break-word;
 }
 
 .container-platforme ::v-deep .label-value .note {
