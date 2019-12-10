@@ -4,10 +4,11 @@
         class="input-platforme"
         v-bind:value="value"
         v-bind:placeholder="placeholder"
+        v-bind:disabled="disabled"
         ref="input"
-        v-on:input="$emit('update:value', $event.target.value)"
-        v-on:focus="focused()"
-        v-on:blur="blurred()"
+        v-on:input="onInput($event.target.value)"
+        v-on:focus="onFocus"
+        v-on:blur="onBlur"
     />
 </template>
 
@@ -16,7 +17,7 @@
 
 input[type="text"] {
     background-color: #f2f2f2;
-    border: 1px solid transparent;
+    border: 1px solid $light-white;
     border-radius: 6px 6px 6px 6px;
     box-sizing: border-box;
     font-family: $font-family;
@@ -32,13 +33,19 @@ input[type="text"] {
 }
 
 input[type="text"]:hover {
-    border-color: #dddddd;
+    background-color: $light-grey;
+    border-color: #dfe1e5;
 }
 
 input[type="text"]:focus {
     background-color: $white;
-    border-color: #dddddd;
+    border: 1px solid $aqcua-blue;
     box-shadow: 0px 1px 8px 0px rgba(32, 33, 36, 0.14);
+}
+
+input[type="text"]:disabled {
+    background-color: $light-grey;
+    border-color: transparent;
 }
 </style>
 
@@ -57,22 +64,32 @@ export const InputPlatforme = {
         autofocus: {
             type: Boolean,
             default: false
+        },
+        disabled: {
+            type: Boolean,
+            default: false
         }
     },
     mounted: function() {
         this.autofocus && this.focus();
     },
     methods: {
+        setValue(value) {
+            this.$emit("update:value", value);
+        },
         focus() {
             this.$refs.input.focus();
         },
         blur() {
             this.$refs.input.blur();
         },
-        focused() {
+        onInput(value) {
+            this.setValue(value);
+        },
+        onFocus() {
             this.$emit("focus");
         },
-        blurred() {
+        onBlur() {
             this.$emit("blur");
         }
     }
