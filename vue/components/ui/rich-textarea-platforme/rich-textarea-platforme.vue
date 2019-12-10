@@ -22,7 +22,6 @@
 
 .rich-textarea .options {
     font-size: 0px; //It fixes white spaces between divs
-    //background-color: lightseagreen;
     margin-top: -31px;
     padding: 0px 9px 0px 9px;
 }
