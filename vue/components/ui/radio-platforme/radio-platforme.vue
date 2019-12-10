@@ -44,7 +44,7 @@
 
 .choice > .radio-circle {
     background-color: #fafbfc;
-    border: 2px solid #dfe1e5;
+    border: 4px solid #dfe1e5;
     border-radius: 50% 50% 50% 50%;
     cursor: pointer;
     display: inline-block;
@@ -89,7 +89,7 @@
     padding: 3px 3px 3px 3px;
 }
 
-.choice:focus:not(.checked) > .radio-circle {
+.choice:focus:not(.disabled) > .radio-circle {
     border-color: $aqcua-blue;
 }
 
