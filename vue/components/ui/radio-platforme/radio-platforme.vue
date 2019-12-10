@@ -18,7 +18,7 @@
             v-on:click="onClick(item)"
         >
             <input type="radio" class="value" v-bind:id="item.value" />
-            <div class="circular-button" />
+            <div class="radio-circle" />
             <label v-bind:for="item.value" class="label">
                 {{ item.label ? item.label : item.value }}
             </label>
@@ -46,7 +46,7 @@
     display: none;
 }
 
-.choice > .circular-button {
+.choice > .radio-circle {
     background-color: #fafbfc;
     border: 2px solid #dfe1e5;
     border-radius: 50%;
@@ -57,42 +57,42 @@
     width: 2px;
 }
 
-.choice:not(.disabled):not(.error):active > .circular-button {
+.choice:not(.disabled):not(.error):active > .radio-circle {
     background-color: #f4f5f7;
     border: 4px solid #c3c9cf;
     padding: 1px 1px 1px 1px;
 }
 
-.choice.error > .circular-button {
+.choice.error > .radio-circle {
     background-color: #f4f5f7;
     border-color: $dark-red;
 }
 
-.choice.disabled > .circular-button {
+.choice.disabled > .radio-circle {
     background-color: #f4f5f7;
     border-color: #f4f5f7;
     cursor: default;
 }
 
-.choice.checked > .circular-button {
+.choice.checked > .radio-circle {
     background-color: $white;
     border-color: $dark;
     border-width: 4px;
     padding: 1px 1px 1px 1px;
 }
 
-.choice.error.checked > .circular-button {
+.choice.error.checked > .radio-circle {
     border-color: $dark-red;
 }
 
-.choice.disabled.checked > .circular-button {
+.choice.disabled.checked > .radio-circle {
     background-color: #f4f5f7;
     border-color: #a6adb4;
     border-width: 4px;
     padding: 1px 1px 1px 1px;
 }
 
-.choice:focus:not(.disabled) > .checkbox-square {
+.choice:focus:not(.checked) > .radio-circle {
     border-color: $aqcua-blue;
 }
 
@@ -133,6 +133,11 @@ export const RadioPlatforme = {
         }
     },
     methods: {
+        setItem(item) {
+            if (item.disabled || this.disabled) return;
+            if (this.value === item.value) return;
+            this.$emit("update:value", item.value);
+        },
         onSpacebar(item) {
             this.setItem(item);
         },
@@ -150,16 +155,6 @@ export const RadioPlatforme = {
         },
         onClick(item) {
             this.setItem(item);
-        },
-        setItem(item) {
-            if (item.disabled || this.disabled) return;
-            if (this.value === item.value) return;
-            this.$emit("update:value", item.value);
-        },
-        unsetItem(item) {
-            if (item.disabled || this.disabled) return;
-            if (this.value !== item.value) return;
-            this.$emit("update:value", null);
         }
     }
 };
