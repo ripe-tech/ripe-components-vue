@@ -301,13 +301,17 @@
 }
 
 
+.chat-messages-container .chat-message .message-container .message-content .reactions {
+    margin: 10px 0px 0px 0px;
+}
 
 
 .chat-messages-container .chat-message .message-container .message-content .reactions .reactionExample{
     //TODO remove this example
     display: inline-block;
-    width: 10px;
-    height: 10px;
+    width: 37px;
+    height: 24px;
+    font-size: 0px; //It fixes white spaces between divs
     background-color: orange;
 }
 
@@ -363,7 +367,7 @@
 .chat-input-container .chat-input .chat-options {
     //background-color: lightseagreen;
     margin-top: -31px;
-    font-size: 0px;
+    font-size: 0px; //It fixes white spaces between divs
     padding: 0px 9px 0px 9px;
 }
 
