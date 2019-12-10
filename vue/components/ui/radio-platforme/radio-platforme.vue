@@ -8,7 +8,7 @@
                 checked: item.value === value
             }"
             v-bind:index="index"
-            v-bind:tabindex="index === 0 ? 0 : -1"
+            v-bind:tabindex="_getTabIndex(item, index)"
             v-for="(item, index) in items"
             v-bind:key="item.value"
             v-bind:ref="`choice-${index}`"
@@ -132,6 +132,17 @@ export const RadioPlatforme = {
             default: false
         }
     },
+    computed: {
+        firstEnabledIndex() {
+            if (this.disabled) return null;
+
+            const firstEnabled = this.items
+                .map((item, index) => [item, index])
+                .find(([item, index]) => !item.disabled);
+
+            return firstEnabled ? firstEnabled[1] : null;
+        }
+    },
     methods: {
         setItem(item) {
             if (item.disabled || this.disabled) return;
@@ -142,19 +153,68 @@ export const RadioPlatforme = {
             this.setItem(item);
         },
         onArrowUp(index) {
-            const newIndex = index - 1 < 0 ? this.items.length - 1 : index - 1;
+            let newIndex;
+
+            // tries to find a suitable item to focus
+            for (let i = index - 1; i >= 0; i--) {
+                if (!this.items[i].disabled) {
+                    newIndex = i;
+                    break;
+                }
+            }
+
+            // if it can't find an item to focus until
+            // the beginning of the list, searches from the
+            // end
+            if (newIndex === undefined) {
+                for (let i = this.items.length - 1; i > index; i--) {
+                    if (!this.items[i].disabled) {
+                        newIndex = i;
+                        break;
+                    }
+                }
+            }
+
+            if (newIndex === undefined) return;
 
             this.$refs[`choice-${newIndex}`][0].focus();
             this.setItem(this.items[newIndex]);
         },
         onArrowDown(index) {
-            const newIndex = (index + 1) % this.items.length;
+            let newIndex;
+
+            // tries to find a suitable item to focus
+            for (let i = index + 1; i < this.items.length; i++) {
+                if (!this.items[i].disabled) {
+                    newIndex = i;
+                    break;
+                }
+            }
+
+            // if it can't find an item to focus until
+            // the end of the list, searches from the
+            // beginning
+            if (newIndex === undefined) {
+                for (let i = 0; i < index; i++) {
+                    if (!this.items[i].disabled) {
+                        newIndex = i;
+                        break;
+                    }
+                }
+            }
+
+            if (newIndex === undefined) return;
 
             this.$refs[`choice-${newIndex}`][0].focus();
             this.setItem(this.items[newIndex]);
         },
         onClick(item) {
             this.setItem(item);
+        },
+        _getTabIndex(item, index) {
+            if (this.disabled || item.disabled) return null;
+
+            return this.firstEnabledIndex === index ? 0 : -1;
         }
     }
 };
