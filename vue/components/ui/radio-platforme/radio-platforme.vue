@@ -140,45 +140,44 @@ export const RadioPlatforme = {
         }
     },
     methods: {
-        focusAndSelectItem(index) {
-            const item = this.items[index];
-
+        focusAndSelectItem(item, index) {
             if (item.disabled || this.disabled) return false;
-
-            this.$refs[`choice-${index}`][0].focus();
+            if (index !== undefined) this.$refs[`choice-${index}`][0].focus();
             this.selectItem(item);
             return true;
         },
         selectItem(item) {
             if (item.disabled || this.disabled) return false;
             if (this.value === item.value) return false;
-
             this.$emit("update:value", item.value);
             return true;
+        },
+        onClick(item) {
+            this.selectItem(item);
         },
         onSpacebar(item) {
             this.selectItem(item);
         },
         onArrowUp(index) {
             for (let i = index - 1; i > index - this.items.length; i--) {
-                if (this.focusAndSelectItem(this.negativeModulo(i, this.items.length))) return;
+                const _index = this._negativeModulo(i, this.items.length);
+                const item = this.items[_index];
+                if (this.focusAndSelectItem(item, _index)) return;
             }
         },
         onArrowDown(index) {
             for (let i = index + 1; i < index + this.items.length; i++) {
-                if (this.focusAndSelectItem(i % this.items.length)) return;
+                const _index = this._negativeModulo(i, this.items.length);
+                const item = this.items[_index];
+                if (this.focusAndSelectItem(item, _index)) return;
             }
-        },
-        onClick(item) {
-            this.selectItem(item);
         },
         _getTabIndex(item, index) {
             if (this.disabled || item.disabled) return null;
-
             return this.firstEnabledIndex === index ? 0 : -1;
         },
-        negativeModulo(nr, modulo) {
-            return ((nr % modulo) + modulo) % modulo;
+        _negativeModulo(number, modulo) {
+            return ((number % modulo) + modulo) % modulo;
         }
     }
 };
