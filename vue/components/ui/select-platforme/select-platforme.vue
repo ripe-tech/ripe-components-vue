@@ -1,7 +1,7 @@
 <template>
     <div class="select-platforme" v-bind:style="selectStyle">
         <global-events v-on:click="onClick($event)" />
-        <div class="dropdown-container" v-bind:id="`dropdown-${id}`">
+        <div class="dropdown-container" ref="select">
             <div
                 class="dropdown-button"
                 v-bind:class="{ disabled: disabled }"
@@ -145,10 +145,6 @@ body.desktop-device .select-platforme .mobile-dropdown {
 export const SelectPlatforme = {
     name: "select-platforme",
     props: {
-        id: {
-            type: String,
-            required: true
-        },
         options: {
             type: Array,
             default: () => []
@@ -194,7 +190,7 @@ export const SelectPlatforme = {
     },
     methods: {
         onClick(event) {
-            const dropdownElement = document.getElementById(`dropdown-${this.id}`);
+            const dropdownElement = this.$refs.select;
             const targetElement = event.target;
 
             if (!dropdownElement.contains(targetElement)) this.closeDropdown();
