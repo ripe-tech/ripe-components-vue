@@ -29,12 +29,12 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.form-input .header .form-input .footer {
-    display: block;
-}
-
 .form-input .header {
     margin-bottom: 7px;
+}
+
+.form-input .header .form-input .footer {
+    display: block;
 }
 
 .form-input .footer {
