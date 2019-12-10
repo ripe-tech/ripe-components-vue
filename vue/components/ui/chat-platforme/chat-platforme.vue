@@ -16,9 +16,8 @@
                                 Lorem ipsum dolor sit amet, @consectetur ad amet, consectetur ad.
                             </span>
                             <div class="links">
-                               <a>Link 1</a>
-                               <a>Link 2</a>
-                               <a>Link 3</a>
+                               <link-platforme v-bind:text='"lorem-ipsum.pdf"' v-bind:href="'http://platforme.com'" v-bind:disabled="false" v-bind:size='"small"' v-bind:color='"blue"' />
+                               <link-platforme v-bind:text='"lorem-ipsum.pdf"' v-bind:href="'http://platforme.com'" v-bind:disabled="false" v-bind:size='"small"' v-bind:color='"blue"' />
                             </div>
                             <div class="reactions">
                                 <div class="reactionExample"></div>
@@ -40,7 +39,7 @@
                         </div>
                         <span
                             class="message"
-                        >Lorem ipsum dolor sit amet, @consectetur ad amet, consectetur ad.</span>
+                        >Lorem ipsum dolor sit amet ad.</span>
                     </div>
                 </div>
                 <div class="chat-message">
@@ -267,21 +266,41 @@
     display: inline-block;
 }
 
-.chat-messages-container .chat-message .message-container .user-information {
-
+.chat-messages-container .chat-message .message-container .user-information .username {
+  font-weight: bold;
+  letter-spacing: 0.7px;
+  color: #0d0d0d;
 }
+
+.chat-messages-container .chat-message .message-container .user-information .date {
+  letter-spacing: 0.3px;
+  color: #a4adb5;
+}
+
+
+
+
+
 
 .chat-messages-container .chat-message .message-container .message-content {
 
 }
 
 .chat-messages-container .chat-message .message-container .message-content .message{
-
+  letter-spacing: 0.3px;
+  color: #0d0d0d;
 }
 
-.chat-messages-container .chat-message .message-container .message-content .links a{
+.chat-messages-container .chat-message .message-container .message-content .links{
+    margin-top: 6px;
+}
+
+.chat-messages-container .chat-message .message-container .message-content .links .link{
     display: block;
 }
+
+
+
 
 .chat-messages-container .chat-message .message-container .message-content .reactions .reactionExample{
     //TODO remove this example
