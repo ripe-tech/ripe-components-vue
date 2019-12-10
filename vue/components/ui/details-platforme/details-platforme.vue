@@ -159,7 +159,7 @@ body.mobile .container-platforme {
 
 .container-platforme .container-header {
     font-size: 0px;
-    padding: 24px 24px 0px 24px;
+    padding: 24px 24px 20px 24px;
     text-align: left;
 }
 
