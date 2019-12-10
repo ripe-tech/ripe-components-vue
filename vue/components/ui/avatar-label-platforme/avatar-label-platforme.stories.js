@@ -7,26 +7,6 @@ storiesOf("Label Avatar", module)
         props: {
             imgUrl: {
                 default: text("Image URL", "http://placekitten.com/g/100/100")
-            },
-            size: {
-                default: select(
-                    "Size",
-                    {
-                        Micro: "micro",
-                        Tiny: "tiny",
-                        Small: "small",
-                        Medium: "medium",
-                        Large: "large",
-                        Giant: "giant"
-                    },
-                    "giant"
-                )
-            },
-            notify: {
-                default: boolean("Notify", true)
-            },
-            notifyColor: {
-                default: text("Notify color", "green")
             }
         },
         template: `
