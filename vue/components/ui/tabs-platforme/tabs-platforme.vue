@@ -94,6 +94,7 @@
 
 .tabs > .tabs-container > .tab.visible {
     opacity: 1;
+    z-index: 1;
 }
 </style>
 
