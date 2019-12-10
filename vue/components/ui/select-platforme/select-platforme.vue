@@ -311,12 +311,10 @@ export const SelectPlatforme = {
             const dropdownElement = document.getElementById(this.dropdownId);
 
             const selectedElementDistance =
-                (this.highlightedIndex + 1) * highlightedElement.offsetHeight;
+                highlightedElement.offsetTop - highlightedElement.offsetHeight;
 
-            dropdownElement.scrollTop =
-                dropdownElement.offsetHeight < selectedElementDistance
-                    ? selectedElementDistance - dropdownElement.offsetHeight
-                    : 0;       
+            dropdownElement.scrollTop = selectedElementDistance
+
         }
     },
     computed: {
