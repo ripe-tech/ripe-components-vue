@@ -2,27 +2,196 @@
     <div class="chat">
         <div class="chat-container">
             <div class="chat-messages-container">
-                <p>Bla bla bla</p>
-                <p>Bla bla bla</p>
-                <p>Bla bla bla</p>
-                <p>Bla bla bla</p>
-                <p>Bla bla bla</p>
-                <p>Bla bla bla</p>
-                <p>Bla bla bla</p>
-                <p>Bla bla bla</p>
-                <p>Bla bla bla</p>
-                <p>Bla bla bla</p>
-                <p>Bla bla bla</p>
-                <p>Bla bla bla</p>
-                <p>Bla bla bla</p>
-                <p>Bla bla bla</p>
-                <p>Bla bla bla</p>
-                <p>Bla bla bla</p>
-                <p>Bla bla bla</p>
+                
+                
+                <div class="chat-message">
+                    <img class="user-image" src="http://i.pravatar.cc" />
+                    <div class="message-container">
+                        <div class="user-information">
+                            <span class="username">Username</span>
+                            <span class="date">Nov 28</span>
+                        </div>
+                        <div class="message-content">
+                            <span class="message">
+                                Lorem ipsum dolor sit amet, @consectetur ad amet, consectetur ad.
+                            </span>
+                            <div class="links">
+                               <a>Link 1</a>
+                               <a>Link 2</a>
+                               <a>Link 3</a>
+                            </div>
+                            <div class="reactions">
+                                <div class="reactionExample"></div>
+                                <div class="reactionExample"></div>
+                                <div class="reactionExample"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="chat-message">
+                    <img class="user-image" src="http://i.pravatar.cc" />
+                    <div class="message-container">
+                        <div class="user-information">
+                            <span class="username">Username</span>
+                            <span class="date">Nov 28</span>
+                        </div>
+                        <span
+                            class="message"
+                        >Lorem ipsum dolor sit amet, @consectetur ad amet, consectetur ad.</span>
+                    </div>
+                </div>
+                <div class="chat-message">
+                    <img class="user-image" src="http://i.pravatar.cc" />
+                    <div class="message-container">
+                        <div class="user-information">
+                            <span class="username">Username</span>
+                            <span class="date">Nov 28</span>
+                        </div>
+                        <span
+                            class="message"
+                        >Lorem ipsum dolor sit amet, @consectetur ad amet, consectetur ad.</span>
+                    </div>
+                </div>
+                <div class="chat-message">
+                    <img class="user-image" src="http://i.pravatar.cc" />
+                    <div class="message-container">
+                        <div class="user-information">
+                            <span class="username">Username</span>
+                            <span class="date">Nov 28</span>
+                        </div>
+                        <span
+                            class="message"
+                        >Lorem ipsum dolor sit amet, @consectetur ad amet, consectetur ad.</span>
+                    </div>
+                </div>
+                <div class="chat-message">
+                    <img class="user-image" src="http://i.pravatar.cc" />
+                    <div class="message-container">
+                        <div class="user-information">
+                            <span class="username">Username</span>
+                            <span class="date">Nov 28</span>
+                        </div>
+                        <span
+                            class="message"
+                        >Lorem ipsum dolor sit amet, @consectetur ad amet, consectetur ad.</span>
+                    </div>
+                </div>
+                <div class="chat-message">
+                    <img class="user-image" src="http://i.pravatar.cc" />
+                    <div class="message-container">
+                        <div class="user-information">
+                            <span class="username">Username</span>
+                            <span class="date">Nov 28</span>
+                        </div>
+                        <span
+                            class="message"
+                        >Lorem ipsum dolor sit amet, @consectetur ad amet, consectetur ad.</span>
+                    </div>
+                </div>
+                <div class="chat-message">
+                    <img class="user-image" src="http://i.pravatar.cc" />
+                    <div class="message-container">
+                        <div class="user-information">
+                            <span class="username">Username</span>
+                            <span class="date">Nov 28</span>
+                        </div>
+                        <span
+                            class="message"
+                        >Lorem ipsum dolor sit amet, @consectetur ad amet, consectetur ad.</span>
+                    </div>
+                </div>
+                <div class="chat-message">
+                    <img class="user-image" src="http://i.pravatar.cc" />
+                    <div class="message-container">
+                        <div class="user-information">
+                            <span class="username">Username</span>
+                            <span class="date">Nov 28</span>
+                        </div>
+                        <span
+                            class="message"
+                        >Lorem ipsum dolor sit amet, @consectetur ad amet, consectetur ad.</span>
+                    </div>
+                </div>
+                <div class="chat-message">
+                    <img class="user-image" src="http://i.pravatar.cc" />
+                    <div class="message-container">
+                        <div class="user-information">
+                            <span class="username">Username</span>
+                            <span class="date">Nov 28</span>
+                        </div>
+                        <span
+                            class="message"
+                        >Lorem ipsum dolor sit amet, @consectetur ad amet, consectetur ad.</span>
+                    </div>
+                </div>
+                <div class="chat-message">
+                    <img class="user-image" src="http://i.pravatar.cc" />
+                    <div class="message-container">
+                        <div class="user-information">
+                            <span class="username">Username</span>
+                            <span class="date">Nov 28</span>
+                        </div>
+                        <span
+                            class="message"
+                        >Lorem ipsum dolor sit amet, @consectetur ad amet, consectetur ad.</span>
+                    </div>
+                </div>
+                <div class="chat-message">
+                    <img class="user-image" src="http://i.pravatar.cc" />
+                    <div class="message-container">
+                        <div class="user-information">
+                            <span class="username">Username</span>
+                            <span class="date">Nov 28</span>
+                        </div>
+                        <span
+                            class="message"
+                        >Lorem ipsum dolor sit amet, @consectetur ad amet, consectetur ad.</span>
+                    </div>
+                </div>
+                <div class="chat-message">
+                    <img class="user-image" src="http://i.pravatar.cc" />
+                    <div class="message-container">
+                        <div class="user-information">
+                            <span class="username">Username</span>
+                            <span class="date">Nov 28</span>
+                        </div>
+                        <span
+                            class="message"
+                        >Lorem ipsum dolor sit amet, @consectetur ad amet, consectetur ad.</span>
+                    </div>
+                </div>
+                <div class="chat-message">
+                    <img class="user-image" src="http://i.pravatar.cc" />
+                    <div class="message-container">
+                        <div class="user-information">
+                            <span class="username">Username</span>
+                            <span class="date">Nov 28</span>
+                        </div>
+                        <span
+                            class="message"
+                        >Lorem ipsum dolor sit amet, @consectetur ad amet, consectetur ad.</span>
+                    </div>
+                </div>
+                <div class="chat-message">
+                    <img class="user-image" src="http://i.pravatar.cc" />
+                    <div class="message-container">
+                        <div class="user-information">
+                            <span class="username">Username</span>
+                            <span class="date">Nov 28</span>
+                        </div>
+                        <span
+                            class="message"
+                        >Lorem ipsum dolor sit amet, @consectetur ad amet, consectetur ad.</span>
+                    </div>
+                </div>
             </div>
+
             <div class="chat-files-container">
                 <div class="files-title">
-                    <span>Files</span> 
+                    <span>Files</span>
                 </div>
                 <div class="files-list">
                     <p>File 1</p>
@@ -44,12 +213,12 @@
             </div>
         </div>
         <div class="chat-input-container">
-            <div class="chat-input">            
+            <div class="chat-input">
                 <textarea-platforme
-                v-bind:initialHeight="100"
-                v-on:update:value="value => onTextareaValue(value)"
-                v-bind:placeholder="'Say something here...'"
-                v-bind:resize="false"
+                    v-bind:initialHeight="100"
+                    v-on:update:value="value => onTextareaValue(value)"
+                    v-bind:placeholder="'Say something here...'"
+                    v-bind:resize="false"
                 />
                 <div class="chat-options">
                     <div class="optionExample" />
@@ -67,7 +236,7 @@
 @import "css/variables.scss";
 
 .chat {
-  border: solid 2px #e4e8f0;  
+    border: solid 2px #e4e8f0;
 }
 
 .chat-container {
@@ -81,8 +250,55 @@
     overflow: auto;
 }
 
-.chat-messages-container > p{ //TODO remove
-margin: 10px 20px;
+
+
+
+.chat-messages-container .chat-message {
+    display: flex;
+    margin-top: 20px;
+}
+
+.chat-messages-container .chat-message .user-image {
+    width: 24px;
+    height: 24px;
+}
+
+.chat-messages-container .chat-message .message-container {
+    display: inline-block;
+}
+
+.chat-messages-container .chat-message .message-container .user-information {
+
+}
+
+.chat-messages-container .chat-message .message-container .message-content {
+
+}
+
+.chat-messages-container .chat-message .message-container .message-content .message{
+
+}
+
+.chat-messages-container .chat-message .message-container .message-content .links a{
+    display: block;
+}
+
+.chat-messages-container .chat-message .message-container .message-content .reactions .reactionExample{
+    //TODO remove this example
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: orange;
+}
+
+
+
+
+
+
+.chat-messages-container > p {
+    //TODO remove
+    margin: 10px 20px;
 }
 
 .chat-files-container {
@@ -90,11 +306,12 @@ margin: 10px 20px;
     width: 250px;
 }
 
-.chat-files-container .files-title{
+.chat-files-container .files-title {
     height: 42px;
+    border: solid 1px #e4e8f0;
 }
 
-.chat-files-container .files-title span{
+.chat-files-container .files-title span {
     display: block;
     line-height: 42px;
     background-color: $white;
@@ -104,8 +321,7 @@ margin: 10px 20px;
     margin: 0px 20px 0px 20px;
 }
 
-
-.chat-files-container .files-list{
+.chat-files-container .files-list {
     height: 308px;
     overflow: auto;
 }
@@ -116,7 +332,7 @@ margin: 10px 20px;
 }
 
 .chat-input-container .chat-input {
-    border-top: solid 2px #e4e8f0; 
+    border-top: solid 2px #e4e8f0;
     padding: 20px 20px 20px 20px;
 }
 
@@ -124,14 +340,14 @@ margin: 10px 20px;
     width: 100%;
 }
 
-.chat-input-container .chat-input .chat-options{
+.chat-input-container .chat-input .chat-options {
     //background-color: lightseagreen;
-    margin-top:-31px;
+    margin-top: -31px;
     font-size: 0px;
-    padding: 0px 9px 0px 9px
+    padding: 0px 9px 0px 9px;
 }
 
-.chat-input-container .chat-input .optionExample{
+.chat-input-container .chat-input .optionExample {
     display: inline-block;
     height: 22px;
     width: 22px;
