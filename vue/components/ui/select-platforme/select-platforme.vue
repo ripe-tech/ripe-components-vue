@@ -29,7 +29,7 @@
                 v-bind:selected-index="selectedIndex"
                 v-bind:visible="dropdownVisible"
                 v-bind:global-events="false"
-                v-bind:id="dropdownId"
+                ref="dropdown"
                 v-on:update:visible="value => onVisible(value)"
                 v-on:item-clicked="value => onDropdownSelect(value.id)"
                 v-on:highlighted="value => onHighlightedIndex(value)"
@@ -303,14 +303,10 @@ export const SelectPlatforme = {
         scrollToOption(isKeyDown = null) {
             if (this.highlightedIndex === null || this.highlightedIndex < 0) return;
 
-            const highlightedElementId = `${this.dropdownId}-${
-                this.options[this.highlightedIndex].id
-            }`;
+            const optionID = this.options[this.highlightedIndex].id;
 
-            const highlightedElement = document.getElementById(highlightedElementId);
-            const dropdownElement = document.getElementById(this.dropdownId);
-
-
+            const highlightedElement = this.$refs.dropdown.$refs[optionID][0];
+            const dropdownElement = this.$refs.dropdown.$refs.dropdown;
 
             const highlightedElementStartPx = (this.highlightedIndex * highlightedElement.offsetHeight);
             const highlightedElementEndPx =  highlightedElementStartPx + highlightedElement.offsetHeight;
@@ -363,9 +359,6 @@ export const SelectPlatforme = {
         },
         selectedIndex() {
             return this.options.findIndex(option => option.id === this.value);
-        },
-        dropdownId() {
-            return `${this.id}-dropdown-platforme`;
         }
     }
 };

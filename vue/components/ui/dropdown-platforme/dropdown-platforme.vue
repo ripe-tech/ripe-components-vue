@@ -6,7 +6,7 @@
                 class="dropdown-platforme"
                 v-bind:style="dropdownStyle"
                 v-show="isVisible"
-                v-bind:id="id"
+                ref="dropdown"
             >
                 <li
                     class="dropdown-item"
@@ -16,7 +16,7 @@
                         selected: index === selectedIndex
                     }"
                     v-for="(item, index) in items.filter(v => v !== null && v !== undefined)"
-                    v-bind:id="`${id}-${item.id}`"
+                    v-bind:ref="item.id"
                     v-bind:key="item.id"
                     v-on:click.stop="click(item)"
                     v-on:mousemove="onMouseOver(index)"
@@ -149,10 +149,6 @@
 export const DropdownPlatforme = {
     name: "dropdown-platforme",
     props: {
-        id: {
-            type: String,
-            default: null
-        },
         items: {
             type: Array,
             default: () => []
