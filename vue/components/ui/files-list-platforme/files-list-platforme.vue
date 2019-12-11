@@ -1,5 +1,5 @@
 <template>
-    <div class="files-list-container">
+    <div class="files-list-container" v-bind:style="filesListStyle">
         <div class="files-title">
             <span>Files</span>
         </div>
@@ -27,6 +27,7 @@
 @import "css/variables.scss";
 
 .files-list-container {
+    display: grid;
     background-color: $grey-6;
     border: solid 1px #e4e8f0;
 }
@@ -49,6 +50,7 @@
 
 .files-list-container .files-list .file-row{
     height: 44px;
+    border: solid 1px #e4e8f0;
 }
 
 .files-list-container .files-list .file-row .file-image{
@@ -91,6 +93,14 @@ export const FilesListPlatforme = {
     },
     computed:
     {
+        filesListStyle() {
+            const base = {};
+
+            if (this.width) base.width = `${this.width}px`;
+            if (this.height) base.height = `${this.height}px`;
+
+            return base;
+        },
         imageStyle() {
             //TODO substituir v-bind:src, por uma class que faça o mesmo,
             //  mas que meta numa div com background-image
