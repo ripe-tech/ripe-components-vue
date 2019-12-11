@@ -10,15 +10,23 @@
             </slot>
         </div>
         <div class="text left" v-bind:class="[size]" v-if="title || subtitle">
-            <label-platforme class="title" v-if="title">
+            <label-platforme class="title" v-bind:style="{ 'max-width': maxWidth }" v-if="title">
                 {{ title }}
             </label-platforme>
-            <label-platforme class="subtitle" v-if="subtitle">
+            <label-platforme
+                class="subtitle"
+                v-bind:style="{ 'max-width': maxWidth }"
+                v-if="subtitle"
+            >
                 {{ subtitle }}
             </label-platforme>
         </div>
         <div class="text right" v-bind:class="[size]">
-            <label-platforme class="content" v-if="content">
+            <label-platforme
+                class="content"
+                v-bind:style="{ 'max-width': maxWidth }"
+                v-if="content"
+            >
                 {{ content }}
             </label-platforme>
         </div>
@@ -31,6 +39,8 @@
 .avatar {
     display: inline-block;
     font-size: 0px;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .image-container {
@@ -135,13 +145,21 @@
     display: none;
 }
 
+.image-container + .text {
+    padding: 0px 8px 0px 8px;
+}
+
 .text {
     display: inline-flex;
     flex-direction: column;
     justify-content: space-evenly;
     vertical-align: top;
-    flex-direction: column;
-    padding: 0px 8px 0px 8px;
+}
+
+.text ::v-deep .label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .text.giant {
@@ -174,22 +192,48 @@
     font-weight: 700;
 }
 
-.avatar.giant .text.left .title ::v-deep {
-    font-size: 80px;
+.avatar.giant .text .label ::v-deep {
+    font-size: 60px;
+    line-height: 60px;
 }
 
-.text.left .subtitle ::v-deep {
-    color: $dark;
-    font-weight: 500;
-    letter-spacing: 0.3px;
+.avatar.large .text .label ::v-deep {
+    font-size: 38px;
+    line-height: 38px;
 }
 
-.text.right {
+.avatar.medium .text .label ::v-deep {
+    font-size: 18px;
+    line-height: 18px;
+}
+
+.avatar.small .text .label ::v-deep {
+    font-size: 14px;
+    line-height: 14px;
+}
+
+.avatar.tiny .text .label ::v-deep {
+    font-size: 10px;
+    line-height: 10px;
+}
+
+.avatar.micro .text .label ::v-deep {
+    font-size: 7px;
+    line-height: 7px;
+}
+
+.avatar .text:empty {
+    display: none;
+}
+
+.avatar .text.right {
     padding: 0px 0px 0px 0px;
 }
 
-.text:empty {
-    display: none;
+.avatar .text.left .subtitle ::v-deep {
+    color: $dark;
+    font-weight: 500;
+    letter-spacing: 0.3px;
 }
 </style>
 
@@ -214,6 +258,10 @@ export const AvatarPlatforme = {
             default: null
         },
         imgUrl: {
+            type: String,
+            default: null
+        },
+        maxWidth: {
             type: String,
             default: null
         },

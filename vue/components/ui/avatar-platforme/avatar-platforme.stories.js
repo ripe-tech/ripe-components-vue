@@ -31,6 +31,9 @@ storiesOf("Avatar", module)
             content: {
                 default: text("Content", "Miau miau...")
             },
+            maxWidth: {
+                default: text("Max width (example: 10px)", "")
+            },
             notify: {
                 default: boolean("Notify", true)
             },
@@ -47,6 +50,7 @@ storiesOf("Avatar", module)
                 v-bind:content="content"
                 v-bind:subtitle="subtitle"
                 v-bind:title="title"
+                v-bind:max-width="maxWidth"
                 v-bind:notify-color="notifyColor"
                 v-bind:notify-border-color="notifyBorderColor"
                 v-bind:notify="notify"
