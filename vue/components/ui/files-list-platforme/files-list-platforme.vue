@@ -6,8 +6,16 @@
         <div class="files-list">
             <div class="file-row" 
                 v-for="file in filesItems"
-                v-bind:key="file.name">
-                {{ file.name}}
+                v-bind:key="file.name"
+                >
+                <img class="file-image" src="" />
+                <link-platforme
+                    v-bind:text="file.name"
+                    v-bind:href="file.path"
+                    v-bind:disabled="false"
+                    v-bind:size="'small'"
+                    v-bind:color="'black'"
+                    />
             </div>
         </div>
     </div>
