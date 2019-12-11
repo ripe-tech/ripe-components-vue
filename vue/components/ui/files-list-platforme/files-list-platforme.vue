@@ -53,6 +53,14 @@ export const FilesListPlatforme = {
         filesItems: {
             type: Array,
             default: () => []
+        },
+        width: {
+            type: Number,
+            default: null
+        },
+        height: {
+            type: Number,
+            default: null
         }
     }
 };

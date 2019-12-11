@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text } from "@storybook/addon-knobs";
+import { withKnobs, number } from "@storybook/addon-knobs";
 
 storiesOf("Lists", module)
     .addDecorator(withKnobs)
@@ -13,12 +13,20 @@ storiesOf("Lists", module)
                     { name: "img-153133", extension:".jpeg", path: "http://i.pravatar.cc" },
                     { name: "screenshot13122019", extension:".jpeg", path: "http://i.pravatar.cc" }
                 ]
+            },
+            width: {
+                default: number("Initial Width", 250)
+            },
+            height: {
+                default: number("Initial Height", 200)
             }
         },
         template: `
             <div>
                 <files-list-platforme
                     v-bind:filesItems="filesItems"
+                    v-bind:width="width"
+                    v-bind:height="height"
                 />
             </div>
             `
