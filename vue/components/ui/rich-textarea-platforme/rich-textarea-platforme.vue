@@ -26,17 +26,22 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
+.rich-textarea,
+.rich-textarea .textarea,
+.rich-textarea .options
+{
+    background-color: $white;
+}
+
 .rich-textarea {
     position: relative;
     padding: 0px 0px 30px 0px;
-    background-color: $white;
     border: 1px solid $light-white;
     border-radius: 6px;
 }
 
 .rich-textarea .textarea {
     width:100%;
-    background-color: $white;
     box-sizing: border-box;
     display: block;
     outline: none;
