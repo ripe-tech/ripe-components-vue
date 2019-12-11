@@ -29,7 +29,7 @@ storiesOf("Avatar", module)
                 default: text("Subtext", "Kitten")
             },
             content: {
-                default: text("Content", "Miau miau...")
+                default: text("Content", "Miau miau")
             },
             notify: {
                 default: boolean("Notify", true)
