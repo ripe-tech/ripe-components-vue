@@ -53,14 +53,14 @@ storiesOf("Avatar", module)
                 v-bind:size="size"
                 v-bind:imgUrl="imgUrl" />
 
-                <p> Giant, large, medium, small, tiny, micro: </p>
+            <p> Giant, large, medium, small, tiny, micro: </p>
 
-                <avatar-label-platforme v-bind:size="'giant'" v-bind:imgUrl="imgUrl" />
-                <avatar-label-platforme v-bind:size="'large'" v-bind:imgUrl="imgUrl" />
-                <avatar-label-platforme v-bind:size="'medium'" v-bind:imgUrl="imgUrl" />
-                <avatar-label-platforme v-bind:size="'small'" v-bind:imgUrl="imgUrl" />
-                <avatar-label-platforme v-bind:size="'tiny'" v-bind:imgUrl="imgUrl" />
-                <avatar-label-platforme v-bind:size="'micro'" v-bind:imgUrl="imgUrl" />
+            <avatar-label-platforme v-bind:size="'giant'" v-bind:imgUrl="imgUrl" />
+            <avatar-label-platforme v-bind:size="'large'" v-bind:imgUrl="imgUrl" />
+            <avatar-label-platforme v-bind:size="'medium'" v-bind:imgUrl="imgUrl" />
+            <avatar-label-platforme v-bind:size="'small'" v-bind:imgUrl="imgUrl" />
+            <avatar-label-platforme v-bind:size="'tiny'" v-bind:imgUrl="imgUrl" />
+            <avatar-label-platforme v-bind:size="'micro'" v-bind:imgUrl="imgUrl" />
         </div>
         `
     }));
