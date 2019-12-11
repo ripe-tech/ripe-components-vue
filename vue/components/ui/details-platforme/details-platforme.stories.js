@@ -62,7 +62,7 @@ storiesOf("Data", module)
         template: `
             <details-platforme
                 v-bind:values="values"
-                v-bind:columns="columns"
+                v-bind:nr-columns="columns"
                 v-bind:title="title"
                 v-bind:image-url="imageUrl"
                 v-bind:options-items="optionsItems"
