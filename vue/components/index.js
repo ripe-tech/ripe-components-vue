@@ -10,6 +10,7 @@ import { CheckboxPlatforme } from "./ui/checkbox-platforme/checkbox-platforme.vu
 import { ContainerPlatforme } from "./ui/container-platforme/container-platforme.vue";
 import { DetailsPlatforme } from "./ui/details-platforme/details-platforme.vue";
 import { DropdownPlatforme } from "./ui/dropdown-platforme/dropdown-platforme.vue";
+import { FilesListPlatforme } from "./ui/files-list-platforme/files-list-platforme.vue";
 import { FilterPlatforme } from "./ui/filter-platforme/filter-platforme.vue";
 import { FooterPlatforme } from "./ui/footer-platforme/footer-platforme.vue";
 import { FormInputPlatforme } from "./ui/form-input-platforme/form-input-platforme.vue";
@@ -48,6 +49,7 @@ const install = Vue => {
     Vue.component("container-platforme", ContainerPlatforme);
     Vue.component("details-platforme", DetailsPlatforme);
     Vue.component("dropdown-platforme", DropdownPlatforme);
+    Vue.component("files-list-platforme", FilesListPlatforme);
     Vue.component("filter-platforme", FilterPlatforme);
     Vue.component("footer-platforme", FooterPlatforme);
     Vue.component("form-input-platforme", FormInputPlatforme);
@@ -85,6 +87,7 @@ export {
     ContainerPlatforme,
     DetailsPlatforme,
     DropdownPlatforme,
+    FilesListPlatforme,
     FilterPlatforme,
     FormInputPlatforme,
     FooterPlatforme,
