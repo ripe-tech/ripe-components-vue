@@ -56,6 +56,7 @@
 
 .rich-textarea .options {
     margin: 0px 9px 0px 9px;
+    opacity: 0.3;
 }
 
 .rich-textarea:hover,
@@ -90,6 +91,7 @@
 .rich-textarea:focus-within .options
 {
     margin: -1px 9px 0px 8px;
+    opacity: 1;
 }
 </style>
 
