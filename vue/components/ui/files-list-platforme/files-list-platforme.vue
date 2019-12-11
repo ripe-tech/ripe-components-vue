@@ -8,7 +8,9 @@
                 v-for="file in filesItems"
                 v-bind:key="file.name"
                 >
-                <img class="file-image" src="" />
+                <img class="file-image"
+                    v-bind:src="imgPath(file)"
+                    />
                 <link-platforme
                     v-bind:text="file.name"
                     v-bind:href="file.path"
@@ -44,6 +46,25 @@
 .files-list-container .files-list {
     overflow: auto;
 }
+
+.files-list-container .files-list .file-row{
+    height: 44px;
+}
+
+.files-list-container .files-list .file-row .file-image{
+    height: 44px;
+    margin: 0px 20px 0px 0px;
+}
+
+.files-list-container .files-list .file-row{
+    height: 44px;
+}
+
+.files-list-container .files-list .file-row .link{
+    line-height: 44px;
+    vertical-align: top;
+}
+
 </style>
 
 <script>
@@ -61,6 +82,27 @@ export const FilesListPlatforme = {
         height: {
             type: Number,
             default: null
+        }
+    },
+    data: function() {
+        return {
+            defaultIcon: require(`./../../../assets/icons/black/file.svg`)
+        };
+    },
+    computed:
+    {
+        imageStyle() {
+            //TODO substituir v-bind:src, por uma class que faça o mesmo,
+            //  mas que meta numa div com background-image
+            //  para controlar os tamanhos e margens dependendo se é o icon ou imagem
+        }
+    },
+    methods: {
+        imgPath(file) {
+            return this.isImage(file.extension) ? file.path: this.defaultIcon;
+        },
+        isImage(fileExtension){
+            return fileExtension.match(/.(jpg|jpeg|png|gif)$/i);
         }
     }
 };
