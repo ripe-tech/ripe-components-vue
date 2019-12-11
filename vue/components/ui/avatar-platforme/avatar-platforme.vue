@@ -1,6 +1,6 @@
 <template>
     <div class="avatar" v-bind:class="[size]">
-        <div class="image-container" v-bind:class="[{ notify: notify }, size]">
+        <div class="image-container" v-bind:class="[{ notify: notify }, size]" v-if="imgUrl">
             <img class="image" v-bind:src="imgUrl" alt="avatar" />
             <slot name="notify-dot">
                 <div
