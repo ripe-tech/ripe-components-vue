@@ -8,8 +8,7 @@
                 v-for="file in filesItems"
                 v-bind:key="file.name"
                 >
-                <img class="file-image"
-                    v-bind:src="imgPath(file)"
+                <img class="file-image" v-bind="imageAttributes(file)"
                     />
                 <link-platforme
                     v-bind:text="file.name"
@@ -54,7 +53,6 @@
 }
 
 .files-list-container .files-list .file-row .file-image{
-    height: 44px;
     margin: 0px 20px 0px 0px;
 }
 
@@ -106,19 +104,23 @@ export const FilesListPlatforme = {
             if (this.height) base.height = `${this.height}px`;
 
             return base;
-        },
-        imageStyle() {
-            //TODO substituir v-bind:src, por uma class que faça o mesmo,
-            //  mas que meta numa div com background-image
-            //  para controlar os tamanhos e margens dependendo se é o icon ou imagem
         }
     },
     methods: {
-        imgPath(file) {
-            return this.isImage(file.extension) ? file.path: this.defaultIcon;
-        },
         isImage(fileExtension){
             return fileExtension.match(/.(jpg|jpeg|png|gif)$/i);
+        },
+        imageAttributes(file) {
+            if(this.isImage(file.extension)) return {
+                src: file.path,
+                width: 44,
+                height: 44
+            }; 
+            else return {
+                src: file.path,
+                width: 18,
+                height: 18
+            };
         }
     }
 };
