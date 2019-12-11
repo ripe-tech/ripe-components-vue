@@ -29,14 +29,14 @@
 .rich-textarea {
     position: relative;
     padding: 0px 0px 30px 0px;
-    background-color: #f9fafd;
+    background-color: $white;
     border: 1px solid $light-white;
     border-radius: 6px;
 }
 
 .rich-textarea .textarea {
     width:100%;
-    background-color: #f9fafd;
+    background-color: $white;
     box-sizing: border-box;
     display: block;
     outline: none;
@@ -61,14 +61,8 @@
 }
 
 
-.rich-textarea:hover,
-.rich-textarea:hover .textarea,
 .rich-textarea:hover .options{
-    background-color: $light-grey;
-}
-
-.rich-textarea:hover{
-    border: 1px solid #dfe1e5;
+    opacity: 1;
 }
 
 .rich-textarea:focus-within,
