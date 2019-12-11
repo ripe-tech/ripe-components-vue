@@ -11,6 +11,7 @@
 .avatar {
     display: inline-block;
     position: relative;
+    font-size: 0px;
 }
 
 .avatar .image {
