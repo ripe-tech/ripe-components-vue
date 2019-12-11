@@ -28,6 +28,10 @@
     position: relative;
 }
 
+.rich-textarea .textarea{
+    resize: none;
+}
+
 .rich-textarea .options {
     font-size: 0px; //It fixes white spaces between divs
     position: absolute;

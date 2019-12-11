@@ -60,7 +60,7 @@ storiesOf("Input", module)
             }
         },
         template: `
-            <div style="width:500px">
+            <div>
                 <rich-textarea-platforme
                     v-bind:id="id"
                     v-bind:value="value"
