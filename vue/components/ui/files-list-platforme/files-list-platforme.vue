@@ -4,21 +4,11 @@
             <span>Files</span>
         </div>
         <div class="files-list">
-            <p>File 1</p>
-            <p>File 2</p>
-            <p>File 3</p>
-            <p>File 4</p>
-            <p>File 5</p>
-            <p>File 6</p>
-            <p>File 7</p>
-            <p>File 8</p>
-            <p>File 9</p>
-            <p>File 10</p>
-            <p>File 11</p>
-            <p>File 12</p>
-            <p>File 13</p>
-            <p>File 14</p>
-            <p>File 15</p>
+            <div class="file-row" 
+                v-for="file in filesItems"
+                v-bind:key="file.name">
+                {{ file.name}}
+            </div>
         </div>
     </div>
 </template>
@@ -52,9 +42,9 @@
 export const FilesListPlatforme = {
     name: "files-list-platforme",
     props: {
-        hello: {
-            type: String,
-            default: null
+        filesItems: {
+            type: Array,
+            default: () => []
         }
     }
 };
