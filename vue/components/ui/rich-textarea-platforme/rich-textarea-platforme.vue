@@ -28,8 +28,43 @@
     position: relative;
 }
 
-.rich-textarea .textarea{
+.rich-textarea .textarea {
+    background-color: #f9fafd;
+    border: 1px solid $light-white;
+    border-radius: 6px;
+    box-sizing: border-box;
+    color: $grey;
+    display: block;
+    font-family: $font-family;
+    font-size: 14px;
+    letter-spacing: 0.3px;
+    line-height: 20px;
+    outline: none;
+    padding: 8px 8px 8px 8px;
     resize: none;
+}
+
+.rich-textarea .textarea::placeholder {
+    color: $medium-grey;
+    font-family: $font-family;
+}
+
+.rich-textarea .textarea:disabled,
+.rich-textarea .textarea:disabled:hover {
+    background-color: #f6f7f9;
+    color: $medium-grey;
+}
+
+.rich-textarea .textarea:hover {
+    background-color: $light-grey;
+    border: 1px solid #dfe1e5;
+}
+
+.rich-textarea .textarea:focus {
+    background-color: $white;
+    border: 2px solid $aqcua-blue;
+    color: $black;
+    padding: 7px 7px 7px 7px;
 }
 
 .rich-textarea .options {
