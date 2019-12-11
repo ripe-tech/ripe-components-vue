@@ -14,9 +14,9 @@ storiesOf("Input", module)
             optionsItems: {
                 type: Array,
                 default: () => [
-                    { icon: "chat", event: "item_1" },
-                    { icon: "cart", event: "item_2" },
-                    { icon: "walking", event: "item_3" }
+                    { icon: "clip", event: "item_1" },
+                    { icon: "at-sign", event: "item_2" },
+                    { icon: "happy-face", event: "item_3" }
                 ]
             },
             placeholder: {

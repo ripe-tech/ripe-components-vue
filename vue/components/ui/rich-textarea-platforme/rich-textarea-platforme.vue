@@ -61,7 +61,7 @@
 }
 
 .rich-textarea .options {
-    margin: 0px 9px 0px 9px;
+    margin: 0px 13px 0px 13px;
     opacity: 0.5;
 }
 
@@ -99,7 +99,7 @@
 
 .rich-textarea:focus-within .options
 {
-    margin: -1px 9px 0px 8px;
+    margin: -1px 13px 0px 12px;
     opacity: 1;
 }
 </style>
