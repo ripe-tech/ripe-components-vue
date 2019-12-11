@@ -1,9 +1,9 @@
 <template>
-    <div class="files-list-container" v-bind:style="filesListStyle">
+    <div class="files-list-container" v-bind:style="filesListContainerStyle">
         <div class="files-title">
             <span>Files</span>
         </div>
-        <div class="files-list">
+        <div class="files-list" v-bind:style="filesListStyle">
             <div class="file-row" 
                 v-for="file in filesItems"
                 v-bind:key="file.name"
@@ -93,10 +93,16 @@ export const FilesListPlatforme = {
     },
     computed:
     {
-        filesListStyle() {
+        filesListContainerStyle() {
             const base = {};
 
             if (this.width) base.width = `${this.width}px`;
+
+            return base;
+        },
+        filesListStyle() {
+            const base = {};
+
             if (this.height) base.height = `${this.height}px`;
 
             return base;
