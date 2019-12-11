@@ -4,6 +4,7 @@
         >
         <textarea
             class="textarea"
+            ref="textarea"
             v-bind:value="value"
             v-bind:style="textAreaStyle"
             v-bind:placeholder="placeholder"
@@ -11,7 +12,7 @@
             v-bind:id="id"
             v-on:input="onInput($event.target.value)"
         />
-        <div class="options">
+        <div class="options" v-on:click="onOptionsClick()">
             <button-icon-platforme
                 v-bind:icon="option.icon"
                 v-for="option in optionsItems"
@@ -58,6 +59,7 @@
     margin: 0px 9px 0px 9px;
     opacity: 0.3;
 }
+
 
 .rich-textarea:hover,
 .rich-textarea:hover .textarea,
@@ -137,6 +139,10 @@ export const RichTextareaPlatforme = {
         },
         onInput(value) {
             this.emitValueChanged(value);
+        },
+        onOptionsClick()
+        {
+            this.$refs.textarea.focus();
         },
         onOptionsItemClick(item) {
             this.$emit(`click:${item.event}`);
