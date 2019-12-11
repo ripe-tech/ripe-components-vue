@@ -85,9 +85,7 @@ export const FilesListPlatforme = {
         }
     },
     data: function() {
-        return {
-            defaultIcon: require(`./../../../assets/icons/black/file.svg`)
-        };
+        return { };
     },
     computed:
     {
@@ -117,7 +115,7 @@ export const FilesListPlatforme = {
                 height: 44
             }; 
             else return {
-                src: file.path,
+                src: require(`./../../../assets/icons/black/file.svg`),
                 width: 18,
                 height: 18
             };
