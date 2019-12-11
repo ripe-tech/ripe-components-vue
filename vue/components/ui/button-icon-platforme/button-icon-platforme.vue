@@ -1,6 +1,7 @@
 <template>
     <img
         class="button button-icon"
+        v-bind:disabled="disabled"
         v-bind:style="style"
         v-bind:class="classes"
         v-bind:src="iconPath"
@@ -23,7 +24,11 @@
     vertical-align: middle;
 }
 
-.button-icon:hover {
+.button-icon.disabled {
+    cursor: default;
+}
+
+.button-icon:hover:not(.disabled) {
     background-color: $light-grey;
 }
 
@@ -31,7 +36,7 @@
     background-color: $white;
 }
 
-.button-icon.button-icon-white:hover {
+.button-icon.button-icon-white:hover:not(.disabled) {
     background-color: $light-grey;
 }
 
@@ -39,7 +44,7 @@
     background-color: $light-grey;
 }
 
-.button-icon.button-icon-grey:hover {
+.button-icon.button-icon-grey:hover:not(.disabled) {
     background-color: #dedede;
 }
 </style>
@@ -59,6 +64,10 @@ export const ButtonIconPlatforme = {
         size: {
             type: Number,
             default: 28
+        },
+        disabled: {
+            type: Boolean,
+            default: false
         }
     },
     computed: {
@@ -74,13 +83,16 @@ export const ButtonIconPlatforme = {
             };
         },
         classes() {
-            const base = {};
+            const base = {
+                disabled: this.disabled
+            };
             if (this.color) base["button-icon-" + this.color] = this.color;
             return base;
         }
     },
     methods: {
         handleClick() {
+            if (this.disabled) return;
             this.$emit("click");
         }
     }

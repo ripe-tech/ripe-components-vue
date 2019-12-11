@@ -2,20 +2,20 @@
     <div
         class="rich-textarea"
         v-bind:class="{ disabled: disabled }"
-        v-bind:style="richTextAreaStyle"
+        v-on:click="onClick()"
     >
         <textarea
             class="textarea"
             v-bind:value="value"
-            v-bind:style="textAreaStyle"
             v-bind:placeholder="placeholder"
             v-bind:disabled="disabled"
             v-bind:id="id"
             ref="textarea"
             v-on:input="onInput($event.target.value)"
         />
-        <div class="options" v-on:click="onOptionsClick()">
+        <div class="options">
             <button-icon-platforme
+                v-bind:disabled="disabled"
                 v-bind:icon="option.icon"
                 v-for="option in optionsItems"
                 v-bind:key="option.icon"
@@ -28,17 +28,17 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.rich-textarea,
-.rich-textarea .textarea,
-.rich-textarea .options {
-    background-color: $white;
-}
-
 .rich-textarea {
     border: 1px solid $light-white;
-    border-radius: 6px;
+    border-radius: 6px 6px 6px 6px;
     padding: 0px 0px 30px 0px;
     position: relative;
+    background-color: $white;
+    cursor: pointer;
+}
+
+.rich-textarea:focus-within {
+    border: 2px solid $aqcua-blue;
 }
 
 .rich-textarea .textarea {
@@ -51,26 +51,18 @@
     letter-spacing: 0.3px;
     line-height: 20px;
     outline: none;
-    padding: 8px 8px 8px 8px;
+    padding: 8px 18px 8px 18px;
     resize: none;
     width: 100%;
 }
 
-.rich-textarea .textarea::placeholder {
-    color: $medium-grey;
-    font-family: $font-family;
-}
-
-.rich-textarea .options {
-    margin: 0px 13px 0px 13px;
-    opacity: 0.5;
+.rich-textarea:focus-within .textarea {
+    color: $black;
+    padding: 7px 17px 7px 17px;
 }
 
 .rich-textarea.disabled,
-.rich-textarea.disabled .textarea,
-.rich-textarea.disabled .options,
-.rich-textarea.disabled .options ::v-deep .button-icon,
-.rich-textarea.disabled .options ::v-deep .button-icon:hover {
+.rich-textarea.disabled .textarea {
     background-color: #f6f7f9;
     color: $medium-grey;
     cursor: default;
@@ -80,22 +72,22 @@
 .rich-textarea:focus-within .textarea,
 .rich-textarea:focus-within .options {
     background-color: $white;
-    opacity: 1;
 }
 
-.rich-textarea:focus-within {
-    border: 2px solid $aqcua-blue;
-    margin: 0px 0px -2px 0px;
+.rich-textarea .textarea::placeholder {
+    color: $medium-grey;
+    font-family: $font-family;
 }
 
-.rich-textarea:focus-within .textarea {
-    color: $black;
-    padding: 7px 7px 7px 7px;
+.rich-textarea .options {
+    position: absolute;
+    bottom: 3px;
+    left: 10px;
 }
 
 .rich-textarea:focus-within .options {
-    margin: -1px 13px 0px 12px;
-    opacity: 1;
+    bottom: 2px;
+    left: 9px;
 }
 </style>
 
@@ -122,21 +114,17 @@ export const RichTextareaPlatforme = {
         disabled: {
             type: Boolean,
             default: false
-        },
-        initialWidth: {
-            type: Number,
-            default: null
-        },
-        initialHeight: {
-            type: Number,
-            default: null
         }
     },
     data: function() {
         return {};
     },
     methods: {
+        focusTextarea() {
+            this.$refs.textarea.focus();
+        },
         emitValueChanged(value) {
+            if (this.disabled) return;
             this.$emit("update:value", value);
         },
         emitOptionsItemClick(event) {
@@ -146,26 +134,11 @@ export const RichTextareaPlatforme = {
         onInput(value) {
             this.emitValueChanged(value);
         },
-        onOptionsClick() {
-            this.$refs.textarea.focus();
+        onClick() {
+            this.focusTextarea();
         },
         onOptionsItemClick(item) {
             this.emitOptionsItemClick(item.event);
-        }
-    },
-    computed: {
-        richTextAreaStyle() {
-            const base = {};
-            if (this.initialWidth) base.width = `${this.initialWidth}px`;
-            if (this.initialHeight) base.height = `${this.initialHeight}px`;
-
-            return base;
-        },
-        textAreaStyle() {
-            const base = {};
-            if (this.initialHeight) base.height = `${this.initialHeight}px`;
-
-            return base;
         }
     }
 };

@@ -67,8 +67,6 @@ storiesOf("Input", module)
                     v-bind:options-items="optionsItems"
                     v-bind:placeholder="placeholder"
                     v-bind:disabled="disabled"
-                    v-bind:initial-width="initialWidth"
-                    v-bind:initial-height="initialHeight"
                     v-on:update:value="value => onValue(value)"
                     v-on:click:item_1="onIconEvent('chatEvent')"
                     v-on:click:item_2="onIconEvent('cartEvent')"
