@@ -54,11 +54,18 @@
     font-family: $font-family;
 }
 
+
+
+.rich-textarea:hover{
+    border: 1px solid #dfe1e5;
+}
+
 .rich-textarea:hover,
 .rich-textarea:hover .textarea{
-    background-color: #f6f7f9;
-    color: $medium-grey;
+    background-color: $light-grey;
 }
+
+
 
 
 
