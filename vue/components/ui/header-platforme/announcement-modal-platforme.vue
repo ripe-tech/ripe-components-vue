@@ -1,66 +1,60 @@
 <template>
     <transition name="fade">
         <div
-            class="announcement"
+            class="announcements-container"
             v-bind:class="{ visible: visible }"
             v-show="isVisible"
-            ref="container"
+            v-on:click.stop
         >
-            <div class="announcement-container">
-                <global-events v-on:keydown.esc="handleGlobal()" />
-                <div class="announcement-header">
-                    <slot name="header">
-                        <h1 class="title">What's new?</h1>
-                        <button-icon-platforme
-                            v-bind:icon="'close'"
-                            v-bind:color="'grey'"
-                            v-on:click="hide"
-                        />
-                        <form-input-platforme>
-                            <checkbox-platforme
-                                v-bind:items="items"
-                                v-bind:values="values"
-                                v-bind:disabled="false"
-                                v-on:update:values="setValues"
-                            />
-                        </form-input-platforme>
-                    </slot>
-                </div>
-                <div class="announcement-news">
+            <global-events v-on:keydown.esc="onHandleGlobal" v-on:click="onHandleGlobal" />
+            <div class="announcement-header">
+                <h1 class="title">What's new?</h1>
+                <button-icon-platforme
+                    v-bind:icon="'close'"
+                    v-bind:color="'grey'"
+                    v-on:click="onClickClose"
+                />
+                <form-input-platforme>
+                    <checkbox-platforme
+                        v-bind:items="items"
+                        v-bind:values="{ notify }"
+                        v-bind:disabled="false"
+                        v-on:update:values="onUpdateValues"
+                    />
+                </form-input-platforme>
+            </div>
+            <div class="announcements">
+                <div
+                    class="announcement"
+                    v-for="(announcement, index) in announcements"
+                    v-bind:key="index"
+                >
+                    <p class="date">
+                        {{ dateString(announcement.date / 1000) }}
+                    </p>
                     <div
-                        class="announcement-item"
-                        v-for="(item, index) in announcements"
-                        v-bind:key="index"
-                    >
-                        <slot v-bind:item="item">
-                            <p class="news-date">
-                                {{ dateString(item.date / 1000) }}
-                            </p>
-                            <div
-                                class="news-dot"
-                                v-bind:style="{ backgroundColor: String(notifyColor) }"
-                                v-if="!item.read"
-                                v-on:click.stop="onClickAnnouncement(index)"
-                            />
-                            <h2 class="news-title">{{ item.title }}</h2>
-                            <div class="news-content">
-                                {{ item.content }}
-                            </div>
-                            <link-platforme
-                                class="news-link"
-                                v-bind:text="'More details'"
-                                v-bind:href="item.link"
-                                v-bind:target="'_blank'"
-                                v-bind:rel="'noopener noreferrer'"
-                                v-bind:color="'black'"
-                            />
-                            <button-icon-platforme
-                                class="news-reaction"
-                                v-bind:icon="'eye'"
-                                v-bind:color="'grey'"
-                            />
-                        </slot>
+                        class="dot"
+                        v-bind:style="{ backgroundColor: String(notifyColor) }"
+                        v-if="!announcement.read"
+                        v-on:click.stop.prevent="onClickAnnouncement(index)"
+                    />
+                    <h2 class="title">{{ announcement.title }}</h2>
+                    <div class="content">
+                        {{ announcement.content }}
                     </div>
+                    <link-platforme
+                        class="link"
+                        v-bind:text="'More details'"
+                        v-bind:href="announcement.link"
+                        v-bind:target="'_blank'"
+                        v-bind:rel="'noopener noreferrer'"
+                        v-bind:color="'black'"
+                    />
+                    <button-icon-platforme
+                        class="reaction"
+                        v-bind:icon="'eye'"
+                        v-bind:color="'grey'"
+                    />
                 </div>
             </div>
         </div>
@@ -72,91 +66,94 @@
 @import "css/variables.scss";
 @import "css/animations.scss";
 
-.announcement {
+.announcements-container {
+    animation: fade-grow-rise 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
+    background-color: $white;
+    border: 1px solid transparent;
     width: 370px;
 }
 
-.announcement.fade-leave-active > .announcement-container {
+.announcements-container.fade-leave-active {
     animation: fade-shrink-visibility 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
 }
 
-.announcement-container {
-    background-color: $white;
-    border: 1px solid transparent;
-}
-
-.announcement.visible .announcement-container {
+.announcements-container.visible {
     border: 1px solid $light-white;
-    box-shadow: 0 6px 24px 0 rgba(67, 86, 100, 0.15);
+    box-shadow: 0px 6px 24px 0px rgba(67, 86, 100, 0.15);
 }
 
-.announcement-container .announcement-header {
+.announcements-container .announcement-header {
     border-bottom: 1px solid $light-white;
     padding: 15px 24px 15px 24px;
 }
 
-.announcement-container .announcement-header .title {
-    display: inline;
+.announcements-container .announcement-header .title {
+    display: inline-block;
     font-size: 18px;
+    line-height: 18px;
 }
 
-.announcement-container .announcement-header ::v-deep .button-icon {
-    display: inline;
+.announcements-container .announcement-header ::v-deep .button-icon {
+    display: inline-block;
     float: right;
-    margin-top: 17px;
+    margin-top: 16px;
 }
 
-.announcement-container .announcement-news {
-    max-height: 80vh;
+.announcements-container .announcements {
+    max-height: 900px;
     overflow-y: auto;
 }
 
-.announcement-container .announcement-news .announcement-item {
+.announcements-container .announcements .announcement {
     border-top: 1px solid $light-white;
-    padding: 15px 24px 15px 24px;
+    padding: 0px 24px 15px 24px;
+    position: relative;
 }
 
-.announcement-container .announcement-news .announcement-item:first-child {
+.announcements-container .announcements .announcement:first-child {
     border-top: 0px;
 }
 
-.announcement-container .announcement-news .announcement-item .news-date {
-    display: inline;
+.announcements-container .announcements .announcement .date {
+    display: inline-block;
+    line-height: 14px;
+    margin-top: 5px;
 }
 
-.announcement-container .announcement-news .announcement-item .news-dot {
+.announcements-container .announcements .announcement .dot {
     background: #4b8dd7;
     border: 1px solid #ffffff;
     border-radius: 50%;
     cursor: pointer;
-    display: inline;
+    display: inline-block;
     float: right;
-    height: 10px;
+    height: 8px;
     line-height: 14px;
-    margin: 25px 12px 0px 0px;
-    margin-top: 25px;
     padding: 0px 0px 0px 0px;
-    width: 10px;
+    position: absolute;
+    right: 30px;
+    top: 26px;
+    width: 8px;
 }
 
-.announcement-container .announcement-news .announcement-item .news-title {
+.announcements-container .announcements .announcement .title {
     font-size: 16px;
     line-height: 16px;
     margin: 0px 0px 0px 0px;
 }
 
-.announcement-container .announcement-news .announcement-item .news-content {
+.announcements-container .announcements .announcement .content {
     font-size: 14px;
     line-height: 25px;
     margin-bottom: 40px;
     white-space: pre-line;
 }
 
-.announcement-container .announcement-news .announcement-item .news-link {
+.announcements-container .announcements .announcement .link {
     border-color: #1d2631;
 }
 
-.announcement-container .announcement-news .announcement-item .news-reaction {
+.announcements-container .announcements .announcement .reaction {
     float: right;
     margin-top: 17px;
 }
@@ -184,21 +181,16 @@ export const AnnouncementModalPlatforme = {
         notifyUser: {
             type: Boolean,
             required: true
+        },
+        items: {
+            type: Array,
+            required: true
         }
     },
     data: function() {
         return {
             visibleData: true,
-            items: [
-                {
-                    label: "Notify me about updates",
-                    value: "notify",
-                    checked: true
-                }
-            ],
-            values: {
-                notify: true
-            }
+            notify: true
         };
     },
     watch: {
@@ -212,31 +204,30 @@ export const AnnouncementModalPlatforme = {
         }
     },
     created: function() {
-        this.values.notify = this.notifyUser;
-        document.addEventListener("click", this.handleGlobal);
-    },
-    destroyed: function() {
-        document.removeEventListener("click", this.handleGlobal);
+        this.notify = this.notifyUser;
     },
     methods: {
-        setValues(newValues) {
-            this.values = newValues;
-            this.$emit("update:notify", this.values.notify !== undefined);
+        setValues(values) {
+            const { notify } = values;
+            this.notify = Boolean(notify);
+            this.$emit("update:notify", this.notify);
         },
         hide() {
             if (!this.visibleData) return;
             this.visibleData = false;
             this.$emit("update:visible", this.visibleData);
         },
-        handleGlobal(event) {
-            if (!event) {
-                this.hide();
-            } else if (!this.$refs.container.contains(event.target)) {
-                this.hide();
-            }
+        onHandleGlobal() {
+            this.hide();
         },
         onClickAnnouncement(index) {
             this.$emit("click:announcement", index);
+        },
+        onClickClose() {
+            this.hide();
+        },
+        onUpdateValues(newValues) {
+            this.setValues(newValues);
         }
     }
 };

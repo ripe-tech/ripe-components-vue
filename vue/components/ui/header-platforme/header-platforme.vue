@@ -76,6 +76,7 @@
                 v-bind:notify-color="notifyColor"
                 v-bind:notify-user="notifyUser"
                 v-bind:announcements="announcements"
+                v-bind:items="announcementItems"
                 v-on:click:announcement="onUpdateAnnouncement"
                 v-on:update:notify="onUpdateNotify"
                 v-on:update:visible="onUpdateAnnouncementVisible"
@@ -300,14 +301,18 @@
     width: 8px;
 }
 
-.header-platforme .announcement {
+.header-platforme .announcements-container {
     position: absolute;
     right: 0px;
     top: 60px;
 }
 
-body.mobile .header-platforme ::v-deep .announcement {
+body.mobile .header-platforme ::v-deep .announcements-container {
     width: 100%;
+}
+
+body.mobile .header-platforme ::v-deep .announcements-container > .announcements {
+    height: 500px;
 }
 </style>
 
@@ -407,6 +412,13 @@ export const HeaderPlatforme = {
                     date: Date.now(),
                     link: "https://platforme.com",
                     read: false
+                }
+            ],
+            announcementItems: [
+                {
+                    label: "Notify me about updates",
+                    value: "notify",
+                    checked: true
                 }
             ]
         };
