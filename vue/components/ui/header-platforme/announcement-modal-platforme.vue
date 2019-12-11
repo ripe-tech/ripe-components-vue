@@ -221,12 +221,12 @@ export const AnnouncementModalPlatforme = {
     methods: {
         setValues(newValues) {
             this.values = newValues;
-            this.$emit("update:notify", !!this.values.notify);
+            this.$emit("update:notify", this.values.notify !== undefined);
         },
         hide() {
             if (!this.visibleData) return;
             this.visibleData = false;
-            this.$emit("update:announcement-visible", this.visibleData);
+            this.$emit("update:visible", this.visibleData);
         },
         handleGlobal(event) {
             if (!event) {

@@ -78,7 +78,7 @@
                 v-bind:announcements="announcements"
                 v-on:click:announcement="onUpdateAnnouncement"
                 v-on:update:notify="onUpdateNotify"
-                v-on:update:announcement-visible="onUpdateAnnouncementVisible"
+                v-on:update:visible="onUpdateAnnouncementVisible"
             />
         </div>
     </div>
