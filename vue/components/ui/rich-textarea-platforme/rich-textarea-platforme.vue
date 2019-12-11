@@ -49,6 +49,10 @@
     line-height: 20px;
 }
 
+.rich-textarea .textarea::placeholder {
+    color: $medium-grey;
+    font-family: $font-family;
+}
 
 .rich-textarea:hover,
 .rich-textarea:hover .textarea{
@@ -59,11 +63,6 @@
 
 
 /*
-.rich-textarea .textarea::placeholder {
-    color: $medium-grey;
-    font-family: $font-family;
-}
-
 .rich-textarea .textarea:disabled,
 .rich-textarea .textarea:disabled:hover {
     background-color: #f6f7f9;
