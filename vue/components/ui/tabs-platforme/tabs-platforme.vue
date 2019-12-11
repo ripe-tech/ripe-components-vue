@@ -122,7 +122,11 @@ export const TabsPlatforme = {
         };
     },
     mounted: function() {
+        window.addEventListener("resize", () => this.onWindowResize());
         this._updateHeight();
+    },
+    destroyed: function() {
+        window.removeEventListener("resize");
     },
     methods: {
         selectTab(index) {
@@ -140,6 +144,9 @@ export const TabsPlatforme = {
         },
         onClick(index) {
             this.selectTab(index);
+        },
+        onWindowResize() {
+            this._updateHeight();
         },
         _updateHeight() {
             const tab = (this.$refs[`tab-${this.currentTab}`] || [])[0];
