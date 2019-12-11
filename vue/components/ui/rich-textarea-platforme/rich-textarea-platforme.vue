@@ -1,18 +1,18 @@
 <template>
-        <div class="rich-textarea">
-            <textarea-platforme
-                v-bind:placeholder="'Say something here...'"
-                v-bind:resize="false"
-                v-on:update:value="value => onTextareaValue(value)"
-            />
-            <div class="options">
-                <div class="optionExample" />
-                <div class="optionExample" />
-                <div class="optionExample" />
-                <div class="optionExample" />
-                <div class="optionExample" />
-            </div>
+    <div class="rich-textarea">
+        <textarea-platforme
+            v-bind:placeholder="'Say something here...'"
+            v-bind:resize="false"
+            v-on:update:value="value => onTextareaValue(value)"
+        />
+        <div class="options">
+            <div class="optionExample" />
+            <div class="optionExample" />
+            <div class="optionExample" />
+            <div class="optionExample" />
+            <div class="optionExample" />
         </div>
+    </div>
 </template>
 
 <style lang="scss" scoped>
@@ -32,7 +32,6 @@
     margin: 4px 4px 4px 4px;
     width: 22px;
 }
-
 </style>
 
 <script>
