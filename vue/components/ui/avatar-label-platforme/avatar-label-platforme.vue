@@ -3,16 +3,24 @@
         <div class="avatar" v-bind:class="[{ notify: notify }, size]">
             <img class="image" v-bind:src="imgUrl" alt="avatar" />
             <slot name="notify-dot">
-                <div class="dot"
-                v-bind:style="{ 'border-color': notifyBorderColor, background: notifyColor }"/>
+                <div
+                    class="dot"
+                    v-bind:style="{ 'border-color': notifyBorderColor, background: notifyColor }"
+                />
             </slot>
         </div>
-        <div class="text left" v-if="title || subtitle" v-bind:class="[size]">
-            <label-platforme v-if="title" class="title">{{title}}</label-platforme>
-            <label-platforme v-if="subtitle" class="subtitle">{{subtitle}}</label-platforme>
+        <div class="text left" v-bind:class="[size]" v-if="title || subtitle">
+            <label-platforme class="title" v-if="title">
+                {{ title }}
+            </label-platforme>
+            <label-platforme class="subtitle" v-if="subtitle">
+                {{ subtitle }}
+            </label-platforme>
         </div>
         <div class="text right" v-bind:class="[size]">
-            <label-platforme v-if="content" class="content">{{content}}</label-platforme>
+            <label-platforme class="content" v-if="content">
+                {{ content }}
+            </label-platforme>
         </div>
     </div>
 </template>
@@ -20,16 +28,16 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.avatar-container{
-    font-size: 0px;
+.avatar-container {
     display: inline-block;
+    font-size: 0px;
 }
 
 
 .avatar {
     display: inline-block;
-    position: relative;
     font-size: 0px;
+    position: relative;
 }
 
 .avatar .image {
@@ -130,55 +138,56 @@
 
 .text {
     display: inline-flex;
+    flex-direction: column;
     justify-content: space-evenly;
     vertical-align: top;
     flex-direction: column;
     padding: 0px 8px 0px 8px;
 }
 
-.text.giant{
+.text.giant {
     height: 128px;
 }
 
-.text.large{
+.text.large {
     height: 96px;
 }
 
-.text.medium{
+.text.medium {
     height: 40px;
 }
 
-.text.small{
+.text.small {
     height: 32px;
 }
 
-.text.tiny{
+.text.tiny {
     height: 24px;
 }
 
-.text.micro{
+.text.micro {
     height: 16px;
 }
 
 .text .title ::v-deep {
+    color: $dark;
     font-size: 14px;
     font-weight: 700;
-    color: $dark;
 }
+
 .text .subtitle ::v-deep {
+    color: $dark;
     font-weight: 500;
     letter-spacing: 0.3px;
-    color: $dark;
 }
 
 .text.right {
     padding: 0px 0px 0px 0px;
 }
 
-.text:empty{
+.text:empty {
     display: none;
 }
-
 </style>
 
 <script>
@@ -201,13 +210,10 @@ export const AvatarLabelPlatforme = {
             type: String,
             default: null
         },
-        subtitle: {
-            type: String,
-            default: null
-        },
         imgUrl: {
             type: String,
-            default: "https://user-images.githubusercontent.com/24736423/69619122-fe5ae380-1032-11ea-8bfb-1966daa280b4.gif"
+            default:
+                "https://user-images.githubusercontent.com/24736423/69619122-fe5ae380-1032-11ea-8bfb-1966daa280b4.gif"
         },
         notify: {
             type: Boolean,
