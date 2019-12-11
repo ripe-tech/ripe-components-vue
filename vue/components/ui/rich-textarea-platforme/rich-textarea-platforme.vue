@@ -1,5 +1,5 @@
 <template>
-    <div class="rich-textarea"
+    <div class="rich-textarea" v-bind:class="{disabled: disabled}"
         v-bind:style="richTextAreaStyle"
         >
         <textarea
@@ -62,19 +62,27 @@
 
 .rich-textarea .options {
     margin: 0px 9px 0px 9px;
-    opacity: 0.3;
+    opacity: 0.5;
 }
 
 
-.rich-textarea:hover .options{
-    opacity: 1;
+.rich-textarea.disabled,
+.rich-textarea.disabled .textarea,
+.rich-textarea.disabled .options,
+.rich-textarea.disabled .options ::v-deep .button-icon,
+.rich-textarea.disabled .options ::v-deep .button-icon:hover {
+    background-color: #f6f7f9;
+    color: $medium-grey;
+    cursor: default;
 }
+
 
 .rich-textarea:focus-within,
 .rich-textarea:focus-within .textarea,
 .rich-textarea:focus-within .options
 {
     background-color: $white;
+    opacity: 1;
 }
 
 .rich-textarea:focus-within
@@ -136,15 +144,18 @@ export const RichTextareaPlatforme = {
         emitValueChanged(value) {
             this.$emit("update:value", value);
         },
+        emitOptionsItemClick(event) {
+            if(this.disabled) return;
+            this.$emit(`click:${event}`);
+        },
         onInput(value) {
             this.emitValueChanged(value);
         },
-        onOptionsClick()
-        {
+        onOptionsClick() {
             this.$refs.textarea.focus();
         },
         onOptionsItemClick(item) {
-            this.$emit(`click:${item.event}`);
+            this.emitOptionsItemClick(item.event);
         }
     },
     computed: {
