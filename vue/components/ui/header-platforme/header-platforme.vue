@@ -203,43 +203,19 @@
     text-align: left;
 }
 
-.header-platforme
-    > .header-container
-    > .header-account
-    ::v-deep
-    .dropdown-platforme
-    > .dropdown-item
-    > * {
+.header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme > .dropdown-item > * {
     box-sizing: border-box;
     display: inline-block;
     padding: 8px 14px 8px 14px;
     width: 100%;
 }
 
-.header-platforme
-    > .header-container
-    > .header-account
-    ::v-deep
-    .dropdown-platforme
-    > .dropdown-item
-    > a {
+.header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme > .dropdown-item > a {
     color: $lower-color;
 }
 
-.header-platforme
-    > .header-container
-    > .header-account
-    ::v-deep
-    .dropdown-platforme
-    > .dropdown-item:hover
-    > a,
-.header-platforme
-    > .header-container
-    > .header-account
-    ::v-deep
-    .dropdown-platforme
-    > .dropdown-item.selected
-    > a {
+.header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme > .dropdown-item:hover > a,
+.header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme > .dropdown-item.selected > a {
     color: $higher-color;
 }
 
@@ -326,12 +302,11 @@
 
 .header-platforme .announcement {
     position: absolute;
-    right: 10px;
+    right: 0px;
     top: 60px;
 }
 
 body.mobile .header-platforme ::v-deep .announcement {
-    right: 0;
     width: 100%;
 }
 </style>

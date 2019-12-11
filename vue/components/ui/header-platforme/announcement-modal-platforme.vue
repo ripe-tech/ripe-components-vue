@@ -27,7 +27,11 @@
                     </slot>
                 </div>
                 <div class="announcement-news">
-                    <div class="announcement-item" v-for="(item, index) in announcements" v-bind:key="index">
+                    <div
+                        class="announcement-item"
+                        v-for="(item, index) in announcements"
+                        v-bind:key="index"
+                    >
                         <slot v-bind:item="item">
                             <p class="news-date">
                                 {{ dateString(item.date / 1000) }}
@@ -46,6 +50,8 @@
                                 class="news-link"
                                 v-bind:text="'More details'"
                                 v-bind:href="item.link"
+                                v-bind:target="'_blank'"
+                                v-bind:rel="'noopener noreferrer'"
                                 v-bind:color="'black'"
                             />
                             <button-icon-platforme
@@ -215,7 +221,7 @@ export const AnnouncementModalPlatforme = {
     methods: {
         setValues(newValues) {
             this.values = newValues;
-            this.$emit("update:notify", this.values.notify ? true : false);
+            this.$emit("update:notify", !!this.values.notify);
         },
         hide() {
             if (!this.visibleData) return;
