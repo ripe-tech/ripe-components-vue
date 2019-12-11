@@ -6,11 +6,12 @@
             v-on:update:value="value => onTextareaValue(value)"
         />
         <div class="options">
-            <div class="optionExample" />
-            <div class="optionExample" />
-            <div class="optionExample" />
-            <div class="optionExample" />
-            <div class="optionExample" />
+            <button-icon-platforme
+                v-for="option in optionsItems"
+                v-bind:key="option.icon"
+                v-bind:icon="option.icon"
+                v-on:click="onOptionsItemClick(option)"
+            />
         </div>
     </div>
 </template>
@@ -38,9 +39,9 @@
 export const RichTextareaPlatforme = {
     name: "rich-textarea-platforme",
     props: {
-        hello: {
-            type: String,
-            default: null
+        optionsItems: {
+            type: Array,
+            default: () => []
         }
     },
     methods: {
@@ -49,7 +50,10 @@ export const RichTextareaPlatforme = {
         },
         onTextareaValue(value) {
             this.emitValueChanged(value);
-        }
+        },
+        onOptionsItemClick(item) {
+            this.$emit(`click:${item.event}`);
+        },
     }
 };
 
