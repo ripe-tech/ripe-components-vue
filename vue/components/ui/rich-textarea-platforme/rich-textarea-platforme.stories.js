@@ -74,10 +74,12 @@ storiesOf("Input", module)
                     v-on:click:item_2="onIconEvent('cartEvent')"
                     v-on:click:item_3="onIconEvent('walkingEvent')"
                 />
-                <p>Text: {{ textAreaText }}</p>
-                <p>Chat event count: {{ chatEventCounter }}</p>
-                <p>Cart event count: {{ cartEventCounter }}</p>
-                <p>Walking event count: {{ walkingEventCounter }}</p>
+                <div>
+                    <p>Text: {{ textAreaText }}</p>
+                    <p>Chat event count: {{ chatEventCounter }}</p>
+                    <p>Cart event count: {{ cartEventCounter }}</p>
+                    <p>Walking event count: {{ walkingEventCounter }}</p>
+                </div>
             </div>
             `
     }));

@@ -54,56 +54,43 @@
     font-family: $font-family;
 }
 
+.rich-textarea .options {
+    margin: 0px 9px 0px 9px;
+}
 
+.rich-textarea:hover,
+.rich-textarea:hover .textarea,
+.rich-textarea:hover .options{
+    background-color: $light-grey;
+}
 
 .rich-textarea:hover{
     border: 1px solid #dfe1e5;
 }
 
-.rich-textarea:hover,
-.rich-textarea:hover .textarea{
-    background-color: $light-grey;
-}
-
-
-
-
-
-/*
-.rich-textarea .textarea:disabled,
-.rich-textarea .textarea:disabled:hover {
-    background-color: #f6f7f9;
-    color: $medium-grey;
-}
-
-.rich-textarea .textarea:hover {
-    background-color: $light-grey;
-    border: 1px solid #dfe1e5;
-}
-
-.rich-textarea .textarea:focus {
+.rich-textarea:focus-within,
+.rich-textarea:focus-within .textarea,
+.rich-textarea:focus-within .options
+{
     background-color: $white;
+}
+
+.rich-textarea:focus-within
+{
     border: 2px solid $aqcua-blue;
+    margin: 0px 0px -2px 0px;
+}
+
+.rich-textarea:focus-within .textarea
+{
     color: $black;
     padding: 7px 7px 7px 7px;
 }
 
-.rich-textarea .options {
-    bottom: 0px;
-    font-size: 0px; //It fixes white spaces between divs
-    padding: 0px 9px 0px 9px;
-    position: absolute;
+.rich-textarea:focus-within .options
+{
+    margin: -1px 9px 0px 8px;
 }
-
-.rich-textarea .optionExample {
-    background-size: 22px 22px;
-    display: inline-block;
-    height: 22px;
-    margin: 4px 4px 4px 4px;
-    width: 22px;
-}
-*/
-
 </style>
 
 <script>
