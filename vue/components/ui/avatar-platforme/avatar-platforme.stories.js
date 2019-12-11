@@ -31,9 +31,6 @@ storiesOf("Avatar", module)
             content: {
                 default: text("Content", "Miau miau...")
             },
-            maxWidth: {
-                default: text("Max width (example: 10px)", "")
-            },
             notify: {
                 default: boolean("Notify", true)
             },

@@ -1,34 +1,23 @@
 <template>
     <div class="avatar" v-bind:class="[size]">
-        <div class="image-container" v-bind:class="[{ notify: notify }, size]" v-if="imgUrl">
+        <div class="image-container" v-bind:class="[{ notify: notify }, size]" v-if="hasImg">
             <img class="image" v-bind:src="imgUrl" alt="avatar" />
-            <slot name="notify-dot">
-                <div
-                    class="dot"
-                    v-bind:style="{ 'border-color': notifyBorderColor, background: notifyColor }"
-                />
+            <slot name="dot">
+                <div class="dot" v-bind:style="dotStyle" />
             </slot>
         </div>
-        <div class="text left" v-bind:class="[size]" v-if="title || subtitle">
-            <label-platforme class="title" v-bind:style="{ 'max-width': maxWidth }" v-if="title">
+        <div class="text text-left" v-if="title || subtitle">
+            <div class="title" v-if="title">
                 {{ title }}
-            </label-platforme>
-            <label-platforme
-                class="subtitle"
-                v-bind:style="{ 'max-width': maxWidth }"
-                v-if="subtitle"
-            >
+            </div>
+            <div class="subtitle" v-if="subtitle">
                 {{ subtitle }}
-            </label-platforme>
+            </div>
         </div>
-        <div class="text right" v-bind:class="[size]">
-            <label-platforme
-                class="content"
-                v-bind:style="{ 'max-width': maxWidth }"
-                v-if="content"
-            >
+        <div class="text text-right">
+            <div class="content" v-if="content">
                 {{ content }}
-            </label-platforme>
+            </div>
         </div>
     </div>
 </template>
@@ -51,7 +40,19 @@
 
 .image-container .image {
     border-radius: 50%;
-    height: auto;
+}
+
+.image-container .dot {
+    background: #4b8dd7;
+    border: 1px solid #ffffff;
+    border-radius: 50%;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+
+.image-container:not(.notify) .dot {
+    display: none;
 }
 
 .image-container.giant .image {
@@ -130,30 +131,15 @@
     width: 2px;
 }
 
-.image-container .dot {
-    background: #4b8dd7;
-    border: 1px solid #ffffff;
-    border-radius: 50%;
-    height: 10%;
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    width: 10%;
-}
-
-.image-container:not(.notify) .dot {
-    display: none;
-}
-
-.image-container + .text {
-    padding: 0px 8px 0px 8px;
-}
-
 .text {
     display: inline-flex;
     flex-direction: column;
     justify-content: space-evenly;
     vertical-align: top;
+}
+
+.text-left {
+    padding: 0px 8px 0px 8px;
 }
 
 .text ::v-deep .label {
@@ -162,75 +148,48 @@
     white-space: nowrap;
 }
 
-.text.giant {
-    height: 128px;
-}
-
-.text.large {
-    height: 96px;
-}
-
-.text.medium {
-    height: 40px;
-}
-
-.text.small {
-    height: 32px;
-}
-
-.text.tiny {
-    height: 24px;
-}
-
-.text.micro {
-    height: 16px;
-}
-
-.text.left .title ::v-deep {
-    color: $dark;
-    font-size: 14px;
-    font-weight: 700;
-}
-
-.avatar.giant .text .label ::v-deep {
+.avatar.giant .text {
     font-size: 60px;
+    height: 128px;
     line-height: 60px;
 }
 
-.avatar.large .text .label ::v-deep {
+.avatar.large .text {
     font-size: 38px;
+    height: 96px;
     line-height: 38px;
 }
 
-.avatar.medium .text .label ::v-deep {
+.avatar.medium .text {
     font-size: 18px;
+    height: 40px;
     line-height: 18px;
 }
 
-.avatar.small .text .label ::v-deep {
+.avatar.small .text {
     font-size: 14px;
+    height: 32px;
     line-height: 14px;
 }
 
-.avatar.tiny .text .label ::v-deep {
+.avatar.tiny .text {
     font-size: 10px;
+    height: 24px;
     line-height: 10px;
 }
 
-.avatar.micro .text .label ::v-deep {
+.avatar.micro .text {
     font-size: 7px;
+    height: 16px;
     line-height: 7px;
 }
 
-.avatar .text:empty {
-    display: none;
+.text .title {
+    color: $dark;
+    font-weight: 700;
 }
 
-.avatar .text.right {
-    padding: 0px 0px 0px 0px;
-}
-
-.avatar .text.left .subtitle ::v-deep {
+.avatar .text-left .subtitle ::v-deep {
     color: $dark;
     font-weight: 500;
     letter-spacing: 0.3px;
@@ -261,10 +220,6 @@ export const AvatarPlatforme = {
             type: String,
             default: null
         },
-        maxWidth: {
-            type: String,
-            default: null
-        },
         notify: {
             type: Boolean,
             default: false
@@ -276,6 +231,17 @@ export const AvatarPlatforme = {
         notifyBorderColor: {
             type: String,
             default: null
+        }
+    },
+    computed: {
+        dotStyle() {
+            return {
+                "border-color": this.notifyBorderColor,
+                "background-color": this.notifyColor
+            };
+        },
+        hasImg() {
+            return Boolean(this.imgUrl);
         }
     }
 };
