@@ -1,18 +1,26 @@
 <template>
-    <div class="avatar-label" v-bind:class="[{ notify: notify }, size]">
+    <div class="avatar-label" v-bind:class="[size]">
         <slot name="avatar">
-            <avatar-platforme v-bind:imgUrl="imgUrl"></avatar-platforme>
+            <avatar-platforme v-bind:size="size" v-bind:imgUrl="imgUrl"></avatar-platforme>
+        </slot>
             <span>
                 <label-platforme>Option</label-platforme>
                 <label-platforme>Subtext</label-platforme>
             </span>
             <label-platforme>Metadata</label-platforme>
-        </slot>
     </div>
 </template>
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
+
+span {
+    display: inline-block;
+}
+
+span > * {
+    display: block;
+}
 
 </style>
 

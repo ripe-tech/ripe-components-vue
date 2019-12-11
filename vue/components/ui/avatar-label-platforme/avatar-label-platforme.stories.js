@@ -15,12 +15,12 @@ storiesOf("Label Avatar", module)
 
                 <p> micro, tiny, small, medium, large, giant: </p>
 
-                <avatar-label-platforme v-bind:notify="true" v-bind:size="'giant'" v-bind:imgUrl="imgUrl"/>
-                <avatar-label-platforme v-bind:notify="true" v-bind:size="'large'" v-bind:imgUrl="imgUrl"/>
-                <avatar-label-platforme v-bind:notify="true" v-bind:size="'medium'" v-bind:imgUrl="imgUrl"/>
-                <avatar-label-platforme v-bind:notify="true" v-bind:size="'small'" v-bind:imgUrl="imgUrl"/>
-                <avatar-label-platforme v-bind:notify="true" v-bind:size="'tiny'" v-bind:imgUrl="imgUrl"/>
-                <avatar-label-platforme v-bind:notify="true" v-bind:size="'micro'" v-bind:imgUrl="imgUrl"/>
+                <avatar-label-platforme v-bind:size="'giant'" v-bind:imgUrl="imgUrl"/>
+                <avatar-label-platforme v-bind:size="'large'" v-bind:imgUrl="imgUrl"/>
+                <avatar-label-platforme v-bind:size="'medium'" v-bind:imgUrl="imgUrl"/>
+                <avatar-label-platforme v-bind:size="'small'" v-bind:imgUrl="imgUrl"/>
+                <avatar-label-platforme v-bind:size="'tiny'" v-bind:imgUrl="imgUrl"/>
+                <avatar-label-platforme v-bind:size="'micro'" v-bind:imgUrl="imgUrl"/>
             </div>
         `
     }));
