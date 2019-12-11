@@ -1,15 +1,17 @@
 <template>
-    <div class="rich-textarea" v-bind:class="{disabled: disabled}"
+    <div
+        class="rich-textarea"
+        v-bind:class="{ disabled: disabled }"
         v-bind:style="richTextAreaStyle"
-        >
+    >
         <textarea
             class="textarea"
-            ref="textarea"
             v-bind:value="value"
             v-bind:style="textAreaStyle"
             v-bind:placeholder="placeholder"
             v-bind:disabled="disabled"
             v-bind:id="id"
+            ref="textarea"
             v-on:input="onInput($event.target.value)"
         />
         <div class="options" v-on:click="onOptionsClick()">
@@ -28,31 +30,30 @@
 
 .rich-textarea,
 .rich-textarea .textarea,
-.rich-textarea .options
-{
+.rich-textarea .options {
     background-color: $white;
 }
 
 .rich-textarea {
-    position: relative;
-    padding: 0px 0px 30px 0px;
     border: 1px solid $light-white;
     border-radius: 6px;
+    padding: 0px 0px 30px 0px;
+    position: relative;
 }
 
 .rich-textarea .textarea {
-    width:100%;
-    box-sizing: border-box;
-    display: block;
-    outline: none;
     border: none;
-    padding: 8px 8px 8px 8px;
-    resize: none;
+    box-sizing: border-box;
     color: $grey;
+    display: block;
     font-family: $font-family;
     font-size: 14px;
     letter-spacing: 0.3px;
     line-height: 20px;
+    outline: none;
+    padding: 8px 8px 8px 8px;
+    resize: none;
+    width: 100%;
 }
 
 .rich-textarea .textarea::placeholder {
@@ -65,7 +66,6 @@
     opacity: 0.5;
 }
 
-
 .rich-textarea.disabled,
 .rich-textarea.disabled .textarea,
 .rich-textarea.disabled .options,
@@ -76,29 +76,24 @@
     cursor: default;
 }
 
-
 .rich-textarea:focus-within,
 .rich-textarea:focus-within .textarea,
-.rich-textarea:focus-within .options
-{
+.rich-textarea:focus-within .options {
     background-color: $white;
     opacity: 1;
 }
 
-.rich-textarea:focus-within
-{
+.rich-textarea:focus-within {
     border: 2px solid $aqcua-blue;
     margin: 0px 0px -2px 0px;
 }
 
-.rich-textarea:focus-within .textarea
-{
+.rich-textarea:focus-within .textarea {
     color: $black;
     padding: 7px 7px 7px 7px;
 }
 
-.rich-textarea:focus-within .options
-{
+.rich-textarea:focus-within .options {
     margin: -1px 13px 0px 12px;
     opacity: 1;
 }
@@ -138,14 +133,14 @@ export const RichTextareaPlatforme = {
         }
     },
     data: function() {
-        return { };
+        return {};
     },
     methods: {
         emitValueChanged(value) {
             this.$emit("update:value", value);
         },
         emitOptionsItemClick(event) {
-            if(this.disabled) return;
+            if (this.disabled) return;
             this.$emit(`click:${event}`);
         },
         onInput(value) {
