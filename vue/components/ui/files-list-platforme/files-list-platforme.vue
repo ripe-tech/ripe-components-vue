@@ -8,8 +8,10 @@
                 v-for="file in filesItems"
                 v-bind:key="file.name"
                 >
-                <img class="file-image" v-bind="imageAttributes(file)"
-                    />
+                <div class="file-image">
+                <img v-bind="imageAttributes(file)" />
+                </div>
+
                 <link-platforme
                     v-bind:text="file.name"
                     v-bind:href="file.path"
@@ -53,7 +55,19 @@
 }
 
 .files-list-container .files-list .file-row .file-image{
+    display: inline-block;
+    position: relative;
+    height: 44px;
+    width: 44px;
     margin: 0px 20px 0px 0px;
+}
+
+.files-list-container .files-list .file-row .file-image img{
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .files-list-container .files-list .file-row{
