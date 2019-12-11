@@ -4,21 +4,17 @@
             <span>Files</span>
         </div>
         <div class="files-list" v-bind:style="filesListStyle">
-            <div class="file-row" 
-                v-for="file in filesItems"
-                v-bind:key="file.name"
-                >
+            <div class="file-row" v-for="file in filesItems" v-bind:key="file.name">
                 <div class="file-image">
-                <img v-bind="imageAttributes(file)" />
+                    <img v-bind="imageAttributes(file)" />
                 </div>
-
                 <link-platforme
                     v-bind:text="file.name"
                     v-bind:href="file.path"
                     v-bind:disabled="false"
                     v-bind:size="'small'"
                     v-bind:color="'black'"
-                    />
+                />
             </div>
         </div>
     </div>
@@ -28,15 +24,17 @@
 @import "css/variables.scss";
 
 .files-list-container {
-    display: grid;
     background-color: $grey-6;
     border: solid 1px #e4e8f0;
+    display: grid;
 }
+
 .files-list-container .files-title {
     background-color: $white;
     border: solid 1px #e4e8f0;
     height: 42px;
 }
+
 .files-list-container .files-title span {
     color: $light-black;
     display: block;
@@ -45,40 +43,36 @@
     line-height: 42px;
     margin: 0px 20px 0px 20px;
 }
+
 .files-list-container .files-list {
     overflow: auto;
 }
 
-.files-list-container .files-list .file-row{
-    height: 44px;
+.files-list-container .files-list .file-row {
     border: solid 1px #e4e8f0;
-}
-
-.files-list-container .files-list .file-row .file-image{
-    display: inline-block;
-    position: relative;
     height: 44px;
-    width: 44px;
-    margin: 0px 20px 0px 0px;
 }
 
-.files-list-container .files-list .file-row .file-image img{
+.files-list-container .files-list .file-row .file-image {
+    display: inline-block;
+    height: 44px;
+    margin: 0px 20px 0px 0px;
+    position: relative;
+    width: 44px;
+}
+
+.files-list-container .files-list .file-row .file-image img {
     display: block;
+    left: 50%;
     position: absolute;
     top: 50%;
-    left: 50%;
     transform: translate(-50%, -50%);
 }
 
-.files-list-container .files-list .file-row{
-    height: 44px;
-}
-
-.files-list-container .files-list .file-row .link{
+.files-list-container .files-list .file-row .link {
     line-height: 44px;
     vertical-align: top;
 }
-
 </style>
 
 <script>
@@ -99,10 +93,9 @@ export const FilesListPlatforme = {
         }
     },
     data: function() {
-        return { };
+        return {};
     },
-    computed:
-    {
+    computed: {
         filesListContainerStyle() {
             const base = {};
 
@@ -119,20 +112,23 @@ export const FilesListPlatforme = {
         }
     },
     methods: {
-        isImage(fileExtension){
+        isImage(fileExtension) {
             return fileExtension.match(/.(jpg|jpeg|png|gif)$/i);
         },
         imageAttributes(file) {
-            if(this.isImage(file.extension)) return {
-                src: file.path,
-                width: 44,
-                height: 44
-            }; 
-            else return {
-                src: require(`./../../../assets/icons/black/file.svg`),
-                width: 18,
-                height: 18
-            };
+            if (this.isImage(file.extension)) {
+                return {
+                    src: file.path,
+                    width: 44,
+                    height: 44
+                };
+            } else {
+                return {
+                    src: require("./../../../assets/icons/black/file.svg"),
+                    width: 18,
+                    height: 18
+                };
+            }
         }
     }
 };
