@@ -1,10 +1,16 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs } from "@storybook/addon-knobs";
+import { withKnobs, text, boolean, number } from "@storybook/addon-knobs";
 
 storiesOf("Input", module)
     .addDecorator(withKnobs)
     .add("Rich Text Area", () => ({
         props: {
+            id: {
+                default: text("Id", "textarea-id")
+            },
+            value: {
+                default: text("Value", "This is a text")
+            },
             optionsItems: {
                 type: Array,
                 default: () => [
@@ -12,6 +18,18 @@ storiesOf("Input", module)
                     { icon: "cart", event: "item_2" },
                     { icon: "walking", event: "item_3" }
                 ]
+            },
+            placeholder: {
+                default: text("Placeholder", "This is a placeholder")
+            },
+            disabled: {
+                default: boolean("Disabled", false)
+            },
+            initialWidth: {
+                default: number("Initial Width", 500)
+            },
+            initialHeight: {
+                default: number("Initial Height", 100)
             }
         },
         data: function() {
@@ -32,10 +50,10 @@ storiesOf("Input", module)
                         this.chatEventCounter++;
                         break;
                     case "cartEvent":
-                            this.cartEventCounter++;
+                        this.cartEventCounter++;
                         break;
                     case "walkingEvent":
-                            this.walkingEventCounter++;
+                        this.walkingEventCounter++;
                         break;
                     default:
                 }
@@ -44,7 +62,13 @@ storiesOf("Input", module)
         template: `
             <div style="width:500px">
                 <rich-textarea-platforme
+                    v-bind:id="id"
+                    v-bind:value="value"
                     v-bind:options-items="optionsItems"
+                    v-bind:placeholder="placeholder"
+                    v-bind:disabled="disabled"
+                    v-bind:initial-width="initialWidth"
+                    v-bind:initial-height="initialHeight"
                     v-on:update:value="value => onValue(value)"
                     v-on:click:item_1="onIconEvent('chatEvent')"
                     v-on:click:item_2="onIconEvent('cartEvent')"
