@@ -1,14 +1,13 @@
 <template>
     <div class="rich-textarea">
-        <textarea-platforme
+        <textarea
+            class="textarea"
             v-bind:id="id"
+            v-bind:style="textAreaStyle"
             v-bind:value="value"
             v-bind:placeholder="placeholder"
             v-bind:disabled="disabled"
-            v-bind:initial-width="initialWidth"
-            v-bind:initial-height="initialHeight"
-            v-bind:resize="false"
-            v-on:update:value="value => onTextareaValue(value)"
+            v-on:input="onInput($event.target.value)"
         />
         <div class="options">
             <button-icon-platforme
@@ -24,9 +23,15 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
+
+.rich-textarea{
+    position: relative;
+}
+
 .rich-textarea .options {
     font-size: 0px; //It fixes white spaces between divs
-    margin-top: -31px;
+    position: absolute;
+    bottom: 0px;
     padding: 0px 9px 0px 9px;
 }
 
@@ -77,12 +82,21 @@ export const RichTextareaPlatforme = {
         emitValueChanged(value) {
             this.$emit("update:value", value);
         },
-        onTextareaValue(value) {
+        onInput(value) {
             this.emitValueChanged(value);
         },
         onOptionsItemClick(item) {
             this.$emit(`click:${item.event}`);
-        },
+        }
+    },    
+    computed: {
+        textAreaStyle() {
+            const base = {};
+            if (this.initialWidth) base.width = `${this.initialWidth}px`;
+            if (this.initialHeight) base.height = `${this.initialHeight}px`;
+
+            return base;
+        }
     }
 };
 
