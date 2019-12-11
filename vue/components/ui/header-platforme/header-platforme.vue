@@ -38,7 +38,18 @@
                 <dropdown-platforme
                     v-bind:items="accountDropdownItems"
                     v-bind:visible.sync="accountDropdownVisible"
-                />
+                >
+                    <template v-slot:whats-new="{ item }">
+                        <div class="whats-new-dropdown-content" v-on:click="onWhatsNewClick">
+                            <span class="whats-new-dropdown-text">{{ item.text }}</span>
+                            <div
+                                class="dot"
+                                v-bind:style="{ background: String(notifyColor) }"
+                                v-if="newsToRead"
+                            />
+                        </div>
+                    </template>
+                </dropdown-platforme>
             </div>
             <div
                 class="header-apps"
@@ -60,6 +71,14 @@
                     </template>
                 </dropdown-platforme>
             </div>
+            <whats-new-modal-platforme
+                v-bind:visible.sync="whatsNewModalVisible"
+                v-bind:notify-color="notifyColor"
+                v-bind:notify-user="notifyUser"
+                v-bind:news="news"
+                v-on:click:news="updateNews"
+                v-on:update:notify="updateNotify"
+            />
         </div>
     </div>
 </template>
@@ -264,6 +283,32 @@
     font-weight: 600;
     margin: 6px 0px 0px 0px;
 }
+
+.header-platforme ::v-deep .dropdown-platforme > .dropdown-item .whats-new-dropdown-text {
+    width: auto;
+}
+
+.header-platforme ::v-deep .dropdown-platforme > .dropdown-item .dot {
+    background: #4b8dd7;
+    border: 1px solid #ffffff;
+    border-radius: 50%;
+    float: right;
+    height: 8px;
+    margin: 3px 3px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    width: 8px;
+}
+
+.header-platforme .whats-new {
+    position: absolute;
+    right: 10px;
+    top: 60px;
+}
+
+body.mobile .header-platforme ::v-deep .whats-new {
+    right: 0;
+    width: 100%;
+}
 </style>
 
 <script>
@@ -307,7 +352,54 @@ export const HeaderPlatforme = {
         return {
             searchFilter: null,
             appsDropdownVisible: false,
-            accountDropdownVisible: false
+            accountDropdownVisible: false,
+            whatsNewModalVisible: false,
+            notifyColor: "#3c80cd",
+            notifyUser: true,
+            news: [
+                {
+                    title: "Quality assurance got easier!",
+                    content:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
+                    date: Date.now(),
+                    read: false
+                },
+                {
+                    title: "Chat within a status of an order",
+                    content:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \n Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
+                    date: Date.now(),
+                    read: false
+                },
+                {
+                    title: "Chat within a status of an order",
+                    content:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
+                    date: Date.now(),
+                    read: false
+                },
+                {
+                    title: "Chat within a status of an order",
+                    content:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
+                    date: Date.now(),
+                    read: false
+                },
+                {
+                    title: "Chat within a status of an order",
+                    content:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
+                    date: Date.now(),
+                    read: false
+                },
+                {
+                    title: "Chat within a status of an order",
+                    content:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
+                    date: Date.now(),
+                    read: false
+                }
+            ]
         };
     },
     computed: {
@@ -319,6 +411,7 @@ export const HeaderPlatforme = {
             const { name, email } = this.account.meta;
             items.push({ id: "name", text: name || email || this.account.email });
             items.push({ id: "buckets", text: "Buckets" });
+            items.push({ id: "whats-new", text: "What's new?" });
             items.push({ id: "settings", text: "Account settings", separator: true });
             items.push({ id: "signout", text: "Sign out", link: "/signout" });
             return items;
@@ -337,6 +430,12 @@ export const HeaderPlatforme = {
                 });
             }
             return items;
+        },
+        newsToRead() {
+            for (const item of this.news) {
+                if (!item.read) return true;
+            }
+            return false;
         }
     },
     watch: {
@@ -357,6 +456,15 @@ export const HeaderPlatforme = {
             const status = this.appsDropdownVisible;
             document.body.click();
             this.appsDropdownVisible = !status;
+        },
+        onWhatsNewClick(item) {
+            this.whatsNewModalVisible = true;
+        },
+        updateNews(index) {
+            this.news[index].read = true;
+        },
+        updateNotify(value) {
+            this.notifyUser = value;
         }
     }
 };

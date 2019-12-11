@@ -32,6 +32,7 @@ import { TablePlatforme } from "./ui/table-platforme/table-platforme.vue";
 import { TabsPlatforme } from "./ui/tabs-platforme/tabs-platforme.vue";
 import { TagPlatforme } from "./ui/tag-platforme/tag-platforme.vue";
 import { TextareaPlatforme } from "./ui/textarea-platforme/textarea-platforme.vue";
+import { WhatsNewModalPlatforme } from "./ui/header-platforme/whats-new-modal-platforme.vue";
 
 const install = Vue => {
     if (!Vue.options.components.RouterLink) {
@@ -70,6 +71,7 @@ const install = Vue => {
     Vue.component("tabs-platforme", TabsPlatforme);
     Vue.component("tag-platforme", TagPlatforme);
     Vue.component("textarea-platforme", TextareaPlatforme);
+    Vue.component("whats-new-modal-platforme", WhatsNewModalPlatforme);
 };
 
 export {
@@ -107,6 +109,7 @@ export {
     TabsPlatforme,
     TagPlatforme,
     TextareaPlatforme,
+    WhatsNewModalPlatforme,
     install
 };
 
