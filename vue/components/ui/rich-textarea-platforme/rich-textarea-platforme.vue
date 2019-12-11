@@ -2,18 +2,18 @@
     <div class="rich-textarea">
         <textarea
             class="textarea"
-            v-bind:id="id"
             v-bind:style="textAreaStyle"
             v-bind:value="value"
             v-bind:placeholder="placeholder"
             v-bind:disabled="disabled"
+            v-bind:id="id"
             v-on:input="onInput($event.target.value)"
         />
         <div class="options">
             <button-icon-platforme
+                v-bind:icon="option.icon"
                 v-for="option in optionsItems"
                 v-bind:key="option.icon"
-                v-bind:icon="option.icon"
                 v-on:click="onOptionsItemClick(option)"
             />
         </div>
@@ -23,8 +23,7 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-
-.rich-textarea{
+.rich-textarea {
     position: relative;
 }
 
@@ -68,10 +67,10 @@
 }
 
 .rich-textarea .options {
-    font-size: 0px; //It fixes white spaces between divs
-    position: absolute;
     bottom: 0px;
+    font-size: 0px; //It fixes white spaces between divs
     padding: 0px 9px 0px 9px;
+    position: absolute;
 }
 
 .rich-textarea .optionExample {
@@ -127,7 +126,7 @@ export const RichTextareaPlatforme = {
         onOptionsItemClick(item) {
             this.$emit(`click:${item.event}`);
         }
-    },    
+    },
     computed: {
         textAreaStyle() {
             const base = {};
