@@ -1,9 +1,11 @@
 <template>
-    <div class="rich-textarea">
+    <div class="rich-textarea"
+        v-bind:style="richTextAreaStyle"
+        >
         <textarea
             class="textarea"
-            v-bind:style="textAreaStyle"
             v-bind:value="value"
+            v-bind:style="textAreaStyle"
             v-bind:placeholder="placeholder"
             v-bind:disabled="disabled"
             v-bind:id="id"
@@ -25,24 +27,38 @@
 
 .rich-textarea {
     position: relative;
-}
-
-.rich-textarea .textarea {
+    padding: 0px 0px 30px 0px;
     background-color: #f9fafd;
     border: 1px solid $light-white;
     border-radius: 6px;
+}
+
+.rich-textarea .textarea {
+    width:100%;
+    background-color: #f9fafd;
     box-sizing: border-box;
-    color: $grey;
     display: block;
+    outline: none;
+    border: none;
+    padding: 8px 8px 8px 8px;
+    resize: none;
+    color: $grey;
     font-family: $font-family;
     font-size: 14px;
     letter-spacing: 0.3px;
     line-height: 20px;
-    outline: none;
-    padding: 8px 8px 8px 8px;
-    resize: none;
 }
 
+
+.rich-textarea:hover,
+.rich-textarea:hover .textarea{
+    background-color: #f6f7f9;
+    color: $medium-grey;
+}
+
+
+
+/*
 .rich-textarea .textarea::placeholder {
     color: $medium-grey;
     font-family: $font-family;
@@ -74,13 +90,14 @@
 }
 
 .rich-textarea .optionExample {
-    background: url("~./assets/clip.svg") center;
     background-size: 22px 22px;
     display: inline-block;
     height: 22px;
     margin: 4px 4px 4px 4px;
     width: 22px;
 }
+*/
+
 </style>
 
 <script>
@@ -116,6 +133,9 @@ export const RichTextareaPlatforme = {
             default: null
         }
     },
+    data: function() {
+        return { };
+    },
     methods: {
         emitValueChanged(value) {
             this.$emit("update:value", value);
@@ -128,9 +148,15 @@ export const RichTextareaPlatforme = {
         }
     },
     computed: {
-        textAreaStyle() {
+        richTextAreaStyle() {
             const base = {};
             if (this.initialWidth) base.width = `${this.initialWidth}px`;
+            if (this.initialHeight) base.height = `${this.initialHeight}px`;
+
+            return base;
+        },
+        textAreaStyle() {
+            const base = {};
             if (this.initialHeight) base.height = `${this.initialHeight}px`;
 
             return base;
