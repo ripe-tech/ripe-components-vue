@@ -39,13 +39,13 @@
                     v-bind:items="accountDropdownItems"
                     v-bind:visible.sync="accountDropdownVisible"
                 >
-                    <template v-slot:whats-new="{ item }">
-                        <div class="whats-new-dropdown-content" v-on:click="onWhatsNewClick">
-                            <span class="whats-new-dropdown-text">{{ item.text }}</span>
+                    <template v-slot:announcement="{ item }">
+                        <div class="announcement-dropdown-content" v-on:click="onAnnoucementsClick">
+                            <span class="announcement-dropdown-text">{{ item.text }}</span>
                             <div
                                 class="dot"
-                                v-bind:style="{ background: String(notifyColor) }"
-                                v-if="newsToRead"
+                                v-bind:style="{ backgroundColor: String(notifyColor) }"
+                                v-if="announcementsToRead"
                             />
                         </div>
                     </template>
@@ -71,13 +71,14 @@
                     </template>
                 </dropdown-platforme>
             </div>
-            <whats-new-modal-platforme
-                v-bind:visible.sync="whatsNewModalVisible"
+            <announcement-modal-platforme
+                v-bind:visible="announcementModalVisible"
                 v-bind:notify-color="notifyColor"
                 v-bind:notify-user="notifyUser"
-                v-bind:news="news"
-                v-on:click:news="updateNews"
-                v-on:update:notify="updateNotify"
+                v-bind:announcements="announcements"
+                v-on:click:announcement="onUpdateAnnouncement"
+                v-on:update:notify="onUpdateNotify"
+                v-on:update:announcement-visible="onUpdateAnnouncementVisible"
             />
         </div>
     </div>
@@ -202,19 +203,43 @@
     text-align: left;
 }
 
-.header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme > .dropdown-item > * {
+.header-platforme
+    > .header-container
+    > .header-account
+    ::v-deep
+    .dropdown-platforme
+    > .dropdown-item
+    > * {
     box-sizing: border-box;
     display: inline-block;
     padding: 8px 14px 8px 14px;
     width: 100%;
 }
 
-.header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme > .dropdown-item > a {
+.header-platforme
+    > .header-container
+    > .header-account
+    ::v-deep
+    .dropdown-platforme
+    > .dropdown-item
+    > a {
     color: $lower-color;
 }
 
-.header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme > .dropdown-item:hover > a,
-.header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme > .dropdown-item.selected > a {
+.header-platforme
+    > .header-container
+    > .header-account
+    ::v-deep
+    .dropdown-platforme
+    > .dropdown-item:hover
+    > a,
+.header-platforme
+    > .header-container
+    > .header-account
+    ::v-deep
+    .dropdown-platforme
+    > .dropdown-item.selected
+    > a {
     color: $higher-color;
 }
 
@@ -284,7 +309,7 @@
     margin: 6px 0px 0px 0px;
 }
 
-.header-platforme ::v-deep .dropdown-platforme > .dropdown-item .whats-new-dropdown-text {
+.header-platforme ::v-deep .dropdown-platforme > .dropdown-item .announcement-dropdown-text {
     width: auto;
 }
 
@@ -299,13 +324,13 @@
     width: 8px;
 }
 
-.header-platforme .whats-new {
+.header-platforme .announcement {
     position: absolute;
     right: 10px;
     top: 60px;
 }
 
-body.mobile .header-platforme ::v-deep .whats-new {
+body.mobile .header-platforme ::v-deep .announcement {
     right: 0;
     width: 100%;
 }
@@ -346,6 +371,10 @@ export const HeaderPlatforme = {
         apps: {
             type: Object,
             default: () => ({})
+        },
+        notifyColor: {
+            type: String,
+            default: "#3c80cd"
         }
     },
     data: function() {
@@ -353,15 +382,15 @@ export const HeaderPlatforme = {
             searchFilter: null,
             appsDropdownVisible: false,
             accountDropdownVisible: false,
-            whatsNewModalVisible: false,
-            notifyColor: "#3c80cd",
+            announcementModalVisible: false,
             notifyUser: true,
-            news: [
+            announcements: [
                 {
                     title: "Quality assurance got easier!",
                     content:
                         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
                     date: Date.now(),
+                    link: "https://platforme.com",
                     read: false
                 },
                 {
@@ -369,6 +398,7 @@ export const HeaderPlatforme = {
                     content:
                         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \n Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
                     date: Date.now(),
+                    link: "https://platforme.com",
                     read: false
                 },
                 {
@@ -376,6 +406,7 @@ export const HeaderPlatforme = {
                     content:
                         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
                     date: Date.now(),
+                    link: "https://platforme.com",
                     read: false
                 },
                 {
@@ -383,6 +414,7 @@ export const HeaderPlatforme = {
                     content:
                         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
                     date: Date.now(),
+                    link: "https://platforme.com",
                     read: false
                 },
                 {
@@ -390,6 +422,7 @@ export const HeaderPlatforme = {
                     content:
                         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
                     date: Date.now(),
+                    link: "https://platforme.com",
                     read: false
                 },
                 {
@@ -397,6 +430,7 @@ export const HeaderPlatforme = {
                     content:
                         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
                     date: Date.now(),
+                    link: "https://platforme.com",
                     read: false
                 }
             ]
@@ -411,7 +445,7 @@ export const HeaderPlatforme = {
             const { name, email } = this.account.meta;
             items.push({ id: "name", text: name || email || this.account.email });
             items.push({ id: "buckets", text: "Buckets" });
-            items.push({ id: "whats-new", text: "What's new?" });
+            items.push({ id: "announcement", text: "What's new?" });
             items.push({ id: "settings", text: "Account settings", separator: true });
             items.push({ id: "signout", text: "Sign out", link: "/signout" });
             return items;
@@ -431,9 +465,9 @@ export const HeaderPlatforme = {
             }
             return items;
         },
-        newsToRead() {
-            for (const item of this.news) {
-                if (!item.read) return true;
+        announcementsToRead() {
+            for (const announcement of this.announcements) {
+                if (!announcement.read) return true;
             }
             return false;
         }
@@ -444,6 +478,15 @@ export const HeaderPlatforme = {
         }
     },
     methods: {
+        setAnnouncementRead(index) {
+            this.announcements[index].read = true;
+        },
+        setNotifyUser(value) {
+            this.notifyUser = value;
+        },
+        setAnnouncementVisibility(visibility) {
+            this.announcementModalVisible = visibility;
+        },
         toggleBurger() {
             this.$bus.$emit("toggle-side");
         },
@@ -457,14 +500,17 @@ export const HeaderPlatforme = {
             document.body.click();
             this.appsDropdownVisible = !status;
         },
-        onWhatsNewClick(item) {
-            this.whatsNewModalVisible = true;
+        onAnnoucementsClick() {
+            this.setAnnouncementVisibility(true);
         },
-        updateNews(index) {
-            this.news[index].read = true;
+        onUpdateAnnouncement(index) {
+            this.setAnnouncementRead(index);
         },
-        updateNotify(value) {
-            this.notifyUser = value;
+        onUpdateNotify(value) {
+            this.setNotifyUser(value);
+        },
+        onUpdateAnnouncementVisible(visibility) {
+            this.setAnnouncementVisibility(visibility);
         }
     }
 };

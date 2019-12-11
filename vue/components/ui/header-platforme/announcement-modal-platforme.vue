@@ -1,14 +1,14 @@
 <template>
     <transition name="fade">
         <div
-            class="whats-new"
+            class="announcement"
             v-bind:class="{ visible: visible }"
             v-show="isVisible"
             ref="container"
         >
-            <div class="whats-new-container">
+            <div class="announcement-container">
                 <global-events v-on:keydown.esc="handleGlobal()" />
-                <div class="whats-new-header">
+                <div class="announcement-header">
                     <slot name="header">
                         <h1 class="title">What's new?</h1>
                         <button-icon-platforme
@@ -26,17 +26,17 @@
                         </form-input-platforme>
                     </slot>
                 </div>
-                <div class="whats-new-news">
-                    <div class="whats-new-item" v-for="(item, index) in news" v-bind:key="index">
+                <div class="announcement-news">
+                    <div class="announcement-item" v-for="(item, index) in announcements" v-bind:key="index">
                         <slot v-bind:item="item">
                             <p class="news-date">
                                 {{ dateString(item.date / 1000) }}
                             </p>
                             <div
                                 class="news-dot"
-                                v-bind:style="{ background: String(notifyColor) }"
+                                v-bind:style="{ backgroundColor: String(notifyColor) }"
                                 v-if="!item.read"
-                                v-on:click.stop="onClickNews(index)"
+                                v-on:click.stop="onClickAnnouncement(index)"
                             />
                             <h2 class="news-title">{{ item.title }}</h2>
                             <div class="news-content">
@@ -45,7 +45,7 @@
                             <link-platforme
                                 class="news-link"
                                 v-bind:text="'More details'"
-                                v-bind:href="'http://platforme.com'"
+                                v-bind:href="item.link"
                                 v-bind:color="'black'"
                             />
                             <button-icon-platforme
@@ -66,59 +66,59 @@
 @import "css/variables.scss";
 @import "css/animations.scss";
 
-.whats-new {
+.announcement {
     width: 370px;
 }
 
-.whats-new.fade-leave-active > .whats-new-container {
+.announcement.fade-leave-active > .announcement-container {
     animation: fade-shrink-visibility 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
 }
 
-.whats-new-container {
+.announcement-container {
     background-color: $white;
     border: 1px solid transparent;
 }
 
-.whats-new.visible .whats-new-container {
+.announcement.visible .announcement-container {
     border: 1px solid $light-white;
     box-shadow: 0 6px 24px 0 rgba(67, 86, 100, 0.15);
 }
 
-.whats-new-container .whats-new-header {
+.announcement-container .announcement-header {
     border-bottom: 1px solid $light-white;
     padding: 15px 24px 15px 24px;
 }
 
-.whats-new-container .whats-new-header .title {
+.announcement-container .announcement-header .title {
     display: inline;
     font-size: 18px;
 }
 
-.whats-new-container .whats-new-header ::v-deep .button-icon {
+.announcement-container .announcement-header ::v-deep .button-icon {
     display: inline;
     float: right;
     margin-top: 17px;
 }
 
-.whats-new-container .whats-new-news {
+.announcement-container .announcement-news {
     max-height: 80vh;
     overflow-y: auto;
 }
 
-.whats-new-container .whats-new-news .whats-new-item {
+.announcement-container .announcement-news .announcement-item {
     border-top: 1px solid $light-white;
     padding: 15px 24px 15px 24px;
 }
 
-.whats-new-container .whats-new-news .whats-new-item:first-child {
+.announcement-container .announcement-news .announcement-item:first-child {
     border-top: 0px;
 }
 
-.whats-new-container .whats-new-news .whats-new-item .news-date {
+.announcement-container .announcement-news .announcement-item .news-date {
     display: inline;
 }
 
-.whats-new-container .whats-new-news .whats-new-item .news-dot {
+.announcement-container .announcement-news .announcement-item .news-dot {
     background: #4b8dd7;
     border: 1px solid #ffffff;
     border-radius: 50%;
@@ -133,24 +133,24 @@
     width: 10px;
 }
 
-.whats-new-container .whats-new-news .whats-new-item .news-title {
+.announcement-container .announcement-news .announcement-item .news-title {
     font-size: 16px;
     line-height: 16px;
     margin: 0px 0px 0px 0px;
 }
 
-.whats-new-container .whats-new-news .whats-new-item .news-content {
+.announcement-container .announcement-news .announcement-item .news-content {
     font-size: 14px;
     line-height: 25px;
     margin-bottom: 40px;
     white-space: pre-line;
 }
 
-.whats-new-container .whats-new-news .whats-new-item .news-link {
+.announcement-container .announcement-news .announcement-item .news-link {
     border-color: #1d2631;
 }
 
-.whats-new-container .whats-new-news .whats-new-item .news-reaction {
+.announcement-container .announcement-news .announcement-item .news-reaction {
     float: right;
     margin-top: 17px;
 }
@@ -159,8 +159,8 @@
 <script>
 import { utilsMixin } from "../../../mixins";
 
-export const WhatsNewModalPlatforme = {
-    name: "whats-new-modal-platforme",
+export const AnnouncementModalPlatforme = {
+    name: "announcement-modal-platforme",
     mixins: [utilsMixin],
     props: {
         visible: {
@@ -171,7 +171,7 @@ export const WhatsNewModalPlatforme = {
             type: String,
             default: "#3c80cd"
         },
-        news: {
+        announcements: {
             type: Array,
             default: []
         },
@@ -215,12 +215,12 @@ export const WhatsNewModalPlatforme = {
     methods: {
         setValues(newValues) {
             this.values = newValues;
-            this.$emit("update:notify", !!this.values.notify);
+            this.$emit("update:notify", this.values.notify ? true : false);
         },
         hide() {
             if (!this.visibleData) return;
             this.visibleData = false;
-            this.$emit("update:visible", this.visibleData);
+            this.$emit("update:announcement-visible", this.visibleData);
         },
         handleGlobal(event) {
             if (!event) {
@@ -229,11 +229,11 @@ export const WhatsNewModalPlatforme = {
                 this.hide();
             }
         },
-        onClickNews(index) {
-            this.$emit("click:news", index);
+        onClickAnnouncement(index) {
+            this.$emit("click:announcement", index);
         }
     }
 };
 
-export default WhatsNewModalPlatforme;
+export default AnnouncementModalPlatforme;
 </script>

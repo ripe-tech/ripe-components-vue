@@ -11,17 +11,19 @@
                     v-on:click.stop="click(item)"
                 >
                     <slot v-bind:item="item" v-bind:name="item.id">
-                        <router-link v-bind:to="item.link" v-if="item.link">
-                            {{ item.text }}
-                        </router-link>
-                        <a
-                            v-bind:href="item.href"
-                            v-bind:target="item.target || '_self'"
-                            v-else-if="item.href"
-                        >
-                            {{ item.text }}
-                        </a>
-                        <span v-else>{{ item.text }}</span>
+                        <slot v-bind:item="item">
+                            <router-link v-bind:to="item.link" v-if="item.link">
+                                {{ item.text }}
+                            </router-link>
+                            <a
+                                v-bind:href="item.href"
+                                v-bind:target="item.target || '_self'"
+                                v-else-if="item.href"
+                            >
+                                {{ item.text }}
+                            </a>
+                            <span v-else>{{ item.text }}</span>
+                        </slot>
                     </slot>
                 </li>
             </ul>

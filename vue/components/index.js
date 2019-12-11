@@ -3,6 +3,7 @@ import { ErrorPlatforme } from "./parts/error-platforme/error-platforme.vue";
 import { GlobalPlatforme } from "./parts/global-platforme/global-platforme.vue";
 import { OAuthPlatforme } from "./parts/oauth-platforme/oauth-platforme.vue";
 import { AlertPlatforme } from "./ui/alert-platforme/alert-platforme.vue";
+import { AnnouncementModalPlatforme } from "./ui/header-platforme/announcement-modal-platforme.vue";
 import { ButtonColorPlatforme } from "./ui/button-color-platforme/button-color-platforme.vue";
 import { ButtonIconPlatforme } from "./ui/button-icon-platforme/button-icon-platforme.vue";
 import { ButtonPlatforme } from "./ui/button-platforme/button-platforme.vue";
@@ -32,7 +33,6 @@ import { TablePlatforme } from "./ui/table-platforme/table-platforme.vue";
 import { TabsPlatforme } from "./ui/tabs-platforme/tabs-platforme.vue";
 import { TagPlatforme } from "./ui/tag-platforme/tag-platforme.vue";
 import { TextareaPlatforme } from "./ui/textarea-platforme/textarea-platforme.vue";
-import { WhatsNewModalPlatforme } from "./ui/header-platforme/whats-new-modal-platforme.vue";
 
 const install = Vue => {
     if (!Vue.options.components.RouterLink) {
@@ -42,6 +42,7 @@ const install = Vue => {
     Vue.component("global-platforme", GlobalPlatforme);
     Vue.component("oauth-platforme", OAuthPlatforme);
     Vue.component("alert-platforme", AlertPlatforme);
+    Vue.component("announcement-modal-platforme", AnnouncementModalPlatforme);
     Vue.component("button-color-platforme", ButtonColorPlatforme);
     Vue.component("button-icon-platforme", ButtonIconPlatforme);
     Vue.component("button-platforme", ButtonPlatforme);
@@ -71,7 +72,6 @@ const install = Vue => {
     Vue.component("tabs-platforme", TabsPlatforme);
     Vue.component("tag-platforme", TagPlatforme);
     Vue.component("textarea-platforme", TextareaPlatforme);
-    Vue.component("whats-new-modal-platforme", WhatsNewModalPlatforme);
 };
 
 export {
@@ -109,7 +109,7 @@ export {
     TabsPlatforme,
     TagPlatforme,
     TextareaPlatforme,
-    WhatsNewModalPlatforme,
+    AnnouncementModalPlatforme,
     install
 };
 
