@@ -1,9 +1,92 @@
 <template>
-    <h1>{{ hello }}</h1>
+    <div class="chat-message">
+        <img class="user-image" src="http://i.pravatar.cc" />
+        <div class="message-container">
+            <div class="user-information">
+                <span class="username">Username</span>
+                <span class="date">Nov 28</span>
+            </div>
+            <div class="message-content">
+                <span class="message">
+                    Lorem ipsum dolor sit amet, @consectetur ad amet, consectetur ad.
+                </span>
+                <div class="links">
+                    <link-platforme
+                        v-bind:text="'lorem-ipsum.pdf'"
+                        v-bind:href="'http://platforme.com'"
+                        v-bind:disabled="false"
+                        v-bind:size="'small'"
+                        v-bind:color="'blue'"
+                    />
+                    <link-platforme
+                        v-bind:text="'lorem-ipsum.pdf'"
+                        v-bind:href="'http://platforme.com'"
+                        v-bind:disabled="false"
+                        v-bind:size="'small'"
+                        v-bind:color="'blue'"
+                    />
+                </div>
+                <div class="reactions">
+                    <div class="reactionExample" />
+                    <div class="reactionExample" />
+                    <div class="reactionExample" />
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
+
+.chat-message {
+    display: flex;
+    margin: 29px 0px 0px 33px;
+}
+.chat-message .user-image {
+    border: solid 1px #e3e8f1;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px 0 rgba(67, 86, 100, 0.25);
+    height: 24px;
+    margin: -4px 8px 0px 0px;
+    width: 24px;
+}
+.chat-message .message-container {
+    display: inline-block;
+}
+.chat-message .message-container .user-information .username {
+    color: #0d0d0d;
+    font-weight: bold;
+    letter-spacing: 0.7px;
+}
+.chat-message .message-container .user-information .date {
+    color: #a4adb5;
+    letter-spacing: 0.3px;
+}
+.chat-message .message-container .message-content {
+    //message-content
+}
+.chat-message .message-container .message-content .message {
+    color: #0d0d0d;
+    letter-spacing: 0.3px;
+}
+.chat-message .message-container .message-content .links {
+    margin-top: 6px;
+}
+.chat-message .message-container .message-content .links .link {
+    display: block;
+}
+.chat-message .message-container .message-content .reactions {
+    margin: 10px 0px 0px 0px;
+}
+.chat-message .message-container .message-content .reactions .reactionExample {
+    background-color: #f2b738;
+    //TODO remove this example
+    display: inline-block;
+    font-size: 0px; //It fixes white spaces between divs
+    height: 24px;
+    width: 37px;
+}
 </style>
 
 <script>
