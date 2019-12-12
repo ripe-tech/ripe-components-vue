@@ -7,9 +7,7 @@
                 <span class="date">{{ date }}</span>
             </div>
             <div class="message-content">
-                <span class="message">
-                    Lorem ipsum dolor sit amet, @consectetur ad amet, consectetur ad.
-                </span>
+                <span class="message">{{ message }}</span>
                 <div class="links">
                     <link-platforme
                         v-bind:text="'lorem-ipsum.pdf'"
@@ -106,6 +104,10 @@ export const ChatMessagePlatforme = {
         date: {
             type: String,
             required: true
+        },
+        message: {
+            type: String,
+            required: true  
         }
     }
 };

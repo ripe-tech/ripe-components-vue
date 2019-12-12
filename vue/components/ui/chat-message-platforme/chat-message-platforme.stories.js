@@ -10,6 +10,9 @@ storiesOf("Chat", module)
             },
             date: {
                 default: text("Date", "Nov 28")
+            },
+            message: {
+                default: text("Message", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et lacus ac arcu ullamcorper condimentum.")
             }
         },
         template: `
@@ -17,6 +20,7 @@ storiesOf("Chat", module)
                 <chat-message-platforme
                     v-bind:username="username"
                     v-bind:date="date"
+                    v-bind:message="message"
                 />
             </div>
             `
