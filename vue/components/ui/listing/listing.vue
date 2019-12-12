@@ -156,13 +156,6 @@
     text-align: right;
 }
 
-.search {
-    font-size: 14px;
-    height: 30px;
-    line-height: 30px;
-    width: 200px;
-}
-
 .listing .filter-platforme ::v-deep table {
     margin-bottom: 0px;
 }
