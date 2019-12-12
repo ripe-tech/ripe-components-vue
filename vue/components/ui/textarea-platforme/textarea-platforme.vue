@@ -1,6 +1,7 @@
 <template>
     <textarea
         class="textarea"
+        v-bind:class="{flaghover, flagfocus}"
         v-bind:style="textAreaStyle"
         v-bind:value="value"
         v-bind:placeholder="placeholder"
@@ -13,7 +14,9 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.textarea {
+.textarea,
+.textarea:hover,
+.textarea:focus {
     background-color: #f9fafd;
     border: 1px solid $light-white;
     border-radius: 6px;
@@ -21,11 +24,25 @@
     color: $grey;
     display: block;
     font-family: $font-family;
-    font-size: 14px;
+    font-size: 12px;
     letter-spacing: 0.3px;
     line-height: 20px;
     outline: none;
     padding: 8px 8px 8px 8px;
+    transition: 0.125s ease-in-out;
+}
+
+.flaghover:hover {
+    background-color: $lighter-grey;
+    border: 1px solid #dfe1e5;
+    transition: 0.125s ease-in-out;
+}
+
+.flagfocus:focus {
+    background-color: $white;
+    border: 2px solid $aqcua-blue;
+    color: $black;
+    padding: 7px 7px 7px 7px;
 }
 
 .textarea::placeholder {
@@ -39,17 +56,6 @@
     color: $medium-grey;
 }
 
-.textarea:hover {
-    background-color: $lighter-grey;
-    border: 1px solid #dfe1e5;
-}
-
-.textarea:focus {
-    background-color: $white;
-    border: 2px solid $aqcua-blue;
-    color: $black;
-    padding: 7px 7px 7px 7px;
-}
 </style>
 
 <script>
@@ -69,6 +75,14 @@ export const TextareaPlatforme = {
             default: null
         },
         disabled: {
+            type: Boolean,
+            default: false
+        },
+        hover: {
+            type: Boolean,
+            default: false
+        },
+        focus: {
             type: Boolean,
             default: false
         },
@@ -97,14 +111,20 @@ export const TextareaPlatforme = {
         textAreaStyle() {
             const base = {
                 width: `${this.initialWidth}px`,
-                height: `${this.initialHeight}px`
+                height: `${this.initialHeight}px`,
             };
 
             if (!this.resize) {
                 base.resize = "none";
             }
-
+            
             return base;
+        },
+        flaghover() {
+            return this.hover;
+        },
+        flagfocus() {
+            return this.focus;
         }
     }
 };

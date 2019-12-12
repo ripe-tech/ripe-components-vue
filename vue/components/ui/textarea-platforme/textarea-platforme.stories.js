@@ -32,6 +32,12 @@ storiesOf("Input", module)
             disabled: {
                 default: boolean("Disabled", false)
             },
+            hover: {
+                default: boolean("Hover", false)
+            },
+            focus: {
+                default: boolean("Focus", false)
+            },
             initialWidth: {
                 default: number("Initial Width", 280)
             },
@@ -68,6 +74,8 @@ storiesOf("Input", module)
                         v-on:update:value="value => onValue(value)"
                         v-bind:placeholder="placeholder"
                         v-bind:disabled="disabled"
+                        v-bind:hover="hover"
+                        v-bind:focus="focus"
                         v-bind:initial-width="initialWidth"
                         v-bind:initial-height="initialHeight"
                         v-bind:resize="resize"
