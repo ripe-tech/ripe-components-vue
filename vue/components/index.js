@@ -1,22 +1,22 @@
 import { RouterLink } from "./mock/router-link/router-link.vue";
-import { ErrorPlatforme } from "./parts/error-platforme/error-platforme.vue";
+import { ErrorPart } from "./parts/error-part/error-part.vue";
 import { Global } from "./parts/global/global.vue";
-import { OAuth } from "./parts/oauth/oauth.vue";
+import { OAuthPart } from "./parts/oauth-part/oauth-part.vue";
 import { Alert } from "./ui/alert/alert.vue";
 import { ButtonColor } from "./ui/button-color/button-color.vue";
 import { ButtonIcon } from "./ui/button-icon/button-icon.vue";
 import { ButtonPlatforme } from "./ui/button-platforme/button-platforme.vue";
 import { Checkbox } from "./ui/checkbox/checkbox.vue";
-import { ContainerPlatforme } from "./ui/container-platforme/container-platforme.vue";
-import { DetailsPlatforme } from "./ui/details-platforme/details-platforme.vue";
+import { Container } from "./ui/container/container.vue";
+import { Details } from "./ui/details/details.vue";
 import { Dropdown } from "./ui/dropdown/dropdown.vue";
-import { FilterPlatforme } from "./ui/filter-platforme/filter-platforme.vue";
-import { FooterPlatforme } from "./ui/footer-platforme/footer-platforme.vue";
+import { Filter } from "./ui/filter/filter.vue";
+import { Footer } from "./ui/footer/footer.vue";
 import { FormInput } from "./ui/form-input/form-input.vue";
-import { HeaderPlatforme } from "./ui/header-platforme/header-platforme.vue";
-import { ImagePlatforme } from "./ui/image-platforme/image-platforme.vue";
-import { InputPlatforme } from "./ui/input-platforme/input-platforme.vue";
-import { LabelPlatforme } from "./ui/label-platforme/label-platforme.vue";
+import { Header } from "./ui/header/header.vue";
+import { Image } from "./ui/image/image.vue";
+import { Input } from "./ui/input/input.vue";
+import { Label } from "./ui/label/label.vue";
 import { Lightbox } from "./ui/lightbox/lightbox.vue";
 import { Lineup } from "./ui/lineup/lineup.vue";
 import { Link } from "./ui/link/link.vue";
@@ -28,33 +28,33 @@ import { ProgressBar } from "./ui/progress-bar/progress-bar.vue";
 import { Radio } from "./ui/radio/radio.vue";
 import { Search } from "./ui/search/search.vue";
 import { Side } from "./ui/side/side.vue";
-import { TablePlatforme } from "./ui/table-platforme/table-platforme.vue";
+import { Table } from "./ui/table/table.vue";
 import { Tabs } from "./ui/tabs/tabs.vue";
 import { Tag } from "./ui/tag/tag.vue";
-import { TextareaPlatforme } from "./ui/textarea-platforme/textarea-platforme.vue";
+import { Textarea } from "./ui/textarea/textarea.vue";
 
 const install = Vue => {
     if (!Vue.options.components.RouterLink) {
         Vue.component("router-link", RouterLink);
     }
-    Vue.component("error-platforme", ErrorPlatforme);
+    Vue.component("error-ripe", ErrorPart);
     Vue.component("global", Global);
-    Vue.component("oauth", OAuth);
+    Vue.component("oauth-part", OAuthPart);
     Vue.component("alert", Alert);
     Vue.component("button-color", ButtonColor);
     Vue.component("button-icon", ButtonIcon);
     Vue.component("button-platforme", ButtonPlatforme);
     Vue.component("checkbox", Checkbox);
-    Vue.component("container-platforme", ContainerPlatforme);
-    Vue.component("details-platforme", DetailsPlatforme);
+    Vue.component("container-ripe", Container);
+    Vue.component("details-ripe", Details);
     Vue.component("dropdown", Dropdown);
-    Vue.component("filter-platforme", FilterPlatforme);
-    Vue.component("footer-platforme", FooterPlatforme);
+    Vue.component("filter-ripe", Filter);
+    Vue.component("footer-ripe", Footer);
     Vue.component("form-input", FormInput);
-    Vue.component("header-platforme", HeaderPlatforme);
-    Vue.component("image-platforme", ImagePlatforme);
-    Vue.component("input-platforme", InputPlatforme);
-    Vue.component("label-platforme", LabelPlatforme);
+    Vue.component("header-ripe", Header);
+    Vue.component("image-ripe", Image);
+    Vue.component("input-ripe", Input);
+    Vue.component("label-ripe", Label);
     Vue.component("loader", loader);
     Vue.component("modal", Modal);
     Vue.component("lightbox", Lightbox);
@@ -66,32 +66,32 @@ const install = Vue => {
     Vue.component("radio", Radio);
     Vue.component("search", Search);
     Vue.component("side", Side);
-    Vue.component("table-platforme", TablePlatforme);
+    Vue.component("table-ripe", Table);
     Vue.component("tabs", Tabs);
     Vue.component("tag", Tag);
-    Vue.component("textarea-platforme", TextareaPlatforme);
+    Vue.component("textarea-ripe", Textarea);
 };
 
 export {
     RouterLink,
-    ErrorPlatforme,
+    ErrorPart,
     Global,
-    OAuth,
+    OAuthPart,
     Alert,
     ButtonColor,
     ButtonIcon,
     ButtonPlatforme,
     Checkbox,
-    ContainerPlatforme,
-    DetailsPlatforme,
+    Container,
+    Details,
     Dropdown,
-    FilterPlatforme,
+    Filter,
     FormInput,
-    FooterPlatforme,
-    HeaderPlatforme,
-    ImagePlatforme,
-    InputPlatforme,
-    LabelPlatforme,
+    Footer,
+    Header,
+    Image,
+    Input,
+    Label,
     loader,
     Modal,
     Lightbox,
@@ -103,10 +103,10 @@ export {
     Radio,
     Search,
     Side,
-    TablePlatforme,
+    Table,
     Tabs,
     Tag,
-    TextareaPlatforme,
+    Textarea,
     install
 };
 

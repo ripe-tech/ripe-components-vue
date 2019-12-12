@@ -41,7 +41,7 @@ storiesOf("Data", module)
                 return [
                     {
                         id: 1,
-                        user: "Platforme",
+                        user: "Ripe",
                         device: "Windows"
                     },
                     {
@@ -61,6 +61,7 @@ storiesOf("Data", module)
                     v-bind:name="'jobs'"
                     v-bind:use-query="false"
                     v-bind:filter-fields="filterFields"
+                    v-bind:values="[]"
                 >
                     <template v-slot:icons>
                         <img v-bind:src="img" v-bind:style="imgStyle" />

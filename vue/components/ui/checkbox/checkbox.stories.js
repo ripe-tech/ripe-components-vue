@@ -75,14 +75,13 @@ storiesOf("Input", module)
         template: `
             <div>
                 <form-input
-                    v-bind:id="id"
                     v-bind:header="header"
                     v-bind:footer="footer"
                     v-bind:error="errorText"
                     v-bind:warning="warning"
                     v-bind:success="success"
                 >
-                    <checkbox-platforme
+                    <checkbox
                         v-on:update:values="setValues"                 
                         v-bind:items="items"
                         v-bind:values="values"

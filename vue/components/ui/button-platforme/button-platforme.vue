@@ -84,11 +84,11 @@ export const ButtonPlatforme = {
     props: {
         normalText: {
             type: String,
-            default: "Sign in with Platforme ID"
+            default: "Sign in with Ripe ID"
         },
         loadingText: {
             type: String,
-            default: "Signing in Platforme ID..."
+            default: "Signing in Ripe ID..."
         },
         logo: {
             type: Boolean,

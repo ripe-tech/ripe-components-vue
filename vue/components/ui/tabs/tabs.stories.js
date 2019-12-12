@@ -20,7 +20,7 @@ storiesOf("Components", module).add("Tabs", () => ({
                         <p>New York</p>
                     </template>
                 </tabs>
-                <label-platforme v-bind:text='"This is a simple label bellow tabs"'></label-platforme>
+                <label-ripe v-bind:text='"This is a simple label bellow tabs"'></label-ripe>
             </div>
             
         `

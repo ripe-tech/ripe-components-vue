@@ -1,7 +1,7 @@
 <template>
     <div class="lightbox">
         <global-events v-on:keydown.esc="close" />
-        <image-platforme
+        <image-ripe
             v-bind:src="image"
             v-bind:alt="alt"
             v-on:click="event => $emit('click', event)"
