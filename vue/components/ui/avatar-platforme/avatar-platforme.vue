@@ -146,7 +146,7 @@
     padding: 0px 8px 0px 0px;
 }
 
-.text ::v-deep .label {
+.text > div {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -194,7 +194,7 @@
     letter-spacing: 0.2px;
 }
 
-.avatar .text-left .subtitle ::v-deep {
+.avatar .text-left .subtitle {
     color: $dark;
     font-weight: 500;
     letter-spacing: 0.3px;
