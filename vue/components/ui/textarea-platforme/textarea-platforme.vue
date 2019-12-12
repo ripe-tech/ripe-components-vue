@@ -74,11 +74,11 @@ export const TextareaPlatforme = {
         },
         initialWidth: {
             type: Number,
-            default: null
+            default: 280
         },
         initialHeight: {
             type: Number,
-            default: null
+            default: 98
         },
         resize: {
             type: Boolean,
@@ -95,9 +95,10 @@ export const TextareaPlatforme = {
     },
     computed: {
         textAreaStyle() {
-            const base = {};
-            if (this.initialWidth) base.width = `${this.initialWidth}px`;
-            if (this.initialHeight) base.height = `${this.initialHeight}px`;
+            const base = {
+                width: `${this.initialWidth}px`,
+                height: `${this.initialHeight}px`
+            };
 
             if (!this.resize) {
                 base.resize = "none";
