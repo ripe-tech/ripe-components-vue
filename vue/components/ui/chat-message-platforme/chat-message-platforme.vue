@@ -85,9 +85,9 @@
 }
 
 .chat-message .message-container .message-header .line-container {
-    visibility: hidden;
     flex: 1 0;
     margin: 2px 0px 0px 20px;
+    visibility: hidden;
 }
 
 .chat-message .message-container .message-header .line-container hr {
@@ -101,13 +101,11 @@
 
 .chat-message .message-container .message-content .links {
     margin-top: 6px;
-    
 }
 
 .chat-message .message-container .message-content .links .link {
     display: table;
 }
-
 
 .chat-message .message-container .message-content .reactions {
     font-size: 0px; //It fixes white spaces between divs
@@ -115,22 +113,22 @@
 }
 
 .chat-message .options-container {
-    visibility: hidden;
     background-color: $grey-6;
-    border-radius: 6px;
     border: solid 1px #e4e8f0;
+    border-radius: 6px;
     display: inline-flex;
     font-size: 0px;
     height: 26px;
     padding: 2px 2px 2px 2px;
+    visibility: hidden;
 }
 
 .chat-message .options-container .reaction-option,
 .chat-message .options-container .more-options-option {
     cursor: pointer;
     height: 24px;
-    width: 30px;
     opacity: 0.4;
+    width: 30px;
 }
 
 .chat-message .options-container .reaction-option {
@@ -145,15 +143,12 @@
     border-left: solid 1px #e4e8f0;
 }
 
-
 .chat-message:hover,
 .chat-message:hover .options-container,
-.chat-message:hover .message-container .message-header .line-container
-{
+.chat-message:hover .message-container .message-header .line-container {
     background-color: $white;
     visibility: visible;
 }
-
 
 .chat-message .options-container .reaction-option:hover,
 .chat-message .options-container .more-options-option:hover {
@@ -164,8 +159,6 @@
     border: solid 3px #e4e8f0;
     padding: 0px 0px 0px 0px;
 }
-
-
 </style>
 
 <script>
@@ -199,10 +192,10 @@ export const ChatMessagePlatforme = {
         }
     },
     methods: {
-        onReactionOptionClick(){
+        onReactionOptionClick() {
             console.log("Reaction Clicked");
         },
-        onMoreOptionsOptionClick(){
+        onMoreOptionsOptionClick() {
             console.log("More Options Clicked");
         }
     }
