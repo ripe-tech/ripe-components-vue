@@ -19,6 +19,11 @@
                     />
                 </div>
                 <div class="reactions">
+                    <button-icon-platforme
+                    class="reaction"
+                    v-for="reaction in reactions" v-bind:key="reaction.icon"
+                    v-bind:icon="reaction.icon"
+                    v-bind:size="24" />
                     <div class="reactionExample" />
                     <div class="reactionExample" />
                     <div class="reactionExample" />
@@ -74,20 +79,14 @@
     margin: 10px 0px 0px 0px;
     font-size: 0px; //It fixes white spaces between divs
 }
-.chat-message .message-container .message-content .reactions .reactionExample {
-    //TODO remove this example
-    background-color: #f2b738;
-    display: inline-block;
-    height: 24px;
-    width: 37px;
-}
+
 </style>
 
 <script>
 export const ChatMessagePlatforme = {
     name: "chat-message-platforme",
     props: {
-        userImgPath: { //TODO remove, this will be replaced by avatar
+        userImgPath: { //TODO remove -> this will be replaced by avatar
             type: String,
             default: "http://i.pravatar.cc"
         },
@@ -104,6 +103,10 @@ export const ChatMessagePlatforme = {
             required: true  
         },
         attachments: {
+            type: Array,
+            default: () => []
+        },
+        reactions: {
             type: Array,
             default: () => []
         }

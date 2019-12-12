@@ -20,6 +20,13 @@ storiesOf("Chat", module)
                     { name: "lorem-ipsum.pdf", path: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" },
                     { name: "lorem-ipsum2.pdf", path: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" }
                 ]
+            },
+            reactions: { //TODO change -> this will be replaced by what Daniel is doing
+                type: Array,
+                default: () => [
+                    { icon: "thumb-up" },
+                    { icon: "happy-face" }
+                ]
             }
         },
         template: `
@@ -29,6 +36,7 @@ storiesOf("Chat", module)
                     v-bind:date="date"
                     v-bind:message="message"
                     v-bind:attachments="attachments"
+                    v-bind:reactions="reactions"
                 />
             </div>
             `
