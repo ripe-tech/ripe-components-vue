@@ -142,6 +142,12 @@
     padding: 0px 8px 0px 8px;
 }
 
+.text-left .subtitle {
+    color: $dark;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
 .text.text-right {
     padding: 0px 8px 0px 0px;
 }
@@ -150,6 +156,12 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.text .title {
+    color: $dark;
+    font-weight: 700;
+    letter-spacing: 0.2px;
 }
 
 .avatar.giant .text {
@@ -186,18 +198,6 @@
     font-size: 7px;
     height: 16px;
     line-height: 7px;
-}
-
-.text .title {
-    color: $dark;
-    font-weight: 700;
-    letter-spacing: 0.2px;
-}
-
-.avatar .text-left .subtitle {
-    color: $dark;
-    font-weight: 500;
-    letter-spacing: 0.3px;
 }
 
 .avatar.hasText:hover {
