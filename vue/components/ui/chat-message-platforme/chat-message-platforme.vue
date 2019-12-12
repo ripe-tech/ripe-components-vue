@@ -114,27 +114,31 @@
 .chat-message .options-container {
     visibility: hidden;
     background-color: $grey-6;
+    border-radius: 6px;
     border: solid 1px #e4e8f0;
     display: inline-flex;
     font-size: 0px;
     height: 26px;
+    padding: 2px 2px 2px 2px;
 }
 
 .chat-message .options-container .reaction-option,
 .chat-message .options-container .more-options-option {
-    border: solid 1px #e4e8f0;
     height: 24px;
     width: 30px;
+    opacity: 0.4;
 }
 
 .chat-message .options-container .reaction-option {
     background: url("~./assets/happy-face.svg") center no-repeat;
     background-size: 18px 18px;
+    border-right: solid 1px #e4e8f0;
 }
 
 .chat-message .options-container .more-options-option {
     background: url("~./assets/ellypsis.svg") center no-repeat;
     background-size: 18px 18px;
+    border-left: solid 1px #e4e8f0;
 }
 
 
@@ -144,6 +148,17 @@
 {
     background-color: $white;
     visibility: visible;
+}
+
+
+.chat-message .options-container .reaction-option:hover,
+.chat-message .options-container .more-options-option:hover {
+    opacity: 1;
+}
+
+.chat-message .options-container:hover {
+    border: solid 3px #e4e8f0;
+    padding: 0px 0px 0px 0px;
 }
 
 
