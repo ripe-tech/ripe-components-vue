@@ -1,7 +1,7 @@
 <template>
     <textarea
         class="textarea"
-        v-bind:class="{flaghover, flagfocus}"
+        v-bind:class="{ flaghover, flagfocus }"
         v-bind:style="textAreaStyle"
         v-bind:value="value"
         v-bind:placeholder="placeholder"
@@ -55,7 +55,6 @@
     background-color: #f6f7f9;
     color: $medium-grey;
 }
-
 </style>
 
 <script>
@@ -111,13 +110,13 @@ export const TextareaPlatforme = {
         textAreaStyle() {
             const base = {
                 width: `${this.initialWidth}px`,
-                height: `${this.initialHeight}px`,
+                height: `${this.initialHeight}px`
             };
 
             if (!this.resize) {
                 base.resize = "none";
             }
-            
+
             return base;
         },
         flaghover() {
