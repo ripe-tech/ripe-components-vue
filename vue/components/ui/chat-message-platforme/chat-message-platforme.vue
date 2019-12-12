@@ -80,12 +80,12 @@
 }
 .chat-message .message-container .message-content .reactions {
     margin: 10px 0px 0px 0px;
+    font-size: 0px; //It fixes white spaces between divs
 }
 .chat-message .message-container .message-content .reactions .reactionExample {
-    background-color: #f2b738;
     //TODO remove this example
+    background-color: #f2b738;
     display: inline-block;
-    font-size: 0px; //It fixes white spaces between divs
     height: 24px;
     width: 37px;
 }
