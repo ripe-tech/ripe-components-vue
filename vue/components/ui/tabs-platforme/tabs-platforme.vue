@@ -122,11 +122,11 @@ export const TabsPlatforme = {
         };
     },
     mounted: function() {
-        window.addEventListener("resize", () => this.onWindowResize());
+        this._initListeners();
         this._updateHeight();
     },
     destroyed: function() {
-        window.removeEventListener("resize");
+        this._destroyListeners();
     },
     methods: {
         selectTab(index) {
@@ -147,6 +147,14 @@ export const TabsPlatforme = {
         },
         onWindowResize() {
             this._updateHeight();
+        },
+        _initListeners() {
+            window.addEventListener("resize", this.onWindowResizeHandler = () => this.onWindowResize());
+        },
+        _destroyListeners() {
+            if (this.onWindowResizeHandler) {
+                window.removeEventListener("resize", this.onWindowResizeHandler);
+            }
         },
         _updateHeight() {
             const tab = (this.$refs[`tab-${this.currentTab}`] || [])[0];
