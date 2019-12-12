@@ -41,19 +41,23 @@
 
 .chat-message {
     display: flex;
-    margin: 29px 0px 0px 33px;
 }
 .chat-message .user-image {
     border: solid 1px #e3e8f1;
     border-radius: 50%;
     box-shadow: 0 2px 5px 0 rgba(67, 86, 100, 0.25);
     height: 24px;
-    margin: -4px 8px 0px 0px;
+    margin: 0px 8px 0px 0px;
     width: 24px;
 }
 .chat-message .message-container {
     display: inline-block;
 }
+
+.chat-message .message-container .user-information {
+    margin: 4px 0px 0px 0px;
+}
+
 .chat-message .message-container .user-information .username {
     color: #0d0d0d;
     font-weight: bold;
@@ -63,9 +67,7 @@
     color: #a4adb5;
     letter-spacing: 0.3px;
 }
-.chat-message .message-container .message-content {
-    //message-content
-}
+
 .chat-message .message-container .message-content .message {
     color: #0d0d0d;
     letter-spacing: 0.3px;
