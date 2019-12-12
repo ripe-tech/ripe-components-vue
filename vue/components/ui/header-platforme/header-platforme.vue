@@ -364,56 +364,7 @@ export const HeaderPlatforme = {
             accountDropdownVisible: false,
             announcementModalVisible: false,
             notifyUser: true,
-            announcements: [
-                {
-                    title: "Quality assurance got easier!",
-                    content:
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
-                    date: Date.now(),
-                    link: "https://platforme.com",
-                    read: false
-                },
-                {
-                    title: "Chat within a status of an order",
-                    content:
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \n Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
-                    date: Date.now(),
-                    link: "https://platforme.com",
-                    read: false
-                },
-                {
-                    title: "Chat within a status of an order",
-                    content:
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
-                    date: Date.now(),
-                    link: "https://platforme.com",
-                    read: false
-                },
-                {
-                    title: "Chat within a status of an order",
-                    content:
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
-                    date: Date.now(),
-                    link: "https://platforme.com",
-                    read: false
-                },
-                {
-                    title: "Chat within a status of an order",
-                    content:
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
-                    date: Date.now(),
-                    link: "https://platforme.com",
-                    read: false
-                },
-                {
-                    title: "Chat within a status of an order",
-                    content:
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.",
-                    date: Date.now(),
-                    link: "https://platforme.com",
-                    read: false
-                }
-            ],
+            announcements: [],
             announcementItems: [
                 {
                     label: "Notify me about updates",
