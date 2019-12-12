@@ -1,5 +1,5 @@
 <template>
-    <div class="avatar" v-bind:class="[size]">
+    <div class="avatar" v-bind:class="[size, { hasText: hasText }]">
         <div class="image-container" v-bind:class="[{ notify: notify }, size]" v-if="hasImg">
             <img class="image" v-bind:src="imgUrl" alt="avatar" />
             <slot name="dot">
@@ -14,7 +14,7 @@
                 {{ subtitle }}
             </div>
         </div>
-        <div class="text text-right">
+        <div class="text text-right" v-if="content">
             <div class="content" v-if="content">
                 {{ content }}
             </div>
@@ -138,8 +138,12 @@
     vertical-align: top;
 }
 
-.text-left {
+.text.text-left {
     padding: 0px 8px 0px 8px;
+}
+
+.text.text-right {
+    padding: 0px 8px 0px 0px;
 }
 
 .text ::v-deep .label {
@@ -187,12 +191,41 @@
 .text .title {
     color: $dark;
     font-weight: 700;
+    letter-spacing: 0.2px;
 }
 
 .avatar .text-left .subtitle ::v-deep {
     color: $dark;
     font-weight: 500;
     letter-spacing: 0.3px;
+}
+
+.avatar.hasText:hover {
+    background-color: $lighter-grey;
+}
+
+.avatar.hasText:hover .subtitle {
+    color: $grey;
+}
+
+.avatar.hasText:active {
+    background-color: $light-grey;
+}
+
+.avatar.hasText:focus {
+    background-color: $dark;
+}
+
+.avatar.hasText:focus .title {
+    color: $white;
+}
+
+.avatar.hasText:focus .subtitle {
+    color: #a4adb5;
+}
+
+.avatar.hasText:focus .content {
+    color: $white;
 }
 </style>
 
@@ -242,6 +275,9 @@ export const AvatarPlatforme = {
         },
         hasImg() {
             return Boolean(this.imgUrl);
+        },
+        hasText() {
+            return Boolean(this.title || this.subtitle || this.content);
         }
     }
 };
