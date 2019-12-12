@@ -1,7 +1,7 @@
 import { RouterLink } from "./mock/router-link/router-link.vue";
-import { ErrorRipe } from "./parts/error-ripe/error-ripe.vue";
+import { ErrorPart } from "./parts/error-part/error-part.vue";
 import { Global } from "./parts/global/global.vue";
-import { OAuth } from "./parts/oauth/oauth.vue";
+import { OAuthPart } from "./parts/oauth-part/oauth-part.vue";
 import { Alert } from "./ui/alert/alert.vue";
 import { ButtonColor } from "./ui/button-color/button-color.vue";
 import { ButtonIcon } from "./ui/button-icon/button-icon.vue";
@@ -11,7 +11,7 @@ import { Container } from "./ui/container/container.vue";
 import { Details } from "./ui/details/details.vue";
 import { Dropdown } from "./ui/dropdown/dropdown.vue";
 import { Filter } from "./ui/filter/filter.vue";
-import { FooterRipe } from "./ui/footer/footer.vue";
+import { Footer } from "./ui/footer/footer.vue";
 import { FormInput } from "./ui/form-input/form-input.vue";
 import { Header } from "./ui/header/header.vue";
 import { Image } from "./ui/image/image.vue";
@@ -37,9 +37,9 @@ const install = Vue => {
     if (!Vue.options.components.RouterLink) {
         Vue.component("router-link", RouterLink);
     }
-    Vue.component("error-ripe", ErrorRipe);
+    Vue.component("error-ripe", ErrorPart);
     Vue.component("global", Global);
-    Vue.component("oauth", OAuth);
+    Vue.component("oauth-part", OAuthPart);
     Vue.component("alert", Alert);
     Vue.component("button-color", ButtonColor);
     Vue.component("button-icon", ButtonIcon);
@@ -49,7 +49,7 @@ const install = Vue => {
     Vue.component("details-ripe", Details);
     Vue.component("dropdown", Dropdown);
     Vue.component("filter-ripe", Filter);
-    Vue.component("footer-ripe", FooterRipe);
+    Vue.component("footer-ripe", Footer);
     Vue.component("form-input", FormInput);
     Vue.component("header-ripe", Header);
     Vue.component("image-ripe", Image);
@@ -74,9 +74,9 @@ const install = Vue => {
 
 export {
     RouterLink,
-    ErrorRipe,
+    ErrorPart,
     Global,
-    OAuth,
+    OAuthPart,
     Alert,
     ButtonColor,
     ButtonIcon,
@@ -87,7 +87,7 @@ export {
     Dropdown,
     Filter,
     FormInput,
-    FooterRipe,
+    Footer,
     Header,
     Image,
     Input,

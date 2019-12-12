@@ -1,5 +1,5 @@
 <template>
-    <div class="error-ripe">
+    <div class="error-part">
         <div class="error-message">
             <img v-bind:src="image" v-if="image" />
             <span>{{ message }}</span>
@@ -20,7 +20,7 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.error-ripe {
+.error-part {
     align-items: center;
     display: flex;
     justify-content: center;
@@ -44,8 +44,8 @@
 </style>
 
 <script>
-export const ErrorRipe = {
-    name: "error-ripe",
+export const ErrorPart = {
+    name: "error-part",
     props: {
         message: {
             type: String,
@@ -71,5 +71,5 @@ export const ErrorRipe = {
     }
 };
 
-export default ErrorRipe;
+export default ErrorPart;
 </script>

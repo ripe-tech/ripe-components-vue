@@ -1,5 +1,5 @@
 <template>
-    <div class="oauth">
+    <div class="oauth-part">
         <div class="oauth-container">
             <loader loader="ball-scale-multiple" class="loader-header" />
             <h2>{{ text }}</h2>
@@ -10,7 +10,7 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.oauth {
+.oauth-part {
     align-items: center;
     display: flex;
     justify-content: center;
@@ -32,8 +32,8 @@
 <script>
 import { oauthMixin } from "../../../mixins";
 
-export const OAuth = {
-    name: "oauth",
+export const OAuthPart = {
+    name: "oauth-part",
     mixins: [oauthMixin],
     props: {
         text: {
@@ -50,5 +50,5 @@ export const OAuth = {
     }
 };
 
-export default OAuth;
+export default OAuthPart;
 </script>

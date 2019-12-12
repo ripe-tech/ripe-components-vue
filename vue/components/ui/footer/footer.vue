@@ -1,5 +1,5 @@
 <template>
-    <div class="footer-ripe">
+    <div class="footer">
         <div class="links-left">
             <ul>
                 <li class="copy">
@@ -45,7 +45,7 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.footer-ripe {
+.footer {
     border-top: 1px solid #f0f0f0;
     font-size: 0px;
     margin: 64px auto 0px auto;
@@ -54,7 +54,7 @@
     padding-bottom: 20px;
 }
 
-body.mobile .footer-ripe {
+body.mobile .footer {
     border-top: none;
     margin-top: 32px;
     padding-bottom: 0px;
@@ -189,9 +189,9 @@ body.mobile .footer-logo > a > img {
 </style>
 
 <script>
-export const FooterRipe = {
+export const Footer = {
     name: "footer-ripe"
 };
 
-export default FooterRipe;
+export default Footer;
 </script>
