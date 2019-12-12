@@ -118,11 +118,19 @@ export const TabsPlatforme = {
     data: function() {
         return {
             currentTab: this.initialTab,
-            height: this.initialHeight
+            height: this.initialHeight,
+            onWindowResizeHandler: null,
+            contentObserver: null
         };
     },
     mounted: function() {
+        this._initListeners();
+        this._initObservers();
         this._updateHeight();
+    },
+    destroyed: function() {
+        this._destroyObservers();
+        this._destroyListeners();
     },
     methods: {
         selectTab(index) {
@@ -140,6 +148,31 @@ export const TabsPlatforme = {
         },
         onClick(index) {
             this.selectTab(index);
+        },
+        onWindowResize() {
+            this._updateHeight();
+        },
+        onContentMutated(mutations) {
+            this._updateHeight();
+        },
+        _initListeners() {
+            window.addEventListener(
+                "resize",
+                (this.onWindowResizeHandler = () => this.onWindowResize())
+            );
+        },
+        _initObservers() {
+            this.contentObserver = new MutationObserver(mutations =>
+                this.onContentMutated(mutations)
+            );
+        },
+        _destroyListeners() {
+            if (this.onWindowResizeHandler) {
+                window.removeEventListener("resize", this.onWindowResizeHandler);
+            }
+        },
+        _destroyObservers() {
+            if (this.contentObserver) this.contentObserver.disconnect();
         },
         _updateHeight() {
             const tab = (this.$refs[`tab-${this.currentTab}`] || [])[0];

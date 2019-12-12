@@ -340,8 +340,8 @@ export const ModalPlatforme = {
             });
         },
         _destroyObservers() {
-            this.contentObserver.disconnect();
-            this.buttonsObserver.disconnect();
+            if (this.contentObserver) this.contentObserver.disconnect();
+            if (this.buttonsObserver) this.buttonsObserver.disconnect();
         }
     }
 };
