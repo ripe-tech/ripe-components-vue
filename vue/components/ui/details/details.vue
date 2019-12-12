@@ -411,7 +411,7 @@ body.mobile .container-platforme .details-column .label-value {
 </style>
 
 <script>
-export const DetailsPlatforme = {
+export const Details = {
     name: "details-platforme",
     props: {
         name: {
@@ -567,5 +567,5 @@ export const DetailsPlatforme = {
     }
 };
 
-export default DetailsPlatforme;
+export default Details;
 </script>

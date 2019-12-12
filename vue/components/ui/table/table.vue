@@ -205,7 +205,7 @@
 </style>
 
 <script>
-export const TablePlatforme = {
+export const Table = {
     name: "table-platforme",
     props: {
         columns: {
@@ -268,5 +268,5 @@ export const TablePlatforme = {
     }
 };
 
-export default TablePlatforme;
+export default Table;
 </script>

@@ -71,7 +71,7 @@ body.mobile .filter-platforme .lineup {
 <script>
 import { equal } from "yonius";
 
-export const FilterPlatforme = {
+export const Filter = {
     name: "filter-platforme",
     props: {
         filter: {
@@ -258,5 +258,5 @@ export const FilterPlatforme = {
     }
 };
 
-export default FilterPlatforme;
+export default Filter;
 </script>

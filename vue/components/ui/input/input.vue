@@ -50,7 +50,7 @@ input[type="text"]:disabled {
 </style>
 
 <script>
-export const InputPlatforme = {
+export const Input = {
     name: "input-platforme",
     props: {
         value: {
@@ -95,5 +95,5 @@ export const InputPlatforme = {
     }
 };
 
-export default InputPlatforme;
+export default Input;
 </script>

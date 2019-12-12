@@ -53,7 +53,7 @@
 </style>
 
 <script>
-export const TextareaPlatforme = {
+export const Textarea = {
     name: "textarea-platforme",
     props: {
         id: {
@@ -109,5 +109,5 @@ export const TextareaPlatforme = {
     }
 };
 
-export default TextareaPlatforme;
+export default Textarea;
 </script>

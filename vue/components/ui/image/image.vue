@@ -22,7 +22,7 @@ img.loaded {
 </style>
 
 <script>
-export const ImagePlatforme = {
+export const Image = {
     name: "image-platforme",
     props: {
         src: {
@@ -41,5 +41,5 @@ export const ImagePlatforme = {
     }
 };
 
-export default ImagePlatforme;
+export default Image;
 </script>

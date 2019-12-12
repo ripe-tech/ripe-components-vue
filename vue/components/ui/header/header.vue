@@ -267,7 +267,7 @@
 </style>
 
 <script>
-export const HeaderPlatforme = {
+export const Header = {
     name: "header-platforme",
     props: {
         sideMenu: {
@@ -361,5 +361,5 @@ export const HeaderPlatforme = {
     }
 };
 
-export default HeaderPlatforme;
+export default Header;
 </script>

@@ -32,7 +32,7 @@
 </style>
 
 <script>
-export const LabelPlatforme = {
+export const Label = {
     name: "label-platforme",
     props: {
         text: {
@@ -62,5 +62,5 @@ export const LabelPlatforme = {
     }
 };
 
-export default LabelPlatforme;
+export default Label;
 </script>

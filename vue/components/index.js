@@ -7,16 +7,16 @@ import { ButtonColor } from "./ui/button-color/button-color.vue";
 import { ButtonIcon } from "./ui/button-icon/button-icon.vue";
 import { ButtonPlatforme } from "./ui/button-platforme/button-platforme.vue";
 import { Checkbox } from "./ui/checkbox/checkbox.vue";
-import { ContainerPlatforme } from "./ui/container-platforme/container-platforme.vue";
-import { DetailsPlatforme } from "./ui/details-platforme/details-platforme.vue";
+import { Container } from "./ui/container/container.vue";
+import { Details } from "./ui/details/details.vue";
 import { Dropdown } from "./ui/dropdown/dropdown.vue";
-import { FilterPlatforme } from "./ui/filter-platforme/filter-platforme.vue";
-import { FooterPlatforme } from "./ui/footer-platforme/footer-platforme.vue";
+import { Filter } from "./ui/filter/filter.vue";
+import { FooterPlatforme } from "./ui/footer/footer.vue";
 import { FormInput } from "./ui/form-input/form-input.vue";
-import { HeaderPlatforme } from "./ui/header-platforme/header-platforme.vue";
-import { ImagePlatforme } from "./ui/image-platforme/image-platforme.vue";
-import { InputPlatforme } from "./ui/input-platforme/input-platforme.vue";
-import { LabelPlatforme } from "./ui/label-platforme/label-platforme.vue";
+import { Header } from "./ui/header/header.vue";
+import { Image } from "./ui/image/image.vue";
+import { Input } from "./ui/input/input.vue";
+import { Label } from "./ui/label/label.vue";
 import { Lightbox } from "./ui/lightbox/lightbox.vue";
 import { Lineup } from "./ui/lineup/lineup.vue";
 import { Link } from "./ui/link/link.vue";
@@ -28,10 +28,10 @@ import { ProgressBar } from "./ui/progress-bar/progress-bar.vue";
 import { Radio } from "./ui/radio/radio.vue";
 import { Search } from "./ui/search/search.vue";
 import { Side } from "./ui/side/side.vue";
-import { TablePlatforme } from "./ui/table-platforme/table-platforme.vue";
+import { Table } from "./ui/table/table.vue";
 import { Tabs } from "./ui/tabs/tabs.vue";
 import { Tag } from "./ui/tag/tag.vue";
-import { TextareaPlatforme } from "./ui/textarea-platforme/textarea-platforme.vue";
+import { Textarea } from "./ui/textarea/textarea.vue";
 
 const install = Vue => {
     if (!Vue.options.components.RouterLink) {
@@ -45,16 +45,16 @@ const install = Vue => {
     Vue.component("button-icon", ButtonIcon);
     Vue.component("button-platforme", ButtonPlatforme);
     Vue.component("checkbox", Checkbox);
-    Vue.component("container-platforme", ContainerPlatforme);
-    Vue.component("details-platforme", DetailsPlatforme);
+    Vue.component("container-platforme", Container);
+    Vue.component("details-platforme", Details);
     Vue.component("dropdown", Dropdown);
-    Vue.component("filter-platforme", FilterPlatforme);
+    Vue.component("filter-platforme", Filter);
     Vue.component("footer-platforme", FooterPlatforme);
     Vue.component("form-input", FormInput);
-    Vue.component("header-platforme", HeaderPlatforme);
-    Vue.component("image-platforme", ImagePlatforme);
-    Vue.component("input-platforme", InputPlatforme);
-    Vue.component("label-platforme", LabelPlatforme);
+    Vue.component("header-platforme", Header);
+    Vue.component("image-platforme", Image);
+    Vue.component("input-platforme", Input);
+    Vue.component("label-platforme", Label);
     Vue.component("loader", loader);
     Vue.component("modal", Modal);
     Vue.component("lightbox", Lightbox);
@@ -66,10 +66,10 @@ const install = Vue => {
     Vue.component("radio", Radio);
     Vue.component("search", Search);
     Vue.component("side", Side);
-    Vue.component("table-platforme", TablePlatforme);
+    Vue.component("table-platforme", Table);
     Vue.component("tabs", Tabs);
     Vue.component("tag", Tag);
-    Vue.component("textarea-platforme", TextareaPlatforme);
+    Vue.component("textarea-platforme", Textarea);
 };
 
 export {
@@ -82,16 +82,16 @@ export {
     ButtonIcon,
     ButtonPlatforme,
     Checkbox,
-    ContainerPlatforme,
-    DetailsPlatforme,
+    Container,
+    Details,
     Dropdown,
-    FilterPlatforme,
+    Filter,
     FormInput,
     FooterPlatforme,
-    HeaderPlatforme,
-    ImagePlatforme,
-    InputPlatforme,
-    LabelPlatforme,
+    Header,
+    Image,
+    Input,
+    Label,
     loader,
     Modal,
     Lightbox,
@@ -103,10 +103,10 @@ export {
     Radio,
     Search,
     Side,
-    TablePlatforme,
+    Table,
     Tabs,
     Tag,
-    TextareaPlatforme,
+    Textarea,
     install
 };
 

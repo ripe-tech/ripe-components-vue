@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text, number, boolean } from "@storybook/addon-knobs";
 
-import "./details-platforme.stories.css";
+import "./details.stories.css";
 
 storiesOf("Data", module)
     .addDecorator(withKnobs)
@@ -69,6 +69,9 @@ storiesOf("Data", module)
                 v-bind:item="item"
                 v-bind:name="itemName"
                 v-bind:loaded="loaded"
+                v-bind:context="{}"
+                v-bind:index="0"
+                v-bind:get-items="() => values"
             >
                 <template v-slot:shirt>
                     <p>Custom entry</p>

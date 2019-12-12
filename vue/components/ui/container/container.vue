@@ -23,9 +23,9 @@
 </style>
 
 <script>
-export const ContainerPlatforme = {
+export const Container = {
     name: "container-platforme"
 };
 
-export default ContainerPlatforme;
+export default Container;
 </script>
