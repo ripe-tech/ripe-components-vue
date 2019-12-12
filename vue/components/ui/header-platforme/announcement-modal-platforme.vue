@@ -132,7 +132,7 @@
     padding: 0px 0px 0px 0px;
     position: absolute;
     right: 30px;
-    top: 26px;
+    top: 27px;
     width: 8px;
 }
 
