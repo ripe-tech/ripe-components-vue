@@ -8,27 +8,30 @@
                     <span class="date">{{ date }}</span>
                 </div>
                 <div class="line-container">
-                   <hr>
+                    <hr />
                 </div>
             </div>
             <div class="message-content">
                 <span class="message">{{ message }}</span>
                 <div class="links">
-                    <link-platforme 
-                        v-for="attachment in attachments" v-bind:key="attachment.name"
+                    <link-platforme
                         v-bind:text="attachment.name"
                         v-bind:href="attachment.plath"
                         v-bind:disabled="false"
                         v-bind:size="'small'"
                         v-bind:color="'blue'"
+                        v-for="attachment in attachments"
+                        v-bind:key="attachment.name"
                     />
                 </div>
                 <div class="reactions">
                     <button-icon-platforme
-                    class="reaction"
-                    v-for="reaction in reactions" v-bind:key="reaction.icon"
-                    v-bind:icon="reaction.icon"
-                    v-bind:size="24" />
+                        class="reaction"
+                        v-bind:icon="reaction.icon"
+                        v-bind:size="24"
+                        v-for="reaction in reactions"
+                        v-bind:key="reaction.icon"
+                    />
                     <div class="reactionExample" />
                     <div class="reactionExample" />
                     <div class="reactionExample" />
@@ -46,8 +49,8 @@
 @import "css/variables.scss";
 
 .chat-message {
+    background-color: $grey-6;
     display: flex;
-    background-color: $grey-6
 }
 
 .chat-message:hover {
@@ -62,6 +65,7 @@
     margin: 0px 8px 0px 0px;
     width: 24px;
 }
+
 .chat-message .message-container {
     display: inline-block;
 }
@@ -86,50 +90,47 @@
     letter-spacing: 0.3px;
 }
 
-.chat-message .message-container .message-header .line-container{
+.chat-message .message-container .message-header .line-container {
     flex: 1 0;
     margin: 2px 0px 0px 20px;
 }
 
-.chat-message .message-container .message-header .line-container hr{
+.chat-message .message-container .message-header .line-container hr {
     border: solid 1px #e4e8f0;
 }
-
-
 
 .chat-message .message-container .message-content .message {
     color: #0d0d0d;
     letter-spacing: 0.3px;
 }
+
 .chat-message .message-container .message-content .links {
     margin-top: 6px;
 }
+
 .chat-message .message-container .message-content .links .link {
     display: block;
 }
+
 .chat-message .message-container .message-content .reactions {
-    margin: 10px 0px 0px 0px;
     font-size: 0px; //It fixes white spaces between divs
+    margin: 10px 0px 0px 0px;
 }
 
-
-
-
-.chat-message .options-container{
-    display: inline-flex;
-    font-size: 0px;
+.chat-message .options-container {
     background-color: $grey-6;
     border: solid 1px #e4e8f0;
+    display: inline-flex;
+    font-size: 0px;
     height: 26px;
 }
 
 .chat-message .options-container .reaction-option,
 .chat-message .options-container .more-options-option {
-    width: 30px;
-    height: 24px;
     border: solid 1px #e4e8f0;
+    height: 24px;
+    width: 30px;
 }
-
 
 .chat-message .options-container .reaction-option {
     background: url("~./assets/happy-face.svg") center no-repeat;
@@ -139,19 +140,17 @@
 .chat-message .options-container .more-options-option {
     background: url("~./assets/ellypsis.svg") center no-repeat;
     background-size: 18px 18px;
-    
 }
-
 </style>
 
 <script>
-
-//TODO: fix links width
+// TODO: fix links width
 
 export const ChatMessagePlatforme = {
     name: "chat-message-platforme",
     props: {
-        userImgPath: { //TODO remove -> this will be replaced by avatar
+        userImgPath: {
+            // TODO remove -> this will be replaced by avatar
             type: String,
             default: "http://i.pravatar.cc"
         },
@@ -165,7 +164,7 @@ export const ChatMessagePlatforme = {
         },
         message: {
             type: String,
-            required: true  
+            required: true
         },
         attachments: {
             type: Array,
@@ -178,4 +177,4 @@ export const ChatMessagePlatforme = {
     }
 };
 export default ChatMessagePlatforme;
-</script> 
+</script>
