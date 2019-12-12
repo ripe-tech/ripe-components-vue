@@ -118,7 +118,9 @@ export const TabsPlatforme = {
     data: function() {
         return {
             currentTab: this.initialTab,
-            height: this.initialHeight
+            height: this.initialHeight,
+            onWindowResizeHandler: null,
+            contentObserver: null
         };
     },
     mounted: function() {
@@ -148,10 +150,20 @@ export const TabsPlatforme = {
         onWindowResize() {
             this._updateHeight();
         },
+        onContentMutated(mutations) {
+            this._updateHeight();
+        },
         _initListeners() {
-            window.addEventListener("resize", this.onWindowResizeHandler = () => this.onWindowResize());
+            window.addEventListener(
+                "resize",
+                (this.onWindowResizeHandler = () => this.onWindowResize())
+            );
+            this.contentObserver = new MutationObserver(mutations =>
+                this.onContentMutated(mutations)
+            );
         },
         _destroyListeners() {
+            if (this.contentObserver) this.contentObserver.disconnect();
             if (this.onWindowResizeHandler) {
                 window.removeEventListener("resize", this.onWindowResizeHandler);
             }
