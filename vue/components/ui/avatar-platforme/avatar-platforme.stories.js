@@ -5,9 +5,6 @@ storiesOf("Avatar", module)
     .addDecorator(withKnobs)
     .add("Avatar", () => ({
         props: {
-            imgUrl: {
-                default: text("Image URL", "http://placekitten.com/g/100/100")
-            },
             size: {
                 default: select(
                     "Size",
@@ -21,6 +18,9 @@ storiesOf("Avatar", module)
                     },
                     "giant"
                 )
+            },
+            imgUrl: {
+                default: text("Image URL", "http://placekitten.com/g/100/100")
             },
             title: {
                 default: text("Title", "Cute")
