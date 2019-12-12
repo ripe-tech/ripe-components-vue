@@ -5,14 +5,18 @@ storiesOf("Chat", module)
     .addDecorator(withKnobs)
     .add("Chat Message", () => ({
         props: {
-            hello: {
-                default: text("Hello World", "Hello !!!")
+            username: {
+                default: text("Username", "Username")
+            },
+            date: {
+                default: text("Date", "Nov 28")
             }
         },
         template: `
             <div>
                 <chat-message-platforme
-                    v-bind:hello="hello"
+                    v-bind:username="username"
+                    v-bind:date="date"
                 />
             </div>
             `

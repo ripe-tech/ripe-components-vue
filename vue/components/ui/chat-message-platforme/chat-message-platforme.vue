@@ -1,10 +1,10 @@
 <template>
     <div class="chat-message">
-        <img class="user-image" src="http://i.pravatar.cc" />
+        <img class="user-image" v-bind:src="userImgPath" />
         <div class="message-container">
             <div class="user-information">
-                <span class="username">Username</span>
-                <span class="date">Nov 28</span>
+                <span class="username">{{ username }}</span>
+                <span class="date">{{ date }}</span>
             </div>
             <div class="message-content">
                 <span class="message">
@@ -95,9 +95,17 @@
 export const ChatMessagePlatforme = {
     name: "chat-message-platforme",
     props: {
-        hello: {
+        userImgPath: { //TODO remove, this will be replaced by avatar
             type: String,
-            default: null
+            default: "http://i.pravatar.cc"
+        },
+        username: {
+            type: String,
+            required: true
+        },
+        date: {
+            type: String,
+            required: true
         }
     }
 };
