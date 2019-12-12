@@ -14,10 +14,7 @@ storiesOf("Button", module)
                         "Zoom Out": "zoom-out",
                         Chat: "chat",
                         Cart: "cart",
-                        Walking: "walking",
-                        Clip: "clip",
-                        "Happy Face": "happy-face",
-                        "At-Sign": "at-sign"
+                        Walking: "walking"
                     },
                     "close"
                 )

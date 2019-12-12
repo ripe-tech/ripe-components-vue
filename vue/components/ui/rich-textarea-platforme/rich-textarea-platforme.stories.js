@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, boolean, number } from "@storybook/addon-knobs";
+import { withKnobs, text, boolean } from "@storybook/addon-knobs";
 
 storiesOf("Input", module)
     .addDecorator(withKnobs)
@@ -25,58 +25,36 @@ storiesOf("Input", module)
             disabled: {
                 default: boolean("Disabled", false)
             },
-            initialWidth: {
-                default: number("Initial Width", 500)
+            attachment: {
+                default: boolean("Attachment", true)
             },
-            initialHeight: {
-                default: number("Initial Height", 100)
+            resize: {
+                default: boolean("Resize", true)
             }
         },
         data: function() {
             return {
-                textAreaText: this.value,
-                chatEventCounter: 0,
-                cartEventCounter: 0,
-                walkingEventCounter: 0
+                textAreaText: this.value
             };
         },
         methods: {
             onValue(value) {
                 this.textAreaText = value;
-            },
-            onIconEvent(value) {
-                switch (value) {
-                    case "chatEvent":
-                        this.chatEventCounter++;
-                        break;
-                    case "cartEvent":
-                        this.cartEventCounter++;
-                        break;
-                    case "walkingEvent":
-                        this.walkingEventCounter++;
-                        break;
-                    default:
-                }
             }
         },
         template: `
             <div>
                 <rich-textarea-platforme
                     v-bind:id="id"
-                    v-bind:value="value"
-                    v-bind:options-items="optionsItems"
+                    v-bind:value="textAreaText"
                     v-bind:placeholder="placeholder"
                     v-bind:disabled="disabled"
+                    v-bind:attachment="attachment"
+                    v-bind:resize="resize"
                     v-on:update:value="value => onValue(value)"
-                    v-on:click:item_1="onIconEvent('chatEvent')"
-                    v-on:click:item_2="onIconEvent('cartEvent')"
-                    v-on:click:item_3="onIconEvent('walkingEvent')"
                 />
                 <div>
                     <p>Text: {{ textAreaText }}</p>
-                    <p>Chat event count: {{ chatEventCounter }}</p>
-                    <p>Cart event count: {{ cartEventCounter }}</p>
-                    <p>Walking event count: {{ walkingEventCounter }}</p>
                 </div>
             </div>
             `
