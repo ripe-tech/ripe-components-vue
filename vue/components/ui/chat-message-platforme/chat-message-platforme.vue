@@ -32,9 +32,6 @@
                         v-for="reaction in reactions"
                         v-bind:key="reaction.icon"
                     />
-                    <div class="reactionExample" />
-                    <div class="reactionExample" />
-                    <div class="reactionExample" />
                 </div>
             </div>
         </div>
