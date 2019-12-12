@@ -36,8 +36,8 @@
             </div>
         </div>
         <div class="options-container">
-            <div class="reaction-option" />
-            <div class="more-options-option" />
+            <div class="reaction-option" v-on:click="onReactionOptionClick()" />
+            <div class="more-options-option" v-on:click="onMoreOptionsOptionClick()" />
         </div>
     </div>
 </template>
@@ -124,6 +124,7 @@
 
 .chat-message .options-container .reaction-option,
 .chat-message .options-container .more-options-option {
+    cursor: pointer;
     height: 24px;
     width: 30px;
     opacity: 0.4;
@@ -194,6 +195,14 @@ export const ChatMessagePlatforme = {
         reactions: {
             type: Array,
             default: () => []
+        }
+    },
+    methods: {
+        onReactionOptionClick(){
+            console.log("Reaction Clicked");
+        },
+        onMoreOptionsOptionClick(){
+            console.log("More Options Clicked");
         }
     }
 };
