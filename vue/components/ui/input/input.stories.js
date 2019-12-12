@@ -43,7 +43,6 @@ storiesOf("Input", module)
         template: `
             <div>
                 <form-input
-                    v-bind:id="id"
                     v-bind:header="header"
                     v-bind:footer="footer"
                     v-bind:error="errorText"
