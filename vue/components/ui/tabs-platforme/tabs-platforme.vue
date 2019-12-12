@@ -36,6 +36,7 @@
 
 .tabs > .header {
     border-bottom: 2px solid $lighter-grey;
+    text-align: left;
 }
 
 .tabs > .header > .tab-label {
