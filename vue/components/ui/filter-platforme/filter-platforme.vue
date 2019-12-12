@@ -1,5 +1,5 @@
 <template>
-    <div class="filter-platforme">
+    <div class="filter-platforme" v-bind:class="{ loading }">
         <slot name="list">
             <table-platforme
                 class="table"
@@ -62,7 +62,7 @@ body.mobile .filter-platforme .lineup {
     text-align: center;
 }
 
-.filter-platforme .loading .loader {
+.filter-platforme.loading .loader {
     display: block;
     opacity: 1;
 }
