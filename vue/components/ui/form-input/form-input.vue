@@ -29,18 +29,17 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.form-input .header {
-    display: inline-block;
-    margin-bottom: 6px;
+.form-input .header,
+.form-input .footer {
+    display: block;
 }
 
-.form-input .header .form-input .footer {
-    display: block;
+.form-input .header {
+    margin-bottom: 6px;
 }
 
 .form-input .footer {
     color: $medium-grey;
-    display: inline-block;
     margin-top: 4px;
 }
 
