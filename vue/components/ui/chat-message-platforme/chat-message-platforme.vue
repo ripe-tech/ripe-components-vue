@@ -61,6 +61,7 @@
 
 .chat-message .message-container {
     display: inline-block;
+    flex: 1;
 }
 
 .chat-message .message-container .message-header {
