@@ -1,17 +1,11 @@
 <template>
-    <div class="reaction-icon-container"
-    v-on:click="handleClick"
-    >
+    <div class="reaction-icon-container" v-on:click="handleClick">
         <span class="reaction-icon" v-if="iconSrc || emoji">
-            <img
-                class="reaction-image"
-                v-bind:src="iconSrc"
-                v-if="iconSrc"
-            >
-            <p class="emoji" v-else>{{emoji}}</p>
+            <img class="reaction-image" v-bind:src="iconSrc" v-if="iconSrc" />
+            <p class="emoji" v-else>{{ emoji }}</p>
         </span>
-        <span class="reaction-count" v-bind:class="{'show-count': showCount}">
-            {{count}}
+        <span class="reaction-count" v-bind:class="{ 'show-count': showCount }">
+            {{ count }}
         </span>
     </div>
 </template>
@@ -20,20 +14,20 @@
 @import "css/variables.scss";
 
 .reaction-icon-container {
-    text-align: center;
-    white-space: nowrap;
-    display: inline-block;
-    cursor: pointer;
-    font-size: 0px;
-    padding: 2px 6px 2px 6px;
-    transition: background-color 0.15s ease-in-out;
-    user-select: none;
-    background-color: #EFEFEF;
+    background-color: #efefef;
     border: 1px solid transparent;
-    transition: transform 0.15s ease-in-out;
-    transition: max-width .125s ease-in-out;
-    height: 15px;
     border-radius: 24px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 0px;
+    height: 15px;
+    padding: 2px 6px 2px 6px;
+    text-align: center;
+    transition: background-color 0.15s ease-in-out;
+    transition: transform 0.15s ease-in-out;
+    transition: max-width 0.125s ease-in-out;
+    user-select: none;
+    white-space: nowrap;
 }
 
 .reaction-icon-container:active {
@@ -48,16 +42,16 @@
 
 .reaction-image {
     font-size: 0px;
+    height: 15px;
+    pointer-events: none;
     transition: background-color 0.15s ease-in-out;
     user-select: none;
-    pointer-events: none;
-    height: 15px;
     width: 15px;
 }
 
 .reaction-icon-container:hover {
-    border-color: #B7B7B7;
     background-color: $white;
+    border-color: #b7b7b7;
 }
 
 .emoji {
@@ -73,15 +67,15 @@
 }
 
 .reaction-count {
-    max-width: 150px;
-    overflow: hidden;
-    font-size: 11px;
     color: $black;
     display: inline-block;
-    pointer-events: none;
-    transition: all .125s ease-in-out;
+    font-size: 11px;
+    max-width: 150px;
     opacity: 1;
+    overflow: hidden;
     padding: 0px 2px 0px 3px;
+    pointer-events: none;
+    transition: all 0.125s ease-in-out;
 }
 </style>
 
@@ -108,9 +102,9 @@ export const ReactionIconPlatforme = {
     },
     computed: {
         iconSrc() {
-            console.log("returning",(this.icon ? this.iconPath : this.imgUrl));
-            return (this.icon ? this.iconPath : this.imgUrl);
-        },        
+            console.log("returning", this.icon ? this.iconPath : this.imgUrl);
+            return this.icon ? this.iconPath : this.imgUrl;
+        },
         iconPath() {
             return require(`./../../../assets/icons/black/${this.icon}.svg`);
         },
@@ -119,7 +113,7 @@ export const ReactionIconPlatforme = {
             if (this.color) base["reaction-icon-" + this.color] = this.color;
             return base;
         },
-        showCount(){
+        showCount() {
             return this.count > 1;
         }
     },

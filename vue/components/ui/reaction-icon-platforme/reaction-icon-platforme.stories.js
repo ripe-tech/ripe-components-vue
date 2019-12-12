@@ -21,7 +21,10 @@ storiesOf("Button", module)
                 )
             },
             imgUrl: {
-                default: text("Img URL", "https://a.slack-edge.com/production-standard-emoji-assets/10.2/apple-small/1f4aa@2x.png")
+                default: text(
+                    "Img URL",
+                    "https://a.slack-edge.com/production-standard-emoji-assets/10.2/apple-small/1f4aa@2x.png"
+                )
             },
             emoji: {
                 default: text("Emoji", "💪")
