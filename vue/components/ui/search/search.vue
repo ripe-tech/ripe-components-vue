@@ -23,7 +23,7 @@
                 <path d="M0 0h24v24H0z" fill="none" />
             </svg>
         </slot>
-        <input-platforme
+        <input-ripe
             v-bind:value="value"
             v-bind:placeholder="placeholder"
             v-bind:autofocus="autofocus"

@@ -104,7 +104,7 @@ a.link.link-disabled:active {
 
 <script>
 export const Link = {
-    name: "link-platforme",
+    name: "link-ripe",
     props: {
         text: {
             type: String,

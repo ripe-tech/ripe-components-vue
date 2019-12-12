@@ -33,7 +33,7 @@ storiesOf("Data", module).add("Table", () => ({
         };
     },
     template: `
-    <table-platforme
+    <table-ripe
         class="table"
         v-bind:columns="mockColumns"
         v-bind:items="mockItems"

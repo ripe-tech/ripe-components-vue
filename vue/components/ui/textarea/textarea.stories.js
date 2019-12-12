@@ -62,7 +62,7 @@ storiesOf("Input", module)
                     v-bind:warning="warning"
                     v-bind:success="success"
                 >
-                    <textarea-platforme
+                    <textarea-ripe
                         v-bind:id="id"
                         v-bind:value="value"
                         v-on:update:value="value => onValue(value)"

@@ -1,7 +1,7 @@
 <template>
-    <div class="filter-platforme" v-bind:class="{ loading }">
+    <div class="filter-ripe" v-bind:class="{ loading }">
         <slot name="list">
-            <table-platforme
+            <table-ripe
                 class="table"
                 v-bind:columns="columns"
                 v-bind:items="items"
@@ -13,7 +13,7 @@
                 <template v-slot="{ item, index }">
                     <slot name="item" v-bind:item="item" v-bind:index="index" />
                 </template>
-            </table-platforme>
+            </table-ripe>
             <lineup v-bind:items="items" v-bind:values="values">
                 <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
                 <template
@@ -37,24 +37,24 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-body.mobile .filter-platforme .table {
+body.mobile .filter-ripe .table {
     display: none;
 }
 
-.filter-platforme .lineup {
+.filter-ripe .lineup {
     display: none;
 }
 
-body.mobile .filter-platforme .lineup {
+body.mobile .filter-ripe .lineup {
     display: block;
 }
 
-.filter-platforme .empty-message {
+.filter-ripe .empty-message {
     line-height: 30px;
     margin: 82px 0px 82px;
 }
 
-.filter-platforme .loader {
+.filter-ripe .loader {
     display: none;
     margin: 24px 0px 24px 0px;
     opacity: 0;
@@ -62,7 +62,7 @@ body.mobile .filter-platforme .lineup {
     text-align: center;
 }
 
-.filter-platforme.loading .loader {
+.filter-ripe.loading .loader {
     display: block;
     opacity: 1;
 }
@@ -72,7 +72,7 @@ body.mobile .filter-platforme .lineup {
 import { equal } from "yonius";
 
 export const Filter = {
-    name: "filter-platforme",
+    name: "filter-ripe",
     props: {
         filter: {
             type: String,

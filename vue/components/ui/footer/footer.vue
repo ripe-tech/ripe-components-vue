@@ -1,9 +1,9 @@
 <template>
-    <div class="footer-platforme">
+    <div class="footer-ripe">
         <div class="links-left">
             <ul>
                 <li class="copy">
-                    © 2019 Platforme International
+                    © 2019 Ripe International
                 </li>
                 <li><link-ripe text="Terms" href="https://www.platforme.com/terms" /></li>
                 <li><link-ripe text="Privacy" href="https://www.platforme.com/privacy" /></li>
@@ -12,7 +12,7 @@
         <div class="links-right">
             <ul>
                 <li>
-                    <link-ripe text="Contact Platforme" href="mailto:info@platforme.com" />
+                    <link-ripe text="Contact Ripe" href="mailto:info@platforme.com" />
                 </li>
                 <li><link-ripe text="Pricing" href="#" /></li>
                 <li>
@@ -39,7 +39,7 @@
         </div>
         <div class="links-logo">
             <span class="copy">
-                © 2019 Platforme International
+                © 2019 Ripe International
             </span>
             <span class="footer-logo">
                 <a href="https://www.platforme.com" target="_blank" class="no-style">
@@ -53,7 +53,7 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.footer-platforme {
+.footer-ripe {
     border-top: 1px solid #f0f0f0;
     font-size: 0px;
     margin: 64px auto 0px auto;
@@ -62,7 +62,7 @@
     padding-bottom: 20px;
 }
 
-body.mobile .footer-platforme {
+body.mobile .footer-ripe {
     border-top: none;
     margin-top: 32px;
     padding-bottom: 0px;
@@ -197,9 +197,9 @@ body.mobile .footer-logo > a > img {
 </style>
 
 <script>
-export const FooterPlatforme = {
-    name: "footer-platforme"
+export const FooterRipe = {
+    name: "footer-ripe"
 };
 
-export default FooterPlatforme;
+export default FooterRipe;
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div class="header-platforme full-width" v-bind:class="{ 'no-side': !sideMenu }">
+    <div class="header-ripe full-width" v-bind:class="{ 'no-side': !sideMenu }">
         <global-events v-on:keydown.esc="dropdownVisible = false" />
         <div class="header-container">
             <div class="header-left">
@@ -86,7 +86,7 @@
     background-color: rgba(60, 64, 67, 0.2);
 }
 
-.header-platforme {
+.header-ripe {
     background-color: $white;
     border-bottom: 1px solid #e4e8f0;
     height: 60px;
@@ -98,11 +98,11 @@
     z-index: 30;
 }
 
-.app.first .header-platforme {
+.app.first .header-ripe {
     animation: fade-into-drop 0.45s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-.header-platforme > .header-container {
+.header-ripe > .header-container {
     box-sizing: border-box;
     height: 60px;
     line-height: 60px;
@@ -112,12 +112,12 @@
     text-align: left;
 }
 
-.header-platforme.full-width > .header-container {
+.header-ripe.full-width > .header-container {
     max-width: 100%;
     padding: 0px 12px 0px 12px;
 }
 
-.header-platforme > .header-container > .header-left {
+.header-ripe > .header-container > .header-left {
     float: left;
     font-size: 0px;
     height: 60px;
@@ -125,25 +125,25 @@
     text-align: left;
 }
 
-.header-platforme.no-side > .header-container > .header-left {
+.header-ripe.no-side > .header-container > .header-left {
     padding-left: 12px;
 }
 
-.header-platforme > .header-container > .header-left > * {
+.header-ripe > .header-container > .header-left > * {
     vertical-align: middle;
 }
 
-.header-platforme > .header-container > .header-left > a {
+.header-ripe > .header-container > .header-left > a {
     border: none;
 }
 
-.header-platforme > .header-container > .header-left > a > .header-logo {
+.header-ripe > .header-container > .header-left > a > .header-logo {
     height: 30px;
     vertical-align: middle;
 }
 
-.header-platforme > .header-container > .header-account,
-.header-platforme > .header-container > .header-apps {
+.header-ripe > .header-container > .header-account,
+.header-ripe > .header-container > .header-apps {
     cursor: pointer;
     float: right;
     font-size: 0px;
@@ -153,27 +153,27 @@
     text-align: right;
 }
 
-.header-platforme > .header-container > .header-account > * {
+.header-ripe > .header-container > .header-account > * {
     vertical-align: middle;
 }
 
-.header-platforme > .header-container > .header-account > img {
+.header-ripe > .header-container > .header-account > img {
     border-radius: 34px 34px 34px 34px;
     height: 34px;
     padding: 6px 6px 6px 6px;
     width: 34px;
 }
 
-.header-platforme > .header-container > .header-account > img:hover {
+.header-ripe > .header-container > .header-account > img:hover {
     background-color: rgba(60, 64, 67, 0.08);
 }
 
-.header-platforme > .header-container > .header-account > img:active,
-.header-platforme > .header-container > .header-account.active > img {
+.header-ripe > .header-container > .header-account > img:active,
+.header-ripe > .header-container > .header-account.active > img {
     background-color: rgba(60, 64, 67, 0.2);
 }
 
-.header-platforme > .header-container > .header-account ::v-deep .dropdown {
+.header-ripe > .header-container > .header-account ::v-deep .dropdown {
     color: $lower-color;
     font-size: 13px;
     left: auto;
@@ -183,44 +183,44 @@
     text-align: left;
 }
 
-.header-platforme > .header-container > .header-account ::v-deep .dropdown > .dropdown-item > * {
+.header-ripe > .header-container > .header-account ::v-deep .dropdown > .dropdown-item > * {
     box-sizing: border-box;
     display: inline-block;
     padding: 8px 14px 8px 14px;
     width: 100%;
 }
 
-.header-platforme > .header-container > .header-account ::v-deep .dropdown > .dropdown-item > a {
+.header-ripe > .header-container > .header-account ::v-deep .dropdown > .dropdown-item > a {
     color: $lower-color;
 }
 
-.header-platforme > .header-container > .header-account ::v-deep .dropdown > .dropdown-item:hover > a,
-.header-platforme > .header-container > .header-account ::v-deep .dropdown > .dropdown-item.selected > a {
+.header-ripe > .header-container > .header-account ::v-deep .dropdown > .dropdown-item:hover > a,
+.header-ripe > .header-container > .header-account ::v-deep .dropdown > .dropdown-item.selected > a {
     color: $higher-color;
 }
 
-.header-platforme > .header-container > .header-apps {
+.header-ripe > .header-container > .header-apps {
     margin-right: 6px;
     padding: 0px 0px 0px 0px;
 }
 
-.header-platforme > .header-container > .header-apps > img {
+.header-ripe > .header-container > .header-apps > img {
     border-radius: 24px 24px 24px 24px;
     height: 22px;
     padding: 12px 12px 12px 12px;
     vertical-align: middle;
 }
 
-.header-platforme > .header-container > .header-apps > img:hover {
+.header-ripe > .header-container > .header-apps > img:hover {
     background-color: rgba(60, 64, 67, 0.08);
 }
 
-.header-platforme > .header-container > .header-apps > img:active,
-.header-platforme > .header-container > .header-apps.active > img {
+.header-ripe > .header-container > .header-apps > img:active,
+.header-ripe > .header-container > .header-apps.active > img {
     background-color: rgba(60, 64, 67, 0.2);
 }
 
-.header-platforme > .header-container > .header-apps ::v-deep .dropdown {
+.header-ripe > .header-container > .header-apps ::v-deep .dropdown {
     background-color: $white;
     box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.07);
     box-sizing: border-box;
@@ -237,7 +237,7 @@
     white-space: pre;
 }
 
-.header-platforme > .header-container > .header-apps ::v-deep .dropdown li {
+.header-ripe > .header-container > .header-apps ::v-deep .dropdown li {
     border-radius: 8px 8px 8px 8px;
     display: inline-block;
     font-size: 12px;
@@ -246,7 +246,7 @@
     text-align: center;
 }
 
-.header-platforme > .header-container > .header-apps ::v-deep .dropdown li a {
+.header-ripe > .header-container > .header-apps ::v-deep .dropdown li a {
     border-bottom: none;
     color: #000000;
     display: inline-block;
@@ -255,12 +255,12 @@
     width: 100px;
 }
 
-.header-platforme > .header-container > .header-apps ::v-deep .dropdown li img {
+.header-ripe > .header-container > .header-apps ::v-deep .dropdown li img {
     height: 40px;
     width: 40px;
 }
 
-.header-platforme > .header-container > .header-apps ::v-deep .dropdown li p {
+.header-ripe > .header-container > .header-apps ::v-deep .dropdown li p {
     font-weight: 600;
     margin: 6px 0px 0px 0px;
 }
@@ -268,7 +268,7 @@
 
 <script>
 export const Header = {
-    name: "header-platforme",
+    name: "header-ripe",
     props: {
         sideMenu: {
             type: Boolean,

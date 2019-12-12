@@ -3,7 +3,7 @@ import { withKnobs, text, boolean } from "@storybook/addon-knobs";
 
 storiesOf("Header", module)
     .addDecorator(withKnobs)
-    .add("Platforme", () => ({
+    .add("Ripe", () => ({
         props: {
             search: {
                 default: boolean("Search", true)
@@ -35,7 +35,7 @@ storiesOf("Header", module)
                     avatar_url: "http://i.pravatar.cc",
                     meta: {
                         name: "John Doe",
-                        company: "Platforme",
+                        company: "Ripe",
                         position: "Software Engineer"
                     }
                 }
@@ -45,6 +45,6 @@ storiesOf("Header", module)
         <div>
             <overlay v-bind:visible='true' v-bind:global='true'></overlay>
             <side v-bind:links="mockLinks"></side>
-            <header-platforme v-bind:platforme-account="mockAccount" v-bind:apps="apps" v-bind:search="search" v-bind:logo="logo"></header-platforme>
+            <header-ripe v-bind:platforme-account="mockAccount" v-bind:apps="apps" v-bind:search="search" v-bind:logo="logo"></header-ripe>
         </div>`
     }));

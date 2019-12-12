@@ -60,7 +60,7 @@ storiesOf("Data", module)
             }
         },
         template: `
-            <details-platforme
+            <details-ripe
                 v-bind:values="values"
                 v-bind:columns="columns"
                 v-bind:title="title"
@@ -79,6 +79,6 @@ storiesOf("Data", module)
                 <template v-slot:label-city>
                     <p>Custom label</p>
                 </template>
-            </details-platforme>
+            </details-ripe>
         `
     }));

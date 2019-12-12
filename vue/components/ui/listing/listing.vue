@@ -5,7 +5,7 @@
             v-bind:class="{ show: showScrollTop }"
             v-on:click="scrollToTop"
         />
-        <container-platforme>
+        <container-ripe>
             <div class="container-header">
                 <div class="container-header-right">
                     <slot name="icons" />
@@ -20,7 +20,7 @@
                     Your <span class="name">{{ name }}</span>
                 </h1>
             </div>
-            <filter-platforme
+            <filter-ripe
                 v-bind:get-items="getItemsWithParams"
                 v-bind:columns="columns"
                 v-bind:values="values"
@@ -52,8 +52,8 @@
                     <h1 v-if="notFoundText">{{ notFoundText }}</h1>
                     <h1 v-else>No {{ name }} found</h1>
                 </template>
-            </filter-platforme>
-        </container-platforme>
+            </filter-ripe>
+        </container-ripe>
     </div>
 </template>
 
@@ -133,21 +133,21 @@
     display: none;
 }
 
-.container-platforme {
+.container-ripe {
     animation: fade-into-rise 0.45s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-.fade-enter-active .container-platforme,
-.fade-leave-active .container-platforme {
+.fade-enter-active .container-ripe,
+.fade-leave-active .container-ripe {
     transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-.fade-enter .container-platforme,
-.fade-leave-active .container-platforme {
+.fade-enter .container-ripe,
+.fade-leave-active .container-ripe {
     opacity: 0;
 }
 
-.listing.empty .container-platforme {
+.listing.empty .container-ripe {
     min-height: 315px;
 }
 
@@ -156,7 +156,7 @@
     text-align: right;
 }
 
-.listing .filter-platforme ::v-deep table {
+.listing .filter-ripe ::v-deep table {
     margin-bottom: 0px;
 }
 

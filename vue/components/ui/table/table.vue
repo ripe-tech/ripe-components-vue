@@ -206,7 +206,7 @@
 
 <script>
 export const Table = {
-    name: "table-platforme",
+    name: "table-ripe",
     props: {
         columns: {
             type: Array,

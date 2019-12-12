@@ -1,5 +1,5 @@
 import { RouterLink } from "./mock/router-link/router-link.vue";
-import { ErrorPlatforme } from "./parts/error-platforme/error-platforme.vue";
+import { ErrorRipe } from "./parts/error-ripe/error-ripe.vue";
 import { Global } from "./parts/global/global.vue";
 import { OAuth } from "./parts/oauth/oauth.vue";
 import { Alert } from "./ui/alert/alert.vue";
@@ -11,7 +11,7 @@ import { Container } from "./ui/container/container.vue";
 import { Details } from "./ui/details/details.vue";
 import { Dropdown } from "./ui/dropdown/dropdown.vue";
 import { Filter } from "./ui/filter/filter.vue";
-import { FooterPlatforme } from "./ui/footer/footer.vue";
+import { FooterRipe } from "./ui/footer/footer.vue";
 import { FormInput } from "./ui/form-input/form-input.vue";
 import { Header } from "./ui/header/header.vue";
 import { Image } from "./ui/image/image.vue";
@@ -37,7 +37,7 @@ const install = Vue => {
     if (!Vue.options.components.RouterLink) {
         Vue.component("router-link", RouterLink);
     }
-    Vue.component("error-platforme", ErrorPlatforme);
+    Vue.component("error-ripe", ErrorRipe);
     Vue.component("global", Global);
     Vue.component("oauth", OAuth);
     Vue.component("alert", Alert);
@@ -45,16 +45,16 @@ const install = Vue => {
     Vue.component("button-icon", ButtonIcon);
     Vue.component("button-platforme", ButtonPlatforme);
     Vue.component("checkbox", Checkbox);
-    Vue.component("container-platforme", Container);
-    Vue.component("details-platforme", Details);
+    Vue.component("container-ripe", Container);
+    Vue.component("details-ripe", Details);
     Vue.component("dropdown", Dropdown);
-    Vue.component("filter-platforme", Filter);
-    Vue.component("footer-platforme", FooterPlatforme);
+    Vue.component("filter-ripe", Filter);
+    Vue.component("footer-ripe", FooterRipe);
     Vue.component("form-input", FormInput);
-    Vue.component("header-platforme", Header);
-    Vue.component("image-platforme", Image);
-    Vue.component("input-platforme", Input);
-    Vue.component("label-platforme", Label);
+    Vue.component("header-ripe", Header);
+    Vue.component("image-ripe", Image);
+    Vue.component("input-ripe", Input);
+    Vue.component("label-ripe", Label);
     Vue.component("loader", loader);
     Vue.component("modal", Modal);
     Vue.component("lightbox", Lightbox);
@@ -66,15 +66,15 @@ const install = Vue => {
     Vue.component("radio", Radio);
     Vue.component("search", Search);
     Vue.component("side", Side);
-    Vue.component("table-platforme", Table);
+    Vue.component("table-ripe", Table);
     Vue.component("tabs", Tabs);
     Vue.component("tag", Tag);
-    Vue.component("textarea-platforme", Textarea);
+    Vue.component("textarea-ripe", Textarea);
 };
 
 export {
     RouterLink,
-    ErrorPlatforme,
+    ErrorRipe,
     Global,
     OAuth,
     Alert,
@@ -87,7 +87,7 @@ export {
     Dropdown,
     Filter,
     FormInput,
-    FooterPlatforme,
+    FooterRipe,
     Header,
     Image,
     Input,

@@ -1,7 +1,7 @@
 <template>
     <input
         type="text"
-        class="input-platforme"
+        class="input-ripe"
         v-bind:value="value"
         v-bind:placeholder="placeholder"
         v-bind:disabled="disabled"
@@ -51,7 +51,7 @@ input[type="text"]:disabled {
 
 <script>
 export const Input = {
-    name: "input-platforme",
+    name: "input-ripe",
     props: {
         value: {
             type: String,

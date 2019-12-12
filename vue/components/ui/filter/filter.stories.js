@@ -34,7 +34,7 @@ storiesOf("Data", module).add("Filter", () => ({
     },
     template: `
     <div>
-        <filter-platforme 
+        <filter-ripe 
             v-bind:getItems="getItems"
             v-bind:columns="filterColumns" 
             v-bind:values="[]"
@@ -50,7 +50,7 @@ storiesOf("Data", module).add("Filter", () => ({
                     {{ item.car }}
                 </td>
             </template>
-        </filter-platforme>
+        </filter-ripe>
     </div>
     `
 }));

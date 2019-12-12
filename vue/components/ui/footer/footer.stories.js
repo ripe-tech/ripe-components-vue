@@ -1,6 +1,6 @@
 import { storiesOf } from "@storybook/vue";
 
-storiesOf("Footer", module).add("Platforme", () => ({
+storiesOf("Footer", module).add("Ripe", () => ({
     template:
-        "<div><global></global><footer-platforme></footer-platforme></div>"
+        "<div><global></global><footer-ripe></footer-ripe></div>"
 }));

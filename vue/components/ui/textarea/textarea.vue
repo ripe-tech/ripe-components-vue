@@ -54,7 +54,7 @@
 
 <script>
 export const Textarea = {
-    name: "textarea-platforme",
+    name: "textarea-ripe",
     props: {
         id: {
             type: String,

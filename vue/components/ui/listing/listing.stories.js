@@ -41,7 +41,7 @@ storiesOf("Data", module)
                 return [
                     {
                         id: 1,
-                        user: "Platforme",
+                        user: "Ripe",
                         device: "Windows"
                     },
                     {

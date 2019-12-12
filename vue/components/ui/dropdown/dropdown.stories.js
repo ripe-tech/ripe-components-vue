@@ -26,12 +26,12 @@ storiesOf("Components", module)
                     },
                     {
                         id: "text_platforme",
-                        text: "Text Platforme",
+                        text: "Text Ripe",
                         href: "https://www.platforme.com"
                     },
                     {
                         id: "text_platforme_blank",
-                        text: "Text Platforme Blank",
+                        text: "Text Ripe Blank",
                         href: "https://www.platforme.com",
                         target: "_blank"
                     }

@@ -6,7 +6,7 @@
             v-on:keydown.left="onKeyLeft"
             v-on:keydown.right="onKeyRight"
         />
-        <container-platforme class="loading" v-if="!loaded">
+        <container-ripe class="loading" v-if="!loaded">
             <div class="container-header">
                 <h1 class="title" v-if="invalid">{{ invalidTitle }}</h1>
                 <h1 class="title" v-else>{{ title }}</h1>
@@ -15,8 +15,8 @@
                 {{ invalidMsg }}
             </h1>
             <loader loader="line-scale" v-bind:count="5" v-else />
-        </container-platforme>
-        <container-platforme class="details-container" v-else>
+        </container-ripe>
+        <container-ripe class="details-container" v-else>
             <div class="container-header">
                 <div class="header-buttons">
                     <slot name="header-buttons">
@@ -123,23 +123,23 @@
                     </slot>
                 </div>
             </div>
-        </container-platforme>
+        </container-ripe>
     </div>
 </template>
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.container-platforme {
+.container-ripe {
     min-height: 430px;
 }
 
-.container-platforme.loading {
+.container-ripe.loading {
     min-height: 430px;
 }
 
-body.tablet .container-platforme,
-body.mobile .container-platforme {
+body.tablet .container-ripe,
+body.mobile .container-ripe {
     border: none;
     border-bottom: 1px solid $lighter-grey;
     border-radius: 0px 0px 0px 0px;
@@ -148,8 +148,8 @@ body.mobile .container-platforme {
     margin: 0px 0px 0px 0px;
 }
 
-.container-platforme .loader,
-.container-platforme .item-invalid {
+.container-ripe .loader,
+.container-ripe .item-invalid {
     border-top: 1px solid transparent;
     height: 38px;
     line-height: 38px;
@@ -157,18 +157,18 @@ body.mobile .container-platforme {
     padding-top: 140px;
 }
 
-.container-platforme .container-header {
+.container-ripe .container-header {
     font-size: 0px;
     padding: 24px 24px 20px 24px;
     text-align: left;
 }
 
-body.tablet .container-platforme .container-header,
-body.mobile .container-platforme .container-header {
+body.tablet .container-ripe .container-header,
+body.mobile .container-ripe .container-header {
     padding: 20px 15px 20px 15px;
 }
 
-.container-platforme .container-header .header-buttons {
+.container-ripe .container-header .header-buttons {
     float: right;
     font-size: 0px;
     margin-top: -12px;
@@ -176,8 +176,8 @@ body.mobile .container-platforme .container-header {
     user-select: none;
 }
 
-body.tablet .container-platforme .container-header .header-buttons,
-body.mobile .container-platforme .container-header .header-buttons {
+body.tablet .container-ripe .container-header .header-buttons,
+body.mobile .container-ripe .container-header .header-buttons {
     animation: none;
     background-color: $white;
     border-top: 1px solid $light-white;
@@ -191,12 +191,12 @@ body.mobile .container-platforme .container-header .header-buttons {
     z-index: 10;
 }
 
-.container-platforme .header-buttons .header-button {
+.container-ripe .header-buttons .header-button {
     display: inline-block;
 }
 
-body.tablet .container-platforme .header-buttons > .header-button,
-body.mobile .container-platforme .header-buttons > .header-button {
+body.tablet .container-ripe .header-buttons > .header-button,
+body.mobile .container-ripe .header-buttons > .header-button {
     display: inline-block;
     flex: auto;
     margin: 8px 0px 8px 0px;
@@ -213,7 +213,7 @@ body.mobile .header-buttons > .header-button.invisible {
     opacity: 0;
 }
 
-.container-platforme .header-buttons .header-button > span {
+.container-ripe .header-buttons .header-button > span {
     border-radius: 36px 36px 36px 36px;
     cursor: pointer;
     display: inline-block;
@@ -227,37 +227,37 @@ body.mobile .header-buttons > .header-button.invisible {
     width: 36px;
 }
 
-.container-platforme .header-buttons .header-button > span:hover {
+.container-ripe .header-buttons .header-button > span:hover {
     background-color: $lighter-grey;
 }
 
-.container-platforme .header-buttons .header-button > span.active,
-.container-platforme .header-buttons .header-button > span:active {
+.container-ripe .header-buttons .header-button > span.active,
+.container-ripe .header-buttons .header-button > span:active {
     background-color: $light-grey;
 }
 
-.container-platforme .header-buttons .header-button > span > img {
+.container-ripe .header-buttons .header-button > span > img {
     opacity: 0.5;
 }
 
-body.tablet .container-platforme .header-buttons > .header-button > span > img,
-body.mobile .container-platforme .header-buttons > .header-button > span > img {
+body.tablet .container-ripe .header-buttons > .header-button > span > img,
+body.mobile .container-ripe .header-buttons > .header-button > span > img {
     height: 20px;
     width: 20px;
 }
 
-.container-platforme .header-buttons .header-button > span:hover > img,
-.container-platforme .header-buttons .header-button > span.active > img,
-.container-platforme .header-buttons .header-button > span:active > img {
+.container-ripe .header-buttons .header-button > span:hover > img,
+.container-ripe .header-buttons .header-button > span.active > img,
+.container-ripe .header-buttons .header-button > span:active > img {
     opacity: 1;
 }
 
-.container-platforme .header-buttons > .header-button > p {
+.container-ripe .header-buttons > .header-button > p {
     display: none;
 }
 
-body.tablet .container-platforme .header-buttons > .header-button > p,
-body.mobile .container-platforme .header-buttons > .header-button > p {
+body.tablet .container-ripe .header-buttons > .header-button > p,
+body.mobile .container-ripe .header-buttons > .header-button > p {
     color: $grey;
     display: block;
     font-size: 11px;
@@ -265,12 +265,12 @@ body.mobile .container-platforme .header-buttons > .header-button > p {
     margin: 0px 0px 0px 0px;
 }
 
-body.tablet .container-platforme .details,
-body.mobile .container-platforme .details {
+body.tablet .container-ripe .details,
+body.mobile .container-ripe .details {
     padding: 0px 20px 20px 20px;
 }
 
-.container-platforme .button-options ::v-deep .dropdown {
+.container-ripe .button-options ::v-deep .dropdown {
     font-size: 13px;
     left: auto;
     margin-left: -142px;
@@ -286,11 +286,11 @@ body.mobile .button-options ::v-deep .dropdown {
     right: 0px;
 }
 
-.container-platforme .button-options ::v-deep .dropdown > .dropdown-item {
+.container-ripe .button-options ::v-deep .dropdown > .dropdown-item {
     line-height: 32px;
 }
 
-.container-platforme .title {
+.container-ripe .title {
     color: $lower-color;
     display: inline-block;
     font-size: 26px;
@@ -302,25 +302,25 @@ body.mobile .button-options ::v-deep .dropdown {
     width: 40%;
 }
 
-body.tablet .container-platforme .title,
-body.mobile .container-platforme .title {
+body.tablet .container-ripe .title,
+body.mobile .container-ripe .title {
     width: 100%;
 }
 
-.container-platforme .header-center {
+.container-ripe .header-center {
     display: inline-block;
     font-size: 0px;
     vertical-align: top;
     width: 30%;
 }
 
-.container-platforme .details {
+.container-ripe .details {
     font-size: 0px;
     padding: 0px 24px 40px 24px;
     text-align: left;
 }
 
-.container-platforme .details-column {
+.container-ripe .details-column {
     box-sizing: border-box;
     display: inline-block;
     padding: 20px 20px 0px 0px;
@@ -328,14 +328,14 @@ body.mobile .container-platforme .title {
     width: 15%;
 }
 
-body.tablet .container-platforme .details-column,
-body.mobile .container-platforme .details-column {
+body.tablet .container-ripe .details-column,
+body.mobile .container-ripe .details-column {
     padding-top: 10px;
     text-align: center;
     width: 50%;
 }
 
-.container-platforme .details-column.details-column-image {
+.container-ripe .details-column.details-column-image {
     padding: 0px 10% 0px 0px;
     text-align: center;
     width: 40%;
@@ -347,11 +347,11 @@ body.mobile .details-column.details-column-image {
     width: 100%;
 }
 
-.container-platforme .details-column:last-child {
+.container-ripe .details-column:last-child {
     padding-right: 0px;
 }
 
-.container-platforme .details-column .image {
+.container-ripe .details-column .image {
     display: block;
     height: 250px;
     margin: 0px auto 0px auto;
@@ -361,7 +361,7 @@ body.mobile .details-column.details-column-image {
     width: auto;
 }
 
-.container-platforme .label-value {
+.container-ripe .label-value {
     font-weight: 600;
     max-width: 100%;
     overflow: hidden;
@@ -369,39 +369,39 @@ body.mobile .details-column.details-column-image {
     text-transform: uppercase;
 }
 
-.container-platforme .details-column .label-value {
+.container-ripe .details-column .label-value {
     min-height: 100px;
 }
 
-body.tablet .container-platforme .details-column .label-value,
-body.mobile .container-platforme .details-column .label-value {
+body.tablet .container-ripe .details-column .label-value,
+body.mobile .container-ripe .details-column .label-value {
     margin-top: 20px;
     min-height: 80px;
     overflow: hidden;
 }
 
-.container-platforme .details-column .label-value:last-child {
+.container-ripe .details-column .label-value:last-child {
     min-height: auto;
 }
 
-.container-platforme .label-value .label-value-component > p {
+.container-ripe .label-value .label-value-component > p {
     margin: 0px 0px 0px 0px;
 }
 
-.container-platforme .label-value .label {
+.container-ripe .label-value .label {
     color: $label-color;
     font-size: 12px;
     margin: 0px 0px 6px 0px;
 }
 
-.container-platforme .label-value .value {
+.container-ripe .label-value .value {
     font-size: 14px;
     line-height: 18px;
     margin: 6px 0px 0px 0px;
     word-break: break-all;
 }
 
-.container-platforme .label-value .note {
+.container-ripe .label-value .note {
     color: $label-color;
     font-size: 11px;
     line-height: 16px;
@@ -412,7 +412,7 @@ body.mobile .container-platforme .details-column .label-value {
 
 <script>
 export const Details = {
-    name: "details-platforme",
+    name: "details-ripe",
     props: {
         name: {
             type: String,

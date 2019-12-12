@@ -1,8 +1,8 @@
 <template>
     <div class="form-input">
-        <label-platforme class="header" v-bind:text="header" v-bind:for="id" v-if="header" />
+        <label-ripe class="header" v-bind:text="header" v-bind:for="id" v-if="header" />
         <slot />
-        <label-platforme
+        <label-ripe
             class="footer"
             v-bind:size="'small'"
             v-bind:text="footer"
@@ -12,15 +12,15 @@
         <div class="text-container">
             <div class="text" v-if="error">
                 <span class="icon icon-error" />
-                <label-platforme v-bind:text="error" v-bind:color="'error'" />
+                <label-ripe v-bind:text="error" v-bind:color="'error'" />
             </div>
             <div class="text" v-if="warning">
                 <span class="icon icon-warning" />
-                <label-platforme v-bind:text="warning" />
+                <label-ripe v-bind:text="warning" />
             </div>
             <div class="text" v-if="success">
                 <span class="icon icon-success" />
-                <label-platforme v-bind:text="success" v-bind:color="'success'" />
+                <label-ripe v-bind:text="success" v-bind:color="'success'" />
             </div>
         </div>
     </div>
