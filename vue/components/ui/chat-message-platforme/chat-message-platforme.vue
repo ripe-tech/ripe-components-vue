@@ -16,7 +16,7 @@
                 <div class="links">
                     <link-platforme
                         v-bind:text="attachment.name"
-                        v-bind:href="attachment.plath"
+                        v-bind:href="attachment.path"
                         v-bind:disabled="false"
                         v-bind:size="'small'"
                         v-bind:color="'blue'"
@@ -100,11 +100,13 @@
 
 .chat-message .message-container .message-content .links {
     margin-top: 6px;
+    
 }
 
 .chat-message .message-container .message-content .links .link {
-    display: block;
+    display: table;
 }
+
 
 .chat-message .message-container .message-content .reactions {
     font-size: 0px; //It fixes white spaces between divs
@@ -166,8 +168,6 @@
 </style>
 
 <script>
-// TODO: fix links width
-
 export const ChatMessagePlatforme = {
     name: "chat-message-platforme",
     props: {
