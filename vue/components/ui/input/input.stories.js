@@ -13,6 +13,21 @@ storiesOf("Input", module)
             },
             disabled: {
                 default: boolean("Disabled", false)
+            },
+            header: {
+                default: text("Header", "Start Header")
+            },
+            footer: {
+                default: text("Footer", "End Footer")
+            },
+            errorText: {
+                default: text("Error Text", "")
+            },
+            warning: {
+                default: text("Warning", "")
+            },
+            success: {
+                default: text("Success", "")
             }
         },
         data: function() {
@@ -27,7 +42,16 @@ storiesOf("Input", module)
         },
         template: `
             <div>
-                <input-ripe v-bind:value="value" v-bind:placeholder="placeholder" v-on:update:value="onValue" v-bind:disabled="disabled"></input-ripe>
+                <form-input
+                    v-bind:id="id"
+                    v-bind:header="header"
+                    v-bind:footer="footer"
+                    v-bind:error="errorText"
+                    v-bind:warning="warning"
+                    v-bind:success="success"
+                >
+                    <input-ripe v-bind:value="value" v-bind:placeholder="placeholder" v-on:update:value="onValue" v-bind:disabled="disabled"></input-ripe>
+                </form-input>
                 <p>Text: {{ text }}</p>
             </div>
         `
