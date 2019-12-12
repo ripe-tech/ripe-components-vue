@@ -53,10 +53,6 @@
     display: flex;
 }
 
-.chat-message:hover {
-    background-color: $white;
-}
-
 .chat-message .user-image {
     border: solid 1px #e3e8f1;
     border-radius: 50%;
@@ -91,6 +87,7 @@
 }
 
 .chat-message .message-container .message-header .line-container {
+    visibility: hidden;
     flex: 1 0;
     margin: 2px 0px 0px 20px;
 }
@@ -118,6 +115,7 @@
 }
 
 .chat-message .options-container {
+    visibility: hidden;
     background-color: $grey-6;
     border: solid 1px #e4e8f0;
     display: inline-flex;
@@ -141,6 +139,17 @@
     background: url("~./assets/ellypsis.svg") center no-repeat;
     background-size: 18px 18px;
 }
+
+
+.chat-message:hover,
+.chat-message:hover .options-container,
+.chat-message:hover .message-container .message-header .line-container
+{
+    background-color: $white;
+    visibility: visible;
+}
+
+
 </style>
 
 <script>
