@@ -37,7 +37,7 @@ const install = Vue => {
     if (!Vue.options.components.RouterLink) {
         Vue.component("router-link", RouterLink);
     }
-    Vue.component("error-ripe", ErrorPart);
+    Vue.component("error-part", ErrorPart);
     Vue.component("global", Global);
     Vue.component("oauth-part", OAuthPart);
     Vue.component("alert", Alert);
