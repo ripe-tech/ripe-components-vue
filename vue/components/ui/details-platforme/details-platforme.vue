@@ -14,7 +14,7 @@
             <h1 class="item-invalid" v-if="invalid">
                 {{ invalidMsg }}
             </h1>
-            <loader-platforme loader="line-scale" v-bind:count="5" v-else />
+            <loader loader="line-scale" v-bind:count="5" v-else />
         </container-platforme>
         <container-platforme class="details-container" v-else>
             <div class="container-header">
@@ -56,7 +56,7 @@
                                 v-on:click.stop="options"
                             >
                                 <img src="~./assets/options.svg" />
-                                <dropdown-platforme
+                                <dropdown
                                     v-bind:items="optionsItems"
                                     v-bind:visible.sync="optionsVisible"
                                     v-on:item-clicked="onOptionsItemClick"
@@ -73,7 +73,7 @@
             </div>
             <div class="details" v-if="loaded">
                 <div class="details-column details-column-image" v-if="imageUrl">
-                    <lightbox-platforme
+                    <lightbox
                         class="image"
                         v-bind:visible="lightBoxVisible"
                         v-bind:image="imageUrl"
@@ -270,7 +270,7 @@ body.mobile .container-platforme .details {
     padding: 0px 20px 20px 20px;
 }
 
-.container-platforme .button-options ::v-deep .dropdown-platforme {
+.container-platforme .button-options ::v-deep .dropdown {
     font-size: 13px;
     left: auto;
     margin-left: -142px;
@@ -279,14 +279,14 @@ body.mobile .container-platforme .details {
     text-align: left;
 }
 
-body.tablet .button-options ::v-deep .dropdown-platforme,
-body.mobile .button-options ::v-deep .dropdown-platforme {
+body.tablet .button-options ::v-deep .dropdown,
+body.mobile .button-options ::v-deep .dropdown {
     bottom: 40px;
     margin: 0px 0px 0px 0px;
     right: 0px;
 }
 
-.container-platforme .button-options ::v-deep .dropdown-platforme > .dropdown-item {
+.container-platforme .button-options ::v-deep .dropdown > .dropdown-item {
     line-height: 32px;
 }
 
@@ -384,24 +384,24 @@ body.mobile .container-platforme .details-column .label-value {
     min-height: auto;
 }
 
-.container-platforme ::v-deep .label-value .label-value-component > p {
+.container-platforme .label-value .label-value-component > p {
     margin: 0px 0px 0px 0px;
 }
 
-.container-platforme ::v-deep .label-value .label {
+.container-platforme .label-value .label {
     color: $label-color;
     font-size: 12px;
     margin: 0px 0px 6px 0px;
 }
 
-.container-platforme ::v-deep .label-value .value {
+.container-platforme .label-value .value {
     font-size: 14px;
     line-height: 18px;
     margin: 6px 0px 0px 0px;
     word-break: break-all;
 }
 
-.container-platforme ::v-deep .label-value .note {
+.container-platforme .label-value .note {
     color: $label-color;
     font-size: 11px;
     line-height: 16px;

@@ -4,7 +4,7 @@
         v-bind:class="{ loading: loading }"
         v-on:click="click"
     >
-        <loader-platforme
+        <loader
             loader="ball-scale-multiple"
             class="loader"
             v-bind:loader-style="loaderStyle"

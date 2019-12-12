@@ -43,8 +43,8 @@ storiesOf("Header", module)
         },
         template: `
         <div>
-            <overlay-platforme v-bind:visible='true' v-bind:global='true'></overlay-platforme>
-            <side-platforme v-bind:links="mockLinks"></side-platforme>
+            <overlay v-bind:visible='true' v-bind:global='true'></overlay>
+            <side v-bind:links="mockLinks"></side>
             <header-platforme v-bind:platforme-account="mockAccount" v-bind:apps="apps" v-bind:search="search" v-bind:logo="logo"></header-platforme>
         </div>`
     }));

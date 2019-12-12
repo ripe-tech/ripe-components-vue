@@ -1,6 +1,6 @@
 <template>
-    <table>
-        <thead>
+    <table class="table">
+        <thead class="table-head">
             <tr>
                 <th
                     v-bind:style="{ width: column.width }"
@@ -9,7 +9,7 @@
                 >
                     <slot name="column" v-bind:column="column">
                         <div
-                            class="column"
+                            class="table-column"
                             v-bind:class="columnClass(column.id)"
                             v-if="column.title"
                             v-on:click="sort(column.id)"
@@ -20,7 +20,7 @@
                 </th>
             </tr>
         </thead>
-        <transition-group tag="tbody" v-bind:name="transition">
+        <transition-group tag="tbody" v-bind:name="transition" class="table-body">
             <tr v-for="(item, index) in sortedItems" v-bind:key="item.id">
                 <slot v-bind:item="item" v-bind:index="index">
                     <td v-bind:class="column.id" v-for="column in columns" v-bind:key="column.id">
@@ -35,7 +35,11 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-table {
+.fade-enter-active {
+    transition-duration: 0.25s;
+}
+
+.table {
     border-collapse: collapse;
     border-spacing: 0px;
     color: #0d0d0d;
@@ -46,28 +50,24 @@ table {
     width: 100%;
 }
 
-.fade-enter-active {
-    transition-duration: 0.25s;
-}
-
-tr {
+.table tr {
     border-bottom: 1px solid $border-color;
     cursor: pointer;
 }
 
-thead tr {
+.table thead tr {
     border-bottom: 1px solid $border-color;
 }
 
-tbody tr:last-child {
+.table tbody tr:last-child {
     border-bottom: none;
 }
 
-tbody tr:hover {
+.table tbody tr:hover {
     background-color: $selected-color;
 }
 
-th {
+.table th {
     color: $label-color;
     font-size: 12px;
     font-weight: 800;
@@ -79,43 +79,107 @@ th {
     white-space: pre;
 }
 
-table ::v-deep td {
+.table ::v-deep td {
     font-size: 14px;
+    font-weight: 600;
     height: 80px;
     overflow: hidden;
     padding: 0px 0px 0px 0px;
     text-overflow: ellipsis;
-    text-transform: capitalize;
     word-break: break-all;
 }
 
-table ::v-deep td > * {
-    height: 100%;
+.table ::v-deep td > * {
     vertical-align: middle;
 }
 
-table ::v-deep td.image img {
+.table ::v-deep td.image {
+    line-height: 0px;
+    user-select: none;
+}
+
+.table ::v-deep td.image > * {
+    height: 100%;
+}
+
+.table ::v-deep td.image img {
     height: auto;
     max-height: 100%;
     max-width: 100%;
     width: auto;
 }
 
-.column {
+.table ::v-deep td.date > img {
+    margin: 0px 5px 0px 5px;
+    width: 12px;
+}
+
+.table ::v-deep td.status {
+    padding: 0px 20px 0px 20px;
+}
+
+.table ::v-deep td.status > p {
+    height: auto;
+    line-height: normal;
+    margin: 0px 0px 8px 0px;
+}
+
+.table ::v-deep td.status > p.small {
+    font-size: 13px;
+}
+
+.table ::v-deep td.icons > .icon {
+    height: 20px;
+    margin-right: 4px;
+    opacity: 0.6;
+    transition: opacity 0.125s ease-in-out;
+}
+
+.table ::v-deep td.icons > .icon:hover {
+    opacity: 1;
+}
+
+.table ::v-deep td > .column-container {
+    display: inline-block;
+    height: auto;
+}
+
+.table ::v-deep td > .column-container > .name,
+.table ::v-deep td > .column-container > .details {
+    display: block;
+    line-height: 14px;
+    word-break: break-word;
+}
+
+.table ::v-deep td > .column-container > .details {
+    color: #6d6d6d;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.25px;
+    margin-top: 8px;
+    text-transform: uppercase;
+}
+
+.table ::v-deep td > .column-container > .details.highlight:hover,
+.table ::v-deep td > .column-container > .details.highlight.hover {
+    color: $link-hover-color;
+}
+
+.table .table-column {
     transition: color 0.1s ease-in;
 }
 
-.column.active,
-.column:hover {
+.table .table-column.active,
+.table .table-column:hover {
     color: #0d0d0d;
 }
 
-.column > span {
+.table .table-column > span {
     padding: 0px 20px 0px 20px;
     position: relative;
 }
 
-.column > span::before {
+.table .table-column > span::before {
     background: url("~./assets/sorting.svg") no-repeat left top;
     content: "";
     display: inline-block;
@@ -129,13 +193,13 @@ table ::v-deep td.image img {
     width: 20px;
 }
 
-.column.descending > span::before,
-.column:not(.active) > span::before {
+.table .table-column.descending > span::before,
+.table .table-column:not(.active) > span::before {
     background-position-y: bottom;
 }
 
-.column.active > span::before,
-.column:hover > span::before {
+.table .table-column.active > span::before,
+.table .table-column:hover > span::before {
     opacity: 1;
 }
 </style>
