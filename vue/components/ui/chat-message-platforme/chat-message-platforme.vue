@@ -7,7 +7,9 @@
                     <span class="username">{{ username }}</span>
                     <span class="date">{{ date }}</span>
                 </div>
-                <!-- TODO barra -->
+                <div class="line-container">
+                   <hr>
+                </div>
             </div>
             <div class="message-content">
                 <span class="message">{{ message }}</span>
@@ -65,6 +67,7 @@
 }
 
 .chat-message .message-container .message-header {
+    display: flex;
     margin: 4px 0px 0px 0px;
 }
 
@@ -82,6 +85,17 @@
     color: #a4adb5;
     letter-spacing: 0.3px;
 }
+
+.chat-message .message-container .message-header .line-container{
+    flex: 1 0;
+    margin: 2px 0px 0px 20px;
+}
+
+.chat-message .message-container .message-header .line-container hr{
+    border: solid 1px #e4e8f0;
+}
+
+
 
 .chat-message .message-container .message-content .message {
     color: #0d0d0d;
