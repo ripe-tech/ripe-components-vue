@@ -163,79 +163,8 @@
     width: 200px;
 }
 
-.listing ::v-deep .empty-message {
-    line-height: 30px;
-    margin: 82px 0px 82px;
-}
-
 .listing .filter-platforme ::v-deep table {
     margin-bottom: 0px;
-}
-
-.listing ::v-deep .column-container {
-    display: inline-block;
-    height: auto;
-}
-
-.listing ::v-deep .column-container > .name,
-.listing ::v-deep .column-container > .details {
-    display: block;
-    line-height: 14px;
-    word-break: break-word;
-}
-
-.listing ::v-deep .column-container > .details {
-    color: #6d6d6d;
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 0.25px;
-    margin-top: 8px;
-    text-transform: uppercase;
-}
-
-.listing ::v-deep .column-container > .details.highlight:hover,
-.listing ::v-deep .column-container > .details.highlight.hover {
-    color: $link-hover-color;
-}
-
-.listing ::v-deep td {
-    font-weight: 600;
-    text-transform: none;
-}
-
-.listing ::v-deep td.image {
-    line-height: 0px;
-    user-select: none;
-}
-
-.listing ::v-deep td.date > img {
-    margin: 0px 5px 0px 5px;
-    width: 12px;
-}
-
-.listing ::v-deep td.status {
-    padding: 0px 20px 0px 20px;
-}
-
-.listing ::v-deep td.status > p {
-    height: auto;
-    line-height: normal;
-    margin: 0px 0px 8px 0px;
-}
-
-.listing ::v-deep td.status > p.small {
-    font-size: 13px;
-}
-
-.listing ::v-deep td.icons > .icon {
-    height: 20px;
-    margin-right: 4px;
-    opacity: 0.6;
-    transition: opacity 0.125s ease-in-out;
-}
-
-.listing ::v-deep td.icons > .icon:hover {
-    opacity: 1;
 }
 
 .container-header {

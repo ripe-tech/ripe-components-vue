@@ -76,13 +76,13 @@
     margin: 0px 0px 0px 0px;
 }
 
-.lineup > .lineup-item ::v-deep .lineup-item-value .label {
+.lineup > .lineup-item .lineup-item-value .label {
     color: $label-color;
     font-size: 12px;
     margin: 0px 0px 6px 0px;
 }
 
-.lineup > .lineup-item ::v-deep .lineup-item-value .value {
+.lineup > .lineup-item .lineup-item-value .value {
     font-size: 14px;
     line-height: 18px;
     margin: 6px 0px 0px 0px;
@@ -90,7 +90,7 @@
     word-break: break-word;
 }
 
-.lineup > .lineup-item ::v-deep .lineup-item-value .note {
+.lineup > .lineup-item .lineup-item-value .note {
     color: $label-color;
     font-size: 11px;
     line-height: 16px;
