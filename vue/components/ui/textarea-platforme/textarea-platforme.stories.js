@@ -54,7 +54,7 @@ storiesOf("Input", module)
         },
         template: `
             <div>
-                <form-input-platforme
+                <form-input
                     v-bind:id="id"
                     v-bind:header="header"
                     v-bind:footer="footer"
@@ -72,7 +72,7 @@ storiesOf("Input", module)
                         v-bind:initial-height="initialHeight"
                         v-bind:resize="resize"
                     />
-                </form-input-platforme>
+                </form-input>
                 <p>Text: {{ textAreaText }}</p>
             </div>
         `
