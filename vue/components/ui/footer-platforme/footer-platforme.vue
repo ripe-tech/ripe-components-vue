@@ -58,6 +58,7 @@
     font-size: 0px;
     margin: 64px auto 0px auto;
     max-width: 1240px;
+    overflow: hidden;
     padding-bottom: 20px;
 }
 

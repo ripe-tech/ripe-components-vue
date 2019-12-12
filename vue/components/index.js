@@ -8,6 +8,7 @@ import { ButtonIconPlatforme } from "./ui/button-icon-platforme/button-icon-plat
 import { ButtonPlatforme } from "./ui/button-platforme/button-platforme.vue";
 import { CheckboxPlatforme } from "./ui/checkbox-platforme/checkbox-platforme.vue";
 import { ContainerPlatforme } from "./ui/container-platforme/container-platforme.vue";
+import { DetailsPlatforme } from "./ui/details-platforme/details-platforme.vue";
 import { DropdownPlatforme } from "./ui/dropdown-platforme/dropdown-platforme.vue";
 import { FilterPlatforme } from "./ui/filter-platforme/filter-platforme.vue";
 import { FooterPlatforme } from "./ui/footer-platforme/footer-platforme.vue";
@@ -46,6 +47,7 @@ const install = Vue => {
     Vue.component("button-platforme", ButtonPlatforme);
     Vue.component("checkbox-platforme", CheckboxPlatforme);
     Vue.component("container-platforme", ContainerPlatforme);
+    Vue.component("details-platforme", DetailsPlatforme);
     Vue.component("dropdown-platforme", DropdownPlatforme);
     Vue.component("filter-platforme", FilterPlatforme);
     Vue.component("footer-platforme", FooterPlatforme);
@@ -83,6 +85,7 @@ export {
     ButtonPlatforme,
     CheckboxPlatforme,
     ContainerPlatforme,
+    DetailsPlatforme,
     DropdownPlatforme,
     FilterPlatforme,
     FormInputPlatforme,

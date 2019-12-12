@@ -1,5 +1,5 @@
 <template>
-    <div class="global">
+    <div class="global-platforme">
         <overlay-platforme v-bind:global="true" />
         <alert-platforme />
     </div>

@@ -37,19 +37,24 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-body.mobile .table {
+body.mobile .filter-platforme .table {
     display: none;
 }
 
-.lineup {
+.filter-platforme .lineup {
     display: none;
 }
 
-body.mobile .lineup {
+body.mobile .filter-platforme .lineup {
     display: block;
 }
 
-.loader {
+.filter-platforme .empty-message {
+    line-height: 30px;
+    margin: 82px 0px 82px;
+}
+
+.filter-platforme .loader {
     display: none;
     margin: 24px 0px 24px 0px;
     opacity: 0;
@@ -57,7 +62,7 @@ body.mobile .lineup {
     text-align: center;
 }
 
-.loading .loader {
+.filter-platforme .loading .loader {
     display: block;
     opacity: 1;
 }

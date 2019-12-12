@@ -1,14 +1,14 @@
 <template>
     <transition-group tag="div" v-bind:name="transition" class="lineup">
-        <div class="item" v-for="item in items" v-bind:key="item.id">
+        <div class="lineup-item" v-for="item in items" v-bind:key="item.id">
             <slot v-bind:name="value.id" v-bind:item="item" v-for="value in values">
                 <div
-                    class="label-value"
-                    v-bind:class="[value.id, `label-value-${value.id}`]"
+                    class="lineup-item-value"
+                    v-bind:class="[value.id, `lineup-item-value-${value.id}`]"
                     v-bind:key="value.id"
                 >
-                    <div class="label-value-component label">
-                        <slot v-bind:name="`${value.id}-label`" v-bind:item="item">
+                    <div class="key">
+                        <slot v-bind:name="`${value.id}-key`" v-bind:item="item">
                             <p class="label-text">
                                 <slot v-bind:name="`${value.id}-label-text`" v-bind:item="item">
                                     {{ value.label || value.id || value.name }}
@@ -16,7 +16,7 @@
                             </p>
                         </slot>
                     </div>
-                    <div class="label-value-component value">
+                    <div class="value">
                         <slot v-bind:name="`${value.id}-value`" v-bind:item="item">
                             <p class="value-text">
                                 <slot v-bind:name="`${value.id}-value-text`" v-bind:item="item">
@@ -25,7 +25,7 @@
                             </p>
                         </slot>
                     </div>
-                    <div class="label-value-component note">
+                    <div class="note">
                         <slot v-bind:name="`${value.id}-note`" v-bind:item="item">
                             <p
                                 class="note-text"
@@ -50,16 +50,16 @@
     text-align: left;
 }
 
-.lineup .item {
+.lineup > .lineup-item {
     border-bottom: 1px solid #e4e8f0;
     padding: 30px 15px 30px 15px;
 }
 
-.lineup .item:first-child {
+.lineup > .lineup-item:first-child {
     border-top: 1px solid #e4e8f0;
 }
 
-.lineup ::v-deep .label-value {
+.lineup > .lineup-item ::v-deep .lineup-item-value {
     box-sizing: border-box;
     display: inline-block;
     font-weight: 600;
@@ -70,17 +70,19 @@
     text-transform: uppercase;
 }
 
-.lineup ::v-deep .label-value .label-value-component > p {
+.lineup > .lineup-item ::v-deep .lineup-item-value .label > p,
+.lineup > .lineup-item ::v-deep .lineup-item-value .value > p,
+.lineup > .lineup-item ::v-deep .lineup-item-value .note > p {
     margin: 0px 0px 0px 0px;
 }
 
-.lineup ::v-deep .label-value .label {
+.lineup > .lineup-item .lineup-item-value .label {
     color: $label-color;
     font-size: 12px;
     margin: 0px 0px 6px 0px;
 }
 
-.lineup ::v-deep .label-value .value {
+.lineup > .lineup-item .lineup-item-value .value {
     font-size: 14px;
     line-height: 18px;
     margin: 6px 0px 0px 0px;
@@ -88,7 +90,7 @@
     word-break: break-word;
 }
 
-.lineup ::v-deep .label-value .note {
+.lineup > .lineup-item .lineup-item-value .note {
     color: $label-color;
     font-size: 11px;
     line-height: 16px;

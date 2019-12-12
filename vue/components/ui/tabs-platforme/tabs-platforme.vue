@@ -35,7 +35,8 @@
 @import "css/variables.scss";
 
 .tabs > .header {
-    border-bottom: 2px solid $light-grey;
+    border-bottom: 2px solid $lighter-grey;
+    text-align: left;
 }
 
 .tabs > .header > .tab-label {
@@ -75,7 +76,7 @@
 .tabs > .header > .tab-label.disabled,
 .tabs > .header > .tab-label.disabled:hover {
     border-bottom-color: transparent;
-    color: $light-grey;
+    color: $lighter-grey;
     cursor: default;
 }
 
@@ -118,11 +119,19 @@ export const TabsPlatforme = {
     data: function() {
         return {
             currentTab: this.initialTab,
-            height: this.initialHeight
+            height: this.initialHeight,
+            onWindowResizeHandler: null,
+            contentObserver: null
         };
     },
     mounted: function() {
+        this._initListeners();
+        this._initObservers();
         this._updateHeight();
+    },
+    destroyed: function() {
+        this._destroyObservers();
+        this._destroyListeners();
     },
     methods: {
         selectTab(index) {
@@ -140,6 +149,31 @@ export const TabsPlatforme = {
         },
         onClick(index) {
             this.selectTab(index);
+        },
+        onWindowResize() {
+            this._updateHeight();
+        },
+        onContentMutated(mutations) {
+            this._updateHeight();
+        },
+        _initListeners() {
+            window.addEventListener(
+                "resize",
+                (this.onWindowResizeHandler = () => this.onWindowResize())
+            );
+        },
+        _initObservers() {
+            this.contentObserver = new MutationObserver(mutations =>
+                this.onContentMutated(mutations)
+            );
+        },
+        _destroyListeners() {
+            if (this.onWindowResizeHandler) {
+                window.removeEventListener("resize", this.onWindowResizeHandler);
+            }
+        },
+        _destroyObservers() {
+            if (this.contentObserver) this.contentObserver.disconnect();
         },
         _updateHeight() {
             const tab = (this.$refs[`tab-${this.currentTab}`] || [])[0];

@@ -29,19 +29,17 @@
 }
 
 .button-icon:hover:not(.disabled) {
-    background-color: $light-grey;
-}
+    background-color: $lighter-grey;
 
 .button-icon.button-icon-white {
     background-color: $white;
 }
 
 .button-icon.button-icon-white:hover:not(.disabled) {
-    background-color: $light-grey;
-}
+    background-color: $lighter-grey;
 
 .button-icon.button-icon-grey {
-    background-color: $light-grey;
+    background-color: $lighter-grey;
 }
 
 .button-icon.button-icon-grey:hover:not(.disabled) {

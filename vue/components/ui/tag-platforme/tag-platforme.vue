@@ -80,7 +80,7 @@
 }
 
 .tag.tag-grey.tag-subtle {
-    background-color: $light-grey;
+    background-color: $lighter-grey;
     color: $grey;
 }
 

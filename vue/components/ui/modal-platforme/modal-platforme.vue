@@ -25,10 +25,14 @@
                 </div>
                 <h1 class="title" v-if="title">{{ title }}</h1>
                 <h2 class="sub-title" v-if="subTitle">{{ subTitle }}</h2>
-                <div class="modal-content">
+                <div class="modal-content" ref="content">
                     <slot />
                 </div>
-                <div class="buttons-container" v-bind:style="{ 'text-align': buttonsAlignment }">
+                <div
+                    class="buttons-container"
+                    v-bind:style="{ 'text-align': buttonsAlignment }"
+                    ref="buttons"
+                >
                     <slot name="buttons-content">
                         <button-color-platforme
                             v-bind:class="'button-cancel'"
@@ -265,10 +269,12 @@ export const ModalPlatforme = {
             this.hide();
         });
         window.addEventListener("resize", this.onWindowResize);
+        this._initObservers();
         this.calculate();
     },
     destroyed: function() {
         window.removeEventListener("resize", this.onWindowResize);
+        this._destroyObservers();
     },
     methods: {
         show() {
@@ -306,6 +312,36 @@ export const ModalPlatforme = {
         },
         onWindowResize() {
             this.calculate();
+        },
+        onContentMutated(mutations) {
+            this.calculate();
+        },
+        onButtonsMutated(mutations) {
+            this.calculate();
+        },
+        _initObservers() {
+            this.contentObserver = new MutationObserver(mutations =>
+                this.onContentMutated(mutations)
+            );
+            this.buttonsObserver = new MutationObserver(mutations =>
+                this.onButtonsMutated(mutations)
+            );
+            this.contentObserver.observe(this.$refs.content, {
+                attributes: true,
+                childList: true,
+                characterData: true,
+                subtree: true
+            });
+            this.buttonsObserver.observe(this.$refs.buttons, {
+                attributes: true,
+                childList: true,
+                characterData: true,
+                subtree: true
+            });
+        },
+        _destroyObservers() {
+            if (this.contentObserver) this.contentObserver.disconnect();
+            if (this.buttonsObserver) this.buttonsObserver.disconnect();
         }
     }
 };
