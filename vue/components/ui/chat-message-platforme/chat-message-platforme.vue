@@ -38,7 +38,13 @@
 
 .chat-message {
     display: flex;
+    background-color: $grey-6
 }
+
+.chat-message:hover {
+    background-color: $white;
+}
+
 .chat-message .user-image {
     border: solid 1px #e3e8f1;
     border-radius: 50%;
