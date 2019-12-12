@@ -2,9 +2,12 @@
     <div class="chat-message">
         <img class="user-image" v-bind:src="userImgPath" />
         <div class="message-container">
-            <div class="user-information">
-                <span class="username">{{ username }}</span>
-                <span class="date">{{ date }}</span>
+            <div class="message-header">
+                <div class="user-information">
+                    <span class="username">{{ username }}</span>
+                    <span class="date">{{ date }}</span>
+                </div>
+                <!-- TODO barra -->
             </div>
             <div class="message-content">
                 <span class="message">{{ message }}</span>
@@ -29,6 +32,10 @@
                     <div class="reactionExample" />
                 </div>
             </div>
+        </div>
+        <div class="options-container">
+            <div class="reaction-option" />
+            <div class="more-options-option" />
         </div>
     </div>
 </template>
@@ -57,16 +64,21 @@
     display: inline-block;
 }
 
-.chat-message .message-container .user-information {
+.chat-message .message-container .message-header {
     margin: 4px 0px 0px 0px;
 }
 
-.chat-message .message-container .user-information .username {
+.chat-message .message-container .message-header .user-information {
+    display: inline-block;
+}
+
+.chat-message .message-container .message-header .user-information .username {
     color: #0d0d0d;
     font-weight: bold;
     letter-spacing: 0.7px;
 }
-.chat-message .message-container .user-information .date {
+
+.chat-message .message-container .message-header .user-information .date {
     color: #a4adb5;
     letter-spacing: 0.3px;
 }
@@ -86,9 +98,42 @@
     font-size: 0px; //It fixes white spaces between divs
 }
 
+
+
+
+.chat-message .options-container{
+    display: inline-flex;
+    font-size: 0px;
+    background-color: $grey-6;
+    border: solid 1px #e4e8f0;
+    height: 26px;
+}
+
+.chat-message .options-container .reaction-option,
+.chat-message .options-container .more-options-option {
+    width: 30px;
+    height: 24px;
+    border: solid 1px #e4e8f0;
+}
+
+
+.chat-message .options-container .reaction-option {
+    background: url("~./assets/happy-face.svg") center no-repeat;
+    background-size: 18px 18px;
+}
+
+.chat-message .options-container .more-options-option {
+    background: url("~./assets/ellypsis.svg") center no-repeat;
+    background-size: 18px 18px;
+    
+}
+
 </style>
 
 <script>
+
+//TODO: fix links width
+
 export const ChatMessagePlatforme = {
     name: "chat-message-platforme",
     props: {
