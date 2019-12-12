@@ -13,6 +13,13 @@ storiesOf("Chat", module)
             },
             message: {
                 default: text("Message", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et lacus ac arcu ullamcorper condimentum.")
+            },
+            attachments: {
+                type: Array,
+                default: () => [
+                    { name: "lorem-ipsum.pdf", path: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" },
+                    { name: "lorem-ipsum2.pdf", path: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" }
+                ]
             }
         },
         template: `
@@ -21,6 +28,7 @@ storiesOf("Chat", module)
                     v-bind:username="username"
                     v-bind:date="date"
                     v-bind:message="message"
+                    v-bind:attachments="attachments"
                 />
             </div>
             `

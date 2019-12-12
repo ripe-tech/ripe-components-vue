@@ -9,16 +9,10 @@
             <div class="message-content">
                 <span class="message">{{ message }}</span>
                 <div class="links">
-                    <link-platforme
-                        v-bind:text="'lorem-ipsum.pdf'"
-                        v-bind:href="'http://platforme.com'"
-                        v-bind:disabled="false"
-                        v-bind:size="'small'"
-                        v-bind:color="'blue'"
-                    />
-                    <link-platforme
-                        v-bind:text="'lorem-ipsum.pdf'"
-                        v-bind:href="'http://platforme.com'"
+                    <link-platforme 
+                        v-for="attachment in attachments" v-bind:key="attachment.name"
+                        v-bind:text="attachment.name"
+                        v-bind:href="attachment.plath"
                         v-bind:disabled="false"
                         v-bind:size="'small'"
                         v-bind:color="'blue'"
@@ -108,6 +102,10 @@ export const ChatMessagePlatforme = {
         message: {
             type: String,
             required: true  
+        },
+        attachments: {
+            type: Array,
+            default: () => []
         }
     }
 };
