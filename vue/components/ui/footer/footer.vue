@@ -19,18 +19,10 @@
                     <link-ripe text="API" href="https://docs.platforme.com" target="_blank" />
                 </li>
                 <li>
-                    <link-ripe
-                        text="Training"
-                        href="https://docs.platforme.com"
-                        target="_blank"
-                    />
+                    <link-ripe text="Training" href="https://docs.platforme.com" target="_blank" />
                 </li>
                 <li>
-                    <link-ripe
-                        text="DevPortal"
-                        href="https://dev.platforme.com"
-                        target="_blank"
-                    />
+                    <link-ripe text="DevPortal" href="https://dev.platforme.com" target="_blank" />
                 </li>
                 <li>
                     <link-ripe text="About" href="https://www.platforme.com" target="_blank" />
