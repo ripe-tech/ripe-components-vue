@@ -36,8 +36,8 @@
             </div>
         </div>
         <div class="options-container">
-            <div class="reaction-option" v-on:click="onReactionOptionClick()" />
-            <div class="more-options-option" v-on:click="onMoreOptionsOptionClick()" />
+            <div class="reaction-option" v-on:click="onReactionOptionClick('reactionOption')" />
+            <div class="more-options-option" v-on:click="onMoreOptionsOptionClick('moreOptions')" />
         </div>
     </div>
 </template>
@@ -192,11 +192,14 @@ export const ChatMessagePlatforme = {
         }
     },
     methods: {
-        onReactionOptionClick() {
-            console.log("Reaction Clicked");
+        emitOptionClick(option) {
+            this.$emit("option-clicked", option);
         },
-        onMoreOptionsOptionClick() {
-            console.log("More Options Clicked");
+        onReactionOptionClick(option) {
+            this.emitOptionClick(option);
+        },
+        onMoreOptionsOptionClick(option) {
+            this.emitOptionClick(option);
         }
     }
 };
