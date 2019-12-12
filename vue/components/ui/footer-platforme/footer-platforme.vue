@@ -5,35 +5,35 @@
                 <li class="copy">
                     © 2019 Platforme International
                 </li>
-                <li><link-platforme text="Terms" href="https://www.platforme.com/terms" /></li>
-                <li><link-platforme text="Privacy" href="https://www.platforme.com/privacy" /></li>
+                <li><link-ripe text="Terms" href="https://www.platforme.com/terms" /></li>
+                <li><link-ripe text="Privacy" href="https://www.platforme.com/privacy" /></li>
             </ul>
         </div>
         <div class="links-right">
             <ul>
                 <li>
-                    <link-platforme text="Contact Platforme" href="mailto:info@platforme.com" />
+                    <link-ripe text="Contact Platforme" href="mailto:info@platforme.com" />
                 </li>
-                <li><link-platforme text="Pricing" href="#" /></li>
+                <li><link-ripe text="Pricing" href="#" /></li>
                 <li>
-                    <link-platforme text="API" href="https://docs.platforme.com" target="_blank" />
+                    <link-ripe text="API" href="https://docs.platforme.com" target="_blank" />
                 </li>
                 <li>
-                    <link-platforme
+                    <link-ripe
                         text="Training"
                         href="https://docs.platforme.com"
                         target="_blank"
                     />
                 </li>
                 <li>
-                    <link-platforme
+                    <link-ripe
                         text="DevPortal"
                         href="https://dev.platforme.com"
                         target="_blank"
                     />
                 </li>
                 <li>
-                    <link-platforme text="About" href="https://www.platforme.com" target="_blank" />
+                    <link-ripe text="About" href="https://www.platforme.com" target="_blank" />
                 </li>
             </ul>
         </div>
