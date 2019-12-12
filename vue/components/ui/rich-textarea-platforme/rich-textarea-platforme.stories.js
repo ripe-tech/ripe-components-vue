@@ -11,14 +11,6 @@ storiesOf("Input", module)
             value: {
                 default: text("Value", "This is a text")
             },
-            optionsItems: {
-                type: Array,
-                default: () => [
-                    { icon: "clip", event: "item_1" },
-                    { icon: "at-sign", event: "item_2" },
-                    { icon: "happy-face", event: "item_3" }
-                ]
-            },
             placeholder: {
                 default: text("Placeholder", "This is a placeholder")
             },
