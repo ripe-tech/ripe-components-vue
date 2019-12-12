@@ -14,7 +14,7 @@
                     <slot name="item" v-bind:item="item" v-bind:index="index" />
                 </template>
             </table-platforme>
-            <lineup-platforme v-bind:items="items" v-bind:values="values">
+            <lineup v-bind:items="items" v-bind:values="values">
                 <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
                 <template
                     v-for="slot in Object.keys($scopedSlots)"
@@ -23,13 +23,13 @@
                 >
                     <slot v-bind:name="slot" v-bind="scope" />
                 </template>
-            </lineup-platforme>
+            </lineup>
             <div class="empty-message" v-if="items.length === 0 && loading === false">
                 <slot name="empty">
                     <h1>No items found</h1>
                 </slot>
             </div>
-            <loader-platforme class="loader-bottom" loader="line-scale" v-bind:count="5" />
+            <loader class="loader-bottom" loader="line-scale" v-bind:count="5" />
         </slot>
     </div>
 </template>

@@ -15,7 +15,7 @@
                 <router-link to="/">
                     <img class="header-logo" v-bind:src="logo" />
                 </router-link>
-                <search-platforme
+                <search
                     v-bind:placeholder="searchPlaceholder"
                     v-bind:grow="true"
                     v-bind:value.sync="searchFilter"
@@ -25,7 +25,7 @@
                     <template v-slot:suggestion="{ suggestion }">
                         <slot name="suggestion" v-bind:suggestion="suggestion" />
                     </template>
-                </search-platforme>
+                </search>
             </div>
             <div
                 class="header-account"
@@ -35,7 +35,7 @@
                 v-on:click.stop="hideAccount"
             >
                 <img v-bind:src="account.avatar_url" />
-                <dropdown-platforme
+                <dropdown
                     v-bind:items="accountDropdownItems"
                     v-bind:visible.sync="accountDropdownVisible"
                 />
@@ -48,7 +48,7 @@
                 v-on:click.stop="hideApps"
             >
                 <img src="~./assets/apps.svg" />
-                <dropdown-platforme
+                <dropdown
                     v-bind:items="appsDropdownItems"
                     v-bind:visible.sync="appsDropdownVisible"
                 >
@@ -58,7 +58,7 @@
                             <p>{{ text }}</p>
                         </a>
                     </template>
-                </dropdown-platforme>
+                </dropdown>
             </div>
         </div>
     </div>
@@ -173,7 +173,7 @@
     background-color: rgba(60, 64, 67, 0.2);
 }
 
-.header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme {
+.header-platforme > .header-container > .header-account ::v-deep .dropdown {
     color: $lower-color;
     font-size: 13px;
     left: auto;
@@ -183,19 +183,19 @@
     text-align: left;
 }
 
-.header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme > .dropdown-item > * {
+.header-platforme > .header-container > .header-account ::v-deep .dropdown > .dropdown-item > * {
     box-sizing: border-box;
     display: inline-block;
     padding: 8px 14px 8px 14px;
     width: 100%;
 }
 
-.header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme > .dropdown-item > a {
+.header-platforme > .header-container > .header-account ::v-deep .dropdown > .dropdown-item > a {
     color: $lower-color;
 }
 
-.header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme > .dropdown-item:hover > a,
-.header-platforme > .header-container > .header-account ::v-deep .dropdown-platforme > .dropdown-item.selected > a {
+.header-platforme > .header-container > .header-account ::v-deep .dropdown > .dropdown-item:hover > a,
+.header-platforme > .header-container > .header-account ::v-deep .dropdown > .dropdown-item.selected > a {
     color: $higher-color;
 }
 
@@ -220,7 +220,7 @@
     background-color: rgba(60, 64, 67, 0.2);
 }
 
-.header-platforme > .header-container > .header-apps ::v-deep .dropdown-platforme {
+.header-platforme > .header-container > .header-apps ::v-deep .dropdown {
     background-color: $white;
     box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.07);
     box-sizing: border-box;
@@ -237,7 +237,7 @@
     white-space: pre;
 }
 
-.header-platforme > .header-container > .header-apps ::v-deep .dropdown-platforme li {
+.header-platforme > .header-container > .header-apps ::v-deep .dropdown li {
     border-radius: 8px 8px 8px 8px;
     display: inline-block;
     font-size: 12px;
@@ -246,7 +246,7 @@
     text-align: center;
 }
 
-.header-platforme > .header-container > .header-apps ::v-deep .dropdown-platforme li a {
+.header-platforme > .header-container > .header-apps ::v-deep .dropdown li a {
     border-bottom: none;
     color: #000000;
     display: inline-block;
@@ -255,12 +255,12 @@
     width: 100px;
 }
 
-.header-platforme > .header-container > .header-apps ::v-deep .dropdown-platforme li img {
+.header-platforme > .header-container > .header-apps ::v-deep .dropdown li img {
     height: 40px;
     width: 40px;
 }
 
-.header-platforme > .header-container > .header-apps ::v-deep .dropdown-platforme li p {
+.header-platforme > .header-container > .header-apps ::v-deep .dropdown li p {
     font-weight: 600;
     margin: 6px 0px 0px 0px;
 }
