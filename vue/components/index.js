@@ -19,7 +19,7 @@ import { InputPlatforme } from "./ui/input-platforme/input-platforme.vue";
 import { LabelPlatforme } from "./ui/label-platforme/label-platforme.vue";
 import { Lightbox } from "./ui/lightbox/lightbox.vue";
 import { Lineup } from "./ui/lineup/lineup.vue";
-import { LinkPlatforme } from "./ui/link-platforme/link-platforme.vue";
+import { Link } from "./ui/link/link.vue";
 import { Listing } from "./ui/listing/listing.vue";
 import { loader } from "./ui/loader/loader.vue";
 import { Modal } from "./ui/modal/modal.vue";
@@ -59,7 +59,7 @@ const install = Vue => {
     Vue.component("modal", Modal);
     Vue.component("lightbox", Lightbox);
     Vue.component("lineup", Lineup);
-    Vue.component("link-ripe", LinkPlatforme);
+    Vue.component("link-ripe", Link);
     Vue.component("listing", Listing);
     Vue.component("overlay", Overlay);
     Vue.component("progress-bar", ProgressBar);
@@ -96,7 +96,7 @@ export {
     Modal,
     Lightbox,
     Lineup,
-    LinkPlatforme,
+    Link,
     Listing,
     Overlay,
     ProgressBar,

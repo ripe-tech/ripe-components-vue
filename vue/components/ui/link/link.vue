@@ -103,8 +103,8 @@ a.link.link-disabled:active {
 </style>
 
 <script>
-export const LinkPlatforme = {
-    name: "link-platforme",
+export const Link = {
+    name: "link",
     props: {
         text: {
             type: String,
@@ -146,5 +146,5 @@ export const LinkPlatforme = {
     }
 };
 
-export default LinkPlatforme;
+export default Link;
 </script>
