@@ -57,6 +57,7 @@ storiesOf("Button", module)
                 v-bind:imgUrl="imgUrl"
                 v-bind:emoji="emoji"
                 v-bind:icon="icon" />
+                <p>Reaction count: {{count}}</p>
             </div>
         `
     }));

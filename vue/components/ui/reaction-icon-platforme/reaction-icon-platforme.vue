@@ -23,11 +23,13 @@
     height: 15px;
     padding: 2px 6px 2px 6px;
     text-align: center;
-    transition: background-color 0.15s ease-in-out;
-    transition: transform 0.15s ease-in-out;
-    transition: max-width 0.125s ease-in-out;
     user-select: none;
     white-space: nowrap;
+}
+
+.reaction-icon-container:hover {
+    background-color: $white;
+    border-color: #b7b7b7;
 }
 
 .reaction-icon-container:active {
@@ -40,7 +42,7 @@
     width: 15px;
 }
 
-.reaction-image {
+.reaction-icon .reaction-image {
     font-size: 0px;
     height: 15px;
     pointer-events: none;
@@ -49,21 +51,10 @@
     width: 15px;
 }
 
-.reaction-icon-container:hover {
-    background-color: $white;
-    border-color: #b7b7b7;
-}
-
-.emoji {
+.reaction-icon .emoji {
     display: inline;
     font-size: 15px;
     line-height: 15px;
-}
-
-.reaction-count:not(.show-count) {
-    max-width: 0px;
-    opacity: 0;
-    padding: 0px 0px 0px 0px;
 }
 
 .reaction-count {
@@ -76,6 +67,12 @@
     padding: 0px 2px 0px 3px;
     pointer-events: none;
     transition: all 0.125s ease-in-out;
+}
+
+.reaction-count:not(.show-count) {
+    max-width: 0px;
+    opacity: 0;
+    padding: 0px 0px 0px 0px;
 }
 </style>
 
@@ -107,11 +104,6 @@ export const ReactionIconPlatforme = {
         },
         iconPath() {
             return require(`./../../../assets/icons/black/${this.icon}.svg`);
-        },
-        classes() {
-            const base = {};
-            if (this.color) base["reaction-icon-" + this.color] = this.color;
-            return base;
         },
         showCount() {
             return this.count > 1;
