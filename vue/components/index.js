@@ -59,7 +59,7 @@ const install = Vue => {
     Vue.component("modal", Modal);
     Vue.component("lightbox", Lightbox);
     Vue.component("lineup", Lineup);
-    Vue.component("link-platforme", LinkPlatforme);
+    Vue.component("link-ripe", LinkPlatforme);
     Vue.component("listing", Listing);
     Vue.component("overlay", Overlay);
     Vue.component("progress-bar", ProgressBar);

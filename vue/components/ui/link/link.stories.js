@@ -26,21 +26,21 @@ storiesOf("Components", module)
         },
         template: `
             <div>
-                <link-platforme
+                <link-ripe
                     v-bind:text='"This is a normal link"'
                     v-bind:href="'http://platforme.com'"
                     v-bind:disabled='disabled'
                     v-bind:color='color'
                 >
-                </link-platforme>
-                <link-platforme
+                </link-ripe>
+                <link-ripe
                     v-bind:text='"This is a small link"'
                     v-bind:href="'http://platforme.com'"
                     v-bind:disabled='disabled'
                     v-bind:size='"small"
                     'v-bind:color='color'
                 >
-                </link-platforme>
+                </link-ripe>
             </div>
         `
     }));
