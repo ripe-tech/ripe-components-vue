@@ -12,7 +12,7 @@
             v-on:input="onInput($event.target.value)"
         />
         <div class="options">
-            <button-icon-platforme
+            <button-icon
                 class="button-attachment"
                 v-bind:disabled="disabled"
                 v-bind:icon="'clip'"
