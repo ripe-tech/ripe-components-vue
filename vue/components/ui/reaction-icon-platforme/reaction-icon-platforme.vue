@@ -1,14 +1,16 @@
 <template>
-    <div class="reaction-icon-container">
-        <span class="reaction-icon">
+    <div class="reaction-icon-container"
+    v-on:click="handleClick"
+    >
+        <span class="reaction-icon" v-if="iconSrc || emoji">
             <img
                 class="reaction-image"
                 v-bind:src="iconSrc"
-                v-on:click="handleClick"
+                v-if="iconSrc"
             >
-            <p class="emoji" v-if="emoji && (!icon && !imgUrl)">{{emoji}}</p>
+            <p class="emoji" v-else>{{emoji}}</p>
         </span>
-        <span class="reaction-count">
+        <span class="reaction-count" v-bind:class="{'show-count': showCount}">
             {{count}}
         </span>
     </div>
@@ -18,19 +20,19 @@
 @import "css/variables.scss";
 
 .reaction-icon-container {
-    overflow: hidden;
     text-align: center;
     white-space: nowrap;
     display: inline-block;
     cursor: pointer;
     font-size: 0px;
-    padding: 4px 6px 4px 6px;
+    padding: 2px 6px 2px 6px;
     transition: background-color 0.15s ease-in-out;
     user-select: none;
     background-color: #EFEFEF;
     border: 1px solid transparent;
     transition: transform 0.15s ease-in-out;
-    height: 24px;
+    transition: max-width .125s ease-in-out;
+    height: 15px;
     border-radius: 24px;
 }
 
@@ -40,15 +42,17 @@
 
 .reaction-icon {
     display: inline-block;
+    height: 15px;
+    width: 15px;
 }
 
 .reaction-image {
     font-size: 0px;
     transition: background-color 0.15s ease-in-out;
     user-select: none;
-    vertical-align: middle;
     pointer-events: none;
-    height: 23px;
+    height: 15px;
+    width: 15px;
 }
 
 .reaction-icon-container:hover {
@@ -58,17 +62,26 @@
 
 .emoji {
     display: inline;
-    vertical-align: middle;
-    font-size: 20px;
+    font-size: 15px;
+    line-height: 15px;
+}
+
+.reaction-count:not(.show-count) {
+    max-width: 0px;
+    opacity: 0;
+    padding: 0px 0px 0px 0px;
 }
 
 .reaction-count {
+    max-width: 150px;
+    overflow: hidden;
     font-size: 11px;
-    vertical-align: middle;
     color: $black;
     display: inline-block;
     pointer-events: none;
-    padding: 0px 5px 0px 3px;
+    transition: all .125s ease-in-out;
+    opacity: 1;
+    padding: 0px 2px 0px 3px;
 }
 </style>
 
@@ -89,7 +102,7 @@ export const ReactionIconPlatforme = {
             mandatory: false
         },
         count: {
-            type: String,
+            type: Number,
             default: 28
         }
     },
@@ -105,6 +118,9 @@ export const ReactionIconPlatforme = {
             const base = {};
             if (this.color) base["reaction-icon-" + this.color] = this.color;
             return base;
+        },
+        showCount(){
+            return this.count > 1;
         }
     },
     methods: {
