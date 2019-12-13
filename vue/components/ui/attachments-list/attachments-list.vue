@@ -1,16 +1,23 @@
 <template>
     <div class="attachments" v-bind:style="attachmentsStyle">
-        <div class="attachments-title">{{ title }}</div>
+        <div class="attachments-title">
+            {{ title }}
+        </div>
         <div class="attachments-list" v-bind:style="listStyle">
-            <div class="attachment" v-for="(attachment, index) in attachments" v-bind:key="index" v-on:click="onAttachmentClick(index)" >
+            <div
+                class="attachment"
+                v-for="(attachment, index) in attachments"
+                v-bind:key="index"
+                v-on:click="onAttachmentClick(index)"
+            >
                 <link-ripe
-                    v-bind:ref="index"
                     v-bind:text="attachment.name"
                     v-bind:href="attachment.path"
                     v-bind:disabled="false"
                     v-bind:size="'small'"
                     v-bind:color="'black'"
                     v-bind:target="'_blank'"
+                    v-bind:ref="index"
                 />
             </div>
         </div>
@@ -29,14 +36,14 @@
 .attachments .attachments-title {
     background-color: $white;
     border: solid 1px #e4e8f0;
-    height: 42px;
     color: $light-black;
     display: block;
+    font-size: 16px;
     font-weight: bold;
+    height: 42px;
     letter-spacing: 0.7px;
     line-height: 42px;
     padding: 0px 20px 0px 20px;
-    font-size: 16px;
 }
 
 .attachments .attachments-list {
@@ -44,13 +51,13 @@
 }
 
 .attachments .attachments-list .attachment {
+    background-image: url("~./../../../assets/icons/black/file.svg");
+    background-position: center left 10px;
     background-repeat: no-repeat;
+    background-size: 20px 20px;
     border: solid 1px #e4e8f0;
     cursor: pointer;
     height: 44px;
-    background-image: url("~./../../../assets/icons/black/file.svg");
-    background-size: 20px 20px;
-    background-position: center left 10px;
     padding-left: 40px;
 }
 
