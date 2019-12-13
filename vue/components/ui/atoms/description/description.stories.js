@@ -6,12 +6,12 @@ storiesOf("Input", module)
     .add("Description", () => ({
         props: {
             title: {
-                default: text("Title", "Enabled")
+                default: text("Title", "Titulo Lero Lero")
             },
             subtitle: {
                 default: text(
                     "Subtext",
-                    "Subtitle checking text wrap lero lero lero lero lero lero lero lero"
+                    "O incentivo ao avanço tecnológico, assim como o surgimento do comércio virtual causa impacto indireto na reavaliação de alternativas às soluções ortodoxas.a"
                 )
             },
             wrap: {
