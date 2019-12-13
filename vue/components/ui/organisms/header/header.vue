@@ -34,7 +34,7 @@
                 ref="headerAccount"
                 v-on:click.stop="hideAccount"
             >
-                <avatar v-bind:imgUrl="account.avatar_url"/>
+                <avatar v-bind:img-url="account.avatar_url" />
                 <dropdown
                     v-bind:items="accountDropdownItems"
                     v-bind:visible.sync="accountDropdownVisible"

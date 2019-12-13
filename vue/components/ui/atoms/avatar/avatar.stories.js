@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, select, boolean, color } from "@storybook/addon-knobs";
+import { withKnobs, text, select, boolean } from "@storybook/addon-knobs";
 
 storiesOf("Avatar", module)
     .addDecorator(withKnobs)
@@ -31,12 +31,6 @@ storiesOf("Avatar", module)
             },
             notify: {
                 default: boolean("Notify", true)
-            },
-            notifyColor: {
-                default: color("Notify color", "green")
-            },
-            notifyBorderColor: {
-                default: color("Notify border color", "white")
             }
         },
         template: `
@@ -45,8 +39,6 @@ storiesOf("Avatar", module)
                 v-bind:content="content"
                 v-bind:subtitle="subtitle"
                 v-bind:title="title"
-                v-bind:notify-color="notifyColor"
-                v-bind:notify-border-color="notifyBorderColor"
                 v-bind:notify="notify"
                 v-bind:size="size"
                 v-bind:imgUrl="imgUrl" />
