@@ -79,10 +79,6 @@ export const Description = {
             type: String,
             default: "subtitle"
         },
-        size: {
-            type: String,
-            default: "normal"
-        },
         wrap: {
             type: Boolean,
             default: false
