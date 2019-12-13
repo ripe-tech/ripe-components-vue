@@ -182,10 +182,26 @@
     line-height: 18px;
 }
 
+.avatar.medium .text-left {
+    padding: 0px 7px 0px 7px;
+}
+
+.avatar.medium .text-right {
+    padding: 0px 7px 0px 0px;
+}
+
 .avatar.small .text {
     font-size: 14px;
     height: 32px;
     line-height: 14px;
+}
+
+.avatar.small .text-left {
+    padding: 0px 6px 0px 6px;
+}
+
+.avatar.small .text-right {
+    padding: 0px 6px 0px 0px;
 }
 
 .avatar.tiny .text {
@@ -194,10 +210,26 @@
     line-height: 10px;
 }
 
+.avatar.tiny .text-left {
+    padding: 0px 4px 0px 4px;
+}
+
+.avatar.tiny .text-right {
+    padding: 0px 4px 0px 0px;
+}
+
 .avatar.micro .text {
     font-size: 7px;
     height: 16px;
     line-height: 7px;
+}
+
+.avatar.micro .text-left {
+    padding: 0px 3px 0px 3px;
+}
+
+.avatar.micro .text-right {
+    padding: 0px 3px 0px 0px;
 }
 
 .avatar.hasText:hover {
