@@ -14,7 +14,7 @@
 @import "css/variables.scss";
 
 .reaction-icon-container {
-    background-color: #efefef;
+    background-color: $lighter-grey;
     border: 1px solid transparent;
     border-radius: 24px;
     cursor: pointer;
@@ -23,13 +23,14 @@
     height: 15px;
     padding: 2px 6px 2px 6px;
     text-align: center;
+    transition: transform 0.02s;
     user-select: none;
     white-space: nowrap;
 }
 
 .reaction-icon-container:hover {
     background-color: $white;
-    border-color: #b7b7b7;
+    border-color: $medium-grey;
 }
 
 .reaction-icon-container:active {
@@ -46,7 +47,6 @@
     font-size: 0px;
     height: 15px;
     pointer-events: none;
-    transition: background-color 0.15s ease-in-out;
     user-select: none;
     width: 15px;
 }
@@ -66,7 +66,7 @@
     overflow: hidden;
     padding: 0px 2px 0px 3px;
     pointer-events: none;
-    transition: all 0.125s ease-out 0s;
+    transition: max-width 0.125s ease-in-out, padding 0.125s ease-in-out, opacity ease-in 0.125s;
 }
 
 .reaction-count:not(.show-count) {
