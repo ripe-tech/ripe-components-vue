@@ -1,4 +1,5 @@
 import Atoms from "./ui/atoms";
+import Molecules from "./ui/molecules";
 
 import { RouterLink } from "./mock/router-link/router-link.vue";
 import { ErrorPart } from "./parts/error-part/error-part.vue";
@@ -9,13 +10,13 @@ import { Filter } from "./ui/filter/filter.vue";
 import { Header } from "./ui/header/header.vue";
 import { Lineup } from "./ui/lineup/lineup.vue";
 import { Listing } from "./ui/listing/listing.vue";
-import { Modal } from "./ui/modal/modal.vue";
 import { Side } from "./ui/side/side.vue";
 import { Table } from "./ui/table/table.vue";
 import { Tabs } from "./ui/tabs/tabs.vue";
 
 const install = Vue => {
     Vue.use(Atoms);
+    Vue.use(Molecules);
 
     if (!Vue.options.components.RouterLink) {
         Vue.component("router-link", RouterLink);
@@ -26,7 +27,6 @@ const install = Vue => {
     Vue.component("details-ripe", Details);
     Vue.component("filter-ripe", Filter);
     Vue.component("header-ripe", Header);
-    Vue.component("modal", Modal);
     Vue.component("lineup", Lineup);
     Vue.component("listing", Listing);
     Vue.component("side", Side);
@@ -35,6 +35,7 @@ const install = Vue => {
 };
 
 export * from "./ui/atoms";
+export * from "./ui/molecules";
 
 export {
     RouterLink,
@@ -44,7 +45,6 @@ export {
     Details,
     Filter,
     Header,
-    Modal,
     Lineup,
     Listing,
     Side,
