@@ -4,7 +4,7 @@
         v-bind:class="{ loading: loading }"
         v-on:click="click"
     >
-        <loader-platforme
+        <loader
             loader="ball-scale-multiple"
             class="loader"
             v-bind:loader-style="loaderStyle"
@@ -84,11 +84,11 @@ export const ButtonPlatforme = {
     props: {
         normalText: {
             type: String,
-            default: "Sign in with Platforme ID"
+            default: "Sign in with Ripe ID"
         },
         loadingText: {
             type: String,
-            default: "Signing in Platforme ID..."
+            default: "Signing in Ripe ID..."
         },
         logo: {
             type: Boolean,
