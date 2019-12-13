@@ -2,15 +2,13 @@ import Vue from "vue";
 import GlobalEvents from "vue-global-events";
 import { configure } from "@storybook/vue";
 
-import * as components from "../vue";
+import { install as RipeComponentsVue } from "../vue";
 
 import "./styles.css";
 
-for (let key in components) {
-    Vue.component(key, components[key]);
-}
-
+Vue.use(RipeComponentsVue);
 Vue.component("global-events", GlobalEvents);
+
 Vue.prototype.$bus = new Vue();
 
 const req = require.context("../vue", true, /\.stories\.js$/);

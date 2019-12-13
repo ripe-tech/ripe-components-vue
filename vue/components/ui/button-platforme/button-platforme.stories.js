@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text, boolean } from "@storybook/addon-knobs";
 
-storiesOf("Button", module)
+storiesOf("Button Platforme", module)
     .addDecorator(withKnobs)
     .add("Platforme ID", () => ({
         props: {
@@ -16,5 +16,5 @@ storiesOf("Button", module)
             }
         },
         template:
-            '<button-platforme v-bind:normal-text="normalText" v-bind:loading-text="loadingText" v-bind:logo="logo" ></button-platforme>'
+            '<button-platforme v-bind:normal-text="normalText" v-bind:loading-text="loadingText" v-bind:logo="logo"></button-platforme>'
     }));
