@@ -63,7 +63,7 @@ export const ButtonIcon = {
     },
     computed: {
         iconPath() {
-            return require(`./../../../assets/icons/black/${this.icon}.svg`);
+            return require(`./../../../../assets/icons/black/${this.icon}.svg`);
         },
         style() {
             return {

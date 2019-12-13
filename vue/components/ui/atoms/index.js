@@ -4,14 +4,14 @@ import { ButtonPlatforme } from "./button-platforme/button-platforme.vue";
 import { Checkbox } from "./checkbox/checkbox.vue";
 import { Container } from "./container/container.vue";
 import { Dropdown } from "./dropdown/dropdown.vue";
-import { Input } from "./input/input.vue";
 import { Image } from "./image/image.vue";
+import { Input } from "./input/input.vue";
 import { Label } from "./label/label.vue";
-import { Lightbox } from "./lightbox/lightbox.vue";
 import { Link } from "./link/link.vue";
 import { Loader } from "./loader/loader.vue";
 import { Overlay } from "./overlay/overlay.vue";
 import { Radio } from "./radio/radio.vue";
+import { Side } from "./side/side.vue";
 import { Tag } from "./tag/tag.vue";
 import { Textarea } from "./textarea/textarea.vue";
 
@@ -25,11 +25,11 @@ const install = Vue => {
     Vue.component("image-ripe", Image);
     Vue.component("input-ripe", Input);
     Vue.component("label-ripe", Label);
-    Vue.component("lightbox", Lightbox);
     Vue.component("link-ripe", Link);
     Vue.component("loader", Loader);
     Vue.component("overlay", Overlay);
     Vue.component("radio", Radio);
+    Vue.component("side", Side);
     Vue.component("tag", Tag);
     Vue.component("textarea-ripe", Textarea);
 };
@@ -44,11 +44,11 @@ export {
     Image,
     Input,
     Label,
-    Lightbox,
     Link,
     Loader,
     Overlay,
     Radio,
+    Side,
     Tag,
     Textarea
 };

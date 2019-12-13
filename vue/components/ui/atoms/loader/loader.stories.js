@@ -1,9 +1,9 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, color, number } from "@storybook/addon-knobs";
 
-storiesOf("Loaders", module)
+storiesOf("Atoms", module)
     .addDecorator(withKnobs)
-    .add("Ball Pulse", () => ({
+    .add("Loader Ball Pulse", () => ({
         props: {
             count: {
                 default: number("Count", 3, { min: 1, max: 3 })
@@ -25,7 +25,7 @@ storiesOf("Loaders", module)
             </div>
         `
     }))
-    .add("Line Scale", () => ({
+    .add("Loader Line Scale", () => ({
         props: {
             count: {
                 default: number("Count", 5, { min: 1, max: 5 })

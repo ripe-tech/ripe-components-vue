@@ -1,6 +1,6 @@
 import { storiesOf } from "@storybook/vue";
 
-storiesOf("Components", module).add("Tabs", () => ({
+storiesOf("Molecules", module).add("Tabs", () => ({
     props: {
         mockTabs: {
             type: Array,

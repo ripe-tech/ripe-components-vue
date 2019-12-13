@@ -30,7 +30,7 @@
 </style>
 
 <script>
-import { oauthMixin } from "../../../mixins";
+import { oauthMixin } from "../../../../mixins";
 
 export const OAuthPart = {
     name: "oauth-part",

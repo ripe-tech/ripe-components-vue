@@ -1,6 +1,6 @@
 import { storiesOf } from "@storybook/vue";
 
-storiesOf("Data", module).add("Table Custom", () => ({
+storiesOf("Molecules", module).add("Table Custom", () => ({
     props: {
         mockColumns: {
             type: Array,

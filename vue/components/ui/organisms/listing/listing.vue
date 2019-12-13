@@ -200,7 +200,7 @@ input[type="text"]:focus {
 </style>
 
 <script>
-import { filterMixin, partMixin, utilsMixin, scrollMixin } from "../../../mixins";
+import { filterMixin, partMixin, utilsMixin, scrollMixin } from "../../../../mixins";
 
 export const Listing = {
     name: "listing",

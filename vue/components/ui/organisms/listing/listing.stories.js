@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text } from "@storybook/addon-knobs";
 
-storiesOf("Data", module)
+storiesOf("Organisms", module)
     .addDecorator(withKnobs)
     .add("Listing", () => ({
         props: {

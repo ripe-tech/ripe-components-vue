@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, boolean } from "@storybook/addon-knobs";
 
-storiesOf("Input", module)
+storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Search", () => ({
         props: {

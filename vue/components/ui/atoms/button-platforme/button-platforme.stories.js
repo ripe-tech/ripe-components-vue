@@ -1,9 +1,9 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text, boolean } from "@storybook/addon-knobs";
 
-storiesOf("Button Platforme", module)
+storiesOf("Atoms", module)
     .addDecorator(withKnobs)
-    .add("Platforme ID", () => ({
+    .add("Button Platforme", () => ({
         props: {
             normalText: {
                 default: text("Text Normal", "Button")

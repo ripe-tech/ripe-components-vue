@@ -1,9 +1,9 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text, boolean, number } from "@storybook/addon-knobs";
 
-storiesOf("Input", module)
+storiesOf("Atoms", module)
     .addDecorator(withKnobs)
-    .add("Text Area", () => ({
+    .add("Textarea", () => ({
         props: {
             id: {
                 default: text("Id", "textarea-id")

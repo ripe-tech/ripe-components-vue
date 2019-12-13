@@ -227,7 +227,7 @@ export const ButtonColor = {
 
             if (this.secondary) iconColor = "black";
 
-            return require(`./../../../assets/icons/${iconColor}/${this.icon}.svg`);
+            return require(`./../../../../assets/icons/${iconColor}/${this.icon}.svg`);
         },
         iconHoverPath() {
             let iconColor;
@@ -243,7 +243,7 @@ export const ButtonColor = {
 
             if (this.secondary) iconColor = "white";
 
-            return require(`./../../../assets/icons/${iconColor}/${this.icon}.svg`);
+            return require(`./../../../../assets/icons/${iconColor}/${this.icon}.svg`);
         },
         alignmentStyle() {
             if (this.alignment) return this.alignment;

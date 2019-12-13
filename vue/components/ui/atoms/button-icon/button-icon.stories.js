@@ -1,9 +1,9 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, number, select } from "@storybook/addon-knobs";
 
-storiesOf("Button", module)
+storiesOf("Atoms", module)
     .addDecorator(withKnobs)
-    .add("Icon", () => ({
+    .add("Button Icon", () => ({
         props: {
             icon: {
                 default: select(

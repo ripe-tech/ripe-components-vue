@@ -1,9 +1,9 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text, boolean } from "@storybook/addon-knobs";
 
-storiesOf("Header", module)
+storiesOf("Organisms", module)
     .addDecorator(withKnobs)
-    .add("Ripe", () => ({
+    .add("Header", () => ({
         props: {
             search: {
                 default: boolean("Search", true)
