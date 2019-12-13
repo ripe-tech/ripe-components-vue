@@ -1,3 +1,5 @@
+import Atoms from "./ui/atoms";
+
 import { RouterLink } from "./mock/router-link/router-link.vue";
 import { ErrorPart } from "./parts/error-part/error-part.vue";
 import { Global } from "./parts/global/global.vue";
@@ -15,8 +17,6 @@ import { Footer } from "./ui/footer/footer.vue";
 import { FormInput } from "./ui/form-input/form-input.vue";
 import { Header } from "./ui/header/header.vue";
 import { Image } from "./ui/image/image.vue";
-import { Input } from "./ui/input/input.vue";
-import { Label } from "./ui/label/label.vue";
 import { Lightbox } from "./ui/lightbox/lightbox.vue";
 import { Lineup } from "./ui/lineup/lineup.vue";
 import { Link } from "./ui/link/link.vue";
@@ -34,6 +34,8 @@ import { Tag } from "./ui/tag/tag.vue";
 import { Textarea } from "./ui/textarea/textarea.vue";
 
 const install = Vue => {
+    Vue.use(Atoms);
+
     if (!Vue.options.components.RouterLink) {
         Vue.component("router-link", RouterLink);
     }
@@ -53,8 +55,6 @@ const install = Vue => {
     Vue.component("form-input", FormInput);
     Vue.component("header-ripe", Header);
     Vue.component("image-ripe", Image);
-    Vue.component("input-ripe", Input);
-    Vue.component("label-ripe", Label);
     Vue.component("loader", loader);
     Vue.component("modal", Modal);
     Vue.component("lightbox", Lightbox);
@@ -71,6 +71,8 @@ const install = Vue => {
     Vue.component("tag", Tag);
     Vue.component("textarea-ripe", Textarea);
 };
+
+export * from "./ui/atoms";
 
 export {
     RouterLink,
@@ -90,8 +92,6 @@ export {
     Footer,
     Header,
     Image,
-    Input,
-    Label,
     loader,
     Modal,
     Lightbox,

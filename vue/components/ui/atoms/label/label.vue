@@ -33,7 +33,7 @@
 
 <script>
 export const Label = {
-    name: "label-ripe",
+    name: "label",
     props: {
         text: {
             type: String,
