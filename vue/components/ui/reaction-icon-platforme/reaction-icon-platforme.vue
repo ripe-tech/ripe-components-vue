@@ -66,7 +66,7 @@
     overflow: hidden;
     padding: 0px 2px 0px 3px;
     pointer-events: none;
-    transition: all 0.125s ease-in-out;
+    transition: all 0.125s ease-out 0s;
 }
 
 .reaction-count:not(.show-count) {
