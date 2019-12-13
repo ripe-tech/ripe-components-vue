@@ -5,7 +5,6 @@ import { RouterLink } from "./mock/router-link/router-link.vue";
 import { ErrorPart } from "./parts/error-part/error-part.vue";
 import { Global } from "./parts/global/global.vue";
 import { OAuthPart } from "./parts/oauth-part/oauth-part.vue";
-import { Alert } from "./ui/alert/alert.vue";
 import { ButtonColor } from "./ui/button-color/button-color.vue";
 import { ButtonIcon } from "./ui/button-icon/button-icon.vue";
 import { ButtonPlatforme } from "./ui/button-platforme/button-platforme.vue";
@@ -43,7 +42,6 @@ const install = Vue => {
     Vue.component("error-part", ErrorPart);
     Vue.component("global", Global);
     Vue.component("oauth-part", OAuthPart);
-    Vue.component("alert", Alert);
     Vue.component("button-color", ButtonColor);
     Vue.component("button-icon", ButtonIcon);
     Vue.component("button-platforme", ButtonPlatforme);
@@ -80,7 +78,6 @@ export {
     ErrorPart,
     Global,
     OAuthPart,
-    Alert,
     ButtonColor,
     ButtonIcon,
     ButtonPlatforme,
