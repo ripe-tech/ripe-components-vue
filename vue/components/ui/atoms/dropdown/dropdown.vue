@@ -2,15 +2,15 @@
     <div class="dropdown-container">
         <global-events v-on:keydown.esc="handleGlobal()" />
         <transition name="slide">
-            <ul class="dropdown" v-show="isVisible">
+            <ul class="dropdown" v-bind:style="dropdownStyle" v-show="isVisible" ref="dropdown">
                 <li
                     class="dropdown-item"
                     v-bind:class="{ separator: item.separator }"
-                    v-for="item in items.filter(v => v !== null && v !== undefined)"
+                    v-for="(item, index) in items.filter(v => v !== null && v !== undefined)"
                     v-bind:key="item.id"
                     v-on:click.stop="click(item)"
                 >
-                    <slot v-bind:item="item">
+                    <slot v-bind:item="item" v-bind:index="index">
                         <router-link v-bind:to="item.link" v-if="item.link">
                             {{ item.text }}
                         </router-link>
@@ -148,6 +148,14 @@ export const Dropdown = {
         globalEvents: {
             type: Boolean,
             default: true
+        },
+        width: {
+            type: Number,
+            default: null
+        },
+        maxHeight: {
+            type: Number,
+            default: null
         }
     },
     data: function() {
@@ -163,6 +171,15 @@ export const Dropdown = {
     computed: {
         isVisible() {
             return this.visible && this.visibleData;
+        },
+        dropdownStyle() {
+            const base = {};
+            if (this.width) base.width = `${this.width}px`;
+            if (this.maxHeight) {
+                base["max-height"] = `${this.maxHeight}px`;
+                base.overflow = "overlay";
+            }
+            return base;
         }
     },
     created: function() {
