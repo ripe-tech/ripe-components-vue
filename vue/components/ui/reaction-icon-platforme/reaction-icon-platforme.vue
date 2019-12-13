@@ -1,10 +1,15 @@
 <template>
-    <div class="reaction-icon-container" v-on:click="handleClick">
-        <span class="reaction-icon" v-if="iconSrc || emoji">
-            <img class="reaction-image" v-bind:src="iconSrc" v-if="iconSrc" />
+    <div
+        class="reaction"
+        v-bind:class="{ 'user-reacted': userReacted, 'hidden-counter': hideenCounter }"
+        v-if="hasReactions"
+        v-on:click="handleClick"
+    >
+        <span class="reaction-figure" v-if="hasFigure">
+            <img class="image" v-bind:src="imageSrc" v-if="hasImage" />
             <p class="emoji" v-else>{{ emoji }}</p>
         </span>
-        <span class="reaction-count" v-bind:class="{ 'show-count': showCount }">
+        <span class="reaction-counter">
             {{ count }}
         </span>
     </div>
@@ -13,9 +18,9 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.reaction-icon-container {
+.reaction {
     background-color: $lighter-grey;
-    border: 1px solid transparent;
+    border: 1.5px solid transparent;
     border-radius: 24px;
     cursor: pointer;
     display: inline-block;
@@ -23,27 +28,39 @@
     height: 15px;
     padding: 2px 6px 2px 6px;
     text-align: center;
-    transition: transform 0.02s;
+    transition: transform 0.02s, background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
     user-select: none;
     white-space: nowrap;
 }
 
-.reaction-icon-container:hover {
+.reaction:hover {
     background-color: $white;
     border-color: $medium-grey;
 }
 
-.reaction-icon-container:active {
+.reaction:active {
     transform: scale(0.94);
 }
 
-.reaction-icon {
+.reaction.user-reacted {
+    background-color: #e2eff5;
+    border-color: #43abd7;
+}
+
+.reaction.user-reacted:hover {
+    background-color: #ecf2f5;
+    border-color: #43abd7;
+}
+
+.reaction .reaction-figure {
     display: inline-block;
     height: 15px;
+    overflow: hidden;
+    vertical-align: bottom;
     width: 15px;
 }
 
-.reaction-icon .reaction-image {
+.reaction .reaction-figure .image {
     font-size: 0px;
     height: 15px;
     pointer-events: none;
@@ -51,13 +68,13 @@
     width: 15px;
 }
 
-.reaction-icon .emoji {
-    display: inline;
+.reaction .reaction-figure .emoji {
+    display: inline-block;
     font-size: 15px;
-    line-height: 15px;
+    line-height: 16px;
 }
 
-.reaction-count {
+.reaction .reaction-counter {
     color: $black;
     display: inline-block;
     font-size: 11px;
@@ -69,7 +86,7 @@
     transition: max-width 0.125s ease-in-out, padding 0.125s ease-in-out, opacity ease-in 0.125s;
 }
 
-.reaction-count:not(.show-count) {
+.reaction.hidden-counter .reaction-counter {
     max-width: 0px;
     opacity: 0;
     padding: 0px 0px 0px 0px;
@@ -78,7 +95,7 @@
 
 <script>
 export const ReactionIconPlatforme = {
-    name: "reaction-icon-platforme",
+    name: "reaction-platforme",
     props: {
         icon: {
             type: String,
@@ -94,19 +111,34 @@ export const ReactionIconPlatforme = {
         },
         count: {
             type: Number,
-            default: 28
+            mandatory: true
+        },
+        userReacted: {
+            type: Boolean,
+            default: false
         }
     },
     computed: {
-        iconSrc() {
-            console.log("returning", this.icon ? this.iconPath : this.imgUrl);
+        imageSrc() {
             return this.icon ? this.iconPath : this.imgUrl;
         },
         iconPath() {
             return require(`./../../../assets/icons/black/${this.icon}.svg`);
         },
-        showCount() {
-            return this.count > 1;
+        hasReactions() {
+            return this.count > 0 && (this.hasFigure || (this.hasCount && !this.hideenCounter));
+        },
+        hasImage() {
+            return Boolean(this.icon || this.imgUrl);
+        },
+        hasFigure() {
+            return Boolean(this.hasImage || this.emoji);
+        },
+        hasCount() {
+            return Boolean(this.count);
+        },
+        hideenCounter() {
+            return this.count < 2;
         }
     },
     methods: {

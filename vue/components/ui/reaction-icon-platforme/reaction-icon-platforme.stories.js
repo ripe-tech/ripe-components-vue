@@ -1,21 +1,21 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, select, text, number } from "@storybook/addon-knobs";
+import { withKnobs, select, text, number, boolean } from "@storybook/addon-knobs";
 
 storiesOf("Button", module)
     .addDecorator(withKnobs)
-    .add("Reaction Icon", () => ({
+    .add("Reaction", () => ({
         props: {
             icon: {
                 default: select(
-                    "Icon",
+                    "Icon Name",
                     {
+                        none: null,
                         Close: "close",
-                        "Zoom In": "zoom-in",
-                        "Zoom Out": "zoom-out",
                         Chat: "chat",
                         Cart: "cart",
-                        None: null,
-                        Walking: "walking"
+                        Walking: "walking",
+                        "Zoom In": "zoom-in",
+                        "Zoom Out": "zoom-out"
                     },
                     null
                 )
@@ -23,41 +23,53 @@ storiesOf("Button", module)
             imgUrl: {
                 default: text(
                     "Image URL",
-                    "https://a.slack-edge.com/production-standard-emoji-assets/10.2/apple-small/1f4aa@2x.png"
+                    "https://a.slack-edge.com/production-standard-emoji-assets/10.2/apple-large/1f4aa@2x.png"
                 )
             },
             emoji: {
-                default: text("Emoji", "💪")
+                default: text("Emoji", "😱")
             },
             initialCount: {
                 default: number("Count", 1)
+            },
+            initialUserReacted: {
+                default: boolean("User has reacted", false)
             }
         },
         data: function() {
             return {
-                count: this.initialCount
+                count: this.initialCount,
+                userReacted: this.initialUserReacted
             };
         },
         methods: {
             onClick() {
-                console.log("onclick");
-                this.count += 1;
+                this.userReacted ? (this.count -= 1) : (this.count += 1);
+                this.userReacted = !this.userReacted;
+            },
+            resetCount() {
+                this.count = 1;
+                this.userReacted = false;
             }
         },
         watch: {
-            initialCount: function(newCount) {
-                this.count = newCount;
+            initialCount: function(newValue) {
+                this.count = newValue;
+            },
+            initialUserReacted: function(newValue) {
+                this.userReacted = newValue;
             }
         },
         template: `
             <div>
                 <reaction-icon-platforme
                 v-on:click="onClick"
-                v-bind:count="count"
+                v-bind:icon="icon" 
                 v-bind:imgUrl="imgUrl"
                 v-bind:emoji="emoji"
-                v-bind:icon="icon" />
-                <p>Reaction count: {{count}}</p>
+                v-bind:count="count"
+                v-bind:userReacted="userReacted"/>
+                <p v-on:click="resetCount">Reactions (click to reset): {{count}}</p>
             </div>
         `
     }));
