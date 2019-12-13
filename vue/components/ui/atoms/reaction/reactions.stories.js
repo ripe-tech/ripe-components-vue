@@ -43,13 +43,13 @@ storiesOf("Button", module)
             };
         },
         methods: {
-            onClick() {
-                this.userReacted ? (this.count -= 1) : (this.count += 1);
-                this.userReacted = !this.userReacted;
-            },
             resetCount() {
                 this.count = 1;
                 this.userReacted = false;
+            },
+            onClick() {
+                this.userReacted ? (this.count -= 1) : (this.count += 1);
+                this.userReacted = !this.userReacted;
             }
         },
         watch: {
