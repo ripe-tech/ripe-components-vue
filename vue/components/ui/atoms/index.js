@@ -6,9 +6,6 @@ const install = Vue => {
     Vue.component("label-ripe", Label);
 };
 
-export {
-    Input,
-    Label
-};
+export { Input, Label };
 
 export default install;

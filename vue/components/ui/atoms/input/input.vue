@@ -51,7 +51,7 @@ input[type="text"]:disabled {
 
 <script>
 export const Input = {
-    name: "input",
+    name: "input-ripe",
     props: {
         value: {
             type: String,
