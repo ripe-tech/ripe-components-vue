@@ -11,6 +11,7 @@ import { Link } from "./link/link.vue";
 import { Loader } from "./loader/loader.vue";
 import { Overlay } from "./overlay/overlay.vue";
 import { Radio } from "./radio/radio.vue";
+import { Reaction } from "./reaction/reaction.vue";
 import { Side } from "./side/side.vue";
 import { Tag } from "./tag/tag.vue";
 import { Textarea } from "./textarea/textarea.vue";
@@ -29,6 +30,7 @@ const install = Vue => {
     Vue.component("loader", Loader);
     Vue.component("overlay", Overlay);
     Vue.component("radio", Radio);
+    Vue.component("reaction", Reaction);
     Vue.component("side", Side);
     Vue.component("tag", Tag);
     Vue.component("textarea-ripe", Textarea);
@@ -48,6 +50,7 @@ export {
     Loader,
     Overlay,
     Radio,
+    Reaction,
     Side,
     Tag,
     Textarea
