@@ -3,6 +3,7 @@ import { ButtonIcon } from "./button-icon/button-icon.vue";
 import { ButtonPlatforme } from "./button-platforme/button-platforme.vue";
 import { Checkbox } from "./checkbox/checkbox.vue";
 import { Container } from "./container/container.vue";
+import { Description } from "./description/description.vue";
 import { Dropdown } from "./dropdown/dropdown.vue";
 import { Image } from "./image/image.vue";
 import { Input } from "./input/input.vue";
@@ -21,6 +22,7 @@ const install = Vue => {
     Vue.component("button-platforme", ButtonPlatforme);
     Vue.component("checkbox", Checkbox);
     Vue.component("container-ripe", Container);
+    Vue.component("description", Description);
     Vue.component("dropdown", Dropdown);
     Vue.component("image-ripe", Image);
     Vue.component("input-ripe", Input);
@@ -40,6 +42,7 @@ export {
     ButtonPlatforme,
     Checkbox,
     Container,
+    Description,
     Dropdown,
     Image,
     Input,
