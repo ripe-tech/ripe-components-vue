@@ -14,7 +14,7 @@
             <div class="message-content">
                 <span class="message">{{ message }}</span>
                 <div class="links">
-                    <link-platforme
+                    <link-ripe
                         v-bind:text="attachment.name"
                         v-bind:href="attachment.path"
                         v-bind:disabled="false"
@@ -25,7 +25,7 @@
                     />
                 </div>
                 <div class="reactions">
-                    <button-icon-platforme
+                    <button-icon
                         class="reaction"
                         v-bind:icon="reaction.icon"
                         v-bind:size="24"
@@ -162,8 +162,8 @@
 </style>
 
 <script>
-export const ChatMessagePlatforme = {
-    name: "chat-message-platforme",
+export const ChatMessage = {
+    name: "chat-message",
     props: {
         userImgPath: {
             // TODO remove -> this will be replaced by avatar
@@ -203,5 +203,5 @@ export const ChatMessagePlatforme = {
         }
     }
 };
-export default ChatMessagePlatforme;
+export default ChatMessage;
 </script>

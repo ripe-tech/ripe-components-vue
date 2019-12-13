@@ -60,7 +60,7 @@ storiesOf("Chat", module)
         },
         template: `
             <div>
-                <chat-message-platforme
+                <chat-message
                     v-bind:username="username"
                     v-bind:date="date"
                     v-bind:message="message"
