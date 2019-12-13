@@ -8,7 +8,7 @@
                 <div class="file-image">
                     <img v-bind="imageAttributes(file)" />
                 </div>
-                <link-platforme
+                <link-ripe
                     v-bind:text="file.name"
                     v-bind:href="file.path"
                     v-bind:disabled="false"
@@ -76,8 +76,8 @@
 </style>
 
 <script>
-export const FilesListPlatforme = {
-    name: "files-list-platforme",
+export const FilesList = {
+    name: "files-list",
     props: {
         filesItems: {
             type: Array,
@@ -132,5 +132,5 @@ export const FilesListPlatforme = {
         }
     }
 };
-export default FilesListPlatforme;
+export default FilesList;
 </script>

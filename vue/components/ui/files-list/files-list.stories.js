@@ -44,7 +44,7 @@ storiesOf("Lists", module)
         },
         template: `
             <div>
-                <files-list-platforme
+                <files-list
                     v-bind:filesItems="filesItems"
                     v-bind:width="width"
                     v-bind:height="height"
