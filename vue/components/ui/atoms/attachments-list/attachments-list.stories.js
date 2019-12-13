@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, number } from "@storybook/addon-knobs";
 
-storiesOf("Lists", module)
+storiesOf("Atoms", module)
     .addDecorator(withKnobs)
     .add("Attachments List", () => ({
         props: {

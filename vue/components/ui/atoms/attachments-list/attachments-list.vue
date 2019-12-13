@@ -51,7 +51,7 @@
 }
 
 .attachments .attachments-list .attachment {
-    background-image: url("~./../../../assets/icons/black/file.svg");
+    background-image: url("~./assets/file.svg");
     background-position: center left 10px;
     background-repeat: no-repeat;
     background-size: 20px 20px;
