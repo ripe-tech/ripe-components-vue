@@ -11,7 +11,7 @@
 <script>
 import "loaders.css";
 
-export const loader = {
+export const Loader = {
     name: "loader",
     props: {
         loader: {
@@ -31,5 +31,5 @@ export const loader = {
     }
 };
 
-export default loader;
+export default Loader;
 </script>
