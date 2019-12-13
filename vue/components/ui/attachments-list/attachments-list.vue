@@ -2,8 +2,9 @@
     <div class="attachments" v-bind:style="attachmentsStyle">
         <div class="attachments-title">{{ title }}</div>
         <div class="attachments-list" v-bind:style="listStyle">
-            <div class="attachment" v-for="attachment in attachments" v-bind:key="attachment.name" >
+            <div class="attachment" v-for="(attachment, index) in attachments" v-bind:key="index" v-on:click="onAttachmentClick(index)" >
                 <link-ripe
+                    v-bind:ref="index"
                     v-bind:text="attachment.name"
                     v-bind:href="attachment.path"
                     v-bind:disabled="false"
@@ -108,8 +109,8 @@ export const AttachmentsList = {
         }
     },
     methods: {
-        onClick(attachment) {
-            window.location = attachment.path;
+        onAttachmentClick(index) {
+            this.$refs[index][0].$el.click();
         }
     }
 };
