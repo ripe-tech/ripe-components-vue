@@ -75,7 +75,7 @@ storiesOf("Modal", module)
                     v-bind:sub-title="subTitle"
                     v-bind:visible="visible"
                 >
-                    <div><p>{{ text }}</p></div>
+                    <div>{{ text }}</div>
                 </modal>
             </div>
         `

@@ -155,7 +155,7 @@ body.mobile .modal > .modal-container {
 }
 
 .modal > .modal-container > .modal-content {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     letter-spacing: 0.25px;
     line-height: 22px;

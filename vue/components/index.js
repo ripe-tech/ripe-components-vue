@@ -1,4 +1,5 @@
 import Atoms from "./ui/atoms";
+import Molecules from "./ui/molecules";
 
 import { RouterLink } from "./mock/router-link/router-link.vue";
 import { ErrorPart } from "./parts/error-part/error-part.vue";
@@ -22,7 +23,6 @@ import { Lineup } from "./ui/lineup/lineup.vue";
 import { Link } from "./ui/link/link.vue";
 import { Listing } from "./ui/listing/listing.vue";
 import { loader } from "./ui/loader/loader.vue";
-import { Modal } from "./ui/modal/modal.vue";
 import { Overlay } from "./ui/overlay/overlay.vue";
 import { ProgressBar } from "./ui/progress-bar/progress-bar.vue";
 import { Radio } from "./ui/radio/radio.vue";
@@ -35,6 +35,7 @@ import { Textarea } from "./ui/textarea/textarea.vue";
 
 const install = Vue => {
     Vue.use(Atoms);
+    Vue.use(Molecules);
 
     if (!Vue.options.components.RouterLink) {
         Vue.component("router-link", RouterLink);
@@ -56,7 +57,6 @@ const install = Vue => {
     Vue.component("header-ripe", Header);
     Vue.component("image-ripe", Image);
     Vue.component("loader", loader);
-    Vue.component("modal", Modal);
     Vue.component("lightbox", Lightbox);
     Vue.component("lineup", Lineup);
     Vue.component("link-ripe", Link);
@@ -73,6 +73,7 @@ const install = Vue => {
 };
 
 export * from "./ui/atoms";
+export * from "./ui/molecules";
 
 export {
     RouterLink,
@@ -93,7 +94,6 @@ export {
     Header,
     Image,
     loader,
-    Modal,
     Lightbox,
     Lineup,
     Link,
