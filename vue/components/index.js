@@ -10,7 +10,7 @@ import { Checkbox } from "./ui/checkbox/checkbox.vue";
 import { Container } from "./ui/container/container.vue";
 import { Details } from "./ui/details/details.vue";
 import { Dropdown } from "./ui/dropdown/dropdown.vue";
-import { FilesList } from "./ui/files-list/files-list.vue";
+import { AttachmentsList } from "./ui/attachments-list/attachments-list.vue";
 import { Filter } from "./ui/filter/filter.vue";
 import { Footer } from "./ui/footer/footer.vue";
 import { FormInput } from "./ui/form-input/form-input.vue";
@@ -49,7 +49,7 @@ const install = Vue => {
     Vue.component("container-ripe", Container);
     Vue.component("details-ripe", Details);
     Vue.component("dropdown", Dropdown);
-    Vue.component("files-list", FilesList);
+    Vue.component("attachments-list", AttachmentsList);
     Vue.component("filter-ripe", Filter);
     Vue.component("footer-ripe", Footer);
     Vue.component("form-input", FormInput);
@@ -87,7 +87,7 @@ export {
     Container,
     Details,
     Dropdown,
-    FilesList,
+    AttachmentsList,
     Filter,
     FormInput,
     Footer,
