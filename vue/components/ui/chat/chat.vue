@@ -14,14 +14,14 @@
                                 Lorem ipsum dolor sit amet, @consectetur ad amet, consectetur ad.
                             </span>
                             <div class="links">
-                                <link-platforme
+                                <link-ripe
                                     v-bind:text="'lorem-ipsum.pdf'"
                                     v-bind:href="'http://platforme.com'"
                                     v-bind:disabled="false"
                                     v-bind:size="'small'"
                                     v-bind:color="'blue'"
                                 />
-                                <link-platforme
+                                <link-ripe
                                     v-bind:text="'lorem-ipsum.pdf'"
                                     v-bind:href="'http://platforme.com'"
                                     v-bind:disabled="false"
@@ -219,7 +219,7 @@
         </div>
         <div class="chat-input-container">
             <div class="chat-input">
-                <textarea-platforme
+                <textarea-ripe
                     v-bind:initial-height="100"
                     v-bind:placeholder="'Say something here...'"
                     v-bind:resize="false"
@@ -354,7 +354,7 @@
     padding: 20px 20px 20px 20px;
 }
 
-.chat-input-container .chat-input ::v-deep .textarea textarea {
+.chat-input-container .chat-input ::v-deep .textarea {
     width: 100%;
 }
 
@@ -376,8 +376,8 @@
 </style>
 
 <script>
-export const ChatPlatforme = {
-    name: "chat-platforme",
+export const Chat = {
+    name: "chat",
     props: {
         helloText: {
             type: String,
@@ -392,5 +392,5 @@ export const ChatPlatforme = {
     }
 };
 
-export default ChatPlatforme;
+export default Chat;
 </script>
