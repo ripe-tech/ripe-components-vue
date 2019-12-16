@@ -508,11 +508,13 @@ export const DetailsPlatforme = {
                 this.triggerAnimation("slide-right-fake");
                 return;
             }
+
             const [next] = await this.getItems({
                 ...this.context,
                 start: this.index + 1,
                 limit: 1
             });
+
             next ? this.showItem(next, this.index + 1) : this.triggerAnimation("slide-right-fake");
         },
         showItem(item, index) {
