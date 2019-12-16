@@ -6,19 +6,6 @@
                 <div class="dot" />
             </slot>
         </div>
-        <div class="text-left" v-if="title || subtitle">
-            <div class="title" v-if="title">
-                {{ title }}
-            </div>
-            <div class="subtitle" v-if="subtitle">
-                {{ subtitle }}
-            </div>
-        </div>
-        <div class="text-right" v-if="content">
-            <div class="content" v-if="content">
-                {{ content }}
-            </div>
-        </div>
     </div>
 </template>
 
@@ -104,82 +91,6 @@
     top: 1px;
     width: 5px;
 }
-
-.avatar .text-left,
-.avatar .text-right {
-    display: inline-flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    vertical-align: top;
-}
-
-.avatar .text-left {
-    padding: 0px 8px 0px 8px;
-}
-
-.avatar .text-right {
-    padding: 0px 8px 0px 0px;
-}
-
-.avatar .text-left .title {
-    color: $dark;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-}
-
-.avatar .text-left .subtitle {
-    color: $dark;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-}
-
-.avatar.large .text-left,
-.avatar.large .text-right {
-    font-size: 38px;
-    height: 96px;
-}
-
-.avatar.medium .text-left,
-.avatar.medium .text-right {
-    font-size: 18px;
-    height: 40px;
-}
-
-.avatar.medium .text-left {
-    padding: 0px 7px 0px 7px;
-}
-
-.avatar.medium .text-right {
-    padding: 0px 7px 0px 0px;
-}
-
-.avatar.small .text-left,
-.avatar.small .text-right {
-    font-size: 14px;
-    height: 34px;
-}
-
-.avatar.small .text-left {
-    padding: 0px 6px 0px 6px;
-}
-
-.avatar.small .text-right {
-    padding: 0px 6px 0px 0px;
-}
-
-.avatar.tiny .text-left,
-.avatar.tiny .text-right {
-    font-size: 10px;
-    height: 24px;
-}
-
-.avatar.tiny .text-left {
-    padding: 0px 4px 0px 4px;
-}
-
-.avatar.tiny .text-right {
-    padding: 0px 4px 0px 0px;
-}
 </style>
 
 <script>
@@ -189,18 +100,6 @@ export const Avatar = {
         size: {
             type: String,
             default: "small"
-        },
-        title: {
-            type: String,
-            default: null
-        },
-        subtitle: {
-            type: String,
-            default: null
-        },
-        content: {
-            type: String,
-            default: null
         },
         imgUrl: {
             type: String,
@@ -214,9 +113,6 @@ export const Avatar = {
     computed: {
         hasImg() {
             return Boolean(this.imgUrl);
-        },
-        hasText() {
-            return Boolean(this.title || this.subtitle || this.content);
         }
     }
 };

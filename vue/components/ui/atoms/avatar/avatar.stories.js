@@ -20,15 +20,6 @@ storiesOf("Avatar", module)
             imgUrl: {
                 default: text("Image URL", "http://placekitten.com/g/100/100")
             },
-            title: {
-                default: text("Title", "Cute")
-            },
-            subtitle: {
-                default: text("Subtext", "Kitten")
-            },
-            content: {
-                default: text("Content", "Miau miau")
-            },
             notify: {
                 default: boolean("Notify", true)
             }
@@ -36,12 +27,9 @@ storiesOf("Avatar", module)
         template: `
         <div>
             <avatar
-                v-bind:content="content"
-                v-bind:subtitle="subtitle"
-                v-bind:title="title"
-                v-bind:notify="notify"
+                v-bind:imgUrl="imgUrl"
                 v-bind:size="size"
-                v-bind:imgUrl="imgUrl" />
+                v-bind:notify="notify"/>
         </div>
         `
     }));
