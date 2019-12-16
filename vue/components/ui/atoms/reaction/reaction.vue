@@ -97,6 +97,10 @@
 export const Reaction = {
     name: "reaction",
     props: {
+        id: {
+            type: String,
+            default: null
+        },
         icon: {
             type: String,
             mandatory: false
@@ -143,7 +147,7 @@ export const Reaction = {
     },
     methods: {
         handleClick() {
-            this.$emit("click");
+            this.$emit("click", this.id);
         }
     }
 };

@@ -5,6 +5,9 @@ storiesOf("Button", module)
     .addDecorator(withKnobs)
     .add("Reaction", () => ({
         props: {
+            id: {
+                default: text("Id", "r1")
+            },
             icon: {
                 default: select(
                     "Icon Name",
@@ -64,6 +67,7 @@ storiesOf("Button", module)
             <div>
                 <reaction
                 v-on:click="onClick"
+                v-bind:id="id" 
                 v-bind:icon="icon" 
                 v-bind:imgUrl="imgUrl"
                 v-bind:emoji="emoji"
