@@ -74,11 +74,14 @@
             <announcement-modal
                 v-bind:visible="announcementModalVisible"
                 v-bind:notify-color="notifyColor"
-                v-bind:notify-user="notifyUser"
-                v-bind:announcements="announcements"
+                v-bind:title="announcements.title"
+                v-bind:description="announcements.description"
+                v-bind:notify-user="announcements.notify_updates"
+                v-bind:announcements="announcements.items"
                 v-bind:items="announcementItems"
                 v-on:click:announcement="onUpdateAnnouncement"
                 v-on:update:notify="onUpdateNotify"
+                v-on:update:reaction="onUpdateReaction"
                 v-on:update:visible="onUpdateAnnouncementVisible"
             />
         </div>
@@ -364,7 +367,7 @@ export const Header = {
             accountDropdownVisible: false,
             announcementModalVisible: false,
             notifyUser: true,
-            announcements: [],
+            announcements: { },
             announcementItems: [
                 {
                     label: "Notify me about updates",
@@ -404,7 +407,7 @@ export const Header = {
             return items;
         },
         announcementsToRead() {
-            for (const announcement of this.announcements) {
+            for (const announcement of this.announcements.items) {
                 if (!announcement.read) return true;
             }
             return false;
@@ -417,7 +420,7 @@ export const Header = {
     },
     methods: {
         setAnnouncementRead(index) {
-            this.announcements[index].read = true;
+            this.announcements.items[index].read = true;
         },
         setNotifyUser(value) {
             this.notifyUser = value;
@@ -438,6 +441,10 @@ export const Header = {
             document.body.click();
             this.appsDropdownVisible = !status;
         },
+        updateReaction(index) {
+            this.announcements.items[index].has_reacted = !this.announcements.items[index]
+                .has_reacted;
+        },
         onAnnoucementsClick() {
             this.setAnnouncementVisibility(true);
         },
@@ -446,6 +453,9 @@ export const Header = {
         },
         onUpdateNotify(value) {
             this.setNotifyUser(value);
+        },
+        onUpdateReaction(index) {
+            this.updateReaction(index);
         },
         onUpdateAnnouncementVisible(visibility) {
             this.setAnnouncementVisibility(visibility);

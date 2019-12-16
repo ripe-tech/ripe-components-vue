@@ -8,12 +8,15 @@
         >
             <global-events v-on:keydown.esc="onHandleGlobal" v-on:click="onHandleGlobal" />
             <div class="announcement-header">
-                <h1 class="title">What's new?</h1>
+                <h1 class="title">{{ title }}</h1>
                 <button-icon
                     v-bind:icon="'close'"
                     v-bind:color="'grey'"
                     v-on:click="onClickClose"
                 />
+                <p class="description">
+                    {{ description }}
+                </p>
                 <form-input>
                     <checkbox
                         v-bind:items="items"
@@ -30,7 +33,7 @@
                     v-bind:key="index"
                 >
                     <p class="date">
-                        {{ dateString(announcement.date / 1000) }}
+                        {{ dateString(announcement.timestamp / 1000) }}
                     </p>
                     <div
                         class="dot"
@@ -42,7 +45,7 @@
                     <div class="content">
                         {{ announcement.content }}
                     </div>
-                    <link
+                    <link-ripe
                         class="link"
                         v-bind:text="'More details'"
                         v-bind:href="announcement.link"
@@ -50,7 +53,15 @@
                         v-bind:rel="'noopener noreferrer'"
                         v-bind:color="'black'"
                     />
-                    <button-icon class="reaction" v-bind:icon="'eye'" v-bind:color="'grey'" />
+                    <reaction
+                        class="reaction"
+                        v-bind:emoji="'👍'"
+                        v-bind:count="count(announcement)"
+                        v-bind:user-reacted="announcement.has_reacted"
+                        v-if="announcement.reaction"
+                        v-bind:id="`${index}`"
+                        v-on:click="onReactionClick"
+                    />
                 </div>
             </div>
         </div>
@@ -87,6 +98,16 @@
     display: inline-block;
     font-size: 18px;
     line-height: 18px;
+}
+
+.announcements-container .announcement-header .description {
+    font-size: 14px;
+    line-height: 14px;
+    margin-bottom: 10px;
+}
+
+.announcements-container .announcement-header ::v-deep .checkbox .choice {
+    padding-left: 0px;
 }
 
 .announcements-container .announcement-header ::v-deep .button-icon {
@@ -151,6 +172,7 @@
 
 .announcements-container .announcements .announcement .reaction {
     float: right;
+    line-height: initial;
     margin-top: 17px;
 }
 </style>
@@ -169,6 +191,14 @@ export const AnnouncementModal = {
         notifyColor: {
             type: String,
             default: "#3c80cd"
+        },
+        title: {
+            type: String,
+            default: "What's new?"
+        },
+        description: {
+            type: String,
+            default: ""
         },
         announcements: {
             type: Array,
@@ -213,6 +243,9 @@ export const AnnouncementModal = {
             this.visibleData = false;
             this.$emit("update:visible", this.visibleData);
         },
+        count(announcement) {
+            return announcement.has_reacted ? 2 : 1;
+        },
         onHandleGlobal() {
             this.hide();
         },
@@ -224,6 +257,9 @@ export const AnnouncementModal = {
         },
         onUpdateValues(newValues) {
             this.setValues(newValues);
+        },
+        onReactionClick(id) {
+            this.$emit("update:reaction", id);
         }
     }
 };
