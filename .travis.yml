@@ -7,7 +7,7 @@ node_js:
   - "10"
   - "11"
 install:
-  - npm install && npm update
+  - npm install
 script: npm run lint-all && npm run build && npm test
 before_deploy: npm run build
 deploy:
