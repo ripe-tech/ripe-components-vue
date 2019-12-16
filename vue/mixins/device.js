@@ -68,8 +68,8 @@ const deviceMixin = {
                 body.classList.add(MOBILE_SIZE_CLASS);
             }
 
-            for (const widthTuple of this.widthTuples || []) {
-                const [name, range] = widthTuple;
+            for (const widthBreakpoint of this.widthBreakpoints || []) {
+                const [name, range] = widthBreakpoint;
                 const minWidth = range[0] || 0;
                 const maxWidth = range[1] || 65536;
                 body.classList.remove(name);
@@ -78,8 +78,8 @@ const deviceMixin = {
                 }
             }
 
-            for (const heightTuple of this.heightTuples || []) {
-                const [name, range] = heightTuple;
+            for (const heightBreakpoint of this.heightBreakpoints || []) {
+                const [name, range] = heightBreakpoint;
                 const minHeight = range[0] || 0;
                 const maxHeight = range[1] || 65536;
                 body.classList.remove(name);
@@ -96,22 +96,22 @@ const deviceMixin = {
             this.mobileWidth = width;
             if (update) this.updateDevice();
         },
-        addWidthTuple(name, range = []) {
-            this.widthTuples = this.widthTuples || [];
-            this.widthTuples.push([name, range]);
+        addWidthBreakpoint(name, range = []) {
+            this.widthBreakpoints = this.widthBreakpoints || [];
+            this.widthBreakpoints.push([name, range]);
         },
-        removeWidthTuple(name) {
-            this.widthTuples = this.widthTuples || [];
-            this.widthTuples = this.widthTuples.filter(v => v[0] !== name);
+        removeWidthBreakpoint(name) {
+            this.widthBreakpoints = this.widthBreakpoints || [];
+            this.widthBreakpoints = this.widthBreakpoints.filter(v => v[0] !== name);
             document.body.classList.remove(name);
         },
-        addHeightTuple(name, range = []) {
-            this.heightTuples = this.heightTuples || [];
-            this.heightTuples.push([name, range]);
+        addHeightBreakpoint(name, range = []) {
+            this.heightBreakpoints = this.heightBreakpoints || [];
+            this.heightBreakpoints.push([name, range]);
         },
-        removeHeightTuple(name) {
-            this.heightTuples = this.heightTuples || [];
-            this.heightTuples = this.heightTuples.filter(v => v[0] !== name);
+        removeHeightBreakpoint(name) {
+            this.heightBreakpoints = this.heightBreakpoints || [];
+            this.heightBreakpoints = this.heightBreakpoints.filter(v => v[0] !== name);
             document.body.classList.remove(name);
         },
         _isMobileDevice(data) {
