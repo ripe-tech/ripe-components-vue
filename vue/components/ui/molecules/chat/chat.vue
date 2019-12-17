@@ -14,26 +14,7 @@
             </div>
 
             <div class="chat-files-container">
-                <div class="files-title">
-                    <span>Files</span>
-                </div>
-                <div class="files-list">
-                    <p>File 1</p>
-                    <p>File 2</p>
-                    <p>File 3</p>
-                    <p>File 4</p>
-                    <p>File 5</p>
-                    <p>File 6</p>
-                    <p>File 7</p>
-                    <p>File 8</p>
-                    <p>File 9</p>
-                    <p>File 10</p>
-                    <p>File 11</p>
-                    <p>File 12</p>
-                    <p>File 13</p>
-                    <p>File 14</p>
-                    <p>File 15</p>
-                </div>
+                <attachments-list v-bind:attachments="allAttachments" />
             </div>
         </div>
         <div class="chat-input-container">
@@ -83,25 +64,6 @@
     width: 250px;
 }
 
-.chat-files-container .files-title {
-    border: solid 1px #e4e8f0;
-    height: 42px;
-}
-
-.chat-files-container .files-title span {
-    background-color: $white;
-    color: $light-black;
-    display: block;
-    font-weight: bold;
-    letter-spacing: 0.7px;
-    line-height: 42px;
-    margin: 0px 20px 0px 20px;
-}
-
-.chat-files-container .files-list {
-    height: 308px;
-    overflow: auto;
-}
 
 .chat-input-container {
     background-color: $grey-6;
@@ -139,8 +101,18 @@ export const Chat = {
     name: "chat",
     props: {
         messages: {
-            type: String,
-            default: null
+            type: Array,
+            default: () => []
+        }
+    },
+    computed: {
+        allAttachments() {
+            let allAttachments = [];
+            this.messages.forEach(message =>
+                Array.prototype.push.apply(allAttachments, message.messageContent.attachments)
+            );
+
+            return allAttachments;
         }
     },
     methods: {

@@ -33,8 +33,8 @@ storiesOf("Molecules", module)
                             text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                             attachments: [
                                 {
-                                    name: "lorem-ipsum.pdf",
-                                    path: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                                    name: "randomscreenshot.jpeg",
+                                    path: "https://cdn.platforme.com/images/platforme.square.png"
                                 }
                             ],
                             reactions: []
