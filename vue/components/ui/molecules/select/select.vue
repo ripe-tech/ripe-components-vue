@@ -324,19 +324,19 @@ export const Select = {
             this.highlight(this.options.length - 1);
         },
         onEnterKey() {
-            if (!this.highlighted) return;
+            if (this.highlighted === null) return;
 
             this.setValue(this.options[this.highlighted].id);
             this.closeDropdown();
         },
         onSpaceKey() {
-            if (!this.highlighted) return;
+            if (this.highlighted === null) return;
 
             this.setValue(this.options[this.highlighted].id);
             this.closeDropdown();
         },
         onDropdownSelect(optionId) {
-            if (!this.highlighted) return;
+            if (this.highlighted === null) return;
 
             this.setValue(this.options[this.highlighted].id);
             this.closeDropdown();
