@@ -310,14 +310,20 @@ export const Select = {
             this.hightlight(this.options.length - 1);
         },
         onEnterKey() {
+            if(!this.highlighted) return;
+
             this.setValue(this.options[this.highlighted].id);
             this.closeDropdown();
         },
         onSpaceKey() {
+            if(!this.highlighted) return;
+
             this.setValue(this.options[this.highlighted].id);
             this.closeDropdown();
         },
         onDropdownSelect(optionId) {
+            if(!this.highlighted) return;
+            
             this.setValue(this.options[this.highlighted].id);
             this.closeDropdown();
         },
