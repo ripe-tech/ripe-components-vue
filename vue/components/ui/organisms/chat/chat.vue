@@ -33,6 +33,11 @@
                     <div class="optionExample" />
                 </div>
             </div>
+            <button-color
+                class="send-button"
+                v-bind:text="'Send message'"
+                v-on:click="onSendMessageClick()"
+            />
         </div>
     </div>
 </template>
@@ -92,9 +97,15 @@
     margin: 4px 4px 4px 4px;
     width: 22px;
 }
+
+.chat-input-container .send-button {
+    float: right;
+    margin: 16px 16px 16px 16px;
+}
 </style>
 
 <script>
+//TODO: replace with rich-textarea. Making this change will fix the border problem too.
 export const Chat = {
     name: "chat",
     props: {
@@ -102,6 +113,14 @@ export const Chat = {
             type: Array,
             default: () => []
         }
+    },
+     data: function() {
+        return {
+            message:  {
+                text: null,
+                attachments: []
+            },
+        };
     },
     computed: {
         allAttachments() {
@@ -114,9 +133,18 @@ export const Chat = {
         }
     },
     methods: {
+        sendMessage(){
+            //TODO
+            console.log("Message sent");
+            console.log(this.message);
+        },
         onTextareaValue(value) {
             // TODO
+            this.message.text = value;
             console.log(`Textarea changed: ${value}`);
+        },
+        onSendMessageClick() {
+            this.sendMessage();
         }
     }
 };
