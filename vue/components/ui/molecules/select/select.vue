@@ -1,8 +1,5 @@
 <template>
-    <div
-        class="select"
-        v-bind:style="selectStyle"
-    >
+    <div class="select" v-bind:style="selectStyle">
         <global-events v-on:click="onGlobalClick" />
         <div class="dropdown-container">
             <div
@@ -259,7 +256,10 @@ export const Select = {
                 option => option.text.charAt(0).toUpperCase() === key.toUpperCase()
             );
 
-            if (index > -1) this.highlight(index, scroll);
+            if (index > -1) {
+                this.openDropdown();
+                this.highlight(index, scroll);
+            }
         },
         scrollTo(index) {
             const dropdown = this.$refs.dropdown.$refs.dropdown;
@@ -287,6 +287,12 @@ export const Select = {
             this.closeDropdown();
         },
         onClickDropdownButton() {
+            this.toggleDropdown();
+        },
+        onSelectButtonEnterKey() {
+            this.toggleDropdown();
+        },
+        onSelectButtonSpaceKey() {
             this.toggleDropdown();
         },
         onKey(key) {
@@ -320,13 +326,29 @@ export const Select = {
             this.highlight(this.options.length - 1);
         },
         onEnterKey() {
-            if (this.highlighted === null) return;
+            if (!this.isVisible) {
+                this.openDropdown();
+                return;
+            }
+
+            if (this.highlighted === null) {
+                this.closeDropdown();
+                return;
+            }
 
             this.setValue(this.options[this.highlighted].id);
             this.closeDropdown();
         },
         onSpaceKey() {
-            if (this.highlighted === null) return;
+            if (!this.isVisible) {
+                this.openDropdown();
+                return;
+            }
+
+            if (this.highlighted === null) {
+                this.closeDropdown();
+                return;
+            }
 
             this.setValue(this.options[this.highlighted].id);
             this.closeDropdown();
