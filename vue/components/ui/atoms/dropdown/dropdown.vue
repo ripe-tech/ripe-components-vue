@@ -91,6 +91,7 @@
     overflow: hidden;
     padding: 0px;
     position: absolute;
+    box-sizing: border-box;
 }
 
 .dropdown > .dropdown-item {
