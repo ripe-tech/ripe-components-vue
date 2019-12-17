@@ -70,6 +70,7 @@
     vertical-align: top;
 }
 
+.attachments .attachments-list .attachment:hover,
 .attachments .attachments-list .attachment:hover .link {
     border-color: #1d2631;
 }
