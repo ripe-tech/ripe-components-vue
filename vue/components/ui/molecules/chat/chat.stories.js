@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs } from "@storybook/addon-knobs";
 
-storiesOf("Chat", module)
+storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Chat", () => ({
         props: {
