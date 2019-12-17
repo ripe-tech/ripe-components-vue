@@ -131,6 +131,10 @@ body.tablet-device .select .dropdown-container {
     position: absolute;
 }
 
+.select .dropdown-container ::v-deep .dropdown {
+    width: 100%;
+}
+
 .dropdown .dropdown-item-content {
     height: 32px;
     line-height: 32px;
