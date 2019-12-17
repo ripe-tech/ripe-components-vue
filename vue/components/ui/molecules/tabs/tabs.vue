@@ -87,7 +87,6 @@
 .tabs > .tabs-container > .tab {
     box-sizing: border-box;
     opacity: 0;
-    padding: 15px 15px 15px 15px;
     position: absolute;
     transition: opacity 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
     width: 100%;
