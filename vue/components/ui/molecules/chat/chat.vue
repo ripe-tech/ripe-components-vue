@@ -14,7 +14,7 @@
             </div>
 
             <div class="chat-files-container">
-                <attachments-list v-bind:attachments="allAttachments" />
+                <attachments-list v-bind:attachments="allAttachments" v-bind:height="306" />
             </div>
         </div>
         <div class="chat-input-container">
@@ -60,10 +60,8 @@
 }
 
 .chat-files-container {
-    background-color: $grey-6;
     width: 250px;
 }
-
 
 .chat-input-container {
     background-color: $grey-6;
