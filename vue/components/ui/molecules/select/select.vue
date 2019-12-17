@@ -2,8 +2,6 @@
     <div
         class="select"
         v-bind:style="selectStyle"
-        v-on:keydown.enter.exact="onSelectButtonEnterKey()"
-        v-on:keydown.space.exact="onSelectButtonSpaceKey()"
     >
         <global-events v-on:click="onGlobalClick" />
         <div class="dropdown-container">
@@ -289,12 +287,6 @@ export const Select = {
             this.closeDropdown();
         },
         onClickDropdownButton() {
-            this.toggleDropdown();
-        },
-        onSelectButtonEnterKey() {
-            this.toggleDropdown();
-        },
-        onSelectButtonSpaceKey() {
             this.toggleDropdown();
         },
         onKey(key) {
