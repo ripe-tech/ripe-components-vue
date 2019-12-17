@@ -303,11 +303,11 @@ export const Select = {
         },
         onAltUpKey() {
             this.openDropdown();
-            this.hightlight(0);
+            this.highlight(0);
         },
         onAltDownKey() {
             this.openDropdown();
-            this.hightlight(this.options.length - 1);
+            this.highlight(this.options.length - 1);
         },
         onEnterKey() {
             if(!this.highlighted) return;
