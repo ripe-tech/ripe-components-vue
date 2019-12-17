@@ -1,6 +1,7 @@
 import { ButtonColor } from "./button-color/button-color.vue";
 import { ButtonIcon } from "./button-icon/button-icon.vue";
 import { ButtonPlatforme } from "./button-platforme/button-platforme.vue";
+import { ChatMessage } from "./chat-message/chat-message.vue";
 import { Checkbox } from "./checkbox/checkbox.vue";
 import { Container } from "./container/container.vue";
 import { Dropdown } from "./dropdown/dropdown.vue";
@@ -19,6 +20,7 @@ const install = Vue => {
     Vue.component("button-color", ButtonColor);
     Vue.component("button-icon", ButtonIcon);
     Vue.component("button-platforme", ButtonPlatforme);
+    Vue.component("chat-message", ChatMessage);
     Vue.component("checkbox", Checkbox);
     Vue.component("container-ripe", Container);
     Vue.component("dropdown", Dropdown);
@@ -38,6 +40,7 @@ export {
     ButtonColor,
     ButtonIcon,
     ButtonPlatforme,
+    ChatMessage,
     Checkbox,
     Container,
     Dropdown,
