@@ -1,5 +1,10 @@
 <template>
-    <div class="select" v-bind:style="selectStyle">
+    <div
+        class="select"
+        v-bind:style="selectStyle"
+        v-on:keydown.enter.exact="onSelectButtonEnterKey()"
+        v-on:keydown.space.exact="onSelectButtonSpaceKey()"
+    >
         <global-events v-on:click="onGlobalClick" />
         <div class="dropdown-container">
             <div
@@ -279,6 +284,12 @@ export const Select = {
         onClickDropdownButton() {
             this.toggleDropdown();
         },
+        onSelectButtonEnterKey() {
+            this.toggleDropdown();
+        },
+        onSelectButtonSpaceKey() {
+            this.toggleDropdown();
+        },
         onKey(key) {
             this.highlightFirstMatchedOption(key);
         },
@@ -310,20 +321,20 @@ export const Select = {
             this.highlight(this.options.length - 1);
         },
         onEnterKey() {
-            if(!this.highlighted) return;
+            if (!this.highlighted) return;
 
             this.setValue(this.options[this.highlighted].id);
             this.closeDropdown();
         },
         onSpaceKey() {
-            if(!this.highlighted) return;
+            if (!this.highlighted) return;
 
             this.setValue(this.options[this.highlighted].id);
             this.closeDropdown();
         },
         onDropdownSelect(optionId) {
-            if(!this.highlighted) return;
-            
+            if (!this.highlighted) return;
+
             this.setValue(this.options[this.highlighted].id);
             this.closeDropdown();
         },

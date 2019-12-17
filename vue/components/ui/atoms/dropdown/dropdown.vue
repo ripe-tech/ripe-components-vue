@@ -83,6 +83,7 @@
     border: 1px solid #dddddd;
     border-radius: 5px;
     box-shadow: 1px 2px 5px rgba(20, 20, 20, 0.1);
+    box-sizing: border-box;
     color: #4d4d4d;
     font-size: 14px;
     font-weight: 600;
@@ -91,7 +92,6 @@
     overflow: hidden;
     padding: 0px;
     position: absolute;
-    box-sizing: border-box;
 }
 
 .dropdown > .dropdown-item {
