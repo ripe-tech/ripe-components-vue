@@ -12,15 +12,18 @@ storiesOf("Organisms", module)
                         username: "NFSS10",
                         date: "Nov 28",
                         messageContent: {
-                            text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et lacus ac arcu ullamcorper condimentum.",
+                            text:
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et lacus ac arcu ullamcorper condimentum.",
                             attachments: [
                                 {
                                     name: "lorem-ipsum.pdf",
-                                    path: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                                    path:
+                                        "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
                                 },
                                 {
                                     name: "lorem-ipsum2.pdf",
-                                    path: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                                    path:
+                                        "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
                                 }
                             ],
                             reactions: [{ icon: "thumb-up" }, { icon: "happy-face" }]
@@ -44,7 +47,8 @@ storiesOf("Organisms", module)
                         username: "BeeMargarida",
                         date: "Nov 28",
                         messageContent: {
-                            text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in tristique dui. Praesent a lectus non libero facilisis tincidunt ut.",
+                            text:
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in tristique dui. Praesent a lectus non libero facilisis tincidunt ut.",
                             attachments: [],
                             reactions: [{ icon: "thumb-up" }]
                         }
@@ -62,7 +66,8 @@ storiesOf("Organisms", module)
                         username: "blazeque",
                         date: "Nov 30",
                         messageContent: {
-                            text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis nisi massa. Pellentesque consequat tortor vitae enim porta tempor. Quisque eu enim at leo semper luctus. Donec vitae hendrerit justo. Nulla facilisi. Aenean mollis vehicula.",
+                            text:
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis nisi massa. Pellentesque consequat tortor vitae enim porta tempor. Quisque eu enim at leo semper luctus. Donec vitae hendrerit justo. Nulla facilisi. Aenean mollis vehicula.",
                             attachments: [],
                             reactions: []
                         }

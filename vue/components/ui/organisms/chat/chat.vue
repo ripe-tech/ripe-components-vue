@@ -3,13 +3,13 @@
         <div class="chat-container">
             <div class="chat-messages-container">
                 <chat-message
-                    v-for="message in messages"
-                    v-bind:key="message.username"
                     v-bind:username="message.username"
                     v-bind:date="message.date"
                     v-bind:message="message.messageContent.text"
                     v-bind:attachments="message.messageContent.attachments"
                     v-bind:reactions="message.messageContent.reactions"
+                    v-for="message in messages"
+                    v-bind:key="message.username"
                 />
             </div>
 
@@ -105,7 +105,7 @@
 </style>
 
 <script>
-//TODO: replace with rich-textarea. Making this change will fix the border problem too.
+// TODO: replace with rich-textarea. Making this change will fix the border problem too.
 export const Chat = {
     name: "chat",
     props: {
@@ -114,17 +114,17 @@ export const Chat = {
             default: () => []
         }
     },
-     data: function() {
+    data: function() {
         return {
-            message:  {
+            message: {
                 text: null,
                 attachments: []
-            },
+            }
         };
     },
     computed: {
         allAttachments() {
-            let allAttachments = [];
+            const allAttachments = [];
             this.messages.forEach(message =>
                 Array.prototype.push.apply(allAttachments, message.messageContent.attachments)
             );
@@ -133,8 +133,8 @@ export const Chat = {
         }
     },
     methods: {
-        sendMessage(){
-            //TODO
+        sendMessage() {
+            // TODO
             console.log("Message sent");
             console.log(this.message);
         },

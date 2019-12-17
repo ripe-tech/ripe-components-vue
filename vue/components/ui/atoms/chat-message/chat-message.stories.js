@@ -17,7 +17,8 @@ storiesOf("Atoms", module)
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et lacus ac arcu ullamcorper condimentum."
                 )
             },
-            attachments: { //TODO change -> need to know what data I will receive
+            attachments: {
+                // TODO change -> need to know what data I will receive
                 type: Array,
                 default: () => [
                     {
