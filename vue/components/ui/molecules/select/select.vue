@@ -58,6 +58,9 @@
             <option v-bind:value="options.id" v-for="options in options" v-bind:key="options.id">
                 {{ options.text }}
             </option>
+            <option v-bind:value="null" style="display: none;">
+                {{ placeholder }}
+            </option>
         </select>
     </div>
 </template>
