@@ -1,17 +1,13 @@
 <template>
     <transition name="fade">
-        <div
-            class="announcements-container"
-            v-bind:class="{ visible: visible }"
-            v-show="isVisible"
-            v-on:click.stop
-        >
+        <div class="announcements-container" v-show="isVisible" v-on:click.stop>
             <global-events v-on:keydown.esc="onHandleGlobal" v-on:click="onHandleGlobal" />
             <div class="announcement-header">
                 <h1 class="title">{{ title }}</h1>
                 <button-icon
                     v-bind:icon="'close'"
                     v-bind:color="'grey'"
+                    class="button-close"
                     v-on:click="onClickClose"
                 />
                 <p class="description">
@@ -75,16 +71,13 @@
     animation: fade-grow-rise 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
     background-color: $white;
     border: 1px solid transparent;
+    border: 1px solid $light-white;
+    box-shadow: 0px 6px 24px 0px rgba(67, 86, 100, 0.15);
     width: 370px;
 }
 
 .announcements-container.fade-leave-active {
     animation: fade-shrink-visibility 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
-}
-
-.announcements-container.visible {
-    border: 1px solid $light-white;
-    box-shadow: 0px 6px 24px 0px rgba(67, 86, 100, 0.15);
 }
 
 .announcements-container .announcement-header {
@@ -104,11 +97,7 @@
     margin: 0px 0px 10px 0px;
 }
 
-.announcements-container .announcement-header ::v-deep .checkbox .choice {
-    padding-left: 0px;
-}
-
-.announcements-container .announcement-header ::v-deep .button-icon {
+.announcements-container .announcement-header .button-close {
     display: inline-block;
     float: right;
     margin-top: 16px;
@@ -121,7 +110,7 @@
 
 .announcements-container .announcements .announcement {
     border-top: 1px solid $light-white;
-    padding: 0px 24px 15px 24px;
+    padding: 15px 24px 30px 24px;
     position: relative;
 }
 
@@ -131,8 +120,7 @@
 
 .announcements-container .announcements .announcement .date {
     display: inline-block;
-    line-height: 14px;
-    margin-top: 5px;
+    margin-top: 10px;
 }
 
 .announcements-container .announcements .announcement .dot {
@@ -167,14 +155,16 @@
     white-space: pre-line;
 }
 
-.announcements-container .announcements .announcement .link {
-    border-color: #1d2631;
-}
-
 .announcements-container .announcements .announcement .reaction {
     float: right;
-    line-height: initial;
-    margin-top: 17px;
+}
+
+body.mobile .announcements-container {
+    width: 100%;
+}
+
+body.mobile .announcements-container > .announcements {
+    height: 500px;
 }
 </style>
 

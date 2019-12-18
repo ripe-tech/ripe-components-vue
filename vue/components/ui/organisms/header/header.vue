@@ -40,13 +40,9 @@
                     v-bind:visible.sync="accountDropdownVisible"
                 >
                     <template v-slot:announcement="{ item }">
-                        <div class="announcement-dropdown-content" v-on:click="onAnnoucementsClick">
+                        <div class="dropdown-item-announcement" v-on:click="onAnnoucementsClick">
                             <span class="announcement-dropdown-text">{{ item.text }}</span>
-                            <div
-                                class="dot"
-                                v-bind:style="{ backgroundColor: String(notifyColor) }"
-                                v-if="announcementsToRead"
-                            />
+                            <div class="dot" v-if="announcementsToRead" />
                         </div>
                     </template>
                 </dropdown>
@@ -291,12 +287,12 @@
     margin: 6px 0px 0px 0px;
 }
 
-.header-ripe ::v-deep .dropdown > .dropdown-item .announcement-dropdown-text {
+.header-ripe .dropdown-item-announcement .announcement-dropdown-text {
     width: auto;
 }
 
-.header-ripe ::v-deep .dropdown > .dropdown-item .dot {
-    background: #4b8dd7;
+.header-ripe .dropdown-item-announcement .dot {
+    background-color: #4b8dd7;
     border: 1px solid #ffffff;
     border-radius: 50%;
     float: right;
@@ -310,14 +306,6 @@
     position: absolute;
     right: 0px;
     top: 60px;
-}
-
-body.mobile .header-ripe ::v-deep .announcements-container {
-    width: 100%;
-}
-
-body.mobile .header-ripe ::v-deep .announcements-container > .announcements {
-    height: 500px;
 }
 </style>
 
@@ -363,7 +351,7 @@ export const Header = {
         },
         announcements: {
             type: Object,
-            default: {}
+            default: null
         }
     },
     data: function() {
@@ -404,10 +392,9 @@ export const Header = {
             return items;
         },
         announcementsToRead() {
-            const current = Date.now();
             return this.announcements.items.length === 0
                 ? false
-                : this.announcements.items[0].timestamp > current - this.announcements.new_delta;
+                : this.announcements.items[0].timestamp > Date.now() - this.announcements.new_delta;
         }
     },
     watch: {
