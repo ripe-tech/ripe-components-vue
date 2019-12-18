@@ -66,10 +66,14 @@
                         </div>
                     </slot>
                 </div>
-                <h1 class="title" v-if="loaded">{{ title }}</h1>
-                <div class="header-center" v-if="loaded">
-                    <slot name="header-center" />
-                </div>
+                <slot name="title" v-if="loaded">
+                    <h1 class="title">{{ title }}</h1>
+                </slot>
+                <slot name="header-center-container" v-if="loaded">
+                    <div class="header-center">
+                        <slot name="header-center" />
+                    </div>
+                </slot>
             </div>
             <div class="details" v-if="loaded">
                 <div class="details-column details-column-image" v-if="imageUrl">
