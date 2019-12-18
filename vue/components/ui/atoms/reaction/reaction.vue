@@ -7,7 +7,7 @@
     >
         <span class="reaction-figure" v-if="hasFigure">
             <img class="image" v-bind:src="imageSrc" v-if="hasImage" />
-            <p class="emoji" v-else>{{ emoji }}</p>
+            <span class="emoji" v-else>{{ emoji }}</span>
         </span>
         <span class="reaction-counter">
             {{ count }}
