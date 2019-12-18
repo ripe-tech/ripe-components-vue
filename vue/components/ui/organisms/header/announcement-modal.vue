@@ -17,11 +17,10 @@
                 <p class="description">
                     {{ description }}
                 </p>
-                <form-input v-if="notifyUpdates">
+                <form-input v-if="showNotify">
                     <checkbox
-                        v-bind:items="items"
+                        v-bind:items="[checkboxItem]"
                         v-bind:values="{ notify }"
-                        v-bind:disabled="false"
                         v-on:update:values="onUpdateValues"
                     />
                 </form-input>
@@ -37,11 +36,8 @@
                     </p>
                     <div
                         class="dot"
-                        v-bind:style="{
-                            backgroundColor: String(notifyColor),
-                            clickable: clickable
-                        }"
-                        v-if="!read(index)"
+                        v-bind:class="{ clickable: dotClickable }"
+                        v-if="isNew(announcement) && !announcement.read"
                         v-on:click.stop.prevent="onClickAnnouncement(index)"
                     />
                     <h2 class="title">{{ announcement.title }}</h2>
@@ -140,7 +136,7 @@
 }
 
 .announcements-container .announcements .announcement .dot {
-    background: #4b8dd7;
+    background-color: #4b8dd7;
     border: 1px solid #ffffff;
     border-radius: 50%;
     display: inline-block;
@@ -193,10 +189,6 @@ export const AnnouncementModal = {
             type: Boolean,
             required: true
         },
-        notifyColor: {
-            type: String,
-            default: "#3c80cd"
-        },
         title: {
             type: String,
             default: "What's new?"
@@ -211,9 +203,9 @@ export const AnnouncementModal = {
         },
         newDelta: {
             type: Number,
-            default: 3600
+            default: null
         },
-        clickable: {
+        dotClickable: {
             type: Boolean,
             default: false
         },
@@ -221,22 +213,25 @@ export const AnnouncementModal = {
             type: Boolean,
             default: false
         },
-        notifyUpdates: {
+        showNotify: {
             type: Boolean,
-            required: true
+            default: true
+        },
+        notify: {
+            type: Boolean,
+            required: false
+        },
+        checkboxItem: {
+            type: Object,
+            default: () => ({
+                label: "Notify me about updates",
+                value: "notify"
+            })
         }
     },
     data: function() {
         return {
-            visibleData: true,
-            notify: true,
-            items: [
-                {
-                    label: "Notify me about updates",
-                    value: "notify",
-                    checked: true
-                }
-            ]
+            visibleData: true
         };
     },
     watch: {
@@ -249,31 +244,26 @@ export const AnnouncementModal = {
             return this.visible && this.visibleData;
         }
     },
-    created: function() {
-        this.notify = this.notifyUpdates;
-    },
     methods: {
         setValues(values) {
             const { notify } = values;
-            this.notify = Boolean(notify);
-            this.$emit("update:notify", this.notify);
+            this.$emit("update:notify", Boolean(notify));
         },
         hide() {
             if (!this.visibleData) return;
             this.visibleData = false;
             this.$emit("update:visible", this.visibleData);
         },
-        read(index) {
-            const current = Date.now();
-            return this.announcements[index].timestamp < current - this.newDelta;
+        isNew(announcement) {
+            if (!this.newDelta) return false;
+            return announcement.timestamp > Date.now() - this.newDelta;
         },
         onHandleGlobal() {
             this.hide();
         },
         onClickAnnouncement(index) {
-            if (this.clickable) {
-                this.$emit("click:announcement", index);
-            }
+            if (!this.dotClickable) return;
+            this.$emit("click:announcement", index);
         },
         onClickClose() {
             this.hide();
