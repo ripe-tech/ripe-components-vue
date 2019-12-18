@@ -152,7 +152,7 @@ export const Dropdown = {
     },
     data: function() {
         return {
-            visibleData: true
+            visibleData: this.visible
         };
     },
     watch: {
@@ -162,7 +162,7 @@ export const Dropdown = {
     },
     computed: {
         isVisible() {
-            return this.visible && this.visibleData;
+            return this.visibleData;
         }
     },
     created: function() {
