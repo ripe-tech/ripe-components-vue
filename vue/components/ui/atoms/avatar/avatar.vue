@@ -1,6 +1,10 @@
 <template>
-    <div class="avatar" v-bind:class="[{ notify: notify }, size]">
-        <div class="image-container" v-if="hasImg">
+    <div
+        class="avatar"
+        v-bind:class="[{ notify: notify, clickable: clickable, active: active }, size]"
+        v-if="hasImg"
+    >
+        <div class="image-container">
             <img class="image" v-bind:src="imgUrl" alt="avatar" />
             <slot name="dot">
                 <div class="dot" />
@@ -14,12 +18,50 @@
 
 .avatar {
     display: inline-block;
-    font-size: 0px;
-    white-space: nowrap;
+}
+
+.avatar.clickable {
+    cursor: pointer;
+}
+
+.avatar.clickable:hover {
+    background-color: rgba(60, 64, 67, 0.08);
+}
+
+.avatar.clickable:active,
+.avatar.clickable.active {
+    background-color: rgba(60, 64, 67, 0.2);
+}
+
+.avatar.large.clickable {
+    border-radius: 96px 96px 96px 96px;
+    height: 96px;
+    padding: 5px 5px 5px 5px;
+    width: 96px;
+}
+
+.avatar.medium.clickable {
+    border-radius: 40px 40px 40px 40px;
+    height: 40px;
+    padding: 4px 4px 4px 4px;
+    width: 40px;
+}
+
+.avatar.small.clickable {
+    border-radius: 34px 34px 34px 34px;
+    height: 34px;
+    padding: 3px 3px 3px 3px;
+    width: 34px;
+}
+
+.avatar.tiny.clickable {
+    border-radius: 24px 24px 24px 24px;
+    height: 24px;
+    padding: 2px 2px 2px 2px;
+    width: 24px;
 }
 
 .avatar .image-container {
-    display: inline-block;
     font-size: 0px;
     position: relative;
 }
@@ -106,6 +148,14 @@ export const Avatar = {
             default: null
         },
         notify: {
+            type: Boolean,
+            default: false
+        },
+        clickable: {
+            type: Boolean,
+            default: false
+        },
+        active: {
             type: Boolean,
             default: false
         }

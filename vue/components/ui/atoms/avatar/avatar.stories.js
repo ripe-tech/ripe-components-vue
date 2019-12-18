@@ -22,6 +22,12 @@ storiesOf("Atoms", module)
             },
             notify: {
                 default: boolean("Notify", true)
+            },
+            clickable: {
+                default: boolean("Clickable", false)
+            },
+            active: {
+                default: boolean("Active", false)
             }
         },
         template: `
@@ -29,6 +35,8 @@ storiesOf("Atoms", module)
             <avatar
                 v-bind:imgUrl="imgUrl"
                 v-bind:size="size"
+                v-bind:clickable="clickable"
+                v-bind:active="active"
                 v-bind:notify="notify"/>
         </div>
         `

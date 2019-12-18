@@ -34,7 +34,7 @@
                 ref="headerAccount"
                 v-on:click.stop="hideAccount"
             >
-                <avatar v-bind:img-url="account.avatar_url" />
+                <avatar v-bind:img-url="account.avatar_url" v-bind:clickable="true" />
                 <dropdown
                     v-bind:items="accountDropdownItems"
                     v-bind:visible.sync="accountDropdownVisible"
@@ -155,22 +155,6 @@
 
 .header-ripe > .header-container > .header-account > * {
     vertical-align: middle;
-}
-
-.header-ripe > .header-container > .header-account .avatar {
-    border-radius: 34px 34px 34px 34px;
-    height: 34px;
-    padding: 6px 6px 6px 6px;
-    width: 34px;
-}
-
-.header-ripe > .header-container > .header-account .avatar:hover {
-    background-color: rgba(60, 64, 67, 0.08);
-}
-
-.header-ripe > .header-container > .header-account .avatar:active,
-.header-ripe > .header-container > .header-account.active .avatar {
-    background-color: rgba(60, 64, 67, 0.2);
 }
 
 .header-ripe > .header-container > .header-account ::v-deep .dropdown {
