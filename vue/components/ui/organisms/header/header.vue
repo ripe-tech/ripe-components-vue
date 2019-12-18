@@ -76,9 +76,11 @@
                 v-bind:notify-color="notifyColor"
                 v-bind:title="announcements.title"
                 v-bind:description="announcements.description"
-                v-bind:notify-user="announcements.notify_updates"
+                v-bind:notify-updates="announcements.notify_updates"
+                v-bind:new-delta="announcements.new_delta"
+                v-bind:clickable="announcements.notify_read"
+                v-bind:reaction="announcements.reaction"
                 v-bind:announcements="announcements.items"
-                v-bind:items="announcementItems"
                 v-on:click:announcement="onUpdateAnnouncement"
                 v-on:update:notify="onUpdateNotify"
                 v-on:update:reaction="onUpdateReaction"
@@ -219,7 +221,13 @@
 }
 
 .header-ripe > .header-container > .header-account ::v-deep .dropdown > .dropdown-item:hover > a,
-.header-ripe > .header-container > .header-account ::v-deep .dropdown > .dropdown-item.selected > a {
+.header-ripe
+    > .header-container
+    > .header-account
+    ::v-deep
+    .dropdown
+    > .dropdown-item.selected
+    > a {
     color: $higher-color;
 }
 
@@ -358,6 +366,10 @@ export const Header = {
         notifyColor: {
             type: String,
             default: "#3c80cd"
+        },
+        announcements: {
+            type: Object,
+            default: {}
         }
     },
     data: function() {
@@ -365,16 +377,7 @@ export const Header = {
             searchFilter: null,
             appsDropdownVisible: false,
             accountDropdownVisible: false,
-            announcementModalVisible: false,
-            notifyUser: true,
-            announcements: { },
-            announcementItems: [
-                {
-                    label: "Notify me about updates",
-                    value: "notify",
-                    checked: true
-                }
-            ]
+            announcementModalVisible: false
         };
     },
     computed: {
@@ -407,10 +410,10 @@ export const Header = {
             return items;
         },
         announcementsToRead() {
-            for (const announcement of this.announcements.items) {
-                if (!announcement.read) return true;
-            }
-            return false;
+            const current = Date.now();
+            return this.announcements.items.length === 0
+                ? false
+                : this.announcements.items[0].timestamp > current - this.announcements.new_delta;
         }
     },
     watch: {
@@ -419,12 +422,6 @@ export const Header = {
         }
     },
     methods: {
-        setAnnouncementRead(index) {
-            this.announcements.items[index].read = true;
-        },
-        setNotifyUser(value) {
-            this.notifyUser = value;
-        },
         setAnnouncementVisibility(visibility) {
             this.announcementModalVisible = visibility;
         },
@@ -441,21 +438,17 @@ export const Header = {
             document.body.click();
             this.appsDropdownVisible = !status;
         },
-        updateReaction(index) {
-            this.announcements.items[index].has_reacted = !this.announcements.items[index]
-                .has_reacted;
-        },
         onAnnoucementsClick() {
             this.setAnnouncementVisibility(true);
         },
         onUpdateAnnouncement(index) {
-            this.setAnnouncementRead(index);
+            this.$emit("click:announcement", index);
         },
         onUpdateNotify(value) {
-            this.setNotifyUser(value);
+            this.$emit("update:notify", value);
         },
         onUpdateReaction(index) {
-            this.updateReaction(index);
+            this.$emit("update:reaction", index);
         },
         onUpdateAnnouncementVisible(visibility) {
             this.setAnnouncementVisibility(visibility);

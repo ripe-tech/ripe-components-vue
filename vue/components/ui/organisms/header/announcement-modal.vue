@@ -17,7 +17,7 @@
                 <p class="description">
                     {{ description }}
                 </p>
-                <form-input>
+                <form-input v-if="notifyUpdates">
                     <checkbox
                         v-bind:items="items"
                         v-bind:values="{ notify }"
@@ -37,8 +37,11 @@
                     </p>
                     <div
                         class="dot"
-                        v-bind:style="{ backgroundColor: String(notifyColor) }"
-                        v-if="!announcement.read"
+                        v-bind:style="{
+                            backgroundColor: String(notifyColor),
+                            clickable: clickable
+                        }"
+                        v-if="!read(index)"
                         v-on:click.stop.prevent="onClickAnnouncement(index)"
                     />
                     <h2 class="title">{{ announcement.title }}</h2>
@@ -56,9 +59,8 @@
                     <reaction
                         class="reaction"
                         v-bind:emoji="'👍'"
-                        v-bind:count="count(announcement)"
-                        v-bind:user-reacted="announcement.has_reacted"
-                        v-if="announcement.reaction"
+                        v-bind:count="1"
+                        v-if="reaction"
                         v-bind:id="`${index}`"
                         v-on:click="onReactionClick"
                     />
@@ -103,7 +105,7 @@
 .announcements-container .announcement-header .description {
     font-size: 14px;
     line-height: 14px;
-    margin-bottom: 10px;
+    margin: 0px 0px 10px 0px;
 }
 
 .announcements-container .announcement-header ::v-deep .checkbox .choice {
@@ -141,7 +143,6 @@
     background: #4b8dd7;
     border: 1px solid #ffffff;
     border-radius: 50%;
-    cursor: pointer;
     display: inline-block;
     float: right;
     height: 8px;
@@ -153,9 +154,13 @@
     width: 8px;
 }
 
+.announcements-container .announcements .announcement .dot.clickable {
+    cursor: pointer;
+}
+
 .announcements-container .announcements .announcement .title {
     font-size: 16px;
-    line-height: 16px;
+    line-height: 22px;
     margin: 0px 0px 0px 0px;
 }
 
@@ -204,19 +209,34 @@ export const AnnouncementModal = {
             type: Array,
             default: []
         },
-        notifyUser: {
-            type: Boolean,
-            required: true
+        newDelta: {
+            type: Number,
+            default: 3600
         },
-        items: {
-            type: Array,
+        clickable: {
+            type: Boolean,
+            default: false
+        },
+        reaction: {
+            type: Boolean,
+            default: false
+        },
+        notifyUpdates: {
+            type: Boolean,
             required: true
         }
     },
     data: function() {
         return {
             visibleData: true,
-            notify: true
+            notify: true,
+            items: [
+                {
+                    label: "Notify me about updates",
+                    value: "notify",
+                    checked: true
+                }
+            ]
         };
     },
     watch: {
@@ -230,7 +250,7 @@ export const AnnouncementModal = {
         }
     },
     created: function() {
-        this.notify = this.notifyUser;
+        this.notify = this.notifyUpdates;
     },
     methods: {
         setValues(values) {
@@ -243,14 +263,17 @@ export const AnnouncementModal = {
             this.visibleData = false;
             this.$emit("update:visible", this.visibleData);
         },
-        count(announcement) {
-            return announcement.has_reacted ? 2 : 1;
+        read(index) {
+            const current = Date.now();
+            return this.announcements[index].timestamp < current - this.newDelta;
         },
         onHandleGlobal() {
             this.hide();
         },
         onClickAnnouncement(index) {
-            this.$emit("click:announcement", index);
+            if (this.clickable) {
+                this.$emit("click:announcement", index);
+            }
         },
         onClickClose() {
             this.hide();
