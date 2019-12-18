@@ -12,7 +12,7 @@ storiesOf("Button", module)
                 default: select(
                     "Icon Name",
                     {
-                        None: null,
+                        Unset: null,
                         Close: "close",
                         Chat: "chat",
                         Cart: "cart",
@@ -47,7 +47,7 @@ storiesOf("Button", module)
         },
         methods: {
             resetCount() {
-                this.count = 1;
+                this.count = this.initialCount;
                 this.userReacted = false;
             },
             onClick() {

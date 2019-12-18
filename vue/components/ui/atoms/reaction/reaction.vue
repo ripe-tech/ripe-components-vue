@@ -15,15 +15,18 @@
 
 .reaction {
     background-color: $lighter-grey;
-    border: 1.5px solid transparent;
+    border: 1px solid transparent;
     border-radius: 24px;
     cursor: pointer;
     display: inline-block;
     font-size: 0px;
-    padding: 2px 6px 2px 6px;
+    min-height: 15px;
+    min-width: 12px;
+    padding: 3px 7px 3px 7px;
     text-align: center;
-    transition: transform 0.02s, background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    transition: transform 0.15s ease-out, background-color 0.2s ease-out, border-color 0.2s ease-out;
     user-select: none;
+    vertical-align: middle;
     white-space: nowrap;
 }
 
@@ -46,19 +49,19 @@
     border-color: #43abd7;
 }
 
-.reaction > .image,
-.reaction > .emoji {
+.reaction > * {
     vertical-align: middle;
 }
 
 .reaction > .image {
+    display: inline-block;
     height: 15px;
     width: 15px;
 }
 
 .reaction > .emoji {
     display: inline-block;
-    font-size: 15px;
+    font-size: 12px;
     line-height: 15px;
 }
 
@@ -68,7 +71,6 @@
     font-size: 11px;
     line-height: 15px;
     padding: 0px 2px 0px 3px;
-    vertical-align: middle;
 }
 </style>
 
@@ -123,7 +125,7 @@ export const Reaction = {
     },
     methods: {
         onClick() {
-            this.$emit("click", this.id);
+            this.$emit("click");
         }
     }
 };
