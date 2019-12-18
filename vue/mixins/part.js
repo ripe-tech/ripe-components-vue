@@ -35,11 +35,11 @@ const partMixin = {
         },
         async alertMessage(message, options = {}) {
             options.text = message;
-            this._alert(options);
+            return this._alert(options);
         },
         async alertComponent(component, options = {}) {
             options.component = component;
-            this._alert(options);
+            return this._alert(options);
         },
         async _alert(options = {}) {
             const promise = new Promise((resolve, reject) => {
