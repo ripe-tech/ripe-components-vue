@@ -17,7 +17,7 @@
                     <checkbox
                         v-bind:items="[checkboxItem]"
                         v-bind:values="{ notify }"
-                        v-on:update:values="onUpdateValues"
+                        v-on:update:values="onUpdateNotify"
                     />
                 </form-input>
             </div>
@@ -80,6 +80,10 @@
     animation: fade-shrink-visibility 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
 }
 
+body.mobile .announcements-container {
+    width: 100%;
+}
+
 .announcements-container .announcement-header {
     border-bottom: 1px solid $light-white;
     padding: 15px 24px 15px 24px;
@@ -108,22 +112,26 @@
     overflow-y: auto;
 }
 
-.announcements-container .announcements .announcement {
+body.mobile .announcements-container > .announcements {
+    height: 500px;
+}
+
+.announcements-container .announcements > .announcement {
     border-top: 1px solid $light-white;
     padding: 15px 24px 30px 24px;
     position: relative;
 }
 
-.announcements-container .announcements .announcement:first-child {
+.announcements-container .announcements > .announcement:first-child {
     border-top: 0px;
 }
 
-.announcements-container .announcements .announcement .date {
+.announcements-container .announcements > .announcement .date {
     display: inline-block;
     margin-top: 10px;
 }
 
-.announcements-container .announcements .announcement .dot {
+.announcements-container .announcements > .announcement .dot {
     background-color: #4b8dd7;
     border: 1px solid #ffffff;
     border-radius: 50%;
@@ -138,33 +146,25 @@
     width: 8px;
 }
 
-.announcements-container .announcements .announcement .dot.clickable {
+.announcements-container .announcements > .announcement .dot.clickable {
     cursor: pointer;
 }
 
-.announcements-container .announcements .announcement .title {
+.announcements-container .announcements > .announcement .title {
     font-size: 16px;
     line-height: 22px;
     margin: 0px 0px 0px 0px;
 }
 
-.announcements-container .announcements .announcement .content {
+.announcements-container .announcements > .announcement .content {
     font-size: 14px;
     line-height: 25px;
     margin-bottom: 40px;
     white-space: pre-line;
 }
 
-.announcements-container .announcements .announcement .reaction {
+.announcements-container .announcements > .announcement .reaction {
     float: right;
-}
-
-body.mobile .announcements-container {
-    width: 100%;
-}
-
-body.mobile .announcements-container > .announcements {
-    height: 500px;
 }
 </style>
 
@@ -235,9 +235,8 @@ export const AnnouncementModal = {
         }
     },
     methods: {
-        setValues(values) {
-            const { notify } = values;
-            this.$emit("update:notify", Boolean(notify));
+        setNotify(notify) {
+            this.$emit("update:notify", notify);
         },
         hide() {
             if (!this.visibleData) return;
@@ -258,8 +257,9 @@ export const AnnouncementModal = {
         onClickClose() {
             this.hide();
         },
-        onUpdateValues(newValues) {
-            this.setValues(newValues);
+        onUpdateNotify(values) {
+            const { notify } = values;
+            this.setNotify(notify);
         },
         onReactionClick(id) {
             this.$emit("update:reaction", id);
