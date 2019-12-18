@@ -90,7 +90,6 @@
     background-color: $white;
     border-bottom: 1px solid #e4e8f0;
     height: 60px;
-    line-height: 60px;
     padding: 0px 0px 0px 0px;
     position: fixed;
     top: 0px;
@@ -105,7 +104,6 @@
 .header-ripe > .header-container {
     box-sizing: border-box;
     height: 60px;
-    line-height: 60px;
     margin: 0px auto 0px auto;
     max-width: 1240px;
     padding: 0px 12px 0px 0px;
