@@ -12,7 +12,7 @@ storiesOf("Button", module)
                 default: select(
                     "Icon Name",
                     {
-                        none: null,
+                        None: null,
                         Close: "close",
                         Chat: "chat",
                         Cart: "cart",
@@ -33,7 +33,7 @@ storiesOf("Button", module)
                 default: text("Emoji", "😱")
             },
             initialCount: {
-                default: number("Count", 1)
+                default: number("Count", 0)
             },
             initialUserReacted: {
                 default: boolean("User has reacted", false)
