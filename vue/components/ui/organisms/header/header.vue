@@ -221,13 +221,7 @@
 }
 
 .header-ripe > .header-container > .header-account ::v-deep .dropdown > .dropdown-item:hover > a,
-.header-ripe
-    > .header-container
-    > .header-account
-    ::v-deep
-    .dropdown
-    > .dropdown-item.selected
-    > a {
+.header-ripe > .header-container > .header-account ::v-deep .dropdown > .dropdown-item.selected > a {
     color: $higher-color;
 }
 
