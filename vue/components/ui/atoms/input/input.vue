@@ -16,7 +16,7 @@
 @import "css/variables.scss";
 
 input[type="text"] {
-    background-color: #f2f2f2;
+    background-color: #f9fafd;
     border: 1px solid $light-white;
     border-radius: 6px 6px 6px 6px;
     box-sizing: border-box;
@@ -30,6 +30,11 @@ input[type="text"] {
     padding-right: 12px;
     transition: width 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
     width: 304px;
+}
+
+input[type="text"]::placeholder {
+    color: $medium-grey;
+    font-family: $font-family;
 }
 
 input[type="text"]:hover {
