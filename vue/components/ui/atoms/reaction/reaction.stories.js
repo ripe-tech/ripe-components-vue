@@ -1,13 +1,10 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, select, text, number, boolean } from "@storybook/addon-knobs";
 
-storiesOf("Button", module)
+storiesOf("Atoms", module)
     .addDecorator(withKnobs)
     .add("Reaction", () => ({
         props: {
-            id: {
-                default: text("Id", "r1")
-            },
             icon: {
                 default: select(
                     "Icon Name",
@@ -32,48 +29,38 @@ storiesOf("Button", module)
             emoji: {
                 default: text("Emoji", "😱")
             },
-            initialCount: {
+            count: {
                 default: number("Count", 0)
             },
-            initialUserReacted: {
+            userReacted: {
                 default: boolean("User has reacted", false)
+            },
+            behavior: {
+                default: boolean("Default behavior", true)
+            }
+        },
+        methods: {
+            resetCount() {
+                this.countData = this.count;
+                this.userReactedData = this.userReacted;
             }
         },
         data: function() {
             return {
-                count: this.initialCount,
-                userReacted: this.initialUserReacted
+                countData: this.count,
+                userReactedData: this.userReacted
             };
-        },
-        methods: {
-            resetCount() {
-                this.count = this.initialCount;
-                this.userReacted = false;
-            },
-            onClick() {
-                this.userReacted ? (this.count -= 1) : (this.count += 1);
-                this.userReacted = !this.userReacted;
-            }
-        },
-        watch: {
-            initialCount: function(newValue) {
-                this.count = newValue;
-            },
-            initialUserReacted: function(newValue) {
-                this.userReacted = newValue;
-            }
         },
         template: `
             <div>
                 <reaction
-                v-on:click="onClick"
-                v-bind:id="id" 
                 v-bind:icon="icon" 
                 v-bind:imgUrl="imgUrl"
                 v-bind:emoji="emoji"
-                v-bind:count="count"
-                v-bind:userReacted="userReacted"/>
-                <p v-on:click="resetCount">Reactions (click to reset): {{count}}</p>
+                v-bind:count.sync="countData"
+                v-bind:user-reacted.sync="userReactedData"
+                v-bind:behavior="behavior"/>
+                <p v-on:click="resetCount">Reactions: {{ countData }}, User Reacted: {{ userReactedData }}</p>
             </div>
         `
     }));

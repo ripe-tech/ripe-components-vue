@@ -101,6 +101,24 @@ export const Reaction = {
         userReacted: {
             type: Boolean,
             default: false
+        },
+        behavior: {
+            type: Boolean,
+            default: true
+        }
+    },
+    data: function() {
+        return {
+            countData: this.count,
+            userReactedData: this.userReacted
+        };
+    },
+    watch: {
+        count(value) {
+            this.countData = value;
+        },
+        userReacted(value) {
+            this.userReactedData = value;
         }
     },
     computed: {
@@ -124,7 +142,22 @@ export const Reaction = {
         }
     },
     methods: {
+        increment() {
+            this.countData += 1;
+            this.$emit("update:count", this.countData);
+        },
+        decrement() {
+            this.countData -= 1;
+            this.$emit("update:count", this.countData);
+        },
+        toggle() {
+            this.userReactedData = !this.userReactedData;
+            if (this.userReactedData) this.increment();
+            else this.decrement();
+            this.$emit("update:userReacted", this.userReactedData);
+        },
         onClick() {
+            if (this.behavior) this.toggle();
             this.$emit("click");
         }
     }
