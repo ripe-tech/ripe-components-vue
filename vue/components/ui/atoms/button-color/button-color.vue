@@ -31,7 +31,9 @@
     min-width: 180px;
     padding: 0px 20px 0px 20px;
     text-align: center;
-    transition: background-color 0.15s ease-in-out, opacity 0.15s ease-in-out;
+    transition: background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out,
+        opacity 0.15s ease-in-out;
     user-select: none;
     vertical-align: middle;
 }
@@ -78,10 +80,12 @@
 
 .button-color:hover {
     background-color: #5d5d5d;
+    border-color: #5d5d5d;
 }
 
 .button-color:active {
     background-color: #2d2d2d;
+    border-color: #2d2d2d;
 }
 
 .button-color.button-color-secondary,
