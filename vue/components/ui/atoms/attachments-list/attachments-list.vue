@@ -28,14 +28,14 @@
 @import "css/variables.scss";
 
 .attachments {
-    background-color: $grey-6;
-    border: solid 1px #e4e8f0;
+    background-color: #f9fafd;
+    border: 1px solid #e4e8f0;
     font-size: 0px;
 }
 
 .attachments .attachments-title {
     background-color: $white;
-    border: solid 1px #e4e8f0;
+    border: 1px solid #e4e8f0;
     color: $light-black;
     display: block;
     font-size: 16px;
@@ -70,7 +70,6 @@
     vertical-align: top;
 }
 
-.attachments .attachments-list .attachment:hover,
 .attachments .attachments-list .attachment:hover .link {
     border-color: #1d2631;
 }
