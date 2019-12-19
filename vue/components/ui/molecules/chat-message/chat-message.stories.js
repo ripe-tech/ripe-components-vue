@@ -17,7 +17,8 @@ storiesOf("Molecules", module)
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et lacus ac arcu ullamcorper condimentum."
                 )
             },
-            attachments: { //TODO change -> need to know what data I will receive
+            attachments: {
+                // TODO change -> need to know what data I will receive
                 type: Array,
                 default: () => [
                     {
@@ -35,7 +36,19 @@ storiesOf("Molecules", module)
             reactions: {
                 // TODO change -> this will be replaced by what Daniel is doing
                 type: Array,
-                default: () => [{ icon: "thumb-up" }, { icon: "happy-face" }]
+                default: () => [
+                    { icon: "chart", imgUrl: null, emoji: null, count: 3, userHasReacted: false },
+                    {
+                        icon: null,
+                        imgUrl:
+                            "https://a.slack-edge.com/production-standard-emoji-assets/10.2/apple-large/1f4aa@2x.png",
+                        emoji: null,
+                        count: 0,
+                        userHasReacted: false
+                    },
+                    { icon: null, imgUrl: null, emoji: "😱", count: 6, userHasReacted: false },
+                    { icon: null, imgUrl: null, emoji: null, count: 2, userHasReacted: false }
+                ]
             }
         },
         data: function() {

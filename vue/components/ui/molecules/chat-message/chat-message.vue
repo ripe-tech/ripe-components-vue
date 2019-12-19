@@ -25,10 +25,13 @@
                     />
                 </div>
                 <div class="reactions">
-                    <button-icon
-                        class="reaction"
+                    <reaction
                         v-bind:icon="reaction.icon"
-                        v-bind:size="24"
+                        v-bind:img-url="reaction.imgUrl"
+                        v-bind:emoji="reaction.emoji"
+                        v-bind:count="reaction.count"
+                        v-bind:user-reacted="reaction.userHasReacted"
+                        v-bind:behavior="true"
                         v-for="reaction in reactions"
                         v-bind:key="reaction.icon"
                     />
