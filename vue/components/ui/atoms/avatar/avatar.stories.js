@@ -17,8 +17,8 @@ storiesOf("Atoms", module)
                     "medium"
                 )
             },
-            imageUrl: {
-                default: text("Image URL", "http://placekitten.com/g/100/100")
+            imageSrc: {
+                default: text("Image Source", "http://placekitten.com/g/100/100")
             },
             notify: {
                 default: boolean("Notify", true)
@@ -33,7 +33,7 @@ storiesOf("Atoms", module)
         template: `
             <div>
                 <avatar
-                    v-bind:image-url="imageUrl"
+                    v-bind:image-src="imageSrc"
                     v-bind:size="size"
                     v-bind:clickable="clickable"
                     v-bind:active="active"
