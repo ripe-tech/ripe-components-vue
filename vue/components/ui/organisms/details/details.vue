@@ -469,6 +469,10 @@ export const Details = {
         getItems: {
             type: Function,
             required: true
+        },
+        navigation: {
+            type: Boolean,
+            default: true
         }
     },
     data: function() {
@@ -489,7 +493,8 @@ export const Details = {
             document.body.click();
             this.optionsVisible = !status;
         },
-        async previousItem() {
+        async previousItem(force = false) {
+            if (!this.navigation && !force) return;
             if (this.loading || !this.index) {
                 this.triggerAnimation("slide-left-fake");
                 return;
@@ -503,7 +508,8 @@ export const Details = {
                 ? this.showItem(previous, this.index - 1)
                 : this.triggerAnimation("slide-left-fake");
         },
-        async nextItem() {
+        async nextItem(force = false) {
+            if (!this.navigation && !force) return;
             if (this.loading || this.index === undefined) {
                 this.triggerAnimation("slide-right-fake");
                 return;
