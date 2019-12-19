@@ -27,7 +27,7 @@ storiesOf("Atoms", module)
                 )
             },
             emoji: {
-                default: text("Emoji", "😱")
+                default: text("Emoji", "😂")
             },
             count: {
                 default: number("Count", 0)
@@ -60,7 +60,7 @@ storiesOf("Atoms", module)
                 v-bind:count.sync="countData"
                 v-bind:user-reacted.sync="userReactedData"
                 v-bind:behavior="behavior"/>
-                <p v-on:click="resetCount">Reactions: {{ countData }}, User Reacted: {{ userReactedData }}</p>
+                <p v-on:click="resetCount">Reactions (click to reset): {{ countData }}, User Reacted: {{ userReactedData }}</p>
             </div>
         `
     }));
