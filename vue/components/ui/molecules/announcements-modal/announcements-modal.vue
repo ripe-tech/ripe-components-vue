@@ -26,7 +26,7 @@
                 v-bind:key="index"
             >
                 <p class="date">
-                    {{ dateString(announcement.timestamp / 1000) }}
+                    {{ dateString(announcement.timestamp) }}
                 </p>
                 <div
                     class="dot"
@@ -34,27 +34,34 @@
                     v-on:click.stop.prevent="onClickAnnouncement(index)"
                 />
                 <h2 class="title">{{ announcement.title }}</h2>
-                <div class="content">
-                    {{ announcement.content }}
-                </div>
-                <div class="footer">
-                    <link-ripe
-                        class="link"
-                        v-bind:text="'More details'"
-                        v-bind:href="announcement.link"
-                        v-bind:target="'_blank'"
-                        v-bind:rel="'noopener noreferrer'"
-                        v-bind:color="'black'"
-                        v-if="announcement.link"
-                    />
-                    <reaction
-                        class="reaction"
-                        v-bind:emoji="'👍'"
-                        v-bind:count="announcement.reactions || 0"
-                        v-bind:user-reacted="announcement.user_reacted"
-                        v-if="showReactions && announcement.show_reactions"
-                        v-on:click="onReactionClick(index)"
-                    />
+                <div class="content" v-html="announcement.content" />
+                <div
+                    class="footer"
+                    v-if="
+                        (showLinks && announcement.link) ||
+                            (showReactions && announcement.show_reactions)
+                    "
+                >
+                    <div class="footer-left">
+                        <link-ripe
+                            class="link"
+                            v-bind:text="announcement.link_text || 'Learn More'"
+                            v-bind:href="announcement.link"
+                            v-bind:target="'_blank'"
+                            v-bind:rel="'noopener noreferrer'"
+                            v-if="showLinks && announcement.link"
+                        />
+                    </div>
+                    <div class="footer-right">
+                        <reaction
+                            class="reaction"
+                            v-bind:emoji="'👍'"
+                            v-bind:count="announcement.reactions || 0"
+                            v-bind:user-reacted="announcement.user_reacted"
+                            v-if="showReactions && announcement.show_reactions"
+                            v-on:click="onReactionClick(index)"
+                        />
+                    </div>
                 </div>
             </div>
         </div>
@@ -74,19 +81,19 @@
 .announcements-container .announcement-header .title {
     display: inline-block;
     font-size: 18px;
+    font-weight: bold;
     line-height: 18px;
 }
 
 .announcements-container .announcement-header .description {
     font-size: 14px;
-    line-height: 14px;
+    letter-spacing: 0.35px;
+    line-height: 24px;
     margin: 0px 0px 10px 0px;
 }
 
 .announcements-container .announcement-header .button-close {
-    display: inline-block;
     float: right;
-    margin-top: 16px;
 }
 
 .announcements-container .announcements {
@@ -100,7 +107,7 @@ body.mobile .announcements-container > .announcements {
 
 .announcements-container .announcements > .announcement {
     border-top: 1px solid $light-white;
-    padding: 15px 24px 30px 24px;
+    padding: 20px 24px 20px 24px;
     position: relative;
 }
 
@@ -110,6 +117,7 @@ body.mobile .announcements-container > .announcements {
 
 .announcements-container .announcements > .announcement .date {
     display: inline-block;
+    font-weight: 600;
     margin-top: 10px;
 }
 
@@ -118,7 +126,6 @@ body.mobile .announcements-container > .announcements {
     border: 1px solid #ffffff;
     border-radius: 50%;
     cursor: pointer;
-    display: inline-block;
     float: right;
     height: 8px;
     line-height: 14px;
@@ -131,22 +138,42 @@ body.mobile .announcements-container > .announcements {
 
 .announcements-container .announcements > .announcement .title {
     font-size: 16px;
+    font-weight: bold;
     line-height: 22px;
     margin: 0px 0px 0px 0px;
 }
 
 .announcements-container .announcements > .announcement .content {
     font-size: 14px;
-    line-height: 25px;
-    white-space: pre-line;
+    letter-spacing: 0.35px;
+    line-height: 24px;
+    margin-top: 8px;
 }
 
 .announcements-container .announcements > .announcement > .footer {
-    margin-top: 40px;
+    display: flex;
+    font-size: 0px;
+    justify-content: baseline;
+    margin-top: 16px;
 }
 
-.announcements-container .announcements > .announcement > .footer > .reaction {
-    float: right;
+.announcements-container .announcements > .announcement > .footer > .footer-left,
+.announcements-container .announcements > .announcement > .footer > .footer-right {
+    align-self: flex-end;
+    display: inline-block;
+    font-size: 14px;
+    letter-spacing: 0.35px;
+    line-height: 16px;
+}
+
+.announcements-container .announcements > .announcement > .footer > .footer-left {
+    flex: 1 0;
+    text-align: left;
+}
+
+.announcements-container .announcements > .announcement > .footer > .footer-right {
+    flex: 0 1;
+    text-align: right;
 }
 </style>
 
@@ -181,6 +208,10 @@ export const AnnouncementsModal = {
             type: Boolean,
             default: true
         },
+        showLinks: {
+            type: Boolean,
+            default: true
+        },
         showReactions: {
             type: Boolean,
             default: false
@@ -209,7 +240,7 @@ export const AnnouncementsModal = {
             this.$emit("update:subscribe", this.subscribeData);
         },
         isNew(announcement) {
-            return announcement.timestamp > Date.now() - this.newThreshold;
+            return announcement.timestamp * 1000 > Date.now() - this.newThreshold * 1000;
         },
         onHandleGlobal() {
             this.hide();

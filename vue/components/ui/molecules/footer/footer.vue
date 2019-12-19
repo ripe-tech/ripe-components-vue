@@ -3,7 +3,7 @@
         <div class="links-left">
             <ul>
                 <li class="copy">
-                    © 2019 Ripe International
+                    © 2019 Platforme International
                 </li>
                 <li><link-ripe text="Terms" href="https://www.platforme.com/terms" /></li>
                 <li><link-ripe text="Privacy" href="https://www.platforme.com/privacy" /></li>
@@ -31,7 +31,7 @@
         </div>
         <div class="links-logo">
             <span class="copy">
-                © 2019 Ripe International
+                © 2019 Platforme International
             </span>
             <span class="footer-logo">
                 <a href="https://www.platforme.com" target="_blank" class="no-style">

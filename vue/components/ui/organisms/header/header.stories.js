@@ -30,7 +30,7 @@ storiesOf("Organisms", module)
                 default: () => [
                     {
                         title: "New cool stuff",
-                        timestamp: 1576774151187,
+                        timestamp: 1576774151.187,
                         content:
                             "As you may have noticed everything is better now... PS: Thanks Hugo",
                         show_reactions: true,

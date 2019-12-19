@@ -74,6 +74,7 @@
                 v-bind:description="announcements.description"
                 v-bind:new-threshold="announcements.new_threshold"
                 v-bind:show-subscribe="announcements.show_subscribe"
+                v-bind:show-links="announcements.show_links"
                 v-bind:show-reactions="announcements.show_reactions"
                 v-bind:announcements="announcements.items"
             />
@@ -355,7 +356,6 @@ export const Header = {
             const items = [];
             const { name, email } = this.account.meta;
             items.push({ id: "name", text: name || email || this.account.email });
-            items.push({ id: "buckets", text: "Buckets" });
             items.push({ id: "announcement", text: "What's new?" });
             items.push({ id: "settings", text: "Account settings", separator: true });
             items.push({ id: "signout", text: "Sign out", link: "/signout" });
@@ -377,10 +377,9 @@ export const Header = {
             return items;
         },
         announcementsToRead() {
-            return this.announcements.items.length === 0
-                ? false
-                : this.announcements.items[0].timestamp >
-                      Date.now() - this.announcements.new_threshold;
+            const reference =
+                this.announcements.items.length > 0 ? this.announcements.items[0].timestamp : 0;
+            return reference * 1000 > Date.now() - this.announcements.new_threshold * 1000;
         }
     },
     watch: {
