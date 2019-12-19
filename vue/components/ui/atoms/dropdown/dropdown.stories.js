@@ -93,6 +93,9 @@ storiesOf("Atoms", module)
                         <b>{{ text }}</b>
                         <pre v-if="subtext">{{ subtext }}</pre>
                     </template>
+                    <template v-slot:text_3="{ item: { id, text, subtext } }">
+                        <b>Special {{ text }}</b>
+                    </template>
                 </dropdown>
                 <p>The dropdown is: {{ visibleData ? "visible" : "invisible" }}</p>
             </div>

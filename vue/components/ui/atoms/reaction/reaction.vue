@@ -20,6 +20,7 @@
     cursor: pointer;
     display: inline-block;
     font-size: 0px;
+    line-height: 15px;
     min-height: 15px;
     min-width: 12px;
     padding: 3px 7px 3px 7px;
@@ -62,14 +63,12 @@
 .reaction > .emoji {
     display: inline-block;
     font-size: 12px;
-    line-height: 15px;
 }
 
 .reaction .reaction-counter {
     color: $black;
     display: inline-block;
     font-size: 11px;
-    line-height: 15px;
     padding: 0px 2px 0px 3px;
 }
 </style>
