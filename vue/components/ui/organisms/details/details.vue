@@ -299,7 +299,6 @@ body.mobile .button-options ::v-deep .dropdown {
     line-height: 34px;
     margin: 0px 0px 0px 0px;
     text-align: left;
-    width: 40%;
 }
 
 body.tablet .container-ripe .title,
