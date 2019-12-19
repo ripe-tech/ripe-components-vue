@@ -44,13 +44,8 @@ storiesOf("Atoms", module)
         },
         data: function() {
             return {
-                textAreaText: this.value
+                valueData: this.value
             };
-        },
-        methods: {
-            onValue(value) {
-                this.textAreaText = value;
-            }
         },
         template: `
             <div>
@@ -64,8 +59,7 @@ storiesOf("Atoms", module)
                 >
                     <textarea-ripe
                         v-bind:id="id"
-                        v-bind:value="value"
-                        v-on:update:value="value => onValue(value)"
+                        v-bind:value.sync="valueData"
                         v-bind:placeholder="placeholder"
                         v-bind:disabled="disabled"
                         v-bind:initial-width="initialWidth"
@@ -73,7 +67,7 @@ storiesOf("Atoms", module)
                         v-bind:resize="resize"
                     />
                 </form-input>
-                <p>Text: {{ textAreaText }}</p>
+                <p>Text: {{ valueData }}</p>
             </div>
         `
     }));
