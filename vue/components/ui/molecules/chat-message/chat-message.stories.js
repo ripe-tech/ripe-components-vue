@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text } from "@storybook/addon-knobs";
 
-storiesOf("Chat", module)
+storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Chat Message", () => ({
         props: {
@@ -69,7 +69,7 @@ storiesOf("Chat", module)
                     v-on:option-clicked="value => onOptionClick(value)"
                 />
                 <div>
-                    <p>Reaction Option event coun: {{ reactionOptionCounter }}</p>
+                    <p>Reaction Option event count: {{ reactionOptionCounter }}</p>
                     <p>More Options Option event count: {{ moreOptionsOptionCounter }}</p>
                 </div>
             </div>
