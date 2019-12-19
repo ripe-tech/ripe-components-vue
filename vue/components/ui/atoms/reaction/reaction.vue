@@ -1,11 +1,11 @@
 <template>
-    <div class="reaction" v-bind:class="{ 'user-reacted': userReacted }" v-on:click="onClick">
+    <div class="reaction" v-bind:class="{ 'user-reacted': userReactedData }" v-on:click="onClick">
         <img class="image" v-bind:src="imageSrc" v-if="hasImage" />
         <div class="emoji" v-else>
             {{ emoji }}
         </div>
         <div class="reaction-counter" v-if="hasReactions">
-            {{ count }}
+            {{ countData }}
         </div>
     </div>
 </template>
@@ -96,7 +96,7 @@ export const Reaction = {
         },
         count: {
             type: Number,
-            mandatory: true
+            default: 0
         },
         userReacted: {
             type: Boolean,
@@ -138,7 +138,7 @@ export const Reaction = {
             return Boolean(this.emoji);
         },
         hasCount() {
-            return Boolean(this.count);
+            return Boolean(this.countData);
         }
     },
     methods: {
