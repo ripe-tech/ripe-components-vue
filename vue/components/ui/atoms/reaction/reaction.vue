@@ -129,7 +129,7 @@ export const Reaction = {
             return require(`./../../../../assets/icons/black/${this.icon}.svg`);
         },
         hasReactions() {
-            return this.count > 0;
+            return this.countData > 0;
         },
         hasImage() {
             return Boolean(this.imageSrc);
