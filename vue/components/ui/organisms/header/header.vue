@@ -34,7 +34,7 @@
                 v-on:click.stop="hideAccount"
             >
                 <avatar
-                    v-bind:image-src="account.avatar_url"
+                    v-bind:src="account.avatar_url"
                     v-bind:clickable="true"
                     v-bind:active="accountDropdownVisible"
                 />

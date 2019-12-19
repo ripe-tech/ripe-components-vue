@@ -5,7 +5,7 @@
         v-if="hasImage"
     >
         <div class="image-container">
-            <image-ripe v-bind:src="imageSrc" v-bind:alt="'avatar'" />
+            <image-ripe v-bind:src="src" v-bind:alt="'avatar'" />
             <slot name="dot">
                 <div class="dot" />
             </slot>
@@ -148,7 +148,7 @@ export const Avatar = {
             type: String,
             default: "small"
         },
-        imageSrc: {
+        src: {
             type: String,
             default: null
         },
@@ -167,7 +167,7 @@ export const Avatar = {
     },
     computed: {
         hasImage() {
-            return Boolean(this.imageSrc);
+            return Boolean(this.src);
         }
     }
 };
