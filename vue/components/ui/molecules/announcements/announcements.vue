@@ -1,5 +1,5 @@
 <template>
-    <div class="announcements-container">
+    <div class="announcements">
         <div class="announcement-header">
             <h1 class="title">{{ title }}</h1>
             <button-icon
@@ -19,7 +19,7 @@
                 />
             </form-input>
         </div>
-        <div class="announcements">
+        <div class="announcements-list">
             <div
                 class="announcement"
                 v-for="(announcement, index) in announcements"
@@ -73,55 +73,55 @@
 @import "css/variables.scss";
 @import "css/animations.scss";
 
-.announcements-container .announcement-header {
+.announcements .announcement-header {
     border-bottom: 1px solid $light-white;
     padding: 15px 24px 15px 24px;
 }
 
-.announcements-container .announcement-header .title {
+.announcements .announcement-header .title {
     display: inline-block;
     font-size: 18px;
     font-weight: bold;
     line-height: 18px;
 }
 
-.announcements-container .announcement-header .description {
+.announcements .announcement-header .description {
     font-size: 14px;
     letter-spacing: 0.35px;
     line-height: 24px;
     margin: 0px 0px 10px 0px;
 }
 
-.announcements-container .announcement-header .button-close {
+.announcements .announcement-header .button-close {
     float: right;
 }
 
-.announcements-container .announcements {
+.announcements .announcements-list {
     max-height: 900px;
     overflow-y: auto;
 }
 
-body.mobile .announcements-container > .announcements {
+body.mobile .announcements > .announcements-list {
     height: 500px;
 }
 
-.announcements-container .announcements > .announcement {
+.announcements .announcements-list > .announcement {
     border-top: 1px solid $light-white;
     padding: 20px 24px 20px 24px;
     position: relative;
 }
 
-.announcements-container .announcements > .announcement:first-child {
+.announcements .announcements-list > .announcement:first-child {
     border-top: 0px;
 }
 
-.announcements-container .announcements > .announcement .date {
+.announcements .announcements-list > .announcement .date {
     display: inline-block;
     font-weight: 600;
     margin-top: 10px;
 }
 
-.announcements-container .announcements > .announcement .dot {
+.announcements .announcements-list > .announcement .dot {
     background-color: #4b8dd7;
     border: 1px solid #ffffff;
     border-radius: 50%;
@@ -136,29 +136,29 @@ body.mobile .announcements-container > .announcements {
     width: 8px;
 }
 
-.announcements-container .announcements > .announcement .title {
+.announcements .announcements-list > .announcement .title {
     font-size: 16px;
     font-weight: bold;
     line-height: 22px;
     margin: 0px 0px 0px 0px;
 }
 
-.announcements-container .announcements > .announcement .content {
+.announcements .announcements-list > .announcement .content {
     font-size: 14px;
     letter-spacing: 0.35px;
     line-height: 24px;
     margin-top: 8px;
 }
 
-.announcements-container .announcements > .announcement > .footer {
+.announcements .announcements-list > .announcement > .footer {
     display: flex;
     font-size: 0px;
     justify-content: baseline;
     margin-top: 16px;
 }
 
-.announcements-container .announcements > .announcement > .footer > .footer-left,
-.announcements-container .announcements > .announcement > .footer > .footer-right {
+.announcements .announcements-list > .announcement > .footer > .footer-left,
+.announcements .announcements-list > .announcement > .footer > .footer-right {
     align-self: flex-end;
     display: inline-block;
     font-size: 14px;
@@ -166,12 +166,12 @@ body.mobile .announcements-container > .announcements {
     line-height: 16px;
 }
 
-.announcements-container .announcements > .announcement > .footer > .footer-left {
+.announcements .announcements-list > .announcement > .footer > .footer-left {
     flex: 1 0;
     text-align: left;
 }
 
-.announcements-container .announcements > .announcement > .footer > .footer-right {
+.announcements .announcements-list > .announcement > .footer > .footer-right {
     flex: 0 1;
     text-align: right;
 }
@@ -180,8 +180,8 @@ body.mobile .announcements-container > .announcements {
 <script>
 import { utilsMixin } from "../../../../mixins";
 
-export const AnnouncementsModal = {
-    name: "announcements-modal",
+export const Announcements = {
+    name: "announcements",
     mixins: [utilsMixin],
     props: {
         title: {
@@ -258,5 +258,5 @@ export const AnnouncementsModal = {
     }
 };
 
-export default AnnouncementsModal;
+export default Announcements;
 </script>

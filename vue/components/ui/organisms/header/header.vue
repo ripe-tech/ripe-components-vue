@@ -40,7 +40,7 @@
                     v-bind:visible.sync="accountDropdownVisible"
                 >
                     <template v-slot:announcement="{ item }">
-                        <div class="dropdown-item-announcement" v-on:click="onAnnoucementsClick">
+                        <div class="dropdown-item-announcement" v-on:click="onAnnouncementsClick">
                             <span class="announcement-dropdown-text">{{ item.text }}</span>
                             <div class="dot" v-if="announcementsToRead" />
                         </div>
@@ -71,10 +71,10 @@
         <bubble
             v-bind:visible.sync="announcementModalVisible"
             v-bind:top="70"
-            v-bind:right="0"
+            v-bind:right="8"
             v-slot:default="{ hide }"
         >
-            <announcements-modal
+            <announcements
                 v-bind:title="announcements.title"
                 v-bind:description="announcements.description"
                 v-bind:new-threshold="announcements.new_threshold"
@@ -394,9 +394,6 @@ export const Header = {
         }
     },
     methods: {
-        showAnnoucements() {
-            this.announcementModalVisible = true;
-        },
         toggleBurger() {
             this.$bus.$emit("toggle-side");
         },
@@ -410,8 +407,11 @@ export const Header = {
             document.body.click();
             this.appsDropdownVisible = !status;
         },
-        onAnnoucementsClick() {
-            this.showAnnoucements();
+        showAnnouncements() {
+            this.announcementModalVisible = true;
+        },
+        onAnnouncementsClick() {
+            this.showAnnouncements();
         }
     }
 };
