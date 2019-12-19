@@ -17,7 +17,7 @@ storiesOf("Atoms", module)
                     "medium"
                 )
             },
-            imgUrl: {
+            imageUrl: {
                 default: text("Image URL", "http://placekitten.com/g/100/100")
             },
             notify: {
@@ -31,13 +31,13 @@ storiesOf("Atoms", module)
             }
         },
         template: `
-        <div>
-            <avatar
-                v-bind:imgUrl="imgUrl"
-                v-bind:size="size"
-                v-bind:clickable="clickable"
-                v-bind:active="active"
-                v-bind:notify="notify"/>
-        </div>
+            <div>
+                <avatar
+                    v-bind:image-url="imageUrl"
+                    v-bind:size="size"
+                    v-bind:clickable="clickable"
+                    v-bind:active="active"
+                    v-bind:notify="notify" />
+            </div>
         `
     }));

@@ -2,10 +2,10 @@
     <div
         class="avatar"
         v-bind:class="[{ notify: notify, clickable: clickable, active: active }, size]"
-        v-if="hasImg"
+        v-if="hasImage"
     >
         <div class="image-container">
-            <img class="image" v-bind:src="imgUrl" alt="avatar" />
+            <image-ripe v-bind:src="imageUrl" v-bind:alt="'avatar'" />
             <slot name="dot">
                 <div class="dot" />
             </slot>
@@ -17,6 +17,7 @@
 @import "css/variables.scss";
 
 .avatar {
+    border-radius: 50% 50% 50% 50%;
     display: inline-block;
 }
 
@@ -33,32 +34,28 @@
     background-color: rgba(60, 64, 67, 0.2);
 }
 
-.avatar.large.clickable {
-    border-radius: 96px 96px 96px 96px;
-    height: 96px;
-    padding: 5px 5px 5px 5px;
-    width: 96px;
-}
-
-.avatar.medium.clickable {
-    border-radius: 40px 40px 40px 40px;
-    height: 40px;
+.avatar.tiny.clickable {
+    height: 24px;
     padding: 4px 4px 4px 4px;
-    width: 40px;
+    width: 24px;
 }
 
 .avatar.small.clickable {
-    border-radius: 34px 34px 34px 34px;
     height: 34px;
-    padding: 3px 3px 3px 3px;
+    padding: 6px 6px 6px 6px;
     width: 34px;
 }
 
-.avatar.tiny.clickable {
-    border-radius: 24px 24px 24px 24px;
-    height: 24px;
-    padding: 2px 2px 2px 2px;
-    width: 24px;
+.avatar.medium.clickable {
+    height: 40px;
+    padding: 8px 8px 8px 8px;
+    width: 40px;
+}
+
+.avatar.large.clickable {
+    height: 96px;
+    padding: 10px 10px 10px 10px;
+    width: 96px;
 }
 
 .avatar .image-container {
@@ -84,33 +81,25 @@
     display: inline-block;
 }
 
-.avatar.large .image-container > .image {
-    height: 96px;
-    width: 96px;
+.avatar.tiny .image-container,
+.avatar.tiny .image-container .image {
+    height: 24px;
+    line-height: 24px;
+    width: 24px;
 }
 
-.avatar.large .image-container > .dot {
-    border-width: 2px;
-    height: 19px;
-    right: 2px;
-    top: 2px;
-    width: 19px;
-}
-
-.avatar.medium .image-container > .image {
-    height: 40px;
-    width: 40px;
-}
-
-.avatar.medium .image-container > .dot {
-    height: 8px;
+.avatar.tiny .image-container .dot {
+    border-width: 0.3px;
+    height: 5px;
     right: 1px;
     top: 1px;
-    width: 8px;
+    width: 5px;
 }
 
+.avatar.small .image-container,
 .avatar.small .image-container > .image {
     height: 34px;
+    line-height: 34px;
     width: 34px;
 }
 
@@ -121,17 +110,33 @@
     width: 7px;
 }
 
-.avatar.tiny .image-container .image {
-    height: 24px;
-    width: 24px;
+.avatar.medium .image-container,
+.avatar.medium .image-container > .image {
+    height: 40px;
+    line-height: 40px;
+    width: 40px;
 }
 
-.avatar.tiny .image-container .dot {
-    border-width: 0.3px;
-    height: 5px;
+.avatar.medium .image-container > .dot {
+    height: 8px;
     right: 1px;
     top: 1px;
-    width: 5px;
+    width: 8px;
+}
+
+.avatar.large .image-container,
+.avatar.large .image-container > .image {
+    height: 96px;
+    line-height: 96px;
+    width: 96px;
+}
+
+.avatar.large .image-container > .dot {
+    border-width: 2px;
+    height: 19px;
+    right: 2px;
+    top: 2px;
+    width: 19px;
 }
 </style>
 
@@ -143,7 +148,7 @@ export const Avatar = {
             type: String,
             default: "small"
         },
-        imgUrl: {
+        imageUrl: {
             type: String,
             default: null
         },
@@ -161,8 +166,8 @@ export const Avatar = {
         }
     },
     computed: {
-        hasImg() {
-            return Boolean(this.imgUrl);
+        hasImage() {
+            return Boolean(this.imageUrl);
         }
     }
 };

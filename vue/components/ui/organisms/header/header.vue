@@ -29,12 +29,15 @@
             </div>
             <div
                 class="header-account"
-                v-bind:class="{ active: accountDropdownVisible }"
                 v-if="account"
                 ref="headerAccount"
                 v-on:click.stop="hideAccount"
             >
-                <avatar v-bind:img-url="account.avatar_url" v-bind:clickable="true" />
+                <avatar
+                    v-bind:image-url="account.avatar_url"
+                    v-bind:clickable="true"
+                    v-bind:active="accountDropdownVisible"
+                />
                 <dropdown
                     v-bind:items="accountDropdownItems"
                     v-bind:visible.sync="accountDropdownVisible"
