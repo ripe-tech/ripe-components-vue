@@ -35,7 +35,7 @@ storiesOf("Organisms", module)
                     avatar_url: "http://i.pravatar.cc",
                     meta: {
                         name: "John Doe",
-                        company: "Ripe",
+                        company: "Platforme",
                         position: "Software Engineer"
                     }
                 }

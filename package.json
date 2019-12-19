@@ -16,7 +16,7 @@
         "url": "git+https://github.com/ripe-tech/ripe-components-vue.git"
     },
     "license": "Apache-2.0",
-    "author": "Ripe",
+    "author": "Platforme",
     "files": [
         "index.js",
         "LICENSE",
