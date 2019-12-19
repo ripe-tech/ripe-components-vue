@@ -68,15 +68,16 @@
                 </dropdown>
             </div>
         </div>
-        <announcements-modal
-            v-bind:visible.sync="announcementModalVisible"
-            v-bind:title="announcements.title"
-            v-bind:description="announcements.description"
-            v-bind:new-threshold="announcements.new_threshold"
-            v-bind:show-subscribe="announcements.show_subscribe"
-            v-bind:show-reactions="announcements.show_reactions"
-            v-bind:announcements="announcements.items"
-        />
+        <bubble v-bind:visible.sync="announcementModalVisible" v-bind:top="0" v-bind:right="70">
+            <announcements-modal
+                v-bind:title="announcements.title"
+                v-bind:description="announcements.description"
+                v-bind:new-threshold="announcements.new_threshold"
+                v-bind:show-subscribe="announcements.show_subscribe"
+                v-bind:show-reactions="announcements.show_reactions"
+                v-bind:announcements="announcements.items"
+            />
+        </bubble>
     </div>
 </template>
 
@@ -294,12 +295,6 @@
     margin: 3px 3px 0px 0px;
     padding: 0px 0px 0px 0px;
     width: 8px;
-}
-
-.header-ripe .announcements-container {
-    position: absolute;
-    right: 0px;
-    top: 60px;
 }
 </style>
 
