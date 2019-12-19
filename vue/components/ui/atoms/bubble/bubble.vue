@@ -19,8 +19,8 @@
     border: 1px solid $light-white;
     box-shadow: 0px 6px 24px 0px rgba(67, 86, 100, 0.15);
     line-height: 16px;
-    text-align: left;
     position: absolute;
+    text-align: left;
 }
 
 .bubble.fade-leave-active {

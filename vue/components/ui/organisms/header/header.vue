@@ -68,9 +68,13 @@
                 </dropdown>
             </div>
         </div>
-        <bubble v-bind:visible.sync="announcementModalVisible" v-bind:top="70" v-bind:right="0" v-slot:default="{ hide }">
+        <bubble
+            v-bind:visible.sync="announcementModalVisible"
+            v-bind:top="70"
+            v-bind:right="0"
+            v-slot:default="{ hide }"
+        >
             <announcements-modal
-                v-on:click:close="hide"
                 v-bind:title="announcements.title"
                 v-bind:description="announcements.description"
                 v-bind:new-threshold="announcements.new_threshold"
@@ -78,6 +82,7 @@
                 v-bind:show-links="announcements.show_links"
                 v-bind:show-reactions="announcements.show_reactions"
                 v-bind:announcements="announcements.items"
+                v-on:click:close="hide"
             />
         </bubble>
     </div>
