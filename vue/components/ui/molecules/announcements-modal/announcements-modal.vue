@@ -242,14 +242,11 @@ export const AnnouncementsModal = {
         isNew(announcement) {
             return announcement.timestamp * 1000 > Date.now() - this.newThreshold * 1000;
         },
-        onHandleGlobal() {
-            this.hide();
-        },
         onClickAnnouncement(index) {
             this.$emit("click:announcement", index);
         },
         onClickClose() {
-            this.hide();
+            this.$emit("click:close");
         },
         onUpdateSubscribe(values) {
             const { subscribe } = values;

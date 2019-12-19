@@ -2,7 +2,7 @@
     <transition name="fade">
         <div class="bubble" v-bind:style="style" v-show="isVisible" v-on:click.stop>
             <global-events v-on:keydown.esc="onHandleGlobal" v-on:click="onHandleGlobal" />
-            <slot />
+            <slot v-bind:hide="hide" />
         </div>
     </transition>
 </template>
@@ -18,8 +18,9 @@
     border: 1px solid transparent;
     border: 1px solid $light-white;
     box-shadow: 0px 6px 24px 0px rgba(67, 86, 100, 0.15);
+    line-height: 16px;
+    text-align: left;
     position: absolute;
-    width: 370px;
 }
 
 .bubble.fade-leave-active {
