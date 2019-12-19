@@ -41,7 +41,14 @@
                 <dropdown
                     v-bind:items="accountDropdownItems"
                     v-bind:visible.sync="accountDropdownVisible"
-                />
+                >
+                    <template v-slot:announcement="{ item }">
+                        <div class="dropdown-item-announcement" v-on:click="onAnnouncementsClick">
+                            <span class="announcement-dropdown-text">{{ item.text }}</span>
+                            <div class="dot" v-if="announcementsToRead" />
+                        </div>
+                    </template>
+                </dropdown>
             </div>
             <div
                 class="header-apps"
@@ -64,6 +71,23 @@
                 </dropdown>
             </div>
         </div>
+        <bubble
+            v-bind:visible.sync="announcementModalVisible"
+            v-bind:top="70"
+            v-bind:right="8"
+            v-slot:default="{ hide }"
+        >
+            <announcements
+                v-bind:title="announcements.title"
+                v-bind:description="announcements.description"
+                v-bind:new-threshold="announcements.new_threshold"
+                v-bind:show-subscribe="announcements.show_subscribe"
+                v-bind:show-links="announcements.show_links"
+                v-bind:show-reactions="announcements.show_reactions"
+                v-bind:announcements="announcements.items"
+                v-on:click:close="hide"
+            />
+        </bubble>
     </div>
 </template>
 
@@ -251,6 +275,21 @@
     font-weight: 600;
     margin: 6px 0px 0px 0px;
 }
+
+.header-ripe .dropdown-item-announcement .announcement-dropdown-text {
+    width: auto;
+}
+
+.header-ripe .dropdown-item-announcement .dot {
+    background-color: #4b8dd7;
+    border: 1px solid #ffffff;
+    border-radius: 50%;
+    float: right;
+    height: 8px;
+    margin: 3px 3px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    width: 8px;
+}
 </style>
 
 <script>
@@ -288,13 +327,18 @@ export const Header = {
         apps: {
             type: Object,
             default: () => ({})
+        },
+        announcements: {
+            type: Object,
+            default: null
         }
     },
     data: function() {
         return {
             searchFilter: null,
             appsDropdownVisible: false,
-            accountDropdownVisible: false
+            accountDropdownVisible: false,
+            announcementModalVisible: false
         };
     },
     computed: {
@@ -305,7 +349,7 @@ export const Header = {
             const items = [];
             const { name, email } = this.account.meta;
             items.push({ id: "name", text: name || email || this.account.email });
-            items.push({ id: "buckets", text: "Buckets" });
+            items.push({ id: "announcement", text: "What's new?" });
             items.push({ id: "settings", text: "Account settings", separator: true });
             items.push({ id: "signout", text: "Sign out", link: "/signout" });
             return items;
@@ -324,6 +368,11 @@ export const Header = {
                 });
             }
             return items;
+        },
+        announcementsToRead() {
+            const reference =
+                this.announcements.items.length > 0 ? this.announcements.items[0].timestamp : 0;
+            return reference * 1000 > Date.now() - this.announcements.new_threshold * 1000;
         }
     },
     watch: {
@@ -344,6 +393,12 @@ export const Header = {
             const status = this.appsDropdownVisible;
             document.body.click();
             this.appsDropdownVisible = !status;
+        },
+        showAnnouncements() {
+            this.announcementModalVisible = true;
+        },
+        onAnnouncementsClick() {
+            this.showAnnouncements();
         }
     }
 };
