@@ -66,10 +66,10 @@
                         </div>
                     </slot>
                 </div>
-                <h1 class="title" v-if="loaded">{{ title }}</h1>
-                <div class="header-center" v-if="loaded">
-                    <slot name="header-center" />
-                </div>
+                <slot name="title" v-if="loaded">
+                    <h1 class="title">{{ title }}</h1>
+                </slot>
+                <slot name="header-extra" />
             </div>
             <div class="details" v-if="loaded">
                 <div class="details-column details-column-image" v-if="imageUrl">
@@ -305,13 +305,6 @@ body.mobile .button-options ::v-deep .dropdown {
 body.tablet .container-ripe .title,
 body.mobile .container-ripe .title {
     width: 100%;
-}
-
-.container-ripe .header-center {
-    display: inline-block;
-    font-size: 0px;
-    vertical-align: top;
-    width: 30%;
 }
 
 .container-ripe .details {
