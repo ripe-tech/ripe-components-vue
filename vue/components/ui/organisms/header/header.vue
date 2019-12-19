@@ -38,7 +38,14 @@
                 <dropdown
                     v-bind:items="accountDropdownItems"
                     v-bind:visible.sync="accountDropdownVisible"
-                />
+                >
+                    <template v-slot:announcement="{ item }">
+                        <div class="dropdown-item-announcement" v-on:click="onAnnoucementsClick">
+                            <span class="announcement-dropdown-text">{{ item.text }}</span>
+                            <div class="dot" v-if="announcementsToRead" />
+                        </div>
+                    </template>
+                </dropdown>
             </div>
             <div
                 class="header-apps"
@@ -61,6 +68,15 @@
                 </dropdown>
             </div>
         </div>
+        <announcements-modal
+            v-bind:visible.sync="announcementModalVisible"
+            v-bind:title="announcements.title"
+            v-bind:description="announcements.description"
+            v-bind:new-threshold="announcements.new_threshold"
+            v-bind:show-subscribe="announcements.show_subscribe"
+            v-bind:show-reactions="announcements.show_reactions"
+            v-bind:announcements="announcements.items"
+        />
     </div>
 </template>
 
@@ -264,6 +280,27 @@
     font-weight: 600;
     margin: 6px 0px 0px 0px;
 }
+
+.header-ripe .dropdown-item-announcement .announcement-dropdown-text {
+    width: auto;
+}
+
+.header-ripe .dropdown-item-announcement .dot {
+    background-color: #4b8dd7;
+    border: 1px solid #ffffff;
+    border-radius: 50%;
+    float: right;
+    height: 8px;
+    margin: 3px 3px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    width: 8px;
+}
+
+.header-ripe .announcements-container {
+    position: absolute;
+    right: 0px;
+    top: 60px;
+}
 </style>
 
 <script>
@@ -301,13 +338,18 @@ export const Header = {
         apps: {
             type: Object,
             default: () => ({})
+        },
+        announcements: {
+            type: Object,
+            default: null
         }
     },
     data: function() {
         return {
             searchFilter: null,
             appsDropdownVisible: false,
-            accountDropdownVisible: false
+            accountDropdownVisible: false,
+            announcementModalVisible: false
         };
     },
     computed: {
@@ -319,6 +361,7 @@ export const Header = {
             const { name, email } = this.account.meta;
             items.push({ id: "name", text: name || email || this.account.email });
             items.push({ id: "buckets", text: "Buckets" });
+            items.push({ id: "announcement", text: "What's new?" });
             items.push({ id: "settings", text: "Account settings", separator: true });
             items.push({ id: "signout", text: "Sign out", link: "/signout" });
             return items;
@@ -337,6 +380,12 @@ export const Header = {
                 });
             }
             return items;
+        },
+        announcementsToRead() {
+            return this.announcements.items.length === 0
+                ? false
+                : this.announcements.items[0].timestamp >
+                      Date.now() - this.announcements.new_threshold;
         }
     },
     watch: {
@@ -345,6 +394,9 @@ export const Header = {
         }
     },
     methods: {
+        showAnnoucements() {
+            this.announcementModalVisible = true;
+        },
         toggleBurger() {
             this.$bus.$emit("toggle-side");
         },
@@ -357,6 +409,9 @@ export const Header = {
             const status = this.appsDropdownVisible;
             document.body.click();
             this.appsDropdownVisible = !status;
+        },
+        onAnnoucementsClick() {
+            this.showAnnoucements();
         }
     }
 };
