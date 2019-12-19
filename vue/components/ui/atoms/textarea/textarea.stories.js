@@ -47,6 +47,11 @@ storiesOf("Atoms", module)
                 valueData: this.value
             };
         },
+        watch: {
+            value(value) {
+                this.valueData = value;
+            }
+        },
         template: `
             <div>
                 <form-input

@@ -45,6 +45,14 @@ storiesOf("Atoms", module)
                 this.userReactedData = this.userReacted;
             }
         },
+        watch: {
+            count(value) {
+                this.countData = value;
+            },
+            userReacted(value) {
+                this.userReactedData = value;
+            }
+        },
         data: function() {
             return {
                 countData: this.count,
