@@ -32,11 +32,11 @@ storiesOf("Atoms", module)
             disabled: {
                 default: boolean("Disabled", false)
             },
-            initialWidth: {
-                default: number("Initial Width", 280)
+            width: {
+                default: number("Width", 280)
             },
-            initialHeight: {
-                default: number("Initial Height", 98)
+            height: {
+                default: number("Height", 98)
             },
             resize: {
                 default: boolean("Resize", false)
@@ -67,8 +67,8 @@ storiesOf("Atoms", module)
                         v-bind:value.sync="valueData"
                         v-bind:placeholder="placeholder"
                         v-bind:disabled="disabled"
-                        v-bind:initial-width="initialWidth"
-                        v-bind:initial-height="initialHeight"
+                        v-bind:width="width"
+                        v-bind:height="height"
                         v-bind:resize="resize"
                     />
                 </form-input>

@@ -1,7 +1,7 @@
 <template>
     <textarea
         class="textarea"
-        v-bind:style="textAreaStyle"
+        v-bind:style="style"
         v-bind:value="value"
         v-bind:placeholder="placeholder"
         v-bind:disabled="disabled"
@@ -22,6 +22,7 @@
     display: block;
     font-family: $font-family;
     font-size: 14px;
+    height: 98px;
     letter-spacing: 0.3px;
     line-height: 20px;
     outline: none;
@@ -72,13 +73,13 @@ export const Textarea = {
             type: Boolean,
             default: false
         },
-        initialWidth: {
+        width: {
             type: Number,
-            default: 280
+            default: null
         },
-        initialHeight: {
+        height: {
             type: Number,
-            default: 98
+            default: null
         },
         resize: {
             type: Boolean,
@@ -94,10 +95,10 @@ export const Textarea = {
         }
     },
     computed: {
-        textAreaStyle() {
+        style() {
             const base = {
-                width: `${this.initialWidth}px`,
-                height: `${this.initialHeight}px`
+                width: this.width === null ? "100%" : `${this.width}px`,
+                height: this.height === null ? null : `${this.height}px`
             };
 
             if (!this.resize) {
