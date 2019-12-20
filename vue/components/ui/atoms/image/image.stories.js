@@ -9,7 +9,7 @@ storiesOf("Atoms", module)
                 default: text("Source", "https://cdn.platforme.com/images/favicon.png")
             },
             alt: {
-                default: text("Alt", "Ripe Logo")
+                default: text("Alt", "Platforme Logo")
             }
         },
         template: '<image-ripe v-bind:src="src" v-bind:alt="alt"></image-ripe>'

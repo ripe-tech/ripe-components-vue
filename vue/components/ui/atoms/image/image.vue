@@ -1,5 +1,6 @@
 <template>
     <img
+        class="image"
         v-bind:class="{ loaded: loaded }"
         v-bind:src="src"
         v-bind:alt="alt"

@@ -38,7 +38,7 @@ export const OAuthPart = {
     props: {
         text: {
             type: String,
-            default: "Redirecting from Ripe ID ..."
+            default: "Redirecting from Platforme ID ..."
         },
         next: {
             type: String,
