@@ -12,11 +12,7 @@
                 {{ description }}
             </p>
             <form-input v-if="showSubscribe">
-                <checkbox
-                    v-bind:items="[checkboxItem]"
-                    v-bind:values="{ subscribe }"
-                    v-on:update:values="onUpdateSubscribe"
-                />
+                <checkbox v-bind:items="[checkboxItem]" v-bind:values.sync="subscribeData" />
             </form-input>
         </div>
         <div class="announcements-list">
@@ -226,19 +222,20 @@ export const Announcements = {
     },
     data: function() {
         return {
-            subscribeData: this.subscribe
+            subscribeData: {
+                subscribe: this.subscribe
+            }
         };
     },
     watch: {
         subscribe(value) {
-            this.subscribeData = value;
+            this.subscribeData = { subscribe: value };
+        },
+        subscribeData(value) {
+            this.$emit("update:subscribe", value.subscribe || false);
         }
     },
     methods: {
-        setSubscribe(value) {
-            this.subscribeData = value;
-            this.$emit("update:subscribe", this.subscribeData);
-        },
         isNew(announcement) {
             return announcement.timestamp * 1000 > Date.now() - this.newThreshold * 1000;
         },
