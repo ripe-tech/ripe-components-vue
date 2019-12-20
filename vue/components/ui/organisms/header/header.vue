@@ -72,12 +72,7 @@
                 </dropdown>
             </div>
         </div>
-        <bubble
-            v-bind:visible.sync="announcementModalVisible"
-            v-bind:top="56"
-            v-bind:right="8"
-            v-slot:default="{ hide }"
-        >
+        <bubble v-bind:visible.sync="announcementModalVisible" v-slot:default="{ hide }">
             <announcements
                 v-bind:title="announcements.title"
                 v-bind:description="announcements.description"

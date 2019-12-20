@@ -20,7 +20,9 @@
     box-shadow: 0px 6px 24px 0px rgba(67, 86, 100, 0.15);
     line-height: 16px;
     position: absolute;
+    right: 8px;
     text-align: left;
+    top: 56px;
 }
 
 .bubble.fade-leave-active {
@@ -28,7 +30,9 @@
 }
 
 body.mobile .bubble {
-    width: 100%;
+    left: 0px;
+    right: 0px;
+    top: 0px;
 }
 </style>
 
@@ -58,7 +62,7 @@ export const Bubble = {
         },
         width: {
             type: Number,
-            default: 370
+            default: null
         }
     },
     data: function() {
@@ -81,7 +85,7 @@ export const Bubble = {
                 right: this.right === null ? null : `${this.right}px`,
                 bottom: this.bottom === null ? null : `${this.bottom}px`,
                 left: this.left === null ? null : `${this.left}px`,
-                width: this.width ? `${this.width}px` : "100%"
+                width: this.width === null ? null : `${this.width}px`
             };
         }
     },
