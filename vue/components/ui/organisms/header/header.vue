@@ -1,77 +1,106 @@
 <template>
-    <div class="header-ripe full-width" v-bind:class="{ 'no-side': !sideMenu }">
+    <div class="header-ripe">
         <global-events v-on:keydown.esc="dropdownVisible = false" />
-        <div class="header-container">
-            <div class="header-left">
-                <svg
-                    class="hamburger"
-                    focusable="false"
-                    viewBox="0 0 24 24"
-                    v-if="sideMenu"
-                    v-on:click="toggleBurger"
+        <div class="header-bar full-width" v-bind:class="{ 'no-side': !sideMenu }">
+            <div class="header-container">
+                <div class="header-left">
+                    <svg
+                        class="hamburger"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                        v-if="sideMenu"
+                        v-on:click="toggleBurger"
+                    >
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+                    </svg>
+                    <router-link to="/">
+                        <img class="header-logo" v-bind:src="logo" />
+                    </router-link>
+                    <search
+                        v-bind:placeholder="searchPlaceholder"
+                        v-bind:grow="true"
+                        v-bind:value.sync="searchFilter"
+                        v-bind:suggestions="searchSuggestions"
+                        v-if="search"
+                    >
+                        <template v-slot:suggestion="{ suggestion }">
+                            <slot name="suggestion" v-bind:suggestion="suggestion" />
+                        </template>
+                    </search>
+                </div>
+                <div
+                    class="header-account"
+                    v-if="account"
+                    ref="headerAccount"
+                    v-on:click.stop="hideAccount"
                 >
-                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
-                </svg>
-                <router-link to="/">
-                    <img class="header-logo" v-bind:src="logo" />
-                </router-link>
-                <search
-                    v-bind:placeholder="searchPlaceholder"
-                    v-bind:grow="true"
-                    v-bind:value.sync="searchFilter"
-                    v-bind:suggestions="searchSuggestions"
-                    v-if="search"
+                    <avatar
+                        v-bind:src="account.avatar_url"
+                        v-bind:clickable="true"
+                        v-bind:active="accountDropdownVisible"
+                        v-bind:notify="announcementsToRead"
+                    />
+                    <dropdown
+                        v-bind:items="accountDropdownItems"
+                        v-bind:visible.sync="accountDropdownVisible"
+                        v-bind:global-hide="true"
+                    >
+                        <template v-slot:announcement="{ item }">
+                            <div
+                                class="dropdown-item-announcement"
+                                v-on:click="onAnnouncementsClick"
+                            >
+                                <span class="announcement-dropdown-text">{{ item.text }}</span>
+                                <div class="dot" v-if="announcementsToRead" />
+                            </div>
+                        </template>
+                    </dropdown>
+                </div>
+                <div
+                    class="header-apps"
+                    v-bind:class="{ active: appsDropdownVisible }"
+                    v-if="headerApps && appsDropdownItems.length > 0"
+                    ref="headerApps"
+                    v-on:click.stop="hideApps"
                 >
-                    <template v-slot:suggestion="{ suggestion }">
-                        <slot name="suggestion" v-bind:suggestion="suggestion" />
-                    </template>
-                </search>
-            </div>
-            <div
-                class="header-account"
-                v-if="account"
-                ref="headerAccount"
-                v-on:click.stop="hideAccount"
-            >
-                <avatar
-                    v-bind:src="account.avatar_url"
-                    v-bind:clickable="true"
-                    v-bind:active="accountDropdownVisible"
-                    v-bind:notify="announcementsToRead"
-                />
-                <dropdown
-                    v-bind:items="accountDropdownItems"
-                    v-bind:visible.sync="accountDropdownVisible"
-                >
-                    <template v-slot:announcement="{ item }">
-                        <div class="dropdown-item-announcement" v-on:click="onAnnouncementsClick">
-                            <span class="announcement-dropdown-text">{{ item.text }}</span>
-                            <div class="dot" v-if="announcementsToRead" />
-                        </div>
-                    </template>
-                </dropdown>
-            </div>
-            <div
-                class="header-apps"
-                v-bind:class="{ active: appsDropdownVisible }"
-                v-if="headerApps && appsDropdownItems.length > 0"
-                ref="headerApps"
-                v-on:click.stop="hideApps"
-            >
-                <img src="~./assets/apps.svg" />
-                <dropdown
-                    v-bind:items="appsDropdownItems"
-                    v-bind:visible.sync="appsDropdownVisible"
-                >
-                    <template v-slot="{ item: { id, text, image, link, cls } }">
-                        <a v-bind:href="link" v-bind:class="[cls]">
-                            <img v-bind:src="image" v-bind:alt="text" />
-                            <p>{{ text }}</p>
-                        </a>
-                    </template>
-                </dropdown>
+                    <img src="~./assets/apps.svg" />
+                    <dropdown
+                        v-bind:items="appsDropdownItems"
+                        v-bind:visible.sync="appsDropdownVisible"
+                        v-bind:global-hide="true"
+                    >
+                        <template v-slot="{ item: { id, text, image, link, cls } }">
+                            <a v-bind:href="link" v-bind:class="[cls]">
+                                <img v-bind:src="image" v-bind:alt="text" />
+                                <p>{{ text }}</p>
+                            </a>
+                        </template>
+                    </dropdown>
+                </div>
             </div>
         </div>
+        <div class="header-globals">
+            <side
+                v-bind:visible.sync="announcementModalVisible"
+                v-bind:top="56"
+                v-bind:right="8"
+                v-bind:width="370"
+                v-bind:position="'right'"
+                v-slot:default="{ hide }"
+            >
+                <announcements
+                    v-bind:title="announcements.title"
+                    v-bind:description="announcements.description"
+                    v-bind:new-threshold="announcements.new_threshold"
+                    v-bind:show-subscribe="announcements.show_subscribe"
+                    v-bind:show-links="announcements.show_links"
+                    v-bind:show-reactions="announcements.show_reactions"
+                    v-bind:announcements="announcements.items"
+                    v-on:click:close="hide"
+                />
+            </side>
+        </div>
+<<<<<<< HEAD
         <bubble v-bind:visible.sync="announcementModalVisible" v-slot:default="{ hide }">
             <announcements
                 v-bind:title="announcements.title"
@@ -84,6 +113,8 @@
                 v-on:click:close="hide"
             />
         </bubble>
+=======
+>>>>>>> master
     </div>
 </template>
 
@@ -109,7 +140,7 @@
     background-color: rgba(60, 64, 67, 0.2);
 }
 
-.header-ripe {
+.header-ripe > .header-bar {
     background-color: $white;
     border-bottom: 1px solid #e4e8f0;
     height: 60px;
@@ -121,11 +152,11 @@
     z-index: 30;
 }
 
-.app.first .header-ripe {
+.app.first .header-ripe > .header-bar {
     animation: fade-into-drop 0.45s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-.header-ripe > .header-container {
+.header-ripe > .header-bar > .header-container {
     box-sizing: border-box;
     height: 60px;
     line-height: 60px;
@@ -135,12 +166,12 @@
     text-align: left;
 }
 
-.header-ripe.full-width > .header-container {
+.header-ripe > .header-bar.full-width > .header-container {
     max-width: 100%;
     padding: 0px 12px 0px 12px;
 }
 
-.header-ripe > .header-container > .header-left {
+.header-ripe > .header-bar > .header-container > .header-left {
     float: left;
     font-size: 0px;
     height: 60px;
@@ -148,25 +179,25 @@
     text-align: left;
 }
 
-.header-ripe.no-side > .header-container > .header-left {
+.header-ripe > .header-bar.no-side > .header-container > .header-left {
     padding-left: 12px;
 }
 
-.header-ripe > .header-container > .header-left > * {
+.header-ripe > .header-bar > .header-container > .header-left > * {
     vertical-align: middle;
 }
 
-.header-ripe > .header-container > .header-left > a {
+.header-ripe > .header-bar > .header-container > .header-left > a {
     border: none;
 }
 
-.header-ripe > .header-container > .header-left > a > .header-logo {
+.header-ripe > .header-bar > .header-container > .header-left > a > .header-logo {
     height: 30px;
     vertical-align: middle;
 }
 
-.header-ripe > .header-container > .header-account,
-.header-ripe > .header-container > .header-apps {
+.header-ripe > .header-bar > .header-container > .header-account,
+.header-ripe > .header-bar > .header-container > .header-apps {
     cursor: pointer;
     float: right;
     font-size: 0px;
@@ -176,11 +207,11 @@
     text-align: right;
 }
 
-.header-ripe > .header-container > .header-account > * {
+.header-ripe > .header-bar > .header-container > .header-account > * {
     vertical-align: middle;
 }
 
-.header-ripe > .header-container > .header-account ::v-deep .dropdown {
+.header-ripe > .header-bar > .header-container > .header-account ::v-deep .dropdown {
     color: $lower-color;
     font-size: 13px;
     left: auto;
@@ -190,44 +221,44 @@
     text-align: left;
 }
 
-.header-ripe > .header-container > .header-account ::v-deep .dropdown > .dropdown-item > * {
+.header-ripe > .header-bar > .header-container > .header-account ::v-deep .dropdown > .dropdown-item > * {
     box-sizing: border-box;
     display: inline-block;
     padding: 8px 14px 8px 14px;
     width: 100%;
 }
 
-.header-ripe > .header-container > .header-account ::v-deep .dropdown > .dropdown-item > a {
+.header-ripe > .header-bar > .header-container > .header-account ::v-deep .dropdown > .dropdown-item > a {
     color: $lower-color;
 }
 
-.header-ripe > .header-container > .header-account ::v-deep .dropdown > .dropdown-item:hover > a,
-.header-ripe > .header-container > .header-account ::v-deep .dropdown > .dropdown-item.selected > a {
+.header-ripe > .header-bar > .header-container > .header-account ::v-deep .dropdown > .dropdown-item:hover > a,
+.header-ripe > .header-bar > .header-container > .header-account ::v-deep .dropdown > .dropdown-item.selected > a {
     color: $higher-color;
 }
 
-.header-ripe > .header-container > .header-apps {
+.header-ripe > .header-bar > .header-container > .header-apps {
     margin-right: 6px;
     padding: 0px 0px 0px 0px;
 }
 
-.header-ripe > .header-container > .header-apps > img {
+.header-ripe > .header-bar > .header-container > .header-apps > img {
     border-radius: 24px 24px 24px 24px;
     height: 22px;
     padding: 12px 12px 12px 12px;
     vertical-align: middle;
 }
 
-.header-ripe > .header-container > .header-apps > img:hover {
+.header-ripe > .header-bar > .header-container > .header-apps > img:hover {
     background-color: rgba(60, 64, 67, 0.08);
 }
 
-.header-ripe > .header-container > .header-apps > img:active,
-.header-ripe > .header-container > .header-apps.active > img {
+.header-ripe > .header-bar > .header-container > .header-apps > img:active,
+.header-ripe > .header-bar > .header-container > .header-apps.active > img {
     background-color: rgba(60, 64, 67, 0.2);
 }
 
-.header-ripe > .header-container > .header-apps ::v-deep .dropdown {
+.header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown {
     background-color: $white;
     box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.07);
     box-sizing: border-box;
@@ -244,7 +275,7 @@
     white-space: pre;
 }
 
-.header-ripe > .header-container > .header-apps ::v-deep .dropdown li {
+.header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown li {
     border-radius: 8px 8px 8px 8px;
     display: inline-block;
     font-size: 12px;
@@ -253,7 +284,7 @@
     text-align: center;
 }
 
-.header-ripe > .header-container > .header-apps ::v-deep .dropdown li a {
+.header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown li a {
     border-bottom: none;
     color: #000000;
     display: inline-block;
@@ -262,21 +293,21 @@
     width: 100px;
 }
 
-.header-ripe > .header-container > .header-apps ::v-deep .dropdown li img {
+.header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown li img {
     height: 40px;
     width: 40px;
 }
 
-.header-ripe > .header-container > .header-apps ::v-deep .dropdown li p {
+.header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown li p {
     font-weight: 600;
     margin: 6px 0px 0px 0px;
 }
 
-.header-ripe .dropdown-item-announcement .announcement-dropdown-text {
+.header-ripe > .header-bar .dropdown-item-announcement .announcement-dropdown-text {
     width: auto;
 }
 
-.header-ripe .dropdown-item-announcement .dot {
+.header-ripe > .header-bar .dropdown-item-announcement .dot {
     background-color: #4b8dd7;
     border: 1px solid #ffffff;
     border-radius: 50%;

@@ -23,6 +23,8 @@
     position: absolute;
     text-align: left;
     top: 0px;
+    position: absolute;
+    z-index: 30;
 }
 
 .bubble.fade-leave-active {
@@ -66,7 +68,7 @@ export const Bubble = {
     },
     data: function() {
         return {
-            visibleData: true
+            visibleData: this.visible
         };
     },
     watch: {
@@ -76,7 +78,7 @@ export const Bubble = {
     },
     computed: {
         isVisible() {
-            return this.visible && this.visibleData;
+            return this.visibleData;
         },
         style() {
             return {

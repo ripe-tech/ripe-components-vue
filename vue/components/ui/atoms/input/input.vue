@@ -30,6 +30,7 @@ input[type="text"] {
     padding-left: 12px;
     padding-right: 12px;
     transition: width 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+    width: 100%;
 }
 
 input[type="text"]:hover {
@@ -104,7 +105,7 @@ export const Input = {
     computed: {
         style() {
             const base = {
-                width: this.width === null ? "100%" : `${this.width}px`,
+                width: this.width === null ? null : `${this.width}px`,
                 height: this.height === null ? null : `${this.height}px`
             };
             return base;
