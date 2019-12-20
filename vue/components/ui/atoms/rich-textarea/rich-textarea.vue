@@ -37,8 +37,9 @@
     border-radius: 6px 6px 6px 6px;
     box-sizing: border-box;
     display: inline-block;
+    font-size: 0px;
     padding: 0px 0px 0px 0px;
-    width: 200px;
+    width: 100%;
 }
 
 .rich-textarea:focus-within {
@@ -51,7 +52,7 @@
 .rich-textarea .textarea:disabled {
     background-color: transparent;
     border: none;
-    height: 42px;
+    height: 56px;
     padding: 8px 18px 8px 18px;
     width: 100%;
 }
