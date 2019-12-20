@@ -82,6 +82,7 @@
                 v-bind:visible.sync="announcementModalVisible"
                 v-bind:top="56"
                 v-bind:right="8"
+                v-bind:width="370"
                 v-bind:position="'right'"
                 v-slot:default="{ hide }"
             >

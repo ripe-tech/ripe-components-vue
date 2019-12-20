@@ -18,7 +18,9 @@
     border: 1px solid transparent;
     border: 1px solid $light-white;
     box-shadow: 0px 6px 24px 0px rgba(67, 86, 100, 0.15);
+    max-height: 100%;
     position: absolute;
+    z-index: 30;
 }
 
 .bubble.fade-leave-active {
@@ -71,7 +73,7 @@ export const Bubble = {
     },
     computed: {
         isVisible() {
-            return this.visible && this.visibleData;
+            return this.visibleData;
         },
         style() {
             return {
@@ -79,7 +81,7 @@ export const Bubble = {
                 right: this.right === null ? null : `${this.right}px`,
                 bottom: this.bottom === null ? null : `${this.bottom}px`,
                 left: this.left === null ? null : `${this.left}px`,
-                width: this.width ? `${this.width}px` : "100%"
+                width: this.width ? `${this.width}px` : null
             };
         }
     },

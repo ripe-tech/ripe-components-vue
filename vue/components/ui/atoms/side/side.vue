@@ -1,7 +1,11 @@
 <template>
-    <div class="side" v-bind:class="[{ visible: visibleData, invisible: !visibleData }, position]">
-        <global-events v-on:keydown.esc="visibleData = false" />
-        <slot v-bind:hide="() => (visibleData = false)">
+    <div
+        class="side"
+        v-bind:style="style"
+        v-bind:class="[{ visible: visibleData, invisible: !visibleData }, position]"
+    >
+        <global-events v-on:keydown.esc="hide" />
+        <slot v-bind:hide="hide">
             <ul>
                 <li
                     v-bind:class="[link.id, { selected: link.selected, disabled: link.disabled }]"
@@ -25,8 +29,10 @@
     background: $white;
     border-right: 1px solid #e4e8f0;
     box-shadow: 0px 6px 15px rgba(0, 0, 0, 0);
+    box-sizing: border-box;
     height: 100%;
     left: -280px;
+    max-width: 100%;
     padding-top: 61px;
     position: fixed;
     top: 0px;
@@ -146,6 +152,10 @@ export const Side = {
         visible: {
             type: Boolean,
             default: false
+        },
+        width: {
+            type: Number,
+            default: 280
         }
     },
     data: function() {
@@ -155,31 +165,67 @@ export const Side = {
     },
     watch: {
         visible(value) {
-            this.visibleData = value;
-        },
-        visibleData(value) {
-            const event = value ? "show-overlay" : "hide-overlay";
-            this.$bus.$emit(event);
-            this.$bus.$emit("update:visible", value);
+            this.setVisible(value);
         },
         $route(to, from) {
-            this.visibleData = false;
+            this.hide();
         }
     },
     mounted: function() {
-        if (!this.global) return;
-        this.$bus.$on("show-side", payLoad => {
-            this.visibleData = true;
-        });
-        this.$bus.$on("hide-side", payLoad => {
-            this.visibleData = false;
-        });
-        this.$bus.$on("toggle-side", payLoad => {
-            this.visibleData = !this.visibleData;
-        });
+        if (this.global) {
+            this.$bus.$on("show-side", payload => {
+                this.show();
+            });
+            this.$bus.$on("hide-side", payload => {
+                this.hide();
+            });
+            this.$bus.$on("toggle-side", payload => {
+                this.toggle();
+            });
+        }
         this.$bus.$on("overlay-clicked", () => {
-            this.visibleData = false;
+            this.hide();
         });
+    },
+    computed: {
+        isVisible() {
+            return this.visibleData;
+        },
+        style() {
+            console.info(
+                this.width && this.position === "right"
+                    ? `${this.visibleData ? 0 : this.width * -1}px`
+                    : null
+            );
+            return {
+                left:
+                    this.width && this.position === "left"
+                        ? `${this.visibleData ? 0 : this.width * -1}px`
+                        : null,
+                right:
+                    this.width && this.position === "right"
+                        ? `${this.visibleData ? 0 : this.width * -1}px`
+                        : null,
+                width: this.width ? `${this.width}px` : null
+            };
+        }
+    },
+    methods: {
+        show() {
+            this.setVisible(true);
+        },
+        hide() {
+            this.setVisible(false);
+        },
+        toggle() {
+            this.setVisible(!this.visibleData);
+        },
+        setVisible(value) {
+            this.visibleData = value;
+            const event = value ? "show-overlay" : "hide-overlay";
+            this.$bus.$emit(event);
+            this.$emit("update:visible", value);
+        }
     }
 };
 
