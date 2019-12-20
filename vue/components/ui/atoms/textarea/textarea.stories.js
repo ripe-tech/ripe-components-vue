@@ -5,9 +5,6 @@ storiesOf("Atoms", module)
     .addDecorator(withKnobs)
     .add("Textarea", () => ({
         props: {
-            id: {
-                default: text("Id", "textarea-id")
-            },
             value: {
                 default: text("Value", "This is a text")
             },
@@ -33,10 +30,10 @@ storiesOf("Atoms", module)
                 default: boolean("Disabled", false)
             },
             width: {
-                default: number("Width", 280)
+                default: number("Width", null)
             },
             height: {
-                default: number("Height", 98)
+                default: number("Height", null)
             },
             resize: {
                 default: boolean("Resize", false)
@@ -55,7 +52,6 @@ storiesOf("Atoms", module)
         template: `
             <div>
                 <form-input
-                    v-bind:id="id"
                     v-bind:header="header"
                     v-bind:footer="footer"
                     v-bind:error="error"
@@ -63,7 +59,6 @@ storiesOf("Atoms", module)
                     v-bind:success="success"
                 >
                     <textarea-ripe
-                        v-bind:id="id"
                         v-bind:value.sync="valueData"
                         v-bind:placeholder="placeholder"
                         v-bind:disabled="disabled"
