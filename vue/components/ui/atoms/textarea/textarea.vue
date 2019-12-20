@@ -21,7 +21,7 @@
     border-radius: 6px;
     box-sizing: border-box;
     color: $grey;
-    display: block;
+    display: inline-block;
     font-family: $font-family;
     font-size: 14px;
     height: 98px;
@@ -30,6 +30,7 @@
     outline: none;
     padding: 8px 8px 8px 8px;
     resize: none;
+    width: 100%;
 }
 
 .textarea::placeholder {
@@ -50,9 +51,8 @@
 
 .textarea:focus {
     background-color: $white;
-    border: 2px solid $aqcua-blue;
+    border-color: $aqcua-blue;
     color: $black;
-    padding: 7px 7px 7px 7px;
 }
 </style>
 
@@ -98,9 +98,8 @@ export const Textarea = {
     computed: {
         style() {
             const height = Math.max(this.heightData || 0, this.textareaHeight || 0) || null;
-            console.info(height);
             const base = {
-                width: this.width === null ? "100%" : `${this.width}px`,
+                width: this.width === null ? null : `${this.width}px`,
                 height: height === null ? null : `${height}px`
             };
             return base;
@@ -118,6 +117,12 @@ export const Textarea = {
         }
     },
     methods: {
+        focus() {
+            this.$refs.textarea.focus();
+        },
+        bur() {
+            this.$refs.textarea.bur();
+        },
         calculate() {
             if (this.resize) {
                 const previous = this.$refs.textarea.offsetHeight;
@@ -139,7 +144,7 @@ export const Textarea = {
     },
     mounted: function() {
         this.heightData =
-            this.heightData === null ? this.$refs.textarea.clientHeight : this.heightData;
+            this.heightData === null ? this.$refs.textarea.offsetHeight : this.heightData;
     }
 };
 

@@ -1,15 +1,13 @@
 <template>
     <div class="rich-textarea" v-bind:class="{ disabled: disabled }" v-on:click="onClick">
-        <textarea
+        <textarea-ripe
             class="textarea"
-            v-bind:value="value"
+            v-bind:value.sync="valueData"
             v-bind:placeholder="placeholder"
             v-bind:disabled="disabled"
-            v-bind:initial-height="textareaHeight"
-            v-bind:style="textareaStyle"
+            v-bind:resize="resize"
             v-bind:id="id"
             ref="textarea"
-            v-on:input="onInput($event.target.value)"
         />
         <div class="options">
             <button-icon
@@ -30,61 +28,36 @@
     background-color: $white;
     border: 1px solid $light-white;
     border-radius: 6px 6px 6px 6px;
-    padding: 0px 0px 30px 0px;
-    position: relative;
-}
-
-.rich-textarea:focus-within,
-.rich-textarea:focus-within .textarea,
-.rich-textarea:focus-within .options {
-    background-color: $white;
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 0px 0px 0px 0px;
+    width: 200px;
 }
 
 .rich-textarea:focus-within {
-    border: 2px solid $aqcua-blue;
+    border: 1px solid $aqcua-blue;
 }
 
-.rich-textarea .textarea {
+.rich-textarea .textarea,
+.rich-textarea .textarea:focus,
+.rich-textarea .textarea:hover,
+.rich-textarea .textarea:disabled {
+    background-color: transparent;
     border: none;
-    box-sizing: border-box;
-    color: $grey;
-    display: block;
-    font-family: $font-family;
-    font-size: 14px;
-    letter-spacing: 0.3px;
-    line-height: 20px;
-    outline: none;
+    height: 42px;
     padding: 8px 18px 8px 18px;
-    resize: none;
     width: 100%;
 }
 
-.rich-textarea:focus-within .textarea {
-    color: $black;
-    padding: 7px 17px 7px 17px;
-}
-
-.rich-textarea.disabled,
-.rich-textarea.disabled .textarea {
-    background-color: #f6f7f9;
-    color: $medium-grey;
-    cursor: default;
-}
-
-.rich-textarea .textarea::placeholder {
-    color: $medium-grey;
-    font-family: $font-family;
+.rich-textarea.disabled {
+    opacity: 0.4;
 }
 
 .rich-textarea .options {
-    bottom: 3px;
-    left: 10px;
-    position: absolute;
-}
-
-.rich-textarea:focus-within .options {
-    bottom: 2px;
-    left: 9px;
+    background: #fafafa;
+    border-radius: 0px 0px 6px 6px;
+    border-top: 1px solid #e4e8f0;
+    padding: 6px 18px 6px 18px;
 }
 </style>
 
@@ -119,46 +92,26 @@ export const RichTextarea = {
     },
     data: function() {
         return {
-            textareaHeight: null
+            valueData: this.value
         };
     },
     watch: {
-        value() {
-            if (!this.resize) {
-                this.textareaHeight = null;
-                return;
-            }
-
-            const previous = this.textareaHeight || this.$refs.textarea.scrollHeight;
-
-            this.$refs.textarea.style.height = "auto";
-            this.textareaHeight = this.$refs.textarea.scrollHeight;
-            this.$refs.textarea.style.height = `${previous}px`;
-        }
-    },
-    computed: {
-        textareaStyle() {
-            return {
-                height: `${this.textareaHeight}px`
-            };
+        value(value) {
+            this.valueData = value;
+        },
+        valueData(value) {
+            this.$emit("update:value", value);
         }
     },
     methods: {
         focusTextarea() {
             this.$refs.textarea.focus();
         },
-        emitValueChanged(value) {
-            if (this.disabled) return;
-            this.$emit("update:value", value);
-        },
-        onInput(value) {
-            this.emitValueChanged(value);
-        },
         onClick() {
             this.focusTextarea();
         },
         onAttachmentClick() {
-            // TODO
+            this.$emit("click:attachment");
         }
     }
 };
