@@ -19,6 +19,7 @@
     border: 1px solid $light-white;
     box-shadow: 0px 6px 24px 0px rgba(67, 86, 100, 0.15);
     left: 0px;
+    max-width: 100%;
     position: absolute;
     top: 0px;
     z-index: 30;
@@ -30,6 +31,7 @@
 
 body.mobile .bubble {
     height: 100%;
+    position: fixed;
     width: 100%;
 }
 </style>

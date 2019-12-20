@@ -82,10 +82,7 @@
         <div class="header-globals">
             <bubble
                 v-bind:visible.sync="announcementModalVisible"
-                v-bind:top="56"
-                v-bind:right="8"
-                v-bind:width="370"
-                v-bind:position="'right'"
+                v-if="isMobileWidth()"
                 v-slot:default="{ hide }"
             >
                 <announcements
@@ -99,6 +96,24 @@
                     v-on:click:close="hide"
                 />
             </bubble>
+            <side
+                v-bind:visible.sync="announcementModalVisible"
+                v-bind:width="370"
+                v-bind:position="'right'"
+                v-else
+                v-slot:default="{ hide }"
+            >
+                <announcements
+                    v-bind:title="announcements.title"
+                    v-bind:description="announcements.description"
+                    v-bind:new-threshold="announcements.new_threshold"
+                    v-bind:show-subscribe="announcements.show_subscribe"
+                    v-bind:show-links="announcements.show_links"
+                    v-bind:show-reactions="announcements.show_reactions"
+                    v-bind:announcements="announcements.items"
+                    v-on:click:close="hide"
+                />
+            </side>
         </div>
     </div>
 </template>
@@ -302,11 +317,27 @@
     padding: 0px 0px 0px 0px;
     width: 8px;
 }
+
+.header-ripe > .header-globals > .bubble {
+    left: unset;
+    right: 8px;
+    top: 56px;
+    width: 370px;
+}
+
+body.mobile .header-ripe > .header-globals > .bubble {
+    right: 0px;
+    top: 0px;
+    width: 100%;
+}
 </style>
 
 <script>
+import { partMixin } from "../../../../mixins";
+
 export const Header = {
     name: "header-ripe",
+    mixins: [partMixin],
     props: {
         sideMenu: {
             type: Boolean,
