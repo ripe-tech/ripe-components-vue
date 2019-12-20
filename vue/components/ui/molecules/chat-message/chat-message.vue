@@ -33,7 +33,19 @@
                         v-bind:user-reacted="reaction.userHasReacted"
                         v-bind:behavior="true"
                         v-for="reaction in reactions"
-                        v-bind:key="reaction.icon"
+                        v-bind:key="reaction.id"
+                        v-on:click="onReactionClick(reaction)"
+                    />
+                    <reaction
+                        v-bind:icon="addReactionButton.icon"
+                        v-bind:img-url="addReactionButton.imgUrl"
+                        v-bind:emoji="addReactionButton.emoji"
+                        v-bind:count="addReactionButton.count"
+                        v-bind:user-reacted="addReactionButton.userHasReacted"
+                        v-bind:behavior="true"
+                        v-if="reactions.length"
+                        v-bind:key="addReactionButton.id"
+                        v-on:click="onAddReactionClick($event)"
                     />
                 </div>
             </div>
@@ -115,6 +127,10 @@
     margin: 10px 0px 0px 0px;
 }
 
+.chat-message .message-container .message-content .reactions > .reaction {
+    margin: 0px 2px 0px 0px;
+}
+
 .chat-message .options-container {
     background-color: $grey-6;
     border: solid 1px #e4e8f0;
@@ -192,6 +208,18 @@ export const ChatMessage = {
         reactions: {
             type: Array,
             default: () => []
+        },
+        addReactionButton: {
+            type: Object,
+            default: {
+                id: "addEmoji",
+                icon: null,
+                imgUrl: "https://cdn3.iconfinder.com/data/icons/pictomisc/100/happyface-512.png",
+                emoji: null,
+                count: 0,
+                userHasReacted: false,
+                behavior: false
+            }
         }
     },
     methods: {
@@ -203,6 +231,19 @@ export const ChatMessage = {
         },
         onMoreOptionsOptionClick(option) {
             this.emitOptionClick(option);
+        },
+        onReactionClick(reaction) {
+            reaction.id === "addEmoji" ? this.addEmoji() : this.toggleReaction(reaction);
+        },
+        onAddReactionClick(ev) {
+            console.log("onAddReactionClick event prevented", ev);
+        },
+        addEmoji() {
+            console.log("Add emoji menu");
+        },
+        toggleReaction(reaction) {
+            reaction.userHasReacted ? (reaction.count -= 1) : (reaction.count += 1);
+            reaction.userHasReacted = !reaction.userHasReacted;
         }
     }
 };

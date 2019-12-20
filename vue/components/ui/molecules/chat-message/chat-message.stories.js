@@ -33,28 +33,62 @@ storiesOf("Molecules", module)
                     }
                 ]
             },
-            reactions: {
-                // TODO change -> this will be replaced by what Daniel is doing
-                type: Array,
-                default: () => [
-                    { icon: "chart", imgUrl: null, emoji: null, count: 3, userHasReacted: false },
-                    {
-                        icon: null,
-                        imgUrl:
-                            "https://a.slack-edge.com/production-standard-emoji-assets/10.2/apple-large/1f4aa@2x.png",
-                        emoji: null,
-                        count: 0,
-                        userHasReacted: false
-                    },
-                    { icon: null, imgUrl: null, emoji: "😱", count: 6, userHasReacted: false },
-                    { icon: null, imgUrl: null, emoji: null, count: 2, userHasReacted: false }
-                ]
+            addReactionButton: {
+                type: Object,
+                default: {
+                    id: "addEmoji",
+                    icon: null,
+                    imgUrl:
+                        "https://cdn3.iconfinder.com/data/icons/pictomisc/100/happyface-512.png",
+                    emoji: null,
+                    count: 0,
+                    userHasReacted: false,
+                    behavior: false
+                }
             }
         },
         data: function() {
             return {
                 reactionOptionCounter: 0,
-                moreOptionsOptionCounter: 0
+                moreOptionsOptionCounter: 0,
+                reactions: [
+                    {
+                        id: "r1",
+                        icon: "chart",
+                        imgUrl: null,
+                        emoji: null,
+                        count: 1,
+                        userHasReacted: true,
+                        behavior: false
+                    },
+                    {
+                        id: "r2",
+                        icon: null,
+                        imgUrl: null,
+                        emoji: "😱",
+                        count: 6,
+                        userHasReacted: true,
+                        behavior: false
+                    },
+                    {
+                        id: "r3",
+                        icon: null,
+                        imgUrl: null,
+                        emoji: "👍",
+                        count: 3,
+                        userHasReacted: false,
+                        behavior: false
+                    },
+                    {
+                        id: "r4",
+                        icon: null,
+                        imgUrl: null,
+                        emoji: "👎",
+                        count: 6,
+                        userHasReacted: false,
+                        behavior: false
+                    }
+                ]
             };
         },
         methods: {
@@ -79,6 +113,7 @@ storiesOf("Molecules", module)
                     v-bind:message="message"
                     v-bind:attachments="attachments"
                     v-bind:reactions="reactions"
+                    v-bind:addReactionButton="addReactionButton"
                     v-on:option-clicked="value => onOptionClick(value)"
                 />
                 <div>
