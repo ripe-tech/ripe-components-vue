@@ -18,9 +18,9 @@
     border: 1px solid transparent;
     border: 1px solid $light-white;
     box-shadow: 0px 6px 24px 0px rgba(67, 86, 100, 0.15);
+    left: 0px;
     line-height: 16px;
     position: absolute;
-    left: 0px;
     text-align: left;
     top: 0px;
 }
@@ -30,8 +30,8 @@
 }
 
 body.mobile .bubble {
-    width: 100%;
     height: 100%;
+    width: 100%;
 }
 </style>
 
