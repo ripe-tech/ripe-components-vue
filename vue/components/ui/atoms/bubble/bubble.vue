@@ -18,7 +18,10 @@
     border: 1px solid transparent;
     border: 1px solid $light-white;
     box-shadow: 0px 6px 24px 0px rgba(67, 86, 100, 0.15);
+    left: 0px;
+    max-width: 100%;
     position: absolute;
+    top: 0px;
     z-index: 30;
 }
 
@@ -27,6 +30,8 @@
 }
 
 body.mobile .bubble {
+    height: 100%;
+    position: fixed;
     width: 100%;
 }
 </style>
@@ -57,7 +62,7 @@ export const Bubble = {
         },
         width: {
             type: Number,
-            default: 370
+            default: null
         }
     },
     data: function() {
@@ -80,7 +85,7 @@ export const Bubble = {
                 right: this.right === null ? null : `${this.right}px`,
                 bottom: this.bottom === null ? null : `${this.bottom}px`,
                 left: this.left === null ? null : `${this.left}px`,
-                width: this.width ? `${this.width}px` : null
+                width: this.width === null ? null : `${this.width}px`
             };
         }
     },
