@@ -18,21 +18,12 @@
             </div>
         </div>
         <div class="chat-input-container">
-            <div class="chat-input">
-                <textarea-ripe
-                    v-bind:initial-height="100"
-                    v-bind:placeholder="'Say something here...'"
-                    v-bind:resize="false"
-                    v-on:update:value="value => onTextareaValue(value)"
-                />
-                <div class="chat-options">
-                    <div class="optionExample" />
-                    <div class="optionExample" />
-                    <div class="optionExample" />
-                    <div class="optionExample" />
-                    <div class="optionExample" />
-                </div>
-            </div>
+            <rich-textarea
+                v-bind:value="textAreaText"
+                v-bind:placeholder="'Say something here...'"
+                v-bind:resize="false"
+                v-on:update:value="value => onTextareaValue(value)"
+            />
             <button-color
                 class="send-button"
                 v-bind:text="'Send message'"
@@ -70,42 +61,20 @@
 
 .chat-input-container {
     background-color: $grey-6;
-    width: 100%;
+    overflow: hidden;
 }
 
-.chat-input-container .chat-input {
-    border-top: solid 2px #e4e8f0;
-    padding: 20px 20px 20px 20px;
-}
-
-.chat-input-container .chat-input ::v-deep .textarea {
-    width: 100%;
-}
-
-.chat-input-container .chat-input .chat-options {
-    font-size: 0px; //It fixes white spaces between divs
-    //background-color: lightseagreen;
-    margin-top: -31px;
-    padding: 0px 9px 0px 9px;
-}
-
-.chat-input-container .chat-input .optionExample {
-    background: url("~./assets/clip.svg") center;
-    background-size: 22px 22px;
-    display: inline-block;
-    height: 22px;
-    margin: 4px 4px 4px 4px;
-    width: 22px;
+.chat-input-container .rich-textarea {
+    margin: 20px 20px 0px 20px;
 }
 
 .chat-input-container .send-button {
     float: right;
-    margin: 16px 16px 16px 16px;
+    margin: 16px 20px 16px 16px;
 }
 </style>
 
 <script>
-// TODO: replace with rich-textarea. Making this change will fix the border problem too.
 export const Chat = {
     name: "chat",
     props: {
