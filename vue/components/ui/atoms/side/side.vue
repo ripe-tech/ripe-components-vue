@@ -183,6 +183,9 @@ export const Side = {
                 this.toggle();
             });
         }
+        this.$bus.$on("hide-global", () => {
+            this.hide();
+        });
         this.$bus.$on("overlay-clicked", () => {
             this.hide();
         });
@@ -192,11 +195,6 @@ export const Side = {
             return this.visibleData;
         },
         style() {
-            console.info(
-                this.width && this.position === "right"
-                    ? `${this.visibleData ? 0 : this.width * -1}px`
-                    : null
-            );
             return {
                 left:
                     this.width && this.position === "left"
@@ -221,9 +219,12 @@ export const Side = {
             this.setVisible(!this.visibleData);
         },
         setVisible(value) {
+            if (this.visibleData === value) return;
+            const globalEvent = value ? "hide-global" : null;
+            const overlayEvent = value ? "show-overlay" : "hide-overlay";
+            if (globalEvent) this.$bus.$emit(globalEvent);
             this.visibleData = value;
-            const event = value ? "show-overlay" : "hide-overlay";
-            this.$bus.$emit(event);
+            this.$bus.$emit(overlayEvent);
             this.$emit("update:visible", value);
         }
     }

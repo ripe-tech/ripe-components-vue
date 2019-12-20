@@ -43,6 +43,7 @@
                     <dropdown
                         v-bind:items="accountDropdownItems"
                         v-bind:visible.sync="accountDropdownVisible"
+                        v-bind:global-hide="true"
                     >
                         <template v-slot:announcement="{ item }">
                             <div
@@ -66,6 +67,7 @@
                     <dropdown
                         v-bind:items="appsDropdownItems"
                         v-bind:visible.sync="appsDropdownVisible"
+                        v-bind:global-hide="true"
                     >
                         <template v-slot="{ item: { id, text, image, link, cls } }">
                             <a v-bind:href="link" v-bind:class="[cls]">
