@@ -80,7 +80,7 @@
             </div>
         </div>
         <div class="header-globals">
-            <side
+            <bubble
                 v-bind:visible.sync="announcementModalVisible"
                 v-bind:top="56"
                 v-bind:right="8"
@@ -98,23 +98,8 @@
                     v-bind:announcements="announcements.items"
                     v-on:click:close="hide"
                 />
-            </side>
+            </bubble>
         </div>
-<<<<<<< HEAD
-        <bubble v-bind:visible.sync="announcementModalVisible" v-slot:default="{ hide }">
-            <announcements
-                v-bind:title="announcements.title"
-                v-bind:description="announcements.description"
-                v-bind:new-threshold="announcements.new_threshold"
-                v-bind:show-subscribe="announcements.show_subscribe"
-                v-bind:show-links="announcements.show_links"
-                v-bind:show-reactions="announcements.show_reactions"
-                v-bind:announcements="announcements.items"
-                v-on:click:close="hide"
-            />
-        </bubble>
-=======
->>>>>>> master
     </div>
 </template>
 

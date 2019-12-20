@@ -19,11 +19,8 @@
     border: 1px solid $light-white;
     box-shadow: 0px 6px 24px 0px rgba(67, 86, 100, 0.15);
     left: 0px;
-    line-height: 16px;
     position: absolute;
-    text-align: left;
     top: 0px;
-    position: absolute;
     z-index: 30;
 }
 
