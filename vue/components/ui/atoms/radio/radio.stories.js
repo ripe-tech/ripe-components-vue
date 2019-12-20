@@ -5,9 +5,9 @@ storiesOf("Atoms", module)
     .addDecorator(withKnobs)
     .add("Radio", () => ({
         props: {
-            initialValue: {
+            value: {
                 default: select(
-                    "Initial Value",
+                    "Value",
                     {
                         Nothing: null,
                         Margherita: "margherita",
@@ -35,7 +35,7 @@ storiesOf("Atoms", module)
                         label: "BBQ chicken"
                     },
                     {
-                        label: "Pepperroni",
+                        label: "Pepperoni",
                         value: "pepperoni",
                         disabled: true
                     },
@@ -48,28 +48,22 @@ storiesOf("Atoms", module)
         },
         data: function() {
             return {
-                value: this.initialValue
+                valueData: this.value
             };
         },
         watch: {
-            initialValue() {
-                this.value = this.initialValue;
-            }
-        },
-        methods: {
-            onValue(value) {
-                this.value = value;
+            value(value) {
+                this.valueData = value;
             }
         },
         template: `
             <div>
                 <radio
-                    v-on:update:value="value => onValue(value)" 
-                    v-bind:value="value"
+                    v-bind:value.sync="valueData"
                     v-bind:items="items"
                     v-bind:disabled="disabled"
                     v-bind:error="error"
                 />
-                <p>Value selected: {{ value }}</p>
+                <p>Value selected: {{ valueData }}</p>
             </div>`
     }));

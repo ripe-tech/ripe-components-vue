@@ -25,11 +25,9 @@ storiesOf("Atoms", module)
             },
             success: {
                 default: text("Success", "")
-            }
-        },
-        data: function() {
-            return {
-                items: [
+            },
+            items: {
+                default: () => [
                     {
                         label: "Japan",
                         value: "japan"
@@ -39,8 +37,7 @@ storiesOf("Atoms", module)
                         value: "morocco"
                     },
                     {
-                        value: "Canada",
-                        checked: true
+                        value: "Canada"
                     },
                     {
                         value: "China"
@@ -58,19 +55,18 @@ storiesOf("Atoms", module)
                         label: "Tibet",
                         value: "tibet"
                     }
-                ],
-                values: {
+                ]
+            }
+        },
+        data: function() {
+            return {
+                valuesData: {
                     japan: true,
                     China: true,
                     dubai: true,
                     Canada: true
                 }
             };
-        },
-        methods: {
-            setValues(newValues) {
-                this.values = newValues;
-            }
         },
         template: `
             <div>
@@ -82,14 +78,13 @@ storiesOf("Atoms", module)
                     v-bind:success="success"
                 >
                     <checkbox
-                        v-on:update:values="setValues"                 
                         v-bind:items="items"
-                        v-bind:values="values"
+                        v-bind:values.sync="valuesData"
                         v-bind:disabled="disabled"
                         v-bind:error="error"
                     />
                 </form-input>
-                <p>Values: {{ values }}</p>
+                <p>Values: {{ valuesData }}</p>
             </div>
         `
     }));

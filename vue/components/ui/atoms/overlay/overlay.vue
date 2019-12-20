@@ -21,7 +21,9 @@
 }
 
 .fade-enter,
-.fade-leave-active {
+.fade-leave-active,
+.fade-enter > .overlay,
+.fade-leave-active > .overlay {
     opacity: 0;
 }
 </style>

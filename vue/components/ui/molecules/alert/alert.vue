@@ -15,6 +15,7 @@
         v-bind:auto-hide="false"
         v-if="component"
         v-bind:is="component"
+        ref="component"
         v-on="listeners"
         v-on:update:visible="onUpdateVisible"
         v-on:click:confirm="onConfirm"
@@ -35,6 +36,7 @@
         v-bind:loading="loading"
         v-bind:auto-hide="false"
         v-else
+        ref="modal"
         v-on="listeners"
         v-on:update:visible="onUpdateVisible"
         v-on:click:confirm="onConfirm"
@@ -72,6 +74,11 @@ export const Alert = {
     },
     mounted: function() {
         this.$bus.$on("alert", options => this.show(options));
+    },
+    computed: {
+        componentRef() {
+            return this.component ? this.$refs.component : this.$refs.modal;
+        }
     },
     methods: {
         show(options) {
@@ -124,7 +131,7 @@ export const Alert = {
             if (this.task) {
                 try {
                     this.loading = true;
-                    await this.task(this);
+                    await this.task(this, this.componentRef);
                 } catch (err) {
                     console.err(err);
                 }

@@ -41,15 +41,16 @@ const deviceMixin = {
             const isDesktop = !isDevice;
             const isTouch = isDevice;
             const isMouse = isDesktop;
-            isMobile && body.classList.add(MOBILE_DEVICE_CLASS);
-            isTablet && body.classList.add(TABLET_DEVICE_CLASS);
-            isDevice && body.classList.add(DEVICE_CLASS);
-            isDesktop && body.classList.add(DESKTOP_DEVICE_CLASS);
-            isTouch && body.classList.add(TOUCH_CLASS);
-            isMouse && body.classList.add(MOUSE_CLASS);
+            if (isMobile) body.classList.add(MOBILE_DEVICE_CLASS);
+            if (isTablet) body.classList.add(TABLET_DEVICE_CLASS);
+            if (isDevice) body.classList.add(DEVICE_CLASS);
+            if (isDesktop) body.classList.add(DESKTOP_DEVICE_CLASS);
+            if (isTouch) body.classList.add(TOUCH_CLASS);
+            if (isMouse) body.classList.add(MOUSE_CLASS);
         },
         updateSize() {
             const width = window.innerWidth;
+            const height = window.innerHeight;
             const body = document.body;
 
             body.classList.remove(DESKTOP_SIZE_CLASS);
@@ -66,6 +67,26 @@ const deviceMixin = {
             } else {
                 body.classList.add(MOBILE_SIZE_CLASS);
             }
+
+            for (const widthBreakpoint of this.widthBreakpoints || []) {
+                const [name, range] = widthBreakpoint;
+                const minWidth = range[0] || 0;
+                const maxWidth = range[1] || 65536;
+                body.classList.remove(name);
+                if (width >= minWidth && width <= maxWidth) {
+                    body.classList.add(name);
+                }
+            }
+
+            for (const heightBreakpoint of this.heightBreakpoints || []) {
+                const [name, range] = heightBreakpoint;
+                const minHeight = range[0] || 0;
+                const maxHeight = range[1] || 65536;
+                body.classList.remove(name);
+                if (height >= minHeight && height <= maxHeight) {
+                    body.classList.add(name);
+                }
+            }
         },
         setTabletWidth(width, update = false) {
             this.tabletWidth = width;
@@ -74,6 +95,24 @@ const deviceMixin = {
         setMobileWidth(width, update = false) {
             this.mobileWidth = width;
             if (update) this.updateDevice();
+        },
+        addWidthBreakpoint(name, range = []) {
+            this.widthBreakpoints = this.widthBreakpoints || [];
+            this.widthBreakpoints.push([name, range]);
+        },
+        removeWidthBreakpoint(name) {
+            this.widthBreakpoints = this.widthBreakpoints || [];
+            this.widthBreakpoints = this.widthBreakpoints.filter(v => v[0] !== name);
+            document.body.classList.remove(name);
+        },
+        addHeightBreakpoint(name, range = []) {
+            this.heightBreakpoints = this.heightBreakpoints || [];
+            this.heightBreakpoints.push([name, range]);
+        },
+        removeHeightBreakpoint(name) {
+            this.heightBreakpoints = this.heightBreakpoints || [];
+            this.heightBreakpoints = this.heightBreakpoints.filter(v => v[0] !== name);
+            document.body.classList.remove(name);
         },
         _isMobileDevice(data) {
             const prefix = data.substr(0, 4);
