@@ -19,13 +19,14 @@
     font-size: 0px;
     padding: 4px;
     text-align: center;
-    transition: background-color 0.15s ease-in-out;
+    transition: background-color 0.15s ease-in-out, opacity 0.15s ease-in-out;
     user-select: none;
     vertical-align: middle;
 }
 
 .button-icon.disabled {
     cursor: default;
+    opacity: 0.4;
 }
 
 .button-icon:hover:not(.disabled) {
