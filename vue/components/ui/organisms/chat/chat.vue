@@ -19,7 +19,7 @@
         </div>
         <div class="chat-input-container">
             <rich-textarea
-                v-bind:value="textAreaText"
+                v-bind:value="message.text"
                 v-bind:placeholder="'Say something here...'"
                 v-bind:resize="false"
                 v-on:update:value="value => onTextareaValue(value)"
@@ -110,7 +110,7 @@ export const Chat = {
         onTextareaValue(value) {
             // TODO
             this.message.text = value;
-            console.log(`Textarea changed: ${value}`);
+            console.log(`Textarea changed: ${this.message.text}`);
         },
         onSendMessageClick() {
             this.sendMessage();
