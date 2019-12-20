@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text } from "@storybook/addon-knobs";
+import { withKnobs, text, number } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
@@ -9,7 +9,7 @@ storiesOf("Molecules", module)
                 default: text("Username", "Username")
             },
             date: {
-                default: text("Date", "Nov 28")
+                default: number("Date", 1576840199)
             },
             message: {
                 default: text(
@@ -36,59 +36,29 @@ storiesOf("Molecules", module)
             addReactionButton: {
                 type: Object,
                 default: {
-                    id: "addEmoji",
-                    icon: null,
                     imgUrl:
                         "https://cdn3.iconfinder.com/data/icons/pictomisc/100/happyface-512.png",
-                    emoji: null,
                     count: 0,
                     userHasReacted: false,
                     behavior: false
                 }
+            },
+            reactions: {
+                type: Array,
+                default: () => [
+                    {
+                        emoji: "👍",
+                        count: 3,
+                        userHasReacted: false
+                    }
+                ]
             }
         },
         data: function() {
             return {
                 reactionOptionCounter: 0,
                 moreOptionsOptionCounter: 0,
-                reactions: [
-                    {
-                        id: "r1",
-                        icon: "chart",
-                        imgUrl: null,
-                        emoji: null,
-                        count: 1,
-                        userHasReacted: true,
-                        behavior: false
-                    },
-                    {
-                        id: "r2",
-                        icon: null,
-                        imgUrl: null,
-                        emoji: "😱",
-                        count: 6,
-                        userHasReacted: true,
-                        behavior: false
-                    },
-                    {
-                        id: "r3",
-                        icon: null,
-                        imgUrl: null,
-                        emoji: "👍",
-                        count: 3,
-                        userHasReacted: false,
-                        behavior: false
-                    },
-                    {
-                        id: "r4",
-                        icon: null,
-                        imgUrl: null,
-                        emoji: "👎",
-                        count: 6,
-                        userHasReacted: false,
-                        behavior: false
-                    }
-                ]
+                reactionsData: this.reactions
             };
         },
         methods: {
@@ -112,7 +82,7 @@ storiesOf("Molecules", module)
                     v-bind:date="date"
                     v-bind:message="message"
                     v-bind:attachments="attachments"
-                    v-bind:reactions="reactions"
+                    v-bind:reactions="reactionsData"
                     v-bind:addReactionButton="addReactionButton"
                     v-on:option-clicked="value => onOptionClick(value)"
                 />

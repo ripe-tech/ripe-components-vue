@@ -5,9 +5,9 @@
             <div class="message-header">
                 <div class="user-information">
                     <span class="username">{{ username }}</span>
-                    <span class="date">{{ date }}</span>
+                    <span class="date">{{ timeString(date) }}</span>
                 </div>
-                <div class="line-container">
+                <div class="line-container" v-if="hasAddReaction">
                     <hr />
                 </div>
             </div>
@@ -29,28 +29,16 @@
                         v-bind:icon="reaction.icon"
                         v-bind:img-url="reaction.imgUrl"
                         v-bind:emoji="reaction.emoji"
-                        v-bind:count="reaction.count"
-                        v-bind:user-reacted="reaction.userHasReacted"
+                        v-bind:count.sync="reaction.count"
+                        v-bind:user-reacted.sync="reaction.userHasReacted"
                         v-bind:behavior="true"
                         v-for="reaction in reactions"
                         v-bind:key="reaction.id"
-                        v-on:click="onReactionClick(reaction)"
-                    />
-                    <reaction
-                        v-bind:icon="addReactionButton.icon"
-                        v-bind:img-url="addReactionButton.imgUrl"
-                        v-bind:emoji="addReactionButton.emoji"
-                        v-bind:count="addReactionButton.count"
-                        v-bind:user-reacted="addReactionButton.userHasReacted"
-                        v-bind:behavior="true"
-                        v-if="reactions.length"
-                        v-bind:key="addReactionButton.id"
-                        v-on:click="onAddReactionClick($event)"
                     />
                 </div>
             </div>
         </div>
-        <div class="options-container">
+        <div class="options-container" v-if="hasAddReaction">
             <div class="reaction-option" v-on:click="onReactionOptionClick('reactionOption')" />
             <div class="more-options-option" v-on:click="onMoreOptionsOptionClick('moreOptions')" />
         </div>
@@ -63,6 +51,7 @@
 .chat-message {
     background-color: $grey-6;
     display: flex;
+    padding: 6px 0px 6px 0px;
 }
 
 .chat-message .user-image {
@@ -81,7 +70,7 @@
 
 .chat-message .message-container .message-header {
     display: flex;
-    margin: 4px 0px 0px 0px;
+    margin: 3px 0px 0px 0px;
 }
 
 .chat-message .message-container .message-header .user-information {
@@ -92,6 +81,7 @@
     color: #0d0d0d;
     font-weight: bold;
     letter-spacing: 0.7px;
+    padding: 0px 6px 0px 0px;
 }
 
 .chat-message .message-container .message-header .user-information .date {
@@ -115,7 +105,7 @@
 }
 
 .chat-message .message-container .message-content .links {
-    margin-top: 6px;
+    margin: 6px 0px 0px 0px;
 }
 
 .chat-message .message-container .message-content .links .link {
@@ -181,8 +171,11 @@
 </style>
 
 <script>
+import { utilsMixin } from "../../../../mixins";
+
 export const ChatMessage = {
     name: "chat-message",
+    mixins: [utilsMixin],
     props: {
         userImgPath: {
             // TODO remove -> this will be replaced by avatar
@@ -194,7 +187,7 @@ export const ChatMessage = {
             required: true
         },
         date: {
-            type: String,
+            type: Number,
             required: true
         },
         message: {
@@ -209,17 +202,9 @@ export const ChatMessage = {
             type: Array,
             default: () => []
         },
-        addReactionButton: {
-            type: Object,
-            default: {
-                id: "addEmoji",
-                icon: null,
-                imgUrl: "https://cdn3.iconfinder.com/data/icons/pictomisc/100/happyface-512.png",
-                emoji: null,
-                count: 0,
-                userHasReacted: false,
-                behavior: false
-            }
+        hasAddReaction: {
+            type: Boolean,
+            default: false
         }
     },
     methods: {
@@ -231,19 +216,6 @@ export const ChatMessage = {
         },
         onMoreOptionsOptionClick(option) {
             this.emitOptionClick(option);
-        },
-        onReactionClick(reaction) {
-            reaction.id === "addEmoji" ? this.addEmoji() : this.toggleReaction(reaction);
-        },
-        onAddReactionClick(ev) {
-            console.log("onAddReactionClick event prevented", ev);
-        },
-        addEmoji() {
-            console.log("Add emoji menu");
-        },
-        toggleReaction(reaction) {
-            reaction.userHasReacted ? (reaction.count -= 1) : (reaction.count += 1);
-            reaction.userHasReacted = !reaction.userHasReacted;
         }
     }
 };
