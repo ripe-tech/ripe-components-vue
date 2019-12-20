@@ -7,7 +7,7 @@
                     <span class="username">{{ username }}</span>
                     <span class="date">{{ timeString(date) }}</span>
                 </div>
-                <div class="line-container" v-if="hasAddReaction">
+                <div class="line-container" v-if="hasReactionOptions">
                     <hr />
                 </div>
             </div>
@@ -38,7 +38,7 @@
                 </div>
             </div>
         </div>
-        <div class="options-container" v-if="hasAddReaction">
+        <div class="options-container" v-if="hasReactionOptions">
             <div class="reaction-option" v-on:click="onReactionOptionClick('reactionOption')" />
             <div class="more-options-option" v-on:click="onMoreOptionsOptionClick('moreOptions')" />
         </div>
@@ -86,6 +86,7 @@
 
 .chat-message .message-container .message-header .user-information .date {
     color: #a4adb5;
+    font-size: 12px;
     letter-spacing: 0.3px;
 }
 
@@ -202,7 +203,7 @@ export const ChatMessage = {
             type: Array,
             default: () => []
         },
-        hasAddReaction: {
+        hasReactionOptions: {
             type: Boolean,
             default: false
         }

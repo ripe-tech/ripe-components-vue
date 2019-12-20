@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, number } from "@storybook/addon-knobs";
+import { withKnobs, text, number, boolean } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
@@ -17,6 +17,9 @@ storiesOf("Molecules", module)
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et lacus ac arcu ullamcorper condimentum."
                 )
             },
+            hasReactionOptions: {
+                default: boolean("Reaction Options", false)
+            },
             attachments: {
                 // TODO change -> need to know what data I will receive
                 type: Array,
@@ -33,16 +36,6 @@ storiesOf("Molecules", module)
                     }
                 ]
             },
-            addReactionButton: {
-                type: Object,
-                default: {
-                    imgUrl:
-                        "https://cdn3.iconfinder.com/data/icons/pictomisc/100/happyface-512.png",
-                    count: 0,
-                    userHasReacted: false,
-                    behavior: false
-                }
-            },
             reactions: {
                 type: Array,
                 default: () => [
@@ -56,39 +49,21 @@ storiesOf("Molecules", module)
         },
         data: function() {
             return {
-                reactionOptionCounter: 0,
-                moreOptionsOptionCounter: 0,
                 reactionsData: this.reactions
             };
-        },
-        methods: {
-            onOptionClick(option) {
-                switch (option) {
-                    case "reactionOption":
-                        this.reactionOptionCounter++;
-                        break;
-                    case "moreOptions":
-                        this.moreOptionsOptionCounter++;
-                        break;
-                    default:
-                        break;
-                }
-            }
         },
         template: `
             <div>
                 <chat-message
                     v-bind:username="username"
+                    v-bind:hasReactionOptions="hasReactionOptions"
                     v-bind:date="date"
                     v-bind:message="message"
                     v-bind:attachments="attachments"
                     v-bind:reactions="reactionsData"
-                    v-bind:addReactionButton="addReactionButton"
-                    v-on:option-clicked="value => onOptionClick(value)"
                 />
                 <div>
-                    <p>Reaction Option event count: {{ reactionOptionCounter }}</p>
-                    <p>More Options Option event count: {{ moreOptionsOptionCounter }}</p>
+                    <p>Thumb reaction count: {{ this.reactionsData[0].count }}</p>
                 </div>
             </div>
             `
