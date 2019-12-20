@@ -37,6 +37,7 @@
                     v-bind:src="account.avatar_url"
                     v-bind:clickable="true"
                     v-bind:active="accountDropdownVisible"
+                    v-bind:notify="announcementsToRead"
                 />
                 <dropdown
                     v-bind:items="accountDropdownItems"
