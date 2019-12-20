@@ -5,7 +5,7 @@
         v-if="hasImage"
     >
         <div class="image-container">
-            <image-ripe v-bind:src="src" v-bind:alt="'avatar'" />
+            <image-ripe v-bind:src="src" v-bind:alt="alt" v-bind:fade="fade" />
             <slot name="dot">
                 <div class="dot" />
             </slot>
@@ -151,6 +151,14 @@ export const Avatar = {
         src: {
             type: String,
             default: null
+        },
+        alt: {
+            type: String,
+            default: "avatar"
+        },
+        fade: {
+            type: Boolean,
+            default: false
         },
         notify: {
             type: Boolean,
