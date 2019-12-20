@@ -37,6 +37,7 @@
                     v-bind:src="account.avatar_url"
                     v-bind:clickable="true"
                     v-bind:active="accountDropdownVisible"
+                    v-bind:notify="announcementsToRead"
                 />
                 <dropdown
                     v-bind:items="accountDropdownItems"
@@ -73,7 +74,7 @@
         </div>
         <bubble
             v-bind:visible.sync="announcementModalVisible"
-            v-bind:top="70"
+            v-bind:top="56"
             v-bind:right="8"
             v-slot:default="{ hide }"
         >
