@@ -93,7 +93,7 @@ body.tablet-device .select .dropdown-container {
     height: 40px;
     line-height: 40px;
     margin: 0px 0px 1px 1px;
-    padding: 0px 8px 0px 8px;
+    padding: 1px 8px 1px 8px;
 }
 
 .select .dropdown-container .dropdown-button:hover {
@@ -112,8 +112,9 @@ body.tablet-device .select .dropdown-container {
 
 .select .dropdown-container .dropdown-button:focus {
     background-color: $white;
+    background-position: right 11px center;
     border: 2px solid $aqcua-blue;
-    margin: -1px 0px -1px 0px;
+    padding: 0px 7px 0px 7px;
     outline: none;
 }
 
