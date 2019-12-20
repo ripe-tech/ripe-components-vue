@@ -76,46 +76,47 @@ body.tablet-device .select .dropdown-container {
 .select .dropdown-container .dropdown {
     color: $dark-blue;
     cursor: pointer;
-    font-family: $font-family;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 0.3px;
     user-select: none;
+    font-family: $font-family;
+    font-size: 13px;
+    letter-spacing: 0.25px;
+    line-height: 34px;
+    height: 34px;
 }
 
 .select .dropdown-container .dropdown-button {
-    background: url("~./assets/chevron-down.svg") no-repeat;
-    background-color: $lighter-grey;
+    background-image: url("~./assets/chevron-down.svg");
+    background-repeat: no-repeat;
     background-position: right 12px center;
-    background-size: 14px 14px;
+    background-color: #f2f2f2;
+    background-size: 20px 20px;
     border: 1px solid $light-white;
-    border-radius: 6px;
-    height: 40px;
-    line-height: 40px;
-    margin: 0px 0px 1px 1px;
-    padding: 1px 8px 1px 8px;
+    border-radius: 6px 6px 6px 6px;
+    box-sizing: border-box;
+    outline: none;
+    padding-left: 12px;
+    padding-right: 12px;
+    transition: width 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .select .dropdown-container .dropdown-button:hover {
-    background-color: $light-grey;
-    border: 1px solid $light-grey;
-    color: $grey;
+    background-color: $lighter-grey;
+    border-color: #dfe1e5;
 }
 
 .select .dropdown-container .dropdown-button.disabled,
 .select .dropdown-container .dropdown-button.disabled:active {
-    background-color: $light-grey;
-    border: 1px solid $light-white;
-    color: $medium-grey;
-    margin: inherit;
+    background-color: $lighter-grey;
+    border-color: transparent;
 }
 
 .select .dropdown-container .dropdown-button:focus {
     background-color: $white;
-    background-position: right 11px center;
-    border: 2px solid $aqcua-blue;
-    padding: 0px 7px 0px 7px;
-    outline: none;
+    border: 1px solid $aqcua-blue;
+    box-shadow: 0px 1px 8px 0px rgba(32, 33, 36, 0.14);
 }
 
 .select .dropdown-container .dropdown {
