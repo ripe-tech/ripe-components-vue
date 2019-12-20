@@ -69,6 +69,11 @@
 @import "css/variables.scss";
 @import "css/animations.scss";
 
+.announcements {
+    line-height: 16px;
+    text-align: left;
+}
+
 .announcements .announcement-header {
     border-bottom: 1px solid $light-white;
     padding: 15px 24px 15px 24px;

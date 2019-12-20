@@ -1,18 +1,20 @@
 <template>
     <div class="side" v-bind:class="[{ visible: visibleData, invisible: !visibleData }, position]">
         <global-events v-on:keydown.esc="visibleData = false" />
-        <ul>
-            <li
-                v-bind:class="[link.id, { selected: link.selected, disabled: link.disabled }]"
-                v-for="(link, index) in links"
-                v-bind:key="link.id + index"
-            >
-                <router-link v-bind:to="link.link" v-if="link.link">
-                    {{ link.text }}
-                </router-link>
-                <span v-else>{{ link.text }}</span>
-            </li>
-        </ul>
+        <slot v-bind:hide="() => (visibleData = false)">
+            <ul>
+                <li
+                    v-bind:class="[link.id, { selected: link.selected, disabled: link.disabled }]"
+                    v-for="(link, index) in links"
+                    v-bind:key="link.id + index"
+                >
+                    <router-link v-bind:to="link.link" v-if="link.link">
+                        {{ link.text }}
+                    </router-link>
+                    <span v-else>{{ link.text }}</span>
+                </li>
+            </ul>
+        </slot>
     </div>
 </template>
 
