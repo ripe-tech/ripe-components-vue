@@ -1,5 +1,5 @@
 <template>
-    <div class="select" v-bind:style="selectStyle">
+    <div class="select">
         <global-events v-on:click="onGlobalClick" />
         <div class="dropdown-container">
             <div
@@ -23,7 +23,6 @@
             </div>
             <dropdown
                 v-bind:items="options"
-                v-bind:width="width"
                 v-bind:max-height="maxHeight"
                 v-bind:visible="isVisible"
                 v-bind:global-events="false"
@@ -72,33 +71,37 @@ body.tablet-device .select .dropdown-container {
     display: none;
 }
 
+.select .dropdown-container {
+    width: 304px;
+}
+
 .select .dropdown-container .dropdown-button,
 .select .dropdown-container .dropdown {
     color: $dark-blue;
     cursor: pointer;
-    user-select: none;
     font-family: $font-family;
     font-size: 13px;
+    height: 34px;
     letter-spacing: 0.25px;
     line-height: 34px;
-    height: 34px;
+    user-select: none;
 }
 
 .select .dropdown-container .dropdown-button {
-    background-image: url("~./assets/chevron-down.svg");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
     background-color: #f2f2f2;
+    background-image: url("~./assets/chevron-down.svg");
+    background-position: right 12px center;
+    background-repeat: no-repeat;
     background-size: 20px 20px;
     border: 1px solid $light-white;
     border-radius: 6px 6px 6px 6px;
     box-sizing: border-box;
     outline: none;
+    overflow: hidden;
     padding-left: 12px;
     padding-right: 12px;
-    transition: width 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
-    overflow: hidden;
     text-overflow: ellipsis;
+    transition: width 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
     white-space: nowrap;
 }
 
@@ -179,10 +182,6 @@ export const Select = {
         disabled: {
             type: Boolean,
             default: false
-        },
-        width: {
-            type: Number,
-            default: null
         },
         maxHeight: {
             type: Number,
@@ -366,13 +365,6 @@ export const Select = {
         }
     },
     computed: {
-        selectStyle() {
-            const base = {};
-
-            if (this.width) base.width = `${this.width}px`;
-
-            return base;
-        },
         buttonText() {
             return this.value ? this.options[this.valueIndex].text : this.placeholder;
         },

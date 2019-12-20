@@ -47,9 +47,6 @@ storiesOf("Molecules", module)
             initialVisible: {
                 default: boolean("Initial Visible", false)
             },
-            width: {
-                default: number("Width", 300)
-            },
             maxHeight: {
                 default: number("Max Height", 200)
             },
@@ -176,7 +173,6 @@ storiesOf("Molecules", module)
                 <select-ripe
                     v-bind:id="id"
                     v-bind:placeholder="placeholder"
-                    v-bind:width="width"
                     v-bind:max-height="maxHeight"
                     v-bind:disabled="disabled"
                     v-bind:options="options"
