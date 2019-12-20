@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, boolean, number } from "@storybook/addon-knobs";
+import { withKnobs, text, boolean, number, select } from "@storybook/addon-knobs";
 
 storiesOf("Organisms", module)
     .addDecorator(withKnobs)
@@ -11,19 +11,29 @@ storiesOf("Organisms", module)
             logo: {
                 default: text("Logo URL", "https://cdn.platforme.com/images/platforme.png")
             },
-            announcement_title: {
+            announcementTitle: {
                 default: text("Announcements Title", "Changelog")
             },
-            announcement_description: {
+            announcementDescription: {
                 default: text("Announcements Description", "Here you will see the changelog.")
             },
-            new_threshold: {
+            menuPosition: {
+                default: select(
+                    "Menu Position",
+                    {
+                        Left: "left",
+                        Right: "right"
+                    },
+                    "left"
+                )
+            },
+            newThreshold: {
                 default: number("New Threshold", 430000)
             },
-            show_subscribe: {
+            showSubscribe: {
                 default: boolean("Show Subscribe", true)
             },
-            show_reactions: {
+            showReactions: {
                 default: boolean("Show Reactions", true)
             },
             items: {
@@ -80,11 +90,11 @@ storiesOf("Organisms", module)
         computed: {
             announcements() {
                 return {
-                    title: this.announcement_title,
-                    description: this.announcement_description,
-                    new_threshold: this.new_threshold,
-                    show_subscribe: this.show_subscribe,
-                    show_reactions: this.show_reactions,
+                    title: this.announcementTitle,
+                    description: this.announcementDescription,
+                    new_threshold: this.newThreshold,
+                    show_subscribe: this.showSubscribe,
+                    show_reactions: this.showReactions,
                     items: this.items
                 };
             }
@@ -92,7 +102,7 @@ storiesOf("Organisms", module)
         template: `
         <div>
             <overlay v-bind:visible='true' v-bind:global='true'></overlay>
-            <side v-bind:links="mockLinks"></side>
+            <side v-bind:links="mockLinks" v-bind:position='menuPosition' v-bind:global='true'></side>
             <header-ripe
                 v-bind:platforme-account="mockAccount"
                 v-bind:apps="apps"
