@@ -1,3 +1,4 @@
+import { Avatar } from "./avatar/avatar.vue";
 import { ButtonColor } from "./button-color/button-color.vue";
 import { ButtonIcon } from "./button-icon/button-icon.vue";
 import { ButtonPlatforme } from "./button-platforme/button-platforme.vue";
@@ -17,6 +18,7 @@ import { Tag } from "./tag/tag.vue";
 import { Textarea } from "./textarea/textarea.vue";
 
 const install = Vue => {
+    Vue.component("avatar", Avatar);
     Vue.component("button-color", ButtonColor);
     Vue.component("button-icon", ButtonIcon);
     Vue.component("button-platforme", ButtonPlatforme);
@@ -37,6 +39,7 @@ const install = Vue => {
 };
 
 export {
+    Avatar,
     ButtonColor,
     ButtonIcon,
     ButtonPlatforme,
