@@ -17,6 +17,13 @@
                 v-if="attachment"
                 v-on:click="onAttachmentClick()"
             />
+            <button-icon
+                class="button-smile"
+                v-bind:disabled="disabled"
+                v-bind:icon="'happy-face'"
+                v-if="smile"
+                v-on:click="onSmileClick()"
+            />
         </div>
     </div>
 </template>
@@ -81,11 +88,15 @@ export const RichTextarea = {
             type: Boolean,
             default: false
         },
+        resize: {
+            type: Boolean,
+            default: true
+        },
         attachment: {
             type: Boolean,
             default: true
         },
-        resize: {
+        smile: {
             type: Boolean,
             default: true
         }
@@ -112,6 +123,9 @@ export const RichTextarea = {
         },
         onAttachmentClick() {
             this.$emit("click:attachment");
+        },
+        onSmileClick() {
+            this.$emit("click:smile");
         }
     }
 };

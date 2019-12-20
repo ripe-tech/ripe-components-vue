@@ -14,11 +14,14 @@ storiesOf("Atoms", module)
             disabled: {
                 default: boolean("Disabled", false)
             },
+            resize: {
+                default: boolean("Resize", true)
+            },
             attachment: {
                 default: boolean("Attachment", true)
             },
-            resize: {
-                default: boolean("Resize", true)
+            smile: {
+                default: boolean("Smile", true)
             }
         },
         data: function() {
@@ -37,8 +40,9 @@ storiesOf("Atoms", module)
                     v-bind:value.sync="valueData"
                     v-bind:placeholder="placeholder"
                     v-bind:disabled="disabled"
-                    v-bind:attachment="attachment"
                     v-bind:resize="resize"
+                    v-bind:attachment="attachment"
+                    v-bind:smile="smile"
                 />
                 <div>
                     <p>Text: {{ valueData }}</p>
