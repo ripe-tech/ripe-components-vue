@@ -5,6 +5,21 @@ storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Table", () => ({
         props: {
+            sort: {
+                default: select(
+                    "Sort Column",
+                    {
+                        Unset: null,
+                        Id: "id",
+                        User: "user",
+                        System: "system"
+                    },
+                    null
+                )
+            },
+            reverse: {
+                default: () => boolean("Reverse", null)
+            },
             mockItems: {
                 default: () => [
                     {
@@ -31,21 +46,6 @@ storiesOf("Molecules", module)
                     { id: "user", title: "User" },
                     { id: "system", title: "System" }
                 ]
-            },
-            sort: {
-                default: select(
-                    "Sort Column",
-                    {
-                        Unset: null,
-                        Id: "id",
-                        User: "user",
-                        System: "system"
-                    },
-                    null
-                )
-            },
-            reverse: {
-                default: () => boolean("Reverse", null)
             }
         },
         data: function() {
