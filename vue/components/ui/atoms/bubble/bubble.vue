@@ -20,9 +20,9 @@
     box-shadow: 0px 6px 24px 0px rgba(67, 86, 100, 0.15);
     line-height: 16px;
     position: absolute;
-    right: 8px;
+    left: 0px;
     text-align: left;
-    top: 56px;
+    top: 0px;
 }
 
 .bubble.fade-leave-active {
@@ -30,9 +30,8 @@
 }
 
 body.mobile .bubble {
-    left: 0px;
-    right: 0px;
-    top: 0px;
+    width: 100%;
+    height: 100%;
 }
 </style>
 
