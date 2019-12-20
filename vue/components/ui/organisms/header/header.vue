@@ -74,7 +74,7 @@
         </div>
         <bubble
             v-bind:visible.sync="announcementModalVisible"
-            v-bind:top="70"
+            v-bind:top="56"
             v-bind:right="8"
             v-slot:default="{ hide }"
         >
