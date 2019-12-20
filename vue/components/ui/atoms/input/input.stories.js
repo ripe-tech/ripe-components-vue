@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, boolean } from "@storybook/addon-knobs";
+import { withKnobs, text, boolean, number } from "@storybook/addon-knobs";
 
 storiesOf("Atoms", module)
     .addDecorator(withKnobs)
@@ -28,16 +28,22 @@ storiesOf("Atoms", module)
             },
             success: {
                 default: text("Success", "")
+            },
+            width: {
+                default: number("Width", 280)
+            },
+            height: {
+                default: number("Height", 34)
             }
         },
         data: function() {
             return {
-                text: this.value
+                valueData: this.value
             };
         },
-        methods: {
-            onValue(value) {
-                this.text = value;
+        watch: {
+            value(value) {
+                this.valueData = value;
             }
         },
         template: `
@@ -49,9 +55,14 @@ storiesOf("Atoms", module)
                     v-bind:warning="warning"
                     v-bind:success="success"
                 >
-                    <input-ripe v-bind:value="value" v-bind:placeholder="placeholder" v-on:update:value="onValue" v-bind:disabled="disabled"></input-ripe>
+                    <input-ripe
+                        v-bind:value.sync="valueData"
+                        v-bind:placeholder="placeholder"
+                        v-bind:disabled="disabled"
+                        v-bind:width="width"
+                        v-bind:height="height"></input-ripe>
                 </form-input>
-                <p>Text: {{ text }}</p>
+                <p>Text: {{ valueData }}</p>
             </div>
         `
     }));
