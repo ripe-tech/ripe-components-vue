@@ -227,6 +227,12 @@ export const Side = {
             this.$bus.$emit(overlayEvent);
             this.$emit("update:visible", value);
         }
+    },
+    beforeMount: function() {
+        if (this.visibleData) this.$bus.$emit("show-overlay");
+    },
+    beforeDestroy: function() {
+        if (this.visibleData) this.$bus.$emit("hide-overlay");
     }
 };
 
