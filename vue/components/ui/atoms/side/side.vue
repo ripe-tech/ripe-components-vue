@@ -8,7 +8,10 @@
         <slot v-bind:hide="hide">
             <ul>
                 <li
-                    v-bind:class="[link.value, { selected: link.selected, disabled: link.disabled }]"
+                    v-bind:class="[
+                        link.value,
+                        { selected: link.selected, disabled: link.disabled }
+                    ]"
                     v-for="(link, index) in links"
                     v-bind:key="link.value + index"
                 >
