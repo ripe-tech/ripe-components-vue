@@ -24,56 +24,132 @@ const MOBILE_DEVICE_REGEX = new RegExp(
 );
 
 const deviceMixin = {
+    computed: {
+        tabletWidth() {
+            return this._tabletWidth || TABLET_WIDTH;
+        },
+        mobileWidth() {
+            return this._mobileWidth || MOBILE_WIDTH;
+        },
+        isMobile() {
+            return this._isMobileDevice(navigator.userAgent);
+        },
+        isTablet() {
+            return this._isTabletDevice(navigator.userAgent);
+        },
+        isDevice() {
+            return this.isMobile || this.isTablet;
+        },
+        isDesktop() {
+            return !this.isDevice;
+        },
+        isTouch() {
+            return this.isDevice;
+        },
+        isMouse() {
+            return this.isDesktop;
+        },
+        isDesktopWidth() {
+            return this.windowWidth > this.tabletWidth;
+        },
+        isTabletWidth() {
+            return this.windowWidth > this.mobileWidth && this.windowWidth <= this.tabletWidth;
+        },
+        isMobileWidth() {
+            return this.windowWidth <= this.mobileWidth;
+        }
+    },
+    data: function() {
+        return {
+            userAgent: null,
+            windowWidth: null,
+            windowHeight: null
+        };
+    },
     methods: {
         initDevice() {
             this.listenSize();
+            this.updateBase();
             this.updateSize();
             this.updateDevice();
         },
         listenSize() {
             window.addEventListener("resize", () => this.updateSize());
         },
+        updateBase() {
+            const body = document.body;
+            this.$root.$device = this;
+            body.classList.add("init");
+        },
         updateDevice() {
             const body = document.body;
-            const isMobile = this._isMobileDevice(navigator.userAgent);
-            const isTablet = this._isTabletDevice(navigator.userAgent);
-            const isDevice = isMobile || isTablet;
-            const isDesktop = !isDevice;
-            const isTouch = isDevice;
-            const isMouse = isDesktop;
-            isMobile && body.classList.add(MOBILE_DEVICE_CLASS);
-            isTablet && body.classList.add(TABLET_DEVICE_CLASS);
-            isDevice && body.classList.add(DEVICE_CLASS);
-            isDesktop && body.classList.add(DESKTOP_DEVICE_CLASS);
-            isTouch && body.classList.add(TOUCH_CLASS);
-            isMouse && body.classList.add(MOUSE_CLASS);
+            this.userAgent = navigator.userAgent;
+            if (this.isMobile) body.classList.add(MOBILE_DEVICE_CLASS);
+            if (this.isTablet) body.classList.add(TABLET_DEVICE_CLASS);
+            if (this.isDevice) body.classList.add(DEVICE_CLASS);
+            if (this.isDesktop) body.classList.add(DESKTOP_DEVICE_CLASS);
+            if (this.isTouch) body.classList.add(TOUCH_CLASS);
+            if (this.isMouse) body.classList.add(MOUSE_CLASS);
         },
         updateSize() {
-            const width = window.innerWidth;
             const body = document.body;
+
+            this.windowWidth = window.innerWidth;
+            this.windowHeight = window.innerHeight;
 
             body.classList.remove(DESKTOP_SIZE_CLASS);
             body.classList.remove(TABLET_SIZE_CLASS);
             body.classList.remove(MOBILE_SIZE_CLASS);
 
-            const tabletWidth = this.tabletWidth || TABLET_WIDTH;
-            const mobileWidth = this.mobileWidth || MOBILE_WIDTH;
+            if (this.isDesktopWidth) body.classList.add(DESKTOP_SIZE_CLASS);
+            if (this.isTabletWidth) body.classList.add(TABLET_SIZE_CLASS);
+            if (this.isMobileWidth) body.classList.add(MOBILE_SIZE_CLASS);
 
-            if (width > tabletWidth) {
-                body.classList.add(DESKTOP_SIZE_CLASS);
-            } else if (width > mobileWidth) {
-                body.classList.add(TABLET_SIZE_CLASS);
-            } else {
-                body.classList.add(MOBILE_SIZE_CLASS);
+            for (const widthBreakpoint of this.widthBreakpoints || []) {
+                const [name, range] = widthBreakpoint;
+                const minWidth = range[0] || 0;
+                const maxWidth = range[1] || 65536;
+                body.classList.remove(name);
+                if (this.windowWidth >= minWidth && this.windowWidth <= maxWidth) {
+                    body.classList.add(name);
+                }
+            }
+
+            for (const heightBreakpoint of this.heightBreakpoints || []) {
+                const [name, range] = heightBreakpoint;
+                const minHeight = range[0] || 0;
+                const maxHeight = range[1] || 65536;
+                body.classList.remove(name);
+                if (this.windowHeight >= minHeight && this.windowHeight <= maxHeight) {
+                    body.classList.add(name);
+                }
             }
         },
         setTabletWidth(width, update = false) {
-            this.tabletWidth = width;
+            this._tabletWidth = width;
             if (update) this.updateDevice();
         },
         setMobileWidth(width, update = false) {
-            this.mobileWidth = width;
+            this._mobileWidth = width;
             if (update) this.updateDevice();
+        },
+        addWidthBreakpoint(name, range = []) {
+            this.widthBreakpoints = this.widthBreakpoints || [];
+            this.widthBreakpoints.push([name, range]);
+        },
+        removeWidthBreakpoint(name) {
+            this.widthBreakpoints = this.widthBreakpoints || [];
+            this.widthBreakpoints = this.widthBreakpoints.filter(v => v[0] !== name);
+            document.body.classList.remove(name);
+        },
+        addHeightBreakpoint(name, range = []) {
+            this.heightBreakpoints = this.heightBreakpoints || [];
+            this.heightBreakpoints.push([name, range]);
+        },
+        removeHeightBreakpoint(name) {
+            this.heightBreakpoints = this.heightBreakpoints || [];
+            this.heightBreakpoints = this.heightBreakpoints.filter(v => v[0] !== name);
+            document.body.classList.remove(name);
         },
         _isMobileDevice(data) {
             const prefix = data.substr(0, 4);

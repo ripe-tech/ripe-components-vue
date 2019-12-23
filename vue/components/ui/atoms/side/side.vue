@@ -1,18 +1,27 @@
 <template>
-    <div class="side" v-bind:class="visible ? 'visible' : 'invisible'">
-        <global-events v-on:keydown.esc="visible = false" />
-        <ul>
-            <li
-                v-bind:class="[link.id, { selected: link.selected, disabled: link.disabled }]"
-                v-for="(link, index) in links"
-                v-bind:key="link.id + index"
-            >
-                <router-link v-bind:to="link.link" v-if="link.link">
-                    {{ link.text }}
-                </router-link>
-                <span v-else>{{ link.text }}</span>
-            </li>
-        </ul>
+    <div
+        class="side"
+        v-bind:style="style"
+        v-bind:class="[{ visible: visibleData, invisible: !visibleData }, position]"
+    >
+        <global-events v-on:keydown.esc="hide" />
+        <slot v-bind:hide="hide">
+            <ul>
+                <li
+                    v-bind:class="[
+                        link.value,
+                        { selected: link.selected, disabled: link.disabled }
+                    ]"
+                    v-for="(link, index) in links"
+                    v-bind:key="link.value + index"
+                >
+                    <router-link v-bind:to="link.link" v-if="link.link">
+                        {{ link.label }}
+                    </router-link>
+                    <span v-else>{{ link.label }}</span>
+                </li>
+            </ul>
+        </slot>
     </div>
 </template>
 
@@ -23,15 +32,23 @@
     background: $white;
     border-right: 1px solid #e4e8f0;
     box-shadow: 0px 6px 15px rgba(0, 0, 0, 0);
+    box-sizing: border-box;
     height: 100%;
     left: -280px;
+    max-width: 100%;
     padding-top: 61px;
     position: fixed;
     top: 0px;
     transition: left 0.25s cubic-bezier(0.645, 0.045, 0.355, 1),
+        right 0.25s cubic-bezier(0.645, 0.045, 0.355, 1),
         box-shadow 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
     width: 280px;
     z-index: 20;
+}
+
+.side.right {
+    left: initial;
+    right: -280px;
 }
 
 .side.visible {
@@ -39,9 +56,15 @@
     left: 0px;
 }
 
+.side.right.visible {
+    left: initial;
+    right: 0px;
+}
+
 .side ul {
     font-size: 15px;
     font-weight: 600;
+    list-style: none;
     margin: 12px 0px 12px 0px;
     padding: 0px 0px 0px 0px;
     text-align: left;
@@ -117,38 +140,102 @@
 export const Side = {
     name: "side",
     props: {
+        global: {
+            type: Boolean,
+            default: false
+        },
+        position: {
+            type: String,
+            default: "left"
+        },
         links: {
             type: Array,
             default: () => []
+        },
+        visible: {
+            type: Boolean,
+            default: false
+        },
+        width: {
+            type: Number,
+            default: 280
         }
     },
     data: function() {
         return {
-            visible: false
+            visibleData: this.visible
         };
     },
     watch: {
         visible(value) {
-            const event = value ? "show-overlay" : "hide-overlay";
-            this.$bus.$emit(event);
+            this.setVisible(value);
         },
         $route(to, from) {
-            this.visible = false;
+            this.hide();
         }
     },
     mounted: function() {
-        this.$bus.$on("show-side", payLoad => {
-            this.visible = true;
-        });
-        this.$bus.$on("hide-side", payLoad => {
-            this.visible = false;
-        });
-        this.$bus.$on("toggle-side", payLoad => {
-            this.visible = !this.visible;
+        if (this.global) {
+            this.$bus.$on("show-side", payload => {
+                this.show();
+            });
+            this.$bus.$on("hide-side", payload => {
+                this.hide();
+            });
+            this.$bus.$on("toggle-side", payload => {
+                this.toggle();
+            });
+        }
+        this.$bus.$on("hide-global", () => {
+            this.hide();
         });
         this.$bus.$on("overlay-clicked", () => {
-            this.visible = false;
+            this.hide();
         });
+    },
+    computed: {
+        isVisible() {
+            return this.visibleData;
+        },
+        style() {
+            return {
+                left:
+                    this.width && this.position === "left"
+                        ? `${this.visibleData ? 0 : this.width * -1}px`
+                        : null,
+                right:
+                    this.width && this.position === "right"
+                        ? `${this.visibleData ? 0 : this.width * -1}px`
+                        : null,
+                width: this.width ? `${this.width}px` : null
+            };
+        }
+    },
+    methods: {
+        show() {
+            this.setVisible(true);
+        },
+        hide() {
+            this.setVisible(false);
+        },
+        toggle() {
+            this.setVisible(!this.visibleData);
+        },
+        setVisible(value) {
+            if (this.visibleData === value) return;
+            const globalEvent = value ? "hide-global" : null;
+            const overlayEvent = value ? "show-overlay" : "hide-overlay";
+            if (globalEvent) this.$bus.$emit(globalEvent);
+            this.visibleData = value;
+            this.$bus.$emit(overlayEvent);
+            this.$emit("update:visible", value);
+        }
+    },
+    beforeMount: function() {
+        if (this.visibleData) this.$bus.$emit("show-overlay");
+    },
+    beforeDestroy: function() {
+        if (this.visibleData) this.$bus.$emit("hide-overlay");
     }
 };
 

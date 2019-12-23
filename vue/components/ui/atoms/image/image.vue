@@ -1,6 +1,7 @@
 <template>
     <img
-        v-bind:class="{ loaded: loaded }"
+        class="image"
+        v-bind:class="{ loaded: loaded, 'no-fade': !fade }"
         v-bind:src="src"
         v-bind:alt="alt"
         v-on:load="loaded = true"
@@ -19,6 +20,10 @@ img {
 img.loaded {
     opacity: 1;
 }
+
+img.no-fade {
+    opacity: 1;
+}
 </style>
 
 <script>
@@ -32,6 +37,10 @@ export const Image = {
         alt: {
             type: String,
             default: null
+        },
+        fade: {
+            type: Boolean,
+            default: true
         }
     },
     data: function() {

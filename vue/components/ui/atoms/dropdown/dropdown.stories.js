@@ -7,76 +7,49 @@ storiesOf("Atoms", module)
         props: {
             visible: {
                 default: boolean("Visible", true)
-            }
-        },
-        data: function() {
-            return {
-                items: [
+            },
+            items: {
+                default: () => [
                     {
-                        id: "text_1",
-                        text: "Text 1"
+                        value: "text_1",
+                        label: "Text 1"
                     },
                     {
-                        id: "text_2",
-                        text: "Text 2"
+                        value: "text_2",
+                        label: "Text 2"
                     },
                     {
-                        id: "text_3",
-                        text: "Text 3"
+                        value: "text_3",
+                        label: "Text 3"
                     },
                     {
-                        id: "text_platforme",
-                        text: "Text Platforme",
+                        value: "text_platforme",
+                        label: "Text Platforme",
                         href: "https://www.platforme.com"
                     },
                     {
-                        id: "text_platforme_blank",
-                        text: "Text Platforme Blank",
+                        value: "text_platforme_blank",
+                        label: "Text Platforme Blank",
                         href: "https://www.platforme.com",
                         target: "_blank"
                     }
                 ]
-            };
-        },
-        template: `
-            <div style="max-width: 200px">
-                <dropdown v-bind:items="items" v-bind:visible="visible"></dropdown>
-            </div>
-        `
-    }))
-    .add("Dropdown Custom", () => ({
-        props: {
-            visible: {
-                default: boolean("Visible", true)
             }
         },
         data: function() {
             return {
-                items: [
-                    {
-                        id: "text_1",
-                        text: "Text 1"
-                    },
-                    {
-                        id: "text_2",
-                        text: "Text 2",
-                        subtext: "Subtext"
-                    },
-                    {
-                        id: "text_3",
-                        text: "Text 3"
-                    }
-                ]
+                visibleData: this.visible
             };
+        },
+        watch: {
+            visible(value) {
+                this.visibleData = value;
+            }
         },
         template: `
             <div style="max-width: 200px">
-                <dropdown v-bind:items="items" v-bind:visible="visible">
-                    <template v-slot="{ item: { id, text, subtext } }">
-                        <b>{{ text }}</b>
-                        <pre v-if="subtext">{{ subtext }}</pre>
-                    </template>
-                </dropdown>
+                <dropdown v-bind:items="items" v-bind:visible.sync="visibleData"></dropdown>
+                <p>The dropdown is: {{ visibleData ? "visible" : "invisible" }}</p>
             </div>
         `
     }));

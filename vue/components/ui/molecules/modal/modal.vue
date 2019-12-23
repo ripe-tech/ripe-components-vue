@@ -147,8 +147,8 @@ body.mobile .modal > .modal-container {
 }
 
 .modal > .modal-container > .sub-title {
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 500;
     letter-spacing: 0.5px;
     margin: 0px 0px 12px 0px;
     text-align: left;
@@ -266,6 +266,9 @@ export const Modal = {
         });
         this.$bus.$on("hide-modal", modalName => {
             if (modalName !== this.name) return;
+            this.hide();
+        });
+        this.$bus.$on("hide-global", () => {
             this.hide();
         });
         window.addEventListener("resize", this.onWindowResize);

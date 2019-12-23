@@ -66,10 +66,10 @@
                         </div>
                     </slot>
                 </div>
-                <h1 class="title" v-if="loaded">{{ title }}</h1>
-                <div class="header-center" v-if="loaded">
-                    <slot name="header-center" />
-                </div>
+                <slot name="title" v-if="loaded">
+                    <h1 class="title">{{ title }}</h1>
+                </slot>
+                <slot name="header-extra" />
             </div>
             <div class="details" v-if="loaded">
                 <div class="details-column details-column-image" v-if="imageUrl">
@@ -276,6 +276,7 @@ body.mobile .container-ripe .details {
     margin-left: -142px;
     margin-top: 6px;
     min-width: 180px;
+    position: absolute;
     text-align: left;
 }
 
@@ -284,10 +285,6 @@ body.mobile .button-options ::v-deep .dropdown {
     bottom: 40px;
     margin: 0px 0px 0px 0px;
     right: 0px;
-}
-
-.container-ripe .button-options ::v-deep .dropdown > .dropdown-item {
-    line-height: 32px;
 }
 
 .container-ripe .title {
@@ -299,19 +296,11 @@ body.mobile .button-options ::v-deep .dropdown {
     line-height: 34px;
     margin: 0px 0px 0px 0px;
     text-align: left;
-    width: 40%;
 }
 
 body.tablet .container-ripe .title,
 body.mobile .container-ripe .title {
     width: 100%;
-}
-
-.container-ripe .header-center {
-    display: inline-block;
-    font-size: 0px;
-    vertical-align: top;
-    width: 30%;
 }
 
 .container-ripe .details {
@@ -469,6 +458,10 @@ export const Details = {
         getItems: {
             type: Function,
             required: true
+        },
+        navigation: {
+            type: Boolean,
+            default: true
         }
     },
     data: function() {
@@ -489,7 +482,8 @@ export const Details = {
             document.body.click();
             this.optionsVisible = !status;
         },
-        async previousItem() {
+        async previousItem(force = false) {
+            if (!this.navigation && !force) return;
             if (this.loading || !this.index) {
                 this.triggerAnimation("slide-left-fake");
                 return;
@@ -503,7 +497,8 @@ export const Details = {
                 ? this.showItem(previous, this.index - 1)
                 : this.triggerAnimation("slide-left-fake");
         },
-        async nextItem() {
+        async nextItem(force = false) {
+            if (!this.navigation && !force) return;
             if (this.loading || this.index === undefined) {
                 this.triggerAnimation("slide-right-fake");
                 return;

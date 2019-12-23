@@ -5,16 +5,16 @@
                 <th
                     v-bind:style="{ width: column.width }"
                     v-for="column in columns"
-                    v-bind:key="column.id"
+                    v-bind:key="column.value"
                 >
                     <slot name="column" v-bind:column="column">
                         <div
                             class="table-column"
-                            v-bind:class="columnClass(column.id)"
-                            v-if="column.title"
-                            v-on:click="sort(column.id)"
+                            v-bind:class="columnClass(column.value)"
+                            v-if="column.label"
+                            v-on:click="sortColumn(column.value)"
                         >
-                            <span>{{ column.title }}</span>
+                            <span>{{ column.label }}</span>
                         </div>
                     </slot>
                 </th>
@@ -23,8 +23,12 @@
         <transition-group tag="tbody" v-bind:name="transition" class="table-body">
             <tr v-for="(item, index) in sortedItems" v-bind:key="item.id">
                 <slot v-bind:item="item" v-bind:index="index">
-                    <td v-bind:class="column.id" v-for="column in columns" v-bind:key="column.id">
-                        {{ item[column.id] }}
+                    <td
+                        v-bind:class="column.value"
+                        v-for="column in columns"
+                        v-bind:key="column.value"
+                    >
+                        {{ item[column.value] }}
                     </td>
                 </slot>
             </tr>
@@ -230,40 +234,49 @@ export const Table = {
             type: String,
             default: null
         },
-        initialSort: {
+        sort: {
             type: String,
             default: null
         },
-        initialReverse: {
+        reverse: {
             type: Boolean,
             default: false
         }
     },
+    watch: {
+        sort(value) {
+            this.sortData = value;
+        },
+        reverse(value) {
+            this.reverseData = value;
+        }
+    },
     data: function() {
         return {
-            sortColumn: this.initialSort,
-            reverseSort: this.initialReverse
+            sortData: this.sort,
+            reverseData: this.reverse
         };
     },
     computed: {
         sortedItems() {
-            if (!this.sortColumn) {
+            if (!this.sortData) {
                 return this.items;
             }
 
             const items = [...this.items];
-            return this.sortMethod(items, this.sortColumn, this.reverseSort);
+            return this.sortMethod(items, this.sortData, this.reverseData);
         }
     },
     methods: {
         columnClass(column) {
-            const order = this.reverseSort ? "ascending" : "descending";
-            return this.sortColumn === column ? `active ${order}` : "";
+            const order = this.reverseData ? "ascending" : "descending";
+            return this.sortData === column ? `active ${order}` : "";
         },
-        sort(column) {
-            this.reverseSort = this.sortColumn === column ? !this.reverseSort : false;
-            this.sortColumn = column;
-            this.$emit("sort", this.sortColumn, this.reverseSort);
+        sortColumn(column) {
+            this.reverseData = this.sortData === column ? !this.reverseData : false;
+            this.sortData = column;
+            this.$emit("update:sort", this.sortData);
+            this.$emit("update:reverse", this.reverseData);
         }
     }
 };

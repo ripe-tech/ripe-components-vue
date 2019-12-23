@@ -2,26 +2,28 @@
     <div class="dropdown-container">
         <global-events v-on:keydown.esc="handleGlobal()" />
         <transition name="slide">
-            <ul class="dropdown" v-bind:style="dropdownStyle" v-show="isVisible" ref="dropdown">
+            <ul class="dropdown" v-show="visibleData">
                 <li
                     class="dropdown-item"
                     v-bind:class="{ separator: item.separator }"
-                    v-for="(item, index) in items.filter(v => v !== null && v !== undefined)"
-                    v-bind:key="item.id"
+                    v-for="item in items.filter(v => v !== null && v !== undefined)"
+                    v-bind:key="item.value"
                     v-on:click.stop="click(item)"
                 >
-                    <slot v-bind:item="item" v-bind:index="index">
-                        <router-link v-bind:to="item.link" v-if="item.link">
-                            {{ item.text }}
-                        </router-link>
-                        <a
-                            v-bind:href="item.href"
-                            v-bind:target="item.target || '_self'"
-                            v-else-if="item.href"
-                        >
-                            {{ item.text }}
-                        </a>
-                        <span v-else>{{ item.text }}</span>
+                    <slot v-bind:item="item" v-bind:name="item.value">
+                        <slot v-bind:item="item">
+                            <router-link v-bind:to="item.link" v-if="item.link">
+                                {{ item.label }}
+                            </router-link>
+                            <a
+                                v-bind:href="item.href"
+                                v-bind:target="item.target || '_self'"
+                                v-else-if="item.href"
+                            >
+                                {{ item.label }}
+                            </a>
+                            <span v-else>{{ item.label }}</span>
+                        </slot>
                     </slot>
                 </li>
             </ul>
@@ -34,43 +36,18 @@
 
 .slide-enter-active,
 .slide-leave-active {
-    -o-transition: opacity 0.1s cubic-bezier(0.645, 0.045, 0.355, 1),
-        transform 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
-    -ms-transition: opacity 0.1s cubic-bezier(0.645, 0.045, 0.355, 1),
-        transform 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
-    -moz-transition: opacity 0.1s cubic-bezier(0.645, 0.045, 0.355, 1),
-        transform 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
-    -khtml-transition: opacity 0.1s cubic-bezier(0.645, 0.045, 0.355, 1),
-        transform 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
-    -webkit-transition: opacity 0.1s cubic-bezier(0.645, 0.045, 0.355, 1),
-        transform 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
     transition: opacity 0.1s cubic-bezier(0.645, 0.045, 0.355, 1),
         transform 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 .slide-enter,
 .slide-leave-to {
-    -o-opacity: 0;
-    -ms-opacity: 0;
-    -moz-opacity: 0;
-    -khtml-opacity: 0;
-    -webkit-opacity: 0;
     opacity: 0;
-    -o-transform: translateY(-10px);
-    -ms-transform: translateY(-10px);
-    -moz-transform: translateY(-10px);
-    -khtml-transform: translateY(-10px);
-    -webkit-transform: translateY(-10px);
     transform: translateY(-10px);
 }
 
 .slide-enter-to,
 .slide-leave {
-    -o-opacity: 1;
-    -ms-opacity: 1;
-    -moz-opacity: 1;
-    -khtml-opacity: 1;
-    -webkit-opacity: 1;
     opacity: 1;
 }
 
@@ -85,19 +62,18 @@
     box-shadow: 1px 2px 5px rgba(20, 20, 20, 0.1);
     box-sizing: border-box;
     color: #4d4d4d;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     list-style: none;
     margin: 0px 0px 0px 0px;
     overflow: hidden;
     padding: 0px;
-    position: absolute;
 }
 
 .dropdown > .dropdown-item {
     background-color: $white;
     cursor: pointer;
-    line-height: normal;
+    line-height: 18px;
     margin: 0px 0px 0px 0px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -118,14 +94,15 @@
 }
 
 .dropdown > .dropdown-item > * {
-    padding: 12px 16px 12px 16px;
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 8px 14px 8px 14px;
+    width: 100%;
 }
 
 .dropdown > .dropdown-item > a {
     border-bottom: none;
     color: #4d4d4d;
-    display: block;
-    padding-bottom: 0px;
 }
 
 .dropdown > .dropdown-item:hover > a,
@@ -150,6 +127,10 @@ export const Dropdown = {
             type: Boolean,
             default: true
         },
+        globalHide: {
+            type: Boolean,
+            default: false
+        },
         width: {
             type: Number,
             default: null
@@ -161,12 +142,12 @@ export const Dropdown = {
     },
     data: function() {
         return {
-            visibleData: true
+            visibleData: this.visible
         };
     },
     watch: {
         visible(value) {
-            this.visibleData = value;
+            this.setVisible(value);
         }
     },
     computed: {
@@ -195,18 +176,20 @@ export const Dropdown = {
             this.hide();
         },
         toggle() {
-            this.visibleData = !this.visibleData;
-            this.$emit("update:visible", this.visibleData);
+            this.setVisible(!this.visibleData);
         },
         show() {
-            if (this.visibleData) return;
-            this.visibleData = true;
-            this.$emit("update:visible", this.visibleData);
+            this.setVisible(true);
         },
         hide() {
-            if (!this.visibleData) return;
-            this.visibleData = false;
-            this.$emit("update:visible", this.visibleData);
+            this.setVisible(false);
+        },
+        setVisible(value) {
+            if (this.visibleData === value) return;
+            const globalEvent = value ? "hide-global" : null;
+            if (this.globalHide && globalEvent) this.$bus.$emit(globalEvent);
+            this.visibleData = value;
+            this.$emit("update:visible", value);
         },
         handleGlobal() {
             if (!this.globalEvents) return;

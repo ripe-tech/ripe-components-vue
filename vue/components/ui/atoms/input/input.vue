@@ -1,7 +1,9 @@
 <template>
     <input
         type="text"
-        class="input-ripe"
+        class="input"
+        v-bind:style="style"
+        v-bind:class="classes"
         v-bind:value="value"
         v-bind:placeholder="placeholder"
         v-bind:disabled="disabled"
@@ -15,8 +17,8 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-input[type="text"] {
-    background-color: #f2f2f2;
+.input {
+    background-color: $white;
     border: 1px solid $light-white;
     border-radius: 6px 6px 6px 6px;
     box-sizing: border-box;
@@ -29,23 +31,32 @@ input[type="text"] {
     padding-left: 12px;
     padding-right: 12px;
     transition: width 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
-    width: 304px;
+    width: 100%;
 }
 
-input[type="text"]:hover {
-    background-color: $lighter-grey;
+.input.dark {
+    background-color: $soft-blue;
+}
+
+.input.border-strong {
+    border-width: 2px;
+}
+
+.input:hover {
     border-color: #dfe1e5;
 }
 
-input[type="text"]:focus {
+.input:focus {
     background-color: $white;
-    border: 1px solid $aqcua-blue;
+    border-color: $aqcua-blue;
+}
+
+.input.dark:focus {
     box-shadow: 0px 1px 8px 0px rgba(32, 33, 36, 0.14);
 }
 
-input[type="text"]:disabled {
-    background-color: $lighter-grey;
-    border-color: transparent;
+.input:disabled {
+    opacity: 0.4;
 }
 </style>
 
@@ -53,6 +64,14 @@ input[type="text"]:disabled {
 export const Input = {
     name: "input-ripe",
     props: {
+        variant: {
+            type: String,
+            default: null
+        },
+        border: {
+            type: String,
+            default: "thin"
+        },
         value: {
             type: String,
             default: ""
@@ -68,6 +87,14 @@ export const Input = {
         disabled: {
             type: Boolean,
             default: false
+        },
+        width: {
+            type: Number,
+            default: null
+        },
+        height: {
+            type: Number,
+            default: null
         }
     },
     mounted: function() {
@@ -91,6 +118,21 @@ export const Input = {
         },
         onBlur() {
             this.$emit("blur");
+        }
+    },
+    computed: {
+        style() {
+            const base = {
+                width: this.width === null ? null : `${this.width}px`,
+                height: this.height === null ? null : `${this.height}px`
+            };
+            return base;
+        },
+        classes() {
+            const base = {};
+            if (this.variant) base[this.variant] = true;
+            if (this.border) base[`border-${this.border}`] = true;
+            return base;
         }
     }
 };

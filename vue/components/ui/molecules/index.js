@@ -1,4 +1,5 @@
 import { Alert } from "./alert/alert.vue";
+import { Announcements } from "./announcements/announcements.vue";
 import { Filter } from "./filter/filter.vue";
 import { Footer } from "./footer/footer.vue";
 import { FormInput } from "./form-input/form-input.vue";
@@ -13,6 +14,7 @@ import { Select } from "./select/select.vue";
 
 const install = Vue => {
     Vue.component("alert", Alert);
+    Vue.component("announcements", Announcements);
     Vue.component("filter-ripe", Filter);
     Vue.component("footer-ripe", Footer);
     Vue.component("form-input", FormInput);
@@ -28,6 +30,7 @@ const install = Vue => {
 
 export {
     Alert,
+    Announcements,
     Filter,
     Footer,
     FormInput,
