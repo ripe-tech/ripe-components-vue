@@ -38,13 +38,17 @@
     background-color: $soft-blue;
 }
 
+.input.border-strong {
+    border-width: 2px;
+}
+
 .input:hover {
     border-color: #dfe1e5;
 }
 
 .input:focus {
     background-color: $white;
-    border: 1px solid $aqcua-blue;
+    border-color: $aqcua-blue;
 }
 
 .input.dark:focus {
@@ -63,6 +67,10 @@ export const Input = {
         variant: {
             type: String,
             default: null
+        },
+        border: {
+            type: String,
+            default: "strong"
         },
         value: {
             type: String,
@@ -123,6 +131,7 @@ export const Input = {
         classes() {
             const base = {};
             if (this.variant) base[this.variant] = true;
+            if (this.border) base[`border-${this.border}`] = true;
             return base;
         }
     }

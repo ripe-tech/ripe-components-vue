@@ -3,6 +3,7 @@
         <textarea-ripe
             class="textarea"
             v-bind:variant="variant"
+            v-bind:border="border"
             v-bind:value.sync="valueData"
             v-bind:placeholder="placeholder"
             v-bind:disabled="disabled"
@@ -43,8 +44,12 @@
     width: 100%;
 }
 
+.rich-textarea.border-strong {
+    border-width: 2px;
+}
+
 .rich-textarea:focus-within {
-    border: 1px solid $aqcua-blue;
+    border-color: $aqcua-blue;
 }
 
 .rich-textarea .textarea,
@@ -68,6 +73,10 @@
     border-top: 1px solid #e4e8f0;
     padding: 6px 12px 6px 12px;
 }
+
+.rich-textarea.border-strong .options {
+    border-width: 2px;
+}
 </style>
 
 <script>
@@ -81,6 +90,10 @@ export const RichTextarea = {
         variant: {
             type: String,
             default: null
+        },
+        border: {
+            type: String,
+            default: "strong"
         },
         value: {
             type: String,
@@ -124,6 +137,7 @@ export const RichTextarea = {
         classes() {
             const base = { disabled: this.disabled };
             if (this.variant) base[this.variant] = true;
+            if (this.border) base[`border-${this.border}`] = true;
             return base;
         }
     },

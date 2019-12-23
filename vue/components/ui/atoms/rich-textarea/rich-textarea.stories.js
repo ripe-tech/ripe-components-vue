@@ -15,6 +15,17 @@ storiesOf("Atoms", module)
                     null
                 )
             },
+            border: {
+                default: select(
+                    "Border",
+                    {
+                        Unset: null,
+                        Strong: "strong",
+                        Thin: "thin"
+                    },
+                    "strong"
+                )
+            },
             value: {
                 default: text("Value", "This is a text")
             },
@@ -48,6 +59,7 @@ storiesOf("Atoms", module)
             <div>
                 <rich-textarea
                     v-bind:variant="variant"
+                    v-bind:border="border"
                     v-bind:value.sync="valueData"
                     v-bind:placeholder="placeholder"
                     v-bind:disabled="disabled"

@@ -38,6 +38,10 @@
     background-color: $soft-blue;
 }
 
+.textarea.border-strong {
+    border-width: 2px;
+}
+
 .textarea::placeholder {
     color: $medium-grey;
     font-family: $font-family;
@@ -69,6 +73,10 @@ export const Textarea = {
         variant: {
             type: String,
             default: null
+        },
+        border: {
+            type: String,
+            default: "strong"
         },
         id: {
             type: String,
@@ -117,6 +125,7 @@ export const Textarea = {
         classes() {
             const base = { resize: this.resize };
             if (this.variant) base[this.variant] = true;
+            if (this.border) base[`border-${this.border}`] = true;
             return base;
         }
     },
