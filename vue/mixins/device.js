@@ -68,13 +68,18 @@ const deviceMixin = {
     },
     methods: {
         initDevice() {
-            this.$root.$device = this;
             this.listenSize();
+            this.updateBase();
             this.updateSize();
             this.updateDevice();
         },
         listenSize() {
             window.addEventListener("resize", () => this.updateSize());
+        },
+        updateBase() {
+            const body = document.body;
+            this.$root.$device = this;
+            body.classList.add("init");
         },
         updateDevice() {
             const body = document.body;
