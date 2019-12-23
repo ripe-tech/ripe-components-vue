@@ -19,7 +19,7 @@
         </div>
         <div class="chat-input-container">
             <rich-textarea
-                v-bind:value="message.text"
+                v-bind:value="message.messageContent.text"
                 v-bind:placeholder="'Say something here...'"
                 v-bind:resize="false"
                 v-on:update:value="value => onTextareaValue(value)"
@@ -86,6 +86,10 @@ body.mobile-device .chat-files-container {
 export const Chat = {
     name: "chat",
     props: {
+        username: {
+            type: String,
+            required: true
+        },
         messages: {
             type: Array,
             default: () => []
@@ -95,8 +99,13 @@ export const Chat = {
         return {
             messagesData: this.messages,
             message: {
-                text: null,
-                attachments: []
+                username: this.username,
+                date: Date.now(),
+                messageContent: {
+                    text: null,
+                    attachments: [],
+                    reactions: []
+                }
             }
         };
     },
@@ -116,37 +125,18 @@ export const Chat = {
         }
     },
     methods: {
-        emitSendMessage(message) {
-            this.$emit("messageSent", message);
+        emitUpdateMessages(value) {
+            this.$emit("update:messages", value);
         },
         sendMessage() {
-            this.messagesData.push({
-                        username: "NFSS10",
-                        date: "Nov 28",
-                        messageContent: {
-                            text:
-                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et lacus ac arcu ullamcorper condimentum.",
-                            attachments: [
-                                {
-                                    name: "lorem-ipsum.pdf",
-                                    path:
-                                        "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
-                                },
-                                {
-                                    name: "lorem-ipsum2.pdf",
-                                    path:
-                                        "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
-                                }
-                            ],
-                            reactions: [{ icon: "thumb-up" }, { icon: "happy-face" }]
-                        }
-                    });
-            this.$emit("update:messages", this.messagesData);
-            this.emitSendMessage(this.message);
+            if(!this.message.messageContent.text) return;
+
+            this.messagesData.push(this.message);
+            this.emitUpdateMessages(this.messagesData);
         },
         onTextareaValue(value) {
-            this.message.text = value;
-            console.log(`Textarea changed: ${this.message.text}`);
+            this.message.messageContent.text = value;
+            console.log(`Textarea changed: ${this.message.messageContent.text}`);
         },
         onSendMessageClick() {
             this.sendMessage();

@@ -1,10 +1,14 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs } from "@storybook/addon-knobs";
+import { withKnobs, text } from "@storybook/addon-knobs";
 
 storiesOf("Organisms", module)
     .addDecorator(withKnobs)
     .add("Chat", () => ({
         props: {
+            username: {
+                type: String,
+                default: text("Username", "TestingUsername")
+            },
             messages: {
                 type: Array,
                 default: () => [
@@ -77,9 +81,7 @@ storiesOf("Organisms", module)
         },
         data: function() {
             return {
-                messagesData: this.messages,
-                lastSentMessage: null,
-                sentMessageCount: 0
+                messagesData: this.messages
             };
         },
         watch: {
@@ -87,23 +89,20 @@ storiesOf("Organisms", module)
                 this.messagesData = value;
             }
         },
-        methods: {
-            onMessageSent(message) {
-                this.lastSentMessage = message;
-                this.sentMessageCount++;
-            }
-        },
         template: `
             <div>
                 <global />
                 <chat 
+                    v-bind:username="username"
                     v-bind:messages.sync="messagesData"
-                    v-on:messageSent="value => onMessageSent(value)"
                  />
                  <div>
-                    <p>Sent Messages count: {{ sentMessageCount }}</p>
-                    <p>Last Message: {{ lastSentMessage }}</p>
-                    <p>Messages: {{  messagesData }}</p>
+                    <p v-for="(message, index) in messagesData">
+                        {{ index }} <br>
+                        {{ message.username }} {{ message.date }} <br>
+                        {{ message.messageContent.text }} <br>
+                        Attachments Length: {{ message.messageContent.attachments.length }}  Reactions Length: {{ message.messageContent.reactions.length }}
+                    </p>
                  </div>
             </div>
             `
