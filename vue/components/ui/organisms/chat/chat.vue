@@ -1,7 +1,7 @@
 <template>
     <div class="chat">
         <div class="chat-container">
-            <div class="chat-messages-container">
+            <div class="chat-messages-container" ref="chat-messages">
                 <chat-message
                     v-bind:username="message.username"
                     v-bind:date="message.date"
@@ -17,7 +17,9 @@
                 <attachments-list v-bind:attachments="allAttachments" v-bind:height="306" />
             </div>
         </div>
-        <div class="chat-input-container">
+        <div class="chat-input-container"
+            v-on:keyup.enter.exact="onEnter()"
+            >
             <rich-textarea
                 v-bind:value="message.messageContent.text"
                 v-bind:placeholder="'Say something here...'"
@@ -133,12 +135,26 @@ export const Chat = {
 
             this.messagesData.push(this.message);
             this.emitUpdateMessages(this.messagesData);
+            this.clearTextarea();
+            this.showLastMessage();
+        },
+        clearTextarea()
+        {
+            this.message.messageContent.text = "";
+        },
+        showLastMessage()
+        {
+            const messagesContainerElement = this.$refs["chat-messages"];
+            messagesContainerElement.scrollTop = messagesContainerElement.scrollHeight;
         },
         onTextareaValue(value) {
             this.message.messageContent.text = value;
-            console.log(`Textarea changed: ${this.message.messageContent.text}`);
         },
         onSendMessageClick() {
+            this.sendMessage();
+        },
+        onEnter()
+        {
             this.sendMessage();
         }
     }
