@@ -143,12 +143,12 @@ export const Chat = {
             this.messagesData.push(JSON.parse(JSON.stringify(this.message)));
             this.emitUpdateMessages(this.messagesData);
             this.clearTextarea();
-            this.showLastMessage();
+            this.$nextTick(() => this.scrollToLastMessage());
         },
         clearTextarea() {
             this.message.messageContent.text = "";
         },
-        showLastMessage() {
+        scrollToLastMessage() {
             const messagesContainerElement = this.$refs["chat-messages"];
             messagesContainerElement.scrollTop = messagesContainerElement.scrollHeight;
         },
