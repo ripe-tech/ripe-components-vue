@@ -72,7 +72,7 @@
 .dropdown > .dropdown-item {
     background-color: $white;
     cursor: pointer;
-    line-height: normal;
+    line-height: 18px;
     margin: 0px 0px 0px 0px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -93,14 +93,15 @@
 }
 
 .dropdown > .dropdown-item > * {
+    box-sizing: border-box;
     display: inline-block;
     padding: 8px 14px 8px 14px;
+    width: 100%;
 }
 
 .dropdown > .dropdown-item > a {
     border-bottom: none;
     color: #4d4d4d;
-    display: block;
 }
 
 .dropdown > .dropdown-item:hover > a,

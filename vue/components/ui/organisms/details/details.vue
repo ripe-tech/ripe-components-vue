@@ -276,6 +276,7 @@ body.mobile .container-ripe .details {
     margin-left: -142px;
     margin-top: 6px;
     min-width: 180px;
+    position: absolute;
     text-align: left;
 }
 
@@ -284,10 +285,6 @@ body.mobile .button-options ::v-deep .dropdown {
     bottom: 40px;
     margin: 0px 0px 0px 0px;
     right: 0px;
-}
-
-.container-ripe .button-options ::v-deep .dropdown > .dropdown-item {
-    line-height: 32px;
 }
 
 .container-ripe .title {
