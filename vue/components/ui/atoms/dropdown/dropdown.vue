@@ -61,13 +61,12 @@
     border-radius: 5px;
     box-shadow: 1px 2px 5px rgba(20, 20, 20, 0.1);
     color: #4d4d4d;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     list-style: none;
     margin: 0px 0px 0px 0px;
     overflow: hidden;
     padding: 0px;
-    position: absolute;
 }
 
 .dropdown > .dropdown-item {
@@ -94,14 +93,14 @@
 }
 
 .dropdown > .dropdown-item > * {
-    padding: 12px 16px 12px 16px;
+    display: inline-block;
+    padding: 8px 14px 8px 14px;
 }
 
 .dropdown > .dropdown-item > a {
     border-bottom: none;
     color: #4d4d4d;
     display: block;
-    padding-bottom: 0px;
 }
 
 .dropdown > .dropdown-item:hover > a,
