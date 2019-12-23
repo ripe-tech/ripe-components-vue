@@ -93,11 +93,17 @@ export const Chat = {
     },
     data: function() {
         return {
+            messagesData: this.messages,
             message: {
                 text: null,
                 attachments: []
             }
         };
+    },
+    watch: {
+        messages(value) {
+            this.messagesData = value;
+        }
     },
     computed: {
         allAttachments() {
@@ -114,6 +120,28 @@ export const Chat = {
             this.$emit("messageSent", message);
         },
         sendMessage() {
+            this.messagesData.push({
+                        username: "NFSS10",
+                        date: "Nov 28",
+                        messageContent: {
+                            text:
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et lacus ac arcu ullamcorper condimentum.",
+                            attachments: [
+                                {
+                                    name: "lorem-ipsum.pdf",
+                                    path:
+                                        "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                                },
+                                {
+                                    name: "lorem-ipsum2.pdf",
+                                    path:
+                                        "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                                }
+                            ],
+                            reactions: [{ icon: "thumb-up" }, { icon: "happy-face" }]
+                        }
+                    });
+            this.$emit("update:messages", this.messagesData);
             this.emitSendMessage(this.message);
         },
         onTextareaValue(value) {

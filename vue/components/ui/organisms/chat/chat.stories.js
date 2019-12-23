@@ -77,9 +77,15 @@ storiesOf("Organisms", module)
         },
         data: function() {
             return {
+                messagesData: this.messages,
                 lastSentMessage: null,
                 sentMessageCount: 0
             };
+        },
+        watch: {
+            messages(value) {
+                this.messagesData = value;
+            }
         },
         methods: {
             onMessageSent(message) {
@@ -91,12 +97,13 @@ storiesOf("Organisms", module)
             <div>
                 <global />
                 <chat 
-                    v-bind:messages="messages"
+                    v-bind:messages.sync="messagesData"
                     v-on:messageSent="value => onMessageSent(value)"
                  />
                  <div>
                     <p>Sent Messages count: {{ sentMessageCount }}</p>
                     <p>Last Message: {{ lastSentMessage }}</p>
+                    <p>Messages: {{  messagesData }}</p>
                  </div>
             </div>
             `
