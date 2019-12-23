@@ -125,6 +125,10 @@ export const Chat = {
             );
 
             return allAttachments;
+        },
+        normalizedTextareaText()
+        {
+            return this.message.messageContent.text.trim();
         }
     },
     methods: {
@@ -132,7 +136,7 @@ export const Chat = {
             this.$emit("update:messages", value);
         },
         sendMessage() {
-            if(!this.message.messageContent.text) return;
+            if(!this.normalizedTextareaText) return;
 
             this.messagesData.push(JSON.parse(JSON.stringify(this.message)));
             this.emitUpdateMessages(this.messagesData);
