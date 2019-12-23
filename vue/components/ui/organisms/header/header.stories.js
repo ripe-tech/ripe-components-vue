@@ -71,10 +71,10 @@ storiesOf("Organisms", module)
                     }
                 },
                 mockLinks: [
-                    { id: "enabled", text: "Enabled" },
-                    { id: "selected", text: "Selected", selected: true },
-                    { id: "separator" },
-                    { id: "disabled", text: "Disabled", disabled: true }
+                    { value: "enabled", label: "Enabled" },
+                    { value: "selected", label: "Selected", selected: true },
+                    { value: "separator" },
+                    { value: "disabled", label: "Disabled", disabled: true }
                 ],
                 mockAccount: {
                     email: "john_doe@platforme.com",
