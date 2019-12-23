@@ -52,14 +52,24 @@ storiesOf("atoms", module)
                 ]
             }
         },
+        data: function() {
+            return {
+                visibleData: this.visible
+            };
+        },
+        watch: {
+            visible(value) {
+                this.visibleData = value;
+            }
+        },
         template: `
             <div>
                 <side 
                     v-bind:links="links" 
                     v-bind:width="width" 
-                    v-bind:visible="visible" 
-                    v-bind:position='position' 
-                    v-bind:global='true'
-                ></side>
+                    v-bind:visible.sync="visibleData" 
+                    v-bind:position="position"
+                />
+                <p style="text-align: center;">Visible: {{visibleData}}</p>
             </div>`
     }));
