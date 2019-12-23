@@ -60,7 +60,7 @@ storiesOf("Molecules", module)
                     v-bind:reactions="reactionsData"
                 />
                 <div>
-                    <p>Thumb reaction count: {{ this.reactionsData[0].count }}</p>
+                    <p>Thumb down reaction count: {{ this.reactionsData[0].count }}</p>
                 </div>
             </div>
             `
