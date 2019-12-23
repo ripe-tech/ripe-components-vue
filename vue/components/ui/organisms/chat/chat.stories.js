@@ -5,6 +5,10 @@ storiesOf("Organisms", module)
     .addDecorator(withKnobs)
     .add("Chat", () => ({
         props: {
+            avatarUrl: {
+                type: String,
+                default: text("Avatar Url", "https://id.platforme.com/admin/accounts/ns%40platforme.com/avatar")
+            },
             username: {
                 type: String,
                 default: text("Username", "TestingUsername")
@@ -124,13 +128,15 @@ storiesOf("Organisms", module)
         template: `
             <div>
                 <global />
-                <chat 
+                <chat
+                    v-bind:avatarUrl="avatarUrl"
                     v-bind:username="username"
                     v-bind:messages.sync="messagesData"
                  />
                  <div>
                     <p v-for="(message, index) in messagesData">
                         {{ index }} <br>
+                        {{ message.avatarUrl }}
                         {{ message.username }} {{ message.date }} <br>
                         {{ message.messageContent.text }} <br>
                         Attachments Length: {{ message.messageContent.attachments.length }}  Reactions Length: {{ message.messageContent.reactions.length }}

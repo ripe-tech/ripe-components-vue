@@ -87,6 +87,10 @@ body.mobile-device .chat-files-container {
 export const Chat = {
     name: "chat",
     props: {
+        avatarUrl: {
+            type: String,
+            required: true
+        },
         username: {
             type: String,
             required: true
@@ -100,6 +104,7 @@ export const Chat = {
         return {
             messagesData: this.messages,
             message: {
+                avatarUrl: this.avatarUrl,
                 username: this.username,
                 date: Date.now(),
                 messageContent: {
