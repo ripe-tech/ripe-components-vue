@@ -14,20 +14,20 @@ storiesOf("Molecules", module)
             options: {
                 type: Array,
                 default: () => [
-                    { id: "option_1", text: "A" },
-                    { id: "option_2", text: "B" },
-                    { id: "option_3", text: "C" },
-                    { id: "option_4", text: "D" },
-                    { id: "option_5", text: "E" },
-                    { id: "option_6", text: "F" },
-                    { id: "option_7", text: "G" },
-                    { id: "option_8", text: "H" },
-                    { id: "option_9", text: "I" },
-                    { id: "option_10", text: "J" },
-                    { id: "option_11", text: "K" },
-                    { id: "option_12", text: "L" },
-                    { id: "option_13", text: "M" },
-                    { id: "option_14", text: "N" }
+                    { value: "option_1", label: "A" },
+                    { value: "option_2", label: "B" },
+                    { value: "option_3", label: "C" },
+                    { value: "option_4", label: "D" },
+                    { value: "option_5", label: "E" },
+                    { value: "option_6", label: "F" },
+                    { value: "option_7", label: "G" },
+                    { value: "option_8", label: "H" },
+                    { value: "option_9", label: "I" },
+                    { value: "option_10", label: "J" },
+                    { value: "option_11", label: "K" },
+                    { value: "option_12", label: "L" },
+                    { value: "option_13", label: "M" },
+                    { value: "option_14", label: "N" }
                 ]
             },
             initialValue: {
@@ -111,11 +111,11 @@ storiesOf("Molecules", module)
             options: {
                 type: Array,
                 default: () => [
-                    { id: "option_1", text: "A" },
-                    { id: "option_2", text: "B" },
-                    { id: "option_3", text: "C" },
-                    { id: "option_4", text: "D" },
-                    { id: "option_5", text: "E" }
+                    { value: "option_1", label: "A" },
+                    { value: "option_2", label: "B" },
+                    { value: "option_3", label: "C" },
+                    { value: "option_4", label: "D" },
+                    { value: "option_5", label: "E" }
                 ]
             },
             initialValue: {

@@ -28,21 +28,7 @@
                 v-bind:global-events="false"
                 ref="dropdown"
                 v-on:item-clicked="value => onDropdownSelect(value.id)"
-            >
-                <template v-slot="{ item, index }">
-                    <div
-                        class="dropdown-item-content"
-                        v-bind:class="{
-                            separator: item.separator,
-                            highlighted: index === highlighted,
-                            selected: index === valueIndex
-                        }"
-                        v-on:mouseover="onDropdownMouseover(index)"
-                    >
-                        {{ item.text }}
-                    </div>
-                </template>
-            </dropdown>
+            />
         </div>
         <select
             class="dropdown-select"
@@ -72,7 +58,7 @@ body.tablet-device .select .dropdown-select {
 }
 
 .select .select-container {
-    width: 304px;
+    width: 100%;
 }
 
 body.mobile-device .select .select-container,
@@ -81,7 +67,7 @@ body.tablet-device .select .select-container {
 }
 
 .select .select-container .select-button {
-    background-color: $blue;
+    background-color: $soft-blue;
     background-image: url("~./assets/chevron-down.svg");
     background-position: right 12px center;
     background-repeat: no-repeat;
@@ -89,7 +75,7 @@ body.tablet-device .select .select-container {
     border: 1px solid $light-white;
     border-radius: 6px 6px 6px 6px;
     box-sizing: border-box;
-    color: $dark-blue;
+    color: $black;
     cursor: pointer;
     font-family: $font-family;
     font-size: 13px;
@@ -107,66 +93,21 @@ body.tablet-device .select .select-container {
 }
 
 .select .select-container .select-button:hover {
-    background-color: $lighter-grey;
     border-color: #dfe1e5;
 }
 
-.select .select-container .select-button.disabled,
-.select .select-container .select-button.disabled:active {
-    background-color: $lighter-grey;
-    border-color: transparent;
-}
-
 .select .select-container .select-button:focus {
-    background-color: $white;
     border: 1px solid $aqcua-blue;
-    box-shadow: 0px 1px 8px 0px rgba(32, 33, 36, 0.14);
 }
 
-.select .select-container .dropdown {
-    background-color: $white;
-    border: 1px solid $light-white;
-    border-radius: 6px;
-    box-shadow: 0px 6px 24px 0px rgba(67, 86, 100, 0.15);
-    color: $dark-blue;
-    cursor: pointer;
-    font-family: $font-family;
-    font-size: 13px;
-    height: 34px;
-    letter-spacing: 0.25px;
-    line-height: 34px;
-    margin: 8px 0px 0px 0px;
+.select .select-container .select-button.disabled {
+    opacity: 0.4;
+}
+
+.select .select-container ::v-deep .dropdown-container {
+    margin-top: 3px;
     position: absolute;
-    user-select: none;
-}
-
-.select .select-container ::v-deep .dropdown {
     width: 100%;
-    position: absolute;
-    margin-top: 4px;
-}
-
-.dropdown .dropdown-item-content {
-    height: 32px;
-    line-height: 32px;
-    padding: 0px 0px 0px 16px;
-}
-
-.dropdown-item-content > * {
-    padding: 0px 0px 0px 0px;
-}
-
-.dropdown-item-content:hover {
-    background-color: $white;
-}
-
-.dropdown-item-content.selected.highlighted,
-.dropdown-item-content.selected {
-    background-color: $lighter-grey;
-}
-
-.dropdown-item-content.highlighted {
-    background-color: $light-grey;
 }
 </style>
 

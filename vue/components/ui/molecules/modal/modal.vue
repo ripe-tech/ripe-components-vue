@@ -83,7 +83,7 @@
     animation: fade-grow-rise 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
     background-color: $white;
     border-radius: 4px 4px 4px 4px;
-    box-shadow: 0px 0px 24px #000000;
+    box-shadow: 0px 0px 24px $blacker;
     box-sizing: border-box;
     display: inline-block;
     max-height: 80%;

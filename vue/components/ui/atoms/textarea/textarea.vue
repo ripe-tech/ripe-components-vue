@@ -20,7 +20,7 @@
     border: 1px solid $light-white;
     border-radius: 6px 6px 6px 6px;
     box-sizing: border-box;
-    color: $grey;
+    color: $black;
     display: inline-block;
     font-family: $font-family;
     font-size: 13px;
