@@ -53,7 +53,7 @@
 @import "css/variables.scss";
 
 .chat-message {
-    background-color: $grey-6;
+    background-color: #f9fafd;
     display: flex;
     padding: 6px 0px 6px 0px;
 }
