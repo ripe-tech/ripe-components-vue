@@ -7,7 +7,10 @@ storiesOf("Organisms", module)
         props: {
             avatarUrl: {
                 type: String,
-                default: text("Avatar Url", "https://id.platforme.com/admin/accounts/ns%40platforme.com/avatar")
+                default: text(
+                    "Avatar Url",
+                    "https://id.platforme.com/admin/accounts/ns%40platforme.com/avatar"
+                )
             },
             username: {
                 type: String,
