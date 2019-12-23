@@ -1,7 +1,9 @@
 <template>
     <div class="form-input">
         <label-ripe class="header" v-bind:text="header" v-bind:for="id" v-if="header" />
-        <slot />
+        <div class="content">
+            <slot />
+        </div>
         <label-ripe
             class="footer"
             v-bind:size="'small'"
@@ -40,7 +42,12 @@
 
 .form-input .footer {
     color: $medium-grey;
-    margin-top: 4px;
+    margin-top: 6px;
+}
+
+.form-input .content {
+    font-size: 0px;
+    line-height: 0px;
 }
 
 .form-input .icon {

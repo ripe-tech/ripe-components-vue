@@ -2,12 +2,7 @@
     <div class="announcements">
         <div class="announcement-header">
             <h1 class="title">{{ title }}</h1>
-            <button-icon
-                v-bind:icon="'close'"
-                v-bind:color="'grey'"
-                class="button-close"
-                v-on:click="onClickClose"
-            />
+            <button-icon v-bind:icon="'close'" class="button-close" v-on:click="onClickClose" />
             <p class="description">
                 {{ description }}
             </p>

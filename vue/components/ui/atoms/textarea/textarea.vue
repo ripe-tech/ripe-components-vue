@@ -30,6 +30,7 @@
     outline: none;
     padding: 8px 8px 8px 8px;
     resize: none;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
     width: 100%;
 }
 
@@ -40,13 +41,11 @@
 
 .textarea:disabled,
 .textarea:disabled:hover {
-    background-color: #f6f7f9;
-    color: $medium-grey;
+    opacity: 0.4;
 }
 
 .textarea:hover {
-    background-color: $lighter-grey;
-    border: 1px solid #dfe1e5;
+    border-color: $aqcua-blue;
 }
 
 .textarea:focus {
