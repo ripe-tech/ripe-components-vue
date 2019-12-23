@@ -14,7 +14,7 @@ storiesOf("Organisms", module)
                 default: () => [
                     {
                         username: "NFSS10",
-                        date: "Nov 28",
+                        date: 1574950742823,
                         messageContent: {
                             text:
                                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et lacus ac arcu ullamcorper condimentum.",
@@ -35,7 +35,7 @@ storiesOf("Organisms", module)
                     },
                     {
                         username: "3rdvision",
-                        date: "Nov 28",
+                        date: 1574950742823,
                         messageContent: {
                             text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                             attachments: [
@@ -49,7 +49,7 @@ storiesOf("Organisms", module)
                     },
                     {
                         username: "BeeMargarida",
-                        date: "Nov 28",
+                        date: 1574950742823,
                         messageContent: {
                             text:
                                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in tristique dui. Praesent a lectus non libero facilisis tincidunt ut.",
@@ -59,7 +59,7 @@ storiesOf("Organisms", module)
                     },
                     {
                         username: "Benedito0",
-                        date: "Nov 29",
+                        date: 1574990742823,
                         messageContent: {
                             text: "Lorem ipsum dolor sit.",
                             attachments: [],
@@ -68,7 +68,7 @@ storiesOf("Organisms", module)
                     },
                     {
                         username: "blazeque",
-                        date: "Nov 30",
+                        date: 1575950742823,
                         messageContent: {
                             text:
                                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis nisi massa. Pellentesque consequat tortor vitae enim porta tempor. Quisque eu enim at leo semper luctus. Donec vitae hendrerit justo. Nulla facilisi. Aenean mollis vehicula.",
