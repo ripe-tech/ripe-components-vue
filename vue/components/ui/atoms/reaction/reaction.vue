@@ -1,11 +1,11 @@
 <template>
-    <div class="reaction" v-bind:class="{ 'user-reacted': userReacted }" v-on:click="onClick">
+    <div class="reaction" v-bind:class="{ 'user-reacted': userReactedData }" v-on:click="onClick">
         <img class="image" v-bind:src="imageSrc" v-if="hasImage" />
         <div class="emoji" v-else>
             {{ emoji }}
         </div>
         <div class="reaction-counter" v-if="hasReactions">
-            {{ count }}
+            {{ countData }}
         </div>
     </div>
 </template>
@@ -20,6 +20,7 @@
     cursor: pointer;
     display: inline-block;
     font-size: 0px;
+    line-height: 15px;
     min-height: 15px;
     min-width: 12px;
     padding: 3px 7px 3px 7px;
@@ -62,14 +63,12 @@
 .reaction > .emoji {
     display: inline-block;
     font-size: 12px;
-    line-height: 15px;
 }
 
 .reaction .reaction-counter {
     color: $black;
     display: inline-block;
     font-size: 11px;
-    line-height: 15px;
     padding: 0px 2px 0px 3px;
 }
 </style>
@@ -96,7 +95,7 @@ export const Reaction = {
         },
         count: {
             type: Number,
-            mandatory: true
+            default: 0
         },
         userReacted: {
             type: Boolean,
@@ -129,7 +128,7 @@ export const Reaction = {
             return require(`./../../../../assets/icons/black/${this.icon}.svg`);
         },
         hasReactions() {
-            return this.count > 0;
+            return this.countData > 0;
         },
         hasImage() {
             return Boolean(this.imageSrc);
@@ -138,7 +137,7 @@ export const Reaction = {
             return Boolean(this.emoji);
         },
         hasCount() {
-            return Boolean(this.count);
+            return Boolean(this.countData);
         }
     },
     methods: {

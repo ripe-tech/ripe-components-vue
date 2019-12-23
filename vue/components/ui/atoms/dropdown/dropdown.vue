@@ -10,18 +10,20 @@
                     v-bind:key="item.id"
                     v-on:click.stop="click(item)"
                 >
-                    <slot v-bind:item="item">
-                        <router-link v-bind:to="item.link" v-if="item.link">
-                            {{ item.text }}
-                        </router-link>
-                        <a
-                            v-bind:href="item.href"
-                            v-bind:target="item.target || '_self'"
-                            v-else-if="item.href"
-                        >
-                            {{ item.text }}
-                        </a>
-                        <span v-else>{{ item.text }}</span>
+                    <slot v-bind:item="item" v-bind:name="item.id">
+                        <slot v-bind:item="item">
+                            <router-link v-bind:to="item.link" v-if="item.link">
+                                {{ item.text }}
+                            </router-link>
+                            <a
+                                v-bind:href="item.href"
+                                v-bind:target="item.target || '_self'"
+                                v-else-if="item.href"
+                            >
+                                {{ item.text }}
+                            </a>
+                            <span v-else>{{ item.text }}</span>
+                        </slot>
                     </slot>
                 </li>
             </ul>
@@ -123,6 +125,10 @@ export const Dropdown = {
         globalEvents: {
             type: Boolean,
             default: true
+        },
+        globalHide: {
+            type: Boolean,
+            default: false
         }
     },
     data: function() {
@@ -132,7 +138,7 @@ export const Dropdown = {
     },
     watch: {
         visible(value) {
-            this.visibleData = value;
+            this.setVisible(value);
         }
     },
     created: function() {
@@ -147,18 +153,20 @@ export const Dropdown = {
             this.hide();
         },
         toggle() {
-            this.visibleData = !this.visibleData;
-            this.$emit("update:visible", this.visibleData);
+            this.setVisible(!this.visibleData);
         },
         show() {
-            if (this.visibleData) return;
-            this.visibleData = true;
-            this.$emit("update:visible", this.visibleData);
+            this.setVisible(true);
         },
         hide() {
-            if (!this.visibleData) return;
-            this.visibleData = false;
-            this.$emit("update:visible", this.visibleData);
+            this.setVisible(false);
+        },
+        setVisible(value) {
+            if (this.visibleData === value) return;
+            const globalEvent = value ? "hide-global" : null;
+            if (this.globalHide && globalEvent) this.$bus.$emit(globalEvent);
+            this.visibleData = value;
+            this.$emit("update:visible", value);
         },
         handleGlobal() {
             if (!this.globalEvents) return;

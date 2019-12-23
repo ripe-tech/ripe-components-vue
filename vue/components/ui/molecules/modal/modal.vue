@@ -268,6 +268,9 @@ export const Modal = {
             if (modalName !== this.name) return;
             this.hide();
         });
+        this.$bus.$on("hide-global", () => {
+            this.hide();
+        });
         window.addEventListener("resize", this.onWindowResize);
         this._initObservers();
         this.calculate();

@@ -5,9 +5,6 @@ storiesOf("Atoms", module)
     .addDecorator(withKnobs)
     .add("Textarea", () => ({
         props: {
-            id: {
-                default: text("Id", "textarea-id")
-            },
             value: {
                 default: text("Value", "This is a text")
             },
@@ -32,11 +29,11 @@ storiesOf("Atoms", module)
             disabled: {
                 default: boolean("Disabled", false)
             },
-            initialWidth: {
-                default: number("Initial Width", 280)
+            width: {
+                default: number("Width", null)
             },
-            initialHeight: {
-                default: number("Initial Height", 98)
+            height: {
+                default: number("Height", null)
             },
             resize: {
                 default: boolean("Resize", false)
@@ -44,18 +41,17 @@ storiesOf("Atoms", module)
         },
         data: function() {
             return {
-                textAreaText: this.value
+                valueData: this.value
             };
         },
-        methods: {
-            onValue(value) {
-                this.textAreaText = value;
+        watch: {
+            value(value) {
+                this.valueData = value;
             }
         },
         template: `
             <div>
                 <form-input
-                    v-bind:id="id"
                     v-bind:header="header"
                     v-bind:footer="footer"
                     v-bind:error="error"
@@ -63,17 +59,15 @@ storiesOf("Atoms", module)
                     v-bind:success="success"
                 >
                     <textarea-ripe
-                        v-bind:id="id"
-                        v-bind:value="value"
-                        v-on:update:value="value => onValue(value)"
+                        v-bind:value.sync="valueData"
                         v-bind:placeholder="placeholder"
                         v-bind:disabled="disabled"
-                        v-bind:initial-width="initialWidth"
-                        v-bind:initial-height="initialHeight"
+                        v-bind:width="width"
+                        v-bind:height="height"
                         v-bind:resize="resize"
                     />
                 </form-input>
-                <p>Text: {{ textAreaText }}</p>
+                <p>Text: {{ valueData }}</p>
             </div>
         `
     }));

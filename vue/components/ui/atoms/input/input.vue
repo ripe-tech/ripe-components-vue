@@ -2,6 +2,7 @@
     <input
         type="text"
         class="input-ripe"
+        v-bind:style="style"
         v-bind:value="value"
         v-bind:placeholder="placeholder"
         v-bind:disabled="disabled"
@@ -29,7 +30,7 @@ input[type="text"] {
     padding-left: 12px;
     padding-right: 12px;
     transition: width 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
-    width: 304px;
+    width: 100%;
 }
 
 input[type="text"]:hover {
@@ -68,6 +69,14 @@ export const Input = {
         disabled: {
             type: Boolean,
             default: false
+        },
+        width: {
+            type: Number,
+            default: null
+        },
+        height: {
+            type: Number,
+            default: null
         }
     },
     mounted: function() {
@@ -91,6 +100,15 @@ export const Input = {
         },
         onBlur() {
             this.$emit("blur");
+        }
+    },
+    computed: {
+        style() {
+            const base = {
+                width: this.width === null ? null : `${this.width}px`,
+                height: this.height === null ? null : `${this.height}px`
+            };
+            return base;
         }
     }
 };

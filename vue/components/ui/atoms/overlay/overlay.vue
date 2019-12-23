@@ -21,7 +21,9 @@
 }
 
 .fade-enter,
-.fade-leave-active {
+.fade-leave-active,
+.fade-enter > .overlay,
+.fade-leave-active > .overlay {
     opacity: 0;
 }
 </style>
@@ -58,7 +60,7 @@ export const Overlay = {
             if (!this.global) return;
             this.hide();
         });
-        this.$bus.$on("toggle-overlay", payLoad => {
+        this.$bus.$on("toggle-overlay", payload => {
             if (!this.global) return;
             this.toggle();
         });

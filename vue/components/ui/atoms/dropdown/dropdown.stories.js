@@ -7,11 +7,9 @@ storiesOf("Atoms", module)
         props: {
             visible: {
                 default: boolean("Visible", true)
-            }
-        },
-        data: function() {
-            return {
-                items: [
+            },
+            items: {
+                default: () => [
                     {
                         id: "text_1",
                         text: "Text 1"
@@ -36,11 +34,22 @@ storiesOf("Atoms", module)
                         target: "_blank"
                     }
                 ]
+            }
+        },
+        data: function() {
+            return {
+                visibleData: this.visible
             };
+        },
+        watch: {
+            visible(value) {
+                this.visibleData = value;
+            }
         },
         template: `
             <div style="max-width: 200px">
-                <dropdown v-bind:items="items" v-bind:visible="visible"></dropdown>
+                <dropdown v-bind:items="items" v-bind:visible.sync="visibleData"></dropdown>
+                <p>The dropdown is: {{ visibleData ? "visible" : "invisible" }}</p>
             </div>
         `
     }))
@@ -48,11 +57,9 @@ storiesOf("Atoms", module)
         props: {
             visible: {
                 default: boolean("Visible", true)
-            }
-        },
-        data: function() {
-            return {
-                items: [
+            },
+            items: {
+                default: () => [
                     {
                         id: "text_1",
                         text: "Text 1"
@@ -67,16 +74,30 @@ storiesOf("Atoms", module)
                         text: "Text 3"
                     }
                 ]
+            }
+        },
+        data: function() {
+            return {
+                visibleData: this.visible
             };
+        },
+        watch: {
+            visible(value) {
+                this.visibleData = value;
+            }
         },
         template: `
             <div style="max-width: 200px">
-                <dropdown v-bind:items="items" v-bind:visible="visible">
+                <dropdown v-bind:items="items" v-bind:visible.sync="visibleData">
                     <template v-slot="{ item: { id, text, subtext } }">
                         <b>{{ text }}</b>
                         <pre v-if="subtext">{{ subtext }}</pre>
                     </template>
+                    <template v-slot:text_3="{ item: { id, text, subtext } }">
+                        <b>Special {{ text }}</b>
+                    </template>
                 </dropdown>
+                <p>The dropdown is: {{ visibleData ? "visible" : "invisible" }}</p>
             </div>
         `
     }));

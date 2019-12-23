@@ -31,15 +31,18 @@ const partMixin = {
             return true;
         },
         async alert(message, options = {}) {
-            await this.alertMessage(message, options);
+            const result = await this.alertMessage(message, options);
+            return result;
         },
         async alertMessage(message, options = {}) {
             options.text = message;
-            this._alert(options);
+            const result = await this._alert(options);
+            return result;
         },
         async alertComponent(component, options = {}) {
             options.component = component;
-            this._alert(options);
+            const result = await this._alert(options);
+            return result;
         },
         async _alert(options = {}) {
             const promise = new Promise((resolve, reject) => {
@@ -53,6 +56,33 @@ const partMixin = {
             this.$bus.$emit("alert", options);
             const result = await promise;
             return result;
+        },
+        isMobile() {
+            return this.$root.$device && this.$root.$device.isMobile;
+        },
+        isTablet() {
+            return this.$root.$device && this.$root.$device.isTablet;
+        },
+        isDevice() {
+            return this.$root.$device && this.$root.$device.isDevice;
+        },
+        isDesktop() {
+            return this.$root.$device && this.$root.$device.isDesktop;
+        },
+        isTouch() {
+            return this.$root.$device && this.$root.$device.isTouch;
+        },
+        isMouse() {
+            return this.$root.$device && this.$root.$device.isMouse;
+        },
+        isDesktopWidth() {
+            return this.$root.$device && this.$root.$device.isDesktopWidth;
+        },
+        isTabletWidth() {
+            return this.$root.$device && this.$root.$device.isTabletWidth;
+        },
+        isMobileWidth() {
+            return this.$root.$device && this.$root.$device.isMobileWidth;
         }
     }
 };

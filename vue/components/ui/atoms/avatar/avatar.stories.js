@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text, select, boolean } from "@storybook/addon-knobs";
 
-storiesOf("Avatar", module)
+storiesOf("Atoms", module)
     .addDecorator(withKnobs)
     .add("Avatar", () => ({
         props: {
@@ -17,31 +17,27 @@ storiesOf("Avatar", module)
                     "medium"
                 )
             },
-            imgUrl: {
-                default: text("Image URL", "http://placekitten.com/g/100/100")
-            },
-            title: {
-                default: text("Title", "Cute")
-            },
-            subtitle: {
-                default: text("Subtext", "Kitten")
-            },
-            content: {
-                default: text("Content", "Miau miau")
+            src: {
+                default: text("Source", "http://placekitten.com/g/100/100")
             },
             notify: {
                 default: boolean("Notify", true)
+            },
+            clickable: {
+                default: boolean("Clickable", false)
+            },
+            active: {
+                default: boolean("Active", false)
             }
         },
         template: `
-        <div>
-            <avatar
-                v-bind:content="content"
-                v-bind:subtitle="subtitle"
-                v-bind:title="title"
-                v-bind:notify="notify"
-                v-bind:size="size"
-                v-bind:imgUrl="imgUrl" />
-        </div>
+            <div>
+                <avatar
+                    v-bind:src="src"
+                    v-bind:size="size"
+                    v-bind:clickable="clickable"
+                    v-bind:active="active"
+                    v-bind:notify="notify" />
+            </div>
         `
     }));

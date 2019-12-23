@@ -13,11 +13,11 @@
                 {{ tab.title || tab.id }}
             </div>
         </div>
-        <div class="tabs-container" v-bind:style="{ height: `${height}px` }">
+        <div class="tabs-container">
             <div
                 class="tab"
-                v-bind:class="{ visible: isTabActive(index) }"
                 v-for="(tab, index) in tabs"
+                v-show="isTabActive(index)"
                 v-bind:key="tab.id"
                 v-bind:ref="`tab-${index}`"
             >
@@ -80,21 +80,9 @@
     cursor: default;
 }
 
-.tabs > .tabs-container {
-    position: relative;
-}
-
 .tabs > .tabs-container > .tab {
     box-sizing: border-box;
-    opacity: 0;
-    position: absolute;
-    transition: opacity 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
     width: 100%;
-}
-
-.tabs > .tabs-container > .tab.visible {
-    opacity: 1;
-    z-index: 1;
 }
 </style>
 
@@ -106,82 +94,36 @@ export const Tabs = {
             type: Array,
             required: true
         },
-        initialTab: {
-            type: Number,
-            default: 0
-        },
-        initialHeight: {
+        tab: {
             type: Number,
             default: 0
         }
     },
     data: function() {
         return {
-            currentTab: this.initialTab,
-            height: this.initialHeight,
-            onWindowResizeHandler: null,
-            contentObserver: null
+            tabData: this.tab
         };
     },
-    mounted: function() {
-        this._initListeners();
-        this._initObservers();
-        this._updateHeight();
-    },
-    destroyed: function() {
-        this._destroyObservers();
-        this._destroyListeners();
+    watch: {
+        tab(value) {
+            this.tabData = value;
+        }
     },
     methods: {
         selectTab(index) {
             if (this.tabs[index].disabled) return;
-            if (this.currentTab === index) return;
-            this.currentTab = index;
-            this._updateHeight();
-            this.$emit("update:tab", this.tabs[this.currentTab], this.currentTab);
+            if (this.tabData === index) return;
+            this.tabData = index;
+            this.$emit("update:tab", this.tabData);
         },
         isTabActive(index) {
-            return index === this.currentTab;
+            return index === this.tabData;
         },
         onEnter(index) {
             this.selectTab(index);
         },
         onClick(index) {
             this.selectTab(index);
-        },
-        onWindowResize() {
-            this._updateHeight();
-        },
-        onContentMutated(mutations) {
-            this._updateHeight();
-        },
-        _initListeners() {
-            window.addEventListener(
-                "resize",
-                (this.onWindowResizeHandler = () => this.onWindowResize())
-            );
-        },
-        _initObservers() {
-            this.contentObserver = new MutationObserver(mutations =>
-                this.onContentMutated(mutations)
-            );
-        },
-        _destroyListeners() {
-            if (this.onWindowResizeHandler) {
-                window.removeEventListener("resize", this.onWindowResizeHandler);
-            }
-        },
-        _destroyObservers() {
-            if (this.contentObserver) this.contentObserver.disconnect();
-        },
-        _updateHeight() {
-            const tab = (this.$refs[`tab-${this.currentTab}`] || [])[0];
-            if (!tab) return this.initialHeight;
-            const style = tab.style;
-            const marginTop = parseInt(style.marginTop) || 0;
-            const marginBottom = parseInt(style.marginBottom) || 0;
-            const height = parseInt(tab.offsetHeight);
-            this.height = height + marginTop + marginBottom;
         }
     }
 };
