@@ -7,22 +7,22 @@
                     class="dropdown-item"
                     v-bind:class="{ separator: item.separator }"
                     v-for="item in items.filter(v => v !== null && v !== undefined)"
-                    v-bind:key="item.label"
+                    v-bind:key="item.value"
                     v-on:click.stop="click(item)"
                 >
-                    <slot v-bind:item="item" v-bind:name="item.label">
+                    <slot v-bind:item="item" v-bind:name="item.value">
                         <slot v-bind:item="item">
                             <router-link v-bind:to="item.link" v-if="item.link">
-                                {{ item.value }}
+                                {{ item.label }}
                             </router-link>
                             <a
                                 v-bind:href="item.href"
                                 v-bind:target="item.target || '_self'"
                                 v-else-if="item.href"
                             >
-                                {{ item.value }}
+                                {{ item.label }}
                             </a>
-                            <span v-else>{{ item.value }}</span>
+                            <span v-else>{{ item.label }}</span>
                         </slot>
                     </slot>
                 </li>

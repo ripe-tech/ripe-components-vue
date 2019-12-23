@@ -11,25 +11,25 @@ storiesOf("Atoms", module)
             items: {
                 default: () => [
                     {
-                        label: "text_1",
-                        value: "Text 1"
+                        value: "text_1",
+                        label: "Text 1"
                     },
                     {
-                        label: "text_2",
-                        value: "Text 2"
+                        value: "text_2",
+                        label: "Text 2"
                     },
                     {
-                        label: "text_3",
-                        value: "Text 3"
+                        value: "text_3",
+                        label: "Text 3"
                     },
                     {
-                        label: "text_platforme",
-                        value: "Text Platforme",
+                        value: "text_platforme",
+                        label: "Text Platforme",
                         href: "https://www.platforme.com"
                     },
                     {
-                        label: "text_platforme_blank",
-                        value: "Text Platforme Blank",
+                        value: "text_platforme_blank",
+                        label: "Text Platforme Blank",
                         href: "https://www.platforme.com",
                         target: "_blank"
                     }
@@ -61,17 +61,17 @@ storiesOf("Atoms", module)
             items: {
                 default: () => [
                     {
-                        label: "text_1",
-                        value: "Text 1"
+                        value: "text_1",
+                        label: "Text 1"
                     },
                     {
-                        label: "text_2",
-                        value: "Text 2",
+                        value: "text_2",
+                        label: "Text 2",
                         subtext: "Subtext"
                     },
                     {
-                        label: "text_3",
-                        value: "Text 3"
+                        value: "text_3",
+                        label: "Text 3"
                     }
                 ]
             }
@@ -89,12 +89,12 @@ storiesOf("Atoms", module)
         template: `
             <div style="max-width: 200px">
                 <dropdown v-bind:items="items" v-bind:visible.sync="visibleData">
-                    <template v-slot="{ item: { label, value, subtext } }">
-                        <b>{{ value }}</b>
+                    <template v-slot="{ item: { value, label, subtext } }">
+                        <b>{{ label }}</b>
                         <pre v-if="subtext">{{ subtext }}</pre>
                     </template>
-                    <template v-slot:text_3="{ item: { label, value, subtext } }">
-                        <b>Special {{ value }}</b>
+                    <template v-slot:text_3="{ item: { value, label, subtext } }">
+                        <b>Special {{ label }}</b>
                     </template>
                 </dropdown>
                 <p>The dropdown is: {{ visibleData ? "visible" : "invisible" }}</p>
