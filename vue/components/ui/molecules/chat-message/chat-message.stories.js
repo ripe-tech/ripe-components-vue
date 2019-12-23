@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, number, boolean } from "@storybook/addon-knobs";
+import { withKnobs, text, number } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
@@ -16,9 +16,6 @@ storiesOf("Molecules", module)
                     "Message",
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et lacus ac arcu ullamcorper condimentum."
                 )
-            },
-            hasReactionOptions: {
-                default: boolean("Reaction Options", false)
             },
             attachments: {
                 // TODO change -> need to know what data I will receive
@@ -40,9 +37,10 @@ storiesOf("Molecules", module)
                 type: Array,
                 default: () => [
                     {
-                        emoji: "👍",
+                        id: "thumbsdown",
+                        emoji: "👎",
                         count: 3,
-                        userHasReacted: false
+                        userHasReacted: true
                     }
                 ]
             }
@@ -56,7 +54,6 @@ storiesOf("Molecules", module)
             <div>
                 <chat-message
                     v-bind:username="username"
-                    v-bind:hasReactionOptions="hasReactionOptions"
                     v-bind:date="date"
                     v-bind:message="message"
                     v-bind:attachments="attachments"

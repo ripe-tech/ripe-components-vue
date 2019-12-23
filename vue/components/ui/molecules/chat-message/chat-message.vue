@@ -1,28 +1,36 @@
 <template>
     <div class="chat-message">
-        <avatar class="user-image" v-bind:img-url="userImgPath" v-bind:size="'tiny'" />
+        <avatar class="user-image" v-bind:img-url="avatarUrl" v-bind:size="'tiny'" />
         <div class="message-container">
             <div class="message-header">
-                <div class="user-information">
-                    <span class="username">{{ username }}</span>
-                    <span class="date">{{ timeString(date) }}</span>
+                <div class="username">
+                    {{ username }}
                 </div>
-                <div class="line-container" v-if="hasReactionOptions">
-                    <hr />
+                <div class="date">
+                    {{ dateString(date) }}
+                </div>
+                <div class="time">
+                    {{ timeString(date) }}
                 </div>
             </div>
             <div class="message-content">
-                <span class="message">{{ message }}</span>
+                <div class="message">
+                    <span v-html="message" />
+                </div>
                 <div class="links">
-                    <link-ripe
-                        v-bind:text="attachment.name"
-                        v-bind:href="attachment.path"
-                        v-bind:disabled="false"
-                        v-bind:size="'small'"
-                        v-bind:color="'blue'"
+                    <div
+                        class="link-container"
                         v-for="attachment in attachments"
                         v-bind:key="attachment.name"
-                    />
+                    >
+                        <link-ripe
+                            v-bind:text="attachment.name"
+                            v-bind:href="attachment.path"
+                            v-bind:disabled="false"
+                            v-bind:size="'small'"
+                            v-bind:color="'blue'"
+                        />
+                    </div>
                 </div>
                 <div class="reactions">
                     <reaction
@@ -32,15 +40,11 @@
                         v-bind:count.sync="reaction.count"
                         v-bind:user-reacted.sync="reaction.userHasReacted"
                         v-bind:behavior="true"
-                        v-for="reaction in reactions"
+                        v-for="reaction in mergedReactions"
                         v-bind:key="reaction.id"
                     />
                 </div>
             </div>
-        </div>
-        <div class="options-container" v-if="hasReactionOptions">
-            <div class="reaction-option" v-on:click="onReactionOptionClick('reactionOption')" />
-            <div class="more-options-option" v-on:click="onMoreOptionsOptionClick('moreOptions')" />
         </div>
     </div>
 </template>
@@ -64,110 +68,54 @@
 }
 
 .chat-message .message-container {
-    display: inline-block;
-    flex: 1;
+    flex: 1 0;
 }
 
 .chat-message .message-container .message-header {
-    display: flex;
     margin: 3px 0px 0px 0px;
 }
 
-.chat-message .message-container .message-header .user-information {
-    display: inline-block;
-}
-
-.chat-message .message-container .message-header .user-information .username {
+.chat-message .message-container .message-header .username {
     color: #0d0d0d;
+    display: inline-block;
     font-weight: bold;
     letter-spacing: 0.7px;
     padding: 0px 6px 0px 0px;
+    vertical-align: bottom;
 }
 
-.chat-message .message-container .message-header .user-information .date {
+.chat-message .message-container .message-header .date,
+.chat-message .message-container .message-header .time {
     color: #a4adb5;
+    display: inline-block;
     font-size: 12px;
     letter-spacing: 0.3px;
+    vertical-align: bottom;
 }
 
-.chat-message .message-container .message-header .line-container {
-    flex: 1 0;
-    margin: 2px 0px 0px 20px;
-    visibility: hidden;
-}
-
-.chat-message .message-container .message-header .line-container hr {
-    border: solid 1px #e4e8f0;
+.chat-message .message-container .message-header .time {
+    margin-left: 3px;
 }
 
 .chat-message .message-container .message-content .message {
     color: #0d0d0d;
     letter-spacing: 0.3px;
+    line-height: 18px;
+    margin-top: 4px;
 }
 
 .chat-message .message-container .message-content .links {
+    line-height: 20px;
     margin: 6px 0px 0px 0px;
 }
 
-.chat-message .message-container .message-content .links .link {
-    display: table;
-}
-
 .chat-message .message-container .message-content .reactions {
-    font-size: 0px; //It fixes white spaces between divs
-    margin: 10px 0px 0px 0px;
+    font-size: 0px;
+    margin-top: 10px;
 }
 
 .chat-message .message-container .message-content .reactions > .reaction {
-    margin: 0px 2px 0px 0px;
-}
-
-.chat-message .options-container {
-    background-color: $grey-6;
-    border: solid 1px #e4e8f0;
-    border-radius: 6px;
-    display: inline-flex;
-    font-size: 0px;
-    height: 26px;
-    padding: 2px 2px 2px 2px;
-    visibility: hidden;
-}
-
-.chat-message .options-container .reaction-option,
-.chat-message .options-container .more-options-option {
-    cursor: pointer;
-    height: 24px;
-    opacity: 0.4;
-    width: 30px;
-}
-
-.chat-message .options-container .reaction-option {
-    background: url("~./assets/happy-face.svg") center no-repeat;
-    background-size: 18px 18px;
-    border-right: solid 1px #e4e8f0;
-}
-
-.chat-message .options-container .more-options-option {
-    background: url("~./assets/ellypsis.svg") center no-repeat;
-    background-size: 18px 18px;
-    border-left: solid 1px #e4e8f0;
-}
-
-.chat-message:hover,
-.chat-message:hover .options-container,
-.chat-message:hover .message-container .message-header .line-container {
-    background-color: $white;
-    visibility: visible;
-}
-
-.chat-message .options-container .reaction-option:hover,
-.chat-message .options-container .more-options-option:hover {
-    opacity: 1;
-}
-
-.chat-message .options-container:hover {
-    border: solid 3px #e4e8f0;
-    padding: 0px 0px 0px 0px;
+    margin-right: 4px;
 }
 </style>
 
@@ -178,10 +126,9 @@ export const ChatMessage = {
     name: "chat-message",
     mixins: [utilsMixin],
     props: {
-        userImgPath: {
-            // TODO remove -> this will be replaced by avatar
+        avatarUrl: {
             type: String,
-            default: "http://i.pravatar.cc"
+            default: null
         },
         username: {
             type: String,
@@ -203,20 +150,25 @@ export const ChatMessage = {
             type: Array,
             default: () => []
         },
-        hasReactionOptions: {
-            type: Boolean,
-            default: false
+        defaultReactions: {
+            type: Array,
+            default: () => [
+                {
+                    id: "thumbsup",
+                    emoji: "👍",
+                    count: 0,
+                    userHasReacted: false
+                }
+            ]
         }
     },
-    methods: {
-        emitOptionClick(option) {
-            this.$emit("option-clicked", option);
-        },
-        onReactionOptionClick(option) {
-            this.emitOptionClick(option);
-        },
-        onMoreOptionsOptionClick(option) {
-            this.emitOptionClick(option);
+    computed: {
+        mergedReactions() {
+            const existingReactions = this.reactions.map(reaction => reaction.id);
+            const missingReactions = this.defaultReactions.filter(
+                reaction => !existingReactions.includes(reaction.id)
+            );
+            return [].concat(this.reactions, missingReactions);
         }
     }
 };
