@@ -27,6 +27,7 @@
             v-bind:value="value"
             v-bind:placeholder="placeholder"
             v-bind:autofocus="autofocus"
+            v-bind:width="width"
             ref="input"
             v-on:update:value="$emit('update:value', $event)"
             v-on:focus="focused = true"
@@ -150,6 +151,10 @@ export const Search = {
         iconVisible: {
             type: Boolean,
             default: true
+        },
+        width: {
+            type: Number,
+            default: null
         }
     },
     data: function() {
