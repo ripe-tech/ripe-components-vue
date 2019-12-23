@@ -1,6 +1,6 @@
 <template>
     <div class="chat-message">
-        <avatar class="user-image" v-bind:img-url="avatarUrl" v-bind:size="'tiny'" />
+        <avatar class="user-image" v-bind:src="avatarUrl" v-bind:size="'tiny'" />
         <div class="message-container">
             <div class="message-header">
                 <div class="username">
