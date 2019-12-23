@@ -45,7 +45,7 @@
             </dropdown>
         </div>
         <select
-            class="mobile-dropdown"
+            class="dropdown-select"
             v-bind:value="value"
             v-on:change="onDropdownSelect($event.target.value)"
         >
@@ -62,8 +62,17 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-body.desktop-device .select .mobile-dropdown {
+.select .dropdown-select {
     display: none;
+}
+
+body.mobile-device .select .dropdown-select,
+body.tablet-device .select .dropdown-select {
+    display: block;
+}
+
+.select .dropdown-container {
+    width: 304px;
 }
 
 body.mobile-device .select .dropdown-container,
@@ -71,12 +80,15 @@ body.tablet-device .select .dropdown-container {
     display: none;
 }
 
-.select .dropdown-container {
-    width: 304px;
-}
-
-.select .dropdown-container .dropdown-button,
-.select .dropdown-container .dropdown {
+.select .dropdown-container .dropdown-button {
+    background-color: #f2f2f2;
+    background-image: url("~./assets/chevron-down.svg");
+    background-position: right 12px center;
+    background-repeat: no-repeat;
+    background-size: 14px 14px;
+    border: 1px solid $light-white;
+    border-radius: 6px 6px 6px 6px;
+    box-sizing: border-box;
     color: $dark-blue;
     cursor: pointer;
     font-family: $font-family;
@@ -84,24 +96,13 @@ body.tablet-device .select .dropdown-container {
     height: 34px;
     letter-spacing: 0.25px;
     line-height: 34px;
-    user-select: none;
-}
-
-.select .dropdown-container .dropdown-button {
-    background-color: #f2f2f2;
-    background-image: url("~./assets/chevron-down.svg");
-    background-position: right 12px center;
-    background-repeat: no-repeat;
-    background-size: 20px 20px;
-    border: 1px solid $light-white;
-    border-radius: 6px 6px 6px 6px;
-    box-sizing: border-box;
     outline: none;
     overflow: hidden;
     padding-left: 12px;
     padding-right: 12px;
     text-overflow: ellipsis;
     transition: width 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+    user-select: none;
     white-space: nowrap;
 }
 
@@ -127,8 +128,16 @@ body.tablet-device .select .dropdown-container {
     border: 1px solid $light-white;
     border-radius: 6px;
     box-shadow: 0 6px 24px 0 rgba(67, 86, 100, 0.15);
+    color: $dark-blue;
+    cursor: pointer;
+    font-family: $font-family;
+    font-size: 13px;
+    height: 34px;
+    letter-spacing: 0.25px;
+    line-height: 34px;
     margin: 8px 0px 0px 0px;
     position: absolute;
+    user-select: none;
 }
 
 .select .dropdown-container ::v-deep .dropdown {
@@ -171,13 +180,13 @@ export const Select = {
             type: String,
             default: null
         },
-        visible: {
-            type: Boolean,
-            default: false
-        },
         placeholder: {
             type: String,
             default: "None"
+        },
+        visible: {
+            type: Boolean,
+            default: false
         },
         disabled: {
             type: Boolean,
