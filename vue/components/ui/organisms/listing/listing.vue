@@ -11,7 +11,7 @@
                     <slot name="icons" />
                     <loader loader="ball-scale-multiple" class="loader-header" />
                     <search
-                        v-bind:width="searchWidth"
+                        v-bind:width="isMobileWidth() ? null : searchWidth"
                         v-bind:placeholder="filterText ? filterText : `Search ${name}`"
                         v-bind:value.sync="filter"
                     />

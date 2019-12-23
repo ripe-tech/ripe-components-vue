@@ -1,6 +1,7 @@
 <template>
     <div
         class="search"
+        v-bind:style="style"
         v-bind:class="[
             focused ? 'focus' : 'unfocus',
             grow ? 'grow' : '',
@@ -59,6 +60,7 @@
     font-size: 0px;
     height: 34px;
     line-height: 34px;
+    width: 100%;
 }
 
 .search > svg {
@@ -172,6 +174,13 @@ export const Search = {
                     this.suggestionsVisible = false;
                 }, 100);
             }
+        }
+    },
+    computed: {
+        style() {
+            const base = {};
+            if (this.width) base.width = `${this.width}px`;
+            return base;
         }
     },
     methods: {
