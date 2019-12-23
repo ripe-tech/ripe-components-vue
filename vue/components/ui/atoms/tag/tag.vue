@@ -1,5 +1,5 @@
 <template>
-    <div class="tag" v-bind:class="style">
+    <div class="tag" v-bind:class="classes" v-bind:style="style">
         {{ text }}
     </div>
 </template>
@@ -123,7 +123,11 @@ export const Tag = {
         },
         color: {
             type: String,
-            default: "grey"
+            default: null
+        },
+        colorHex: {
+            type: String,
+            default: null
         },
         subtle: {
             type: Boolean,
@@ -131,11 +135,16 @@ export const Tag = {
         }
     },
     computed: {
-        style() {
+        classes() {
             const base = {};
-            base["tag-" + this.color] = this.color;
+            if (this.color) base["tag-" + this.color] = this.color;
             if (this.size) base["tag-" + this.size] = this.size;
             if (this.subtle) base["tag-subtle"] = this.subtle;
+            return base;
+        },
+        style() {
+            const base = {};
+            if (this.colorHex) base["background-color"] = this.colorHex;
             return base;
         }
     }

@@ -218,6 +218,7 @@
     margin-left: -130px;
     margin-top: -4px;
     min-width: 180px;
+    position: absolute;
     text-align: left;
 }
 

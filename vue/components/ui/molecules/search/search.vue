@@ -1,6 +1,7 @@
 <template>
     <div
         class="search"
+        v-bind:style="style"
         v-bind:class="[
             focused ? 'focus' : 'unfocus',
             grow ? 'grow' : '',
@@ -27,6 +28,7 @@
             v-bind:value="value"
             v-bind:placeholder="placeholder"
             v-bind:autofocus="autofocus"
+            v-bind:width="width"
             ref="input"
             v-on:update:value="$emit('update:value', $event)"
             v-on:focus="focused = true"
@@ -58,6 +60,7 @@
     font-size: 0px;
     height: 34px;
     line-height: 34px;
+    width: 100%;
 }
 
 .search > svg {
@@ -150,6 +153,10 @@ export const Search = {
         iconVisible: {
             type: Boolean,
             default: true
+        },
+        width: {
+            type: Number,
+            default: null
         }
     },
     data: function() {
@@ -167,6 +174,13 @@ export const Search = {
                     this.suggestionsVisible = false;
                 }, 100);
             }
+        }
+    },
+    computed: {
+        style() {
+            const base = {};
+            if (this.width) base.width = `${this.width}px`;
+            return base;
         }
     },
     methods: {
