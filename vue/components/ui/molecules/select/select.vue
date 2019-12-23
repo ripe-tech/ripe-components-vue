@@ -1,9 +1,9 @@
 <template>
     <div class="select">
         <global-events v-on:click="onGlobalClick" />
-        <div class="dropdown-container">
+        <div class="select-container">
             <div
-                class="dropdown-button"
+                class="select-button"
                 v-bind:class="{ disabled: disabled }"
                 tabindex="0"
                 v-on:click="onClickDropdownButton()"
@@ -71,17 +71,17 @@ body.tablet-device .select .dropdown-select {
     display: block;
 }
 
-.select .dropdown-container {
+.select .select-container {
     width: 304px;
 }
 
-body.mobile-device .select .dropdown-container,
-body.tablet-device .select .dropdown-container {
+body.mobile-device .select .select-container,
+body.tablet-device .select .select-container {
     display: none;
 }
 
-.select .dropdown-container .dropdown-button {
-    background-color: #f2f2f2;
+.select .select-container .select-button {
+    background-color: $blue;
     background-image: url("~./assets/chevron-down.svg");
     background-position: right 12px center;
     background-repeat: no-repeat;
@@ -106,28 +106,28 @@ body.tablet-device .select .dropdown-container {
     white-space: nowrap;
 }
 
-.select .dropdown-container .dropdown-button:hover {
+.select .select-container .select-button:hover {
     background-color: $lighter-grey;
     border-color: #dfe1e5;
 }
 
-.select .dropdown-container .dropdown-button.disabled,
-.select .dropdown-container .dropdown-button.disabled:active {
+.select .select-container .select-button.disabled,
+.select .select-container .select-button.disabled:active {
     background-color: $lighter-grey;
     border-color: transparent;
 }
 
-.select .dropdown-container .dropdown-button:focus {
+.select .select-container .select-button:focus {
     background-color: $white;
     border: 1px solid $aqcua-blue;
     box-shadow: 0px 1px 8px 0px rgba(32, 33, 36, 0.14);
 }
 
-.select .dropdown-container .dropdown {
+.select .select-container .dropdown {
     background-color: $white;
     border: 1px solid $light-white;
     border-radius: 6px;
-    box-shadow: 0 6px 24px 0 rgba(67, 86, 100, 0.15);
+    box-shadow: 0px 6px 24px 0px rgba(67, 86, 100, 0.15);
     color: $dark-blue;
     cursor: pointer;
     font-family: $font-family;
@@ -140,8 +140,10 @@ body.tablet-device .select .dropdown-container {
     user-select: none;
 }
 
-.select .dropdown-container ::v-deep .dropdown {
+.select .select-container ::v-deep .dropdown {
     width: 100%;
+    position: absolute;
+    margin-top: 4px;
 }
 
 .dropdown .dropdown-item-content {
