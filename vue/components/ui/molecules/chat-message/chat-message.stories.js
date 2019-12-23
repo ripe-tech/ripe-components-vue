@@ -14,6 +14,9 @@ storiesOf("Molecules", module)
             username: {
                 default: text("Username", "Username")
             },
+            avatarUrl: {
+                default: text("Avatar URL", "http://i.pravatar.cc")
+            },
             date: {
                 default: number("Date", 1576840199)
             },
@@ -24,7 +27,6 @@ storiesOf("Molecules", module)
                 )
             },
             attachments: {
-                // TODO change -> need to know what data I will receive
                 type: Array,
                 default: () => [
                     {
@@ -61,13 +63,14 @@ storiesOf("Molecules", module)
                 <chat-message
                     v-bind:avatarUrl="avatarUrl"
                     v-bind:username="username"
+                    v-bind:avatarUrl="avatarUrl"
                     v-bind:date="date"
                     v-bind:message="message"
                     v-bind:attachments="attachments"
                     v-bind:reactions="reactionsData"
                 />
                 <div>
-                    <p>Thumb reaction count: {{ this.reactionsData[0].count }}</p>
+                    <p>Thumb down reaction count: {{ this.reactionsData[0].count }}</p>
                 </div>
             </div>
             `
