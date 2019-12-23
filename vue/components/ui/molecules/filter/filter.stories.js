@@ -5,9 +5,9 @@ storiesOf("Molecules", module).add("Filter", () => ({
         filterColumns: {
             type: Array,
             default: () => [
-                { id: "id", title: "ID" },
-                { id: "name", title: "Name" },
-                { id: "car", title: "Car" }
+                { value: "id", label: "ID" },
+                { value: "name", label: "Name" },
+                { value: "car", label: "Car" }
             ]
         }
     },

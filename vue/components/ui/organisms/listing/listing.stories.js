@@ -12,9 +12,9 @@ storiesOf("Organisms", module)
             columns: {
                 type: Array,
                 default: () => [
-                    { id: "id", title: "ID", width: "100px" },
-                    { id: "user", title: "User" },
-                    { id: "device", title: "Device" }
+                    { value: "id", label: "ID", width: "100px" },
+                    { value: "user", label: "User" },
+                    { value: "device", label: "Device" }
                 ]
             },
             filterFields: {
