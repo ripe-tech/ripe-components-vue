@@ -4,7 +4,7 @@
             <div class="chat-messages-container" ref="chat-messages">
                 <chat-message
                     v-bind:username="message.username"
-                    v-bind:avatarUrl="message.avatarUrl"
+                    v-bind:avatar-url="message.avatarUrl"
                     v-bind:date="message.date"
                     v-bind:message="message.messageContent.text"
                     v-bind:attachments="message.messageContent.attachments"
@@ -18,9 +18,7 @@
                 <attachments-list v-bind:attachments="allAttachments" v-bind:height="306" />
             </div>
         </div>
-        <div class="chat-input-container"
-            v-on:keyup.enter.exact="onEnter()"
-            >
+        <div class="chat-input-container" v-on:keyup.enter.exact="onEnter()">
             <rich-textarea
                 v-bind:value="message.messageContent.text"
                 v-bind:placeholder="'Say something here...'"
@@ -59,8 +57,8 @@
 }
 
 body.desktop-device .chat-files-container {
-    width: 250px;
     display: block;
+    width: 250px;
 }
 
 body.tablet-device .chat-files-container,
@@ -126,8 +124,7 @@ export const Chat = {
 
             return allAttachments;
         },
-        normalizedTextareaText()
-        {
+        normalizedTextareaText() {
             return this.message.messageContent.text.trim();
         }
     },
@@ -136,19 +133,17 @@ export const Chat = {
             this.$emit("update:messages", value);
         },
         sendMessage() {
-            if(!this.normalizedTextareaText) return;
+            if (!this.normalizedTextareaText) return;
 
             this.messagesData.push(JSON.parse(JSON.stringify(this.message)));
             this.emitUpdateMessages(this.messagesData);
             this.clearTextarea();
             this.showLastMessage();
         },
-        clearTextarea()
-        {
+        clearTextarea() {
             this.message.messageContent.text = "";
         },
-        showLastMessage()
-        {
+        showLastMessage() {
             const messagesContainerElement = this.$refs["chat-messages"];
             messagesContainerElement.scrollTop = messagesContainerElement.scrollHeight;
         },
@@ -158,8 +153,7 @@ export const Chat = {
         onSendMessageClick() {
             this.sendMessage();
         },
-        onEnter()
-        {
+        onEnter() {
             this.sendMessage();
         }
     }

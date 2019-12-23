@@ -6,7 +6,10 @@ storiesOf("Molecules", module)
     .add("Chat Message", () => ({
         props: {
             avatarUrl: {
-                default: text("Avatar Url", "https://id.platforme.com/admin/accounts/ns%40platforme.com/avatar")
+                default: text(
+                    "Avatar Url",
+                    "https://id.platforme.com/admin/accounts/ns%40platforme.com/avatar"
+                )
             },
             username: {
                 default: text("Username", "Username")

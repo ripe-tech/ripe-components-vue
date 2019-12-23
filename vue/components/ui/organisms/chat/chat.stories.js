@@ -14,7 +14,8 @@ storiesOf("Organisms", module)
                 default: () => [
                     {
                         username: "NFSS10",
-                        avatarUrl: "https://id.platforme.com/admin/accounts/ns%40platforme.com/avatar",
+                        avatarUrl:
+                            "https://id.platforme.com/admin/accounts/ns%40platforme.com/avatar",
                         date: 1574950742823,
                         messageContent: {
                             text:
@@ -31,25 +32,29 @@ storiesOf("Organisms", module)
                                         "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
                                 }
                             ],
-                            reactions: [{
-                                id: "thumbsup",
-                                emoji: "👍",
-                                count: 2
-                            },
-                            {
-                                id: "alien",
-                                emoji: "👽",
-                                count: 5
-                            }, {
-                                id: "smile",
-                                emoji: "😀",
-                                count: 2
-                            }]
+                            reactions: [
+                                {
+                                    id: "thumbsup",
+                                    emoji: "👍",
+                                    count: 2
+                                },
+                                {
+                                    id: "alien",
+                                    emoji: "👽",
+                                    count: 5
+                                },
+                                {
+                                    id: "smile",
+                                    emoji: "😀",
+                                    count: 2
+                                }
+                            ]
                         }
                     },
                     {
                         username: "3rdvision",
-                        avatarUrl: "https://id.platforme.com/admin/accounts/v-da%40platforme.com/avatar",
+                        avatarUrl:
+                            "https://id.platforme.com/admin/accounts/v-da%40platforme.com/avatar",
                         date: 1574950742823,
                         messageContent: {
                             text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -64,22 +69,26 @@ storiesOf("Organisms", module)
                     },
                     {
                         username: "BeeMargarida",
-                        avatarUrl: "https://id.platforme.com/admin/accounts/t-ms%40platforme.com/avatar",
+                        avatarUrl:
+                            "https://id.platforme.com/admin/accounts/t-ms%40platforme.com/avatar",
                         date: 1574950742823,
                         messageContent: {
                             text:
                                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in tristique dui. Praesent a lectus non libero facilisis tincidunt ut.",
                             attachments: [],
-                            reactions: [{
-                                id: "thumbsup",
-                                emoji: "👍",
-                                count: 2
-                            }]
+                            reactions: [
+                                {
+                                    id: "thumbsup",
+                                    emoji: "👍",
+                                    count: 2
+                                }
+                            ]
                         }
                     },
                     {
                         username: "Benedito0",
-                        avatarUrl: "https://id.platforme.com/admin/accounts/v-mb%40platforme.com/avatar",
+                        avatarUrl:
+                            "https://id.platforme.com/admin/accounts/v-mb%40platforme.com/avatar",
                         date: 1574990742823,
                         messageContent: {
                             text: "Lorem ipsum dolor sit.",
@@ -89,7 +98,8 @@ storiesOf("Organisms", module)
                     },
                     {
                         username: "blazeque",
-                        avatarUrl: "https://id.platforme.com/admin/accounts/v-db%40platforme.com/avatar",
+                        avatarUrl:
+                            "https://id.platforme.com/admin/accounts/v-db%40platforme.com/avatar",
                         date: 1575950742823,
                         messageContent: {
                             text:
