@@ -11,7 +11,7 @@
                     <slot name="icons" />
                     <loader loader="ball-scale-multiple" class="loader-header" />
                     <search
-                        v-bind:width="searchFieldWidth"
+                        v-bind:width="searchWidth"
                         v-bind:placeholder="filterText ? filterText : `Search ${name}`"
                         v-bind:value.sync="filter"
                     />
@@ -247,7 +247,7 @@ export const Listing = {
             type: Boolean,
             default: true
         },
-        searchFieldWidth: {
+        searchWidth: {
             type: Number,
             default: 304
         }
