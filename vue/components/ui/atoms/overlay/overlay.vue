@@ -60,7 +60,7 @@ export const Overlay = {
             if (!this.global) return;
             this.hide();
         });
-        this.$bus.$on("toggle-overlay", payLoad => {
+        this.$bus.$on("toggle-overlay", payload => {
             if (!this.global) return;
             this.toggle();
         });

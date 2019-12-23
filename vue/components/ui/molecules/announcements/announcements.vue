@@ -69,6 +69,14 @@
 @import "css/variables.scss";
 @import "css/animations.scss";
 
+.announcements {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    line-height: 16px;
+    text-align: left;
+}
+
 .announcements .announcement-header {
     border-bottom: 1px solid $light-white;
     padding: 15px 24px 15px 24px;
@@ -93,12 +101,7 @@
 }
 
 .announcements .announcements-list {
-    max-height: 900px;
     overflow-y: auto;
-}
-
-body.mobile .announcements > .announcements-list {
-    height: 500px;
 }
 
 .announcements .announcements-list > .announcement {

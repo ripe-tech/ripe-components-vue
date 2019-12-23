@@ -82,13 +82,13 @@
 }
 
 .avatar.tiny .image-container,
-.avatar.tiny .image-container .image {
+.avatar.tiny .image-container > .image {
     height: 24px;
     line-height: 24px;
     width: 24px;
 }
 
-.avatar.tiny .image-container .dot {
+.avatar.tiny .image-container > .dot {
     border-width: 0.3px;
     height: 5px;
     right: 1px;

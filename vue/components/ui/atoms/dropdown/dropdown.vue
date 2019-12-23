@@ -125,6 +125,10 @@ export const Dropdown = {
         globalEvents: {
             type: Boolean,
             default: true
+        },
+        globalHide: {
+            type: Boolean,
+            default: false
         }
     },
     data: function() {
@@ -134,7 +138,7 @@ export const Dropdown = {
     },
     watch: {
         visible(value) {
-            this.visibleData = value;
+            this.setVisible(value);
         }
     },
     created: function() {
@@ -149,18 +153,20 @@ export const Dropdown = {
             this.hide();
         },
         toggle() {
-            this.visibleData = !this.visibleData;
-            this.$emit("update:visible", this.visibleData);
+            this.setVisible(!this.visibleData);
         },
         show() {
-            if (this.visibleData) return;
-            this.visibleData = true;
-            this.$emit("update:visible", this.visibleData);
+            this.setVisible(true);
         },
         hide() {
-            if (!this.visibleData) return;
-            this.visibleData = false;
-            this.$emit("update:visible", this.visibleData);
+            this.setVisible(false);
+        },
+        setVisible(value) {
+            if (this.visibleData === value) return;
+            const globalEvent = value ? "hide-global" : null;
+            if (this.globalHide && globalEvent) this.$bus.$emit(globalEvent);
+            this.visibleData = value;
+            this.$emit("update:visible", value);
         },
         handleGlobal() {
             if (!this.globalEvents) return;

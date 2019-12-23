@@ -12,7 +12,7 @@
                             class="table-column"
                             v-bind:class="columnClass(column.id)"
                             v-if="column.title"
-                            v-on:click="sort(column.id)"
+                            v-on:click="sortColumn(column.id)"
                         >
                             <span>{{ column.title }}</span>
                         </div>
@@ -230,40 +230,49 @@ export const Table = {
             type: String,
             default: null
         },
-        initialSort: {
+        sort: {
             type: String,
             default: null
         },
-        initialReverse: {
+        reverse: {
             type: Boolean,
             default: false
         }
     },
+    watch: {
+        sort(value) {
+            this.sortData = value;
+        },
+        reverse(value) {
+            this.reverseData = value;
+        }
+    },
     data: function() {
         return {
-            sortColumn: this.initialSort,
-            reverseSort: this.initialReverse
+            sortData: this.sort,
+            reverseData: this.reverse
         };
     },
     computed: {
         sortedItems() {
-            if (!this.sortColumn) {
+            if (!this.sortData) {
                 return this.items;
             }
 
             const items = [...this.items];
-            return this.sortMethod(items, this.sortColumn, this.reverseSort);
+            return this.sortMethod(items, this.sortData, this.reverseData);
         }
     },
     methods: {
         columnClass(column) {
-            const order = this.reverseSort ? "ascending" : "descending";
-            return this.sortColumn === column ? `active ${order}` : "";
+            const order = this.reverseData ? "ascending" : "descending";
+            return this.sortData === column ? `active ${order}` : "";
         },
-        sort(column) {
-            this.reverseSort = this.sortColumn === column ? !this.reverseSort : false;
-            this.sortColumn = column;
-            this.$emit("sort", this.sortColumn, this.reverseSort);
+        sortColumn(column) {
+            this.reverseData = this.sortData === column ? !this.reverseData : false;
+            this.sortData = column;
+            this.$emit("update:sort", this.sortData);
+            this.$emit("update:reverse", this.reverseData);
         }
     }
 };

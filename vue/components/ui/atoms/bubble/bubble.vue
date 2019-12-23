@@ -18,9 +18,11 @@
     border: 1px solid transparent;
     border: 1px solid $light-white;
     box-shadow: 0px 6px 24px 0px rgba(67, 86, 100, 0.15);
-    line-height: 16px;
+    left: 0px;
+    max-width: 100%;
     position: absolute;
-    text-align: left;
+    top: 0px;
+    z-index: 30;
 }
 
 .bubble.fade-leave-active {
@@ -28,6 +30,8 @@
 }
 
 body.mobile .bubble {
+    height: 100%;
+    position: fixed;
     width: 100%;
 }
 </style>
@@ -58,12 +62,12 @@ export const Bubble = {
         },
         width: {
             type: Number,
-            default: 370
+            default: null
         }
     },
     data: function() {
         return {
-            visibleData: true
+            visibleData: this.visible
         };
     },
     watch: {
@@ -73,7 +77,7 @@ export const Bubble = {
     },
     computed: {
         isVisible() {
-            return this.visible && this.visibleData;
+            return this.visibleData;
         },
         style() {
             return {
@@ -81,7 +85,7 @@ export const Bubble = {
                 right: this.right === null ? null : `${this.right}px`,
                 bottom: this.bottom === null ? null : `${this.bottom}px`,
                 left: this.left === null ? null : `${this.left}px`,
-                width: this.width ? `${this.width}px` : "100%"
+                width: this.width === null ? null : `${this.width}px`
             };
         }
     },

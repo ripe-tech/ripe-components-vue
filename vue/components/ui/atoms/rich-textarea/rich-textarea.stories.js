@@ -3,11 +3,8 @@ import { withKnobs, text, boolean } from "@storybook/addon-knobs";
 
 storiesOf("Atoms", module)
     .addDecorator(withKnobs)
-    .add("Rich Text Area", () => ({
+    .add("Rich Textarea", () => ({
         props: {
-            id: {
-                default: text("Id", "textarea-id")
-            },
             value: {
                 default: text("Value", "This is a text")
             },
@@ -17,36 +14,38 @@ storiesOf("Atoms", module)
             disabled: {
                 default: boolean("Disabled", false)
             },
+            resize: {
+                default: boolean("Resize", true)
+            },
             attachment: {
                 default: boolean("Attachment", true)
             },
-            resize: {
-                default: boolean("Resize", true)
+            smile: {
+                default: boolean("Smile", true)
             }
         },
         data: function() {
             return {
-                textAreaText: this.value
+                valueData: this.value
             };
         },
-        methods: {
-            onValue(value) {
-                this.textAreaText = value;
+        watch: {
+            value(value) {
+                this.valueData = value;
             }
         },
         template: `
             <div>
                 <rich-textarea
-                    v-bind:id="id"
-                    v-bind:value="textAreaText"
+                    v-bind:value.sync="valueData"
                     v-bind:placeholder="placeholder"
                     v-bind:disabled="disabled"
-                    v-bind:attachment="attachment"
                     v-bind:resize="resize"
-                    v-on:update:value="value => onValue(value)"
+                    v-bind:attachment="attachment"
+                    v-bind:smile="smile"
                 />
                 <div>
-                    <p>Text: {{ textAreaText }}</p>
+                    <p>Text: {{ valueData }}</p>
                 </div>
             </div>
             `
