@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text } from "@storybook/addon-knobs";
+import { withKnobs, text, number } from "@storybook/addon-knobs";
 
-storiesOf("Atoms", module)
+storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Chat Message", () => ({
         props: {
@@ -9,7 +9,7 @@ storiesOf("Atoms", module)
                 default: text("Username", "Username")
             },
             date: {
-                default: text("Date", "Nov 28")
+                default: number("Date", 1576840199)
             },
             message: {
                 default: text(
@@ -34,30 +34,21 @@ storiesOf("Atoms", module)
                 ]
             },
             reactions: {
-                // TODO change -> this will be replaced by what Daniel is doing
                 type: Array,
-                default: () => [{ icon: "thumb-up" }, { icon: "happy-face" }]
+                default: () => [
+                    {
+                        id: "thumbsdown",
+                        emoji: "👎",
+                        count: 3,
+                        userHasReacted: true
+                    }
+                ]
             }
         },
         data: function() {
             return {
-                reactionOptionCounter: 0,
-                moreOptionsOptionCounter: 0
+                reactionsData: this.reactions
             };
-        },
-        methods: {
-            onOptionClick(option) {
-                switch (option) {
-                    case "reactionOption":
-                        this.reactionOptionCounter++;
-                        break;
-                    case "moreOptions":
-                        this.moreOptionsOptionCounter++;
-                        break;
-                    default:
-                        break;
-                }
-            }
         },
         template: `
             <div>
@@ -66,12 +57,10 @@ storiesOf("Atoms", module)
                     v-bind:date="date"
                     v-bind:message="message"
                     v-bind:attachments="attachments"
-                    v-bind:reactions="reactions"
-                    v-on:option-clicked="value => onOptionClick(value)"
+                    v-bind:reactions="reactionsData"
                 />
                 <div>
-                    <p>Reaction Option event coun: {{ reactionOptionCounter }}</p>
-                    <p>More Options Option event count: {{ moreOptionsOptionCounter }}</p>
+                    <p>Thumb reaction count: {{ this.reactionsData[0].count }}</p>
                 </div>
             </div>
             `

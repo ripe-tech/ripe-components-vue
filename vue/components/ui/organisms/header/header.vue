@@ -334,7 +334,6 @@ body.mobile .header-ripe > .header-globals > .bubble {
 
 <script>
 import { partMixin } from "../../../../mixins";
-
 export const Header = {
     name: "header-ripe",
     mixins: [partMixin],
@@ -445,6 +444,5 @@ export const Header = {
         }
     }
 };
-
 export default Header;
 </script>
