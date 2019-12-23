@@ -102,13 +102,13 @@ export const Chat = {
         }
     },
     methods: {
+        emitSendMessage(message){
+            this.$emit("messageSent", message);
+        },
         sendMessage() {
-            // TODO
-            console.log("Message sent");
-            console.log(this.message);
+            this.emitSendMessage(this.message);
         },
         onTextareaValue(value) {
-            // TODO
             this.message.text = value;
             console.log(`Textarea changed: ${this.message.text}`);
         },

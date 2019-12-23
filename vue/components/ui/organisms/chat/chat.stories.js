@@ -75,9 +75,28 @@ storiesOf("Organisms", module)
                 ]
             }
         },
+        data: function() {
+            return {
+                lastSentMessage: null,
+                sentMessageCount: 0
+            };
+        },
+        methods: {
+            onMessageSent(message) {
+                this.lastSentMessage = message;
+                this.sentMessageCount++;
+            }
+        },
         template: `
-            <div style="width:100%;height:450px;">
-                <chat v-bind:messages="messages" />
+            <div>
+                <chat 
+                    v-bind:messages="messages"
+                    v-on:messageSent="value => onMessageSent(value)"
+                 />
+                 <div>
+                    <p>Sent Messages count: {{ sentMessageCount }}</p>
+                    <p>Last Message: {{ lastSentMessage }}</p>
+                 </div>
             </div>
             `
     }));
