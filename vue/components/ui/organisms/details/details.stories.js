@@ -42,20 +42,20 @@ storiesOf("Organisms", module)
             values: {
                 type: Array,
                 default: () => [
-                    { id: "name", label: "Person", note: "age" },
-                    { id: "car" },
-                    { id: "city" },
-                    { id: "shoes" },
-                    { id: "trousers" },
-                    { id: "shirt" }
+                    { value: "name", label: "Person", note: "age" },
+                    { value: "car" },
+                    { value: "city" },
+                    { value: "shoes" },
+                    { value: "trousers" },
+                    { value: "shirt" }
                 ]
             },
             optionsItems: {
                 type: Array,
                 default: () => [
-                    { text: "Item 1", event: "item_1" },
-                    { text: "Item 2", event: "item_2" },
-                    { text: "Item 3", event: "item_3" }
+                    { label: "Item 1", event: "item_1" },
+                    { label: "Item 2", event: "item_2" },
+                    { label: "Item 3", event: "item_3" }
                 ]
             }
         },
