@@ -2,16 +2,16 @@
     <div class="dropdown-container">
         <global-events v-on:keydown.esc="handleGlobal()" />
         <transition name="slide">
-            <ul class="dropdown" v-show="visibleData">
+            <ul class="dropdown" v-bind:style="dropdownStyle" v-show="visibleData" ref="dropdown">
                 <li
                     class="dropdown-item"
                     v-bind:class="{ separator: item.separator }"
-                    v-for="item in items.filter(v => v !== null && v !== undefined)"
+                    v-for="(item, index) in items.filter(v => v !== null && v !== undefined)"
                     v-bind:key="item.value"
                     v-on:click.stop="click(item)"
                 >
-                    <slot v-bind:item="item" v-bind:name="item.value">
-                        <slot v-bind:item="item">
+                    <slot v-bind:item="item" v-bind:index="index" v-bind:name="item.value">
+                        <slot v-bind:item="item" v-bind:index="index">
                             <router-link v-bind:to="item.link" v-if="item.link">
                                 {{ item.label }}
                             </router-link>
@@ -60,7 +60,8 @@
     border: 1px solid #dddddd;
     border-radius: 5px;
     box-shadow: 1px 2px 5px rgba(20, 20, 20, 0.1);
-    color: #4d4d4d;
+    box-sizing: border-box;
+    color: $dark-grey;
     font-size: 13px;
     font-weight: 600;
     list-style: none;
@@ -101,12 +102,12 @@
 
 .dropdown > .dropdown-item > a {
     border-bottom: none;
-    color: #4d4d4d;
+    color: $dark-grey;
 }
 
 .dropdown > .dropdown-item:hover > a,
 .dropdown > .dropdown-item.selected > a {
-    color: #000000;
+    color: $blacker;
 }
 </style>
 
@@ -129,6 +130,14 @@ export const Dropdown = {
         globalHide: {
             type: Boolean,
             default: false
+        },
+        width: {
+            type: Number,
+            default: null
+        },
+        maxHeight: {
+            type: Number,
+            default: null
         }
     },
     data: function() {
@@ -139,6 +148,20 @@ export const Dropdown = {
     watch: {
         visible(value) {
             this.setVisible(value);
+        }
+    },
+    computed: {
+        isVisible() {
+            return this.visible && this.visibleData;
+        },
+        dropdownStyle() {
+            const base = {};
+            if (this.width) base.width = `${this.width}px`;
+            if (this.maxHeight) {
+                base["max-height"] = `${this.maxHeight}px`;
+                base.overflow = "overlay";
+            }
+            return base;
         }
     },
     created: function() {

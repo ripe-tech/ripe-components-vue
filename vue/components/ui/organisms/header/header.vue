@@ -287,7 +287,7 @@
 
 .header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown li a {
     border-bottom: none;
-    color: #000000;
+    color: $blacker;
     display: inline-block;
     padding: 16px 6px 16px 6px;
     text-decoration: none;

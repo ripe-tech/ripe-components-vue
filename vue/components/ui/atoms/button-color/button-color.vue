@@ -16,8 +16,8 @@
 @import "css/variables.scss";
 
 .button-color {
-    background-color: #000000;
-    border: 1px solid #000000;
+    background-color: $blacker;
+    border: 1px solid $blacker;
     border-radius: 6px 6px 6px 6px;
     box-sizing: border-box;
     color: $white;
@@ -98,8 +98,8 @@
 
 .button-color.button-color-secondary:hover,
 .button-color.button-color-white:hover {
-    background-color: #000000;
-    border: 1px solid #000000;
+    background-color: $blacker;
+    border: 1px solid $blacker;
     color: $white;
 }
 
