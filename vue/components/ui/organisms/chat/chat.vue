@@ -55,8 +55,14 @@
     margin: 20px 0px 0px 0px;
 }
 
-.chat-files-container {
+body.desktop-device .chat-files-container {
     width: 250px;
+    display: block;
+}
+
+body.tablet-device .chat-files-container,
+body.mobile-device .chat-files-container {
+    display: none;
 }
 
 .chat-input-container {

@@ -89,6 +89,7 @@ storiesOf("Organisms", module)
         },
         template: `
             <div>
+                <global />
                 <chat 
                     v-bind:messages="messages"
                     v-on:messageSent="value => onMessageSent(value)"
