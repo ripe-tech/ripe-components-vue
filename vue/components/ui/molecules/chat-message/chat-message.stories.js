@@ -21,7 +21,6 @@ storiesOf("Molecules", module)
                 )
             },
             attachments: {
-                // TODO change -> need to know what data I will receive
                 type: Array,
                 default: () => [
                     {
