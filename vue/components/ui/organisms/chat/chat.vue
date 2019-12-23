@@ -65,7 +65,9 @@
 }
 
 .chat-input-container .rich-textarea {
+    display: block;
     margin: 20px 20px 0px 20px;
+    width: auto;
 }
 
 .chat-input-container .send-button {
@@ -102,7 +104,7 @@ export const Chat = {
         }
     },
     methods: {
-        emitSendMessage(message){
+        emitSendMessage(message) {
             this.$emit("messageSent", message);
         },
         sendMessage() {
