@@ -1,7 +1,8 @@
 <template>
-    <div class="rich-textarea" v-bind:class="{ disabled: disabled }" v-on:click="onClick">
+    <div class="rich-textarea" v-bind:class="classes" v-on:click="onClick">
         <textarea-ripe
             class="textarea"
+            v-bind:variant="variant"
             v-bind:value.sync="valueData"
             v-bind:placeholder="placeholder"
             v-bind:disabled="disabled"
@@ -52,8 +53,8 @@
 .rich-textarea .textarea:disabled {
     background-color: transparent;
     border: none;
+    border-radius: 6px 6px 0px 0px;
     height: 56px;
-    padding: 8px 18px 8px 18px;
     width: 100%;
 }
 
@@ -65,7 +66,7 @@
     background: #fafafa;
     border-radius: 0px 0px 6px 6px;
     border-top: 1px solid #e4e8f0;
-    padding: 6px 18px 6px 18px;
+    padding: 6px 12px 6px 12px;
 }
 </style>
 
@@ -74,6 +75,10 @@ export const RichTextarea = {
     name: "rich-textarea",
     props: {
         id: {
+            type: String,
+            default: null
+        },
+        variant: {
             type: String,
             default: null
         },
@@ -113,6 +118,13 @@ export const RichTextarea = {
         },
         valueData(value) {
             this.$emit("update:value", value);
+        }
+    },
+    computed: {
+        classes() {
+            const base = { disabled: this.disabled };
+            if (this.variant) base[this.variant] = true;
+            return base;
         }
     },
     methods: {
