@@ -50,7 +50,7 @@
                                 class="dropdown-item-announcement"
                                 v-on:click="onAnnouncementsClick"
                             >
-                                <span class="announcement-dropdown-text">{{ item.text }}</span>
+                                <span class="announcement-dropdown-text">{{ item.value }}</span>
                                 <div class="dot" v-if="announcementsToRead" />
                             </div>
                         </template>
@@ -69,10 +69,10 @@
                         v-bind:visible.sync="appsDropdownVisible"
                         v-bind:global-hide="true"
                     >
-                        <template v-slot="{ item: { id, text, image, link, cls } }">
+                        <template v-slot="{ item: { label, value, image, link, cls } }">
                             <a v-bind:href="link" v-bind:class="[cls]">
-                                <img v-bind:src="image" v-bind:alt="text" />
-                                <p>{{ text }}</p>
+                                <img v-bind:src="image" v-bind:alt="value" />
+                                <p>{{ value }}</p>
                             </a>
                         </template>
                     </dropdown>
@@ -391,10 +391,10 @@ export const Header = {
         accountDropdownItems() {
             const items = [];
             const { name, email } = this.account.meta;
-            items.push({ id: "name", text: name || email || this.account.email });
-            items.push({ id: "announcement", text: "What's new?" });
-            items.push({ id: "settings", text: "Account settings", separator: true });
-            items.push({ id: "signout", text: "Sign out", link: "/signout" });
+            items.push({ label: "name", value: name || email || this.account.email });
+            items.push({ label: "announcement", value: "What's new?" });
+            items.push({ label: "settings", value: "Account settings", separator: true });
+            items.push({ label: "signout", value: "Sign out", link: "/signout" });
             return items;
         },
         appsDropdownItems() {
@@ -403,8 +403,8 @@ export const Header = {
                 if (!this.apps[value]) continue;
                 const app = this.apps[value];
                 items.push({
-                    id: app.id || value,
-                    text: app.text || value.charAt(0).toUpperCase() + value.slice(1),
+                    label: app.id || value,
+                    value: app.text || value.charAt(0).toUpperCase() + value.slice(1),
                     cls: value,
                     image: app.image || require(`./assets/apps/${value}.svg`),
                     link: app.link || `https://${value}.platforme.com"`
