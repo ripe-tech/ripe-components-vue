@@ -70,7 +70,7 @@ export const Input = {
         },
         border: {
             type: String,
-            default: "strong"
+            default: "thin"
         },
         value: {
             type: String,

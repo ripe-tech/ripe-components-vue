@@ -93,7 +93,7 @@ export const RichTextarea = {
         },
         border: {
             type: String,
-            default: "strong"
+            default: "thin"
         },
         value: {
             type: String,

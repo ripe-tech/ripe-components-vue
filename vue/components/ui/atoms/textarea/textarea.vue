@@ -76,7 +76,7 @@ export const Textarea = {
         },
         border: {
             type: String,
-            default: "strong"
+            default: "thin"
         },
         id: {
             type: String,
