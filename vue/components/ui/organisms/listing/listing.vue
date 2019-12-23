@@ -126,10 +126,6 @@
     vertical-align: middle;
 }
 
-.listing .container-header-right .search {
-    margin-left: 24px;
-}
-
 .listing.loading .container-header-right .search ::v-deep svg {
     display: none;
 }
@@ -157,6 +153,11 @@
     text-align: right;
 }
 
+body.mobile .container-header-right {
+    float: none;
+    width: 100%;
+}
+
 .listing .filter-ripe ::v-deep table {
     margin-bottom: 0px;
 }
@@ -166,6 +167,10 @@
     padding: 24px 28px 24px 28px;
 }
 
+body.mobile .container-header {
+    height: auto;
+}
+
 .title {
     font-size: 26px;
     font-weight: 500;
@@ -173,6 +178,10 @@
     line-height: 34px;
     margin: 0px 0px 0px 0px;
     text-align: left;
+}
+
+body.mobile .title {
+    margin-top: 16px;
 }
 
 .title .name {
