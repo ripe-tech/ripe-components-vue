@@ -9,8 +9,8 @@
                     v-bind:message="message.messageContent.text"
                     v-bind:attachments="message.messageContent.attachments"
                     v-bind:reactions="message.messageContent.reactions"
-                    v-for="message in messages"
-                    v-bind:key="message.username"
+                    v-for="(message, index) in messages"
+                    v-bind:key="index"
                 />
             </div>
 
@@ -134,7 +134,7 @@ export const Chat = {
         sendMessage() {
             if(!this.message.messageContent.text) return;
 
-            this.messagesData.push(this.message);
+            this.messagesData.push(JSON.parse(JSON.stringify(this.message)));
             this.emitUpdateMessages(this.messagesData);
             this.clearTextarea();
             this.showLastMessage();
