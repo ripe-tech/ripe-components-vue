@@ -23,7 +23,7 @@ storiesOf("Atoms", module)
                         Strong: "strong",
                         Thin: "thin"
                     },
-                    "strong"
+                    "thin"
                 )
             },
             value: {
