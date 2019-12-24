@@ -1,10 +1,9 @@
 <template>
-    <div class="select">
+    <div class="select" v-bind:class="{ disabled: disabled }">
         <global-events v-on:click="onGlobalClick" />
         <div class="select-container" v-bind:style="style">
             <div
                 class="select-button"
-                v-bind:class="{ disabled: disabled }"
                 tabindex="0"
                 v-on:click="onClickDropdownButton()"
                 v-on:keydown.exact="onKey($event.key)"
@@ -103,11 +102,13 @@ body.tablet-device .select .select-container {
 }
 
 .select .select-container .select-button:focus {
-    border: 1px solid $aqcua-blue;
+    border-color: $aqcua-blue;
 }
 
-.select .select-container .select-button.disabled {
+.select.disabled .select-container .select-button {
     opacity: 0.4;
+    border-color: $soft-blue;
+    cursor: default;
 }
 
 .select .select-container ::v-deep .dropdown-container {
