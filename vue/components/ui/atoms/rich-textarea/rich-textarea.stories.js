@@ -78,10 +78,6 @@ storiesOf("Atoms", module)
                 />
                 <div>
                     <p>Text: {{ valueData }}</p>
-                    <p v-for="(attachment, index) in attachmentsData">
-                        {{ index }} <br>
-                        {{ attachment }}
-                    </p>
                 </div>
             </div>
             `

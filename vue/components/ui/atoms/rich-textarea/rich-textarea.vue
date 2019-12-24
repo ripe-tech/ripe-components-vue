@@ -12,6 +12,11 @@
             ref="textarea"
         />
         <div class="options">
+            <div class="selected-attachments-container">                    
+                <div v-for="(attachment, index) in attachmentsData" v-bind:key="index">
+                    {{ attachment.name }}
+                </div>
+            </div>
             <input type="file" ref="attachmentsInput" v-on:change="onAttachmentsInputChange()" multiple hidden>
             <button-icon
                 class="button-attachment"
@@ -73,6 +78,10 @@
     border-radius: 0px 0px 6px 6px;
     border-top: 1px solid #e4e8f0;
     padding: 6px 12px 6px 12px;
+}
+
+.rich-textarea .options .selected-attachments-container{
+    font-size: 14px;
 }
 
 .rich-textarea.border-strong .options {
