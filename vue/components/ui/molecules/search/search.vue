@@ -9,7 +9,8 @@
         ]"
     >
         <global-events v-on:keydown.esc="blur()" />
-        <slot name="icon">
+        <loader loader="ball-scale-multiple" v-if="loading" />
+        <slot name="icon" v-else>
             <svg
                 focusable="false"
                 height="24px"
@@ -61,6 +62,16 @@
     height: 34px;
     line-height: 34px;
     width: 100%;
+}
+
+.search > .loader {
+    left: 38px;
+    top: 38px;
+}
+
+.search > .loader ::v-deep div {
+    height: 20px;
+    width: 20px;
 }
 
 .search > svg {
@@ -157,6 +168,10 @@ export const Search = {
         width: {
             type: Number,
             default: null
+        },
+        loading: {
+            type: Boolean,
+            default: false
         }
     },
     data: function() {
