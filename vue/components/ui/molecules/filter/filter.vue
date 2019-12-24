@@ -127,6 +127,18 @@ export const Filter = {
                 start: this.start,
                 limit: this.limit
             };
+        },
+        lineupSlots() {
+            debugger;
+            return Object.keys(this.$slots)
+                .filter(slot => slot.startsWith("lineup-"))
+                .map(slot => slot.replace("lineup-", ""));
+        },
+        lineupScopedSlots() {
+            debugger;
+            return Object.keys(this.$scopedSlots)
+                .filter(slot => slot.startsWith("lineup-"))
+                .map(slot => slot.replace("lineup-", ""));
         }
     },
     watch: {
