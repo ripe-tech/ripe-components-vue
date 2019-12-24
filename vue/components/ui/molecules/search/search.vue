@@ -40,11 +40,11 @@
                 <div
                     class="suggestion"
                     v-for="suggestion in suggestions"
-                    v-bind:key="suggestion.id"
+                    v-bind:key="suggestion.value"
                 >
                     <slot name="suggestion" v-bind:suggestion="suggestion">
                         <router-link v-bind:to="suggestion.link">
-                            <span>{{ suggestion.text }}</span>
+                            <span>{{ suggestion.label || suggestion.value }}</span>
                         </router-link>
                     </slot>
                 </div>
@@ -103,7 +103,6 @@
     border: 1px solid $border-color;
     border-radius: 5px;
     font-size: 15px;
-    margin-left: 24px;
     margin-top: -2px;
     overflow: hidden;
 }
