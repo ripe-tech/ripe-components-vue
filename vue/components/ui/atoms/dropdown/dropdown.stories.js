@@ -38,7 +38,8 @@ storiesOf("Atoms", module)
         },
         data: function() {
             return {
-                visibleData: this.visible
+                visibleData: this.visible,
+                highlightedData: {}
             };
         },
         watch: {
@@ -48,8 +49,9 @@ storiesOf("Atoms", module)
         },
         template: `
             <div style="max-width: 200px">
-                <dropdown v-bind:items="items" v-bind:visible.sync="visibleData"></dropdown>
+                <dropdown v-bind:items="items" v-bind:visible.sync="visibleData" v-bind:highlighted.sync="highlightedData"></dropdown>
                 <p>The dropdown is: {{ visibleData ? "visible" : "invisible" }}</p>
+                <p>Highlighted: {{ highlightedData }}</p>
             </div>
         `
     }));
