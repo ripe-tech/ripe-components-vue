@@ -14,7 +14,7 @@ storiesOf("Organisms", module)
             },
             username: {
                 type: String,
-                default: text("Username", "TestingUsername")
+                default: text("Username", "NFSS10")
             },
             messages: {
                 type: Array,
