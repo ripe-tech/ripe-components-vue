@@ -106,9 +106,9 @@ body.tablet-device .select .select-container {
 }
 
 .select.disabled .select-container .select-button {
-    opacity: 0.4;
     border-color: $soft-blue;
     cursor: default;
+    opacity: 0.4;
 }
 
 .select .select-container ::v-deep .dropdown-container {
