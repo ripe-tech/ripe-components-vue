@@ -161,20 +161,15 @@ export const Select = {
         visible(value) {
             this.visibleData = value;
         },
-        visibleData(value) {
-            this.$emit("update:visible", value);
-        },
         value(value) {
             this.valueData = value;
-        },
-        valueData(value) {
-            this.$emit("update:value", value);
         }
     },
     methods: {
         setValue(value) {
             if (this.disabled) return;
             this.valueData = value;
+            this.$emit("update:value", value);
         },
         openDropdown() {
             if (this.disabled || this.visibleData) return;
@@ -184,11 +179,13 @@ export const Select = {
             }
 
             this.visibleData = true;
+            this.$emit("update:visible", true);
         },
         closeDropdown() {
             if (!this.visibleData) return;
             this.dehighlight();
             this.visibleData = false;
+            this.$emit("update:visible", false);
         },
         toggleDropdown() {
             if (this.visibleData) {
