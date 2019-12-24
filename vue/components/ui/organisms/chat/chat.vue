@@ -120,6 +120,7 @@ export const Chat = {
         messages(value) {
             this.messagesData = value;
         },
+        attachments(value) {
             this.message.messageContent.attachments = value;
         }
     },
@@ -143,7 +144,7 @@ export const Chat = {
         sendMessage() {
             if (!this.normalizedTextareaText) return;
 
-            this.messagesData.push(JSON.parse(JSON.stringify(this.message)));
+            this.messagesData.push(JSON.parse(JSON.stringify(this.message))); //TODO check if files are correctly added
             this.emitUpdateMessages(this.messagesData);
             this.clearTextarea();
             this.$nextTick(() => this.scrollToLastMessage());
