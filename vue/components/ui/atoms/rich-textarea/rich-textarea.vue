@@ -12,7 +12,7 @@
             ref="textarea"
         />
         <div class="options">
-            <input type="file" ref="attachments" multiple hidden>
+            <input type="file" ref="attachmentsInput" v-on:change="onAttachmentsInputChange()" multiple hidden>
             <button-icon
                 class="button-attachment"
                 v-bind:disabled="disabled"
@@ -150,7 +150,11 @@ export const RichTextarea = {
             this.focusTextarea();
         },
         onAttachmentClick() {
-            this.$refs.attachments.click();
+            this.$refs.attachmentsInput.click();
+        },
+        onAttachmentsInputChange() {
+            console.log("Attachments Input Change");
+            console.log(this.$refs.attachmentsInput.files);
         },
         onSmileClick() {
             this.$emit("click:smile");
