@@ -8,14 +8,17 @@
         <slot v-bind:hide="hide">
             <ul>
                 <li
-                    v-bind:class="[link.id, { selected: link.selected, disabled: link.disabled }]"
+                    v-bind:class="[
+                        link.value,
+                        { selected: link.selected, disabled: link.disabled }
+                    ]"
                     v-for="(link, index) in links"
-                    v-bind:key="link.id + index"
+                    v-bind:key="link.value + index"
                 >
                     <router-link v-bind:to="link.link" v-if="link.link">
-                        {{ link.text }}
+                        {{ link.label }}
                     </router-link>
-                    <span v-else>{{ link.text }}</span>
+                    <span v-else>{{ link.label }}</span>
                 </li>
             </ul>
         </slot>

@@ -6,11 +6,11 @@
                 v-bind:class="{ active: isTabActive(index), disabled: tab.disabled }"
                 tabindex="0"
                 v-for="(tab, index) in tabs"
-                v-bind:key="tab.id"
+                v-bind:key="tab.value"
                 v-on:click="onClick(index)"
                 v-on:keydown.enter="onEnter(index)"
             >
-                {{ tab.title || tab.id }}
+                {{ tab.label || tab.value }}
             </div>
         </div>
         <div class="tabs-container">
@@ -18,12 +18,12 @@
                 class="tab"
                 v-for="(tab, index) in tabs"
                 v-show="isTabActive(index)"
-                v-bind:key="tab.id"
+                v-bind:key="tab.value"
                 v-bind:ref="`tab-${index}`"
             >
-                <slot v-bind:name="tab.id" v-bind:index="index">
-                    <p v-if="tab.text">
-                        {{ tab.text }}
+                <slot v-bind:name="tab.value" v-bind:index="index">
+                    <p v-if="tab.content">
+                        {{ tab.content }}
                     </p>
                 </slot>
             </div>

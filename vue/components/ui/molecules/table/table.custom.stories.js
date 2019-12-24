@@ -5,15 +5,14 @@ storiesOf("Molecules", module).add("Table Custom", () => ({
         mockColumns: {
             type: Array,
             default: () => [
-                { id: "id", title: "ID" },
-                { id: "user", title: "User" },
-                { id: "system", title: "System" }
+                { value: "id", label: "ID" },
+                { value: "user", label: "User" },
+                { value: "system", label: "System" }
             ]
-        }
-    },
-    data: function() {
-        return {
-            mockItems: [
+        },
+        mockItems: {
+            type: Array,
+            default: () => [
                 {
                     id: 1,
                     user: "Bill Gates",
@@ -30,25 +29,25 @@ storiesOf("Molecules", module).add("Table Custom", () => ({
                     system: "Linux"
                 }
             ]
-        };
+        }
     },
     template: `
-    <table-ripe
-        class="table"
-        v-bind:columns="mockColumns"
-        v-bind:items="mockItems"
-    >
-        <template v-slot="{ item }">
-            <td class="id" style="font-weight: bold; color: #ff0000;">
-                {{ item.id }}
-            </td>
-            <td class="user" style="text-transform: uppercase;">
-                USER: {{ item.user || "-" }}
-            </td>
-            <td class="device">
-                OS: {{ item.system }}
-            </td>
-        </template>
-    </table-ripe>
+        <table-ripe
+            class="table"
+            v-bind:columns="mockColumns"
+            v-bind:items="mockItems"
+        >
+            <template v-slot="{ item }">
+                <td class="id" style="font-weight: bold; color: #ff0000;">
+                    {{ item.id }}
+                </td>
+                <td class="user" style="text-transform: uppercase;">
+                    USER: {{ item.user || "-" }}
+                </td>
+                <td class="device">
+                    OS: {{ item.system }}
+                </td>
+            </template>
+        </table-ripe>
     `
 }));

@@ -11,10 +11,10 @@ storiesOf("Molecules", module)
             tabs: {
                 type: Array,
                 default: () => [
-                    { id: "id", title: "ID", text: "ID" },
-                    { id: "address" },
-                    { id: "account", text: "I don't have an account!" },
-                    { id: "disabled", disabled: true }
+                    { value: "id", label: "ID", content: "This is the content for ID tab" },
+                    { value: "address" },
+                    { value: "account", content: "I don't have an account!" },
+                    { value: "disabled", disabled: true }
                 ]
             }
         },

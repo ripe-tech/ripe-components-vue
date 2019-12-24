@@ -20,6 +20,11 @@
 .container-ripe:hover {
     box-shadow: 5px 12px 20px rgba(36, 37, 38, 0.13);
 }
+
+body.mobile .container-ripe {
+    margin: 0px auto 32px auto;
+    width: 100%;
+}
 </style>
 
 <script>

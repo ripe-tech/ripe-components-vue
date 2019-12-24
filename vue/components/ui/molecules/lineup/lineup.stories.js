@@ -33,12 +33,12 @@ storiesOf("Molecules", module)
             values: {
                 type: Array,
                 default: () => [
-                    { id: "name", label: "Person" },
-                    { id: "car" },
-                    { id: "city" },
-                    { id: "shoes" },
-                    { id: "trousers" },
-                    { id: "shirt" }
+                    { value: "name", label: "Person" },
+                    { value: "car" },
+                    { value: "city" },
+                    { value: "shoes" },
+                    { value: "trousers" },
+                    { value: "shirt" }
                 ]
             }
         },

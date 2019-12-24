@@ -1,8 +1,9 @@
 <template>
     <input
         type="text"
-        class="input-ripe"
+        class="input"
         v-bind:style="style"
+        v-bind:class="classes"
         v-bind:value="value"
         v-bind:placeholder="placeholder"
         v-bind:disabled="disabled"
@@ -16,11 +17,12 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-input[type="text"] {
-    background-color: #f2f2f2;
+.input {
+    background-color: $white;
     border: 1px solid $light-white;
     border-radius: 6px 6px 6px 6px;
     box-sizing: border-box;
+    color: $black;
     font-family: $font-family;
     font-size: 13px;
     height: 34px;
@@ -33,20 +35,29 @@ input[type="text"] {
     width: 100%;
 }
 
-input[type="text"]:hover {
-    background-color: $lighter-grey;
+.input.dark {
+    background-color: $soft-blue;
+}
+
+.input.border-strong {
+    border-width: 2px;
+}
+
+.input:hover {
     border-color: #dfe1e5;
 }
 
-input[type="text"]:focus {
+.input:focus {
     background-color: $white;
-    border: 1px solid $aqcua-blue;
+    border-color: $aqcua-blue;
+}
+
+.input.dark:focus {
     box-shadow: 0px 1px 8px 0px rgba(32, 33, 36, 0.14);
 }
 
-input[type="text"]:disabled {
-    background-color: $lighter-grey;
-    border-color: transparent;
+.input:disabled {
+    opacity: 0.4;
 }
 </style>
 
@@ -54,6 +65,14 @@ input[type="text"]:disabled {
 export const Input = {
     name: "input-ripe",
     props: {
+        variant: {
+            type: String,
+            default: null
+        },
+        border: {
+            type: String,
+            default: "thin"
+        },
         value: {
             type: String,
             default: ""
@@ -108,6 +127,12 @@ export const Input = {
                 width: this.width === null ? null : `${this.width}px`,
                 height: this.height === null ? null : `${this.height}px`
             };
+            return base;
+        },
+        classes() {
+            const base = {};
+            if (this.variant) base[this.variant] = true;
+            if (this.border) base[`border-${this.border}`] = true;
             return base;
         }
     }

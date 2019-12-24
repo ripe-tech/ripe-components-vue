@@ -1,10 +1,31 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, boolean, number } from "@storybook/addon-knobs";
+import { withKnobs, text, boolean, number, select } from "@storybook/addon-knobs";
 
 storiesOf("Atoms", module)
     .addDecorator(withKnobs)
     .add("Input", () => ({
         props: {
+            variant: {
+                default: select(
+                    "Variant",
+                    {
+                        Unset: null,
+                        Dark: "dark"
+                    },
+                    null
+                )
+            },
+            border: {
+                default: select(
+                    "Border",
+                    {
+                        Unset: null,
+                        Strong: "strong",
+                        Thin: "thin"
+                    },
+                    "thin"
+                )
+            },
             value: {
                 default: text("Value", "This is a text")
             },
@@ -30,10 +51,10 @@ storiesOf("Atoms", module)
                 default: text("Success", "")
             },
             width: {
-                default: number("Width", 280)
+                default: number("Width", null)
             },
             height: {
-                default: number("Height", 34)
+                default: number("Height", null)
             }
         },
         data: function() {
@@ -56,6 +77,8 @@ storiesOf("Atoms", module)
                     v-bind:success="success"
                 >
                     <input-ripe
+                        v-bind:variant="variant"
+                        v-bind:border="border"
                         v-bind:value.sync="valueData"
                         v-bind:placeholder="placeholder"
                         v-bind:disabled="disabled"

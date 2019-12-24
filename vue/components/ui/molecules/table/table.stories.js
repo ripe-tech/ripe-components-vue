@@ -42,9 +42,9 @@ storiesOf("Molecules", module)
             mockColumns: {
                 type: Array,
                 default: () => [
-                    { id: "id", title: "ID" },
-                    { id: "user", title: "User" },
-                    { id: "system", title: "System" }
+                    { value: "id", label: "ID" },
+                    { value: "user", label: "User" },
+                    { value: "system", label: "System" }
                 ]
             }
         },

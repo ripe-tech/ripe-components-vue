@@ -1,12 +1,37 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, boolean } from "@storybook/addon-knobs";
+import { withKnobs, text, boolean, select } from "@storybook/addon-knobs";
 
 storiesOf("Atoms", module)
     .addDecorator(withKnobs)
     .add("Rich Textarea", () => ({
         props: {
+            variant: {
+                default: select(
+                    "Variant",
+                    {
+                        Unset: null,
+                        Dark: "dark"
+                    },
+                    null
+                )
+            },
+            border: {
+                default: select(
+                    "Border",
+                    {
+                        Unset: null,
+                        Strong: "strong",
+                        Thin: "thin"
+                    },
+                    "thin"
+                )
+            },
             value: {
                 default: text("Value", "This is a text")
+            },
+            attachments: {
+                type: FileList,
+                default: null
             },
             placeholder: {
                 default: text("Placeholder", "This is a placeholder")
@@ -26,18 +51,25 @@ storiesOf("Atoms", module)
         },
         data: function() {
             return {
-                valueData: this.value
+                valueData: this.value,
+                attachmentsData: this.attachments
             };
         },
         watch: {
             value(value) {
                 this.valueData = value;
+            },
+            attachments(value) {
+                this.attachmentsData = value;
             }
         },
         template: `
             <div>
                 <rich-textarea
+                    v-bind:variant="variant"
+                    v-bind:border="border"
                     v-bind:value.sync="valueData"
+                    v-bind:attachments.sync="attachmentsData"
                     v-bind:placeholder="placeholder"
                     v-bind:disabled="disabled"
                     v-bind:resize="resize"

@@ -3,7 +3,7 @@ import { withKnobs, number } from "@storybook/addon-knobs";
 
 storiesOf("Atoms", module)
     .addDecorator(withKnobs)
-    .add("Attachments List", () => ({
+    .add("Attachments", () => ({
         props: {
             attachments: {
                 type: Array,
@@ -37,15 +37,15 @@ storiesOf("Atoms", module)
                 ]
             },
             width: {
-                default: number("Initial Width", 250)
+                default: number("Width", 250)
             },
             height: {
-                default: number("Initial Height", 200)
+                default: number("Height", 200)
             }
         },
         template: `
             <div>
-                <attachments-list
+                <attachments
                     v-bind:attachments="attachments"
                     v-bind:width="width"
                     v-bind:height="height"

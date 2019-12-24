@@ -1,15 +1,10 @@
 <template>
     <div class="attachments" v-bind:style="attachmentsStyle">
-        <div class="attachments-title">
+        <div class="attachments-title" v-if="title">
             {{ title }}
         </div>
         <div class="attachments-list" v-bind:style="listStyle">
-            <div
-                class="attachment"
-                v-for="(attachment, index) in attachments"
-                v-bind:key="index"
-                v-on:click="onAttachmentClick(index)"
-            >
+            <div class="attachment" v-for="(attachment, index) in attachments" v-bind:key="index">
                 <link-ripe
                     v-bind:text="attachment.name"
                     v-bind:href="attachment.path"
@@ -35,15 +30,16 @@
 
 .attachments .attachments-title {
     background-color: $white;
-    border: 1px solid #e4e8f0;
+    border-bottom: 1px solid #e4e8f0;
     color: $light-black;
     display: block;
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 13px;
+    font-weight: 600;
     height: 42px;
     letter-spacing: 0.7px;
     line-height: 42px;
     padding: 0px 20px 0px 20px;
+    transition: background-color 0.15s ease-in-out;
 }
 
 .attachments .attachments-list {
@@ -55,29 +51,37 @@
     background-position: center left 10px;
     background-repeat: no-repeat;
     background-size: 20px 20px;
-    border: solid 1px #e4e8f0;
+    border-bottom: 1px solid #e4e8f0;
     cursor: pointer;
     height: 44px;
     padding-left: 40px;
+    user-select: none;
+}
+
+.attachments .attachments-list .attachment:last-child {
+    border-bottom: none;
+}
+
+.attachments .attachments-list .attachment:hover {
+    background-color: $white;
 }
 
 .attachments .attachments-list .attachment:active {
-    background-color: $lighter-grey;
+    background-color: $white;
 }
 
 .attachments .attachments-list .attachment .link {
+    border: none;
+    display: inline-block;
     line-height: 44px;
     vertical-align: top;
-}
-
-.attachments .attachments-list .attachment:hover .link {
-    border-color: #1d2631;
+    width: 100%;
 }
 </style>
 
 <script>
-export const AttachmentsList = {
-    name: "attachments-list",
+export const Attachments = {
+    name: "attachments",
     props: {
         title: {
             type: String,
@@ -102,24 +106,15 @@ export const AttachmentsList = {
     computed: {
         attachmentsStyle() {
             const base = {};
-
             if (this.width) base.width = `${this.width}px`;
-
             return base;
         },
         listStyle() {
             const base = {};
-
             if (this.height) base.height = `${this.height}px`;
-
             return base;
-        }
-    },
-    methods: {
-        onAttachmentClick(index) {
-            this.$refs[index][0].$el.click();
         }
     }
 };
-export default AttachmentsList;
+export default Attachments;
 </script>

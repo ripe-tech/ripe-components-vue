@@ -1,10 +1,31 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, boolean, number } from "@storybook/addon-knobs";
+import { withKnobs, text, boolean, number, select } from "@storybook/addon-knobs";
 
 storiesOf("Atoms", module)
     .addDecorator(withKnobs)
     .add("Textarea", () => ({
         props: {
+            variant: {
+                default: select(
+                    "Variant",
+                    {
+                        Unset: null,
+                        Dark: "dark"
+                    },
+                    null
+                )
+            },
+            border: {
+                default: select(
+                    "Border",
+                    {
+                        Unset: null,
+                        Strong: "strong",
+                        Thin: "thin"
+                    },
+                    "thin"
+                )
+            },
             value: {
                 default: text("Value", "This is a text")
             },
@@ -59,6 +80,8 @@ storiesOf("Atoms", module)
                     v-bind:success="success"
                 >
                     <textarea-ripe
+                        v-bind:variant="variant"
+                        v-bind:border="border"
                         v-bind:value.sync="valueData"
                         v-bind:placeholder="placeholder"
                         v-bind:disabled="disabled"

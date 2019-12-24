@@ -1,37 +1,37 @@
 <template>
     <transition-group tag="div" v-bind:name="transition" class="lineup">
         <div class="lineup-item" v-for="item in items" v-bind:key="item.id">
-            <slot v-bind:name="value.id" v-bind:item="item" v-for="value in values">
+            <slot v-bind:name="value.value" v-bind:item="item" v-for="value in values">
                 <div
                     class="lineup-item-value"
-                    v-bind:class="[value.id, `lineup-item-value-${value.id}`]"
-                    v-bind:key="value.id"
+                    v-bind:class="[value.value, `lineup-item-value-${value.value}`]"
+                    v-bind:key="value.value"
                 >
                     <div class="key">
-                        <slot v-bind:name="`${value.id}-key`" v-bind:item="item">
+                        <slot v-bind:name="`${value.value}-key`" v-bind:item="item">
                             <p class="label-text">
-                                <slot v-bind:name="`${value.id}-label-text`" v-bind:item="item">
-                                    {{ value.label || value.id || value.name }}
+                                <slot v-bind:name="`${value.value}-label-text`" v-bind:item="item">
+                                    {{ value.label || value.value || value.name }}
                                 </slot>
                             </p>
                         </slot>
                     </div>
                     <div class="value">
-                        <slot v-bind:name="`${value.id}-value`" v-bind:item="item">
+                        <slot v-bind:name="`${value.value}-value`" v-bind:item="item">
                             <p class="value-text">
-                                <slot v-bind:name="`${value.id}-value-text`" v-bind:item="item">
-                                    {{ item[value.value] || item[value.id] || "-" }}
+                                <slot v-bind:name="`${value.value}-value-text`" v-bind:item="item">
+                                    {{ item[value.value] || item[value.value] || "-" }}
                                 </slot>
                             </p>
                         </slot>
                     </div>
                     <div class="note">
-                        <slot v-bind:name="`${value.id}-note`" v-bind:item="item">
+                        <slot v-bind:name="`${value.value}-note`" v-bind:item="item">
                             <p
                                 class="note-text"
-                                v-if="value.note || $slots[`${value.id}-note-text`]"
+                                v-if="value.note || $slots[`${value.value}-note-text`]"
                             >
-                                <slot v-bind:name="`${value.id}-note-text`" v-bind:item="item">
+                                <slot v-bind:name="`${value.value}-note-text`" v-bind:item="item">
                                     {{ item[value.note] }}
                                 </slot>
                             </p>

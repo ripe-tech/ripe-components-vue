@@ -1,4 +1,4 @@
-import { AttachmentsList } from "./attachments-list/attachments-list.vue";
+import { Attachments } from "./attachments/attachments.vue";
 import { Avatar } from "./avatar/avatar.vue";
 import { Bubble } from "./bubble/bubble.vue";
 import { ButtonColor } from "./button-color/button-color.vue";
@@ -21,7 +21,7 @@ import { Tag } from "./tag/tag.vue";
 import { Textarea } from "./textarea/textarea.vue";
 
 const install = Vue => {
-    Vue.component("attachments-list", AttachmentsList);
+    Vue.component("attachments", Attachments);
     Vue.component("avatar", Avatar);
     Vue.component("bubble", Bubble);
     Vue.component("button-color", ButtonColor);
@@ -45,7 +45,7 @@ const install = Vue => {
 };
 
 export {
-    AttachmentsList,
+    Attachments,
     Avatar,
     Bubble,
     ButtonColor,
