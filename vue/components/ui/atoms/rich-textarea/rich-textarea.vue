@@ -100,6 +100,10 @@ export const RichTextarea = {
             type: String,
             default: null
         },
+        attachments: {
+            type: FileList,
+            default: null
+        },
         placeholder: {
             type: String,
             default: null
@@ -123,12 +127,16 @@ export const RichTextarea = {
     },
     data: function() {
         return {
-            valueData: this.value
+            valueData: this.value,
+            attachmentsData: this.attachments 
         };
     },
     watch: {
         value(value) {
             this.valueData = value;
+        },
+        attachments(value) {
+            this.attachmentsData = value;
         },
         valueData(value) {
             this.$emit("update:value", value);
@@ -143,6 +151,9 @@ export const RichTextarea = {
         }
     },
     methods: {
+        emitUpdateAttachments(value) {
+            this.$emit("update:attachments", value);
+        },
         focusTextarea() {
             this.$refs.textarea.focus();
         },
@@ -153,8 +164,7 @@ export const RichTextarea = {
             this.$refs.attachmentsInput.click();
         },
         onAttachmentsInputChange() {
-            console.log("Attachments Input Change");
-            console.log(this.$refs.attachmentsInput.files);
+            this.emitUpdateAttachments(this.$refs.attachmentsInput.files);
         },
         onSmileClick() {
             this.$emit("click:smile");
