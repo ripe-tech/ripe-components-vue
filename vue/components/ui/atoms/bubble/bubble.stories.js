@@ -50,5 +50,6 @@ storiesOf("atoms", module)
                     </div>
                 </bubble>
                 <p style="text-align:center;">Visible: {{ visibleData }}</p>
-            </div>`
+            </div>
+        `
     }));
