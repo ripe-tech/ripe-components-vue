@@ -15,7 +15,7 @@
             </div>
 
             <div class="chat-files-container">
-                <attachments-list v-bind:attachments="allAttachments" v-bind:height="306" />
+                <attachments v-bind:attachments="allAttachments" v-bind:height="306" />
             </div>
         </div>
         <div class="chat-input-container" v-on:keyup.enter.exact="onEnter()">
