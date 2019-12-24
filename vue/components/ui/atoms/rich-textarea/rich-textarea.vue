@@ -110,8 +110,8 @@ export const RichTextarea = {
             default: null
         },
         attachments: {
-            type: FileList,
-            default: null
+            type: Array,
+            default: () => []
         },
         placeholder: {
             type: String,
@@ -173,7 +173,10 @@ export const RichTextarea = {
             this.$refs.attachmentsInput.click();
         },
         onAttachmentsInputChange() {
-            this.emitUpdateAttachments(this.$refs.attachmentsInput.files);
+            if(!this.attachmentsData.length) this.attachmentsData = [...this.$refs.attachmentsInput.files];
+            else this.attachmentsData = this.attachmentsData.concat([...this.$refs.attachmentsInput.files]);
+            
+            this.emitUpdateAttachments(this.attachmentsData);
         },
         onSmileClick() {
             this.$emit("click:smile");
