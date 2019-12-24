@@ -39,6 +39,7 @@
     letter-spacing: 0.7px;
     line-height: 42px;
     padding: 0px 20px 0px 20px;
+    transition: background-color 0.15s ease-in-out;
 }
 
 .attachments .attachments-list {
@@ -61,8 +62,12 @@
     border-bottom: none;
 }
 
+.attachments .attachments-list .attachment:hover {
+    background-color: $white;
+}
+
 .attachments .attachments-list .attachment:active {
-    background-color: $lighter-grey;
+    background-color: $white;
 }
 
 .attachments .attachments-list .attachment .link {
