@@ -9,11 +9,11 @@
             <div class="container-header">
                 <div class="container-header-right">
                     <slot name="icons" />
-                    <loader loader="ball-scale-multiple" class="loader-header" />
                     <search
                         v-bind:width="isMobileWidth() ? null : searchWidth"
                         v-bind:placeholder="filterText ? filterText : `Search ${name}`"
                         v-bind:value.sync="filter"
+                        v-bind:loading="loading"
                     />
                 </div>
                 <h1 class="title" v-if="titleText">{{ titleText }}</h1>
@@ -96,34 +96,6 @@
 
 .listing {
     box-sizing: border-box;
-}
-
-.listing ::v-deep .loader {
-    opacity: 0;
-    pointer-events: none;
-}
-
-.listing.loading ::v-deep .loader {
-    opacity: 1;
-}
-
-.listing .loader.loader-header {
-    left: 63px;
-    top: 18px;
-}
-
-.listing .loader.loader-header ::v-deep div {
-    height: 20px;
-    width: 20px;
-}
-
-.listing.loading.empty ::v-deep .loader.loader-bottom {
-    margin: 76px 0px 76px 0px;
-}
-
-.listing .container-header-right .loader {
-    display: inline-block;
-    vertical-align: middle;
 }
 
 .listing.loading .container-header-right .search ::v-deep svg {

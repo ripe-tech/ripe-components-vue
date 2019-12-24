@@ -9,7 +9,8 @@
         ]"
     >
         <global-events v-on:keydown.esc="blur()" />
-        <slot name="icon">
+        <loader loader="ball-scale-multiple" v-if="loading" />
+        <slot name="icon" v-else>
             <svg
                 focusable="false"
                 height="24px"
@@ -39,11 +40,11 @@
                 <div
                     class="suggestion"
                     v-for="suggestion in suggestions"
-                    v-bind:key="suggestion.id"
+                    v-bind:key="suggestion.value"
                 >
                     <slot name="suggestion" v-bind:suggestion="suggestion">
                         <router-link v-bind:to="suggestion.link">
-                            <span>{{ suggestion.text }}</span>
+                            <span>{{ suggestion.label || suggestion.value }}</span>
                         </router-link>
                     </slot>
                 </div>
@@ -61,6 +62,16 @@
     height: 34px;
     line-height: 34px;
     width: 100%;
+}
+
+.search > .loader {
+    left: 38px;
+    top: 38px;
+}
+
+.search > .loader ::v-deep div {
+    height: 20px;
+    width: 20px;
 }
 
 .search > svg {
@@ -92,7 +103,6 @@
     border: 1px solid $border-color;
     border-radius: 5px;
     font-size: 15px;
-    margin-left: 24px;
     margin-top: -2px;
     overflow: hidden;
 }
@@ -157,6 +167,10 @@ export const Search = {
         width: {
             type: Number,
             default: null
+        },
+        loading: {
+            type: Boolean,
+            default: false
         }
     },
     data: function() {
