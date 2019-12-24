@@ -88,7 +88,7 @@ export const Filter = {
         },
         values: {
             type: Array,
-            required: true
+            default: () => []
         },
         limit: {
             type: Number,
