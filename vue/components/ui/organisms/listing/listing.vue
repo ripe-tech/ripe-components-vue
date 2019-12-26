@@ -38,11 +38,13 @@
                                 {{ item.label }}
                             </div>
                         </template>
-                        <button-color
-                            v-bind:text="'Save Filter'"
-                            v-bind:icon="'save'"
-                            v-on:click="openSaveFilterClick"
-                        />
+                        <template v-slot:save_filter_option>
+                            <button-color
+                                v-bind:text="'Save Filter'"
+                                v-bind:icon="'save'"
+                                v-on:click="onSaveFilterButtonClick"
+                            />
+                        </template>
                     </select-ripe>
                 </div>
                 <h1 class="title" v-if="titleText">{{ titleText }}</h1>
@@ -163,14 +165,12 @@ body.mobile .container-header-right {
     vertical-align: middle;
 }
 
-.container-header-right ::v-deep .select {
+.container-header-right .select {
     width: 80px;
     text-align: left;
 }
 
-.container-header-right ::v-deep .select .dropdown-container {
-    display: inline-block;
-    vertical-align: middle;
+.container-header-right .select ::v-deep .dropdown-container {
     width: 200px;
 }
 
@@ -329,6 +329,9 @@ export const Listing = {
         },
         isFilterSelected(item) {
             return true;
+        },
+        onSaveFilterButtonClick() {
+            console.log("Save filter button clicked");
         }
     },
     beforeRouteUpdate: function(to, from, next) {
