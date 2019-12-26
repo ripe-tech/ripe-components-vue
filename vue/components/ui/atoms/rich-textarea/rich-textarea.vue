@@ -12,7 +12,12 @@
             ref="textarea"
         />
         <div class="options">
-            <div class="selected-attachment-container" v-for="(attachment, index) in attachmentsData" v-bind:key="index"  v-bind:title="attachment.name">                    
+            <div
+                class="selected-attachment-container"
+                v-bind:title="attachment.name"
+                v-for="(attachment, index) in attachmentsData"
+                v-bind:key="index"
+            >
                 <div class="selected-attachment-name">
                     {{ attachment.name }}
                 </div>
@@ -22,7 +27,13 @@
                     v-bind:icon="'close'"
                 />
             </div>
-            <input type="file" ref="attachmentsInput" v-on:change="onAttachmentsInputChange()" multiple hidden>
+            <input
+                type="file"
+                multiple
+                hidden
+                ref="attachmentsInput"
+                v-on:change="onAttachmentsInputChange()"
+            />
             <button-icon
                 class="button-attachment"
                 v-bind:disabled="disabled"
@@ -86,21 +97,21 @@
 }
 
 .rich-textarea .options .selected-attachment-container {
+    background-color: $white;
     border: 1px solid $light-white;
     display: flex;
-    line-height: 20px;
     height: 20px;
+    line-height: 20px;
     width: 33%;
-    background-color: $white;
 }
 
 .rich-textarea .options .selected-attachment-container .selected-attachment-name {
-    flex: 1 0;
     cursor: default;
+    flex: 1 0;
     font-size: 11px;
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .rich-textarea.border-strong .options {
@@ -156,7 +167,7 @@ export const RichTextarea = {
     data: function() {
         return {
             valueData: this.value,
-            attachmentsData: this.attachments 
+            attachmentsData: this.attachments
         };
     },
     watch: {
@@ -192,9 +203,13 @@ export const RichTextarea = {
             this.$refs.attachmentsInput.click();
         },
         onAttachmentsInputChange() {
-            if(!this.attachmentsData.length) this.attachmentsData = [...this.$refs.attachmentsInput.files];
-            else this.attachmentsData = this.attachmentsData.concat([...this.$refs.attachmentsInput.files]);
-            
+            if (!this.attachmentsData.length)
+                { this.attachmentsData = [...this.$refs.attachmentsInput.files]; }
+            else
+                { this.attachmentsData = this.attachmentsData.concat([
+                    ...this.$refs.attachmentsInput.files
+                ]); }
+
             this.emitUpdateAttachments(this.attachmentsData);
         },
         onSmileClick() {
