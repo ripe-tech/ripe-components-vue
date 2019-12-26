@@ -15,6 +15,16 @@
                         v-bind:value.sync="filter"
                         v-bind:loading="loading"
                     />
+                    <select-ripe
+                        v-bind:placeholder="'Filter'"
+                        v-bind:options="persistentFilters"
+                        v-bind:value.sync="filter"
+                        v-if="hasPersistentFilters"
+                    >
+                        <template v-slot="{ item, index }">
+                            <slot v-bind:item="item" v-bind:index="index" />
+                        </template>
+                    </select-ripe>
                 </div>
                 <h1 class="title" v-if="titleText">{{ titleText }}</h1>
                 <h1 class="title" v-else>
@@ -122,12 +132,28 @@
 
 .container-header-right {
     float: right;
-    text-align: right;
 }
 
 body.mobile .container-header-right {
     float: none;
     width: 100%;
+}
+
+.container-header-right > * {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.container-header-right ::v-deep .select {
+    width: 80px;
+    text-align: left;
+}
+
+.container-header-right ::v-deep .select .dropdown-container {
+    display: inline-block;
+    vertical-align: middle;
+    width: 200px;
+    right: 149px;
 }
 
 .listing .filter-ripe ::v-deep table {
@@ -231,6 +257,14 @@ export const Listing = {
         searchWidth: {
             type: Number,
             default: 304
+        },
+        hasPersistentFilters: {
+            type: Boolean,
+            default: false
+        },
+        persistentFilters: {
+            type: Array,
+            default: []
         }
     },
     data: function() {

@@ -29,7 +29,11 @@
                 ref="dropdown"
                 v-on:update:highlighted="onDropdownHighlighted"
                 v-on:item-clicked="value => onDropdownSelect(value.value)"
-            />
+            >
+                <template v-slot="{ item, index }">
+                    <slot v-bind:item="item" v-bind:index="index" />
+                </template>
+            </dropdown>
         </div>
         <select
             class="dropdown-select"
