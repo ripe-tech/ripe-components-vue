@@ -22,9 +22,10 @@
                     {{ attachment.name }}
                 </div>
                 <button-icon
-                    class="button-close-attachment"
+                    class="button-remove-attachment"
                     v-bind:size="20"
                     v-bind:icon="'close'"
+                    v-on:click="onRemoveAttachmentButtonClick(index)"
                 />
             </div>
             <input
@@ -196,8 +197,15 @@ export const RichTextarea = {
         focusTextarea() {
             this.$refs.textarea.focus();
         },
+        removeAttachment(index) {
+            this.attachmentsData.splice(index, 1);
+        },
         onClick() {
             this.focusTextarea();
+        },
+        onRemoveAttachmentButtonClick(index) {
+            this.removeAttachment();
+            this.emitUpdateAttachments(this.attachmentsData);
         },
         onAttachmentClick() {
             this.$refs.attachmentsInput.click();
