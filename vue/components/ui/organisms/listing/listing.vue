@@ -21,9 +21,16 @@
                         v-bind:value.sync="filter"
                         v-if="hasPersistentFilters"
                     >
-                        <template v-slot="{ item, index }">
+                        <slot
+                            v-bind:item="item"
+                            v-bind:index="index"
+                            v-bind:name="name"
+                            v-for="(_, name) in $slots"
+                            v-bind:slot="name"
+                        />
+                        <!-- <template v-slot="{ item, index }">
                             <slot v-bind:item="item" v-bind:index="index" />
-                        </template>
+                        </template> -->
                     </select-ripe>
                 </div>
                 <h1 class="title" v-if="titleText">{{ titleText }}</h1>
@@ -153,7 +160,6 @@ body.mobile .container-header-right {
     display: inline-block;
     vertical-align: middle;
     width: 200px;
-    right: 149px;
 }
 
 .listing .filter-ripe ::v-deep table {
