@@ -211,12 +211,13 @@ export const RichTextarea = {
             this.$refs.attachmentsInput.click();
         },
         onAttachmentsInputChange() {
-            if (!this.attachmentsData.length)
-                { this.attachmentsData = [...this.$refs.attachmentsInput.files]; }
-            else
-                { this.attachmentsData = this.attachmentsData.concat([
+            if (!this.attachmentsData.length) {
+                this.attachmentsData = [...this.$refs.attachmentsInput.files];
+            } else {
+                this.attachmentsData = this.attachmentsData.concat([
                     ...this.$refs.attachmentsInput.files
-                ]); }
+                ]);
+            }
 
             this.emitUpdateAttachments(this.attachmentsData);
         },
