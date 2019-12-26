@@ -21,16 +21,28 @@
                         v-bind:value.sync="filter"
                         v-if="hasPersistentFilters"
                     >
-                        <slot
-                            v-bind:item="item"
-                            v-bind:index="index"
-                            v-bind:name="name"
-                            v-for="(_, name) in $slots"
-                            v-bind:slot="name"
+                        <template
+                            v-for="(item, index) in persistentFilters"
+                            v-bind:slot="item.value"
+                        >
+                            <div
+                                class="filter-item"
+                                v-if="isFilterSelected(item)"
+                                v-bind:key="index"
+                            >
+                                <p>{{ item.label }}</p>
+                                <button-icon v-bind:icon="'save'" />
+                                <button-icon v-bind:icon="'bin'" />
+                            </div>
+                            <div class="filter-item" v-else v-bind:key="index">
+                                {{ item.label }}
+                            </div>
+                        </template>
+                        <button-color
+                            v-bind:text="'Save Filter'"
+                            v-bind:icon="'save'"
+                            v-on:click="openSaveFilterClick"
                         />
-                        <!-- <template v-slot="{ item, index }">
-                            <slot v-bind:item="item" v-bind:index="index" />
-                        </template> -->
                     </select-ripe>
                 </div>
                 <h1 class="title" v-if="titleText">{{ titleText }}</h1>
@@ -314,6 +326,9 @@ export const Listing = {
         },
         getFilter() {
             return this.$refs.filter;
+        },
+        isFilterSelected(item) {
+            return true;
         }
     },
     beforeRouteUpdate: function(to, from, next) {
