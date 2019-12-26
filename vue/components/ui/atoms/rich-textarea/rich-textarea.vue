@@ -12,10 +12,15 @@
             ref="textarea"
         />
         <div class="options">
-            <div class="selected-attachments-container">                    
-                <div v-for="(attachment, index) in attachmentsData" v-bind:key="index">
+            <div class="selected-attachment-container" v-for="(attachment, index) in attachmentsData" v-bind:key="index"  v-bind:title="attachment.name">                    
+                <div class="selected-attachment-name">
                     {{ attachment.name }}
                 </div>
+                <button-icon
+                    class="button-close-attachment"
+                    v-bind:size="20"
+                    v-bind:icon="'close'"
+                />
             </div>
             <input type="file" ref="attachmentsInput" v-on:change="onAttachmentsInputChange()" multiple hidden>
             <button-icon
@@ -80,8 +85,22 @@
     padding: 6px 12px 6px 12px;
 }
 
-.rich-textarea .options .selected-attachments-container{
-    font-size: 14px;
+.rich-textarea .options .selected-attachment-container {
+    border: 1px solid $light-white;
+    display: flex;
+    line-height: 20px;
+    height: 20px;
+    width: 33%;
+    background-color: $white;
+}
+
+.rich-textarea .options .selected-attachment-container .selected-attachment-name {
+    flex: 1 0;
+    cursor: default;
+    font-size: 11px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .rich-textarea.border-strong .options {
