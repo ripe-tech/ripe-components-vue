@@ -376,7 +376,7 @@ export const Listing = {
             return this.$refs.filter;
         },
         isFilterSelected(item) {
-            return true;
+            return(item.value === this.filter);
         },
         onSelectedFilterSaveButtonClick() {
             console.log("Selected filter Save button clicked");
