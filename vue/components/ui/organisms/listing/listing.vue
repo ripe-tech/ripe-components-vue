@@ -7,7 +7,10 @@
         />
         <container-ripe>
             <div class="container-header">
-                <div class="container-header-right">
+                <div
+                    class="container-header-right"
+                    v-bind:class="{ hasPersistentFilters: hasPersistentFilters }"
+                >
                     <slot name="icons" />
                     <search
                         v-bind:width="isMobileWidth() ? null : searchWidth"
@@ -171,6 +174,15 @@
     font-size: 0px;
 }
 
+.container-header-right.hasPersistentFilters .search ::v-deep .input {
+    border-radius: 6px 0px 0px 6px;
+    border-right: none;
+}
+
+.container-header-right.hasPersistentFilters .search ::v-deep .input:focus {
+    border-right: 1px solid $aqcua-blue;
+}
+
 body.mobile .container-header-right {
     float: none;
     width: 100%;
@@ -186,10 +198,16 @@ body.mobile .container-header-right {
     width: 100px;
 }
 
+.container-header-right .select ::v-deep .select-container .select-button {
+    border-radius: 0px 6px 6px 0px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
 .container-header-right .select.filterSelected ::v-deep .select-container .select-button {
     background-color: $dark;
-    color: $white;
     background-image: url("~./assets/chevron-down-white.svg");
+    color: $white;
 }
 
 .container-header-right .select ::v-deep .dropdown-container {
@@ -363,7 +381,9 @@ export const Listing = {
     },
     watch: {
         filterValueData(value) {
-            this.filter = this.persistentFilters.find(filter => filter.value === this.filterValueData).filter;
+            this.filter = this.persistentFilters.find(
+                filter => filter.value === this.filterValueData
+            ).filter;
         }
     },
     methods: {
