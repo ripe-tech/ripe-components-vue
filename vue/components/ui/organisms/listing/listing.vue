@@ -35,23 +35,26 @@
                                     <button-icon
                                         v-bind:icon="'save'"
                                         v-on:click.native.stop="onSelectedFilterSaveButtonClick()"
-                                        />
+                                    />
                                     <button-icon
                                         v-bind:icon="'bin'"
                                         v-on:click.native.stop="onSelectedFilterDeleteButtonClick()"
                                     />
-                            </div>
+                                </div>
                             </div>
                             <div class="filter-item" v-else v-bind:key="index">
                                 {{ item.label }}
                             </div>
                         </template>
                         <template v-slot:save_filter_option>
-                        <button-color 
-                            v-bind:text="'Save Filter'"
-                            v-bind:icon="'save'"
-                            v-on:click.native.stop="onSaveFilterButtonClick()"
-                        />
+                            <button-color
+                                class="save-filter-button"
+                                v-bind:text="'Save Filter'"
+                                v-bind:secondary="true"
+                                v-bind:alignment="'left'"
+                                v-bind:icon="'add'"
+                                v-on:click.native.stop="onSaveFilterButtonClick()"
+                            />
                         </template>
                     </select-ripe>
                 </div>
@@ -183,22 +186,34 @@ body.mobile .container-header-right {
     width: 200px;
 }
 
-.container-header-right .select ::v-deep .dropdown-container .dropdown{
+.container-header-right .select ::v-deep .dropdown-container .dropdown {
     margin: 0px 100px 0px -100px;
+}
+
+.container-header-right .select ::v-deep .dropdown-container .dropdown li:last-child {
+    margin: 11px 0px 0px 0px;
 }
 
 .container-header-right .select .filter-item {
     font-size: 14px;
-    line-height: 32px;
     letter-spacing: 0.3px;
+    line-height: 32px;
 }
 
 .container-header-right .select .filter-item .selected-filter-item-buttons {
     float: right;
-    margin: 0px 15px 0px 0px;
     font-size: 0px;
+    margin: 0px 5px 0px 0px;
 }
 
+.container-header-right .select .filter-item .selected-filter-item-buttons .button {
+    margin: 0px 1px 0px 1px;
+}
+
+.save-filter-button {
+    border-radius: 0px 0px 0px 0px;
+    box-sizing: unset;
+}
 
 .listing .filter-ripe ::v-deep table {
     margin-bottom: 0px;
