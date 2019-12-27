@@ -239,28 +239,28 @@ body.mobile .container-header-right {
     border: none;
 }
 
-.selected-filter-item {
-    background-color: $dark;
-    color: $white;
-    height: 32px;
-}
-
-.filter-label {
-    padding: 0px 0px 0px 16px;
+.container-header-right .select .filter-label {
     overflow: hidden;
+    padding: 0px 0px 0px 16px;
     text-overflow: ellipsis;
     white-space: nowrap;
-}
-
-.selected-filter-item ::v-deep .filter-label {
-    display: inline-block;
-    width: 110px;
 }
 
 .container-header-right .select .filter-item {
     font-size: 14px;
     letter-spacing: 0.3px;
     line-height: 32px;
+}
+
+.container-header-right .select .selected-filter-item {
+    background-color: $dark;
+    color: $white;
+    height: 32px;
+}
+
+.container-header-right .select .selected-filter-item .filter-label {
+    display: inline-block;
+    width: 110px;
 }
 
 .container-header-right .select .filter-item .selected-filter-item-buttons {
