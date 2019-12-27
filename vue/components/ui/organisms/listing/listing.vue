@@ -30,26 +30,29 @@
                                 v-if="isFilterSelected(item)"
                                 v-bind:key="index"
                             >
-                                <p>{{ item.label }}</p>
-                                <button-icon
-                                    v-bind:icon="'save'"
-                                    v-on:click.native.stop="onSelectedFilterSaveButtonClick()"
-                                />
-                                <button-icon
-                                    v-bind:icon="'bin'"
-                                    v-on:click.native.stop="onSelectedFilterDeleteButtonClick()"
-                                />
+                                {{ item.label }}
+                                <div class="selected-filter-item-buttons">
+                                    <button-icon
+                                        v-bind:icon="'save'"
+                                        v-on:click.native.stop="onSelectedFilterSaveButtonClick()"
+                                        />
+                                    <button-icon
+                                        v-bind:icon="'bin'"
+                                        v-on:click.native.stop="onSelectedFilterDeleteButtonClick()"
+                                    />
+                            </div>
                             </div>
                             <div class="filter-item" v-else v-bind:key="index">
                                 {{ item.label }}
                             </div>
                         </template>
-                        <button-color
+                        <template v-slot:save_filter_option>
+                        <button-color 
                             v-bind:text="'Save Filter'"
                             v-bind:icon="'save'"
-                            v-slot:save_filter_option
                             v-on:click.native.stop="onSaveFilterButtonClick()"
                         />
+                        </template>
                     </select-ripe>
                 </div>
                 <h1 class="title" v-if="titleText">{{ titleText }}</h1>
@@ -173,12 +176,29 @@ body.mobile .container-header-right {
 
 .container-header-right .select {
     text-align: left;
-    width: 80px;
+    width: 100px;
 }
 
 .container-header-right .select ::v-deep .dropdown-container {
     width: 200px;
 }
+
+.container-header-right .select ::v-deep .dropdown-container .dropdown{
+    margin: 0px 100px 0px -100px;
+}
+
+.container-header-right .select .filter-item {
+    font-size: 14px;
+    line-height: 32px;
+    letter-spacing: 0.3px;
+}
+
+.container-header-right .select .filter-item .selected-filter-item-buttons {
+    float: right;
+    margin: 0px 15px 0px 0px;
+    font-size: 0px;
+}
+
 
 .listing .filter-ripe ::v-deep table {
     margin-bottom: 0px;
