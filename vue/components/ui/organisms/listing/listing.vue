@@ -456,15 +456,28 @@ export const Listing = {
         isSelectedFilterItem(item) {
             return item.value === this.filterValueData;
         },
-        onSelectedFilterSaveButtonClick() {
+        async onSelectedFilterSaveButtonClick() {
             //TODO
+             await this.alertMessage("test save changes message", {
+                task: async (alert, component) => {
+                    //TODO
+                }
+            });
+
             console.log("Selected filter Save button clicked");
         },
-        onSelectedFilterDeleteButtonClick() {
+        async onSelectedFilterDeleteButtonClick() {
             //TODO
+            await this.alertMessage("test delete message", {
+                task: async (alert, component) => {
+                    //TODO
+                }
+            });
+
             console.log("Selected filter Delete button clicked");
         },
         async onSaveFilterButtonClick() {
+            //TODO fix import issues, this is currently not working...
             await this.saveFilter();
         }
     },
