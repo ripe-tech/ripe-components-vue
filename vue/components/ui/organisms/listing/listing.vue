@@ -34,7 +34,7 @@
                                 v-if="isSelectedFilterItem(item)"
                                 v-bind:key="index"
                             >
-                                {{ item.label }}
+                                <div class="filter-label">{{ item.label }}</div>
                                 <div class="selected-filter-item-buttons">
                                     <button-icon
                                         v-bind:icon="'save'"
@@ -195,7 +195,6 @@ body.mobile .container-header-right {
 
 .container-header-right .select {
     text-align: left;
-    width: 100px;
 }
 
 .container-header-right .select ::v-deep .select-container .select-button {
@@ -230,7 +229,17 @@ body.mobile .container-header-right {
 .selected-filter-item {
     background-color: $dark;
     color: $white;
+    height: 32px;
 }
+
+.selected-filter-item ::v-deep .filter-label{
+    width: 110px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+
 
 .container-header-right .select .filter-item {
     font-size: 14px;
