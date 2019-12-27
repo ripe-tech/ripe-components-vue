@@ -173,6 +173,7 @@
 body.mobile .container-header-right {
     float: none;
     width: 100%;
+    font-size: 0px;
 }
 
 .container-header-right > * {
