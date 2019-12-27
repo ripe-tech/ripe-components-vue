@@ -185,6 +185,12 @@ body.mobile .container-header-right {
     width: 100px;
 }
 
+.container-header-right .select.filterSelected ::v-deep .select-container .select-button {
+    background-color: $dark;
+    color: $white;
+    background-image: url("~./assets/chevron-down-white.svg");
+}
+
 .container-header-right .select ::v-deep .dropdown-container {
     width: 200px;
 }
