@@ -189,11 +189,16 @@ body.mobile .container-header-right {
 }
 
 .container-header-right .select ::v-deep .dropdown-container .dropdown {
+    background-color: $white;
     margin: 0px 100px 0px -100px;
 }
 
 .container-header-right .select ::v-deep .dropdown-container .dropdown li:last-child {
     margin: 11px 0px 0px 0px;
+}
+
+.container-header-right .select ::v-deep .dropdown-container .dropdown li:last-child .button {
+    border: none;
 }
 
 .selected-filter-item {
