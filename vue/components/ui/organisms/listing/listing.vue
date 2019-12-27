@@ -246,6 +246,7 @@ body.mobile .container-header-right {
 }
 
 .filter-label {
+    padding: 0px 0px 0px 16px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
