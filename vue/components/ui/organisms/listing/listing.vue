@@ -218,12 +218,16 @@ body.mobile .container-header-right {
 }
 
 .container-header-right .select ::v-deep .dropdown-container {
-    width: 200px;
+    float: right;
+    height: 0px;
+    margin-top: 0px;
+    max-width: 0px;
+    position: relative;
+    right: 0px;
 }
 
 .container-header-right .select ::v-deep .dropdown-container .dropdown {
     background-color: $white;
-    margin: 0px 100px 0px -100px;
 }
 
 .container-header-right .select ::v-deep .dropdown-container .dropdown li:last-child {
