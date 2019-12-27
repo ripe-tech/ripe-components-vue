@@ -16,6 +16,7 @@
                         v-bind:loading="loading"
                     />
                     <select-ripe
+                        v-bind:class="{ filterSelected: isFilterSelected }"
                         v-bind:placeholder="'Filter'"
                         v-bind:options="persistentFilters"
                         v-bind:value.sync="filterValueData"
@@ -27,7 +28,7 @@
                         >
                             <div
                                 class="filter-item selected-filter-item"
-                                v-if="isFilterSelected(item)"
+                                v-if="isSelectedFilterItem(item)"
                                 v-bind:key="index"
                             >
                                 {{ item.label }}
@@ -348,9 +349,13 @@ export const Listing = {
             visibleLightbox: null
         };
     },
+    computed: {
+        isFilterSelected() {
+            return this.filterValueData !== null;
+        }
+    },
     watch: {
-        value(value) {
-            this.filterValueData = value;
+        filterValueData(value) {
             this.filter = this.persistentFilters.find(filter => filter.value === this.filterValueData).filter;
         }
     },
@@ -387,7 +392,7 @@ export const Listing = {
         getFilter() {
             return this.$refs.filter;
         },
-        isFilterSelected(item) {
+        isSelectedFilterItem(item) {
             return item.value === this.filterValueData;
         },
         onSelectedFilterSaveButtonClick() {
