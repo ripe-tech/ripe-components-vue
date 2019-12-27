@@ -31,25 +31,31 @@
                                 v-bind:key="index"
                             >
                                 <p>{{ item.label }}</p>
-                                <button-icon v-bind:icon="'save'" />
-                                <button-icon v-bind:icon="'bin'" />
+                                <button-icon
+                                    v-bind:icon="'save'"
+                                    v-on:click.native.stop="onSelectedFilterSaveButtonClick()"
+                                />
+                                <button-icon
+                                    v-bind:icon="'bin'"
+                                    v-on:click.native.stop="onSelectedFilterDeleteButtonClick()"
+                                />
                             </div>
                             <div class="filter-item" v-else v-bind:key="index">
                                 {{ item.label }}
                             </div>
                         </template>
-                        <template v-slot:save_filter_option>
-                            <button-color
-                                v-bind:text="'Save Filter'"
-                                v-bind:icon="'save'"
-                                v-on:click="onSaveFilterButtonClick"
-                            />
-                        </template>
+                        <button-color
+                            v-bind:text="'Save Filter'"
+                            v-bind:icon="'save'"
+                            v-slot:save_filter_option
+                            v-on:click.native.stop="onSaveFilterButtonClick()"
+                        />
                     </select-ripe>
                 </div>
                 <h1 class="title" v-if="titleText">{{ titleText }}</h1>
                 <h1 class="title" v-else>
-                    Your <span class="name">{{ name }}</span>
+                    Your
+                    <span class="name">{{ name }}</span>
                 </h1>
             </div>
             <filter-ripe
@@ -166,8 +172,8 @@ body.mobile .container-header-right {
 }
 
 .container-header-right .select {
-    width: 80px;
     text-align: left;
+    width: 80px;
 }
 
 .container-header-right .select ::v-deep .dropdown-container {
@@ -329,6 +335,12 @@ export const Listing = {
         },
         isFilterSelected(item) {
             return true;
+        },
+        onSelectedFilterSaveButtonClick() {
+            console.log("Selected filter Save button clicked");
+        },
+        onSelectedFilterDeleteButtonClick() {
+            console.log("Selected filter Delete button clicked");
         },
         onSaveFilterButtonClick() {
             console.log("Save filter button clicked");

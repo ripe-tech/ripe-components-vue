@@ -340,7 +340,9 @@ export const Select = {
     },
     computed: {
         buttonText() {
-            return this.valueData && this.options.length ? this.options[this.valueIndex].label : this.placeholder;
+            return this.valueData && this.options.length
+                ? this.options[this.valueIndex].label
+                : this.placeholder;
         },
         valueIndex() {
             return this.options.findIndex(option => option.value === this.valueData);
