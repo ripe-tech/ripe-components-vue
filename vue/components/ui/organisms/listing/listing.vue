@@ -26,7 +26,7 @@
                             v-bind:slot="item.value"
                         >
                             <div
-                                class="filter-item"
+                                class="filter-item selected-filter-item"
                                 v-if="isFilterSelected(item)"
                                 v-bind:key="index"
                             >
@@ -192,6 +192,11 @@ body.mobile .container-header-right {
 
 .container-header-right .select ::v-deep .dropdown-container .dropdown li:last-child {
     margin: 11px 0px 0px 0px;
+}
+
+.selected-filter-item {
+    background-color: $dark;
+    color: $white;
 }
 
 .container-header-right .select .filter-item {
