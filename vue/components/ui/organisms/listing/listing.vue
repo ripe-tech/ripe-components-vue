@@ -18,7 +18,7 @@
                     <select-ripe
                         v-bind:placeholder="'Filter'"
                         v-bind:options="persistentFilters"
-                        v-bind:value.sync="filterValue"
+                        v-bind:value.sync="filterValueData"
                         v-if="hasPersistentFilters"
                     >
                         <template
@@ -342,15 +342,16 @@ export const Listing = {
         return {
             items: [],
             filter: this.context.filter,
-            filterValue: null,
+            filterValueData: null,
             filterOptions: null,
             loading: false,
             visibleLightbox: null
         };
     },
     watch: {
-        filterValue(value) {
-            this.filter = this.persistentFilters.find(filter => filter.value === value).filter;
+        value(value) {
+            this.filterValueData = value;
+            this.filter = this.persistentFilters.find(filter => filter.value === this.filterValueData).filter;
         }
     },
     methods: {
@@ -387,7 +388,7 @@ export const Listing = {
             return this.$refs.filter;
         },
         isFilterSelected(item) {
-            return item.value === this.filterValue;
+            return item.value === this.filterValueData;
         },
         onSelectedFilterSaveButtonClick() {
             console.log("Selected filter Save button clicked");
