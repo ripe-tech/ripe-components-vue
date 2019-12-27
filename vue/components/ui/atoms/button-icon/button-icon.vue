@@ -81,7 +81,7 @@ export const ButtonIcon = {
     },
     computed: {
         iconPath() {
-            const iconColor = this.color === 'inverted' ? 'white' : 'black';
+            const iconColor = this.color === "inverted" ? "white" : "black";
 
             return require(`./../../../../assets/icons/${iconColor}/${this.icon}.svg`);
         },
