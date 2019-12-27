@@ -228,6 +228,7 @@ body.mobile .container-header-right {
 
 .container-header-right .select ::v-deep .dropdown-container .dropdown {
     background-color: $white;
+    margin: 0px 0px 0px -200px;
 }
 
 .container-header-right .select ::v-deep .dropdown-container .dropdown li:last-child {
