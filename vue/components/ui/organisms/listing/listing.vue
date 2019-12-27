@@ -31,10 +31,13 @@
                         >
                             <div
                                 class="filter-item selected-filter-item"
+                                v-bind:title="item.label"
                                 v-if="isSelectedFilterItem(item)"
                                 v-bind:key="index"
                             >
-                                <div class="filter-label">{{ item.label }}</div>
+                                <div class="filter-label">
+                                    {{ item.label }}
+                                </div>
                                 <div class="selected-filter-item-buttons">
                                     <button-icon
                                         v-bind:icon="'save'"
@@ -48,7 +51,12 @@
                                     />
                                 </div>
                             </div>
-                            <div class="filter-item" v-else v-bind:key="index">
+                            <div
+                                class="filter-item filter-label"
+                                v-bind:title="item.label"
+                                v-else
+                                v-bind:key="index"
+                            >
                                 {{ item.label }}
                             </div>
                         </template>
@@ -232,14 +240,16 @@ body.mobile .container-header-right {
     height: 32px;
 }
 
-.selected-filter-item ::v-deep .filter-label{
-    width: 110px;
+.filter-label {
     overflow: hidden;
-    white-space: nowrap;
     text-overflow: ellipsis;
-    display: inline-block;
+    white-space: nowrap;
 }
 
+.selected-filter-item ::v-deep .filter-label {
+    display: inline-block;
+    width: 110px;
+}
 
 .container-header-right .select .filter-item {
     font-size: 14px;
