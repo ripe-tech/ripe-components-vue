@@ -331,6 +331,7 @@ input[type="text"]:focus {
 
 <script>
 import { filterMixin, partMixin, utilsMixin, scrollMixin } from "../../../../mixins";
+import { SaveFilterModal } from "./save-filter-modal.vue";
 
 export const Listing = {
     name: "listing",
@@ -441,6 +442,14 @@ export const Listing = {
         async refresh() {
             await this.getFilter().refresh();
         },
+        async saveFilter() {
+            await this.alertComponent(SaveFilterModal, {
+                task: async (alert, component) => {
+                    //TODO save filter
+                    console.log("Save modal");
+                }
+            });
+        },
         getFilter() {
             return this.$refs.filter;
         },
@@ -448,13 +457,15 @@ export const Listing = {
             return item.value === this.filterValueData;
         },
         onSelectedFilterSaveButtonClick() {
+            //TODO
             console.log("Selected filter Save button clicked");
         },
         onSelectedFilterDeleteButtonClick() {
+            //TODO
             console.log("Selected filter Delete button clicked");
         },
-        onSaveFilterButtonClick() {
-            console.log("Save filter button clicked");
+        async onSaveFilterButtonClick() {
+            await this.saveFilter();
         }
     },
     beforeRouteUpdate: function(to, from, next) {
