@@ -168,12 +168,12 @@
 
 .container-header-right {
     float: right;
+    font-size: 0px;
 }
 
 body.mobile .container-header-right {
     float: none;
     width: 100%;
-    font-size: 0px;
 }
 
 .container-header-right > * {
