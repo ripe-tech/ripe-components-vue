@@ -34,10 +34,12 @@
                                 <div class="selected-filter-item-buttons">
                                     <button-icon
                                         v-bind:icon="'save'"
+                                        v-bind:color="'inverted'"
                                         v-on:click.native.stop="onSelectedFilterSaveButtonClick()"
                                     />
                                     <button-icon
                                         v-bind:icon="'bin'"
+                                        v-bind:color="'inverted'"
                                         v-on:click.native.stop="onSelectedFilterDeleteButtonClick()"
                                     />
                                 </div>
