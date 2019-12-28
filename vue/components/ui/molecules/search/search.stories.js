@@ -1,10 +1,20 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, boolean } from "@storybook/addon-knobs";
+import { withKnobs, boolean, select } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Search", () => ({
         props: {
+            variant: {
+                default: select(
+                    "Variant",
+                    {
+                        Unset: null,
+                        Dark: "dark"
+                    },
+                    null
+                )
+            },
             iconVisible: {
                 default: boolean("Icon Visible", true)
             },
@@ -80,6 +90,7 @@ storiesOf("Molecules", module)
         },
         template: `
             <search
+                v-bind:variant="variant"
                 v-bind:icon-visible="iconVisible"
                 v-bind:loading="loading"
                 v-bind:suggestions="suggestions"

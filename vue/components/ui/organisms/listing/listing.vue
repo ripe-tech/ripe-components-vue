@@ -10,6 +10,7 @@
                 <div class="container-header-right">
                     <slot name="icons" />
                     <search
+                        v-bind:variant="'dark'"
                         v-bind:width="isMobileWidth() ? null : searchWidth"
                         v-bind:placeholder="filterText ? filterText : `Search ${name}`"
                         v-bind:value.sync="filter"

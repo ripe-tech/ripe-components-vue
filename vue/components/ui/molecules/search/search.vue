@@ -26,6 +26,7 @@
             </svg>
         </slot>
         <input-ripe
+            v-bind:variant="variant"
             v-bind:value="value"
             v-bind:placeholder="placeholder"
             v-bind:autofocus="autofocus"
@@ -140,6 +141,10 @@
 export const Search = {
     name: "search",
     props: {
+        variant: {
+            type: String,
+            default: null
+        },
         value: {
             type: String,
             default: null
