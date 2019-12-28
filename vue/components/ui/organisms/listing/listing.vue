@@ -98,8 +98,8 @@
     box-sizing: border-box;
 }
 
-.listing.loading .container-header-right .search ::v-deep svg {
-    display: none;
+.listing.loading.empty ::v-deep .loader.loader-bottom {
+    margin: 76px 0px 76px 0px;
 }
 
 .container-ripe {
