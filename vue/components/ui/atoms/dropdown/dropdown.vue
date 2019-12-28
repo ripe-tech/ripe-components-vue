@@ -73,7 +73,7 @@
 }
 
 .dropdown > .dropdown-item {
-    background-color: $soft-blue;
+    background-color: $white;
     cursor: pointer;
     line-height: 18px;
     margin: 0px 0px 0px 0px;
@@ -85,7 +85,7 @@
 .dropdown > .dropdown-item:hover,
 .dropdown > .dropdown-item.selected,
 .dropdown > .dropdown-item.highlighted {
-    background-color: $selected-color;
+    background-color: $soft-blue;
 }
 
 .dropdown > .dropdown-item:active {
