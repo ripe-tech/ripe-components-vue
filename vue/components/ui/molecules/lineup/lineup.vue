@@ -52,7 +52,7 @@
 
 .lineup > .lineup-item {
     border-bottom: 1px solid #e4e8f0;
-    padding: 30px 15px 30px 15px;
+    padding: 16px 16px 16px 16px;
 }
 
 .lineup > .lineup-item:first-child {
