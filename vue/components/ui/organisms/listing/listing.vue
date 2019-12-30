@@ -236,7 +236,7 @@ export const Listing = {
     data: function() {
         return {
             items: [],
-            filter: this.context.filter,
+            filter: this.context && this.context.filter ? this.context.filter : "",
             filterOptions: null,
             loading: false,
             visibleLightbox: null
@@ -247,7 +247,7 @@ export const Listing = {
             const base = `${key}=`;
             const tuple = `${key}=${value}`;
             if (this.filter && this.filter.search(base) !== -1) return;
-            this.filter = this.filter ? `${this.filter} and ${tuple}` : tuple;
+            this.filter += this.filter ? ` and ${tuple}` : tuple;
             this.showScrollTop = true;
             this.scrollTop = true;
         },
