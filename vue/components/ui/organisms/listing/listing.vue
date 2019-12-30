@@ -42,12 +42,16 @@
                                     <button-icon
                                         v-bind:icon="'save'"
                                         v-bind:color="'inverted'"
-                                        v-on:click.native.stop="onSelectedFilterSaveButtonClick()"
+                                        v-on:click.native.stop="
+                                            onSelectedFilterUpdateButtonClick(item.label)
+                                        "
                                     />
                                     <button-icon
                                         v-bind:icon="'bin'"
                                         v-bind:color="'inverted'"
-                                        v-on:click.native.stop="onSelectedFilterDeleteButtonClick()"
+                                        v-on:click.native.stop="
+                                            onSelectedFilterDeleteButtonClick(item.label)
+                                        "
                                     />
                                 </div>
                             </div>
@@ -470,28 +474,27 @@ export const Listing = {
         isSelectedFilterItem(item) {
             return item.value === this.filterValueData;
         },
-        async onSelectedFilterSaveButtonClick() {
-            // TODO
-            await this.alertMessage("test save changes message", {
-                task: async (alert, component) => {
-                    // TODO
+        async onSelectedFilterUpdateButtonClick(name) {
+            await this.alertMessage(
+                `Are you sure you really want to <strong>update Filter "${name}"</strong>?<br/>Please bare in mind that this action <strong>is not reversible</strong>!`,
+                {
+                    task: async (alert, component) => {
+                        this.$emit("click:update-filter", component.$data);
+                    }
                 }
-            });
-
-            console.log("Selected filter Save button clicked");
+            );
         },
-        async onSelectedFilterDeleteButtonClick() {
-            // TODO
-            await this.alertMessage("test delete message", {
-                task: async (alert, component) => {
-                    // TODO
+        async onSelectedFilterDeleteButtonClick(name) {
+            await this.alertMessage(
+                `Are you sure you really want to <strong>delete Filter "${name}"</strong>?<br/>Please bare in mind that this action <strong>is not reversible</strong>!`,
+                {
+                    task: async (alert, component) => {
+                        this.$emit("click:delete-filter", component.$data);
+                    }
                 }
-            });
-
-            console.log("Selected filter Delete button clicked");
+            );
         },
         async onSaveFilterButtonClick() {
-            // TODO fix import issues, this is currently not working...
             await this.saveFilter();
         }
     },
