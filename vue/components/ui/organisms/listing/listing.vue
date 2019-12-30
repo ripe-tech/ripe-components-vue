@@ -482,7 +482,8 @@ export const Listing = {
                     buttonsAlignment: "right",
                     isButtonSmall: false,
                     task: async (alert, component) => {
-                        this.$emit("click:update-filter", component.$data);
+                        const obj = { name: name, filter: this.filter };
+                        this.$emit("click:update-filter", obj);
                     }
                 }
             );
@@ -500,7 +501,8 @@ export const Listing = {
                     buttonsAlignment: "right",
                     isButtonSmall: false,
                     task: async (alert, component) => {
-                        this.$emit("click:delete-filter", component.$data);
+                        const obj = { label: name, filter: this.filter };
+                        this.$emit("click:delete-filter", obj);
                     }
                 }
             );
