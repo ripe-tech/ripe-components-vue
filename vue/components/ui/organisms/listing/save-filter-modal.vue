@@ -93,8 +93,7 @@ export const SaveFilterModal = {
             this.hideModal();
         },
         onSaveFilterButtonClick() {
-            // TODO
-            console.log("Save filter button clicked");
+            this.$emit("click:confirm");
         }
     }
 };
