@@ -12,26 +12,20 @@
     </modal>
 </template>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
 
 <script>
 import Vue from "vue";
 
 export const SaveFilterModal = Vue.component("save-filter-modal", {
     inheritAttrs: false,
-    props: {
-    },
+    props: {},
     data: function() {
         return {};
     },
-    computed: {
-    },
-    mounted: async function() {
-    },
-    methods: {
-    }
+    computed: {},
+    mounted: async function() {},
+    methods: {}
 });
 
 export default SaveFilterModal;

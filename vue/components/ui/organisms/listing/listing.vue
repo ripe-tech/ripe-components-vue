@@ -410,6 +410,11 @@ export const Listing = {
             this.filter = this.persistentFilters.find(
                 filter => filter.value === this.filterValueData
             ).filter;
+        },
+        persistentFilters(value) {
+            this.filterValueData = this.persistentFilters.find(
+                filter => filter.filter === this.filter
+            ).value;
         }
     },
     methods: {
@@ -445,7 +450,7 @@ export const Listing = {
         async saveFilter() {
             await this.alertComponent(SaveFilterModal, {
                 task: async (alert, component) => {
-                    //TODO save filter
+                    // TODO save filter
                     console.log("Save modal");
                 }
             });
@@ -457,27 +462,27 @@ export const Listing = {
             return item.value === this.filterValueData;
         },
         async onSelectedFilterSaveButtonClick() {
-            //TODO
-             await this.alertMessage("test save changes message", {
+            // TODO
+            await this.alertMessage("test save changes message", {
                 task: async (alert, component) => {
-                    //TODO
+                    // TODO
                 }
             });
 
             console.log("Selected filter Save button clicked");
         },
         async onSelectedFilterDeleteButtonClick() {
-            //TODO
+            // TODO
             await this.alertMessage("test delete message", {
                 task: async (alert, component) => {
-                    //TODO
+                    // TODO
                 }
             });
 
             console.log("Selected filter Delete button clicked");
         },
         async onSaveFilterButtonClick() {
-            //TODO fix import issues, this is currently not working...
+            // TODO fix import issues, this is currently not working...
             await this.saveFilter();
         }
     },
