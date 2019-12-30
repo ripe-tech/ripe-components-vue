@@ -238,7 +238,7 @@ export const Listing = {
     data: function() {
         return {
             items: [],
-            filter: this.context.filter,
+            filter: this.context && this.context.filter ? this.context.filter : "",
             filterOptions: null,
             loading: false,
             visibleLightbox: null
