@@ -475,6 +475,12 @@ export const Listing = {
                 `Are you sure you really want to <strong>update Filter "${name}"</strong>?<br/>Please bare in mind that this action <strong>is not reversible</strong>!`,
                 {
                     title: `Update filter ${name}`,
+                    confirmText: "Save filter",
+                    confirmIcon: "save",
+                    cancelText: "Discard changes",
+                    cancelIcon: "close",
+                    buttonsAlignment: "right",
+                    isButtonSmall: false,
                     task: async (alert, component) => {
                         this.$emit("click:update-filter", component.$data);
                     }
@@ -486,6 +492,13 @@ export const Listing = {
                 `Are you sure you really want to <strong>delete Filter "${name}"</strong>?<br/>Please bare in mind that this action <strong>is not reversible</strong>!`,
                 {
                     title: `Delete filter ${name}`,
+                    confirmText: "Delete filter",
+                    confirmIcon: "bin",
+                    confirmColor: "red",
+                    cancelText: "Discard changes",
+                    cancelIcon: "close",
+                    buttonsAlignment: "right",
+                    isButtonSmall: false,
                     task: async (alert, component) => {
                         this.$emit("click:delete-filter", component.$data);
                     }
