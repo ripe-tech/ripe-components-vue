@@ -7,13 +7,13 @@
                 tabindex="0"
                 v-on:click="onClickDropdownButton()"
                 v-on:keydown.exact="onKey($event.key)"
-                v-on:keydown.esc.exact="onEscKey()"
-                v-on:keydown.up.exact="onArrowUpKey()"
-                v-on:keydown.down.exact="onArrowDownKey()"
-                v-on:keydown.left.exact="onArrowLeftKey()"
-                v-on:keydown.right.exact="onArrowRightKey()"
-                v-on:keydown.alt.down="onAltDownKey()"
-                v-on:keydown.alt.up="onAltUpKey()"
+                v-on:keydown.esc.exact.stop.prevent="onEscKey()"
+                v-on:keydown.up.exact.stop.prevent="onArrowUpKey()"
+                v-on:keydown.down.exact.stop.prevent="onArrowDownKey()"
+                v-on:keydown.left.exact.stop.prevent="onArrowLeftKey()"
+                v-on:keydown.right.exact.stop.prevent="onArrowRightKey()"
+                v-on:keydown.alt.down.stop.prevent="onAltDownKey()"
+                v-on:keydown.alt.up.stop.prevent="onAltUpKey()"
                 v-on:keydown.enter.exact="onEnterKey()"
                 v-on:keydown.space.exact="onSpaceKey()"
                 v-on:click.stop.prevent
@@ -31,9 +31,6 @@
                 v-on:item-clicked="value => onDropdownSelect(value.value)"
             >
                 <slot v-bind:name="name" v-for="(_, name) in $slots" v-bind:slot="name" />
-                <!-- <template v-slot="{ item, index }">
-                    <slot v-bind:item="item" v-bind:index="index" />
-                </template> -->
             </dropdown>
         </div>
         <select
@@ -324,8 +321,6 @@ export const Select = {
             this.closeDropdown();
         },
         onDropdownSelect(value) {
-            if (this.highlighted === null) return;
-
             this.setValue(value);
             this.closeDropdown();
         },
