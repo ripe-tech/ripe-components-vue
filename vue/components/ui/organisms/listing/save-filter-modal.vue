@@ -5,6 +5,7 @@
         v-bind:title="'New filter'"
         v-bind:cancel-text="'Discard changes'"
         v-bind:confirm-text="'Save filter'"
+        v-bind:name="'save-filter-modal'"
         v-bind="$attrs"
         v-on="$listeners"
     >
@@ -19,7 +20,7 @@
             <input-ripe v-bind:variant="'dark'" v-bind:value.sync="searchData" />
         </form-input>
         <form-input v-bind:header="'Tenacy'">
-            <checkbox v-bind:items="testItems" v-bind:values.sync="tenacyValuesData" />
+            <checkbox v-bind:items="tenacyItems" v-bind:values.sync="tenacyValuesData" />
         </form-input>
         <template v-slot:buttons-content>
             <button-color
@@ -27,11 +28,13 @@
                 v-bind:icon="'close'"
                 v-bind:secondary="true"
                 v-bind:text="'Discard changes'"
+                v-on:click="onDiscardChangesButtonClick()"
             />
             <button-color
                 v-bind:class="'button-confirm'"
                 v-bind:icon="'save'"
                 v-bind:text="'Save filter'"
+                v-on:click="onSaveFilterButtonClick()"
             />
         </template>
     </modal>
@@ -50,23 +53,31 @@
 <script>
 export const SaveFilterModal = {
     name: "save-filter-modal",
-    props: {},
+    props: {
+        tenacyItems: {
+            type: Array,
+            default: () => [
+                {
+                    value: "user",
+                    label: "User"
+                },
+                {
+                    value: "brand",
+                    label: "Brand"
+                },
+                {
+                    value: "channel",
+                    label: "Channel"
+                },
+                {
+                    value: "factory",
+                    label: "Factory"
+                }
+            ]
+        }
+    },
     data: function() {
         return {
-            testItems: [
-                {
-                    value: "1",
-                    label: "Option 1"
-                },
-                {
-                    value: "2",
-                    label: "Option 2"
-                },
-                {
-                    value: "3",
-                    label: "Option 3"
-                }
-            ],
             tenacyValuesData: {},
             filterNameData: null,
             searchData: null
@@ -74,7 +85,18 @@ export const SaveFilterModal = {
     },
     computed: {},
     mounted: async function() {},
-    methods: {}
+    methods: {
+        hideModal() {
+            this.$bus.$emit("hide-modal", "save-filter-modal");
+        },
+        onDiscardChangesButtonClick() {
+            this.hideModal();
+        },
+        onSaveFilterButtonClick() {
+            //TODO
+            console.log("Save filter button clicked");
+        }
+    }
 };
 
 export default SaveFilterModal;
