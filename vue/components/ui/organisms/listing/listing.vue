@@ -407,14 +407,20 @@ export const Listing = {
     },
     watch: {
         filterValueData(value) {
-            this.filter = this.persistentFilters.find(
+            const filterObject = this.persistentFilters.find(
                 filter => filter.value === this.filterValueData
-            ).filter;
+            );
+            this.filter = filterObject ? filterObject.filter : "";
         },
         persistentFilters(value) {
+            if (!this.filter) return;
+
             this.filterValueData = this.persistentFilters.find(
                 filter => filter.filter === this.filter
             ).value;
+        },
+        filter(value) {
+            if (value === "") this.filterValueData = null;
         }
     },
     methods: {
