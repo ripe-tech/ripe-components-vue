@@ -69,8 +69,8 @@
     font-size: 0px;
     height: 34px;
     line-height: 34px;
-    width: 100%;
     position: relative;
+    width: 100%;
 }
 
 .search > .loader {
@@ -110,8 +110,8 @@
 
 .search .icon-delete {
     position: absolute;
-    top: 3px;
     right: 5px;
+    top: 3px;
 }
 
 .search > .suggestions {
