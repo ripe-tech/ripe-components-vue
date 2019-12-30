@@ -235,10 +235,6 @@ body.mobile .container-header-right {
     margin: 0px 0px 0px -200px;
 }
 
-.container-header-right .select ::v-deep .dropdown-container .dropdown li:last-child {
-    margin: 11px 0px 0px 0px;
-}
-
 .container-header-right .select ::v-deep .dropdown-container .dropdown li:last-child .button {
     border: none;
 }
@@ -478,6 +474,7 @@ export const Listing = {
             await this.alertMessage(
                 `Are you sure you really want to <strong>update Filter "${name}"</strong>?<br/>Please bare in mind that this action <strong>is not reversible</strong>!`,
                 {
+                    title: `Update filter ${name}`,
                     task: async (alert, component) => {
                         this.$emit("click:update-filter", component.$data);
                     }
@@ -488,6 +485,7 @@ export const Listing = {
             await this.alertMessage(
                 `Are you sure you really want to <strong>delete Filter "${name}"</strong>?<br/>Please bare in mind that this action <strong>is not reversible</strong>!`,
                 {
+                    title: `Delete filter ${name}`,
                     task: async (alert, component) => {
                         this.$emit("click:delete-filter", component.$data);
                     }
