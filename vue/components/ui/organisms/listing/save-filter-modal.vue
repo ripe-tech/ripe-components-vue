@@ -17,10 +17,8 @@
 </style>
 
 <script>
-import Vue from "vue";
-
-export const SaveFilterModal = Vue.component("save-filter-modal", {
-    inheritAttrs: false,
+export const SaveFilterModal = {
+    name: "save-filter-modal",
     props: {
     },
     data: function() {
@@ -32,7 +30,7 @@ export const SaveFilterModal = Vue.component("save-filter-modal", {
     },
     methods: {
     }
-});
+};
 
 export default SaveFilterModal;
 </script>
