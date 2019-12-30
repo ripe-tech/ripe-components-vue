@@ -458,6 +458,7 @@ export const Listing = {
         },
         async saveFilter() {
             await this.alertComponent(SaveFilterModal, {
+                filter: this.filter,
                 task: async (alert, component) => {
                     this.$emit("click:save-filter", component.$data);
                 }

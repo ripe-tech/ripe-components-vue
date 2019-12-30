@@ -31,6 +31,7 @@
                 v-on:click="onDiscardChangesButtonClick()"
             />
             <button-color
+                v-bind:disabled="!isFormValid"
                 v-bind:class="'button-confirm'"
                 v-bind:icon="'save'"
                 v-bind:text="'Save filter'"
@@ -74,16 +75,28 @@ export const SaveFilterModal = {
                     label: "Factory"
                 }
             ]
+        },
+        filter: {
+            type: String,
+            required: false
         }
     },
     data: function() {
         return {
             tenacyValuesData: {},
             filterNameData: null,
-            searchData: null
+            searchData: this.filter ? this.filter : null
         };
     },
-    computed: {},
+    computed: {
+        isFormValid() {
+            return (
+                this.searchData &&
+                this.filterNameData &&
+                Object.keys(this.tenacyValuesData).length > 0
+            );
+        }
+    },
     mounted: async function() {},
     methods: {
         hideModal() {
