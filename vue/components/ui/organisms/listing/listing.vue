@@ -415,9 +415,12 @@ export const Listing = {
         persistentFilters(value) {
             if (!this.filter) return;
 
-            this.filterValueData = this.persistentFilters.find(
+            const filterObject = this.persistentFilters.find(
                 filter => filter.filter === this.filter
-            ).value;
+            );
+
+            if (!filterObject) return;
+            this.filterValueData = filterObject.value;
         },
         filter(value) {
             if (value === "") this.filterValueData = null;
