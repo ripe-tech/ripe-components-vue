@@ -35,6 +35,14 @@
             v-on:focus="focused = true"
             v-on:blur="focused = false"
         />
+        <slot name="icon-delete" v-if="value">
+            <button-icon
+                class="icon-delete"
+                v-bind:icon="'close'"
+                v-bind:color="'none'"
+                v-on:click="onDeleteIconClick"
+            />
+        </slot>
         <transition name="slide">
             <div class="suggestions" v-show="suggestionsVisible && suggestions.length > 0">
                 <div
@@ -62,6 +70,7 @@
     height: 34px;
     line-height: 34px;
     width: 100%;
+    position: relative;
 }
 
 .search > .loader {
@@ -97,6 +106,12 @@
 
 .search.grow ::v-deep input[type="text"]:focus {
     width: 340px;
+}
+
+.search .icon-delete {
+    position: absolute;
+    top: 3px;
+    right: 5px;
 }
 
 .search > .suggestions {
@@ -200,6 +215,12 @@ export const Search = {
     methods: {
         blur() {
             this.$refs.input.blur();
+        },
+        deleteValue() {
+            this.$emit("update:value", "");
+        },
+        onDeleteIconClick() {
+            this.deleteValue();
         }
     }
 };
