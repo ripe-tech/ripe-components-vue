@@ -55,20 +55,32 @@
 <script>
 export const UploadArea = {
     name: "upload-area",
-    props: {},
+    props: {
+        files: {
+            type: Array,
+            default: () => []
+        }
+    },
+    data: function() {
+        return {
+            filesData: this.files
+        };
+    },
     methods: {
+        emitUpdateFiles(value) {
+            this.$emit("update:files", value);
+        },
+        selectFiles(filesList) {
+            if (!filesList || !filesList.length) return;
+
+            this.filesData = [...filesList];
+            this.emitUpdateFiles(this.filesData);
+        },
         onDragOver(event) {
             event.dataTransfer.dropEffect = "copy";
         },
         onDrop(event) {
-            const files = event.dataTransfer.files;
-            if (!files || !files.length) return;
-
-            console.log("Showing Files !");
-            for (const file of files) {
-                //TODO do stuff with files
-                console.log(file.name);
-            }
+            this.selectFiles(event.dataTransfer.files);
         }
     }
 };

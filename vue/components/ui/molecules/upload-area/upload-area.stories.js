@@ -9,9 +9,14 @@ storiesOf("Molecules", module)
                 default: boolean("See custom example", false)
             }
         },
+        data: function() {
+            return {
+                filesData: null
+            };
+        },
         template: `
             <div>
-                <upload-area v-if="customExample">
+                <upload-area v-if="customExample" v-bind:files.sync="filesData">
                     <template v-slot:drag-area-slot>
                         <div style="height:150px;background-color:aqua;">
                             <p style="font-size:20px;text-align:center">
@@ -20,7 +25,13 @@ storiesOf("Molecules", module)
                         </div>
                     </template>
                 </upload-area>
-                <upload-area v-else />
+                <upload-area v-else v-bind:files.sync="filesData"/>
+                <div>
+                    <p>Files:</p>
+                    <p v-for="(file, index) in filesData">
+                        {{ index }} - {{ file.name }}
+                    </p>
+                </div>
             </div>
             `
     }));
