@@ -1,8 +1,13 @@
 <template>
     <div
         class="upload-area"
+        v-bind:class="{ dragOver: isDraggingOver }"
         v-on:dragover.stop.prevent="onDragOver($event)"
         v-on:drop.stop.prevent="onDrop($event)"
+        v-on:dragenter.stop.prevent="isDraggingOver = true"
+        v-on:dragend.stop.prevent="isDraggingOver = false"
+        v-on:dragleave.stop.prevent="isDraggingOver = false"
+        v-on:drag-end.stop.prevent="isDraggingOver = false"
     >
         <slot name="drag-area-slot">
             <div class="area-container">
@@ -25,11 +30,25 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
+.upload-area {
+    opacity: 1;
+    transition: 0.3s;
+}
+
+.upload-area.dragOver {
+    opacity: 0.5;
+    transition: 0.3s;
+}
+
 .upload-area .area-container {
     border: dashed 2px $light-white;
     border-radius: 8px;
     height: 150px;
     position: relative;
+}
+
+.upload-area.dragOver .area-container .center {
+    pointer-events: none;
 }
 
 .upload-area .area-container .center {
@@ -63,7 +82,8 @@ export const UploadArea = {
     },
     data: function() {
         return {
-            filesData: this.files
+            filesData: this.files,
+            isDraggingOver: false
         };
     },
     methods: {
@@ -81,6 +101,7 @@ export const UploadArea = {
         },
         onDrop(event) {
             this.selectFiles(event.dataTransfer.files);
+            this.isDraggingOver = false;
         }
     }
 };
