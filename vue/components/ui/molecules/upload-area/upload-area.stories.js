@@ -9,6 +9,5 @@ storiesOf("Molecules", module)
                 default: text("Hello Text", "Hello from Upload Area")
             }
         },
-        template:
-            '<upload-area v-bind:hello-text="helloText" />'
+        template: '<upload-area v-bind:hello-text="helloText" />'
     }));
