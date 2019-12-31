@@ -1,13 +1,26 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text } from "@storybook/addon-knobs";
+import { withKnobs, boolean } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Upload Area", () => ({
         props: {
-            helloText: {
-                default: text("Hello Text", "Hello from Upload Area")
+            customExample: {
+                default: boolean("See custom example", false)
             }
         },
-        template: '<upload-area v-bind:hello-text="helloText" />'
+        template: `
+            <div>
+                <upload-area v-if="customExample">
+                    <template v-slot:drag-area-slot>
+                        <div style="height:150px;background-color:aqua;">
+                            <p style="font-size:20px;text-align:center">
+                                This is a custom drag & drop area
+                            </p>
+                        </div>
+                    </template>
+                </upload-area>
+                <upload-area v-else />
+            </div>
+            `
     }));
