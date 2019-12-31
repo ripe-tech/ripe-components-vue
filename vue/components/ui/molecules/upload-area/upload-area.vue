@@ -1,5 +1,9 @@
 <template>
-    <div class="upload-area">
+    <div
+        class="upload-area"
+        v-on:dragover.stop.prevent="onDragOver()"
+        v-on:drop.stop.prevent="onDrop()"
+    >
         <slot name="drag-area-slot">
             <div class="area-container">
                 <div class="center">
@@ -51,7 +55,17 @@
 <script>
 export const UploadArea = {
     name: "upload-area",
-    props: {}
+    props: {},
+    methods: {
+        onDragOver(){
+            //TODO
+            console.log("Drag Over");
+        },
+        onDrop() {
+            //TODO
+            console.log("Drop");
+        }
+    }
 };
 export default UploadArea;
 </script>
