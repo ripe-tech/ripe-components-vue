@@ -12,14 +12,20 @@
         <slot name="drag-area-slot">
             <div class="area-container">
                 <div class="center">
-                    <p class="description">
-                        Drag & drop your files here or
-                    </p>
+                    <p class="description">Drag & drop your files here or</p>
+                    <input
+                        type="file"
+                        multiple
+                        hidden
+                        ref="filesInput"
+                        v-on:change="onFilesInputChange()"
+                    />
                     <button-color
                         class="upload-button"
                         v-bind:text="'Upload File'"
                         v-bind:icon="'cloud-upload'"
                         v-bind:alignment="'center'"
+                        v-on:click="onUploadButtonClick()"
                     />
                 </div>
             </div>
@@ -102,6 +108,12 @@ export const UploadArea = {
         onDrop(event) {
             this.selectFiles(event.dataTransfer.files);
             this.isDraggingOver = false;
+        },
+        onFilesInputChange() {
+            this.selectFiles(this.$refs.filesInput.files);
+        },
+        onUploadButtonClick() {
+            this.$refs.filesInput.click();
         }
     }
 };
