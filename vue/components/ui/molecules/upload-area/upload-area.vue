@@ -1,7 +1,7 @@
 <template>
     <div
         class="upload-area"
-        v-on:dragover.stop.prevent="onDragOver()"
+        v-on:dragover.stop.prevent="onDragOver($event)"
         v-on:drop.stop.prevent="onDrop()"
     >
         <slot name="drag-area-slot">
@@ -57,7 +57,8 @@ export const UploadArea = {
     name: "upload-area",
     props: {},
     methods: {
-        onDragOver(){
+        onDragOver(event){
+            event.dataTransfer.dropEffect = "copy";
             //TODO
             console.log("Drag Over");
         },
