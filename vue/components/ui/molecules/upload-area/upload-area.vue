@@ -12,7 +12,9 @@
         <slot name="drag-area-slot">
             <div class="area-container">
                 <div class="center">
-                    <p class="description">Drag & drop your files here or</p>
+                    <p class="description">
+                        Drag & drop your files here or
+                    </p>
                     <input
                         type="file"
                         multiple
