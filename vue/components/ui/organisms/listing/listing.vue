@@ -9,7 +9,7 @@
             <div class="container-header">
                 <div
                     class="container-header-right"
-                    v-bind:class="{ hasPersistentFilters: hasPersistentFilters }"
+                    v-bind:class="{ 'has-persistent-filters': hasPersistentFilters }"
                 >
                     <slot name="icons" />
                     <search
@@ -19,7 +19,7 @@
                         v-bind:loading="loading"
                     />
                     <select-ripe
-                        v-bind:class="{ filterSelected: isFilterSelected }"
+                        v-bind:class="{ 'filter-selected': isFilterSelected }"
                         v-bind:placeholder="'Filter'"
                         v-bind:options="persistentFilters"
                         v-bind:value.sync="filterValueData"
@@ -78,8 +78,7 @@
                 </div>
                 <h1 class="title" v-if="titleText">{{ titleText }}</h1>
                 <h1 class="title" v-else>
-                    Your
-                    <span class="name">{{ name }}</span>
+                    Your <span class="name">{{ name }}</span>
                 </h1>
             </div>
             <filter-ripe
@@ -186,12 +185,12 @@
     font-size: 0px;
 }
 
-.container-header-right.hasPersistentFilters .search ::v-deep .input {
+.container-header-right.has-persistent-filters .search ::v-deep .input {
     border-radius: 6px 0px 0px 6px;
     border-right: none;
 }
 
-.container-header-right.hasPersistentFilters .search ::v-deep .input:focus {
+.container-header-right.has-persistent-filters .search ::v-deep .input:focus {
     border-right: 1px solid $aqcua-blue;
 }
 
@@ -215,7 +214,7 @@ body.mobile .container-header-right {
     font-weight: 600;
 }
 
-.container-header-right .select.filterSelected ::v-deep .select-container .select-button {
+.container-header-right .select.filter-selected ::v-deep .select-container .select-button {
     background-color: $dark;
     background-image: url("~./assets/chevron-down-white.svg");
     color: $white;

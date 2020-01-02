@@ -31,9 +31,6 @@
                 v-on:item-clicked="value => onDropdownSelect(value.value)"
             >
                 <slot v-bind:name="name" v-for="(_, name) in $slots" v-bind:slot="name" />
-                <!-- <template v-slot="{ item, index }">
-                    <slot v-bind:item="item" v-bind:index="index" />
-                </template> -->
             </dropdown>
         </div>
         <select
