@@ -99,14 +99,21 @@ export const SaveFilterModal = {
     },
     mounted: async function() {},
     methods: {
+        toInitialState() {
+            this.searchData = this.filter ? this.filter : null;
+            this.filterNameData = "";
+            this.tenacyValuesData = {};
+        },
         hideModal() {
             this.$bus.$emit("hide-modal", "save-filter-modal");
         },
         onDiscardChangesButtonClick() {
             this.hideModal();
+            this.toInitialState();
         },
         onSaveFilterButtonClick() {
             this.$emit("click:confirm");
+            this.toInitialState();
         }
     }
 };
