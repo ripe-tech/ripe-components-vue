@@ -44,10 +44,10 @@ storiesOf("Organisms", module)
                 default: () => [
                     { value: "name", label: "Person", note: "age" },
                     { value: "car" },
-                    { value: "city" },
+                    { id: "city", value: "city" },
                     { value: "shoes" },
                     { value: "trousers" },
-                    { value: "shirt" }
+                    { id: "shirt", value: "shirt" }
                 ]
             },
             optionsItems: {
