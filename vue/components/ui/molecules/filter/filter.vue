@@ -196,12 +196,16 @@ export const Filter = {
             const { sort, reverse, filter } = options;
 
             const current = this.$route.query;
-            const next = {
-                ...current,
-                sort: String(sort),
-                reverse: String(reverse),
-                filter: String(filter)
-            };
+            const next = Object.assign({}, current);
+
+            if (sort) next.sort = sort;
+            else delete next.sort;
+
+            if (reverse) next.reverse = reverse;
+            else delete next.reverse;
+
+            if (filter) next.filter = filter;
+            else delete next.filter;
 
             if (equal(current, next)) return;
 
