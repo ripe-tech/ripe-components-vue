@@ -10,7 +10,6 @@
                 <div class="container-header-right">
                     <slot name="icons" />
                     <search
-                        v-bind:variant="'dark'"
                         v-bind:width="isMobileWidth() ? null : searchWidth"
                         v-bind:placeholder="filterText ? filterText : `Search ${name}`"
                         v-bind:value.sync="filter"
@@ -33,7 +32,6 @@
                 v-bind:options.sync="filterOptions"
                 ref="filter"
                 v-on:update:options="filterUpdated"
-                v-on:click:lineup="onLineupClick"
             >
                 <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
                 <template
@@ -100,8 +98,8 @@
     box-sizing: border-box;
 }
 
-.listing.loading.empty ::v-deep .loader.loader-bottom {
-    margin: 76px 0px 76px 0px;
+.listing.loading .container-header-right .search ::v-deep svg {
+    display: none;
 }
 
 .container-ripe {
@@ -143,7 +141,6 @@ body.mobile .container-header-right {
 
 body.mobile .container-header {
     height: auto;
-    padding: 20px 20px 20px 20px;
 }
 
 .title {
@@ -186,6 +183,7 @@ input[type="text"]:focus {
 
 <script>
 import { filterMixin, partMixin, utilsMixin, scrollMixin } from "../../../../mixins";
+
 export const Listing = {
     name: "listing",
     mixins: [partMixin, filterMixin, utilsMixin, scrollMixin],
@@ -238,7 +236,7 @@ export const Listing = {
     data: function() {
         return {
             items: [],
-            filter: this.context && this.context.filter ? this.context.filter : "",
+            filter: this.context.filter,
             filterOptions: null,
             loading: false,
             visibleLightbox: null
@@ -276,9 +274,6 @@ export const Listing = {
         },
         getFilter() {
             return this.$refs.filter;
-        },
-        onLineupClick(item, index) {
-            this.$emit("click:lineup", item, index);
         }
     },
     beforeRouteUpdate: function(to, from, next) {
@@ -286,5 +281,6 @@ export const Listing = {
         next();
     }
 };
+
 export default Listing;
 </script>
