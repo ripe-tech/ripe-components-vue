@@ -40,7 +40,7 @@
                         v-bind:count.sync="reaction.count"
                         v-bind:user-reacted.sync="reaction.userHasReacted"
                         v-bind:behavior="true"
-                        v-for="reaction in mergedReactions"
+                        v-for="reaction in reactions"
                         v-bind:key="reaction.id"
                     />
                 </div>
@@ -53,15 +53,13 @@
 @import "css/variables.scss";
 
 .chat-message {
-    background-color: #f9fafd;
     display: flex;
-    padding: 6px 0px 6px 0px;
 }
 
 .chat-message .avatar {
-    border: solid 1px #e3e8f1;
-    border-radius: 50%;
-    box-shadow: 0 2px 5px 0 rgba(67, 86, 100, 0.25);
+    border: 1px solid #e3e8f1;
+    border-radius: 50% 50% 50% 50%;
+    box-shadow: 0px 2px 5px rgba(67, 86, 100, 0.25);
     height: 24px;
     margin: 0px 8px 0px 0px;
     width: 24px;
@@ -148,10 +146,6 @@ export const ChatMessage = {
         },
         reactions: {
             type: Array,
-            default: () => []
-        },
-        defaultReactions: {
-            type: Array,
             default: () => [
                 {
                     id: "thumbsup",
@@ -160,15 +154,6 @@ export const ChatMessage = {
                     userHasReacted: false
                 }
             ]
-        }
-    },
-    computed: {
-        mergedReactions() {
-            const existingReactions = this.reactions.map(reaction => reaction.id);
-            const missingReactions = this.defaultReactions.filter(
-                reaction => !existingReactions.includes(reaction.id)
-            );
-            return [].concat(this.reactions, missingReactions);
         }
     }
 };

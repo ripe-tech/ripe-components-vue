@@ -39,6 +39,12 @@ storiesOf("Molecules", module)
                 type: Array,
                 default: () => [
                     {
+                        id: "thumbsup",
+                        emoji: "👍",
+                        count: 0,
+                        userHasReacted: false
+                    },
+                    {
                         id: "thumbsdown",
                         emoji: "👎",
                         count: 3,
@@ -60,10 +66,11 @@ storiesOf("Molecules", module)
                     v-bind:date="date"
                     v-bind:message="message"
                     v-bind:attachments="attachments"
-                    v-bind:reactions="reactionsData"
+                    v-bind:reactions.sync="reactionsData"
                 />
                 <div>
-                    <p>Thumb down reaction count: {{ this.reactionsData[0].count }}</p>
+                    <p>Thumb up reaction count: {{ this.reactionsData[0].count }}</p>
+                    <p>Thumb down reaction count: {{ this.reactionsData[1].count }}</p>
                 </div>
             </div>
             `
