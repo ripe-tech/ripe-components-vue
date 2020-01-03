@@ -16,13 +16,13 @@
                             </span>
                             <p>{{ name }}s</p>
                         </div>
-                        <div class="header-button">
+                        <div class="header-button" v-bind:class="{ invisible: Boolean(index)}">
                             <span class="button-previous" v-on:click="onPreviousClick">
                                 <img src="~./assets/chevron-left.svg" />
                             </span>
                             <p>Previous</p>
                         </div>
-                        <div class="header-button">
+                        <div class="header-button" v-bind:class="{ invisible: Boolean(index)}">
                             <span class="button-next" v-on:click="onNextClick">
                                 <img src="~./assets/chevron-right.svg" />
                             </span>
@@ -74,13 +74,13 @@
                             </span>
                             <p>{{ name }}s</p>
                         </div>
-                        <div class="header-button">
+                        <div class="header-button" v-bind:class="{ invisible: !hasIndex }">
                             <span class="button-previous" v-on:click="onPreviousClick">
                                 <img src="~./assets/chevron-left.svg" />
                             </span>
                             <p>Previous</p>
                         </div>
-                        <div class="header-button">
+                        <div class="header-button" v-bind:class="{ invisible: !hasIndex }">
                             <span class="button-next" v-on:click="onNextClick">
                                 <img src="~./assets/chevron-right.svg" />
                             </span>
@@ -494,7 +494,7 @@ export const Details = {
         },
         index: {
             type: Number,
-            required: true
+            default: null
         },
         loaded: {
             type: Boolean,
@@ -522,6 +522,9 @@ export const Details = {
     computed: {
         loading() {
             return !this.loaded;
+        },
+        hasIndex() {
+            return this.index !== null && this.index !== undefined;
         }
     },
     methods: {
@@ -537,6 +540,7 @@ export const Details = {
             this.optionsVisible = !status;
         },
         async previousItem(force = false) {
+            if (!this.hasIndex) return;
             if (!this.navigation && !force) return;
             if (this.loading || this.index === undefined || this.index === 0) {
                 this.triggerAnimation("slide-left-fake");
@@ -552,6 +556,7 @@ export const Details = {
                 : this.triggerAnimation("slide-left-fake");
         },
         async nextItem(force = false) {
+            if (!this.hasIndex) return;
             if (!this.navigation && !force) return;
             if (this.loading || this.index === undefined) {
                 this.triggerAnimation("slide-right-fake");
