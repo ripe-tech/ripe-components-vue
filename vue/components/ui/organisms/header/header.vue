@@ -45,7 +45,7 @@
                         v-bind:visible.sync="accountDropdownVisible"
                         v-bind:global-hide="true"
                     >
-                        <template v-if="announcements" v-slot:announcement="{ item }">
+                        <template v-slot:announcement="{ item }">
                             <div
                                 class="dropdown-item-announcement"
                                 v-on:click="onAnnouncementsClick"
