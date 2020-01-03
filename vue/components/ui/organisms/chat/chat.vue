@@ -4,7 +4,7 @@
             <div class="chat-messages-container" ref="chat-messages">
                 <chat-message
                     v-bind:username="message.username"
-                    v-bind:avatar-url="message.avatarUrl"
+                    v-bind:avatar="message.avatarUrl"
                     v-bind:date="message.date"
                     v-bind:message="message.messageContent.text"
                     v-bind:attachments="message.messageContent.attachments"
