@@ -30,8 +30,11 @@ storiesOf("Atoms", module)
                 default: text("Value", "This is a text")
             },
             attachments: {
-                type: FileList,
-                default: null
+                type: Array,
+                default: () => [
+                    new File([""], "attachment example 1"),
+                    new File([""], "attachment example 2")
+                ]
             },
             placeholder: {
                 default: text("Placeholder", "This is a placeholder")

@@ -12,12 +12,29 @@
             ref="textarea"
         />
         <div class="options">
-            <div class="selected-attachments-container">                    
-                <div v-for="(attachment, index) in attachmentsData" v-bind:key="index">
+            <div
+                class="attachment"
+                v-bind:title="attachment.name"
+                v-for="(attachment, index) in attachmentsData"
+                v-bind:key="index"
+            >
+                <div class="attachment-name">
                     {{ attachment.name }}
                 </div>
+                <button-icon
+                    class="button-remove-attachment"
+                    v-bind:size="20"
+                    v-bind:icon="'close'"
+                    v-on:click="onRemoveAttachmentButtonClick(index)"
+                />
             </div>
-            <input type="file" ref="attachmentsInput" v-on:change="onAttachmentsInputChange()" multiple hidden>
+            <input
+                type="file"
+                multiple
+                hidden
+                ref="attachmentsInput"
+                v-on:change="onAttachmentsInputChange()"
+            />
             <button-icon
                 class="button-attachment"
                 v-bind:disabled="disabled"
@@ -80,8 +97,20 @@
     padding: 6px 12px 6px 12px;
 }
 
-.rich-textarea .options .selected-attachments-container{
-    font-size: 14px;
+.rich-textarea .options .attachment {
+    background-color: $white;
+    border: 1px solid $light-white;
+    display: flex;
+    line-height: 20px;
+    width: 33%;
+}
+
+.rich-textarea .options .attachment .attachment-name {
+    flex: 1 0;
+    font-size: 11px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .rich-textarea.border-strong .options {
@@ -110,8 +139,8 @@ export const RichTextarea = {
             default: null
         },
         attachments: {
-            type: FileList,
-            default: null
+            type: Array,
+            default: () => []
         },
         placeholder: {
             type: String,
@@ -137,7 +166,7 @@ export const RichTextarea = {
     data: function() {
         return {
             valueData: this.value,
-            attachmentsData: this.attachments 
+            attachmentsData: this.attachments
         };
     },
     watch: {
@@ -160,20 +189,28 @@ export const RichTextarea = {
         }
     },
     methods: {
-        emitUpdateAttachments(value) {
-            this.$emit("update:attachments", value);
-        },
         focusTextarea() {
             this.$refs.textarea.focus();
         },
+        addAttachments(fileList) {
+            this.attachmentsData = (this.attachmentsData || []).concat([...fileList]);
+            this.$emit("update:attachments", this.attachmentsData);
+        },
+        removeAttachment(index) {
+            this.attachmentsData.splice(index, 1);
+            this.$emit("update:attachments", this.attachmentsData);
+        },
         onClick() {
             this.focusTextarea();
+        },
+        onRemoveAttachmentButtonClick(index) {
+            this.removeAttachment(index);
         },
         onAttachmentClick() {
             this.$refs.attachmentsInput.click();
         },
         onAttachmentsInputChange() {
-            this.emitUpdateAttachments(this.$refs.attachmentsInput.files);
+            this.addAttachments(this.$refs.attachmentsInput.files);
         },
         onSmileClick() {
             this.$emit("click:smile");
