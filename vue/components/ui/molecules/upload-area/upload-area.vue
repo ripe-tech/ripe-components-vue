@@ -9,7 +9,7 @@
         v-on:dragleave.stop.prevent="isDraggingOver = false"
         v-on:drag-end.stop.prevent="isDraggingOver = false"
     >
-        <slot name="drag-area-slot">
+        <slot>
             <div class="area-container">
                 <div class="center">
                     <p class="description">
