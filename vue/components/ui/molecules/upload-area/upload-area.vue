@@ -78,7 +78,8 @@ export const UploadArea = {
     data: function() {
         return {
             filesData: this.files,
-            dragging: false
+            dragging: false,
+            draggingOverCounter: 0
         };
     },
     methods: {
@@ -89,7 +90,9 @@ export const UploadArea = {
             this.$emit("update:files", this.filesData);
         },
         setDragging(dragging) {
-            this.dragging = dragging;
+            dragging ? this.draggingOverCounter++: this.draggingOverCounter--;
+
+            this.dragging = Boolean(Math.max(this.draggingOverCounter));
         },
         onDragOver(event) {
             event.dataTransfer.dropEffect = "copy";
