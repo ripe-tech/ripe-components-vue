@@ -127,7 +127,7 @@ storiesOf("Organisms", module)
             <div>
                 <global />
                 <chat
-                    v-bind:avatarUrl="avatarUrl"
+                    v-bind:avatar-url="avatarUrl"
                     v-bind:username="username"
                     v-bind:messages.sync="messagesData"
                  />
