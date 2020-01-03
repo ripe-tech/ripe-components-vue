@@ -82,8 +82,7 @@
     padding: 15px;
     position: fixed;
     right: 20px;
-    -webkit-transition: opacity 0.125s ease-in-out;
-    transition: opacity 0.125s ease-in-out;
+    transition: opacity 0.125s ease-in-out, transform 0.125s ease-in-out;
     width: 50px;
 }
 
@@ -94,6 +93,7 @@
 
 .scroll-button.show:hover {
     opacity: 1;
+    transform: scale(1.15);
 }
 
 .listing {
