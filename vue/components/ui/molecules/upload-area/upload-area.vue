@@ -82,7 +82,7 @@ export const UploadArea = {
         };
     },
     methods: {
-        selectFiles(filesList) {
+        setFiles(filesList) {
             if (!filesList || !filesList.length) return;
 
             this.filesData = [...filesList];
@@ -95,11 +95,11 @@ export const UploadArea = {
             event.dataTransfer.dropEffect = "copy";
         },
         onDrop(event) {
-            this.selectFiles(event.dataTransfer.files);
+            this.setFiles(event.dataTransfer.files);
             this.setDragging(false);
         },
         onFilesInputChange() {
-            this.selectFiles(this.$refs.filesInput.files);
+            this.setFiles(this.$refs.filesInput.files);
         },
         onUploadButtonClick() {
             this.$refs.filesInput.click();
