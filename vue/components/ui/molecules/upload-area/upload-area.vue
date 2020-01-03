@@ -10,25 +10,23 @@
     >
         <slot>
             <div class="area-container">
-                <div class="center">
-                    <p class="description">
-                        Drag & drop your files here or
-                    </p>
-                    <input
-                        type="file"
-                        multiple
-                        hidden
-                        ref="filesInput"
-                        v-on:change="onFilesInputChange()"
-                    />
-                    <button-color
-                        class="upload-button"
-                        v-bind:text="'Upload File'"
-                        v-bind:icon="'cloud-upload'"
-                        v-bind:alignment="'center'"
-                        v-on:click="onUploadButtonClick()"
-                    />
-                </div>
+                <p class="description">
+                    Drag & drop your files here or
+                </p>
+                <input
+                    type="file"
+                    multiple
+                    hidden
+                    ref="filesInput"
+                    v-on:change="onFilesInputChange()"
+                />
+                <button-color
+                    class="upload-button"
+                    v-bind:text="'Upload File'"
+                    v-bind:icon="'cloud-upload'"
+                    v-bind:alignment="'center'"
+                    v-on:click="onUploadButtonClick()"
+                />
             </div>
         </slot>
     </div>
@@ -46,24 +44,20 @@
 }
 
 .upload-area .area-container {
+    align-items: center;
     border: dashed 2px $light-white;
     border-radius: 8px;
+    display: flex;
+    flex-direction: column;
     height: 150px;
-    position: relative;
+    justify-content: center;
 }
 
-.upload-area.dragOver .area-container .center {
+.upload-area.dragOver .area-container {
     pointer-events: none;
 }
 
-.upload-area .area-container .center {
-    left: 50%;
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.upload-area .area-container .center .description {
+.upload-area .area-container .description {
     color: $dark;
     font-size: 14px;
     font-weight: 600;
@@ -71,7 +65,7 @@
     margin: 0px 0px 22px 0px;
 }
 
-.upload-area .area-container .center .upload-button {
+.upload-area .area-container .upload-button {
     width: 120px;
 }
 </style>
@@ -96,7 +90,7 @@ export const UploadArea = {
             if (!filesList || !filesList.length) return;
 
             this.filesData = [...filesList];
-            this.$emit("update:files", filesData);
+            this.$emit("update:files", this.filesData);
         },
         setDragging(dragging) {
             this.dragging = dragging;
