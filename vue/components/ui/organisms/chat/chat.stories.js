@@ -123,11 +123,6 @@ storiesOf("Organisms", module)
                 messagesData: this.messages
             };
         },
-        watch: {
-            messages(value) {
-                this.messagesData = value;
-            }
-        },
         template: `
             <div>
                 <global />
