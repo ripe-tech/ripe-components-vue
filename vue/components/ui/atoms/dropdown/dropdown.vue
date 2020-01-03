@@ -73,7 +73,7 @@
 }
 
 .dropdown > .dropdown-item {
-    background-color: $white;
+    background-color: $soft-blue;
     cursor: pointer;
     line-height: 18px;
     margin: 0px 0px 0px 0px;
@@ -86,7 +86,10 @@
 .dropdown > .dropdown-item:active,
 .dropdown > .dropdown-item.selected,
 .dropdown > .dropdown-item.highlighted {
-    background-color: $soft-blue;
+    background-color: $selected-color;
+}
+.dropdown > .dropdown-item:active {
+    background-color: $active-color;
 }
 
 .dropdown > .dropdown-item.separator {

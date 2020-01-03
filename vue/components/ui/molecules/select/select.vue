@@ -325,11 +325,12 @@ export const Select = {
             this.closeDropdown();
         },
         onDropdownHighlighted(values) {
-            const indexes = Object.keys(values)
-                .map(value => parseInt(value))
-                .filter(value => value !== this.highlighted);
-            if (indexes.length === 0) return;
-            this.highlight(indexes[0]);
+            const indexes = Object.keys(values).map(value => parseInt(value));
+            const newValue = indexes.filter(value => value !== this.highlighted)[0];
+
+            // nothing changed, so nothing to do here
+            if (!newValue) return;
+            this.highlight(newValue);
         }
     },
     computed: {
