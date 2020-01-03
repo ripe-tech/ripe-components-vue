@@ -121,10 +121,12 @@
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
+
 ::v-deep .highlight:hover,
 ::v-deep .highlight.hover {
     color: $link-hover-color;
 }
+
 .scroll-button {
     background: $white url("~./assets/arrow-up.svg") no-repeat center;
     border: none;
@@ -143,65 +145,82 @@
     transition: opacity 0.125s ease-in-out;
     width: 50px;
 }
+
 .scroll-button.show {
     cursor: pointer;
     opacity: 0.7;
 }
+
 .scroll-button.show:hover {
     opacity: 1;
 }
+
 .listing {
     box-sizing: border-box;
 }
+
 .listing.loading .container-header-right .search ::v-deep svg {
     display: none;
 }
+
 .container-ripe {
     animation: fade-into-rise 0.45s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
+
 .fade-enter-active .container-ripe,
 .fade-leave-active .container-ripe {
     transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
+
 .fade-enter .container-ripe,
 .fade-leave-active .container-ripe {
     opacity: 0;
 }
+
 .listing.empty .container-ripe {
     min-height: 315px;
 }
+
 .container-header-right {
     float: right;
     font-size: 0px;
 }
+
 .container-header-right.hasPersistentFilters .search ::v-deep .input {
     border-radius: 6px 0px 0px 6px;
     border-right: none;
 }
+
 .container-header-right.hasPersistentFilters .search ::v-deep .input:focus {
     border-right: 1px solid $aqcua-blue;
 }
+
 body.mobile .container-header-right {
     float: none;
     width: 100%;
 }
+
 .container-header-right > * {
     display: inline-block;
     vertical-align: middle;
 }
+
 .container-header-right .select {
     text-align: left;
 }
+
 .container-header-right .select ::v-deep .select-container .select-button {
     border-radius: 0px 6px 6px 0px;
     font-size: 14px;
     font-weight: 600;
 }
+
 .container-header-right .select.filterSelected ::v-deep .select-container .select-button {
     background-color: $dark;
     background-image: url("~./assets/chevron-down-white.svg");
     color: $white;
 }
+
 .container-header-right .select ::v-deep .dropdown-container {
     float: right;
     height: 0px;
@@ -210,55 +229,68 @@ body.mobile .container-header-right {
     position: relative;
     right: 0px;
 }
+
 .container-header-right .select ::v-deep .dropdown-container .dropdown {
     background-color: $white;
     margin: 0px 0px 0px -200px;
 }
+
 .container-header-right .select ::v-deep .dropdown-container .dropdown li:last-child .button {
     border: none;
 }
+
 .container-header-right .select .filter-label {
     overflow: hidden;
     padding: 0px 0px 0px 16px;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
 .container-header-right .select .filter-item {
     font-size: 14px;
     letter-spacing: 0.3px;
     line-height: 32px;
 }
+
 .container-header-right .select .selected-filter-item {
     background-color: $dark;
     color: $white;
     height: 32px;
 }
+
 .container-header-right .select .selected-filter-item .filter-label {
     display: inline-block;
     width: 110px;
 }
+
 .container-header-right .select .filter-item .selected-filter-item-buttons {
     float: right;
     font-size: 0px;
     margin: 0px 5px 0px 0px;
 }
+
 .container-header-right .select .filter-item .selected-filter-item-buttons .button {
     margin: 0px 1px 0px 1px;
 }
+
 .save-filter-button {
     border-radius: 0px 0px 0px 0px;
     box-sizing: unset;
 }
+
 .listing .filter-ripe ::v-deep table {
     margin-bottom: 0px;
 }
+
 .container-header {
     height: 34px;
     padding: 24px 28px 24px 28px;
 }
+
 body.mobile .container-header {
     height: auto;
 }
+
 .title {
     font-size: 26px;
     font-weight: 500;
@@ -267,12 +299,15 @@ body.mobile .container-header {
     margin: 0px 0px 0px 0px;
     text-align: left;
 }
+
 body.mobile .title {
     margin-top: 16px;
 }
+
 .title .name {
     text-transform: capitalize;
 }
+
 input[type="text"] {
     background-color: #f2f2f2;
     border: 1px solid transparent;
@@ -283,9 +318,11 @@ input[type="text"] {
     transition: width 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
     width: 260px;
 }
+
 input[type="text"]:hover {
     border-color: #dddddd;
 }
+
 input[type="text"]:focus {
     background-color: $white;
     border-color: #aaaaaa;

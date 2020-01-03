@@ -11,6 +11,7 @@
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
+
 .button-icon {
     box-sizing: border-box;
     cursor: pointer;
@@ -22,22 +23,28 @@
     user-select: none;
     vertical-align: middle;
 }
+
 .button-icon.disabled {
     cursor: default;
     opacity: 0.4;
 }
+
 .button-icon:hover:not(.disabled) {
     background-color: $lighter-grey;
 }
+
 .button-icon.button-icon-white {
     background-color: $white;
 }
+
 .button-icon.button-icon-white:hover:not(.disabled) {
     background-color: $lighter-grey;
 }
+
 .button-icon.button-icon-grey {
     background-color: $lighter-grey;
 }
+
 .button-icon.button-icon-grey:hover:not(.disabled) {
     background-color: #dedede;
 }
