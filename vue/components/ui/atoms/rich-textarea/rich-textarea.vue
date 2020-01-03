@@ -13,12 +13,12 @@
         />
         <div class="options">
             <div
-                class="selected-attachment-container"
+                class="attachment"
                 v-bind:title="attachment.name"
                 v-for="(attachment, index) in attachmentsData"
                 v-bind:key="index"
             >
-                <div class="selected-attachment-name">
+                <div class="attachment-name">
                     {{ attachment.name }}
                 </div>
                 <button-icon
@@ -97,7 +97,7 @@
     padding: 6px 12px 6px 12px;
 }
 
-.rich-textarea .options .selected-attachment-container {
+.rich-textarea .options .attachment {
     background-color: $white;
     border: 1px solid $light-white;
     display: flex;
@@ -106,7 +106,7 @@
     width: 33%;
 }
 
-.rich-textarea .options .selected-attachment-container .selected-attachment-name {
+.rich-textarea .options .attachment .attachment-name {
     cursor: default;
     flex: 1 0;
     font-size: 11px;
