@@ -83,11 +83,11 @@
 }
 
 .dropdown > .dropdown-item:hover,
-.dropdown > .dropdown-item:active,
 .dropdown > .dropdown-item.selected,
 .dropdown > .dropdown-item.highlighted {
     background-color: $selected-color;
 }
+
 .dropdown > .dropdown-item:active {
     background-color: $active-color;
 }
