@@ -1,13 +1,12 @@
 <template>
     <div
         class="upload-area"
-        v-bind:class="{ dragOver: isDraggingOver }"
+        v-bind:class="{ dragOver: dragging }"
         v-on:dragover.stop.prevent="onDragOver($event)"
         v-on:drop.stop.prevent="onDrop($event)"
-        v-on:dragenter.stop.prevent="isDraggingOver = true"
-        v-on:dragend.stop.prevent="isDraggingOver = false"
-        v-on:dragleave.stop.prevent="isDraggingOver = false"
-        v-on:drag-end.stop.prevent="isDraggingOver = false"
+        v-on:dragenter.stop.prevent="setDragging(true)"
+        v-on:dragend.stop.prevent="setDragging(false)"
+        v-on:dragleave.stop.prevent="setDragging(false)"
     >
         <slot>
             <div class="area-container">
@@ -91,7 +90,7 @@ export const UploadArea = {
     data: function() {
         return {
             filesData: this.files,
-            isDraggingOver: false
+            dragging: false
         };
     },
     methods: {
@@ -104,12 +103,15 @@ export const UploadArea = {
             this.filesData = [...filesList];
             this.emitUpdateFiles(this.filesData);
         },
+        setDragging(dragging) {
+            this.dragging = dragging;
+        },
         onDragOver(event) {
             event.dataTransfer.dropEffect = "copy";
         },
         onDrop(event) {
             this.selectFiles(event.dataTransfer.files);
-            this.isDraggingOver = false;
+            this.dragging = false;
         },
         onFilesInputChange() {
             this.selectFiles(this.$refs.filesInput.files);
