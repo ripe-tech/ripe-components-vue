@@ -200,7 +200,7 @@ export const RichTextarea = {
             this.focusTextarea();
         },
         onRemoveAttachmentButtonClick(index) {
-            this.removeAttachment();
+            this.removeAttachment(index);
             this.$emit("update:attachments", this.attachmentsData);
         },
         onAttachmentClick() {
