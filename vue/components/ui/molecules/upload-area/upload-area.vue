@@ -64,10 +64,6 @@
     letter-spacing: 0.3px;
     margin: 0px 0px 22px 0px;
 }
-
-.upload-area .area-container .upload-button {
-    width: 120px;
-}
 </style>
 
 <script>
