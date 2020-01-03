@@ -108,7 +108,7 @@ export const UploadArea = {
         },
         onDrop(event) {
             this.selectFiles(event.dataTransfer.files);
-            this.dragging = false;
+            this.setDragging(false);
         },
         onFilesInputChange() {
             this.selectFiles(this.$refs.filesInput.files);
