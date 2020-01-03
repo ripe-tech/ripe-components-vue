@@ -30,6 +30,7 @@ storiesOf("Organisms", module)
             item: {
                 type: Object,
                 default: () => ({
+                    id: 1,
                     name: "Theodore",
                     age: 14,
                     car: "Toyota Prius",
@@ -42,12 +43,12 @@ storiesOf("Organisms", module)
             values: {
                 type: Array,
                 default: () => [
-                    { id: "name", value: "name", label: "Person", note: "age" },
-                    { id: "car", value: "car" },
-                    { id: "city", value: "city" },
-                    { id: "shoes", value: "shoes" },
-                    { id: "trousers", value: "trousers" },
-                    { id: "shirt", value: "shirt" }
+                    { value: "name", label: "Person", note: "age" },
+                    { value: "car" },
+                    { value: "city" },
+                    { value: "shoes" },
+                    { value: "trousers" },
+                    { value: "shirt" }
                 ]
             },
             optionsItems: {
