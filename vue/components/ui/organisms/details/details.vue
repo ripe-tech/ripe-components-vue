@@ -515,14 +515,12 @@ export const Details = {
     },
     data: function() {
         return {
+            loading: false,
             optionsVisible: false,
             lightBoxVisible: false
         };
     },
     computed: {
-        loading() {
-            return !this.loaded;
-        },
         hasIndex() {
             return this.index !== null && this.index !== undefined;
         }
