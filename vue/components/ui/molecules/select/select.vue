@@ -29,12 +29,7 @@
                 ref="dropdown"
                 v-on:update:highlighted="onDropdownHighlighted"
                 v-on:item-clicked="value => onDropdownSelect(value.value)"
-            >
-                <slot v-bind:name="name" v-for="(_, name) in $slots" v-bind:slot="name" />
-                <!-- <template v-slot="{ item, index }">
-                    <slot v-bind:item="item" v-bind:index="index" />
-                </template> -->
-            </dropdown>
+            />
         </div>
         <select
             class="dropdown-select"
@@ -95,7 +90,7 @@ body.tablet-device .select .select-container {
     outline: none;
     overflow: hidden;
     padding-left: 12px;
-    padding-right: 34px;
+    padding-right: 12px;
     text-overflow: ellipsis;
     transition: width 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
     user-select: none;
@@ -330,19 +325,16 @@ export const Select = {
             this.closeDropdown();
         },
         onDropdownHighlighted(values) {
-            const indexes = Object.keys(values).map(value => parseInt(value));
-            const newValue = indexes.filter(value => value !== this.highlighted)[0];
-
-            // nothing changed, so nothing to do here
-            if (!newValue) return;
-            this.highlight(newValue);
+            const indexes = Object.keys(values)
+                .map(value => parseInt(value))
+                .filter(value => value !== this.highlighted);
+            if (indexes.length === 0) return;
+            this.highlight(indexes[0]);
         }
     },
     computed: {
         buttonText() {
-            return this.valueData && this.options.length
-                ? this.options[this.valueIndex].label
-                : this.placeholder;
+            return this.valueData ? this.options[this.valueIndex].label : this.placeholder;
         },
         valueIndex() {
             return this.options.findIndex(option => option.value === this.valueData);

@@ -180,6 +180,7 @@
 
 .table .table-column > span {
     padding: 0px 20px 0px 20px;
+    position: relative;
 }
 
 .table .table-column > span::before {
@@ -187,10 +188,12 @@
     content: "";
     display: inline-block;
     height: 8px;
-    margin-bottom: 2px;
+    left: 0px;
     opacity: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
     transition: opacity 0.1s ease-in;
-    vertical-align: middle;
     width: 20px;
 }
 
