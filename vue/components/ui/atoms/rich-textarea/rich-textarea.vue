@@ -190,9 +190,6 @@ export const RichTextarea = {
         }
     },
     methods: {
-        emitUpdateAttachments(value) {
-            this.$emit("update:attachments", value);
-        },
         focusTextarea() {
             this.$refs.textarea.focus();
         },
@@ -204,7 +201,7 @@ export const RichTextarea = {
         },
         onRemoveAttachmentButtonClick(index) {
             this.removeAttachment();
-            this.emitUpdateAttachments(this.attachmentsData);
+            this.$emit("update:attachments", this.attachmentsData);
         },
         onAttachmentClick() {
             this.$refs.attachmentsInput.click();
@@ -218,7 +215,7 @@ export const RichTextarea = {
                 ]);
             }
 
-            this.emitUpdateAttachments(this.attachmentsData);
+            this.$emit("update:attachments", this.attachmentsData);
         },
         onSmileClick() {
             this.$emit("click:smile");
