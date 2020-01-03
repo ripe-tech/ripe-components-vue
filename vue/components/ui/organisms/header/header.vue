@@ -45,7 +45,7 @@
                         v-bind:visible.sync="accountDropdownVisible"
                         v-bind:global-hide="true"
                     >
-                        <template v-slot:announcement="{ item }">
+                        <template v-if="announcements" v-slot:announcement="{ item }">
                             <div
                                 class="dropdown-item-announcement"
                                 v-on:click="onAnnouncementsClick"
@@ -80,40 +80,42 @@
             </div>
         </div>
         <div class="header-globals">
-            <bubble
-                v-bind:visible.sync="announcementModalVisible"
-                v-if="isMobileWidth()"
-                v-slot:default="{ hide }"
-            >
-                <announcements
-                    v-bind:title="announcements.title"
-                    v-bind:description="announcements.description"
-                    v-bind:new-threshold="announcements.new_threshold"
-                    v-bind:show-subscribe="announcements.show_subscribe"
-                    v-bind:show-links="announcements.show_links"
-                    v-bind:show-reactions="announcements.show_reactions"
-                    v-bind:announcements="announcements.items"
-                    v-on:click:close="hide"
-                />
-            </bubble>
-            <side
-                v-bind:visible.sync="announcementModalVisible"
-                v-bind:width="370"
-                v-bind:position="'right'"
-                v-else
-                v-slot:default="{ hide }"
-            >
-                <announcements
-                    v-bind:title="announcements.title"
-                    v-bind:description="announcements.description"
-                    v-bind:new-threshold="announcements.new_threshold"
-                    v-bind:show-subscribe="announcements.show_subscribe"
-                    v-bind:show-links="announcements.show_links"
-                    v-bind:show-reactions="announcements.show_reactions"
-                    v-bind:announcements="announcements.items"
-                    v-on:click:close="hide"
-                />
-            </side>
+            <template v-if="announcements">
+                <bubble
+                    v-bind:visible.sync="announcementModalVisible"
+                    v-if="isMobileWidth()"
+                    v-slot:default="{ hide }"
+                >
+                    <announcements
+                        v-bind:title="announcements.title"
+                        v-bind:description="announcements.description"
+                        v-bind:new-threshold="announcements.new_threshold"
+                        v-bind:show-subscribe="announcements.show_subscribe"
+                        v-bind:show-links="announcements.show_links"
+                        v-bind:show-reactions="announcements.show_reactions"
+                        v-bind:announcements="announcements.items"
+                        v-on:click:close="hide"
+                    />
+                </bubble>
+                <side
+                    v-bind:visible.sync="announcementModalVisible"
+                    v-bind:width="370"
+                    v-bind:position="'right'"
+                    v-else
+                    v-slot:default="{ hide }"
+                >
+                    <announcements
+                        v-bind:title="announcements.title"
+                        v-bind:description="announcements.description"
+                        v-bind:new-threshold="announcements.new_threshold"
+                        v-bind:show-subscribe="announcements.show_subscribe"
+                        v-bind:show-links="announcements.show_links"
+                        v-bind:show-reactions="announcements.show_reactions"
+                        v-bind:announcements="announcements.items"
+                        v-on:click:close="hide"
+                    />
+                </side>
+            </template>
         </div>
     </div>
 </template>
@@ -393,7 +395,11 @@ export const Header = {
             const items = [];
             const { name, email } = this.account.meta;
             items.push({ value: "name", label: name || email || this.account.email });
-            items.push({ value: "announcement", label: "What's new?" });
+
+            if (this.announcements) {
+                items.push({ value: "announcement", label: "What's new?" });
+            }
+
             items.push({ value: "settings", label: "Account settings", separator: true });
             items.push({ value: "signout", label: "Sign out", link: "/signout" });
             return items;
@@ -414,6 +420,7 @@ export const Header = {
             return items;
         },
         announcementsToRead() {
+            if (!this.announcements) return false;
             const reference =
                 this.announcements.items.length > 0 ? this.announcements.items[0].timestamp : 0;
             return reference * 1000 > Date.now() - this.announcements.new_threshold * 1000;
