@@ -94,14 +94,11 @@ export const UploadArea = {
         };
     },
     methods: {
-        emitUpdateFiles(value) {
-            this.$emit("update:files", value);
-        },
         selectFiles(filesList) {
             if (!filesList || !filesList.length) return;
 
             this.filesData = [...filesList];
-            this.emitUpdateFiles(this.filesData);
+            this.$emit("update:files", filesData);
         },
         setDragging(dragging) {
             this.dragging = dragging;
