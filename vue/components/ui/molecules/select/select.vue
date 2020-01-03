@@ -29,7 +29,16 @@
                 ref="dropdown"
                 v-on:update:highlighted="onDropdownHighlighted"
                 v-on:item-clicked="value => onDropdownSelect(value.value)"
-            />
+            >
+                <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
+                <template
+                    v-for="slot in Object.keys($scopedSlots)"
+                    v-bind:slot="slot"
+                    slot-scope="scope"
+                >
+                    <slot v-bind:name="slot" v-bind="scope" />
+                </template>
+            </dropdown>
         </div>
         <select
             class="dropdown-select"
