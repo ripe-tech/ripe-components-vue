@@ -329,7 +329,7 @@ export const Select = {
             const newValue = indexes.filter(value => value !== this.highlighted)[0];
 
             // nothing changed, so nothing to do here
-            if (!newValue) return;
+            if (newValue === undefined) return;
             this.highlight(newValue);
         }
     },
