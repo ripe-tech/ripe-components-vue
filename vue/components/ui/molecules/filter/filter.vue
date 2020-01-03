@@ -2,7 +2,6 @@
     <div class="filter-ripe" v-bind:class="{ loading }">
         <slot name="list">
             <table-ripe
-                class="table"
                 v-bind:columns="columns"
                 v-bind:items="items"
                 v-bind:sort-method="onSort"
