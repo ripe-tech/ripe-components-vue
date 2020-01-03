@@ -38,11 +38,9 @@
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
-
 .fade-enter-active {
     transition-duration: 0.25s;
 }
-
 .table {
     border-collapse: collapse;
     border-spacing: 0px;
@@ -53,24 +51,19 @@
     text-align: center;
     width: 100%;
 }
-
 .table tr {
     border-bottom: 1px solid $border-color;
     cursor: pointer;
 }
-
 .table thead tr {
     border-bottom: 1px solid $border-color;
 }
-
 .table tbody tr:last-child {
     border-bottom: none;
 }
-
 .table tbody tr:hover {
     background-color: $selected-color;
 }
-
 .table th {
     color: $label-color;
     font-size: 12px;
@@ -82,7 +75,6 @@
     user-select: none;
     white-space: pre;
 }
-
 .table ::v-deep td {
     font-size: 14px;
     font-weight: 600;
@@ -92,69 +84,56 @@
     text-overflow: ellipsis;
     word-break: break-all;
 }
-
 .table ::v-deep td > * {
     vertical-align: middle;
 }
-
 .table ::v-deep td.image {
     line-height: 0px;
     user-select: none;
 }
-
 .table ::v-deep td.image > * {
     height: 100%;
 }
-
 .table ::v-deep td.image img {
     height: auto;
     max-height: 100%;
     max-width: 100%;
     width: auto;
 }
-
 .table ::v-deep td.date > img {
     margin: 0px 5px 0px 5px;
     width: 12px;
 }
-
 .table ::v-deep td.status {
     padding: 0px 20px 0px 20px;
 }
-
 .table ::v-deep td.status > p {
     height: auto;
     line-height: normal;
     margin: 0px 0px 8px 0px;
 }
-
 .table ::v-deep td.status > p.small {
     font-size: 13px;
 }
-
 .table ::v-deep td.icons > .icon {
     height: 20px;
     margin-right: 4px;
     opacity: 0.6;
     transition: opacity 0.125s ease-in-out;
 }
-
 .table ::v-deep td.icons > .icon:hover {
     opacity: 1;
 }
-
 .table ::v-deep td > .column-container {
     display: inline-block;
     height: auto;
 }
-
 .table ::v-deep td > .column-container > .name,
 .table ::v-deep td > .column-container > .details {
     display: block;
     line-height: 14px;
     word-break: break-word;
 }
-
 .table ::v-deep td > .column-container > .details {
     color: #6d6d6d;
     font-size: 10px;
@@ -163,25 +142,20 @@
     margin-top: 8px;
     text-transform: uppercase;
 }
-
 .table ::v-deep td > .column-container > .details.highlight:hover,
 .table ::v-deep td > .column-container > .details.highlight.hover {
     color: $link-hover-color;
 }
-
 .table .table-column {
     transition: color 0.1s ease-in;
 }
-
 .table .table-column.active,
 .table .table-column:hover {
     color: #0d0d0d;
 }
-
 .table .table-column > span {
     padding: 0px 20px 0px 20px;
 }
-
 .table .table-column > span::before {
     background: url("~./assets/sorting.svg") no-repeat left top;
     content: "";
@@ -193,12 +167,10 @@
     vertical-align: middle;
     width: 20px;
 }
-
 .table .table-column.descending > span::before,
 .table .table-column:not(.active) > span::before {
     background-position-y: bottom;
 }
-
 .table .table-column.active > span::before,
 .table .table-column:hover > span::before {
     opacity: 1;
@@ -259,7 +231,6 @@ export const Table = {
             if (!this.sortData) {
                 return this.items;
             }
-
             const items = [...this.items];
             return this.sortMethod(items, this.sortData, this.reverseData);
         }
@@ -277,6 +248,5 @@ export const Table = {
         }
     }
 };
-
 export default Table;
 </script>

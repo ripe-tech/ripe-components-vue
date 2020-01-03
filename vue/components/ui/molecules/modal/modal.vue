@@ -66,7 +66,6 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 @import "css/animations.scss";
-
 .modal {
     bottom: 0px;
     left: 0px;
@@ -78,11 +77,9 @@
     transition: opacity 0.25s;
     z-index: 40;
 }
-
 .modal > .overlay {
     z-index: 0;
 }
-
 .modal > .modal-container {
     animation: fade-grow-rise 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
     background-color: $white;
@@ -99,16 +96,13 @@
     position: relative;
     width: 460px;
 }
-
 body.tablet .modal > .modal-container,
 body.mobile .modal > .modal-container {
     padding: 14px 20px 14px 20px;
 }
-
 .modal.fade-leave-active > .modal-container {
     animation: fade-shrink-visibility 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
 }
-
 .modal > .modal-container > .button.button-close-container {
     box-sizing: border-box;
     left: 0px;
@@ -120,28 +114,22 @@ body.mobile .modal > .modal-container {
     top: 0px;
     width: 100%;
 }
-
 .modal > .modal-container > .button.button-close-container ::v-deep .button-icon {
     pointer-events: all;
 }
-
 .modal > .modal-container > .buttons-container {
     user-select: none;
 }
-
 .modal > .modal-container > .buttons-container ::v-deep .button {
     margin: 0px 6px 0px 6px;
     min-width: 146px;
 }
-
 .modal > .modal-container > .buttons-container ::v-deep .button:first-child {
     margin-left: 0px;
 }
-
 .modal > .modal-container > .buttons-container ::v-deep .button:last-child {
     margin-right: 0px;
 }
-
 .modal > .modal-container > .title {
     font-size: 18px;
     font-weight: 600;
@@ -149,7 +137,6 @@ body.mobile .modal > .modal-container {
     margin: 0px 0px 12px 0px;
     text-align: left;
 }
-
 .modal > .modal-container > .sub-title {
     font-size: 14px;
     font-weight: 500;
@@ -157,7 +144,6 @@ body.mobile .modal > .modal-container {
     margin: 0px 0px 12px 0px;
     text-align: left;
 }
-
 .modal > .modal-container > .modal-content {
     font-size: 13px;
     font-weight: 500;
@@ -372,6 +358,5 @@ export const Modal = {
         }
     }
 };
-
 export default Modal;
 </script>

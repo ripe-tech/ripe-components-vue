@@ -11,7 +11,6 @@
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
-
 .button-icon {
     box-sizing: border-box;
     cursor: pointer;
@@ -23,38 +22,24 @@
     user-select: none;
     vertical-align: middle;
 }
-
 .button-icon.disabled {
     cursor: default;
     opacity: 0.4;
 }
-
 .button-icon:hover:not(.disabled) {
     background-color: $lighter-grey;
 }
-
 .button-icon.button-icon-white {
     background-color: $white;
 }
-
 .button-icon.button-icon-white:hover:not(.disabled) {
     background-color: $lighter-grey;
 }
-
 .button-icon.button-icon-grey {
     background-color: $lighter-grey;
 }
-
 .button-icon.button-icon-grey:hover:not(.disabled) {
     background-color: #dedede;
-}
-
-.button-icon.button-icon-inverted {
-    background-color: $dark;
-}
-
-.button-icon.button-icon-inverted:hover:not(.disabled) {
-    background-color: #41566f;
 }
 </style>
 
@@ -81,9 +66,7 @@ export const ButtonIcon = {
     },
     computed: {
         iconPath() {
-            const iconColor = this.color === "inverted" ? "white" : "black";
-
-            return require(`./../../../../assets/icons/${iconColor}/${this.icon}.svg`);
+            return require(`./../../../../assets/icons/black/${this.icon}.svg`);
         },
         style() {
             return {
@@ -108,6 +91,5 @@ export const ButtonIcon = {
         }
     }
 };
-
 export default ButtonIcon;
 </script>

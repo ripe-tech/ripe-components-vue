@@ -63,7 +63,6 @@
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
-
 .search {
     display: inline-block;
     font-size: 0px;
@@ -72,17 +71,14 @@
     position: relative;
     width: 100%;
 }
-
 .search > .loader {
     left: 38px;
     top: 38px;
 }
-
 .search > .loader ::v-deep div {
     height: 20px;
     width: 20px;
 }
-
 .search > svg {
     display: inline-block;
     fill: #d0d0d0;
@@ -91,29 +87,23 @@
     position: absolute;
     width: 20px;
 }
-
 .search.focus > svg {
     fill: #2d2d2d;
 }
-
 .search ::v-deep input[type="text"] {
     padding-left: 33px;
 }
-
 .search.icon-invisible ::v-deep input[type="text"] {
     padding-left: 12px;
 }
-
 .search.grow ::v-deep input[type="text"]:focus {
     width: 340px;
 }
-
 .search .icon-delete {
     position: absolute;
     right: 5px;
     top: 3px;
 }
-
 .search > .suggestions {
     border: 1px solid $border-color;
     border-radius: 5px;
@@ -121,30 +111,25 @@
     margin-top: -2px;
     overflow: hidden;
 }
-
 .search > .suggestions > .suggestion {
     background-color: $white;
     border-bottom: 1px solid $border-color;
     padding: 2px 16px 2px 16px;
     text-transform: capitalize;
 }
-
 .search > .suggestions > .suggestion:hover,
 .search > .suggestions > .suggestion.selected {
     background-color: $selected-color;
 }
-
 .search > .suggestions > .suggestion:last-child {
     border-bottom: none;
 }
-
 .search > .suggestions > .suggestion > a {
     border-bottom: none;
     color: #4d4d4d;
     display: block;
     font-weight: 600;
 }
-
 .search > .suggestions > .suggestion:hover > a,
 .search > .suggestions > .suggestion.selected > a {
     color: $link-hover-color;
@@ -224,6 +209,5 @@ export const Search = {
         }
     }
 };
-
 export default Search;
 </script>

@@ -2,14 +2,9 @@
     <component
         v-bind="attrs"
         v-bind:confirm-text="confirmText"
-        v-bind:confirm-icon="confirmIcon"
-        v-bind:confirm-color="confirmColor"
         v-bind:buttons-alignment="buttonsAlignment"
         v-bind:button-close="buttonClose"
         v-bind:cancel-text="cancelText"
-        v-bind:cancel-icon="cancelIcon"
-        v-bind:cancel-color="cancelColor"
-        v-bind:is-button-small="isButtonSmall"
         v-bind:global-events="globalEvents"
         v-bind:overlay="overlay"
         v-bind:overlay-leave="overlayLeave"
@@ -29,14 +24,9 @@
     <modal
         v-bind="attrs"
         v-bind:confirm-text="confirmText"
-        v-bind:confirm-icon="confirmIcon"
-        v-bind:confirm-color="confirmColor"
         v-bind:buttons-alignment="buttonsAlignment"
         v-bind:button-close="buttonClose"
         v-bind:cancel-text="cancelText"
-        v-bind:cancel-icon="cancelIcon"
-        v-bind:cancel-color="cancelColor"
-        v-bind:is-button-small="isButtonSmall"
         v-bind:global-events="globalEvents"
         v-bind:overlay="overlay"
         v-bind:overlay-leave="overlayLeave"
@@ -66,12 +56,7 @@ export const Alert = {
             listeners: null,
             component: null,
             confirmText: null,
-            confirmIcon: null,
-            confirmColor: null,
             cancelText: null,
-            cancelIcon: null,
-            cancelColor: null,
-            isButtonSmall: true,
             buttonsAlignment: null,
             buttonConfirm: true,
             buttonCancel: true,
@@ -98,21 +83,15 @@ export const Alert = {
     methods: {
         show(options) {
             if (this.visible) return;
-
             const {
                 listeners,
                 component,
                 confirmText,
-                confirmIcon,
-                confirmColor,
                 cancelText,
-                cancelIcon,
-                cancelColor,
                 buttonsAlignment,
                 buttonConfirm,
                 buttonCancel,
                 buttonClose,
-                isButtonSmall,
                 globalEvents,
                 overlay,
                 overlayLeave,
@@ -122,20 +101,14 @@ export const Alert = {
                 task,
                 ...attrs
             } = options;
-
             this.attrs = attrs || {};
             this.listeners = listeners || {};
             this.confirmText = confirmText || "Confirm";
-            this.confirmIcon = confirmIcon;
-            this.confirmColor = confirmColor;
             this.cancelText = cancelText || "Cancel";
-            this.cancelIcon = cancelIcon;
-            this.cancelColor = cancelColor;
             this.buttonsAlignment = buttonsAlignment;
             this.buttonConfirm = buttonConfirm;
             this.buttonCancel = buttonCancel;
             this.buttonClose = buttonClose;
-            this.isButtonSmall = isButtonSmall;
             this.globalEvents = globalEvents;
             this.overlay = overlay;
             this.overlayLeave = overlayLeave;
@@ -143,7 +116,6 @@ export const Alert = {
             this.subTitle = subTitle;
             this.text = text;
             this.task = task || null;
-
             this.visible = true;
             this.loading = false;
             this.component = component;
@@ -178,6 +150,5 @@ export const Alert = {
         }
     }
 };
-
 export default Alert;
 </script>
