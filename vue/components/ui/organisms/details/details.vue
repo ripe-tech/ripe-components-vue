@@ -16,13 +16,13 @@
                             </span>
                             <p>{{ name }}s</p>
                         </div>
-                        <div class="header-button" v-bind:class="{ invisible: Boolean(index)}">
+                        <div class="header-button" v-bind:class="{ invisible: !hasIndex }">
                             <span class="button-previous" v-on:click="onPreviousClick">
                                 <img src="~./assets/chevron-left.svg" />
                             </span>
                             <p>Previous</p>
                         </div>
-                        <div class="header-button" v-bind:class="{ invisible: Boolean(index)}">
+                        <div class="header-button" v-bind:class="{ invisible: !hasIndex }">
                             <span class="button-next" v-on:click="onNextClick">
                                 <img src="~./assets/chevron-right.svg" />
                             </span>
