@@ -123,6 +123,26 @@ storiesOf("Organisms", module)
                 messagesData: this.messages
             };
         },
+        methods: {
+            sendMessage(message) {
+                console.log("Send message");
+                console.log(message);
+
+                if (!message) return;
+                message.messageContent.attachments = this.uploadAttachments(
+                    message.messageContent.attachments
+                );
+
+                // TODO API send message here
+                this.messagesData.push(JSON.parse(JSON.stringify(message)));
+            },
+            uploadAttachments(files) {
+                if (!files || !files.length) return [];
+
+                // TODO simulate upload, returning list of attachments {name: ..., path: ...}
+                return [];
+            }
+        },
         template: `
             <div>
                 <global />
@@ -130,6 +150,7 @@ storiesOf("Organisms", module)
                     v-bind:avatar-url="avatarUrl"
                     v-bind:username="username"
                     v-bind:messages.sync="messagesData"
+                    v-on:send-message="value => sendMessage(value)"
                  />
                  <div>
                     <p v-for="(message, index) in messagesData">
