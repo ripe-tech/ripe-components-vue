@@ -2,9 +2,10 @@
     <transition-group tag="div" v-bind:name="transition" class="lineup">
         <div
             class="lineup-item"
+            v-bind:class="{ clickable: item.url }"
             v-for="(item, index) in items"
             v-bind:key="item.id"
-            v-on:click="onItemClick(item, index)"
+            v-on:click.stop.prevent="onItemClick(item, index)"
         >
             <slot
                 v-bind:name="value.value"
@@ -89,6 +90,10 @@
     padding: 16px 20px 16px 20px;
 }
 
+.lineup > .lineup-item.clickable {
+    cursor: pointer;
+}
+
 .lineup > .lineup-item:first-child {
     border-top: 1px solid #e4e8f0;
 }
@@ -152,6 +157,11 @@ export const Lineup = {
     },
     methods: {
         onItemClick(item, index) {
+            if (item.url) {
+                this.$router.push(item.url);
+                return;
+            }
+
             this.$emit("click", item, index);
         }
     }
