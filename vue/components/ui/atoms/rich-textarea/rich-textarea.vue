@@ -193,6 +193,9 @@ export const RichTextarea = {
         focusTextarea() {
             this.$refs.textarea.focus();
         },
+        addAttachments(fileList) {
+            this.attachmentsData = (this.attachmentsData || []).concat([...fileList]);
+        },
         removeAttachment(index) {
             this.attachmentsData.splice(index, 1);
         },
@@ -207,14 +210,7 @@ export const RichTextarea = {
             this.$refs.attachmentsInput.click();
         },
         onAttachmentsInputChange() {
-            if (!this.attachmentsData.length) {
-                this.attachmentsData = [...this.$refs.attachmentsInput.files];
-            } else {
-                this.attachmentsData = this.attachmentsData.concat([
-                    ...this.$refs.attachmentsInput.files
-                ]);
-            }
-
+            this.addAttachments(this.$refs.attachmentsInput.files);
             this.$emit("update:attachments", this.attachmentsData);
         },
         onSmileClick() {
