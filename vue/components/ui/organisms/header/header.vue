@@ -45,12 +45,12 @@
                         v-bind:visible.sync="accountDropdownVisible"
                         v-bind:global-hide="true"
                     >
-                        <template v-slot:announcement="{ item }">
+                        <template v-slot:announcements="{ item }">
                             <div
-                                class="dropdown-item-announcement"
+                                class="dropdown-item-announcements"
                                 v-on:click="onAnnouncementsClick"
                             >
-                                <span class="announcement-dropdown-text">{{ item.label }}</span>
+                                <span class="announcements-dropdown-text">{{ item.label }}</span>
                                 <div class="dot" v-if="announcementsToRead" />
                             </div>
                         </template>
@@ -82,7 +82,7 @@
         <div class="header-globals">
             <template v-if="announcements">
                 <bubble
-                    v-bind:visible.sync="announcementModalVisible"
+                    v-bind:visible.sync="announcementsModalVisible"
                     v-if="isMobileWidth()"
                     v-slot:default="{ hide }"
                 >
@@ -98,7 +98,7 @@
                     />
                 </bubble>
                 <side
-                    v-bind:visible.sync="announcementModalVisible"
+                    v-bind:visible.sync="announcementsModalVisible"
                     v-bind:width="370"
                     v-bind:position="'right'"
                     v-else
@@ -306,11 +306,11 @@
     margin: 6px 0px 0px 0px;
 }
 
-.header-ripe > .header-bar .dropdown-item-announcement .announcement-dropdown-text {
+.header-ripe > .header-bar .dropdown-item-announcements .announcements-dropdown-text {
     width: auto;
 }
 
-.header-ripe > .header-bar .dropdown-item-announcement .dot {
+.header-ripe > .header-bar .dropdown-item-announcements .dot {
     background-color: #4b8dd7;
     border: 1px solid #ffffff;
     border-radius: 50%;
@@ -384,7 +384,7 @@ export const Header = {
             searchFilter: null,
             appsDropdownVisible: false,
             accountDropdownVisible: false,
-            announcementModalVisible: false
+            announcementsModalVisible: false
         };
     },
     computed: {
@@ -442,7 +442,7 @@ export const Header = {
             this.appsDropdownVisible = !status;
         },
         showAnnouncements() {
-            this.announcementModalVisible = true;
+            this.announcementsModalVisible = true;
         },
         onAnnouncementsClick() {
             this.showAnnouncements();
