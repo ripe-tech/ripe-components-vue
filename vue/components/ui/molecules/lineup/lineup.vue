@@ -2,10 +2,10 @@
     <transition-group tag="div" v-bind:name="transition" class="lineup">
         <div
             class="lineup-item"
-            v-bind:class="{ clickable: item.url }"
+            v-bind:class="{ clickable: clickable(item) }"
             v-for="(item, index) in items"
             v-bind:key="item.id"
-            v-on:click.stop.prevent="onItemClick(item, index)"
+            v-on:click="onItemClick(item, index)"
         >
             <slot
                 v-bind:name="value.value"
@@ -156,6 +156,9 @@ export const Lineup = {
         }
     },
     methods: {
+        clickable(item) {
+            return Boolean(item.url);
+        },
         onItemClick(item, index) {
             if (item.url) {
                 this.$router.push(item.url);
