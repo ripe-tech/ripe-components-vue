@@ -157,14 +157,11 @@ export const Lineup = {
     },
     methods: {
         clickable(item) {
-            return Boolean(item.url);
+            return item.url || item.getUrl;
         },
         onItemClick(item, index) {
-            if (item.url) {
-                this.$router.push(item.url);
-                return;
-            }
-
+            const url = item.getUrl ? item.getUrl(item, index) : item.url;
+            if (url) this.$router.push(url);
             this.$emit("click", item, index);
         }
     }
