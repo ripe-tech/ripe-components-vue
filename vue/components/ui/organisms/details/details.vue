@@ -210,7 +210,8 @@ body.mobile .container-ripe .header-buttons > .header-button {
 body.tablet .header-buttons > .header-button.invisible,
 body.mobile .header-buttons > .header-button.invisible {
     display: inline-block;
-    opacity: 0;
+    opacity: 0.2;
+    pointer-events: none;
 }
 
 .container-ripe .header-buttons .header-button > span {
