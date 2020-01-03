@@ -8,8 +8,8 @@ storiesOf("Molecules", module)
             username: {
                 default: text("Username", "Username")
             },
-            avatarUrl: {
-                default: text("Avatar URL", "http://i.pravatar.cc")
+            avatar: {
+                default: text("Avatar", "http://i.pravatar.cc")
             },
             date: {
                 default: number("Date", 1576840199)
@@ -56,7 +56,7 @@ storiesOf("Molecules", module)
             <div>
                 <chat-message
                     v-bind:username="username"
-                    v-bind:avatarUrl="avatarUrl"
+                    v-bind:avatar="avatar"
                     v-bind:date="date"
                     v-bind:message="message"
                     v-bind:attachments="attachments"

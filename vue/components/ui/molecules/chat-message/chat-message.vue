@@ -1,6 +1,6 @@
 <template>
     <div class="chat-message">
-        <avatar class="user-image" v-bind:src="avatarUrl" v-bind:size="'tiny'" />
+        <avatar class="avatar" v-bind:src="avatar" v-bind:size="'tiny'" />
         <div class="message-container">
             <div class="message-header">
                 <div class="username">
@@ -58,7 +58,7 @@
     padding: 6px 0px 6px 0px;
 }
 
-.chat-message .user-image {
+.chat-message .avatar {
     border: solid 1px #e3e8f1;
     border-radius: 50%;
     box-shadow: 0 2px 5px 0 rgba(67, 86, 100, 0.25);
@@ -126,7 +126,7 @@ export const ChatMessage = {
     name: "chat-message",
     mixins: [utilsMixin],
     props: {
-        avatarUrl: {
+        avatar: {
             type: String,
             default: null
         },
