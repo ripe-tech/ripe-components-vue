@@ -14,7 +14,7 @@
                     <slot name="item" v-bind:item="item" v-bind:index="index" />
                 </template>
             </table-ripe>
-            <lineup v-bind:items="items" v-bind:values="values">
+            <lineup v-bind:items="items" v-bind:values="values" v-on:click="onLineupClick">
                 <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
                 <template
                     v-for="slot in Object.keys($scopedSlots)"
@@ -254,6 +254,9 @@ export const Filter = {
             // returns a valid value as an "effective" refresh operation
             // has just been performed (all tests passed)
             return true;
+        },
+        onLineupClick(item, index) {
+            this.$emit("click:lineup", item, index);
         }
     }
 };
