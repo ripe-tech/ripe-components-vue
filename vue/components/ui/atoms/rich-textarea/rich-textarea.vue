@@ -195,23 +195,23 @@ export const RichTextarea = {
         },
         addAttachments(fileList) {
             this.attachmentsData = (this.attachmentsData || []).concat([...fileList]);
+            this.$emit("update:attachments", this.attachmentsData);
         },
         removeAttachment(index) {
             this.attachmentsData.splice(index, 1);
+            this.$emit("update:attachments", this.attachmentsData);
         },
         onClick() {
             this.focusTextarea();
         },
         onRemoveAttachmentButtonClick(index) {
             this.removeAttachment(index);
-            this.$emit("update:attachments", this.attachmentsData);
         },
         onAttachmentClick() {
             this.$refs.attachmentsInput.click();
         },
         onAttachmentsInputChange() {
             this.addAttachments(this.$refs.attachmentsInput.files);
-            this.$emit("update:attachments", this.attachmentsData);
         },
         onSmileClick() {
             this.$emit("click:smile");
