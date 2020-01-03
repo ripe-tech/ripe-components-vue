@@ -524,7 +524,7 @@ export const Details = {
             return !this.loaded;
         },
         hasIndex() {
-            return Boolean(this.index);
+            return this.index !== null && this.index !== undefined;
         }
     },
     methods: {
