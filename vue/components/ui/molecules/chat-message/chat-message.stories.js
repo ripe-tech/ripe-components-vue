@@ -5,12 +5,6 @@ storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Chat Message", () => ({
         props: {
-            avatarUrl: {
-                default: text(
-                    "Avatar Url",
-                    "https://id.platforme.com/admin/accounts/ns%40platforme.com/avatar"
-                )
-            },
             username: {
                 default: text("Username", "Username")
             },
@@ -76,7 +70,6 @@ storiesOf("Molecules", module)
         template: `
             <div>
                 <chat-message
-                    v-bind:avatarUrl="avatarUrl"
                     v-bind:username="username"
                     v-bind:avatar="avatar"
                     v-bind:date="date"
