@@ -13,7 +13,12 @@
                     <slot name="item" v-bind:item="item" v-bind:index="index" />
                 </template>
             </table-ripe>
-            <lineup v-bind:items="items" v-bind:values="values" v-on:click="onLineupClick" v-bind:get-item-url="getItemUrl">
+            <lineup
+                v-bind:items="items"
+                v-bind:values="values"
+                v-bind:get-item-url="getItemUrl"
+                v-on:click="onLineupClick"
+            >
                 <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
                 <template
                     v-for="slot in Object.keys($scopedSlots)"
