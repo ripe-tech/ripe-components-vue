@@ -73,8 +73,6 @@
     border: none;
     border-radius: 40px;
     bottom: 20px;
-    -webkit-box-shadow: 0px 0px 36px -15px #aaaaaa;
-    -moz-box-shadow: 0px 0px 36px -15px #aaaaaa;
     box-shadow: 0px 0px 36px -15px #aaaaaa;
     height: 50px;
     opacity: 0;
