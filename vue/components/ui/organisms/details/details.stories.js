@@ -42,11 +42,11 @@ storiesOf("Organisms", module)
             values: {
                 type: Array,
                 default: () => [
-                    { value: "name", label: "Person", note: "age" },
-                    { value: "car" },
+                    { id: "name", value: "name", label: "Person", note: "age" },
+                    { id: "car", value: "car" },
                     { id: "city", value: "city" },
-                    { value: "shoes" },
-                    { value: "trousers" },
+                    { id: "shoes", value: "shoes" },
+                    { id: "trousers", value: "trousers" },
                     { id: "shirt", value: "shirt" }
                 ]
             },

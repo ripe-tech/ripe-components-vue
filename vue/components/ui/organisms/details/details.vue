@@ -87,6 +87,7 @@
                         <div
                             class="label-value"
                             v-bind:class="[value.id, `label-value-${value.id}`]"
+                            v-if="value.id"
                             v-bind:key="value.id"
                         >
                             <div class="label-value-component label">
