@@ -6,13 +6,61 @@
             v-on:keydown.left="onKeyLeft"
             v-on:keydown.right="onKeyRight"
         />
-        <container-ripe class="loading" v-if="!loaded">
+        <container-ripe class="loading" v-if="loading">
             <div class="container-header">
+                <div class="header-buttons">
+                    <slot name="header-buttons">
+                        <div class="header-button">
+                            <span class="button-stats" v-on:click="onStatsClick">
+                                <img src="~./assets/stats.svg" />
+                            </span>
+                            <p>{{ name }}s</p>
+                        </div>
+                        <div class="header-button">
+                            <span class="button-previous" v-on:click="onPreviousClick">
+                                <img src="~./assets/chevron-left.svg" />
+                            </span>
+                            <p>Previous</p>
+                        </div>
+                        <div class="header-button">
+                            <span class="button-next" v-on:click="onNextClick">
+                                <img src="~./assets/chevron-right.svg" />
+                            </span>
+                            <p>Next</p>
+                        </div>
+                        <div class="header-button">
+                            <span class="button-refresh" v-on:click="onRefreshClick">
+                                <img src="~./assets/refresh.svg" />
+                            </span>
+                            <p>Refresh</p>
+                        </div>
+                        <div
+                            class="header-button"
+                            v-bind:class="{
+                                invisible: optionsItems.length === 0 || loading
+                            }"
+                        >
+                            <span
+                                class="button-options"
+                                v-bind:class="{ active: optionsVisible }"
+                                v-on:click.stop="options"
+                            >
+                                <img src="~./assets/options.svg" />
+                                <dropdown
+                                    v-bind:items="optionsItems"
+                                    v-bind:visible.sync="optionsVisible"
+                                    v-on:item-clicked="onOptionsItemClick"
+                                />
+                            </span>
+                            <p>Status</p>
+                        </div>
+                    </slot>
+                </div>
                 <h1 class="title" v-if="invalid">{{ invalidTitle }}</h1>
                 <h1 class="title" v-else>{{ title }}</h1>
             </div>
             <h1 class="item-invalid" v-if="invalid">
-                {{ invalidMsg }}
+                {{ invalidMessage }}
             </h1>
             <loader loader="line-scale" v-bind:count="5" v-else />
         </container-ripe>
@@ -205,14 +253,13 @@ body.mobile .container-ripe .header-buttons > .header-button {
 }
 
 .header-buttons > .header-button.invisible {
-    display: none;
+    opacity: 0.2;
+    pointer-events: none;
 }
 
 body.tablet .header-buttons > .header-button.invisible,
 body.mobile .header-buttons > .header-button.invisible {
     display: inline-block;
-    opacity: 0.2;
-    pointer-events: none;
 }
 
 .container-ripe .header-buttons .header-button > span {
@@ -417,7 +464,7 @@ export const Details = {
             type: String,
             default: "Item not found"
         },
-        invalidMsg: {
+        invalidMessage: {
             type: String,
             default: "Our apologies, it looks like this item doesn't exist"
         },
@@ -471,6 +518,11 @@ export const Details = {
             optionsVisible: false,
             lightBoxVisible: false
         };
+    },
+    computed: {
+        loading() {
+            return !this.loaded;
+        }
     },
     methods: {
         getValueColumn(valueIndex) {
