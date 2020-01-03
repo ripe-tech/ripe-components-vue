@@ -395,11 +395,7 @@ export const Header = {
             const items = [];
             const { name, email } = this.account.meta;
             items.push({ value: "name", label: name || email || this.account.email });
-
-            if (this.announcements) {
-                items.push({ value: "announcement", label: "What's new?" });
-            }
-
+            if (this.announcements) items.push({ value: "announcements", label: "What's new?" });
             items.push({ value: "settings", label: "Account settings", separator: true });
             items.push({ value: "signout", label: "Sign out", link: "/signout" });
             return items;
