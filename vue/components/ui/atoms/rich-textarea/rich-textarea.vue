@@ -101,7 +101,6 @@
     background-color: $white;
     border: 1px solid $light-white;
     display: flex;
-    height: 20px;
     line-height: 20px;
     width: 33%;
 }
