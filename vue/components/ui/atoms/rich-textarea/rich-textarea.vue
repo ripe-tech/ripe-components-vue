@@ -106,7 +106,6 @@
 }
 
 .rich-textarea .options .attachment .attachment-name {
-    cursor: default;
     flex: 1 0;
     font-size: 11px;
     overflow: hidden;
