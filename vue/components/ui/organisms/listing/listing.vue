@@ -142,7 +142,7 @@ body.mobile .container-header-right {
 
 body.mobile .container-header {
     height: auto;
-    padding: 20px 16px 20px 16px;
+    padding: 20px 20px 20px 20px;
 }
 
 .title {
