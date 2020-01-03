@@ -90,7 +90,7 @@ export const UploadArea = {
             this.$emit("update:files", this.filesData);
         },
         setDragging(dragging) {
-            dragging ? this.draggingOverCounter++: this.draggingOverCounter--;
+            dragging ? this.draggingOverCounter++ : this.draggingOverCounter--;
 
             this.dragging = Boolean(Math.max(this.draggingOverCounter));
         },
