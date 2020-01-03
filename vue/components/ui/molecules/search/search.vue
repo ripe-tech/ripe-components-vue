@@ -10,21 +10,6 @@
     >
         <global-events v-on:keydown.esc="blur()" />
         <loader loader="ball-scale-multiple" v-if="loading" />
-        <slot name="icon" v-else>
-            <svg
-                focusable="false"
-                height="24px"
-                viewBox="0 0 24 24"
-                width="24px"
-                xmlns="http://www.w3.org/2000/svg"
-                v-show="iconVisible"
-            >
-                <path
-                    d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
-                />
-                <path d="M0 0h24v24H0z" fill="none" />
-            </svg>
-        </slot>
         <input-ripe
             v-bind:value="value"
             v-bind:placeholder="placeholder"
@@ -69,7 +54,6 @@
     font-size: 0px;
     height: 34px;
     line-height: 34px;
-    position: relative;
     width: 100%;
 }
 
@@ -106,12 +90,6 @@
 
 .search.grow ::v-deep input[type="text"]:focus {
     width: 340px;
-}
-
-.search .icon-delete {
-    position: absolute;
-    right: 5px;
-    top: 3px;
 }
 
 .search > .suggestions {
@@ -215,14 +193,9 @@ export const Search = {
     methods: {
         blur() {
             this.$refs.input.blur();
-        },
-        deleteValue() {
-            this.$emit("update:value", "");
-        },
-        onDeleteIconClick() {
-            this.deleteValue();
         }
     }
 };
+
 export default Search;
 </script>

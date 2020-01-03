@@ -98,5 +98,6 @@ export const ButtonIcon = {
         }
     }
 };
+
 export default ButtonIcon;
 </script>

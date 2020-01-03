@@ -83,6 +83,7 @@ export const Alert = {
     methods: {
         show(options) {
             if (this.visible) return;
+
             const {
                 listeners,
                 component,
@@ -101,6 +102,7 @@ export const Alert = {
                 task,
                 ...attrs
             } = options;
+
             this.attrs = attrs || {};
             this.listeners = listeners || {};
             this.confirmText = confirmText || "Confirm";
@@ -116,6 +118,7 @@ export const Alert = {
             this.subTitle = subTitle;
             this.text = text;
             this.task = task || null;
+
             this.visible = true;
             this.loading = false;
             this.component = component;
@@ -150,5 +153,6 @@ export const Alert = {
         }
     }
 };
+
 export default Alert;
 </script>

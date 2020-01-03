@@ -37,20 +37,16 @@
                         <button-color
                             v-bind:class="'button-cancel'"
                             v-bind:secondary="true"
-                            v-bind:small="isButtonSmall"
+                            v-bind:small="true"
                             v-bind:text="cancelText"
-                            v-bind:color="cancelColor"
-                            v-bind:icon="cancelIcon"
                             v-bind:disabled="loading || cancelDisabled"
                             v-if="buttonCancel && cancelText"
                             v-on:click="cancel"
                         />
                         <button-color
                             v-bind:class="'button-confirm'"
-                            v-bind:small="isButtonSmall"
+                            v-bind:small="true"
                             v-bind:text="confirmText"
-                            v-bind:color="confirmColor"
-                            v-bind:icon="confirmIcon"
                             v-bind:disabled="loading || confirmDisabled"
                             v-bind:loading="loading"
                             v-if="buttonConfirm && confirmText"
@@ -176,14 +172,6 @@ export const Modal = {
             type: String,
             default: null
         },
-        confirmIcon: {
-            type: String,
-            default: null
-        },
-        confirmColor: {
-            type: String,
-            default: ""
-        },
         confirmDisabled: {
             type: Boolean,
             default: false
@@ -191,14 +179,6 @@ export const Modal = {
         cancelText: {
             type: String,
             default: null
-        },
-        cancelIcon: {
-            type: String,
-            default: null
-        },
-        cancelColor: {
-            type: String,
-            default: ""
         },
         cancelDisabled: {
             type: Boolean,
@@ -217,10 +197,6 @@ export const Modal = {
             default: true
         },
         buttonClose: {
-            type: Boolean,
-            default: true
-        },
-        isButtonSmall: {
             type: Boolean,
             default: true
         },
@@ -372,5 +348,6 @@ export const Modal = {
         }
     }
 };
+
 export default Modal;
 </script>
