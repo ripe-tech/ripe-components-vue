@@ -20,6 +20,9 @@ storiesOf("Molecules", module)
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et lacus ac arcu ullamcorper condimentum."
                 )
             },
+            thumbsUpCount: {
+                default: number("Thumbs Up Count", 3)
+            },
             attachments: {
                 type: Array,
                 default: () => [
@@ -53,7 +56,13 @@ storiesOf("Molecules", module)
                 ]
             }
         },
+        watch: {
+            thumbsUpCount(value) {
+                this.reactionsData[0].count = value;
+            }
+        },
         data: function() {
+            this.reactions[0].count = this.thumbsUpCount;
             return {
                 reactionsData: this.reactions
             };
@@ -69,8 +78,8 @@ storiesOf("Molecules", module)
                     v-bind:reactions.sync="reactionsData"
                 />
                 <div>
-                    <p>Thumb up reaction count: {{ this.reactionsData[0].count }}</p>
-                    <p>Thumb down reaction count: {{ this.reactionsData[1].count }}</p>
+                    <p>Thumbs up reaction count: {{ this.reactionsData[0].count }}</p>
+                    <p>Thumbs down reaction count: {{ this.reactionsData[1].count }}</p>
                 </div>
             </div>
             `
