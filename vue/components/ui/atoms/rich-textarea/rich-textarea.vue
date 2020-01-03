@@ -1,5 +1,5 @@
 <template>
-    <div class="rich-textarea" v-bind:class="classes" v-on:click="onClick">
+    <div class="rich-textarea" v-bind:style="style" v-bind:class="classes" v-on:click="onClick">
         <textarea-ripe
             class="textarea"
             v-bind:variant="variant"
@@ -161,6 +161,10 @@ export const RichTextarea = {
         smile: {
             type: Boolean,
             default: true
+        },
+        width: {
+            type: Number,
+            default: null
         }
     },
     data: function() {
@@ -185,6 +189,11 @@ export const RichTextarea = {
             const base = { disabled: this.disabled };
             if (this.variant) base[this.variant] = true;
             if (this.border) base[`border-${this.border}`] = true;
+            return base;
+        },
+        style() {
+            const base = {};
+            if (this.width !== null) base.width = `${this.width}px`;
             return base;
         }
     },

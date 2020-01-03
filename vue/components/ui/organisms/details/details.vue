@@ -83,37 +83,38 @@
                     <slot name="image-footer" />
                 </div>
                 <div class="details-column" v-for="column in nrColumns" v-bind:key="column">
-                    <slot v-bind:name="value.id" v-for="value in getColumnValues(column - 1)">
+                    <slot v-bind:name="value.value" v-for="value in getColumnValues(column - 1)">
                         <div
                             class="label-value"
-                            v-bind:class="[value.id, `label-value-${value.id}`]"
-                            v-bind:key="value.id"
+                            v-bind:class="[value.value, `label-value-${value.value}`]"
+                            v-if="value.value"
+                            v-bind:key="value.value"
                         >
                             <div class="label-value-component label">
-                                <slot v-bind:name="`label-${value.id}`">
+                                <slot v-bind:name="`label-${value.value}`">
                                     <p class="label-text">
-                                        <slot v-bind:name="`label-${value.id}-text`">
-                                            {{ value.label || value.id || value.name }}
+                                        <slot v-bind:name="`label-${value.value}-text`">
+                                            {{ value.label || value.value || value.name }}
                                         </slot>
                                     </p>
                                 </slot>
                             </div>
                             <div class="label-value-component value">
-                                <slot v-bind:name="`value-${value.id}`">
+                                <slot v-bind:name="`value-${value.value}`">
                                     <p class="value-text">
-                                        <slot v-bind:name="`value-${value.id}-text`">
-                                            {{ item[value.value] || item[value.id] || "-" }}
+                                        <slot v-bind:name="`value-${value.value}-text`">
+                                            {{ item[value.value] || "-" }}
                                         </slot>
                                     </p>
                                 </slot>
                             </div>
                             <div class="label-value-component note">
-                                <slot v-bind:name="`note-${value.id}`">
+                                <slot v-bind:name="`note-${value.value}`">
                                     <p
                                         class="note-text"
-                                        v-if="value.note || $slots[`note-${value.id}-text`]"
+                                        v-if="value.note || $slots[`note-${value.value}-text`]"
                                     >
-                                        <slot v-bind:name="`note-${value.id}-text`">
+                                        <slot v-bind:name="`note-${value.value}-text`">
                                             {{ item[value.note] }}
                                         </slot>
                                     </p>
@@ -210,7 +211,8 @@ body.mobile .container-ripe .header-buttons > .header-button {
 body.tablet .header-buttons > .header-button.invisible,
 body.mobile .header-buttons > .header-button.invisible {
     display: inline-block;
-    opacity: 0;
+    opacity: 0.2;
+    pointer-events: none;
 }
 
 .container-ripe .header-buttons .header-button > span {
@@ -484,7 +486,7 @@ export const Details = {
         },
         async previousItem(force = false) {
             if (!this.navigation && !force) return;
-            if (this.loading || !this.index) {
+            if (this.loading || this.index === undefined || this.index === 0) {
                 this.triggerAnimation("slide-left-fake");
                 return;
             }
@@ -511,6 +513,7 @@ export const Details = {
             next ? this.showItem(next, this.index + 1) : this.triggerAnimation("slide-right-fake");
         },
         showItem(item, index) {
+            if (!this.$router) return;
             this.loading = true;
             const transition = index > this.index ? "slide-left" : "slide-right";
             this.$router.push(

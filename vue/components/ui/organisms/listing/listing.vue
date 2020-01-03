@@ -9,11 +9,12 @@
             <div class="container-header">
                 <div class="container-header-right">
                     <slot name="icons" />
-                    <loader loader="ball-scale-multiple" class="loader-header" />
                     <search
+                        v-bind:variant="'dark'"
                         v-bind:width="isMobileWidth() ? null : searchWidth"
                         v-bind:placeholder="filterText ? filterText : `Search ${name}`"
                         v-bind:value.sync="filter"
+                        v-bind:loading="loading"
                     />
                 </div>
                 <h1 class="title" v-if="titleText">{{ titleText }}</h1>
@@ -32,6 +33,7 @@
                 v-bind:options.sync="filterOptions"
                 ref="filter"
                 v-on:update:options="filterUpdated"
+                v-on:click:lineup="onLineupClick"
             >
                 <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
                 <template
@@ -71,8 +73,6 @@
     border: none;
     border-radius: 40px;
     bottom: 20px;
-    -webkit-box-shadow: 0px 0px 36px -15px #aaaaaa;
-    -moz-box-shadow: 0px 0px 36px -15px #aaaaaa;
     box-shadow: 0px 0px 36px -15px #aaaaaa;
     height: 50px;
     opacity: 0;
@@ -80,54 +80,28 @@
     padding: 15px;
     position: fixed;
     right: 20px;
-    -webkit-transition: opacity 0.125s ease-in-out;
-    transition: opacity 0.125s ease-in-out;
+    transform: scale(0.75);
+    transition: opacity 0.125s ease-in-out, transform 0.125s ease-in-out;
     width: 50px;
 }
 
 .scroll-button.show {
     cursor: pointer;
     opacity: 0.7;
+    transform: scale(1);
 }
 
 .scroll-button.show:hover {
     opacity: 1;
+    transform: scale(1.15);
 }
 
 .listing {
     box-sizing: border-box;
 }
 
-.listing ::v-deep .loader {
-    opacity: 0;
-    pointer-events: none;
-}
-
-.listing.loading ::v-deep .loader {
-    opacity: 1;
-}
-
-.listing .loader.loader-header {
-    left: 63px;
-    top: 18px;
-}
-
-.listing .loader.loader-header ::v-deep div {
-    height: 20px;
-    width: 20px;
-}
-
 .listing.loading.empty ::v-deep .loader.loader-bottom {
     margin: 76px 0px 76px 0px;
-}
-
-.listing .container-header-right .loader {
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.listing.loading .container-header-right .search ::v-deep svg {
-    display: none;
 }
 
 .container-ripe {
@@ -169,6 +143,7 @@ body.mobile .container-header-right {
 
 body.mobile .container-header {
     height: auto;
+    padding: 20px 20px 20px 20px;
 }
 
 .title {
@@ -264,7 +239,7 @@ export const Listing = {
     data: function() {
         return {
             items: [],
-            filter: this.context.filter,
+            filter: this.context && this.context.filter ? this.context.filter : "",
             filterOptions: null,
             loading: false,
             visibleLightbox: null
@@ -302,6 +277,9 @@ export const Listing = {
         },
         getFilter() {
             return this.$refs.filter;
+        },
+        onLineupClick(item, index) {
+            this.$emit("click:lineup", item, index);
         }
     },
     beforeRouteUpdate: function(to, from, next) {

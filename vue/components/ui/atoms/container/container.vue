@@ -22,6 +22,7 @@
 }
 
 body.mobile .container-ripe {
+    border-radius: 0px 0px 0px 0px;
     margin: 0px auto 32px auto;
     width: 100%;
 }
