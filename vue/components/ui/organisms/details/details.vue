@@ -6,7 +6,7 @@
             v-on:keydown.left="onKeyLeft"
             v-on:keydown.right="onKeyRight"
         />
-        <container-ripe class="loading" v-if="loading">
+        <container-ripe class="loading" v-if="isLoading">
             <div class="container-header">
                 <div class="header-buttons">
                     <slot name="header-buttons">
@@ -114,12 +114,12 @@
                         </div>
                     </slot>
                 </div>
-                <slot name="title" v-if="loaded">
+                <slot name="title" v-if="isLoaded">
                     <h1 class="title">{{ title }}</h1>
                 </slot>
                 <slot name="header-extra" />
             </div>
-            <div class="details" v-if="loaded">
+            <div class="details" v-if="isLoaded">
                 <div class="details-column details-column-image" v-if="imageUrl">
                     <lightbox
                         class="image"
@@ -515,13 +515,17 @@ export const Details = {
     },
     data: function() {
         return {
+            switching: false,
             optionsVisible: false,
             lightBoxVisible: false
         };
     },
     computed: {
-        loading() {
-            return !this.loaded;
+        isLoaded() {
+            return this.loaded && !this.switching;
+        },
+        isLoading() {
+            return !this.isLoaded;
         },
         hasIndex() {
             return this.index !== null && this.index !== undefined;
@@ -542,7 +546,7 @@ export const Details = {
         async previousItem(force = false) {
             if (!this.hasIndex) return;
             if (!this.navigation && !force) return;
-            if (this.loading || this.index === undefined || this.index === 0) {
+            if (this.isLoading || this.index === undefined || this.index === 0) {
                 this.triggerAnimation("slide-left-fake");
                 return;
             }
@@ -558,7 +562,7 @@ export const Details = {
         async nextItem(force = false) {
             if (!this.hasIndex) return;
             if (!this.navigation && !force) return;
-            if (this.loading || this.index === undefined) {
+            if (this.isLoading || this.index === undefined) {
                 this.triggerAnimation("slide-right-fake");
                 return;
             }
@@ -571,7 +575,7 @@ export const Details = {
         },
         showItem(item, index) {
             if (!this.$router) return;
-            this.loading = true;
+            this.switching = true;
             const transition = index > this.index ? "slide-left" : "slide-right";
             this.$router.push(
                 {
@@ -579,8 +583,8 @@ export const Details = {
                     params: { id: item.id, transition: transition },
                     query: { ...this.$route.query, index }
                 },
-                () => (this.loading = false),
-                () => (this.loading = false)
+                () => (this.switching = false),
+                () => (this.switching = false)
             );
         },
         triggerAnimation(animation) {
