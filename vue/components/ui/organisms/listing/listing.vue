@@ -80,6 +80,7 @@
     padding: 15px;
     position: fixed;
     right: 20px;
+    transform: scale(0.75);
     transition: opacity 0.125s ease-in-out, transform 0.125s ease-in-out;
     width: 50px;
 }
@@ -87,6 +88,7 @@
 .scroll-button.show {
     cursor: pointer;
     opacity: 0.7;
+    transform: scale(1);
 }
 
 .scroll-button.show:hover {
