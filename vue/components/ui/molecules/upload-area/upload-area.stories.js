@@ -18,8 +18,7 @@ storiesOf("Molecules", module)
                             This is a custom drag & drop area
                         </p>
                     </div>
-                </upload-area>
-                
+                </upload-area>   
                 <div>
                     <p>Files:</p>
                     <p v-for="(file, index) in filesData">
