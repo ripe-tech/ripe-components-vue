@@ -511,6 +511,10 @@ export const Details = {
         navigation: {
             type: Boolean,
             default: true
+        },
+        safe: {
+            type: Boolean,
+            default: false
         }
     },
     data: function() {
@@ -546,7 +550,7 @@ export const Details = {
         async previousItem(force = false) {
             if (!this.hasIndex) return;
             if (!this.navigation && !force) return;
-            if (this.isLoading || this.index === undefined || this.index === 0) {
+            if ((this.safe && this.isLoading) || this.index === undefined || this.index === 0) {
                 this.triggerAnimation("slide-left-fake");
                 return;
             }
@@ -562,7 +566,7 @@ export const Details = {
         async nextItem(force = false) {
             if (!this.hasIndex) return;
             if (!this.navigation && !force) return;
-            if (this.isLoading || this.index === undefined) {
+            if ((this.safe && this.isLoading) || this.index === undefined) {
                 this.triggerAnimation("slide-right-fake");
                 return;
             }
