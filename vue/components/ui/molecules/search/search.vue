@@ -35,14 +35,6 @@
             v-on:focus="focused = true"
             v-on:blur="focused = false"
         />
-        <slot name="icon-delete" v-if="value">
-            <button-icon
-                class="icon-delete"
-                v-bind:icon="'close'"
-                v-bind:color="'none'"
-                v-on:click="onDeleteIconClick"
-            />
-        </slot>
         <transition name="slide">
             <div class="suggestions" v-show="suggestionsVisible && suggestions.length > 0">
                 <div
