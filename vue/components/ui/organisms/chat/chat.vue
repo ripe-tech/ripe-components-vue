@@ -134,7 +134,9 @@ export const Chat = {
             return allAttachments;
         },
         normalizedTextareaText() {
-            return this.message.messageContent.text.trim();
+            return this.message.messageContent.text
+                ? this.message.messageContent.text.trim()
+                : null;
         }
     },
     methods: {
@@ -144,7 +146,7 @@ export const Chat = {
         sendMessage() {
             if (!this.normalizedTextareaText) return;
 
-            this.messagesData.push(JSON.parse(JSON.stringify(this.message))); //TODO check if files are correctly added
+            this.messagesData.push(JSON.parse(JSON.stringify(this.message))); // TODO check if files are correctly added
             this.emitUpdateMessages(this.messagesData);
             this.clearTextarea();
             this.$nextTick(() => this.scrollToLastMessage());
