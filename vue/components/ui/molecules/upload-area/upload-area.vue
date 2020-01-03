@@ -38,13 +38,11 @@
 @import "css/variables.scss";
 
 .upload-area {
-    opacity: 1;
-    transition: 0.3s;
+    transition: opacity 0.3s ease-in-out;
 }
 
 .upload-area.dragOver {
     opacity: 0.5;
-    transition: 0.3s;
 }
 
 .upload-area .area-container {
