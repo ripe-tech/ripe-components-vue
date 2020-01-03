@@ -21,7 +21,7 @@
         <div class="chat-input-container" v-on:keyup.enter.exact="onEnter()">
             <rich-textarea
                 v-bind:value="message.messageContent.text"
-                v-bind:attachments.sync="message.messageContent.attachments"
+                v-bind:attachments.sync="pendingAttachments"
                 v-bind:placeholder="'Say something here...'"
                 v-bind:resize="false"
                 v-on:update:value="value => onTextareaValue(value)"
@@ -113,14 +113,15 @@ export const Chat = {
                     attachments: [],
                     reactions: []
                 }
-            }
+            },
+            pendingAttachments: null
         };
     },
     watch: {
         messages(value) {
             this.messagesData = value;
         },
-        attachments(value) {
+        pendingAttachments(value) {
             this.message.messageContent.attachments = value;
         }
     },
@@ -147,6 +148,8 @@ export const Chat = {
             if (!this.normalizedTextareaText) return;
 
             this.messagesData.push(JSON.parse(JSON.stringify(this.message))); // TODO check if files are correctly added
+            //TODO upload files
+            //TODO ??? add map attachments and adds them to the attachments list, or reload all?
             this.emitUpdateMessages(this.messagesData);
             this.clearTextarea();
             this.$nextTick(() => this.scrollToLastMessage());
