@@ -24,6 +24,7 @@
             </div>
             <filter-ripe
                 v-bind:get-items="getItemsWithParams"
+                v-bind:get-item-url="getItemUrl"
                 v-bind:columns="columns"
                 v-bind:values="values"
                 v-bind:filter="filter"
@@ -33,6 +34,7 @@
                 v-bind:options.sync="filterOptions"
                 ref="filter"
                 v-on:update:options="filterUpdated"
+                v-on:click:lineup="onLineupClick"
             >
                 <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
                 <template
@@ -72,8 +74,6 @@
     border: none;
     border-radius: 40px;
     bottom: 20px;
-    -webkit-box-shadow: 0px 0px 36px -15px #aaaaaa;
-    -moz-box-shadow: 0px 0px 36px -15px #aaaaaa;
     box-shadow: 0px 0px 36px -15px #aaaaaa;
     height: 50px;
     opacity: 0;
@@ -81,18 +81,20 @@
     padding: 15px;
     position: fixed;
     right: 20px;
-    -webkit-transition: opacity 0.125s ease-in-out;
-    transition: opacity 0.125s ease-in-out;
+    transform: scale(0.75);
+    transition: opacity 0.125s ease-in-out, transform 0.125s ease-in-out;
     width: 50px;
 }
 
 .scroll-button.show {
     cursor: pointer;
     opacity: 0.7;
+    transform: scale(1);
 }
 
 .scroll-button.show:hover {
     opacity: 1;
+    transform: scale(1.15);
 }
 
 .listing {
@@ -142,7 +144,7 @@ body.mobile .container-header-right {
 
 body.mobile .container-header {
     height: auto;
-    padding: 20px 16px 20px 16px;
+    padding: 20px 20px 20px 20px;
 }
 
 .title {
@@ -210,6 +212,10 @@ export const Listing = {
             type: Function,
             required: true
         },
+        getItemUrl: {
+            type: Function,
+            default: null
+        },
         filterFields: {
             type: Object,
             default: null
@@ -276,6 +282,9 @@ export const Listing = {
         },
         getFilter() {
             return this.$refs.filter;
+        },
+        onLineupClick(item, index) {
+            this.$emit("click:lineup", item, index);
         }
     },
     beforeRouteUpdate: function(to, from, next) {

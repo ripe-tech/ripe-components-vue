@@ -35,7 +35,8 @@ a.link.link-black {
     color: $black;
 }
 
-a.link.link-black:hover {
+a.link.link-black:hover,
+a.link.link-black.hover {
     border-color: $black;
 }
 
@@ -43,7 +44,8 @@ a.link.link-grey {
     color: $grey;
 }
 
-a.link.link-grey:hover {
+a.link.link-grey:hover,
+a.link.link-grey.hover {
     border-color: $grey;
 }
 
@@ -51,7 +53,8 @@ a.link.link-orange {
     color: $orange;
 }
 
-a.link.link-orange:hover {
+a.link.link-orange:hover,
+a.link.link-orange.hover {
     border-color: $orange;
 }
 
@@ -59,7 +62,8 @@ a.link.link-blue {
     color: $blue;
 }
 
-a.link.link-blue:hover {
+a.link.link-blue:hover,
+a.link.link-blue.hover {
     border-color: $blue;
 }
 
@@ -67,7 +71,8 @@ a.link.link-green {
     color: $green;
 }
 
-a.link.link-green:hover {
+a.link.link-green:hover,
+a.link.link-green.hover {
     border-color: $green;
 }
 
@@ -75,7 +80,8 @@ a.link.link-red {
     color: $red;
 }
 
-a.link.link-red:hover {
+a.link.link-red:hover,
+a.link.link-red.hover {
     border-color: $red;
 }
 
@@ -83,7 +89,8 @@ a.link.link-purple {
     color: $purple;
 }
 
-a.link.link-purple:hover {
+a.link.link-purple:hover,
+a.link.link-purple.hover {
     border-color: $purple;
 }
 
@@ -93,7 +100,8 @@ a.link.link-disabled {
     cursor: default;
 }
 
-a.link.link-disabled:hover {
+a.link.link-disabled:hover,
+a.link.link-disabled.hover {
     border-color: transparent;
 }
 

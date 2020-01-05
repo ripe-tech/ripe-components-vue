@@ -90,7 +90,7 @@ body.tablet-device .select .select-container {
     outline: none;
     overflow: hidden;
     padding-left: 12px;
-    padding-right: 12px;
+    padding-right: 34px;
     text-overflow: ellipsis;
     transition: width 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
     user-select: none;
@@ -325,12 +325,11 @@ export const Select = {
             this.closeDropdown();
         },
         onDropdownHighlighted(values) {
-            const indexes = Object.keys(values).map(value => parseInt(value));
-            const newValue = indexes.filter(value => value !== this.highlighted)[0];
-
-            // nothing changed, so nothing to do here
-            if (!newValue) return;
-            this.highlight(newValue);
+            const indexes = Object.keys(values)
+                .map(value => parseInt(value))
+                .filter(value => value !== this.highlighted);
+            if (indexes.length === 0) return;
+            this.highlight(indexes[0]);
         }
     },
     computed: {

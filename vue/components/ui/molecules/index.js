@@ -1,5 +1,6 @@
 import { Alert } from "./alert/alert.vue";
 import { Announcements } from "./announcements/announcements.vue";
+import { ChatMessage } from "./chat-message/chat-message.vue";
 import { Filter } from "./filter/filter.vue";
 import { Footer } from "./footer/footer.vue";
 import { FormInput } from "./form-input/form-input.vue";
@@ -16,6 +17,7 @@ import { UploadArea } from "./upload-area/upload-area.vue";
 const install = Vue => {
     Vue.component("alert", Alert);
     Vue.component("announcements", Announcements);
+    Vue.component("chat-message", ChatMessage);
     Vue.component("filter-ripe", Filter);
     Vue.component("footer-ripe", Footer);
     Vue.component("form-input", FormInput);
@@ -33,6 +35,7 @@ const install = Vue => {
 export {
     Alert,
     Announcements,
+    ChatMessage,
     Filter,
     Footer,
     FormInput,
