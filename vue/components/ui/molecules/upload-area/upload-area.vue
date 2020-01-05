@@ -1,15 +1,15 @@
 <template>
     <div
         class="upload-area"
-        v-bind:class="{ dragOver: dragging }"
-        v-on:dragover.stop.prevent="onDragOver($event)"
-        v-on:drop.stop.prevent="onDrop($event)"
-        v-on:dragenter.stop.prevent="setDragging(true)"
-        v-on:dragend.stop.prevent="setDragging(false)"
-        v-on:dragleave.stop.prevent="setDragging(false)"
+        v-bind:class="{ dragging: dragging }"
+        v-on:dragover.prevent="onDragOver($event)"
+        v-on:drop.prevent="onDrop($event)"
+        v-on:dragenter="onDragEnter"
+        v-on:dragend="onDragEnd"
+        v-on:dragleave="onDragLeave"
     >
         <slot>
-            <div class="area-container">
+            <div class="upload-area-container">
                 <p class="description">
                     Drag & drop your files here or
                 </p>
@@ -35,15 +35,7 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.upload-area {
-    transition: opacity 0.3s ease-in-out;
-}
-
-.upload-area.dragOver {
-    opacity: 0.5;
-}
-
-.upload-area .area-container {
+.upload-area .upload-area-container {
     align-items: center;
     border: dashed 2px $light-white;
     border-radius: 8px;
@@ -51,13 +43,15 @@
     flex-direction: column;
     height: 150px;
     justify-content: center;
+    transition: opacity 0.125s ease-in;
 }
 
-.upload-area.dragOver .area-container {
+.upload-area.dragging .upload-area-container {
     pointer-events: none;
+    opacity: 0.3;
 }
 
-.upload-area .area-container .description {
+.upload-area .upload-area-container .description {
     color: $dark;
     font-size: 14px;
     font-weight: 600;
@@ -82,14 +76,20 @@ export const UploadArea = {
             draggingOverCounter: 0
         };
     },
+    watch: {
+        files(value) {
+            this.filesData = value;
+        }
+    },
     methods: {
         setFiles(filesList) {
-            if (!filesList || !filesList.length) return;
+            if (!filesList) return;
 
             this.filesData = [...filesList];
             this.$emit("update:files", this.filesData);
         },
         setDragging(dragging) {
+            console.log("setDragging", dragging, this.draggingOverCounter, Math.max(this.draggingOverCounter));
             dragging ? this.draggingOverCounter++ : this.draggingOverCounter--;
 
             this.dragging = Boolean(Math.max(this.draggingOverCounter));
@@ -99,6 +99,18 @@ export const UploadArea = {
         },
         onDrop(event) {
             this.setFiles(event.dataTransfer.files);
+            this.setDragging(false);
+        },
+        onDragEnter() {
+            console.log("onDragEnter");
+            this.setDragging(true);
+        },
+        onDragEnd() {
+            console.log("onDragEnd");
+            this.setDragging(false);
+        },
+        onDragLeave() {
+            console.log("onDragLeave");
             this.setDragging(false);
         },
         onFilesInputChange() {
