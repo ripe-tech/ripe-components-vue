@@ -4,9 +4,8 @@
         v-bind:class="{ dragging: dragging }"
         v-on:dragover.prevent="onDragOver($event)"
         v-on:drop.prevent="onDrop($event)"
-        v-on:dragenter="onDragEnter"
-        v-on:dragend="onDragEnd"
-        v-on:dragleave="onDragLeave"
+        v-on:dragenter="onDragEnter($event)"
+        v-on:dragleave="onDragLeave($event)"
     >
         <slot>
             <div class="upload-area-container">
@@ -47,8 +46,8 @@
 }
 
 .upload-area.dragging .upload-area-container {
-    pointer-events: none;
     opacity: 0.3;
+    pointer-events: none;
 }
 
 .upload-area .upload-area-container .description {
@@ -73,7 +72,7 @@ export const UploadArea = {
         return {
             filesData: this.files,
             dragging: false,
-            draggingOverCounter: 0
+            dragEnterTarget: null
         };
     },
     watch: {
@@ -88,12 +87,6 @@ export const UploadArea = {
             this.filesData = [...filesList];
             this.$emit("update:files", this.filesData);
         },
-        setDragging(dragging) {
-            console.log("setDragging", dragging, this.draggingOverCounter, Math.max(this.draggingOverCounter));
-            dragging ? this.draggingOverCounter++ : this.draggingOverCounter--;
-
-            this.dragging = Boolean(Math.max(this.draggingOverCounter));
-        },
         onDragOver(event) {
             event.dataTransfer.dropEffect = "copy";
         },
@@ -101,17 +94,14 @@ export const UploadArea = {
             this.setFiles(event.dataTransfer.files);
             this.setDragging(false);
         },
-        onDragEnter() {
-            console.log("onDragEnter");
-            this.setDragging(true);
+        onDragEnter(event) {
+            this.dragging = true;
         },
-        onDragEnd() {
-            console.log("onDragEnd");
-            this.setDragging(false);
-        },
-        onDragLeave() {
-            console.log("onDragLeave");
-            this.setDragging(false);
+        onDragLeave(event) {
+            // event was fired from a children, ignore
+            if (event.currentTarget.contains(event.relatedTarget)) return false;
+
+            this.dragging = false;
         },
         onFilesInputChange() {
             this.setFiles(this.$refs.filesInput.files);
