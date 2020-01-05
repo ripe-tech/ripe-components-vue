@@ -1,12 +1,25 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, boolean } from "@storybook/addon-knobs";
+import { withKnobs, boolean, select } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Search", () => ({
         props: {
+            variant: {
+                default: select(
+                    "Variant",
+                    {
+                        Unset: null,
+                        Dark: "dark"
+                    },
+                    null
+                )
+            },
             iconVisible: {
                 default: boolean("Icon Visible", true)
+            },
+            loading: {
+                default: boolean("Loading", false)
             },
             availableSuggestions: {
                 default: () => [
@@ -66,7 +79,7 @@ storiesOf("Molecules", module)
         computed: {
             suggestions() {
                 return this.availableSuggestions.filter(suggestion =>
-                    suggestion.text.toLowerCase().startsWith(this.text.toLowerCase())
+                    suggestion.label.toLowerCase().startsWith(this.text.toLowerCase())
                 );
             }
         },
@@ -76,6 +89,12 @@ storiesOf("Molecules", module)
             }
         },
         template: `
-            <search v-bind:icon-visible="iconVisible" v-bind:suggestions="suggestions" v-on:update:value="onUpdateValue" />
+            <search
+                v-bind:variant="variant"
+                v-bind:icon-visible="iconVisible"
+                v-bind:loading="loading"
+                v-bind:suggestions="suggestions"
+                v-on:update:value="onUpdateValue"
+            />
         `
     }));

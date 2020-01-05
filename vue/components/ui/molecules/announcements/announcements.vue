@@ -157,7 +157,8 @@
     display: inline-block;
     font-size: 14px;
     letter-spacing: 0.35px;
-    line-height: 16px;
+    line-height: 26px;
+    vertical-align: middle;
 }
 
 .announcements .announcements-list > .announcement > .footer > .footer-left {
@@ -167,6 +168,7 @@
 
 .announcements .announcements-list > .announcement > .footer > .footer-right {
     flex: 0 1;
+    font-size: 0px;
     text-align: right;
 }
 </style>
