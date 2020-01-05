@@ -81,6 +81,7 @@ storiesOf("Atoms", module)
                 />
                 <div>
                     <p>Text: {{ valueData }}</p>
+                    <p>Number of files: {{ attachmentsData.length }}</p>
                 </div>
             </div>
             `
