@@ -123,6 +123,9 @@ export const Chat = {
         },
         normalizedTextareaText() {
             return this.textData ? this.textData.trim() : null;
+        },
+        validMessage(){
+            return !(this.normalizedTextareaText || this.attachmentsData.length)
         }
     },
     methods: {
@@ -130,7 +133,7 @@ export const Chat = {
             this.$emit("update:messages", value);
         },
         sendMessage() {
-            if (!(this.normalizedTextareaText || this.attachmentsData.length)) return;
+            if (this.validMessage) return;
 
             this.$emit("send-message", {
                 messageText: this.textData,
