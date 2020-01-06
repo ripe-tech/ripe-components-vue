@@ -129,7 +129,8 @@ storiesOf("Organisms", module)
                 message.attachments = this.uploadAttachments(message.attachments);
 
                 await this.sendMessageAPI(message);
-                //todo UPDATE MESSAGES
+                // TODO update messages so they
+                // for example, the attachments, have the correct paths
             },
             uploadAttachments(files) {
                 if (!files || !files.length) return [];
