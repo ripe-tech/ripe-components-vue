@@ -200,6 +200,10 @@
     width: 32px;
 }
 
+.button-color.button-color-secondary ::v-deep .loader > div {
+    background-color: #2d2d2d;
+}
+
 .button-color .icon,
 .button-color .icon-hover {
     float: left;
@@ -235,16 +239,16 @@
 .button-color:hover .icon-hover {
     display: inline-block;
 }
-
-.button-color.button-color-secondary ::v-deep .loader > div {
-    background-color: #2d2d2d;
-}
 </style>
 
 <script>
 export const ButtonColor = {
     name: "button-color",
     props: {
+        secondary: {
+            type: Boolean,
+            default: false
+        },
         small: {
             type: Boolean,
             default: false
