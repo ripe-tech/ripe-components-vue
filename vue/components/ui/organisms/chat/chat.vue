@@ -116,7 +116,7 @@ export const Chat = {
         allAttachments() {
             const allAttachments = [];
             this.messages.forEach(message =>
-                Array.prototype.push.apply(allAttachments, this.attachmentsData)
+                Array.prototype.push.apply(allAttachments, message.messageContent.attachments)
             );
 
             return allAttachments;
@@ -136,8 +136,8 @@ export const Chat = {
                 messageText: this.textData,
                 attachments: this.attachmentsData
             });
-            //this.clearMessage();
-            //this.$nextTick(() => this.scrollToLastMessage());
+            // this.clearMessage();
+            // this.$nextTick(() => this.scrollToLastMessage());
         },
         clearMessage() {
             this.textData = "";

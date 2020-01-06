@@ -144,7 +144,7 @@ storiesOf("Organisms", module)
                 if (!files || !files.length) return [];
 
                 const attachments = [];
-                files.forEach(async (file) => {
+                files.forEach(async file => {
                     attachments.push(await this.uploadFileAPI(file));
                 });
 
