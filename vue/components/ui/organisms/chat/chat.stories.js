@@ -118,7 +118,7 @@ storiesOf("Organisms", module)
                 ]
             }
         },
-        data: function () {
+        data: function() {
             return {
                 messagesData: this.messages
             };
@@ -126,12 +126,19 @@ storiesOf("Organisms", module)
         methods: {
             async sendMessage(message) {
                 if (!message || Object.entries(message).length === 0) return;
-                message.messageContent.attachments = this.uploadAttachments(
-                    message.messageContent.attachments
-                );
+                message.attachments = this.uploadAttachments(message.attachments);
 
                 await this.sendMessageAPI(message);
-                this.messagesData.push(JSON.parse(JSON.stringify(message)));
+                this.messagesData.push({
+                    username: "NFSS10",
+                    avatarUrl: this.avatarUrl,
+                    date: Date.now(),
+                    messageContent: {
+                        text: message.messageText,
+                        attachments: message.attachments,
+                        reactions: []
+                    }
+                });
             },
             uploadAttachments(files) {
                 if (!files || !files.length) return [];
@@ -151,7 +158,8 @@ storiesOf("Organisms", module)
             async sendMessageAPI(message) {
                 // Simulating send message
                 console.log("Simulating Send Message");
-                console.log(message);
+                console.log(message.messageText);
+                console.log(message.attachments);
             }
         },
         template: `

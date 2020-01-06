@@ -20,11 +20,10 @@
         </div>
         <div class="chat-input-container" v-on:keyup.enter.exact="onEnter()">
             <rich-textarea
-                v-bind:value="message.messageContent.text"
-                v-bind:attachments.sync="message.messageContent.attachments"
+                v-bind:value.sync="textData"
+                v-bind:attachments.sync="attachmentsData"
                 v-bind:placeholder="'Say something here...'"
                 v-bind:resize="false"
-                v-on:update:value="value => onTextareaValue(value)"
             />
             <button-color
                 class="send-button"
@@ -104,16 +103,8 @@ export const Chat = {
     data: function() {
         return {
             messagesData: this.messages,
-            message: {
-                avatarUrl: this.avatarUrl,
-                username: this.username,
-                date: Date.now(),
-                messageContent: {
-                    text: null,
-                    attachments: [],
-                    reactions: []
-                }
-            }
+            textData: null,
+            attachmentsData: []
         };
     },
     watch: {
@@ -125,15 +116,13 @@ export const Chat = {
         allAttachments() {
             const allAttachments = [];
             this.messages.forEach(message =>
-                Array.prototype.push.apply(allAttachments, message.messageContent.attachments)
+                Array.prototype.push.apply(allAttachments, this.attachmentsData)
             );
 
             return allAttachments;
         },
         normalizedTextareaText() {
-            return this.message.messageContent.text
-                ? this.message.messageContent.text.trim()
-                : null;
+            return this.textData ? this.textData.trim() : null;
         }
     },
     methods: {
@@ -143,22 +132,20 @@ export const Chat = {
         sendMessage() {
             if (!this.normalizedTextareaText) return;
 
-            this.$emit("send-message", this.message);
-
-            // this.messagesData.push(JSON.parse(JSON.stringify(this.message)));
-            // this.emitUpdateMessages(this.messagesData);
-            // this.clearTextarea();
-            // this.$nextTick(() => this.scrollToLastMessage());
+            this.$emit("send-message", {
+                messageText: this.textData,
+                attachments: this.attachmentsData
+            });
+            //this.clearMessage();
+            //this.$nextTick(() => this.scrollToLastMessage());
         },
-        clearTextarea() {
-            this.message.messageContent.text = "";
+        clearMessage() {
+            this.textData = "";
+            this.attachmentsData = [];
         },
         scrollToLastMessage() {
             const messagesContainerElement = this.$refs["chat-messages"];
             messagesContainerElement.scrollTop = messagesContainerElement.scrollHeight;
-        },
-        onTextareaValue(value) {
-            this.message.messageContent.text = value;
         },
         onSendMessageClick() {
             this.sendMessage();
