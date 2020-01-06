@@ -208,10 +208,6 @@
     width: 22px;
 }
 
-.button-color.button-color-secondary ::v-deep .loader > div {
-    background-color: #2d2d2d;
-}
-
 .button-color.button-color-left .icon,
 .button-color.button-color-left .icon-hover {
     margin-right: 8px;
@@ -238,6 +234,10 @@
 
 .button-color:hover .icon-hover {
     display: inline-block;
+}
+
+.button-color.button-color-secondary ::v-deep .loader > div {
+    background-color: #2d2d2d;
 }
 </style>
 
