@@ -132,7 +132,7 @@ storiesOf("Organisms", module)
                 this.messagesData.push({
                     username: "NFSS10",
                     avatarUrl: this.avatarUrl,
-                    date: Date.now(),
+                    date: (Date.now() / 1000),
                     messageContent: {
                         text: message.messageText,
                         attachments: message.attachments,
