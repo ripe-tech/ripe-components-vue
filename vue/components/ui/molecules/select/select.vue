@@ -1,7 +1,24 @@
 <template>
     <div class="select" v-bind:class="{ disabled: disabled }">
         <global-events v-on:click="onGlobalClick" />
-        <div class="select-container" v-bind:style="style">
+        <select
+            class="dropdown-select"
+            v-bind:value="value"
+            v-if="isDevice()"
+            v-on:change="onDropdownSelect($event.target.value)"
+        >
+            <option
+                v-bind:value="options.value"
+                v-for="options in options"
+                v-bind:key="options.value"
+            >
+                {{ options.label }}
+            </option>
+            <option v-bind:value="null" style="display: none;">
+                {{ placeholder }}
+            </option>
+        </select>
+        <div class="select-container" v-bind:style="style" v-else>
             <div
                 class="select-button"
                 tabindex="0"
@@ -40,46 +57,18 @@
                 </template>
             </dropdown>
         </div>
-        <select
-            class="dropdown-select"
-            v-bind:value="value"
-            v-on:change="onDropdownSelect($event.target.value)"
-        >
-            <option
-                v-bind:value="options.value"
-                v-for="options in options"
-                v-bind:key="options.value"
-            >
-                {{ options.label }}
-            </option>
-            <option v-bind:value="null" style="display: none;">
-                {{ placeholder }}
-            </option>
-        </select>
     </div>
 </template>
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.select .dropdown-select {
-    display: none;
-}
-
-body.mobile-device .select .dropdown-select,
-body.tablet-device .select .dropdown-select {
-    display: block;
-}
-
+.dropdown-select,
 .select .select-container {
     width: 100%;
 }
 
-body.mobile-device .select .select-container,
-body.tablet-device .select .select-container {
-    display: none;
-}
-
+.dropdown-select,
 .select .select-container .select-button {
     background-color: $soft-blue;
     background-image: url("~./assets/chevron-down.svg");
@@ -128,8 +117,11 @@ body.tablet-device .select .select-container {
 </style>
 
 <script>
+import { partMixin } from "../../../../mixins";
+
 export const Select = {
     name: "select-ripe",
+    mixins: [partMixin],
     props: {
         options: {
             type: Array,
@@ -328,7 +320,7 @@ export const Select = {
             this.closeDropdown();
         },
         onDropdownSelect(value) {
-            if (this.highlighted === null) return;
+            if (!this.isDevice() && this.highlighted === null) return;
 
             this.setValue(value);
             this.closeDropdown();
