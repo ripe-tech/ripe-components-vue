@@ -136,8 +136,8 @@ export const Chat = {
                 messageText: this.textData,
                 attachments: this.attachmentsData
             });
-            // this.clearMessage();
-            // this.$nextTick(() => this.scrollToLastMessage());
+            this.clearMessage();
+            this.$nextTick(() => this.scrollToLastMessage());
         },
         clearMessage() {
             this.textData = "";
