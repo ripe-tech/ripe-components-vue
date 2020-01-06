@@ -21,6 +21,7 @@
                 {{ buttonText }}
             </div>
             <dropdown
+                class="dropdown-custom"
                 v-bind:items="options"
                 v-bind:max-height="maxHeight"
                 v-bind:visible.sync="visibleData"
@@ -120,11 +121,14 @@ body.tablet-device .select .select-container {
     opacity: 0.4;
 }
 
+.select .select-container .dropdown-custom {
+    z-index: 1;
+}
+
 .select .select-container ::v-deep .dropdown-container {
     margin-top: 3px;
     position: absolute;
     width: 100%;
-    z-index: 1;
 }
 </style>
 
