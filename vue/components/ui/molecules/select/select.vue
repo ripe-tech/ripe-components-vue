@@ -5,7 +5,7 @@
             class="dropdown-select"
             v-bind:value="value"
             v-if="isDevice()"
-            v-on:change="onDropdownSelect($event.target.value)"
+            v-on:change="onSelectChange($event.target.value)"
         >
             <option
                 v-bind:value="options.value"
@@ -45,7 +45,7 @@
                 v-bind:highlighted="highlightedObject"
                 ref="dropdown"
                 v-on:update:highlighted="onDropdownHighlighted"
-                v-on:item-clicked="value => onDropdownSelect(value.value)"
+                v-on:item-clicked="value => onDropdownItemClicked(value.value)"
             >
                 <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
                 <template
@@ -319,8 +319,11 @@ export const Select = {
             this.setValue(this.options[this.highlighted].value);
             this.closeDropdown();
         },
-        onDropdownSelect(value) {
-            if (!this.isDevice() && this.highlighted === null) return;
+        onSelectChange(value) {
+            this.setValue(value);
+        },
+        onDropdownItemClicked(value) {
+            if (this.highlighted === null) return;
 
             this.setValue(value);
             this.closeDropdown();
