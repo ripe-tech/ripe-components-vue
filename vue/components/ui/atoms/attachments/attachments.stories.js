@@ -22,16 +22,20 @@ storiesOf("Atoms", module)
                         path: "http://i.pravatar.cc"
                     },
                     {
-                        name: "screenshot13122019",
+                        name: "screenshot-13122019",
                         path: "http://i.pravatar.cc"
                     },
                     {
-                        name: "lorem-ipsum-file",
+                        name: "dummy.pdf",
                         path:
                             "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
                     },
                     {
-                        name: "img-533122019",
+                        name: "img-533122019.jpg",
+                        path: "http://i.pravatar.cc"
+                    },
+                    {
+                        name: "this-is-a-very-long-file-name-on-a-single-word-img-533122019",
                         path: "http://i.pravatar.cc"
                     }
                 ]
