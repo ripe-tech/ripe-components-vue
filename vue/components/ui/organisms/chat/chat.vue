@@ -130,7 +130,7 @@ export const Chat = {
             this.$emit("update:messages", value);
         },
         sendMessage() {
-            if (!this.normalizedTextareaText) return;
+            if (!(this.normalizedTextareaText || this.attachmentsData.length)) return;
 
             this.$emit("send-message", {
                 messageText: this.textData,
