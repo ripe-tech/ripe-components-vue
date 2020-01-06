@@ -1,6 +1,9 @@
 <template>
     <div class="chat">
-        <upload-area v-bind:files.sync="pendingAttachments">
+        <upload-area
+            v-bind:files="attachmentsData"
+            v-on:update:files="value => onUpdateAttachmentsData(value)"
+        >
             <div class="chat-container">
                 <div class="chat-messages-container" ref="chat-messages">
                     <chat-message
@@ -21,9 +24,10 @@
             <div class="chat-input-container" v-on:keyup.enter.exact="onEnter()">
                 <rich-textarea
                     v-bind:value.sync="textData"
-                    v-bind:attachments.sync="pendingAttachments"
+                    v-bind:attachments="attachmentsData"
                     v-bind:placeholder="'Say something here...'"
                     v-bind:resize="false"
+                    v-on:update:attachments="value => onUpdateAttachmentsData(value)"
                 />
                 <button-color
                     class="send-button"
@@ -112,9 +116,6 @@ export const Chat = {
     watch: {
         messages(value) {
             this.messagesData = value;
-        },
-        pendingAttachments(value){
-            this.attachmentsData = this.attachmentsData.concat(value);
         }
     },
     computed: {
@@ -163,6 +164,9 @@ export const Chat = {
         },
         onEnter() {
             this.sendMessage();
+        },
+        onUpdateAttachmentsData(attachments) {
+            this.attachmentsData = this.attachmentsData.concat(attachments);
         }
     }
 };
