@@ -14,7 +14,7 @@
             >
                 {{ options.label }}
             </option>
-            <option v-bind:value="null" style="display: none;">
+            <option class="placeholder" v-bind:value="null">
                 {{ placeholder }}
             </option>
         </select>
@@ -95,6 +95,10 @@
     white-space: nowrap;
 }
 
+.dropdown-select > .placeholder {
+    display: none;
+}
+
 .select .select-container .select-button:hover {
     border-color: #dfe1e5;
 }
@@ -114,6 +118,7 @@
     position: absolute;
     width: 100%;
 }
+
 </style>
 
 <script>
