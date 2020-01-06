@@ -12,20 +12,46 @@
             ref="textarea"
         />
         <div class="options">
-            <button-icon
-                class="button-attachment"
-                v-bind:disabled="disabled"
-                v-bind:icon="'clip'"
-                v-if="attachment"
-                v-on:click="onAttachmentClick()"
+            <input
+                type="file"
+                multiple
+                hidden
+                ref="attachmentsInput"
+                v-on:change="onAttachmentsInputChange()"
             />
-            <button-icon
-                class="button-smile"
-                v-bind:disabled="disabled"
-                v-bind:icon="'happy-face'"
-                v-if="smile"
-                v-on:click="onSmileClick()"
-            />
+            <div class="attachments" v-show="attachments.length > 0">
+                <div
+                    class="attachment"
+                    v-for="(attachment, index) in attachmentsData"
+                    v-bind:key="index"
+                >
+                    <div class="attachment-name">
+                        {{ attachment.name }}
+                    </div>
+                    <button-icon
+                        class="button-remove-attachment"
+                        v-bind:size="20"
+                        v-bind:icon="'close'"
+                        v-on:click="onRemoveAttachmentButtonClick(index)"
+                    />
+                </div>
+            </div>
+            <div class="buttons">
+                <button-icon
+                    class="button-attachment"
+                    v-bind:disabled="disabled"
+                    v-bind:icon="'clip'"
+                    v-if="attachment"
+                    v-on:click="onAttachmentClick()"
+                />
+                <button-icon
+                    class="button-smile"
+                    v-bind:disabled="disabled"
+                    v-bind:icon="'happy-face'"
+                    v-if="smile"
+                    v-on:click="onSmileClick()"
+                />
+            </div>
         </div>
     </div>
 </template>
@@ -48,6 +74,7 @@
     border-width: 2px;
 }
 
+.rich-textarea:active,
 .rich-textarea:focus-within {
     border-color: $aqcua-blue;
 }
@@ -77,6 +104,36 @@
 .rich-textarea.border-strong .options {
     border-width: 2px;
 }
+
+.rich-textarea .options .attachments {
+    display: inline-block;
+    margin-bottom: 6px;
+    max-height: 200px;
+    min-width: 160px;
+    overflow: overlay;
+}
+
+.rich-textarea .options .attachments .attachment {
+    background-color: $white;
+    border: 1px solid $light-white;
+    border-top: none;
+    display: flex;
+    line-height: 20px;
+    padding: 4px 2px 4px 8px;
+}
+
+.rich-textarea .options .attachments .attachment:first-child {
+    border-top: 1px solid $light-white;
+}
+
+.rich-textarea .options .attachments .attachment .attachment-name {
+    flex: 1 0;
+    font-size: 11px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    user-select: none;
+    white-space: nowrap;
+}
 </style>
 
 <script>
@@ -98,6 +155,10 @@ export const RichTextarea = {
         value: {
             type: String,
             default: null
+        },
+        attachments: {
+            type: Array,
+            default: () => []
         },
         placeholder: {
             type: String,
@@ -126,12 +187,16 @@ export const RichTextarea = {
     },
     data: function() {
         return {
-            valueData: this.value
+            valueData: this.value,
+            attachmentsData: this.attachments
         };
     },
     watch: {
         value(value) {
             this.valueData = value;
+        },
+        attachments(value) {
+            this.attachmentsData = value;
         },
         valueData(value) {
             this.$emit("update:value", value);
@@ -154,11 +219,25 @@ export const RichTextarea = {
         focusTextarea() {
             this.$refs.textarea.focus();
         },
+        addAttachments(attachments) {
+            this.attachmentsData = (this.attachmentsData || []).concat([...attachments]);
+            this.$emit("update:attachments", this.attachmentsData);
+        },
+        removeAttachment(index) {
+            this.attachmentsData.splice(index, 1);
+            this.$emit("update:attachments", this.attachmentsData);
+        },
         onClick() {
             this.focusTextarea();
         },
+        onRemoveAttachmentButtonClick(index) {
+            this.removeAttachment(index);
+        },
         onAttachmentClick() {
-            this.$emit("click:attachment");
+            this.$refs.attachmentsInput.click();
+        },
+        onAttachmentsInputChange() {
+            this.addAttachments(this.$refs.attachmentsInput.files);
         },
         onSmileClick() {
             this.$emit("click:smile");

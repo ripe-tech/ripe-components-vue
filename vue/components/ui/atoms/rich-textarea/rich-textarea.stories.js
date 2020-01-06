@@ -29,6 +29,13 @@ storiesOf("Atoms", module)
             value: {
                 default: text("Value", "This is a text")
             },
+            attachments: {
+                type: Array,
+                default: () => [
+                    new File(["Hello World 1"], "file-1.txt"),
+                    new File(["Hello World 2"], "file-2.txt")
+                ]
+            },
             placeholder: {
                 default: text("Placeholder", "This is a placeholder")
             },
@@ -47,12 +54,16 @@ storiesOf("Atoms", module)
         },
         data: function() {
             return {
-                valueData: this.value
+                valueData: this.value,
+                attachmentsData: this.attachments
             };
         },
         watch: {
             value(value) {
                 this.valueData = value;
+            },
+            attachments(value) {
+                this.attachmentsData = value;
             }
         },
         template: `
@@ -61,6 +72,7 @@ storiesOf("Atoms", module)
                     v-bind:variant="variant"
                     v-bind:border="border"
                     v-bind:value.sync="valueData"
+                    v-bind:attachments.sync="attachmentsData"
                     v-bind:placeholder="placeholder"
                     v-bind:disabled="disabled"
                     v-bind:resize="resize"
@@ -69,6 +81,7 @@ storiesOf("Atoms", module)
                 />
                 <div>
                     <p>Text: {{ valueData }}</p>
+                    <p>Number of files: {{ attachmentsData.length }}</p>
                 </div>
             </div>
             `
