@@ -74,6 +74,7 @@
     border-width: 2px;
 }
 
+.rich-textarea:active,
 .rich-textarea:focus-within {
     border-color: $aqcua-blue;
 }
@@ -115,13 +116,14 @@
 .rich-textarea .options .attachments .attachment {
     background-color: $white;
     border: 1px solid $light-white;
+    border-top: none;
     display: flex;
     line-height: 20px;
     padding: 4px 2px 4px 8px;
 }
 
 .rich-textarea .options .attachments .attachment:first-child {
-    border-bottom: none;
+    border-top: 1px solid $light-white;
 }
 
 .rich-textarea .options .attachments .attachment .attachment-name {
@@ -129,6 +131,7 @@
     font-size: 11px;
     overflow: hidden;
     text-overflow: ellipsis;
+    user-select: none;
     white-space: nowrap;
 }
 </style>
