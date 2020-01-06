@@ -33,6 +33,7 @@
     text-align: center;
     transition: background-color 0.15s ease-in-out,
         border-color 0.15s ease-in-out,
+        color 0.15s ease-in-out,
         opacity 0.15s ease-in-out;
     user-select: none;
     vertical-align: middle;
@@ -88,7 +89,6 @@
     border-color: #2d2d2d;
 }
 
-.button-color.button-color-secondary,
 .button-color.button-color-white {
     background-color: $white;
     border: 1px solid #e4e8f0;
@@ -96,14 +96,12 @@
     transition: opacity 0.15s ease-in-out;
 }
 
-.button-color.button-color-secondary:hover,
 .button-color.button-color-white:hover {
     background-color: $blacker;
     border: 1px solid $blacker;
     color: $white;
 }
 
-.button-color.button-color-secondary:active,
 .button-color.button-color-white:active {
     background-color: #2d2d2d;
     border: 1px solid #2d2d2d;
@@ -114,6 +112,76 @@
     background-color: $red;
     border: 1px solid $red;
     color: $white;
+}
+
+.button-color.button-color-red:hover {
+    background-color: $medium-red;
+    border-color: $medium-red;
+}
+
+.button-color.button-color-red:active {
+    background-color: $dark-red;
+    border-color: $dark-red;
+}
+
+.button-color.button-color-blue {
+    background-color: $blue;
+    border-color: $blue;
+}
+
+.button-color.button-color-blue:hover {
+    background-color: $lighter-blue;
+    border-color: $lighter-blue;
+}
+
+.button-color.button-color-blue:active {
+    background-color: $active-blue;
+    border-color: $active-blue;
+}
+
+.button-color.button-color-green {
+    background-color: $green;
+    border-color: $green;
+}
+
+.button-color.button-color-green:hover {
+    background-color: $lighter-green;
+    border-color: $lighter-green;
+}
+
+.button-color.button-color-green:active {
+    background-color: $dark-green;
+    border-color: $dark-green;
+}
+
+.button-color.button-color-yellow {
+    background-color: $yellow;
+    border-color: $yellow;
+}
+
+.button-color.button-color-yellow:hover {
+    background-color: $light-yellow;
+    border-color: $light-yellow;
+}
+
+.button-color.button-color-yellow:active {
+    background-color: $dark-yellow;
+    border-color: $dark-yellow;
+}
+
+.button-color.button-color-orange {
+    background-color: $orange;
+    border-color: $orange;
+}
+
+.button-color.button-color-orange:hover {
+    background-color: $dark-orange;
+    border-color: $dark-orange;
+}
+
+.button-color.button-color-orange:active {
+    background-color: $darker-orange;
+    border-color: $darker-orange;
 }
 
 .button-color ::v-deep .loader {
@@ -127,10 +195,6 @@
     height: 32px;
     left: 0px;
     width: 32px;
-}
-
-.button-color.button-color-secondary ::v-deep .loader > div {
-    background-color: #2d2d2d;
 }
 
 .button-color .icon,
@@ -174,10 +238,6 @@
 export const ButtonColor = {
     name: "button-color",
     props: {
-        secondary: {
-            type: Boolean,
-            default: false
-        },
         small: {
             type: Boolean,
             default: false
@@ -256,7 +316,6 @@ export const ButtonColor = {
         },
         classes() {
             const base = {
-                "button-color-secondary": this.secondary,
                 "button-color-small": this.small,
                 "button-color-icon": this.icon,
                 disabled: this.disabled,

@@ -5,16 +5,17 @@ storiesOf("Atoms", module)
     .addDecorator(withKnobs)
     .add("Button Color", () => ({
         props: {
-            secondary: {
-                default: boolean("Secondary", false)
-            },
             color: {
                 default: select(
                     "Color",
                     {
                         Default: "default",
                         Red: "red",
-                        White: "white"
+                        White: "white",
+                        Blue: "blue",
+                        Green: "green",
+                        Yellow: "yellow",
+                        Orange: "orange"
                     },
                     "default"
                 )
@@ -55,13 +56,13 @@ storiesOf("Atoms", module)
         },
         template: `
             <div>
-                <button-color v-bind:text="'Normal Button'" v-bind:secondary="secondary" v-bind:color="color" v-bind:alignment="alignment"
+                <button-color v-bind:text="'Normal Button'" v-bind:color="color" v-bind:alignment="alignment"
                                         v-bind:disabled="disabled" v-bind:loading="loading"></button-color>
-                <button-color v-bind:text="'Small Button'" v-bind:secondary="secondary" v-bind:color="color" v-bind:alignment="alignment"
+                <button-color v-bind:text="'Small Button'" v-bind:color="color" v-bind:alignment="alignment"
                                         v-bind:disabled="disabled" v-bind:loading="loading" v-bind:small="true" ></button-color>
-                <button-color v-bind:text="'Normal Button'" v-bind:secondary="secondary" v-bind:color="color" v-bind:alignment="alignment"
+                <button-color v-bind:text="'Normal Button'" v-bind:color="color" v-bind:alignment="alignment"
                                         v-bind:disabled="disabled" v-bind:loading="loading" v-bind:icon="icon"></button-color>
-                <button-color v-bind:text="'Small Button'" v-bind:secondary="secondary" v-bind:color="color" v-bind:alignment="alignment"
+                <button-color v-bind:text="'Small Button'" v-bind:color="color" v-bind:alignment="alignment"
                                         v-bind:disabled="disabled" v-bind:loading="loading" v-bind:small="true" v-bind:icon="icon"></button-color>
             </div>
         `
