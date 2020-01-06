@@ -133,13 +133,14 @@ export const Chat = {
             this.$emit("update:messages", value);
         },
         sendMessage() {
+            //TODO allow newlines?
             if (this.validMessage) return;
 
             this.$emit("send-message", {
                 messageText: this.textData,
                 attachments: this.attachmentsData
             });
-            
+
             this.clearMessage();
         },
         clearMessage() {
