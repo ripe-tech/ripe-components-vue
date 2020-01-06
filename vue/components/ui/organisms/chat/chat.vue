@@ -120,7 +120,7 @@ export const Chat = {
     data: function() {
         return {
             messagesData: this.messages,
-            textData: null,
+            textData: "",
             attachmentsData: [],
             pendingAttachments: []
         };
@@ -140,7 +140,7 @@ export const Chat = {
             return allAttachments;
         },
         normalizedTextareaText() {
-            return this.textData ? this.textData.trim() : null;
+            return this.textData ? this.textData.trim() : "";
         },
         validMessage() {
             return !(this.normalizedTextareaText || this.attachmentsData.length);
