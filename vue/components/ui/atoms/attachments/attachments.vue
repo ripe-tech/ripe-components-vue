@@ -59,7 +59,7 @@
     border-bottom: 1px solid #e4e8f0;
     cursor: pointer;
     height: 44px;
-    padding-left: 40px;
+    padding: 0px 16px 0px 40px;
     user-select: none;
 }
 
