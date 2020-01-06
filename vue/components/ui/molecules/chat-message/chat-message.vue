@@ -138,7 +138,7 @@ export const ChatMessage = {
         },
         message: {
             type: String,
-            default: null
+            required: true
         },
         attachments: {
             type: Array,
