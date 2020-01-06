@@ -124,8 +124,8 @@ export const Chat = {
         normalizedTextareaText() {
             return this.textData ? this.textData.trim() : null;
         },
-        validMessage(){
-            return !(this.normalizedTextareaText || this.attachmentsData.length)
+        validMessage() {
+            return !(this.normalizedTextareaText || this.attachmentsData.length);
         }
     },
     methods: {
@@ -139,16 +139,18 @@ export const Chat = {
                 messageText: this.textData,
                 attachments: this.attachmentsData
             });
+            
             this.clearMessage();
-            this.$nextTick(() => this.scrollToLastMessage());
         },
         clearMessage() {
             this.textData = "";
             this.attachmentsData = [];
         },
         scrollToLastMessage() {
-            const messagesContainerElement = this.$refs["chat-messages"];
-            messagesContainerElement.scrollTop = messagesContainerElement.scrollHeight;
+            this.$nextTick(() => {
+                const messagesContainerElement = this.$refs["chat-messages"];
+                messagesContainerElement.scrollTop = messagesContainerElement.scrollHeight;
+            });
         },
         onSendMessageClick() {
             this.sendMessage();

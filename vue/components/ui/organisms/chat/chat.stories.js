@@ -139,6 +139,8 @@ storiesOf("Organisms", module)
                         reactions: []
                     }
                 });
+
+                this.$refs.chat.scrollToLastMessage();
             },
             uploadAttachments(files) {
                 if (!files || !files.length) return [];
@@ -166,6 +168,7 @@ storiesOf("Organisms", module)
             <div>
                 <global />
                 <chat
+                    ref="chat"
                     v-bind:avatar-url="avatarUrl"
                     v-bind:username="username"
                     v-bind:messages.sync="messagesData"
