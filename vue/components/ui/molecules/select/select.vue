@@ -65,6 +65,7 @@
 
 .dropdown-select,
 .select .select-container {
+    position: relative;
     width: 100%;
 }
 
