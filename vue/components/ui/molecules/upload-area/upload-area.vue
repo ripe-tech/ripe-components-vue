@@ -64,11 +64,11 @@ export const UploadArea = {
     name: "upload-area",
     props: {
         description: {
-            type: Array,
+            type: String,
             default: "Drag & drop your files"
         },
         descriptionDragging: {
-            type: Array,
+            type: String,
             default: 'Just "drop" your files'
         },
         files: {
