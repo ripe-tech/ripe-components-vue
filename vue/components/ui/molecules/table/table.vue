@@ -11,10 +11,10 @@
                         <div
                             class="table-column"
                             v-bind:class="columnClass(column.value)"
-                            v-if="column.label"
+                            v-if="column.label || column.value || value.name"
                             v-on:click="sortColumn(column.value)"
                         >
-                            <span>{{ column.label }}</span>
+                            <span>{{ column.label || column.value || value.name }}</span>
                         </div>
                     </slot>
                 </th>
