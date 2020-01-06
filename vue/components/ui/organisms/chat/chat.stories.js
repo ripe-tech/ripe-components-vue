@@ -118,29 +118,40 @@ storiesOf("Organisms", module)
                 ]
             }
         },
-        data: function() {
+        data: function () {
             return {
                 messagesData: this.messages
             };
         },
         methods: {
-            sendMessage(message) {
-                console.log("Send message");
-                console.log(message);
-
-                if (!message) return;
+            async sendMessage(message) {
+                if (!message || Object.entries(message).length === 0) return;
                 message.messageContent.attachments = this.uploadAttachments(
                     message.messageContent.attachments
                 );
 
-                // TODO API send message here
+                await this.sendMessageAPI(message);
                 this.messagesData.push(JSON.parse(JSON.stringify(message)));
             },
             uploadAttachments(files) {
                 if (!files || !files.length) return [];
 
-                // TODO simulate upload, returning list of attachments {name: ..., path: ...}
-                return [];
+                const attachments = [];
+                files.forEach(async (file) => {
+                    attachments.push(await this.uploadFileAPI(file));
+                });
+
+                return attachments;
+            },
+            async uploadFileAPI(file) {
+                // Simulating upload, returning list of attachments {name: ..., path: ...}
+                console.log(`Simulating Upload "${file.name}" with ${file.size} bytes`);
+                return { name: file.name, path: "https://platforme.com/" };
+            },
+            async sendMessageAPI(message) {
+                // Simulating send message
+                console.log("Simulating Send Message");
+                console.log(message);
             }
         },
         template: `
