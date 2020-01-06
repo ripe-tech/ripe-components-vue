@@ -89,6 +89,7 @@
     border-color: #2d2d2d;
 }
 
+.button-color.button-color-secondary,
 .button-color.button-color-white {
     background-color: $white;
     border: 1px solid #e4e8f0;
@@ -96,12 +97,14 @@
     transition: opacity 0.15s ease-in-out;
 }
 
+.button-color.button-color-secondary:hover,
 .button-color.button-color-white:hover {
     background-color: $blacker;
     border: 1px solid $blacker;
     color: $white;
 }
 
+.button-color.button-color-secondary:active,
 .button-color.button-color-white:active {
     background-color: #2d2d2d;
     border: 1px solid #2d2d2d;
@@ -203,6 +206,10 @@
     height: 22px;
     margin-top: 9px;
     width: 22px;
+}
+
+.button-color.button-color-secondary ::v-deep .loader > div {
+    background-color: #2d2d2d;
 }
 
 .button-color.button-color-left .icon,
@@ -316,6 +323,7 @@ export const ButtonColor = {
         },
         classes() {
             const base = {
+                "button-color-secondary": this.secondary,
                 "button-color-small": this.small,
                 "button-color-icon": this.icon,
                 disabled: this.disabled,
