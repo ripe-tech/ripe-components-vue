@@ -1,36 +1,37 @@
 <template>
     <div class="chat">
-        <div class="chat-container">
-            <div class="chat-messages-container" ref="chat-messages">
-                <chat-message
-                    v-bind:username="message.username"
-                    v-bind:avatar="message.avatarUrl"
-                    v-bind:date="message.date"
-                    v-bind:message="message.messageContent.text"
-                    v-bind:attachments="message.messageContent.attachments"
-                    v-bind:reactions="message.messageContent.reactions"
-                    v-for="(message, index) in messages"
-                    v-bind:key="index"
+        <upload-area v-bind:files.sync="attachmentsData">
+            <div class="chat-container">
+                <div class="chat-messages-container" ref="chat-messages">
+                    <chat-message
+                        v-bind:username="message.username"
+                        v-bind:avatar="message.avatarUrl"
+                        v-bind:date="message.date"
+                        v-bind:message="message.messageContent.text"
+                        v-bind:attachments="message.messageContent.attachments"
+                        v-bind:reactions="message.messageContent.reactions"
+                        v-for="(message, index) in messages"
+                        v-bind:key="index"
+                    />
+                </div>
+                <div class="chat-files-container">
+                    <attachments v-bind:attachments="allAttachments" v-bind:height="306" />
+                </div>
+            </div>
+            <div class="chat-input-container" v-on:keyup.enter.exact="onEnter()">
+                <rich-textarea
+                    v-bind:value.sync="textData"
+                    v-bind:attachments.sync="attachmentsData"
+                    v-bind:placeholder="'Say something here...'"
+                    v-bind:resize="false"
+                />
+                <button-color
+                    class="send-button"
+                    v-bind:text="'Send message'"
+                    v-on:click="onSendMessageClick()"
                 />
             </div>
-
-            <div class="chat-files-container">
-                <attachments v-bind:attachments="allAttachments" v-bind:height="306" />
-            </div>
-        </div>
-        <div class="chat-input-container" v-on:keyup.enter.exact="onEnter()">
-            <rich-textarea
-                v-bind:value.sync="textData"
-                v-bind:attachments.sync="attachmentsData"
-                v-bind:placeholder="'Say something here...'"
-                v-bind:resize="false"
-            />
-            <button-color
-                class="send-button"
-                v-bind:text="'Send message'"
-                v-on:click="onSendMessageClick()"
-            />
-        </div>
+        </upload-area>
     </div>
 </template>
 
@@ -133,7 +134,7 @@ export const Chat = {
             this.$emit("update:messages", value);
         },
         sendMessage() {
-            //TODO allow newlines?
+            // TODO allow newlines?
             if (this.validMessage) return;
 
             this.$emit("send-message", {
