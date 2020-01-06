@@ -4,7 +4,12 @@
             {{ title }}
         </div>
         <div class="attachments-list" v-bind:style="listStyle">
-            <div class="attachment" v-for="(attachment, index) in attachments" v-bind:key="index">
+            <div
+                class="attachment"
+                v-bind:title="attachment.name"
+                v-for="(attachment, index) in attachments"
+                v-bind:key="index"
+            >
                 <link-ripe
                     v-bind:text="attachment.name"
                     v-bind:href="attachment.path"
@@ -74,7 +79,10 @@
     border: none;
     display: inline-block;
     line-height: 44px;
+    overflow: hidden;
+    text-overflow: ellipsis;
     vertical-align: top;
+    white-space: nowrap;
     width: 100%;
 }
 </style>
