@@ -1,7 +1,24 @@
 <template>
     <div class="select" v-bind:class="{ disabled: disabled }">
         <global-events v-on:click="onGlobalClick" />
-        <div class="select-container" v-bind:style="style">
+        <select
+            class="dropdown-select"
+            v-bind:value="value"
+            v-if="isDevice()"
+            v-on:change="onSelectChange($event.target.value)"
+        >
+            <option
+                v-bind:value="options.value"
+                v-for="options in options"
+                v-bind:key="options.value"
+            >
+                {{ options.label }}
+            </option>
+            <option v-bind:value="null" style="display: none;">
+                {{ placeholder }}
+            </option>
+        </select>
+        <div class="select-container" v-bind:style="style" v-else>
             <div
                 class="select-button"
                 tabindex="0"
@@ -28,7 +45,7 @@
                 v-bind:highlighted="highlightedObject"
                 ref="dropdown"
                 v-on:update:highlighted="onDropdownHighlighted"
-                v-on:item-clicked="value => onDropdownSelect(value.value)"
+                v-on:item-clicked="value => onDropdownItemClicked(value.value)"
             >
                 <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
                 <template
@@ -40,46 +57,18 @@
                 </template>
             </dropdown>
         </div>
-        <select
-            class="dropdown-select"
-            v-bind:value="value"
-            v-on:change="onDropdownSelect($event.target.value)"
-        >
-            <option
-                v-bind:value="options.value"
-                v-for="options in options"
-                v-bind:key="options.value"
-            >
-                {{ options.label }}
-            </option>
-            <option v-bind:value="null" style="display: none;">
-                {{ placeholder }}
-            </option>
-        </select>
     </div>
 </template>
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.select .dropdown-select {
-    display: none;
-}
-
-body.mobile-device .select .dropdown-select,
-body.tablet-device .select .dropdown-select {
-    display: block;
-}
-
+.dropdown-select,
 .select .select-container {
     width: 100%;
 }
 
-body.mobile-device .select .select-container,
-body.tablet-device .select .select-container {
-    display: none;
-}
-
+.dropdown-select,
 .select .select-container .select-button {
     background-color: $soft-blue;
     background-image: url("~./assets/chevron-down.svg");
@@ -128,8 +117,11 @@ body.tablet-device .select .select-container {
 </style>
 
 <script>
+import { partMixin } from "../../../../mixins";
+
 export const Select = {
     name: "select-ripe",
+    mixins: [partMixin],
     props: {
         options: {
             type: Array,
@@ -327,7 +319,10 @@ export const Select = {
             this.setValue(this.options[this.highlighted].value);
             this.closeDropdown();
         },
-        onDropdownSelect(value) {
+        onSelectChange(value) {
+            this.setValue(value);
+        },
+        onDropdownItemClicked(value) {
             if (this.highlighted === null) return;
 
             this.setValue(value);
