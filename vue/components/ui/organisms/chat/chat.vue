@@ -94,6 +94,10 @@ body.mobile-device .chat-files-container {
     float: right;
     margin: 16px 20px 16px 16px;
 }
+
+.chat .upload-area.dragging .chat-input-container .rich-textarea{
+    pointer-events: none;
+}
 </style>
 
 <script>
