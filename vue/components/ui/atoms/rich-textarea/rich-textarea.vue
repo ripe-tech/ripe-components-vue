@@ -110,7 +110,7 @@
     margin-bottom: 6px;
     max-height: 200px;
     min-width: 160px;
-    overflow: overlay;
+    overflow-y: auto;
 }
 
 .rich-textarea .options .attachments .attachment {
