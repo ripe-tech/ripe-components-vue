@@ -20,8 +20,8 @@
                 <div class="links">
                     <div
                         class="link-container"
-                        v-for="attachment in attachments"
-                        v-bind:key="attachment.name"
+                        v-for="(attachment, index) in attachments"
+                        v-bind:key="index"
                     >
                         <link-ripe
                             v-bind:text="attachment.name"
@@ -138,7 +138,7 @@ export const ChatMessage = {
         },
         message: {
             type: String,
-            required: true
+            default: null
         },
         attachments: {
             type: Array,
