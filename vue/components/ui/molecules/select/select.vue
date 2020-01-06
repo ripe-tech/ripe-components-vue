@@ -29,7 +29,16 @@
                 ref="dropdown"
                 v-on:update:highlighted="onDropdownHighlighted"
                 v-on:item-clicked="value => onDropdownSelect(value.value)"
-            />
+            >
+                <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
+                <template
+                    v-for="slot in Object.keys($scopedSlots)"
+                    v-bind:slot="slot"
+                    slot-scope="scope"
+                >
+                    <slot v-bind:name="slot" v-bind="scope" />
+                </template>
+            </dropdown>
         </div>
         <select
             class="dropdown-select"
@@ -90,7 +99,7 @@ body.tablet-device .select .select-container {
     outline: none;
     overflow: hidden;
     padding-left: 12px;
-    padding-right: 12px;
+    padding-right: 34px;
     text-overflow: ellipsis;
     transition: width 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
     user-select: none;

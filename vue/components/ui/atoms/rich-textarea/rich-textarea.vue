@@ -12,22 +12,6 @@
             ref="textarea"
         />
         <div class="options">
-            <div
-                class="attachment"
-                v-bind:title="attachment.name"
-                v-for="(attachment, index) in attachmentsData"
-                v-bind:key="index"
-            >
-                <div class="attachment-name">
-                    {{ attachment.name }}
-                </div>
-                <button-icon
-                    class="button-remove-attachment"
-                    v-bind:size="20"
-                    v-bind:icon="'close'"
-                    v-on:click="onRemoveAttachmentButtonClick(index)"
-                />
-            </div>
             <input
                 type="file"
                 multiple
@@ -35,20 +19,39 @@
                 ref="attachmentsInput"
                 v-on:change="onAttachmentsInputChange()"
             />
-            <button-icon
-                class="button-attachment"
-                v-bind:disabled="disabled"
-                v-bind:icon="'clip'"
-                v-if="attachment"
-                v-on:click="onAttachmentClick()"
-            />
-            <button-icon
-                class="button-smile"
-                v-bind:disabled="disabled"
-                v-bind:icon="'happy-face'"
-                v-if="smile"
-                v-on:click="onSmileClick()"
-            />
+            <div class="attachments" v-show="attachments.length > 0">
+                <div
+                    class="attachment"
+                    v-for="(attachment, index) in attachmentsData"
+                    v-bind:key="index"
+                >
+                    <div class="attachment-name">
+                        {{ attachment.name }}
+                    </div>
+                    <button-icon
+                        class="button-remove-attachment"
+                        v-bind:size="20"
+                        v-bind:icon="'close'"
+                        v-on:click="onRemoveAttachmentButtonClick(index)"
+                    />
+                </div>
+            </div>
+            <div class="buttons">
+                <button-icon
+                    class="button-attachment"
+                    v-bind:disabled="disabled"
+                    v-bind:icon="'clip'"
+                    v-if="attachment"
+                    v-on:click="onAttachmentClick()"
+                />
+                <button-icon
+                    class="button-smile"
+                    v-bind:disabled="disabled"
+                    v-bind:icon="'happy-face'"
+                    v-if="smile"
+                    v-on:click="onSmileClick()"
+                />
+            </div>
         </div>
     </div>
 </template>
@@ -71,6 +74,7 @@
     border-width: 2px;
 }
 
+.rich-textarea:active,
 .rich-textarea:focus-within {
     border-color: $aqcua-blue;
 }
@@ -97,24 +101,38 @@
     padding: 6px 12px 6px 12px;
 }
 
-.rich-textarea .options .attachment {
-    background-color: $white;
-    border: 1px solid $light-white;
-    display: flex;
-    line-height: 20px;
-    width: 33%;
+.rich-textarea.border-strong .options {
+    border-width: 2px;
 }
 
-.rich-textarea .options .attachment .attachment-name {
+.rich-textarea .options .attachments {
+    display: inline-block;
+    margin-bottom: 6px;
+    max-height: 200px;
+    min-width: 160px;
+    overflow: overlay;
+}
+
+.rich-textarea .options .attachments .attachment {
+    background-color: $white;
+    border: 1px solid $light-white;
+    border-top: none;
+    display: flex;
+    line-height: 20px;
+    padding: 4px 2px 4px 8px;
+}
+
+.rich-textarea .options .attachments .attachment:first-child {
+    border-top: 1px solid $light-white;
+}
+
+.rich-textarea .options .attachments .attachment .attachment-name {
     flex: 1 0;
     font-size: 11px;
     overflow: hidden;
     text-overflow: ellipsis;
+    user-select: none;
     white-space: nowrap;
-}
-
-.rich-textarea.border-strong .options {
-    border-width: 2px;
 }
 </style>
 
@@ -201,8 +219,8 @@ export const RichTextarea = {
         focusTextarea() {
             this.$refs.textarea.focus();
         },
-        addAttachments(fileList) {
-            this.attachmentsData = (this.attachmentsData || []).concat([...fileList]);
+        addAttachments(attachments) {
+            this.attachmentsData = (this.attachmentsData || []).concat([...attachments]);
             this.$emit("update:attachments", this.attachmentsData);
         },
         removeAttachment(index) {

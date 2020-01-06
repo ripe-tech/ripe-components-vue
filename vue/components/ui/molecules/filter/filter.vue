@@ -13,7 +13,12 @@
                     <slot name="item" v-bind:item="item" v-bind:index="index" />
                 </template>
             </table-ripe>
-            <lineup v-bind:items="items" v-bind:values="values" v-on:click="onLineupClick">
+            <lineup
+                v-bind:items="items"
+                v-bind:values="values"
+                v-bind:get-item-url="getItemUrl"
+                v-on:click="onLineupClick"
+            >
                 <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
                 <template
                     v-for="slot in Object.keys($scopedSlots)"
@@ -80,6 +85,10 @@ export const Filter = {
         getItems: {
             type: Function,
             default: () => []
+        },
+        getItemUrl: {
+            type: Function,
+            default: null
         },
         columns: {
             type: Array,
@@ -192,12 +201,16 @@ export const Filter = {
             const { sort, reverse, filter } = options;
 
             const current = this.$route.query;
-            const next = {
-                ...current,
-                sort: String(sort),
-                reverse: String(reverse),
-                filter: String(filter)
-            };
+            const next = Object.assign({}, current);
+
+            if (sort) next.sort = sort;
+            else delete next.sort;
+
+            if (reverse) next.reverse = reverse;
+            else delete next.reverse;
+
+            if (filter) next.filter = filter;
+            else delete next.filter;
 
             if (equal(current, next)) return;
 

@@ -153,18 +153,19 @@ export const Lineup = {
         transition: {
             type: String,
             default: null
+        },
+        getItemUrl: {
+            type: Function,
+            default: null
         }
     },
     methods: {
         clickable(item) {
-            return Boolean(item.url);
+            return item.url || this.getItemUrl;
         },
         onItemClick(item, index) {
-            if (item.url) {
-                this.$router.push(item.url);
-                return;
-            }
-
+            const url = this.getItemUrl ? this.getItemUrl(item, index) : item.url;
+            if (url) this.$router.push(url);
             this.$emit("click", item, index);
         }
     }

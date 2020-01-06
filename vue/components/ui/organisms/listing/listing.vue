@@ -24,6 +24,7 @@
             </div>
             <filter-ripe
                 v-bind:get-items="getItemsWithParams"
+                v-bind:get-item-url="getItemUrl"
                 v-bind:columns="columns"
                 v-bind:values="values"
                 v-bind:filter="filter"
@@ -210,6 +211,10 @@ export const Listing = {
         getItems: {
             type: Function,
             required: true
+        },
+        getItemUrl: {
+            type: Function,
+            default: null
         },
         filterFields: {
             type: Object,
