@@ -33,6 +33,10 @@ storiesOf("Atoms", module)
                     {
                         name: "img-533122019",
                         path: "http://i.pravatar.cc"
+                    },
+                    {
+                        name: "long filename iuwafuehgsrdfig aoighh awipfojg oiegjsh img-533122019",
+                        path: "http://i.pravatar.cc"
                     }
                 ]
             },

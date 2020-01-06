@@ -74,7 +74,10 @@
     border: none;
     display: inline-block;
     line-height: 44px;
+    overflow: hidden;
+    text-overflow: ellipsis;
     vertical-align: top;
+    white-space: nowrap;
     width: 100%;
 }
 </style>
