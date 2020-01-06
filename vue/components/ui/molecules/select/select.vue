@@ -63,6 +63,10 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
+.select {
+    position: relative;
+}
+
 .dropdown-select,
 .select .select-container {
     width: 100%;
