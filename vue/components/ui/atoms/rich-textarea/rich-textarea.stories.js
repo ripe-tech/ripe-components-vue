@@ -32,8 +32,8 @@ storiesOf("Atoms", module)
             attachments: {
                 type: Array,
                 default: () => [
-                    new File([""], "attachment example 1"),
-                    new File([""], "attachment example 2")
+                    new File(["Hello World 1"], "file-1.txt"),
+                    new File(["Hello World 2"], "file-2.txt")
                 ]
             },
             placeholder: {
