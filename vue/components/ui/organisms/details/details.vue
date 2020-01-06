@@ -192,7 +192,7 @@ body.mobile .container-ripe {
     border: none;
     border-bottom: 1px solid $lighter-grey;
     border-radius: 0px 0px 0px 0px;
-    border-top: 1px solid $lighter-grey;
+    border-top: none;
     box-shadow: none;
     margin: 0px 0px 0px 0px;
 }
