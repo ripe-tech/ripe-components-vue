@@ -95,7 +95,7 @@ body.mobile-device .chat-files-container {
     margin: 16px 20px 16px 16px;
 }
 
-.chat .upload-area.dragging .chat-input-container .rich-textarea{
+.chat .upload-area.dragging .chat-input-container .rich-textarea {
     pointer-events: none;
 }
 </style>
@@ -144,22 +144,38 @@ export const Chat = {
         },
         validMessage() {
             return !(this.normalizedTextareaText || this.attachmentsData.length);
+        },
+        normalizedAttachments() {
+            return this.attachmentsData.map(attachment => ({
+                name: attachment.name,
+                path: ""
+            }));
         }
     },
     methods: {
-        emitUpdateMessages(value) {
-            this.$emit("update:messages", value);
-        },
         sendMessage() {
             // TODO allow newlines?
             if (this.validMessage) return;
 
-            this.$emit("send-message", {
+            this.$emit("new-message", {
                 messageText: this.textData,
                 attachments: this.attachmentsData
             });
 
+            this.messagesData.push({
+                username: this.username,
+                avatarUrl: this.avatarUrl,
+                date: Date.now() / 1000,
+                messageContent: {
+                    text: this.textData,
+                    attachments: this.normalizedAttachments,
+                    reactions: []
+                }
+            });
+            this.$emit("update:messages", this.messagesData);
+
             this.clearMessage();
+            this.scrollToLastMessage();
         },
         clearMessage() {
             this.textData = "";

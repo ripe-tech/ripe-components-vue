@@ -124,23 +124,12 @@ storiesOf("Organisms", module)
             };
         },
         methods: {
-            async sendMessage(message) {
+            async onNewMessage(message) {
                 if (!message || Object.entries(message).length === 0) return;
                 message.attachments = this.uploadAttachments(message.attachments);
 
                 await this.sendMessageAPI(message);
-                this.messagesData.push({
-                    username: "NFSS10",
-                    avatarUrl: this.avatarUrl,
-                    date: Date.now() / 1000,
-                    messageContent: {
-                        text: message.messageText,
-                        attachments: message.attachments,
-                        reactions: []
-                    }
-                });
-
-                this.$refs.chat.scrollToLastMessage();
+                //todo UPDATE MESSAGES
             },
             uploadAttachments(files) {
                 if (!files || !files.length) return [];
@@ -172,7 +161,7 @@ storiesOf("Organisms", module)
                     v-bind:avatar-url="avatarUrl"
                     v-bind:username="username"
                     v-bind:messages.sync="messagesData"
-                    v-on:send-message="value => sendMessage(value)"
+                    v-on:new-message="value => onNewMessage(value)"
                  />
                  <div>
                     <p v-for="(message, index) in messagesData">
