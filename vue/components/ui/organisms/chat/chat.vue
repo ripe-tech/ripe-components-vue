@@ -46,6 +46,14 @@
     border: solid 2px #e4e8f0;
 }
 
+.chat .upload-area {
+    transition: opacity 0.125s ease-in;
+}
+
+.chat .upload-area.dragging {
+    opacity: 0.3;
+}
+
 .chat-container {
     display: flex;
     height: 350px;
