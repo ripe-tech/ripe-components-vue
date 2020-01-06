@@ -10,7 +10,7 @@
         <slot>
             <div class="upload-area-container">
                 <p class="description">
-                    Drag & drop your files here or
+                    {{ descriptionText }}
                 </p>
                 <input
                     type="file"
@@ -50,7 +50,7 @@
     pointer-events: none;
 }
 
-.upload-area .upload-area-container .description {
+.upload-area .upload-area-container > .description {
     color: $dark;
     font-size: 14px;
     font-weight: 600;
@@ -63,9 +63,22 @@
 export const UploadArea = {
     name: "upload-area",
     props: {
+        description: {
+            type: Array,
+            default: "Drag & drop your files"
+        },
+        descriptionDragging: {
+            type: Array,
+            default: 'Just "drop" your files'
+        },
         files: {
             type: Array,
             default: () => []
+        }
+    },
+    computed: {
+        descriptionText() {
+            return this.dragging ? this.descriptionDragging : this.description;
         }
     },
     data: function() {
@@ -82,8 +95,6 @@ export const UploadArea = {
     },
     methods: {
         setFiles(filesList) {
-            if (!filesList) return;
-
             this.filesData = [...filesList];
             this.$emit("update:files", this.filesData);
         },
@@ -92,7 +103,7 @@ export const UploadArea = {
         },
         onDrop(event) {
             this.setFiles(event.dataTransfer.files);
-            this.setDragging(false);
+            this.dragging = false;
         },
         onDragEnter(event) {
             this.dragging = true;
@@ -100,7 +111,6 @@ export const UploadArea = {
         onDragLeave(event) {
             // event was fired from a children, ignore
             if (event.currentTarget.contains(event.relatedTarget)) return false;
-
             this.dragging = false;
         },
         onFilesInputChange() {
