@@ -1,6 +1,6 @@
 <template>
     <div class="tabs">
-        <div class="header" v-bind:style="style">
+        <div class="header" v-bind:style="headerStyle">
             <div
                 class="tab-label"
                 v-bind:class="{ active: isTabActive(index), disabled: tab.disabled }"
@@ -114,7 +114,7 @@ export const Tabs = {
         }
     },
     computed: {
-        style() {
+        headerStyle() {
             return {
                 "text-align": this.alignmentHeader
             };
