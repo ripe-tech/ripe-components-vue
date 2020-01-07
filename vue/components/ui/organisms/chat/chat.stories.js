@@ -123,46 +123,13 @@ storiesOf("Organisms", module)
                 messagesData: this.messages
             };
         },
-        methods: {
-            async onNewMessage(message) {
-                if (!message || Object.entries(message).length === 0) return;
-                message.attachments = this.uploadAttachments(message.attachments);
-
-                await this.sendMessageAPI(message);
-                // TODO update messages so they
-                // for example, the attachments, have the correct paths
-            },
-            uploadAttachments(files) {
-                if (!files || !files.length) return [];
-
-                const attachments = [];
-                files.forEach(async file => {
-                    attachments.push(await this.uploadFileAPI(file));
-                });
-
-                return attachments;
-            },
-            async uploadFileAPI(file) {
-                // Simulating upload, returning list of attachments {name: ..., path: ...}
-                console.log(`Simulating Upload "${file.name}" with ${file.size} bytes`);
-                return { name: file.name, path: "https://platforme.com/" };
-            },
-            async sendMessageAPI(message) {
-                // Simulating send message
-                console.log("Simulating Send Message");
-                console.log(message.messageText);
-                console.log(message.attachments);
-            }
-        },
         template: `
             <div>
                 <global />
                 <chat
-                    ref="chat"
                     v-bind:avatar-url="avatarUrl"
                     v-bind:username="username"
                     v-bind:messages.sync="messagesData"
-                    v-on:new-message="value => onNewMessage(value)"
                  />
                  <div>
                     <p v-for="(message, index) in messagesData">
