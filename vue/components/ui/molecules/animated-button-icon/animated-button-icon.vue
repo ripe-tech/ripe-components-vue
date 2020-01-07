@@ -1,21 +1,20 @@
 <template>
     <div class="animated-button-icon">
         <button-icon
-            class="button button-icon-front"
+            class="button-icon-front"
             v-bind:icon="icon"
             v-bind:color="color"
             v-bind:size="size"
             v-bind:disabled="disabled"
-            v-bind:class="{ visible: !clicked }"
+            v-bind:class="{ visible: !animating }"
             v-on:click="onClick"
         />
         <button-icon
-            class="button button-icon-click"
-            v-bind:icon="clickIcon"
+            class="button-icon-back"
+            v-bind:icon="animationIcon"
             v-bind:color="color"
             v-bind:size="size"
-            v-bind:disabled="true"
-            v-bind:class="{ visible: clicked }"
+            v-bind:class="{ visible: animating }"
         />
     </div>
 </template>
@@ -28,21 +27,22 @@
     position: relative;
 }
 
-.button {
-    opacity: 0;
+.button-icon-front,
+.button-icon-back {
     pointer-events: none;
     transition: opacity 0.125s linear;
 }
 
-.button.visible {
-    opacity: 1;
+.button-icon-front {
+    opacity: 0;
 }
 
-.button.button-icon-front.visible {
+.button-icon-front.visible {
+    opacity: 1;
     pointer-events: auto;
 }
 
-.button.button-icon-click {
+.button-icon-back {
     left: 0px;
     opacity: 0;
     pointer-events: none;
@@ -50,7 +50,7 @@
     top: 0px;
 }
 
-.button.button-icon-click.visible {
+.button-icon-back.visible {
     opacity: 1;
 }
 </style>
@@ -63,7 +63,7 @@ export const AnimatedButtonIcon = {
             type: String,
             mandatory: true
         },
-        clickIcon: {
+        animationIcon: {
             type: String,
             mandatory: true
         },
@@ -86,17 +86,17 @@ export const AnimatedButtonIcon = {
     },
     data: function() {
         return {
-            clicked: false
+            animating: false
         };
     },
     methods: {
         onClick() {
-            if (this.disabled || this.clicked) return;
+            if (this.disabled) return;
             this.$emit("click");
 
-            this.clicked = true;
+            this.animating = true;
             setTimeout(() => {
-                this.clicked = false;
+                this.animating = false;
             }, this.animationTimeout);
         }
     }

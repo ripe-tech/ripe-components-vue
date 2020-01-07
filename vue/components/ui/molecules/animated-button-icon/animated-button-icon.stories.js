@@ -19,9 +19,9 @@ storiesOf("Molecules", module)
                     "close"
                 )
             },
-            clickIcon: {
+            animationIcon: {
                 default: select(
-                    "Click Icon",
+                    "Animation Icon",
                     {
                         Ok: "ok",
                         Close: "close",
@@ -52,14 +52,12 @@ storiesOf("Molecules", module)
             }
         },
         template: `
-            <div>
-                <animated-button-icon 
-                    v-bind:icon="icon" 
-                    v-bind:clickIcon="clickIcon" 
-                    v-bind:color="color" 
-                    v-bind:size="size" 
-                    v-bind:disabled="disabled"
-                    v-bind:animation-timeout="animationTimeout" />
-            </div>
+            <animated-button-icon 
+                v-bind:icon="icon" 
+                v-bind:animationIcon="animationIcon" 
+                v-bind:color="color" 
+                v-bind:size="size" 
+                v-bind:disabled="disabled"
+                v-bind:animation-timeout="animationTimeout" />
         `
     }));
