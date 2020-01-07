@@ -1,4 +1,5 @@
 import { Alert } from "./alert/alert.vue";
+import { AnimatedButtonIcon } from "./animated-button-icon/animated-button-icon.vue";
 import { Announcements } from "./announcements/announcements.vue";
 import { ChatMessage } from "./chat-message/chat-message.vue";
 import { Filter } from "./filter/filter.vue";
@@ -16,6 +17,7 @@ import { UploadArea } from "./upload-area/upload-area.vue";
 
 const install = Vue => {
     Vue.component("alert", Alert);
+    Vue.component("animated-button-icon", AnimatedButtonIcon);
     Vue.component("announcements", Announcements);
     Vue.component("chat-message", ChatMessage);
     Vue.component("filter-ripe", Filter);
@@ -34,6 +36,7 @@ const install = Vue => {
 
 export {
     Alert,
+    AnimatedButtonIcon,
     Announcements,
     ChatMessage,
     Filter,
