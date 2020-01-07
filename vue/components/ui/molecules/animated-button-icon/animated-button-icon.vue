@@ -1,12 +1,11 @@
 <template>
-    <div class="animated-button-icon">
+    <div class="animated-button-icon" v-bind:class="{ 'not-animating': !animating }">
         <button-icon
             class="button-icon-front"
             v-bind:icon="icon"
             v-bind:color="color"
             v-bind:size="size"
             v-bind:disabled="disabled"
-            v-bind:class="{ visible: !animating }"
             v-on:click="onClick"
         />
         <button-icon
@@ -14,7 +13,6 @@
             v-bind:icon="animationIcon"
             v-bind:color="color"
             v-bind:size="size"
-            v-bind:class="{ visible: animating }"
         />
     </div>
 </template>
@@ -27,31 +25,30 @@
     position: relative;
 }
 
-.button-icon-front,
-.button-icon-back {
-    pointer-events: none;
-    transition: opacity 0.125s linear;
-}
-
-.button-icon-front {
-    opacity: 0;
-}
-
-.button-icon-front.visible {
+.animated-button-icon.not-animating .button-icon-front {
     opacity: 1;
     pointer-events: auto;
+    transition: none;
 }
 
-.button-icon-back {
-    left: 0px;
+.animated-button-icon .button-icon-front {
     opacity: 0;
-    pointer-events: none;
+    transition: opacity 0.25s ease-in;
+}
+
+.animated-button-icon .button-icon-back {
+    left: 0px;
     position: absolute;
     top: 0px;
+    opacity: 1;
+    pointer-events: auto;
+    transition: none;
 }
 
-.button-icon-back.visible {
-    opacity: 1;
+.animated-button-icon.not-animating .button-icon-back {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease-in;
 }
 </style>
 
@@ -91,7 +88,6 @@ export const AnimatedButtonIcon = {
     },
     methods: {
         onClick() {
-            if (this.disabled) return;
             this.$emit("click");
 
             this.animating = true;
