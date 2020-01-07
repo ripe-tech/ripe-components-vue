@@ -1,7 +1,13 @@
 <template>
     <div class="error-part">
+        <button-icon
+            class="back-image"
+            v-bind:icon="'arrow-left'"
+            v-bind:size="'60'"
+            v-on:click="goBack()"
+        />
         <div class="error-message">
-            <img v-bind:src="image" v-if="image" />
+            <img v-bind:src="image" v-if="image" v-on:click="goHome()" />
             <span>{{ message }}</span>
             <div>
                 <router-link
@@ -41,6 +47,12 @@
 .error-message > div {
     margin: 24px auto 0px auto;
 }
+
+.back-image {
+    left: 2%;
+    position: absolute;
+    top: 2%;
+}
 </style>
 
 <script>
@@ -62,6 +74,14 @@ export const ErrorPart = {
         image: {
             type: String,
             default: null
+        }
+    },
+    methods: {
+        goHome() {
+            this.$router.push({ name: "home" });
+        },
+        goBack() {
+            this.$router.go(-1);
         }
     },
     computed: {
