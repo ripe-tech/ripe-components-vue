@@ -266,7 +266,7 @@ export const ButtonColor = {
         },
         style() {
             return {
-                "min-width": this.minWidth ? `${this.minWidth}px` : null
+                "min-width": this.minWidth === null ? null : `${this.minWidth}px`
             };
         },
         classes() {
