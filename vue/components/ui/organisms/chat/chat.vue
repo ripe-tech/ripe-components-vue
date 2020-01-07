@@ -51,54 +51,55 @@
     opacity: 0.3;
 }
 
-.chat .chat-container {
+.chat .upload-area .chat-container {
     display: flex;
     height: 350px;
 }
 
-.chat .chat-messages-container {
+.chat .upload-area .chat-container .chat-messages-container {
     background-color: $grey-6;
     flex: 1 0;
     overflow: auto;
 }
 
-.chat .chat-messages-container .chat-message {
+.chat .upload-area .chat-container .chat-messages-container .chat-message {
     margin: 0px 0px 0px 20px;
 }
 
-.chat .chat-messages-container .chat-message:not(:first-child) {
+.chat .upload-area .chat-container .chat-messages-container .chat-message:not(:first-child) {
     margin: 20px 0px 0px 20px;
 }
 
-.chat .attachments {
+.chat .upload-area .chat-container .attachments {
     display: block;
     width: 250px;
 }
 
-body.tablet .attachments,
-body.mobile .attachments {
+body.tablet .chat .upload-area .chat-container .attachments,
+body.mobile .chat .upload-area .chat-container .attachments {
     display: none;
 }
 
-.chat .chat-input-container {
+.chat .upload-area .chat-input-container {
     background-color: $grey-6;
     overflow: hidden;
 }
 
-.chat .chat-input-container .rich-textarea {
+.chat .upload-area .chat-input-container .rich-textarea {
     display: block;
     margin: 20px 20px 0px 20px;
     width: auto;
 }
 
-.chat .chat-input-container .send-button {
+.chat .upload-area.dragging .chat-input-container .rich-textarea {
+    pointer-events: none;
+}
+
+.chat .upload-area .chat-input-container .send-button {
     float: right;
     margin: 16px 20px 16px 16px;
 }
 
-.chat .upload-area.dragging .chat-input-container .rich-textarea {
-    pointer-events: none;
-}
 </style>
 
 <script>
