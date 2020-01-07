@@ -169,6 +169,7 @@ export const Chat = {
         },
         clearMessage() {
             this.textData = "";
+            this.attachmentsData = [];
         },
         scrollToLastMessage() {
             this.$nextTick(() => {
