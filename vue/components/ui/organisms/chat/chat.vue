@@ -1,9 +1,6 @@
 <template>
     <div class="chat">
-        <upload-area
-            v-bind:files="attachmentsData"
-            v-on:update:files="value => onUpdateAttachmentsData(value)"
-        >
+        <upload-area v-on:update:files="value => onUploadAreaUpdateFiles(value)">
             <div class="chat-container">
                 <div class="chat-messages-container" ref="chat-messages">
                     <chat-message
@@ -22,10 +19,9 @@
             <div class="chat-input-container" v-on:keydown.enter.exact.prevent="onEnter()">
                 <rich-textarea
                     v-bind:value.sync="textData"
-                    v-bind:attachments="attachmentsData"
+                    v-bind:attachments.sync="attachmentsData"
                     v-bind:placeholder="'Say something here...'"
                     v-bind:resize="false"
-                    v-on:update:attachments="value => onUpdateAttachmentsData(value)"
                 />
                 <button-color
                     class="send-button"
@@ -99,7 +95,6 @@ body.mobile .chat .upload-area .chat-container .attachments {
     float: right;
     margin: 16px 20px 16px 16px;
 }
-
 </style>
 
 <script>
@@ -174,7 +169,6 @@ export const Chat = {
         },
         clearMessage() {
             this.textData = "";
-            this.attachmentsData = [];
         },
         scrollToLastMessage() {
             this.$nextTick(() => {
@@ -188,7 +182,7 @@ export const Chat = {
         onEnter() {
             this.sendMessage();
         },
-        onUpdateAttachmentsData(attachments) {
+        onUploadAreaUpdateFiles(attachments) {
             this.attachmentsData = this.attachmentsData.concat(attachments);
         }
     }
