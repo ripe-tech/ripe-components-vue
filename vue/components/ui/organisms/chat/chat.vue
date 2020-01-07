@@ -142,6 +142,9 @@ export const Chat = {
                 name: attachment.name,
                 path: ""
             }));
+        },
+        richText(){
+            return this.textData.replace(/\n/g, "<br>");
         }
     },
     methods: {
@@ -153,14 +156,14 @@ export const Chat = {
                 avatarUrl: this.avatarUrl,
                 date: Date.now() / 1000,
                 messageContent: {
-                    text: this.textData,
+                    text: this.richText,
                     attachments: this.normalizedAttachments,
                     reactions: []
                 }
             });
 
             this.$emit("new:message", {
-                messageText: this.textData,
+                messageText: this.richText,
                 attachments: this.attachmentsData
             });
             this.$emit("update:messages", this.messagesData);
