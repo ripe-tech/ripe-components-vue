@@ -94,7 +94,7 @@ storiesOf("Molecules", module)
                 v-bind:icon-visible="iconVisible"
                 v-bind:loading="loading"
                 v-bind:suggestions="suggestions"
-                v-on:update:value="onUpdateValue"
+                v-bind:value.sync="text"
             />
         `
     }));
