@@ -30,10 +30,10 @@
                 <button-color
                     class="send-button"
                     v-bind:text="'Send message'"
-                    v-on:click="onSendMessageClick()"
                     v-bind:small="true"
                     v-bind:icon="'send'"
                     v-bind:alignment="'center'"
+                    v-on:click="onSendMessageClick()"
                 />
             </div>
         </upload-area>
@@ -62,7 +62,7 @@
     overflow: auto;
 }
 
-.chat .chat-messages-container .chat-message{
+.chat .chat-messages-container .chat-message {
     margin: 0px 0px 0px 20px;
 }
 
@@ -143,7 +143,7 @@ export const Chat = {
                 path: ""
             }));
         },
-        richText(){
+        richText() {
             return this.textData.replace(/\n/g, "<br>");
         }
     },
