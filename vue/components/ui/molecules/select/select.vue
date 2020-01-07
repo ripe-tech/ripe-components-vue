@@ -14,7 +14,7 @@
             >
                 {{ options.label }}
             </option>
-            <option v-bind:value="null" style="display: none;">
+            <option class="placeholder" v-bind:value="null">
                 {{ placeholder }}
             </option>
         </select>
@@ -65,6 +65,7 @@
 
 .dropdown-select,
 .select .select-container {
+    position: relative;
     width: 100%;
 }
 
@@ -95,6 +96,10 @@
     white-space: nowrap;
 }
 
+.dropdown-select > .placeholder {
+    display: none;
+}
+
 .select .select-container .select-button:hover {
     border-color: #dfe1e5;
 }
@@ -113,6 +118,7 @@
     margin-top: 3px;
     position: absolute;
     width: 100%;
+    z-index: 1;
 }
 </style>
 
