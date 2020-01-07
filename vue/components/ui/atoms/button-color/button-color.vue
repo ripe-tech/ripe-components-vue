@@ -1,5 +1,10 @@
 <template>
-    <div class="button button-color" v-bind:class="classes" v-on:click="handleClick">
+    <div
+        class="button button-color"
+        v-bind:class="classes"
+        v-bind:style="style"
+        v-on:click="handleClick"
+    >
         <loader
             loader="ball-scale-multiple"
             class="loader"
@@ -28,7 +33,6 @@
     height: 40px;
     letter-spacing: 0.5px;
     line-height: 40px;
-    min-width: 180px;
     padding: 0px 20px 0px 20px;
     text-align: center;
     transition: background-color 0.15s ease-in-out,
@@ -48,7 +52,6 @@
 .button-color.button-color-small {
     height: 32px;
     line-height: 32px;
-    min-width: 160px;
 }
 
 .button-color.button-color-small > * {
@@ -138,6 +141,7 @@
     float: left;
     height: 22px;
     margin-top: 9px;
+    padding-right: 12px;
     width: 22px;
 }
 
@@ -185,6 +189,10 @@ export const ButtonColor = {
         color: {
             type: String,
             default: ""
+        },
+        minWidth: {
+            type: Number,
+            default: null
         },
         text: {
             type: String,
@@ -253,6 +261,11 @@ export const ButtonColor = {
             if (this.alignment) return this.alignment;
             if (this.icon) return "right";
             return "center";
+        },
+        style() {
+            return {
+                "min-width": `${this.minWidth}px`
+            };
         },
         classes() {
             const base = {
