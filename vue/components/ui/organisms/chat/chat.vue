@@ -17,9 +17,7 @@
                         v-bind:key="index"
                     />
                 </div>
-                <div class="chat-files-container">
-                    <attachments v-bind:attachments="allAttachments" v-bind:height="306" />
-                </div>
+                <attachments v-bind:attachments="allAttachments" v-bind:height="306" />
             </div>
             <div class="chat-input-container" v-on:keydown.enter.exact.prevent="onEnter()">
                 <rich-textarea
@@ -68,13 +66,13 @@
     margin: 20px 0px 0px 0px;
 }
 
-.chat .chat-files-container {
+.chat .attachments {
     display: block;
     width: 250px;
 }
 
-body.tablet .chat-files-container,
-body.mobile .chat-files-container {
+body.tablet .attachments,
+body.mobile .attachments {
     display: none;
 }
 
