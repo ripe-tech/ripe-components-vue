@@ -21,7 +21,7 @@
                     <attachments v-bind:attachments="allAttachments" v-bind:height="306" />
                 </div>
             </div>
-            <div class="chat-input-container" v-on:keyup.enter.exact="onEnter()">
+            <div class="chat-input-container" v-on:keydown.enter.exact.prevent="onEnter()">
                 <rich-textarea
                     v-bind:value.sync="textData"
                     v-bind:attachments="attachmentsData"
@@ -33,6 +33,9 @@
                     class="send-button"
                     v-bind:text="'Send message'"
                     v-on:click="onSendMessageClick()"
+                    v-bind:small="true"
+                    v-bind:icon="'send'"
+                    v-bind:alignment="'center'"
                 />
             </div>
         </upload-area>
@@ -42,10 +45,6 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.chat {
-    border: solid 2px #e4e8f0;
-}
-
 .chat .upload-area {
     transition: opacity 0.125s ease-in;
 }
@@ -54,43 +53,43 @@
     opacity: 0.3;
 }
 
-.chat-container {
+.chat .chat-container {
     display: flex;
     height: 350px;
 }
 
-.chat-messages-container {
+.chat .chat-messages-container {
     background-color: $grey-6;
     flex: 1 0;
     overflow: auto;
 }
 
-.chat-messages-container .chat-message:not(:first-child) {
+.chat .chat-messages-container .chat-message:not(:first-child) {
     margin: 20px 0px 0px 0px;
 }
 
-body.desktop-device .chat-files-container {
+.chat .chat-files-container {
     display: block;
     width: 250px;
 }
 
-body.tablet-device .chat-files-container,
-body.mobile-device .chat-files-container {
+body.tablet .chat-files-container,
+body.mobile .chat-files-container {
     display: none;
 }
 
-.chat-input-container {
+.chat .chat-input-container {
     background-color: $grey-6;
     overflow: hidden;
 }
 
-.chat-input-container .rich-textarea {
+.chat .chat-input-container .rich-textarea {
     display: block;
     margin: 20px 20px 0px 20px;
     width: auto;
 }
 
-.chat-input-container .send-button {
+.chat .chat-input-container .send-button {
     float: right;
     margin: 16px 20px 16px 16px;
 }
@@ -121,8 +120,7 @@ export const Chat = {
         return {
             messagesData: this.messages,
             textData: "",
-            attachmentsData: [],
-            pendingAttachments: []
+            attachmentsData: []
         };
     },
     watch: {
@@ -132,18 +130,10 @@ export const Chat = {
     },
     computed: {
         allAttachments() {
-            const allAttachments = [];
-            this.messages.forEach(message =>
-                Array.prototype.push.apply(allAttachments, message.messageContent.attachments)
-            );
-
-            return allAttachments;
-        },
-        normalizedTextareaText() {
-            return this.textData ? this.textData.trim() : "";
+            return this.messages.map(message => message.messageContent.attachments).flat();
         },
         validMessage() {
-            return !(this.normalizedTextareaText || this.attachmentsData.length);
+            return !(this.textData.trim() || this.attachmentsData.length);
         },
         normalizedAttachments() {
             return this.attachmentsData.map(attachment => ({
@@ -154,13 +144,7 @@ export const Chat = {
     },
     methods: {
         sendMessage() {
-            // TODO allow newlines?
             if (this.validMessage) return;
-
-            this.$emit("new-message", {
-                messageText: this.textData,
-                attachments: this.attachmentsData
-            });
 
             this.messagesData.push({
                 username: this.username,
@@ -171,6 +155,11 @@ export const Chat = {
                     attachments: this.normalizedAttachments,
                     reactions: []
                 }
+            });
+
+            this.$emit("new:message", {
+                messageText: this.textData,
+                attachments: this.attachmentsData
             });
             this.$emit("update:messages", this.messagesData);
 
@@ -183,8 +172,8 @@ export const Chat = {
         },
         scrollToLastMessage() {
             this.$nextTick(() => {
-                const messagesContainerElement = this.$refs["chat-messages"];
-                messagesContainerElement.scrollTop = messagesContainerElement.scrollHeight;
+                const messagesContainer = this.$refs["chat-messages"];
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
             });
         },
         onSendMessageClick() {
