@@ -33,6 +33,7 @@
     height: 40px;
     letter-spacing: 0.5px;
     line-height: 40px;
+    min-width: 180px;
     padding: 0px 20px 0px 20px;
     text-align: center;
     transition: background-color 0.15s ease-in-out,
@@ -52,6 +53,7 @@
 .button-color.button-color-small {
     height: 32px;
     line-height: 32px;
+    min-width: 160px;
 }
 
 .button-color.button-color-small > * {
@@ -263,9 +265,9 @@ export const ButtonColor = {
             return "center";
         },
         style() {
-            return {
+            return this.minWidth ? {
                 "min-width": `${this.minWidth}px`
-            };
+            } : null;
         },
         classes() {
             const base = {
