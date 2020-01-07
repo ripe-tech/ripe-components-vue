@@ -265,9 +265,9 @@ export const ButtonColor = {
             return "center";
         },
         style() {
-            return this.minWidth ? {
-                "min-width": `${this.minWidth}px`
-            } : null;
+            return {
+                "min-width": this.minWidth ? `${this.minWidth}px` : null
+            };
         },
         classes() {
             const base = {
