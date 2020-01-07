@@ -62,8 +62,12 @@
     overflow: auto;
 }
 
+.chat .chat-messages-container .chat-message{
+    margin: 0px 0px 0px 20px;
+}
+
 .chat .chat-messages-container .chat-message:not(:first-child) {
-    margin: 20px 0px 0px 0px;
+    margin: 20px 0px 0px 20px;
 }
 
 .chat .attachments {
