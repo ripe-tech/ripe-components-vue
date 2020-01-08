@@ -94,12 +94,10 @@ export const ErrorPart = {
     methods: {
         goHome() {
             if (!this.navigation) return;
-
             this.$router.push({ name: "home" });
         },
         goBack() {
             if (!this.navigation) return;
-
             this.$router.go(-1);
         }
     },
