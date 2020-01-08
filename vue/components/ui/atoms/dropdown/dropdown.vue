@@ -73,7 +73,7 @@
 }
 
 .dropdown > .dropdown-item {
-    background-color: $soft-blue;
+    background-color: $white;
     cursor: pointer;
     line-height: 18px;
     margin: 0px 0px 0px 0px;
@@ -83,13 +83,10 @@
 }
 
 .dropdown > .dropdown-item:hover,
+.dropdown > .dropdown-item:active,
 .dropdown > .dropdown-item.selected,
 .dropdown > .dropdown-item.highlighted {
-    background-color: $selected-color;
-}
-
-.dropdown > .dropdown-item:active {
-    background-color: $active-color;
+    background-color: $soft-blue;
 }
 
 .dropdown > .dropdown-item.separator {
@@ -174,7 +171,7 @@ export const Dropdown = {
             if (this.width) base.width = `${this.width}px`;
             if (this.maxHeight) {
                 base["max-height"] = `${this.maxHeight}px`;
-                base.overflow = "auto";
+                base.overflow = "overlay";
             }
             return base;
         }

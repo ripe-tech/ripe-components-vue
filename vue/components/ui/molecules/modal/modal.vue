@@ -37,7 +37,7 @@
                         <button-color
                             v-bind:class="'button-cancel'"
                             v-bind:secondary="true"
-                            v-bind:small="isButtonSmall"
+                            v-bind:small="buttonsSmall"
                             v-bind:text="cancelText"
                             v-bind:color="cancelColor"
                             v-bind:icon="cancelIcon"
@@ -47,7 +47,7 @@
                         />
                         <button-color
                             v-bind:class="'button-confirm'"
-                            v-bind:small="isButtonSmall"
+                            v-bind:small="buttonsSmall"
                             v-bind:text="confirmText"
                             v-bind:color="confirmColor"
                             v-bind:icon="confirmIcon"
@@ -220,7 +220,7 @@ export const Modal = {
             type: Boolean,
             default: true
         },
-        isButtonSmall: {
+        buttonsSmall: {
             type: Boolean,
             default: true
         },
