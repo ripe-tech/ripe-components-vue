@@ -42,6 +42,7 @@
 .error-message {
     animation: fade-into-rise 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
     font-size: 26px;
+    text-align: center;
 }
 
 .error-message > img {

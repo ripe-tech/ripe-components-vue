@@ -9,7 +9,7 @@ storiesOf("Templates", module)
                 default: text("Message", "There was an unexpected error")
             },
             code: {
-                default: number("Code", null)
+                default: number("Code", 403)
             },
             loginMessage: {
                 default: text("Login Message", "Try to login again")
