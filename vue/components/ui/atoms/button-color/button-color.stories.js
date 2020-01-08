@@ -53,7 +53,7 @@ storiesOf("Atoms", module)
                 default: boolean("Loading", false)
             },
             minWidth: {
-                default: number("Min Width", 0)
+                default: number("Min Width", null)
             }
         },
         template: `

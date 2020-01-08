@@ -218,11 +218,6 @@
     width: 22px;
 }
 
-.button-color.button-color-left .icon,
-.button-color.button-color-left .icon-hover {
-    margin-right: 8px;
-}
-
 .button-color.button-color-small .icon,
 .button-color.button-color-small .icon-hover {
     height: 18px;
