@@ -203,6 +203,9 @@ export const Search = {
         };
     },
     watch: {
+        value(value) {
+            this.valueData = value;
+        },
         valueData(value) {
             this.$emit("update:value", value);
         },
