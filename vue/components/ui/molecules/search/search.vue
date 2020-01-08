@@ -27,14 +27,20 @@
         </slot>
         <input-ripe
             v-bind:variant="variant"
-            v-bind:value="value"
+            v-bind:value.sync="valueData"
             v-bind:placeholder="placeholder"
             v-bind:autofocus="autofocus"
             v-bind:width="width"
             ref="input"
-            v-on:update:value="$emit('update:value', $event)"
             v-on:focus="focused = true"
             v-on:blur="focused = false"
+        />
+        <button-icon
+            class="icon-delete"
+            v-bind:icon="'close'"
+            v-bind:color="'none'"
+            v-if="deleteButtonEnabled"
+            v-on:click="onDeleteIconClick"
         />
         <transition name="slide">
             <div class="suggestions" v-show="suggestionsVisible && suggestions.length > 0">
@@ -62,6 +68,7 @@
     font-size: 0px;
     height: 34px;
     line-height: 34px;
+    position: relative;
     width: 100%;
 }
 
@@ -98,6 +105,12 @@
 
 .search.grow ::v-deep input[type="text"]:focus {
     width: 340px;
+}
+
+.search .icon-delete {
+    position: absolute;
+    right: 5px;
+    top: 3px;
 }
 
 .search > .suggestions {
@@ -169,6 +182,10 @@ export const Search = {
             type: Boolean,
             default: true
         },
+        enableDelete: {
+            type: Boolean,
+            default: false
+        },
         width: {
             type: Number,
             default: null
@@ -181,10 +198,14 @@ export const Search = {
     data: function() {
         return {
             focused: false,
-            suggestionsVisible: false
+            suggestionsVisible: false,
+            valueData: this.value
         };
     },
     watch: {
+        valueData(value) {
+            this.$emit("update:value", value);
+        },
         focused(value) {
             if (value) {
                 this.suggestionsVisible = true;
@@ -200,11 +221,20 @@ export const Search = {
             const base = {};
             if (this.width) base.width = `${this.width}px`;
             return base;
+        },
+        deleteButtonEnabled() {
+            return this.valueData && this.enableDelete;
         }
     },
     methods: {
         blur() {
             this.$refs.input.blur();
+        },
+        deleteValue() {
+            this.valueData = "";
+        },
+        onDeleteIconClick() {
+            this.deleteValue();
         }
     }
 };
