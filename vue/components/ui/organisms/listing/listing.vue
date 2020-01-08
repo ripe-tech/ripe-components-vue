@@ -333,6 +333,7 @@ input[type="text"]:focus {
 
 <script>
 import { filterMixin, partMixin, utilsMixin, scrollMixin } from "../../../../mixins";
+import { SaveFilterModal } from "./save-filter-modal.vue";
 
 export const Listing = {
     name: "listing",
@@ -385,16 +386,51 @@ export const Listing = {
         searchWidth: {
             type: Number,
             default: 304
+        },
+        hasPersistentFilters: {
+            type: Boolean,
+            default: false
+        },
+        persistentFilters: {
+            type: Array,
+            default: []
         }
     },
     data: function() {
         return {
             items: [],
             filter: this.context && this.context.filter ? this.context.filter : "",
+            filterValueData: null,
             filterOptions: null,
             loading: false,
             visibleLightbox: null
         };
+    },
+    computed: {
+        isFilterSelected() {
+            return this.filterValueData !== null;
+        }
+    },
+    watch: {
+        filterValueData(value) {
+            const filterObject = this.persistentFilters.find(
+                filter => filter.value === this.filterValueData
+            );
+            this.filter = filterObject ? filterObject.filter : "";
+        },
+        persistentFilters(value) {
+            if (!this.filter) return;
+
+            const filterObject = this.persistentFilters.find(
+                filter => filter.filter === this.filter
+            );
+
+            if (!filterObject) return;
+            this.filterValueData = filterObject.value;
+        },
+        filter(value) {
+            if (value === "") this.filterValueData = null;
+        }
     },
     methods: {
         addFilter(key, value) {
@@ -425,6 +461,14 @@ export const Listing = {
         },
         async refresh() {
             await this.getFilter().refresh();
+        },
+        async saveFilter() {
+            await this.alertComponent(SaveFilterModal, {
+                filter: this.filter,
+                task: async (alert, component) => {
+                    this.$emit("click:save-filter", component.$data);
+                }
+            });
         },
         getFilter() {
             return this.$refs.filter;
