@@ -232,7 +232,6 @@ export const Search = {
         },
         deleteValue() {
             this.valueData = "";
-            this.$emit("update:value", this.valueData);
         },
         onDeleteIconClick() {
             this.deleteValue();
