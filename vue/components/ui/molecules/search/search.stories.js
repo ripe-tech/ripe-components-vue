@@ -73,28 +73,26 @@ storiesOf("Molecules", module)
         },
         data: function() {
             return {
-                text: ""
+                textData: ""
             };
         },
         computed: {
             suggestions() {
                 return this.availableSuggestions.filter(suggestion =>
-                    suggestion.label.toLowerCase().startsWith(this.text.toLowerCase())
+                    suggestion.label.toLowerCase().startsWith(this.textData.toLowerCase())
                 );
             }
         },
-        methods: {
-            onUpdateValue(value) {
-                this.text = value;
-            }
-        },
         template: `
-            <search
-                v-bind:variant="variant"
-                v-bind:icon-visible="iconVisible"
-                v-bind:loading="loading"
-                v-bind:suggestions="suggestions"
-                v-bind:value.sync="text"
-            />
+            <div>
+                <search
+                    v-bind:variant="variant"
+                    v-bind:icon-visible="iconVisible"
+                    v-bind:loading="loading"
+                    v-bind:suggestions="suggestions"
+                    v-bind:value.sync="textData"
+                />
+                <p>Searching: {{textData}}</p>
+            </div>
         `
     }));

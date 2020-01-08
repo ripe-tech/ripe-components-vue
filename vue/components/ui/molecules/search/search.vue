@@ -27,16 +27,15 @@
         </slot>
         <input-ripe
             v-bind:variant="variant"
-            v-bind:value="value"
+            v-bind:value.sync="valueData"
             v-bind:placeholder="placeholder"
             v-bind:autofocus="autofocus"
             v-bind:width="width"
             ref="input"
-            v-on:update:value="$emit('update:value', $event)"
             v-on:focus="focused = true"
             v-on:blur="focused = false"
         />
-        <slot name="icon-delete" v-if="value">
+        <slot name="icon-delete" v-if="valueData">
             <button-icon
                 class="icon-delete"
                 v-bind:icon="'close'"
@@ -196,10 +195,14 @@ export const Search = {
     data: function() {
         return {
             focused: false,
-            suggestionsVisible: false
+            suggestionsVisible: false,
+            valueData: this.value
         };
     },
     watch: {
+        valueData(value) {
+            this.$emit("update:value", value);
+        },
         focused(value) {
             if (value) {
                 this.suggestionsVisible = true;
@@ -222,7 +225,8 @@ export const Search = {
             this.$refs.input.blur();
         },
         deleteValue() {
-            this.$emit("update:value", "");
+            this.valueData = "";
+            this.$emit("update:value", this.valueData);
         },
         onDeleteIconClick() {
             this.deleteValue();
