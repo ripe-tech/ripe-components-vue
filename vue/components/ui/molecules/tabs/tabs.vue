@@ -98,7 +98,7 @@ export const Tabs = {
             type: Number,
             default: 0
         },
-        alignmentHeader: {
+        headerAlignment: {
             type: String,
             default: "center"
         }
@@ -116,7 +116,7 @@ export const Tabs = {
     computed: {
         headerStyle() {
             return {
-                "text-align": this.alignmentHeader
+                "text-align": this.headerAlignment
             };
         }
     },
