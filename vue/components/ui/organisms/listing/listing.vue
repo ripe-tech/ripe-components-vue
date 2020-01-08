@@ -18,6 +18,7 @@
                         v-bind:placeholder="filterText ? filterText : `Search ${name}`"
                         v-bind:value.sync="filter"
                         v-bind:loading="loading"
+                        v-bind:enable-delete="true"
                     />
                     <select-ripe
                         v-bind:class="{ 'filter-selected': isFilterSelected }"
