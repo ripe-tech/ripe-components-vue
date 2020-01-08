@@ -55,7 +55,7 @@ storiesOf("Molecules", module)
         template: `
             <button-icon-animated
                 v-bind:icon="icon" 
-                v-bind:animationIcon="animationIcon" 
+                v-bind:animation-icon="animationIcon" 
                 v-bind:color="color" 
                 v-bind:size="size" 
                 v-bind:disabled="disabled"
