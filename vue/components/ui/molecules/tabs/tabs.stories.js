@@ -12,12 +12,12 @@ storiesOf("Molecules", module)
                 default: select(
                     "Header Alignment",
                     {
-                        Default: "",
+                        Unset: null,
                         Left: "left",
                         Right: "right",
                         Center: "center"
                     },
-                    ""
+                    null
                 )
             },
             tabs: {

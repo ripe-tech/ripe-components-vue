@@ -100,7 +100,7 @@ export const Tabs = {
         },
         headerAlignment: {
             type: String,
-            default: "center"
+            default: null
         }
     },
     data: function() {
@@ -115,9 +115,9 @@ export const Tabs = {
     },
     computed: {
         headerStyle() {
-            return {
-                "text-align": this.headerAlignment
-            };
+            const base = {};
+            if (this.headerAlignment !== null) base["text-align"] = this.headerAlignment;
+            return base;
         }
     },
     methods: {
