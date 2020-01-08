@@ -49,11 +49,11 @@
     background-color: #dedede;
 }
 
-.button-icon.button-icon-inverted {
+.button-icon.button-icon-black {
     background-color: $dark;
 }
 
-.button-icon.button-icon-inverted:hover:not(.disabled) {
+.button-icon.button-icon-black:hover:not(.disabled) {
     background-color: #41566f;
 }
 </style>
@@ -81,7 +81,7 @@ export const ButtonIcon = {
     },
     computed: {
         iconPath() {
-            const iconColor = this.color === "inverted" ? "white" : "black";
+            const iconColor = this.color === "black" ? "white" : "black";
 
             return require(`./../../../../assets/icons/${iconColor}/${this.icon}.svg`);
         },

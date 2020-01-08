@@ -26,7 +26,7 @@ storiesOf("Atoms", module)
                         None: "",
                         Grey: "grey",
                         White: "white",
-                        Inverted: "inverted"
+                        Black: "black"
                     },
                     "grey"
                 )
