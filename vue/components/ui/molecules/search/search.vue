@@ -35,14 +35,13 @@
             v-on:focus="focused = true"
             v-on:blur="focused = false"
         />
-        <slot name="icon-delete" v-if="valueData">
-            <button-icon
-                class="icon-delete"
-                v-bind:icon="'close'"
-                v-bind:color="'none'"
-                v-on:click="onDeleteIconClick"
-            />
-        </slot>
+        <button-icon
+            class="icon-delete"
+            v-bind:icon="'close'"
+            v-bind:color="'none'"
+            v-if="deleteButtonEnabled"
+            v-on:click="onDeleteIconClick"
+        />
         <transition name="slide">
             <div class="suggestions" v-show="suggestionsVisible && suggestions.length > 0">
                 <div
@@ -183,6 +182,10 @@ export const Search = {
             type: Boolean,
             default: true
         },
+        enableDelete: {
+            type: Boolean,
+            default: false
+        },
         width: {
             type: Number,
             default: null
@@ -218,6 +221,9 @@ export const Search = {
             const base = {};
             if (this.width) base.width = `${this.width}px`;
             return base;
+        },
+        deleteButtonEnabled() {
+            return this.valueData && this.enableDelete;
         }
     },
     methods: {

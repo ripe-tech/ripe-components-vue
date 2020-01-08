@@ -18,6 +18,9 @@ storiesOf("Molecules", module)
             iconVisible: {
                 default: boolean("Icon Visible", true)
             },
+            enableDelete: {
+                default: boolean("Delete button enabled", true)
+            },
             loading: {
                 default: boolean("Loading", false)
             },
@@ -88,6 +91,7 @@ storiesOf("Molecules", module)
                 <search
                     v-bind:variant="variant"
                     v-bind:icon-visible="iconVisible"
+                    v-bind:enable-delete="enableDelete"
                     v-bind:loading="loading"
                     v-bind:suggestions="suggestions"
                     v-bind:value.sync="textData"
