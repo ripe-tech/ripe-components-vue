@@ -413,8 +413,8 @@ body.mobile .details-column.details-column-image {
 
 body.tablet .container-ripe .details-column .label-value,
 body.mobile .container-ripe .details-column .label-value {
-    margin-top: 20px;
-    min-height: 80px;
+    margin-top: 12px;
+    min-height: 70px;
     overflow: hidden;
 }
 
