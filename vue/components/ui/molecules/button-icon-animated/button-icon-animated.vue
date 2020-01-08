@@ -1,5 +1,5 @@
 <template>
-    <div class="animated-button-icon" v-bind:class="{ 'not-animating': !animating }">
+    <div class="button-icon-animated" v-bind:class="{ 'not-animating': !animating }">
         <button-icon
             class="button-icon-front"
             v-bind:icon="icon"
@@ -13,6 +13,7 @@
             v-bind:icon="animationIcon"
             v-bind:color="color"
             v-bind:size="size"
+            v-bind:disabled="disabled"
         />
     </div>
 </template>
@@ -20,32 +21,32 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.animated-button-icon {
+.button-icon-animated {
     display: inline-block;
     position: relative;
 }
 
-.animated-button-icon.not-animating .button-icon-front {
+.button-icon-animated.not-animating .button-icon-front {
     opacity: 1;
     pointer-events: auto;
     transition: none;
 }
 
-.animated-button-icon .button-icon-front {
+.button-icon-animated .button-icon-front {
     opacity: 0;
     transition: opacity 0.25s ease-in;
 }
 
-.animated-button-icon .button-icon-back {
+.button-icon-animated .button-icon-back {
     left: 0px;
-    position: absolute;
-    top: 0px;
     opacity: 1;
     pointer-events: auto;
+    position: absolute;
+    top: 0px;
     transition: none;
 }
 
-.animated-button-icon.not-animating .button-icon-back {
+.button-icon-animated.not-animating .button-icon-back {
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.25s ease-in;
@@ -53,8 +54,8 @@
 </style>
 
 <script>
-export const AnimatedButtonIcon = {
-    name: "animated-button-icon",
+export const ButtonIconAnimated = {
+    name: "button-icon-animated",
     props: {
         icon: {
             type: String,
@@ -98,5 +99,5 @@ export const AnimatedButtonIcon = {
     }
 };
 
-export default AnimatedButtonIcon;
+export default ButtonIconAnimated;
 </script>

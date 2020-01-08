@@ -3,7 +3,7 @@ import { withKnobs, number, select, boolean } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
-    .add("Animated Button Icon", () => ({
+    .add("Button Icon Animated", () => ({
         props: {
             icon: {
                 default: select(
@@ -36,7 +36,8 @@ storiesOf("Molecules", module)
                     {
                         None: "",
                         Grey: "grey",
-                        White: "white"
+                        White: "white",
+                        Black: "black"
                     },
                     "grey"
                 )
@@ -52,7 +53,7 @@ storiesOf("Molecules", module)
             }
         },
         template: `
-            <animated-button-icon 
+            <button-icon-animated
                 v-bind:icon="icon" 
                 v-bind:animationIcon="animationIcon" 
                 v-bind:color="color" 
