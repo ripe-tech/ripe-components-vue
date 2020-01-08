@@ -138,7 +138,6 @@ body.mobile .container-header-right {
 }
 
 .container-header {
-    height: 34px;
     padding: 24px 28px 24px 28px;
 }
 
