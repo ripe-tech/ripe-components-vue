@@ -7,74 +7,26 @@
         />
         <container-ripe>
             <div class="container-header">
-                <div
-                    class="container-header-right"
-                    v-bind:class="{ 'has-persistent-filters': hasPersistentFilters }"
-                >
+                <div class="container-header-right">
                     <slot name="icons" />
                     <search
                         v-bind:width="isMobileWidth() ? null : searchWidth"
                         v-bind:placeholder="filterText ? filterText : `Search ${name}`"
                         v-bind:value.sync="filter"
                         v-bind:loading="loading"
+                        v-if="!hasPersistentFilters"
                     />
-                    <select-ripe
-                        v-bind:class="{ 'filter-selected': isFilterSelected }"
-                        v-bind:placeholder="'Filter'"
-                        v-bind:options="persistentFilters"
-                        v-bind:value.sync="filterValueData"
-                        v-if="hasPersistentFilters"
-                    >
-                        <template
-                            v-for="(item, index) in persistentFilters"
-                            v-bind:slot="item.value"
-                        >
-                            <div
-                                class="filter-item selected-filter-item"
-                                v-bind:title="item.label"
-                                v-if="isSelectedFilterItem(item)"
-                                v-bind:key="index"
-                            >
-                                <div class="filter-label">
-                                    {{ item.label }}
-                                </div>
-                                <div class="selected-filter-item-buttons">
-                                    <button-icon
-                                        v-bind:icon="'save'"
-                                        v-bind:color="'inverted'"
-                                        v-on:click.native.stop="
-                                            onSelectedFilterUpdateButtonClick(item.label)
-                                        "
-                                    />
-                                    <button-icon
-                                        v-bind:icon="'bin'"
-                                        v-bind:color="'inverted'"
-                                        v-on:click.native.stop="
-                                            onSelectedFilterDeleteButtonClick(item.label)
-                                        "
-                                    />
-                                </div>
-                            </div>
-                            <div
-                                class="filter-item filter-label"
-                                v-bind:title="item.label"
-                                v-else
-                                v-bind:key="index"
-                            >
-                                {{ item.label }}
-                            </div>
-                        </template>
-                        <template v-slot:save_filter_option>
-                            <button-color
-                                class="save-filter-button"
-                                v-bind:text="'Save Filter'"
-                                v-bind:secondary="true"
-                                v-bind:alignment="'left'"
-                                v-bind:icon="'add'"
-                                v-on:click.native.stop="onSaveFilterButtonClick()"
-                            />
-                        </template>
-                    </select-ripe>
+                    <search-persistent
+                        v-bind:width="isMobileWidth() ? null : searchWidth"
+                        v-bind:placeholder="filterText ? filterText : `Search ${name}`"
+                        v-bind:filter.sync="filterData"
+                        v-bind:loading="loading"
+                        v-bind:persistent-filters="persistentFilters"
+                        v-else
+                        v-on:click:update-filter="onUpdateFilter"
+                        v-on:click:delete-filter="onDeleteFilter"
+                        v-on:click:save-filter="onSaveFilter"
+                    />
                 </div>
                 <h1 class="title" v-if="titleText">{{ titleText }}</h1>
                 <h1 class="title" v-else>
@@ -185,15 +137,6 @@
     font-size: 0px;
 }
 
-.container-header-right.has-persistent-filters .search ::v-deep .input {
-    border-radius: 6px 0px 0px 6px;
-    border-right: none;
-}
-
-.container-header-right.has-persistent-filters .search ::v-deep .input:focus {
-    border-right: 1px solid $aqcua-blue;
-}
-
 body.mobile .container-header-right {
     float: none;
     width: 100%;
@@ -202,79 +145,6 @@ body.mobile .container-header-right {
 .container-header-right > * {
     display: inline-block;
     vertical-align: middle;
-}
-
-.container-header-right .select {
-    text-align: left;
-}
-
-.container-header-right .select ::v-deep .select-container .select-button {
-    border-radius: 0px 6px 6px 0px;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.container-header-right .select.filter-selected ::v-deep .select-container .select-button {
-    background-color: $dark;
-    background-image: url("~./assets/chevron-down-white.svg");
-    color: $white;
-}
-
-.container-header-right .select ::v-deep .dropdown-container {
-    float: right;
-    height: 0px;
-    margin-top: 0px;
-    max-width: 0px;
-    position: relative;
-    right: 0px;
-}
-
-.container-header-right .select ::v-deep .dropdown-container .dropdown {
-    background-color: $white;
-    margin: 0px 0px 0px -200px;
-}
-
-.container-header-right .select ::v-deep .dropdown-container .dropdown li:last-child .button {
-    border: none;
-}
-
-.container-header-right .select .filter-label {
-    overflow: hidden;
-    padding: 0px 0px 0px 16px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.container-header-right .select .filter-item {
-    font-size: 14px;
-    letter-spacing: 0.3px;
-    line-height: 32px;
-}
-
-.container-header-right .select .selected-filter-item {
-    background-color: $dark;
-    color: $white;
-    height: 32px;
-}
-
-.container-header-right .select .selected-filter-item .filter-label {
-    display: inline-block;
-    width: 110px;
-}
-
-.container-header-right .select .filter-item .selected-filter-item-buttons {
-    float: right;
-    font-size: 0px;
-    margin: 0px 5px 0px 0px;
-}
-
-.container-header-right .select .filter-item .selected-filter-item-buttons .button {
-    margin: 0px 1px 0px 1px;
-}
-
-.save-filter-button {
-    border-radius: 0px 0px 0px 0px;
-    box-sizing: unset;
 }
 
 .listing .filter-ripe ::v-deep table {
@@ -330,7 +200,6 @@ input[type="text"]:focus {
 
 <script>
 import { filterMixin, partMixin, utilsMixin, scrollMixin } from "../../../../mixins";
-import { SaveFilterModal } from "./save-filter-modal.vue";
 
 export const Listing = {
     name: "listing",
@@ -393,36 +262,15 @@ export const Listing = {
         return {
             items: [],
             filter: this.context.filter,
-            filterValueData: null,
+            filterData: this.filter,
             filterOptions: null,
             loading: false,
             visibleLightbox: null
         };
     },
-    computed: {
-        isFilterSelected() {
-            return this.filterValueData !== null;
-        }
-    },
     watch: {
-        filterValueData(value) {
-            const filterObject = this.persistentFilters.find(
-                filter => filter.value === this.filterValueData
-            );
-            this.filter = filterObject ? filterObject.filter : "";
-        },
-        persistentFilters(value) {
-            if (!this.filter) return;
-
-            const filterObject = this.persistentFilters.find(
-                filter => filter.filter === this.filter
-            );
-
-            if (!filterObject) return;
-            this.filterValueData = filterObject.value;
-        },
         filter(value) {
-            if (value === "") this.filterValueData = null;
+            this.filterData = value;
         }
     },
     methods: {
@@ -455,59 +303,17 @@ export const Listing = {
         async refresh() {
             await this.getFilter().refresh();
         },
-        async saveFilter() {
-            await this.alertComponent(SaveFilterModal, {
-                filter: this.filter,
-                task: async (alert, component) => {
-                    this.$emit("click:save-filter", component.$data);
-                }
-            });
-        },
         getFilter() {
             return this.$refs.filter;
         },
-        isSelectedFilterItem(item) {
-            return item.value === this.filterValueData;
+        onUpdateFilter(filter) {
+            this.$emit("click:update-filter", filter);
         },
-        async onSelectedFilterUpdateButtonClick(name) {
-            await this.alertMessage(
-                `Are you sure you really want to <strong>update Filter "${name}"</strong>?<br/>Please bare in mind that this action <strong>is not reversible</strong>!`,
-                {
-                    title: `Update filter ${name}`,
-                    confirmText: "Save filter",
-                    confirmIcon: "save",
-                    cancelText: "Discard changes",
-                    cancelIcon: "close",
-                    buttonsAlignment: "right",
-                    isButtonSmall: false,
-                    task: async (alert, component) => {
-                        const obj = { name: name, filter: this.filter };
-                        this.$emit("click:update-filter", obj);
-                    }
-                }
-            );
+        onDeleteFilter(filter) {
+            this.$emit("click:delete-filter", filter);
         },
-        async onSelectedFilterDeleteButtonClick(name) {
-            await this.alertMessage(
-                `Are you sure you really want to <strong>delete Filter "${name}"</strong>?<br/>Please bare in mind that this action <strong>is not reversible</strong>!`,
-                {
-                    title: `Delete filter ${name}`,
-                    confirmText: "Delete filter",
-                    confirmIcon: "bin",
-                    confirmColor: "red",
-                    cancelText: "Discard changes",
-                    cancelIcon: "close",
-                    buttonsAlignment: "right",
-                    isButtonSmall: false,
-                    task: async (alert, component) => {
-                        const obj = { label: name, filter: this.filter };
-                        this.$emit("click:delete-filter", obj);
-                    }
-                }
-            );
-        },
-        async onSaveFilterButtonClick() {
-            await this.saveFilter();
+        onSaveFilter(filter) {
+            this.$emit("click:save-filter", filter);
         }
     },
     beforeRouteUpdate: function(to, from, next) {

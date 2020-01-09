@@ -10,6 +10,7 @@ import { ProgressBar } from "./progress-bar/progress-bar.vue";
 import { Table } from "./table/table.vue";
 import { Tabs } from "./tabs/tabs.vue";
 import { Search } from "./search/search.vue";
+import { SearchPersistent } from "./search-persistent/search-persistent.vue";
 import { Select } from "./select/select.vue";
 
 const install = Vue => {
@@ -23,6 +24,7 @@ const install = Vue => {
     Vue.component("modal", Modal);
     Vue.component("progress-bar", ProgressBar);
     Vue.component("search", Search);
+    Vue.component("search-persistent", SearchPersistent);
     Vue.component("select-ripe", Select);
     Vue.component("table-ripe", Table);
     Vue.component("tabs", Tabs);
@@ -39,6 +41,7 @@ export {
     Modal,
     ProgressBar,
     Search,
+    SearchPersistent,
     Select,
     Table,
     Tabs
