@@ -21,17 +21,19 @@
             </tr>
         </thead>
         <transition-group tag="tbody" v-bind:name="transition" class="table-body">
-            <tr v-for="(item, index) in sortedItems" v-bind:key="item.id">
-                <slot v-bind:item="item" v-bind:index="index">
-                    <td
-                        v-bind:class="column.value"
-                        v-for="column in columns"
-                        v-bind:key="column.value"
-                    >
-                        {{ item[column.value] }}
-                    </td>
-                </slot>
-            </tr>
+            <slot v-bind:name="'tr'">
+                <tr v-for="(item, index) in sortedItems" v-bind:key="item.id">
+                    <slot v-bind:item="item" v-bind:index="index">
+                        <td
+                            v-bind:class="column.value"
+                            v-for="column in columns"
+                            v-bind:key="column.value"
+                        >
+                            {{ item[column.value] }}
+                        </td>
+                    </slot>
+                </tr>
+            </slot>
         </transition-group>
     </table>
 </template>
