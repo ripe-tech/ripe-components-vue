@@ -73,18 +73,6 @@ storiesOf("Molecules", module)
                 this.valueData = value;
             }
         },
-        methods: {
-            updateText(event) {
-                console.log("ok", event);
-                if (event === "update:value") {
-                    this.inputTime = new Date().getTime();
-                } else if (event === "focus") {
-                    this.focusTime = new Date().getTime();
-                } else {
-                    this.blurTime = new Date().getTime();
-                }
-            }
-        },
         template: `
             <div>
                 <form-input
@@ -103,9 +91,9 @@ storiesOf("Molecules", module)
                         v-bind:width="width"
                         v-bind:height="height"
                         v-bind:symbol="symbol"
-                        v-on:update:value="updateText('update:value')"
-                        v-on:focus="updateText('focus')"
-                        v-on:blur="updateText('blur')"/>
+                        v-on:update:value="inputTime = new Date().getTime()"
+                        v-on:focus="focusTime = new Date().getTime()"
+                        v-on:blur="blurTime = new Date().getTime()"/>
                 </form-input>
                 <p>Text: {{ valueData }}</p>
                 <p>Last wrote from user: {{ inputTime }}</p>
