@@ -10,6 +10,7 @@
                 <div class="container-header-right">
                     <slot name="icons" />
                     <search
+                        v-bind:variant="'dark'"
                         v-bind:width="isMobileWidth() ? null : searchWidth"
                         v-bind:placeholder="filterText ? filterText : `Search ${name}`"
                         v-bind:value.sync="filter"
@@ -35,6 +36,7 @@
             </div>
             <filter-ripe
                 v-bind:get-items="getItemsWithParams"
+                v-bind:get-item-url="getItemUrl"
                 v-bind:columns="columns"
                 v-bind:values="values"
                 v-bind:filter="filter"
@@ -44,6 +46,7 @@
                 v-bind:options.sync="filterOptions"
                 ref="filter"
                 v-on:update:options="filterUpdated"
+                v-on:click:lineup="onLineupClick"
             >
                 <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
                 <template
@@ -83,8 +86,6 @@
     border: none;
     border-radius: 40px;
     bottom: 20px;
-    -webkit-box-shadow: 0px 0px 36px -15px #aaaaaa;
-    -moz-box-shadow: 0px 0px 36px -15px #aaaaaa;
     box-shadow: 0px 0px 36px -15px #aaaaaa;
     height: 50px;
     opacity: 0;
@@ -92,26 +93,28 @@
     padding: 15px;
     position: fixed;
     right: 20px;
-    -webkit-transition: opacity 0.125s ease-in-out;
-    transition: opacity 0.125s ease-in-out;
+    transform: scale(0.75);
+    transition: opacity 0.125s ease-in-out, transform 0.125s ease-in-out;
     width: 50px;
 }
 
 .scroll-button.show {
     cursor: pointer;
     opacity: 0.7;
+    transform: scale(1);
 }
 
 .scroll-button.show:hover {
     opacity: 1;
+    transform: scale(1.15);
 }
 
 .listing {
     box-sizing: border-box;
 }
 
-.listing.loading .container-header-right .search ::v-deep svg {
-    display: none;
+.listing.loading.empty ::v-deep .loader.loader-bottom {
+    margin: 76px 0px 76px 0px;
 }
 
 .container-ripe {
@@ -152,12 +155,12 @@ body.mobile .container-header-right {
 }
 
 .container-header {
-    height: 34px;
     padding: 24px 28px 24px 28px;
 }
 
 body.mobile .container-header {
     height: auto;
+    padding: 20px 20px 20px 20px;
 }
 
 .title {
@@ -225,6 +228,10 @@ export const Listing = {
             type: Function,
             required: true
         },
+        getItemUrl: {
+            type: Function,
+            default: null
+        },
         filterFields: {
             type: Object,
             default: null
@@ -261,8 +268,13 @@ export const Listing = {
     data: function() {
         return {
             items: [],
+<<<<<<< HEAD
             filter: this.context.filter,
             filterData: this.filter,
+=======
+            filter: this.context && this.context.filter ? this.context.filter : "",
+            filterValueData: null,
+>>>>>>> fd3b5b393551ed4e1c8941dea486bc3ede272e14
             filterOptions: null,
             loading: false,
             visibleLightbox: null
@@ -312,8 +324,16 @@ export const Listing = {
         onDeleteFilter(filter) {
             this.$emit("click:delete-filter", filter);
         },
+<<<<<<< HEAD
         onSaveFilter(filter) {
             this.$emit("click:save-filter", filter);
+=======
+        async onSaveFilterButtonClick() {
+            await this.saveFilter();
+        },
+        onLineupClick(item, index) {
+            this.$emit("click:lineup", item, index);
+>>>>>>> fd3b5b393551ed4e1c8941dea486bc3ede272e14
         }
     },
     beforeRouteUpdate: function(to, from, next) {

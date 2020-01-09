@@ -33,14 +33,6 @@
     background-color: $lighter-grey;
 }
 
-.button-icon.button-icon-white {
-    background-color: $white;
-}
-
-.button-icon.button-icon-white:hover:not(.disabled) {
-    background-color: $lighter-grey;
-}
-
 .button-icon.button-icon-grey {
     background-color: $lighter-grey;
 }
@@ -49,11 +41,19 @@
     background-color: #dedede;
 }
 
-.button-icon.button-icon-inverted {
+.button-icon.button-icon-white {
+    background-color: $white;
+}
+
+.button-icon.button-icon-white:hover:not(.disabled) {
+    background-color: $lighter-grey;
+}
+
+.button-icon.button-icon-black {
     background-color: $dark;
 }
 
-.button-icon.button-icon-inverted:hover:not(.disabled) {
+.button-icon.button-icon-black:hover:not(.disabled) {
     background-color: #41566f;
 }
 </style>
@@ -81,8 +81,16 @@ export const ButtonIcon = {
     },
     computed: {
         iconPath() {
-            const iconColor = this.color === "inverted" ? "white" : "black";
+            let iconColor;
+            switch (this.color) {
+                case "black":
+                    iconColor = "white";
+                    break;
 
+                default:
+                    iconColor = "black";
+                    break;
+            }
             return require(`./../../../../assets/icons/${iconColor}/${this.icon}.svg`);
         },
         style() {

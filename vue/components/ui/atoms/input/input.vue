@@ -74,7 +74,7 @@ export const Input = {
             default: "thin"
         },
         value: {
-            type: String,
+            type: String | Number,
             default: ""
         },
         placeholder: {

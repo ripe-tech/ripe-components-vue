@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, select, boolean } from "@storybook/addon-knobs";
+import { withKnobs, select, boolean, number } from "@storybook/addon-knobs";
 
 storiesOf("Atoms", module)
     .addDecorator(withKnobs)
@@ -51,18 +51,21 @@ storiesOf("Atoms", module)
             },
             loading: {
                 default: boolean("Loading", false)
+            },
+            minWidth: {
+                default: number("Min Width", null)
             }
         },
         template: `
             <div>
                 <button-color v-bind:text="'Normal Button'" v-bind:secondary="secondary" v-bind:color="color" v-bind:alignment="alignment"
-                                        v-bind:disabled="disabled" v-bind:loading="loading"></button-color>
+                                        v-bind:disabled="disabled" v-bind:loading="loading" v-bind:min-width="minWidth" ></button-color>
                 <button-color v-bind:text="'Small Button'" v-bind:secondary="secondary" v-bind:color="color" v-bind:alignment="alignment"
-                                        v-bind:disabled="disabled" v-bind:loading="loading" v-bind:small="true" ></button-color>
+                                        v-bind:disabled="disabled" v-bind:loading="loading" v-bind:small="true" v-bind:min-width="minWidth" ></button-color>
                 <button-color v-bind:text="'Normal Button'" v-bind:secondary="secondary" v-bind:color="color" v-bind:alignment="alignment"
-                                        v-bind:disabled="disabled" v-bind:loading="loading" v-bind:icon="icon"></button-color>
+                                        v-bind:disabled="disabled" v-bind:loading="loading" v-bind:icon="icon" v-bind:min-width="minWidth" ></button-color>
                 <button-color v-bind:text="'Small Button'" v-bind:secondary="secondary" v-bind:color="color" v-bind:alignment="alignment"
-                                        v-bind:disabled="disabled" v-bind:loading="loading" v-bind:small="true" v-bind:icon="icon"></button-color>
+                                        v-bind:disabled="disabled" v-bind:loading="loading" v-bind:small="true" v-bind:icon="icon" v-bind:min-width="minWidth" ></button-color>
             </div>
         `
     }));

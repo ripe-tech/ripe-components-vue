@@ -1,5 +1,7 @@
 import { Alert } from "./alert/alert.vue";
 import { Announcements } from "./announcements/announcements.vue";
+import { ButtonIconAnimated } from "./button-icon-animated/button-icon-animated.vue";
+import { ChatMessage } from "./chat-message/chat-message.vue";
 import { Filter } from "./filter/filter.vue";
 import { Footer } from "./footer/footer.vue";
 import { FormInput } from "./form-input/form-input.vue";
@@ -12,10 +14,13 @@ import { Tabs } from "./tabs/tabs.vue";
 import { Search } from "./search/search.vue";
 import { SearchPersistent } from "./search-persistent/search-persistent.vue";
 import { Select } from "./select/select.vue";
+import { UploadArea } from "./upload-area/upload-area.vue";
 
 const install = Vue => {
     Vue.component("alert", Alert);
+    Vue.component("button-icon-animated", ButtonIconAnimated);
     Vue.component("announcements", Announcements);
+    Vue.component("chat-message", ChatMessage);
     Vue.component("filter-ripe", Filter);
     Vue.component("footer-ripe", Footer);
     Vue.component("form-input", FormInput);
@@ -28,11 +33,14 @@ const install = Vue => {
     Vue.component("select-ripe", Select);
     Vue.component("table-ripe", Table);
     Vue.component("tabs", Tabs);
+    Vue.component("upload-area", UploadArea);
 };
 
 export {
     Alert,
     Announcements,
+    ButtonIconAnimated,
+    ChatMessage,
     Filter,
     Footer,
     FormInput,
@@ -44,7 +52,8 @@ export {
     SearchPersistent,
     Select,
     Table,
-    Tabs
+    Tabs,
+    UploadArea
 };
 
 export default install;

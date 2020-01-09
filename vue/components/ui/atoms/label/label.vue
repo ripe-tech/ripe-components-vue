@@ -10,7 +10,7 @@
 .label {
     color: $grey;
     font-size: 12px;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 0.3px;
     line-height: 15px;
 }

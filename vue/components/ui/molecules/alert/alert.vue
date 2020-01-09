@@ -9,7 +9,7 @@
         v-bind:cancel-text="cancelText"
         v-bind:cancel-icon="cancelIcon"
         v-bind:cancel-color="cancelColor"
-        v-bind:is-button-small="isButtonSmall"
+        v-bind:buttons-small="buttonsSmall"
         v-bind:global-events="globalEvents"
         v-bind:overlay="overlay"
         v-bind:overlay-leave="overlayLeave"
@@ -36,7 +36,7 @@
         v-bind:cancel-text="cancelText"
         v-bind:cancel-icon="cancelIcon"
         v-bind:cancel-color="cancelColor"
-        v-bind:is-button-small="isButtonSmall"
+        v-bind:buttons-small="buttonsSmall"
         v-bind:global-events="globalEvents"
         v-bind:overlay="overlay"
         v-bind:overlay-leave="overlayLeave"
@@ -71,7 +71,7 @@ export const Alert = {
             cancelText: null,
             cancelIcon: null,
             cancelColor: null,
-            isButtonSmall: true,
+            buttonsSmall: true,
             buttonsAlignment: null,
             buttonConfirm: true,
             buttonCancel: true,
@@ -112,7 +112,7 @@ export const Alert = {
                 buttonConfirm,
                 buttonCancel,
                 buttonClose,
-                isButtonSmall,
+                buttonsSmall,
                 globalEvents,
                 overlay,
                 overlayLeave,
@@ -135,7 +135,7 @@ export const Alert = {
             this.buttonConfirm = buttonConfirm;
             this.buttonCancel = buttonCancel;
             this.buttonClose = buttonClose;
-            this.isButtonSmall = isButtonSmall;
+            this.buttonsSmall = buttonsSmall;
             this.globalEvents = globalEvents;
             this.overlay = overlay;
             this.overlayLeave = overlayLeave;

@@ -1,7 +1,19 @@
 <template>
     <div class="error-part">
+        <button-icon
+            class="button-icon-back"
+            v-bind:icon="'arrow-left'"
+            v-bind:size="'60'"
+            v-if="navigation"
+            v-on:click="goBack"
+        />
         <div class="error-message">
-            <img v-bind:src="image" v-if="image" />
+            <img
+                v-bind:src="image"
+                v-bind:class="{ clickable: navigation }"
+                v-if="image"
+                v-on:click="goHome"
+            />
             <span>{{ message }}</span>
             <div>
                 <router-link
@@ -30,6 +42,7 @@
 .error-message {
     animation: fade-into-rise 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
     font-size: 26px;
+    text-align: center;
 }
 
 .error-message > img {
@@ -38,8 +51,18 @@
     width: 160px;
 }
 
+.error-message > img.clickable {
+    cursor: pointer;
+}
+
 .error-message > div {
     margin: 24px auto 0px auto;
+}
+
+.button-icon-back {
+    left: 20px;
+    position: absolute;
+    top: 20px;
 }
 </style>
 
@@ -62,6 +85,20 @@ export const ErrorPart = {
         image: {
             type: String,
             default: null
+        },
+        navigation: {
+            type: Boolean,
+            default: true
+        }
+    },
+    methods: {
+        goHome() {
+            if (!this.navigation) return;
+            this.$router.push({ name: "home" });
+        },
+        goBack() {
+            if (!this.navigation) return;
+            this.$router.go(-1);
         }
     },
     computed: {
