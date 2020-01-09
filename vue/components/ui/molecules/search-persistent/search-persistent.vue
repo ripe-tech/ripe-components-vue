@@ -61,6 +61,10 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
+.search-persistent {
+    font-size: 0px;
+}
+
 .search-persistent .search {
     margin-bottom: 3px;
     vertical-align: middle;
@@ -212,7 +216,7 @@ export const SearchPersistent = {
         },
         filterData(value) {
             if (value === "") this.unselectFilter();
-            
+
             this.$emit("update:filter", value);
         }
     },
@@ -233,7 +237,7 @@ export const SearchPersistent = {
         deleteValue() {
             this.$emit("update:value", "");
         },
-        unselectFilter(){
+        unselectFilter() {
             this.selectedFilterValueData = null;
         },
         onDeleteIconClick() {
