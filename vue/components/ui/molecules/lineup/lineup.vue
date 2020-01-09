@@ -86,7 +86,7 @@
 }
 
 .lineup > .lineup-item {
-    border-bottom: 1px solid #e4e8f0;
+    border-bottom: 1px solid $lighter-grey;
     padding: 16px 20px 16px 20px;
 }
 
@@ -95,7 +95,7 @@
 }
 
 .lineup > .lineup-item:first-child {
-    border-top: 1px solid #e4e8f0;
+    border-top: 1px solid $lighter-grey;
 }
 
 .lineup > .lineup-item ::v-deep .lineup-item-value {
