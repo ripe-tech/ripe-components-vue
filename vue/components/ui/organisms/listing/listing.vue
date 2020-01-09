@@ -268,13 +268,7 @@ export const Listing = {
     data: function() {
         return {
             items: [],
-<<<<<<< HEAD
-            filter: this.context.filter,
-            filterData: this.filter,
-=======
             filter: this.context && this.context.filter ? this.context.filter : "",
-            filterValueData: null,
->>>>>>> fd3b5b393551ed4e1c8941dea486bc3ede272e14
             filterOptions: null,
             loading: false,
             visibleLightbox: null
@@ -324,16 +318,11 @@ export const Listing = {
         onDeleteFilter(filter) {
             this.$emit("click:delete-filter", filter);
         },
-<<<<<<< HEAD
         onSaveFilter(filter) {
             this.$emit("click:save-filter", filter);
-=======
-        async onSaveFilterButtonClick() {
-            await this.saveFilter();
         },
         onLineupClick(item, index) {
             this.$emit("click:lineup", item, index);
->>>>>>> fd3b5b393551ed4e1c8941dea486bc3ede272e14
         }
     },
     beforeRouteUpdate: function(to, from, next) {

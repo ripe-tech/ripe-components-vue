@@ -62,8 +62,8 @@
 @import "css/variables.scss";
 
 .search-persistent .search {
-    vertical-align: middle;
     margin-bottom: 3px;
+    vertical-align: middle;
 }
 
 .search-persistent .search ::v-deep .input {
@@ -77,8 +77,8 @@
 
 .search-persistent .select {
     display: inline-block;
-    vertical-align: middle;
     text-align: left;
+    vertical-align: middle;
 }
 
 .search-persistent .select ::v-deep .select-container .select-button {
@@ -92,6 +92,7 @@
     background-image: url("~./assets/chevron-down-white.svg");
     color: $white;
 }
+
 .search-persistent .select ::v-deep .select-container .dropdown-container {
     position: relative;
 }
