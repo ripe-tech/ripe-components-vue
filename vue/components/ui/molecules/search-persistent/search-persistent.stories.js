@@ -76,7 +76,7 @@ storiesOf("Molecules", module)
                     v-bind:persistent-filters="persistentFilters"
                     v-bind:width="width"
                 />
-                <p>{{ filterData }}</p>
+                <p>Filter: {{ filterData }}</p>
             </div>
         `
     }));

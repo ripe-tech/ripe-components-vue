@@ -3,14 +3,14 @@
         <search
             v-bind:width="isMobileWidth() ? null : width"
             v-bind:placeholder="placeholder ? placeholder : `Search ${name}`"
-            v-bind:value.sync="filterValue"
+            v-bind:value.sync="filterData"
             v-bind:loading="loading"
         />
         <select-ripe
             v-bind:class="{ 'filter-selected': isFilterSelected }"
             v-bind:placeholder="'Filter'"
             v-bind:options="persistentFilters"
-            v-bind:value.sync="filterValueData"
+            v-bind:value.sync="selectedFilterValueData"
         >
             <template v-for="(item, index) in persistentFilters" v-bind:slot="item.value">
                 <div
@@ -186,32 +186,32 @@ export const SearchPersistent = {
     },
     data: function() {
         return {
-            filterValueData: null,
-            filterValue: null
+            selectedFilterValueData: null,
+            filterData: this.filter
         };
     },
     watch: {
         filter(value) {
-            this.filterValue = value;
+            this.filterData = value;
         },
-        filterValueData(value) {
+        selectedFilterValueData(value) {
             const filterObject = this.persistentFilters.find(
-                filter => filter.value === this.filterValueData
+                filter => filter.value === this.selectedFilterValueData
             );
-            this.filterValue = filterObject ? filterObject.filter : "";
+            this.filterData = filterObject ? filterObject.filter : "";
         },
         persistentFilters(value) {
-            if (!this.filterValue) return;
+            if (!this.filterData) return;
 
             const filterObject = this.persistentFilters.find(
-                filter => filter.filter === this.filterValue
+                filter => filter.filter === this.filterData
             );
 
             if (!filterObject) return;
-            this.filterValueData = filterObject.value;
+            this.selectedFilterValueData = filterObject.value;
         },
         filterValue(value) {
-            if (value === "") this.filterValueData = null;
+            if (value === "") this.selectedFilterValueData = null;
         }
     },
     computed: {
@@ -221,7 +221,7 @@ export const SearchPersistent = {
             return base;
         },
         isFilterSelected() {
-            return this.filterValueData !== null;
+            return this.selectedFilterValueData !== null;
         }
     },
     methods: {
@@ -235,7 +235,7 @@ export const SearchPersistent = {
             this.deleteValue();
         },
         isSelectedFilterItem(item) {
-            return item.value === this.filterValueData;
+            return item.value === this.selectedFilterValueData;
         },
         async onSelectedFilterUpdateButtonClick(name) {
             await this.alertMessage(
