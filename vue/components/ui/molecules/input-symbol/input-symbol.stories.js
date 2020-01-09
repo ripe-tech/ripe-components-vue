@@ -108,9 +108,9 @@ storiesOf("Molecules", module)
                         v-on:blur="updateText('blur')"/>
                 </form-input>
                 <p>Text: {{ valueData }}</p>
-                <p>Last wrote: {{ inputTime }}</p>
-                <p>Last focus: {{ focusTime }}</p>
-                <p>Last blur: {{ blurTime }}</p>
+                <p>Last wrote from user: {{ inputTime }}</p>
+                <p>Last focus from user: {{ focusTime }}</p>
+                <p>Last blur from user: {{ blurTime }}</p>
             </div>
         `
     }));

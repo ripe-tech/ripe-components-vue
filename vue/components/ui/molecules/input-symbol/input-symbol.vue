@@ -70,7 +70,7 @@ export const InputSymbol = Vue.component("input-symbol", {
         },
         value: {
             type: [String, Number],
-            default: null
+            default: ""
         }
     },
     data: function() {
