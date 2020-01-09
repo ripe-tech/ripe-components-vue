@@ -1,6 +1,6 @@
 <template>
     <div class="tabs">
-        <div class="header">
+        <div class="header" v-bind:style="headerStyle">
             <div
                 class="tab-label"
                 v-bind:class="{ active: isTabActive(index), disabled: tab.disabled }"
@@ -97,6 +97,10 @@ export const Tabs = {
         tab: {
             type: Number,
             default: 0
+        },
+        headerAlignment: {
+            type: String,
+            default: null
         }
     },
     data: function() {
@@ -107,6 +111,13 @@ export const Tabs = {
     watch: {
         tab(value) {
             this.tabData = value;
+        }
+    },
+    computed: {
+        headerStyle() {
+            const base = {};
+            if (this.headerAlignment !== null) base["text-align"] = this.headerAlignment;
+            return base;
         }
     },
     methods: {
