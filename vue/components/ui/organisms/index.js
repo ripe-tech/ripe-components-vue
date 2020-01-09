@@ -8,5 +8,6 @@ const install = Vue => {
     Vue.component("listing", Listing);
 };
 
+export { Details, Header, Listing };
 
 export default install;
