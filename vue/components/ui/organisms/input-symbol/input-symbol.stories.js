@@ -1,9 +1,9 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text, boolean, number, select } from "@storybook/addon-knobs";
 
-storiesOf("Molecules", module)
+storiesOf("Organisms", module)
     .addDecorator(withKnobs)
-    .add("Input Currencyewfewf", () => ({
+    .add("Input Currency", () => ({
         props: {
             variant: {
                 default: select(

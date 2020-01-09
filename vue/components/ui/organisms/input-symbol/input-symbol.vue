@@ -41,9 +41,10 @@
     border-radius: 0px 6px 6px 0px;
     box-sizing: border-box;
     display: inline-block;
-    font-size: 14px;
-    line-height: 32px;
-    padding: 0px 10px 0px 10px;
+    font-size: 13px;
+    height: 34px;
+    line-height: 30px;
+    padding: 1px 10px 1px 10px;
 }
 
 .input-symbol.color-white .symbol {
@@ -89,9 +90,6 @@ export const InputSymbol = {
         value: function(value) {
             this.valueData = value;
         }
-    },
-    mounted: function() {
-        console.log("ok symbol");
     }
 };
 
