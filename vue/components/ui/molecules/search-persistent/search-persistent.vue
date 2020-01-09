@@ -210,8 +210,8 @@ export const SearchPersistent = {
             if (!filterObject) return;
             this.selectedFilterValueData = filterObject.value;
         },
-        filterValue(value) {
-            if (value === "") this.selectedFilterValueData = null;
+        filterData(value) {
+            if (value === "") this.unselectFilter();
         }
     },
     computed: {
@@ -230,6 +230,9 @@ export const SearchPersistent = {
         },
         deleteValue() {
             this.$emit("update:value", "");
+        },
+        unselectFilter(){
+            this.selectedFilterValueData = null;
         },
         onDeleteIconClick() {
             this.deleteValue();
