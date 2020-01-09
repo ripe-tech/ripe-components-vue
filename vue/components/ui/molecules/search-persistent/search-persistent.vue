@@ -202,6 +202,7 @@ export const SearchPersistent = {
             const filterObject = this.persistentFilters.find(
                 filter => filter.value === this.selectedFilterValueData
             );
+
             this.filterData = filterObject ? filterObject.filter : "";
         },
         persistentFilters(value) {
@@ -212,6 +213,7 @@ export const SearchPersistent = {
             );
 
             if (!filterObject) return;
+            
             this.selectedFilterValueData = filterObject.value;
         },
         filterData(value) {
@@ -224,6 +226,7 @@ export const SearchPersistent = {
         style() {
             const base = {};
             if (this.width) base.width = `${this.width}px`;
+            
             return base;
         },
         isFilterSelected() {
