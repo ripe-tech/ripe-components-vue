@@ -361,7 +361,7 @@ body.mobile .container-ripe .title {
 .container-ripe .details-column {
     box-sizing: border-box;
     display: inline-block;
-    padding: 0px 20px 0px 0px;
+    padding: 20px 20px 0px 0px;
     vertical-align: top;
     width: 15%;
 }
