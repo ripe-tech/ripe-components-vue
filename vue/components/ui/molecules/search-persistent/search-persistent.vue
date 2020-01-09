@@ -212,6 +212,8 @@ export const SearchPersistent = {
         },
         filterData(value) {
             if (value === "") this.unselectFilter();
+            
+            this.$emit("update:filter", value);
         }
     },
     computed: {
