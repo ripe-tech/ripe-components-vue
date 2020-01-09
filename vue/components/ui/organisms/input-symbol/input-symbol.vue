@@ -60,9 +60,7 @@
 </style>
 
 <script>
-import Vue from "vue";
-
-export const InputSymbol = Vue.component("input-symbol", {
+export const InputSymbol = {
     props: {
         symbol: {
             type: String,
@@ -91,8 +89,11 @@ export const InputSymbol = Vue.component("input-symbol", {
         value: function(value) {
             this.valueData = value;
         }
+    },
+    mounted: function() {
+        console.log("ok symbol");
     }
-});
+};
 
 export default InputSymbol;
 </script>
