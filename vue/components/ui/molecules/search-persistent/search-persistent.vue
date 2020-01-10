@@ -1,6 +1,10 @@
 <template>
     <div class="search-persistent">
         <search
+            v-bind:variant="variant"
+            v-bind:icon-visible="iconVisible"
+            v-bind:enable-delete="enableDelete"
+            v-bind:suggestions="suggestions"
             v-bind:width="isMobileWidth() ? null : width"
             v-bind:placeholder="placeholder ? placeholder : `Search ${name}`"
             v-bind:value.sync="filterData"
@@ -167,13 +171,42 @@ export const SearchPersistent = {
     name: "search-persistent",
     mixins: [partMixin],
     props: {
+
+        variant: {
+            type: String,
+            default: null
+        },
         filter: {
             type: String,
             default: null
         },
+        persistentFilters: {
+            type: Array,
+            default: () => []
+        },
         placeholder: {
             type: String,
             default: "Search"
+        },
+        suggestions: {
+            type: Array,
+            default: () => []
+        },
+        grow: {
+            type: Boolean,
+            default: false
+        },
+        autofocus: {
+            type: Boolean,
+            default: false
+        },
+        iconVisible: {
+            type: Boolean,
+            default: true
+        },
+        enableDelete: {
+            type: Boolean,
+            default: false
         },
         width: {
             type: Number,
@@ -182,10 +215,6 @@ export const SearchPersistent = {
         loading: {
             type: Boolean,
             default: false
-        },
-        persistentFilters: {
-            type: Array,
-            default: () => []
         }
     },
     data: function() {

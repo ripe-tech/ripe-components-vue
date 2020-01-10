@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, boolean, text, number } from "@storybook/addon-knobs";
+import { withKnobs, boolean, text, number, select } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
@@ -7,15 +7,6 @@ storiesOf("Molecules", module)
         props: {
             filter: {
                 default: text("Filter", "")
-            },
-            placeholder: {
-                default: text("Placeholder", "This is a search input")
-            },
-            loading: {
-                default: boolean("Loading", false)
-            },
-            width: {
-                default: number("Width", 300)
             },
             persistentFilters: {
                 type: Array,
@@ -60,6 +51,31 @@ storiesOf("Molecules", module)
                         value: "save_filter_option"
                     }
                 ]
+            },
+            placeholder: {
+                default: text("Placeholder", "This is a search input")
+            },
+            enableDelete: {
+                default: boolean("Delete button enabled", true)
+            },
+            iconVisible: {
+                default: boolean("Icon Visible", true)
+            },
+            variant: {
+                default: select(
+                    "Variant",
+                    {
+                        Unset: null,
+                        Dark: "dark"
+                    },
+                    null
+                )
+            },
+            width: {
+                default: number("Width", 300)
+            },
+            loading: {
+                default: boolean("Loading", false)
             }
         },
         data: function() {
@@ -76,10 +92,13 @@ storiesOf("Molecules", module)
             <div>
                 <search-persistent
                     v-bind:filter.sync="filterData"
-                    v-bind:placeholder="placeholder"
-                    v-bind:loading="loading"
                     v-bind:persistent-filters="persistentFilters"
+                    v-bind:placeholder="placeholder"
+                    v-bind:enable-delete="enableDelete"
+                    v-bind:icon-visible="iconVisible"
+                    v-bind:variant="variant"
                     v-bind:width="width"
+                    v-bind:loading="loading"    
                 />
                 <p>Filter: {{ filterData }}</p>
             </div>
