@@ -32,7 +32,6 @@ storiesOf("Molecules", module)
         data: function() {
             return {
                 selectedItems: this.value,
-                visibleData: this.visible
             };
         },
         watch: {
