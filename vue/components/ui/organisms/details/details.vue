@@ -208,7 +208,7 @@ body.mobile .container-ripe {
 
 .container-ripe .container-header {
     font-size: 0px;
-    padding: 24px 24px 20px 24px;
+    padding: 24px 24px 24px 24px;
     text-align: left;
 }
 
