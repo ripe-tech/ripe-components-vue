@@ -289,11 +289,18 @@ export const ButtonColor = {
         href: {
             type: String,
             default: null
+        },
+        target: {
+            type: String,
+            default: null
         }
     },
     methods: {
         handleClick() {
-            if (this.href) document.location = href;
+            if (this.href) {
+                if (this.target) window.open(this.href, this.target);
+                else document.location = this.href;
+            }
             this.$emit("click");
         }
     },
