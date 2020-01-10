@@ -38,9 +38,6 @@ storiesOf("Molecules", module)
         watch: {
             value(value) {
                 this.selectedItems = value;
-            },
-            visible(value) {
-                this.visibleData = value;
             }
         },
         template: `
@@ -48,7 +45,6 @@ storiesOf("Molecules", module)
                 <global />
                 <select-list
                     v-bind:items="options"
-                    v-bind:value.sync="selectedItems"
                 >
                 </select-list>
                 <p>Value: {{ selectedItems }}</p>
