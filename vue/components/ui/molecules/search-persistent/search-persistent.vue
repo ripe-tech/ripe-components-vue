@@ -171,7 +171,6 @@ export const SearchPersistent = {
     name: "search-persistent",
     mixins: [partMixin],
     props: {
-
         variant: {
             type: String,
             default: null

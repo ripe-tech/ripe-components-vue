@@ -9,7 +9,7 @@
             <div class="container-header">
                 <div class="container-header-right">
                     <slot name="icons" />
-                    <search v-if="!hasPersistentFilters"
+                    <search
                         v-bind:value.sync="filterData"
                         v-bind:persistent-filters="persistentFilters"
                         v-bind:placeholder="filterText ? filterText : `Search ${name}`"
@@ -17,9 +17,10 @@
                         v-bind:icon-visible="searchIconInvisible"
                         v-bind:variant="'dark'"
                         v-bind:width="isMobileWidth() ? null : searchWidth"
-                        v-bind:loading="loading"  
+                        v-bind:loading="loading"
+                        v-if="!hasPersistentFilters"
                     />
-                    <search-persistent v-else
+                    <search-persistent
                         v-bind:filter.sync="filterData"
                         v-bind:persistent-filters="persistentFilters"
                         v-bind:placeholder="filterText ? filterText : `Search ${name}`"
@@ -27,6 +28,7 @@
                         v-bind:icon-visible="searchIconInvisible"
                         v-bind:variant="'dark'"
                         v-bind:width="isMobileWidth() ? null : searchWidth"
+                        v-else
                         v-on:click:update-filter="onUpdateFilter"
                         v-on:click:delete-filter="onDeleteFilter"
                         v-on:click:save-filter="onSaveFilter"
