@@ -13,7 +13,7 @@
                         v-bind:variant="'dark'"
                         v-bind:width="isMobileWidth() ? null : searchWidth"
                         v-bind:placeholder="filterText ? filterText : `Search ${name}`"
-                        v-bind:value.sync="filter"
+                        v-bind:value.sync="filterData"
                         v-bind:loading="loading"
                         v-if="!hasPersistentFilters"
                     />
@@ -268,7 +268,7 @@ export const Listing = {
     data: function() {
         return {
             items: [],
-            filter: this.context && this.context.filter ? this.context.filter : "",
+            filterData: this.context && this.context.filter ? this.context.filter : "",
             filterOptions: null,
             loading: false,
             visibleLightbox: null
@@ -283,8 +283,8 @@ export const Listing = {
         addFilter(key, value) {
             const base = `${key}=`;
             const tuple = `${key}=${value}`;
-            if (this.filter && this.filter.search(base) !== -1) return;
-            this.filter += this.filter ? ` and ${tuple}` : tuple;
+            if (this.filterData && this.filterData.search(base) !== -1) return;
+            this.filterData += this.filterData ? ` and ${tuple}` : tuple;
             this.showScrollTop = true;
             this.scrollTop = true;
         },
@@ -326,7 +326,7 @@ export const Listing = {
         }
     },
     beforeRouteUpdate: function(to, from, next) {
-        this.filter = to.query.filter || "";
+        this.filterData = to.query.filter || "";
         next();
     }
 };
