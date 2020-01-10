@@ -39,7 +39,7 @@
                 v-bind:get-item-url="getItemUrl"
                 v-bind:columns="columns"
                 v-bind:values="values"
-                v-bind:filter="filter"
+                v-bind:filter="filterData"
                 v-bind:use-query="useQuery"
                 v-bind:loading.sync="loading"
                 v-bind:items.sync="items"
