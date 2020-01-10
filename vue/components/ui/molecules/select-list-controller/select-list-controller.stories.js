@@ -43,10 +43,10 @@ storiesOf("Molecules", module)
         template: `
             <div>
                 <global />
-                <select-items-controller
+                <select-list-controller
                     v-bind:value.sync="selectedItems"
                 >
-                </select-items-controller>
+                </select-list-controller>
                 <br>
                 <p>Value: {{ selectedItems }}</p>
             </div>

@@ -28,8 +28,7 @@
 
 <style lang="scss" scoped>
 .dual {
-    height: 265px;
-    //margin-top: 30px;
+    min-height: 265px;
 }
 
 .container {
@@ -108,22 +107,7 @@ export const SelectListController = Vue.component("select-list-controller", {
     props: {
         leftItems: {
             type: Array,
-            default: () => [
-                { value: "option_1" },
-                { value: "option_2" },
-                { value: "option_3" },
-                { value: "option_4" },
-                { value: "option_5" },
-                { value: "option_6" },
-                { value: "option_7" },
-                { value: "option_8" },
-                { value: "option_9" },
-                { value: "option_10" },
-                { value: "option_11" },
-                { value: "option_12" },
-                { value: "option_13" },
-                { value: "option_14" }
-            ]
+            default: () => []
         },
         rightItems: {
             type: Array,
