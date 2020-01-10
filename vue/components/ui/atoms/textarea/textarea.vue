@@ -9,6 +9,8 @@
         v-bind:id="id"
         ref="textarea"
         v-on:input="onInput($event.target.value)"
+        v-on:focus="onFocus"
+        v-on:blur="onBlur"
     />
 </template>
 
@@ -164,6 +166,12 @@ export const Textarea = {
         },
         onInput(value) {
             this.$emit("update:value", value);
+        },
+        onFocus() {
+            this.$emit("focus");
+        },
+        onBlur() {
+            this.$emit("blur");
         }
     },
     mounted: function() {

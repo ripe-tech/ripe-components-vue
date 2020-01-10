@@ -10,6 +10,8 @@
             v-bind:resize="resize"
             v-bind:id="id"
             ref="textarea"
+            v-on:focus="onTextareaFocus"
+            v-on:blur="onTextareaBlur"
         />
         <div class="options">
             <input
@@ -241,6 +243,12 @@ export const RichTextarea = {
         },
         onSmileClick() {
             this.$emit("click:smile");
+        },
+        onTextareaFocus() {
+            this.$emit("focus:textarea");
+        },
+        onTextareaBlur() {
+            this.$emit("blur:textarea");
         }
     }
 };

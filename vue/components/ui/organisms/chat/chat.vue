@@ -22,6 +22,8 @@
                     v-bind:attachments.sync="attachmentsData"
                     v-bind:placeholder="'Say something here...'"
                     v-bind:resize="false"
+                    v-on:focus:textarea="onTextareaFocus"
+                    v-on:blur:textarea="onTextareaBlur"
                 />
                 <button-color
                     class="send-button"
@@ -185,6 +187,12 @@ export const Chat = {
         },
         onUploadAreaUpdateFiles(attachments) {
             this.attachmentsData = this.attachmentsData.concat(attachments);
+        },
+        onTextareaFocus() {
+            this.$emit("focus:textarea");
+        },
+        onTextareaBlur() {
+            this.$emit("blur:textarea");
         }
     }
 };
