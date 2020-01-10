@@ -285,10 +285,15 @@ export const ButtonColor = {
         icon: {
             type: String,
             default: null
+        },
+        href: {
+            type: String,
+            default: null
         }
     },
     methods: {
         handleClick() {
+            if (this.href) document.location = href;
             this.$emit("click");
         }
     },
