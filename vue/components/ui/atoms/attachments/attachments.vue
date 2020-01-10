@@ -1,5 +1,9 @@
 <template>
-    <div class="attachments" v-bind:style="attachmentsStyle">
+    <div
+        class="attachments"
+        v-bind:class="{ 'attachments-empty': attachments.length === 0 }"
+        v-bind:style="attachmentsStyle"
+    >
         <div class="attachments-title" v-if="title">
             {{ title }}
         </div>
@@ -45,6 +49,10 @@
     line-height: 42px;
     padding: 0px 20px 0px 20px;
     transition: background-color 0.15s ease-in-out;
+}
+
+.attachments.attachments-empty .attachments-title {
+    border-bottom: none;
 }
 
 .attachments .attachments-list {

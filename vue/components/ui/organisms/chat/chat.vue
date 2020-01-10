@@ -42,6 +42,9 @@
 @import "css/variables.scss";
 
 .chat .upload-area {
+    background-color: $grey-6;
+    box-sizing: border-box;
+    padding: 20px 20px 20px 20px;
     transition: opacity 0.125s ease-in;
 }
 
@@ -55,7 +58,6 @@
 }
 
 .chat .upload-area .chat-container .chat-messages-container {
-    background-color: $grey-6;
     flex: 1 0;
     overflow: auto;
 }
@@ -79,13 +81,12 @@ body.mobile .chat .upload-area .chat-container .attachments {
 }
 
 .chat .upload-area .chat-input-container {
-    background-color: $grey-6;
     overflow: hidden;
 }
 
 .chat .upload-area .chat-input-container .rich-textarea {
     display: block;
-    margin: 20px 20px 0px 20px;
+    margin-top: 20px;
     width: auto;
 }
 
@@ -95,7 +96,7 @@ body.mobile .chat .upload-area .chat-container .attachments {
 
 .chat .upload-area .chat-input-container .send-button {
     float: right;
-    margin: 16px 20px 16px 16px;
+    margin-top: 16px;
 }
 </style>
 
