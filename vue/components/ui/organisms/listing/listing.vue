@@ -9,21 +9,24 @@
             <div class="container-header">
                 <div class="container-header-right">
                     <slot name="icons" />
-                    <search
+                    <search v-if="!hasPersistentFilters"
+                        v-bind:value.sync="filterData"
+                        v-bind:persistent-filters="persistentFilters"
+                        v-bind:placeholder="filterText ? filterText : `Search ${name}`"
+                        v-bind:enable-delete="searchEnableDelete"
+                        v-bind:icon-visible="searchIconInvisible"
                         v-bind:variant="'dark'"
                         v-bind:width="isMobileWidth() ? null : searchWidth"
-                        v-bind:placeholder="filterText ? filterText : `Search ${name}`"
-                        v-bind:value.sync="filterData"
-                        v-bind:loading="loading"
-                        v-if="!hasPersistentFilters"
+                        v-bind:loading="loading"  
                     />
-                    <search-persistent
-                        v-bind:width="isMobileWidth() ? null : searchWidth"
-                        v-bind:placeholder="filterText ? filterText : `Search ${name}`"
+                    <search-persistent v-else
                         v-bind:filter.sync="filterData"
-                        v-bind:loading="loading"
                         v-bind:persistent-filters="persistentFilters"
-                        v-else
+                        v-bind:placeholder="filterText ? filterText : `Search ${name}`"
+                        v-bind:enable-delete="searchEnableDelete"
+                        v-bind:icon-visible="searchIconInvisible"
+                        v-bind:variant="'dark'"
+                        v-bind:width="isMobileWidth() ? null : searchWidth"
                         v-on:click:update-filter="onUpdateFilter"
                         v-on:click:delete-filter="onDeleteFilter"
                         v-on:click:save-filter="onSaveFilter"
@@ -251,6 +254,14 @@ export const Listing = {
         useQuery: {
             type: Boolean,
             default: true
+        },
+        searchEnableDelete: {
+            type: Boolean,
+            default: true
+        },
+        searchIconInvisible: {
+            type: Boolean,
+            default: false
         },
         searchWidth: {
             type: Number,
