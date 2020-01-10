@@ -2,14 +2,14 @@
     <div class="lightbox">
         <global-events v-on:keydown.esc="close" />
         <image-ripe
-            v-bind:src="image"
-            v-bind:alt="alt"
+            v-bind:src="image || ''"
+            v-bind:alt="alt || ''"
             v-on:click="event => $emit('click', event)"
         />
         <transition name="fade">
-            <div class="lightbox-container" v-show="visible" v-on:click="$emit('close')">
+            <div class="lightbox-container" v-if="visible && (imageLightbox || image)" v-on:click="$emit('close')">
                 <div class="image-container">
-                    <img v-bind:src="image" v-bind:alt="alt" />
+                    <img v-bind:src="imageLightbox || image || ''" v-bind:alt="alt" />
                 </div>
             </div>
         </transition>
@@ -80,11 +80,15 @@ export const Lightbox = {
     props: {
         image: {
             type: String,
-            default: ""
+            default: null
+        },
+        imageLightbox: {
+            type: String,
+            default: null
         },
         alt: {
             type: String,
-            default: ""
+            default: null
         },
         visible: {
             type: Boolean,
