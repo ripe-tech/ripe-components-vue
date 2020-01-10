@@ -67,6 +67,11 @@ storiesOf("Molecules", module)
                 filterData: this.filter
             };
         },
+        watch: {
+            filter(value) {
+                this.filterData = value;
+            }
+        },
         template: `
             <div>
                 <search-persistent
