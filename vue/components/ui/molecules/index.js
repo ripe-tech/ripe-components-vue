@@ -14,6 +14,7 @@ import { Tabs } from "./tabs/tabs.vue";
 import { Search } from "./search/search.vue";
 import { Select } from "./select/select.vue";
 import { UploadArea } from "./upload-area/upload-area.vue";
+import { SelectList } from "./select-list/select-list.vue";
 
 const install = Vue => {
     Vue.component("alert", Alert);
@@ -32,6 +33,7 @@ const install = Vue => {
     Vue.component("table-ripe", Table);
     Vue.component("tabs", Tabs);
     Vue.component("upload-area", UploadArea);
+    Vue.component("select-list", SelectList);
 };
 
 export {
@@ -50,7 +52,8 @@ export {
     Select,
     Table,
     Tabs,
-    UploadArea
+    UploadArea,
+    SelectList
 };
 
 export default install;
