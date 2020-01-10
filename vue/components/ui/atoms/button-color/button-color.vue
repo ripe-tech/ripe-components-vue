@@ -13,7 +13,9 @@
         />
         <img class="icon" v-bind:src="iconPath" v-if="icon && !loading" />
         <img class="icon-hover" v-bind:src="iconHoverPath" v-if="icon && !loading" />
-        <span v-show="!loading">{{ text }}</span>
+        <span v-show="!loading">
+            <slot>{{ text }}</slot>
+        </span>
     </div>
 </template>
 
