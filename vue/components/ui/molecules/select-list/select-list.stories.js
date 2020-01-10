@@ -31,7 +31,7 @@ storiesOf("Molecules", module)
         },
         data: function() {
             return {
-                selectedItems: this.value,
+                selectedItems: this.value
             };
         },
         watch: {
