@@ -104,11 +104,8 @@ export const SaveFilterModal = {
             this.filterNameData = "";
             this.tenacyValuesData = {};
         },
-        hideModal() {
-            this.$bus.$emit("hide-modal", "save-filter-modal");
-        },
         onDiscardChangesButtonClick() {
-            this.hideModal();
+            this.$emit("click:cancel");
             this.toInitialState();
         },
         onSaveFilterButtonClick() {
