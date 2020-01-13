@@ -1,12 +1,12 @@
 <template>
     <div class="select-list">
-        <div class="items">
+        <div class="container-content">
             <div
-                class="item"
+                class="content-item"
                 v-bind:class="{ selected: item.selected }"
                 v-for="item in items"
-                v-bind:key="item.value"
-                v-on:click="onClick(item)"
+                v-bind:key="item.index"
+                v-on:click="selectItem(item)"
             >
                 <span>{{ item.value }}</span>
             </div>
@@ -24,14 +24,14 @@
     width: 320px;
 }
 
-.select-list .items {
+.container-content {
     height: 100%;
     overflow-y: auto;
     user-select: none;
     width: 100%;
 }
 
-.select-list .items .item {
+.content-item {
     color: #1d2631;
     cursor: pointer;
     font-size: 14px;
@@ -39,19 +39,19 @@
     width: 303px;
 }
 
-.select-list .items .item.selected,
-.select-list .items .item:hover {
+.content-item > span {
+    line-height: 32px;
+    margin-left: 5px;
+}
+
+.content-item.selected,
+.content-item:hover {
     background-color: #1d2631;
     color: #ffffff;
 }
 
-.select-list .items .item:hover {
+.content-item:hover {
     opacity: 0.9;
-}
-
-.select-list .items .item .item > span {
-    line-height: 32px;
-    margin-left: 5px;
 }
 </style>
 
@@ -72,6 +72,9 @@ export const SelectList = Vue.component("select-list", {
             controledItems: this.items,
             valueData: []
         };
+    },
+    created: function() {
+        this._onCreate();
     },
     mounted: async function() {
         document.addEventListener(
@@ -101,28 +104,11 @@ export const SelectList = Vue.component("select-list", {
         );
     },
     methods: {
-        selectItem(item) {
-            if (this.disabled || item.disabled) return;
-            if (this.values[item.value]) return;
-
-            const updated = Object.assign({}, this.values);
-            updated[item.value] = true;
-
-            this.$emit("selected:value", item.value);
-            this.$emit("update:values", updated);
-        },
-        deselectItem(item) {
-            if (this.disabled || item.disabled) return;
-            if (!this.values[item.value]) return;
-
-            const updated = Object.assign({}, this.values);
-            delete updated[item.value];
-
-            this.$emit("deselected:value", item.value);
-            this.$emit("update:values", updated);
-        },
-        toggleItem(item) {
-            this.values[item.value] ? this.deselectItem(item) : this.selectItem(item);
+        _onCreate() {
+            this.controledItems.forEach((element, index) => {
+                element.selected = false;
+                this.$set(this.controledItems, index, Object.assign({}, element));
+            });
         },
         _removeItem(item) {
             for (var i = 0; i < this.valueData.length; i++) {
@@ -150,9 +136,6 @@ export const SelectList = Vue.component("select-list", {
                 this._removeItem(item);
             }
             this.$emit("update:value", this.valueData);
-        },
-        onClick(item) {
-            this.selectItem(item);
         }
     }
 });
