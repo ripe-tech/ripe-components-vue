@@ -6,17 +6,7 @@
             v-on:keydown.left="onKeyLeft"
             v-on:keydown.right="onKeyRight"
         />
-        <container-ripe class="loading" v-if="!loaded">
-            <div class="container-header">
-                <h1 class="title" v-if="invalid">{{ invalidTitle }}</h1>
-                <h1 class="title" v-else>{{ title }}</h1>
-            </div>
-            <h1 class="item-invalid" v-if="invalid">
-                {{ invalidMsg }}
-            </h1>
-            <loader loader="line-scale" v-bind:count="5" v-else />
-        </container-ripe>
-        <container-ripe class="details-container" v-else>
+        <container-ripe class="loading" v-if="isLoading">
             <div class="container-header">
                 <div class="header-buttons">
                     <slot name="header-buttons">
@@ -26,13 +16,72 @@
                             </span>
                             <p>{{ name }}s</p>
                         </div>
-                        <div class="header-button">
+                        <div class="header-button" v-bind:class="{ invisible: !hasIndex }">
                             <span class="button-previous" v-on:click="onPreviousClick">
                                 <img src="~./assets/chevron-left.svg" />
                             </span>
                             <p>Previous</p>
                         </div>
+                        <div class="header-button" v-bind:class="{ invisible: !hasIndex }">
+                            <span class="button-next" v-on:click="onNextClick">
+                                <img src="~./assets/chevron-right.svg" />
+                            </span>
+                            <p>Next</p>
+                        </div>
                         <div class="header-button">
+                            <span class="button-refresh" v-on:click="onRefreshClick">
+                                <img src="~./assets/refresh.svg" />
+                            </span>
+                            <p>Refresh</p>
+                        </div>
+                        <div
+                            class="header-button"
+                            v-bind:class="{
+                                invisible: optionsItems.length === 0 || loading
+                            }"
+                        >
+                            <span
+                                class="button-options"
+                                v-bind:class="{ active: optionsVisible }"
+                                v-on:click.stop="options"
+                            >
+                                <img src="~./assets/options.svg" />
+                                <dropdown
+                                    v-bind:items="optionsItems"
+                                    v-bind:visible.sync="optionsVisible"
+                                    v-on:item-clicked="onOptionsItemClick"
+                                />
+                            </span>
+                            <p>Status</p>
+                        </div>
+                    </slot>
+                </div>
+                <h1 class="title" v-if="invalid">{{ invalidTitle }}</h1>
+                <h1 class="title" v-else>{{ title }}</h1>
+            </div>
+            <h1 class="item-invalid" v-if="invalid">
+                {{ invalidMessage }}
+            </h1>
+            <loader loader="line-scale" v-bind:count="5" v-else />
+        </container-ripe>
+        <container-ripe class="details-container" v-else>
+            <div class="container-header">
+                <div class="header-buttons">
+                    <slot name="header-buttons">
+                        <slot name="header-buttons-before" />
+                        <div class="header-button">
+                            <span class="button-stats" v-on:click="onStatsClick">
+                                <img src="~./assets/stats.svg" />
+                            </span>
+                            <p>{{ name }}s</p>
+                        </div>
+                        <div class="header-button" v-bind:class="{ invisible: !hasIndex }">
+                            <span class="button-previous" v-on:click="onPreviousClick">
+                                <img src="~./assets/chevron-left.svg" />
+                            </span>
+                            <p>Previous</p>
+                        </div>
+                        <div class="header-button" v-bind:class="{ invisible: !hasIndex }">
                             <span class="button-next" v-on:click="onNextClick">
                                 <img src="~./assets/chevron-right.svg" />
                             </span>
@@ -64,14 +113,15 @@
                             </span>
                             <p>Status</p>
                         </div>
+                        <slot name="header-buttons-after" />
                     </slot>
                 </div>
-                <slot name="title" v-if="loaded">
+                <slot name="title" v-if="isLoaded">
                     <h1 class="title">{{ title }}</h1>
                 </slot>
                 <slot name="header-extra" />
             </div>
-            <div class="details" v-if="loaded">
+            <div class="details" v-if="isLoaded">
                 <div class="details-column details-column-image" v-if="imageUrl">
                     <lightbox
                         class="image"
@@ -83,37 +133,38 @@
                     <slot name="image-footer" />
                 </div>
                 <div class="details-column" v-for="column in nrColumns" v-bind:key="column">
-                    <slot v-bind:name="value.id" v-for="value in getColumnValues(column - 1)">
+                    <slot v-bind:name="value.value" v-for="value in getColumnValues(column - 1)">
                         <div
                             class="label-value"
-                            v-bind:class="[value.id, `label-value-${value.id}`]"
-                            v-bind:key="value.id"
+                            v-bind:class="[value.value, `label-value-${value.value}`]"
+                            v-if="value.value"
+                            v-bind:key="value.value"
                         >
                             <div class="label-value-component label">
-                                <slot v-bind:name="`label-${value.id}`">
+                                <slot v-bind:name="`label-${value.value}`">
                                     <p class="label-text">
-                                        <slot v-bind:name="`label-${value.id}-text`">
-                                            {{ value.label || value.id || value.name }}
+                                        <slot v-bind:name="`label-${value.value}-text`">
+                                            {{ value.label || value.value || value.name }}
                                         </slot>
                                     </p>
                                 </slot>
                             </div>
                             <div class="label-value-component value">
-                                <slot v-bind:name="`value-${value.id}`">
+                                <slot v-bind:name="`value-${value.value}`">
                                     <p class="value-text">
-                                        <slot v-bind:name="`value-${value.id}-text`">
-                                            {{ item[value.value] || item[value.id] || "-" }}
+                                        <slot v-bind:name="`value-${value.value}-text`">
+                                            {{ item[value.value] || "-" }}
                                         </slot>
                                     </p>
                                 </slot>
                             </div>
                             <div class="label-value-component note">
-                                <slot v-bind:name="`note-${value.id}`">
+                                <slot v-bind:name="`note-${value.value}`">
                                     <p
                                         class="note-text"
-                                        v-if="value.note || $slots[`note-${value.id}-text`]"
+                                        v-if="value.note || $slots[`note-${value.value}-text`]"
                                     >
-                                        <slot v-bind:name="`note-${value.id}-text`">
+                                        <slot v-bind:name="`note-${value.value}-text`">
                                             {{ item[value.note] }}
                                         </slot>
                                     </p>
@@ -143,7 +194,7 @@ body.mobile .container-ripe {
     border: none;
     border-bottom: 1px solid $lighter-grey;
     border-radius: 0px 0px 0px 0px;
-    border-top: 1px solid $lighter-grey;
+    border-top: none;
     box-shadow: none;
     margin: 0px 0px 0px 0px;
 }
@@ -159,7 +210,7 @@ body.mobile .container-ripe {
 
 .container-ripe .container-header {
     font-size: 0px;
-    padding: 24px 24px 20px 24px;
+    padding: 24px 24px 24px 24px;
     text-align: left;
 }
 
@@ -171,7 +222,6 @@ body.mobile .container-ripe .container-header {
 .container-ripe .container-header .header-buttons {
     float: right;
     font-size: 0px;
-    margin-top: -12px;
     text-transform: capitalize;
     user-select: none;
 }
@@ -204,13 +254,13 @@ body.mobile .container-ripe .header-buttons > .header-button {
 }
 
 .header-buttons > .header-button.invisible {
-    display: none;
+    opacity: 0.2;
+    pointer-events: none;
 }
 
 body.tablet .header-buttons > .header-button.invisible,
 body.mobile .header-buttons > .header-button.invisible {
     display: inline-block;
-    opacity: 0;
 }
 
 .container-ripe .header-buttons .header-button > span {
@@ -364,8 +414,8 @@ body.mobile .details-column.details-column-image {
 
 body.tablet .container-ripe .details-column .label-value,
 body.mobile .container-ripe .details-column .label-value {
-    margin-top: 20px;
-    min-height: 80px;
+    margin-top: 12px;
+    min-height: 70px;
     overflow: hidden;
 }
 
@@ -415,7 +465,7 @@ export const Details = {
             type: String,
             default: "Item not found"
         },
-        invalidMsg: {
+        invalidMessage: {
             type: String,
             default: "Our apologies, it looks like this item doesn't exist"
         },
@@ -445,7 +495,7 @@ export const Details = {
         },
         index: {
             type: Number,
-            required: true
+            default: null
         },
         loaded: {
             type: Boolean,
@@ -462,13 +512,29 @@ export const Details = {
         navigation: {
             type: Boolean,
             default: true
+        },
+        safe: {
+            type: Boolean,
+            default: false
         }
     },
     data: function() {
         return {
+            switching: false,
             optionsVisible: false,
             lightBoxVisible: false
         };
+    },
+    computed: {
+        isLoaded() {
+            return this.loaded && !this.switching;
+        },
+        isLoading() {
+            return !this.isLoaded;
+        },
+        hasIndex() {
+            return this.index !== null && this.index !== undefined;
+        }
     },
     methods: {
         getValueColumn(valueIndex) {
@@ -483,8 +549,9 @@ export const Details = {
             this.optionsVisible = !status;
         },
         async previousItem(force = false) {
+            if (!this.hasIndex) return;
             if (!this.navigation && !force) return;
-            if (this.loading || !this.index) {
+            if ((this.safe && this.isLoading) || this.index === undefined || this.index === 0) {
                 this.triggerAnimation("slide-left-fake");
                 return;
             }
@@ -498,8 +565,9 @@ export const Details = {
                 : this.triggerAnimation("slide-left-fake");
         },
         async nextItem(force = false) {
+            if (!this.hasIndex) return;
             if (!this.navigation && !force) return;
-            if (this.loading || this.index === undefined) {
+            if ((this.safe && this.isLoading) || this.index === undefined) {
                 this.triggerAnimation("slide-right-fake");
                 return;
             }
@@ -511,7 +579,8 @@ export const Details = {
             next ? this.showItem(next, this.index + 1) : this.triggerAnimation("slide-right-fake");
         },
         showItem(item, index) {
-            this.loading = true;
+            if (!this.$router) return;
+            this.switching = true;
             const transition = index > this.index ? "slide-left" : "slide-right";
             this.$router.push(
                 {
@@ -519,8 +588,8 @@ export const Details = {
                     params: { id: item.id, transition: transition },
                     query: { ...this.$route.query, index }
                 },
-                () => (this.loading = false),
-                () => (this.loading = false)
+                () => (this.switching = false),
+                () => (this.switching = false)
             );
         },
         triggerAnimation(animation) {

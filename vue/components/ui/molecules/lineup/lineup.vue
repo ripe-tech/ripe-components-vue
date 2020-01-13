@@ -1,37 +1,72 @@
 <template>
     <transition-group tag="div" v-bind:name="transition" class="lineup">
-        <div class="lineup-item" v-for="item in items" v-bind:key="item.id">
-            <slot v-bind:name="value.value" v-bind:item="item" v-for="value in values">
+        <div
+            class="lineup-item"
+            v-bind:class="{ clickable: clickable(item) }"
+            v-for="(item, index) in items"
+            v-bind:key="item.id"
+            v-on:click="onItemClick(item, index)"
+        >
+            <slot
+                v-bind:name="value.value"
+                v-bind:item="item"
+                v-bind:index="index"
+                v-for="value in values"
+            >
                 <div
                     class="lineup-item-value"
                     v-bind:class="[value.value, `lineup-item-value-${value.value}`]"
                     v-bind:key="value.value"
                 >
-                    <div class="key">
-                        <slot v-bind:name="`${value.value}-label`" v-bind:item="item">
+                    <div class="label">
+                        <slot
+                            v-bind:name="`${value.value}-label`"
+                            v-bind:item="item"
+                            v-bind:index="index"
+                        >
                             <p class="label-text">
-                                <slot v-bind:name="`${value.value}-label-text`" v-bind:item="item">
+                                <slot
+                                    v-bind:name="`${value.value}-label-text`"
+                                    v-bind:item="item"
+                                    v-bind:index="index"
+                                >
                                     {{ value.label || value.value || value.name }}
                                 </slot>
                             </p>
                         </slot>
                     </div>
                     <div class="value">
-                        <slot v-bind:name="`${value.value}-value`" v-bind:item="item">
+                        <slot
+                            v-bind:name="`${value.value}-value`"
+                            v-bind:item="item"
+                            v-bind:index="index"
+                        >
                             <p class="value-text">
-                                <slot v-bind:name="`${value.value}-value-text`" v-bind:item="item">
+                                <slot
+                                    v-bind:name="`${value.value}-value-text`"
+                                    v-bind:item="item"
+                                    v-bind:index="index"
+                                >
                                     {{ item[value.value] || item[value.value] || "-" }}
                                 </slot>
                             </p>
                         </slot>
                     </div>
                     <div class="note">
-                        <slot v-bind:name="`${value.value}-note`" v-bind:item="item">
+                        <slot
+                            v-bind:name="`${value.value}-note`"
+                            v-bind:item="item"
+                            v-bind:index="index"
+                        >
                             <p
                                 class="note-text"
                                 v-if="value.note || $slots[`${value.value}-note-text`]"
                             >
-                                <slot v-bind:name="`${value.value}-note-text`" v-bind:item="item">
+                                <slot
+                                    v-bind:name="`${value.value}-note-text`"
+                                    v-bind:item="item"
+                                    v-bind:index="index"
+                                >
                                     {{ item[value.note] }}
                                 </slot>
                             </p>
@@ -51,12 +86,16 @@
 }
 
 .lineup > .lineup-item {
-    border-bottom: 1px solid #e4e8f0;
-    padding: 30px 15px 30px 15px;
+    border-bottom: 1px solid $lighter-grey;
+    padding: 16px 20px 16px 20px;
+}
+
+.lineup > .lineup-item.clickable {
+    cursor: pointer;
 }
 
 .lineup > .lineup-item:first-child {
-    border-top: 1px solid #e4e8f0;
+    border-top: 1px solid $lighter-grey;
 }
 
 .lineup > .lineup-item ::v-deep .lineup-item-value {
@@ -114,6 +153,20 @@ export const Lineup = {
         transition: {
             type: String,
             default: null
+        },
+        getItemUrl: {
+            type: Function,
+            default: null
+        }
+    },
+    methods: {
+        clickable(item) {
+            return item.url || this.getItemUrl;
+        },
+        onItemClick(item, index) {
+            const url = this.getItemUrl ? this.getItemUrl(item, index) : item.url;
+            if (url) this.$router.push(url);
+            this.$emit("click", item, index);
         }
     }
 };

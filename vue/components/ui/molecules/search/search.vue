@@ -5,11 +5,13 @@
         v-bind:class="[
             focused ? 'focus' : 'unfocus',
             grow ? 'grow' : '',
-            iconVisible ? '' : 'icon-invisible'
+            iconVisible ? 'icon-visible' : 'icon-invisible',
+            clearVisible ? 'clear-visible' : 'clear-invisible'
         ]"
     >
         <global-events v-on:keydown.esc="blur()" />
-        <slot name="icon">
+        <loader loader="ball-scale-multiple" v-if="loading" />
+        <slot name="icon" v-else>
             <svg
                 focusable="false"
                 height="24px"
@@ -25,25 +27,32 @@
             </svg>
         </slot>
         <input-ripe
-            v-bind:value="value"
+            v-bind:variant="variant"
+            v-bind:value.sync="valueData"
             v-bind:placeholder="placeholder"
             v-bind:autofocus="autofocus"
             v-bind:width="width"
             ref="input"
-            v-on:update:value="$emit('update:value', $event)"
             v-on:focus="focused = true"
             v-on:blur="focused = false"
+        />
+        <button-icon
+            class="icon-clear"
+            v-bind:icon="'close'"
+            v-bind:color="'none'"
+            v-if="clearButtonVisible"
+            v-on:click="onClearIconClick"
         />
         <transition name="slide">
             <div class="suggestions" v-show="suggestionsVisible && suggestions.length > 0">
                 <div
                     class="suggestion"
                     v-for="suggestion in suggestions"
-                    v-bind:key="suggestion.id"
+                    v-bind:key="suggestion.value"
                 >
                     <slot name="suggestion" v-bind:suggestion="suggestion">
                         <router-link v-bind:to="suggestion.link">
-                            <span>{{ suggestion.text }}</span>
+                            <span>{{ suggestion.label || suggestion.value }}</span>
                         </router-link>
                     </slot>
                 </div>
@@ -60,7 +69,18 @@
     font-size: 0px;
     height: 34px;
     line-height: 34px;
+    position: relative;
     width: 100%;
+}
+
+.search > .loader {
+    left: 38px;
+    top: 38px;
+}
+
+.search > .loader ::v-deep div {
+    height: 20px;
+    width: 20px;
 }
 
 .search > svg {
@@ -77,22 +97,31 @@
 }
 
 .search ::v-deep input[type="text"] {
+    padding-left: 12px;
+}
+
+.search.icon-visible ::v-deep input[type="text"] {
     padding-left: 33px;
 }
 
-.search.icon-invisible ::v-deep input[type="text"] {
-    padding-left: 12px;
+.search.clear-visible ::v-deep input[type="text"] {
+    padding-right: 33px;
 }
 
 .search.grow ::v-deep input[type="text"]:focus {
     width: 340px;
 }
 
+.search .icon-clear {
+    position: absolute;
+    right: 5px;
+    top: 3px;
+}
+
 .search > .suggestions {
     border: 1px solid $border-color;
     border-radius: 5px;
     font-size: 15px;
-    margin-left: 24px;
     margin-top: -2px;
     overflow: hidden;
 }
@@ -130,6 +159,10 @@
 export const Search = {
     name: "search",
     props: {
+        variant: {
+            type: String,
+            default: null
+        },
         value: {
             type: String,
             default: null
@@ -154,18 +187,33 @@ export const Search = {
             type: Boolean,
             default: true
         },
+        clearVisible: {
+            type: Boolean,
+            default: false
+        },
         width: {
             type: Number,
             default: null
+        },
+        loading: {
+            type: Boolean,
+            default: false
         }
     },
     data: function() {
         return {
             focused: false,
-            suggestionsVisible: false
+            suggestionsVisible: false,
+            valueData: this.value
         };
     },
     watch: {
+        value(value) {
+            this.valueData = value;
+        },
+        valueData(value) {
+            this.$emit("update:value", value);
+        },
         focused(value) {
             if (value) {
                 this.suggestionsVisible = true;
@@ -181,11 +229,20 @@ export const Search = {
             const base = {};
             if (this.width) base.width = `${this.width}px`;
             return base;
+        },
+        clearButtonVisible() {
+            return this.valueData && this.clearVisible;
         }
     },
     methods: {
         blur() {
             this.$refs.input.blur();
+        },
+        clear() {
+            this.valueData = "";
+        },
+        onClearIconClick() {
+            this.clear();
         }
     }
 };

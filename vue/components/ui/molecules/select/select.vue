@@ -1,10 +1,26 @@
 <template>
-    <div class="select">
+    <div class="select" v-bind:class="{ disabled: disabled }">
         <global-events v-on:click="onGlobalClick" />
-        <div class="select-container">
+        <select
+            class="dropdown-select"
+            v-bind:value="value"
+            v-if="isDevice()"
+            v-on:change="onSelectChange($event.target.value)"
+        >
+            <option
+                v-bind:value="options.value"
+                v-for="options in options"
+                v-bind:key="options.value"
+            >
+                {{ options.label }}
+            </option>
+            <option class="placeholder" v-bind:value="null">
+                {{ placeholder }}
+            </option>
+        </select>
+        <div class="select-container" v-bind:style="style" v-else>
             <div
                 class="select-button"
-                v-bind:class="{ disabled: disabled }"
                 tabindex="0"
                 v-on:click="onClickDropdownButton()"
                 v-on:keydown.exact="onKey($event.key)"
@@ -24,48 +40,36 @@
             <dropdown
                 v-bind:items="options"
                 v-bind:max-height="maxHeight"
-                v-bind:visible="isVisible"
+                v-bind:visible.sync="visibleData"
                 v-bind:global-events="false"
+                v-bind:highlighted="highlightedObject"
                 ref="dropdown"
-                v-on:item-clicked="value => onDropdownSelect(value.id)"
-            />
+                v-on:update:highlighted="onDropdownHighlighted"
+                v-on:item-clicked="value => onDropdownItemClicked(value.value)"
+            >
+                <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
+                <template
+                    v-for="slot in Object.keys($scopedSlots)"
+                    v-bind:slot="slot"
+                    slot-scope="scope"
+                >
+                    <slot v-bind:name="slot" v-bind="scope" />
+                </template>
+            </dropdown>
         </div>
-        <select
-            class="dropdown-select"
-            v-bind:value="value"
-            v-on:change="onDropdownSelect($event.target.value)"
-        >
-            <option v-bind:value="options.id" v-for="options in options" v-bind:key="options.id">
-                {{ options.text }}
-            </option>
-            <option v-bind:value="null" style="display: none;">
-                {{ placeholder }}
-            </option>
-        </select>
     </div>
 </template>
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.select .dropdown-select {
-    display: none;
-}
-
-body.mobile-device .select .dropdown-select,
-body.tablet-device .select .dropdown-select {
-    display: block;
-}
-
+.dropdown-select,
 .select .select-container {
+    position: relative;
     width: 100%;
 }
 
-body.mobile-device .select .select-container,
-body.tablet-device .select .select-container {
-    display: none;
-}
-
+.dropdown-select,
 .select .select-container .select-button {
     background-color: $soft-blue;
     background-image: url("~./assets/chevron-down.svg");
@@ -85,11 +89,15 @@ body.tablet-device .select .select-container {
     outline: none;
     overflow: hidden;
     padding-left: 12px;
-    padding-right: 12px;
+    padding-right: 34px;
     text-overflow: ellipsis;
     transition: width 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
     user-select: none;
     white-space: nowrap;
+}
+
+.dropdown-select > .placeholder {
+    display: none;
 }
 
 .select .select-container .select-button:hover {
@@ -97,10 +105,12 @@ body.tablet-device .select .select-container {
 }
 
 .select .select-container .select-button:focus {
-    border: 1px solid $aqcua-blue;
+    border-color: $aqcua-blue;
 }
 
-.select .select-container .select-button.disabled {
+.select.disabled .select-container .select-button {
+    border-color: $soft-blue;
+    cursor: default;
     opacity: 0.4;
 }
 
@@ -108,12 +118,16 @@ body.tablet-device .select .select-container {
     margin-top: 3px;
     position: absolute;
     width: 100%;
+    z-index: 1;
 }
 </style>
 
 <script>
+import { partMixin } from "../../../../mixins";
+
 export const Select = {
     name: "select-ripe",
+    mixins: [partMixin],
     props: {
         options: {
             type: Array,
@@ -123,13 +137,13 @@ export const Select = {
             type: String,
             default: null
         },
-        placeholder: {
-            type: String,
-            default: "None"
-        },
         visible: {
             type: Boolean,
             default: false
+        },
+        placeholder: {
+            type: String,
+            default: "None"
         },
         disabled: {
             type: Boolean,
@@ -143,37 +157,42 @@ export const Select = {
     data: function() {
         return {
             highlighted: null,
+            valueData: this.value,
             visibleData: this.visible
         };
     },
     watch: {
-        disabled() {
-            if (this.disabled) this.closeDropdown();
+        disabled(value) {
+            if (value) this.closeDropdown();
         },
         visible(value) {
             this.visibleData = value;
+        },
+        value(value) {
+            this.valueData = value;
         }
     },
     methods: {
         setValue(value) {
             if (this.disabled) return;
+            this.valueData = value;
             this.$emit("update:value", value);
         },
         openDropdown() {
             if (this.disabled || this.visibleData) return;
 
-            if (this.value) {
-                this.highlight(this.options.findIndex(option => option.id === this.value));
+            if (this.valueData) {
+                this.highlight(this.options.findIndex(option => option.value === this.valueData));
             }
 
             this.visibleData = true;
-            this.$emit("update:visible", this.visibleData);
+            this.$emit("update:visible", true);
         },
         closeDropdown() {
             if (!this.visibleData) return;
             this.dehighlight();
             this.visibleData = false;
-            this.$emit("update:visible", this.visibleData);
+            this.$emit("update:visible", false);
         },
         toggleDropdown() {
             if (this.visibleData) {
@@ -206,7 +225,7 @@ export const Select = {
         },
         highlightFirstMatchedOption(key, scroll = true) {
             const index = this.options.findIndex(
-                option => option.text.charAt(0).toUpperCase() === key.toUpperCase()
+                option => option.label.charAt(0).toUpperCase() === key.toUpperCase()
             );
 
             if (index > -1) {
@@ -279,7 +298,7 @@ export const Select = {
             this.highlight(this.options.length - 1);
         },
         onEnterKey() {
-            if (!this.isVisible) {
+            if (!this.visibleData) {
                 this.openDropdown();
                 return;
             }
@@ -289,11 +308,11 @@ export const Select = {
                 return;
             }
 
-            this.setValue(this.options[this.highlighted].id);
+            this.setValue(this.options[this.highlighted].value);
             this.closeDropdown();
         },
         onSpaceKey() {
-            if (!this.isVisible) {
+            if (!this.visibleData) {
                 this.openDropdown();
                 return;
             }
@@ -303,28 +322,42 @@ export const Select = {
                 return;
             }
 
-            this.setValue(this.options[this.highlighted].id);
+            this.setValue(this.options[this.highlighted].value);
             this.closeDropdown();
         },
-        onDropdownSelect(optionId) {
+        onSelectChange(value) {
+            this.setValue(value);
+        },
+        onDropdownItemClicked(value) {
             if (this.highlighted === null) return;
 
-            this.setValue(this.options[this.highlighted].id);
+            this.setValue(value);
             this.closeDropdown();
         },
-        onDropdownMouseover(index) {
-            this.highlight(index);
+        onDropdownHighlighted(values) {
+            const indexes = Object.keys(values)
+                .map(value => parseInt(value))
+                .filter(value => value !== this.highlighted);
+            if (indexes.length === 0) return;
+            this.highlight(indexes[0]);
         }
     },
     computed: {
         buttonText() {
-            return this.value ? this.options[this.valueIndex].text : this.placeholder;
+            return this.valueData ? this.options[this.valueIndex].label : this.placeholder;
         },
         valueIndex() {
-            return this.options.findIndex(option => option.id === this.value);
+            return this.options.findIndex(option => option.value === this.valueData);
         },
-        isVisible() {
-            return this.visible && this.visibleData;
+        style() {
+            const base = {};
+            if (this.width) base.width = `${this.width}px`;
+            return base;
+        },
+        highlightedObject() {
+            const base = {};
+            if (this.highlighted !== null) base[this.highlighted] = true;
+            return base;
         }
     }
 };

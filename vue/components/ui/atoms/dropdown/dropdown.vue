@@ -5,10 +5,12 @@
             <ul class="dropdown" v-bind:style="dropdownStyle" v-show="visibleData" ref="dropdown">
                 <li
                     class="dropdown-item"
-                    v-bind:class="{ separator: item.separator }"
+                    v-bind:class="_getItemClasses(item, index)"
                     v-for="(item, index) in items.filter(v => v !== null && v !== undefined)"
                     v-bind:key="item.value"
                     v-on:click.stop="click(item)"
+                    v-on:mouseenter="onMouseenter(index)"
+                    v-on:mouseleave="onMouseleave(index)"
                 >
                     <slot v-bind:item="item" v-bind:index="index" v-bind:name="item.value">
                         <slot v-bind:item="item" v-bind:index="index">
@@ -81,12 +83,10 @@
 }
 
 .dropdown > .dropdown-item:hover,
-.dropdown > .dropdown-item.selected {
-    background-color: $selected-color;
-}
-
-.dropdown > .dropdown-item:active {
-    background-color: $active-color;
+.dropdown > .dropdown-item:active,
+.dropdown > .dropdown-item.selected,
+.dropdown > .dropdown-item.highlighted {
+    background-color: $soft-blue;
 }
 
 .dropdown > .dropdown-item.separator {
@@ -106,7 +106,8 @@
 }
 
 .dropdown > .dropdown-item:hover > a,
-.dropdown > .dropdown-item.selected > a {
+.dropdown > .dropdown-item.selected > a,
+.dropdown > .dropdown-item.highlighted > a {
     color: $blacker;
 }
 </style>
@@ -118,6 +119,10 @@ export const Dropdown = {
         items: {
             type: Array,
             default: () => []
+        },
+        highlighted: {
+            type: Object,
+            default: () => ({})
         },
         visible: {
             type: Boolean,
@@ -142,12 +147,19 @@ export const Dropdown = {
     },
     data: function() {
         return {
-            visibleData: this.visible
+            visibleData: this.visible,
+            highlightedData: this.highlighted
         };
     },
     watch: {
         visible(value) {
             this.setVisible(value);
+        },
+        highlighted(value) {
+            this.highlightedData = value;
+        },
+        highlightedData(value) {
+            this.$emit("update:highlighted", value);
         }
     },
     computed: {
@@ -175,6 +187,12 @@ export const Dropdown = {
             this.$emit("item-clicked", item);
             this.hide();
         },
+        highlight(index) {
+            this.$set(this.highlightedData, index, true);
+        },
+        dehighlight(index) {
+            this.$delete(this.highlightedData, index);
+        },
         toggle() {
             this.setVisible(!this.visibleData);
         },
@@ -194,6 +212,18 @@ export const Dropdown = {
         handleGlobal() {
             if (!this.globalEvents) return;
             this.hide();
+        },
+        onMouseenter(index) {
+            this.highlight(index);
+        },
+        onMouseleave(index) {
+            this.dehighlight(index);
+        },
+        _getItemClasses(item, index) {
+            return {
+                separator: item.separator,
+                highlighted: this.highlightedData[index]
+            };
         }
     }
 };

@@ -22,7 +22,9 @@
 }
 
 body.mobile .container-ripe {
-    margin: 0px auto 32px auto;
+    border-radius: 0px 0px 0px 0px;
+    box-shadow: none;
+    margin: 0px auto 18px auto;
     width: 100%;
 }
 </style>

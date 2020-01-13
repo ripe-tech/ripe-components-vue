@@ -1,5 +1,10 @@
 <template>
-    <div class="button button-color" v-bind:class="classes" v-on:click="handleClick">
+    <div
+        class="button button-color"
+        v-bind:class="classes"
+        v-bind:style="style"
+        v-on:click="handleClick"
+    >
         <loader
             loader="ball-scale-multiple"
             class="loader"
@@ -8,7 +13,9 @@
         />
         <img class="icon" v-bind:src="iconPath" v-if="icon && !loading" />
         <img class="icon-hover" v-bind:src="iconHoverPath" v-if="icon && !loading" />
-        <span v-show="!loading">{{ text }}</span>
+        <span v-show="!loading">
+            <slot>{{ text }}</slot>
+        </span>
     </div>
 </template>
 
@@ -33,6 +40,7 @@
     text-align: center;
     transition: background-color 0.15s ease-in-out,
         border-color 0.15s ease-in-out,
+        color 0.15s ease-in-out,
         opacity 0.15s ease-in-out;
     user-select: none;
     vertical-align: middle;
@@ -116,6 +124,76 @@
     color: $white;
 }
 
+.button-color.button-color-red:hover {
+    background-color: $medium-red;
+    border-color: $medium-red;
+}
+
+.button-color.button-color-red:active {
+    background-color: $dark-red;
+    border-color: $dark-red;
+}
+
+.button-color.button-color-blue {
+    background-color: $blue;
+    border-color: $blue;
+}
+
+.button-color.button-color-blue:hover {
+    background-color: $lighter-blue;
+    border-color: $lighter-blue;
+}
+
+.button-color.button-color-blue:active {
+    background-color: $active-blue;
+    border-color: $active-blue;
+}
+
+.button-color.button-color-green {
+    background-color: $green;
+    border-color: $green;
+}
+
+.button-color.button-color-green:hover {
+    background-color: $lighter-green;
+    border-color: $lighter-green;
+}
+
+.button-color.button-color-green:active {
+    background-color: $dark-green;
+    border-color: $dark-green;
+}
+
+.button-color.button-color-yellow {
+    background-color: $yellow;
+    border-color: $yellow;
+}
+
+.button-color.button-color-yellow:hover {
+    background-color: $light-yellow;
+    border-color: $light-yellow;
+}
+
+.button-color.button-color-yellow:active {
+    background-color: $dark-yellow;
+    border-color: $dark-yellow;
+}
+
+.button-color.button-color-orange {
+    background-color: $orange;
+    border-color: $orange;
+}
+
+.button-color.button-color-orange:hover {
+    background-color: $dark-orange;
+    border-color: $dark-orange;
+}
+
+.button-color.button-color-orange:active {
+    background-color: $darker-orange;
+    border-color: $darker-orange;
+}
+
 .button-color ::v-deep .loader {
     display: inline-block;
     transform: translateY(-17px);
@@ -138,12 +216,8 @@
     float: left;
     height: 22px;
     margin-top: 9px;
+    padding-right: 12px;
     width: 22px;
-}
-
-.button-color.button-color-left .icon,
-.button-color.button-color-left .icon-hover {
-    margin-right: 8px;
 }
 
 .button-color.button-color-small .icon,
@@ -186,6 +260,10 @@ export const ButtonColor = {
             type: String,
             default: ""
         },
+        minWidth: {
+            type: Number,
+            default: null
+        },
         text: {
             type: String,
             default: null
@@ -209,10 +287,22 @@ export const ButtonColor = {
         icon: {
             type: String,
             default: null
+        },
+        href: {
+            type: String,
+            default: null
+        },
+        target: {
+            type: String,
+            default: null
         }
     },
     methods: {
         handleClick() {
+            if (this.href) {
+                if (this.target) window.open(this.href, this.target);
+                else document.location = this.href;
+            }
             this.$emit("click");
         }
     },
@@ -253,6 +343,11 @@ export const ButtonColor = {
             if (this.alignment) return this.alignment;
             if (this.icon) return "right";
             return "center";
+        },
+        style() {
+            return {
+                "min-width": this.minWidth === null ? null : `${this.minWidth}px`
+            };
         },
         classes() {
             const base = {

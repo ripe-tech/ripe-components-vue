@@ -30,6 +30,7 @@ storiesOf("Organisms", module)
             item: {
                 type: Object,
                 default: () => ({
+                    id: 1,
                     name: "Theodore",
                     age: 14,
                     car: "Toyota Prius",

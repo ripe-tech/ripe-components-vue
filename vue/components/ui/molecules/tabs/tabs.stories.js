@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, number } from "@storybook/addon-knobs";
+import { withKnobs, number, select } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
@@ -7,6 +7,18 @@ storiesOf("Molecules", module)
         props: {
             tab: {
                 default: number("Tab", 1)
+            },
+            headerAlignment: {
+                default: select(
+                    "Header Alignment",
+                    {
+                        Unset: null,
+                        Left: "left",
+                        Right: "right",
+                        Center: "center"
+                    },
+                    null
+                )
             },
             tabs: {
                 type: Array,
@@ -30,7 +42,7 @@ storiesOf("Molecules", module)
         },
         template: `
             <div>
-                <tabs v-bind:tabs="tabs" v-bind:tab.sync="tabData">
+                <tabs v-bind:tabs="tabs" v-bind:tab.sync="tabData" v-bind:header-alignment="headerAlignment">
                     <template v-slot:address>
                         <p>My address:</p>
                         <p>New York</p>

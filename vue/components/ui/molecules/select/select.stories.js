@@ -5,9 +5,6 @@ storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Select", () => ({
         props: {
-            id: {
-                default: text("Dropdown Id", "select-platforme-id")
-            },
             placeholder: {
                 default: text("Placeholder", "This is a placeholder text")
             },
@@ -30,9 +27,9 @@ storiesOf("Molecules", module)
                     { value: "option_14", label: "N" }
                 ]
             },
-            initialValue: {
+            value: {
                 default: select(
-                    "Initial Value",
+                    "Value",
                     {
                         None: null,
                         A: "option_1",
@@ -44,99 +41,8 @@ storiesOf("Molecules", module)
                     null
                 )
             },
-            initialVisible: {
-                default: boolean("Initial Visible", false)
-            },
-            maxHeight: {
-                default: number("Max Height", 200)
-            },
-            disabled: {
-                default: boolean("Disabled", false)
-            },
-            allowTextSelection: {
-                default: boolean("Allow text selection", false)
-            }
-        },
-        data: function() {
-            return {
-                value: this.initialValue,
-                visible: this.initialVisible
-            };
-        },
-        watch: {
-            initialValue() {
-                this.value = this.initialValue;
-            },
-            initialVisible() {
-                this.visible = this.initialVisible;
-            }
-        },
-        methods: {
-            onValue(value) {
-                this.value = value;
-            },
-            onVisible(value) {
-                this.visible = value;
-            }
-        },
-        template: `
-            <div>
-                <global />
-                <select-ripe
-                    v-bind:id="id"
-                    v-bind:placeholder="placeholder"
-                    v-bind:width="width"
-                    v-bind:max-height="maxHeight"
-                    v-bind:disabled="disabled"
-                    v-bind:allow-text-selection="allowTextSelection"
-                    v-bind:options="options"
-                    v-bind:value="value"
-                    v-bind:visible="visible"
-                    v-on:update:value="value => onValue(value)"
-                    v-on:update:visible="value => onVisible(value)"
-                >
-                </select-ripe>
-                <p>Selected option: {{ value }}</p>
-            </div>
-            `
-    }))
-    .add("Select Custom", () => ({
-        props: {
-            id: {
-                default: text("Dropdown Id", "select-platforme-id")
-            },
-            placeholder: {
-                default: text("Placeholder", "This is a placeholder text")
-            },
-            options: {
-                type: Array,
-                default: () => [
-                    { value: "option_1", label: "A" },
-                    { value: "option_2", label: "B" },
-                    { value: "option_3", label: "C" },
-                    { value: "option_4", label: "D" },
-                    { value: "option_5", label: "E" }
-                ]
-            },
-            initialValue: {
-                default: select(
-                    "Initial Value",
-                    {
-                        None: null,
-                        A: "option_1",
-                        B: "option_2",
-                        C: "option_3",
-                        D: "option_4",
-                        E: "option_5"
-                    },
-                    null
-                )
-            },
-            initialVisible: {
-                default: boolean("Initial Visible", false)
-            },
-            width: {
-                default: number("Width", 300)
+            visible: {
+                default: boolean("Visible", false)
             },
             maxHeight: {
                 default: number("Max Height", 200)
@@ -147,48 +53,31 @@ storiesOf("Molecules", module)
         },
         data: function() {
             return {
-                value: this.initialValue,
-                visible: this.initialVisible
+                valueData: this.value,
+                visibleData: this.visible
             };
         },
         watch: {
-            initialValue() {
-                this.value = this.initialValue;
+            value(value) {
+                this.valueData = value;
             },
-            initialVisible() {
-                this.visible = this.initialVisible;
-            }
-        },
-        methods: {
-            onValue(value) {
-                this.value = value;
-            },
-            onVisible(value) {
-                this.visible = value;
+            visible(value) {
+                this.visibleData = value;
             }
         },
         template: `
             <div>
                 <global />
                 <select-ripe
-                    v-bind:id="id"
                     v-bind:placeholder="placeholder"
                     v-bind:max-height="maxHeight"
                     v-bind:disabled="disabled"
                     v-bind:options="options"
-                    v-bind:value="value"
-                    v-bind:visible="visible"
-                    v-on:update:value="value => onValue(value)"
-                    v-on:update:visible="value => onVisible(value)"
+                    v-bind:value.sync="valueData"
+                    v-bind:visible.sync="visibleData"
                 >
-                    <template slot='item-option_4'>
-                        <div style="color:chocolate">Special Option</div>
-                    </template>
-                    <template slot='item-option_5'>
-                        <div style="color:green">Another Special Option</div>
-                    </template>
                 </select-ripe>
-                <p>Selected option: {{ value }}</p>
+                <p>Value: {{ valueData }}, visible: {{ visibleData }}</p>
             </div>
             `
     }));
