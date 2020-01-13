@@ -14,7 +14,7 @@
                         v-bind:key="index"
                     />
                 </div>
-                <attachments v-bind:attachments="allAttachments" />
+                <attachments v-bind:attachments="allAttachments" v-bind:height="305" />
             </div>
             <div class="chat-input-container" v-on:keydown.enter.exact.prevent="onEnter()">
                 <rich-textarea
