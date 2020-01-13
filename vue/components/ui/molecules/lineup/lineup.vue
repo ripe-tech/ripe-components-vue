@@ -16,11 +16,8 @@
                 <div
                     class="lineup-item-value"
                     v-bind:class="[value.value, `lineup-item-value-${value.value}`]"
-<<<<<<< HEAD
-                    v-bind:style="style"
-=======
->>>>>>> parent of d2cc221... Merge branch 'master' into ns/table_row_click_events
                     v-bind:key="value.value"
+                    v-bind:style="style"
                 >
                     <div class="key">
                         <slot
@@ -33,9 +30,7 @@
                                     v-bind:name="`${value.value}-label-text`"
                                     v-bind:item="item"
                                     v-bind:index="index"
-                                >
-                                    {{ value.label || value.value || value.name }}
-                                </slot>
+                                >{{ value.label || value.value || value.name }}</slot>
                             </p>
                         </slot>
                     </div>
@@ -50,9 +45,7 @@
                                     v-bind:name="`${value.value}-value-text`"
                                     v-bind:item="item"
                                     v-bind:index="index"
-                                >
-                                    {{ item[value.value] || item[value.value] || "-" }}
-                                </slot>
+                                >{{ item[value.value] || item[value.value] || "-" }}</slot>
                             </p>
                         </slot>
                     </div>
@@ -70,9 +63,7 @@
                                     v-bind:name="`${value.value}-note-text`"
                                     v-bind:item="item"
                                     v-bind:index="index"
-                                >
-                                    {{ item[value.note] }}
-                                </slot>
+                                >{{ item[value.note] }}</slot>
                             </p>
                         </slot>
                     </div>
@@ -89,79 +80,38 @@
     text-align: left;
 }
 
-.lineup > .lineup-item {
+.lineup .lineup-item {
     border-bottom: 1px solid $lighter-grey;
-    padding: 16px 20px 16px 20px;
 }
 
-.lineup > .lineup-item.clickable {
+.lineup .lineup-item.clickable {
     cursor: pointer;
 }
 
-.lineup > .lineup-item:first-child {
+.lineup .lineup-item:first-child {
     border-top: 1px solid $lighter-grey;
 }
 
-<<<<<<< HEAD
 .lineup .lineup-item .lineup-item-value {
-    box-sizing: border-box;
     display: inline-block;
+    box-sizing: border-box;
     padding: 0px 15px 0px 15px;
 }
 
 .lineup .lineup-item .lineup-item-value .key {
-    color: #8d8d8d;
+    text-transform: uppercase;
     font-size: 12px;
     font-weight: bold;
     letter-spacing: 0.6px;
-    text-transform: uppercase;
+    color: #8d8d8d;
 }
 
 .lineup .lineup-item .lineup-item-value .value {
-    color: #0d0d0d;
-    font-size: 14px;
-    font-weight: bold;
-    letter-spacing: 0.7px;
-    margin: 6px 0px 0px 0px;
-=======
-.lineup > .lineup-item ::v-deep .lineup-item-value {
-    box-sizing: border-box;
-    display: inline-block;
-    font-weight: 600;
-    min-height: 65px;
-    overflow: hidden;
-    padding: 20px 20px 0px 0px;
-    text-align: left;
-    text-transform: uppercase;
-}
-
-.lineup > .lineup-item ::v-deep .lineup-item-value .label > p,
-.lineup > .lineup-item ::v-deep .lineup-item-value .value > p,
-.lineup > .lineup-item ::v-deep .lineup-item-value .note > p {
-    margin: 0px 0px 0px 0px;
-}
-
-.lineup > .lineup-item .lineup-item-value .label {
-    color: $label-color;
-    font-size: 12px;
-    margin: 0px 0px 6px 0px;
-}
-
-.lineup > .lineup-item .lineup-item-value .value {
-    font-size: 14px;
-    line-height: 18px;
-    margin: 6px 0px 0px 0px;
-    word-break: break-all;
-    word-break: break-word;
-}
-
-.lineup > .lineup-item .lineup-item-value .note {
-    color: $label-color;
-    font-size: 11px;
-    line-height: 16px;
-    margin-bottom: 0px;
-    margin-top: 2px;
->>>>>>> parent of d2cc221... Merge branch 'master' into ns/table_row_click_events
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 0.7px;
+  color: #0d0d0d;
+  margin: 6px 0px 0px 0px;
 }
 </style>
 
@@ -177,6 +127,10 @@ export const Lineup = {
             type: Array,
             required: true
         },
+        nrColumns: {
+            type: Number,
+            default: 2
+        },
         transition: {
             type: String,
             default: null
@@ -186,16 +140,13 @@ export const Lineup = {
             default: null
         }
     },
-<<<<<<< HEAD
     computed: {
         style() {
             const base = {};
-            if (this.nrColumns) base.width = `${100 / this.nrColumns}%`;
+            if (this.nrColumns) base.width = `${100/(this.nrColumns)}%`;
             return base;
         }
     },
-=======
->>>>>>> parent of d2cc221... Merge branch 'master' into ns/table_row_click_events
     methods: {
         clickable(item) {
             return item.url || this.getItemUrl;
