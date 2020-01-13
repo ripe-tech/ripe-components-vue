@@ -13,10 +13,8 @@ const filterMixin = {
             options = {},
             nameAlias = {},
             nameFunc = {},
-            filterFields = {},
-            filterFieldsExt = {}
+            filterFields = {}
         } = {}) {
-            const allFilterFields = Object.assign({}, filterFields, filterFieldsExt);
             let operator = "$or";
             const { sort, reverse, filter, start, limit } = options;
             const filterS = filter || "";
@@ -35,7 +33,7 @@ const filterMixin = {
                     const field = nameAlias[key] || key;
                     const fieldFunc = nameFunc[field];
                     value = fieldFunc ? fieldFunc(value) : value;
-                    arithOp = arithOp === "=" ? allFilterFields[field] : OP_ALIAS[arithOp];
+                    arithOp = arithOp === "=" ? filterFields[field] : OP_ALIAS[arithOp];
                     if (!field || !arithOp) continue;
                     filters.push(`${field}:${arithOp}:${value}`);
                 }

@@ -68,6 +68,7 @@
             <div class="container-header">
                 <div class="header-buttons">
                     <slot name="header-buttons">
+                        <slot name="header-buttons-before" />
                         <div class="header-button">
                             <span class="button-stats" v-on:click="onStatsClick">
                                 <img src="~./assets/stats.svg" />
@@ -112,6 +113,7 @@
                             </span>
                             <p>Status</p>
                         </div>
+                        <slot name="header-buttons-after" />
                     </slot>
                 </div>
                 <slot name="title" v-if="isLoaded">
@@ -208,7 +210,7 @@ body.mobile .container-ripe {
 
 .container-ripe .container-header {
     font-size: 0px;
-    padding: 24px 24px 20px 24px;
+    padding: 24px 24px 24px 24px;
     text-align: left;
 }
 
@@ -220,7 +222,6 @@ body.mobile .container-ripe .container-header {
 .container-ripe .container-header .header-buttons {
     float: right;
     font-size: 0px;
-    margin-top: -12px;
     text-transform: capitalize;
     user-select: none;
 }
@@ -413,8 +414,8 @@ body.mobile .details-column.details-column-image {
 
 body.tablet .container-ripe .details-column .label-value,
 body.mobile .container-ripe .details-column .label-value {
-    margin-top: 20px;
-    min-height: 80px;
+    margin-top: 12px;
+    min-height: 70px;
     overflow: hidden;
 }
 

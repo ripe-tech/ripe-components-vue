@@ -138,7 +138,6 @@ body.mobile .container-header-right {
 }
 
 .container-header {
-    height: 34px;
     padding: 24px 28px 24px 28px;
 }
 
@@ -218,7 +217,15 @@ export const Listing = {
         },
         filterFields: {
             type: Object,
-            default: null
+            default: () => ({})
+        },
+        nameAlias: {
+            type: Object,
+            default: () => ({})
+        },
+        nameFunc: {
+            type: Object,
+            default: () => ({})
         },
         notFoundText: {
             type: String,
@@ -264,7 +271,9 @@ export const Listing = {
                 ? {
                       params: this.getFilterParams({
                           options: options,
-                          filterFields: this.filterFields
+                          filterFields: this.filterFields,
+                          nameAlias: this.nameAlias,
+                          nameFunc: this.nameFunc
                       })
                   }
                 : options;

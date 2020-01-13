@@ -1,9 +1,9 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, number, select, boolean } from "@storybook/addon-knobs";
 
-storiesOf("Atoms", module)
+storiesOf("Molecules", module)
     .addDecorator(withKnobs)
-    .add("Button Icon", () => ({
+    .add("Button Icon Animated", () => ({
         props: {
             icon: {
                 default: select(
@@ -17,6 +17,17 @@ storiesOf("Atoms", module)
                         Walking: "walking"
                     },
                     "close"
+                )
+            },
+            animationIcon: {
+                default: select(
+                    "Animation Icon",
+                    {
+                        Ok: "ok",
+                        Close: "close",
+                        Ellypsis: "ellypsis"
+                    },
+                    "ok"
                 )
             },
             color: {
@@ -36,11 +47,18 @@ storiesOf("Atoms", module)
             },
             disabled: {
                 default: boolean("Disabled", false)
+            },
+            animationTimeout: {
+                default: number("Animation Timeout", 500)
             }
         },
         template: `
-            <div>
-                <button-icon v-bind:icon="icon" v-bind:color="color" v-bind:size="size" v-bind:disabled="disabled" />
-            </div>
+            <button-icon-animated
+                v-bind:icon="icon" 
+                v-bind:animation-icon="animationIcon" 
+                v-bind:color="color" 
+                v-bind:size="size" 
+                v-bind:disabled="disabled"
+                v-bind:animation-timeout="animationTimeout" />
         `
     }));

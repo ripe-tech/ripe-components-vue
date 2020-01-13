@@ -33,6 +33,14 @@
     background-color: $lighter-grey;
 }
 
+.button-icon.button-icon-grey {
+    background-color: $lighter-grey;
+}
+
+.button-icon.button-icon-grey:hover:not(.disabled) {
+    background-color: #dedede;
+}
+
 .button-icon.button-icon-white {
     background-color: $white;
 }
@@ -41,12 +49,12 @@
     background-color: $lighter-grey;
 }
 
-.button-icon.button-icon-grey {
-    background-color: $lighter-grey;
+.button-icon.button-icon-black {
+    background-color: $dark;
 }
 
-.button-icon.button-icon-grey:hover:not(.disabled) {
-    background-color: #dedede;
+.button-icon.button-icon-black:hover:not(.disabled) {
+    background-color: #41566f;
 }
 </style>
 
@@ -73,7 +81,17 @@ export const ButtonIcon = {
     },
     computed: {
         iconPath() {
-            return require(`./../../../../assets/icons/black/${this.icon}.svg`);
+            let iconColor;
+            switch (this.color) {
+                case "black":
+                    iconColor = "white";
+                    break;
+
+                default:
+                    iconColor = "black";
+                    break;
+            }
+            return require(`./../../../../assets/icons/${iconColor}/${this.icon}.svg`);
         },
         style() {
             return {

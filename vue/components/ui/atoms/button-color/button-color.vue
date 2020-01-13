@@ -1,5 +1,10 @@
 <template>
-    <div class="button button-color" v-bind:class="classes" v-on:click="handleClick">
+    <div
+        class="button button-color"
+        v-bind:class="classes"
+        v-bind:style="style"
+        v-on:click="handleClick"
+    >
         <loader
             loader="ball-scale-multiple"
             class="loader"
@@ -8,7 +13,9 @@
         />
         <img class="icon" v-bind:src="iconPath" v-if="icon && !loading" />
         <img class="icon-hover" v-bind:src="iconHoverPath" v-if="icon && !loading" />
-        <span v-show="!loading">{{ text }}</span>
+        <span v-show="!loading">
+            <slot>{{ text }}</slot>
+        </span>
     </div>
 </template>
 
@@ -209,12 +216,8 @@
     float: left;
     height: 22px;
     margin-top: 9px;
+    padding-right: 12px;
     width: 22px;
-}
-
-.button-color.button-color-left .icon,
-.button-color.button-color-left .icon-hover {
-    margin-right: 8px;
 }
 
 .button-color.button-color-small .icon,
@@ -257,6 +260,10 @@ export const ButtonColor = {
             type: String,
             default: ""
         },
+        minWidth: {
+            type: Number,
+            default: null
+        },
         text: {
             type: String,
             default: null
@@ -280,10 +287,22 @@ export const ButtonColor = {
         icon: {
             type: String,
             default: null
+        },
+        href: {
+            type: String,
+            default: null
+        },
+        target: {
+            type: String,
+            default: null
         }
     },
     methods: {
         handleClick() {
+            if (this.href) {
+                if (this.target) window.open(this.href, this.target);
+                else document.location = this.href;
+            }
             this.$emit("click");
         }
     },
@@ -324,6 +343,11 @@ export const ButtonColor = {
             if (this.alignment) return this.alignment;
             if (this.icon) return "right";
             return "center";
+        },
+        style() {
+            return {
+                "min-width": this.minWidth === null ? null : `${this.minWidth}px`
+            };
         },
         classes() {
             const base = {
