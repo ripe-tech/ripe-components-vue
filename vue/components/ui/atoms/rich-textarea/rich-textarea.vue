@@ -144,12 +144,13 @@
     user-select: none;
     white-space: nowrap;
 }
-.rich-textarea .options .buttons{
-    display: flex;
+
+.rich-textarea .options .buttons {
     align-items: center;
+    display: flex;
 }
 
-.rich-textarea .options .buttons .send-button{
+.rich-textarea .options .buttons .send-button {
     margin-left: auto;
 }
 </style>
