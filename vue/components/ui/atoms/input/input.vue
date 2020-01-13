@@ -31,9 +31,12 @@
     outline: none;
     padding-left: 12px;
     padding-right: 12px;
-    text-overflow: ellipsis;
     transition: width 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
     width: 100%;
+}
+
+.input.ellipsis {
+    text-overflow: ellipsis;
 }
 
 .input.dark {
@@ -90,6 +93,10 @@ export const Input = {
             type: Boolean,
             default: false
         },
+        ellipsis: {
+            type: Boolean,
+            default: true
+        },
         width: {
             type: Number,
             default: null
@@ -134,6 +141,7 @@ export const Input = {
             const base = {};
             if (this.variant) base[this.variant] = true;
             if (this.border) base[`border-${this.border}`] = true;
+            if (this.ellipsis) base.ellipsis = true;
             return base;
         }
     }
