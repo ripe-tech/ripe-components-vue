@@ -1,5 +1,5 @@
 <template>
-    <table v-bind:class="['table', variant]" v-bind:style="style">
+    <table v-bind:class="['table', variant, classes]" v-bind:style="style">
         <thead class="table-head">
             <tr>
                 <th
@@ -205,7 +205,7 @@
     width: 20px;
 }
 
-.table[style="text-align: left;"] .table-column > span::before {
+.table.text-align-left .table-column > span::before {
     left: auto;
     right: 0px;
 }
@@ -291,6 +291,9 @@ export const Table = {
             const base = {};
             if (this.alignment !== null) base["text-align"] = this.alignment;
             return base;
+        },
+        classes() {
+            return this.alignment === "left" ? "text-align-left" : "";
         }
     },
     methods: {
