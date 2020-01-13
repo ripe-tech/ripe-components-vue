@@ -55,7 +55,8 @@ storiesOf("Atoms", module)
         data: function() {
             return {
                 valueData: this.value,
-                attachmentsData: this.attachments
+                attachmentsData: this.attachments,
+                sendMessageClickCounter: 0
             };
         },
         watch: {
@@ -64,6 +65,11 @@ storiesOf("Atoms", module)
             },
             attachments(value) {
                 this.attachmentsData = value;
+            }
+        },
+        methods: {
+            onSendMessageClick() {
+                this.sendMessageClickCounter++;
             }
         },
         template: `
@@ -78,10 +84,12 @@ storiesOf("Atoms", module)
                     v-bind:resize="resize"
                     v-bind:attachment="attachment"
                     v-bind:smile="smile"
+                    v-on:click:send-message="onSendMessageClick()"
                 />
                 <div>
                     <p>Text: {{ valueData }}</p>
                     <p>Number of files: {{ attachmentsData.length }}</p>
+                    <p>Send Message button clicked counter: {{ sendMessageClickCounter }}</p>
                 </div>
             </div>
             `

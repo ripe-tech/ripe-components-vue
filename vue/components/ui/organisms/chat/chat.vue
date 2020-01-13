@@ -24,14 +24,7 @@
                     v-bind:resize="false"
                     v-on:focus:textarea="onTextareaFocus"
                     v-on:blur:textarea="onTextareaBlur"
-                />
-                <button-color
-                    class="send-button"
-                    v-bind:text="'Send message'"
-                    v-bind:small="true"
-                    v-bind:icon="'send'"
-                    v-bind:alignment="'center'"
-                    v-on:click="onSendMessageClick()"
+                    v-on:click:send-message="onSendMessageClick()"
                 />
             </div>
         </upload-area>

@@ -53,6 +53,14 @@
                     v-if="smile"
                     v-on:click="onSmileClick()"
                 />
+                <button-color
+                    class="send-button"
+                    v-bind:text="'Send message'"
+                    v-bind:small="true"
+                    v-bind:icon="'send'"
+                    v-bind:alignment="'center'"
+                    v-on:click="onSendMessageClick()"
+                />
             </div>
         </div>
     </div>
@@ -135,6 +143,14 @@
     text-overflow: ellipsis;
     user-select: none;
     white-space: nowrap;
+}
+.rich-textarea .options .buttons{
+    display: flex;
+    align-items: center;
+}
+
+.rich-textarea .options .buttons .send-button{
+    margin-left: auto;
 }
 </style>
 
@@ -249,6 +265,9 @@ export const RichTextarea = {
         },
         onTextareaBlur() {
             this.$emit("blur:textarea");
+        },
+        onSendMessageClick() {
+            this.$emit("click:send-message");
         }
     }
 };
