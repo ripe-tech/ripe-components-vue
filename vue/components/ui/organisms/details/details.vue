@@ -68,6 +68,7 @@
             <div class="container-header">
                 <div class="header-buttons">
                     <slot name="header-buttons">
+                        <slot name="header-buttons-extra" />
                         <div class="header-button">
                             <span class="button-stats" v-on:click="onStatsClick">
                                 <img src="~./assets/stats.svg" />
