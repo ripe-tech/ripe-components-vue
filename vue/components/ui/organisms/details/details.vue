@@ -69,7 +69,7 @@
                 <div class="header-buttons">
                     <slot name="header-buttons">
                         <div class="header-button" v-if="!isMobileWidth()">
-                            <slot name="header-buttons-extra" />
+                            <slot name="header-button-extra" />
                         </div>
                         <div class="header-button">
                             <span class="button-stats" v-on:click="onStatsClick">
