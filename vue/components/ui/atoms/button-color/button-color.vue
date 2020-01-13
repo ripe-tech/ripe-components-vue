@@ -54,14 +54,14 @@
 }
 
 .button-color.button-color-small {
-    height: 32px;
-    line-height: 32px;
+    height: 34px;
+    line-height: 34px;
     min-width: 160px;
 }
 
 .button-color.button-color-small > * {
     font-size: 12px;
-    line-height: 32px;
+    line-height: 34px;
 }
 
 .button-color.button-color-left {
@@ -197,14 +197,14 @@
 .button-color ::v-deep .loader {
     display: inline-block;
     transform: translateY(-17px);
-    width: 32px;
+    width: 34px;
 }
 
 .button-color ::v-deep .loader > div {
     background-color: $white;
-    height: 32px;
+    height: 34px;
     left: 0px;
-    width: 32px;
+    width: 34px;
 }
 
 .button-color.button-color-secondary ::v-deep .loader > div {

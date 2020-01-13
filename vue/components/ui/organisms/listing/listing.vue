@@ -9,6 +9,20 @@
             <div class="container-header">
                 <div class="container-header-right">
                     <slot name="icons" />
+                    <div class="header-buttons">
+                        <button-color
+                            class="button-header"
+                            v-bind:text="button.label"
+                            v-bind:small="true"
+                            v-bind:min-width="0"
+                            v-bind:secondary="button.secondary"
+                            v-bind:alignment="'right'"
+                            v-bind:icon="button.icon"
+                            v-for="(button, index) in headerButtons"
+                            v-bind:key="index"
+                            v-on:click="onHeaderButtonClick(button)"
+                        />
+                    </div>
                     <search
                         v-bind:variant="'dark'"
                         v-bind:width="isMobileWidth() ? null : searchWidth"
@@ -133,6 +147,29 @@ body.mobile .container-header-right {
     width: 100%;
 }
 
+.container-header-right .header-buttons {
+    display: inline-block;
+}
+
+body.mobile .container-header-right .header-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    vertical-align: top;
+}
+
+.container-header-right .header-buttons .button-header {
+    margin-right: 4px;
+}
+
+.container-header-right .header-buttons .button-header:last-child {
+    margin-right: 0px;
+}
+
+.container-header-right .search {
+    vertical-align: top;
+}
+
 .listing .filter-ripe ::v-deep table {
     margin-bottom: 0px;
 }
@@ -246,6 +283,10 @@ export const Listing = {
         searchWidth: {
             type: Number,
             default: 304
+        },
+        headerButtons: {
+            type: Array,
+            default: () => []
         }
     },
     data: function() {
@@ -294,6 +335,9 @@ export const Listing = {
         },
         onLineupClick(item, index) {
             this.$emit("click:lineup", item, index);
+        },
+        onHeaderButtonClick(button) {
+            if (event) this.$emit("click:header-button", button.event);
         }
     },
     beforeRouteUpdate: function(to, from, next) {
