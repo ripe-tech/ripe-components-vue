@@ -8,11 +8,11 @@
                 <div class="icon to-right-all-icon" />
             </div>
 
-            <div class="button to-right" v-on:click="moveSelected(toRight=true)">
+            <div class="button to-right" v-on:click="moveSelected((toRight = true))">
                 <div class="icon to-right-icon" />
             </div>
 
-            <div class="button to-left" v-on:click="moveSelected(toRight=false)">
+            <div class="button to-left" v-on:click="moveSelected((toRight = false))">
                 <div class="icon to-left-icon" />
             </div>
 

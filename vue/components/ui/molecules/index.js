@@ -14,7 +14,6 @@ import { Tabs } from "./tabs/tabs.vue";
 import { Search } from "./search/search.vue";
 import { Select } from "./select/select.vue";
 import { UploadArea } from "./upload-area/upload-area.vue";
-import { SelectList } from "./select-list/select-list.vue";
 import { SelectListController } from "./select-list-controller/select-list-controller.vue";
 
 const install = Vue => {
