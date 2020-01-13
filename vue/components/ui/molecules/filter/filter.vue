@@ -18,7 +18,7 @@
                 v-bind:items="items"
                 v-bind:values="values"
                 v-bind:get-item-url="getItemUrl"
-                v-on:click="onLineupClick"
+                v-on:click:row="onLineupRowClick"
             >
                 <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
                 <template
@@ -271,8 +271,8 @@ export const Filter = {
             // has just been performed (all tests passed)
             return true;
         },
-        onLineupClick(item, index) {
-            this.$emit("click:lineup", item, index);
+        onLineupRowClick(item, index) {
+            this.$emit("click:lineup:row", item, index);
         }
     }
 };

@@ -34,7 +34,7 @@
                 v-bind:options.sync="filterOptions"
                 ref="filter"
                 v-on:update:options="filterUpdated"
-                v-on:click:lineup="onLineupClick"
+                v-on:click:lineup:row="onLineupRowClick"
                 v-on:click:table:row="value => onFilterTableRowClick(value)"
             >
                 <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
@@ -283,8 +283,8 @@ export const Listing = {
         getFilter() {
             return this.$refs.filter;
         },
-        onLineupClick(item, index) {
-            this.$emit("click:lineup", item, index);
+        onLineupRowClick(item, index) {
+            this.$emit("click:lineup:row", item, index);
         },
         onFilterTableRowClick(value) {
             this.$emit("click:filter:table:row", value);
