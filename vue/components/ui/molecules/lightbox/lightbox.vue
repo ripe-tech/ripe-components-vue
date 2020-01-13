@@ -8,6 +8,7 @@
         />
         <transition name="fade">
             <div class="lightbox-container" v-if="visible && (imageLightbox || image)" v-on:click="$emit('close')">
+            >
                 <div class="image-container">
                     <img v-bind:src="imageLightbox || image || ''" v-bind:alt="alt" />
                 </div>
