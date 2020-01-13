@@ -5,7 +5,8 @@
         v-bind:class="[
             focused ? 'focus' : 'unfocus',
             grow ? 'grow' : '',
-            iconVisible ? '' : 'icon-invisible'
+            iconVisible ? 'icon-visible' : 'icon-invisible',
+            clearVisible ? 'clear-visible' : 'clear-invisible'
         ]"
     >
         <global-events v-on:keydown.esc="blur()" />
@@ -96,11 +97,15 @@
 }
 
 .search ::v-deep input[type="text"] {
+    padding-left: 12px;
+}
+
+.search.icon-visible ::v-deep input[type="text"] {
     padding-left: 33px;
 }
 
-.search.icon-invisible ::v-deep input[type="text"] {
-    padding-left: 12px;
+.search.clear-visible ::v-deep input[type="text"] {
+    padding-right: 33px;
 }
 
 .search.grow ::v-deep input[type="text"]:focus {
