@@ -3,7 +3,7 @@ import { withKnobs, text, boolean, number, select } from "@storybook/addon-knobs
 
 storiesOf("Organisms", module)
     .addDecorator(withKnobs)
-    .add("Input Currency", () => ({
+    .add("Input Symbol", () => ({
         props: {
             variant: {
                 default: select(
