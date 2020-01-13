@@ -37,7 +37,6 @@
     border-radius: 6px 0px 0px 6px;
     padding-right: 7px;
     text-align: right;
-    text-overflow: ellipsis;
     vertical-align: top;
 }
 
