@@ -21,11 +21,11 @@
             >
                 <slot
                     v-bind:name="slot"
-                    v-for="slot in scopedSlots"
+                    v-for="slot in lineupSlots"
                     v-bind:slot="slot.replace('lineup-', '')"
                 />
                 <template
-                    v-for="slot in Object.keys(this.$scopedSlots)"
+                    v-for="slot in Object.keys($scopedSlots)"
                     v-bind:slot="slot.replace('lineup-', '')"
                     slot-scope="scope"
                 >
@@ -140,7 +140,7 @@ export const Filter = {
                 limit: this.limit
             };
         },
-        scopedSlots() {
+        lineupSlots() {
             return Object.keys(this.$slots).filter(slot => slot.startsWith("lineup-"));
         }
     },
