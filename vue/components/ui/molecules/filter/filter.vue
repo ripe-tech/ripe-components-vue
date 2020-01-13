@@ -8,6 +8,7 @@
                 v-bind:transition="tableTransition"
                 v-bind:initial-sort="sort"
                 v-bind:initial-reverse="reverse"
+                v-on:click:row="value => onTableRowClick(value)"
             >
                 <template v-slot="{ item, index }">
                     <slot name="item" v-bind:item="item" v-bind:index="index" />
@@ -221,6 +222,9 @@ export const Filter = {
         },
         removeItem(index) {
             this.items.splice(index, 1);
+        },
+        onTableRowClick(value) {
+            this.$emit("click:table:row", { index: value.index, item: value.item });
         },
         async refresh(force = true) {
             // in case there's a request already being handled and
