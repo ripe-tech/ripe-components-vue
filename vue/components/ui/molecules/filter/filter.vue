@@ -1,16 +1,5 @@
 <template>
     <div class="filter-ripe" v-bind:class="{ loading }">
-        <div>
-            {{
-                Object.keys(this.$slots)
-                    .filter(slot => slot.startsWith("lineup-"))
-                    .map(slot => slot.replace("lineup-", ""))
-            }}
-            {{
-                Object.keys(this.$scopedSlots)
-                    .filter(slot => slot.startsWith("lineup-"))
-            }}
-        </div>
         <slot name="list">
             <table-ripe
                 class="table"
@@ -22,16 +11,17 @@
                 v-bind:initial-reverse="reverse"
             >
                 <template v-slot="{ item, index }">
-                    <slot name="item" v-bind:item="item" v-bind:index="index" />
+                    <slot name="table-item" v-bind:item="item" v-bind:index="index" />
                 </template>
             </table-ripe>
             <lineup v-bind:items="items" v-bind:values="values">
+                <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
                 <template
-                    v-bind:slot="'lineup-brand'"
+                    v-for="slot in Object.keys(this.$scopedSlots)"
+                    v-bind:slot="slot.replace('lineup-', '')"
                     slot-scope="scope"
                 >
-                    {{ slot }}
-                    <slot v-bind:name="'brand'" v-bind="scope" />
+                    <slot v-bind:name="slot" v-bind="scope" />
                 </template>
             </lineup>
             <div class="empty-message" v-if="items.length === 0 && loading === false">
@@ -137,23 +127,6 @@ export const Filter = {
                 start: this.start,
                 limit: this.limit
             };
-        },
-        lineupSlots() {
-            console.log("LineupSlots");
-            console.log(Object.keys(this.$slots));
-            return Object.keys(this.$slots)
-                .filter(slot => slot.startsWith("lineup-"))
-                .map(slot => slot.replace("lineup-", ""));
-        },
-        lineupScopedSlots() {
-            console.log("LineupScopedSlots");
-            console.log(Object.keys(this.$scopedSlots));
-            const cenas = Object.keys(this.$scopedSlots)
-                .filter(slot => slot.startsWith("lineup-"))
-                .map(slot => slot.replace("lineup-", ""));
-
-            console.log(cenas);
-            return cenas;
         }
     },
     watch: {

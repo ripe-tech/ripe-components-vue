@@ -48,7 +48,7 @@ storiesOf("Molecules", module).add("Filter", () => ({
             v-bind:columns="columns" 
             v-bind:values="values"
         >
-            <template v-slot:item="{ item, index }">
+            <template v-slot:table-item="{ item, index }">
                 <td class="id">
                     {{ item.id }}
                 </td>

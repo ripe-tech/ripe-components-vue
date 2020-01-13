@@ -47,10 +47,10 @@ storiesOf("Molecules", module)
                 v-bind:values="values"
                 v-bind:items="items"
             >
-                <template v-slot:lineup-shirt>
+                <template v-slot:shirt>
                     <p>Custom entry</p>
                 </template>
-                <template v-slot:lineup-city>
+                <template v-slot:city>
                     <p>Custom label</p>
                 </template>
             </lineup>

@@ -1,14 +1,11 @@
 <template>
     <transition-group tag="div" v-bind:name="transition" class="lineup">
         <div class="lineup-item" v-for="item in items" v-bind:key="item.id">
-            <p>{{ Object.keys($slots) }}</p>
-            <p>{{ Object.keys($scopedSlots) }}</p>
-            <p>{{ values.map(value => `${value.value}`) }}</p>
-            <slot v-bind:name="`lineup-${value.value}`" v-bind:item="item" v-for="value in values">
+            <slot v-bind:name="value.value" v-bind:item="item" v-for="value in values">
                 <div
                     class="lineup-item-value"
                     v-bind:class="[value.value, `lineup-item-value-${value.value}`]"
-                    v-bind:key="`lineup-${value.value}`"
+                    v-bind:key="value.value"
                 >
                     <div class="key">
                         <slot v-bind:name="`${value.value}-key`" v-bind:item="item">
