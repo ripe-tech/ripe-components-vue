@@ -266,7 +266,6 @@ export const Table = {
             }
 
             const items = [...this.items];
-            debugger;
             return this.sortMethod(items, this.sortData, this.reverseData);
         }
     },
