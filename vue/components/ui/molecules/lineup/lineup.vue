@@ -16,8 +16,8 @@
                 <div
                     class="lineup-item-value"
                     v-bind:class="[value.value, `lineup-item-value-${value.value}`]"
-                    v-bind:key="value.value"
                     v-bind:style="style"
+                    v-bind:key="value.value"
                 >
                     <div class="key">
                         <slot
@@ -30,7 +30,9 @@
                                     v-bind:name="`${value.value}-label-text`"
                                     v-bind:item="item"
                                     v-bind:index="index"
-                                >{{ value.label || value.value || value.name }}</slot>
+                                >
+                                    {{ value.label || value.value || value.name }}
+                                </slot>
                             </p>
                         </slot>
                     </div>
@@ -45,7 +47,9 @@
                                     v-bind:name="`${value.value}-value-text`"
                                     v-bind:item="item"
                                     v-bind:index="index"
-                                >{{ item[value.value] || item[value.value] || "-" }}</slot>
+                                >
+                                    {{ item[value.value] || item[value.value] || "-" }}
+                                </slot>
                             </p>
                         </slot>
                     </div>
@@ -63,7 +67,9 @@
                                     v-bind:name="`${value.value}-note-text`"
                                     v-bind:item="item"
                                     v-bind:index="index"
-                                >{{ item[value.note] }}</slot>
+                                >
+                                    {{ item[value.note] }}
+                                </slot>
                             </p>
                         </slot>
                     </div>
@@ -75,19 +81,24 @@
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
+
 .lineup {
     text-align: left;
 }
+
 .lineup > .lineup-item {
     border-bottom: 1px solid $lighter-grey;
     padding: 16px 20px 16px 20px;
 }
+
 .lineup > .lineup-item.clickable {
     cursor: pointer;
 }
+
 .lineup > .lineup-item:first-child {
     border-top: 1px solid $lighter-grey;
 }
+
 .lineup > .lineup-item ::v-deep .lineup-item-value {
     box-sizing: border-box;
     display: inline-block;
@@ -98,16 +109,19 @@
     text-align: left;
     text-transform: uppercase;
 }
+
 .lineup > .lineup-item ::v-deep .lineup-item-value .label > p,
 .lineup > .lineup-item ::v-deep .lineup-item-value .value > p,
 .lineup > .lineup-item ::v-deep .lineup-item-value .note > p {
     margin: 0px 0px 0px 0px;
 }
+
 .lineup > .lineup-item .lineup-item-value .label {
     color: $label-color;
     font-size: 12px;
     margin: 0px 0px 6px 0px;
 }
+
 .lineup > .lineup-item .lineup-item-value .value {
     font-size: 14px;
     line-height: 18px;
@@ -115,6 +129,7 @@
     word-break: break-all;
     word-break: break-word;
 }
+
 .lineup > .lineup-item .lineup-item-value .note {
     color: $label-color;
     font-size: 11px;
@@ -152,7 +167,7 @@ export const Lineup = {
     computed: {
         style() {
             const base = {};
-            if (this.nrColumns) base.width = `${100/(this.nrColumns)}%`;
+            if (this.nrColumns) base.width = `${100 / this.nrColumns}%`;
             return base;
         }
     },
