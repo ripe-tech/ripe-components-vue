@@ -41,7 +41,6 @@
 .content-menu.floating .menu {
     transition: all var(--animation-timeout) ease-in-out;
     position: absolute;
-    left: 0px;
     top: 0px;
     z-index: 1;
 }
