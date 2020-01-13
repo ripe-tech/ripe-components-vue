@@ -68,7 +68,7 @@
             <div class="container-header">
                 <div class="header-buttons">
                     <slot name="header-buttons">
-                        <slot name="header-buttons-before" v-if="!isMobileWidth()" />
+                        <slot name="header-buttons-before" />
                         <div class="header-button">
                             <span class="button-stats" v-on:click="onStatsClick">
                                 <img src="~./assets/stats.svg" />
@@ -113,7 +113,7 @@
                             </span>
                             <p>Status</p>
                         </div>
-                        <slot name="header-buttons-after" v-if="!isMobileWidth()" />
+                        <slot name="header-buttons-after" />
                     </slot>
                 </div>
                 <slot name="title" v-if="isLoaded">
@@ -451,10 +451,7 @@ body.mobile .container-ripe .details-column .label-value {
 </style>
 
 <script>
-import { partMixin } from "../../../../mixins";
-
 export const Details = {
-    mixins: [partMixin],
     name: "details-ripe",
     props: {
         name: {
