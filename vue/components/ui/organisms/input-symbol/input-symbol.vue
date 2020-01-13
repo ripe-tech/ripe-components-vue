@@ -63,6 +63,7 @@
     font-size: 13px;
     height: 34px;
     line-height: 30px;
+    overflow: hidden;
     padding: 1px 10px 1px 10px;
 }
 
