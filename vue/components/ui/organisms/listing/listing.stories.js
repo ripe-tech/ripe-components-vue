@@ -75,12 +75,12 @@ storiesOf("Organisms", module)
                     <template v-slot:icons>
                         <img v-bind:src="img" v-bind:style="imgStyle" />
                     </template>
-                    <template v-slot:item="{ item, index, addFilter }">
+                    <template v-slot:table-item="{ item, index, addFilter }">
                         <td class="id">
                             {{ item.id }}
                         </td>
                         <td class="user" v-on:click="addFilter('user', item.user)">
-                            {{ item.user || "-" }}
+                            {{ item.user|| "-" }}
                         </td>
                         <td class="device" v-on:click="addFilter('device', item.device)">
                             {{ item.device }}
