@@ -1,5 +1,5 @@
 <template>
-    <table v-bind:class="['table', variant]">
+    <table v-bind:class="['table', variant]" v-bind:style="style">
         <thead class="table-head">
             <tr>
                 <th
@@ -62,10 +62,6 @@
     border-bottom: 1px solid $border-color;
 }
 
-.table.dense thead tr {
-    text-align: left;
-}
-
 .table tbody tr:last-child {
     border-bottom: none;
 }
@@ -104,7 +100,6 @@
     font-weight: 400;
     height: 40px;
     padding: 0px 0px 0px 20px;
-    text-align: left;
 }
 
 .table ::v-deep td > * {
@@ -261,6 +256,10 @@ export const Table = {
             type: Boolean,
             default: false
         },
+        alignment: {
+            type: String,
+            default: null
+        },
         variant: {
             type: String,
             default: null
@@ -288,6 +287,11 @@ export const Table = {
 
             const items = [...this.items];
             return this.sortMethod(items, this.sortData, this.reverseData);
+        },
+        style() {
+            const base = {};
+            if (this.alignment !== null) base["text-align"] = this.alignment;
+            return base;
         }
     },
     methods: {
