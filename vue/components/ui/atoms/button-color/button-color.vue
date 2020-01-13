@@ -13,7 +13,9 @@
         />
         <img class="icon" v-bind:src="iconPath" v-if="icon && !loading" />
         <img class="icon-hover" v-bind:src="iconHoverPath" v-if="icon && !loading" />
-        <span v-show="!loading">{{ text }}</span>
+        <span v-show="!loading">
+            <slot>{{ text }}</slot>
+        </span>
     </div>
 </template>
 
@@ -285,10 +287,22 @@ export const ButtonColor = {
         icon: {
             type: String,
             default: null
+        },
+        href: {
+            type: String,
+            default: null
+        },
+        target: {
+            type: String,
+            default: null
         }
     },
     methods: {
         handleClick() {
+            if (this.href) {
+                if (this.target) window.open(this.href, this.target);
+                else document.location = this.href;
+            }
             this.$emit("click");
         }
     },

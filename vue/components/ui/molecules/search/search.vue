@@ -5,7 +5,8 @@
         v-bind:class="[
             focused ? 'focus' : 'unfocus',
             grow ? 'grow' : '',
-            iconVisible ? '' : 'icon-invisible'
+            iconVisible ? 'icon-visible' : 'icon-invisible',
+            clearVisible ? 'clear-visible' : 'clear-invisible'
         ]"
     >
         <global-events v-on:keydown.esc="blur()" />
@@ -36,11 +37,11 @@
             v-on:blur="focused = false"
         />
         <button-icon
-            class="icon-delete"
+            class="icon-clear"
             v-bind:icon="'close'"
             v-bind:color="'none'"
-            v-if="deleteButtonEnabled"
-            v-on:click="onDeleteIconClick"
+            v-if="clearButtonVisible"
+            v-on:click="onClearIconClick"
         />
         <transition name="slide">
             <div class="suggestions" v-show="suggestionsVisible && suggestions.length > 0">
@@ -96,18 +97,22 @@
 }
 
 .search ::v-deep input[type="text"] {
+    padding-left: 12px;
+}
+
+.search.icon-visible ::v-deep input[type="text"] {
     padding-left: 33px;
 }
 
-.search.icon-invisible ::v-deep input[type="text"] {
-    padding-left: 12px;
+.search.clear-visible ::v-deep input[type="text"] {
+    padding-right: 33px;
 }
 
 .search.grow ::v-deep input[type="text"]:focus {
     width: 340px;
 }
 
-.search .icon-delete {
+.search .icon-clear {
     position: absolute;
     right: 5px;
     top: 3px;
@@ -182,7 +187,7 @@ export const Search = {
             type: Boolean,
             default: true
         },
-        enableDelete: {
+        clearVisible: {
             type: Boolean,
             default: false
         },
@@ -225,19 +230,19 @@ export const Search = {
             if (this.width) base.width = `${this.width}px`;
             return base;
         },
-        deleteButtonEnabled() {
-            return this.valueData && this.enableDelete;
+        clearButtonVisible() {
+            return this.valueData && this.clearVisible;
         }
     },
     methods: {
         blur() {
             this.$refs.input.blur();
         },
-        deleteValue() {
+        clear() {
             this.valueData = "";
         },
-        onDeleteIconClick() {
-            this.deleteValue();
+        onClearIconClick() {
+            this.clear();
         }
     }
 };

@@ -56,7 +56,7 @@
 
 body.mobile .footer {
     border-top: none;
-    margin-top: 32px;
+    margin-top: 18px;
     padding-bottom: 0px;
 }
 
@@ -128,12 +128,14 @@ body.mobile .links-right {
     line-height: 60px;
 }
 
-.links-logo > .copy {
-    display: none;
+body.mobile .links-logo {
+    height: 50px;
+    line-height: 50px;
+    padding: 0px 18px 0px 18px;
 }
 
-body.mobile .links-logo {
-    padding: 0px 18px 0px 18px;
+.links-logo > .copy {
+    display: none;
 }
 
 body.mobile .links-logo > .copy {
