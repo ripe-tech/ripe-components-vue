@@ -96,6 +96,7 @@
     display: inline-block;
     box-sizing: border-box;
     padding: 0px 15px 0px 15px;
+    vertical-align: top;
 }
 
 .lineup .lineup-item .lineup-item-value .key {
@@ -129,7 +130,7 @@ export const Lineup = {
         },
         nrColumns: {
             type: Number,
-            default: 2
+            default: 0
         },
         transition: {
             type: String,
