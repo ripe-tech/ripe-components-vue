@@ -166,7 +166,7 @@ export const Lineup = {
         onItemClick(item, index) {
             const url = this.getItemUrl ? this.getItemUrl(item, index) : item.url;
             if (url) this.$router.push(url);
-            this.$emit("click:row", item, index);
+            this.$emit("click", item, index);
         }
     }
 };
