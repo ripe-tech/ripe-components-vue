@@ -27,7 +27,7 @@
                         v-bind:class="column.value"
                         v-for="column in columns"
                         v-bind:key="column.value"
-                        v-on:click="onRowClick(index, item)"
+                        v-on:click="onRowClick(item, index)"
                     >
                         {{ item[column.value] }}
                     </td>
@@ -278,8 +278,8 @@ export const Table = {
             this.$emit("update:sort", this.sortData);
             this.$emit("update:reverse", this.reverseData);
         },
-        onRowClick(index, item) {
-            this.$emit("click:row", { index: index, item: item });
+        onRowClick(item, index) {
+            this.$emit("click:row", item, index);
         }
     }
 };

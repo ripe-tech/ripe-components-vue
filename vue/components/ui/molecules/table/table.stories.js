@@ -64,8 +64,8 @@ storiesOf("Molecules", module)
             }
         },
         methods: {
-            onRowClick(value) {
-                this.rowClickedText = `Row ${value.index} with item {id: ${value.item.id}, user:${value.item.user}, system:${value.item.system}} clicked !`;
+            onRowClick(item, index) {
+                this.rowClickedText = `Row ${index} with item {id: ${item.id}, user:${item.user}, system:${item.system}} clicked !`;
             }
         },
         template: `
@@ -76,7 +76,7 @@ storiesOf("Molecules", module)
                     v-bind:items="mockItems"
                     v-bind:sort.sync="sortData"
                     v-bind:reverse.sync="reverseData"
-                    v-on:click:row="value => onRowClick(value)"
+                    v-on:click:row="onRowClick"
                 />
                 <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}</p>
                 <p>Last Row Clicked: {{ rowClickedText }}</p>
