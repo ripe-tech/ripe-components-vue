@@ -1,5 +1,5 @@
 <template>
-    <table class="table">
+    <table v-bind:class="['table', variant]">
         <thead class="table-head">
             <tr>
                 <th
@@ -62,6 +62,10 @@
     border-bottom: 1px solid $border-color;
 }
 
+.table.dense thead tr {
+    text-align: left;
+}
+
 .table tbody tr:last-child {
     border-bottom: none;
 }
@@ -90,6 +94,12 @@
     padding: 0px 0px 0px 0px;
     text-overflow: ellipsis;
     word-break: break-all;
+}
+
+.table.dense ::v-deep td {
+    height: 40px;
+    padding: 0px 0px 0px 20px;
+    text-align: left;
 }
 
 .table ::v-deep td > * {
@@ -240,6 +250,10 @@ export const Table = {
         reverse: {
             type: Boolean,
             default: false
+        },
+        variant: {
+            type: String,
+            default: null
         }
     },
     watch: {
