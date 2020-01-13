@@ -1,17 +1,20 @@
 <template>
     <div
         class="input-symbol"
-        v-bind:class="[
-            { disabled: $attrs.disabled },
-            `color-${$attrs.variant}`,
-            `border-${this.$attrs.border}`
-        ]"
+        v-bind:class="[{ disabled: disabled }, `color-${variant}`, `border-${border}`]"
     >
         <input-ripe
             class="input-ripe"
             v-bind:value.sync="valueData"
-            v-bind="$attrs"
-            v-on="$listeners"
+            v-bind:variant="variant"
+            v-bind:border="border"
+            v-bind:placeholder="placeholder"
+            v-bind:disabled="disabled"
+            v-bind:width="width"
+            v-bind:height="height"
+            v-on:update:value="$emit('update:value', $event)"
+            v-on:blur="$emit('blur')"
+            v-on:focus="$emit('focus')"
         />
         <div class="symbol" v-bind:style="style">
             {{ symbol }}
@@ -70,6 +73,34 @@ export const InputSymbol = {
         value: {
             type: [String, Number],
             default: ""
+        },
+        variant: {
+            type: String,
+            default: null
+        },
+        border: {
+            type: String,
+            default: "thin"
+        },
+        placeholder: {
+            type: String,
+            default: ""
+        },
+        autofocus: {
+            type: Boolean,
+            default: false
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        },
+        width: {
+            type: Number,
+            default: null
+        },
+        height: {
+            type: Number,
+            default: null
         }
     },
     data: function() {
@@ -80,8 +111,8 @@ export const InputSymbol = {
     computed: {
         style() {
             const base = {
-                height: this.$attrs.height === null ? null : `${this.$attrs.height}px`,
-                "line-height": this.$attrs.height === null ? null : `${this.$attrs.height}px`
+                height: this.height === null ? null : `${this.height}px`,
+                "line-height": this.height === null ? null : `${this.height}px`
             };
             return base;
         }
