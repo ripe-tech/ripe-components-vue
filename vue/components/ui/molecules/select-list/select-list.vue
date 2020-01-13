@@ -1,12 +1,12 @@
 <template>
     <div class="select-list">
-        <div class="container-content">
+        <div class="items">
             <div
-                class="content-item"
+                class="item"
                 v-bind:class="{ selected: item.selected }"
                 v-for="item in items"
                 v-bind:key="item.index"
-                v-on:click="selectItem(item)"
+                v-on:click="onClick(item)"
             >
                 <span>{{ item.value }}</span>
             </div>
@@ -24,14 +24,14 @@
     width: 320px;
 }
 
-.container-content {
+.items {
     height: 100%;
     overflow-y: auto;
     user-select: none;
     width: 100%;
 }
 
-.content-item {
+.item {
     color: #1d2631;
     cursor: pointer;
     font-size: 14px;
@@ -39,18 +39,18 @@
     width: 303px;
 }
 
-.content-item > span {
+.item > span {
     line-height: 32px;
     margin-left: 5px;
 }
 
-.content-item.selected,
-.content-item:hover {
+.item.selected,
+.item:hover {
     background-color: #1d2631;
     color: #ffffff;
 }
 
-.content-item:hover {
+.item:hover {
     opacity: 0.9;
 }
 </style>
@@ -136,6 +136,9 @@ export const SelectList = Vue.component("select-list", {
                 this._removeItem(item);
             }
             this.$emit("update:value", this.valueData);
+        },
+        onClick(item) {
+            this.selectItem(item);
         }
     }
 });
