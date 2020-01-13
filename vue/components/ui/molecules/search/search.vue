@@ -36,11 +36,11 @@
             v-on:blur="focused = false"
         />
         <button-icon
-            class="icon-delete"
+            class="icon-clear"
             v-bind:icon="'close'"
             v-bind:color="'none'"
-            v-if="deleteButtonEnabled"
-            v-on:click="onDeleteIconClick"
+            v-if="clearButtonVisible"
+            v-on:click="onClearIconClick"
         />
         <transition name="slide">
             <div class="suggestions" v-show="suggestionsVisible && suggestions.length > 0">
@@ -107,7 +107,7 @@
     width: 340px;
 }
 
-.search .icon-delete {
+.search .icon-clear {
     position: absolute;
     right: 5px;
     top: 3px;
@@ -182,7 +182,7 @@ export const Search = {
             type: Boolean,
             default: true
         },
-        enableDelete: {
+        clearVisible: {
             type: Boolean,
             default: false
         },
@@ -225,19 +225,19 @@ export const Search = {
             if (this.width) base.width = `${this.width}px`;
             return base;
         },
-        deleteButtonEnabled() {
-            return this.valueData && this.enableDelete;
+        clearButtonVisible() {
+            return this.valueData && this.clearVisible;
         }
     },
     methods: {
         blur() {
             this.$refs.input.blur();
         },
-        deleteValue() {
+        clear() {
             this.valueData = "";
         },
-        onDeleteIconClick() {
-            this.deleteValue();
+        onClearIconClick() {
+            this.clear();
         }
     }
 };
