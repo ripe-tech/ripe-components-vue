@@ -1,10 +1,14 @@
 <template>
     <div
         class="input-symbol"
-        v-bind:class="[{ disabled: disabled }, `color-${variant}`, `border-${border}`]"
+        v-bind:class="[
+            { disabled: disabled },
+            `color-${variant}`,
+            `border-${border}`,
+            `text-align-${align}`
+        ]"
     >
         <input-ripe
-            class="input-ripe"
             v-bind:value.sync="valueData"
             v-bind:variant="variant"
             v-bind:border="border"
@@ -12,9 +16,9 @@
             v-bind:disabled="disabled"
             v-bind:width="width"
             v-bind:height="height"
-            v-on:update:value="$emit('update:value', $event)"
-            v-on:blur="$emit('blur')"
-            v-on:focus="$emit('focus')"
+            v-on:update:value="onInput($event)"
+            v-on:blur="onBlur"
+            v-on:focus="onFocus"
         />
         <div class="symbol" v-bind:style="style">
             {{ symbol }}
@@ -29,12 +33,24 @@
     opacity: 0.4;
 }
 
-.input-symbol .input-ripe {
+.input-symbol .input {
     border-radius: 6px 0px 0px 6px;
     padding-right: 7px;
     text-align: right;
     text-overflow: ellipsis;
     vertical-align: top;
+}
+
+.input-symbol.text-align-left .input {
+    text-align: left;
+}
+
+.input-symbol.text-align-center .input {
+    text-align: center;
+}
+
+.input-symbol.text-align-right .input {
+    text-align: right;
 }
 
 .input-symbol .symbol {
@@ -101,6 +117,10 @@ export const InputSymbol = {
         height: {
             type: Number,
             default: null
+        },
+        align: {
+            type: String,
+            default: "right"
         }
     },
     data: function() {
@@ -120,6 +140,17 @@ export const InputSymbol = {
     watch: {
         value: function(value) {
             this.valueData = value;
+        }
+    },
+    methods: {
+        onInput(value) {
+            this.$emit("update:value", value);
+        },
+        onFocus() {
+            this.$emit("focus");
+        },
+        onBlur() {
+            this.$emit("blur");
         }
     }
 };

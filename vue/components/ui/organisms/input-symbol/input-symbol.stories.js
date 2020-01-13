@@ -26,17 +26,35 @@ storiesOf("Organisms", module)
                     "thin"
                 )
             },
-            symbol: {
-                default: text("Symbol", "€")
+            align: {
+                default: select(
+                    "Align",
+                    {
+                        Unset: null,
+                        Left: "left",
+                        Center: "center",
+                        Right: "right"
+                    },
+                    "right"
+                )
             },
             value: {
                 default: text("Value", "This is a text")
+            },
+            symbol: {
+                default: text("Symbol", "€")
             },
             placeholder: {
                 default: text("Placeholder", "This is a placeholder")
             },
             disabled: {
                 default: boolean("Disabled", false)
+            },
+            height: {
+                default: number("Height", null)
+            },
+            width: {
+                default: number("Width", 100)
             },
             header: {
                 default: text("Header", "Start Header")
@@ -52,12 +70,6 @@ storiesOf("Organisms", module)
             },
             success: {
                 default: text("Success", "")
-            },
-            width: {
-                default: number("Width", 100)
-            },
-            height: {
-                default: number("Height", null)
             }
         },
         data: function() {
@@ -83,13 +95,14 @@ storiesOf("Organisms", module)
                     v-bind:success="success"
                 >
                     <input-symbol
-                        v-bind:variant="variant"
-                        v-bind:border="border"
                         v-bind:value.sync="valueData"
-                        v-bind:placeholder="placeholder"
-                        v-bind:disabled="disabled"
-                        v-bind:width="width"
                         v-bind:height="height"
+                        v-bind:width="width"
+                        v-bind:align="align"
+                        v-bind:border="border"
+                        v-bind:variant="variant"
+                        v-bind:disabled="disabled"
+                        v-bind:placeholder="placeholder"
                         v-bind:symbol="symbol"
                         v-on:update:value="inputTime = new Date().getTime()"
                         v-on:focus="focusTime = new Date().getTime()"
