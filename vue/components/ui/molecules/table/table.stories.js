@@ -76,7 +76,7 @@ storiesOf("Molecules", module)
                     v-bind:items="mockItems"
                     v-bind:sort.sync="sortData"
                     v-bind:reverse.sync="reverseData"
-                    v-on:click:row="onRowClick"
+                    v-on:click="onRowClick"
                 />
                 <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}</p>
                 <p>Last Row Clicked: {{ rowClickedText }}</p>

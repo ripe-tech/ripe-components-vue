@@ -279,7 +279,7 @@ export const Table = {
             this.$emit("update:reverse", this.reverseData);
         },
         onRowClick(item, index) {
-            this.$emit("click:row", item, index);
+            this.$emit("click", item, index);
         }
     }
 };

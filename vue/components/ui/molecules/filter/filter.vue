@@ -8,7 +8,7 @@
                 v-bind:transition="tableTransition"
                 v-bind:initial-sort="sort"
                 v-bind:initial-reverse="reverse"
-                v-on:click:row="onTableRowClick"
+                v-on:click="onTableRowClick"
             >
                 <template v-slot="{ item, index }">
                     <slot name="item" v-bind:item="item" v-bind:index="index" />
