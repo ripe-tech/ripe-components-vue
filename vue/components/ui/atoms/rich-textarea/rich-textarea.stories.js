@@ -42,6 +42,9 @@ storiesOf("Atoms", module)
             disabled: {
                 default: boolean("Disabled", false)
             },
+            sendButtonDisabled: {
+                default: boolean("Send Button Disabled", false)
+            },
             resize: {
                 default: boolean("Resize", true)
             },
@@ -81,6 +84,7 @@ storiesOf("Atoms", module)
                     v-bind:attachments.sync="attachmentsData"
                     v-bind:placeholder="placeholder"
                     v-bind:disabled="disabled"
+                    v-bind:send-button-disabled="sendButtonDisabled"
                     v-bind:resize="resize"
                     v-bind:attachment="attachment"
                     v-bind:smile="smile"

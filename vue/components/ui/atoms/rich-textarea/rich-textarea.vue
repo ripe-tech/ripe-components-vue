@@ -55,6 +55,7 @@
                 />
                 <button-color
                     class="send-button"
+                    v-bind:disabled="isSendButtonDisabled"
                     v-bind:text="'Send message'"
                     v-bind:small="true"
                     v-bind:icon="'send'"
@@ -187,6 +188,10 @@ export const RichTextarea = {
             type: Boolean,
             default: false
         },
+        sendButtonDisabled: {
+            type: Boolean,
+            default: false
+        },
         resize: {
             type: Boolean,
             default: true
@@ -232,6 +237,9 @@ export const RichTextarea = {
             const base = {};
             if (this.width !== null) base.width = `${this.width}px`;
             return base;
+        },
+        isSendButtonDisabled() {
+            return this.disabled || this.sendButtonDisabled;
         }
     },
     methods: {
