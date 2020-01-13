@@ -70,7 +70,7 @@ storiesOf("Organisms", module)
                     v-bind:use-query="false"
                     v-bind:filter-fields="filterFields"
                     v-bind:values="[]"
-                    v-on:click:filter:table:row="onFilterTableRowClick"
+                    v-on:click:table:row="onFilterTableRowClick"
                 >
                     <template v-slot:icons>
                         <img v-bind:src="img" v-bind:style="imgStyle" />
