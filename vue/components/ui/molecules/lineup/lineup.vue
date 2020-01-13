@@ -16,7 +16,6 @@
                 <div
                     class="lineup-item-value"
                     v-bind:class="[value.value, `lineup-item-value-${value.value}`]"
-                    v-bind:style="style"
                     v-bind:key="value.value"
                 >
                     <div class="key">
@@ -151,10 +150,6 @@ export const Lineup = {
             type: Array,
             required: true
         },
-        nrColumns: {
-            type: Number,
-            default: 2
-        },
         transition: {
             type: String,
             default: null
@@ -162,13 +157,6 @@ export const Lineup = {
         getItemUrl: {
             type: Function,
             default: null
-        }
-    },
-    computed: {
-        style() {
-            const base = {};
-            if (this.nrColumns) base.width = `${100 / this.nrColumns}%`;
-            return base;
         }
     },
     methods: {
