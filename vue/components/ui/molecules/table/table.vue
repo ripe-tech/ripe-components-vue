@@ -22,6 +22,7 @@
         </thead>
         <transition-group tag="tbody" v-bind:name="transition" class="table-body">
             <template v-for="(item, index) in sortedItems">
+                <slot name="before-row" v-bind:item="item" v-bind:index="index" />
                 <tr v-bind:key="item.id">
                     <slot v-bind:item="item" v-bind:index="index">
                         <td
@@ -33,7 +34,7 @@
                         </td>
                     </slot>
                 </tr>
-                <slot name="extra-row" v-bind:item="item" v-bind:index="index" />
+                <slot name="after-row" v-bind:item="item" v-bind:index="index" />
             </template>
         </transition-group>
     </table>
