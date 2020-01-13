@@ -7,6 +7,7 @@
             `border-${border}`,
             `text-align-${align}`
         ]"
+        v-bind:style="style"
     >
         <input-ripe
             v-bind:value.sync="valueData"
@@ -14,13 +15,12 @@
             v-bind:border="border"
             v-bind:placeholder="placeholder"
             v-bind:disabled="disabled"
-            v-bind:width="width"
             v-bind:height="height"
             v-on:update:value="onInput($event)"
             v-on:blur="onBlur"
             v-on:focus="onFocus"
         />
-        <div class="symbol" v-bind:style="style">
+        <div class="symbol" v-bind:style="symbolStyle">
             {{ symbol }}
         </div>
     </div>
@@ -29,12 +29,18 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
+.input-symbol {
+    display: flex;
+    width: 100%;
+}
+
 .input-symbol.disabled {
     opacity: 0.4;
 }
 
 .input-symbol .input {
     border-radius: 6px 0px 0px 6px;
+    flex: 1 0;
     padding-right: 7px;
     text-align: right;
     vertical-align: top;
@@ -130,6 +136,12 @@ export const InputSymbol = {
     },
     computed: {
         style() {
+            const base = {
+                width: this.width === null ? null : `${this.width}px`
+            };
+            return base;
+        },
+        symbolStyle() {
             const base = {
                 height: this.height === null ? null : `${this.height}px`,
                 "line-height": this.height === null ? null : `${this.height}px`
