@@ -220,7 +220,6 @@ body.mobile .container-ripe .container-header {
 .container-ripe .container-header .header-buttons {
     float: right;
     font-size: 0px;
-    margin-top: -12px;
     text-transform: capitalize;
     user-select: none;
 }
