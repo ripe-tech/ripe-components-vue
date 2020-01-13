@@ -218,15 +218,7 @@ export const Listing = {
         },
         filterFields: {
             type: Object,
-            default: () => ({})
-        },
-        nameAlias: {
-            type: Object,
-            default: () => ({})
-        },
-        nameFunc: {
-            type: Object,
-            default: () => ({})
+            default: null
         },
         notFoundText: {
             type: String,
@@ -272,9 +264,7 @@ export const Listing = {
                 ? {
                       params: this.getFilterParams({
                           options: options,
-                          filterFields: this.filterFields,
-                          nameAlias: this.nameAlias,
-                          nameFunc: this.nameFunc
+                          filterFields: this.filterFields
                       })
                   }
                 : options;

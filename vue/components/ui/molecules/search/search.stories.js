@@ -18,9 +18,6 @@ storiesOf("Molecules", module)
             iconVisible: {
                 default: boolean("Icon Visible", true)
             },
-            clearVisible: {
-                default: boolean("Clear Visible", true)
-            },
             loading: {
                 default: boolean("Loading", false)
             },
@@ -76,27 +73,28 @@ storiesOf("Molecules", module)
         },
         data: function() {
             return {
-                textData: ""
+                text: ""
             };
         },
         computed: {
             suggestions() {
                 return this.availableSuggestions.filter(suggestion =>
-                    suggestion.label.toLowerCase().startsWith(this.textData.toLowerCase())
+                    suggestion.label.toLowerCase().startsWith(this.text.toLowerCase())
                 );
             }
         },
+        methods: {
+            onUpdateValue(value) {
+                this.text = value;
+            }
+        },
         template: `
-            <div>
-                <search
-                    v-bind:variant="variant"
-                    v-bind:icon-visible="iconVisible"
-                    v-bind:clear-visible="clearVisible"
-                    v-bind:loading="loading"
-                    v-bind:suggestions="suggestions"
-                    v-bind:value.sync="textData"
-                />
-                <p>Searching: {{textData}}</p>
-            </div>
+            <search
+                v-bind:variant="variant"
+                v-bind:icon-visible="iconVisible"
+                v-bind:loading="loading"
+                v-bind:suggestions="suggestions"
+                v-on:update:value="onUpdateValue"
+            />
         `
     }));
