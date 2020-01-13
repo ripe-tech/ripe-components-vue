@@ -86,6 +86,10 @@
     white-space: pre;
 }
 
+.table.dense th {
+    font-weight: 600;
+}
+
 .table ::v-deep td {
     font-size: 14px;
     font-weight: 600;
@@ -97,6 +101,7 @@
 }
 
 .table.dense ::v-deep td {
+    font-weight: 400;
     height: 40px;
     padding: 0px 0px 0px 20px;
     text-align: left;
@@ -204,6 +209,11 @@
     transform: translateY(-50%);
     transition: opacity 0.1s ease-in;
     width: 20px;
+}
+
+.table.dense .table-column > span::before {
+    left: auto;
+    right: 0px;
 }
 
 .table .table-column.descending > span::before,
