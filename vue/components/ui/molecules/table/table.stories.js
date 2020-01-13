@@ -25,9 +25,9 @@ storiesOf("Molecules", module)
                     "Alignment",
                     {
                         Unset: null,
-                        center: "center",
-                        left: "left",
-                        right: "right"
+                        center: "Center",
+                        left: "Left",
+                        right: "Right"
                     },
                     null
                 )
