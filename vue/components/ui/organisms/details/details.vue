@@ -68,9 +68,7 @@
             <div class="container-header">
                 <div class="header-buttons">
                     <slot name="header-buttons">
-                        <div class="header-button" v-if="!isMobileWidth()">
-                            <slot name="header-button-extra" />
-                        </div>
+                        <slot name="header-buttons-before" v-if="!isMobileWidth()" />
                         <div class="header-button">
                             <span class="button-stats" v-on:click="onStatsClick">
                                 <img src="~./assets/stats.svg" />
@@ -115,6 +113,7 @@
                             </span>
                             <p>Status</p>
                         </div>
+                        <slot name="header-buttons-after" v-if="!isMobileWidth()" />
                     </slot>
                 </div>
                 <slot name="title" v-if="isLoaded">
