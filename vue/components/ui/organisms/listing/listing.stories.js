@@ -57,8 +57,7 @@ storiesOf("Organisms", module)
                 ];
             },
             onFilterTableRowClick(item, index) {
-                this.filterTableRowClickedText = `Table Row ${index} with item {id: ${item.id}, user:${item.user}, device:${item.device}} clicked !`;
-                console.log(this.filterTableRowClickedText);
+                this.filterTableRowClickedText = `Table Row ${index} with item {id: ${item.id}, user:${item.user}, system:${item.system}} clicked !`;
             }
         },
         template: `
