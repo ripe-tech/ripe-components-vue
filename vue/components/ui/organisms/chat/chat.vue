@@ -20,7 +20,7 @@
                 <rich-textarea
                     v-bind:value.sync="textData"
                     v-bind:attachments.sync="attachmentsData"
-                    v-bind:send-button-disabled="!validMessage"
+                    v-bind:send-button-disabled="validMessage"
                     v-bind:placeholder="'Say something here...'"
                     v-bind:resize="false"
                     v-on:focus:textarea="onTextareaFocus"
