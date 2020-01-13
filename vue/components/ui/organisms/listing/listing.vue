@@ -286,8 +286,8 @@ export const Listing = {
         onLineupRowClick(item, index) {
             this.$emit("click:lineup:row", item, index);
         },
-        onFilterTableRowClick(value) {
-            this.$emit("click:filter:table:row", value);
+        onFilterTableRowClick(item, index) {
+            this.$emit("click:filter:table:row", item, index);
         }
     },
     beforeRouteUpdate: function(to, from, next) {

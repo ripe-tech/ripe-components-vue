@@ -56,8 +56,8 @@ storiesOf("Organisms", module)
                     }
                 ];
             },
-            onFilterTableRowClick(value) {
-                this.filterTableRowClickedText = `Table Row ${value.index} with item {id: ${value.item.id}, user:${value.item.user}, system:${value.item.system}} clicked !`;
+            onFilterTableRowClick(item, index) {
+                this.filterTableRowClickedText = `Table Row ${index} with item {id: ${item.id}, user:${item.user}, system:${item.system}} clicked !`;
             }
         },
         template: `
@@ -70,7 +70,7 @@ storiesOf("Organisms", module)
                     v-bind:use-query="false"
                     v-bind:filter-fields="filterFields"
                     v-bind:values="[]"
-                    v-on:click:filter:table:row="value => onFilterTableRowClick(value)"
+                    v-on:click:filter:table:row="onFilterTableRowClick"
                 >
                     <template v-slot:icons>
                         <img v-bind:src="img" v-bind:style="imgStyle" />
