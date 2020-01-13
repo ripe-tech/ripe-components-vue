@@ -1,14 +1,14 @@
 <template>
-    <div class="search-persistent">
+    <div class="search-persistent" v-bind:style="style">
         <search
             v-bind:variant="variant"
             v-bind:icon-visible="iconVisible"
             v-bind:enable-delete="enableDelete"
             v-bind:suggestions="suggestions"
-            v-bind:width="isMobileWidth() ? null : width"
             v-bind:placeholder="placeholder ? placeholder : `Search ${name}`"
             v-bind:value.sync="filterData"
             v-bind:loading="loading"
+            v-bind:clear-visible="true"
         />
         <select-ripe
             v-bind:class="{ 'filter-selected': isFilterSelected }"
@@ -67,9 +67,11 @@
 
 .search-persistent {
     font-size: 0px;
+    display: flex;
 }
 
 .search-persistent .search {
+    flex: 1 0;
     margin-bottom: 3px;
     vertical-align: middle;
 }
