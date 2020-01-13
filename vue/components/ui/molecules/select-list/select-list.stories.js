@@ -24,14 +24,14 @@ storiesOf("Molecules", module)
                     { value: "option_14", label: "N" }
                 ]
             },
-            value: {
-                type: Array,
-                default: () => []
+            values: {
+                type: Object,
+                default: () => ({})
             }
         },
         data: function() {
             return {
-                selectedItems: this.value
+                valuesData: this.values
             };
         },
         watch: {
@@ -44,10 +44,10 @@ storiesOf("Molecules", module)
                 <global />
                 <select-list
                     v-bind:items="options"
-                    v-bind:value.sync="selectedItems"
+                    v-bind:values.sync="valuesData"
                 >
                 </select-list>
-                <p>Value: {{ selectedItems }}</p>
+                <p>Value: {{ valuesData }}</p>
             </div>
             `
     }));

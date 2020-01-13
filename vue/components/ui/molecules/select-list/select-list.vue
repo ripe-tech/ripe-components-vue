@@ -1,57 +1,68 @@
 <template>
-    <div class="select-list">
-        <div class="items">
-            <div
+    <div class="select-list" tabindex="0">
+        <ul class="items">
+            <li
                 class="item"
-                v-bind:class="{ selected: item.selected }"
-                v-for="item in items"
+                v-bind:class="{ selected: isSelected(item.value) }"
+                v-for="(item, index) in items"
                 v-bind:key="item.index"
-                v-on:click="onClick(item)"
+                v-on:click.exact="onClick(item.value, index)"
+                v-on:click.shift="onShiftClick(item.value, index)"
             >
-                <span>{{ item.value }}</span>
-            </div>
-        </div>
+                {{ item.value }}
+            </li>
+        </ul>
     </div>
 </template>
 
 <style lang="scss" scoped>
+@import "css/variables.scss";
+
 .select-list {
+    border: 1px solid transparent;
     border-radius: 6px;
     box-shadow: 0px 6px 24px 0px #43566426;
     display: inline-block;
     height: 260px;
+    outline: none;
     vertical-align: top;
     width: 320px;
 }
 
-.items {
+.select-list:focus {
+    border-color: $aqcua-blue;
+}
+
+.select-list > .items {
     height: 100%;
+    list-style: none;
+    margin: 0px 0px 0px 0px;
     overflow-y: auto;
+    padding: 0px 0px 0px 0px;
     user-select: none;
     width: 100%;
 }
 
-.item {
+.select-list > .items > .item {
+    box-sizing: border-box;
     color: #1d2631;
     cursor: pointer;
     font-size: 14px;
     height: 32px;
+    line-height: 32px;
+    padding-left: 15px;
     width: 303px;
 }
 
-.item > span {
-    line-height: 32px;
-    margin-left: 5px;
+.select-list > .items > .item:hover {
+    background-color: $mild-dark-blue;
+    color: $white;
 }
 
-.item.selected,
-.item:hover {
-    background-color: #1d2631;
-    color: #ffffff;
-}
-
-.item:hover {
-    opacity: 0.9;
+.select-list > .items > .item.selected,
+.select-list > .items > .item.selected:hover {
+    background-color: $dark-blue;
+    color: $white;
 }
 </style>
 
@@ -64,81 +75,52 @@ export const SelectList = Vue.component("select-list", {
         items: {
             type: Array,
             default: () => []
+        },
+        values: {
+            type: Object,
+            default: () => ({})
         }
     },
     data: function() {
         return {
-            controlPressed: false,
-            controledItems: this.items,
-            valueData: []
+            valuesData: this.values,
+            lastSelected: null
         };
     },
-    created: function() {
-        this._onCreate();
-    },
-    mounted: async function() {
-        document.addEventListener(
-            "keydown",
-            event => {
-                const keyName = event.key;
-
-                if (keyName === "Control") {
-                    this.controlPressed = true;
-                }
-            },
-            false
-        );
-
-        document.addEventListener(
-            "keyup",
-            event => {
-                const keyName = event.key;
-
-                // As the user releases the Ctrl key, the key is no longer active,
-                // so event.ctrlKey is false.
-                if (keyName === "Control") {
-                    this.controlPressed = false;
-                }
-            },
-            false
-        );
-    },
     methods: {
-        _onCreate() {
-            this.controledItems.forEach((element, index) => {
-                element.selected = false;
-                this.$set(this.controledItems, index, Object.assign({}, element));
-            });
+        isSelected(value) {
+            return Boolean(this.valuesData[value]);
         },
-        _removeItem(item) {
-            for (var i = 0; i < this.valueData.length; i++) {
-                if (this.valueData[i].value === item.value) {
-                    this.valueData.splice(i, 1);
-                    break;
+        selectItem(value) {
+            if (this.isSelected(value)) return;
+            this.$set(this.valuesData, value, true);
+            this.$emit("selected:value", value);
+        },
+        unselectItem(value) {
+            if (!this.isSelected(value)) return;
+            this.$delete(this.valuesData, value);
+            this.$emit("unselected:value", value);
+        },
+        toggleItem(value) {
+            if (this.isSelected(value)) {
+                this.unselectItem(value);
+            } else {
+                this.selectItem(value);
+            }
+            this.$emit("update:values", this.valuesData);
+        },
+        onClick(value, index) {
+            this.toggleItem(value);
+            this.lastSelected = index;
+        },
+        onShiftClick(item, index) {
+            if (this.lastSelected !== null) {
+                const lower = Math.min(index, this.lastSelected);
+                const upper = Math.max(index, this.lastSelected);
+                for (let i = lower; i <= upper; i++) {
+                    this.selectItem(this.items[i].value);
                 }
             }
-        },
-        _unselectAll() {
-            this.controledItems.forEach(element => {
-                element.selected = false;
-            });
-            this.valueData.splice(0);
-        },
-        selectItem(item) {
-            if (!this.controlPressed && !item.selected) {
-                this._unselectAll();
-            }
-            item.selected = !item.selected;
-
-            if (item.selected) {
-                this.valueData.push(item);
-            } else {
-                this._removeItem(item);
-            }
-            this.$emit("update:value", this.valueData);
-        },
-        onClick(item) {
-            this.selectItem(item);
         }
     }
 });
