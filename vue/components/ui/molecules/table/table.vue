@@ -91,7 +91,7 @@
     font-weight: 600;
     height: 80px;
     overflow: hidden;
-    padding: 0px 0px 0px 0px;
+    padding: 0px 20px 0px 20px;
     text-overflow: ellipsis;
     word-break: break-all;
 }
@@ -99,7 +99,6 @@
 .table.dense ::v-deep td {
     font-weight: 400;
     height: 40px;
-    padding: 0px 0px 0px 20px;
 }
 
 .table ::v-deep td > * {
@@ -206,7 +205,7 @@
     width: 20px;
 }
 
-.table.dense .table-column > span::before {
+.table[style="text-align: left;"] .table-column > span::before {
     left: auto;
     right: 0px;
 }
