@@ -21,7 +21,7 @@
                     v-bind:slot="slot.replace('lineup-', '')"
                     slot-scope="scope"
                 >
-                    <slot v-bind:name="slot" v-bind="scope" />
+                    <slot v-bind:name="slot" v-bind="scope" v-if="slot.includes('lineup-')" />
                 </template>
             </lineup>
             <div class="empty-message" v-if="items.length === 0 && loading === false">
