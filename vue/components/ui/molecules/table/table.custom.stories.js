@@ -48,6 +48,11 @@ storiesOf("Molecules", module).add("Table Custom", () => ({
                     OS: {{ item.system }}
                 </td>
             </template>
+            <template v-slot:extra-row="{ item, index }">
+                <tr v-bind:key="index">
+                    <td colspan="3">Extra row {{ index }}</td>
+                </tr>
+            </template>
         </table-ripe>
     `
 }));
