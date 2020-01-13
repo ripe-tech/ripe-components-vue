@@ -8,7 +8,7 @@
                     v-bind:key="value.value"
                 >
                     <div class="key">
-                        <slot v-bind:name="`${value.value}-key`" v-bind:item="item">
+                        <slot v-bind:name="`${value.value}-label`" v-bind:item="item">
                             <p class="label-text">
                                 <slot v-bind:name="`${value.value}-label-text`" v-bind:item="item">
                                     {{ value.label || value.value || value.name }}

@@ -15,7 +15,11 @@
                 </template>
             </table-ripe>
             <lineup v-bind:items="items" v-bind:values="values">
-                <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
+                <slot
+                    v-bind:name="slot"
+                    v-for="slot in scopedSlots"
+                    v-bind:slot="slot.replace('lineup-', '')"
+                />
                 <template
                     v-for="slot in Object.keys(this.$scopedSlots)"
                     v-bind:slot="slot.replace('lineup-', '')"
@@ -127,6 +131,9 @@ export const Filter = {
                 start: this.start,
                 limit: this.limit
             };
+        },
+        scopedSlots() {
+            return Object.keys(this.$slots).filter(slot => slot.startsWith("lineup-"));
         }
     },
     watch: {
