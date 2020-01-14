@@ -105,6 +105,10 @@
     color: $dark-grey;
 }
 
+.dropdown > .dropdown-item.separator > span {
+    display: none;
+}
+
 .dropdown > .dropdown-item:hover > a,
 .dropdown > .dropdown-item.selected > a,
 .dropdown > .dropdown-item.highlighted > a {

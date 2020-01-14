@@ -7,6 +7,7 @@
         v-bind:confirm-text="'Save filter'"
         v-bind:name="'save-filter-modal'"
         v-bind="$attrs"
+        v-bind:min-width="600"
         v-on="$listeners"
     >
         <form-input v-bind:header="'Filter Name'">
@@ -20,7 +21,7 @@
             <input-ripe v-bind:variant="'dark'" v-bind:value.sync="searchData" />
         </form-input>
         <form-input v-bind:header="'Tenacy'">
-            <checkbox v-bind:items="tenacyItems" v-bind:values.sync="tenacyValuesData" />
+            <checkbox v-bind:items="tenancyItems" v-bind:values.sync="tenacyValuesData" />
         </form-input>
         <template v-slot:buttons-content>
             <button-color
@@ -28,14 +29,14 @@
                 v-bind:icon="'close'"
                 v-bind:secondary="true"
                 v-bind:text="'Discard changes'"
-                v-on:click="onDiscardChangesButtonClick()"
+                v-on:click="onDiscardClick"
             />
             <button-color
                 v-bind:disabled="!isFormValid"
                 v-bind:class="'button-confirm'"
                 v-bind:icon="'save'"
                 v-bind:text="'Save filter'"
-                v-on:click="onSaveFilterButtonClick()"
+                v-on:click="onSaveClick"
             />
         </template>
     </modal>
@@ -45,17 +46,17 @@
 .form-input {
     margin: 0px 0px 17px 0px;
 }
-
-.save-filter-modal ::v-deep .modal-container {
-    min-width: 600px;
-}
 </style>
 
 <script>
 export const SaveFilterModal = {
     name: "save-filter-modal",
     props: {
-        tenacyItems: {
+        search: {
+            type: String,
+            required: false
+        },
+        tenancyItems: {
             type: Array,
             default: () => [
                 {
@@ -75,18 +76,19 @@ export const SaveFilterModal = {
                     label: "Factory"
                 }
             ]
-        },
-        filter: {
-            type: String,
-            required: false
         }
     },
     data: function() {
         return {
             tenacyValuesData: {},
             filterNameData: null,
-            searchData: this.filter ? this.filter : null
+            searchData: this.search
         };
+    },
+    watch: {
+        search(value) {
+            this.searchData = value;
+        }
     },
     computed: {
         isFormValid() {
@@ -99,18 +101,11 @@ export const SaveFilterModal = {
     },
     mounted: async function() {},
     methods: {
-        toInitialState() {
-            this.searchData = this.filter ? this.filter : null;
-            this.filterNameData = "";
-            this.tenacyValuesData = {};
-        },
-        onDiscardChangesButtonClick() {
+        onDiscardClick() {
             this.$emit("click:cancel");
-            this.toInitialState();
         },
-        onSaveFilterButtonClick() {
+        onSaveClick() {
             this.$emit("click:confirm");
-            this.toInitialState();
         }
     }
 };

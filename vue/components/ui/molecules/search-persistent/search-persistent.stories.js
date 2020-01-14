@@ -42,24 +42,17 @@ storiesOf("Molecules", module)
                         tenancy: "factory",
                         context: "Status Sent",
                         metadata: { lan: "en" }
-                    },
-                    {
-                        separator: "separator"
-                    },
-                    {
-                        label: "Save Filter",
-                        value: "save_filter_option"
                     }
                 ]
             },
             placeholder: {
                 default: text("Placeholder", "This is a search input")
             },
-            enableDelete: {
-                default: boolean("Delete button enabled", true)
-            },
             iconVisible: {
                 default: boolean("Icon Visible", true)
+            },
+            clearVisible: {
+                default: boolean("Clear Visible", true)
             },
             variant: {
                 default: select(
@@ -96,8 +89,8 @@ storiesOf("Molecules", module)
                     v-bind:value.sync="valueData"
                     v-bind:filters.sync="filtersData"
                     v-bind:placeholder="placeholder"
-                    v-bind:enable-delete="enableDelete"
                     v-bind:icon-visible="iconVisible"
+                    v-bind:clear-visible="clearVisible"
                     v-bind:variant="variant"
                     v-bind:width="width"
                     v-bind:loading="loading"    
