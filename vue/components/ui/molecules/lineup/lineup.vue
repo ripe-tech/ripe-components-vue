@@ -161,7 +161,7 @@ export const Lineup = {
     computed: {
         lineupItemStyle() {
             const base = {};
-            base.width = this.nrColumns === null ? null : `${100 / this.nrColumns}%`
+            base.width = this.nrColumns === null ? null : `${100 / this.nrColumns}%`;
 
             return base;
         }
