@@ -34,11 +34,6 @@ storiesOf("Molecules", module)
                 valuesData: this.values
             };
         },
-        watch: {
-            value(value) {
-                this.selectedItems = value;
-            }
-        },
         template: `
             <div>
                 <global />
