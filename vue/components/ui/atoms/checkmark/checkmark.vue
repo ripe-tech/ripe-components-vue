@@ -1,5 +1,10 @@
 <template>
-    <image-ripe class="checkmark" v-bind:src="iconPath" v-bind:class="classes" v-bind:style="style" />
+    <image-ripe
+        class="checkmark"
+        v-bind:src="iconPath"
+        v-bind:class="classes"
+        v-bind:style="style"
+    />
 </template>
 
 <style lang="scss" scoped>
