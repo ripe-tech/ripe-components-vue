@@ -249,7 +249,8 @@ export const Listing = {
             default: 304
         },
         lineupNrColumns: {
-            type: Number
+            type: Number,
+            default: null
         }
     },
     data: function() {

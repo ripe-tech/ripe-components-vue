@@ -112,7 +112,8 @@ export const Filter = {
             default: false
         },
         lineupNrColumns: {
-            type: Number
+            type: Number,
+            default: null
         }
     },
     data: function() {

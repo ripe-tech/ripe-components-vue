@@ -16,7 +16,7 @@
                 <div
                     class="lineup-item-value"
                     v-bind:class="[value.value, `lineup-item-value-${value.value}`]"
-                    v-bind:style="style"
+                    v-bind:style="lineupItemStyle"
                     v-bind:key="value.value"
                 >
                     <div class="key">
@@ -88,6 +88,7 @@
 
 .lineup .lineup-item {
     border-bottom: 1px solid $lighter-grey;
+    width: 50%;    
 }
 
 .lineup .lineup-item.clickable {
@@ -147,7 +148,7 @@ export const Lineup = {
         },
         nrColumns: {
             type: Number,
-            default: 2
+            default: null
         },
         transition: {
             type: String,
@@ -159,9 +160,10 @@ export const Lineup = {
         }
     },
     computed: {
-        style() {
+        lineupItemStyle() {
             const base = {};
-            if (this.nrColumns) base.width = `${100 / this.nrColumns}%`;
+            base.width = this.nrColumns === null ? null : `${100 / this.nrColumns}%`
+
             return base;
         }
     },
