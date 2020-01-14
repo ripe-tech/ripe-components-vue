@@ -125,6 +125,13 @@
     letter-spacing: 0.7px;
     margin: 6px 0px 0px 0px;
 }
+
+.lineup .lineup-item .lineup-item-value .note {
+    color: $label-color;
+    font-size: 11px;
+    margin: 2px 0px 0px 0px;
+}
+
 </style>
 
 <script>
