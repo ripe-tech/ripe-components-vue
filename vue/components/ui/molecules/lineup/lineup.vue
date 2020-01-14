@@ -108,6 +108,11 @@
     color: #8d8d8d;
 }
 
+.lineup .lineup-item .lineup-item-value .key .label-text{
+    margin: 0px 0px 0px 0px;
+}
+
+
 .lineup .lineup-item .lineup-item-value .value {
   font-size: 14px;
   font-weight: bold;
