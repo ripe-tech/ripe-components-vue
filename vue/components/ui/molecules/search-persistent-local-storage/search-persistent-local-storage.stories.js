@@ -68,7 +68,10 @@ storiesOf("Molecules", module)
             }
         },
         data: function() {
-            return {};
+            return {
+                valueData: this.value,
+                filtersData: this.filters
+            };
         },
         template: `
             <div>

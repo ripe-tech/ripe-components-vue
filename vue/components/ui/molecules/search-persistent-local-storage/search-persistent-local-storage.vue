@@ -3,13 +3,14 @@
         <global />
         <search-persistent
             v-bind:value.sync="valueData"
-            v-bind:filters.sync="filtersData"
+            v-bind:filters="filtersData"
             v-bind:placeholder="placeholder"
             v-bind:icon-visible="iconVisible"
             v-bind:clear-visible="clearVisible"
             v-bind:variant="variant"
             v-bind:width="width"
             v-bind:loading="loading"
+            v-on:update:filters="value => onUpdateFilters(value)"
         />
     </div>
 </template>
@@ -56,9 +57,29 @@ export const SearchPersistentLocalStorage = {
         }
     },
     data: function() {
-        return {};
+        return {
+            FILTERS_LOCAL_STORAGE_KEY: "filters",
+            valueData: this.value,
+            filtersData: this.filters
+        };
     },
-    methods: {}
+    mounted: function() {
+        this.loadFilters();
+    },
+    methods: {
+        saveFilters(filters) {
+            localStorage.setItem(this.FILTERS_LOCAL_STORAGE_KEY, JSON.stringify(filters));
+        },
+        loadFilters() {
+            const filters = localStorage.getItem(this.FILTERS_LOCAL_STORAGE_KEY);
+            
+            if(filters) this.filtersData = JSON.parse(filters);
+        },
+        onUpdateFilters(value) {
+            this.filtersData = value;
+            this.saveFilters(this.filtersData);
+        }
+    }
 };
 
 export default SearchPersistentLocalStorage;
