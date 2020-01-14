@@ -19,7 +19,7 @@
             <template v-for="(item, index) in filtersData" v-bind:slot="getSelectValue(item)">
                 <div
                     class="filter-item"
-                    v-bind:class="{ 'selected-filter-item': isFilterSelected(index)}"
+                    v-bind:class="{ 'selected-filter-item': isFilterSelected(index) }"
                     v-bind:title="item.label"
                     v-bind:key="item.name"
                 >
@@ -240,18 +240,22 @@ export const SearchPersistent = {
             return this.selectedFilter !== null;
         },
         selectedFilterValue() {
-            return this.hasFilterSelected ? this.getSelectValue(this.filtersData[this.selectedFilter]) : null;
+            return this.hasFilterSelected
+                ? this.getSelectValue(this.filtersData[this.selectedFilter])
+                : null;
         },
         selectOptions() {
-            return this.filtersData.map(filter => ({ label: filter.name, value: this.getSelectValue(filter) })).concat([
-                {
-                    separator: "separator"
-                },
-                {
-                    label: "Save Filter",
-                    value: "save_filter_option"
-                }
-            ]);
+            return this.filtersData
+                .map(filter => ({ label: filter.name, value: this.getSelectValue(filter) }))
+                .concat([
+                    {
+                        separator: "separator"
+                    },
+                    {
+                        label: "Save Filter",
+                        value: "save_filter_option"
+                    }
+                ]);
         }
     },
     methods: {
