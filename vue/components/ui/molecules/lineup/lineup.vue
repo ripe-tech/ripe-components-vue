@@ -90,15 +90,15 @@
     border-bottom: 1px solid $lighter-grey;
 }
 
-.lineup .lineup-item.clickable {
+.lineup > .lineup-item.clickable {
     cursor: pointer;
 }
 
-.lineup .lineup-item:first-child {
+.lineup > .lineup-item:first-child {
     border-top: 1px solid $lighter-grey;
 }
 
-.lineup .lineup-item .lineup-item-value {
+.lineup > .lineup-item > .lineup-item-value {
     box-sizing: border-box;
     display: inline-block;
     margin: 12px 0px 20px 0px;
@@ -106,7 +106,7 @@
     vertical-align: top;
 }
 
-.lineup .lineup-item .lineup-item-value .key {
+.lineup > .lineup-item > .lineup-item-value > .key {
     color: #8d8d8d;
     font-size: 12px;
     font-weight: bold;
@@ -114,11 +114,11 @@
     text-transform: uppercase;
 }
 
-.lineup .lineup-item .lineup-item-value .key .label-text {
+.lineup > .lineup-item > .lineup-item-value > .key > .label-text {
     margin: 0px 0px 0px 0px;
 }
 
-.lineup .lineup-item .lineup-item-value .value {
+.lineup > .lineup-item > .lineup-item-value > .value {
     color: #0d0d0d;
     font-size: 14px;
     font-weight: bold;
@@ -126,7 +126,7 @@
     margin: 6px 0px 0px 0px;
 }
 
-.lineup .lineup-item .lineup-item-value .note {
+.lineup > .lineup-item > .lineup-item-value > .note {
     color: $label-color;
     font-size: 11px;
     margin: 2px 0px 0px 0px;
