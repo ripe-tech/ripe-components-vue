@@ -5,6 +5,7 @@ import { ButtonColor } from "./button-color/button-color.vue";
 import { ButtonIcon } from "./button-icon/button-icon.vue";
 import { ButtonPlatforme } from "./button-platforme/button-platforme.vue";
 import { Checkbox } from "./checkbox/checkbox.vue";
+import { Checkmark } from "./checkmark/checkmark.vue";
 import { Container } from "./container/container.vue";
 import { Dropdown } from "./dropdown/dropdown.vue";
 import { Image } from "./image/image.vue";
@@ -19,7 +20,6 @@ import { RichTextarea } from "./rich-textarea/rich-textarea.vue";
 import { Side } from "./side/side.vue";
 import { Tag } from "./tag/tag.vue";
 import { Textarea } from "./textarea/textarea.vue";
-import { Dot } from "./dot/dot.vue";
 
 const install = Vue => {
     Vue.component("attachments", Attachments);
@@ -29,6 +29,7 @@ const install = Vue => {
     Vue.component("button-icon", ButtonIcon);
     Vue.component("button-platforme", ButtonPlatforme);
     Vue.component("checkbox", Checkbox);
+    Vue.component("checkmark", Checkmark);
     Vue.component("container-ripe", Container);
     Vue.component("dropdown", Dropdown);
     Vue.component("image-ripe", Image);
@@ -43,7 +44,6 @@ const install = Vue => {
     Vue.component("side", Side);
     Vue.component("tag", Tag);
     Vue.component("textarea-ripe", Textarea);
-    Vue.component("dot", Dot);
 };
 
 export {
@@ -54,6 +54,7 @@ export {
     ButtonIcon,
     ButtonPlatforme,
     Checkbox,
+    Checkmark,
     Container,
     Dropdown,
     Image,
@@ -67,8 +68,7 @@ export {
     RichTextarea,
     Side,
     Tag,
-    Textarea,
-    Dot
+    Textarea
 };
 
 export default install;

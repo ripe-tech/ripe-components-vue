@@ -1,46 +1,31 @@
 <template>
-    <div class="dot" v-bind:class="classes" v-bind:style="style">
-        <img class="icon" v-bind:src="iconPath" />
-    </div>
+    <image-ripe class="checkmark" v-bind:src="iconPath" v-bind:class="classes" v-bind:style="style" />
 </template>
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.dot {
-    align-items: center;
+.checkmark {
     background-color: #c3c9cf;
-    display: flex;
-    height: 20px;
-    justify-content: center;
-    width: 20px;
+    box-sizing: border-box;
 }
 
-.dot.disabled {
-    background-color: #c3c9cf;
-}
-
-.dot.enabled {
+.checkmark.checked {
     background-color: $dark;
-}
-
-.dot .icon {
-    height: 80%;
-    width: 80%;
 }
 </style>
 
 <script>
-export const Dot = {
-    name: "dot",
+export const Checkmark = {
+    name: "checkmark",
     props: {
         size: {
-            type: String,
-            default: () => null
+            type: Number,
+            default: 20
         },
         value: {
             type: Boolean,
-            default: () => false
+            default: false
         }
     },
     computed: {
@@ -57,8 +42,8 @@ export const Dot = {
         },
         classes() {
             const base = {
-                disabled: !this.value,
-                enabled: this.value
+                unchecked: !this.value,
+                checked: this.value
             };
 
             return base;
@@ -66,5 +51,5 @@ export const Dot = {
     }
 };
 
-export default Dot;
+export default Checkmark;
 </script>
