@@ -19,11 +19,11 @@ storiesOf("Molecules", module)
                 default: select(
                     "Menu Visibility Mode",
                     {
-                        Fixed: "fixed",
                         Collapse: "collapse",
+                        Fixed: "fixed",
                         Floating: "floating"
                     },
-                    "fixed"
+                    "collapse"
                 )
             },
             menuVisible: {
@@ -31,9 +31,6 @@ storiesOf("Molecules", module)
             },
             menuWidth: {
                 default: number("Menu width", 300)
-            },
-            contentMinWidth: {
-                default: number("Content min-width", 500)
             },
             animationTimeout: {
                 default: number("Animation timeout", 0.3)
@@ -56,7 +53,7 @@ storiesOf("Molecules", module)
         },
         computed: {
             menuText: function() {
-                const msg = "This is the menu. It is";
+                const msg = "This is the menu. Curretly it's";
                 return this.menuVisibleData ? `${msg} visible` : `${msg} invisible`;
             }
         },
@@ -66,17 +63,23 @@ storiesOf("Molecules", module)
                 v-bind:menuMode="menuMode" 
                 v-bind:menuVisible="menuVisibleData" 
                 v-bind:menuWidth="menuWidth"
-                v-bind:contentMinWidth="contentMinWidth"
                 v-bind:animationTimeout="animationTimeout">
-                <template v-slot:menu>
-                    <p> {{menuText}}</p>
-                    <p> Menu mode: {{menuMode}}</p>
-                    <button v-if="menuMode!=='fixed'" v-on:click="toggleMenu">Close menu</button>
-                    </template>
                 <template v-slot:content>
-                    <h4>This is the content.</h4>
-                    <button v-if="menuMode!=='fixed'" v-on:click="toggleMenu">Toggle menu</button>
-                    </template>
+                    <div  style='background-color: IndianRed;'>
+                        <p>This is the content.</p>
+                        <p>It is always visible.</p>
+                        <p>Animation timeout unit is seconds.</p>
+                        <p>You can set min-width to .content-menu ::v-deep .content if sidebar shrinks first in mobile/tablet</p>
+                        <button v-if="menuMode!=='fixed'" v-on:click="toggleMenu">Toggle menu</button>
+                    </div>
+                </template>
+                <template v-slot:menu>
+                    <div  style='background-color: LightSalmon;'>
+                        <p>{{menuText}}</p>
+                        <p>Menu mode: {{menuMode}}</p>
+                        <button v-if="menuMode!=='fixed'" v-on:click="toggleMenu">Close menu</button>                
+                    </div>
+                </template>
             </content-menu>
         `
     }));

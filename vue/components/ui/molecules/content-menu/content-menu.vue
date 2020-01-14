@@ -3,7 +3,7 @@
         class="content-menu"
         v-bind:class="[{ 'menu-visible': menuVisible }, menuMode, `align-${menuOrientation}`]"
     >
-        <div class="content" v-bind:style="contentStyle">
+        <div class="content">
             <slot name="content" />
         </div>
         <div class="menu" v-bind:style="menuStyle">
@@ -20,59 +20,43 @@
     overflow: hidden;
 }
 
-.content-menu .menu {
-    background: LightSalmon;
-    display: inline-block;
-    overflow-x: hidden;
-    overflow-y: auto;
-    position: relative;
-    white-space: nowrap;
-    width: var(--menu-width);
-}
-
-.content-menu.collapse .menu {
-    transition: width var(--animation-timeout) ease-in-out;
-}
-
-.content-menu.collapse:not(.menu-visible) .menu {
-    width: 0px;
-}
-
-.content-menu.floating .menu {
-    transition: transform var(--animation-timeout) ease-in-out;
-    position: absolute;
-    top: 0px;
-    //opacity: 1;
-    transform: rotateX(90deg);
-    transform-origin: top;
-    z-index: 1;
-}
-
-.content-menu.floating:not(.menu-visible) .menu {
-    transform: rotateX(0deg);
-    z-index: 1;
-}
-
-.content-menu.floating.align-left .menu {
-    left: 0px;
-}
-
-.content-menu.floating.align-right .menu {
-    right: 0px;
-}
-
 .content-menu .content {
-    background: IndianRed;
     display: inline-block;
     flex: 1 0;
-    min-width: var(--content-min-width);
     overflow: auto;
-    position: relative;
     white-space: nowrap;
 }
 
 .content-menu.align-left .content {
     order: 1;
+}
+
+.content-menu .menu {
+    display: inline-block;
+    overflow-x: hidden;
+    overflow-y: auto;
+    white-space: nowrap;
+}
+
+.content-menu.floating .menu {
+    position: absolute;
+    top: 0px;
+    z-index: 10;
+}
+
+.content-menu.collapse:not(.menu-visible) .menu,
+.content-menu.floating:not(.menu-visible) .menu {
+    width: 0px;
+}
+
+.content-menu.floating.align-left .menu {
+    left: 0px;
+    transform-origin: left;
+}
+
+.content-menu.floating.align-right .menu {
+    right: 0px;
+    transform-origin: right;
 }
 </style>
 
@@ -86,7 +70,7 @@ export const ContentMenu = {
         },
         menuMode: {
             type: String,
-            default: "fixed"
+            default: "collapse"
         },
         menuVisible: {
             type: Boolean,
@@ -96,28 +80,16 @@ export const ContentMenu = {
             type: Number,
             default: 250
         },
-        contentMinWidth: {
-            type: Number,
-            default: null
-        },
         animationTimeout: {
             type: Number,
             default: 0.3
         }
     },
     computed: {
-        contentStyle: function() {
-            const base = {
-                "--content-min-width":
-                    this.contentMinWidth === null ? null : `${this.contentMinWidth}px`
-            };
-            return base;
-        },
         menuStyle: function() {
             const base = {
-                "--menu-width": this.menuWidth === null ? null : `${this.menuWidth}px`,
-                "--animation-timeout":
-                    this.animationTimeout === null ? null : `${this.animationTimeout}s`
+                width: this.menuWidth === null || !this.menuVisible ? null : `${this.menuWidth}px`,
+                transition: `width ${this.animationTimeout}s ease-in-out`
             };
             return base;
         }
