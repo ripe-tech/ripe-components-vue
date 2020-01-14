@@ -72,8 +72,8 @@ export const SearchPersistentLocalStorage = {
         },
         loadFilters() {
             const filters = localStorage.getItem(this.FILTERS_LOCAL_STORAGE_KEY);
-            
-            if(filters) this.filtersData = JSON.parse(filters);
+
+            if (filters) this.filtersData = JSON.parse(filters);
         },
         onUpdateFilters(value) {
             this.filtersData = value;
