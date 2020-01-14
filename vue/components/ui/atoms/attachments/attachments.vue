@@ -57,6 +57,7 @@
 
 .attachments .attachments-list {
     overflow: auto;
+    height: calc(100% - 42px);
 }
 
 .attachments .attachments-list .attachment {
