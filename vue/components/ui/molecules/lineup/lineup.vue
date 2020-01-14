@@ -101,16 +101,15 @@
 .lineup > .lineup-item > .lineup-item-value {
     box-sizing: border-box;
     display: inline-block;
-    margin: 12px 0px 20px 0px;
-    padding: 0px 15px 0px 15px;
+    padding: 12px 12px 16px 12px;
     vertical-align: top;
 }
 
 .lineup > .lineup-item > .lineup-item-value > .key {
     color: #8d8d8d;
     font-size: 12px;
-    font-weight: bold;
-    letter-spacing: 0.6px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
     text-transform: uppercase;
 }
 
@@ -121,8 +120,7 @@
 .lineup > .lineup-item > .lineup-item-value > .value {
     color: #0d0d0d;
     font-size: 14px;
-    font-weight: bold;
-    letter-spacing: 0.7px;
+    font-weight: 600;
     margin: 6px 0px 0px 0px;
 }
 
