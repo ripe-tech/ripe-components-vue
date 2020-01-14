@@ -88,7 +88,6 @@
 
 .lineup .lineup-item {
     border-bottom: 1px solid $lighter-grey;
-    width: 50%;    
 }
 
 .lineup .lineup-item.clickable {
