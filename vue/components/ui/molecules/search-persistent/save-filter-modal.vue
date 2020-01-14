@@ -97,6 +97,14 @@ export const SaveFilterModal = {
                 this.filterNameData &&
                 Object.keys(this.tenacyValuesData).length > 0
             );
+        },
+        filters() {
+            return Object.keys(this.tenacyValuesData).map(tenancy => ({
+                name: this.filterNameData,
+                value: this.searchData,
+                tenancy: tenancy,
+                context: "" // TODO
+            }));
         }
     },
     mounted: async function() {},

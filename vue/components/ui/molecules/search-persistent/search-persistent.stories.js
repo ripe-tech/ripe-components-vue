@@ -12,35 +12,31 @@ storiesOf("Molecules", module)
                 type: Array,
                 default: () => [
                     {
-                        label: "Filter 1",
-                        value: "filter_1",
-                        filter: "brand=dummy",
+                        name: "Filter 1",
+                        value: "brand=dummy",
                         tenancy: "brand",
-                        context: "List products of brand dummy",
+                        context: "swear",
                         metadata: { lan: "en" }
                     },
                     {
-                        label: "Filter 2 with a big ammount of characters in its name",
-                        value: "filter_2",
-                        filter: "status=pending",
+                        name: "Filter 2 with a big ammount of characters in its name",
+                        value: "status=pending",
                         tenancy: "factory",
-                        context: "Status Pending",
+                        context: "barbara_guimaraes",
                         metadata: { lan: "en" }
                     },
                     {
-                        label: "Filter 3",
-                        value: "filter_3",
-                        filter: "status=created",
+                        name: "Filter 3",
+                        value: "status=created",
                         tenancy: "factory",
-                        context: "Status Created",
+                        context: "barbara_guimaraes",
                         metadata: { lan: "en" }
                     },
                     {
-                        label: "Filter 4",
-                        value: "filter_4",
-                        filter: "status=sent",
+                        name: "Filter 4",
+                        value: "status=sent",
                         tenancy: "factory",
-                        context: "Status Sent",
+                        context: "coimbroes_33",
                         metadata: { lan: "en" }
                     }
                 ]
@@ -78,8 +74,8 @@ storiesOf("Molecules", module)
             };
         },
         watch: {
-            filter(value) {
-                this.filterData = value;
+            value(value) {
+                this.valueData = value;
             }
         },
         template: `
