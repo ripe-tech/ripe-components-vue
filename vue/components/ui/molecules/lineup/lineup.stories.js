@@ -42,7 +42,7 @@ storiesOf("Molecules", module)
                 ]
             },
             nrColumns: {
-                default: number("Number of Columns", 4)
+                default: number("Number of Columns", 2)
             }
         },
         template: `
