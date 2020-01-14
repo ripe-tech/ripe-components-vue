@@ -5,10 +5,10 @@ storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Search Persistence", () => ({
         props: {
-            filter: {
-                default: text("Filter", "")
+            value: {
+                default: text("Value", "")
             },
-            persistentFilters: {
+            filters: {
                 type: Array,
                 default: () => [
                     {
@@ -72,7 +72,7 @@ storiesOf("Molecules", module)
                 )
             },
             width: {
-                default: number("Width", 300)
+                default: number("Width", null)
             },
             loading: {
                 default: boolean("Loading", false)
@@ -80,7 +80,8 @@ storiesOf("Molecules", module)
         },
         data: function() {
             return {
-                filterData: this.filter
+                valueData: this.value,
+                filtersData: this.filters
             };
         },
         watch: {
@@ -90,9 +91,10 @@ storiesOf("Molecules", module)
         },
         template: `
             <div>
+                <global />
                 <search-persistent
-                    v-bind:filter.sync="filterData"
-                    v-bind:persistent-filters="persistentFilters"
+                    v-bind:value.sync="valueData"
+                    v-bind:filters.sync="filtersData"
                     v-bind:placeholder="placeholder"
                     v-bind:enable-delete="enableDelete"
                     v-bind:icon-visible="iconVisible"
@@ -100,7 +102,11 @@ storiesOf("Molecules", module)
                     v-bind:width="width"
                     v-bind:loading="loading"    
                 />
-                <p>Filter: {{ filterData }}</p>
+                <p>Value: {{ valueData }}</p>
+                <p>Filters:</p>
+                <ul>
+                    <li v-for="filter in filtersData">{{ filter }}</li>
+                </ul>
             </div>
         `
     }));

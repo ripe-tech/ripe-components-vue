@@ -6,21 +6,22 @@
             v-bind:enable-delete="enableDelete"
             v-bind:suggestions="suggestions"
             v-bind:placeholder="placeholder ? placeholder : `Search ${name}`"
-            v-bind:value.sync="filterData"
+            v-bind:value.sync="valueData"
             v-bind:loading="loading"
             v-bind:clear-visible="true"
         />
         <select-ripe
-            v-bind:class="{ 'filter-selected': isFilterSelected }"
+            v-bind:class="{ 'filter-selected': hasFilterSelected }"
             v-bind:placeholder="'Filter'"
-            v-bind:options="persistentFilters"
-            v-bind:value.sync="selectedFilterValueData"
+            v-bind:options="filters"
+            v-bind:value="selectedFilterValue"
+            v-on:update:value="onSelected"
         >
-            <template v-for="(item, index) in persistentFilters" v-bind:slot="item.value">
+            <template v-for="(item, index) in filters" v-bind:slot="item.value">
                 <div
                     class="filter-item selected-filter-item"
                     v-bind:title="item.label"
-                    v-if="isSelectedFilterItem(item)"
+                    v-if="isFilterSelected(index)"
                     v-bind:key="index"
                 >
                     <div class="filter-label">
@@ -30,12 +31,12 @@
                         <button-icon
                             v-bind:icon="'save'"
                             v-bind:color="'black'"
-                            v-on:click.native.stop="onSelectedFilterUpdateButtonClick(item.label)"
+                            v-on:click.stop="onSaveClick(item, index)"
                         />
                         <button-icon
                             v-bind:icon="'bin'"
                             v-bind:color="'black'"
-                            v-on:click.native.stop="onSelectedFilterDeleteButtonClick(item.label)"
+                            v-on:click.stop="onDeleteClick(item, index)"
                         />
                     </div>
                 </div>
@@ -177,11 +178,11 @@ export const SearchPersistent = {
             type: String,
             default: null
         },
-        filter: {
+        value: {
             type: String,
             default: null
         },
-        persistentFilters: {
+        filters: {
             type: Array,
             default: () => []
         },
@@ -220,36 +221,29 @@ export const SearchPersistent = {
     },
     data: function() {
         return {
-            selectedFilterValueData: null,
-            filterData: this.filter
+            selectedFilter: null,
+            valueData: this.value,
+            filtersData: this.filters
         };
     },
     watch: {
-        filter(value) {
-            this.filterData = value;
+        value(value) {
+            this.valueData = value;
         },
-        selectedFilterValueData(value) {
-            const filterObject = this.persistentFilters.find(
-                filter => filter.value === this.selectedFilterValueData
+        filters(value) {
+            if (!this.valueData) return;
+
+            const matchingFilter = this.filters.find(
+                filter => filter.filter === this.valueData
             );
 
-            this.filterData = filterObject ? filterObject.filter : "";
+            if (!matchingFilter) return;
+
+            this.selectedFilter = matchingFilter.value;
         },
-        persistentFilters(value) {
-            if (!this.filterData) return;
-
-            const filterObject = this.persistentFilters.find(
-                filter => filter.filter === this.filterData
-            );
-
-            if (!filterObject) return;
-
-            this.selectedFilterValueData = filterObject.value;
-        },
-        filterData(value) {
-            if (value === "") this.unselectFilter();
-
-            this.$emit("update:filter", value);
+        valueData(value) {
+            if (value === "") this.selectedFilter = null;
+            this.$emit("update:value", value);
         }
     },
     computed: {
@@ -259,31 +253,39 @@ export const SearchPersistent = {
 
             return base;
         },
-        isFilterSelected() {
-            return this.selectedFilterValueData !== null;
+        hasFilterSelected() {
+            return this.selectedFilter !== null;
+        },
+        selectedFilterValue() {
+            return this.hasFilterSelected ? this.filters[this.selectedFilter].value : null;
         }
     },
     methods: {
-        blur() {
-            this.$refs.input.blur();
+        selectFilter(index) {
+            this.selectedFilter = index;
+            this.valueData = this.filtersData[index].filter;
         },
-        deleteValue() {
-            this.$emit("update:value", "");
+        isFilterSelected(index) {
+            return index === this.selectedFilter;
         },
-        unselectFilter() {
-            this.selectedFilterValueData = null;
+        updateFilter(updatedFilter, index) {
+            this.$set(this.filtersData, index, updatedFilter);
+            this.$emit("updated:filter", updatedFilter, index);
+            this.$emit("updated:filters", this.filtersData);
         },
-        onDeleteIconClick() {
-            this.deleteValue();
+        deleteFilter(index) {
+            const deleted = this.filtersData[index];
+            this.selectedFilter = null;
+            this.filtersData.splice(index, 1);
+            this.$emit("deleted:filter", deleted, index);
+            this.$emit("updated:filters", this.filtersData);
         },
-        isSelectedFilterItem(item) {
-            return item.value === this.selectedFilterValueData;
-        },
-        async onSelectedFilterUpdateButtonClick(name) {
+        async onSaveClick(item, index) {
+            const updatedFilter = { ...item, filter: this.valueData };
             await this.alertMessage(
-                `Are you sure you really want to <strong>update Filter "${name}"</strong>?<br/>Please bare in mind that this action <strong>is not reversible</strong>!`,
+                `Are you sure you really want to <strong>update Filter "${item.label}"</strong>?<br/>Please bare in mind that this action <strong>is not reversible</strong>!`,
                 {
-                    title: `Update filter ${name}`,
+                    title: `Update filter ${item.label}`,
                     confirmText: "Save filter",
                     confirmIcon: "save",
                     cancelText: "Discard changes",
@@ -291,17 +293,16 @@ export const SearchPersistent = {
                     buttonsAlignment: "right",
                     isButtonSmall: false,
                     task: async (alert, component) => {
-                        const obj = { name: name, filter: this.filter };
-                        this.$emit("click:update-filter", obj);
+                        this.updateFilter(updatedFilter, index);
                     }
                 }
             );
         },
-        async onSelectedFilterDeleteButtonClick(name) {
+        async onDeleteClick(item, index) {
             await this.alertMessage(
-                `Are you sure you really want to <strong>delete Filter "${name}"</strong>?<br/>Please bare in mind that this action <strong>is not reversible</strong>!`,
+                `Are you sure you really want to <strong>delete Filter "${item.label}"</strong>?<br/>Please bare in mind that this action <strong>is not reversible</strong>!`,
                 {
-                    title: `Delete filter ${name}`,
+                    title: `Delete filter ${item.label}`,
                     confirmText: "Delete filter",
                     confirmIcon: "bin",
                     confirmColor: "red",
@@ -310,22 +311,21 @@ export const SearchPersistent = {
                     buttonsAlignment: "right",
                     isButtonSmall: false,
                     task: async (alert, component) => {
-                        const obj = { label: name, filter: this.filter };
-                        this.$emit("click:delete-filter", obj);
+                        this.deleteFilter(index);
                     }
                 }
             );
         },
-        async saveFilter() {
+        async onSaveFilterButtonClick() {
             await this.alertComponent(SaveFilterModal, {
-                filter: this.filter,
+                filter: this.valueData,
                 task: async (alert, component) => {
                     this.$emit("click:save-filter", component.$data);
                 }
             });
         },
-        async onSaveFilterButtonClick() {
-            await this.saveFilter();
+        onSelected(item, index) {
+            this.selectFilter(index);
         }
     }
 };
