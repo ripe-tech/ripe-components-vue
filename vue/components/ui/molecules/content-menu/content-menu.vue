@@ -21,7 +21,7 @@
 }
 
 .content-menu .menu {
-    background: blue;
+    background: LightSalmon;
     display: inline-block;
     overflow-x: hidden;
     overflow-y: auto;
@@ -39,16 +39,18 @@
 }
 
 .content-menu.floating .menu {
-    transition: all var(--animation-timeout) ease-in-out;
+    transition: transform var(--animation-timeout) ease-in-out;
     position: absolute;
     top: 0px;
+    //opacity: 1;
+    transform: rotateX(90deg);
+    transform-origin: top;
     z-index: 1;
 }
 
 .content-menu.floating:not(.menu-visible) .menu {
-    opacity: 0;
-    z-index: -1;
-    pointer-events: none;
+    transform: rotateX(0deg);
+    z-index: 1;
 }
 
 .content-menu.floating.align-left .menu {
@@ -60,7 +62,7 @@
 }
 
 .content-menu .content {
-    background: red;
+    background: IndianRed;
     display: inline-block;
     flex: 1 0;
     min-width: var(--content-min-width);
