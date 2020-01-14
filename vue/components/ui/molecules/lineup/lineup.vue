@@ -14,8 +14,8 @@
                 v-for="value in values"
             >
                 <div
-                    class="lineup-item-value"
-                    v-bind:class="[value.value, `lineup-item-value-${value.value}`]"
+                    class="lineup-item-contents"
+                    v-bind:class="[value.value, `lineup-item-contents-${value.value}`]"
                     v-bind:style="lineupItemStyle"
                     v-bind:key="value.value"
                 >
@@ -98,14 +98,14 @@
     border-top: 1px solid $lighter-grey;
 }
 
-.lineup > .lineup-item > .lineup-item-value {
+.lineup > .lineup-item > .lineup-item-contents {
     box-sizing: border-box;
     display: inline-block;
     padding: 12px 12px 16px 12px;
     vertical-align: top;
 }
 
-.lineup > .lineup-item > .lineup-item-value > .key {
+.lineup > .lineup-item > .lineup-item-contents > .key {
     color: #8d8d8d;
     font-size: 12px;
     font-weight: 600;
@@ -113,18 +113,18 @@
     text-transform: uppercase;
 }
 
-.lineup > .lineup-item > .lineup-item-value > .key > .label-text {
+.lineup > .lineup-item > .lineup-item-contents > .key > .label-text {
     margin: 0px 0px 0px 0px;
 }
 
-.lineup > .lineup-item > .lineup-item-value > .value {
+.lineup > .lineup-item > .lineup-item-contents > .value {
     color: #0d0d0d;
     font-size: 14px;
     font-weight: 600;
     margin: 6px 0px 0px 0px;
 }
 
-.lineup > .lineup-item > .lineup-item-value > .note {
+.lineup > .lineup-item > .lineup-item-contents > .note {
     color: $label-color;
     font-size: 11px;
     margin: 2px 0px 0px 0px;
