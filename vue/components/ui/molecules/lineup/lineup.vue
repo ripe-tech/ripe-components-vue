@@ -86,7 +86,7 @@
     text-align: left;
 }
 
-.lineup .lineup-item {
+.lineup > .lineup-item {
     border-bottom: 1px solid $lighter-grey;
 }
 
