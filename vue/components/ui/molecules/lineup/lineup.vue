@@ -103,7 +103,7 @@
 .lineup > .lineup-item > .lineup-item-container {
     box-sizing: border-box;
     display: inline-block;
-    padding: 12px 12px 16px 12px;
+    padding: 6px 12px 6px 12px;
     vertical-align: top;
 }
 
