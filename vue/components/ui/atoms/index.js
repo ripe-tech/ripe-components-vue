@@ -19,6 +19,7 @@ import { RichTextarea } from "./rich-textarea/rich-textarea.vue";
 import { Side } from "./side/side.vue";
 import { Tag } from "./tag/tag.vue";
 import { Textarea } from "./textarea/textarea.vue";
+import { Dot } from "./dot/dot.vue";
 
 const install = Vue => {
     Vue.component("attachments", Attachments);
@@ -42,6 +43,7 @@ const install = Vue => {
     Vue.component("side", Side);
     Vue.component("tag", Tag);
     Vue.component("textarea-ripe", Textarea);
+    Vue.component("dot", Dot);
 };
 
 export {
@@ -65,7 +67,8 @@ export {
     RichTextarea,
     Side,
     Tag,
-    Textarea
+    Textarea,
+    Dot
 };
 
 export default install;
