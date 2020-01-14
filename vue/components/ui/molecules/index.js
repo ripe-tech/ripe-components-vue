@@ -13,6 +13,7 @@ import { Table } from "./table/table.vue";
 import { Tabs } from "./tabs/tabs.vue";
 import { Search } from "./search/search.vue";
 import { SearchPersistent } from "./search-persistent/search-persistent.vue";
+import { SearchPersistentLocalStorage } from "./search-persistent-local-storage/search-persistent-local-storage.vue";
 import { Select } from "./select/select.vue";
 import { UploadArea } from "./upload-area/upload-area.vue";
 
@@ -30,6 +31,7 @@ const install = Vue => {
     Vue.component("progress-bar", ProgressBar);
     Vue.component("search", Search);
     Vue.component("search-persistent", SearchPersistent);
+    Vue.component("search-persistent-local-storage", SearchPersistentLocalStorage);
     Vue.component("select-ripe", Select);
     Vue.component("table-ripe", Table);
     Vue.component("tabs", Tabs);
@@ -50,6 +52,7 @@ export {
     ProgressBar,
     Search,
     SearchPersistent,
+    SearchPersistentLocalStorage,
     Select,
     Table,
     Tabs,
