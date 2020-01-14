@@ -18,6 +18,7 @@
                 v-bind:values="values"
                 v-bind:get-item-url="getItemUrl"
                 v-on:click="onLineupClick"
+                v-bind:nr-columns="lineupNrColumns"
             >
                 <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
                 <template
@@ -109,6 +110,9 @@ export const Filter = {
         useQuery: {
             type: Boolean,
             default: false
+        },
+        lineupNrColumns: {
+            type: Number
         }
     },
     data: function() {

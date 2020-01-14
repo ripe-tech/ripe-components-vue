@@ -32,6 +32,7 @@
                 v-bind:loading.sync="loading"
                 v-bind:items.sync="items"
                 v-bind:options.sync="filterOptions"
+                v-bind:lineup-nr-columns="lineupNrColumns"
                 ref="filter"
                 v-on:update:options="filterUpdated"
                 v-on:click:lineup="onLineupClick"
@@ -246,6 +247,9 @@ export const Listing = {
         searchWidth: {
             type: Number,
             default: 304
+        },
+        lineupNrColumns: {
+            type: Number
         }
     },
     data: function() {
