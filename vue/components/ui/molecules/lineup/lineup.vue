@@ -16,8 +16,8 @@
                 <div
                     class="lineup-item-value"
                     v-bind:class="[value.value, `lineup-item-value-${value.value}`]"
-                    v-bind:key="value.value"
                     v-bind:style="style"
+                    v-bind:key="value.value"
                 >
                     <div class="key">
                         <slot
@@ -30,7 +30,9 @@
                                     v-bind:name="`${value.value}-label-text`"
                                     v-bind:item="item"
                                     v-bind:index="index"
-                                >{{ value.label || value.value || value.name }}</slot>
+                                >
+                                    {{ value.label || value.value || value.name }}
+                                </slot>
                             </p>
                         </slot>
                     </div>
@@ -45,7 +47,9 @@
                                     v-bind:name="`${value.value}-value-text`"
                                     v-bind:item="item"
                                     v-bind:index="index"
-                                >{{ item[value.value] || item[value.value] || "-" }}</slot>
+                                >
+                                    {{ item[value.value] || item[value.value] || "-" }}
+                                </slot>
                             </p>
                         </slot>
                     </div>
@@ -63,7 +67,9 @@
                                     v-bind:name="`${value.value}-note-text`"
                                     v-bind:item="item"
                                     v-bind:index="index"
-                                >{{ item[value.note] }}</slot>
+                                >
+                                    {{ item[value.note] }}
+                                </slot>
                             </p>
                         </slot>
                     </div>
@@ -93,32 +99,31 @@
 }
 
 .lineup .lineup-item .lineup-item-value {
-    display: inline-block;
     box-sizing: border-box;
+    display: inline-block;
+    margin: 12px 0px 20px 0px;
     padding: 0px 15px 0px 15px;
     vertical-align: top;
-    margin: 12px 0px 20px 0px;
 }
 
 .lineup .lineup-item .lineup-item-value .key {
-    text-transform: uppercase;
+    color: #8d8d8d;
     font-size: 12px;
     font-weight: bold;
     letter-spacing: 0.6px;
-    color: #8d8d8d;
+    text-transform: uppercase;
 }
 
-.lineup .lineup-item .lineup-item-value .key .label-text{
+.lineup .lineup-item .lineup-item-value .key .label-text {
     margin: 0px 0px 0px 0px;
 }
 
-
 .lineup .lineup-item .lineup-item-value .value {
-  font-size: 14px;
-  font-weight: bold;
-  letter-spacing: 0.7px;
-  color: #0d0d0d;
-  margin: 6px 0px 0px 0px;
+    color: #0d0d0d;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0.7px;
+    margin: 6px 0px 0px 0px;
 }
 </style>
 
@@ -150,7 +155,7 @@ export const Lineup = {
     computed: {
         style() {
             const base = {};
-            if (this.nrColumns) base.width = `${100/(this.nrColumns)}%`;
+            if (this.nrColumns) base.width = `${100 / this.nrColumns}%`;
             return base;
         }
     },

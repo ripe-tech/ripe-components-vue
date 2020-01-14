@@ -17,8 +17,8 @@
                 v-bind:items="items"
                 v-bind:values="values"
                 v-bind:get-item-url="getItemUrl"
-                v-on:click="onLineupClick"
                 v-bind:nr-columns="lineupNrColumns"
+                v-on:click="onLineupClick"
             >
                 <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
                 <template
