@@ -41,15 +41,15 @@ storiesOf("Molecules", module)
                     { value: "shirt" }
                 ]
             },
-            nrColumns: {
-                default: number("Number of Columns", 2)
+            columns: {
+                default: number("Columns", 2)
             }
         },
         template: `
             <lineup
                 v-bind:values="values"
                 v-bind:items="items"
-                v-bind:nr-columns="nrColumns"
+                v-bind:columns="columns"
             >
                 <template v-slot:shirt>
                     Custom entry

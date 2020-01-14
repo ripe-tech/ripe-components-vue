@@ -145,7 +145,7 @@ export const Lineup = {
             type: Array,
             required: true
         },
-        nrColumns: {
+        columns: {
             type: Number,
             default: null
         },
@@ -161,8 +161,7 @@ export const Lineup = {
     computed: {
         lineupItemStyle() {
             const base = {};
-            base.width = this.nrColumns === null ? null : `${100 / this.nrColumns}%`;
-
+            base.width = this.columns === null ? null : `${100 / this.columns}%`;
             return base;
         }
     },
