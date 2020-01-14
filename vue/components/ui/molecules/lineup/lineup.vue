@@ -16,6 +16,7 @@
                 <div
                     class="lineup-item-value"
                     v-bind:class="[value.value, `lineup-item-value-${value.value}`]"
+                    v-bind:style="lineupItemStyle"
                     v-bind:key="value.value"
                 >
                     <div class="key">
@@ -87,7 +88,6 @@
 
 .lineup > .lineup-item {
     border-bottom: 1px solid $lighter-grey;
-    padding: 16px 20px 16px 20px;
 }
 
 .lineup > .lineup-item.clickable {
@@ -98,43 +98,38 @@
     border-top: 1px solid $lighter-grey;
 }
 
-.lineup > .lineup-item ::v-deep .lineup-item-value {
+.lineup > .lineup-item > .lineup-item-value {
     box-sizing: border-box;
     display: inline-block;
-    font-weight: 600;
-    min-height: 65px;
-    overflow: hidden;
-    padding: 20px 20px 0px 0px;
-    text-align: left;
+    margin: 12px 0px 20px 0px;
+    padding: 0px 15px 0px 15px;
+    vertical-align: top;
+}
+
+.lineup > .lineup-item > .lineup-item-value > .key {
+    color: #8d8d8d;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.6px;
     text-transform: uppercase;
 }
 
-.lineup > .lineup-item ::v-deep .lineup-item-value .label > p,
-.lineup > .lineup-item ::v-deep .lineup-item-value .value > p,
-.lineup > .lineup-item ::v-deep .lineup-item-value .note > p {
+.lineup > .lineup-item > .lineup-item-value > .key > .label-text {
     margin: 0px 0px 0px 0px;
 }
 
-.lineup > .lineup-item .lineup-item-value .label {
-    color: $label-color;
-    font-size: 12px;
-    margin: 0px 0px 6px 0px;
-}
-
-.lineup > .lineup-item .lineup-item-value .value {
+.lineup > .lineup-item > .lineup-item-value > .value {
+    color: #0d0d0d;
     font-size: 14px;
-    line-height: 18px;
+    font-weight: bold;
+    letter-spacing: 0.7px;
     margin: 6px 0px 0px 0px;
-    word-break: break-all;
-    word-break: break-word;
 }
 
-.lineup > .lineup-item .lineup-item-value .note {
+.lineup > .lineup-item > .lineup-item-value > .note {
     color: $label-color;
     font-size: 11px;
-    line-height: 16px;
-    margin-bottom: 0px;
-    margin-top: 2px;
+    margin: 2px 0px 0px 0px;
 }
 </style>
 
@@ -150,6 +145,10 @@ export const Lineup = {
             type: Array,
             required: true
         },
+        columns: {
+            type: Number,
+            default: null
+        },
         transition: {
             type: String,
             default: null
@@ -157,6 +156,13 @@ export const Lineup = {
         getItemUrl: {
             type: Function,
             default: null
+        }
+    },
+    computed: {
+        lineupItemStyle() {
+            const base = {};
+            base.width = this.columns === null ? null : `${100 / this.columns}%`;
+            return base;
         }
     },
     methods: {
