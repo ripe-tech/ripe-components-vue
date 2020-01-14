@@ -116,7 +116,6 @@ export const ContentMenu = {
         menuStyle: function() {
             const base = {
                 "--menu-width": this.menuWidth === null ? null : `${this.menuWidth}px`,
-                "--collapsed-x": this.menuWidth === null ? null : `${this.menuWidth * -1}px`,
                 "--animation-timeout":
                     this.animationTimeout === null ? null : `${this.animationTimeout}s`
             };
