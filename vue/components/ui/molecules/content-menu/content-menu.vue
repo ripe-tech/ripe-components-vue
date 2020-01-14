@@ -101,7 +101,7 @@ export const ContentMenu = {
     },
     watch: {
         menuVisibleData(isVisible) {
-            isVisible ? this.$emit("menu-open") : this.$emit("menu-close");
+            isVisible ? this.$emit("visible") : this.$emit("hidden");
         },
         menuVisible(value) {
             this.menuVisibleData = value;
