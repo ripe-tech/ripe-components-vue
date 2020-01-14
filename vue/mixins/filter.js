@@ -9,7 +9,12 @@ const OP_ALIAS = {
 
 const filterMixin = {
     methods: {
-        getFilterParams({ options = {}, nameAlias = {}, nameFunc = {}, filterFields = {} } = {}) {
+        getFilterParams({
+            options = {},
+            nameAlias = {},
+            nameFunc = {},
+            filterFields = {}
+        } = {}) {
             let operator = "$or";
             const { sort, reverse, filter, start, limit } = options;
             const filterS = filter || "";
