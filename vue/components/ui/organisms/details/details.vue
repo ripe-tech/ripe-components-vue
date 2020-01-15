@@ -491,7 +491,7 @@ export const Details = {
         },
         item: {
             type: Object,
-            required: true
+            required: false
         },
         index: {
             type: Number,
