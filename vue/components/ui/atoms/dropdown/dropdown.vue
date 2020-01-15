@@ -138,7 +138,7 @@ export const Dropdown = {
         },
         width: {
             type: Number,
-            default: 42
+            default: null
         },
         maxHeight: {
             type: Number,
