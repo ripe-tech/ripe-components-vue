@@ -1,5 +1,5 @@
 <template>
-    <div class="table-menu" v-bind:class="{'table-expand': tableExpandData}">
+    <div class="table-menu">
         <content-menu
             v-bind:menu-orientation="menuOrientation"
             v-bind:menu-mode="menuMode"
@@ -94,10 +94,6 @@
     overflow: hidden;
 }
 
-.table-menu.table-expand ::v-deep .content .table {
-    display: block;
-}
-
 </style>
 
 <script>
@@ -145,10 +141,6 @@ export const TableMenu = {
             type: Boolean,
             default: true
         },
-        tableExpand: {
-            type: Boolean,
-            default: false
-        },
         menuWidth: {
             type: Number,
             default: 300
@@ -179,16 +171,11 @@ export const TableMenu = {
         reverse(value) {
             this.reverseData = value;
         },
-        tableExpand(value) {
-            this.tableExpandData = value;
         }
     },
     methods: {
         toggleMenu(item, index) {
             this.menuVisibleData = !this.menuVisibleData;
-        },
-        toggleExpand() {
-            this.tableExpandData = !this.tableExpandData;
         },
         setMenuItem(item, index) {
             const menuItem = {};
