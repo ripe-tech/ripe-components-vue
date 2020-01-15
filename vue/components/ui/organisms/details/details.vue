@@ -430,6 +430,7 @@ body.mobile .container-ripe .details-column .label-value {
 .container-ripe .label-value .label {
     color: $label-color;
     font-size: 12px;
+    letter-spacing: 0.5px;
     margin: 0px 0px 6px 0px;
 }
 
@@ -487,11 +488,11 @@ export const Details = {
         },
         context: {
             type: Object,
-            required: true
+            default: () => ({})
         },
         item: {
             type: Object,
-            required: true
+            default: null
         },
         index: {
             type: Number,
@@ -499,7 +500,7 @@ export const Details = {
         },
         loaded: {
             type: Boolean,
-            required: true
+            default: true
         },
         invalid: {
             type: Boolean,
@@ -582,6 +583,7 @@ export const Details = {
             if (!this.$router) return;
             this.switching = true;
             const transition = index > this.index ? "slide-left" : "slide-right";
+
             this.$router.push(
                 {
                     name: this.name,
