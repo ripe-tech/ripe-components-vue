@@ -43,6 +43,7 @@ storiesOf("Organisms", module)
                     height: "34px"
                 })
             }
+            // TODO add new props
         },
         methods: {
             getItems({ options = {}, params = {} } = {}) {

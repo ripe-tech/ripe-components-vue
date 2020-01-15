@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, boolean, select } from "@storybook/addon-knobs";
+import { withKnobs, text, boolean, select, number } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
@@ -51,6 +51,12 @@ storiesOf("Molecules", module)
             },
             visible: {
                 default: boolean("Visible", true)
+            },
+            width: {
+                default: number("Width", null)
+            },
+            minWidth: {
+                default: number("Min Width", null)
             }
         },
         computed: {
@@ -74,6 +80,8 @@ storiesOf("Molecules", module)
                     v-bind:title="title"
                     v-bind:sub-title="subTitle"
                     v-bind:visible="visible"
+                    v-bind:width="width"
+                    v-bind:min-width="min-width"
                 >
                     <div>{{ text }}</div>
                 </modal>
