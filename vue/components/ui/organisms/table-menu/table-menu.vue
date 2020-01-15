@@ -15,7 +15,7 @@
                         v-bind:sort.sync="sortData"
                         v-bind:sort-method="sortMethod"
                         v-bind:reverse.sync="reverseData"
-                        v-on:click:item="toggleMenu(item, index)"
+                        v-on:click="onClickItem"
                     >
                         <template v-slot="{ item, index }">
                             <slot name="item" v-bind:item="item" v-bind:index="index" />
@@ -168,7 +168,6 @@ export const TableMenu = {
             reverseData: this.reverse,
             menuVisibleData: this.menuVisible,
             sortData: this.sort,
-            menuItem: {},
             editIndex: 0
         };
     },
@@ -176,7 +175,6 @@ export const TableMenu = {
         menuStyle() {
             const base = {};
             base["background-color"] = this.menuBackgroundColor ? this.menuBackgroundColor : null;
-            console.log("base", base);
             return base;
         }
     },
@@ -192,15 +190,12 @@ export const TableMenu = {
         }
     },
     methods: {
-        toggleMenu(item, index) {
+        toggleMenu() {
             this.menuVisibleData = !this.menuVisibleData;
         },
-        setMenuItem(item, index) {
-            const menuItem = {};
-            this.editColumns.forEach(e => {
-                menuItem[e] = item[e];
-            });
-            this.menuItem = Object.assign({}, menuItem);
+        setMenuItem(index) {
+            this.editIndex = index;
+            this.menuVisibleData = true;
         },
         isTextInput(item) {
             return typeof item === "string" || typeof item === "number";
@@ -221,6 +216,9 @@ export const TableMenu = {
         },
         toggleCheckbox(property, value) {
             this.$set(this.items[this.editIndex], property, value);
+        },
+        onClickItem(item, index) {
+            this.editIndex === index ? this.toggleMenu() : this.setMenuItem(index);
         }
     }
 };
