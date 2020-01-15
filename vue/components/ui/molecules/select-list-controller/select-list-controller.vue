@@ -1,7 +1,7 @@
 <template>
     <div class="dual">
         <div class="container container-left">
-            <select-list v-bind:items.sync="leftData" />
+            <select-list v-bind:items="leftData" v-bind:values.sync="valuesLeft" />
         </div>
         <div class="buttons">
             <div class="button to-right-all" v-on:click="moveAll(true)">
@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="container container-right">
-            <select-list v-bind:items.sync="rightData" />
+            <select-list v-bind:items="rightData" v-bind:values.sync="valuesRight" />
         </div>
     </div>
 </template>
@@ -34,7 +34,7 @@
 .container {
     border: solid 1px #e4e8f0;
     border-radius: 6px;
-    box-shadow: 0 6px 24px 0 #43566426;
+    box-shadow: 0px 6px 24px 0px #43566426;
     display: inline-block;
     height: 260px;
     margin: 20px 0px 0px 0px;
@@ -113,6 +113,14 @@ export const SelectListController = Vue.component("select-list-controller", {
             type: Array,
             default: () => []
         },
+        valuesLeft: {
+            type: Object,
+            default: () => ({})
+        },
+        valuesRight: {
+            type: Object,
+            default: () => ({})
+        },
         leftTitle: {
             type: String,
             default: null
@@ -124,51 +132,45 @@ export const SelectListController = Vue.component("select-list-controller", {
     },
     data: function() {
         return {
-            selectedItems: [],
+            selectedItemsLeft: this.valuesLeft,
+            selectedItemsRight: this.valuesRight,
             leftData: this.leftItems,
             rightData: this.rightItems
         };
     },
-    created: function() {
-        this._onCreate();
-    },
     mounted: async function() {},
     methods: {
-        _onCreate() {
-            // @TODO rename function
-            this.leftData.forEach((element, index) => {
-                element.selected = false;
-                this.$set(this.leftData, index, Object.assign({}, element));
-            });
-        },
-        _removeItem(item, fromLeft = true) {
+        removeItem(value, fromLeft = true) {
             let index = -1;
             if (fromLeft) {
-                index = this.leftData.findIndex(element => element.value === item.value);
+                index = this.leftData.findIndex(element => element.value === value);
                 this.leftData.splice(index, 1);
             }
             if (!fromLeft) {
-                index = this.rightData.findIndex(element => element.value === item.value);
+                index = this.rightData.findIndex(element => element.value === value);
                 this.rightData.splice(index, 1);
             }
         },
         moveSelected(toRight = true) {
+            let values = {};
+
             if (toRight) {
-                [...this.leftData].forEach(element => {
-                    if (element.selected) {
-                        element.selected = false;
-                        this.rightData.push(element);
-                        this._removeItem(element, toRight);
-                    }
+                const selectedItems = Object.entries(this.selectedItemsLeft);
+                selectedItems.forEach(element => {
+                    values.value = element[0];
+                    this.rightData.push(values);
+                    this.$delete(this.selectedItemsLeft, values.value);
+                    this.removeItem(values.value, true);
+                    values = {};
                 });
             } else {
-                // this.rightItems.forEach(element => {
-                [...this.rightData].forEach(element => {
-                    if (element.selected) {
-                        element.selected = false;
-                        this.leftData.push(element);
-                        this._removeItem(element, toRight);
-                    }
+                const selectedItems = Object.entries(this.selectedItemsRight);
+                selectedItems.forEach(element => {
+                    values.value = element[0];
+                    this.leftData.push(values);
+                    this.$delete(this.selectedItemsRight, values.value);
+                    this.removeItem(values.value, false);
+                    values = {};
                 });
             }
             this.$emit("update:value", this.rightData);
