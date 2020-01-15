@@ -2,7 +2,7 @@ import { storiesOf } from "@storybook/vue";
 
 storiesOf("Molecules", module).add("Filter", () => ({
     props: {
-        columns: {
+        tableColumns: {
             type: Array,
             default: () => [
                 { value: "id", label: "ID" },
@@ -10,7 +10,7 @@ storiesOf("Molecules", module).add("Filter", () => ({
                 { value: "car", label: "Car" }
             ]
         },
-        values: {
+        lineupFields: {
             type: Array,
             default: () => [
                 { value: "id", label: "ID" },
@@ -45,8 +45,8 @@ storiesOf("Molecules", module).add("Filter", () => ({
         <global></global>
         <filter-ripe 
             v-bind:getItems="getItems"
-            v-bind:columns="columns" 
-            v-bind:values="values"
+            v-bind:table-columns="tableColumns" 
+            v-bind:lineup-fields="lineupFields"
         >
             <template v-slot:table-item="{ item, index }">
                 <td class="id">

@@ -2,7 +2,7 @@
     <div class="filter-ripe" v-bind:class="{ loading }">
         <slot name="list">
             <table-ripe
-                v-bind:columns="columns"
+                v-bind:columns="tableColumns"
                 v-bind:items="items"
                 v-bind:sort-method="onSort"
                 v-bind:transition="tableTransition"
@@ -16,7 +16,7 @@
             </table-ripe>
             <lineup
                 v-bind:items="items"
-                v-bind:values="values"
+                v-bind:fields="lineupFields"
                 v-bind:get-item-url="getItemUrl"
                 v-bind:columns="lineupColumns"
                 v-on:click="onLineupClick"
@@ -96,11 +96,7 @@ export const Filter = {
             type: Function,
             default: null
         },
-        columns: {
-            type: Array,
-            default: () => []
-        },
-        values: {
+        tableColumns: {
             type: Array,
             default: () => []
         },
@@ -119,6 +115,10 @@ export const Filter = {
         lineupColumns: {
             type: Number,
             default: null
+        },
+        lineupFields: {
+            type: Array,
+            default: () => []
         }
     },
     data: function() {

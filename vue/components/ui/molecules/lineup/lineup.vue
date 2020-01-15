@@ -11,7 +11,7 @@
                 class="lineup-item-container"
                 v-bind:style="lineupItemStyle"
                 v-bind:class="`lineup-item-container-${value.value}`"
-                v-for="value in values"
+                v-for="value in fields"
                 v-bind:key="value.value"
             >
                 <slot v-bind:name="value.value" v-bind:item="item" v-bind:index="index">
@@ -144,7 +144,7 @@ export const Lineup = {
             type: Array,
             required: true
         },
-        values: {
+        fields: {
             type: Array,
             required: true
         },

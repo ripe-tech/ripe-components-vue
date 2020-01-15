@@ -30,7 +30,7 @@ storiesOf("Molecules", module)
                     }
                 ]
             },
-            values: {
+            fields: {
                 type: Array,
                 default: () => [
                     { value: "name", label: "Person" },
@@ -47,7 +47,7 @@ storiesOf("Molecules", module)
         },
         template: `
             <lineup
-                v-bind:values="values"
+                v-bind:fields="fields"
                 v-bind:items="items"
                 v-bind:columns="columns"
             >
