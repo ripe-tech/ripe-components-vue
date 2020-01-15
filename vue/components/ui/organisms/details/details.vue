@@ -583,6 +583,7 @@ export const Details = {
             if (!this.$router) return;
             this.switching = true;
             const transition = index > this.index ? "slide-left" : "slide-right";
+
             this.$router.push(
                 {
                     name: this.name,

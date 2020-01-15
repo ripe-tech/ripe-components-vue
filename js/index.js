@@ -1,5 +1,3 @@
-import { Assets } from "./assets";
-import { normalize } from "./util";
-
-export { Assets };
-export { normalize };
+export { Assets } from "./assets";
+export { filterToParams } from "./filter";
+export { normalize } from "./util";
