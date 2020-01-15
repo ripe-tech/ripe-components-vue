@@ -175,7 +175,7 @@ export const Dropdown = {
             if (this.width) base.width = `${this.width}px`;
             if (this.maxHeight) {
                 base["max-height"] = `${this.maxHeight}px`;
-                base.overflow = "overlay";
+                base.overflow = "auto";
             }
             return base;
         }
