@@ -9,7 +9,7 @@ storiesOf("Atoms", module)
                 default: boolean("Value", false)
             },
             size: {
-                default: number("Size", 20)
+                default: number("Size", 14)
             }
         },
         template: `

@@ -2,6 +2,7 @@
     <image-ripe
         class="checkmark"
         v-bind:src="iconPath"
+        v-bind:fade="false"
         v-bind:class="classes"
         v-bind:style="style"
     />
@@ -26,7 +27,7 @@ export const Checkmark = {
     props: {
         size: {
             type: Number,
-            default: 20
+            default: 14
         },
         value: {
             type: Boolean,
