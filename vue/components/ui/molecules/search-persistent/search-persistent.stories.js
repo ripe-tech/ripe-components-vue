@@ -63,6 +63,9 @@ storiesOf("Molecules", module)
             width: {
                 default: number("Width", null)
             },
+            dropdownMinWidth: {
+                default: number("Dropdown Min Width", 200)
+            },
             loading: {
                 default: boolean("Loading", false)
             }
@@ -89,6 +92,7 @@ storiesOf("Molecules", module)
                     v-bind:clear-visible="clearVisible"
                     v-bind:variant="variant"
                     v-bind:width="width"
+                    v-bind:dropdown-min-width="dropdownMinWidth"
                     v-bind:loading="loading"    
                 />
                 <p>Value: {{ valueData }}</p>

@@ -49,6 +49,20 @@ storiesOf("Molecules", module)
             },
             disabled: {
                 default: boolean("Disabled", false)
+            },
+            dropdownMinWidth: {
+                default: number("Dropdown Min Width", null)
+            },
+            align: {
+                default: select(
+                    "Align",
+                    {
+                        None: null,
+                        Left: "left",
+                        Right: "right"
+                    },
+                    null
+                )
             }
         },
         data: function() {

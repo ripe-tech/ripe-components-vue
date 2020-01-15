@@ -15,19 +15,20 @@
             v-bind:placeholder="'Filter'"
             v-bind:options="selectOptions"
             v-bind:value="selectedFilterValue"
+            v-bind:dropdown-min-width="dropdownMinWidth"
             v-on:update:value="onSelected"
         >
             <template v-for="(item, index) in filtersData" v-bind:slot="getSelectValue(item)">
                 <div
                     class="filter-item"
-                    v-bind:class="{ 'selected-filter-item': isFilterSelected(index) }"
+                    v-bind:class="{ selected: isFilterSelected(index) }"
                     v-bind:title="item.label"
                     v-bind:key="item.name"
                 >
-                    <div class="filter-label">
+                    <div class="filter-item-label">
                         {{ item.name }}
                     </div>
-                    <div class="selected-filter-item-buttons" v-show="isFilterSelected(index)">
+                    <div class="filter-item-buttons" v-show="isFilterSelected(index)">
                         <button-icon
                             v-bind:icon="'save'"
                             v-bind:color="'black'"
@@ -63,96 +64,83 @@
     font-size: 0px;
 }
 
-.search-persistent .search {
+.search-persistent > .search {
     flex: 1 0;
     margin-bottom: 3px;
     vertical-align: middle;
 }
 
-.search-persistent .search ::v-deep .input {
+.search-persistent > .search ::v-deep .input {
     border-radius: 6px 0px 0px 6px;
     border-right: none;
 }
 
-.search-persistent .search ::v-deep .input:focus {
+.search-persistent > .search ::v-deep .input:focus {
     border-right: 1px solid $aqcua-blue;
 }
 
-.search-persistent .select {
+.search-persistent > .select {
     display: inline-block;
     text-align: left;
     vertical-align: middle;
 }
 
-.search-persistent .select ::v-deep .select-container .select-button {
+.search-persistent > .select ::v-deep .select-container > .select-button {
     border-radius: 0px 6px 6px 0px;
     font-size: 14px;
     font-weight: 600;
 }
 
-.search-persistent .select.filter-selected ::v-deep .select-container .select-button {
+.search-persistent > .select ::v-deep .select-container > .select-button {
     background-color: $dark;
     background-image: url("~./assets/chevron-down-white.svg");
     color: $white;
 }
 
-.search-persistent .select ::v-deep .select-container .dropdown-container {
-    position: relative;
-}
-
-.search-persistent .select ::v-deep .dropdown-container {
-    float: right;
-    height: 0px;
-    margin-top: 0px;
-    max-width: 0px;
-    position: relative;
-    right: 0px;
-}
-
-.search-persistent .select ::v-deep .dropdown-container .dropdown {
+.search-persistent > .select ::v-deep .dropdown-container > .dropdown {
     background-color: $white;
-    margin: 0px 0px 0px -200px;
 }
 
-.search-persistent .select ::v-deep .dropdown-container .dropdown li:last-child .button {
+.search-persistent > .select .save-filter-button {
     border: none;
 }
 
-.search-persistent .select .filter-label {
+.search-persistent > .select .filter-item-label {
     overflow: hidden;
     padding: 0px 0px 0px 16px;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-.search-persistent .select .filter-item {
+.search-persistent > .select .filter-item {
     font-size: 14px;
     letter-spacing: 0.3px;
     line-height: 32px;
 }
 
-.search-persistent .select .selected-filter-item {
+.search-persistent > .select .filter-item.selected {
     background-color: $dark;
     color: $white;
+    display: flex;
     height: 32px;
 }
 
-.search-persistent .select .selected-filter-item .filter-label {
+.search-persistent > .select .filter-item.selected > .filter-item-label {
     display: inline-block;
-    width: 110px;
+    flex: 1 0;
 }
 
-.search-persistent .select .filter-item .selected-filter-item-buttons {
-    float: right;
+.search-persistent > .select .filter-item > .filter-item-buttons {
+    display: inline-block;
     font-size: 0px;
     margin: 0px 5px 0px 0px;
 }
 
-.search-persistent .select .filter-item .selected-filter-item-buttons .button {
+.search-persistent > .select .filter-item > .filter-item-buttons > .button {
     margin: 0px 1px 0px 1px;
 }
 
-.save-filter-button {
+.search-persistent > .select .save-filter-button {
     border-radius: 0px 0px 0px 0px;
     box-sizing: unset;
 }
@@ -206,9 +194,13 @@ export const SearchPersistent = {
             type: Number,
             default: null
         },
-        selectButtonMaxWidth: {
+        selectMaxWidth: {
             type: Number,
             default: null
+        },
+        dropdownMinWidth: {
+            type: Number,
+            default: 200
         },
         loading: {
             type: Boolean,
@@ -243,7 +235,7 @@ export const SearchPersistent = {
         },
         selectButtonStyle() {
             const base = {};
-            if (this.selectButtonMaxWidth) base["max-width"] = `${this.selectButtonMaxWidth}px`;
+            if (this.selectMaxWidth) base["max-width"] = `${this.selectMaxWidth}px`;
 
             return base;
         },
