@@ -77,9 +77,9 @@
 .table th {
     color: $label-color;
     font-size: 12px;
-    font-weight: 800;
+    font-weight: 600;
     height: 36px;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     line-height: 36px;
     text-transform: uppercase;
     user-select: none;

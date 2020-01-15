@@ -1,4 +1,4 @@
-export const normalize = (value) => {
+export const normalize = value => {
     return value.split("_").join(" ");
 };
 
