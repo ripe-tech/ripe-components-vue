@@ -3,7 +3,7 @@
         <content-menu
             v-bind:menu-orientation="menuOrientation"
             v-bind:menu-mode="menuMode"
-            v-bind:menu-visible="menuVisibleData"
+            v-bind:menu-visible.sync="menuVisibleData"
             v-bind:menu-width="menuWidth"
             v-bind:animation-timeout="animationTimeout"
         >
