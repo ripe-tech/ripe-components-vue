@@ -1,5 +1,5 @@
 <template>
-    <div class="dropdown-container">
+    <div class="dropdown-container" v-bind:style="alignmentStyle">
         <global-events v-on:keydown.esc="handleGlobal()" />
         <transition name="slide">
             <ul class="dropdown" v-bind:style="dropdownStyle" v-show="visibleData" ref="dropdown">
@@ -138,11 +138,15 @@ export const Dropdown = {
         },
         width: {
             type: Number,
-            default: null
+            default: 42
         },
         maxHeight: {
             type: Number,
             default: null
+        },
+        alignment: {
+            type: String,
+            default: "left"
         }
     },
     data: function() {
@@ -173,6 +177,13 @@ export const Dropdown = {
                 base["max-height"] = `${this.maxHeight}px`;
                 base.overflow = "overlay";
             }
+            return base;
+        },
+        alignmentStyle() {
+            const base = {};
+
+            base.right = this.alignment === "right" ? 0 : null;
+
             return base;
         }
     },
