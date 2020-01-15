@@ -93,11 +93,6 @@ export const Alert = {
     mounted: function() {
         this.$bus.$on("alert", options => this.show(options));
     },
-    computed: {
-        componentRef() {
-            return this.component ? this.$refs.component : this.$refs.modal;
-        }
-    },
     methods: {
         show(options) {
             if (this.visible) return;
@@ -162,11 +157,14 @@ export const Alert = {
             this.$bus.$emit(event);
             this.visible = false;
         },
+        componentRef() {
+            return this.component ? this.$refs.component : this.$refs.modal;
+        },
         async confirm() {
             if (this.task) {
                 try {
                     this.loading = true;
-                    await this.task(this, this.componentRef);
+                    await this.task(this, this.componentRef());
                 } catch (err) {
                     console.err(err);
                 }
@@ -177,7 +175,7 @@ export const Alert = {
             if (this.cancelTask) {
                 try {
                     this.loading = true;
-                    await this.cancelTask(this, this.componentRef);
+                    await this.cancelTask(this, this.componentRef());
                 } catch (err) {
                     console.err(err);
                 }
