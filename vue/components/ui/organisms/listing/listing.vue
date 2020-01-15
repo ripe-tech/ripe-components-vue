@@ -10,28 +10,11 @@
                 <div class="container-header-right">
                     <slot name="icons" />
                     <search
-                        v-bind:value.sync="filterData"
-                        v-bind:persistent-filters="persistentFilters"
-                        v-bind:placeholder="filterText ? filterText : `Search ${name}`"
-                        v-bind:enable-delete="searchEnableDelete"
-                        v-bind:icon-visible="searchIconInvisible"
                         v-bind:variant="'dark'"
                         v-bind:width="isMobileWidth() ? null : searchWidth"
+                        v-bind:placeholder="filterText ? filterText : `Search ${name}`"
+                        v-bind:value.sync="filter"
                         v-bind:loading="loading"
-                        v-if="!hasPersistentFilters"
-                    />
-                    <search-persistent
-                        v-bind:filter.sync="filterData"
-                        v-bind:persistent-filters="persistentFilters"
-                        v-bind:placeholder="filterText ? filterText : `Search ${name}`"
-                        v-bind:enable-delete="searchEnableDelete"
-                        v-bind:icon-visible="searchIconInvisible"
-                        v-bind:variant="'dark'"
-                        v-bind:width="isMobileWidth() ? null : searchWidth"
-                        v-else
-                        v-on:click:update-filter="onUpdateFilter"
-                        v-on:click:delete-filter="onDeleteFilter"
-                        v-on:click:save-filter="onSaveFilter"
                     />
                 </div>
                 <h1 class="title" v-if="titleText">{{ titleText }}</h1>
@@ -44,7 +27,7 @@
                 v-bind:get-item-url="getItemUrl"
                 v-bind:columns="columns"
                 v-bind:values="values"
-                v-bind:filter="filterData"
+                v-bind:filter="filter"
                 v-bind:use-query="useQuery"
                 v-bind:loading.sync="loading"
                 v-bind:items.sync="items"
@@ -143,17 +126,12 @@
 
 .container-header-right {
     float: right;
-    font-size: 0px;
+    text-align: right;
 }
 
 body.mobile .container-header-right {
     float: none;
     width: 100%;
-}
-
-.container-header-right > * {
-    display: inline-block;
-    vertical-align: middle;
 }
 
 .listing .filter-ripe ::v-deep table {
@@ -266,25 +244,9 @@ export const Listing = {
             type: Boolean,
             default: true
         },
-        searchEnableDelete: {
-            type: Boolean,
-            default: true
-        },
-        searchIconInvisible: {
-            type: Boolean,
-            default: false
-        },
         searchWidth: {
             type: Number,
             default: 304
-        },
-        hasPersistentFilters: {
-            type: Boolean,
-            default: false
-        },
-        persistentFilters: {
-            type: Array,
-            default: []
         },
         lineupColumns: {
             type: Number,
@@ -294,23 +256,18 @@ export const Listing = {
     data: function() {
         return {
             items: [],
-            filterData: this.context && this.context.filter ? this.context.filter : "",
+            filter: this.context && this.context.filter ? this.context.filter : "",
             filterOptions: null,
             loading: false,
             visibleLightbox: null
         };
     },
-    watch: {
-        filter(value) {
-            this.filterData = value;
-        }
-    },
     methods: {
         addFilter(key, value) {
             const base = `${key}=`;
             const tuple = `${key}=${value}`;
-            if (this.filterData && this.filterData.search(base) !== -1) return;
-            this.filterData += this.filterData ? ` and ${tuple}` : tuple;
+            if (this.filter && this.filter.search(base) !== -1) return;
+            this.filter += this.filter ? ` and ${tuple}` : tuple;
             this.showScrollTop = true;
             this.scrollTop = true;
         },
@@ -340,21 +297,12 @@ export const Listing = {
         getFilter() {
             return this.$refs.filter;
         },
-        onUpdateFilter(filter) {
-            this.$emit("click:update-filter", filter);
-        },
-        onDeleteFilter(filter) {
-            this.$emit("click:delete-filter", filter);
-        },
-        onSaveFilter(filter) {
-            this.$emit("click:save-filter", filter);
-        },
         onLineupClick(item, index) {
             this.$emit("click:lineup", item, index);
         }
     },
     beforeRouteUpdate: function(to, from, next) {
-        this.filterData = to.query.filter || "";
+        this.filter = to.query.filter || "";
         next();
     }
 };

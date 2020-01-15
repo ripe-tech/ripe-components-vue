@@ -20,7 +20,6 @@
         v-bind:auto-hide="false"
         v-if="component"
         v-bind:is="component"
-        v-bind:key="key"
         ref="component"
         v-on="listeners"
         v-on:update:visible="onUpdateVisible"
@@ -84,10 +83,8 @@ export const Alert = {
             subTitle: null,
             text: null,
             task: null,
-            cancelTask: null,
             visible: false,
-            loading: false,
-            key: true
+            loading: false
         };
     },
     mounted: function() {
@@ -123,8 +120,6 @@ export const Alert = {
                 subTitle,
                 text,
                 task,
-                cancelTask,
-                forceUpdate = true,
                 ...attrs
             } = options;
 
@@ -148,15 +143,10 @@ export const Alert = {
             this.subTitle = subTitle;
             this.text = text;
             this.task = task || null;
-            this.cancelTask = cancelTask || null;
 
             this.visible = true;
             this.loading = false;
             this.component = component;
-
-            // alternate the key to force the component
-            // to be destroyed and mounted again
-            if (forceUpdate) this.key = !this.key;
         },
         markDone(event) {
             this.$bus.$emit(event);
@@ -174,14 +164,6 @@ export const Alert = {
             this.markDone("alert:confirm");
         },
         async cancel() {
-            if (this.cancelTask) {
-                try {
-                    this.loading = true;
-                    await this.cancelTask(this, this.componentRef);
-                } catch (err) {
-                    console.err(err);
-                }
-            }
             this.markDone("alert:cancel");
         },
         async onUpdateVisible(visible) {

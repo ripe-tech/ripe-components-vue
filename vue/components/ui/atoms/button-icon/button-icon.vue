@@ -110,9 +110,9 @@ export const ButtonIcon = {
         }
     },
     methods: {
-        handleClick(event) {
+        handleClick() {
             if (this.disabled) return;
-            this.$emit("click", event);
+            this.$emit("click");
         }
     }
 };

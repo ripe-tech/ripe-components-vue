@@ -9,7 +9,11 @@
                 ref="overlay"
                 v-on:click="onOverlayClick"
             />
-            <div class="modal-container" v-bind:style="modalContainerStyle" ref="modalSection">
+            <div
+                class="modal-container"
+                v-bind:style="{ top: String(paddingTop) + 'px' }"
+                ref="modalSection"
+            >
                 <div class="button button-close-container" v-if="buttonClose">
                     <slot name="button-close-content">
                         <button-icon
@@ -255,14 +259,6 @@ export const Modal = {
         loading: {
             type: Boolean,
             default: false
-        },
-        width: {
-            type: Number,
-            default: null
-        },
-        minWidth: {
-            type: Number,
-            default: null
         }
     },
     computed: {
@@ -271,13 +267,6 @@ export const Modal = {
         },
         isVisible() {
             return this.visible && this.visibleData;
-        },
-        modalContainerStyle() {
-            return {
-                top: `${this.paddingTop}px`,
-                width: this.width === null ? null : `${this.width}px`,
-                "min-width": this.minWidth === null ? null : `${this.minWidth}px`
-            };
         }
     },
     data: function() {

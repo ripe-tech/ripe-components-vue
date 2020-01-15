@@ -45,7 +45,7 @@
                 v-bind:highlighted="highlightedObject"
                 ref="dropdown"
                 v-on:update:highlighted="onDropdownHighlighted"
-                v-on:item-clicked="(value, index) => onDropdownItemClicked(value.value, index)"
+                v-on:item-clicked="value => onDropdownItemClicked(value.value)"
             >
                 <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
                 <template
@@ -173,10 +173,10 @@ export const Select = {
         }
     },
     methods: {
-        setValue(value, index) {
+        setValue(value) {
             if (this.disabled) return;
             this.valueData = value;
-            this.$emit("update:value", value, index);
+            this.$emit("update:value", value);
         },
         openDropdown() {
             if (this.disabled || this.visibleData) return;
@@ -308,7 +308,7 @@ export const Select = {
                 return;
             }
 
-            this.setValue(this.options[this.highlighted].value, this.highlighted);
+            this.setValue(this.options[this.highlighted].value);
             this.closeDropdown();
         },
         onSpaceKey() {
@@ -322,17 +322,16 @@ export const Select = {
                 return;
             }
 
-            this.setValue(this.options[this.highlighted].value, this.highlighted);
+            this.setValue(this.options[this.highlighted].value);
             this.closeDropdown();
         },
         onSelectChange(value) {
-            // FIXME add index
             this.setValue(value);
         },
-        onDropdownItemClicked(value, index) {
+        onDropdownItemClicked(value) {
             if (this.highlighted === null) return;
 
-            this.setValue(value, index);
+            this.setValue(value);
             this.closeDropdown();
         },
         onDropdownHighlighted(values) {

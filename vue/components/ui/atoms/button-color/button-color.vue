@@ -298,12 +298,12 @@ export const ButtonColor = {
         }
     },
     methods: {
-        handleClick(event) {
+        handleClick() {
             if (this.href) {
                 if (this.target) window.open(this.href, this.target);
                 else document.location = this.href;
             }
-            this.$emit("click", event);
+            this.$emit("click");
         }
     },
     computed: {

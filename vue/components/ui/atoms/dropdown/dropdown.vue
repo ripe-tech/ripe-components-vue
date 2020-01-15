@@ -8,7 +8,7 @@
                     v-bind:class="_getItemClasses(item, index)"
                     v-for="(item, index) in items.filter(v => v !== null && v !== undefined)"
                     v-bind:key="item.value"
-                    v-on:click.stop="click(item, index)"
+                    v-on:click.stop="click(item)"
                     v-on:mouseenter="onMouseenter(index)"
                     v-on:mouseleave="onMouseleave(index)"
                 >
@@ -105,10 +105,6 @@
     color: $dark-grey;
 }
 
-.dropdown > .dropdown-item.separator > span {
-    display: none;
-}
-
 .dropdown > .dropdown-item:hover > a,
 .dropdown > .dropdown-item.selected > a,
 .dropdown > .dropdown-item.highlighted > a {
@@ -187,8 +183,8 @@ export const Dropdown = {
         document.removeEventListener("click", this.handleGlobal);
     },
     methods: {
-        click(item, index) {
-            this.$emit("item-clicked", item, index);
+        click(item) {
+            this.$emit("item-clicked", item);
             this.hide();
         },
         highlight(index) {

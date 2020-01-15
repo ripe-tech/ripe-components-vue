@@ -88,8 +88,8 @@ export const ButtonIconAnimated = {
         };
     },
     methods: {
-        onClick(event) {
-            this.$emit("click", event);
+        onClick() {
+            this.$emit("click");
             this.animating = true;
             setTimeout(() => {
                 this.animating = false;
