@@ -135,12 +135,11 @@ storiesOf("Organisms", module)
                     v-bind:items="mockItems"
                     v-bind:sort.sync="sortData"
                     v-bind:reverse.sync="reverseData"
-                    v-bind:menu-visible="menuVisibleData"
+                    v-bind:menu-visible.sync="menuVisibleData"
                     v-bind:inputVariant="inputVariant"
                     v-bind:edit-columns="editColumns"
                     v-bind:menuOrientation="menuOrientation" 
                     v-bind:menuMode="menuMode" 
-                    v-bind:menuVisible="menuVisibleData" 
                     v-bind:menuWidth="menuWidth"
                     v-bind:menuBackgroundColor="menuBackgroundColor"
                     v-bind:animationTimeout="animationTimeout"/>
