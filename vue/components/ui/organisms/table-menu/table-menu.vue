@@ -91,6 +91,10 @@
     width: 35%;
 }
 
+.table-menu .content-menu ::v-deep .menu .form-input > .content {
+    width: 100%;
+}
+
 .table-menu .content-menu ::v-deep .content .table .table-head .table-column {
     overflow: hidden;
     text-overflow: ellipsis;
