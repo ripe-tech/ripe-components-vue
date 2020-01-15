@@ -80,7 +80,7 @@ storiesOf("Organisms", module)
                             {{ item.id }}
                         </td>
                         <td class="user" v-on:click="addFilter('user', item.user)">
-                            {{ item.user|| "-" }}
+                            {{ item.user || "-" }}
                         </td>
                         <td class="device" v-on:click="addFilter('device', item.device)">
                             {{ item.device }}
