@@ -10,7 +10,7 @@
             v-bind:variant="variant"
             v-bind:width="width"
             v-bind:loading="loading"
-            v-on:update:filters="value => onUpdateFilters(value)"
+            v-on:update:filters="onUpdateFilters"
         />
     </div>
 </template>
