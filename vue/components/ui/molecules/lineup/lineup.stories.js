@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, number } from "@storybook/addon-knobs";
+import { withKnobs } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
@@ -40,28 +40,18 @@ storiesOf("Molecules", module)
                     { value: "trousers" },
                     { value: "shirt" }
                 ]
-            },
-            columns: {
-                default: number("Columns", 2)
             }
         },
         template: `
             <lineup
                 v-bind:values="values"
                 v-bind:items="items"
-                v-bind:columns="columns"
             >
                 <template v-slot:shirt>
-                    Custom entry
+                    <p>Custom entry</p>
                 </template>
-                <template v-slot:city-key>
-                    Custom city title
-                </template>
-                <template v-slot:city-value>
-                    Custom city value
-                </template>
-                <template v-slot:trousers-note>
-                    Custom trousers note
+                <template v-slot:city-label>
+                    <p>Custom label</p>
                 </template>
             </lineup>
         `
