@@ -46,9 +46,9 @@
                 >
                     <slot v-bind:name="slot" v-bind="scope" />
                 </template>
-                <template v-slot:item="{ item, index }">
+                <template v-slot:table-item="{ item, index }">
                     <slot
-                        name="item"
+                        name="table-item"
                         v-bind:item="item"
                         v-bind:index="index"
                         v-bind:add-filter="addFilter"
