@@ -58,20 +58,24 @@ export const SearchPersistentLocalStorage = {
     },
     data: function() {
         return {
-            FILTERS_LOCAL_STORAGE_KEY: "filters",
             valueData: this.value,
             filtersData: this.filters
         };
+    },
+    computed: {
+        filtersKey() {
+            return this.$root.account ? `filters${this.$root.account._id}` : "filters";
+        }
     },
     mounted: function() {
         this.loadFilters();
     },
     methods: {
         saveFilters(filters) {
-            localStorage.setItem(this.FILTERS_LOCAL_STORAGE_KEY, JSON.stringify(filters));
+            localStorage.setItem(this.filtersKey, JSON.stringify(filters));
         },
         loadFilters() {
-            const filters = localStorage.getItem(this.FILTERS_LOCAL_STORAGE_KEY);
+            const filters = localStorage.getItem(this.filtersKey);
 
             if (filters) this.filtersData = JSON.parse(filters);
         },
