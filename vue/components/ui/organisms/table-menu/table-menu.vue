@@ -165,9 +165,7 @@ export const TableMenu = {
     },
     data: function() {
         return {
-            reverseData: this.reverse,
             menuVisibleData: this.menuVisible,
-            sortData: this.sort,
             editIndex: 0
         };
     },
@@ -179,12 +177,6 @@ export const TableMenu = {
         }
     },
     watch: {
-        sort(value) {
-            this.sortData = value;
-        },
-        reverse(value) {
-            this.reverseData = value;
-        },
         menuVisible(value) {
             this.menuVisibleData = value;
         }
