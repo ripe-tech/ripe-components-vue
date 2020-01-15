@@ -36,11 +36,6 @@ storiesOf("Organisms", module)
                 })
             }
         },
-        data: function() {
-            return {
-                filterTableRowClickedText: ""
-            };
-        },
         methods: {
             getItems({ options = {}, params = {} } = {}) {
                 return [
@@ -55,9 +50,6 @@ storiesOf("Organisms", module)
                         device: "Macintosh"
                     }
                 ];
-            },
-            onFilterTableRowClick(item, index) {
-                this.filterTableRowClickedText = `Table Row ${index} with item {id: ${item.id}, user:${item.user}, device:${item.device}} clicked !`;
             }
         },
         template: `
@@ -70,7 +62,6 @@ storiesOf("Organisms", module)
                     v-bind:use-query="false"
                     v-bind:filter-fields="filterFields"
                     v-bind:values="[]"
-                    v-on:click:table:row="onFilterTableRowClick"
                 >
                     <template v-slot:icons>
                         <img v-bind:src="img" v-bind:style="imgStyle" />

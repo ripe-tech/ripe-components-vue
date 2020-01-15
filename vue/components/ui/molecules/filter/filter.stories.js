@@ -11,11 +11,6 @@ storiesOf("Molecules", module).add("Filter", () => ({
             ]
         }
     },
-    data: function() {
-        return {
-            tableRowClickedText: ""
-        };
-    },
     methods: {
         getItems({ options = {}, params = {} } = {}) {
             return [
@@ -35,9 +30,6 @@ storiesOf("Molecules", module).add("Filter", () => ({
                     car: "Renault"
                 }
             ];
-        },
-        onTableRowClick(item, index) {
-            this.tableRowClickedText = `Table Row ${index} with item {id: ${item.id}, name:${item.name}, car:${item.car}} clicked !`;
         }
     },
     template: `
@@ -46,7 +38,6 @@ storiesOf("Molecules", module).add("Filter", () => ({
             v-bind:getItems="getItems"
             v-bind:columns="filterColumns" 
             v-bind:values="[]"
-            v-on:click:table:row="onTableRowClick"
         >
             <template v-slot:item="{ item, index }">
                 <td class="id">

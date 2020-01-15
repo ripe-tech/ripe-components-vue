@@ -51,8 +51,7 @@ storiesOf("Molecules", module)
         data: function() {
             return {
                 reverseData: this.reverse,
-                sortData: this.sort,
-                rowClickedText: ""
+                sortData: this.sort
             };
         },
         watch: {
@@ -63,11 +62,6 @@ storiesOf("Molecules", module)
                 this.reverseData = value;
             }
         },
-        methods: {
-            onRowClick(item, index) {
-                this.rowClickedText = `Row ${index} with item {id: ${item.id}, user:${item.user}, system:${item.system}} clicked !`;
-            }
-        },
         template: `
             <div>
                 <table-ripe
@@ -76,10 +70,8 @@ storiesOf("Molecules", module)
                     v-bind:items="mockItems"
                     v-bind:sort.sync="sortData"
                     v-bind:reverse.sync="reverseData"
-                    v-on:click="onRowClick"
                 />
                 <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}</p>
-                <p>Last Row Clicked: {{ rowClickedText }}</p>
             </div>
         `
     }));
