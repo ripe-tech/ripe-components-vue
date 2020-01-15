@@ -68,7 +68,7 @@ export const SearchPersistentLocalStorage = {
         },
         filtersData(value) {
             this.$emit("update:filters", this.filtersData);
-        },
+        }
     },
     computed: {
         filtersKey() {
