@@ -26,7 +26,7 @@
                                 v-bind:item="item"
                                 v-bind:index="index"
                             >
-                                <p class="label-text">
+                                <div class="label-text">
                                     <slot
                                         v-bind:name="`${value.value}-label-text`"
                                         v-bind:item="item"
@@ -34,7 +34,7 @@
                                     >
                                         {{ value.label || value.value || value.name }}
                                     </slot>
-                                </p>
+                                </div>
                             </slot>
                         </div>
                         <div class="value">
@@ -43,7 +43,7 @@
                                 v-bind:item="item"
                                 v-bind:index="index"
                             >
-                                <p class="value-text">
+                                <div class="value-text">
                                     <slot
                                         v-bind:name="`${value.value}-value-text`"
                                         v-bind:item="item"
@@ -51,7 +51,7 @@
                                     >
                                         {{ item[value.value] || item[value.value] || "-" }}
                                     </slot>
-                                </p>
+                                </div>
                             </slot>
                         </div>
                         <div class="note" v-if="value.note || ($slots[`${value.value}-note`] || $slots[`${value.value}-note-text`])">
@@ -60,7 +60,7 @@
                                 v-bind:item="item"
                                 v-bind:index="index"
                             >
-                                <p
+                                <div
                                     class="note-text"
                                     v-if="value.note || $slots[`${value.value}-note-text`]"
                                 >
@@ -71,7 +71,7 @@
                                     >
                                         {{ item[value.note] }}
                                     </slot>
-                                </p>
+                                </div>
                             </slot>
                         </div>
                     </div>
@@ -113,10 +113,6 @@
     font-weight: 600;
     letter-spacing: 0.5px;
     text-transform: uppercase;
-}
-
-.lineup > .lineup-item > .lineup-item-container > .lineup-item-contents > .key > .label-text {
-    margin: 0px 0px 0px 0px;
 }
 
 .lineup > .lineup-item > .lineup-item-container > .lineup-item-contents > .value {
