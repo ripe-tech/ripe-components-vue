@@ -73,6 +73,11 @@ storiesOf("Molecules", module)
                 filtersData: this.filters
             };
         },
+        watch: {
+            value(value) {
+                this.valueData = value;
+            }
+        },
         template: `
             <div>
                 <search-persistent-local-storage
@@ -85,6 +90,11 @@ storiesOf("Molecules", module)
                     v-bind:width="width"
                     v-bind:loading="loading"
                     />
+                <p>Value: {{ valueData }}</p>
+                <p>Filters:</p>
+                <ul>
+                    <li v-for="filter in filtersData">{{ filter }}</li>
+                </ul>
             </div>
         `
     }));

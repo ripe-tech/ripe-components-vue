@@ -3,7 +3,7 @@
         <global />
         <search-persistent
             v-bind:value.sync="valueData"
-            v-bind:filters="filtersData"
+            v-bind:filters.sync="filtersData"
             v-bind:placeholder="placeholder"
             v-bind:icon-visible="iconVisible"
             v-bind:clear-visible="clearVisible"
@@ -61,6 +61,14 @@ export const SearchPersistentLocalStorage = {
             valueData: this.value,
             filtersData: this.filters
         };
+    },
+    watch: {
+        valueData(value) {
+            this.$emit("update:value", this.valueData);
+        },
+        filtersData(value) {
+            this.$emit("update:filters", this.filtersData);
+        },
     },
     computed: {
         filtersKey() {
