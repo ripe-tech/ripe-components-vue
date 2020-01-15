@@ -78,7 +78,7 @@ export const ContentMenu = {
         },
         menuWidth: {
             type: Number,
-            default: 250
+            default: null
         },
         animationTimeout: {
             type: Number,

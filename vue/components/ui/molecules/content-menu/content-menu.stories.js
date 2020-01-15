@@ -30,7 +30,7 @@ storiesOf("Molecules", module)
                 default: boolean("Visible menu", true)
             },
             menuWidth: {
-                default: number("Menu width", 300)
+                default: number("Menu width", null)
             },
             animationTimeout: {
                 default: number("Animation timeout", 0.3)
