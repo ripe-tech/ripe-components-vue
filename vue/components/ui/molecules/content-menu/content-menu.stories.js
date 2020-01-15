@@ -5,9 +5,9 @@ storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Content Menu", () => ({
         props: {
-            menuOrientation: {
+            alignment: {
                 default: select(
-                    "Menu Orientation",
+                    "Alignment",
                     {
                         Right: "right",
                         Left: "left"
@@ -15,9 +15,9 @@ storiesOf("Molecules", module)
                     "right"
                 )
             },
-            menuMode: {
+            mode: {
                 default: select(
-                    "Menu Visibility Mode",
+                    " Mode",
                     {
                         Collapse: "collapse",
                         Fixed: "fixed",
@@ -30,10 +30,10 @@ storiesOf("Molecules", module)
                 default: boolean("Visible menu", true)
             },
             menuWidth: {
-                default: number("Menu width", null)
+                default: number("Menu width", 200)
             },
-            animationTimeout: {
-                default: number("Animation timeout", 0.3)
+            animationDuration: {
+                default: number("Animation duration", 0.3)
             }
         },
         data: function() {
@@ -51,33 +51,22 @@ storiesOf("Molecules", module)
                 this.menuVisibleData = !this.menuVisibleData;
             }
         },
-        computed: {
-            menuText: function() {
-                const msg = "This is the menu. Curretly it's";
-                return this.menuVisibleData ? `${msg} visible` : `${msg} invisible`;
-            }
-        },
         template: `
             <content-menu
-                v-bind:menuOrientation="menuOrientation" 
-                v-bind:menuMode="menuMode" 
-                v-bind:menuVisible="menuVisibleData" 
+                v-bind:alignment="alignment" 
+                v-bind:mode="mode" 
+                v-bind:menuVisible.sync="menuVisibleData" 
                 v-bind:menuWidth="menuWidth"
-                v-bind:animationTimeout="animationTimeout">
+                v-bind:animationDuration="animationDuration"
+            >
                 <template v-slot:content>
-                    <div  style='background-color: IndianRed;'>
-                        <p>This is the content.</p>
-                        <p>It is always visible.</p>
-                        <p>Animation timeout unit is seconds.</p>
-                        <p>You can set min-width to .content-menu ::v-deep .content if sidebar shrinks first in mobile/tablet</p>
-                        <button v-if="menuMode!=='fixed'" v-on:click="toggleMenu">Toggle menu</button>
-                    </div>
+                    <p>This is the actual content</p>
+                    <p style="text-align: right;">This is also the actual content</p>
+                    <button v-if="mode !== 'fixed'" v-on:click="toggleMenu">Toggle menu</button>
                 </template>
                 <template v-slot:menu>
-                    <div  style='background-color: LightSalmon;'>
-                        <p>{{menuText}}</p>
-                        <p>Menu mode: {{menuMode}}</p>
-                        <button v-if="menuMode!=='fixed'" v-on:click="toggleMenu">Close menu</button>                
+                    <div style='background-color: LightSalmon; height: 100%;'>
+                        <p>This is a contextual menu</p>           
                     </div>
                 </template>
             </content-menu>
