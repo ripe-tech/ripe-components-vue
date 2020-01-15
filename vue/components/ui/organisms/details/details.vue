@@ -490,8 +490,7 @@ export const Details = {
             required: true
         },
         item: {
-            type: Object,
-            required: false
+            type: Object
         },
         index: {
             type: Number,
