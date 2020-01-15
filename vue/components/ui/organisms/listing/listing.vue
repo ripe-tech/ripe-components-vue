@@ -32,8 +32,10 @@
                 v-bind:loading.sync="loading"
                 v-bind:items.sync="items"
                 v-bind:options.sync="filterOptions"
+                v-bind:lineup-columns="lineupColumns"
                 ref="filter"
                 v-on:update:options="filterUpdated"
+                v-on:click:table="onTableClick"
                 v-on:click:lineup="onLineupClick"
             >
                 <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
@@ -217,7 +219,15 @@ export const Listing = {
         },
         filterFields: {
             type: Object,
-            default: null
+            default: () => ({})
+        },
+        nameAlias: {
+            type: Object,
+            default: () => ({})
+        },
+        nameFunc: {
+            type: Object,
+            default: () => ({})
         },
         notFoundText: {
             type: String,
@@ -238,6 +248,10 @@ export const Listing = {
         searchWidth: {
             type: Number,
             default: 304
+        },
+        lineupColumns: {
+            type: Number,
+            default: null
         }
     },
     data: function() {
@@ -263,7 +277,9 @@ export const Listing = {
                 ? {
                       params: this.getFilterParams({
                           options: options,
-                          filterFields: this.filterFields
+                          filterFields: this.filterFields,
+                          nameAlias: this.nameAlias,
+                          nameFunc: this.nameFunc
                       })
                   }
                 : options;
@@ -281,6 +297,9 @@ export const Listing = {
         },
         getFilter() {
             return this.$refs.filter;
+        },
+        onTableClick(item, index) {
+            this.$emit("click:table", item, index);
         },
         onLineupClick(item, index) {
             this.$emit("click:lineup", item, index);

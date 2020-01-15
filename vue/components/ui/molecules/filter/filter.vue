@@ -8,6 +8,7 @@
                 v-bind:transition="tableTransition"
                 v-bind:initial-sort="sort"
                 v-bind:initial-reverse="reverse"
+                v-on:click="onTableClick"
             >
                 <template v-slot="{ item, index }">
                     <slot name="item" v-bind:item="item" v-bind:index="index" />
@@ -17,6 +18,7 @@
                 v-bind:items="items"
                 v-bind:values="values"
                 v-bind:get-item-url="getItemUrl"
+                v-bind:columns="lineupColumns"
                 v-on:click="onLineupClick"
             >
                 <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
@@ -109,6 +111,10 @@ export const Filter = {
         useQuery: {
             type: Boolean,
             default: false
+        },
+        lineupColumns: {
+            type: Number,
+            default: null
         }
     },
     data: function() {
@@ -266,6 +272,9 @@ export const Filter = {
             // returns a valid value as an "effective" refresh operation
             // has just been performed (all tests passed)
             return true;
+        },
+        onTableClick(item, index) {
+            this.$emit("click:table", item, index);
         },
         onLineupClick(item, index) {
             this.$emit("click:lineup", item, index);
