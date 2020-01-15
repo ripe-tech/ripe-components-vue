@@ -170,7 +170,9 @@ export const TableMenu = {
     data: function() {
         return {
             menuVisibleData: this.menuVisible,
-            editIndex: 0
+            editIndex: 0,
+            reverseData: this.reverse,
+            sortData: this.sort
         };
     },
     computed: {
@@ -183,6 +185,12 @@ export const TableMenu = {
     watch: {
         menuVisible(value) {
             this.menuVisibleData = value;
+        },
+        sort(value) {
+            this.sortData = value;
+        },
+        reverse(value) {
+            this.reverseData = value;
         }
     },
     methods: {
