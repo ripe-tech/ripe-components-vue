@@ -23,7 +23,7 @@
                 </h1>
             </div>
             <filter-ripe
-                v-bind:get-items="getItemsWithParams"
+                v-bind:get-items="getItems"
                 v-bind:get-item-url="getItemUrl"
                 v-bind:columns="columns"
                 v-bind:values="values"
@@ -35,6 +35,7 @@
                 v-bind:lineup-columns="lineupColumns"
                 ref="filter"
                 v-on:update:options="filterUpdated"
+                v-on:click:table="onTableClick"
                 v-on:click:lineup="onLineupClick"
             >
                 <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
@@ -45,9 +46,9 @@
                 >
                     <slot v-bind:name="slot" v-bind="scope" />
                 </template>
-                <template v-slot:item="{ item, index }">
+                <template v-slot:table-item="{ item, index }">
                     <slot
-                        name="item"
+                        name="table-item"
                         v-bind:item="item"
                         v-bind:index="index"
                         v-bind:add-filter="addFilter"
@@ -186,11 +187,11 @@ input[type="text"]:focus {
 </style>
 
 <script>
-import { filterMixin, partMixin, utilsMixin, scrollMixin } from "../../../../mixins";
+import { partMixin, utilsMixin, scrollMixin } from "../../../../mixins";
 
 export const Listing = {
     name: "listing",
-    mixins: [partMixin, filterMixin, utilsMixin, scrollMixin],
+    mixins: [partMixin, utilsMixin, scrollMixin],
     props: {
         context: {
             type: Object,
@@ -215,18 +216,6 @@ export const Listing = {
         getItemUrl: {
             type: Function,
             default: null
-        },
-        filterFields: {
-            type: Object,
-            default: () => ({})
-        },
-        nameAlias: {
-            type: Object,
-            default: () => ({})
-        },
-        nameFunc: {
-            type: Object,
-            default: () => ({})
         },
         notFoundText: {
             type: String,
@@ -271,20 +260,6 @@ export const Listing = {
             this.showScrollTop = true;
             this.scrollTop = true;
         },
-        async getItemsWithParams(options) {
-            options = this.filterFields
-                ? {
-                      params: this.getFilterParams({
-                          options: options,
-                          filterFields: this.filterFields,
-                          nameAlias: this.nameAlias,
-                          nameFunc: this.nameFunc
-                      })
-                  }
-                : options;
-            const items = await this.getItems(options);
-            return items;
-        },
         setItem(index, item) {
             this.getFilter().setItem(index, item);
         },
@@ -296,6 +271,9 @@ export const Listing = {
         },
         getFilter() {
             return this.$refs.filter;
+        },
+        onTableClick(item, index) {
+            this.$emit("click:table", item, index);
         },
         onLineupClick(item, index) {
             this.$emit("click:lineup", item, index);

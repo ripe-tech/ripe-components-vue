@@ -8,9 +8,10 @@
                 v-bind:transition="tableTransition"
                 v-bind:initial-sort="sort"
                 v-bind:initial-reverse="reverse"
+                v-on:click="onTableClick"
             >
                 <template v-slot="{ item, index }">
-                    <slot name="item" v-bind:item="item" v-bind:index="index" />
+                    <slot name="table-item" v-bind:item="item" v-bind:index="index" />
                 </template>
             </table-ripe>
             <lineup
@@ -20,10 +21,14 @@
                 v-bind:columns="lineupColumns"
                 v-on:click="onLineupClick"
             >
-                <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
+                <slot
+                    v-bind:name="slot"
+                    v-for="slot in lineupSlots"
+                    v-bind:slot="slot.replace('lineup-', '')"
+                />
                 <template
-                    v-for="slot in Object.keys($scopedSlots)"
-                    v-bind:slot="slot"
+                    v-for="slot in lineupScopedSlots"
+                    v-bind:slot="slot.replace('lineup-', '')"
                     slot-scope="scope"
                 >
                     <slot v-bind:name="slot" v-bind="scope" />
@@ -97,7 +102,7 @@ export const Filter = {
         },
         values: {
             type: Array,
-            required: true
+            default: () => []
         },
         limit: {
             type: Number,
@@ -140,6 +145,12 @@ export const Filter = {
                 start: this.start,
                 limit: this.limit
             };
+        },
+        lineupSlots() {
+            return Object.keys(this.$slots).filter(slot => slot.startsWith("lineup-"));
+        },
+        lineupScopedSlots() {
+            return Object.keys(this.$scopedSlots).filter(slot => slot.startsWith("lineup-"));
         }
     },
     watch: {
@@ -271,6 +282,9 @@ export const Filter = {
             // returns a valid value as an "effective" refresh operation
             // has just been performed (all tests passed)
             return true;
+        },
+        onTableClick(item, index) {
+            this.$emit("click:table", item, index);
         },
         onLineupClick(item, index) {
             this.$emit("click:lineup", item, index);
