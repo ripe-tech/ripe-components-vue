@@ -16,10 +16,14 @@
                         v-bind:reverse.sync="reverseData"
                         v-if="debugThis(items, columns)"
                         v-on:click:item="toggleMenu(item, index)"
-                    />
                     <p>Sort: {{ sortData }},Reverse: {{ reverseData }}</p>
                     <button v-if="menuMode!=='fixed'" v-on:click="toggleMenu">Toggle menu</button>
                     <button v-if="menuMode!=='fixed'" v-on:click="toggleExpand">Expand table</button>
+                    >
+                        <template v-slot="{ item, index }">
+                            <slot name="item" v-bind:item="item" v-bind:index="index" />
+                        </template>
+                    </table-ripe>
                 </div>
             </template>
             <template v-slot:menu>
