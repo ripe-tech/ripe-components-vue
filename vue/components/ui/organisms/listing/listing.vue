@@ -155,6 +155,10 @@ body.mobile .container-header-right {
     vertical-align: middle;
 }
 
+.container-header-right .search-persistent {
+    display: flex;
+}
+
 .listing .filter-ripe ::v-deep table {
     margin-bottom: 0px;
 }
