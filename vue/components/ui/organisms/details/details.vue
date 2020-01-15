@@ -487,11 +487,11 @@ export const Details = {
         },
         context: {
             type: Object,
-            required: true
+            default: () => ({})
         },
         item: {
             type: Object,
-            required: true
+            default: null
         },
         index: {
             type: Number,
@@ -499,7 +499,7 @@ export const Details = {
         },
         loaded: {
             type: Boolean,
-            required: true
+            default: true
         },
         invalid: {
             type: Boolean,

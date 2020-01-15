@@ -1,3 +1,5 @@
+import { normalize } from "../../js";
+
 const utilsMixin = {
     methods: {
         dateString(timestamp, separator = "/") {
@@ -31,7 +33,7 @@ const utilsMixin = {
             return hours + separator + minutes + separator + seconds;
         },
         normalize(value) {
-            return value.split("_").join(" ");
+            return normalize(value);
         }
     }
 };

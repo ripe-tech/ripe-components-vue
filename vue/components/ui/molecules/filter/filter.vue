@@ -8,6 +8,7 @@
                 v-bind:transition="tableTransition"
                 v-bind:initial-sort="sort"
                 v-bind:initial-reverse="reverse"
+                v-on:click="onTableClick"
             >
                 <template v-slot="{ item, index }">
                     <slot name="table-item" v-bind:item="item" v-bind:index="index" />
@@ -281,6 +282,9 @@ export const Filter = {
             // returns a valid value as an "effective" refresh operation
             // has just been performed (all tests passed)
             return true;
+        },
+        onTableClick(item, index) {
+            this.$emit("click:table", item, index);
         },
         onLineupClick(item, index) {
             this.$emit("click:lineup", item, index);
