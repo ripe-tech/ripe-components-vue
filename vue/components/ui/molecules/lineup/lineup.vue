@@ -17,7 +17,7 @@
                 <slot v-bind:name="value.value" v-bind:item="item" v-bind:index="index">
                     <div
                         class="lineup-item-contents"
-                        v-bind:class="[value.value, `lineup-item-contents-${value.value}`]"
+                        v-bind:class="`lineup-item-contents-${value.value}`"
                         v-bind:key="value.value"
                     >
                         <div class="key">
@@ -54,7 +54,7 @@
                                 </p>
                             </slot>
                         </div>
-                        <div class="note">
+                        <div class="note" v-if="value.note || ($slots[`${value.value}-note`] || $slots[`${value.value}-note-text`])">
                             <slot
                                 v-bind:name="`${value.value}-note`"
                                 v-bind:item="item"
