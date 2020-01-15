@@ -9,9 +9,12 @@
     >
         <slot>
             <div class="upload-area-container">
-                <p class="description">
-                    {{ descriptionText }}
-                </p>
+                <transition name="fade-in" mode="out-in">
+                    <p class="description" v-bind:key="dragging">
+                        {{ descriptionText }}
+                    </p>
+                </transition>
+                <button-icon v-bind:icon="'cloud-upload'" v-bind:size="110" />
                 <input
                     type="file"
                     multiple
@@ -42,12 +45,65 @@
     flex-direction: column;
     height: 150px;
     justify-content: center;
-    transition: opacity 0.125s ease-in;
+    position: relative;
+    transition: background-color 0.125s ease-in, border-color 0.125s ease-in;
 }
 
 .upload-area.dragging .upload-area-container {
-    opacity: 0.3;
+    background-color: $selected-color;
+    border-color: $label-color;
     pointer-events: none;
+}
+
+.fade-in-enter-active {
+    transition: all 0.125s ease-in-out;
+}
+
+.fade-in-leave-active {
+    transition: all 0.125s ease-in-out;
+}
+
+.fade-in-enter,
+.fade-in-leave-to {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.upload-area .upload-area-container .button-icon {
+    opacity: 0;
+    position: absolute;
+    top: 40px;
+    transform: none;
+    transition: opacity 0.125s ease-in;
+}
+
+.upload-area.dragging .upload-area-container .button-icon {
+    animation: zoom 2.5s ease-in-out infinite;
+    height: 40px;
+    opacity: 1;
+}
+
+@keyframes zoom {
+
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.upload-area .upload-area-container .upload-button {
+    transition: opacity 0.125s ease-in;
+}
+
+.upload-area.dragging .upload-area-container .upload-button {
+    opacity: 0;
 }
 
 .upload-area .upload-area-container > .description {
@@ -69,7 +125,7 @@ export const UploadArea = {
         },
         descriptionDragging: {
             type: String,
-            default: 'Just "drop" your files'
+            default: "Drop your files to upload"
         },
         files: {
             type: Array,
