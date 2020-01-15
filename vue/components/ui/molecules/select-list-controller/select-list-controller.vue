@@ -4,19 +4,19 @@
             <select-list v-bind:items="leftData" v-bind:values.sync="valuesLeft" />
         </div>
         <div class="buttons">
-            <div class="button to-right-all" v-on:click="moveAll(true)">
+            <div class="button to-right-all" v-on:click="onMoveAll((toRight = true))">
                 <div class="icon to-right-all-icon" />
             </div>
 
-            <div class="button to-right" v-on:click="moveSelected((toRight = true))">
+            <div class="button to-right" v-on:click="onMoveSelected((toRight = true))">
                 <div class="icon to-right-icon" />
             </div>
 
-            <div class="button to-left" v-on:click="moveSelected((toRight = false))">
+            <div class="button to-left" v-on:click="onMoveSelected((toRight = false))">
                 <div class="icon to-left-icon" />
             </div>
 
-            <div class="button to-left-all" v-on:click="moveAll(false)">
+            <div class="button to-left-all" v-on:click="onMoveAll((toRight = false))">
                 <div class="icon to-left-all-icon" />
             </div>
         </div>
@@ -105,11 +105,11 @@ import Vue from "vue";
 export const SelectListController = Vue.component("select-list-controller", {
     inheritAttrs: false,
     props: {
-        leftItems: {
+        itemsLeft: {
             type: Array,
             default: () => []
         },
-        rightItems: {
+        itemsRight: {
             type: Array,
             default: () => []
         },
@@ -134,24 +134,21 @@ export const SelectListController = Vue.component("select-list-controller", {
         return {
             selectedItemsLeft: this.valuesLeft,
             selectedItemsRight: this.valuesRight,
-            leftData: this.leftItems,
-            rightData: this.rightItems
+            leftData: this.itemsLeft,
+            rightData: this.itemsRight
         };
     },
     mounted: async function() {},
     methods: {
-        removeItem(value, fromLeft = true) {
-            let index = -1;
-            if (fromLeft) {
-                index = this.leftData.findIndex(element => element.value === value);
-                this.leftData.splice(index, 1);
-            }
-            if (!fromLeft) {
-                index = this.rightData.findIndex(element => element.value === value);
-                this.rightData.splice(index, 1);
-            }
+        removeItem(array, value) {
+            const index = array.findIndex(element => element.value === value);
+            if (index !== -1) array.splice(index, 1);
         },
-        moveSelected(toRight = true) {
+        onMoveSelected(toRight = true) {
+            this.moveSelected(toRight);
+            this.$emit("update:value", this.rightData);
+        },
+        moveSelected(toRight) {
             let values = {};
 
             if (toRight) {
@@ -160,7 +157,7 @@ export const SelectListController = Vue.component("select-list-controller", {
                     values.value = element[0];
                     this.rightData.push(values);
                     this.$delete(this.selectedItemsLeft, values.value);
-                    this.removeItem(values.value, true);
+                    this.removeItem(this.leftData, values.value, true);
                     values = {};
                 });
             } else {
@@ -169,13 +166,16 @@ export const SelectListController = Vue.component("select-list-controller", {
                     values.value = element[0];
                     this.leftData.push(values);
                     this.$delete(this.selectedItemsRight, values.value);
-                    this.removeItem(values.value, false);
+                    this.removeItem(this.rightData, values.value, false);
                     values = {};
                 });
             }
+        },
+        onMoveAll(toRight = true) {
+            this.moveAll(toRight);
             this.$emit("update:value", this.rightData);
         },
-        moveAll(toRight = true) {
+        moveAll(toRight) {
             if (toRight) {
                 this.rightData = [...this.leftData, ...this.rightData];
                 this.leftData = [];
@@ -183,7 +183,6 @@ export const SelectListController = Vue.component("select-list-controller", {
                 this.leftData = [...this.rightData, ...this.leftData];
                 this.rightData = [];
             }
-            this.$emit("update:value", this.rightData);
         }
     }
 });

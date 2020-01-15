@@ -44,10 +44,9 @@ storiesOf("Molecules", module)
             <div>
                 <global />
                 <select-list-controller
-                    v-bind:left-items="options"
+                    v-bind:items-left="options"
                     v-bind:value.sync="selectedItems"
-                >
-                </select-list-controller>
+                    />
                 <br>
                 <p>Value: {{ selectedItems }}</p>
             </div>

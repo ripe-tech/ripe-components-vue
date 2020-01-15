@@ -30,12 +30,12 @@ const install = Vue => {
     Vue.component("modal", Modal);
     Vue.component("progress-bar", ProgressBar);
     Vue.component("search", Search);
+    Vue.component("select-list", SelectList);
+    Vue.component("select-list-controller", SelectListController);
     Vue.component("select-ripe", Select);
     Vue.component("table-ripe", Table);
     Vue.component("tabs", Tabs);
     Vue.component("upload-area", UploadArea);
-    Vue.component("select-list", SelectList);
-    Vue.component("select-list-controller", SelectListController);
 };
 
 export {
