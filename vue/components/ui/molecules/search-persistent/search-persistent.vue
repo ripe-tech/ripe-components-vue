@@ -11,6 +11,7 @@
         />
         <select-ripe
             v-bind:class="{ 'filter-selected': hasFilterSelected }"
+            v-bind:style="selectButtonStyle"
             v-bind:placeholder="'Filter'"
             v-bind:options="selectOptions"
             v-bind:value="selectedFilterValue"
@@ -205,6 +206,10 @@ export const SearchPersistent = {
             type: Number,
             default: null
         },
+        selectButtonMaxWidth: {
+            type: Number,
+            default: null
+        },
         loading: {
             type: Boolean,
             default: false
@@ -233,6 +238,12 @@ export const SearchPersistent = {
         style() {
             const base = {};
             if (this.width) base.width = `${this.width}px`;
+
+            return base;
+        },
+        selectButtonStyle() {
+            const base = {};
+            if (this.selectButtonMaxWidth) base["max-width"] = `${this.selectButtonMaxWidth}px`;
 
             return base;
         },

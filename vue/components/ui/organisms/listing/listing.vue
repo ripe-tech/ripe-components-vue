@@ -28,6 +28,7 @@
                         v-bind:icon-visible="searchIconInvisible"
                         v-bind:variant="'dark'"
                         v-bind:width="isMobileWidth() ? null : searchWidth"
+                        v-bind:select-button-max-width="selectButtonMaxWidth"
                         v-else
                         v-on:click:update-filter="onUpdateFilter"
                         v-on:click:delete-filter="onDeleteFilter"
@@ -280,6 +281,10 @@ export const Listing = {
         searchWidth: {
             type: Number,
             default: 304
+        },
+        selectButtonMaxWidth: {
+            type: Number,
+            default: null
         },
         hasPersistentFilters: {
             type: Boolean,
