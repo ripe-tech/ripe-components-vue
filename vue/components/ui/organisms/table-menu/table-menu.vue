@@ -167,6 +167,8 @@ export const TableMenu = {
         reverse(value) {
             this.reverseData = value;
         },
+        menuVisible(value) {
+            this.menuVisibleData = value;
         }
     },
     methods: {
