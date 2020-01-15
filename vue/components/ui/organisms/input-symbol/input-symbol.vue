@@ -16,7 +16,7 @@
             v-bind:placeholder="placeholder"
             v-bind:disabled="disabled"
             v-bind:height="height"
-            v-on:update:value="onInput($event)"
+            v-on:update:value="onInput"
             v-on:blur="onBlur"
             v-on:focus="onFocus"
         />
@@ -30,20 +30,34 @@
 @import "css/variables.scss";
 
 .input-symbol {
+    border: 1px solid $light-white;
+    border-radius: 6px 6px 6px 6px;
     display: flex;
     width: 100%;
+}
+
+.input-symbol.border-strong {
+    border-width: 2px;
 }
 
 .input-symbol.disabled {
     opacity: 0.4;
 }
 
+.input-symbol:focus-within {
+    border-color: $aqcua-blue;
+}
+
 .input-symbol .input {
-    border-radius: 6px 0px 0px 6px;
-    flex: 1 0;
+    border: none;
+    flex-shrink: 1;
     padding-right: 7px;
     text-align: right;
     vertical-align: top;
+}
+
+.input-symbol .input:focus {
+    border-color: $light-white;
 }
 
 .input-symbol.text-align-left .input {
@@ -60,11 +74,11 @@
 
 .input-symbol .symbol {
     background-color: #ffffff;
-    border: 1px solid #e4e8f0;
-    border-left: none;
+    border-left: 1px solid $light-white;
     border-radius: 0px 6px 6px 0px;
     box-sizing: border-box;
     display: inline-block;
+    flex-shrink: 0;
     font-size: 13px;
     height: 34px;
     line-height: 30px;
@@ -78,10 +92,6 @@
 
 .input-symbol.color-dark .symbol {
     background-color: #f9fafd;
-}
-
-.input-symbol.border-strong .symbol {
-    border-width: 2px;
 }
 </style>
 

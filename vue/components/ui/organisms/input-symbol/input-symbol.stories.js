@@ -54,22 +54,7 @@ storiesOf("Organisms", module)
                 default: number("Height", null)
             },
             width: {
-                default: number("Width", 100)
-            },
-            header: {
-                default: text("Header", "Start Header")
-            },
-            footer: {
-                default: text("Footer", "End Footer")
-            },
-            errorText: {
-                default: text("Error Text", "")
-            },
-            warning: {
-                default: text("Warning", "")
-            },
-            success: {
-                default: text("Success", "")
+                default: number("Width", 300)
             }
         },
         data: function() {
@@ -87,27 +72,19 @@ storiesOf("Organisms", module)
         },
         template: `
             <div>
-                <form-input
-                    v-bind:header="header"
-                    v-bind:footer="footer"
-                    v-bind:error="errorText"
-                    v-bind:warning="warning"
-                    v-bind:success="success"
-                >
-                    <input-symbol
-                        v-bind:value.sync="valueData"
-                        v-bind:height="height"
-                        v-bind:width="width"
-                        v-bind:align="align"
-                        v-bind:border="border"
-                        v-bind:variant="variant"
-                        v-bind:disabled="disabled"
-                        v-bind:placeholder="placeholder"
-                        v-bind:symbol="symbol"
-                        v-on:update:value="inputTime = new Date().getTime()"
-                        v-on:focus="focusTime = new Date().getTime()"
-                        v-on:blur="blurTime = new Date().getTime()"/>
-                </form-input>
+                <input-symbol
+                    v-bind:value.sync="valueData"
+                    v-bind:height="height"
+                    v-bind:width="width"
+                    v-bind:align="align"
+                    v-bind:border="border"
+                    v-bind:variant="variant"
+                    v-bind:disabled="disabled"
+                    v-bind:placeholder="placeholder"
+                    v-bind:symbol="symbol"
+                    v-on:update:value="inputTime = new Date().getTime()"
+                    v-on:focus="focusTime = new Date().getTime()"
+                    v-on:blur="blurTime = new Date().getTime()" />
                 <p>Text: {{ valueData }}</p>
                 <p>Last wrote from user: {{ inputTime }}</p>
                 <p>Last focus from user: {{ focusTime }}</p>
