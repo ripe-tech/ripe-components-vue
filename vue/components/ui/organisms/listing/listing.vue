@@ -21,7 +21,7 @@
                         v-if="!hasPersistentFilters"
                     />
                     <search-persistent
-                        v-bind:filter.sync="filterData"
+                        v-bind:value.sync="filterData"
                         v-bind:persistent-filters="persistentFilters"
                         v-bind:placeholder="filterText ? filterText : `Search ${name}`"
                         v-bind:enable-delete="searchEnableDelete"
