@@ -32,6 +32,7 @@
                 v-bind:loading.sync="loading"
                 v-bind:items.sync="items"
                 v-bind:options.sync="filterOptions"
+                v-bind:lineup-columns="lineupColumns"
                 ref="filter"
                 v-on:update:options="filterUpdated"
                 v-on:click:lineup="onLineupClick"
@@ -217,7 +218,15 @@ export const Listing = {
         },
         filterFields: {
             type: Object,
-            default: null
+            default: () => ({})
+        },
+        nameAlias: {
+            type: Object,
+            default: () => ({})
+        },
+        nameFunc: {
+            type: Object,
+            default: () => ({})
         },
         notFoundText: {
             type: String,
@@ -238,6 +247,10 @@ export const Listing = {
         searchWidth: {
             type: Number,
             default: 304
+        },
+        lineupColumns: {
+            type: Number,
+            default: null
         }
     },
     data: function() {
@@ -263,7 +276,9 @@ export const Listing = {
                 ? {
                       params: this.getFilterParams({
                           options: options,
-                          filterFields: this.filterFields
+                          filterFields: this.filterFields,
+                          nameAlias: this.nameAlias,
+                          nameFunc: this.nameFunc
                       })
                   }
                 : options;

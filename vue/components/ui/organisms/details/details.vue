@@ -68,6 +68,7 @@
             <div class="container-header">
                 <div class="header-buttons">
                     <slot name="header-buttons">
+                        <slot name="header-buttons-before" />
                         <div class="header-button">
                             <span class="button-stats" v-on:click="onStatsClick">
                                 <img src="~./assets/stats.svg" />
@@ -112,6 +113,7 @@
                             </span>
                             <p>Status</p>
                         </div>
+                        <slot name="header-buttons-after" />
                     </slot>
                 </div>
                 <slot name="title" v-if="isLoaded">
@@ -130,7 +132,7 @@
                     />
                     <slot name="image-footer" />
                 </div>
-                <div class="details-column" v-for="column in nrColumns" v-bind:key="column">
+                <div class="details-column" v-for="column in columns" v-bind:key="column">
                     <slot v-bind:name="value.value" v-for="value in getColumnValues(column - 1)">
                         <div
                             class="label-value"
@@ -220,7 +222,6 @@ body.mobile .container-ripe .container-header {
 .container-ripe .container-header .header-buttons {
     float: right;
     font-size: 0px;
-    margin-top: -12px;
     text-transform: capitalize;
     user-select: none;
 }
@@ -472,7 +473,7 @@ export const Details = {
             type: Array,
             default: () => []
         },
-        nrColumns: {
+        columns: {
             type: Number,
             default: 4
         },
@@ -537,7 +538,7 @@ export const Details = {
     },
     methods: {
         getValueColumn(valueIndex) {
-            return valueIndex % this.nrColumns;
+            return valueIndex % this.columns;
         },
         getColumnValues(columnIndex) {
             return this.values.filter((value, index) => this.getValueColumn(index) === columnIndex);
