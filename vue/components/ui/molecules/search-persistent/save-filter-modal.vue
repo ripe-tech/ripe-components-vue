@@ -114,16 +114,6 @@ export const SaveFilterModal = {
         },
         onSaveClick() {
             this.$emit("click:confirm");
-        },
-        filtersFunc() {
-            debugger;
-            console.log(this.filterNameData);
-            return Object.keys(this.tenacyValuesData).map(tenancy => ({
-                name: this.filterNameData,
-                value: this.searchData,
-                tenancy: tenancy,
-                context: "" // TODO,
-            }));
         }
     }
 };
