@@ -15,10 +15,6 @@
     </div>
 </template>
 
-<style lang="scss" scoped>
-@import "css/variables.scss";
-</style>
-
 <script>
 export const SearchPersistentLocalStorage = {
     name: "search-persistent-local-storage",
