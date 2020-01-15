@@ -326,7 +326,7 @@ export const SearchPersistent = {
             await this.alertComponent(SaveFilterModal, {
                 search: this.valueData,
                 task: async (alert, component) => {
-                    this.addFilters(component.filtersFunc());
+                    this.addFilters(component.filters);
                 }
             });
         },
