@@ -158,6 +158,10 @@ export const Select = {
             type: Boolean,
             default: false
         },
+        width: {
+            type: Number,
+            default: null
+        },
         maxHeight: {
             type: Number,
             default: 200
