@@ -24,9 +24,9 @@
                                     v-for="column in columns"
                                     v-bind:key="column.value"
                                 >
-                                    <span v-if="column.type !== 'boolean'">{{
-                                        item[column.value]
-                                    }}</span>
+                                    <span v-if="column.type !== 'boolean'">
+                                        {{ item[column.value] }}
+                                    </span>
                                     <checkmark v-bind:value="item[column.value]" v-else />
                                 </td>
                             </slot>
