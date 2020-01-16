@@ -15,6 +15,7 @@
             v-bind:placeholder="'Filter'"
             v-bind:options="selectOptions"
             v-bind:value="selectedFilterValue"
+            v-bind:visible.sync="selectVisibleData"
             v-bind:dropdown-min-width="dropdownMinWidth"
             v-on:update:value="onSelected"
         >
@@ -184,6 +185,10 @@ export const SearchPersistent = {
             type: Boolean,
             default: true
         },
+        selectVisible: {
+            type: Boolean,
+            default: false 
+        },
         width: {
             type: Number,
             default: null
@@ -206,7 +211,8 @@ export const SearchPersistent = {
         return {
             selectedFilter: null,
             valueData: this.value,
-            filtersData: this.filters
+            filtersData: this.filters,
+            selectVisibleData: this.selectVisible
         };
     },
     watch: {
@@ -216,9 +222,15 @@ export const SearchPersistent = {
         filters(value) {
             this.filtersData = value;
         },
+        selectVisible(value) {
+            this.selectVisibleData = value;
+        },
         valueData(value) {
             if (value === "") this.selectedFilter = null;
             this.$emit("update:value", value);
+        },
+        selectVisibleData(value) {
+            this.$emit("update:selectVisible", value);
         }
     },
     computed: {

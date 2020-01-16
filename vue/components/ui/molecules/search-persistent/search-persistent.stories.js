@@ -50,6 +50,9 @@ storiesOf("Molecules", module)
             clearVisible: {
                 default: boolean("Clear Visible", true)
             },
+            selectVisible: {
+                default: boolean("Select Visible", false)
+            },
             variant: {
                 default: select(
                     "Variant",
@@ -72,11 +75,15 @@ storiesOf("Molecules", module)
         },
         data: function() {
             return {
+                selectVisibleData: this.selectVisible,
                 valueData: this.value,
                 filtersData: this.filters
             };
         },
         watch: {
+            selectVisible(value) {
+                this.selectVisibleData = value;
+            },
             value(value) {
                 this.valueData = value;
             }
@@ -90,11 +97,13 @@ storiesOf("Molecules", module)
                     v-bind:placeholder="placeholder"
                     v-bind:icon-visible="iconVisible"
                     v-bind:clear-visible="clearVisible"
+                    v-bind:select-visible="selectVisible"
                     v-bind:variant="variant"
                     v-bind:width="width"
                     v-bind:dropdown-min-width="dropdownMinWidth"
                     v-bind:loading="loading"    
                 />
+                <p>Select Visible: {{ selectVisibleData }}</p>
                 <p>Value: {{ valueData }}</p>
                 <p>Filters:</p>
                 <ul>
