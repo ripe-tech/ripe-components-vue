@@ -52,8 +52,8 @@
 }
 
 .upload-area.dragging .upload-area-container {
-    background-color: $border-color;
-    border-color: $label-color;
+    background-color: $lighter-grey;
+    border-color: $medium-grey;
     pointer-events: none;
 }
 
