@@ -42,6 +42,31 @@ storiesOf("Organisms", module)
                     float: "left",
                     height: "34px"
                 })
+            },
+            headerButtons: {
+                type: Array,
+                default: () => [
+                    {
+                        label: "Import",
+                        icon: "download",
+                        secondary: true
+                    },
+                    {
+                        label: "Export",
+                        icon: "share-ios",
+                        secondary: true
+                    },
+                    {
+                        label: "Delete",
+                        icon: "bin",
+                        color: "red",
+                        secondary: false
+                    },
+                    {
+                        label: "Create",
+                        icon: "add"
+                    }
+                ]
             }
         },
         methods: {
@@ -71,6 +96,7 @@ storiesOf("Organisms", module)
                     v-bind:use-query="false"
                     v-bind:filter-fields="filterFields"
                     v-bind:values="values"
+                    v-bind:header-buttons="headerButtons"
                 >
                     <template v-slot:icons>
                         <img v-bind:src="img" v-bind:style="imgStyle" />

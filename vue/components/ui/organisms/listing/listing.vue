@@ -9,6 +9,19 @@
             <div class="container-header">
                 <div class="container-header-right">
                     <slot name="icons" />
+                    <div class="header-buttons">
+                        <button-color
+                            class="header-button"
+                            v-bind:icon="button.icon"
+                            v-bind:secondary="button.secondary"
+                            v-bind:text="button.label"
+                            v-bind:color="button.color"
+                            v-bind:small="true"
+                            v-for="(button, index) in headerButtons"
+                            v-bind:key="index"
+                            v-on:click="onButtonHeaderClick(button)"
+                        />
+                    </div>
                     <search
                         v-bind:variant="'dark'"
                         v-bind:width="isMobileWidth() ? null : searchWidth"
@@ -130,6 +143,22 @@
     text-align: right;
 }
 
+.container-header-right .search {
+    vertical-align: middle;
+}
+
+.container-header-right .header-buttons {
+    display: inline-block;
+}
+
+.container-header-right .header-buttons .header-button {
+    margin-right: 4px;
+}
+
+.container-header-right .header-buttons .header-button:last-child {
+    margin-right: 0px;
+}
+
 body.mobile .container-header-right {
     float: none;
     width: 100%;
@@ -240,6 +269,10 @@ export const Listing = {
         lineupColumns: {
             type: Number,
             default: null
+        },
+        headerButtons: {
+            type: Array,
+            default: () => []
         }
     },
     data: function() {
@@ -277,6 +310,9 @@ export const Listing = {
         },
         onLineupClick(item, index) {
             this.$emit("click:lineup", item, index);
+        },
+        onButtonHeaderClick(button) {
+            this.$emit(`click:header-button:${button.event}`);
         }
     },
     beforeRouteUpdate: function(to, from, next) {
