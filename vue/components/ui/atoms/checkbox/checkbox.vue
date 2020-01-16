@@ -19,6 +19,7 @@
             <label class="label" for="item.value">
                 {{ item.label ? item.label : item.value }}
             </label>
+            <slot name="extra-info" v-bind:item="item" v-bind:index="index" />
         </div>
     </div>
 </template>
