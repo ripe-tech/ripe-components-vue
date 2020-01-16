@@ -74,6 +74,7 @@
     position: absolute;
     top: 40px;
     transform: none;
+    pointer-events: none;
     transition: opacity 0.125s ease-in;
 }
 
