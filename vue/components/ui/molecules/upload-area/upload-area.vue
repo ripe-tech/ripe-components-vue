@@ -82,7 +82,6 @@
     pointer-events: none;
     position: absolute;
     top: 40px;
-    transform: none;
     transition: opacity 0.125s ease-in;
 }
 
