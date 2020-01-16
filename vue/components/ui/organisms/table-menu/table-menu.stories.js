@@ -66,6 +66,10 @@ storiesOf("Organisms", module)
                     null
                 )
             },
+            selectedIndex: {
+                type: Number,
+                default: number("Selected index", -1)
+            },
             mockItems: {
                 default: () => [
                     {
@@ -141,6 +145,7 @@ storiesOf("Organisms", module)
                     v-bind:alignment="alignment" 
                     v-bind:mode="mode" 
                     v-bind:menuWidth="menuWidth"
+                    v-bind:selected-index="selectedIndex"
                     v-bind:menuBackgroundColor="menuBackgroundColor"
                     v-bind:animationDuration="animationDuration"/>
             </div>

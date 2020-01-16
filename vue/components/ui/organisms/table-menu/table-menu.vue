@@ -181,12 +181,16 @@ export const TableMenu = {
         menuBackgroundColor: {
             type: String,
             default: "#ffffff"
+        },
+        selectedIndex: {
+            type: Number,
+            default: -1
         }
     },
     data: function() {
         return {
             menuVisibleData: this.menuVisible,
-            selectedIndex: -1,
+            selectedIndexData: this.selectedIndex,
             reverseData: this.reverse,
             sortData: this.sort
         };
@@ -198,7 +202,7 @@ export const TableMenu = {
             return base;
         },
         selectedItem() {
-            return this.items[this.selectedIndex] || {};
+            return this.items[this.selectedIndexData] || {};
         }
     },
     watch: {
@@ -210,6 +214,9 @@ export const TableMenu = {
         },
         reverse(value) {
             this.reverseData = value;
+        },
+        selectedIndex(value) {
+            this.selectedIndexData = value;
         }
     },
     methods: {
@@ -217,7 +224,7 @@ export const TableMenu = {
             this.menuVisibleData = !this.menuVisibleData;
         },
         setMenuItem(index) {
-            this.selectedIndex = index;
+            this.selectedIndexData = index;
             this.menuVisibleData = true;
         },
         isBoolean(value) {
@@ -245,11 +252,11 @@ export const TableMenu = {
             return column.symbol || "?";
         },
         toggleCheckbox(property, value) {
-            if (this.selectedIndex === -1) return;
-            this.$set(this.items[this.selectedIndex], property, value);
+            if (this.selectedIndexData === -1) return;
+            this.$set(this.items[this.selectedIndexData], property, value);
         },
         onClickItem(item, index) {
-            this.selectedIndex === index ? this.toggleMenu() : this.setMenuItem(index);
+            this.selectedIndexData === index ? this.toggleMenu() : this.setMenuItem(index);
         }
     }
 };
