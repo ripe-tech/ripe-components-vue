@@ -187,7 +187,7 @@ export const SearchPersistent = {
         },
         selectVisible: {
             type: Boolean,
-            default: false 
+            default: false
         },
         width: {
             type: Number,
