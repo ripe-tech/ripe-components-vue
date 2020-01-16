@@ -42,12 +42,12 @@
                             v-if="isMoney(editColumn)"
                         >
                             <input-symbol
-                                v-bind:symbol="getColumnType(editColumn)"
+                                v-bind:symbol="getColumnSymbol(editColumn)"
                                 v-bind:value.sync="selectedItem[editColumn]"
                                 v-bind:variant="inputVariant"
                             />
                         </form-input>
-                        <form-input v-bind:header="null" v-if="isBoolean(editColumn)">
+                        <form-input v-bind:header="null" v-else-if="isBoolean(editColumn)">
                             <checkbox
                                 v-bind:items="buildCheckboxItem(editColumn, editColumn)"
                                 v-bind:values="

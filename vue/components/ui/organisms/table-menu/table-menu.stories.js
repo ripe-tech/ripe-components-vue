@@ -102,7 +102,7 @@ storiesOf("Organisms", module)
                     { value: "os", label: "Operating System", type: "string" },
                     { value: "alive", label: "Alive", type: "boolean" },
                     { value: "programmer", label: "Programmer", type: "boolean" },
-                    { value: "net", label: "Net worth", type: "money" }
+                    { value: "net", label: "Net worth", type: "money", symbol: "$" }
                 ]
             },
             editColumns: {
