@@ -35,35 +35,49 @@
                 </div>
             </template>
             <template v-slot:menu>
-                <div class="menu-content" v-bind:style="menuStyle">
-                    <div v-for="(editColumn, index) in editColumns" v-bind:key="index">
-                        <form-input
-                            v-bind:header="getColumnLabel(editColumn)"
-                            v-if="isMoney(editColumn)"
-                        >
-                            <input-symbol
-                                v-bind:symbol="getColumnSymbol(editColumn)"
-                                v-bind:value.sync="selectedItem[editColumn]"
-                                v-bind:variant="inputVariant"
-                            />
-                        </form-input>
-                        <form-input v-bind:header="null" v-else-if="isBoolean(editColumn)">
-                            <checkbox
-                                v-bind:items="buildCheckboxItem(editColumn, editColumn)"
-                                v-bind:values="
-                                    buildCheckboxValue(editColumn, selectedItem[editColumn])
-                                "
-                                v-on:selected:value="toggleCheckbox($event, true)"
-                                v-on:deselected:value="toggleCheckbox($event, false)"
-                            />
-                        </form-input>
-                        <form-input v-bind:header="getColumnLabel(editColumn)" v-else>
-                            <input-ripe
-                                v-bind:value.sync="selectedItem[editColumn]"
-                                v-bind:variant="inputVariant"
-                            />
-                        </form-input>
-                    </div>
+                <div class="menu-container" v-bind:style="menuStyle">
+                    <slot name="menu-header">
+                        <h2 class="menu-title" v-if="menuTitle">{{ menuTitle }}</h2>
+                    </slot>
+                    <slot name="menu-content">
+                        <div v-for="(editColumn, index) in editColumns" v-bind:key="index">
+                            <form-input
+                                v-bind:header="getColumnLabel(editColumn)"
+                                v-if="isMoney(editColumn)"
+                            >
+                                <input-symbol
+                                    v-bind:symbol="getColumnSymbol(editColumn)"
+                                    v-bind:value.sync="selectedItem[editColumn]"
+                                    v-bind:variant="inputVariant"
+                                />
+                            </form-input>
+                            <form-input v-bind:header="null" v-else-if="isBoolean(editColumn)">
+                                <checkbox
+                                    v-bind:items="buildCheckboxItem(editColumn, editColumn)"
+                                    v-bind:values="
+                                        buildCheckboxValue(editColumn, selectedItem[editColumn])
+                                    "
+                                    v-on:selected:value="toggleCheckbox($event, true)"
+                                    v-on:deselected:value="toggleCheckbox($event, false)"
+                                />
+                            </form-input>
+                            <form-input v-bind:header="getColumnLabel(editColumn)" v-else>
+                                <input-ripe
+                                    v-bind:value.sync="selectedItem[editColumn]"
+                                    v-bind:variant="inputVariant"
+                                />
+                            </form-input>
+                        </div>
+                    </slot>
+                    <slot name="menu-footer">
+                        <button-color
+                            class="delete"
+                            v-bind:text="'Delete'"
+                            v-bind:size="'small'"
+                            v-bind:icon="'bin'"
+                            v-bind:color="'red'"
+                            v-bind:min-width="0"/>
+                    </slot>
                 </div>
             </template>
         </content-menu>
@@ -85,8 +99,15 @@
     border: 1px solid $border-color;
 }
 
-.table-menu .content-menu ::v-deep .menu > .menu-content {
+.table-menu .content-menu ::v-deep .menu > .menu-container {
     padding: 10px 20px 0px 20px;
+}
+
+.table-menu .content-menu ::v-deep .menu .menu-title {
+    padding: 10px 0px 10px 0px;
+    color: $dark;
+    font-size: 18px;
+    font-weight: 500;
 }
 
 .table-menu .content-menu ::v-deep .menu .form-input {
@@ -114,6 +135,11 @@
 .table-menu .content-menu ::v-deep .content .table .table-head .table-column {
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.table-menu .content-menu ::v-deep .menu .button-color.delete {
+    margin-top: 20px;
+    float: right;
 }
 </style>
 
@@ -165,6 +191,10 @@ export const TableMenu = {
         menuWidth: {
             type: Number,
             default: 300
+        },
+        menuTitle: {
+            type: String,
+            default: "Arguments"
         },
         animationDuration: {
             type: Number,
@@ -252,7 +282,7 @@ export const TableMenu = {
             return column.symbol || "?";
         },
         toggleCheckbox(property, value) {
-            if (this.selectedIndexData === -1) return;
+            if (Object.keys(this.selectedItem).length === 0) return;
             this.$set(this.items[this.selectedIndexData], property, value);
         },
         onClickItem(item, index) {

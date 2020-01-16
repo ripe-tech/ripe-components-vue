@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, select, boolean, number, color } from "@storybook/addon-knobs";
+import { withKnobs, select, boolean, number, color, text } from "@storybook/addon-knobs";
 
 storiesOf("Organisms", module)
     .addDecorator(withKnobs)
@@ -69,6 +69,10 @@ storiesOf("Organisms", module)
             selectedIndex: {
                 type: Number,
                 default: number("Selected index", -1)
+            },
+            menuTitle: {
+                type: String,
+                default: text("Menu header title", "Arguments")
             },
             mockItems: {
                 default: () => [
@@ -144,6 +148,7 @@ storiesOf("Organisms", module)
                     v-bind:edit-columns="editColumns"
                     v-bind:alignment="alignment" 
                     v-bind:mode="mode" 
+                    v-bind:menu-title="menuTitle" 
                     v-bind:menuWidth="menuWidth"
                     v-bind:selected-index="selectedIndex"
                     v-bind:menuBackgroundColor="menuBackgroundColor"
