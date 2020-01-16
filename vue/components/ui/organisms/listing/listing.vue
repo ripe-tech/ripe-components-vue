@@ -11,10 +11,10 @@
                     <slot name="icons" />
                     <search
                         v-bind:value.sync="filterData"
-                        v-bind:persistent-filters="persistentFilters"
-                        v-bind:placeholder="filterText ? filterText : `Search ${name}`"
+                        v-bind:filters="persistentFilters"
+                        v-bind:placeholder="filterPlaceholder ? filterPlaceholder : `Search ${name}`"
                         v-bind:enable-delete="searchEnableDelete"
-                        v-bind:icon-visible="searchIconInvisible"
+                        v-bind:icon-visible="searchIconVisible"
                         v-bind:variant="'dark'"
                         v-bind:width="isMobileWidth() ? null : searchWidth"
                         v-bind:loading="loading"
@@ -22,10 +22,10 @@
                     />
                     <search-persistent
                         v-bind:value.sync="filterData"
-                        v-bind:persistent-filters="persistentFilters"
-                        v-bind:placeholder="filterText ? filterText : `Search ${name}`"
+                        v-bind:filters="persistentFilters"
+                        v-bind:placeholder="filterPlaceholder ? filterPlaceholder : `Search ${name}`"
                         v-bind:enable-delete="searchEnableDelete"
-                        v-bind:icon-visible="searchIconInvisible"
+                        v-bind:icon-visible="searchIconVisible"
                         v-bind:variant="'dark'"
                         v-bind:width="isMobileWidth() ? null : searchWidth"
                         v-bind:select-max-width="filterButtonMaxWidth"
@@ -251,7 +251,7 @@ export const Listing = {
             type: String,
             default: null
         },
-        filterText: {
+        filterPlaceholder: {
             type: String,
             default: null
         },
@@ -259,21 +259,13 @@ export const Listing = {
             type: Boolean,
             default: true
         },
-        searchEnableDelete: {
-            type: Boolean,
-            default: true
-        },
-        searchIconInvisible: {
+        searchIconVisible: {
             type: Boolean,
             default: false
         },
         searchWidth: {
             type: Number,
             default: 450
-        },
-        filterButtonMaxWidth: {
-            type: Number,
-            default: 250
         },
         hasPersistentFilters: {
             type: Boolean,
@@ -282,6 +274,14 @@ export const Listing = {
         persistentFilters: {
             type: Array,
             default: () => []
+        },
+        searchEnableDelete: {
+            type: Boolean,
+            default: true
+        },
+        filterButtonMaxWidth: {
+            type: Number,
+            default: 250
         }
     },
     data: function() {

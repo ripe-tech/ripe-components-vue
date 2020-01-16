@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text } from "@storybook/addon-knobs";
+import { withKnobs, text, boolean, number } from "@storybook/addon-knobs";
 
 storiesOf("Organisms", module)
     .addDecorator(withKnobs)
@@ -25,12 +25,51 @@ storiesOf("Organisms", module)
                     { value: "device", label: "Device" }
                 ]
             },
-            filterFields: {
-                type: Object,
-                default: () => ({
-                    user: "likei",
-                    device: "likei"
-                })
+            name: {
+                default: text("Name", "Devices")
+            },
+            notFoundText: {
+                default: text("Not Found text", "Custom Not Found text")
+            },
+            titleText: {
+                default: text("Title", "Custom Title")
+            },
+            filterPlaceholder: {
+                default: text("Filter", "Custom Filter placeholder text")
+            },
+            searchIconVisible: {
+                default: boolean("Search Icon visible", true)
+            },
+            searchWidth: {
+                default: number("Search width", 450)
+            },
+            hasPersistentFilters: {
+                default: boolean("Has Persistent Filters", true)
+            },
+            persistentFilters: {
+                type: Array,
+                default: () => [
+                    {
+                        name: "Filter 1",
+                        value: "user=Ripe",
+                        tenancy: "brand",
+                        context: "swear",
+                        metadata: { lan: "en" }
+                    },
+                    {
+                        name: "Filter 2 with a big ammount of characters in its name",
+                        value: "device=Macintosh",
+                        tenancy: "factory",
+                        context: "barbara_guimaraes",
+                        metadata: { lan: "en" }
+                    }
+                ]
+            },
+            searchEnableDelete: {
+                default: boolean("Search Delete Button enabled", true)
+            },
+            filterButtonMaxWidth: {
+                default: number("Filter Button max width", 250)
             },
             img: {
                 type: String,
@@ -43,7 +82,6 @@ storiesOf("Organisms", module)
                     height: "34px"
                 })
             }
-            // TODO add new props
         },
         methods: {
             getItems({ options = {}, params = {} } = {}) {
@@ -67,11 +105,19 @@ storiesOf("Organisms", module)
                 <listing
                     v-bind:context="context"
                     v-bind:columns="columns"
-                    v-bind:get-items="getItems"
-                    v-bind:name="'devices'"
-                    v-bind:use-query="false"
-                    v-bind:filter-fields="filterFields"
                     v-bind:values="values"
+                    v-bind:get-items="getItems" 
+                    v-bind:name="name"
+                    v-bind:not-found-text="notFoundText"
+                    v-bind:title-text="titleText"
+                    v-bind:filter-placeholder="filterPlaceholder"
+                    v-bind:use-query="false"
+                    v-bind:search-icon-visible="searchIconVisible"
+                    v-bind:search-width="searchWidth"
+                    v-bind:has-persistent-filters="hasPersistentFilters"
+                    v-bind:persistent-filters="persistentFilters"
+                    v-bind:search-enable-delete="searchEnableDelete"
+                    v-bind:filter-button-max-width="filterButtonMaxWidth"
                 >
                     <template v-slot:icons>
                         <img v-bind:src="img" v-bind:style="imgStyle" />
