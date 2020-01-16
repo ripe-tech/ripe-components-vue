@@ -24,6 +24,7 @@
             <checkbox v-bind:items="tenancyItems" v-bind:values.sync="tenacyValuesData">
                 <template v-slot:extra-info="{ item, index }">
                     <select-ripe
+                        v-if="getTenancySelectOptions(item.label)"
                         v-bind:placeholder="selectPlaceholder(item)"
                         v-bind:width="200"
                         v-bind:align="'left'"
@@ -164,8 +165,7 @@ export const SaveFilterModal = {
                     return this.getChannels();
                 case "Factory":
                     return this.getFactories();
-                default:
-                    break;
+                default: return null;
             }
         },
         selectPlaceholder(item) {
