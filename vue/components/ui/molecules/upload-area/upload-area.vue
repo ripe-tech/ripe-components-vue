@@ -62,19 +62,16 @@
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0.3px;
-    margin: 0px 0px 8px 0px;
+    margin: 0px 0px 22px 0px;
 }
 
-.fade-in-enter-active {
-    transition: all 0.125s ease-in-out;
+.upload-area .upload-area-container > .description.fade-in-enter-active,
+.upload-area .upload-area-container > .description.fade-in-leave-active {
+    transition: opacity 0.125s ease-in-out, transform 0.125s ease-in-out;
 }
 
-.fade-in-leave-active {
-    transition: all 0.125s ease-in-out;
-}
-
-.fade-in-enter,
-.fade-in-leave-to {
+.upload-area .upload-area-container > .description.fade-in-enter,
+.upload-area .upload-area-container > .description.fade-in-leave-to {
     opacity: 0;
     transform: translateY(-10px);
 }
