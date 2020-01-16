@@ -104,7 +104,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     text-transform: capitalize;
-    width: 35%;
+    width: 60%;
 }
 
 .table-menu .content-menu ::v-deep .menu .form-input > .content {
