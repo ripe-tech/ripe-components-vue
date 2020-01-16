@@ -91,7 +91,7 @@
 }
 
 .upload-area .upload-area-container .upload-button {
-    transition: opacity 0.125s ease-in, background-color 0.125s ease-in;
+    transition: opacity 0.125s ease-in;
 }
 
 .upload-area.dragging .upload-area-container .upload-button {
