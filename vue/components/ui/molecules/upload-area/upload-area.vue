@@ -14,7 +14,7 @@
                         {{ descriptionText }}
                     </p>
                 </transition>
-                <button-icon v-bind:icon="'cloud-upload'" v-bind:size="110" />
+                <button-icon v-bind:icon="icon" v-bind:size="110" />
                 <input
                     type="file"
                     multiple
@@ -45,12 +45,14 @@
     flex-direction: column;
     height: 150px;
     justify-content: center;
+    overflow: hidden;
     position: relative;
     transition: background-color 0.125s ease-in, border-color 0.125s ease-in;
+    white-space: nowrap;
 }
 
 .upload-area.dragging .upload-area-container {
-    background-color: $selected-color;
+    background-color: $border-color;
     border-color: $label-color;
     pointer-events: none;
 }
@@ -127,6 +129,10 @@ export const UploadArea = {
             type: String,
             default: "Drop your files to upload"
         },
+        draggingIcon: {
+            type: String,
+            default: null
+        },
         files: {
             type: Array,
             default: () => []
@@ -135,6 +141,9 @@ export const UploadArea = {
     computed: {
         descriptionText() {
             return this.dragging ? this.descriptionDragging : this.description;
+        },
+        icon() {
+            return this.draggingIcon ? this.draggingIcon : "cloud-upload";
         }
     },
     data: function() {
