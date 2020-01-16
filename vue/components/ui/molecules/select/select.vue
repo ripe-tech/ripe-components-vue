@@ -123,11 +123,11 @@
 }
 
 .select.select-align-right .select-container ::v-deep .dropdown-container {
-    right: 0;
+    right: 0px;
 }
 
 .select.select-align-left .select-container ::v-deep .dropdown-container {
-    left: 0;
+    left: 0px;
 }
 </style>
 
