@@ -1,7 +1,7 @@
 <template>
     <div
         class="content-menu"
-        v-bind:class="[{ 'menu-visible': menuVisible }, menuMode, `align-${menuOrientation}`]"
+        v-bind:class="[menuVisible ? 'menu-visible' : 'menu-invisible', mode, `align-${alignment}`]"
     >
         <div class="content">
             <slot name="content" />
@@ -17,14 +17,15 @@
 
 .content-menu {
     display: flex;
-    overflow: hidden;
+}
+
+.content-menu.floating {
+    position: relative;
 }
 
 .content-menu .content {
     display: inline-block;
     flex: 1 0;
-    overflow: auto;
-    white-space: nowrap;
 }
 
 .content-menu.align-left .content {
@@ -38,25 +39,24 @@
     white-space: nowrap;
 }
 
+.content-menu.collapse.menu-invisible .menu,
+.content-menu.floating.menu-invisible .menu {
+    width: 0px;
+}
+
 .content-menu.floating .menu {
+    height: 100%;
     position: absolute;
     top: 0px;
     z-index: 10;
 }
 
-.content-menu.collapse:not(.menu-visible) .menu,
-.content-menu.floating:not(.menu-visible) .menu {
-    width: 0px;
-}
-
 .content-menu.floating.align-left .menu {
     left: 0px;
-    transform-origin: left;
 }
 
 .content-menu.floating.align-right .menu {
     right: 0px;
-    transform-origin: right;
 }
 </style>
 
@@ -64,11 +64,11 @@
 export const ContentMenu = {
     name: "content-menu",
     props: {
-        menuOrientation: {
+        alignment: {
             type: String,
             default: "right"
         },
-        menuMode: {
+        mode: {
             type: String,
             default: "collapse"
         },
@@ -78,9 +78,9 @@ export const ContentMenu = {
         },
         menuWidth: {
             type: Number,
-            default: 250
+            default: 200
         },
-        animationTimeout: {
+        animationDuration: {
             type: Number,
             default: 0.3
         }
@@ -89,22 +89,9 @@ export const ContentMenu = {
         menuStyle: function() {
             const base = {
                 width: this.menuWidth === null || !this.menuVisible ? null : `${this.menuWidth}px`,
-                transition: `width ${this.animationTimeout}s ease-in-out`
+                transition: `width ${this.animationDuration}s ease-in-out`
             };
             return base;
-        }
-    },
-    data: function() {
-        return {
-            menuVisibleData: this.menuVisible
-        };
-    },
-    watch: {
-        menuVisibleData(isVisible) {
-            isVisible ? this.$emit("visible") : this.$emit("hidden");
-        },
-        menuVisible(value) {
-            this.menuVisibleData = value;
         }
     }
 };
