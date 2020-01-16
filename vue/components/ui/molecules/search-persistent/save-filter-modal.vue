@@ -178,6 +178,7 @@ export const SaveFilterModal = {
             this.$emit("click:confirm");
         },
         onSelected(tenancy, value, selectedValueIndex) {
+            //TODO
             console.log(`Select ${tenancy}: `, selectedValueIndex, value);
         }
     }
