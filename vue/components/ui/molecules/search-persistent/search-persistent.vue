@@ -89,9 +89,6 @@
     border-radius: 0px 6px 6px 0px;
     font-size: 14px;
     font-weight: 600;
-}
-
-.search-persistent > .select ::v-deep .select-container > .select-button {
     background-color: $dark;
     background-image: url("~./assets/chevron-down-white.svg");
     color: $white;
