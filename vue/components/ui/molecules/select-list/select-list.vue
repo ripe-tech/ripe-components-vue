@@ -9,7 +9,7 @@
                 v-on:click.exact="onClick(item.value, index)"
                 v-on:click.shift="onShiftClick(item.value, index)"
             >
-                {{ item.value }}
+                {{ item.label || item.value }}
             </li>
         </ul>
     </div>
@@ -86,6 +86,11 @@ export const SelectList = Vue.component("select-list", {
             valuesData: this.values,
             lastSelected: null
         };
+    },
+    watch: {
+        values(value) {
+            this.valuesData = value;
+        }
     },
     methods: {
         isSelected(value) {

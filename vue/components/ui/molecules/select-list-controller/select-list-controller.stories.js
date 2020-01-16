@@ -5,7 +5,7 @@ storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Select Items Controller", () => ({
         props: {
-            options: {
+            itemsLeft: {
                 type: Array,
                 default: () => [
                     { value: "option_1", label: "A" },
@@ -16,7 +16,16 @@ storiesOf("Molecules", module)
                     { value: "option_6", label: "F" },
                     { value: "option_7", label: "G" },
                     { value: "option_8", label: "H" },
-                    { value: "option_9", label: "I" },
+                    { value: "option_9", label: "I" }
+                ]
+            },
+            valuesLeft: {
+                type: Object,
+                default: () => ({ option_1: true, option_6: true })
+            },
+            itemsRight: {
+                type: Array,
+                default: () => [
                     { value: "option_10", label: "J" },
                     { value: "option_11", label: "K" },
                     { value: "option_12", label: "L" },
@@ -24,31 +33,31 @@ storiesOf("Molecules", module)
                     { value: "option_14", label: "N" }
                 ]
             },
-            value: {
-                type: Array,
-                default: () => []
+            valuesRight: {
+                type: Object,
+                default: () => ({})
             }
         },
         data: function() {
             return {
-                selectedItems: this.value,
-                visibleData: this.visible
+                itemsLeftData: this.itemsLeft,
+                itemsRightData: this.itemsRight,
+                valuesLeftData: this.valuesLeft,
+                valuesRightData: this.valuesRight
             };
-        },
-        watch: {
-            value(value) {
-                this.selectedItems = value;
-            }
         },
         template: `
             <div>
-                <global />
                 <select-list-controller
-                    v-bind:items-left="options"
-                    v-bind:value.sync="selectedItems"
-                    />
-                <br>
-                <p>Value: {{ selectedItems }}</p>
+                    v-bind:items-left.sync="itemsLeftData"
+                    v-bind:values-left.sync="valuesLeftData"
+                    v-bind:items-right.sync="itemsRightData"
+                    v-bind:values-right.sync="valuesRightData"
+                />
+                <p>Items Left: {{ itemsLeftData }}</p><br>
+                <p>Selected Left: {{ valuesLeftData }}</p><br>
+                <p>Items Right: {{ itemsRightData }}</p><br>
+                <p>Selected Right: {{ valuesRightData }}</p><br>
             </div>
-            `
+        `
     }));

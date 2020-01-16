@@ -1,37 +1,38 @@
 <template>
-    <div class="dual">
-        <div class="container container-left">
-            <select-list v-bind:items="leftData" v-bind:values.sync="valuesLeft" />
-        </div>
+    <div class="transfer-list">
+        <select-list
+            class="container"
+            v-bind:items="itemsLeftData"
+            v-bind:values.sync="valuesLeftData"
+        />
         <div class="buttons">
-            <div class="button to-right-all" v-on:click="onMoveAll((toRight = true))">
+            <div class="button to-right-all" v-on:click="onMoveAllRightClick()">
                 <div class="icon to-right-all-icon" />
             </div>
-
-            <div class="button to-right" v-on:click="onMoveSelected((toRight = true))">
+            <div class="button to-right" v-on:click="onMoveRightClick()">
                 <div class="icon to-right-icon" />
             </div>
-
-            <div class="button to-left" v-on:click="onMoveSelected((toRight = false))">
+            <div class="button to-left" v-on:click="onMoveLeftClick()">
                 <div class="icon to-left-icon" />
             </div>
-
-            <div class="button to-left-all" v-on:click="onMoveAll((toRight = false))">
+            <div class="button to-left-all" v-on:click="onMoveAllLeftClick()">
                 <div class="icon to-left-all-icon" />
             </div>
         </div>
-        <div class="container container-right">
-            <select-list v-bind:items="rightData" v-bind:values.sync="valuesRight" />
-        </div>
+        <select-list
+            class="container"
+            v-bind:items="itemsRightData"
+            v-bind:values.sync="valuesRightData"
+        />
     </div>
 </template>
 
 <style lang="scss" scoped>
-.dual {
+.transfer-list {
     min-height: 265px;
 }
 
-.container {
+.transfer-list > .container {
     border: solid 1px #e4e8f0;
     border-radius: 6px;
     box-shadow: 0px 6px 24px 0px #43566426;
@@ -42,14 +43,14 @@
     width: 320px;
 }
 
-.buttons {
+.transfer-list > .buttons {
     display: inline-block;
     margin-left: 49px;
     margin-right: 49px;
     margin-top: 34px;
 }
 
-.button {
+.transfer-list > .buttons .button {
     background-color: #f9fafd;
     border: solid 2px #e4e8f0;
     border-radius: 6px;
@@ -59,50 +60,31 @@
     width: 32px;
 }
 
-.icon {
+.transfer-list > .buttons .button > .icon {
     height: 32px;
 }
 
-.to-right-all-icon {
-    background: url("~./assets/group-4_2.svg") no-repeat center;
-}
-
-.to-right-icon {
+.transfer-list > .buttons .button > .icon.to-right-icon {
     background: url("~./assets/chevron-right.svg") no-repeat center;
 }
 
-.to-left-icon {
+.transfer-list > .buttons .button > .icon.to-right-all-icon {
+    background: url("~./assets/chevron-group-right.svg") no-repeat center;
+}
+
+.transfer-list > .buttons .button > .icon.to-left-icon {
     background: url("~./assets/chevron-left.svg") no-repeat center;
 }
 
-.to-left-all-icon {
-    background: url("~./assets/group-4.svg") no-repeat center;
-}
-
-.content-item {
-    color: #1d2631;
-    cursor: pointer;
-    font-size: 14px;
-    height: 32px;
-    width: 303px;
-}
-
-.content-item > span {
-    line-height: 32px;
-    margin-left: 5px;
-}
-
-.content-item.selected,
-.content-item:hover {
-    background-color: #1d2631;
-    color: #ffffff;
+.transfer-list > .buttons .button > .icon.to-left-all-icon {
+    background: url("~./assets/chevron-group-left.svg") no-repeat center;
 }
 </style>
 
 <script>
 import Vue from "vue";
 
-export const SelectListController = Vue.component("select-list-controller", {
+export const SelectListController = Vue.component("transfer-list", {
     inheritAttrs: false,
     props: {
         itemsLeft: {
@@ -132,57 +114,95 @@ export const SelectListController = Vue.component("select-list-controller", {
     },
     data: function() {
         return {
-            selectedItemsLeft: this.valuesLeft,
-            selectedItemsRight: this.valuesRight,
-            leftData: this.itemsLeft,
-            rightData: this.itemsRight
+            valuesLeftData: this.valuesLeft,
+            valuesRightData: this.valuesRight,
+            itemsLeftData: this.itemsLeft,
+            itemsRightData: this.itemsRight
         };
     },
-    mounted: async function() {},
+    watch: {
+        valuesLeft(value) {
+            this.valuesLeftData = value;
+        },
+        valuesRight(value) {
+            this.valuesRightData = value;
+        },
+        itemsLeft(value) {
+            this.itemsLeftData = value;
+        },
+        itemsRight(value) {
+            this.itemsRightData = value;
+        },
+        valuesLeftData(value) {
+            this.$emit("update:valuesLeft", value);
+        },
+        valuesRightData(value) {
+            this.$emit("update:valuesRight", value);
+        },
+        itemsRightData(value) {
+            this.$emit("update:itemsRight", value);
+        },
+        itemsLeftData(value) {
+            this.$emit("update:itemsLeft", value);
+        }
+    },
     methods: {
-        removeItem(array, value) {
-            const index = array.findIndex(element => element.value === value);
-            if (index !== -1) array.splice(index, 1);
+        moveAllRight() {
+            this.itemsRightData = [...this.itemsRightData, ...this.itemsLeftData];
+            this.itemsLeftData = [];
+            this.valuesLeftData = {};
+            this.valuesRightData = {};
         },
-        onMoveSelected(toRight = true) {
-            this.moveSelected(toRight);
-            this.$emit("update:value", this.rightData);
+        moveAllLeft() {
+            this.itemsLeftData = [...this.itemsLeftData, ...this.itemsRightData];
+            this.itemsRightData = [];
+            this.valuesLeftData = {};
+            this.valuesRightData = {};
         },
-        moveSelected(toRight) {
-            let values = {};
+        moveRight() {
+            this.itemsLeftData = this._move(
+                this.itemsLeftData,
+                this.valuesLeftData,
+                this.itemsRightData
+            );
+        },
+        moveLeft() {
+            this.itemsRightData = this._move(
+                this.itemsRightData,
+                this.valuesRightData,
+                this.itemsLeftData
+            );
+        },
+        _move(fromItems, fromValues, toItems) {
+            const newFromItems = [];
 
-            if (toRight) {
-                const selectedItems = Object.entries(this.selectedItemsLeft);
-                selectedItems.forEach(element => {
-                    values.value = element[0];
-                    this.rightData.push(values);
-                    this.$delete(this.selectedItemsLeft, values.value);
-                    this.removeItem(this.leftData, values.value, true);
-                    values = {};
-                });
-            } else {
-                const selectedItems = Object.entries(this.selectedItemsRight);
-                selectedItems.forEach(element => {
-                    values.value = element[0];
-                    this.leftData.push(values);
-                    this.$delete(this.selectedItemsRight, values.value);
-                    this.removeItem(this.rightData, values.value, false);
-                    values = {};
-                });
-            }
+            fromItems.forEach((item, index) => {
+                // ignore items that are not selected
+                if (!fromValues[item.value]) {
+                    newFromItems.push(item);
+                    return;
+                }
+
+                // move the item between lists
+                toItems.push(item);
+
+                // remove the item from the selected set
+                this.$delete(fromValues, item.value);
+            });
+
+            return newFromItems;
         },
-        onMoveAll(toRight = true) {
-            this.moveAll(toRight);
-            this.$emit("update:value", this.rightData);
+        onMoveRightClick() {
+            this.moveRight();
         },
-        moveAll(toRight) {
-            if (toRight) {
-                this.rightData = [...this.leftData, ...this.rightData];
-                this.leftData = [];
-            } else {
-                this.leftData = [...this.rightData, ...this.leftData];
-                this.rightData = [];
-            }
+        onMoveLeftClick() {
+            this.moveLeft();
+        },
+        onMoveAllRightClick() {
+            this.moveAllRight();
+        },
+        onMoveAllLeftClick() {
+            this.moveAllLeft();
         }
     }
 });
