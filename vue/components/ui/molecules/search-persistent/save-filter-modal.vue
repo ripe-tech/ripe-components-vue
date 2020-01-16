@@ -28,7 +28,7 @@
                         v-bind:width="200"
                         v-bind:align="'left'"
                         v-bind:max-height="150"
-                        v-bind:options="testSelectOptions"
+                        v-bind:options="getTenancySelectOptions(item.label)"
                         v-on:update:value="(value, selectedItemIndex) => onSelected(item.label, value, selectedItemIndex)"
                     />
                 </template>
@@ -99,24 +99,7 @@ export const SaveFilterModal = {
         return {
             tenacyValuesData: {},
             filterNameData: null,
-            searchData: this.search,
-
-            testSelectOptions: [
-                    { value: "option_1", label: "A" },
-                    { value: "option_2", label: "B" },
-                    { value: "option_3", label: "C" },
-                    { value: "option_4", label: "D" },
-                    { value: "option_5", label: "E" },
-                    { value: "option_6", label: "F" },
-                    { value: "option_7", label: "G" },
-                    { value: "option_8", label: "H" },
-                    { value: "option_9", label: "I" },
-                    { value: "option_10", label: "J" },
-                    { value: "option_11", label: "K" },
-                    { value: "option_12", label: "L" },
-                    { value: "option_13", label: "M" },
-                    { value: "option_14", label: "N" }
-                ]
+            searchData: this.search
         };
     },
     watch: {
@@ -143,6 +126,48 @@ export const SaveFilterModal = {
     },
     mounted: async function() {},
     methods: {
+        getBrands() {
+            // TODO fix me, I'm hardcoded
+            return [
+                { value: "brand_a", label: "Brand A" },
+                { value: "brand_b", label: "Brand B" },
+                { value: "brand_c", label: "Brand C" },
+                { value: "brand_d", label: "Brand D" },
+                { value: "brand_e", label: "Brand E" },
+                { value: "brand_f", label: "Brand F" },
+                { value: "brand_g", label: "Brand G" }
+            ];
+        },
+        getChannels() {
+            // TODO fix me, I'm hardcoded
+            return [
+                { value: "channel_a", label: "Channel A" },
+                { value: "channel_b", label: "Channel B" },
+                { value: "channel_c", label: "Channel C" }
+            ];
+        },
+        getFactories() {
+            // TODO fix me, I'm hardcoded
+            return [
+                { value: "factory_a", label: "Factory A" },
+                { value: "factory_b", label: "Factory B" },
+                { value: "factory_c", label: "Factory C" },
+                { value: "factory_d", label: "Factory D" },
+                { value: "factory_e", label: "Factory E" }
+            ];
+        },
+        getTenancySelectOptions(tenancy) {
+            switch (tenancy) {
+                case "Brand":
+                    return this.getBrands();
+                case "Channel":
+                    return this.getChannels();
+                case "Factory":
+                    return this.getFactories();
+                default:
+                    break;
+            }
+        },
         selectPlaceholder(item) {
             return `Select ${item.label}`;
         },
