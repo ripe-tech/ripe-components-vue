@@ -91,6 +91,7 @@
 
 .table-menu .content-menu ::v-deep .menu .form-input {
     display: flex;
+    margin: 0px 0px 5px 0px;
 }
 
 .table-menu .content-menu ::v-deep .menu .form-input > .label {
