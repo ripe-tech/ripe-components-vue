@@ -30,7 +30,8 @@ storiesOf("Molecules", module)
         },
         data: function() {
             return {
-                filesData: []
+                filesData: [],
+                draggingData: false
             };
         },
         template: `
@@ -40,13 +41,13 @@ storiesOf("Molecules", module)
                     v-bind:description="description"
                     v-bind:description-dragging="descriptionDragging"
                     v-bind:dragging-icon="draggingIcon"
+                    v-bind:dragging.sync="draggingData"
                 />
-                <div>
-                    <p>Files:</p>
-                    <p v-for="(file, index) in filesData">
-                        {{ index }} - {{ file.name }}
-                    </p>
-                </div>
+                <p>Dragging: {{ draggingData }}</p>
+                <p>Files:</p>
+                <p v-for="(file, index) in filesData">
+                    {{ index }} - {{ file.name }}
+                </p>
             </div>
             `
     }));

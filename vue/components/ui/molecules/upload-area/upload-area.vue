@@ -156,6 +156,9 @@ export const UploadArea = {
     watch: {
         files(value) {
             this.filesData = value;
+        },
+        dragging(value) {
+            this.$emit("update:dragging", value);
         }
     },
     methods: {
