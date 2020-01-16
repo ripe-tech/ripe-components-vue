@@ -32,6 +32,17 @@
                             </slot>
                         </template>
                     </table-ripe>
+                    <slot name="content-footer">
+                        <button-color
+                            class="add"
+                            v-bind:text="'New'"
+                            v-bind:size="'small'"
+                            v-bind:color="'white'"
+                            v-bind:icon="'add'"
+                            v-bind:min-width="0"
+                            v-on:click="onAddItem"
+                        />
+                    </slot>
                 </div>
             </template>
             <template v-slot:menu>
@@ -76,7 +87,9 @@
                             v-bind:size="'small'"
                             v-bind:icon="'bin'"
                             v-bind:color="'red'"
-                            v-bind:min-width="0"/>
+                            v-bind:min-width="0"
+                            v-on:click="onDeleteItem"
+                        />
                     </slot>
                 </div>
             </template>
@@ -104,10 +117,10 @@
 }
 
 .table-menu .content-menu ::v-deep .menu .menu-title {
-    padding: 10px 0px 10px 0px;
     color: $dark;
     font-size: 18px;
     font-weight: 500;
+    padding: 10px 0px 10px 0px;
 }
 
 .table-menu .content-menu ::v-deep .menu .form-input {
@@ -138,8 +151,8 @@
 }
 
 .table-menu .content-menu ::v-deep .menu .button-color.delete {
-    margin-top: 20px;
     float: right;
+    margin-top: 20px;
 }
 </style>
 
@@ -287,6 +300,12 @@ export const TableMenu = {
         },
         onClickItem(item, index) {
             this.selectedIndexData === index ? this.toggleMenu() : this.setMenuItem(index);
+        },
+        onAddItem() {
+            this.$emit("click:create");
+        },
+        onDeleteItem() {
+            this.$emit("click:delete", this.selectedItem, this.selectedIndexData);
         }
     }
 };

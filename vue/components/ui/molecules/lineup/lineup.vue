@@ -54,7 +54,14 @@
                                 </p>
                             </slot>
                         </div>
-                        <div class="note" v-if="value.note || ($slots[`${value.value}-note`] || $slots[`${value.value}-note-text`])">
+                        <div
+                            class="note"
+                            v-if="
+                                value.note ||
+                                    $slots[`${value.value}-note`] ||
+                                    $slots[`${value.value}-note-text`]
+                            "
+                        >
                             <slot
                                 v-bind:name="`${value.value}-note`"
                                 v-bind:item="item"
