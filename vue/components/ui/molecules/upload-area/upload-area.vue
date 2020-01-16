@@ -55,6 +55,14 @@
     pointer-events: none;
 }
 
+.upload-area .upload-area-container > .description {
+    color: $dark;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    margin: 0px 0px 8px 0px;
+}
+
 .fade-in-enter-active {
     transition: all 0.125s ease-in-out;
 }
@@ -71,10 +79,10 @@
 
 .upload-area .upload-area-container .button-icon {
     opacity: 0;
+    pointer-events: none;
     position: absolute;
     top: 40px;
     transform: none;
-    pointer-events: none;
     transition: opacity 0.125s ease-in;
 }
 
@@ -100,19 +108,11 @@
 }
 
 .upload-area .upload-area-container .upload-button {
-    transition: opacity 0.125s ease-in;
+    transition: opacity 0.125s ease-in, background-color 0.125s ease-in, border-color 0.125s ease-in;
 }
 
 .upload-area.dragging .upload-area-container .upload-button {
     opacity: 0;
-}
-
-.upload-area .upload-area-container > .description {
-    color: $dark;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-    margin: 0px 0px 22px 0px;
 }
 </style>
 
