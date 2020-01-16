@@ -100,6 +100,8 @@
 
 .search-persistent > .select .save-filter-button {
     border: none;
+    border-radius: 0px 0px 0px 0px;
+    box-sizing: unset;
 }
 
 .search-persistent > .select .filter-item-label {
@@ -135,11 +137,6 @@
 
 .search-persistent > .select .filter-item > .filter-item-buttons > .button {
     margin: 0px 1px 0px 1px;
-}
-
-.search-persistent > .select .save-filter-button {
-    border-radius: 0px 0px 0px 0px;
-    box-sizing: unset;
 }
 </style>
 
