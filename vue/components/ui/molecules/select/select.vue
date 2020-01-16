@@ -39,7 +39,9 @@
             </div>
             <dropdown
                 v-bind:items="options"
+                v-bind:width="dropdownWidth"
                 v-bind:max-height="maxHeight"
+                v-bind:alignment="dropdownAlignment"
                 v-bind:visible.sync="visibleData"
                 v-bind:global-events="false"
                 v-bind:highlighted="highlightedObject"
@@ -149,9 +151,22 @@ export const Select = {
             type: Boolean,
             default: false
         },
+        buttonWidth:
+        {
+            type: Number,
+            default: null
+        },
+        dropdownWidth: {
+            type: Number,
+            default: null
+        },
         maxHeight: {
             type: Number,
             default: 200
+        }, 
+        dropdownAlignment: {
+            type: String,
+            default: null
         }
     },
     data: function() {
@@ -351,7 +366,7 @@ export const Select = {
         },
         style() {
             const base = {};
-            if (this.width) base.width = `${this.width}px`;
+            if (this.buttonWidth) base.width = `${this.buttonWidth}px`;
             return base;
         },
         highlightedObject() {

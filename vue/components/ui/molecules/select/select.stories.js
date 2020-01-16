@@ -44,8 +44,24 @@ storiesOf("Molecules", module)
             visible: {
                 default: boolean("Visible", false)
             },
+            buttonWidth: {
+                default: number("Button width", null)
+            },
+            dropdownWidth: {
+                default: number("Dropdown width", null)
+            },
             maxHeight: {
                 default: number("Max Height", 200)
+            },
+            dropdownAlignment: {
+                default: select(
+                    "Dropdown Alignment",
+                    {
+                        Left: "left",
+                        Right: "right"
+                    },
+                    null
+                )
             },
             disabled: {
                 default: boolean("Disabled", false)
@@ -70,7 +86,10 @@ storiesOf("Molecules", module)
                 <global />
                 <select-ripe
                     v-bind:placeholder="placeholder"
+                    v-bind:button-width="buttonWidth"
+                    v-bind:dropdown-width="dropdownWidth"
                     v-bind:max-height="maxHeight"
+                    v-bind:dropdown-alignment="dropdownAlignment"
                     v-bind:disabled="disabled"
                     v-bind:options="options"
                     v-bind:value.sync="valueData"

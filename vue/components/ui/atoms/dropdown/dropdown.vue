@@ -1,8 +1,8 @@
 <template>
-    <div class="dropdown-container" v-bind:style="alignmentStyle">
+    <div class="dropdown-container" v-bind:style="dropdownStyle">
         <global-events v-on:keydown.esc="handleGlobal()" />
         <transition name="slide">
-            <ul class="dropdown" v-bind:style="dropdownStyle" v-show="visibleData" ref="dropdown">
+            <ul class="dropdown" v-bind:style="maxHeightStyle" v-show="visibleData" ref="dropdown">
                 <li
                     class="dropdown-item"
                     v-bind:class="_getItemClasses(item, index)"
@@ -172,17 +172,17 @@ export const Dropdown = {
         },
         dropdownStyle() {
             const base = {};
-            if (this.width) base.width = `${this.width}px`;
+            if (this.width) base["min-width"] = `${this.width}px`;
+            base.right = this.alignment === "right" ? 0 : null;
+
+            return base;
+        },
+        maxHeightStyle(){
+            const base = {};
             if (this.maxHeight) {
                 base["max-height"] = `${this.maxHeight}px`;
                 base.overflow = "overlay";
             }
-            return base;
-        },
-        alignmentStyle() {
-            const base = {};
-
-            base.right = this.alignment === "right" ? 0 : null;
 
             return base;
         }
