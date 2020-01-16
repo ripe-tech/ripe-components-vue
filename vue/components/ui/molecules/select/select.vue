@@ -151,8 +151,7 @@ export const Select = {
             type: Boolean,
             default: false
         },
-        buttonWidth:
-        {
+        buttonWidth: {
             type: Number,
             default: null
         },
@@ -163,7 +162,7 @@ export const Select = {
         maxHeight: {
             type: Number,
             default: 200
-        }, 
+        },
         dropdownAlignment: {
             type: String,
             default: null

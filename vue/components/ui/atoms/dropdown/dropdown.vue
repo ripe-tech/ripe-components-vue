@@ -177,7 +177,7 @@ export const Dropdown = {
 
             return base;
         },
-        maxHeightStyle(){
+        maxHeightStyle() {
             const base = {};
             if (this.maxHeight) {
                 base["max-height"] = `${this.maxHeight}px`;
