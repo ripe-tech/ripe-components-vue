@@ -10,7 +10,6 @@
             v-bind:variant="variant"
             v-bind:width="width"
             v-bind:loading="loading"
-            v-on:update:filters="onUpdateFilters"
         />
     </div>
 </template>
@@ -59,10 +58,14 @@ export const SearchPersistentLocalStorage = {
         };
     },
     watch: {
+        filters(value) {
+            this.filtersData = value;
+        },
         valueData(value) {
             this.$emit("update:value", this.valueData);
         },
         filtersData(value) {
+            this.saveFilters(this.filtersData);
             this.$emit("update:filters", this.filtersData);
         }
     },
@@ -82,10 +85,6 @@ export const SearchPersistentLocalStorage = {
             const filters = localStorage.getItem(this.filtersKey);
 
             if (filters) this.filtersData = JSON.parse(filters);
-        },
-        onUpdateFilters(value) {
-            this.filtersData = value;
-            this.saveFilters(this.filtersData);
         }
     }
 };
