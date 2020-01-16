@@ -205,7 +205,6 @@ export const SearchPersistent = {
             type: Boolean,
             default: false
         }
-        // SYNC ON VISIBLE
     },
     data: function() {
         return {
