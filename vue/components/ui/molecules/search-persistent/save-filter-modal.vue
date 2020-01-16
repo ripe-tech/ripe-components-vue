@@ -29,7 +29,7 @@
                         v-bind:align="'left'"
                         v-bind:max-height="150"
                         v-bind:options="testSelectOptions"
-                        v-on:update:value="onSelected"
+                        v-on:update:value="(value, selectedItemIndex) => onSelected(index, value, selectedItemIndex)"
                     />
                 </template>
             </checkbox>
@@ -152,8 +152,8 @@ export const SaveFilterModal = {
         onSaveClick() {
             this.$emit("click:confirm");
         },
-        onSelected(item, index) {
-            console.log("Selected in one of the select's:", index, item);
+        onSelected(selectIndex, value, selectedValueIndex) {
+            console.log(`Select ${selectIndex}: `, selectedValueIndex, value);
         }
     }
 };
