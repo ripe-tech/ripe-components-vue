@@ -5,7 +5,7 @@ storiesOf("Organisms", module)
     .addDecorator(withKnobs)
     .add("Table Menu", () => ({
         props: {
-            menuOrientation: {
+            alignment: {
                 default: select(
                     "Menu Orientation",
                     {
@@ -15,7 +15,7 @@ storiesOf("Organisms", module)
                     "right"
                 )
             },
-            menuMode: {
+            mode: {
                 default: select(
                     "Menu Visibility Mode",
                     {
@@ -32,7 +32,7 @@ storiesOf("Organisms", module)
             menuWidth: {
                 default: number("Menu width", 300)
             },
-            animationTimeout: {
+            animationDuration: {
                 default: number("Animation timeout", 0.3)
             },
             menuBackgroundColor: {
@@ -73,7 +73,7 @@ storiesOf("Organisms", module)
                         user: "Bill Gates",
                         os: "Windows",
                         alive: true,
-                        mars: false,
+                        net: 123.23,
                         programmer: true
                     },
                     {
@@ -81,7 +81,7 @@ storiesOf("Organisms", module)
                         user: "Steve Jobs",
                         os: "Macintosh",
                         alive: false,
-                        mars: false,
+                        net: 123123,
                         programmer: false
                     },
                     {
@@ -89,7 +89,7 @@ storiesOf("Organisms", module)
                         user: "Linus Torvalds",
                         os: "Linux",
                         alive: true,
-                        mars: false,
+                        net: 321.123,
                         programmer: true
                     }
                 ]
@@ -97,17 +97,17 @@ storiesOf("Organisms", module)
             mockColumns: {
                 type: Array,
                 default: () => [
-                    { value: "id", label: "ID" },
-                    { value: "user", label: "User" },
-                    { value: "os", label: "Operating System" },
-                    { value: "alive", label: "Alive" },
-                    { value: "programmer", label: "Programmer" },
-                    { value: "mars", label: "Shipped car to mars" }
+                    { value: "id", label: "ID", type: "number" },
+                    { value: "user", label: "User", type: "string" },
+                    { value: "os", label: "Operating System", type: "string" },
+                    { value: "alive", label: "Alive", type: "boolean" },
+                    { value: "programmer", label: "Programmer", type: "boolean" },
+                    { value: "net", label: "Net worth", type: "money" }
                 ]
             },
             editColumns: {
                 type: Array,
-                default: ["user", "os", "alive", "programmer", "mars"]
+                default: ["user", "os", "alive", "programmer", "net"]
             }
         },
         data: function() {
@@ -138,11 +138,11 @@ storiesOf("Organisms", module)
                     v-bind:menu-visible.sync="menuVisibleData"
                     v-bind:inputVariant="inputVariant"
                     v-bind:edit-columns="editColumns"
-                    v-bind:menuOrientation="menuOrientation" 
-                    v-bind:menuMode="menuMode" 
+                    v-bind:alignment="alignment" 
+                    v-bind:mode="mode" 
                     v-bind:menuWidth="menuWidth"
                     v-bind:menuBackgroundColor="menuBackgroundColor"
-                    v-bind:animationTimeout="animationTimeout"/>
+                    v-bind:animationDuration="animationDuration"/>
             </div>
         `
     }));

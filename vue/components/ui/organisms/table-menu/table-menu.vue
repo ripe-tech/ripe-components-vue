@@ -1,11 +1,11 @@
 <template>
-    <div class="table-menu" v-bind:class="[menuMode, menuOrientation]">
+    <div class="table-menu" v-bind:class="[mode, alignment]">
         <content-menu
-            v-bind:menu-orientation="menuOrientation"
-            v-bind:menu-mode="menuMode"
+            v-bind:alignment="alignment"
+            v-bind:mode="mode"
             v-bind:menu-visible.sync="menuVisibleData"
             v-bind:menu-width="menuWidth"
-            v-bind:animation-timeout="animationTimeout"
+            v-bind:animation-duration="animationDuration"
         >
             <template v-slot:content>
                 <div>
@@ -18,7 +18,18 @@
                         v-on:click="onClickItem"
                     >
                         <template v-slot="{ item, index }">
-                            <slot name="item" v-bind:item="item" v-bind:index="index" />
+                            <slot name="item" v-bind:item="item" v-bind:index="index">
+                                <td
+                                    v-bind:class="column.value"
+                                    v-for="column in columns"
+                                    v-bind:key="column.value"
+                                >
+                                    <span v-if="column.type !== 'boolean'">{{
+                                        item[column.value]
+                                    }}</span>
+                                    <checkmark v-bind:value="item[column.value]" v-else />
+                                </td>
+                            </slot>
                         </template>
                     </table-ripe>
                 </div>
@@ -27,25 +38,29 @@
                 <div class="menu-content" v-bind:style="menuStyle">
                     <div v-for="(editColumn, index) in editColumns" v-bind:key="index">
                         <form-input
-                            v-bind:header="findValueLabelIndex(editColumn)"
-                            v-if="isTextInput(items[editIndex][editColumn])"
+                            v-bind:header="getColumnLabel(editColumn)"
+                            v-if="isMoney(editColumn)"
                         >
-                            <input-ripe
-                                v-bind:value.sync="items[editIndex][editColumn]"
+                            <input-symbol
+                                v-bind:symbol="getColumnType(editColumn)"
+                                v-bind:value.sync="selectedItem[editColumn]"
                                 v-bind:variant="inputVariant"
                             />
                         </form-input>
-                        <form-input
-                            v-bind:header="null"
-                            v-if="isBooleanInput(items[editIndex][editColumn])"
-                        >
+                        <form-input v-bind:header="null" v-if="isBoolean(editColumn)">
                             <checkbox
                                 v-bind:items="buildCheckboxItem(editColumn, editColumn)"
                                 v-bind:values="
-                                    buildCheckboxValue(editColumn, items[editIndex][editColumn])
+                                    buildCheckboxValue(editColumn, selectedItem[editColumn])
                                 "
                                 v-on:selected:value="toggleCheckbox($event, true)"
                                 v-on:deselected:value="toggleCheckbox($event, false)"
+                            />
+                        </form-input>
+                        <form-input v-bind:header="getColumnLabel(editColumn)" v-else>
+                            <input-ripe
+                                v-bind:value.sync="selectedItem[editColumn]"
+                                v-bind:variant="inputVariant"
                             />
                         </form-input>
                     </div>
@@ -134,11 +149,11 @@ export const TableMenu = {
             type: Boolean,
             default: false
         },
-        menuOrientation: {
+        alignment: {
             type: String,
             default: "right"
         },
-        menuMode: {
+        mode: {
             type: String,
             default: "collapse"
         },
@@ -150,7 +165,7 @@ export const TableMenu = {
             type: Number,
             default: 300
         },
-        animationTimeout: {
+        animationDuration: {
             type: Number,
             default: 0.3
         },
@@ -170,7 +185,7 @@ export const TableMenu = {
     data: function() {
         return {
             menuVisibleData: this.menuVisible,
-            editIndex: 0,
+            selectedIndex: -1,
             reverseData: this.reverse,
             sortData: this.sort
         };
@@ -180,6 +195,9 @@ export const TableMenu = {
             const base = {};
             base["background-color"] = this.menuBackgroundColor ? this.menuBackgroundColor : null;
             return base;
+        },
+        selectedItem() {
+            return this.items[this.selectedIndex] || {};
         }
     },
     watch: {
@@ -198,31 +216,39 @@ export const TableMenu = {
             this.menuVisibleData = !this.menuVisibleData;
         },
         setMenuItem(index) {
-            this.editIndex = index;
+            this.selectedIndex = index;
             this.menuVisibleData = true;
         },
-        isTextInput(item) {
-            return typeof item === "string" || typeof item === "number";
+        isBoolean(value) {
+            return this.getColumnType(value) === "boolean";
         },
-        isBooleanInput(item) {
-            return typeof item === "boolean";
+        isMoney(value) {
+            return this.getColumnType(value) === "money";
         },
         buildCheckboxItem(label, value) {
-            return [{ label: this.findValueLabelIndex(value), value: value }];
+            return [{ label: this.getColumnLabel(value), value: value }];
         },
         buildCheckboxValue(label, value) {
-            const checkboxValue = { [label]: value };
-            return checkboxValue;
+            return { [label]: value };
         },
-        findValueLabelIndex(value) {
+        getColumnLabel(value) {
             const column = this.columns.find(l => l.value === value);
             return column.label || value;
         },
+        getColumnType(value) {
+            const column = this.columns.find(l => l.value === value);
+            return column.type || "string";
+        },
+        getColumnSymbol(value) {
+            const column = this.columns.find(l => l.value === value);
+            return column.symbol || "?";
+        },
         toggleCheckbox(property, value) {
-            this.$set(this.items[this.editIndex], property, value);
+            if (this.selectedIndex === -1) return;
+            this.$set(this.items[this.selectedIndex], property, value);
         },
         onClickItem(item, index) {
-            this.editIndex === index ? this.toggleMenu() : this.setMenuItem(index);
+            this.selectedIndex === index ? this.toggleMenu() : this.setMenuItem(index);
         }
     }
 };
