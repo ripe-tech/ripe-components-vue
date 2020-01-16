@@ -12,7 +12,7 @@
                     <search
                         v-bind:value.sync="filterData"
                         v-bind:filters="persistentFilters"
-                        v-bind:placeholder="filterPlaceholder ? filterPlaceholder : `Search ${name}`"
+                        v-bind:placeholder="searchPlaceholder"
                         v-bind:enable-delete="searchEnableDelete"
                         v-bind:icon-visible="searchIconVisible"
                         v-bind:variant="'dark'"
@@ -23,7 +23,7 @@
                     <search-persistent
                         v-bind:value.sync="filterData"
                         v-bind:filters="persistentFilters"
-                        v-bind:placeholder="filterPlaceholder ? filterPlaceholder : `Search ${name}`"
+                        v-bind:placeholder="searchPlaceholder"
                         v-bind:enable-delete="searchEnableDelete"
                         v-bind:icon-visible="searchIconVisible"
                         v-bind:variant="'dark'"
@@ -292,6 +292,11 @@ export const Listing = {
             loading: false,
             visibleLightbox: null
         };
+    },
+    computed: {
+        searchPlaceholder() {
+            return this.filterPlaceholder ? this.filterPlaceholder : `Search ${this.name}`;
+        }
     },
     watch: {
         filter(value) {
