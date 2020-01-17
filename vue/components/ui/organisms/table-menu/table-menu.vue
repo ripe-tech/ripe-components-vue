@@ -59,7 +59,7 @@
                                 v-if="isMoney(editColumn)"
                             >
                                 <input-symbol
-                                    v-bind:symbol="getColumnSymbol(editColumn)"
+                                    v-bind:symbol="getColumnSymbol(editColumn, selectedItem)"
                                     v-bind:value.sync="selectedItem[editColumn]"
                                     v-bind:variant="inputVariant"
                                 />
@@ -304,9 +304,12 @@ export const TableMenu = {
             const column = this.columns.find(l => l.value === value);
             return column.type || "string";
         },
-        getColumnSymbol(value) {
-            const column = this.columns.find(l => l.value === value);
-            return column.symbol || "?";
+        getColumnSymbol(value, item) {
+            if (item.currency) {
+                return item.currency.toUpperCase();
+            } else {
+                return this.columns.find(l => l.value === value).label || "?";
+            }
         },
         toggleCheckbox(property, value) {
             if (!(property in this.selectedItem)) return;
