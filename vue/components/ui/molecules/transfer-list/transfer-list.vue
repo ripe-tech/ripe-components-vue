@@ -1,39 +1,31 @@
 <template>
     <div class="transfer-list">
         <select-list
-            class="container"
             v-bind:items="itemsLeftData"
             v-bind:values.sync="valuesLeftData"
+            v-bind:min-height="selectMinHeight"
+            v-bind:max-height="selectMaxHeight"
+            v-bind:title="titleLeft"
         />
         <div class="buttons">
-            <div class="button to-right-all" v-on:click="onMoveAllRightClick()">
-                <div class="icon to-right-all-icon" />
-            </div>
-            <div class="button to-right" v-on:click="onMoveRightClick()">
-                <div class="icon to-right-icon" />
-            </div>
-            <div class="button to-left" v-on:click="onMoveLeftClick()">
-                <div class="icon to-left-icon" />
-            </div>
-            <div class="button to-left-all" v-on:click="onMoveAllLeftClick()">
-                <div class="icon to-left-all-icon" />
-            </div>
+            <div class="button-move button-move-all-right" v-on:click="onMoveAllRightClick()" />
+            <div class="button-move button-move-right" v-on:click="onMoveRightClick()" />
+            <div class="button-move button-move-left" v-on:click="onMoveLeftClick()" />
+            <div class="button-move button-move-left-all" v-on:click="onMoveAllLeftClick()" />
         </div>
         <select-list
-            class="container"
             v-bind:items="itemsRightData"
             v-bind:values.sync="valuesRightData"
+            v-bind:min-height="selectMinHeight"
+            v-bind:max-height="selectMaxHeight"
+            v-bind:title="titleRight"
         />
     </div>
 </template>
 
 <style lang="scss" scoped>
-.transfer-list {
-    min-height: 265px;
-}
-
-.transfer-list > .container {
-    border: solid 1px #e4e8f0;
+.transfer-list > .select {
+    border: 1px solid #e4e8f0;
     border-radius: 6px;
     box-shadow: 0px 6px 24px 0px #43566426;
     display: inline-block;
@@ -45,14 +37,14 @@
 
 .transfer-list > .buttons {
     display: inline-block;
-    margin-left: 49px;
-    margin-right: 49px;
-    margin-top: 34px;
+    margin: 34px 50px 0px 50px;
 }
 
-.transfer-list > .buttons .button {
+.transfer-list > .buttons > .button-move {
     background-color: #f9fafd;
-    border: solid 2px #e4e8f0;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 2px solid #e4e8f0;
     border-radius: 6px;
     cursor: pointer;
     height: 32px;
@@ -60,31 +52,31 @@
     width: 32px;
 }
 
-.transfer-list > .buttons .button > .icon {
-    height: 32px;
+.transfer-list > .buttons > .button-move.button-move-right {
+    background-image: url("~../../../../assets/icons/black/chevron-right.svg");
+    background-size: 25px 25px;
 }
 
-.transfer-list > .buttons .button > .icon.to-right-icon {
-    background: url("~./assets/chevron-right.svg") no-repeat center;
+.transfer-list > .buttons > .button-move.button-move-all-right {
+    background-image: url("~../../../../assets/icons/black/chevrons-right.svg");
+    background-size: 25px 25px;
 }
 
-.transfer-list > .buttons .button > .icon.to-right-all-icon {
-    background: url("~./assets/chevron-group-right.svg") no-repeat center;
+.transfer-list > .buttons > .button-move.button-move-left {
+    background-image: url("~../../../../assets/icons/black/chevron-left.svg");
+    background-size: 25px 25px;
 }
 
-.transfer-list > .buttons .button > .icon.to-left-icon {
-    background: url("~./assets/chevron-left.svg") no-repeat center;
-}
-
-.transfer-list > .buttons .button > .icon.to-left-all-icon {
-    background: url("~./assets/chevron-group-left.svg") no-repeat center;
+.transfer-list > .buttons > .button-move.button-move-left-all {
+    background-image: url("~../../../../assets/icons/black/chevrons-left.svg");
+    background-size: 25px 25px;
 }
 </style>
 
 <script>
 import Vue from "vue";
 
-export const SelectListController = Vue.component("transfer-list", {
+export const TransferList = Vue.component("transfer-list", {
     inheritAttrs: false,
     props: {
         itemsLeft: {
@@ -103,12 +95,20 @@ export const SelectListController = Vue.component("transfer-list", {
             type: Object,
             default: () => ({})
         },
-        leftTitle: {
+        titleLeft: {
             type: String,
             default: null
         },
-        rightTile: {
+        titleRight: {
             type: String,
+            default: null
+        },
+        selectMinHeight: {
+            type: Number,
+            default: null
+        },
+        selectMaxHeight: {
+            type: Number,
             default: null
         }
     },
@@ -173,21 +173,30 @@ export const SelectListController = Vue.component("transfer-list", {
                 this.itemsLeftData
             );
         },
+        /**
+         * Moves the selected items from one list to the other.
+         *
+         * @param {Array} fromItems The list to move items from.
+         * @param {Object} fromValues The set of selected items in 'fromItems'.
+         * @param {Array} toItems The list to move items to.
+         * @returns {Array} The value of 'fromItems' after the selected items
+         * have been moved.
+         */
         _move(fromItems, fromValues, toItems) {
             const newFromItems = [];
 
             fromItems.forEach((item, index) => {
-                // ignore items that are not selected
-                if (!fromValues[item.value]) {
+                // the items that are selected should be copied
+                if (fromValues[item.value]) {
+                    // move the item between lists
+                    toItems.push(item);
+
+                    // remove the item from the selected set
+                    this.$delete(fromValues, item.value);
+                } else {
+                    // keep the item in the same list
                     newFromItems.push(item);
-                    return;
                 }
-
-                // move the item between lists
-                toItems.push(item);
-
-                // remove the item from the selected set
-                this.$delete(fromValues, item.value);
             });
 
             return newFromItems;
@@ -207,5 +216,5 @@ export const SelectListController = Vue.component("transfer-list", {
     }
 });
 
-export default SelectListController;
+export default TransferList;
 </script>

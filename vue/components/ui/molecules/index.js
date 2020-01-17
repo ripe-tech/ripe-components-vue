@@ -9,13 +9,13 @@ import { Lightbox } from "./lightbox/lightbox.vue";
 import { Lineup } from "./lineup/lineup.vue";
 import { Modal } from "./modal/modal.vue";
 import { ProgressBar } from "./progress-bar/progress-bar.vue";
-import { Table } from "./table/table.vue";
-import { Tabs } from "./tabs/tabs.vue";
 import { Search } from "./search/search.vue";
 import { Select } from "./select/select.vue";
-import { UploadArea } from "./upload-area/upload-area.vue";
 import { SelectList } from "./select-list/select-list.vue";
-import { SelectListController } from "./select-list-controller/select-list-controller.vue";
+import { Table } from "./table/table.vue";
+import { Tabs } from "./tabs/tabs.vue";
+import { UploadArea } from "./upload-area/upload-area.vue";
+import { TransferList } from "./transfer-list/transfer-list.vue";
 
 const install = Vue => {
     Vue.component("alert", Alert);
@@ -31,10 +31,10 @@ const install = Vue => {
     Vue.component("progress-bar", ProgressBar);
     Vue.component("search", Search);
     Vue.component("select-list", SelectList);
-    Vue.component("select-list-controller", SelectListController);
     Vue.component("select-ripe", Select);
     Vue.component("table-ripe", Table);
     Vue.component("tabs", Tabs);
+    Vue.component("tranfer-list", TransferList);
     Vue.component("upload-area", UploadArea);
 };
 
@@ -52,11 +52,11 @@ export {
     ProgressBar,
     Search,
     Select,
+    SelectList,
     Table,
     Tabs,
-    UploadArea,
-    SelectList,
-    SelectListController
+    TransferList,
+    UploadArea
 };
 
 export default install;
