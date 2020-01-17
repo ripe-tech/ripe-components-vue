@@ -30,7 +30,7 @@
                         v-bind:align="'left'"
                         v-bind:max-height="150"
                         v-bind:options="getTenancySelectOptions(item.value)"
-                        v-if="hasTenancySelectOptions(item.value)"
+                        v-if="isValidSelect(item.value)"
                         v-show="isTenancySelected(item.value)"
                         v-on:update:visible="value => onUpdateSelectVisible(value, index)"
                         v-on:update:value="
@@ -75,7 +75,7 @@
 <script>
 
 // TODOs
-// If a dropdown would only have 1 option then don't show it
+// ✓ If a dropdown would only have 1 option then don't show it
 // ✓ If a dropdown has 0 options then don't even show the checkbox 
 // ✓ If all dropdowns are empty then don't show the "Tenancy" section
 
@@ -147,9 +147,9 @@ export const SaveFilterModal = {
     },
     mounted: async function() {
         //Getting brands, channels and factories
-        //this.brands = await this.getBrands();
-        //this.channels = await this.getChannels();
-        //this.factories = await this.getFactories();
+        this.brands = await this.getBrands();
+        this.channels = await this.getChannels();
+        this.factories = await this.getFactories();
         
         this.removeInvalidChoices();
     },
@@ -169,9 +169,7 @@ export const SaveFilterModal = {
         async getChannels() {
             // TODO fix me, I'm hardcoded
             return [
-                { value: "channel_a", label: "Channel A" },
-                { value: "channel_b", label: "Channel B" },
-                { value: "channel_c", label: "Channel C" }
+                { value: "channel_a", label: "Channel A" }
             ];
         },
         async getFactories() {
@@ -195,11 +193,22 @@ export const SaveFilterModal = {
         isValidChoice(tenancyValue) {
             return tenancyValue === "user" || this.hasTenancySelectOptions(tenancyValue);
         },
+        isValidSelect(tenancyValue) {
+            return this.hasTenancySelectOptions(tenancyValue) && this.hasRequiredOptionsLength(tenancyValue)
+        },
         hasTenancySelectOptions(tenancyValue) {
             switch (tenancyValue) {
                 case "brand": return this.brands.length;
                 case "channel": return this.channels.length;
                 case "factory": return this.factories.length;
+                default: return false;
+            }
+        },
+        hasRequiredOptionsLength(tenancyValue) {
+            switch (tenancyValue) {
+                case "brand": return this.brands.length > 1;
+                case "channel": return this.channels.length > 1;
+                case "factory": return this.factories.length > 1;
                 default: return false;
             }
         },
