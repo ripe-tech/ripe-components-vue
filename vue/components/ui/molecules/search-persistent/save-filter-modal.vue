@@ -131,7 +131,7 @@ export const SaveFilterModal = {
             return Object.keys(this.tenacyValuesData).map(tenancy => ({
                 name: this.filterNameData,
                 value: this.searchData,
-                tenancy: this.getSelectedTenancy(tenancy), 
+                tenancy: this.getSelectedTenancy(tenancy),
                 context: "" // TODO
             }));
         },
@@ -230,29 +230,36 @@ export const SaveFilterModal = {
             }
         },
         getSelectedTenancy(tenancyValue) {
-                switch (tenancyValue) {
-                case "user": return "user";
+            switch (tenancyValue) {
+                case "user":
+                    return "user";
                 case "brand":
-                    if(!this.hasRequiredOptionsLength(tenancyValue)) return this.brands[0].value;
+                    if (!this.hasRequiredOptionsLength(tenancyValue)) return this.brands[0].value;
                     else return this.brandSelected;
                 case "channel":
-                    if(!this.hasRequiredOptionsLength(tenancyValue)) return this.channels[0].value;
+                    if (!this.hasRequiredOptionsLength(tenancyValue)) return this.channels[0].value;
                     else return this.channelSelected;
                 case "factory":
-                    if(!this.hasRequiredOptionsLength(tenancyValue)) return this.factories[0].value;
+                    if (!this.hasRequiredOptionsLength(tenancyValue))
+                        { return this.factories[0].value; }
                     else return this.factorySelected;
                 default:
                     return null;
             }
         },
         setSelectedTenancy(tenancyValue, selectedValue) {
-            console.log("selecting;", tenancyValue);
-
-                switch (tenancyValue) {
-                case "brand": this.brandSelected = selectedValue; break;
-                case "channel": this.channelSelected = selectedValue; break;
-                case "factory": this.factorySelected = selectedValue; break;
-                default: throw new Error("Invalid tenancy value");
+            switch (tenancyValue) {
+                case "brand":
+                    this.brandSelected = selectedValue;
+                    break;
+                case "channel":
+                    this.channelSelected = selectedValue;
+                    break;
+                case "factory":
+                    this.factorySelected = selectedValue;
+                    break;
+                default:
+                    throw new Error("Invalid tenancy value");
             }
         },
         isTenancySelected(tenancyValue) {
