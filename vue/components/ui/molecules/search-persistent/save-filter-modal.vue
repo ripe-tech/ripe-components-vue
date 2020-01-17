@@ -70,6 +70,8 @@
 </style>
 
 <script>
+// TODO improve data
+
 export const SaveFilterModal = {
     name: "save-filter-modal",
     props: {
@@ -140,14 +142,11 @@ export const SaveFilterModal = {
             return this.tenancyItemsData.length === 1;
         },
         isTenancyFormValid() {
-            for(let item of this.tenancyItemsData)
-            {
-                if(this.isTenancyChoiceSelected(item.value))
-                {
+            for (const item of this.tenancyItemsData) {
+                if (this.isTenancyChoiceSelected(item.value)) {
                     const selectedTenancy = this.getSelectedTenancy(item.value);
-                    if(selectedTenancy === null)
-                    {
-                        return false; //TODO check against all the select items to see if it exists there
+                    if (selectedTenancy === null) {
+                        return false; // TODO check against all the select items to see if it exists there
                     }
                 }
             }
