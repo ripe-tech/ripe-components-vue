@@ -9,12 +9,12 @@ import { Lightbox } from "./lightbox/lightbox.vue";
 import { Lineup } from "./lineup/lineup.vue";
 import { Modal } from "./modal/modal.vue";
 import { ProgressBar } from "./progress-bar/progress-bar.vue";
-import { Table } from "./table/table.vue";
-import { Tabs } from "./tabs/tabs.vue";
 import { Search } from "./search/search.vue";
 import { Select } from "./select/select.vue";
-import { UploadArea } from "./upload-area/upload-area.vue";
 import { SelectList } from "./select-list/select-list.vue";
+import { Table } from "./table/table.vue";
+import { Tabs } from "./tabs/tabs.vue";
+import { UploadArea } from "./upload-area/upload-area.vue";
 
 const install = Vue => {
     Vue.component("alert", Alert);
@@ -30,10 +30,10 @@ const install = Vue => {
     Vue.component("progress-bar", ProgressBar);
     Vue.component("search", Search);
     Vue.component("select-ripe", Select);
+    Vue.component("select-list", SelectList);
     Vue.component("table-ripe", Table);
     Vue.component("tabs", Tabs);
     Vue.component("upload-area", UploadArea);
-    Vue.component("select-list", SelectList);
 };
 
 export {
@@ -50,10 +50,10 @@ export {
     ProgressBar,
     Search,
     Select,
+    SelectList,
     Table,
     Tabs,
-    UploadArea,
-    SelectList
+    UploadArea
 };
 
 export default install;
