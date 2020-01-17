@@ -22,8 +22,9 @@
         </form-input>
         <form-input v-bind:header="'Tenacy'">
             <checkbox v-bind:items="tenancyItems" v-bind:values.sync="tenacyValuesData">
-                <template v-slot="{ item }">
+                <template v-slot="{ item, index }">
                     <select-ripe
+                        v-bind:visible.sync="visibleSelects[index]"
                         v-bind:placeholder="selectPlaceholder(item)"
                         v-bind:width="200"
                         v-bind:align="'left'"
@@ -31,9 +32,10 @@
                         v-bind:options="getTenancySelectOptions(item.value)"
                         v-if="hasTenancySelectOptions(item.value)"
                         v-show="isTenancySelected(item.value)"
+                        v-on:update:visible="value => onUpdateSelectVisible(value, index)"
                         v-on:update:value="
                             (value, selectedItemIndex) =>
-                                onSelected(item.value, value, selectedItemIndex)
+                                onSelected(index, item.value, value, selectedItemIndex)
                         "
                     />
                 </template>
@@ -102,9 +104,10 @@ export const SaveFilterModal = {
     },
     data: function() {
         return {
+            visibleSelects: new Array(this.tenancyItems.length).fill(false),
             tenacyValuesData: {},
             filterNameData: null,
-            searchData: this.search
+            searchData: this.search,
         };
     },
     watch: {
@@ -191,11 +194,21 @@ export const SaveFilterModal = {
         selectPlaceholder(item) {
             return `Select ${item.label}`;
         },
+        closeAllSelects() {
+            this.visibleSelects = new Array(this.tenancyItems.length).fill(false);
+        },
+        setSelectVisible(index, value) {
+            this.$set(this.visibleSelects, index, value);
+        },
         onDiscardClick() {
             this.$emit("click:cancel");
         },
         onSaveClick() {
             this.$emit("click:confirm");
+        },
+        onUpdateSelectVisible(value, index){
+            this.closeAllSelects();
+            this.setSelectVisible(index, value);
         },
         onSelected(tenancyValue, value, selectedValueIndex) {
             // TODO

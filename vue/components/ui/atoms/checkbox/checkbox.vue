@@ -21,7 +21,7 @@
                     item.label ? item.label : item.value
                 }}</label>
             </div>
-            <slot v-bind:item="item" />
+            <slot v-bind:item="item" v-bind:index="index" />
         </div>
     </div>
 </template>
