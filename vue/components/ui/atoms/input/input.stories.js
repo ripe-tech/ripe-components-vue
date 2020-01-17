@@ -35,6 +35,9 @@ storiesOf("Atoms", module)
             disabled: {
                 default: boolean("Disabled", false)
             },
+            ellipsis: {
+                default: boolean("Ellipsis", true)
+            },
             header: {
                 default: text("Header", "Start Header")
             },

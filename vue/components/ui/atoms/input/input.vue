@@ -35,6 +35,10 @@
     width: 100%;
 }
 
+.input.ellipsis {
+    text-overflow: ellipsis;
+}
+
 .input.dark {
     background-color: $soft-blue;
 }
@@ -93,6 +97,10 @@ export const Input = {
             type: Boolean,
             default: false
         },
+        ellipsis: {
+            type: Boolean,
+            default: true
+        },
         width: {
             type: Number,
             default: null
@@ -138,6 +146,7 @@ export const Input = {
             const base = {};
             if (this.variant) base[this.variant] = true;
             if (this.border) base[`border-${this.border}`] = true;
+            if (this.ellipsis) base.ellipsis = true;
             return base;
         }
     }
