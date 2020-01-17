@@ -100,6 +100,14 @@ export const Filter = {
             type: Array,
             default: () => []
         },
+        lineupFields: {
+            type: Array,
+            default: () => []
+        },
+        lineupColumns: {
+            type: Number,
+            default: null
+        },
         limit: {
             type: Number,
             default: 25
@@ -111,14 +119,6 @@ export const Filter = {
         useQuery: {
             type: Boolean,
             default: false
-        },
-        lineupColumns: {
-            type: Number,
-            default: null
-        },
-        lineupFields: {
-            type: Array,
-            default: () => []
         }
     },
     data: function() {
