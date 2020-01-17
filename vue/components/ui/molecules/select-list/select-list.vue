@@ -1,6 +1,9 @@
 <template>
     <div class="select-list" tabindex="0">
-        <ul class="items">
+        <p class="title">
+            {{ title }}
+        </p>
+        <ul class="items" v-bind:style="style">
             <li
                 class="item"
                 v-bind:class="{ selected: isSelected(item.value) }"
@@ -21,19 +24,24 @@
 .select-list {
     border: 1px solid transparent;
     border-radius: 6px;
-    box-shadow: 0px 6px 24px 0px #43566426;
     display: inline-block;
-    height: 260px;
     outline: none;
     vertical-align: top;
     width: 320px;
 }
 
-.select-list:focus {
+.select-list > .title {
+    background-color: transparent;
+    font-size: 14px;
+    padding: 5px 0px 12px 0px;
+}
+
+.select-list > .items:focus {
     border-color: $aqcua-blue;
 }
 
 .select-list > .items {
+    box-shadow: 0px 6px 24px 0px #43566426;
     height: 100%;
     list-style: none;
     margin: 0px 0px 0px 0px;
@@ -79,6 +87,18 @@ export const SelectList = Vue.component("select-list", {
         values: {
             type: Object,
             default: () => ({})
+        },
+        minHeight: {
+            type: Number,
+            default: 100
+        },
+        maxHeight: {
+            type: Number,
+            default: null
+        },
+        title: {
+            type: String,
+            default: null
         }
     },
     data: function() {
@@ -86,6 +106,19 @@ export const SelectList = Vue.component("select-list", {
             valuesData: this.values,
             lastSelected: null
         };
+    },
+    computed: {
+        style() {
+            const base = {};
+            if (this.minHeight !== null) base["min-height"] = `${this.minHeight}px`;
+            if (this.maxHeight !== null) base["max-height"] = `${this.maxHeight}px`;
+            return base;
+        }
+    },
+    watch: {
+        values(value) {
+            this.valuesData = value;
+        }
     },
     methods: {
         isSelected(value) {

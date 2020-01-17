@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs } from "@storybook/addon-knobs";
+import { withKnobs, text, number } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
@@ -27,6 +27,15 @@ storiesOf("Molecules", module)
             values: {
                 type: Object,
                 default: () => ({})
+            },
+            selectMinHeight: {
+                default: number("Min Height", 100)
+            },
+            selectMaxHeight: {
+                default: number("Max Height", 100)
+            },
+            title: {
+                default: text("Title")
             }
         },
         data: function() {
@@ -39,7 +48,10 @@ storiesOf("Molecules", module)
                 <global />
                 <select-list
                     v-bind:items="options"
+                    v-bind:min-height="selectMinHeight"
+                    v-bind:max-height="selectMaxHeight"
                     v-bind:values.sync="valuesData"
+                    v-bind:title="title"
                 >
                 </select-list>
                 <p>Value: {{ valuesData }}</p>
