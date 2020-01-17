@@ -3,7 +3,7 @@
         <div class="links-left">
             <ul>
                 <li class="copy">
-                    © 2019 Platforme International
+                    © 2020 Platforme International
                 </li>
                 <li><link-ripe text="Terms" href="https://www.platforme.com/terms" /></li>
                 <li><link-ripe text="Privacy" href="https://www.platforme.com/privacy" /></li>
@@ -155,10 +155,8 @@ body.mobile .links-logo > .footer-logo {
 }
 
 .footer-logo {
-    height: 28px;
     margin: 0px 0px 0px 0px;
     vertical-align: middle;
-    width: 28px;
 }
 
 .footer-logo > a {
@@ -173,6 +171,7 @@ body.mobile .links-logo > .footer-logo {
 
 .footer-logo > a > img {
     display: block;
+    width: 30px;
 }
 
 body.mobile .footer-logo > a > img {
