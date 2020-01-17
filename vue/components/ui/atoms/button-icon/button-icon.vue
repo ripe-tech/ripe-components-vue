@@ -69,9 +69,10 @@
 }
 
 .button-icon > span {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
-    margin-left: 5px;
+    letter-spacing: 0.25px;
+    margin-left: 6px;
     margin-right: 3px;
     opacity: 0.5;
     vertical-align: middle;
