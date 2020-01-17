@@ -87,11 +87,9 @@ export const ContentMenu = {
     },
     computed: {
         menuStyle: function() {
+            const menuVisible = this.mode === "fixed" ? true : this.menuVisible;
             const base = {
-                width:
-                    this.menuWidth === null || (!this.menuVisible && !(this.mode === "fixed"))
-                        ? null
-                        : `${this.menuWidth}px`,
+                width: this.menuWidth === null || !menuVisible ? null : `${this.menuWidth}px`,
                 transition: `width ${this.animationDuration}s ease-in-out`
             };
             return base;
