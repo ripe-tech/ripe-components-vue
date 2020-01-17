@@ -124,7 +124,8 @@ export const SaveFilterModal = {
             return (
                 this.searchData &&
                 this.filterNameData &&
-                Object.keys(this.tenacyValuesData).length > 0
+                Object.keys(this.tenacyValuesData).length > 0 &&
+                this.isTenancyFormValid
             );
         },
         filters() {
@@ -137,6 +138,21 @@ export const SaveFilterModal = {
         },
         isTenancyEmpty() {
             return this.tenancyItemsData.length === 1;
+        },
+        isTenancyFormValid() {
+            for(let item of this.tenancyItemsData)
+            {
+                if(this.isTenancyChoiceSelected(item.value))
+                {
+                    const selectedTenancy = this.getSelectedTenancy(item.value);
+                    if(selectedTenancy === null)
+                    {
+                        return false; //TODO check against all the select items to see if it exists there
+                    }
+                }
+            }
+
+            return true;
         }
     },
     mounted: async function() {
