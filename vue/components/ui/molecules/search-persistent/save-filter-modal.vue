@@ -22,7 +22,7 @@
         </form-input>
         <form-input v-bind:header="'Tenacy'">
             <checkbox v-bind:items="tenancyItems" v-bind:values.sync="tenacyValuesData">
-                <template v-slot="{ item, index }">
+                <template v-slot="{ item }">
                     <select-ripe
                         v-bind:placeholder="selectPlaceholder(item)"
                         v-bind:width="200"
@@ -65,8 +65,8 @@
 
 .form-input .content .checkbox .select {
     display: inline-block;
-    vertical-align: middle;
     margin: 0px 10px 0px 10px;
+    vertical-align: middle;
 }
 </style>
 
