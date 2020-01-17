@@ -21,7 +21,7 @@
             <input-ripe v-bind:variant="'dark'" v-bind:value.sync="searchData" />
         </form-input>
         <form-input v-bind:header="'Tenacy'">
-            <checkbox v-bind:items="tenancyItems" v-bind:values.sync="tenacyValuesData">
+            <checkbox v-bind:items="tenancyItemsData" v-bind:values.sync="tenacyValuesData">
                 <template v-slot="{ item, index }">
                     <select-ripe
                         v-bind:visible.sync="visibleSelects[index]"
@@ -73,6 +73,12 @@
 </style>
 
 <script>
+
+// TODOs
+// If a dropdown would only have 1 option then don't show it
+// ✓ If a dropdown has 0 options then don't even show the checkbox 
+// If all dropdowns are empty then don't show the "Tenancy" section
+
 export const SaveFilterModal = {
     name: "save-filter-modal",
     props: {
@@ -107,6 +113,7 @@ export const SaveFilterModal = {
             tenacyValuesData: {},
             filterNameData: null,
             searchData: this.search,
+            tenancyItemsData: this.tenancyItems,
             visibleSelects: new Array(this.tenancyItems.length).fill(false),
             brands: [],
             channels: [],
@@ -140,6 +147,8 @@ export const SaveFilterModal = {
         this.brands = await this.getBrands();
         this.channels = await this.getChannels();
         this.factories = await this.getFactories();
+        
+        this.removeInvalidChoices();
     },
     methods: {
         async getBrands() {
@@ -172,9 +181,19 @@ export const SaveFilterModal = {
                 { value: "factory_e", label: "Factory E" }
             ];
         },
+        removeInvalidChoices() {
+            for (let i = 0; i < this.tenancyItemsData.length; i++) {
+                if(!this.isValidChoice(this.tenancyItemsData[i].value)){
+                    this.tenancyItemsData.splice(i, 1);
+                    i--;
+                } 
+            }
+        },
+        isValidChoice(tenancyValue) {
+            return tenancyValue === "user" || this.hasTenancySelectOptions(tenancyValue);
+        },
         hasTenancySelectOptions(tenancyValue) {
             switch (tenancyValue) {
-                case "user": return false;
                 case "brand": return this.brands.length;
                 case "channel": return this.channels.length;
                 case "factory": return this.factories.length;
@@ -198,7 +217,7 @@ export const SaveFilterModal = {
             return `Select ${item.label}`;
         },
         closeAllSelects() {
-            this.visibleSelects = new Array(this.tenancyItems.length).fill(false);
+            this.visibleSelects = new Array(this.tenancyItemsData.length).fill(false);
         },
         setSelectVisible(index, value) {
             this.$set(this.visibleSelects, index, value);
