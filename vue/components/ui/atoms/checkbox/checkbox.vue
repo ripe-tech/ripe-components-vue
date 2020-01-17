@@ -3,7 +3,6 @@
         <div
             class="choice"
             v-bind:class="{
-                active: activeItems[index],
                 checked: values[item.value],
                 disabled: disabled || item.disabled,
                 error: error || item.error
@@ -12,14 +11,10 @@
             v-bind:tabindex="item.disabled ? '' : '0'"
             v-for="(item, index) in items"
             v-bind:key="index"
+            v-on:click="onClick(item)"
+            v-on:keydown.space="onSpace(item)"
         >
-            <div
-                class="checkbox-input"
-                v-on:click="onClick(item)"
-                v-on:keydown.space="onSpace(item)"
-                v-on:mousedown="onMouseDown(index)"
-                v-on:mouseup="onMouseUp(index)"
-            >
+            <div class="checkbox-input">
                 <input type="checkbox" class="value" v-bind:id="item.value" />
                 <div class="checkbox-square" />
                 <label class="label" for="item.value">{{
@@ -63,7 +58,7 @@
     width: 4px;
 }
 
-.choice:not(.disabled):not(.error).active > .checkbox-input > .checkbox-square {
+.choice:not(.disabled):not(.error) > .checkbox-input:active > .checkbox-square {
     background: url("~./assets/check-dark.svg") center / 7px 6px no-repeat #f4f5f7;
     border: 2px solid #c3c9cf;
     padding: 3px 3px 3px 3px;
@@ -136,11 +131,6 @@ export const Checkbox = {
             default: false
         }
     },
-    data: function() {
-        return {
-            activeItems: new Array(this.items.length).fill(false)
-        };
-    },
     methods: {
         selectItem(item) {
             if (this.disabled || item.disabled) return;
@@ -165,20 +155,11 @@ export const Checkbox = {
         toggleItem(item) {
             this.values[item.value] ? this.deselectItem(item) : this.selectItem(item);
         },
-        isChoiceActive(index) {
-            return this.activeItems[index];
-        },
         onSpace(item) {
             this.toggleItem(item);
         },
         onClick(item) {
             this.toggleItem(item);
-        },
-        onMouseDown(index) {
-            this.$set(this.activeItems, index, true);
-        },
-        onMouseUp(index) {
-            this.$set(this.activeItems, index, false);
         }
     }
 };
