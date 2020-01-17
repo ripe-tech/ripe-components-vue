@@ -308,7 +308,7 @@ export const TableMenu = {
             if (item.currency) {
                 return item.currency.toUpperCase();
             } else {
-                return this.columns.find(l => l.value === value).label || "?";
+                return this.columns.find(l => l.value === value).symbol || "?";
             }
         },
         toggleCheckbox(property, value) {
