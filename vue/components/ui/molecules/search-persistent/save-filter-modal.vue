@@ -107,7 +107,7 @@ export const SaveFilterModal = {
             visibleSelects: new Array(this.tenancyItems.length).fill(false),
             tenacyValuesData: {},
             filterNameData: null,
-            searchData: this.search,
+            searchData: this.search
         };
     },
     watch: {
@@ -206,7 +206,7 @@ export const SaveFilterModal = {
         onSaveClick() {
             this.$emit("click:confirm");
         },
-        onUpdateSelectVisible(value, index){
+        onUpdateSelectVisible(value, index) {
             this.closeAllSelects();
             this.setSelectVisible(index, value);
         },
