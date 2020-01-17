@@ -40,7 +40,7 @@
                             v-bind:color="'white'"
                             v-bind:icon="'add'"
                             v-bind:min-width="0"
-                            v-on:click="onAddItem"
+                            v-on:click="onClickAddItem"
                         />
                     </slot>
                 </div>
@@ -64,7 +64,12 @@
                             </form-input>
                             <form-input v-bind:header="null" v-else-if="isBoolean(editColumn)">
                                 <checkbox
-                                    v-bind:items="buildCheckboxItem(editColumn, editColumn)"
+                                    v-bind:items="
+                                        buildCheckboxItem(
+                                            getColumnLabel(editColumn, getColumnLabel),
+                                            editColumn
+                                        )
+                                    "
                                     v-bind:values="
                                         buildCheckboxValue(editColumn, selectedItem[editColumn])
                                     "
@@ -88,7 +93,7 @@
                             v-bind:icon="'bin'"
                             v-bind:color="'red'"
                             v-bind:min-width="0"
-                            v-on:click="onDeleteItem"
+                            v-on:click="onClickDeleteItem"
                         />
                     </slot>
                 </div>
@@ -224,7 +229,7 @@ export const TableMenu = {
         },
         selectedIndex: {
             type: Number,
-            default: -1
+            default: null
         }
     },
     data: function() {
@@ -274,7 +279,7 @@ export const TableMenu = {
             return this.getColumnType(value) === "money";
         },
         buildCheckboxItem(label, value) {
-            return [{ label: this.getColumnLabel(value), value: value }];
+            return [{ label: label, value: value }];
         },
         buildCheckboxValue(label, value) {
             return { [label]: value };
@@ -298,10 +303,10 @@ export const TableMenu = {
         onClickItem(item, index) {
             this.selectedIndexData === index ? this.toggleMenu() : this.setMenuItem(index);
         },
-        onAddItem() {
+        onClickAddItem() {
             this.$emit("click:create");
         },
-        onDeleteItem() {
+        onClickDeleteItem() {
             this.$emit("click:delete", this.selectedItem, this.selectedIndexData);
         }
     }
