@@ -1,6 +1,5 @@
 <template>
     <div class="search-persistent-local-storage">
-        <global />
         <search-persistent
             v-bind:value.sync="valueData"
             v-bind:filters.sync="filtersData"

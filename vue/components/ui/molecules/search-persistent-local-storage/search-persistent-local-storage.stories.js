@@ -80,6 +80,7 @@ storiesOf("Molecules", module)
         },
         template: `
             <div>
+                <global />
                 <search-persistent-local-storage
                     v-bind:value.sync="valueData"
                     v-bind:filters.sync="filtersData"
