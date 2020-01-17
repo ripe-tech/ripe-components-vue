@@ -24,7 +24,7 @@
             <checkbox v-bind:items="tenancyItems" v-bind:values.sync="tenacyValuesData">
                 <template v-slot:extra-info="{ item, index }">
                     <select-ripe
-                        v-if="getTenancySelectOptions(item.value)"
+                        v-if="hasTenancySelectOptions(item.value)"
                         v-show="isTenancySelected(item.value)"
                         v-bind:placeholder="selectPlaceholder(item)"
                         v-bind:width="200"
@@ -158,7 +158,19 @@ export const SaveFilterModal = {
                 { value: "factory_e", label: "Factory E" }
             ];
         },
+        hasTenancySelectOptions(tenancyValue)
+        {
+            switch (tenancyValue) {
+                case "brand":
+                case "channel":
+                case "factory":
+                    return true;
+                default: return false;
+            }  
+        },
         getTenancySelectOptions(tenancyValue) {
+            if(!this.hasTenancySelectOptions(tenancyValue)) return null;
+
             switch (tenancyValue) {
                 case "brand":
                     return this.getBrands();
