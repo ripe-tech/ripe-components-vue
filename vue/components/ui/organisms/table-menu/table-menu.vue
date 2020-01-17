@@ -16,6 +16,8 @@
                         v-bind:sort-method="sortMethod"
                         v-bind:reverse.sync="reverseData"
                         v-on:click="onClickItem"
+                        v-on:update:sort="onClickItem"
+                        v-on:update:reverse="onClickItem"
                     >
                         <template v-slot="{ item, index }">
                             <slot name="item" v-bind:item="item" v-bind:index="index">
@@ -254,14 +256,25 @@ export const TableMenu = {
         menuVisible(value) {
             this.menuVisibleData = value;
         },
+        menuVisibleData(value) {
+            this.$emit("update:menu-visible", value);
+        },
+        selectedIndex(value) {
+            this.selectedIndexData = value;
+        },
         sort(value) {
             this.sortData = value;
+        },
+        sortData(value) {
+            this.sortData = value;
+            this.$emit("update:sort", value);
         },
         reverse(value) {
             this.reverseData = value;
         },
-        selectedIndex(value) {
-            this.selectedIndexData = value;
+        reverseData(value) {
+            this.reverseData = value;
+            this.$emit("update:reverse", value);
         }
     },
     methods: {

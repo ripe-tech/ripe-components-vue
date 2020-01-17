@@ -153,6 +153,8 @@ storiesOf("Organisms", module)
                     v-bind:selected-index="selectedIndex"
                     v-bind:menuBackgroundColor="menuBackgroundColor"
                     v-bind:animationDuration="animationDuration"/>
+                <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}, Menu visible: {{ menuVisibleData }}</p>
             </div>
+
         `
     }));
