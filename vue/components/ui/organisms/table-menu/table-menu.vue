@@ -157,11 +157,9 @@
 </style>
 
 <script>
-import { filterMixin, partMixin, utilsMixin, scrollMixin } from "../../../../mixins";
 
 export const TableMenu = {
     name: "table-menu",
-    mixins: [partMixin, filterMixin, utilsMixin, scrollMixin],
     props: {
         columns: {
             type: Array,
