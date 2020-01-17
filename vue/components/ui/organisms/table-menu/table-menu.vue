@@ -158,7 +158,6 @@
 }
 
 .table-menu .content-menu ::v-deep .menu .button-color.delete {
-    float: right;
     margin-top: 20px;
 }
 </style>
