@@ -28,7 +28,6 @@
     height: 34px;
     letter-spacing: 0.25px;
     line-height: 34px;
-    min-width: 0px;
     outline: none;
     padding-left: 12px;
     padding-right: 12px;
