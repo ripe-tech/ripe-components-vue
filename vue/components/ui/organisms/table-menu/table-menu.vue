@@ -8,7 +8,7 @@
             v-bind:animation-duration="animationDuration"
         >
             <template v-slot:content>
-                <div>
+                <div class="content-container" v-bind:style="contentStyle">
                     <table-ripe
                         v-bind:columns="columns"
                         v-bind:items="items"
@@ -36,12 +36,12 @@
                     </table-ripe>
                     <slot name="content-footer">
                         <button-color
-                            class="add"
-                            v-bind:text="'New'"
-                            v-bind:size="'small'"
-                            v-bind:color="'white'"
+                            class="add-item"
                             v-bind:icon="'add'"
                             v-bind:min-width="0"
+                            v-bind:color="'white'"
+                            v-bind:text="'New row'"
+                            v-bind:small="true"
                             v-on:click="onClickAddItem"
                         />
                     </slot>
@@ -89,9 +89,9 @@
                     </slot>
                     <slot name="menu-footer">
                         <button-color
-                            class="delete"
+                            class="delete-item"
                             v-bind:text="'Delete'"
-                            v-bind:size="'small'"
+                            v-bind:small="true"
                             v-bind:icon="'bin'"
                             v-bind:color="'red'"
                             v-bind:min-width="0"
@@ -152,9 +152,34 @@
     width: 100%;
 }
 
+.table-menu .content-menu ::v-deep .content .table .table-head {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+}
+
 .table-menu .content-menu ::v-deep .content .table .table-head .table-column {
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.table-menu .content-menu ::v-deep .content .table .table-body {
+    display: inline-block;
+    max-height: var(--max-height);
+    overflow-x: auto;
+    table-layout: fixed;
+}
+
+.table-menu .content-menu ::v-deep .content .table .table-body > tr {
+    cursor: pointer;
+    display: table;
+    table-layout: fixed;
+    transition: opacity 0.25s ease-in-out;
+    width: 100%;
+}
+
+.table-menu .content-menu ::v-deep .content .table .table-body > tr:hover {
+    opacity: 0.6;
 }
 
 .table-menu .content-menu ::v-deep .menu .button-color.delete {
@@ -199,6 +224,10 @@ export const TableMenu = {
         mode: {
             type: String,
             default: "collapse"
+        },
+        maxHeight: {
+            type: Number,
+            default: null
         },
         menuVisible: {
             type: Boolean,
@@ -245,6 +274,11 @@ export const TableMenu = {
         menuStyle() {
             const base = {};
             base["background-color"] = this.menuBackgroundColor ? this.menuBackgroundColor : null;
+            return base;
+        },
+        contentStyle() {
+            const base = {};
+            base["--max-height"] = this.maxHeight ? `${this.maxHeight}px` : null;
             return base;
         },
         selectedItem() {

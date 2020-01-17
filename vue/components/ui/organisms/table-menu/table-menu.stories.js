@@ -32,6 +32,10 @@ storiesOf("Organisms", module)
             menuWidth: {
                 default: number("Menu width", 300)
             },
+            maxHeight: {
+                type: Number,
+                default: number("Max height", null)
+            },
             animationDuration: {
                 default: number("Animation timeout", 0.3)
             },
@@ -150,6 +154,7 @@ storiesOf("Organisms", module)
                     v-bind:mode="mode" 
                     v-bind:menu-title="menuTitle" 
                     v-bind:menuWidth="menuWidth"
+                    v-bind:maxHeight="maxHeight"
                     v-bind:selected-index="selectedIndex"
                     v-bind:menuBackgroundColor="menuBackgroundColor"
                     v-bind:animationDuration="animationDuration"/>
