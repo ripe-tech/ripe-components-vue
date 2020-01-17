@@ -1,14 +1,5 @@
 <template>
-    <div
-        class="input-symbol"
-        v-bind:class="[
-            { disabled: disabled },
-            `color-${variant}`,
-            `border-${border}`,
-            `text-align-${align}`
-        ]"
-        v-bind:style="style"
-    >
+    <div class="input-symbol" v-bind:class="classes" v-bind:style="style">
         <input-ripe
             v-bind:value.sync="valueData"
             v-bind:variant="variant"
@@ -48,49 +39,53 @@
     border-color: $aqcua-blue;
 }
 
-.input-symbol .input {
+.input-symbol > .input {
     border: none;
+    border-radius: 6px 0px 0px 6px;
     flex-shrink: 1;
     padding-right: 7px;
     text-align: right;
     vertical-align: top;
 }
 
-.input-symbol .input:focus {
+.input-symbol > .input:focus {
     border-color: $light-white;
 }
 
-.input-symbol.text-align-left .input {
+.input-symbol.text-align-left > .input {
     text-align: left;
 }
 
-.input-symbol.text-align-center .input {
+.input-symbol.text-align-center > .input {
     text-align: center;
 }
 
-.input-symbol.text-align-right .input {
+.input-symbol.text-align-right > .input {
     text-align: right;
 }
 
-.input-symbol .symbol {
-    background-color: #ffffff;
-    border-left: 1px solid $light-white;
+.input-symbol > .symbol {
+    background-color: #fcfcfc;
+    border-left: 1px solid #e4e8f0;
     border-radius: 0px 6px 6px 0px;
     box-sizing: border-box;
+    color: #5d5d5d;
     display: inline-block;
     flex-shrink: 0;
     font-size: 13px;
+    font-weight: 800;
     height: 34px;
-    line-height: 30px;
+    line-height: 34px;
     overflow: hidden;
-    padding: 1px 10px 1px 10px;
+    text-align: center;
+    width: 34px;
 }
 
-.input-symbol.color-white .symbol {
-    background-color: #ffffff;
+.input-symbol.color-white > .symbol {
+    background-color: #fcfcfc;
 }
 
-.input-symbol.color-dark .symbol {
+.input-symbol.color-dark > .symbol {
     background-color: #f9fafd;
 }
 </style>
@@ -145,6 +140,15 @@ export const InputSymbol = {
         };
     },
     computed: {
+        classes() {
+            const base = {
+                disabled: this.disabled
+            };
+            if (this.variant) base[`color-${this.variant}`] = true;
+            if (this.border) base[`border-${this.border}`] = true;
+            if (this.align) base[`text-align-${this.align}`] = true;
+            return base;
+        },
         style() {
             const base = {
                 width: this.width === null ? null : `${this.width}px`
