@@ -7,6 +7,7 @@
             v-bind:placeholder="placeholder"
             v-bind:disabled="disabled"
             v-bind:height="height"
+            v-bind:align="align"
             v-on:update:value="onInput"
             v-on:blur="onBlur"
             v-on:focus="onFocus"
@@ -44,24 +45,10 @@
     border-radius: 6px 0px 0px 6px;
     flex-shrink: 1;
     padding-right: 7px;
-    text-align: right;
-    vertical-align: top;
 }
 
 .input-symbol > .input:focus {
     border-color: $light-white;
-}
-
-.input-symbol.text-align-left > .input {
-    text-align: left;
-}
-
-.input-symbol.text-align-center > .input {
-    text-align: center;
-}
-
-.input-symbol.text-align-right > .input {
-    text-align: right;
 }
 
 .input-symbol > .symbol {
@@ -146,7 +133,6 @@ export const InputSymbol = {
             };
             if (this.variant) base[`color-${this.variant}`] = true;
             if (this.border) base[`border-${this.border}`] = true;
-            if (this.align) base[`text-align-${this.align}`] = true;
             return base;
         },
         style() {
