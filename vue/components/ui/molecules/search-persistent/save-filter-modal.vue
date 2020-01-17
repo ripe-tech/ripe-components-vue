@@ -29,9 +29,9 @@
                         v-bind:width="200"
                         v-bind:align="'left'"
                         v-bind:max-height="150"
-                        v-bind:options="getTenancySelectOptions(item.value)"
-                        v-if="isValidSelect(item.value)"
-                        v-show="isTenancySelected(item.value)"
+                        v-bind:options="getTenancyItems(item.value)"
+                        v-if="isTenancySelectValid(item.value)"
+                        v-show="isTenancyChoiceSelected(item.value)"
                         v-on:update:visible="value => onUpdateSelectVisible(value, index)"
                         v-on:update:value="value => onSelected(item.value, value)"
                     />
@@ -176,35 +176,35 @@ export const SaveFilterModal = {
         },
         removeInvalidChoices() {
             for (let i = 0; i < this.tenancyItemsData.length; i++) {
-                if (!this.isValidChoice(this.tenancyItemsData[i].value)) {
+                if (!this.isTenancyChoiceValid(this.tenancyItemsData[i].value)) {
                     this.tenancyItemsData.splice(i, 1);
                     i--;
                 }
             }
         },
-        isValidChoice(tenancyValue) {
-            return tenancyValue === "user" || this.hasTenancySelectOptions(tenancyValue);
+        isTenancyChoiceSelected(value) {
+            return Boolean(this.tenacyValuesData[value]);
         },
-        isValidSelect(tenancyValue) {
-            return (
-                this.hasTenancySelectOptions(tenancyValue) &&
-                this.hasRequiredOptionsLength(tenancyValue)
-            );
+        isTenancyChoiceValid(value) {
+            return value === "user" || this.hasTenancyItems(value);
         },
-        hasTenancySelectOptions(tenancyValue) {
-            switch (tenancyValue) {
+        isTenancySelectValid(value) {
+            return this.hasTenancyItems(value) && this.hasRequiredItemsLength(value);
+        },
+        hasTenancyItems(value) {
+            switch (value) {
                 case "brand":
-                    return this.brands.length;
+                    return Boolean(this.brands.length);
                 case "channel":
-                    return this.channels.length;
+                    return Boolean(this.channels.length);
                 case "factory":
-                    return this.factories.length;
+                    return Boolean(this.factories.length);
                 default:
                     return false;
             }
         },
-        hasRequiredOptionsLength(tenancyValue) {
-            switch (tenancyValue) {
+        hasRequiredItemsLength(value) {
+            switch (value) {
                 case "brand":
                     return this.brands.length > 1;
                 case "channel":
@@ -215,10 +215,10 @@ export const SaveFilterModal = {
                     return false;
             }
         },
-        getTenancySelectOptions(tenancyValue) {
-            if (!this.hasTenancySelectOptions(tenancyValue)) return null;
+        getTenancyItems(value) {
+            if (!this.hasTenancyItems(value)) return null;
 
-            switch (tenancyValue) {
+            switch (value) {
                 case "brand":
                     return this.brands;
                 case "channel":
@@ -229,26 +229,26 @@ export const SaveFilterModal = {
                     return null;
             }
         },
-        getSelectedTenancy(tenancyValue) {
-            switch (tenancyValue) {
+        getSelectedTenancy(value) {
+            switch (value) {
                 case "user":
                     return "user";
                 case "brand":
-                    if (!this.hasRequiredOptionsLength(tenancyValue)) return this.brands[0].value;
+                    if (!this.hasRequiredItemsLength(value)) return this.brands[0].value;
                     else return this.brandSelected;
                 case "channel":
-                    if (!this.hasRequiredOptionsLength(tenancyValue)) return this.channels[0].value;
+                    if (!this.hasRequiredItemsLength(value)) return this.channels[0].value;
                     else return this.channelSelected;
                 case "factory":
-                    if (!this.hasRequiredOptionsLength(tenancyValue))
-                        { return this.factories[0].value; }
-                    else return this.factorySelected;
+                    if (!this.hasRequiredItemsLength(value)) {
+                        return this.factories[0].value;
+                    } else return this.factorySelected;
                 default:
                     return null;
             }
         },
-        setSelectedTenancy(tenancyValue, selectedValue) {
-            switch (tenancyValue) {
+        setSelectedTenancy(value, selectedValue) {
+            switch (value) {
                 case "brand":
                     this.brandSelected = selectedValue;
                     break;
@@ -261,9 +261,6 @@ export const SaveFilterModal = {
                 default:
                     throw new Error("Invalid tenancy value");
             }
-        },
-        isTenancySelected(tenancyValue) {
-            return Boolean(this.tenacyValuesData[tenancyValue]);
         },
         selectPlaceholder(item) {
             return `Select ${item.label}`;
