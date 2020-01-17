@@ -5,6 +5,7 @@ import { ChatMessage } from "./chat-message/chat-message.vue";
 import { Filter } from "./filter/filter.vue";
 import { Footer } from "./footer/footer.vue";
 import { FormInput } from "./form-input/form-input.vue";
+import { InputSymbol } from "./input-symbol/input-symbol.vue";
 import { Lightbox } from "./lightbox/lightbox.vue";
 import { Lineup } from "./lineup/lineup.vue";
 import { Modal } from "./modal/modal.vue";
@@ -23,6 +24,7 @@ const install = Vue => {
     Vue.component("filter-ripe", Filter);
     Vue.component("footer-ripe", Footer);
     Vue.component("form-input", FormInput);
+    Vue.component("input-symbol", InputSymbol);
     Vue.component("lightbox", Lightbox);
     Vue.component("lineup", Lineup);
     Vue.component("modal", Modal);
@@ -42,6 +44,7 @@ export {
     Filter,
     Footer,
     FormInput,
+    InputSymbol,
     Lightbox,
     Lineup,
     Modal,

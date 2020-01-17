@@ -81,6 +81,10 @@ export const Input = {
             type: String,
             default: ""
         },
+        align: {
+            type: String,
+            default: null
+        },
         autofocus: {
             type: Boolean,
             default: false
@@ -125,7 +129,8 @@ export const Input = {
         style() {
             const base = {
                 width: this.width === null ? null : `${this.width}px`,
-                height: this.height === null ? null : `${this.height}px`
+                height: this.height === null ? null : `${this.height}px`,
+                "text-align": this.align
             };
             return base;
         },
