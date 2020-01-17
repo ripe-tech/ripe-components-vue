@@ -25,9 +25,9 @@
             <filter-ripe
                 v-bind:get-items="getItems"
                 v-bind:get-item-url="getItemUrl"
-                v-bind:table-columns="columns"
+                v-bind:table-columns="tableColumns"
+                v-bind:lineup-fields="lineupFields"
                 v-bind:lineup-columns="lineupColumns"
-                v-bind:lineup-fields="values"
                 v-bind:filter="filter"
                 v-bind:use-query="useQuery"
                 v-bind:loading.sync="loading"
@@ -197,13 +197,17 @@ export const Listing = {
             type: Object,
             default: () => ({})
         },
-        columns: {
+        tableColumns: {
             type: Array,
             required: true
         },
-        values: {
+        lineupFields: {
             type: Array,
             required: true
+        },
+        lineupColumns: {
+            type: Number,
+            default: null
         },
         name: {
             type: String,
@@ -236,10 +240,6 @@ export const Listing = {
         searchWidth: {
             type: Number,
             default: 304
-        },
-        lineupColumns: {
-            type: Number,
-            default: null
         }
     },
     data: function() {
