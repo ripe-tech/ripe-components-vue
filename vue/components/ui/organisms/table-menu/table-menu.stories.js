@@ -68,7 +68,7 @@ storiesOf("Organisms", module)
             },
             selectedIndex: {
                 type: Number,
-                default: number("Selected index", -1)
+                default: number("Selected index", null)
             },
             menuTitle: {
                 type: String,

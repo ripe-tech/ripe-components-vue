@@ -314,6 +314,7 @@ export const TableMenu = {
             this.$set(this.items[this.selectedIndexData], property, value);
         },
         onClickItem(item, index) {
+            if (typeof index !== "number") return;
             this.selectedIndexData === index ? this.toggleMenu() : this.setMenuItem(index);
         },
         onClickAddItem() {
