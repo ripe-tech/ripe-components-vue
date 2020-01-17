@@ -87,9 +87,13 @@
 export const ButtonIcon = {
     name: "button-icon",
     props: {
+        src: {
+            type: String,
+            default: null
+        },
         icon: {
             type: String,
-            mandatory: true
+            default: null
         },
         text: {
             type: String,
@@ -115,6 +119,7 @@ export const ButtonIcon = {
     computed: {
         iconPath() {
             let iconColor;
+            if (this.src) return this.src;
             switch (this.color) {
                 case "black":
                     iconColor = "white";
