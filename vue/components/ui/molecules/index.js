@@ -14,8 +14,8 @@ import { Select } from "./select/select.vue";
 import { SelectList } from "./select-list/select-list.vue";
 import { Table } from "./table/table.vue";
 import { Tabs } from "./tabs/tabs.vue";
-import { UploadArea } from "./upload-area/upload-area.vue";
 import { TransferList } from "./transfer-list/transfer-list.vue";
+import { UploadArea } from "./upload-area/upload-area.vue";
 
 const install = Vue => {
     Vue.component("alert", Alert);
