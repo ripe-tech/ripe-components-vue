@@ -24,7 +24,7 @@
                 <div class="checkbox-square" />
                 <label class="label" for="item.value">{{ item.label ? item.label : item.value }}</label>
             </div>
-            <slot name="extra-info" v-bind:item="item" v-bind:index="index" />
+            <slot v-bind:item="item" v-bind:index="index" />
         </div>
     </div>
 </template>

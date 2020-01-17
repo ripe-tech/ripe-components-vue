@@ -22,7 +22,7 @@
         </form-input>
         <form-input v-bind:header="'Tenacy'">
             <checkbox v-bind:items="tenancyItems" v-bind:values.sync="tenacyValuesData">
-                <template v-slot:extra-info="{ item, index }">
+                <template v-slot="{ item, index }">
                     <select-ripe
                         v-if="hasTenancySelectOptions(item.value)"
                         v-show="isTenancySelected(item.value)"
