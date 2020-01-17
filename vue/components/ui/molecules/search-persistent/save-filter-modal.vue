@@ -104,10 +104,13 @@ export const SaveFilterModal = {
     },
     data: function() {
         return {
-            visibleSelects: new Array(this.tenancyItems.length).fill(false),
             tenacyValuesData: {},
             filterNameData: null,
-            searchData: this.search
+            searchData: this.search,
+            visibleSelects: new Array(this.tenancyItems.length).fill(false),
+            brands: [],
+            channels: [],
+            factories: []
         };
     },
     watch: {
@@ -132,9 +135,14 @@ export const SaveFilterModal = {
             }));
         }
     },
-    mounted: async function() {},
+    mounted: async function() {
+        //Getting brands, channels and factories
+        this.brands = await this.getBrands();
+        this.channels = await this.getChannels();
+        this.factories = await this.getFactories();
+    },
     methods: {
-        getBrands() {
+        async getBrands() {
             // TODO fix me, I'm hardcoded
             return [
                 { value: "brand_a", label: "Brand A" },
@@ -146,7 +154,7 @@ export const SaveFilterModal = {
                 { value: "brand_g", label: "Brand G" }
             ];
         },
-        getChannels() {
+        async getChannels() {
             // TODO fix me, I'm hardcoded
             return [
                 { value: "channel_a", label: "Channel A" },
@@ -154,7 +162,7 @@ export const SaveFilterModal = {
                 { value: "channel_c", label: "Channel C" }
             ];
         },
-        getFactories() {
+        async getFactories() {
             // TODO fix me, I'm hardcoded
             return [
                 { value: "factory_a", label: "Factory A" },
@@ -166,26 +174,21 @@ export const SaveFilterModal = {
         },
         hasTenancySelectOptions(tenancyValue) {
             switch (tenancyValue) {
-                case "brand":
-                case "channel":
-                case "factory":
-                    return true;
-                default:
-                    return false;
+                case "user": return false;
+                case "brand": return this.brands.length;
+                case "channel": return this.channels.length;
+                case "factory": return this.factories.length;
+                default: return false;
             }
         },
         getTenancySelectOptions(tenancyValue) {
             if (!this.hasTenancySelectOptions(tenancyValue)) return null;
 
             switch (tenancyValue) {
-                case "brand":
-                    return this.getBrands();
-                case "channel":
-                    return this.getChannels();
-                case "factory":
-                    return this.getFactories();
-                default:
-                    return null;
+                case "brand": return this.brands;
+                case "channel": return this.channels;
+                case "factory": return this.factories;
+                default: return null;
             }
         },
         isTenancySelected(tenancyValue) {
