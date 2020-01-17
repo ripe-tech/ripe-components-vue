@@ -143,12 +143,11 @@ export const SaveFilterModal = {
         },
         isTenancyFormValid() {
             for (const item of this.tenancyItemsData) {
-                if (this.isTenancyChoiceSelected(item.value)) {
-                    const selectedTenancy = this.getSelectedTenancy(item.value);
-                    if (selectedTenancy === null) {
-                        return false; // TODO check against all the select items to see if it exists there
-                    }
-                }
+                if (
+                    this.isTenancyChoiceSelected(item.value) &&
+                    this.getSelectedTenancy(item.value) === null
+                )
+                    { return false; }
             }
 
             return true;
