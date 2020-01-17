@@ -20,7 +20,7 @@
         <form-input v-bind:header="'Search'">
             <input-ripe v-bind:variant="'dark'" v-bind:value.sync="searchData" />
         </form-input>
-        <form-input v-bind:header="'Tenacy'">
+        <form-input v-bind:header="'Tenacy'" v-if="!isTenancyEmpty">
             <checkbox v-bind:items="tenancyItemsData" v-bind:values.sync="tenacyValuesData">
                 <template v-slot="{ item, index }">
                     <select-ripe
@@ -77,7 +77,7 @@
 // TODOs
 // If a dropdown would only have 1 option then don't show it
 // ✓ If a dropdown has 0 options then don't even show the checkbox 
-// If all dropdowns are empty then don't show the "Tenancy" section
+// ✓ If all dropdowns are empty then don't show the "Tenancy" section
 
 export const SaveFilterModal = {
     name: "save-filter-modal",
@@ -140,13 +140,16 @@ export const SaveFilterModal = {
                 tenancy: tenancy,
                 context: "" // TODO
             }));
+        },
+        isTenancyEmpty() {
+            return this.tenancyItemsData.length === 1 ? true : false;
         }
     },
     mounted: async function() {
         //Getting brands, channels and factories
-        this.brands = await this.getBrands();
-        this.channels = await this.getChannels();
-        this.factories = await this.getFactories();
+        //this.brands = await this.getBrands();
+        //this.channels = await this.getChannels();
+        //this.factories = await this.getFactories();
         
         this.removeInvalidChoices();
     },
