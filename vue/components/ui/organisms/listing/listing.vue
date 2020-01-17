@@ -17,8 +17,9 @@
                             v-bind:text="button.label"
                             v-bind:color="button.color"
                             v-bind:small="true"
-                            v-for="(button, index) in headerButtons"
-                            v-bind:key="index"
+                            v-bind:min-width="0"
+                            v-for="button in headerButtons"
+                            v-bind:key="button.event"
                             v-on:click="onButtonHeaderClick(button)"
                         />
                     </div>
@@ -140,22 +141,32 @@
 
 .container-header-right {
     float: right;
+    font-size: 0px;
     text-align: right;
 }
 
-.container-header-right .search {
+.container-header-right > .search {
     vertical-align: middle;
 }
 
-.container-header-right .header-buttons {
+.container-header-right > .header-buttons {
     display: inline-block;
+    margin: 0px 4px 0px 4px;
 }
 
-.container-header-right .header-buttons .header-button {
-    margin-right: 4px;
+body.mobile .container-header-right > .header-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 10px 0px 10px 0px;
 }
 
-.container-header-right .header-buttons .header-button:last-child {
+body.mobile .container-header-right > .header-buttons > .header-button {
+    flex-shrink: 0;
+    margin: 0px 0px 10px 0px;
+}
+
+.container-header-right > .header-buttons > .header-button:last-child {
     margin-right: 0px;
 }
 

@@ -39,7 +39,7 @@ storiesOf("Organisms", module)
             imgStyle: {
                 type: Object,
                 default: () => ({
-                    float: "left",
+                    "vertical-align": "bottom",
                     height: "34px"
                 })
             },
