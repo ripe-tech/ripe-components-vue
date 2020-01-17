@@ -157,7 +157,6 @@
 </style>
 
 <script>
-
 export const TableMenu = {
     name: "table-menu",
     props: {
@@ -293,7 +292,7 @@ export const TableMenu = {
             return column.symbol || "?";
         },
         toggleCheckbox(property, value) {
-            if (Object.keys(this.selectedItem).length === 0) return;
+            if (!this.selectedItem[property]) return;
             this.$set(this.items[this.selectedIndexData], property, value);
         },
         onClickItem(item, index) {
