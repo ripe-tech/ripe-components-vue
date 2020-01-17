@@ -5,7 +5,7 @@ import "./transfer-list.stories.css";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
-    .add("Select Items Controller", () => ({
+    .add("Transfer List", () => ({
         props: {
             itemsLeft: {
                 type: Array,
