@@ -3,6 +3,7 @@
         <div
             class="choice"
             v-bind:class="{
+                active: activeItems[index],
                 checked: values[item.value],
                 disabled: disabled || item.disabled,
                 error: error || item.error
@@ -11,14 +12,21 @@
             v-bind:tabindex="item.disabled ? '' : '0'"
             v-for="(item, index) in items"
             v-bind:key="index"
-            v-on:click="onClick(item)"
-            v-on:keydown.space="onSpace(item)"
         >
-            <input type="checkbox" class="value" v-bind:id="item.value" />
-            <div class="checkbox-square" />
-            <label class="label" for="item.value">
-                {{ item.label ? item.label : item.value }}
-            </label>
+            <div
+                class="checkbox-input"
+                v-on:click="onClick(item)"
+                v-on:keydown.space="onSpace(item)"
+                v-on:mousedown="onMouseDown(index)"
+                v-on:mouseup="onMouseUp(index)"
+            >
+                <input type="checkbox" class="value" v-bind:id="item.value" />
+                <div class="checkbox-square" />
+                <label class="label" for="item.value">{{
+                    item.label ? item.label : item.value
+                }}</label>
+            </div>
+            <slot v-bind:item="item" />
         </div>
     </div>
 </template>
@@ -35,11 +43,15 @@
     width: fit-content;
 }
 
-.choice > .value {
+.choice > .checkbox-input {
+    display: inline-block;
+}
+
+.choice > .checkbox-input > .value {
     display: none;
 }
 
-.choice > .checkbox-square {
+.choice > .checkbox-input > .checkbox-square {
     background-color: #fafbfc;
     border: 2px solid #dfe1e5;
     border-radius: 2px 2px 2px 2px;
@@ -51,45 +63,45 @@
     width: 4px;
 }
 
-.choice:not(.disabled):not(.error):active > .checkbox-square {
+.choice:not(.disabled):not(.error).active > .checkbox-input > .checkbox-square {
     background: url("~./assets/check-dark.svg") center / 7px 6px no-repeat #f4f5f7;
     border: 2px solid #c3c9cf;
     padding: 3px 3px 3px 3px;
 }
 
-.choice.error > .checkbox-square {
+.choice.error > .checkbox-input > .checkbox-square {
     background-color: #f4f5f7;
     border: 2px solid $dark-red;
 }
 
-.choice.disabled > .checkbox-square {
+.choice.disabled > .checkbox-input > .checkbox-square {
     background: none center / 7px 6px no-repeat #f4f5f7;
     border: 2px solid #f4f5f7;
     cursor: default;
 }
 
-.choice.checked > .checkbox-square {
+.choice.checked > .checkbox-input > .checkbox-square {
     background: url("~./assets/check.svg") center / 7px 6px no-repeat $dark;
     border: 2px solid $dark;
     padding: 3px 3px 3px 3px;
 }
 
-.choice.error.checked > .checkbox-square {
+.choice.error.checked > .checkbox-input > .checkbox-square {
     background: url("~./assets/check.svg") center / 7px 6px no-repeat $dark;
     border: 2px solid $dark-red;
 }
 
-.choice.disabled.checked > .checkbox-square {
+.choice.disabled.checked > .checkbox-input > .checkbox-square {
     background: url("~./assets/check-gray.svg") center / 7px 6px no-repeat #f4f5f7;
     border: 2px solid #f6f7f9;
     padding: 3px 3px 3px 3px;
 }
 
-.choice:focus:not(.disabled) > .checkbox-square {
+.choice:focus:not(.disabled) > .checkbox-input > .checkbox-square {
     border-color: $aqcua-blue;
 }
 
-.choice > .label {
+.choice > .checkbox-input > .label {
     color: $grey;
     cursor: pointer;
     display: inline-block;
@@ -99,7 +111,7 @@
     vertical-align: middle;
 }
 
-.choice.disabled > .label {
+.choice.disabled > .checkbox-input > .label {
     cursor: default;
 }
 </style>
@@ -123,6 +135,11 @@ export const Checkbox = {
             type: Boolean,
             default: false
         }
+    },
+    data: function() {
+        return {
+            activeItems: new Array(this.items.length).fill(false)
+        };
     },
     methods: {
         selectItem(item) {
@@ -153,6 +170,12 @@ export const Checkbox = {
         },
         onClick(item) {
             this.toggleItem(item);
+        },
+        onMouseDown(index) {
+            this.$set(this.activeItems, index, true);
+        },
+        onMouseUp(index) {
+            this.$set(this.activeItems, index, false);
         }
     }
 };
