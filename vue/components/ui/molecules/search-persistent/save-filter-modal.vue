@@ -24,13 +24,14 @@
             <checkbox v-bind:items="tenancyItems" v-bind:values.sync="tenacyValuesData">
                 <template v-slot:extra-info="{ item, index }">
                     <select-ripe
-                        v-if="getTenancySelectOptions(item.label)"
+                        v-if="getTenancySelectOptions(item.value)"
+                        v-show="isTenancySelected(item.value)"
                         v-bind:placeholder="selectPlaceholder(item)"
                         v-bind:width="200"
                         v-bind:align="'left'"
                         v-bind:max-height="150"
-                        v-bind:options="getTenancySelectOptions(item.label)"
-                        v-on:update:value="(value, selectedItemIndex) => onSelected(item.label, value, selectedItemIndex)"
+                        v-bind:options="getTenancySelectOptions(item.value)"
+                        v-on:update:value="(value, selectedItemIndex) => onSelected(item.value, value, selectedItemIndex)"
                     />
                 </template>
             </checkbox>
@@ -157,16 +158,19 @@ export const SaveFilterModal = {
                 { value: "factory_e", label: "Factory E" }
             ];
         },
-        getTenancySelectOptions(tenancy) {
-            switch (tenancy) {
-                case "Brand":
+        getTenancySelectOptions(tenancyValue) {
+            switch (tenancyValue) {
+                case "brand":
                     return this.getBrands();
-                case "Channel":
+                case "channel":
                     return this.getChannels();
-                case "Factory":
+                case "factory":
                     return this.getFactories();
                 default: return null;
             }
+        },
+        isTenancySelected(tenancyValue) {
+            return Boolean(this.tenacyValuesData[tenancyValue]);
         },
         selectPlaceholder(item) {
             return `Select ${item.label}`;
@@ -177,9 +181,9 @@ export const SaveFilterModal = {
         onSaveClick() {
             this.$emit("click:confirm");
         },
-        onSelected(tenancy, value, selectedValueIndex) {
+        onSelected(tenancyValue, value, selectedValueIndex) {
             //TODO
-            console.log(`Select ${tenancy}: `, selectedValueIndex, value);
+            console.log(`Select ${tenancyValue}: `, selectedValueIndex, value);
         }
     }
 };
