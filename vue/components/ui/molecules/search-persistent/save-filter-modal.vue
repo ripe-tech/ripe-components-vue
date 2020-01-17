@@ -60,7 +60,7 @@
     margin: 0px 0px 17px 0px;
 }
 
-.select {
+.form-input .content .checkbox .select {
     display: inline-block;
     vertical-align: middle;
     margin: 0px 10px 0px 10px;
