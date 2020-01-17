@@ -33,10 +33,7 @@
                         v-if="isValidSelect(item.value)"
                         v-show="isTenancySelected(item.value)"
                         v-on:update:visible="value => onUpdateSelectVisible(value, index)"
-                        v-on:update:value="
-                            (value, selectedItemIndex) =>
-                                onSelected(index, item.value, value, selectedItemIndex)
-                        "
+                        v-on:update:value="value => onSelected(item.value, value)"
                     />
                 </template>
             </checkbox>
@@ -110,8 +107,11 @@ export const SaveFilterModal = {
             tenancyItemsData: this.tenancyItems,
             visibleSelects: new Array(this.tenancyItems.length).fill(false),
             brands: [],
+            brandSelected: null,
             channels: [],
-            factories: []
+            channelSelected: null,
+            factories: [],
+            factorySelected: null
         };
     },
     watch: {
@@ -131,7 +131,7 @@ export const SaveFilterModal = {
             return Object.keys(this.tenacyValuesData).map(tenancy => ({
                 name: this.filterNameData,
                 value: this.searchData,
-                tenancy: tenancy,
+                tenancy: this.getSelectedTenancy(tenancy), 
                 context: "" // TODO
             }));
         },
@@ -229,6 +229,32 @@ export const SaveFilterModal = {
                     return null;
             }
         },
+        getSelectedTenancy(tenancyValue) {
+                switch (tenancyValue) {
+                case "user": return "user";
+                case "brand":
+                    if(!this.hasRequiredOptionsLength(tenancyValue)) return this.brands[0].value;
+                    else return this.brandSelected;
+                case "channel":
+                    if(!this.hasRequiredOptionsLength(tenancyValue)) return this.channels[0].value;
+                    else return this.channelSelected;
+                case "factory":
+                    if(!this.hasRequiredOptionsLength(tenancyValue)) return this.factories[0].value;
+                    else return this.factorySelected;
+                default:
+                    return null;
+            }
+        },
+        setSelectedTenancy(tenancyValue, selectedValue) {
+            console.log("selecting;", tenancyValue);
+
+                switch (tenancyValue) {
+                case "brand": this.brandSelected = selectedValue; break;
+                case "channel": this.channelSelected = selectedValue; break;
+                case "factory": this.factorySelected = selectedValue; break;
+                default: throw new Error("Invalid tenancy value");
+            }
+        },
         isTenancySelected(tenancyValue) {
             return Boolean(this.tenacyValuesData[tenancyValue]);
         },
@@ -251,9 +277,8 @@ export const SaveFilterModal = {
             this.closeAllSelects();
             this.setSelectVisible(index, value);
         },
-        onSelected(tenancyValue, value, selectedValueIndex) {
-            // TODO
-            console.log(`Select ${tenancyValue}: `, selectedValueIndex, value);
+        onSelected(tenancyValue, selectedValue) {
+            this.setSelectedTenancy(tenancyValue, selectedValue);
         }
     }
 };
