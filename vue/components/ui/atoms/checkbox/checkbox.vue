@@ -111,6 +111,11 @@
 }
 </style>
 <script>
+// TODOs
+// if a dropdown would only have 1 option then don't show it
+// If a dropdown has 0 options then don't even show the checkbox
+// If all dropdowns are empty then don't show the "Tenancy" section
+
 export const Checkbox = {
     name: "checkbox",
     props: {
