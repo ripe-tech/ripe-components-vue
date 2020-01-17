@@ -22,7 +22,9 @@
             >
                 <input type="checkbox" class="value" v-bind:id="item.value" />
                 <div class="checkbox-square" />
-                <label class="label" for="item.value">{{ item.label ? item.label : item.value }}</label>
+                <label class="label" for="item.value">{{
+                    item.label ? item.label : item.value
+                }}</label>
             </div>
             <slot v-bind:item="item" v-bind:index="index" />
         </div>
@@ -40,6 +42,7 @@
     user-select: none;
     width: fit-content;
 }
+
 .choice > .checkbox-input {
     display: inline-block;
 }
