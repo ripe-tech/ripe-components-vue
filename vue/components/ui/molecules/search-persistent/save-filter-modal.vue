@@ -73,12 +73,6 @@
 </style>
 
 <script>
-
-// TODOs
-// ✓ If a dropdown would only have 1 option then don't show it
-// ✓ If a dropdown has 0 options then don't even show the checkbox 
-// ✓ If all dropdowns are empty then don't show the "Tenancy" section
-
 export const SaveFilterModal = {
     name: "save-filter-modal",
     props: {
@@ -142,20 +136,20 @@ export const SaveFilterModal = {
             }));
         },
         isTenancyEmpty() {
-            return this.tenancyItemsData.length === 1 ? true : false;
+            return this.tenancyItemsData.length === 1;
         }
     },
     mounted: async function() {
-        //Getting brands, channels and factories
+        // Getting brands, channels and factories
         this.brands = await this.getBrands();
         this.channels = await this.getChannels();
         this.factories = await this.getFactories();
-        
+
         this.removeInvalidChoices();
     },
     methods: {
         async getBrands() {
-            // TODO fix me, I'm hardcoded
+            // TODO fix me, I'm hardcoded and have 7 options
             return [
                 { value: "brand_a", label: "Brand A" },
                 { value: "brand_b", label: "Brand B" },
@@ -167,13 +161,11 @@ export const SaveFilterModal = {
             ];
         },
         async getChannels() {
-            // TODO fix me, I'm hardcoded
-            return [
-                { value: "channel_a", label: "Channel A" }
-            ];
+            // TODO fix me, I'm hardcoded and have 1 option
+            return [{ value: "channel_a", label: "Channel A" }];
         },
         async getFactories() {
-            // TODO fix me, I'm hardcoded
+            // TODO fix me, I'm hardcoded and have 5 option
             return [
                 { value: "factory_a", label: "Factory A" },
                 { value: "factory_b", label: "Factory B" },
@@ -184,42 +176,57 @@ export const SaveFilterModal = {
         },
         removeInvalidChoices() {
             for (let i = 0; i < this.tenancyItemsData.length; i++) {
-                if(!this.isValidChoice(this.tenancyItemsData[i].value)){
+                if (!this.isValidChoice(this.tenancyItemsData[i].value)) {
                     this.tenancyItemsData.splice(i, 1);
                     i--;
-                } 
+                }
             }
         },
         isValidChoice(tenancyValue) {
             return tenancyValue === "user" || this.hasTenancySelectOptions(tenancyValue);
         },
         isValidSelect(tenancyValue) {
-            return this.hasTenancySelectOptions(tenancyValue) && this.hasRequiredOptionsLength(tenancyValue)
+            return (
+                this.hasTenancySelectOptions(tenancyValue) &&
+                this.hasRequiredOptionsLength(tenancyValue)
+            );
         },
         hasTenancySelectOptions(tenancyValue) {
             switch (tenancyValue) {
-                case "brand": return this.brands.length;
-                case "channel": return this.channels.length;
-                case "factory": return this.factories.length;
-                default: return false;
+                case "brand":
+                    return this.brands.length;
+                case "channel":
+                    return this.channels.length;
+                case "factory":
+                    return this.factories.length;
+                default:
+                    return false;
             }
         },
         hasRequiredOptionsLength(tenancyValue) {
             switch (tenancyValue) {
-                case "brand": return this.brands.length > 1;
-                case "channel": return this.channels.length > 1;
-                case "factory": return this.factories.length > 1;
-                default: return false;
+                case "brand":
+                    return this.brands.length > 1;
+                case "channel":
+                    return this.channels.length > 1;
+                case "factory":
+                    return this.factories.length > 1;
+                default:
+                    return false;
             }
         },
         getTenancySelectOptions(tenancyValue) {
             if (!this.hasTenancySelectOptions(tenancyValue)) return null;
 
             switch (tenancyValue) {
-                case "brand": return this.brands;
-                case "channel": return this.channels;
-                case "factory": return this.factories;
-                default: return null;
+                case "brand":
+                    return this.brands;
+                case "channel":
+                    return this.channels;
+                case "factory":
+                    return this.factories;
+                default:
+                    return null;
             }
         },
         isTenancySelected(tenancyValue) {
