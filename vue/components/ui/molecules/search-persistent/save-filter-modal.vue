@@ -148,15 +148,14 @@ export const SaveFilterModal = {
             return true;
         },
         userTenancy() {
-            return { choices: [], selectedValue: "user", selectVisible: false};
+            return { choices: [], selectedValue: "user", selectVisible: false };
         },
         builtTenancies() {
             const builtTenancies = {};
-            
+
             this.tenancyItems.forEach(item => {
-                if(item.value === "user") builtTenancies[item.value] = this.userTenancy;
-                else 
-                {
+                if (item.value === "user") builtTenancies[item.value] = this.userTenancy;
+                else {
                     builtTenancies[item.value] = {
                         choices: [],
                         selectedValue: null,
@@ -164,13 +163,13 @@ export const SaveFilterModal = {
                     };
                 }
             });
-            
+
             return builtTenancies;
         }
     },
     mounted: async function() {
         this.tenancies = this.builtTenancies;
-        
+
         // Getting brands, channels and factories
         this.tenancies.brand.choices = await this.getBrands();
         this.tenancies.channel.choices = await this.getChannels();
