@@ -127,7 +127,7 @@ export const SaveFilterModal = {
                     choices: [],
                     selectedValue: null,
                     selectVisible: false
-                },
+                }
             }
         };
     },
@@ -169,7 +169,8 @@ export const SaveFilterModal = {
             const checkableTenancyChoices = [];
 
             this.tenancyItems.forEach(item => {
-                if (item.value === "user" || this.hasTenancyItems(item.value)) checkableTenancyChoices.push(item);
+                if (item.value === "user" || this.hasTenancyItems(item.value))
+                    { checkableTenancyChoices.push(item); }
             });
 
             return checkableTenancyChoices;
