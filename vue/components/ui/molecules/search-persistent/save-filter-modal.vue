@@ -20,7 +20,7 @@
         <form-input v-bind:header="'Search'">
             <input-ripe v-bind:variant="'dark'" v-bind:value.sync="searchData" />
         </form-input>
-        <form-input v-bind:header="'Tenancy'" v-if="checkableTenancyChoices.length < 1">
+        <form-input v-bind:header="'Tenancy'" v-if="checkableTenancyChoices.length !== 1">
             <checkbox
                 v-bind:items="checkableTenancyChoices"
                 v-bind:values.sync="tenancyCheckboxValuesData"
