@@ -20,14 +20,20 @@
                         v-on:update:reverse="onClickItem"
                     >
                         <template v-slot:row="{ item, index }">
-                            <tr v-bind:key="item.id" v-on:click="onClickItem(item, index)">
+                            <tr
+                                v-bind:class="[{ selected: index === selectedIndexData }]"
+                                v-bind:key="item.id"
+                                v-on:click="onClickItem(item, index)"
+                            >
                                 <td
                                     v-bind:class="column.value"
-                                    v-for="(column, columnIndex) in columns"
+                                    v-for="column in columns"
                                     v-bind:key="column.value"
                                 >
-                                    <span v-if="columnIndex === 0 && selectedIndexData === index">✏️</span>
-                                    <checkmark v-bind:value="item[column.value]" v-else-if="column.type === 'boolean'" />
+                                    <checkmark
+                                        v-bind:value="item[column.value]"
+                                        v-if="column.type === 'boolean'"
+                                    />
                                     <span v-else>{{ item[column.value] }}</span>
                                 </td>
                             </tr>
@@ -152,11 +158,15 @@
 
 .table-menu .content-menu ::v-deep .content .table .table-body > tr {
     cursor: pointer;
-    transition: opacity 0.25s ease-in-out;
+    transition: opacity 0.15s ease-in-out;
 }
 
 .table-menu .content-menu ::v-deep .content .table .table-body > tr:hover {
     opacity: 0.6;
+}
+
+.table-menu .content-menu ::v-deep .content .table .table-body > tr.selected {
+    background-color: $border-color;
 }
 
 .table-menu .content-menu ::v-deep .menu .button-color.delete {
