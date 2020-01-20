@@ -33,7 +33,7 @@
                         v-bind:align="'left'"
                         v-bind:max-height="150"
                         v-bind:options="getTenancyItems(item.value)"
-                        v-if="hasRequiredItemsLength(item.value)"
+                        v-if="hasMinTenancyChoices(item.value)"
                         v-show="isTenancyChoiceSelected(item.value)"
                         v-on:update:visible="value => onUpdateSelectVisible(item.value, value)"
                         v-on:update:value="value => onSelected(item.value, value)"
@@ -169,7 +169,7 @@ export const SaveFilterModal = {
             const checkableTenancyChoices = [];
 
             this.tenancyItems.forEach(item => {
-                if (item.value === "user" || this.hasTenancyItems(item.value))
+                if (item.value === "user" || this.hasTenancyChoice(item.value))
                     { checkableTenancyChoices.push(item); }
             });
 
@@ -212,10 +212,10 @@ export const SaveFilterModal = {
         isTenancyChoiceSelected(value) {
             return Boolean(this.tenancyCheckboxValuesData[value]);
         },
-        hasTenancyItems(value) {
+        hasTenancyChoice(value) {
             return Boolean(this.tenancies[value] && this.tenancies[value].choices.length);
         },
-        hasRequiredItemsLength(value) {
+        hasMinTenancyChoices(value) {
             return Boolean(this.tenancies[value] && this.tenancies[value].choices.length > 1);
         },
         getTenancyItems(value) {
@@ -223,7 +223,7 @@ export const SaveFilterModal = {
         },
         getSelectedTenancy(value) {
             if (this.tenancies[value]) {
-                return this.hasRequiredItemsLength(value) || value === "user"
+                return this.hasMinTenancyChoices(value) || value === "user"
                     ? this.tenancies[value].selectedValue
                     : this.tenancies[value].choices[0].value;
             } else return null;
