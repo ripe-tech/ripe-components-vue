@@ -169,8 +169,9 @@ export const SaveFilterModal = {
             const checkableTenancyChoices = [];
 
             this.tenancyItems.forEach(item => {
-                if (item.value === "user" || this.hasTenancyChoice(item.value))
-                    { checkableTenancyChoices.push(item); }
+                if (item.value === "user" || this.hasTenancyChoice(item.value)) {
+                    checkableTenancyChoices.push(item);
+                }
             });
 
             return checkableTenancyChoices;
