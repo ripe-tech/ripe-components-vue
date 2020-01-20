@@ -18,6 +18,7 @@
             v-bind:visible.sync="selectVisibleData"
             v-bind:dropdown-min-width="dropdownMinWidth"
             v-on:update:value="onSelected"
+            v-on:dropdown:animation:ended="onDropdownAnimationEnded"
         >
             <template v-for="(item, index) in filtersData" v-bind:slot="getSelectValue(item)">
                 <div
@@ -208,6 +209,7 @@ export const SearchPersistent = {
     },
     data: function() {
         return {
+            pendingSelectedFilter: null,
             selectedFilter: null,
             valueData: this.value,
             filtersData: this.filters,
@@ -272,10 +274,8 @@ export const SearchPersistent = {
             return `${filter.name}${filter.tenancy}${filter.context}`;
         },
         selectFilter(index) {
-            setTimeout(() => {
-                // Waits for dropdown animation
-                this.selectedFilter = index;
-            }, 100);
+            this.pendingSelectedFilter = index;
+
             this.valueData = this.filtersData[index].value;
         },
         isFilterSelected(index) {
@@ -358,6 +358,9 @@ export const SearchPersistent = {
         },
         onSelected(item, index) {
             this.selectFilter(index);
+        },
+        onDropdownAnimationEnded() {
+            this.selectedFilter = this.pendingSelectedFilter;
         }
     }
 };
