@@ -272,7 +272,10 @@ export const SearchPersistent = {
             return `${filter.name}${filter.tenancy}${filter.context}`;
         },
         selectFilter(index) {
-            this.selectedFilter = index;
+            setTimeout(() => {
+                // Waits for dropdown animation
+                this.selectedFilter = index;
+            }, 100);
             this.valueData = this.filtersData[index].value;
         },
         isFilterSelected(index) {
