@@ -22,7 +22,7 @@
         </form-input>
         <form-input v-bind:header="'Tenacy'" v-if="!isTenancyEmpty">
             <checkbox v-bind:items="tenancyItemsData" v-bind:values.sync="tenacyValuesData">
-                <template v-slot="{ item, index }">
+                <template v-slot="{ item }">
                     <select-ripe
                         v-bind:visible.sync="tenancies[item.value].selectVisible"
                         v-bind:placeholder="selectPlaceholder(item)"
@@ -107,13 +107,13 @@ export const SaveFilterModal = {
             filterNameData: null,
             searchData: this.search,
             tenancyItemsData: this.tenancyItems,
-            
 
             tenancies: {
-                user: { //special case
-                    choices: [], //Always empty
-                    selectedValue: "user", //Always user,
-                    selectVisible: false //Not really used
+                user: {
+                    // special case
+                    choices: [], // Always empty
+                    selectedValue: "user", // Always user,
+                    selectVisible: false // Not really used
                 },
                 brand: {
                     choices: [],
@@ -163,8 +163,9 @@ export const SaveFilterModal = {
                 if (
                     this.isTenancyChoiceSelected(item.value) &&
                     this.getSelectedTenancy(item.value) === null
-                )
-                    { return false; }
+                ) {
+                    return false;
+                }
             }
 
             return true;
@@ -172,10 +173,6 @@ export const SaveFilterModal = {
     },
     mounted: async function() {
         // Getting brands, channels and factories
-        //this.brands = await this.getBrands();
-        //this.channels = await this.getChannels();
-        //this.factories = await this.getFactories();
-
         this.tenancies.brand.choices = await this.getBrands();
         this.tenancies.channel.choices = await this.getChannels();
         this.tenancies.factory.choices = await this.getFactories();
@@ -228,100 +225,34 @@ export const SaveFilterModal = {
         },
         hasTenancyItems(value) {
             return Boolean(this.tenancies[value] && this.tenancies[value].choices.length);
-
-           //switch (value) {
-           //    case "brand":
-           //        return Boolean(this.brands.length);
-           //    case "channel":
-           //        return Boolean(this.channels.length);
-           //    case "factory":
-           //        return Boolean(this.factories.length);
-           //    default:
-           //        return false;
-           //}
         },
         hasRequiredItemsLength(value) {
             return Boolean(this.tenancies[value] && this.tenancies[value].choices.length > 1);
-            
-            //switch (value) {
-            //    case "brand":
-            //        return this.brands.length > 1;
-            //    case "channel":
-            //        return this.channels.length > 1;
-            //    case "factory":
-            //        return this.factories.length > 1;
-            //    default:
-            //        return false;
-            //}
         },
         getTenancyItems(value) {
             return this.tenancies[value] ? this.tenancies[value].choices : null;
-
-            //if (!this.hasTenancyItems(value)) return null;
-//
-            //switch (value) {
-            //    case "brand":
-            //        return this.brands;
-            //    case "channel":
-            //        return this.channels;
-            //    case "factory":
-            //        return this.factories;
-            //    default:
-            //        return null;
-            //}
         },
         getSelectedTenancy(value) {
-            if(value === "user") return this.tenancies[value].selectedValue; //TODO change value === user to some default computed stuff
+            if (value === "user") return this.tenancies[value].selectedValue; // TODO change value === user to some default computed stuff
 
-            if(this.tenancies[value]) return this.hasRequiredItemsLength(value) ? this.tenancies[value].selectedValue: this.tenancies[value].choices[0].value;
-            else return null;
-
-
-            //switch (value) {
-            //    case "user":
-            //        return "user";
-            //    case "brand":
-            //        if (!this.hasRequiredItemsLength(value)) return this.brands[0].value;
-            //        else return this.brandSelected;
-            //    case "channel":
-            //        if (!this.hasRequiredItemsLength(value)) return this.channels[0].value;
-            //        else return this.channelSelected;
-            //    case "factory":
-            //        if (!this.hasRequiredItemsLength(value)) {
-            //            return this.factories[0].value;
-            //        } else return this.factorySelected;
-            //    default:
-            //        return null;
-            //}
+            if (this.tenancies[value]) {
+                return this.hasRequiredItemsLength(value)
+                    ? this.tenancies[value].selectedValue
+                    : this.tenancies[value].choices[0].value;
+            } else return null;
         },
         setSelectedTenancy(value, selectedValue) {
-            if(!this.tenancies[value]) throw new Error("Invalid tenancy value");
-            
-            this.tenancies[value].selectedValue = selectedValue;
+            if (!this.tenancies[value]) throw new Error("Invalid tenancy value");
 
-            //switch (value) {
-            //    case "brand":
-            //        this.brandSelected = selectedValue;
-            //        break;
-            //    case "channel":
-            //        this.channelSelected = selectedValue;
-            //        break;
-            //    case "factory":
-            //        this.factorySelected = selectedValue;
-            //        break;
-            //    default:
-            //        
-            //}
+            this.tenancies[value].selectedValue = selectedValue;
         },
         selectPlaceholder(item) {
             return `Select ${item.label}`;
         },
         closeAllSelects() {
             Object.keys(this.tenancies).forEach(key => {
-                this.tenancies[key].selectVisible = false
+                this.tenancies[key].selectVisible = false;
             });
-
-            //this.visibleSelects = new Array(this.tenancyItemsData.length).fill(false);
         },
         onDiscardClick() {
             this.$emit("click:cancel");
