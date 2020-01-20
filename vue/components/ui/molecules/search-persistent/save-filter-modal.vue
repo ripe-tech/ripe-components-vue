@@ -22,7 +22,7 @@
         </form-input>
         <form-input v-bind:header="'Tenancy'" v-if="!isTenancyEmpty">
             <checkbox
-                v-bind:items="tenancyItemsData"
+                v-bind:items="checkableTenancyChoices"
                 v-bind:values.sync="tenancyCheckboxValuesData"
             >
                 <template v-slot="{ item }">
@@ -106,7 +106,6 @@ export const SaveFilterModal = {
         return {
             filterNameData: null,
             searchData: this.search,
-            tenancyItemsData: this.tenancyItems,
             tenancyCheckboxValuesData: {},
             tenancies: {}
         };
@@ -134,10 +133,10 @@ export const SaveFilterModal = {
             }));
         },
         isTenancyEmpty() {
-            return this.tenancyItemsData.length === 1;
+            return this.checkableTenancyChoices.length === 1;
         },
         isTenancyFormValid() {
-            for (const item of this.tenancyItemsData) {
+            for (const item of this.checkableTenancyChoices) {
                 if (
                     this.isTenancyChoiceSelected(item.value) &&
                     this.getSelectedTenancy(item.value) === null
@@ -166,6 +165,15 @@ export const SaveFilterModal = {
             });
 
             return builtTenancies;
+        },
+        checkableTenancyChoices() {
+            const checkableTenancyChoices = [];
+
+            this.tenancyItems.forEach(item => {
+                if (this.isTenancyChoiceValid(item.value)) checkableTenancyChoices.push(item);
+            });
+
+            return checkableTenancyChoices;
         }
     },
     mounted: async function() {
@@ -175,8 +183,6 @@ export const SaveFilterModal = {
         this.tenancies.brand.choices = await this.getBrands();
         this.tenancies.channel.choices = await this.getChannels();
         this.tenancies.factory.choices = await this.getFactories();
-
-        this.removeInvalidChoices();
     },
     methods: {
         async getBrands() {
@@ -204,14 +210,6 @@ export const SaveFilterModal = {
                 { value: "factory_d", label: "Factory D" },
                 { value: "factory_e", label: "Factory E" }
             ];
-        },
-        removeInvalidChoices() {
-            for (let i = 0; i < this.tenancyItemsData.length; i++) {
-                if (!this.isTenancyChoiceValid(this.tenancyItemsData[i].value)) {
-                    this.tenancyItemsData.splice(i, 1);
-                    i--;
-                }
-            }
         },
         isTenancyChoiceSelected(value) {
             return Boolean(this.tenancyCheckboxValuesData[value]);
