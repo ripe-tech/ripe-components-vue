@@ -33,7 +33,7 @@
                         v-bind:align="'left'"
                         v-bind:max-height="150"
                         v-bind:options="getTenancyItems(item.value)"
-                        v-if="isTenancySelectValid(item.value)"
+                        v-if="hasRequiredItemsLength(item.value)"
                         v-show="isTenancyChoiceSelected(item.value)"
                         v-on:update:visible="value => onUpdateSelectVisible(item.value, value)"
                         v-on:update:value="value => onSelected(item.value, value)"
@@ -216,9 +216,6 @@ export const SaveFilterModal = {
         },
         isTenancyChoiceValid(value) {
             return value === "user" || this.hasTenancyItems(value);
-        },
-        isTenancySelectValid(value) {
-            return this.hasTenancyItems(value) && this.hasRequiredItemsLength(value);
         },
         hasTenancyItems(value) {
             return Boolean(this.tenancies[value] && this.tenancies[value].choices.length);
