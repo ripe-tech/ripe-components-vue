@@ -156,20 +156,20 @@
     text-overflow: ellipsis;
 }
 
-.table-menu .content-menu ::v-deep .content .table .table-body > tr {
+.table-menu .content-menu .content .table .table-body > tr {
     cursor: pointer;
     transition: opacity 0.15s ease-in-out;
 }
 
-.table-menu .content-menu ::v-deep .content .table .table-body > tr:hover {
+.table-menu .content-menu .content .table .table-body > tr:hover {
     opacity: 0.6;
 }
 
-.table-menu .content-menu ::v-deep .content .table .table-body > tr.selected {
+.table-menu .content-menu .content .table .table-body > tr.selected {
     background-color: $border-color;
 }
 
-.table-menu .content-menu ::v-deep .menu .button-color.delete {
+.table-menu .content-menu .menu .button-color.delete-item {
     margin-top: 20px;
 }
 </style>
