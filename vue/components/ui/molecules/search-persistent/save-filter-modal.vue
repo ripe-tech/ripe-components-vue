@@ -128,8 +128,8 @@ export const SaveFilterModal = {
             return Object.keys(this.tenancyCheckboxValuesData).map(tenancy => ({
                 name: this.filterNameData,
                 value: this.searchData,
-                tenancy: this.getSelectedTenancy(tenancy),
-                context: "" // TODO
+                tenancy: tenancy,
+                context: this.getSelectedTenancy(tenancy)
             }));
         },
         isTenancyEmpty() {
