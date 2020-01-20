@@ -278,7 +278,21 @@ export const SearchPersistent = {
         isFilterSelected(index) {
             return index === this.selectedFilter;
         },
+        filterExists(filter) {
+            return this.filtersData.findIndex(
+                f => f.name === filter.name && f.tenancy === filter.tenancy
+            );
+        },
         addFilters(filters) {
+            for (let i = 0; i < filters.length; i++) {
+                const index = this.filterExists(filters[i]);
+
+                if (index >= 0) {
+                    this.updateFilter(filters[i], index);
+                    filters.splice(i, 1);
+                }
+            }
+
             this.filtersData = this.filtersData.concat(filters);
             this.$emit("add:filters", filters);
             this.$emit("update:filters", this.filtersData);
