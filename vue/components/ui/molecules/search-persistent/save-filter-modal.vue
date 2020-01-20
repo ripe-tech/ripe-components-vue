@@ -20,8 +20,8 @@
         <form-input v-bind:header="'Search'">
             <input-ripe v-bind:variant="'dark'" v-bind:value.sync="searchData" />
         </form-input>
-        <form-input v-bind:header="'Tenacy'" v-if="!isTenancyEmpty">
-            <checkbox v-bind:items="tenancyItemsData" v-bind:values.sync="tenacyCheckboxValuesData">
+        <form-input v-bind:header="'Tenancy'" v-if="!isTenancyEmpty">
+            <checkbox v-bind:items="tenancyItemsData" v-bind:values.sync="tenancyCheckboxValuesData">
                 <template v-slot="{ item }">
                     <select-ripe
                         v-bind:visible.sync="tenancies[item.value].selectVisible"
@@ -104,7 +104,7 @@ export const SaveFilterModal = {
             filterNameData: null,
             searchData: this.search,
             tenancyItemsData: this.tenancyItems,
-            tenacyCheckboxValuesData: {},
+            tenancyCheckboxValuesData: {},
             tenancies: {}
         };
     },
@@ -118,12 +118,12 @@ export const SaveFilterModal = {
             return (
                 this.searchData &&
                 this.filterNameData &&
-                Object.keys(this.tenacyCheckboxValuesData).length > 0 &&
+                Object.keys(this.tenancyCheckboxValuesData).length > 0 &&
                 this.isTenancyFormValid
             );
         },
         filters() {
-            return Object.keys(this.tenacyCheckboxValuesData).map(tenancy => ({
+            return Object.keys(this.tenancyCheckboxValuesData).map(tenancy => ({
                 name: this.filterNameData,
                 value: this.searchData,
                 tenancy: this.getSelectedTenancy(tenancy),
@@ -211,7 +211,7 @@ export const SaveFilterModal = {
             }
         },
         isTenancyChoiceSelected(value) {
-            return Boolean(this.tenacyCheckboxValuesData[value]);
+            return Boolean(this.tenancyCheckboxValuesData[value]);
         },
         isTenancyChoiceValid(value) {
             return value === "user" || this.hasTenancyItems(value);
