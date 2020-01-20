@@ -23,17 +23,20 @@
         <transition-group tag="tbody" v-bind:name="transition" class="table-body">
             <template v-for="(item, index) in sortedItems">
                 <slot name="before-row" v-bind:item="item" v-bind:index="index" />
-                <tr v-bind:key="item.id" v-on:click="onClick(item, index)">
-                    <slot v-bind:item="item" v-bind:index="index">
-                        <td
-                            v-bind:class="column.value"
-                            v-for="column in columns"
-                            v-bind:key="column.value"
-                        >
-                            {{ item[column.value] }}
-                        </td>
-                    </slot>
-                </tr>
+                <slot name="row" v-bind:item="item" v-bind:index="index">
+                    <tr v-bind:key="item.id" v-on:click="onClick(item, index)">
+                        <slot v-bind:item="item" v-bind:index="index">
+                            <td
+                                v-bind:class="column.value"
+                                v-for="column in columns"
+                                v-bind:key="column.value"
+                            >
+                                {{ item[column.value] }}
+                            </td>
+                        </slot>
+                    </tr>
+                </slot>
+
                 <slot name="after-row" v-bind:item="item" v-bind:index="index" />
             </template>
         </transition-group>

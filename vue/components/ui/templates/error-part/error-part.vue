@@ -8,9 +8,10 @@
             v-on:click="goBack"
         />
         <div class="error-message">
-            <img
+            <image-ripe
                 v-bind:src="image"
                 v-bind:class="{ clickable: navigation }"
+                v-bind:fade="false"
                 v-if="image"
                 v-on:click="goHome"
             />
