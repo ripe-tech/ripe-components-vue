@@ -107,30 +107,7 @@ export const SaveFilterModal = {
             filterNameData: null,
             searchData: this.search,
             tenancyItemsData: this.tenancyItems,
-
-            tenancies: {
-                user: {
-                    // special case
-                    choices: [], // Always empty
-                    selectedValue: "user", // Always user,
-                    selectVisible: false // Not really used
-                },
-                brand: {
-                    choices: [],
-                    selectedValue: null,
-                    selectVisible: false
-                },
-                channel: {
-                    choices: [],
-                    selectedValue: null,
-                    selectVisible: false
-                },
-                factory: {
-                    choices: [],
-                    selectedValue: null,
-                    selectVisible: false
-                }
-            }
+            tenancies: {}
         };
     },
     watch: {
@@ -169,9 +146,31 @@ export const SaveFilterModal = {
             }
 
             return true;
+        },
+        userTenancy() {
+            return { choices: [], selectedValue: "user", selectVisible: false};
+        },
+        builtTenancies() {
+            const builtTenancies = {};
+            
+            this.tenancyItems.forEach(item => {
+                if(item.value === "user") builtTenancies[item.value] = this.userTenancy;
+                else 
+                {
+                    builtTenancies[item.value] = {
+                        choices: [],
+                        selectedValue: null,
+                        selectVisible: false
+                    };
+                }
+            });
+            
+            return builtTenancies;
         }
     },
     mounted: async function() {
+        this.tenancies = this.builtTenancies;
+        
         // Getting brands, channels and factories
         this.tenancies.brand.choices = await this.getBrands();
         this.tenancies.channel.choices = await this.getChannels();
@@ -233,7 +232,7 @@ export const SaveFilterModal = {
             return this.tenancies[value] ? this.tenancies[value].choices : null;
         },
         getSelectedTenancy(value) {
-            if (value === "user") return this.tenancies[value].selectedValue; // TODO change value === user to some default computed stuff
+            if (value === this.userTenancy.value) return this.tenancies[value].selectedValue;
 
             if (this.tenancies[value]) {
                 return this.hasRequiredItemsLength(value)
