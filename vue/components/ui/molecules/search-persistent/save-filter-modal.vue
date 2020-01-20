@@ -70,8 +70,6 @@
 </style>
 
 <script>
-// TODO improve data
-
 export const SaveFilterModal = {
     name: "save-filter-modal",
     props: {
