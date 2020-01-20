@@ -26,13 +26,19 @@
                 <slot name="row" v-bind:item="item" v-bind:index="index">
                     <tr v-bind:key="item.id" v-on:click="onClick(item, index)">
                         <slot v-bind:item="item" v-bind:index="index">
-                            <td
-                                v-bind:class="column.value"
-                                v-for="column in columns"
-                                v-bind:key="column.value"
+                            <slot
+                                v-bind:item="item"
+                                v-bind:index="index"
+                                v-bind:name="`item-${item.id}`"
                             >
-                                {{ item[column.value] }}
-                            </td>
+                                <td
+                                    v-bind:class="column.value"
+                                    v-for="column in columns"
+                                    v-bind:key="column.value"
+                                >
+                                    {{ item[column.value] }}
+                                </td>
+                            </slot>
                         </slot>
                     </tr>
                 </slot>
