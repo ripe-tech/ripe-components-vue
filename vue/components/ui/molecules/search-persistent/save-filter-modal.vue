@@ -21,7 +21,7 @@
             <input-ripe v-bind:variant="'dark'" v-bind:value.sync="searchData" />
         </form-input>
         <form-input v-bind:header="'Tenacy'" v-if="!isTenancyEmpty">
-            <checkbox v-bind:items="tenancyItemsData" v-bind:values.sync="tenacyValuesData">
+            <checkbox v-bind:items="tenancyItemsData" v-bind:values.sync="tenacyCheckboxValuesData">
                 <template v-slot="{ item }">
                     <select-ripe
                         v-bind:visible.sync="tenancies[item.value].selectVisible"
@@ -103,10 +103,10 @@ export const SaveFilterModal = {
     },
     data: function() {
         return {
-            tenacyValuesData: {},
             filterNameData: null,
             searchData: this.search,
             tenancyItemsData: this.tenancyItems,
+            tenacyCheckboxValuesData: {},
             tenancies: {}
         };
     },
@@ -120,12 +120,12 @@ export const SaveFilterModal = {
             return (
                 this.searchData &&
                 this.filterNameData &&
-                Object.keys(this.tenacyValuesData).length > 0 &&
+                Object.keys(this.tenacyCheckboxValuesData).length > 0 &&
                 this.isTenancyFormValid
             );
         },
         filters() {
-            return Object.keys(this.tenacyValuesData).map(tenancy => ({
+            return Object.keys(this.tenacyCheckboxValuesData).map(tenancy => ({
                 name: this.filterNameData,
                 value: this.searchData,
                 tenancy: this.getSelectedTenancy(tenancy),
@@ -214,7 +214,7 @@ export const SaveFilterModal = {
             }
         },
         isTenancyChoiceSelected(value) {
-            return Boolean(this.tenacyValuesData[value]);
+            return Boolean(this.tenacyCheckboxValuesData[value]);
         },
         isTenancyChoiceValid(value) {
             return value === "user" || this.hasTenancyItems(value);
