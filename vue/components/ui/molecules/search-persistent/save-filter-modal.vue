@@ -24,7 +24,7 @@
             <checkbox v-bind:items="tenancyItemsData" v-bind:values.sync="tenacyValuesData">
                 <template v-slot="{ item, index }">
                     <select-ripe
-                        v-bind:visible.sync="visibleSelects[index]"
+                        v-bind:visible.sync="tenancies[item.value].selectVisible"
                         v-bind:placeholder="selectPlaceholder(item)"
                         v-bind:width="200"
                         v-bind:align="'left'"
@@ -32,7 +32,7 @@
                         v-bind:options="getTenancyItems(item.value)"
                         v-if="isTenancySelectValid(item.value)"
                         v-show="isTenancyChoiceSelected(item.value)"
-                        v-on:update:visible="value => onUpdateSelectVisible(value, index)"
+                        v-on:update:visible="value => onUpdateSelectVisible(item.value, value)"
                         v-on:update:value="value => onSelected(item.value, value)"
                     />
                 </template>
@@ -107,25 +107,28 @@ export const SaveFilterModal = {
             filterNameData: null,
             searchData: this.search,
             tenancyItemsData: this.tenancyItems,
-            visibleSelects: new Array(this.tenancyItems.length).fill(false),
             
 
             tenancies: {
                 user: { //special case
                     choices: [], //Always empty
-                    selectedValue: "user" //Always user
+                    selectedValue: "user", //Always user,
+                    selectVisible: false //Not really used
                 },
                 brand: {
                     choices: [],
-                    selectedValue: null
+                    selectedValue: null,
+                    selectVisible: false
                 },
                 channel: {
                     choices: [],
-                    selectedValue: null
+                    selectedValue: null,
+                    selectVisible: false
                 },
                 factory: {
                     choices: [],
-                    selectedValue: null
+                    selectedValue: null,
+                    selectVisible: false
                 }
             }
         };
@@ -176,9 +179,6 @@ export const SaveFilterModal = {
         this.tenancies.brand.choices = await this.getBrands();
         this.tenancies.channel.choices = await this.getChannels();
         this.tenancies.factory.choices = await this.getFactories();
-
-        //console.log("\n\nTesting stuff");
-        //console.log("stuff", this.hasTenancyItems("fafw"));
 
         this.removeInvalidChoices();
     },
@@ -317,10 +317,11 @@ export const SaveFilterModal = {
             return `Select ${item.label}`;
         },
         closeAllSelects() {
-            this.visibleSelects = new Array(this.tenancyItemsData.length).fill(false);
-        },
-        setSelectVisible(index, value) {
-            this.$set(this.visibleSelects, index, value);
+            Object.keys(this.tenancies).forEach(key => {
+                this.tenancies[key].selectVisible = false
+            });
+
+            //this.visibleSelects = new Array(this.tenancyItemsData.length).fill(false);
         },
         onDiscardClick() {
             this.$emit("click:cancel");
@@ -328,9 +329,9 @@ export const SaveFilterModal = {
         onSaveClick() {
             this.$emit("click:confirm");
         },
-        onUpdateSelectVisible(value, index) {
+        onUpdateSelectVisible(tenancyValue, visibleValue) {
             this.closeAllSelects();
-            this.setSelectVisible(index, value);
+            this.tenancies[tenancyValue].selectVisible = visibleValue;
         },
         onSelected(tenancyValue, selectedValue) {
             this.setSelectedTenancy(tenancyValue, selectedValue);
