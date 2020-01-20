@@ -16,12 +16,11 @@
                         v-bind:sort.sync="sortData"
                         v-bind:sort-method="sortMethod"
                         v-bind:reverse.sync="reverseData"
-                        v-on:click="onClickItem"
                         v-on:update:sort="onClickItem"
                         v-on:update:reverse="onClickItem"
                     >
-                        <template v-slot="{ item, index }">
-                            <slot name="item" v-bind:item="item" v-bind:index="index">
+                        <template v-slot:row="{ item, index }">
+                            <tr v-bind:key="item.id" v-on:click="onClickItem(item, index)">
                                 <td
                                     v-bind:class="column.value"
                                     v-for="(column, columnIndex) in columns"
@@ -31,7 +30,7 @@
                                     <checkmark v-bind:value="item[column.value]" v-else-if="column.type === 'boolean'" />
                                     <span v-else>{{ item[column.value] }}</span>
                                 </td>
-                            </slot>
+                            </tr>
                         </template>
                     </table-ripe>
                 </div>
