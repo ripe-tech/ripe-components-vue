@@ -8,7 +8,9 @@
         <container-ripe>
             <div class="container-header">
                 <div class="container-header-right">
-                    <slot name="icons" />
+                    <div class="container-header-buttons" v-if="$slots['header-buttons']">
+                        <slot name="header-buttons" />
+                    </div>
                     <search
                         v-bind:variant="'dark'"
                         v-bind:width="isMobileWidth() ? null : searchWidth"
@@ -133,6 +135,18 @@
 body.mobile .container-header-right {
     float: none;
     width: 100%;
+}
+
+.container-header-buttons {
+    display: inline-block;
+    margin-right: 8px;
+}
+
+body.mobile .container-header-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 10px;
 }
 
 .listing .filter-ripe ::v-deep table {

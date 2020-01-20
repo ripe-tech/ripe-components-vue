@@ -59,10 +59,7 @@ storiesOf("Organisms", module)
         },
         data: function() {
             return {
-                valueData: this.value,
-                inputTime: null,
-                focusTime: null,
-                blurTime: null
+                valueData: this.value
             };
         },
         watch: {
@@ -81,14 +78,8 @@ storiesOf("Organisms", module)
                     v-bind:variant="variant"
                     v-bind:disabled="disabled"
                     v-bind:placeholder="placeholder"
-                    v-bind:symbol="symbol"
-                    v-on:update:value="inputTime = new Date().getTime()"
-                    v-on:focus="focusTime = new Date().getTime()"
-                    v-on:blur="blurTime = new Date().getTime()" />
+                    v-bind:symbol="symbol" />
                 <p>Text: {{ valueData }}</p>
-                <p>Last wrote from user: {{ inputTime }}</p>
-                <p>Last focus from user: {{ focusTime }}</p>
-                <p>Last blur from user: {{ blurTime }}</p>
             </div>
         `
     }));
