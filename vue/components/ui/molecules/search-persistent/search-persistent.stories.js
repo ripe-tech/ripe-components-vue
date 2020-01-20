@@ -4,6 +4,11 @@ import { withKnobs, boolean, text, number, select } from "@storybook/addon-knobs
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Search Persistence", () => ({
+        created: function() {
+            this.$root.account = {
+                username: "tech@platforme.com"
+            };
+        },
         props: {
             value: {
                 default: text("Value", "")

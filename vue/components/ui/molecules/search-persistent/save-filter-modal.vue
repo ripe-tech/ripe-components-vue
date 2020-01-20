@@ -6,8 +6,8 @@
         v-bind:cancel-text="'Discard changes'"
         v-bind:confirm-text="'Save filter'"
         v-bind:name="'save-filter-modal'"
+        v-bind:width="600"
         v-bind="$attrs"
-        v-bind:min-width="600"
         v-on="$listeners"
     >
         <form-input v-bind:header="'Filter Name'">
@@ -20,22 +20,19 @@
         <form-input v-bind:header="'Search'">
             <input-ripe v-bind:variant="'dark'" v-bind:value.sync="searchData" />
         </form-input>
-        <form-input v-bind:header="'Tenancy'" v-if="checkableTenancyChoices.length !== 1">
+        <form-input v-bind:header="'Tenancy'" v-if="tenancyItemsCheckable.length !== 1">
             <checkbox
-                v-bind:items="checkableTenancyChoices"
+                v-bind:items="tenancyItemsCheckable"
                 v-bind:values.sync="checkboxValuesData"
             >
                 <template v-slot="{ item }">
                     <select-ripe
-                        v-bind:visible.sync="tenancies[item.value].selectVisible"
-                        v-bind:placeholder="selectPlaceholder(item)"
+                        v-bind:placeholder="`Select ${item.label}`"
                         v-bind:width="200"
-                        v-bind:align="'left'"
                         v-bind:max-height="150"
-                        v-bind:options="getTenancyChoices(item.value)"
-                        v-if="hasTenancyChoices(item.value)"
-                        v-show="isTenancyChoiceSelected(item.value)"
-                        v-on:update:visible="value => onUpdateSelectVisible(item.value, value)"
+                        v-bind:options="tenancies[item.value].choices"
+                        v-if="tenancies[item.value].choices.length > 1"
+                        v-show="isTenancyItemSelected(item.value)"
                         v-on:update:value="value => onSelected(item.value, value)"
                     />
                 </template>
@@ -61,6 +58,11 @@
 </template>
 
 <style lang="scss" scoped>
+.save-filter-modal ::v-deep .modal-container {
+    max-width: 100%;
+    overflow-y: visible;
+}
+
 .form-input {
     margin: 0px 0px 17px 0px;
 }
@@ -103,30 +105,30 @@ export const SaveFilterModal = {
         }
     },
     data: function() {
+        const user = this.$root ?
+            (this.$root.account ? this.$root.account.username : null) :
+            null;
+
         return {
             filterNameData: null,
             searchData: this.search,
             checkboxValuesData: {},
             tenancies: {
                 user: {
-                    choices: [],
-                    selectedValue: "user",
-                    selectVisible: false
+                    choices: user ? [user] : [],
+                    selectedValue: user
                 },
                 brand: {
                     choices: [],
-                    selectedValue: null,
-                    selectVisible: false
+                    selectedValue: null
                 },
                 channel: {
                     choices: [],
-                    selectedValue: null,
-                    selectVisible: false
+                    selectedValue: null
                 },
                 factory: {
                     choices: [],
-                    selectedValue: null,
-                    selectVisible: false
+                    selectedValue: null
                 }
             }
         };
@@ -137,37 +139,31 @@ export const SaveFilterModal = {
         }
     },
     computed: {
-        isFormValid() {
-            return (
-                this.searchData &&
-                this.filterNameData &&
-                Object.keys(this.checkboxValuesData).length > 0 &&
-                this.isTenancyFormValid
-            );
-        },
         filters() {
             return Object.keys(this.checkboxValuesData).map(tenancy => ({
                 name: this.filterNameData,
                 value: this.searchData,
                 tenancy: tenancy,
-                context: this.getSelectedTenancy(tenancy)
+                context: this.getContext(tenancy)
             }));
         },
-        isTenancyFormValid() {
-            for (const item of this.checkableTenancyChoices) {
-                if (
-                    this.isTenancyChoiceSelected(item.value) &&
-                    this.getSelectedTenancy(item.value) === null
-                ) {
-                    return false;
-                }
-            }
-
-            return true;
+        isFormValid() {
+            return (
+                this.searchData &&
+                this.filterNameData &&
+                Object.keys(this.checkboxValuesData).length > 0 &&
+                this.hasSomeContext
+            );
         },
-        checkableTenancyChoices() {
+        hasSomeContext() {
+            return this.tenancyItemsCheckable.some(item =>
+                this.isTenancyItemSelected(item.value) &&
+                this.getContext(item.value) !== null
+            );
+        },
+        tenancyItemsCheckable() {
             return this.tenancyItems.filter(
-                item => item.value === "user" || this.hasTenancyChoice(item.value)
+                item => this.tenancies[item.value].choices.length > 0
             );
         }
     },
@@ -176,6 +172,9 @@ export const SaveFilterModal = {
         this.tenancies.brand.choices = await this.getBrands();
         this.tenancies.channel.choices = await this.getChannels();
         this.tenancies.factory.choices = await this.getFactories();
+        this._selectDefaultValue("brand");
+        this._selectDefaultValue("channel");
+        this._selectDefaultValue("factory");
     },
     methods: {
         async getBrands() {
@@ -192,7 +191,7 @@ export const SaveFilterModal = {
         },
         async getChannels() {
             // TODO fix me, I'm hardcoded and have 1 option
-            return [{ value: "channel_a", label: "Channel A" }];
+            return [{ value: "channel_a", label: "Channel A" }, { value: "channel_aadsf", label: "Channelads A" }];
         },
         async getFactories() {
             // TODO fix me, I'm hardcoded and have 5 option
@@ -204,35 +203,17 @@ export const SaveFilterModal = {
                 { value: "factory_e", label: "Factory E" }
             ];
         },
-        isTenancyChoiceSelected(value) {
+        isTenancyItemSelected(value) {
             return Boolean(this.checkboxValuesData[value]);
         },
-        hasTenancyChoice(tenancy) {
-            return this.tenancies[tenancy].choices.length > 0;
+        getContext(tenancy) {
+            return this.tenancies[tenancy].selectedValue;
         },
-        hasTenancyChoices(tenancy) {
-            return this.tenancies[tenancy].choices.length > 1;
+        setSelectedTenancy(tenancy, value) {
+            this.tenancies[tenancy].selectedValue = value;
         },
-        getTenancyChoices(tenancy) {
-            return this.tenancies[tenancy].choices;
-        },
-        getSelectedTenancy(tenancy) {
-            return this.hasTenancyChoices(tenancy) || tenancy === "user"
-                ? this.tenancies[tenancy].selectedValue
-                : this.tenancies[tenancy].choices[0].value;
-        },
-        setSelectedTenancy(value, selectedValue) {
-            if (!this.tenancies[value]) throw new Error("Invalid tenancy value");
-
-            this.tenancies[value].selectedValue = selectedValue;
-        },
-        selectPlaceholder(item) {
-            return `Select ${item.label}`;
-        },
-        closeAllSelects() {
-            Object.values(this.tenancies).forEach(tenancy => {
-                tenancy.selectVisible = false;
-            });
+        onSelected(tenancy, value) {
+            this.setSelectedTenancy(tenancy, value);
         },
         onDiscardClick() {
             this.$emit("click:cancel");
@@ -240,12 +221,10 @@ export const SaveFilterModal = {
         onSaveClick() {
             this.$emit("click:confirm");
         },
-        onUpdateSelectVisible(tenancyValue, visibleValue) {
-            this.closeAllSelects();
-            this.tenancies[tenancyValue].selectVisible = visibleValue;
-        },
-        onSelected(tenancyValue, selectedValue) {
-            this.setSelectedTenancy(tenancyValue, selectedValue);
+        _selectDefaultValue(tenancy) {
+            if (this.tenancies[tenancy].choices.length === 1) {
+                this.tenancies[tenancy].selectedValue = this.tenancies[tenancy].choices[0];
+            }
         }
     }
 };
