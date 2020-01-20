@@ -13,7 +13,7 @@
             v-on:focus="onFocus"
         />
         <div class="symbol" v-bind:style="symbolStyle">
-            {{ symbol }}
+            {{ convertedSymbol }}
         </div>
     </div>
 </template>
@@ -100,6 +100,10 @@ export const InputSymbol = {
             type: String,
             default: ""
         },
+        convertToCurrency: {
+            type: Boolean,
+            default: true
+        },
         autofocus: {
             type: Boolean,
             default: false
@@ -147,6 +151,28 @@ export const InputSymbol = {
                 "line-height": this.height === null ? null : `${this.height}px`
             };
             return base;
+        },
+        convertedSymbol() {
+            if (!this.convertToCurrency) return this.symbol;
+            const symbols = {
+                EUR: "€", // Euro
+                CRC: "₡", // Costa Rican Colón
+                GBP: "£", // British Pound Sterling
+                ILS: "₪", // Israeli New Sheqel
+                INR: "₹", // Indian Rupee
+                JPY: "¥", // Japanese Yen
+                KRW: "₩", // South Korean Won
+                NGN: "₦", // Nigerian Naira
+                PHP: "₱", // Philippine Peso
+                PLN: "zł", // Polish Zloty
+                PYG: "₲", // Paraguayan Guarani
+                THB: "฿", // Thai Baht
+                UAH: "₴", // Ukrainian Hryvnia
+                USD: "$", // US Dollar
+                VND: "₫" // Vietnamese Dong
+            };
+            const symbol = symbols[this.symbol.toString().toUpperCase()];
+            return symbol || this.symbol;
         }
     },
     watch: {

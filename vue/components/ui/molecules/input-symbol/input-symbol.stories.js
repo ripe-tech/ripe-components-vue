@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text, boolean, number, select } from "@storybook/addon-knobs";
 
-storiesOf("Organisms", module)
+storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Input Symbol", () => ({
         props: {
@@ -50,6 +50,9 @@ storiesOf("Organisms", module)
             disabled: {
                 default: boolean("Disabled", false)
             },
+            convertToCurrency: {
+                default: boolean("Convert To Currency", true)
+            },
             height: {
                 default: number("Height", null)
             },
@@ -78,6 +81,7 @@ storiesOf("Organisms", module)
                     v-bind:variant="variant"
                     v-bind:disabled="disabled"
                     v-bind:placeholder="placeholder"
+                    v-bind:convert-to-currency="convertToCurrency"
                     v-bind:symbol="symbol" />
                 <p>Text: {{ valueData }}</p>
             </div>
