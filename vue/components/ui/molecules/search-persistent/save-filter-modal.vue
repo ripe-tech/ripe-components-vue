@@ -238,8 +238,8 @@ export const SaveFilterModal = {
             return `Select ${item.label}`;
         },
         closeAllSelects() {
-            Object.keys(this.tenancies).forEach(key => {
-                this.tenancies[key].selectVisible = false;
+            Object.values(this.tenancies).forEach(tenancy => {
+                tenancy.selectVisible = false;
             });
         },
         onDiscardClick() {
