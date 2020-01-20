@@ -23,7 +23,7 @@
         <form-input v-bind:header="'Tenancy'" v-if="checkableTenancyChoices.length !== 1">
             <checkbox
                 v-bind:items="checkableTenancyChoices"
-                v-bind:values.sync="tenancyCheckboxValuesData"
+                v-bind:values.sync="checkboxValuesData"
             >
                 <template v-slot="{ item }">
                     <select-ripe
@@ -32,8 +32,8 @@
                         v-bind:width="200"
                         v-bind:align="'left'"
                         v-bind:max-height="150"
-                        v-bind:options="getTenancyItems(item.value)"
-                        v-if="hasMinTenancyChoices(item.value)"
+                        v-bind:options="getTenancyChoices(item.value)"
+                        v-if="hasTenancyChoices(item.value)"
                         v-show="isTenancyChoiceSelected(item.value)"
                         v-on:update:visible="value => onUpdateSelectVisible(item.value, value)"
                         v-on:update:value="value => onSelected(item.value, value)"
@@ -106,7 +106,7 @@ export const SaveFilterModal = {
         return {
             filterNameData: null,
             searchData: this.search,
-            tenancyCheckboxValuesData: {},
+            checkboxValuesData: {},
             tenancies: {
                 user: {
                     choices: [],
@@ -141,12 +141,12 @@ export const SaveFilterModal = {
             return (
                 this.searchData &&
                 this.filterNameData &&
-                Object.keys(this.tenancyCheckboxValuesData).length > 0 &&
+                Object.keys(this.checkboxValuesData).length > 0 &&
                 this.isTenancyFormValid
             );
         },
         filters() {
-            return Object.keys(this.tenancyCheckboxValuesData).map(tenancy => ({
+            return Object.keys(this.checkboxValuesData).map(tenancy => ({
                 name: this.filterNameData,
                 value: this.searchData,
                 tenancy: tenancy,
@@ -166,15 +166,9 @@ export const SaveFilterModal = {
             return true;
         },
         checkableTenancyChoices() {
-            const checkableTenancyChoices = [];
-
-            this.tenancyItems.forEach(item => {
-                if (item.value === "user" || this.hasTenancyChoice(item.value)) {
-                    checkableTenancyChoices.push(item);
-                }
-            });
-
-            return checkableTenancyChoices;
+            return this.tenancyItems.filter(
+                item => item.value === "user" || this.hasTenancyChoice(item.value)
+            );
         }
     },
     mounted: async function() {
@@ -211,23 +205,21 @@ export const SaveFilterModal = {
             ];
         },
         isTenancyChoiceSelected(value) {
-            return Boolean(this.tenancyCheckboxValuesData[value]);
+            return Boolean(this.checkboxValuesData[value]);
         },
-        hasTenancyChoice(value) {
-            return Boolean(this.tenancies[value] && this.tenancies[value].choices.length);
+        hasTenancyChoice(tenancy) {
+            return this.tenancies[tenancy].choices.length > 0;
         },
-        hasMinTenancyChoices(value) {
-            return Boolean(this.tenancies[value] && this.tenancies[value].choices.length > 1);
+        hasTenancyChoices(tenancy) {
+            return this.tenancies[tenancy].choices.length > 1;
         },
-        getTenancyItems(value) {
-            return this.tenancies[value] ? this.tenancies[value].choices : null;
+        getTenancyChoices(tenancy) {
+            return this.tenancies[tenancy].choices;
         },
-        getSelectedTenancy(value) {
-            if (this.tenancies[value]) {
-                return this.hasMinTenancyChoices(value) || value === "user"
-                    ? this.tenancies[value].selectedValue
-                    : this.tenancies[value].choices[0].value;
-            } else return null;
+        getSelectedTenancy(tenancy) {
+            return this.hasTenancyChoices(tenancy) || tenancy === "user"
+                ? this.tenancies[tenancy].selectedValue
+                : this.tenancies[tenancy].choices[0].value;
         },
         setSelectedTenancy(value, selectedValue) {
             if (!this.tenancies[value]) throw new Error("Invalid tenancy value");
