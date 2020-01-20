@@ -142,7 +142,7 @@
 }
 
 .table-menu .content-menu ::v-deep .content .content-table {
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .table-menu .content-menu ::v-deep .content .table .table-head .table-column {
