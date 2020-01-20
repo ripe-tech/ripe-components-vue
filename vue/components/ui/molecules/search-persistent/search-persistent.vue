@@ -18,7 +18,7 @@
             v-bind:visible.sync="selectVisibleData"
             v-bind:dropdown-min-width="dropdownMinWidth"
             v-on:update:value="onSelected"
-            v-on:dropdown:animation:ended="onDropdownAnimationEnded"
+            v-on:dropdown:animation:close:ended="onDropdownAnimationCloseEnded"
         >
             <template v-for="(item, index) in filtersData" v-bind:slot="getSelectValue(item)">
                 <div
@@ -359,7 +359,7 @@ export const SearchPersistent = {
         onSelected(item, index) {
             this.selectFilter(index);
         },
-        onDropdownAnimationEnded() {
+        onDropdownAnimationCloseEnded() {
             this.selectedFilter = this.pendingSelectedFilter;
         }
     }

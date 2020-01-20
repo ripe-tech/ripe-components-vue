@@ -224,7 +224,7 @@ export const Dropdown = {
             this.dehighlight(index);
         },
         onSlideAfterLeave() {
-            this.$emit("animation:ended");
+            this.$emit("animation:close:ended");
         },
         _getItemClasses(item, index) {
             return {
