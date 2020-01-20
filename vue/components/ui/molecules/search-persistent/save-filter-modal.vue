@@ -108,12 +108,26 @@ export const SaveFilterModal = {
             searchData: this.search,
             tenancyItemsData: this.tenancyItems,
             visibleSelects: new Array(this.tenancyItems.length).fill(false),
-            brands: [],
-            brandSelected: null,
-            channels: [],
-            channelSelected: null,
-            factories: [],
-            factorySelected: null
+            
+
+            tenancies: {
+                user: { //special case
+                    choices: [], //Always empty
+                    selectedValue: "user" //Always user
+                },
+                brand: {
+                    choices: [],
+                    selectedValue: null
+                },
+                channel: {
+                    choices: [],
+                    selectedValue: null
+                },
+                factory: {
+                    choices: [],
+                    selectedValue: null
+                }
+            }
         };
     },
     watch: {
@@ -155,9 +169,16 @@ export const SaveFilterModal = {
     },
     mounted: async function() {
         // Getting brands, channels and factories
-        this.brands = await this.getBrands();
-        this.channels = await this.getChannels();
-        this.factories = await this.getFactories();
+        //this.brands = await this.getBrands();
+        //this.channels = await this.getChannels();
+        //this.factories = await this.getFactories();
+
+        this.tenancies.brand.choices = await this.getBrands();
+        this.tenancies.channel.choices = await this.getChannels();
+        this.tenancies.factory.choices = await this.getFactories();
+
+        //console.log("\n\nTesting stuff");
+        //console.log("stuff", this.hasTenancyItems("fafw"));
 
         this.removeInvalidChoices();
     },
@@ -206,75 +227,91 @@ export const SaveFilterModal = {
             return this.hasTenancyItems(value) && this.hasRequiredItemsLength(value);
         },
         hasTenancyItems(value) {
-            switch (value) {
-                case "brand":
-                    return Boolean(this.brands.length);
-                case "channel":
-                    return Boolean(this.channels.length);
-                case "factory":
-                    return Boolean(this.factories.length);
-                default:
-                    return false;
-            }
+            return Boolean(this.tenancies[value] && this.tenancies[value].choices.length);
+
+           //switch (value) {
+           //    case "brand":
+           //        return Boolean(this.brands.length);
+           //    case "channel":
+           //        return Boolean(this.channels.length);
+           //    case "factory":
+           //        return Boolean(this.factories.length);
+           //    default:
+           //        return false;
+           //}
         },
         hasRequiredItemsLength(value) {
-            switch (value) {
-                case "brand":
-                    return this.brands.length > 1;
-                case "channel":
-                    return this.channels.length > 1;
-                case "factory":
-                    return this.factories.length > 1;
-                default:
-                    return false;
-            }
+            return Boolean(this.tenancies[value] && this.tenancies[value].choices.length > 1);
+            
+            //switch (value) {
+            //    case "brand":
+            //        return this.brands.length > 1;
+            //    case "channel":
+            //        return this.channels.length > 1;
+            //    case "factory":
+            //        return this.factories.length > 1;
+            //    default:
+            //        return false;
+            //}
         },
         getTenancyItems(value) {
-            if (!this.hasTenancyItems(value)) return null;
+            return this.tenancies[value] ? this.tenancies[value].choices : null;
 
-            switch (value) {
-                case "brand":
-                    return this.brands;
-                case "channel":
-                    return this.channels;
-                case "factory":
-                    return this.factories;
-                default:
-                    return null;
-            }
+            //if (!this.hasTenancyItems(value)) return null;
+//
+            //switch (value) {
+            //    case "brand":
+            //        return this.brands;
+            //    case "channel":
+            //        return this.channels;
+            //    case "factory":
+            //        return this.factories;
+            //    default:
+            //        return null;
+            //}
         },
         getSelectedTenancy(value) {
-            switch (value) {
-                case "user":
-                    return "user";
-                case "brand":
-                    if (!this.hasRequiredItemsLength(value)) return this.brands[0].value;
-                    else return this.brandSelected;
-                case "channel":
-                    if (!this.hasRequiredItemsLength(value)) return this.channels[0].value;
-                    else return this.channelSelected;
-                case "factory":
-                    if (!this.hasRequiredItemsLength(value)) {
-                        return this.factories[0].value;
-                    } else return this.factorySelected;
-                default:
-                    return null;
-            }
+            if(value === "user") return this.tenancies[value].selectedValue; //TODO change value === user to some default computed stuff
+
+            if(this.tenancies[value]) return this.hasRequiredItemsLength(value) ? this.tenancies[value].selectedValue: this.tenancies[value].choices[0].value;
+            else return null;
+
+
+            //switch (value) {
+            //    case "user":
+            //        return "user";
+            //    case "brand":
+            //        if (!this.hasRequiredItemsLength(value)) return this.brands[0].value;
+            //        else return this.brandSelected;
+            //    case "channel":
+            //        if (!this.hasRequiredItemsLength(value)) return this.channels[0].value;
+            //        else return this.channelSelected;
+            //    case "factory":
+            //        if (!this.hasRequiredItemsLength(value)) {
+            //            return this.factories[0].value;
+            //        } else return this.factorySelected;
+            //    default:
+            //        return null;
+            //}
         },
         setSelectedTenancy(value, selectedValue) {
-            switch (value) {
-                case "brand":
-                    this.brandSelected = selectedValue;
-                    break;
-                case "channel":
-                    this.channelSelected = selectedValue;
-                    break;
-                case "factory":
-                    this.factorySelected = selectedValue;
-                    break;
-                default:
-                    throw new Error("Invalid tenancy value");
-            }
+            if(!this.tenancies[value]) throw new Error("Invalid tenancy value");
+            
+            this.tenancies[value].selectedValue = selectedValue;
+
+            //switch (value) {
+            //    case "brand":
+            //        this.brandSelected = selectedValue;
+            //        break;
+            //    case "channel":
+            //        this.channelSelected = selectedValue;
+            //        break;
+            //    case "factory":
+            //        this.factorySelected = selectedValue;
+            //        break;
+            //    default:
+            //        
+            //}
         },
         selectPlaceholder(item) {
             return `Select ${item.label}`;
