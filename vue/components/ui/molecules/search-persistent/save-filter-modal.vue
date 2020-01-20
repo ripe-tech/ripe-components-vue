@@ -229,10 +229,8 @@ export const SaveFilterModal = {
             return this.tenancies[value] ? this.tenancies[value].choices : null;
         },
         getSelectedTenancy(value) {
-            if (value === this.userTenancy.value) return this.tenancies[value].selectedValue;
-
             if (this.tenancies[value]) {
-                return this.hasRequiredItemsLength(value)
+                return this.hasRequiredItemsLength(value) || value === "user"
                     ? this.tenancies[value].selectedValue
                     : this.tenancies[value].choices[0].value;
             } else return null;
