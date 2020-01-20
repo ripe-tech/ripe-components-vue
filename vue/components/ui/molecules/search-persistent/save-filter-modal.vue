@@ -107,7 +107,28 @@ export const SaveFilterModal = {
             filterNameData: null,
             searchData: this.search,
             tenancyCheckboxValuesData: {},
-            tenancies: {}
+            tenancies: {
+                user: {
+                    choices: [],
+                    selectedValue: "user",
+                    selectVisible: false
+                },
+                brand: {
+                    choices: [],
+                    selectedValue: null,
+                    selectVisible: false
+                },
+                channel: {
+                    choices: [],
+                    selectedValue: null,
+                    selectVisible: false
+                },
+                factory: {
+                    choices: [],
+                    selectedValue: null,
+                    selectVisible: false
+                },
+            }
         };
     },
     watch: {
@@ -144,25 +165,6 @@ export const SaveFilterModal = {
 
             return true;
         },
-        userTenancy() {
-            return { choices: [], selectedValue: "user", selectVisible: false };
-        },
-        builtTenancies() {
-            const builtTenancies = {};
-
-            this.tenancyItems.forEach(item => {
-                if (item.value === "user") builtTenancies[item.value] = this.userTenancy;
-                else {
-                    builtTenancies[item.value] = {
-                        choices: [],
-                        selectedValue: null,
-                        selectVisible: false
-                    };
-                }
-            });
-
-            return builtTenancies;
-        },
         checkableTenancyChoices() {
             const checkableTenancyChoices = [];
 
@@ -174,8 +176,6 @@ export const SaveFilterModal = {
         }
     },
     mounted: async function() {
-        this.tenancies = this.builtTenancies;
-
         // Getting brands, channels and factories
         this.tenancies.brand.choices = await this.getBrands();
         this.tenancies.channel.choices = await this.getChannels();
