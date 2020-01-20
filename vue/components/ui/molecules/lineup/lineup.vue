@@ -10,73 +10,80 @@
             <div
                 class="lineup-item-container"
                 v-bind:style="lineupItemStyle"
-                v-bind:class="`lineup-item-container-${value.value}`"
-                v-for="value in values"
-                v-bind:key="value.value"
+                v-bind:class="`lineup-item-container-${field.value}`"
+                v-for="field in fields"
+                v-bind:key="field.value"
             >
-                <slot v-bind:name="value.value" v-bind:item="item" v-bind:index="index">
+                <slot v-bind:name="field.value" v-bind:item="item" v-bind:index="index">
                     <div
                         class="lineup-item-contents"
-                        v-bind:class="[value.value, `lineup-item-contents-${value.value}`]"
-                        v-bind:key="value.value"
+                        v-bind:class="`lineup-item-contents-${field.value}`"
+                        v-bind:key="field.value"
                     >
                         <div class="key">
                             <slot
-                                v-bind:name="`${value.value}-key`"
+                                v-bind:name="`${field.value}-key`"
                                 v-bind:item="item"
                                 v-bind:index="index"
                             >
-                                <p class="label-text">
+                                <div class="label-text">
                                     <slot
-                                        v-bind:name="`${value.value}-label-text`"
+                                        v-bind:name="`${field.value}-label-text`"
                                         v-bind:item="item"
                                         v-bind:index="index"
                                     >
-                                        {{ value.label || value.value || value.name }}
+                                        {{ field.label || field.value || field.name }}
                                     </slot>
-                                </p>
+                                </div>
                             </slot>
                         </div>
-                        <div class="value">
+                        <div class="field">
                             <slot
-                                v-bind:name="`${value.value}-value`"
+                                v-bind:name="`${field.value}-field`"
                                 v-bind:item="item"
                                 v-bind:index="index"
                             >
-                                <p class="value-text">
+                                <div class="field-text">
                                     <slot
-                                        v-bind:name="`${value.value}-value-text`"
+                                        v-bind:name="`${field.value}-field-text`"
                                         v-bind:item="item"
                                         v-bind:index="index"
                                     >
                                         {{
-                                            item[value.value] !== null &&
-                                                item[value.value] !== undefined
-                                                ? item[value.value]
+                                            item[field.value] !== null &&
+                                                item[field.value] !== undefined
+                                                ? item[field.value]
                                                 : "-"
                                         }}
                                     </slot>
-                                </p>
+                                </div>
                             </slot>
                         </div>
-                        <div class="note">
+                        <div
+                            class="note"
+                            v-if="
+                                field.note ||
+                                    $slots[`${field.value}-note`] ||
+                                    $slots[`${field.value}-note-text`]
+                            "
+                        >
                             <slot
-                                v-bind:name="`${value.value}-note`"
+                                v-bind:name="`${field.value}-note`"
                                 v-bind:item="item"
                                 v-bind:index="index"
                             >
-                                <p
+                                <div
                                     class="note-text"
-                                    v-if="value.note || $slots[`${value.value}-note-text`]"
+                                    v-if="field.note || $slots[`${field.value}-note-text`]"
                                 >
                                     <slot
-                                        v-bind:name="`${value.value}-note-text`"
+                                        v-bind:name="`${field.value}-note-text`"
                                         v-bind:item="item"
                                         v-bind:index="index"
                                     >
-                                        {{ item[value.note] }}
+                                        {{ item[field.note] }}
                                     </slot>
-                                </p>
+                                </div>
                             </slot>
                         </div>
                     </div>
@@ -120,11 +127,7 @@
     text-transform: uppercase;
 }
 
-.lineup > .lineup-item > .lineup-item-container > .lineup-item-contents > .key > .label-text {
-    margin: 0px 0px 0px 0px;
-}
-
-.lineup > .lineup-item > .lineup-item-container > .lineup-item-contents > .value {
+.lineup > .lineup-item > .lineup-item-container > .lineup-item-contents > .field {
     color: #0d0d0d;
     font-size: 14px;
     font-weight: 600;
@@ -146,7 +149,7 @@ export const Lineup = {
             type: Array,
             required: true
         },
-        values: {
+        fields: {
             type: Array,
             required: true
         },

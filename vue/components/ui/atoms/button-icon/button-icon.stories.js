@@ -34,13 +34,17 @@ storiesOf("Atoms", module)
             size: {
                 default: number("Size", 30)
             },
+            padding: {
+                default: number("Padding", null)
+            },
             disabled: {
                 default: boolean("Disabled", false)
             }
         },
         template: `
             <div>
-                <button-icon v-bind:icon="icon" v-bind:color="color" v-bind:size="size" v-bind:disabled="disabled" />
+                <button-icon v-bind:icon="icon" v-bind:color="color" v-bind:size="size" v-bind:padding="padding"
+                    v-bind:disabled="disabled" />
             </div>
         `
     }));
