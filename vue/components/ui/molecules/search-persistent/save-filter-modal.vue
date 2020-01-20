@@ -21,7 +21,10 @@
             <input-ripe v-bind:variant="'dark'" v-bind:value.sync="searchData" />
         </form-input>
         <form-input v-bind:header="'Tenancy'" v-if="!isTenancyEmpty">
-            <checkbox v-bind:items="tenancyItemsData" v-bind:values.sync="tenancyCheckboxValuesData">
+            <checkbox
+                v-bind:items="tenancyItemsData"
+                v-bind:values.sync="tenancyCheckboxValuesData"
+            >
                 <template v-slot="{ item }">
                     <select-ripe
                         v-bind:visible.sync="tenancies[item.value].selectVisible"
