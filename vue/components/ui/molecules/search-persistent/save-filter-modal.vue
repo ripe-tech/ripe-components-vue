@@ -170,7 +170,7 @@ export const SaveFilterModal = {
             const checkableTenancyChoices = [];
 
             this.tenancyItems.forEach(item => {
-                if (this.isTenancyChoiceValid(item.value)) checkableTenancyChoices.push(item);
+                if (value === "user" || this.hasTenancyItems(item.value)) checkableTenancyChoices.push(item);
             });
 
             return checkableTenancyChoices;
@@ -213,9 +213,6 @@ export const SaveFilterModal = {
         },
         isTenancyChoiceSelected(value) {
             return Boolean(this.tenancyCheckboxValuesData[value]);
-        },
-        isTenancyChoiceValid(value) {
-            return value === "user" || this.hasTenancyItems(value);
         },
         hasTenancyItems(value) {
             return Boolean(this.tenancies[value] && this.tenancies[value].choices.length);
