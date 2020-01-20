@@ -32,6 +32,8 @@ storiesOf("Molecules", module).add("Table Custom", () => ({
         }
     },
     template: `
+    <div>
+        <h2>Table 1 - Before and after rows override:</h2>
         <table-ripe
             class="table"
             v-bind:columns="mockColumns"
@@ -59,5 +61,32 @@ storiesOf("Molecules", module).add("Table Custom", () => ({
                 </tr>
             </template>
         </table-ripe>
+
+        <h2>Table 2 - Specific row override:</h2>
+        <table-ripe
+                class="table"
+                v-bind:columns="mockColumns"
+                v-bind:items="mockItems"
+            >
+            <template v-slot:item-2="{ item, index }">
+                <tr v-bind:key="index">
+                    <td colspan="3">Override of row index {{ index }}</td>
+                </tr>
+            </template>
+        </table-ripe>
+
+        <h2>Table 3 - Complete row override:</h2>
+        <table-ripe
+                class="table"
+                v-bind:columns="mockColumns"
+                v-bind:items="mockItems"
+            >
+            <template v-slot:row="{ item, index }">
+                <tr v-bind:key="index">
+                    <td colspan="3">Complete row {{ index }}</td>
+                </tr>
+            </template>
+        </table-ripe>
+    </div>
     `
 }));
