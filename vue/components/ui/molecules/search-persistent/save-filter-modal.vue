@@ -20,7 +20,7 @@
         <form-input v-bind:header="'Search'">
             <input-ripe v-bind:variant="'dark'" v-bind:value.sync="searchData" />
         </form-input>
-        <form-input v-bind:header="'Tenancy'" v-if="!isTenancyEmpty">
+        <form-input v-bind:header="'Tenancy'" v-if="checkableTenancyChoices.length < 1">
             <checkbox
                 v-bind:items="checkableTenancyChoices"
                 v-bind:values.sync="tenancyCheckboxValuesData"
@@ -131,9 +131,6 @@ export const SaveFilterModal = {
                 tenancy: tenancy,
                 context: this.getSelectedTenancy(tenancy)
             }));
-        },
-        isTenancyEmpty() {
-            return this.checkableTenancyChoices.length === 1;
         },
         isTenancyFormValid() {
             for (const item of this.checkableTenancyChoices) {
