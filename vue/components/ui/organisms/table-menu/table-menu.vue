@@ -8,7 +8,8 @@
             v-bind:animation-duration="animationDuration"
         >
             <template v-slot:content>
-                <div class="content-container" v-bind:style="contentStyle">
+                <slot name="content-header" />
+                <div class="content-table" v-bind:style="contentStyle" id="content-table">
                     <table-ripe
                         v-bind:columns="columns"
                         v-bind:items="items"
@@ -23,29 +24,18 @@
                             <slot name="item" v-bind:item="item" v-bind:index="index">
                                 <td
                                     v-bind:class="column.value"
-                                    v-for="column in columns"
+                                    v-for="(column, columnIndex) in columns"
                                     v-bind:key="column.value"
                                 >
-                                    <span v-if="column.type !== 'boolean'">
-                                        {{ item[column.value] }}
-                                    </span>
-                                    <checkmark v-bind:value="item[column.value]" v-else />
+                                    <span v-if="columnIndex === 0 && selectedIndexData === index">✏️</span>
+                                    <checkmark v-bind:value="item[column.value]" v-else-if="column.type === 'boolean'" />
+                                    <span v-else>{{ item[column.value] }}</span>
                                 </td>
                             </slot>
                         </template>
                     </table-ripe>
-                    <slot name="content-footer">
-                        <button-color
-                            class="add-item"
-                            v-bind:icon="'add'"
-                            v-bind:min-width="0"
-                            v-bind:color="'white'"
-                            v-bind:text="'New row'"
-                            v-bind:small="true"
-                            v-on:click="onClickAddItem"
-                        />
-                    </slot>
                 </div>
+                <slot name="content-footer" />
             </template>
             <template v-slot:menu>
                 <div class="menu-container" v-bind:style="menuStyle">
@@ -152,10 +142,8 @@
     width: 100%;
 }
 
-.table-menu .content-menu ::v-deep .content .table .table-head {
-    display: table;
-    table-layout: fixed;
-    width: 100%;
+.table-menu .content-menu ::v-deep .content .content-table {
+    overflow-y: scroll;
 }
 
 .table-menu .content-menu ::v-deep .content .table .table-head .table-column {
@@ -163,19 +151,9 @@
     text-overflow: ellipsis;
 }
 
-.table-menu .content-menu ::v-deep .content .table .table-body {
-    display: inline-block;
-    max-height: var(--max-height);
-    overflow-x: auto;
-    table-layout: fixed;
-}
-
 .table-menu .content-menu ::v-deep .content .table .table-body > tr {
     cursor: pointer;
-    display: table;
-    table-layout: fixed;
     transition: opacity 0.25s ease-in-out;
-    width: 100%;
 }
 
 .table-menu .content-menu ::v-deep .content .table .table-body > tr:hover {
@@ -278,7 +256,7 @@ export const TableMenu = {
         },
         contentStyle() {
             const base = {};
-            base["--max-height"] = this.maxHeight ? `${this.maxHeight}px` : null;
+            base["max-height"] = this.maxHeight ? `${this.maxHeight}px` : null;
             return base;
         },
         selectedItem() {
@@ -294,6 +272,9 @@ export const TableMenu = {
         },
         selectedIndex(value) {
             this.selectedIndexData = value;
+        },
+        selectedIndexData(value) {
+            this.$emit("update:selected-index", value);
         },
         sort(value) {
             this.sortData = value;
@@ -313,6 +294,7 @@ export const TableMenu = {
     methods: {
         toggleMenu() {
             this.menuVisibleData = !this.menuVisibleData;
+            this.selectedIndexData = null;
         },
         setMenuItem(index) {
             this.selectedIndexData = index;
@@ -348,6 +330,14 @@ export const TableMenu = {
         toggleCheckbox(property, value) {
             if (!(property in this.selectedItem)) return;
             this.$set(this.items[this.selectedIndexData], property, value);
+        },
+        scrollToBottom() {
+            const table = document.getElementById("content-table");
+            table.scrollTop = table.scrollHeight;
+        },
+        scrollToTop() {
+            const table = document.getElementById("content-table");
+            table.scrollTop = 0;
         },
         onClickItem(item, index) {
             if (typeof index !== "number") return;
