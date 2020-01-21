@@ -260,12 +260,15 @@ export const Table = {
         };
     },
     computed: {
+        itemsWithIndex() {
+            return this.items.map((item, index) => ({ _originalIndex: index, ...item }));
+        },
         sortedItems() {
             if (!this.sortData) {
                 return this.items;
             }
 
-            const items = [...this.items];
+            const items = [...this.itemsWithIndex];
             return this.sortMethod(items, this.sortData, this.reverseData);
         }
     },
@@ -280,8 +283,8 @@ export const Table = {
             this.$emit("update:sort", this.sortData);
             this.$emit("update:reverse", this.reverseData);
         },
-        onClick(item, index) {
-            this.$emit("click", item, index);
+        onClick(item) {
+            this.$emit("click", item, item._originalIndex);
         }
     }
 };
