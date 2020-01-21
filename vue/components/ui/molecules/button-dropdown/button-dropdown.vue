@@ -157,32 +157,10 @@ export const ButtonDropdown = {
             this.$emit("click:item-dropdown", { value: item.value });
         },
         iconPath(iconName) {
-            let iconColor;
-
-            switch (this.color) {
-                case "white":
-                    iconColor = "black";
-                    break;
-                default:
-                    iconColor = "white";
-                    break;
-            }
-
-            return require(`./../../../../assets/icons/${iconColor}/${iconName}.svg`);
+            return require(`./../../../../assets/icons/black/${iconName}.svg`);
         },
         iconHoverPath(iconName) {
-            let iconColor;
-
-            switch (this.color) {
-                case "white":
-                    iconColor = "white";
-                    break;
-                default:
-                    iconColor = "white";
-                    break;
-            }
-
-            return require(`./../../../../assets/icons/${iconColor}/${iconName}.svg`);
+            return require(`./../../../../assets/icons/white/${iconName}.svg`);
         }
     }
 };
