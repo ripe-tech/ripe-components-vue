@@ -39,7 +39,6 @@
                         v-bind:options="tenancies[item.value].choices"
                         v-if="tenancies[item.value].choices.length > 1"
                         v-show="isTenancyItemSelected(item.value)"
-                        v-on:update:value="value => onSelected(item.value, value)"
                         v-on:update:value="value => onSelected(item.value, item.label, value)"
                     />
                 </template>
