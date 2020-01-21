@@ -13,7 +13,7 @@
             v-on:focus="onFocus"
         />
         <div class="symbol" v-bind:style="symbolStyle">
-            {{ convertedSymbol }}
+            {{ symbol }}
         </div>
     </div>
 </template>
@@ -82,7 +82,7 @@ export const InputSymbol = {
     props: {
         symbol: {
             type: String,
-            default: "$"
+            required: true
         },
         value: {
             type: [String, Number],
@@ -99,10 +99,6 @@ export const InputSymbol = {
         placeholder: {
             type: String,
             default: ""
-        },
-        convertToCurrency: {
-            type: Boolean,
-            default: true
         },
         autofocus: {
             type: Boolean,
@@ -151,28 +147,6 @@ export const InputSymbol = {
                 "line-height": this.height === null ? null : `${this.height}px`
             };
             return base;
-        },
-        convertedSymbol() {
-            if (!this.convertToCurrency) return this.symbol;
-            const symbols = {
-                EUR: "€",
-                CRC: "₡",
-                GBP: "£",
-                ILS: "₪",
-                INR: "₹",
-                JPY: "¥",
-                KRW: "₩",
-                NGN: "₦",
-                PHP: "₱",
-                PLN: "zł",
-                PYG: "₲",
-                THB: "฿",
-                UAH: "₴",
-                USD: "$",
-                VND: "₫"
-            };
-            const symbol = symbols[this.symbol.toString().toUpperCase()];
-            return symbol || this.symbol;
         }
     },
     watch: {
