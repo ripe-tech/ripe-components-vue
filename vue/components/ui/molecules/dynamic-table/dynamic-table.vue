@@ -10,7 +10,7 @@
             v-bind:reverse="reverse"
             v-on:mouse:over="mouseOver"
         />
-        <div class="column-container" v-bind:style="columnStyle">
+        <div class="column" v-bind:style="columnStyle">
             <div
                 class="button-container"
                 v-bind:class="{ hovered: hoveredItem === index }"
@@ -23,8 +23,8 @@
                     v-bind:icon="'edit'"
                     v-bind:items="dropdownOptions"
                     v-bind:ref="'buttonDropdown'"
-                    v-on:click:item-dropdown="dropdownItemClicked"
-                    v-on:click:primary-button="editClicked"
+                    v-on:click:item-dropdown="dropdownItemPressed"
+                    v-on:click:primary-button="editPressed"
                 />
             </div>
         </div>
@@ -44,14 +44,14 @@ body.mobile .dynamic-table {
     display: none;
 }
 
-.dynamic-table .column-container {
+.dynamic-table .column {
     display: flex;
     flex-direction: column;
     position: absolute;
     width: 0px;
 }
 
-.dynamic-table .column-container .button-container {
+.dynamic-table .column .button-container {
     align-items: center;
     display: flex;
     flex: 1;
@@ -60,7 +60,7 @@ body.mobile .dynamic-table {
     position: relative;
 }
 
-.dynamic-table .column-container .button-container.hovered {
+.dynamic-table .column .button-container.hovered {
     overflow: visible;
 }
 
@@ -131,10 +131,10 @@ export const DynamicTable = {
             this.closeDropdown();
             this.hoveredItem = index;
         },
-        editClicked() {
+        editPressed() {
             this.$emit("click:edit", this.hoveredItem);
         },
-        dropdownItemClicked(item) {
+        dropdownItemPressed(item) {
             this.$emit("click:item-options", { value: item.value, index: this.hoveredItem });
         },
         closeDropdown() {
