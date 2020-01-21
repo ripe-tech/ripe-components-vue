@@ -51,7 +51,7 @@ storiesOf("Molecules", module)
                 default: boolean("Disabled", false)
             },
             convertToCurrency: {
-                default: boolean("Convert To Currency", true)
+                default: boolean("Convert to currency", true)
             },
             height: {
                 default: number("Height", null)
