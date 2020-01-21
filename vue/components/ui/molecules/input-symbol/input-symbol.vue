@@ -155,21 +155,21 @@ export const InputSymbol = {
         convertedSymbol() {
             if (!this.convertToCurrency) return this.symbol;
             const symbols = {
-                EUR: "€", // Euro
-                CRC: "₡", // Costa Rican Colón
-                GBP: "£", // British Pound Sterling
-                ILS: "₪", // Israeli New Sheqel
-                INR: "₹", // Indian Rupee
-                JPY: "¥", // Japanese Yen
-                KRW: "₩", // South Korean Won
-                NGN: "₦", // Nigerian Naira
-                PHP: "₱", // Philippine Peso
-                PLN: "zł", // Polish Zloty
-                PYG: "₲", // Paraguayan Guarani
-                THB: "฿", // Thai Baht
-                UAH: "₴", // Ukrainian Hryvnia
-                USD: "$", // US Dollar
-                VND: "₫" // Vietnamese Dong
+                EUR: "€",
+                CRC: "₡",
+                GBP: "£",
+                ILS: "₪",
+                INR: "₹",
+                JPY: "¥",
+                KRW: "₩",
+                NGN: "₦",
+                PHP: "₱",
+                PLN: "zł",
+                PYG: "₲",
+                THB: "฿",
+                UAH: "₴",
+                USD: "$",
+                VND: "₫"
             };
             const symbol = symbols[this.symbol.toString().toUpperCase()];
             return symbol || this.symbol;
