@@ -22,7 +22,7 @@
         </form-input>
         <form-input v-bind:header="'Tenancy'" v-if="tenancyItemsCheckable.length !== 1">
             <checkbox v-bind:items="tenancyItemsCheckable" v-bind:values.sync="checkboxValuesData">
-                <template v-slot="{ item }">
+                <template v-slot:after-item="{ item }">
                     <select-ripe
                         v-bind:placeholder="`Select ${item.label}`"
                         v-bind:width="200"

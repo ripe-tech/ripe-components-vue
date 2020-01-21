@@ -14,6 +14,7 @@
             v-on:click="onClick(item)"
             v-on:keydown.space="onSpace(item)"
         >
+            <slot name="before-item" v-bind:item="item" v-bind:index="index" />
             <div class="checkbox-input">
                 <input type="checkbox" class="value" v-bind:id="item.value" />
                 <div class="checkbox-square" />
@@ -21,7 +22,7 @@
                     item.label ? item.label : item.value
                 }}</label>
             </div>
-            <slot v-bind:item="item" v-bind:index="index" />
+            <slot name="after-item" v-bind:item="item" v-bind:index="index" />
         </div>
     </div>
 </template>
