@@ -3,8 +3,23 @@ import { withKnobs, text, boolean, number, select } from "@storybook/addon-knobs
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
-    .add("Input Symbol", () => ({
+    .add("Input Currency", () => ({
         props: {
+            value: {
+                default: number("Value", 50)
+            },
+            currency: {
+                default: select(
+                    "Currency",
+                    {
+                        USD: "USD",
+                        EUR: "EUR",
+                        JPY: "JPY",
+                        CHF: "CHF"
+                    },
+                    "USD"
+                )
+            },
             variant: {
                 default: select(
                     "Variant",
@@ -38,12 +53,6 @@ storiesOf("Molecules", module)
                     "right"
                 )
             },
-            value: {
-                default: text("Value", "This is a text")
-            },
-            symbol: {
-                default: text("Symbol", "€")
-            },
             placeholder: {
                 default: text("Placeholder", "This is a placeholder")
             },
@@ -69,7 +78,7 @@ storiesOf("Molecules", module)
         },
         template: `
             <div>
-                <input-symbol
+                <input-currency
                     v-bind:value.sync="valueData"
                     v-bind:height="height"
                     v-bind:width="width"
@@ -78,7 +87,7 @@ storiesOf("Molecules", module)
                     v-bind:variant="variant"
                     v-bind:disabled="disabled"
                     v-bind:placeholder="placeholder"
-                    v-bind:symbol="symbol" />
+                    v-bind:currency="currency" />
                 <p>Text: {{ valueData }}</p>
             </div>
         `
