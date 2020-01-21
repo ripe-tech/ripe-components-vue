@@ -69,6 +69,14 @@
     margin: 0px 10px 0px 10px;
     vertical-align: middle;
 }
+
+.form-input .content .checkbox ::v-deep .choice {
+    padding: 0px 0px 0px 0px;
+}
+
+.form-input .content .checkbox ::v-deep .choice .checkbox-input{
+    margin: 10px 10px 10px 0px;
+}
 </style>
 
 <script>
@@ -103,7 +111,6 @@ export const SaveFilterModal = {
     },
     data: function() {
         const user = this.$root ? (this.$root.account ? this.$root.account.username : null) : null;
-
         return {
             filterNameData: null,
             searchData: this.search,
