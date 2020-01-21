@@ -82,7 +82,14 @@ storiesOf("Atoms", module)
                         v-bind:values.sync="valuesData"
                         v-bind:disabled="disabled"
                         v-bind:error="error"
-                    />
+                    >
+                        <template v-slot:before-item="{ item, index }">
+                            <p>Custom before checkbox {{ item.label }}</p>
+                        </template>
+                        <template v-slot:after-item="{ item, index }">
+                            <p>Custom After checkbox {{ item.label }}</p>
+                        </template>
+                    </checkbox>
                 </form-input>
                 <p>Values: {{ valuesData }}</p>
             </div>
