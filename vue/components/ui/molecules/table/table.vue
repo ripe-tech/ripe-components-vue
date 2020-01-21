@@ -161,7 +161,6 @@
 .table ::v-deep td > .column-container > .details {
     color: #6d6d6d;
     font-size: 10px;
-    font-weight: 800;
     letter-spacing: 0.25px;
     margin-top: 8px;
     text-transform: uppercase;
