@@ -35,7 +35,9 @@
                                     v-bind:item="item"
                                     v-bind:index="index"
                                     v-bind:name="`item-${column.value}`"
-                                >{{ item[column.value] }}</slot>
+                                >
+                                    {{ item[column.value] }}
+                                </slot>
                             </td>
                         </slot>
                     </tr>
