@@ -23,6 +23,15 @@
         <form-input v-bind:header="'Tenancy'" v-if="tenancyItemsCheckable.length !== 1">
             <checkbox v-bind:items="tenancyItemsCheckable" v-bind:values.sync="checkboxValuesData">
                 <template v-slot:after-item="{ item }">
+                    <p
+                        class="seleced-label"
+                        v-show="
+                            isTenancyItemSelected(item.value) &&
+                                tenancies[item.value].choices.length === 1
+                        "
+                    >
+                        {{ tenancies[item.value].selectedLabel }}
+                    </p>
                     <select-ripe
                         v-bind:placeholder="`Select ${item.label}`"
                         v-bind:width="200"
@@ -31,6 +40,7 @@
                         v-if="tenancies[item.value].choices.length > 1"
                         v-show="isTenancyItemSelected(item.value)"
                         v-on:update:value="value => onSelected(item.value, value)"
+                        v-on:update:value="value => onSelected(item.value, item.label, value)"
                     />
                 </template>
             </checkbox>
@@ -64,9 +74,9 @@
     margin: 0px 0px 17px 0px;
 }
 
+.form-input .content .checkbox .seleced-label,
 .form-input .content .checkbox .select {
     display: inline-block;
-    margin: 0px 10px 0px 10px;
     vertical-align: middle;
 }
 
@@ -79,7 +89,7 @@
 }
 
 .form-input .content .checkbox ::v-deep .choice .checkbox-input label {
-    min-width: 50px;
+    min-width: 55px;
 }
 </style>
 
@@ -122,19 +132,23 @@ export const SaveFilterModal = {
             tenancies: {
                 user: {
                     choices: user ? [user] : [],
-                    selectedValue: user
+                    selectedValue: user,
+                    selectedLabel: user
                 },
                 brand: {
                     choices: [],
-                    selectedValue: null
+                    selectedValue: null,
+                    selectedLabel: null
                 },
                 channel: {
                     choices: [],
-                    selectedValue: null
+                    selectedValue: null,
+                    selectedLabel: null
                 },
                 factory: {
                     choices: [],
-                    selectedValue: null
+                    selectedValue: null,
+                    selectedLabel: null
                 }
             }
         };
@@ -213,11 +227,12 @@ export const SaveFilterModal = {
         getContext(tenancy) {
             return this.tenancies[tenancy].selectedValue;
         },
-        setSelectedTenancy(tenancy, value) {
+        setSelectedTenancy(tenancy, label, value) {
             this.tenancies[tenancy].selectedValue = value;
+            this.tenancies[tenancy].selectedLabel = label;
         },
-        onSelected(tenancy, value) {
-            this.setSelectedTenancy(tenancy, value);
+        onSelected(tenancy, label, value) {
+            this.setSelectedTenancy(tenancy, label, value);
         },
         onDiscardClick() {
             this.$emit("click:cancel");
@@ -228,6 +243,7 @@ export const SaveFilterModal = {
         _selectDefaultValue(tenancy) {
             if (this.tenancies[tenancy].choices.length === 1) {
                 this.tenancies[tenancy].selectedValue = this.tenancies[tenancy].choices[0].value;
+                this.tenancies[tenancy].selectedLabel = this.tenancies[tenancy].choices[0].label;
             }
         }
     }
