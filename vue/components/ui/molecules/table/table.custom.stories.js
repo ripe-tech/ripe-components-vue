@@ -61,7 +61,7 @@ storiesOf("Molecules", module).add("Table Custom", () => ({
                 </tr>
             </template>
         </table-ripe>
-        <h2>Table 2 - Specific column override:</h2>
+        <h2>Table 2 - Column override:</h2>
         <table-ripe
             class="table"
             v-bind:columns="mockColumns"
@@ -73,7 +73,7 @@ storiesOf("Molecules", module).add("Table Custom", () => ({
                 </tr>
             </template>
         </table-ripe>
-        <h2>Table 3 - Complete row override:</h2>
+        <h2>Table 3 - Row override:</h2>
         <table-ripe
             class="table"
             v-bind:columns="mockColumns"
