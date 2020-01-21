@@ -21,10 +21,7 @@
             <input-ripe v-bind:variant="'dark'" v-bind:value.sync="searchData" />
         </form-input>
         <form-input v-bind:header="'Tenancy'" v-if="tenancyItemsCheckable.length !== 1">
-            <checkbox
-                v-bind:items="tenancyItemsCheckable"
-                v-bind:values.sync="checkboxValuesData"
-            >
+            <checkbox v-bind:items="tenancyItemsCheckable" v-bind:values.sync="checkboxValuesData">
                 <template v-slot="{ item }">
                     <select-ripe
                         v-bind:placeholder="`Select ${item.label}`"
@@ -105,9 +102,7 @@ export const SaveFilterModal = {
         }
     },
     data: function() {
-        const user = this.$root ?
-            (this.$root.account ? this.$root.account.username : null) :
-            null;
+        const user = this.$root ? (this.$root.account ? this.$root.account.username : null) : null;
 
         return {
             filterNameData: null,
@@ -156,15 +151,13 @@ export const SaveFilterModal = {
             );
         },
         hasSomeContext() {
-            return this.tenancyItemsCheckable.some(item =>
-                this.isTenancyItemSelected(item.value) &&
-                this.getContext(item.value) !== null
+            return this.tenancyItemsCheckable.some(
+                item =>
+                    this.isTenancyItemSelected(item.value) && this.getContext(item.value) !== null
             );
         },
         tenancyItemsCheckable() {
-            return this.tenancyItems.filter(
-                item => this.tenancies[item.value].choices.length > 0
-            );
+            return this.tenancyItems.filter(item => this.tenancies[item.value].choices.length > 0);
         }
     },
     mounted: async function() {
@@ -191,7 +184,7 @@ export const SaveFilterModal = {
         },
         async getChannels() {
             // TODO fix me, I'm hardcoded and have 1 option
-            return [{ value: "channel_a", label: "Channel A" }, { value: "channel_aadsf", label: "Channelads A" }];
+            return [{ value: "channel_a", label: "Channel A" }];
         },
         async getFactories() {
             // TODO fix me, I'm hardcoded and have 5 option
