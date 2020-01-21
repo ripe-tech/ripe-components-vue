@@ -18,6 +18,7 @@
             v-bind:visible.sync="selectVisibleData"
             v-bind:dropdown-min-width="dropdownMinWidth"
             v-on:update:value="onSelected"
+            v-on:dropdown:animation:close:ended="onDropdownAnimationCloseEnded"
         >
             <template v-for="(item, index) in filtersData" v-bind:slot="getSelectValue(item)">
                 <div
@@ -208,6 +209,7 @@ export const SearchPersistent = {
     },
     data: function() {
         return {
+            pendingSelectedFilter: null,
             selectedFilter: null,
             valueData: this.value,
             filtersData: this.filters,
@@ -272,13 +274,28 @@ export const SearchPersistent = {
             return `${filter.name}${filter.tenancy}${filter.context}`;
         },
         selectFilter(index) {
-            this.selectedFilter = index;
+            this.pendingSelectedFilter = index;
+
             this.valueData = this.filtersData[index].value;
         },
         isFilterSelected(index) {
             return index === this.selectedFilter;
         },
+        filterExists(filter) {
+            return this.filtersData.findIndex(
+                f => f.name === filter.name && f.tenancy === filter.tenancy
+            );
+        },
         addFilters(filters) {
+            for (let i = 0; i < filters.length; i++) {
+                const index = this.filterExists(filters[i]);
+
+                if (index >= 0) {
+                    this.updateFilter(filters[i], index);
+                    filters.splice(i, 1);
+                }
+            }
+
             this.filtersData = this.filtersData.concat(filters);
             this.$emit("add:filters", filters);
             this.$emit("update:filters", this.filtersData);
@@ -341,6 +358,9 @@ export const SearchPersistent = {
         },
         onSelected(item, index) {
             this.selectFilter(index);
+        },
+        onDropdownAnimationCloseEnded() {
+            this.selectedFilter = this.pendingSelectedFilter;
         }
     }
 };

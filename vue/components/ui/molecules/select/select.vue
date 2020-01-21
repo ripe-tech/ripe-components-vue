@@ -46,6 +46,7 @@
                 v-bind:style="dropdownStyle"
                 ref="dropdown"
                 v-on:update:highlighted="onDropdownHighlighted"
+                v-on:animation:close:ended="onDropdownAnimationCloseEnded"
                 v-on:item-clicked="(value, index) => onDropdownItemClicked(value.value, index)"
             >
                 <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
@@ -157,6 +158,10 @@ export const Select = {
         disabled: {
             type: Boolean,
             default: false
+        },
+        width: {
+            type: Number,
+            default: null
         },
         maxHeight: {
             type: Number,
@@ -358,6 +363,9 @@ export const Select = {
                 .filter(value => value !== this.highlighted);
             if (indexes.length === 0) return;
             this.highlight(indexes[0]);
+        },
+        onDropdownAnimationCloseEnded() {
+            this.$emit("dropdown:animation:close:ended");
         }
     },
     computed: {
