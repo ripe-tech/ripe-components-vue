@@ -82,7 +82,7 @@ export const InputSymbol = {
     props: {
         symbol: {
             type: String,
-            default: "$"
+            required: true
         },
         value: {
             type: [String, Number],

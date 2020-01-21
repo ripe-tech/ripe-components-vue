@@ -1,0 +1,14 @@
+{
+    "EUR": {
+        "symbol": "€",
+        "places": 2
+    },
+    "GBP": {
+        "symbol": "£",
+        "places": 2
+    },
+    "USD": {
+        "symbol": "$",
+        "places": 2
+    }
+}

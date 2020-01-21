@@ -13,7 +13,11 @@
                 v-on:click="$emit('close')"
             >
                 <div class="image-container">
-                    <image-ripe v-bind:src="imageLightbox || image || ''" v-bind:alt="alt" v-bind:fade="false" />
+                    <image-ripe
+                        v-bind:src="imageLightbox || image || ''"
+                        v-bind:alt="alt"
+                        v-bind:fade="false"
+                    />
                 </div>
             </div>
         </transition>
