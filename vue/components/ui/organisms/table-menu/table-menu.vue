@@ -12,18 +12,16 @@
                 <div class="content-table" v-bind:style="contentStyle" id="content-table">
                     <table-ripe
                         v-bind:columns="columns"
-                        v-bind:items="items"
+                        v-bind:items="itemsWithIndex"
                         v-bind:sort.sync="sortData"
                         v-bind:sort-method="sortMethod"
                         v-bind:reverse.sync="reverseData"
-                        v-on:update:sort="onClickItem"
-                        v-on:update:reverse="onClickItem"
                     >
-                        <template v-slot:row="{ item, index }">
+                        <template v-slot:row="{ item }">
                             <tr
-                                v-bind:class="[{ selected: index === selectedIndexData }]"
+                                v-bind:class="[{ selected: item === selectedItem }]"
                                 v-bind:key="item.id"
-                                v-on:click="onClickItem(item, index)"
+                                v-on:click="onClickItem(item)"
                             >
                                 <td
                                     v-bind:class="column.value"
@@ -78,6 +76,7 @@
                                 <input-ripe
                                     v-bind:value.sync="selectedItem[editColumn]"
                                     v-bind:variant="inputVariant"
+                                    ref="textInput"
                                 />
                             </form-input>
                         </div>
@@ -158,7 +157,7 @@
 
 .table-menu .content-menu .content .table .table-body > tr {
     cursor: pointer;
-    transition: opacity 0.15s ease-in-out;
+    transition: opacity 0.1s ease-in-out;
 }
 
 .table-menu .content-menu .content .table .table-body > tr:hover {
@@ -178,13 +177,21 @@
 export const TableMenu = {
     name: "table-menu",
     props: {
+        items: {
+            type: Array,
+            default: () => []
+        },
         columns: {
             type: Array,
             default: () => []
         },
-        items: {
+        editColumns: {
             type: Array,
-            default: () => []
+            default: []
+        },
+        selectedIndex: {
+            type: Number,
+            default: null
         },
         sort: {
             type: String,
@@ -204,21 +211,17 @@ export const TableMenu = {
             type: Boolean,
             default: false
         },
-        alignment: {
-            type: String,
-            default: "right"
-        },
         mode: {
             type: String,
             default: "collapse"
         },
+        alignment: {
+            type: String,
+            default: "right"
+        },
         maxHeight: {
             type: Number,
             default: null
-        },
-        menuVisible: {
-            type: Boolean,
-            default: true
         },
         menuWidth: {
             type: Number,
@@ -228,36 +231,35 @@ export const TableMenu = {
             type: String,
             default: "Arguments"
         },
-        animationDuration: {
-            type: Number,
-            default: 0.3
-        },
-        editColumns: {
-            type: Array,
-            default: []
-        },
-        inputVariant: {
-            type: String,
-            default: "dark"
+        menuVisible: {
+            type: Boolean,
+            default: true
         },
         menuBackgroundColor: {
             type: String,
             default: "#ffffff"
         },
-        selectedIndex: {
+        inputVariant: {
+            type: String,
+            default: "dark"
+        },
+        animationDuration: {
             type: Number,
-            default: null
+            default: 0.3
         }
     },
     data: function() {
         return {
-            menuVisibleData: this.menuVisible,
             selectedIndexData: this.selectedIndex,
-            reverseData: this.reverse,
-            sortData: this.sort
+            menuVisibleData: this.menuVisible,
+            sortData: this.sort,
+            reverseData: this.reverse
         };
     },
     computed: {
+        itemsWithIndex() {
+            return this.items.map((item, index) => ({ _originalIndex: index, ...item }));
+        },
         menuStyle() {
             const base = {};
             base["background-color"] = this.menuBackgroundColor ? this.menuBackgroundColor : null;
@@ -273,17 +275,17 @@ export const TableMenu = {
         }
     },
     watch: {
+        selectedIndex(value) {
+            this.setMenuItem(value);
+        },
+        selectedIndexData(value) {
+            this.$emit("update:selected-index", value);
+        },
         menuVisible(value) {
             this.menuVisibleData = value;
         },
         menuVisibleData(value) {
             this.$emit("update:menu-visible", value);
-        },
-        selectedIndex(value) {
-            this.selectedIndexData = value;
-        },
-        selectedIndexData(value) {
-            this.$emit("update:selected-index", value);
         },
         sort(value) {
             this.sortData = value;
@@ -301,19 +303,10 @@ export const TableMenu = {
         }
     },
     methods: {
-        toggleMenu() {
-            this.menuVisibleData = !this.menuVisibleData;
-            this.selectedIndexData = null;
-        },
         setMenuItem(index) {
             this.selectedIndexData = index;
             this.menuVisibleData = true;
-        },
-        isBoolean(value) {
-            return this.getColumnType(value) === "boolean";
-        },
-        isMoney(value) {
-            return this.getColumnType(value) === "money";
+            this.focusFirstTextInput();
         },
         buildCheckboxItem(label, value) {
             return [{ label: label, value: value }];
@@ -336,9 +329,22 @@ export const TableMenu = {
                 return this.columns.find(l => l.value === value).symbol || "?";
             }
         },
+        isBoolean(value) {
+            return this.getColumnType(value) === "boolean";
+        },
+        isMoney(value) {
+            return this.getColumnType(value) === "money";
+        },
+        toggleMenu() {
+            this.menuVisibleData = !this.menuVisibleData;
+        },
         toggleCheckbox(property, value) {
             if (!(property in this.selectedItem)) return;
             this.$set(this.items[this.selectedIndexData], property, value);
+        },
+        focusFirstTextInput() {
+            const textInputs = this.$refs.textInput;
+            if (textInputs[0]) textInputs[0].focus();
         },
         scrollToBottom() {
             const table = document.getElementById("content-table");
@@ -348,9 +354,8 @@ export const TableMenu = {
             const table = document.getElementById("content-table");
             table.scrollTop = 0;
         },
-        onClickItem(item, index) {
-            if (typeof index !== "number") return;
-            this.selectedIndexData === index ? this.toggleMenu() : this.setMenuItem(index);
+        onClickItem(item) {
+            this.selectedItem.id === item.id ? this.toggleMenu() : this.setMenuItem(item._originalIndex);
         },
         onClickAddItem() {
             this.$emit("click:create");
