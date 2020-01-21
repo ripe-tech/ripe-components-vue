@@ -15,6 +15,7 @@
 
 .button-icon {
     box-sizing: border-box;
+    color: #1d1d1d;
     cursor: pointer;
     display: inline-block;
     font-size: 0px;
