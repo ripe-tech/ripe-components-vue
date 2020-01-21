@@ -216,7 +216,7 @@ export const SaveFilterModal = {
         },
         _selectDefaultValue(tenancy) {
             if (this.tenancies[tenancy].choices.length === 1) {
-                this.tenancies[tenancy].selectedValue = this.tenancies[tenancy].choices[0];
+                this.tenancies[tenancy].selectedValue = this.tenancies[tenancy].choices[0].value;
             }
         }
     }
