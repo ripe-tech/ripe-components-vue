@@ -14,10 +14,7 @@
 </template>
 
 <script>
-import { Decimal } from "decimal.js";
-
-import exchangeRates from "./exchange_rates.json";
-import symbols from "./symbols.json";
+import currencies from "./assets/currencies.json";
 
 export const InputCurrency = {
     name: "input-currency",
@@ -26,8 +23,12 @@ export const InputCurrency = {
             type: String,
             default: "USD"
         },
+        rates: {
+            type: Object,
+            default: () => ({})
+        },
         value: {
-            type: Number,
+            type: String,
             default: null
         },
         variant: {
@@ -64,11 +65,11 @@ export const InputCurrency = {
         }
     },
     computed: {
-        normalizedCurrency() {
-            return this.currency.toUpperCase();
-        },
         symbol() {
-            return symbols[this.normalizedCurrency] || this.normalizedCurrency;
+            return this._symbol(this.currency);
+        },
+        places() {
+            return this._places(this.currency);
         }
     },
     data: function() {
@@ -80,19 +81,35 @@ export const InputCurrency = {
         value(value) {
             this.valueData = value;
         },
-        normalizedCurrency(after, before) {
-            this.valueData = this._exchange(this.valueData, before, after);
+        valueData(value) {
+            this.$emit("update:value", value);
+        },
+        currency(after, before) {
+            this.valueData = this._exchange(parseFloat(this.valueData), before, after);
         }
     },
     methods: {
-        _exchange(value, currency, newCurrency) {
-            if (currency === newCurrency) return value;
+        _exchange(value, baseCurrency, targetCurrency) {
+            const rates = this._rates(baseCurrency);
+            const places = this._places(targetCurrency);
+            const rate = rates[targetCurrency];
 
-            const rates = exchangeRates[currency] || {};
-            const rate = rates[newCurrency];
-            if (!rate) return value;
+            if (baseCurrency === targetCurrency) return value.toFixed(places);
+            if (!rate) return value.toFixed(places);
 
-            return Decimal.mul(value, rate).toDecimalPlaces(2, Decimal.ROUND_UP);
+            const multiplier = Math.pow(10, places);
+            return (Math.round(value * rate * multiplier) / multiplier).toFixed(places);
+        },
+        _rates(currency) {
+            return this.rates[currency] || {};
+        },
+        _symbol(currency) {
+            const currencyInfo = currencies[currency] || {};
+            return currencyInfo.symbol || currency;
+        },
+        _places(currency, fallback = 2) {
+            const currencyInfo = currencies[currency] || {};
+            return currencyInfo.places || fallback;
         }
     }
 };

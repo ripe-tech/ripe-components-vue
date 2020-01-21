@@ -1,12 +1,14 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text, boolean, number, select } from "@storybook/addon-knobs";
 
+import rates from "./assets/rates_example.json";
+
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Input Currency", () => ({
         props: {
             value: {
-                default: number("Value", 50)
+                default: text("Value", "50")
             },
             currency: {
                 default: select(
@@ -14,8 +16,7 @@ storiesOf("Molecules", module)
                     {
                         USD: "USD",
                         EUR: "EUR",
-                        JPY: "JPY",
-                        CHF: "CHF"
+                        GBP: "GBP"
                     },
                     "USD"
                 )
@@ -68,7 +69,8 @@ storiesOf("Molecules", module)
         },
         data: function() {
             return {
-                valueData: this.value
+                valueData: this.value,
+                rates: rates
             };
         },
         watch: {
@@ -87,7 +89,8 @@ storiesOf("Molecules", module)
                     v-bind:variant="variant"
                     v-bind:disabled="disabled"
                     v-bind:placeholder="placeholder"
-                    v-bind:currency="currency" />
+                    v-bind:currency="currency"
+                    v-bind:rates="rates" />
                 <p>Text: {{ valueData }}</p>
             </div>
         `
