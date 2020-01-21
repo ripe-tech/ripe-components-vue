@@ -30,7 +30,7 @@
                                 tenancies[item.value].choices.length === 1
                         "
                     >
-                        {{ tenancies[item.value].selectedLabel }}
+                        {{ tenancies[item.value].choices[0].label }}
                     </p>
                     <select-ripe
                         v-bind:placeholder="`Select ${item.label}`"
@@ -39,7 +39,7 @@
                         v-bind:options="tenancies[item.value].choices"
                         v-if="tenancies[item.value].choices.length > 1"
                         v-show="isTenancyItemSelected(item.value)"
-                        v-on:update:value="value => onSelected(item.value, item.label, value)"
+                        v-on:update:value="value => onSelected(item.value, value)"
                     />
                 </template>
             </checkbox>
@@ -131,23 +131,19 @@ export const SaveFilterModal = {
             tenancies: {
                 user: {
                     choices: user ? [user] : [],
-                    selectedValue: user,
-                    selectedLabel: user
+                    selectedValue: user
                 },
                 brand: {
                     choices: [],
-                    selectedValue: null,
-                    selectedLabel: null
+                    selectedValue: null
                 },
                 channel: {
                     choices: [],
-                    selectedValue: null,
-                    selectedLabel: null
+                    selectedValue: null
                 },
                 factory: {
                     choices: [],
-                    selectedValue: null,
-                    selectedLabel: null
+                    selectedValue: null
                 }
             }
         };
@@ -226,12 +222,11 @@ export const SaveFilterModal = {
         getContext(tenancy) {
             return this.tenancies[tenancy].selectedValue;
         },
-        setSelectedTenancy(tenancy, label, value) {
+        setSelectedTenancy(tenancy, value) {
             this.tenancies[tenancy].selectedValue = value;
-            this.tenancies[tenancy].selectedLabel = label;
         },
-        onSelected(tenancy, label, value) {
-            this.setSelectedTenancy(tenancy, label, value);
+        onSelected(tenancy, value) {
+            this.setSelectedTenancy(tenancy, value);
         },
         onDiscardClick() {
             this.$emit("click:cancel");
@@ -242,7 +237,6 @@ export const SaveFilterModal = {
         _selectDefaultValue(tenancy) {
             if (this.tenancies[tenancy].choices.length === 1) {
                 this.tenancies[tenancy].selectedValue = this.tenancies[tenancy].choices[0].value;
-                this.tenancies[tenancy].selectedLabel = this.tenancies[tenancy].choices[0].label;
             }
         }
     }
