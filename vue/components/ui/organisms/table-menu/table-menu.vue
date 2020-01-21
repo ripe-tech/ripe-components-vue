@@ -19,7 +19,7 @@
                     >
                         <template v-slot:row="{ item }">
                             <tr
-                                v-bind:class="[{ selected: item === selectedItem }]"
+                                v-bind:class="[{ selected: item.id === selectedItem.id }]"
                                 v-bind:key="item.id"
                                 v-on:click="onClickItem(item)"
                             >
