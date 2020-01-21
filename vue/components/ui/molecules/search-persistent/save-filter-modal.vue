@@ -147,13 +147,13 @@ export const SaveFilterModal = {
                 this.searchData &&
                 this.filterNameData &&
                 Object.keys(this.checkboxValuesData).length > 0 &&
-                this.hasSomeContext
+                this.hasSomeContextNotSet
             );
         },
-        hasSomeContext() {
-            return this.tenancyItemsCheckable.some(
+        hasSomeContextNotSet() {
+            return !this.tenancyItemsCheckable.some(
                 item =>
-                    this.isTenancyItemSelected(item.value) && this.getContext(item.value) !== null
+                    this.isTenancyItemSelected(item.value) && this.getContext(item.value) === null
             );
         },
         tenancyItemsCheckable() {
