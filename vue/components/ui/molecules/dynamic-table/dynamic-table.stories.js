@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, select, boolean } from "@storybook/addon-knobs";
+import { withKnobs, select, boolean, number } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
@@ -46,6 +46,10 @@ storiesOf("Molecules", module)
                     { value: "user", label: "User" },
                     { value: "system", label: "System" }
                 ]
+            },
+            buttonOffset: {
+                type: Number,
+                default: () => number("Button Offset", 200)
             }
         },
         data: function() {
@@ -78,7 +82,7 @@ storiesOf("Molecules", module)
                     class="dynamic-table"
                     v-bind:columns="mockColumns"
                     v-bind:items="mockItems"
-                    v-bind:button-offset="200"
+                    v-bind:button-offset="buttonOffset"
                     v-on:click:edit="editPressed"
                     v-on:click:item-options="optionsPressed"
                     v-bind:sort.sync="sortData"

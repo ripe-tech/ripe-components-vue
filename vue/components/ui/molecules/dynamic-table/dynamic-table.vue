@@ -1,5 +1,5 @@
 <template>
-    <div class="dynamic-table" v-on:mouseleave="mouseLeave">
+    <div class="dynamic-table" v-on:mouseleave.stop="mouseLeave">
         <table-ripe
             v-bind:columns="columns"
             v-bind:items="items"
@@ -17,26 +17,14 @@
                 v-for="(item, index) in items"
                 v-bind:key="index"
             >
-                <button-color
+                <button-dropdown
+                    class="button-dropdown"
                     v-bind:text="'Edit'"
-                    v-bind:secondary="true"
                     v-bind:icon="'edit'"
-                    v-bind:min-width="86"
-                    v-on:click="editClicked"
-                />
-                <button-color
-                    v-bind:text="''"
-                    v-bind:secondary="true"
-                    v-bind:icon="'chevron-down'"
-                    v-bind:min-width="48"
-                    v-on:click.stop="openDropdown"
-                />
-                <dropdown
-                    class="dropdown"
                     v-bind:items="dropdownOptions"
-                    v-bind:visible.sync="dropdownVisible"
-                    v-bind:class="{ inactive: !dropdownVisible }"
-                    v-on:item-clicked="dropdownItemClicked"
+                    v-bind:ref="'buttonDropdown'"
+                    v-on:click:item-dropdown="dropdownItemClicked"
+                    v-on:click:primary-button="editClicked"
                 />
             </div>
         </div>
@@ -76,14 +64,8 @@ body.mobile .dynamic-table {
     overflow: visible;
 }
 
-.dynamic-table .dropdown {
-    min-width: 150px;
-    position: absolute;
-}
-
-.dynamic-table .dropdown.inactive {
-    border: none;
-    box-shadow: none;
+.dynamic-table .button-dropdown {
+    min-width: 120px;
 }
 </style>
 
@@ -117,13 +99,12 @@ export const DynamicTable = {
         },
         buttonOffset: {
             type: Number,
-            default: 200
+            default: 140
         }
     },
     data: function() {
         return {
-            hoveredItem: null,
-            dropdownVisible: false
+            hoveredItem: null
         };
     },
     computed: {
@@ -143,21 +124,23 @@ export const DynamicTable = {
     },
     methods: {
         mouseLeave() {
-            this.dropdownVisible = false;
+            this.closeDropdown();
             this.hoveredItem = null;
         },
         mouseOver(item, index) {
-            this.dropdownVisible = false;
+            this.closeDropdown();
             this.hoveredItem = index;
         },
         editClicked() {
             this.$emit("click:edit", this.hoveredItem);
         },
-        openDropdown() {
-            this.dropdownVisible = !this.dropdownVisible;
-        },
         dropdownItemClicked(item) {
             this.$emit("click:item-options", { value: item.value, index: this.hoveredItem });
+        },
+        closeDropdown() {
+            if (this.hoveredItem === null || this.hoveredItem === undefined) return;
+            if (!this.$refs.buttonDropdown[this.hoveredItem].dropdownVisible) return;
+            this.$refs.buttonDropdown[this.hoveredItem].toggleDropdown();
         }
     }
 };
