@@ -8,8 +8,8 @@
             v-bind:animation-duration="animationDuration"
         >
             <template v-slot:content>
-                <slot name="content-header" />
-                <div class="content-table" v-bind:style="contentStyle" id="content-table">
+                <slot name="table-header" />
+                <div class="table-content" v-bind:style="contentStyle" id="table-content">
                     <table-ripe
                         v-bind:columns="columns"
                         v-bind:items="itemsWithIndex"
@@ -38,7 +38,7 @@
                         </template>
                     </table-ripe>
                 </div>
-                <slot name="content-footer" />
+                <slot name="table-footer" />
             </template>
             <template v-slot:menu>
                 <div class="menu-container" v-bind:style="menuStyle">
@@ -146,7 +146,7 @@
     width: 100%;
 }
 
-.table-menu .content-menu ::v-deep .content .content-table {
+.table-menu .content-menu ::v-deep .content .table-content {
     overflow-y: auto;
 }
 
@@ -347,11 +347,11 @@ export const TableMenu = {
             if (textInputs[0]) textInputs[0].focus();
         },
         scrollToBottom() {
-            const table = document.getElementById("content-table");
+            const table = document.getElementById("table-content");
             table.scrollTop = table.scrollHeight;
         },
         scrollToTop() {
-            const table = document.getElementById("content-table");
+            const table = document.getElementById("table-content");
             table.scrollTop = 0;
         },
         onClickItem(item) {
