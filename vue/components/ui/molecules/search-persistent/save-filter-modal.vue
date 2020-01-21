@@ -77,6 +77,10 @@
 .form-input .content .checkbox ::v-deep .choice .checkbox-input{
     margin: 10px 10px 10px 0px;
 }
+
+.form-input .content .checkbox ::v-deep .choice .checkbox-input label{
+    min-width: 50px;
+}
 </style>
 
 <script>
