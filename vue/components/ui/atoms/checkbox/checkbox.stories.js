@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, boolean } from "@storybook/addon-knobs";
+import { withKnobs, boolean } from "@storybook/addon-knobs";
 
 storiesOf("Atoms", module)
     .addDecorator(withKnobs)
@@ -9,22 +9,10 @@ storiesOf("Atoms", module)
                 default: boolean("Error", false)
             },
             disabled: {
-                default: boolean("Disabled Group", false)
+                default: boolean("Disabled", false)
             },
-            header: {
-                default: text("Header", "Start Header")
-            },
-            footer: {
-                default: text("Footer", "End Footer")
-            },
-            errorText: {
-                default: text("Error Text", "")
-            },
-            warning: {
-                default: text("Warning", "")
-            },
-            success: {
-                default: text("Success", "")
+            slots: {
+                default: boolean("Slots", false)
             },
             items: {
                 default: () => [
@@ -70,27 +58,19 @@ storiesOf("Atoms", module)
         },
         template: `
             <div>
-                <form-input
-                    v-bind:header="header"
-                    v-bind:footer="footer"
-                    v-bind:error="errorText"
-                    v-bind:warning="warning"
-                    v-bind:success="success"
+                <checkbox
+                    v-bind:items="items"
+                    v-bind:values.sync="valuesData"
+                    v-bind:disabled="disabled"
+                    v-bind:error="error"
                 >
-                    <checkbox
-                        v-bind:items="items"
-                        v-bind:values.sync="valuesData"
-                        v-bind:disabled="disabled"
-                        v-bind:error="error"
-                    >
-                        <template v-slot:before-item="{ item, index }">
-                            <p>Custom before checkbox {{ item.label }}</p>
-                        </template>
-                        <template v-slot:after-item="{ item, index }">
-                            <p>Custom After checkbox {{ item.label }}</p>
-                        </template>
-                    </checkbox>
-                </form-input>
+                    <template v-slot:before-item="{ item, index }" v-if="slots">
+                        <p>Custom before checkbox {{ item.label }}</p>
+                    </template>
+                    <template v-slot:after-item="{ item, index }" v-if="slots">
+                        <p>Custom After checkbox {{ item.label }}</p>
+                    </template>
+                </checkbox>
                 <p>Values: {{ valuesData }}</p>
             </div>
         `

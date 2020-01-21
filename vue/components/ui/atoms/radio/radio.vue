@@ -17,11 +17,15 @@
             v-on:keydown.down="onArrowDown(index)"
             v-on:click="onClick(item)"
         >
-            <input type="radio" class="value" v-bind:id="item.value" />
-            <div class="radio-circle" />
-            <label v-bind:for="item.value" class="label">
-                {{ item.label ? item.label : item.value }}
-            </label>
+            <slot name="before-item" v-bind:item="item" v-bind:index="index" />
+            <div class="radio-input">
+                <input type="radio" class="value" v-bind:id="item.value" />
+                <div class="radio-circle" />
+                <label v-bind:for="item.value" class="label">
+                    {{ item.label ? item.label : item.value }}
+                </label>
+            </div>
+            <slot name="after-item" v-bind:item="item" v-bind:index="index" />
         </div>
     </div>
 </template>
@@ -38,11 +42,15 @@
     width: fit-content;
 }
 
-.choice > .value {
+.choice > .radio-input {
+    display: inline-block;
+}
+
+.choice > .radio-input > .value {
     display: none;
 }
 
-.choice > .radio-circle {
+.choice > .radio-input > .radio-circle {
     background-color: #fafbfc;
     border: 2px solid #dfe1e5;
     border-radius: 50% 50% 50% 50%;
@@ -54,45 +62,45 @@
     width: 4px;
 }
 
-.choice:not(.disabled):not(.error):active > .radio-circle {
+.choice:not(.disabled):not(.error):active > .radio-input > .radio-circle {
     background: url("~./assets/check-dark.svg") center / 4px no-repeat #f4f5f7;
     border: 2px solid #c3c9cf;
     padding: 3px 3px 3px 3px;
 }
 
-.choice.error > .radio-circle {
+.choice.error > .radio-input > .radio-circle {
     background-color: #f4f5f7;
     border: 2px solid $dark-red;
 }
 
-.choice.disabled > .radio-circle {
+.choice.disabled > .radio-input > .radio-circle {
     background: #f4f5f7;
     border: 2px solid #f4f5f7;
     cursor: default;
 }
 
-.choice.checked > .radio-circle {
+.choice.checked > .radio-input > .radio-circle {
     background: url("~./assets/check.svg") center / 4px no-repeat $dark;
     border: 2px solid $dark;
     padding: 3px 3px 3px 3px;
 }
 
-.choice.error.checked > .radio-circle {
+.choice.error.checked > .radio-input > .radio-circle {
     background: url("~./assets/check.svg") center / 4px no-repeat $dark;
     border: 2px solid $dark-red;
 }
 
-.choice.disabled.checked > .radio-circle {
+.choice.disabled.checked > .radio-input > .radio-circle {
     background: url("~./assets/check-gray.svg") center / 4px no-repeat #f4f5f7;
     border: 2px solid #f6f7f9;
     padding: 3px 3px 3px 3px;
 }
 
-.choice:focus:not(.disabled) > .radio-circle {
+.choice:focus:not(.disabled) > .radio-input > .radio-circle {
     border-color: $aqcua-blue;
 }
 
-.choice > .label {
+.choice > .radio-input > .label {
     color: $grey;
     cursor: pointer;
     display: inline-block;
@@ -102,7 +110,7 @@
     vertical-align: middle;
 }
 
-.choice.disabled > .label {
+.choice.disabled > .radio-input > .label {
     cursor: default;
 }
 </style>
