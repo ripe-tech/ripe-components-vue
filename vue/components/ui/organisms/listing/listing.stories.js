@@ -66,11 +66,11 @@ storiesOf("Organisms", module)
                 <listing
                     v-bind:context="context"
                     v-bind:table-columns="tableColumns"
+                    v-bind:lineup-fields="lineupFields"
                     v-bind:get-items="getItems"
                     v-bind:name="'devices'"
                     v-bind:use-query="false"
                     v-bind:filter-fields="filterFields"
-                    v-bind:lineup-fields="lineupFields"
                 >
                     <template v-slot:icons>
                         <img v-bind:src="img" v-bind:style="imgStyle" />
