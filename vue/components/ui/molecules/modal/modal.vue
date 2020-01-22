@@ -9,7 +9,7 @@
                 ref="overlay"
                 v-on:click="onOverlayClick"
             />
-            <div class="modal-container" ref="modalSection">
+            <div class="modal-container">
                 <div class="modal-header" v-if="buttonClose || $slots.header">
                     <slot name="header">
                         <slot name="button-close-content">
