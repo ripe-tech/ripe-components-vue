@@ -26,7 +26,7 @@
                 <tr
                     v-bind:key="item.id"
                     v-on:click="onClick(item, index)"
-                    v-on:mouseover="mouseOver(item, index)"
+                    v-on:mouseover="onMouseOver(item, index)"
                 >
                     <slot v-bind:item="item" v-bind:index="index">
                         <td
@@ -251,7 +251,7 @@ export const Table = {
         },
         headerHeight: {
             type: Number,
-            default: 36
+            default: null
         }
     },
     watch: {
@@ -295,7 +295,7 @@ export const Table = {
         onClick(item, index) {
             this.$emit("click", item, index);
         },
-        mouseOver(item, index) {
+        onMouseOver(item, index) {
             this.$emit("mouse:over", item, index);
         }
     }
