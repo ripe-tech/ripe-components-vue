@@ -25,12 +25,12 @@
 
 .button-dropdown {
     display: inline;
-    min-width: 120px;
-    position: relative;
+    margin: 1px 0px 0px 0px;
+    padding: 0px 0px 1px 0px;
 }
 
 .dropdown-container {
-    min-width: 150px;
+    min-width: 120px;
     position: absolute;
     right: 0px;
     top: 34px;
