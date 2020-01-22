@@ -33,7 +33,7 @@
 .select-list > .title {
     background-color: transparent;
     font-size: 14px;
-    padding: 5px 0px 12px 0px;
+    padding: 5px 0px 0px 0px;
 }
 
 .select-list > .items:focus {
@@ -75,9 +75,7 @@
 </style>
 
 <script>
-import Vue from "vue";
-
-export const SelectList = Vue.component("select-list", {
+export const SelectList = {
     inheritAttrs: false,
     props: {
         items: {
@@ -156,7 +154,7 @@ export const SelectList = Vue.component("select-list", {
             }
         }
     }
-});
+};
 
 export default SelectList;
 </script>
