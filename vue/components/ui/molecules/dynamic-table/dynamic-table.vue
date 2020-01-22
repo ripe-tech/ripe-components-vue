@@ -64,8 +64,10 @@ body.mobile .dynamic-table {
     overflow: visible;
 }
 
-.dynamic-table .button-dropdown {
-    min-width: 120px;
+.dynamic-table .column .button-container .button-dropdown {
+    min-width: 110px;
+    position: absolute;
+    right: 0px;
 }
 </style>
 
