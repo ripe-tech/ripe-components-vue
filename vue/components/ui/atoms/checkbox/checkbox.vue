@@ -4,7 +4,7 @@
             tabindex="0"
             class="choice"
             v-bind:class="{
-                checked: value,
+                checked: valueData,
                 disabled: disabled,
                 error: error
             }"
@@ -155,7 +155,7 @@ export const Checkbox = {
         },
         getStyle() {
             if (this.disabled && this.value) return this.disabledStyle;
-            if (this.value) return this.checkedStyle;
+            if (this.valueData) return this.checkedStyle;
             if (this.active) return this.activeCheckStyle;
         }
     },
