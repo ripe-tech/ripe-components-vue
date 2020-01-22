@@ -51,8 +51,15 @@ storiesOf("Molecules", module)
             }
         },
         template: `
-            <div>
-                <button-dropdown v-bind:text="label" v-bind:icon="icon" v-bind:secondary-icon="secondaryIcon" v-bind:items="mockItems" v-on:click:item-dropdown="onOptionsButtonPressed" v-on:click:primary-button="onPrimaryButtonPressed" />
+            <div style="margin: 0px 0px 0px 100px;">
+                <button-dropdown
+                    v-bind:text="label"
+                    v-bind:icon="icon"
+                    v-bind:secondary-icon="secondaryIcon"
+                    v-bind:items="mockItems"
+                    v-on:click:item-dropdown="onOptionsButtonPressed"
+                    v-on:click:primary-button="onPrimaryButtonPressed"
+                />
                 <br>
                 <br>
                 <p>Primary button pressed: {{ this.primaryButtonPressed }},<br>  Item Options pressed: {{ this.optionButtonPressed }}</p>

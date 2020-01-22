@@ -1,21 +1,21 @@
 <template>
     <div class="button-dropdown">
-        <div class="button button-principal" v-on:click.stop="primaryButtonClicked">
+        <div class="button button-principal" v-on:click.stop="onPrimaryButtonClicked">
             <img class="icon" v-bind:src="iconPath(icon)" />
             <img class="icon-hover" v-bind:src="iconHoverPath(icon)" />
             <span class="label">{{ text }} </span>
         </div>
 
-        <div class="button button-secondary" v-on:click.stop="toggleDropdown">
+        <div class="button button-secondary" v-on:click.stop="onToggleDropdown">
             <img class="icon" v-bind:src="iconPath(secondaryIcon)" />
             <img class="icon-hover" v-bind:src="iconHoverPath(secondaryIcon)" />
         </div>
         <dropdown
-            class="dropdown"
+            class="dropdown-container"
             v-bind:items="items"
             v-bind:visible.sync="dropdownVisible"
             v-bind:class="{ inactive: !dropdownVisible }"
-            v-on:item-clicked="dropdownItemClicked"
+            v-on:item-clicked="onDropdownItemClicked"
         />
     </div>
 </template>
@@ -29,14 +29,15 @@
     position: relative;
 }
 
-.dropdown {
+.dropdown-container {
     min-width: 150px;
     position: absolute;
-    top: 32px;
+    top: 34px;
+    right: 0px;
     width: fit-content;
 }
 
-.dropdown.inactive {
+.dropdown-container.inactive {
     border: none;
     box-shadow: none;
 }
@@ -50,10 +51,8 @@
     float: left;
     margin: 0px 0px 0px 0px;
     min-width: 20px;
-    transition: background-color 0.15s ease-in-out,
-        border-color 0.15s ease-in-out,
-        color 0.15s ease-in-out,
-        opacity 0.15s ease-in-out;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+        color 0.15s ease-in-out, opacity 0.15s ease-in-out;
     user-select: none;
 }
 
@@ -147,13 +146,13 @@ export const ButtonDropdown = {
         };
     },
     methods: {
-        toggleDropdown() {
+        onToggleDropdown() {
             this.dropdownVisible = !this.dropdownVisible;
         },
-        primaryButtonClicked() {
+        onPrimaryButtonClicked() {
             this.$emit("click:primary-button");
         },
-        dropdownItemClicked(item) {
+        onDropdownItemClicked(item) {
             this.$emit("click:item-dropdown", { value: item.value });
         },
         iconPath(iconName) {
