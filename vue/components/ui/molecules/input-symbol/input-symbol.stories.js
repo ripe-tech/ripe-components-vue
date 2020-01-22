@@ -1,9 +1,9 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text, boolean, number, select } from "@storybook/addon-knobs";
 
-storiesOf("Atoms", module)
+storiesOf("Molecules", module)
     .addDecorator(withKnobs)
-    .add("Input", () => ({
+    .add("Input Symbol", () => ({
         props: {
             variant: {
                 default: select(
@@ -26,8 +26,23 @@ storiesOf("Atoms", module)
                     "thin"
                 )
             },
+            align: {
+                default: select(
+                    "Align",
+                    {
+                        Unset: null,
+                        Left: "left",
+                        Center: "center",
+                        Right: "right"
+                    },
+                    "right"
+                )
+            },
             value: {
                 default: text("Value", "This is a text")
+            },
+            symbol: {
+                default: text("Symbol", "€")
             },
             placeholder: {
                 default: text("Placeholder", "This is a placeholder")
@@ -35,29 +50,11 @@ storiesOf("Atoms", module)
             disabled: {
                 default: boolean("Disabled", false)
             },
-            ellipsis: {
-                default: boolean("Ellipsis", true)
-            },
-            header: {
-                default: text("Header", "Start Header")
-            },
-            footer: {
-                default: text("Footer", "End Footer")
-            },
-            errorText: {
-                default: text("Error Text", "")
-            },
-            warning: {
-                default: text("Warning", "")
-            },
-            success: {
-                default: text("Success", "")
-            },
-            width: {
-                default: number("Width", null)
-            },
             height: {
                 default: number("Height", null)
+            },
+            width: {
+                default: number("Width", 300)
             }
         },
         data: function() {
@@ -72,22 +69,16 @@ storiesOf("Atoms", module)
         },
         template: `
             <div>
-                <form-input
-                    v-bind:header="header"
-                    v-bind:footer="footer"
-                    v-bind:error="errorText"
-                    v-bind:warning="warning"
-                    v-bind:success="success"
-                >
-                    <input-ripe
-                        v-bind:variant="variant"
-                        v-bind:border="border"
-                        v-bind:value.sync="valueData"
-                        v-bind:placeholder="placeholder"
-                        v-bind:disabled="disabled"
-                        v-bind:width="width"
-                        v-bind:height="height"></input-ripe>
-                </form-input>
+                <input-symbol
+                    v-bind:value.sync="valueData"
+                    v-bind:height="height"
+                    v-bind:width="width"
+                    v-bind:align="align"
+                    v-bind:border="border"
+                    v-bind:variant="variant"
+                    v-bind:disabled="disabled"
+                    v-bind:placeholder="placeholder"
+                    v-bind:symbol="symbol" />
                 <p>Text: {{ valueData }}</p>
             </div>
         `

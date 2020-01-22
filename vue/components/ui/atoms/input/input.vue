@@ -35,6 +35,10 @@
     width: 100%;
 }
 
+.input.ellipsis {
+    text-overflow: ellipsis;
+}
+
 .input.dark {
     background-color: $soft-blue;
 }
@@ -81,6 +85,10 @@ export const Input = {
             type: String,
             default: ""
         },
+        align: {
+            type: String,
+            default: null
+        },
         autofocus: {
             type: Boolean,
             default: false
@@ -88,6 +96,10 @@ export const Input = {
         disabled: {
             type: Boolean,
             default: false
+        },
+        ellipsis: {
+            type: Boolean,
+            default: true
         },
         width: {
             type: Number,
@@ -125,7 +137,8 @@ export const Input = {
         style() {
             const base = {
                 width: this.width === null ? null : `${this.width}px`,
-                height: this.height === null ? null : `${this.height}px`
+                height: this.height === null ? null : `${this.height}px`,
+                "text-align": this.align
             };
             return base;
         },
@@ -133,6 +146,7 @@ export const Input = {
             const base = {};
             if (this.variant) base[this.variant] = true;
             if (this.border) base[`border-${this.border}`] = true;
+            if (this.ellipsis) base.ellipsis = true;
             return base;
         }
     }
