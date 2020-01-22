@@ -1,43 +1,30 @@
 <template>
     <div class="checkbox">
         <div
+            tabindex="0"
             class="choice"
             v-bind:class="{
-                checked: values[item.value],
-                disabled: disabled || item.disabled,
-                error: error || item.error
+                checked: value,
+                disabled: disabled,
+                error: error
             }"
-            v-bind:index="index"
-            v-bind:tabindex="item.disabled ? '' : '0'"
-            v-for="(item, index) in items"
-            v-bind:key="index"
-            v-on:click="onClick(item)"
-            v-on:keydown.space="onSpace(item)"
+            v-on:click="onClick()"
+            v-on:mousedown="onMouseDown()"
+            v-on:mouseup="onMouseUp()"
+            v-on:keydown.space="onSpace()"
         >
-            <slot name="before-item" v-bind:item="item" v-bind:index="index" />
+            <slot name="before-item" v-bind:item="{ label, value }" />
             <div class="checkbox-input">
-                <input type="checkbox" class="value" v-bind:id="item.value" />
-                <div class="checkbox-square" />
-                <label class="label" for="item.value">{{
-                    item.label ? item.label : item.value
-                }}</label>
+                <div class="checkbox-square" v-bind:style="getStyle" />
+                <label class="label">{{ label }}</label>
             </div>
-            <slot name="after-item" v-bind:item="item" v-bind:index="index" />
+            <slot name="after-item" v-bind:item="{ label, value }" />
         </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
-
-.choice {
-    display: block;
-    line-height: 13px;
-    outline: none;
-    padding: 10px 0px 10px 0px;
-    user-select: none;
-    width: fit-content;
-}
 
 .choice > .checkbox-input {
     display: inline-block;
@@ -60,7 +47,6 @@
 }
 
 .choice:not(.disabled):not(.error) > .checkbox-input:active > .checkbox-square {
-    background: url("~./assets/check-dark.svg") center / 7px 6px no-repeat #f4f5f7;
     border: 2px solid #c3c9cf;
     padding: 3px 3px 3px 3px;
 }
@@ -77,18 +63,15 @@
 }
 
 .choice.checked > .checkbox-input > .checkbox-square {
-    background: url("~./assets/check.svg") center / 7px 6px no-repeat $dark;
     border: 2px solid $dark;
     padding: 3px 3px 3px 3px;
 }
 
 .choice.error.checked > .checkbox-input > .checkbox-square {
-    background: url("~./assets/check.svg") center / 7px 6px no-repeat $dark;
     border: 2px solid $dark-red;
 }
 
 .choice.disabled.checked > .checkbox-input > .checkbox-square {
-    background: url("~./assets/check-gray.svg") center / 7px 6px no-repeat #f4f5f7;
     border: 2px solid #f6f7f9;
     padding: 3px 3px 3px 3px;
 }
@@ -115,13 +98,17 @@
 export const Checkbox = {
     name: "checkbox",
     props: {
-        items: {
-            type: Array,
-            default: () => []
+        label: {
+            type: String,
+            default: null
         },
-        values: {
-            type: Object,
-            default: () => {}
+        value: {
+            type: Boolean,
+            default: false
+        },
+        index: {
+            type: Number,
+            default: null
         },
         disabled: {
             type: Boolean,
@@ -130,37 +117,66 @@ export const Checkbox = {
         error: {
             type: Boolean,
             default: false
+        },
+        icon: {
+            type: String,
+            default: "check"
+        }
+    },
+    data: function() {
+        return {
+            valueData: this.value,
+            active: false
+        };
+    },
+    watch: {
+        value(value) {
+            this.valueData = value;
+        }
+    },
+    computed: {
+        checkedStyle() {
+            const icon = require(`./assets/${this.icon}.svg`);
+            return {
+                background: `url(${icon}) center / 7px 6px no-repeat #1d2631`
+            };
+        },
+        activeCheckStyle() {
+            const icon = require(`./assets/${this.icon}-dark.svg`);
+            return {
+                background: `url(${icon}) center / 7px 6px no-repeat #f4f5f7`
+            };
+        },
+        disabledStyle() {
+            const icon = require(`./assets/${this.icon}-gray.svg`);
+            return {
+                background: `url(${icon}) center / 7px 6px no-repeat #f4f5f7`
+            };
+        },
+        getStyle() {
+            if (this.disabled && this.value) return this.disabledStyle;
+            if (this.value) return this.checkedStyle;
+            if (this.active) return this.activeCheckStyle;
         }
     },
     methods: {
-        selectItem(item) {
-            if (this.disabled || item.disabled) return;
-            if (this.values[item.value]) return;
-
-            const updated = Object.assign({}, this.values);
-            updated[item.value] = true;
-
-            this.$emit("selected:value", item.value);
-            this.$emit("update:values", updated);
-        },
-        deselectItem(item) {
-            if (this.disabled || item.disabled) return;
-            if (!this.values[item.value]) return;
-
-            const updated = Object.assign({}, this.values);
-            delete updated[item.value];
-
-            this.$emit("deselected:value", item.value);
-            this.$emit("update:values", updated);
-        },
         toggleItem(item) {
-            this.values[item.value] ? this.deselectItem(item) : this.selectItem(item);
+            if (this.disabled) return;
+
+            this.valueData = !this.valueData;
+            this.$emit("update:value", this.valueData, this.index);
         },
-        onSpace(item) {
-            this.toggleItem(item);
+        onSpace() {
+            this.toggleItem();
         },
-        onClick(item) {
-            this.toggleItem(item);
+        onClick() {
+            this.toggleItem();
+        },
+        onMouseDown() {
+            this.active = true;
+        },
+        onMouseUp() {
+            this.active = false;
         }
     }
 };
