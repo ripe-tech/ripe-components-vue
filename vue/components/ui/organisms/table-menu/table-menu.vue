@@ -51,8 +51,8 @@
                                 v-bind:header="getColumnLabel(editColumn)"
                                 v-if="isMoney(editColumn)"
                             >
-                                <input-symbol
-                                    v-bind:symbol="getColumnSymbol(editColumn, selectedItem)"
+                                <input-currency
+                                    v-bind:currency="getColumnSymbol(editColumn, selectedItem)"
                                     v-bind:value.sync="selectedItem[editColumn]"
                                     v-bind:variant="inputVariant"
                                 />
