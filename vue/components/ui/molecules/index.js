@@ -34,7 +34,7 @@ const install = Vue => {
     Vue.component("select-ripe", Select);
     Vue.component("table-ripe", Table);
     Vue.component("tabs", Tabs);
-    Vue.component("tranfer-list", TransferList);
+    Vue.component("transfer-list", TransferList);
     Vue.component("upload-area", UploadArea);
 };
 
