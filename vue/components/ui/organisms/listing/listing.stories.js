@@ -9,7 +9,7 @@ storiesOf("Organisms", module)
                 type: Object,
                 default: () => ({ filter: "" })
             },
-            columns: {
+            tableColumns: {
                 type: Array,
                 default: () => [
                     { value: "id", label: "ID", width: "100px" },
@@ -17,7 +17,7 @@ storiesOf("Organisms", module)
                     { value: "device", label: "Device" }
                 ]
             },
-            values: {
+            lineupFields: {
                 type: Array,
                 default: () => [
                     { value: "id", label: "ID", width: "100px" },
@@ -65,12 +65,12 @@ storiesOf("Organisms", module)
                 <global></global>
                 <listing
                     v-bind:context="context"
-                    v-bind:columns="columns"
+                    v-bind:table-columns="tableColumns"
                     v-bind:get-items="getItems"
                     v-bind:name="'devices'"
                     v-bind:use-query="false"
                     v-bind:filter-fields="filterFields"
-                    v-bind:values="values"
+                    v-bind:lineup-fields="lineupFields"
                 >
                     <template v-slot:icons>
                         <img v-bind:src="img" v-bind:style="imgStyle" />
