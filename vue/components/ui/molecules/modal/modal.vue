@@ -109,6 +109,7 @@
     opacity: 1;
     overflow-y: auto;
     padding: 20px 26px 20px 26px;
+    position: relative;
     width: 460px;
     z-index: 1;
 }
@@ -118,40 +119,20 @@ body.mobile .modal > .modal-container {
     padding: 14px 20px 14px 20px;
 }
 
-.modal > .modal-container::-webkit-scrollbar {
-    width: 6px;
-}
-
-.modal > .modal-container::-webkit-scrollbar-track {
-    background-color: #e4e4e4;
-}
-
-.modal > .modal-container::-webkit-scrollbar-thumb {
-    background-color: #6d6d6d;
-}
-
-.modal > .modal-container::-webkit-scrollbar-thumb:hover {
-    background-color: #4d4d4d;
-}
-
-.modal > .modal-container::-webkit-scrollbar-thumb:window-inactive {
-    background-color: #8d8d8d;
-}
-
 .modal.fade-leave-active > .modal-container {
     animation: fade-shrink-visibility 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
 }
 
 .modal > .modal-container > .modal-header {
     box-sizing: border-box;
+    left: 0px;
     margin: auto;
-    margin-left: -26px;
-    margin-top: -20px;
     padding: 12px 14px 12px 14px;
     pointer-events: none;
-    position: fixed;
+    position: absolute;
     text-align: right;
-    width: inherit;
+    top: 0px;
+    width: 100%;
 }
 
 .modal > .modal-container > .modal-header ::v-deep .button-icon {
