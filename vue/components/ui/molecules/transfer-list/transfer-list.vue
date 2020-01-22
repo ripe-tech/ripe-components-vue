@@ -74,9 +74,7 @@
 </style>
 
 <script>
-import Vue from "vue";
-
-export const TransferList = Vue.component("transfer-list", {
+export const TransferList = {
     inheritAttrs: false,
     props: {
         itemsLeft: {
@@ -214,7 +212,7 @@ export const TransferList = Vue.component("transfer-list", {
             this.moveAllLeft();
         }
     }
-});
+};
 
 export default TransferList;
 </script>
