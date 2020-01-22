@@ -57,7 +57,7 @@ storiesOf("Atoms", module)
                 default: number("Width", null)
             },
             minWidth: {
-                default: number("Minimum Width", null)
+                default: number("Minimum width", null)
             },
             height: {
                 default: number("Height", null)
