@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, boolean, text, select } from "@storybook/addon-knobs";
+import { withKnobs, boolean, text, select, number } from "@storybook/addon-knobs";
 
 storiesOf("Atoms", module)
     .addDecorator(withKnobs)
@@ -29,6 +29,9 @@ storiesOf("Atoms", module)
             },
             slots: {
                 default: boolean("Slots", false)
+            },
+            size: {
+                default: number("Size", 4)
             }
         },
         data: function() {
@@ -49,6 +52,7 @@ storiesOf("Atoms", module)
                     v-bind:disabled="disabled"
                     v-bind:error="error"
                     v-bind:icon="icon"
+                    v-bind:size="size"
                 >
                     <template v-slot:before-item="{ label, value }" v-if="slots">
                         <p>Custom before checkbox {{ label }}</p>

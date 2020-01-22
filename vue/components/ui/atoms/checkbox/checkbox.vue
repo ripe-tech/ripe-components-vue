@@ -16,7 +16,7 @@
             <slot name="before-item" v-bind:item="{ label, value }" />
             <div class="checkbox-input">
                 <div class="checkbox-square" v-bind:style="getStyle" />
-                <label class="label">{{ label }}</label>
+                <label class="label" v-if="label">{{ label }}</label>
             </div>
             <slot name="after-item" v-bind:item="{ label, value }" />
         </div>
@@ -25,6 +25,10 @@
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
+
+.checkbox {
+    display: inline-block;
+}
 
 .choice > .checkbox-input {
     display: inline-block;
@@ -121,6 +125,10 @@ export const Checkbox = {
         icon: {
             type: String,
             default: "check"
+        },
+        size: {
+            type: Number,
+            default: 4
         }
     },
     data: function() {
@@ -135,28 +143,39 @@ export const Checkbox = {
         }
     },
     computed: {
+        style() {
+            return {
+                width: `${this.size}px`,
+                height: `${this.size}px`
+            };
+        },
         checkedStyle() {
             const icon = require(`./assets/${this.icon}.svg`);
             return {
-                background: `url(${icon}) center / 7px 6px no-repeat #1d2631`
+                background: `url(${icon}) center / ${this.size / 2 + 4}px ${this.size / 2 +
+                    3}px no-repeat #1d2631`
             };
         },
         activeCheckStyle() {
             const icon = require(`./assets/${this.icon}-dark.svg`);
             return {
-                background: `url(${icon}) center / 7px 6px no-repeat #f4f5f7`
+                background: `url(${icon}) center / ${this.size / 2 + 4}px ${this.size / 2 +
+                    3}px no-repeat #f4f5f7`
             };
         },
         disabledStyle() {
             const icon = require(`./assets/${this.icon}-gray.svg`);
             return {
-                background: `url(${icon}) center / 7px 6px no-repeat #f4f5f7`
+                background: `url(${icon}) center / ${this.size / 2 + 4}px ${this.size / 2 +
+                    3}px no-repeat #f4f5f7`
             };
         },
         getStyle() {
-            if (this.disabled && this.value) return this.disabledStyle;
-            if (this.valueData) return this.checkedStyle;
-            if (this.active) return this.activeCheckStyle;
+            let base = {};
+            if (this.disabled && this.value) base = this.disabledStyle;
+            if (this.valueData) base = this.checkedStyle;
+            if (this.active) base = this.activeCheckStyle;
+            return { ...this.style, ...base };
         }
     },
     methods: {
