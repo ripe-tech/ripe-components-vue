@@ -161,7 +161,7 @@
 }
 
 .table-menu .content-menu .content .table .table-body > tr:hover {
-    opacity: 0.6;
+    background-color: $selected-color;
 }
 
 .table-menu .content-menu .content .table .table-body > tr.selected {
@@ -169,7 +169,7 @@
 }
 
 .table-menu .content-menu .menu .button-color.delete-item {
-    margin-top: 20px;
+    margin: 20px 0px 20px 0px;
 }
 </style>
 
