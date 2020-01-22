@@ -69,10 +69,10 @@ storiesOf("Molecules", module)
             }
         },
         methods: {
-            editPressed(item) {
+            onEditPressed(item) {
                 this.editItemClicked = item;
             },
-            optionsPressed(item) {
+            onOptionsPressed(item) {
                 this.optionsItemClicked = item;
             }
         },
@@ -83,8 +83,8 @@ storiesOf("Molecules", module)
                     v-bind:columns="mockColumns"
                     v-bind:items="mockItems"
                     v-bind:button-offset="buttonOffset"
-                    v-on:click:edit="editPressed"
-                    v-on:click:item-options="optionsPressed"
+                    v-on:click:edit="onEditPressed"
+                    v-on:click:item-options="onOptionsPressed"
                     v-bind:sort.sync="sortData"
                     v-bind:reverse.sync="reverseData"
                 />

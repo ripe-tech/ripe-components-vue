@@ -1,5 +1,5 @@
 <template>
-    <div class="dynamic-table" v-on:mouseleave.stop="mouseLeave">
+    <div class="dynamic-table" v-on:mouseleave.stop="onMouseLeave">
         <table-ripe
             v-bind:columns="columns"
             v-bind:items="items"
@@ -8,7 +8,7 @@
             v-bind:sort="sort"
             v-bind:header-height="headerHeight"
             v-bind:reverse="reverse"
-            v-on:mouse:over="mouseOver"
+            v-on:mouse:over="onMouseOver"
         />
         <div class="column" v-bind:style="columnStyle">
             <div
@@ -23,8 +23,8 @@
                     v-bind:icon="'edit'"
                     v-bind:items="dropdownOptions"
                     v-bind:ref="'buttonDropdown'"
-                    v-on:click:item-dropdown="dropdownItemPressed"
-                    v-on:click:primary-button="editPressed"
+                    v-on:click:item-dropdown="onDropdownItemPressed"
+                    v-on:click:primary-button="onEditPressed"
                 />
             </div>
         </div>
@@ -123,18 +123,18 @@ export const DynamicTable = {
         }
     },
     methods: {
-        mouseLeave() {
+        onMouseLeave() {
             this.closeDropdown();
             this.hoveredItem = null;
         },
-        mouseOver(item, index) {
+        onMouseOver(item, index) {
             this.closeDropdown();
             this.hoveredItem = index;
         },
-        editPressed() {
+        onEditPressed() {
             this.$emit("click:edit", this.hoveredItem);
         },
-        dropdownItemPressed(item) {
+        onDropdownItemPressed(item) {
             this.$emit("click:item-options", { value: item.value, index: this.hoveredItem });
         },
         closeDropdown() {
