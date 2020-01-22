@@ -55,7 +55,7 @@ storiesOf("Atoms", module)
                     v-bind:size="size"
                 >
                     <template v-slot:before-item="{ label, value }" v-if="slots">
-                        <p>Custom before checkbox {{ label }}</p>
+                        <p>Custom before checkbox {{ label }} with value {{ value }}</p>
                     </template>
                     <template v-slot:after-item="{ label, value }" v-if="slots">
                         <p>Custom After checkbox {{ label }}</p>

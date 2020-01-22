@@ -13,12 +13,12 @@
             v-on:mouseup="onMouseUp()"
             v-on:keydown.space="onSpace()"
         >
-            <slot name="before-item" v-bind:item="{ label, value }" />
+            <slot name="before-item" v-bind:label="label" v-bind:value="value" />
             <div class="checkbox-input">
                 <div class="checkbox-square" v-bind:style="getStyle" />
                 <label class="label" v-if="label">{{ label }}</label>
             </div>
-            <slot name="after-item" v-bind:item="{ label, value }" />
+            <slot name="after-item" v-bind:label="label" v-bind:value="value" />
         </div>
     </div>
 </template>
