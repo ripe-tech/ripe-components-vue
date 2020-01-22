@@ -1,8 +1,8 @@
 <template>
-    <div class="table-menu" v-bind:class="[mode, alignment]">
+    <div class="table-menu" v-bind:class="[menuMode, menuAlignment]">
         <content-menu
-            v-bind:alignment="alignment"
-            v-bind:mode="mode"
+            v-bind:alignment="menuAlignment"
+            v-bind:mode="menuMode"
             v-bind:menu-visible.sync="menuVisibleData"
             v-bind:menu-width="menuWidth"
             v-bind:animation-duration="animationDuration"
@@ -211,11 +211,11 @@ export const TableMenu = {
             type: Boolean,
             default: false
         },
-        mode: {
+        menuMode: {
             type: String,
             default: "collapse"
         },
-        alignment: {
+        menuAlignment: {
             type: String,
             default: "right"
         },
@@ -320,7 +320,7 @@ export const TableMenu = {
         },
         getColumnType(value) {
             const column = this.columns.find(l => l.value === value);
-            return column.type || "string";
+            return column.type || "text";
         },
         getColumnSymbol(value, item) {
             if (item.currency) {
@@ -355,7 +355,9 @@ export const TableMenu = {
             table.scrollTop = 0;
         },
         onClickItem(item) {
-            this.selectedItem.id === item.id ? this.toggleMenu() : this.setMenuItem(item._originalIndex);
+            this.selectedItem.id === item.id
+                ? this.toggleMenu()
+                : this.setMenuItem(item._originalIndex);
         },
         onClickAddItem() {
             this.$emit("click:create");

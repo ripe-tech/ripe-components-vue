@@ -5,7 +5,7 @@ storiesOf("Organisms", module)
     .addDecorator(withKnobs)
     .add("Table Menu", () => ({
         props: {
-            alignment: {
+            menuAlignment: {
                 default: select(
                     "Menu Orientation",
                     {
@@ -15,9 +15,9 @@ storiesOf("Organisms", module)
                     "right"
                 )
             },
-            mode: {
+            menuMode: {
                 default: select(
-                    "Menu Visibility Mode",
+                    "Menu Visibility menuMode",
                     {
                         Collapse: "collapse",
                         Fixed: "fixed",
@@ -109,12 +109,12 @@ storiesOf("Organisms", module)
             mockColumns: {
                 type: Array,
                 default: () => [
-                    { value: "id", label: "ID", type: "number" },
-                    { value: "user", label: "User", type: "string" },
-                    { value: "os", label: "Operating System", type: "string" },
+                    { value: "id", label: "ID" },
+                    { value: "user", label: "User", type: "text" },
+                    { value: "os", label: "Operating System", type: "text" },
                     { value: "alive", label: "Alive", type: "boolean" },
                     { value: "programmer", label: "Programmer", type: "boolean" },
-                    { value: "net", label: "Net worth", type: "money", symbol: "$" }
+                    { value: "net", label: "Net worth", type: "money" }
                 ]
             },
             editColumns: {
@@ -143,21 +143,21 @@ storiesOf("Organisms", module)
         template: `
             <div>
                 <table-menu
-                    v-bind:columns="mockColumns"
                     v-bind:items="mockItems"
+                    v-bind:columns="mockColumns"
+                    v-bind:edit-columns="editColumns"
+                    v-bind:selected-index="selectedIndex"
+                    v-bind:menu-title="menuTitle" 
+                    v-bind:menu-mode="menuMode" 
+                    v-bind:menu-visible.sync="menuVisibleData"
+                    v-bind:menu-width="menuWidth"
+                    v-bind:max-height="maxHeight"
+                    v-bind:menu-alignment="menuAlignment" 
+                    v-bind:menu-background-color="menuBackgroundColor"
+                    v-bind:input-variant="inputVariant"
                     v-bind:sort.sync="sortData"
                     v-bind:reverse.sync="reverseData"
-                    v-bind:menu-visible.sync="menuVisibleData"
-                    v-bind:inputVariant="inputVariant"
-                    v-bind:edit-columns="editColumns"
-                    v-bind:alignment="alignment" 
-                    v-bind:mode="mode" 
-                    v-bind:menu-title="menuTitle" 
-                    v-bind:menuWidth="menuWidth"
-                    v-bind:maxHeight="maxHeight"
-                    v-bind:selected-index="selectedIndex"
-                    v-bind:menuBackgroundColor="menuBackgroundColor"
-                    v-bind:animationDuration="animationDuration"/>
+                    v-bind:animation-duration="animationDuration"/>
                 <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}, Menu visible: {{ menuVisibleData }}</p>
             </div>
 
