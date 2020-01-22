@@ -32,8 +32,8 @@
 .dropdown-container {
     min-width: 150px;
     position: absolute;
-    top: 34px;
     right: 0px;
+    top: 34px;
     width: fit-content;
 }
 
@@ -51,8 +51,10 @@
     float: left;
     margin: 0px 0px 0px 0px;
     min-width: 20px;
-    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
-        color 0.15s ease-in-out, opacity 0.15s ease-in-out;
+    transition: background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out,
+        color 0.15s ease-in-out,
+        opacity 0.15s ease-in-out;
     user-select: none;
 }
 
@@ -146,8 +148,11 @@ export const ButtonDropdown = {
         };
     },
     methods: {
-        onToggleDropdown() {
+        toggleDropdown() {
             this.dropdownVisible = !this.dropdownVisible;
+        },
+        onToggleDropdown() {
+            this.toggleDropdown();
         },
         onPrimaryButtonClicked() {
             this.$emit("click:primary-button");
