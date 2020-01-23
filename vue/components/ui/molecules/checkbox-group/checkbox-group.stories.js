@@ -15,31 +15,31 @@ storiesOf("Molecules", module)
                 default: () => [
                     {
                         label: "Japan",
-                        value: true
+                        value: "japan"
                     },
                     {
                         label: "Morocco",
-                        value: true
+                        value: "morocco"
                     },
                     {
-                        label: "Canada",
-                        value: false
+                        value: "canada"
                     },
                     {
-                        label: "China"
+                        label: "China",
+                        value: "china"
                     },
                     {
                         label: "Dubai",
-                        value: true
+                        value: "dubai"
                     },
                     {
                         label: "Bali",
-                        value: true,
+                        value: "bali",
                         disabled: true
                     },
                     {
                         label: "Tibet",
-                        value: true,
+                        value: "tibet",
                         error: true
                     }
                 ]
@@ -47,22 +47,26 @@ storiesOf("Molecules", module)
         },
         data: function() {
             return {
-                itemsData: this.items
+                valuesData: {
+                    japan: false,
+                    morocco: true,
+                    canada: false,
+                    china: false,
+                    dubai: false,
+                    bali: true
+                }
             };
-        },
-        watch: {
-            items(value) {
-                this.itemsData = value;
-            }
         },
         template: `
             <div>
                 <checkbox-group
-                    v-bind:items.sync="items"
+                    v-bind:items="items"
+                    v-bind:values.sync="valuesData"
                     v-bind:error="error"
                     v-bind:disabled="disabled"
                 />
-                <p>Values: {{ itemsData }}</p>
+                <p>Items: {{ items }}</p>
+                <p>Values: {{ valuesData }}</p>
             </div>
         `
     }));

@@ -1,9 +1,9 @@
 <template>
     <div class="checkbox-group">
-        <div class="group" v-for="(item, index) in itemsData" v-bind:key="index">
+        <div class="group" v-for="(item, index) in items" v-bind:key="index">
             <checkbox
-                v-bind:label="item.label"
-                v-bind:value.sync="item.value"
+                v-bind:label="item.label ? item.label : item.value"
+                v-bind:value.sync="valuesData[item.value]"
                 v-bind:index="index"
                 v-bind:disabled="item.disabled || disabled"
                 v-bind:error="item.error || error"
@@ -17,12 +17,14 @@
 
 .group {
     display: block;
+    font-size: 0px;
     line-height: 13px;
     outline: none;
     padding: 10px 0px 10px 0px;
     user-select: none;
     width: fit-content;
 }
+
 </style>
 <script>
 export const CheckboxGroup = {
@@ -31,6 +33,10 @@ export const CheckboxGroup = {
         items: {
             type: Array,
             default: () => []
+        },
+        values: {
+            type: Object,
+            default: () => {}
         },
         error: {
             type: Boolean,
@@ -43,12 +49,12 @@ export const CheckboxGroup = {
     },
     data: function() {
         return {
-            itemsData: this.items
+            valuesData: this.values
         };
     },
     watch: {
-        items(value) {
-            this.itemsData = value;
+        values(value) {
+            this.valuesData = value;
         }
     }
 };
