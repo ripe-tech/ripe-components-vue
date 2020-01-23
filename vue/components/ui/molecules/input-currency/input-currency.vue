@@ -109,7 +109,7 @@ export const InputCurrency = {
         },
         _places(currency, fallback = 2) {
             const currencyInfo = currencies[currency] || {};
-            return currencyInfo.places || fallback;
+            return "places" in currencyInfo ? currencyInfo.places : fallback;
         }
     }
 };
