@@ -290,9 +290,7 @@ export const Table = {
             reverseData: this.reverse,
             globalCheckboxValueData: false,
             globalCheckboxIcon: "check",
-            selectedCheckboxesData: this.selectedCheckboxes.length
-                ? this.selectedCheckboxes
-                : new Array(this.items.length).fill(false)
+            selectedCheckboxesData: this.enableCheckboxes ? this.initialSelectedCheckboxes() : []
         };
     },
     computed: {
@@ -312,12 +310,15 @@ export const Table = {
         },
         isAllUnchecked() {
             return !this.selectedCheckboxesData.some(value => value === true);
-        },
-
+        }
     },
     methods: {
         checkableItems() {
             return this.items.map((item, index) => ({...item, _checkboxIndex: index}))
+        },
+        initialSelectedCheckboxes()
+        {
+            return new Array(this.items.length).fill(false).map((value, index) => {return Boolean(this.selectedCheckboxes[index])});
         },
         selectionChange() {
             if (this.isAllChecked) {
@@ -355,6 +356,9 @@ export const Table = {
         onClick(item, index) {
             this.$emit("click", item, index);
         }
+    },
+    mounted: function() {
+        this.selectedCheckboxesData.__ob__.dep.notify();
     }
 };
 
