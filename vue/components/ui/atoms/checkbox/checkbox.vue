@@ -3,7 +3,7 @@
         tabindex="0"
         class="checkbox"
         v-bind:class="{
-            checked: valueData,
+            checked: checkedData,
             disabled: disabled,
             error: error
         }"
@@ -12,12 +12,22 @@
         v-on:mouseup="onMouseUp()"
         v-on:keydown.space="onSpace()"
     >
-        <slot name="before-item" v-bind:label="label" v-bind:value="value" />
+        <slot
+            name="before-item"
+            v-bind:label="label"
+            v-bind:value="value"
+            v-bind:checked="checkedData"
+        />
         <div class="checkbox-input">
             <div class="checkbox-square" v-bind:style="getStyle" />
-            <label class="label" v-if="label">{{ label }}</label>
+            <label class="label" v-if="label || value">{{ label ? label : value }}</label>
         </div>
-        <slot name="after-item" v-bind:label="label" v-bind:value="value" />
+        <slot
+            name="after-item"
+            v-bind:label="label"
+            v-bind:value="value"
+            v-bind:checked="checkedData"
+        />
     </div>
 </template>
 
@@ -107,6 +117,10 @@ export const Checkbox = {
             default: null
         },
         value: {
+            type: String,
+            default: null
+        },
+        checked: {
             type: Boolean,
             default: false
         },
@@ -133,13 +147,13 @@ export const Checkbox = {
     },
     data: function() {
         return {
-            valueData: this.value,
+            checkedData: this.checked,
             active: false
         };
     },
     watch: {
-        value(value) {
-            this.valueData = value;
+        checked(value) {
+            this.checkedData = value;
         }
     },
     computed: {
@@ -172,8 +186,8 @@ export const Checkbox = {
         },
         getStyle() {
             let base = {};
-            if (this.disabled && this.valueData) base = this.disabledStyle;
-            else if (this.valueData) base = this.checkedStyle;
+            if (this.disabled && this.checkedData) base = this.disabledStyle;
+            else if (this.checkedData) base = this.checkedStyle;
             else if (this.active) base = this.activeCheckStyle;
             return { ...this.style, ...base };
         }
@@ -182,8 +196,8 @@ export const Checkbox = {
         toggleItem(item) {
             if (this.disabled) return;
 
-            this.valueData = !this.valueData;
-            this.$emit("update:value", this.valueData, this.index);
+            this.checkedData = !this.checkedData;
+            this.$emit("update:checked", this.checkedData, this.index);
         },
         onSpace() {
             this.toggleItem();
