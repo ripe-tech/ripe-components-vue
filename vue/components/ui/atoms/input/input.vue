@@ -105,6 +105,10 @@ export const Input = {
             type: Number,
             default: null
         },
+        minWidth: {
+            type: Number,
+            default: null
+        },
         height: {
             type: Number,
             default: null
@@ -138,6 +142,7 @@ export const Input = {
             const base = {
                 width: this.width === null ? null : `${this.width}px`,
                 height: this.height === null ? null : `${this.height}px`,
+                "min-width": this.minWidth === null ? null : `${this.minWidth}px`,
                 "text-align": this.align
             };
             return base;

@@ -56,6 +56,9 @@ storiesOf("Atoms", module)
             width: {
                 default: number("Width", null)
             },
+            minWidth: {
+                default: number("Minimum width", null)
+            },
             height: {
                 default: number("Height", null)
             }
@@ -86,6 +89,7 @@ storiesOf("Atoms", module)
                         v-bind:placeholder="placeholder"
                         v-bind:disabled="disabled"
                         v-bind:width="width"
+                        v-bind:min-width="minWidth"
                         v-bind:height="height"></input-ripe>
                 </form-input>
                 <p>Text: {{ valueData }}</p>
