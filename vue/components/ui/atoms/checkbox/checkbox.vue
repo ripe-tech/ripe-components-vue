@@ -27,6 +27,7 @@
 .checkbox {
     display: inline-block;
     font-size: 0px;
+    outline: none;
 }
 
 .checkbox > .checkbox-input {
