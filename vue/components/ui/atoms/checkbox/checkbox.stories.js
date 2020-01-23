@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, boolean } from "@storybook/addon-knobs";
+import { withKnobs, boolean, text, select, number } from "@storybook/addon-knobs";
 
 storiesOf("Atoms", module)
     .addDecorator(withKnobs)
@@ -9,82 +9,63 @@ storiesOf("Atoms", module)
                 default: boolean("Error", false)
             },
             disabled: {
-                default: boolean("Disabled Group", false)
+                default: boolean("Disabled", false)
             },
-            header: {
-                default: text("Header", "Start Header")
+            checked: {
+                default: boolean("Checked", false)
             },
-            footer: {
-                default: text("Footer", "End Footer")
+            label: {
+                default: text("Label", "Checkbox")
             },
-            errorText: {
-                default: text("Error Text", "")
+            value: {
+                default: text("Value", "checkbox")
             },
-            warning: {
-                default: text("Warning", "")
+            icon: {
+                default: select(
+                    "Icon",
+                    {
+                        Check: "check",
+                        Minus: "minus"
+                    },
+                    "check"
+                )
             },
-            success: {
-                default: text("Success", "")
+            slots: {
+                default: boolean("Slots", false)
             },
-            items: {
-                default: () => [
-                    {
-                        label: "Japan",
-                        value: "japan"
-                    },
-                    {
-                        label: "Morocco",
-                        value: "morocco"
-                    },
-                    {
-                        value: "Canada"
-                    },
-                    {
-                        value: "China"
-                    },
-                    {
-                        label: "Dubai",
-                        value: "dubai"
-                    },
-                    {
-                        label: "Bali",
-                        value: "bali",
-                        disabled: true
-                    },
-                    {
-                        label: "Tibet",
-                        value: "tibet"
-                    }
-                ]
+            size: {
+                default: number("Size", 4)
             }
         },
         data: function() {
             return {
-                valuesData: {
-                    japan: true,
-                    China: true,
-                    dubai: true,
-                    Canada: true
-                }
+                checkedData: this.checked
             };
+        },
+        watch: {
+            checked(value) {
+                this.checkedData = value;
+            }
         },
         template: `
             <div>
-                <form-input
-                    v-bind:header="header"
-                    v-bind:footer="footer"
-                    v-bind:error="errorText"
-                    v-bind:warning="warning"
-                    v-bind:success="success"
+                <checkbox
+                    v-bind:label="label"
+                    v-bind:value="value"
+                    v-bind:checked.sync="checkedData"
+                    v-bind:disabled="disabled"
+                    v-bind:error="error"
+                    v-bind:icon="icon"
+                    v-bind:size="size"
                 >
-                    <checkbox
-                        v-bind:items="items"
-                        v-bind:values.sync="valuesData"
-                        v-bind:disabled="disabled"
-                        v-bind:error="error"
-                    />
-                </form-input>
-                <p>Values: {{ valuesData }}</p>
+                    <template v-slot:before-item="{ label, value, checked }" v-if="slots">
+                        <p>Custom before checkbox {{ label }} with value {{ value }} and checked is {{ checked }}</p>
+                    </template>
+                    <template v-slot:after-item="{ label, value, checked }" v-if="slots">
+                        <p>Custom After checkbox {{ label }}</p>
+                    </template>
+                </checkbox>
+                <p>Checked: {{ checkedData }}</p>
             </div>
         `
     }));

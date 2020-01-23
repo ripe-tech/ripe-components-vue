@@ -1,10 +1,26 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text, boolean, number, select } from "@storybook/addon-knobs";
 
+import rates from "./assets/rates_example.json";
+
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
-    .add("Input Symbol", () => ({
+    .add("Input Currency", () => ({
         props: {
+            value: {
+                default: text("Value", "50")
+            },
+            currency: {
+                default: select(
+                    "Currency",
+                    {
+                        USD: "USD",
+                        EUR: "EUR",
+                        GBP: "GBP"
+                    },
+                    "USD"
+                )
+            },
             variant: {
                 default: select(
                     "Variant",
@@ -38,12 +54,6 @@ storiesOf("Molecules", module)
                     "right"
                 )
             },
-            value: {
-                default: text("Value", "This is a text")
-            },
-            symbol: {
-                default: text("Symbol", "€")
-            },
             placeholder: {
                 default: text("Placeholder", "This is a placeholder")
             },
@@ -59,7 +69,8 @@ storiesOf("Molecules", module)
         },
         data: function() {
             return {
-                valueData: this.value
+                valueData: this.value,
+                rates: rates
             };
         },
         watch: {
@@ -69,7 +80,7 @@ storiesOf("Molecules", module)
         },
         template: `
             <div>
-                <input-symbol
+                <input-currency
                     v-bind:value.sync="valueData"
                     v-bind:height="height"
                     v-bind:width="width"
@@ -78,7 +89,8 @@ storiesOf("Molecules", module)
                     v-bind:variant="variant"
                     v-bind:disabled="disabled"
                     v-bind:placeholder="placeholder"
-                    v-bind:symbol="symbol" />
+                    v-bind:currency="currency"
+                    v-bind:rates="rates" />
                 <p>Text: {{ valueData }}</p>
             </div>
         `

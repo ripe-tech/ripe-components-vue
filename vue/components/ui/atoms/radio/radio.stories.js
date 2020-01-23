@@ -24,6 +24,9 @@ storiesOf("Atoms", module)
             disabled: {
                 default: boolean("Disabled", false)
             },
+            slots: {
+                default: boolean("Slots", false)
+            },
             items: {
                 default: () => [
                     {
@@ -63,7 +66,14 @@ storiesOf("Atoms", module)
                     v-bind:items="items"
                     v-bind:disabled="disabled"
                     v-bind:error="error"
-                />
+                >
+                    <template v-slot:before-item="{ item, index }" v-if="slots">
+                        <p>Custom before checkbox {{ item.label }}</p>
+                    </template>
+                    <template v-slot:after-item="{ item, index }" v-if="slots">
+                        <p>Custom After checkbox {{ item.label }}</p>
+                    </template>
+                </radio>
                 <p>Value selected: {{ valueData }}</p>
             </div>`
     }));

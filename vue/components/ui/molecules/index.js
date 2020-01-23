@@ -2,9 +2,11 @@ import { Alert } from "./alert/alert.vue";
 import { Announcements } from "./announcements/announcements.vue";
 import { ButtonIconAnimated } from "./button-icon-animated/button-icon-animated.vue";
 import { ChatMessage } from "./chat-message/chat-message.vue";
+import { CheckboxGroup } from "./checkbox-group/checkbox-group.vue";
 import { Filter } from "./filter/filter.vue";
 import { Footer } from "./footer/footer.vue";
 import { FormInput } from "./form-input/form-input.vue";
+import { InputCurrency } from "./input-currency/input-currency.vue";
 import { InputSymbol } from "./input-symbol/input-symbol.vue";
 import { Lightbox } from "./lightbox/lightbox.vue";
 import { Lineup } from "./lineup/lineup.vue";
@@ -22,9 +24,11 @@ const install = Vue => {
     Vue.component("button-icon-animated", ButtonIconAnimated);
     Vue.component("announcements", Announcements);
     Vue.component("chat-message", ChatMessage);
+    Vue.component("checkbox-group", CheckboxGroup);
     Vue.component("filter-ripe", Filter);
     Vue.component("footer-ripe", Footer);
     Vue.component("form-input", FormInput);
+    Vue.component("input-currency", InputCurrency);
     Vue.component("input-symbol", InputSymbol);
     Vue.component("lightbox", Lightbox);
     Vue.component("lineup", Lineup);
@@ -43,9 +47,11 @@ export {
     Announcements,
     ButtonIconAnimated,
     ChatMessage,
+    CheckboxGroup,
     Filter,
     Footer,
     FormInput,
+    InputCurrency,
     InputSymbol,
     Lightbox,
     Lineup,

@@ -21,28 +21,30 @@
             <input-ripe v-bind:variant="'dark'" v-bind:value.sync="searchData" />
         </form-input>
         <form-input v-bind:header="'Tenancy'" v-if="tenancyItemsCheckable.length !== 1">
-            <checkbox v-bind:items="tenancyItemsCheckable" v-bind:values.sync="checkboxValuesData">
-                <template v-slot:after-item="{ item }">
+            <checkbox-group
+                v-bind:items="tenancyItemsCheckable"
+                v-bind:values.sync="checkboxValuesData"
+            >
+                <template v-slot:after-item="{ label, value }">
                     <p
-                        class="seleced-label"
+                        class="selected-label"
                         v-show="
-                            isTenancyItemSelected(item.value) &&
-                                tenancies[item.value].choices.length === 1
+                            isTenancyItemSelected(value) && tenancies[value].choices.length === 1
                         "
                     >
-                        {{ tenancies[item.value].choices[0].label }}
+                        {{ tenancies[value].choices[0].label }}
                     </p>
                     <select-ripe
-                        v-bind:placeholder="`Select ${item.label}`"
+                        v-bind:placeholder="`Select ${label}`"
                         v-bind:width="200"
                         v-bind:max-height="150"
-                        v-bind:options="tenancies[item.value].choices"
-                        v-if="tenancies[item.value].choices.length > 1"
-                        v-show="isTenancyItemSelected(item.value)"
-                        v-on:update:value="value => onSelected(item.value, value)"
+                        v-bind:options="tenancies[value].choices"
+                        v-if="tenancies[value].choices.length > 1"
+                        v-show="isTenancyItemSelected(value)"
+                        v-on:update:value="valueUpdated => onSelected(value, valueUpdated)"
                     />
                 </template>
-            </checkbox>
+            </checkbox-group>
         </form-input>
         <template v-slot:buttons-content>
             <button-color
@@ -73,22 +75,19 @@
     margin: 0px 0px 17px 0px;
 }
 
-.form-input .content .checkbox .seleced-label,
-.form-input .content .checkbox .select {
+.form-input .content .checkbox-item .selected-label,
+.form-input .content .checkbox-item .select {
     display: inline-block;
     vertical-align: middle;
 }
 
-.form-input .content .checkbox ::v-deep .choice {
+.form-input .content .checkbox-group ::v-deep .checkbox-item {
     padding: 0px 0px 0px 0px;
 }
 
-.form-input .content .checkbox ::v-deep .choice .checkbox-input {
+.form-input .content .checkbox-group ::v-deep .checkbox-item .checkbox-input {
     margin: 10px 10px 10px 0px;
-}
-
-.form-input .content .checkbox ::v-deep .choice .checkbox-input label {
-    min-width: 55px;
+    min-width: 70px;
 }
 </style>
 

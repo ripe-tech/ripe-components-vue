@@ -119,6 +119,10 @@
     line-height: 32px;
 }
 
+.filter-item-buttons ::v-deep img {
+    vertical-align: baseline;
+}
+
 .search-persistent > .select .filter-item.selected {
     background-color: $dark;
     color: $white;
