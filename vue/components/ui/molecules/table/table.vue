@@ -2,7 +2,7 @@
     <table class="table">
         <thead class="table-head">
             <tr>
-                <th v-if="enableCheckboxes">
+                <th class="checkboxes-th" v-if="enableCheckboxes">
                     <checkbox
                         v-bind:value="globalCheckboxValueData"
                         v-bind:icon="globalCheckboxIcon"
@@ -65,6 +65,10 @@
     table-layout: fixed;
     text-align: center;
     width: 100%;
+}
+
+.table .table-head .checkboxes-th {
+    width: 45px;
 }
 
 .table tr {
