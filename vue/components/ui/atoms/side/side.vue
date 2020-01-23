@@ -118,6 +118,7 @@
     color: $main-color;
     display: inline-block;
     padding: 12px 24px 12px 24px;
+    text-decoration: none;
     width: 100%;
 }
 
