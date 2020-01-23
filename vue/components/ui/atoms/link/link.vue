@@ -5,6 +5,7 @@
         v-bind:href="href"
         v-bind:rel="rel"
         v-bind:target="target"
+        v-on:click="onClick"
     >
         {{ text }}
     </a>
@@ -165,6 +166,11 @@ export const Link = {
             if (this.color) base["link-" + this.color] = this.color;
             if (this.hover) base["link-hover-" + this.hover] = this.hover;
             return base;
+        }
+    },
+    methods: {
+        onClick(event) {
+            this.$emit("click", event);
         }
     }
 };
