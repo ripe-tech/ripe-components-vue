@@ -2,7 +2,7 @@
     <div class="checkbox-group">
         <div class="group" v-for="(item, index) in items" v-bind:key="index">
             <checkbox
-                v-bind:label="item.label"
+                v-bind:label="item.label ? item.label : item.value"
                 v-bind:value.sync="valuesData[item.value]"
                 v-bind:index="index"
                 v-bind:disabled="item.disabled || disabled"

@@ -51,8 +51,7 @@ storiesOf("Molecules", module)
                     canada: false,
                     china: false,
                     dubai: false,
-                    bali: true,
-                    tibet: true
+                    bali: true
                 })
             }
         },
