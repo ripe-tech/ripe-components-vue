@@ -43,36 +43,29 @@ storiesOf("Molecules", module)
                         error: true
                     }
                 ]
-            },
-            values: {
-                default: () => ({
+            }
+        },
+        data: function() {
+            return {
+                valuesData: {
                     japan: false,
                     morocco: true,
                     canada: false,
                     china: false,
                     dubai: false,
                     bali: true
-                })
-            }
-        },
-        data: function() {
-            return {
-                valuesData: this.values
+                }
             };
-        },
-        watch: {
-            values(value) {
-                this.valuesData = value;
-            }
         },
         template: `
             <div>
                 <checkbox-group
                     v-bind:items="items"
-                    v-bind:values.sync="values"
+                    v-bind:values.sync="valuesData"
                     v-bind:error="error"
                     v-bind:disabled="disabled"
                 />
+                <p>Items: {{ items }}</p>
                 <p>Values: {{ valuesData }}</p>
             </div>
         `
