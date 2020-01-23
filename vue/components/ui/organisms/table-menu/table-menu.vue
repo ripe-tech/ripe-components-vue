@@ -49,32 +49,7 @@
                     </slot>
                     <slot name="menu-content">
                         <div class="argument" v-bind:class="editColumn" v-for="(editColumn, index) in editColumns" v-bind:key="index">
-                            <form-input
-                                v-bind:header="getColumnLabel(editColumn)"
-                                v-if="isMoney(editColumn)"
-                            >
-                                <input-currency
-                                    v-bind:currency="getColumnSymbol(editColumn, selectedItem)"
-                                    v-bind:value.sync="selectedItem[editColumn]"
-                                    v-bind:variant="inputVariant"
-                                />
-                            </form-input>
-                            <form-input v-bind:header="null" v-else-if="isBoolean(editColumn)">
-                                <checkbox
-                                    v-bind:items="
-                                        buildCheckboxItem(
-                                            getColumnLabel(editColumn, getColumnLabel),
-                                            editColumn
-                                        )
-                                    "
-                                    v-bind:values="
-                                        buildCheckboxValue(editColumn, selectedItem[editColumn])
-                                    "
-                                    v-on:selected:value="toggleCheckbox($event, true)"
-                                    v-on:deselected:value="toggleCheckbox($event, false)"
-                                />
-                            </form-input>
-                            <form-input v-bind:header="getColumnLabel(editColumn)" v-else>
+                            <form-input v-bind:header="getColumnLabel(editColumn)">
                                 <input-ripe
                                     v-bind:value.sync="selectedItem[editColumn]"
                                     v-bind:variant="inputVariant"
@@ -271,6 +246,9 @@ export const TableMenu = {
         itemsWithIndex() {
             return this.items.map((item, index) => ({ _originalIndex: index, ...item }));
         },
+        selectedItem() {
+            return this.items[this.selectedIndexData] || {};
+        },
         menuStyle() {
             const base = {};
             base["background-color"] = this.menuBackgroundColor ? this.menuBackgroundColor : null;
@@ -280,9 +258,6 @@ export const TableMenu = {
             const base = {};
             base["max-height"] = this.maxHeight ? `${this.maxHeight}px` : null;
             return base;
-        },
-        selectedItem() {
-            return this.items[this.selectedIndexData] || {};
         }
     },
     watch: {
@@ -319,11 +294,9 @@ export const TableMenu = {
             this.menuVisibleData = true;
             this.focusFirstTextInput();
         },
-        buildCheckboxItem(label, value) {
-            return [{ label: label, value: value }];
-        },
-        buildCheckboxValue(label, value) {
-            return { [label]: value };
+        toggleCheckbox(property, value) {
+            if (!(property in this.selectedItem)) return;
+            this.$set(this.items[this.selectedIndexData], property, value);
         },
         getColumnLabel(value) {
             const column = this.columns.find(l => l.value === value);
@@ -333,37 +306,20 @@ export const TableMenu = {
             const column = this.columns.find(l => l.value === value);
             return column.type || "text";
         },
-        getColumnSymbol(value, item) {
-            if (item.currency) {
-                return item.currency.toUpperCase();
-            } else {
-                return this.columns.find(l => l.value === value).symbol || "?";
-            }
+        scrollTop() {
+            const table = document.getElementById("table-content");
+            table.scrollTop = 0;
         },
-        isBoolean(value) {
-            return this.getColumnType(value) === "boolean";
-        },
-        isMoney(value) {
-            return this.getColumnType(value) === "money";
+        scrollBottom() {
+            const table = document.getElementById("table-content");
+            table.scrollTop = table.scrollHeight;
         },
         toggleMenu() {
             this.menuVisibleData = !this.menuVisibleData;
         },
-        toggleCheckbox(property, value) {
-            if (!(property in this.selectedItem)) return;
-            this.$set(this.items[this.selectedIndexData], property, value);
-        },
         focusFirstTextInput() {
             const textInputs = this.$refs.textInput || [];
             if (textInputs.length > 0) textInputs[0].focus();
-        },
-        scrollToBottom() {
-            const table = document.getElementById("table-content");
-            table.scrollTop = table.scrollHeight;
-        },
-        scrollToTop() {
-            const table = document.getElementById("table-content");
-            table.scrollTop = 0;
         },
         onClickItem(item) {
             this.selectedItem.id === item.id
