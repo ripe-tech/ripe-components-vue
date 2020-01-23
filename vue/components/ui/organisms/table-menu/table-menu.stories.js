@@ -74,6 +74,10 @@ storiesOf("Organisms", module)
                 type: Number,
                 default: number("Selected index", null)
             },
+            contentTitle: {
+                type: String,
+                default: text("Content header title", "")
+            },
             menuTitle: {
                 type: String,
                 default: text("Menu header title", "Arguments")
@@ -147,6 +151,7 @@ storiesOf("Organisms", module)
                     v-bind:columns="mockColumns"
                     v-bind:edit-columns="editColumns"
                     v-bind:selected-index="selectedIndex"
+                    v-bind:content-title="contentTitle" 
                     v-bind:menu-title="menuTitle" 
                     v-bind:menu-mode="menuMode" 
                     v-bind:menu-visible.sync="menuVisibleData"
