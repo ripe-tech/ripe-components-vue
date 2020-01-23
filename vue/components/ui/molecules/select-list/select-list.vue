@@ -3,16 +3,25 @@
         <p class="title">
             {{ title }}
         </p>
+        <div class="select-list-seach">
+            <search
+                class="search-containter"
+                v-bind:icon-visible="true"
+                v-bind:clear-visible="true"
+                v-bind:value.sync="searchKeyData"
+            />
+        </div>
+
         <ul class="items" v-bind:style="style">
             <li
                 class="item"
                 v-bind:class="{ selected: isSelected(item.value) }"
-                v-for="(item, index) in items"
+                v-for="(item, index) in itemsData"
                 v-bind:key="item.index"
                 v-on:click.exact="onClick(item.value, index)"
                 v-on:click.shift="onShiftClick(item.value, index)"
             >
-                {{ item.value }}
+                {{ item.label }}
             </li>
         </ul>
     </div>
@@ -34,6 +43,14 @@
     background-color: transparent;
     font-size: 14px;
     padding: 5px 0px 0px 0px;
+}
+
+.select-list > .select-list-seach {
+    background-color: #ffffff;
+    border: 1px solid #e4e8f0;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    padding: 12px 12px 12px 12px;
 }
 
 .select-list > .items:focus {
@@ -60,6 +77,10 @@
     line-height: 32px;
     padding-left: 15px;
     width: 303px;
+}
+
+.select-list .search-container {
+    background-color: $mild-dark-blue;
 }
 
 .select-list > .items > .item:hover {
@@ -102,7 +123,9 @@ export const SelectList = {
     data: function() {
         return {
             valuesData: this.values,
-            lastSelected: null
+            lastSelected: null,
+            itemsData: this.items,
+            searchKeyData: ""
         };
     },
     computed: {
@@ -116,6 +139,11 @@ export const SelectList = {
     watch: {
         values(value) {
             this.valuesData = value;
+        },
+        searchKeyData(value) {
+            this.itemsData = this.items.filter(item =>
+                item.label.toLowerCase().startsWith(value.toLowerCase())
+            );
         }
     },
     methods: {

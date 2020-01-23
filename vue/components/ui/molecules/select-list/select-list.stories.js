@@ -8,20 +8,20 @@ storiesOf("Molecules", module)
             options: {
                 type: Array,
                 default: () => [
-                    { value: "option_1", label: "A" },
-                    { value: "option_2", label: "B" },
-                    { value: "option_3", label: "C" },
-                    { value: "option_4", label: "D" },
-                    { value: "option_5", label: "E" },
-                    { value: "option_6", label: "F" },
-                    { value: "option_7", label: "G" },
-                    { value: "option_8", label: "H" },
-                    { value: "option_9", label: "I" },
-                    { value: "option_10", label: "J" },
-                    { value: "option_11", label: "K" },
-                    { value: "option_12", label: "L" },
-                    { value: "option_13", label: "M" },
-                    { value: "option_14", label: "N" }
+                    { value: "option_1", label: "Aureo" },
+                    { value: "option_2", label: "Bernardo" },
+                    { value: "option_3", label: "Carlos" },
+                    { value: "option_4", label: "Cristiano" },
+                    { value: "option_5", label: "Daniel" },
+                    { value: "option_6", label: "Gabriel" },
+                    { value: "option_7", label: "Geraldo" },
+                    { value: "option_8", label: "Mauro" },
+                    { value: "option_9", label: "Mário" },
+                    { value: "option_10", label: "Márcio" },
+                    { value: "option_11", label: "Narciso" },
+                    { value: "option_12", label: "Nataniel" },
+                    { value: "option_13", label: "Paulo" },
+                    { value: "option_14", label: "Paulino" }
                 ]
             },
             values: {
