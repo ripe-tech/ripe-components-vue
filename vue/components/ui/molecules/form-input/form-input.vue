@@ -1,6 +1,12 @@
 <template>
-    <div class="form-input" v-bind:class="{ 'form-input-inline': mode === 'inline' }">
-        <label-ripe class="header" v-bind:text="header" v-bind:for="id" v-if="header" />
+    <div class="form-input" v-bind:class="alignment">
+        <label-ripe
+            class="header"
+            v-bind:style="headerStyle"
+            v-bind:text="header"
+            v-bind:for="id"
+            v-if="header"
+        />
 
         <div class="content">
             <slot />
@@ -40,14 +46,13 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.form-input.form-input-inline {
+.form-input.inline {
     display: flex;
 }
 
-.form-input.form-input-inline .header {
+.form-input.inline .header {
     line-height: 34px;
     margin: 0px 4px 0px 0px;
-    min-width: 120px;
 }
 
 .form-input .header,
@@ -57,6 +62,7 @@
 
 .form-input .header {
     margin-bottom: 6px;
+    min-width: 120px;
 }
 
 .form-input .footer {
@@ -69,7 +75,7 @@
     line-height: 0px;
 }
 
-.form-input.form-input-inline .content {
+.form-input.inline .content {
     flex: 1;
 }
 
@@ -128,9 +134,18 @@ export const FormInput = {
             type: String,
             default: null
         },
-        mode: {
+        alignment: {
             type: String,
             default: null
+        },
+        headerMinWidth: {
+            type: Number,
+            default: null
+        }
+    },
+    computed: {
+        headerStyle() {
+            return { "min-width": `${this.headerMinWidth}px` };
         }
     }
 };

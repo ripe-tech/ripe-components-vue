@@ -59,12 +59,15 @@ storiesOf("Atoms", module)
             minWidth: {
                 default: number("Minimum width", null)
             },
+            headerMinWidth: {
+                default: number("Header Minimum width", null)
+            },
             height: {
                 default: number("Height", null)
             },
-            mode: {
+            alignment: {
                 default: select(
-                    "Mode",
+                    "Alignment",
                     {
                         Unset: null,
                         Inline: "inline"
@@ -87,11 +90,12 @@ storiesOf("Atoms", module)
             <div>
                 <form-input
                     v-bind:header="header"
+                    v-bind:header-min-width="headerMinWidth"
                     v-bind:footer="footer"
                     v-bind:error="errorText"
                     v-bind:warning="warning"
                     v-bind:success="success"
-                    v-bind:mode="mode"
+                    v-bind:alignment="alignment"
                 >
                     <input-ripe
                         v-bind:variant="variant"
