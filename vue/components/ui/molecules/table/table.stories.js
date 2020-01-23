@@ -46,6 +46,9 @@ storiesOf("Molecules", module)
                     { value: "user", label: "User" },
                     { value: "system", label: "System" }
                 ]
+            },
+            enableCheckboxes: {
+                default: () => boolean("Enable checkboxes", true)
             }
         },
         data: function() {
@@ -68,6 +71,7 @@ storiesOf("Molecules", module)
                     class="table"
                     v-bind:columns="mockColumns"
                     v-bind:items="mockItems"
+                    v-bind:enableCheckboxes="enableCheckboxes"
                     v-bind:sort.sync="sortData"
                     v-bind:reverse.sync="reverseData"
                 />

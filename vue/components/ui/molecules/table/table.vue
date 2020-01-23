@@ -2,6 +2,7 @@
     <table class="table">
         <thead class="table-head">
             <tr>
+                <th v-if="enableCheckboxes">S th</th>
                 <th
                     v-bind:style="{ width: column.width }"
                     v-for="column in columns"
@@ -25,6 +26,7 @@
                 <slot name="before-row" v-bind:item="item" v-bind:index="index" />
                 <tr v-bind:key="item.id" v-on:click="onClick(item, index)">
                     <slot v-bind:item="item" v-bind:index="index">
+                        <td v-if="enableCheckboxes">S td</td>
                         <td
                             v-bind:class="column.value"
                             v-for="column in columns"
@@ -221,6 +223,10 @@ export const Table = {
         items: {
             type: Array,
             default: () => []
+        },
+        enableCheckboxes: {
+            type: Boolean,
+            default: false
         },
         sortMethod: {
             type: Function,
