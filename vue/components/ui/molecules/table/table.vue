@@ -285,6 +285,7 @@ export const Table = {
     },
     data: function() {
         return {
+            itemsData: this.enableCheckboxes ? this.checkableItems() : this.items,
             sortData: this.sort,
             reverseData: this.reverse,
             globalCheckboxValueData: false,
@@ -297,20 +298,27 @@ export const Table = {
     computed: {
         sortedItems() {
             if (!this.sortData) {
-                return this.items;
+                return this.itemsData;
             }
 
-            const items = [...this.items];
-            return this.sortMethod(items, this.sortData, this.reverseData);
+            const items = [...this.itemsData];
+            const sortedItems =  this.sortMethod(items, this.sortData, this.reverseData);
+            this.sortCheckboxes(sortedItems);
+
+            return sortedItems;
         },
         isAllChecked() {
             return !this.selectedCheckboxesData.some(value => value === false);
         },
         isAllUnchecked() {
             return !this.selectedCheckboxesData.some(value => value === true);
-        }
+        },
+
     },
     methods: {
+        checkableItems() {
+            return this.items.map((item, index) => ({...item, _checkboxIndex: index}))
+        },
         selectionChange() {
             if (this.isAllChecked) {
                 this.globalCheckboxIcon = "check";
@@ -332,6 +340,16 @@ export const Table = {
             this.sortData = column;
             this.$emit("update:sort", this.sortData);
             this.$emit("update:reverse", this.reverseData);
+        },
+        sortCheckboxes(sortedItems) {
+            console.log("\n\nsorting");
+            const unsortedCheckboxes = [...this.selectedCheckboxesData];
+            console.log(unsortedCheckboxes)
+            sortedItems.forEach((item, index) => {
+                this.$set(this.selectedCheckboxesData, index, unsortedCheckboxes[item._checkboxIndex]);
+            });
+
+            console.log(this.selectedCheckboxesData);
         },
         onGlobalCheckbox(value) {
             this.selectedCheckboxesData = new Array(this.items.length).fill(value);
