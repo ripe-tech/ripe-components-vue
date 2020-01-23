@@ -24,6 +24,7 @@
     user-select: none;
     width: fit-content;
 }
+
 </style>
 <script>
 export const CheckboxGroup = {
@@ -35,7 +36,7 @@ export const CheckboxGroup = {
         },
         values: {
             type: Object,
-            default: () => []
+            default: () => {}
         },
         error: {
             type: Boolean,
