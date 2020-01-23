@@ -15,54 +15,66 @@ storiesOf("Molecules", module)
                 default: () => [
                     {
                         label: "Japan",
-                        value: true
+                        value: "japan"
                     },
                     {
                         label: "Morocco",
-                        value: true
+                        value: "morocco"
                     },
                     {
-                        label: "Canada",
-                        value: false
+                        value: "canada"
                     },
                     {
-                        label: "China"
+                        label: "China",
+                        value: "china"
                     },
                     {
                         label: "Dubai",
-                        value: true
+                        value: "dubai"
                     },
                     {
                         label: "Bali",
-                        value: true,
+                        value: "bali",
                         disabled: true
                     },
                     {
                         label: "Tibet",
-                        value: true,
+                        value: "tibet",
                         error: true
                     }
                 ]
+            },
+            values: {
+                default: () => ({
+                    japan: false,
+                    morocco: true,
+                    canada: false,
+                    china: false,
+                    dubai: false,
+                    bali: true,
+                    tibet: true
+                })
             }
         },
         data: function() {
             return {
-                itemsData: this.items
+                valuesData: this.values
             };
         },
         watch: {
-            items(value) {
-                this.itemsData = value;
+            values(value) {
+                this.valuesData = value;
             }
         },
         template: `
             <div>
                 <checkbox-group
-                    v-bind:items.sync="items"
+                    v-bind:items="items"
+                    v-bind:values.sync="values"
                     v-bind:error="error"
                     v-bind:disabled="disabled"
                 />
-                <p>Values: {{ itemsData }}</p>
+                <p>Values: {{ valuesData }}</p>
             </div>
         `
     }));

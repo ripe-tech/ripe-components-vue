@@ -1,25 +1,23 @@
 <template>
-    <div class="checkbox">
-        <div
-            tabindex="0"
-            class="choice"
-            v-bind:class="{
-                checked: valueData,
-                disabled: disabled,
-                error: error
-            }"
-            v-on:click="onClick()"
-            v-on:mousedown="onMouseDown()"
-            v-on:mouseup="onMouseUp()"
-            v-on:keydown.space="onSpace()"
-        >
-            <slot name="before-item" v-bind:label="label" v-bind:value="value" />
-            <div class="checkbox-input">
-                <div class="checkbox-square" v-bind:style="getStyle" />
-                <label class="label" v-if="label">{{ label }}</label>
-            </div>
-            <slot name="after-item" v-bind:label="label" v-bind:value="value" />
+    <div
+        tabindex="0"
+        class="checkbox"
+        v-bind:class="{
+            checked: valueData,
+            disabled: disabled,
+            error: error
+        }"
+        v-on:click="onClick()"
+        v-on:mousedown="onMouseDown()"
+        v-on:mouseup="onMouseUp()"
+        v-on:keydown.space="onSpace()"
+    >
+        <slot name="before-item" v-bind:label="label" v-bind:value="value" />
+        <div class="checkbox-input">
+            <div class="checkbox-square" v-bind:style="getStyle" />
+            <label class="label" v-if="label">{{ label }}</label>
         </div>
+        <slot name="after-item" v-bind:label="label" v-bind:value="value" />
     </div>
 </template>
 
@@ -31,15 +29,15 @@
     font-size: 0px;
 }
 
-.choice > .checkbox-input {
+.checkbox > .checkbox-input {
     display: inline-block;
 }
 
-.choice > .checkbox-input > .value {
+.checkbox > .checkbox-input > .value {
     display: none;
 }
 
-.choice > .checkbox-input > .checkbox-square {
+.checkbox > .checkbox-input > .checkbox-square {
     background-color: #fafbfc;
     border: 2px solid #dfe1e5;
     border-radius: 2px 2px 2px 2px;
@@ -51,41 +49,41 @@
     width: 4px;
 }
 
-.choice:not(.disabled):not(.error) > .checkbox-input:active > .checkbox-square {
+.checkbox:not(.disabled):not(.error) > .checkbox-input:active > .checkbox-square {
     border: 2px solid #c3c9cf;
     padding: 3px 3px 3px 3px;
 }
 
-.choice.error > .checkbox-input > .checkbox-square {
+.checkbox.error > .checkbox-input > .checkbox-square {
     background-color: #f4f5f7;
     border: 2px solid $dark-red;
 }
 
-.choice.disabled > .checkbox-input > .checkbox-square {
+.checkbox.disabled > .checkbox-input > .checkbox-square {
     background: none center / 7px 6px no-repeat #f4f5f7;
     border: 2px solid #f4f5f7;
     cursor: default;
 }
 
-.choice.checked > .checkbox-input > .checkbox-square {
+.checkbox.checked > .checkbox-input > .checkbox-square {
     border: 2px solid $dark;
     padding: 3px 3px 3px 3px;
 }
 
-.choice.error.checked > .checkbox-input > .checkbox-square {
+.checkbox.error.checked > .checkbox-input > .checkbox-square {
     border: 2px solid $dark-red;
 }
 
-.choice.disabled.checked > .checkbox-input > .checkbox-square {
+.checkbox.disabled.checked > .checkbox-input > .checkbox-square {
     border: 2px solid #f6f7f9;
     padding: 3px 3px 3px 3px;
 }
 
-.choice:focus:not(.disabled) > .checkbox-input > .checkbox-square {
+.checkbox:focus:not(.disabled) > .checkbox-input > .checkbox-square {
     border-color: $aqcua-blue;
 }
 
-.choice > .checkbox-input > .label {
+.checkbox > .checkbox-input > .label {
     color: $grey;
     cursor: pointer;
     display: inline-block;
@@ -95,7 +93,7 @@
     vertical-align: middle;
 }
 
-.choice.disabled > .checkbox-input > .label {
+.checkbox.disabled > .checkbox-input > .label {
     cursor: default;
 }
 </style>
@@ -173,9 +171,9 @@ export const Checkbox = {
         },
         getStyle() {
             let base = {};
-            if (this.disabled && this.value) base = this.disabledStyle;
-            if (this.valueData) base = this.checkedStyle;
-            if (this.active) base = this.activeCheckStyle;
+            if (this.disabled && this.valueData) base = this.disabledStyle;
+            else if (this.valueData) base = this.checkedStyle;
+            else if (this.active) base = this.activeCheckStyle;
             return { ...this.style, ...base };
         }
     },
