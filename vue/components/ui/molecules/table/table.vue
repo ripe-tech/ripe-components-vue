@@ -342,14 +342,11 @@ export const Table = {
             this.$emit("update:reverse", this.reverseData);
         },
         sortCheckboxes(sortedItems) {
-            console.log("\n\nsorting");
             const unsortedCheckboxes = [...this.selectedCheckboxesData];
-            console.log(unsortedCheckboxes)
             sortedItems.forEach((item, index) => {
                 this.$set(this.selectedCheckboxesData, index, unsortedCheckboxes[item._checkboxIndex]);
+                item._checkboxIndex = index;
             });
-
-            console.log(this.selectedCheckboxesData);
         },
         onGlobalCheckbox(value) {
             this.selectedCheckboxesData = new Array(this.items.length).fill(value);
