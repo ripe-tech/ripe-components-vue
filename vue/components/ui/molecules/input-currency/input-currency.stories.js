@@ -8,7 +8,7 @@ storiesOf("Molecules", module)
     .add("Input Currency", () => ({
         props: {
             value: {
-                default: text("Value", "50")
+                default: text("Value", 50)
             },
             currency: {
                 default: select(

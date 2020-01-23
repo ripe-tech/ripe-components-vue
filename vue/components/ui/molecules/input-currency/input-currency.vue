@@ -28,7 +28,7 @@ export const InputCurrency = {
             default: () => ({})
         },
         value: {
-            type: String,
+            type: Number,
             default: null
         },
         variant: {
