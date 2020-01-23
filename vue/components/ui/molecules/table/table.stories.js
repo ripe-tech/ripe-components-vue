@@ -49,12 +49,17 @@ storiesOf("Molecules", module)
             },
             enableCheckboxes: {
                 default: () => boolean("Enable checkboxes", true)
+            },
+            selectedCheckboxes: {
+                type: Array,
+                default: () => []
             }
         },
         data: function() {
             return {
                 reverseData: this.reverse,
-                sortData: this.sort
+                sortData: this.sort,
+                selectedCheckboxesData: this.selectedCheckboxes
             };
         },
         watch: {
@@ -72,10 +77,12 @@ storiesOf("Molecules", module)
                     v-bind:columns="mockColumns"
                     v-bind:items="mockItems"
                     v-bind:enableCheckboxes="enableCheckboxes"
+                    v-bind:selectedCheckboxes.sync="selectedCheckboxesData"s
                     v-bind:sort.sync="sortData"
                     v-bind:reverse.sync="reverseData"
                 />
                 <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}</p>
+                <p>Selected checkboxes: {{ selectedCheckboxesData }}</p>
             </div>
         `
     }));

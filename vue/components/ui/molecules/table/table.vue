@@ -2,7 +2,13 @@
     <table class="table">
         <thead class="table-head">
             <tr>
-                <th v-if="enableCheckboxes">S th</th>
+                <th v-if="enableCheckboxes">
+                    <checkbox
+                        v-bind:value="globalCheckboxValueData"
+                        v-bind:icon="globalCheckboxIcon"
+                        v-on:update:value="onGlobalCheckbox"
+                    />
+                </th>
                 <th
                     v-bind:style="{ width: column.width }"
                     v-for="column in columns"
@@ -26,7 +32,9 @@
                 <slot name="before-row" v-bind:item="item" v-bind:index="index" />
                 <tr v-bind:key="item.id" v-on:click="onClick(item, index)">
                     <slot v-bind:item="item" v-bind:index="index">
-                        <td v-if="enableCheckboxes">S td</td>
+                        <td v-if="enableCheckboxes">
+                             <checkbox v-bind:value.sync="selectedCheckboxesData[index]" />
+                        </td>
                         <td
                             v-bind:class="column.value"
                             v-for="column in columns"
@@ -228,6 +236,10 @@ export const Table = {
             type: Boolean,
             default: false
         },
+        selectedCheckboxes: {
+            type: Array,
+            default: () => []
+        },
         sortMethod: {
             type: Function,
             default: (items, column, reverse) => {
@@ -262,8 +274,19 @@ export const Table = {
     data: function() {
         return {
             sortData: this.sort,
-            reverseData: this.reverse
+            reverseData: this.reverse,
+            globalCheckboxValueData: false,
+            globalCheckboxIcon: "check",
+            selectedCheckboxesData: this.selectedCheckboxes.length
+                ? this.selectedCheckboxes
+                : new Array(this.items.length).fill(false)
         };
+    },
+    watch: {
+        selectedCheckboxesData(value) {
+            this.selectionChange();
+            this.$emit("update:selected-checkboxes", this.selectedCheckboxesData);
+        }
     },
     computed: {
         sortedItems() {
@@ -273,9 +296,27 @@ export const Table = {
 
             const items = [...this.items];
             return this.sortMethod(items, this.sortData, this.reverseData);
+        },
+        isAllChecked() {
+            return !this.selectedCheckboxesData.some(value => value === false);
+        },
+        isAllUnchecked() {
+            return !this.selectedCheckboxesData.some(value => value === true);
         }
     },
-    methods: {
+    methods: {       
+        selectionChange() {
+            if (this.isAllChecked) {
+                this.globalCheckboxIcon = "check";
+                this.globalCheckboxValueData = true;
+            } else if (this.isAllUnchecked) {
+                this.globalCheckboxIcon = "check";
+                this.globalCheckboxValueData = false;
+            } else {
+                this.globalCheckboxIcon = "minus";
+                this.globalCheckboxValueData = true;
+            }
+        },
         columnClass(column) {
             const order = this.reverseData ? "ascending" : "descending";
             return this.sortData === column ? `active ${order}` : "";
@@ -286,9 +327,13 @@ export const Table = {
             this.$emit("update:sort", this.sortData);
             this.$emit("update:reverse", this.reverseData);
         },
+        onGlobalCheckbox(value) {
+            this.selectedCheckboxesData = new Array(this.items.length).fill(value);
+            this.$emit("update:selected-checkboxes", this.selectedCheckboxesData);
+        },
         onClick(item, index) {
             this.$emit("click", item, index);
-        }
+        },
     }
 };
 
