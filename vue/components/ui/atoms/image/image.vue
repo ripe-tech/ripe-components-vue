@@ -50,11 +50,13 @@ export const Image = {
         };
     },
     methods: {
-        onLoad() {
+        onLoad(event) {
             this.loaded = true;
+            this.$emit("load", event);
         },
         onError(event) {
             this.loaded = false;
+            this.$emit("error", event);
         }
     }
 };
