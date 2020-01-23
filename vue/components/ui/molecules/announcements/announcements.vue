@@ -7,7 +7,7 @@
                 {{ description }}
             </p>
             <form-input v-if="showSubscribe">
-                <checkbox v-bind:label="checkboxLabel" v-bind:value.sync="subscribeData" />
+                <checkbox v-bind:label="checkboxLabel" v-bind:checked.sync="subscribeData" />
             </form-input>
         </div>
         <div class="announcements-list">
