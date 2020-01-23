@@ -8,7 +8,9 @@
             v-bind:animation-duration="animationDuration"
         >
             <template v-slot:content>
-                <slot name="table-header" />
+                <slot name="table-header">
+                    <h2 class="table-title" v-if="contentTitle">{{ contentTitle }}</h2>
+                </slot>
                 <div class="table-content" v-bind:style="contentStyle" id="table-content">
                     <table-ripe
                         v-bind:columns="columns"
@@ -46,7 +48,7 @@
                         <h2 class="menu-title" v-if="menuTitle">{{ menuTitle }}</h2>
                     </slot>
                     <slot name="menu-content">
-                        <div v-for="(editColumn, index) in editColumns" v-bind:key="index">
+                        <div class="argument" v-bind:class="editColumn" v-for="(editColumn, index) in editColumns" v-bind:key="index">
                             <form-input
                                 v-bind:header="getColumnLabel(editColumn)"
                                 v-if="isMoney(editColumn)"
@@ -117,13 +119,6 @@
     padding: 10px 20px 0px 20px;
 }
 
-.table-menu .content-menu ::v-deep .menu .menu-title {
-    color: $dark;
-    font-size: 18px;
-    font-weight: 500;
-    padding: 10px 0px 10px 0px;
-}
-
 .table-menu .content-menu ::v-deep .menu .form-input {
     display: flex;
     margin: 0px 0px 5px 0px;
@@ -146,6 +141,18 @@
     width: 100%;
 }
 
+.table-menu .content-menu ::v-deep .content .table-title,
+.table-menu .content-menu ::v-deep .menu .menu-title {
+    color: $dark;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 10px 0px 10px 0px;
+}
+
+.table-menu .content-menu ::v-deep .content .table-title {
+    padding: 10px 0px 10px 20px;
+}
+
 .table-menu .content-menu ::v-deep .content .table-content {
     overflow-y: auto;
 }
@@ -165,7 +172,7 @@
 }
 
 .table-menu .content-menu .content .table .table-body > tr.selected {
-    background-color: $border-color;
+    background-color: #e3e8f1;
 }
 
 .table-menu .content-menu .menu .button-color.delete-item {
@@ -187,7 +194,7 @@ export const TableMenu = {
         },
         editColumns: {
             type: Array,
-            default: []
+            default: () => []
         },
         selectedIndex: {
             type: Number,
@@ -230,6 +237,10 @@ export const TableMenu = {
         menuTitle: {
             type: String,
             default: "Arguments"
+        },
+        contentTitle: {
+            type: String,
+            default: null
         },
         menuVisible: {
             type: Boolean,
@@ -343,8 +354,8 @@ export const TableMenu = {
             this.$set(this.items[this.selectedIndexData], property, value);
         },
         focusFirstTextInput() {
-            const textInputs = this.$refs.textInput;
-            if (textInputs[0]) textInputs[0].focus();
+            const textInputs = this.$refs.textInput || [];
+            if (textInputs.length > 0) textInputs[0].focus();
         },
         scrollToBottom() {
             const table = document.getElementById("table-content");
