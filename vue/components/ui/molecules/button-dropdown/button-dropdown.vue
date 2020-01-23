@@ -24,9 +24,8 @@
 @import "css/variables.scss";
 
 .button-dropdown {
-    display: inline;
-    margin: 1px 0px 0px 0px;
-    padding: 0px 0px 1px 0px;
+    display: inline-block;
+    position: relative;
 }
 
 .dropdown-container {
