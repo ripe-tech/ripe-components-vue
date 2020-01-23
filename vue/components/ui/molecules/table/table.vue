@@ -23,7 +23,7 @@
         <transition-group tag="tbody" v-bind:name="transition" class="table-body">
             <template v-for="(item, index) in sortedItems">
                 <slot name="before-row" v-bind:item="item" v-bind:index="index" />
-                <tr v-bind:key="item.id" v-on:click="onClick(item)">
+                <tr v-bind:key="item.id" v-on:click="onClick(item, index)">
                     <slot v-bind:item="item" v-bind:index="index">
                         <td
                             v-bind:class="column.value"
@@ -283,8 +283,8 @@ export const Table = {
             this.$emit("update:sort", this.sortData);
             this.$emit("update:reverse", this.reverseData);
         },
-        onClick(item) {
-            this.$emit("click", item, item._originalIndex);
+        onClick(item, rowIndex) {
+            this.$emit("click", item, item._originalIndex, rowIndex);
         }
     }
 };
