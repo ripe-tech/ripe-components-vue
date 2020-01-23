@@ -419,3 +419,41 @@
         visibility: hidden;
     }
 }
+
+@keyframes slide-left-fake {
+
+    0% {
+        transform: translateX(0px);
+    }
+
+    30% {
+        transform: translateX(-20px);
+    }
+
+    70% {
+        transform: translateX(10px);
+    }
+
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+@keyframes slide-right-fake {
+
+    0% {
+        transform: translateX(0px);
+    }
+
+    30% {
+        transform: translateX(20px);
+    }
+
+    70% {
+        transform: translateX(-10px);
+    }
+
+    100% {
+        transform: translateX(0px);
+    }
+}
