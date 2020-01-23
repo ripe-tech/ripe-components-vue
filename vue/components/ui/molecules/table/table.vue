@@ -4,6 +4,7 @@
             <tr>
                 <th class="checkboxes-th" v-if="enableCheckboxes">
                     <checkbox
+                        v-bind:size="8"
                         v-bind:value="globalCheckboxValueData"
                         v-bind:icon="globalCheckboxIcon"
                         v-on:update:value="onGlobalCheckbox"
@@ -33,7 +34,10 @@
                 <tr v-bind:key="item.id" v-on:click="onClick(item, index)">
                     <slot v-bind:item="item" v-bind:index="index">
                         <td v-if="enableCheckboxes">
-                             <checkbox v-bind:value.sync="selectedCheckboxesData[index]" />
+                            <checkbox
+                                v-bind:size="8"
+                                v-bind:value.sync="selectedCheckboxesData[index]"
+                            />
                         </td>
                         <td
                             v-bind:class="column.value"
@@ -273,6 +277,10 @@ export const Table = {
         },
         reverse(value) {
             this.reverseData = value;
+        },
+        selectedCheckboxesData(value) {
+            this.selectionChange();
+            this.$emit("update:selected-checkboxes", this.selectedCheckboxesData);
         }
     },
     data: function() {
@@ -285,12 +293,6 @@ export const Table = {
                 ? this.selectedCheckboxes
                 : new Array(this.items.length).fill(false)
         };
-    },
-    watch: {
-        selectedCheckboxesData(value) {
-            this.selectionChange();
-            this.$emit("update:selected-checkboxes", this.selectedCheckboxesData);
-        }
     },
     computed: {
         sortedItems() {
@@ -308,7 +310,7 @@ export const Table = {
             return !this.selectedCheckboxesData.some(value => value === true);
         }
     },
-    methods: {       
+    methods: {
         selectionChange() {
             if (this.isAllChecked) {
                 this.globalCheckboxIcon = "check";
@@ -337,7 +339,7 @@ export const Table = {
         },
         onClick(item, index) {
             this.$emit("click", item, index);
-        },
+        }
     }
 };
 

@@ -24,7 +24,6 @@
     user-select: none;
     width: fit-content;
 }
-
 </style>
 <script>
 export const CheckboxGroup = {
