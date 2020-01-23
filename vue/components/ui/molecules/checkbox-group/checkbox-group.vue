@@ -1,6 +1,6 @@
 <template>
     <div class="checkbox-group">
-        <div class="group" v-for="(item, index) in items" v-bind:key="index">
+        <div class="checkbox-item" v-for="(item, index) in items" v-bind:key="index">
             <checkbox
                 v-bind:label="item.label"
                 v-bind:value="item.value"
@@ -8,7 +8,24 @@
                 v-bind:index="index"
                 v-bind:disabled="item.disabled || disabled"
                 v-bind:error="item.error || error"
-            />
+            >
+                <template v-slot:before-item="{ label, value, checked }">
+                    <slot
+                        name="before-item"
+                        v-bind:label="label"
+                        v-bind:value="value"
+                        v-bind:checked="checked"
+                    />
+                </template>
+                <template v-slot:after-item="{ label, value, checked }">
+                    <slot
+                        name="after-item"
+                        v-bind:label="label"
+                        v-bind:value="value"
+                        v-bind:checked="checked"
+                    />
+                </template>
+            </checkbox>
         </div>
     </div>
 </template>
@@ -16,7 +33,7 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.group {
+.checkbox-item {
     display: block;
     font-size: 0px;
     line-height: 13px;
