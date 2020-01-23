@@ -265,7 +265,7 @@ export const Table = {
         },
         sortedItems() {
             if (!this.sortData) {
-                return this.items;
+                return this.itemsWithIndex;
             }
 
             const items = [...this.itemsWithIndex];
