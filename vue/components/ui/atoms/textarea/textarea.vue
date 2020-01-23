@@ -24,6 +24,7 @@
     display: inline-block;
     font-family: $font-family;
     font-size: 13px;
+    font-weight: 500;
     height: 98px;
     letter-spacing: 0.3px;
     line-height: 20px;

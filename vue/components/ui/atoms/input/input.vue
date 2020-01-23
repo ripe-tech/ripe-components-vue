@@ -25,6 +25,7 @@
     color: $black;
     font-family: $font-family;
     font-size: 13px;
+    font-weight: 500;
     height: 34px;
     letter-spacing: 0.25px;
     line-height: 34px;

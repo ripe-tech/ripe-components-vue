@@ -62,7 +62,7 @@
 .button-icon > img {
     height: 100%;
     opacity: 0.5;
-    vertical-align: middle;
+    vertical-align: top;
 }
 
 .button-icon:hover:not(.disabled) > img {
