@@ -36,6 +36,11 @@ storiesOf("Molecules", module)
                         id: 3,
                         user: "Linus Torvalds",
                         system: "Linux"
+                    },
+                    {
+                        id: 4,
+                        user: "Terry A. Davis",
+                        system: "TempleOS"
                     }
                 ]
             },
@@ -52,7 +57,7 @@ storiesOf("Molecules", module)
             },
             selectedCheckboxes: {
                 type: Array,
-                default: () => []
+                default: () => [true, false, true]
             }
         },
         data: function() {
