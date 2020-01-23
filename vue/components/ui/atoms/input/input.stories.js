@@ -61,6 +61,16 @@ storiesOf("Atoms", module)
             },
             height: {
                 default: number("Height", null)
+            },
+            mode: {
+                default: select(
+                    "Mode",
+                    {
+                        Unset: null,
+                        Inline: "inline"
+                    },
+                    null
+                )
             }
         },
         data: function() {
@@ -81,6 +91,7 @@ storiesOf("Atoms", module)
                     v-bind:error="errorText"
                     v-bind:warning="warning"
                     v-bind:success="success"
+                    v-bind:mode="mode"
                 >
                     <input-ripe
                         v-bind:variant="variant"

@@ -1,28 +1,37 @@
 <template>
-    <div class="form-input">
+    <div class="form-input" v-bind:class="{ 'form-input-inline': mode === 'inline' }">
         <label-ripe class="header" v-bind:text="header" v-bind:for="id" v-if="header" />
+
         <div class="content">
             <slot />
-        </div>
-        <label-ripe
-            class="footer"
-            v-bind:size="'small'"
-            v-bind:text="footer"
-            v-bind:for="id"
-            v-if="footer"
-        />
-        <div class="text-container">
-            <div class="text" v-if="error">
-                <span class="icon icon-error" />
-                <label-ripe v-bind:text="error" v-bind:color="'error'" />
-            </div>
-            <div class="text" v-if="warning">
-                <span class="icon icon-warning" />
-                <label-ripe v-bind:text="warning" />
-            </div>
-            <div class="text" v-if="success">
-                <span class="icon icon-success" />
-                <label-ripe v-bind:text="success" v-bind:color="'success'" />
+            <label-ripe
+                class="footer"
+                v-bind:size="'small'"
+                v-bind:text="footer"
+                v-bind:for="id"
+                v-if="footer"
+            />
+            <div class="text-container">
+                <div class="text" v-if="error">
+                    <span class="icon icon-error" />
+                    <label-ripe
+                        class="label-information"
+                        v-bind:text="error"
+                        v-bind:color="'error'"
+                    />
+                </div>
+                <div class="text" v-if="warning">
+                    <span class="icon icon-warning" />
+                    <label-ripe class="label-information" v-bind:text="warning" />
+                </div>
+                <div class="text" v-if="success">
+                    <span class="icon icon-success" />
+                    <label-ripe
+                        class="label-information"
+                        v-bind:text="success"
+                        v-bind:color="'success'"
+                    />
+                </div>
             </div>
         </div>
     </div>
@@ -30,6 +39,16 @@
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
+
+.form-input.form-input-inline {
+    display: flex;
+}
+
+.form-input.form-input-inline .header {
+    line-height: 34px;
+    margin: 0px 4px 0px 0px;
+    min-width: 120px;
+}
 
 .form-input .header,
 .form-input .footer {
@@ -48,6 +67,15 @@
 .form-input .content {
     font-size: 0px;
     line-height: 0px;
+}
+
+.form-input.form-input-inline .content {
+    flex: 1;
+}
+
+.form-input .content .text-container .text .label-information {
+    margin: 0px 0px 0px 4px;
+    vertical-align: middle;
 }
 
 .form-input .icon {
@@ -97,6 +125,10 @@ export const FormInput = {
             default: null
         },
         success: {
+            type: String,
+            default: null
+        },
+        mode: {
             type: String,
             default: null
         }
