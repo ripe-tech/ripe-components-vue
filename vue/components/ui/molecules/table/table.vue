@@ -74,9 +74,10 @@
     color: $label-color;
     font-size: 12px;
     font-weight: 800;
-    height: 36px;
+    height: 38px;
     letter-spacing: 1px;
-    line-height: 36px;
+    line-height: 38px;
+    padding: 0px 0px 0px 0px;
     text-transform: uppercase;
     user-select: none;
     white-space: pre;
@@ -97,7 +98,6 @@
 }
 
 .table.dense ::v-deep td {
-    font-weight: 400;
     height: 40px;
 }
 
