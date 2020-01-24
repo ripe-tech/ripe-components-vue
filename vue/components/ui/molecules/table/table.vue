@@ -5,9 +5,9 @@
                 <th class="checkboxes-th" v-if="enableCheckboxes">
                     <checkbox
                         v-bind:size="8"
-                        v-bind:value="globalCheckboxValueData"
+                        v-bind:checked="globalCheckboxValueData"
                         v-bind:icon="globalCheckboxIcon"
-                        v-on:update:value="onGlobalCheckbox"
+                        v-on:update:checked="onGlobalCheckbox"
                     />
                 </th>
                 <th
@@ -36,7 +36,7 @@
                         <td v-if="enableCheckboxes">
                             <checkbox
                                 v-bind:size="8"
-                                v-bind:value.sync="selectedCheckboxesData[index]"
+                                v-bind:checked.sync="selectedCheckboxesData[index]"
                             />
                         </td>
                         <td
