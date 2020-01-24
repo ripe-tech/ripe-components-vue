@@ -9,7 +9,6 @@
             loader="ball-clip-rotate"
             class="loader"
             v-bind:count="1"
-            v-bind:loader-style="loaderStyle"
             v-show="loading"
         />
         <img v-bind:src="iconPath" v-show="!loading" />
@@ -137,10 +136,6 @@ export const ButtonIcon = {
         loading: {
             type: Boolean,
             default: false
-        },
-        loaderStyle: {
-            type: Object,
-            default: () => ({ "background-color": "$white" })
         }
     },
     computed: {
