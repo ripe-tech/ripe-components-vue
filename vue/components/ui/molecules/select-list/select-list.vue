@@ -11,7 +11,6 @@
                 v-bind:value.sync="searchKeyData"
             />
         </div>
-
         <ul class="items" v-bind:style="style">
             <li
                 class="item"
