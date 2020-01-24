@@ -28,7 +28,7 @@ export const InputCurrency = {
             default: () => ({})
         },
         value: {
-            type: String,
+            type: String | Number,
             default: null
         },
         variant: {
@@ -109,7 +109,7 @@ export const InputCurrency = {
         },
         _places(currency, fallback = 2) {
             const currencyInfo = currencies[currency] || {};
-            return currencyInfo.places || fallback;
+            return currencyInfo.places === undefined ? fallback : currencyInfo.places;
         }
     }
 };
