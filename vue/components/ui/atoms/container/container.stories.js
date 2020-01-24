@@ -17,9 +17,12 @@ storiesOf("Atoms", module)
             }
         },
         template: `
-            <container-ripe
-                style='height: 200px'
-                v-bind:mode="mode"
-            />
+            <div>
+                <global />
+                <container-ripe
+                    style='height: 200px'
+                    v-bind:mode="mode"
+                />
+            </div>
         `
     }));
