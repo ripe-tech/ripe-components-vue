@@ -290,7 +290,7 @@ export const Table = {
             reverseData: this.reverse,
             globalCheckboxValueData: false,
             globalCheckboxIcon: "check",
-            selectedCheckboxesData: this.enableCheckboxes ? this.initialSelectedCheckboxes() : []
+            selectedCheckboxesData: this.enableCheckboxes ? this.selectedCheckboxes : []
         };
     },
     computed: {
@@ -356,14 +356,13 @@ export const Table = {
         },
         onGlobalCheckbox(value) {
             this.selectedCheckboxesData = new Array(this.items.length).fill(value);
-            this.$emit("update:selected-checkboxes", this.selectedCheckboxesData);
         },
         onClick(item, index) {
             this.$emit("click", item, index);
         }
     },
     mounted: function() {
-        this.selectedCheckboxesData.__ob__.dep.notify();
+        this.selectedCheckboxesData = this.initialSelectedCheckboxes();
     }
 };
 
