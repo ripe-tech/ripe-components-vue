@@ -34,9 +34,9 @@
                 <tr
                     v-bind:key="item.id"
                     v-on:click.exact="onClick(item, index)"
-                    v-on:click.shift.exact="onShiftClick(item, index)"
-                    v-on:click.ctrl.exact="onCtrlClick(item, index)"
-                    v-on:click.meta.exact="onCtrlClick(item, index)"
+                    v-on:click.shift.exact="onShiftClick(index)"
+                    v-on:click.ctrl.exact="onCtrlClick(index)"
+                    v-on:click.meta.exact="onCtrlClick(index)"
                 >
                     <slot v-bind:item="item" v-bind:index="index">
                         <td v-if="enableCheckboxes">
@@ -369,8 +369,8 @@ export const Table = {
         onShiftClick(item, index) {
             console.log("shift click");
         },
-        onCtrlClick(item, index) {
-            console.log("ctrl click");
+        onCtrlClick(index) {
+            this.$set(this.selectedCheckboxesData, index, !this.selectedCheckboxesData[index]);
         },
         onCtrlA(){
             console.log("Ctrl A");
