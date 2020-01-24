@@ -41,6 +41,31 @@ storiesOf("Molecules", module)
                         id: 4,
                         user: "Terry A. Davis",
                         system: "TempleOS"
+                    },
+                    {
+                        id: 5,
+                        user: "Terry A. Davis Clone",
+                        system: "TempleOS 2"
+                    },
+                    {
+                        id: 6,
+                        user: "Terry A. Davis Clone 1",
+                        system: "TempleOS 3"
+                    },
+                    {
+                        id: 7,
+                        user: "Terry A. Davis Clone 2",
+                        system: "TempleOS 4"
+                    },
+                    {
+                        id: 8,
+                        user: "Terry A. Davis Clone 3",
+                        system: "TempleOS 5"
+                    },
+                    {
+                        id: 9,
+                        user: "Terry A. Davis Clone 4",
+                        system: "TempleOS 6"
                     }
                 ]
             },

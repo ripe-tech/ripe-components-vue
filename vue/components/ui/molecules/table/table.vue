@@ -371,21 +371,47 @@ export const Table = {
 
             return counter;
         },
-        clickEventHandler(index, event){
+        clickSelectionHandler(index, event){
+            if(this.eventModifiersNumber(event) === 0) this.lastIndexWithShiftKeyDown = null;
             if(this.eventModifiersNumber(event) !== 1) return;
 
-            if(event.ctrlKey || event.metaKey) console.log("ctrl click");
-            else if (event.shiftKey) console.log("shift click");
+            if(event.ctrlKey || event.metaKey) this.$set(this.selectedCheckboxesData, index, !this.selectedCheckboxesData[index]);
+            else if (event.shiftKey)
+            {
+                this.selectedCheckboxesData = new Array(this.items.length).fill(false);
+                
+                if(this.lastIndexWithShiftKeyDown === null) {
+                    this.lastIndexWithShiftKeyDown = index;
+                    
+                    this.$set(this.selectedCheckboxesData, this.lastIndexWithShiftKeyDown, true);
+                }
+                else {
+                    console.log("select multiple");
+                    
+                    let i = this.lastIndexWithShiftKeyDown >= index ? index : this.lastIndexWithShiftKeyDown;
+                    let length = Math.abs(this.lastIndexWithShiftKeyDown - index);
+
+                    console.log("length", length);
+                    console.log("selection from: ", i, "to:", index);
+                    
+                    for(; i<=length; i++)
+                    {
+                        console.log("i", i);
+                        this.$set(this.selectedCheckboxesData, i, true);
+                    }
+                }
+            }
+
         },
         onGlobalCheckbox(value) {
             this.selectedCheckboxesData = new Array(this.items.length).fill(value);
         },
         onClick(item, index, event) {
             this.$emit("click", item, index);
-            this.clickEventHandler(index, event);
+            this.clickSelectionHandler(index, event);
         },
         onCtrlClick(index) {
-            this.$set(this.selectedCheckboxesData, index, !this.selectedCheckboxesData[index]);
+            
         }
     },
     mounted: function() {
