@@ -5,12 +5,7 @@
         v-bind:class="classes"
         v-on:click="handleClick"
     >
-        <loader
-            loader="ball-clip-rotate"
-            class="loader"
-            v-bind:count="1"
-            v-show="loading"
-        />
+        <loader loader="ball-clip-rotate" class="loader" v-bind:count="1" v-show="loading" />
         <img v-bind:src="iconPath" v-show="!loading" />
         <span v-if="text">{{ text }}</span>
     </span>
