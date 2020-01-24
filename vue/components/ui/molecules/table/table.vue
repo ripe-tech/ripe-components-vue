@@ -362,15 +362,27 @@ export const Table = {
                 item._checkboxIndex = index;
             });
         },
-        clickEventHandler(event){
-            console.log(event);
+        eventModifiersNumber(event) {
+            let counter = 0;
+            if (event.ctrlKey) counter++;
+            if (event.shiftKey) counter++;
+            if (event.altKey) counter++;
+            if (event.metaKey) counter++;
+
+            return counter;
+        },
+        clickEventHandler(index, event){
+            if(this.eventModifiersNumber(event) !== 1) return;
+
+            if(event.ctrlKey || event.metaKey) console.log("ctrl click");
+            else if (event.shiftKey) console.log("shift click");
         },
         onGlobalCheckbox(value) {
             this.selectedCheckboxesData = new Array(this.items.length).fill(value);
         },
         onClick(item, index, event) {
             this.$emit("click", item, index);
-            this.clickEventHandler(event);
+            this.clickEventHandler(index, event);
         },
         onCtrlClick(index) {
             this.$set(this.selectedCheckboxesData, index, !this.selectedCheckboxesData[index]);
