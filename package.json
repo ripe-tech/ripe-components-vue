@@ -1,6 +1,6 @@
 {
     "name": "ripe-components-vue",
-    "version": "0.4.24",
+    "version": "0.5.10",
     "description": "RIPE Components for Vue.js",
     "keywords": [
         "components",
@@ -20,6 +20,7 @@
     "files": [
         "index.js",
         "LICENSE",
+        "css/**/*.scss",
         "dist/**/*",
         "js/**/*.js",
         "res/**/*.ico",
@@ -56,13 +57,13 @@
         "yonius": "^0.2.16"
     },
     "devDependencies": {
-        "@storybook/addon-knobs": "^5.2.8",
-        "@storybook/addon-storysource": "^5.2.8",
-        "@storybook/vue": "^5.2.8",
+        "@storybook/addon-knobs": "^5.3.7",
+        "@storybook/addon-storysource": "^5.3.7",
+        "@storybook/vue": "^5.3.7",
         "babel-preset-vue": "^2.0.2",
         "svgo": "^1.3.2",
         "url-loader": "^3.0.0",
-        "uxf-webpack": "^0.3.9"
+        "uxf-webpack": "^0.3.10"
     },
     "engines": {
         "node": ">=12"

@@ -5,7 +5,8 @@
         v-bind:class="[
             focused ? 'focus' : 'unfocus',
             grow ? 'grow' : '',
-            iconVisible ? '' : 'icon-invisible'
+            iconVisible ? 'icon-visible' : 'icon-invisible',
+            clearVisible ? 'clear-visible' : 'clear-invisible'
         ]"
     >
         <global-events v-on:keydown.esc="blur()" />
@@ -27,14 +28,21 @@
         </slot>
         <input-ripe
             v-bind:variant="variant"
-            v-bind:value="value"
+            v-bind:value.sync="valueData"
             v-bind:placeholder="placeholder"
             v-bind:autofocus="autofocus"
             v-bind:width="width"
+            v-bind:font-weight="600"
             ref="input"
-            v-on:update:value="$emit('update:value', $event)"
             v-on:focus="focused = true"
             v-on:blur="focused = false"
+        />
+        <button-icon
+            class="icon-clear"
+            v-bind:icon="'close'"
+            v-bind:color="'none'"
+            v-if="clearButtonVisible"
+            v-on:click="onClearIconClick"
         />
         <transition name="slide">
             <div class="suggestions" v-show="suggestionsVisible && suggestions.length > 0">
@@ -62,6 +70,7 @@
     font-size: 0px;
     height: 34px;
     line-height: 34px;
+    position: relative;
     width: 100%;
 }
 
@@ -89,15 +98,25 @@
 }
 
 .search ::v-deep input[type="text"] {
+    padding-left: 12px;
+}
+
+.search.icon-visible ::v-deep input[type="text"] {
     padding-left: 33px;
 }
 
-.search.icon-invisible ::v-deep input[type="text"] {
-    padding-left: 12px;
+.search.clear-visible ::v-deep input[type="text"] {
+    padding-right: 33px;
 }
 
 .search.grow ::v-deep input[type="text"]:focus {
     width: 340px;
+}
+
+.search .icon-clear {
+    position: absolute;
+    right: 5px;
+    top: 3px;
 }
 
 .search > .suggestions {
@@ -169,6 +188,10 @@ export const Search = {
             type: Boolean,
             default: true
         },
+        clearVisible: {
+            type: Boolean,
+            default: false
+        },
         width: {
             type: Number,
             default: null
@@ -181,10 +204,17 @@ export const Search = {
     data: function() {
         return {
             focused: false,
-            suggestionsVisible: false
+            suggestionsVisible: false,
+            valueData: this.value
         };
     },
     watch: {
+        value(value) {
+            this.valueData = value;
+        },
+        valueData(value) {
+            this.$emit("update:value", value);
+        },
         focused(value) {
             if (value) {
                 this.suggestionsVisible = true;
@@ -200,11 +230,20 @@ export const Search = {
             const base = {};
             if (this.width) base.width = `${this.width}px`;
             return base;
+        },
+        clearButtonVisible() {
+            return this.valueData && this.clearVisible;
         }
     },
     methods: {
         blur() {
             this.$refs.input.blur();
+        },
+        clear() {
+            this.valueData = "";
+        },
+        onClearIconClick() {
+            this.clear();
         }
     }
 };

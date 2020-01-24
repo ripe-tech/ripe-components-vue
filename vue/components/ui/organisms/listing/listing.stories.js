@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text } from "@storybook/addon-knobs";
+import { withKnobs, text, select } from "@storybook/addon-knobs";
 
 storiesOf("Organisms", module)
     .addDecorator(withKnobs)
@@ -9,7 +9,15 @@ storiesOf("Organisms", module)
                 type: Object,
                 default: () => ({ filter: "" })
             },
-            columns: {
+            tableColumns: {
+                type: Array,
+                default: () => [
+                    { value: "id", label: "ID", width: "100px" },
+                    { value: "user", label: "User" },
+                    { value: "device", label: "Device" }
+                ]
+            },
+            lineupFields: {
                 type: Array,
                 default: () => [
                     { value: "id", label: "ID", width: "100px" },
@@ -34,6 +42,16 @@ storiesOf("Organisms", module)
                     float: "left",
                     height: "34px"
                 })
+            },
+            containerMode: {
+                default: select(
+                    "Mode",
+                    {
+                        Default: "default",
+                        Expanded: "expanded"
+                    },
+                    "default"
+                )
             }
         },
         methods: {
@@ -54,19 +72,21 @@ storiesOf("Organisms", module)
         },
         template: `
             <div>
+                <global></global>
                 <listing
                     v-bind:context="context"
-                    v-bind:columns="columns"
+                    v-bind:table-columns="tableColumns"
+                    v-bind:lineup-fields="lineupFields"
                     v-bind:get-items="getItems"
-                    v-bind:name="'jobs'"
+                    v-bind:name="'devices'"
                     v-bind:use-query="false"
                     v-bind:filter-fields="filterFields"
-                    v-bind:values="[]"
+                    v-bind:container-mode="containerMode"
                 >
                     <template v-slot:icons>
                         <img v-bind:src="img" v-bind:style="imgStyle" />
                     </template>
-                    <template v-slot:item="{ item, index, addFilter }">
+                    <template v-slot:table-item="{ item, index, addFilter }">
                         <td class="id">
                             {{ item.id }}
                         </td>
