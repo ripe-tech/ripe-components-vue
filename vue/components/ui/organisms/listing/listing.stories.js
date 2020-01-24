@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text } from "@storybook/addon-knobs";
+import { withKnobs, text, select } from "@storybook/addon-knobs";
 
 storiesOf("Organisms", module)
     .addDecorator(withKnobs)
@@ -9,7 +9,7 @@ storiesOf("Organisms", module)
                 type: Object,
                 default: () => ({ filter: "" })
             },
-            columns: {
+            tableColumns: {
                 type: Array,
                 default: () => [
                     { value: "id", label: "ID", width: "100px" },
@@ -17,7 +17,7 @@ storiesOf("Organisms", module)
                     { value: "device", label: "Device" }
                 ]
             },
-            values: {
+            lineupFields: {
                 type: Array,
                 default: () => [
                     { value: "id", label: "ID", width: "100px" },
@@ -42,6 +42,16 @@ storiesOf("Organisms", module)
                     float: "left",
                     height: "34px"
                 })
+            },
+            containerMode: {
+                default: select(
+                    "Mode",
+                    {
+                        Default: "default",
+                        Expanded: "expanded"
+                    },
+                    "default"
+                )
             }
         },
         methods: {
@@ -65,12 +75,13 @@ storiesOf("Organisms", module)
                 <global></global>
                 <listing
                     v-bind:context="context"
-                    v-bind:columns="columns"
+                    v-bind:table-columns="tableColumns"
+                    v-bind:lineup-fields="lineupFields"
                     v-bind:get-items="getItems"
                     v-bind:name="'devices'"
                     v-bind:use-query="false"
                     v-bind:filter-fields="filterFields"
-                    v-bind:values="values"
+                    v-bind:container-mode="containerMode"
                 >
                     <template v-slot:icons>
                         <img v-bind:src="img" v-bind:style="imgStyle" />

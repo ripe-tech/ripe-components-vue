@@ -15,8 +15,7 @@ storiesOf("Atoms", module)
                         label: "Text 1"
                     },
                     {
-                        value: "text_2",
-                        label: "Text 2"
+                        value: "text_2"
                     },
                     {
                         value: "text_3",
@@ -24,7 +23,6 @@ storiesOf("Atoms", module)
                     },
                     {
                         value: "text_platforme",
-                        label: "Text Platforme",
                         href: "https://www.platforme.com"
                     },
                     {
