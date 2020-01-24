@@ -45,8 +45,8 @@
 }
 
 .select-list > .select-list-seach {
-    background-color: #ffffff;
-    border: 1px solid #e4e8f0;
+    background-color: $white;
+    border: 1px solid $light-white;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
     padding: 12px 12px 12px 12px;
