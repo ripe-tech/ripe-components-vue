@@ -118,6 +118,7 @@
     border: 1px solid $light-white;
     border-top: none;
     display: flex;
+    font-weight: 600;
     line-height: 20px;
     padding: 4px 2px 4px 8px;
 }

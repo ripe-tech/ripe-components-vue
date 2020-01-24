@@ -74,12 +74,12 @@ export const InputCurrency = {
     },
     data: function() {
         return {
-            valueData: parseFloat(this.value)
+            valueData: this.value
         };
     },
     watch: {
         value(value) {
-            this.valueData = parseFloat(value);
+            this.valueData = value;
         },
         valueData(value) {
             this.$emit("update:value", value);

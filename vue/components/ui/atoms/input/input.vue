@@ -18,6 +18,7 @@
 @import "css/variables.scss";
 
 .input {
+    appearance: none;
     background-color: $white;
     border: 1px solid $light-white;
     border-radius: 6px 6px 6px 6px;
@@ -25,6 +26,7 @@
     color: $black;
     font-family: $font-family;
     font-size: 13px;
+    font-weight: 500;
     height: 34px;
     letter-spacing: 0.25px;
     line-height: 34px;
@@ -33,6 +35,10 @@
     padding-right: 12px;
     transition: width 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
     width: 100%;
+}
+
+input::-webkit-input-placeholder {
+    color: $upper-grey;
 }
 
 .input.ellipsis {
@@ -112,6 +118,10 @@ export const Input = {
         height: {
             type: Number,
             default: null
+        },
+        fontWeight: {
+            type: Number,
+            default: null
         }
     },
     mounted: function() {
@@ -143,6 +153,7 @@ export const Input = {
                 width: this.width === null ? null : `${this.width}px`,
                 height: this.height === null ? null : `${this.height}px`,
                 "min-width": this.minWidth === null ? null : `${this.minWidth}px`,
+                "font-weight": this.fontWeight === null ? null : `${this.fontWeight}`,
                 "text-align": this.align
             };
             return base;
