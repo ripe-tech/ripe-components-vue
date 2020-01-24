@@ -379,6 +379,7 @@ export const Table = {
             else if (event.shiftKey)
             {
                 this.selectedCheckboxesData = new Array(this.items.length).fill(false);
+                this.$set(this.selectedCheckboxesData, index, true);
                 
                 if(this.lastIndexWithShiftKeyDown === null) {
                     this.lastIndexWithShiftKeyDown = index;
