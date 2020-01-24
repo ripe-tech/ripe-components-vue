@@ -30,7 +30,11 @@
                             v-for="column in columns"
                             v-bind:key="column.value"
                         >
-                            {{ item[column.value] }}
+                            {{
+                                item[column.value] !== null && item[column.value] !== undefined
+                                    ? item[column.value]
+                                    : "-"
+                            }}
                         </td>
                     </slot>
                 </tr>

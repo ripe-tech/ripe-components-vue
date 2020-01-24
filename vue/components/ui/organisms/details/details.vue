@@ -155,7 +155,12 @@
                                 <slot v-bind:name="`value-${value.value}`">
                                     <p class="value-text">
                                         <slot v-bind:name="`value-${value.value}-text`">
-                                            {{ item[value.value] || "-" }}
+                                            {{
+                                                item[value.value] !== null &&
+                                                    item[value.value] !== undefined
+                                                    ? item[value.value]
+                                                    : "-"
+                                            }}
                                         </slot>
                                     </p>
                                 </slot>
