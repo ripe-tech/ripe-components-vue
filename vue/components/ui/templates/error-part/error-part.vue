@@ -3,7 +3,7 @@
         <button-icon
             class="button-icon-back"
             v-bind:icon="'arrow-left'"
-            v-bind:size="'60'"
+            v-bind:size="60"
             v-if="navigation"
             v-on:click="goBack"
         />
