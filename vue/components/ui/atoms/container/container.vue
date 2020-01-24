@@ -22,8 +22,8 @@
 }
 
 .container-ripe.container-ripe-expanded {
-    max-width: 100%;
     margin: 32px 10px 32px 10px;
+    max-width: 100%;
 }
 
 body.mobile .container-ripe {
