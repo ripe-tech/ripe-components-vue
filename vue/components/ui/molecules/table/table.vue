@@ -282,12 +282,15 @@ export const Table = {
         };
     },
     computed: {
+        itemsWithIndex() {
+            return this.items.map((item, index) => ({ _originalIndex: index, ...item }));
+        },
         sortedItems() {
             if (!this.sortData) {
-                return this.items;
+                return this.itemsWithIndex;
             }
 
-            const items = [...this.items];
+            const items = [...this.itemsWithIndex];
             return this.sortMethod(items, this.sortData, this.reverseData);
         },
         style() {
@@ -315,7 +318,7 @@ export const Table = {
             this.$emit("update:reverse", this.reverseData);
         },
         onClick(item, index) {
-            this.$emit("click", item, index);
+            this.$emit("click", item, item._originalIndex, index);
         }
     }
 };
