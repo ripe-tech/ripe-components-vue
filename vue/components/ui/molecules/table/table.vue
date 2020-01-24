@@ -1,5 +1,5 @@
 <template>
-    <table v-bind:class="['table', variant, classes]" v-bind:style="style">
+    <table class="table" v-bind:class="classes" v-bind:style="style">
         <thead class="table-head">
             <tr>
                 <th
@@ -77,11 +77,11 @@
 .table th {
     color: $label-color;
     font-size: 12px;
+    font-weight: 600;
     height: 38px;
+    letter-spacing: 0.5px;
     line-height: 38px;
     padding: 0px 0px 0px 0px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
     text-transform: uppercase;
     user-select: none;
     white-space: pre;
@@ -296,7 +296,11 @@ export const Table = {
             return base;
         },
         classes() {
-            return this.alignment === "left" ? "text-align-left" : "";
+            const base = {
+                alignment: this.alignment === "left" ? "text-align-left" : ""
+            };
+            if (this.variant) base[this.variant] = true;
+            return base;
         }
     },
     methods: {
