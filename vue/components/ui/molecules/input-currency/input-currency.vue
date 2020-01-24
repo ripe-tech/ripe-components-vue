@@ -28,7 +28,7 @@ export const InputCurrency = {
             default: () => ({})
         },
         value: {
-            type: Number,
+            type: String | Number,
             default: null
         },
         variant: {
@@ -74,12 +74,12 @@ export const InputCurrency = {
     },
     data: function() {
         return {
-            valueData: this.value
+            valueData: parseFloat(this.value)
         };
     },
     watch: {
         value(value) {
-            this.valueData = value;
+            this.valueData = parseFloat(value);
         },
         valueData(value) {
             this.$emit("update:value", value);
@@ -109,7 +109,7 @@ export const InputCurrency = {
         },
         _places(currency, fallback = 2) {
             const currencyInfo = currencies[currency] || {};
-            return "places" in currencyInfo ? currencyInfo.places : fallback;
+            return currencyInfo.places === undefined ? fallback : currencyInfo.places;
         }
     }
 };
