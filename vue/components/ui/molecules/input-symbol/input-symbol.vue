@@ -7,6 +7,7 @@
             v-bind:placeholder="placeholder"
             v-bind:disabled="disabled"
             v-bind:height="height"
+            v-bind:min-width="0"
             v-bind:align="align"
             v-on:update:value="onInput"
             v-on:blur="onBlur"
