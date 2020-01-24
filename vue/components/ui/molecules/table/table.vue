@@ -283,8 +283,8 @@ export const Table = {
             this.$emit("update:sort", this.sortData);
             this.$emit("update:reverse", this.reverseData);
         },
-        onClick(item, rowIndex) {
-            this.$emit("click", item, item._originalIndex, rowIndex);
+        onClick(item, index) {
+            this.$emit("click", item, item._originalIndex, index);
         }
     }
 };
