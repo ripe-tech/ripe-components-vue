@@ -1,5 +1,5 @@
 <template>
-    <table class="table">
+    <table class="table" v-bind:class="{disableSelection: lastIndexWithShiftKeyDown !== null }" >
         <thead class="table-head">
             <tr>
                 <th class="checkboxes-th" v-if="enableCheckboxes">
@@ -33,10 +33,7 @@
                 <slot name="before-row" v-bind:item="item" v-bind:index="index" />
                 <tr
                     v-bind:key="item.id"
-                    v-on:click.exact="onClick(item, index)"
-                    v-on:click.shift.exact="onShiftClick(index)"
-                    v-on:click.ctrl.exact="onCtrlClick(index)"
-                    v-on:click.meta.exact="onCtrlClick(index)"
+                    v-on:click="onClick(item, index, $event)"
                 >
                     <slot v-bind:item="item" v-bind:index="index">
                         <td v-if="enableCheckboxes">
@@ -75,6 +72,10 @@
     table-layout: fixed;
     text-align: center;
     width: 100%;
+}
+
+.table.disableSelection {
+    user-select: none;
 }
 
 .table .table-head .checkboxes-th {
@@ -296,7 +297,8 @@ export const Table = {
             reverseData: this.reverse,
             globalCheckboxValueData: false,
             globalCheckboxIcon: "check",
-            selectedCheckboxesData: this.enableCheckboxes ? this.selectedCheckboxes : []
+            selectedCheckboxesData: this.enableCheckboxes ? this.selectedCheckboxes : [],
+            lastIndexWithShiftKeyDown: null
         };
     },
     computed: {
@@ -360,20 +362,18 @@ export const Table = {
                 item._checkboxIndex = index;
             });
         },
+        clickEventHandler(event){
+            console.log(event);
+        },
         onGlobalCheckbox(value) {
             this.selectedCheckboxesData = new Array(this.items.length).fill(value);
         },
-        onClick(item, index) {
+        onClick(item, index, event) {
             this.$emit("click", item, index);
-        },
-        onShiftClick(item, index) {
-            console.log("shift click");
+            this.clickEventHandler(event);
         },
         onCtrlClick(index) {
             this.$set(this.selectedCheckboxesData, index, !this.selectedCheckboxesData[index]);
-        },
-        onCtrlA(){
-            console.log("Ctrl A");
         }
     },
     mounted: function() {
