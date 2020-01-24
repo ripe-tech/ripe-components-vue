@@ -20,6 +20,28 @@ storiesOf("Molecules", module)
             reverse: {
                 default: () => boolean("Reverse", null)
             },
+            alignment: {
+                default: select(
+                    "Alignment",
+                    {
+                        Unset: null,
+                        Center: "center",
+                        Left: "left",
+                        Right: "right"
+                    },
+                    null
+                )
+            },
+            variant: {
+                default: select(
+                    "Variant",
+                    {
+                        Unset: null,
+                        dense: "dense"
+                    },
+                    null
+                )
+            },
             mockItems: {
                 default: () => [
                     {
@@ -70,6 +92,8 @@ storiesOf("Molecules", module)
                     v-bind:items="mockItems"
                     v-bind:sort.sync="sortData"
                     v-bind:reverse.sync="reverseData"
+                    v-bind:alignment="alignment"
+                    v-bind:variant="variant"
                 />
                 <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}</p>
             </div>
