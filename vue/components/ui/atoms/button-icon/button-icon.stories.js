@@ -5,9 +5,6 @@ storiesOf("Atoms", module)
     .addDecorator(withKnobs)
     .add("Button Icon", () => ({
         props: {
-            text: {
-                default: text("Text", null)
-            },
             icon: {
                 default: select(
                     "Icon",
@@ -21,6 +18,9 @@ storiesOf("Atoms", module)
                     },
                     "close"
                 )
+            },
+            text: {
+                default: text("Text", null)
             },
             color: {
                 default: select(
@@ -49,8 +49,8 @@ storiesOf("Atoms", module)
         },
         template: `
             <button-icon
-                v-bind:text="text"
                 v-bind:icon="icon"
+                v-bind:text="text"
                 v-bind:color="color"
                 v-bind:size="size"
                 v-bind:padding="padding"
