@@ -1,5 +1,5 @@
 <template>
-    <div class="container-ripe">
+    <div class="container-ripe" v-bind:class="classes">
         <slot />
     </div>
 </template>
@@ -21,6 +21,11 @@
     box-shadow: 5px 12px 20px rgba(36, 37, 38, 0.13);
 }
 
+.container-ripe.container-ripe-expanded {
+    max-width: 100%;
+    margin: 32px 10px 32px 10px;
+}
+
 body.mobile .container-ripe {
     border-radius: 0px 0px 0px 0px;
     box-shadow: none;
@@ -31,7 +36,22 @@ body.mobile .container-ripe {
 
 <script>
 export const Container = {
-    name: "container-ripe"
+    name: "container-ripe",
+    props: {
+        mode: {
+            type: String,
+            default: "default"
+        }
+    },
+    computed: {
+        classes() {
+            const base = {};
+
+            if (this.mode) base[`container-ripe-${this.mode}`] = true;
+
+            return base;
+        }
+    }
 };
 
 export default Container;
