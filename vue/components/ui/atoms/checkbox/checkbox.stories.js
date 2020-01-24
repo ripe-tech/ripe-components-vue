@@ -11,11 +11,14 @@ storiesOf("Atoms", module)
             disabled: {
                 default: boolean("Disabled", false)
             },
-            value: {
+            checked: {
                 default: boolean("Checked", false)
             },
             label: {
                 default: text("Label", "Checkbox")
+            },
+            value: {
+                default: text("Value", "checkbox")
             },
             icon: {
                 default: select(
@@ -36,32 +39,33 @@ storiesOf("Atoms", module)
         },
         data: function() {
             return {
-                valueData: this.value
+                checkedData: this.checked
             };
         },
         watch: {
-            value(value) {
-                this.valueData = value;
+            checked(value) {
+                this.checkedData = value;
             }
         },
         template: `
             <div>
                 <checkbox
                     v-bind:label="label"
-                    v-bind:value.sync="valueData"
+                    v-bind:value="value"
+                    v-bind:checked.sync="checkedData"
                     v-bind:disabled="disabled"
                     v-bind:error="error"
                     v-bind:icon="icon"
                     v-bind:size="size"
                 >
-                    <template v-slot:before-item="{ label, value }" v-if="slots">
-                        <p>Custom before checkbox {{ label }} with value {{ value }}</p>
+                    <template v-slot:before-item="{ label, value, checked }" v-if="slots">
+                        <p>Custom before checkbox {{ label }} with value {{ value }} and checked is {{ checked }}</p>
                     </template>
-                    <template v-slot:after-item="{ label, value }" v-if="slots">
+                    <template v-slot:after-item="{ label, value, checked }" v-if="slots">
                         <p>Custom After checkbox {{ label }}</p>
                     </template>
                 </checkbox>
-                <p>Value: {{ valueData }}</p>
+                <p>Checked: {{ checkedData }}</p>
             </div>
         `
     }));
