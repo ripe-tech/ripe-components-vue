@@ -119,7 +119,7 @@
 }
 
 .table ::v-deep td.image > * {
-    height: 100%;
+    display: inline;
 }
 
 .table ::v-deep td.image img {
