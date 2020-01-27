@@ -331,7 +331,7 @@ export const Table = {
     },
     data: function() {
         return {
-            itemsData: this.enableCheckboxes ? this.checkableItems() : this.items,
+            itemsData: this.enableCheckboxes ? this.checkableItems() : this.itemsWithIndex(),
             sortData: this.sort,
             reverseData: this.reverse,
             globalCheckboxValueData: false,
@@ -342,15 +342,12 @@ export const Table = {
         };
     },
     computed: {
-        itemsWithIndex() {
-            return this.items.map((item, index) => ({ _originalIndex: index, ...item }));
-        },
         sortedItems() {
             if (!this.sortData) {
-                return this.itemsWithIndex;
+                return this.itemsData;
             }
 
-            const items = [...this.itemsWithIndex];
+            const items = [...this.itemsData];
             const sortedItems = this.sortMethod(items, this.sortData, this.reverseData);
             this.sortCheckboxes(sortedItems);
 
@@ -376,8 +373,11 @@ export const Table = {
         }
     },
     methods: {
+        itemsWithIndex() {
+            return this.items.map((item, index) => ({ _originalIndex: index, ...item }));
+        },
         checkableItems() {
-            return this.items.map((item, index) => ({ ...item, _checkboxIndex: index }));
+            return this.itemsWithIndex().map((item, index) => ({ ...item, _checkboxIndex: index }));
         },
         initialSelectedCheckboxes() {
             return new Array(this.items.length).fill(false).map((value, index) => {
