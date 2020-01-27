@@ -477,7 +477,6 @@ export const Table = {
                 return;
             }
 
-            
             if (this.lastIndexWithShift === null) {
                 this.lastIndexWithShift = 0;
                 this.lastIndex = -1;
