@@ -302,7 +302,7 @@ export const Table = {
             globalCheckboxIcon: "check",
             selectedCheckboxesData: this.enableCheckboxes ? this.selectedCheckboxes : [],
             lastIndexWithShiftKeyDown: null,
-            lastIndex: this.items.length - 1
+            lastIndex: this.items.length
         };
     },
     computed: {
@@ -413,6 +413,8 @@ export const Table = {
         onShiftUp() {
             if (this.lastIndex === 0) return;
 
+            if(this.lastIndexWithShiftKeyDown === null) this.lastIndexWithShiftKeyDown = this.lastIndex = this.items.length;
+
             if (this.lastIndex > this.lastIndexWithShiftKeyDown)
                 { this.$set(this.selectedCheckboxesData, this.lastIndex, false); }
             this.lastIndex--;
@@ -420,7 +422,7 @@ export const Table = {
             this.$set(this.selectedCheckboxesData, this.lastIndex, true);
         },
         onShiftDown() {
-            if (this.lastIndex === this.items.length - 1) return;
+            if (this.lastIndexWithShiftKeyDown === null || this.lastIndex === this.items.length - 1) return;
 
             if (this.lastIndex < this.lastIndexWithShiftKeyDown)
                 { this.$set(this.selectedCheckboxesData, this.lastIndex, false); }
