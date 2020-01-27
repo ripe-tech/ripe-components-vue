@@ -41,6 +41,7 @@
     display: inline-block;
     font-size: 0px;
     outline: none;
+    user-select: none;
 }
 
 .checkbox > .checkbox-input {
