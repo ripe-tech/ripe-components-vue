@@ -386,13 +386,10 @@ export const Table = {
                 }
                 else {
                     let i = this.lastIndexWithShiftKeyDown < index ? this.lastIndexWithShiftKeyDown : index;
-                    let length = Math.abs(this.lastIndexWithShiftKeyDown - index) + 1;
-                    console.log("\n\nlength", length);
-                    for(; i<length; i++)
-                    {
-                        console.log(i);
+                    const length = Math.abs(this.lastIndexWithShiftKeyDown - index) + i;
+
+                    for(; i <= length; i++)
                         this.$set(this.selectedCheckboxesData, i, true);
-                    }
                 }
             }
 
