@@ -1,6 +1,10 @@
 <template>
     <table class="table" v-bind:class="{disableSelection: lastIndexWithShiftKeyDown !== null }" >
-        <global-events v-on:keydown.meta.65.exact.prevent="onCtrlA()" v-on:keydown.ctrl.65.exact.prevent="onCtrlA()" />
+        <global-events
+            v-on:keydown.meta.65.exact.prevent="onCtrlA()"
+            v-on:keydown.ctrl.65.exact.prevent="onCtrlA()"
+            v-on:keydown.shift.up.exact="onShiftUp()"
+            v-on:keydown.shift.down.exact="onShiftDown()" />
         <thead class="table-head">
             <tr>
                 <th class="checkboxes-th" v-if="enableCheckboxes">
@@ -299,7 +303,8 @@ export const Table = {
             globalCheckboxValueData: false,
             globalCheckboxIcon: "check",
             selectedCheckboxesData: this.enableCheckboxes ? this.selectedCheckboxes : [],
-            lastIndexWithShiftKeyDown: null
+            lastIndexWithShiftKeyDown: null,
+            lastIndex: this.items.length - 1
         };
     },
     computed: {
@@ -376,6 +381,8 @@ export const Table = {
             if(this.eventModifiersNumber(event) === 0) this.lastIndexWithShiftKeyDown = null;
             if(this.eventModifiersNumber(event) !== 1) return;
 
+            this.lastIndex = index;
+
             if(event.ctrlKey || event.metaKey) this.$set(this.selectedCheckboxesData, index, !this.selectedCheckboxesData[index]);
             else if (event.shiftKey)
             {
@@ -404,6 +411,22 @@ export const Table = {
         },
         onCtrlA() {
             this.selectedCheckboxesData = new Array(this.items.length).fill(true);
+        },
+        onShiftUp() {
+            if(this.lastIndex === 0) return;
+            
+            if(this.lastIndex > this.lastIndexWithShiftKeyDown) this.$set(this.selectedCheckboxesData, this.lastIndex, false);
+            this.lastIndex--;
+
+            this.$set(this.selectedCheckboxesData, this.lastIndex, true);
+        },
+        onShiftDown(){
+            if(this.lastIndex === this.items.length - 1) return;
+            
+            if(this.lastIndex < this.lastIndexWithShiftKeyDown) this.$set(this.selectedCheckboxesData, this.lastIndex, false);
+            this.lastIndex++;
+
+            this.$set(this.selectedCheckboxesData, this.lastIndex, true);
         }
     },
     mounted: function() {
