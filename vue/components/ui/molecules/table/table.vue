@@ -45,7 +45,7 @@
                 <slot name="before-row" v-bind:item="item" v-bind:index="index" />
                 <tr v-bind:key="item.id" v-on:click="onClick(item, index, $event)">
                     <slot v-bind:item="item" v-bind:index="index">
-                        <td v-if="enableCheckboxes">
+                        <td class="checkbox-td" v-if="enableCheckboxes">
                             <checkbox
                                 v-bind:size="8"
                                 v-bind:checked.sync="selectedCheckboxesData[index]"
@@ -137,6 +137,10 @@
     padding: 0px 20px 0px 20px;
     text-overflow: ellipsis;
     word-break: break-all;
+}
+
+.table .checkbox-td {
+    padding: 0px 0px 0px 0px;
 }
 
 .table.dense ::v-deep td {
