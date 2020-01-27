@@ -1,31 +1,10 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text, boolean, number, select } from "@storybook/addon-knobs";
 
-storiesOf("Atoms", module)
+storiesOf("Molecules", module)
     .addDecorator(withKnobs)
-    .add("Input", () => ({
+    .add("Form Input", () => ({
         props: {
-            variant: {
-                default: select(
-                    "Variant",
-                    {
-                        Unset: null,
-                        Dark: "dark"
-                    },
-                    null
-                )
-            },
-            border: {
-                default: select(
-                    "Border",
-                    {
-                        Unset: null,
-                        Strong: "strong",
-                        Thin: "thin"
-                    },
-                    "thin"
-                )
-            },
             value: {
                 default: text("Value", "This is a text")
             },
@@ -59,8 +38,21 @@ storiesOf("Atoms", module)
             minWidth: {
                 default: number("Minimum Width", null)
             },
+            headerMinWidth: {
+                default: number("Header Minimum Width", null)
+            },
             height: {
                 default: number("Height", null)
+            },
+            formVariant: {
+                default: select(
+                    "Form Variant",
+                    {
+                        Unset: null,
+                        Inline: "inline"
+                    },
+                    null
+                )
             }
         },
         data: function() {
@@ -77,10 +69,12 @@ storiesOf("Atoms", module)
             <div>
                 <form-input
                     v-bind:header="header"
+                    v-bind:header-min-width="headerMinWidth"
                     v-bind:footer="footer"
                     v-bind:error="errorText"
                     v-bind:warning="warning"
                     v-bind:success="success"
+                    v-bind:variant="formVariant"
                 >
                     <input-ripe
                         v-bind:variant="variant"
