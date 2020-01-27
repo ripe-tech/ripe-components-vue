@@ -5,6 +5,8 @@
             v-on:keydown.ctrl.65.exact.prevent="onCtrlA()"
             v-on:keydown.shift.up.exact="onShiftUp()"
             v-on:keydown.shift.down.exact="onShiftDown()"
+            v-on:keydown.ctrl.alt.65.exact="onCtrlAltA()"
+            v-on:keydown.meta.alt.65.exact="onCtrlAltA()"
         />
         <thead class="table-head">
             <tr>
@@ -429,6 +431,9 @@ export const Table = {
             this.lastIndex++;
 
             this.$set(this.selectedCheckboxesData, this.lastIndex, true);
+        },
+        onCtrlAltA() {
+            this.selectedCheckboxesData = new Array(this.items.length).fill(false);
         }
     },
     mounted: function() {
