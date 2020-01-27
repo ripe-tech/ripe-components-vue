@@ -1,10 +1,11 @@
 <template>
-    <table class="table" v-bind:class="{disableSelection: lastIndexWithShiftKeyDown !== null }" >
+    <table class="table" v-bind:class="{ disableSelection: lastIndexWithShiftKeyDown !== null }">
         <global-events
             v-on:keydown.meta.65.exact.prevent="onCtrlA()"
             v-on:keydown.ctrl.65.exact.prevent="onCtrlA()"
             v-on:keydown.shift.up.exact="onShiftUp()"
-            v-on:keydown.shift.down.exact="onShiftDown()" />
+            v-on:keydown.shift.down.exact="onShiftDown()"
+        />
         <thead class="table-head">
             <tr>
                 <th class="checkboxes-th" v-if="enableCheckboxes">
@@ -36,10 +37,7 @@
         <transition-group tag="tbody" v-bind:name="transition" class="table-body">
             <template v-for="(item, index) in sortedItems">
                 <slot name="before-row" v-bind:item="item" v-bind:index="index" />
-                <tr
-                    v-bind:key="item.id"
-                    v-on:click="onClick(item, index, $event)"
-                >
+                <tr v-bind:key="item.id" v-on:click="onClick(item, index, $event)">
                     <slot v-bind:item="item" v-bind:index="index">
                         <td v-if="enableCheckboxes">
                             <checkbox
@@ -377,30 +375,30 @@ export const Table = {
 
             return counter;
         },
-        clickSelectionHandler(index, event){
-            if(this.eventModifiersNumber(event) === 0) this.lastIndexWithShiftKeyDown = null;
-            if(this.eventModifiersNumber(event) !== 1) return;
+        clickSelectionHandler(index, event) {
+            if (this.eventModifiersNumber(event) === 0) this.lastIndexWithShiftKeyDown = null;
+            if (this.eventModifiersNumber(event) !== 1) return;
 
             this.lastIndex = index;
 
-            if(event.ctrlKey || event.metaKey) this.$set(this.selectedCheckboxesData, index, !this.selectedCheckboxesData[index]);
-            else if (event.shiftKey)
-            {
+            if (event.ctrlKey || event.metaKey)
+                { this.$set(this.selectedCheckboxesData, index, !this.selectedCheckboxesData[index]); }
+            else if (event.shiftKey) {
                 this.selectedCheckboxesData = new Array(this.items.length).fill(false);
                 this.$set(this.selectedCheckboxesData, index, true);
-                
-                if(this.lastIndexWithShiftKeyDown === null) {
+
+                if (this.lastIndexWithShiftKeyDown === null) {
                     this.lastIndexWithShiftKeyDown = index;
-                }
-                else {
-                    let i = this.lastIndexWithShiftKeyDown < index ? this.lastIndexWithShiftKeyDown : index;
+                } else {
+                    let i =
+                        this.lastIndexWithShiftKeyDown < index
+                            ? this.lastIndexWithShiftKeyDown
+                            : index;
                     const length = Math.abs(this.lastIndexWithShiftKeyDown - index) + i;
 
-                    for(; i <= length; i++)
-                        this.$set(this.selectedCheckboxesData, i, true);
+                    for (; i <= length; i++) this.$set(this.selectedCheckboxesData, i, true);
                 }
             }
-
         },
         onGlobalCheckbox(value) {
             this.selectedCheckboxesData = new Array(this.items.length).fill(value);
@@ -413,17 +411,19 @@ export const Table = {
             this.selectedCheckboxesData = new Array(this.items.length).fill(true);
         },
         onShiftUp() {
-            if(this.lastIndex === 0) return;
-            
-            if(this.lastIndex > this.lastIndexWithShiftKeyDown) this.$set(this.selectedCheckboxesData, this.lastIndex, false);
+            if (this.lastIndex === 0) return;
+
+            if (this.lastIndex > this.lastIndexWithShiftKeyDown)
+                { this.$set(this.selectedCheckboxesData, this.lastIndex, false); }
             this.lastIndex--;
 
             this.$set(this.selectedCheckboxesData, this.lastIndex, true);
         },
-        onShiftDown(){
-            if(this.lastIndex === this.items.length - 1) return;
-            
-            if(this.lastIndex < this.lastIndexWithShiftKeyDown) this.$set(this.selectedCheckboxesData, this.lastIndex, false);
+        onShiftDown() {
+            if (this.lastIndex === this.items.length - 1) return;
+
+            if (this.lastIndex < this.lastIndexWithShiftKeyDown)
+                { this.$set(this.selectedCheckboxesData, this.lastIndex, false); }
             this.lastIndex++;
 
             this.$set(this.selectedCheckboxesData, this.lastIndex, true);
