@@ -9,9 +9,9 @@
         >
             <template v-slot:content>
                 <slot name="table-header">
-                    <h2 class="table-title" v-if="contentTitle">{{ contentTitle }}</h2>
+                    <h2 class="table-title" v-if="tableTitle">{{ tableTitle }}</h2>
                 </slot>
-                <div class="table-content" v-bind:style="contentStyle" id="table-content">
+                <div class="table-content" v-bind:style="tableStyle" id="table-content">
                     <table-ripe
                         v-bind:columns="columns"
                         v-bind:items="itemsWithIndex"
@@ -48,7 +48,12 @@
                         <h2 class="menu-title" v-if="menuTitle">{{ menuTitle }}</h2>
                     </slot>
                     <slot name="menu-content">
-                        <div class="argument" v-bind:class="editColumn" v-for="(editColumn, index) in editColumns" v-bind:key="index">
+                        <div
+                            class="argument"
+                            v-bind:class="editColumn"
+                            v-for="(editColumn, index) in editColumns"
+                            v-bind:key="index"
+                        >
                             <form-input v-bind:header="getColumnLabel(editColumn)">
                                 <input-ripe
                                     v-bind:value.sync="selectedItem[editColumn]"
@@ -213,7 +218,7 @@ export const TableMenu = {
             type: String,
             default: "Arguments"
         },
-        contentTitle: {
+        tableTitle: {
             type: String,
             default: null
         },
@@ -249,14 +254,14 @@ export const TableMenu = {
         selectedItem() {
             return this.items[this.selectedIndexData] || {};
         },
+        tableStyle() {
+            const base = {};
+            base["max-height"] = this.maxHeight ? `${this.maxHeight}px` : null;
+            return base;
+        },
         menuStyle() {
             const base = {};
             base["background-color"] = this.menuBackgroundColor ? this.menuBackgroundColor : null;
-            return base;
-        },
-        contentStyle() {
-            const base = {};
-            base["max-height"] = this.maxHeight ? `${this.maxHeight}px` : null;
             return base;
         }
     },
@@ -294,17 +299,9 @@ export const TableMenu = {
             this.menuVisibleData = true;
             this.focusFirstTextInput();
         },
-        toggleCheckbox(property, value) {
-            if (!(property in this.selectedItem)) return;
-            this.$set(this.items[this.selectedIndexData], property, value);
-        },
         getColumnLabel(value) {
             const column = this.columns.find(l => l.value === value);
             return column.label || value;
-        },
-        getColumnType(value) {
-            const column = this.columns.find(l => l.value === value);
-            return column.type || "text";
         },
         scrollTop() {
             const table = document.getElementById("table-content");
