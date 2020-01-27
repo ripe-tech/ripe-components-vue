@@ -1,0 +1,62 @@
+{
+    "EUR": {
+        "symbol": "€",
+        "places": 2
+    },
+    "GBP": {
+        "symbol": "£",
+        "places": 2
+    },
+    "USD": {
+        "symbol": "$",
+        "places": 2
+    },
+    "CRC": {
+        "symbol": "₡",
+        "places": 2
+    },
+    "ILS": {
+        "symbol": "₪",
+        "places": 2
+    },
+    "INR": {
+        "symbol": "₹",
+        "places": 2
+    },
+    "JPY": {
+        "symbol": "¥",
+        "places": 0
+    },
+    "KRW": {
+        "symbol": "₩",
+        "places": 0
+    },
+    "NGN": {
+        "symbol": "₦",
+        "places": 2
+    },
+    "PHP": {
+        "symbol": "₱",
+        "places": 2
+    },
+    "PLN": {
+        "symbol": "zł",
+        "places": 2
+    },
+    "PYG": {
+        "symbol": "₲",
+        "places": 2
+    },
+    "THB": {
+        "symbol": "฿",
+        "places": 2
+    },
+    "UAH": {
+        "symbol": "₴",
+        "places": 2
+    },
+    "VND": {
+        "symbol": "₫",
+        "places": 0
+    }
+}

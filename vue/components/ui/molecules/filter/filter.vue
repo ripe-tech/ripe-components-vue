@@ -64,6 +64,10 @@ body.mobile .filter-ripe .lineup {
     margin: 82px 0px 82px;
 }
 
+.filter-ripe .empty-message > h1 {
+    font-weight: 500;
+}
+
 .filter-ripe .loader {
     display: none;
     margin: 24px 0px 24px 0px;
