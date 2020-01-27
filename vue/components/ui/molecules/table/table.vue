@@ -383,19 +383,16 @@ export const Table = {
 
             this.lastIndex = index;
 
-            if (event.ctrlKey || event.metaKey)
-                { this.$set(this.selectedCheckboxesData, index, !this.selectedCheckboxesData[index]); }
-            else if (event.shiftKey) {
+            if (event.ctrlKey || event.metaKey) {
+                this.$set(this.selectedCheckboxesData, index, !this.selectedCheckboxesData[index]);
+            } else if (event.shiftKey) {
                 this.selectedCheckboxesData = new Array(this.items.length).fill(false);
                 this.$set(this.selectedCheckboxesData, index, true);
 
                 if (this.lastIndexWithShift === null) {
                     this.lastIndexWithShift = index;
                 } else {
-                    let i =
-                        this.lastIndexWithShift < index
-                            ? this.lastIndexWithShift
-                            : index;
+                    let i = this.lastIndexWithShift < index ? this.lastIndexWithShift : index;
                     const length = Math.abs(this.lastIndexWithShift - index) + i;
 
                     for (; i <= length; i++) this.$set(this.selectedCheckboxesData, i, true);
@@ -415,19 +412,23 @@ export const Table = {
         onShiftUp() {
             if (this.lastIndex === 0) return;
 
-            if(this.lastIndexWithShift === null) this.lastIndexWithShift = this.lastIndex = this.items.length;
+            if (this.lastIndexWithShift === null)
+                { this.lastIndexWithShift = this.lastIndex = this.items.length; }
 
-            if (this.lastIndex > this.lastIndexWithShift)
-                { this.$set(this.selectedCheckboxesData, this.lastIndex, false); }
+            if (this.lastIndex > this.lastIndexWithShift) {
+                this.$set(this.selectedCheckboxesData, this.lastIndex, false);
+            }
             this.lastIndex--;
 
             this.$set(this.selectedCheckboxesData, this.lastIndex, true);
         },
         onShiftDown() {
-            if (this.lastIndexWithShift === null || this.lastIndex === this.items.length - 1) return;
+            if (this.lastIndexWithShift === null || this.lastIndex === this.items.length - 1)
+                { return; }
 
-            if (this.lastIndex < this.lastIndexWithShift)
-                { this.$set(this.selectedCheckboxesData, this.lastIndex, false); }
+            if (this.lastIndex < this.lastIndexWithShift) {
+                this.$set(this.selectedCheckboxesData, this.lastIndex, false);
+            }
             this.lastIndex++;
 
             this.$set(this.selectedCheckboxesData, this.lastIndex, true);
