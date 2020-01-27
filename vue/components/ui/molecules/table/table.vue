@@ -473,8 +473,14 @@ export const Table = {
             this.$set(this.selectedCheckboxesData, this.lastIndex, true);
         },
         onShiftDown() {
-            if (this.lastIndexWithShift === null || this.lastIndex === this.items.length - 1) {
+            if (this.lastIndex === this.items.length - 1) {
                 return;
+            }
+
+            
+            if (this.lastIndexWithShift === null) {
+                this.lastIndexWithShift = 0;
+                this.lastIndex = -1;
             }
 
             if (this.lastIndex < this.lastIndexWithShift) {
