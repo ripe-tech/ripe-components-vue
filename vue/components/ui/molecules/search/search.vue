@@ -32,6 +32,7 @@
             v-bind:placeholder="placeholder"
             v-bind:autofocus="autofocus"
             v-bind:width="width"
+            v-bind:font-weight="600"
             ref="input"
             v-on:focus="focused = true"
             v-on:blur="focused = false"

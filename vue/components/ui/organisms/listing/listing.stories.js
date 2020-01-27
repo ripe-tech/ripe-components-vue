@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, boolean, number } from "@storybook/addon-knobs";
+import { withKnobs, text, boolean, number, select } from "@storybook/addon-knobs";
 
 storiesOf("Organisms", module)
     .addDecorator(withKnobs)
@@ -81,6 +81,16 @@ storiesOf("Organisms", module)
                     float: "left",
                     height: "34px"
                 })
+            },
+            containerMode: {
+                default: select(
+                    "Mode",
+                    {
+                        Default: "default",
+                        Expanded: "expanded"
+                    },
+                    "default"
+                )
             }
         },
         methods: {
@@ -118,6 +128,7 @@ storiesOf("Organisms", module)
                     v-bind:persistent-filters="persistentFilters"
                     v-bind:search-enable-delete="searchEnableDelete"
                     v-bind:filter-button-max-width="filterButtonMaxWidth"
+                    v-bind:container-mode="containerMode"
                 >
                     <template v-slot:icons>
                         <img v-bind:src="img" v-bind:style="imgStyle" />

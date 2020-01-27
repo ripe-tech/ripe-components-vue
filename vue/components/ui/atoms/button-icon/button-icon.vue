@@ -5,7 +5,8 @@
         v-bind:class="classes"
         v-on:click="handleClick"
     >
-        <img v-bind:src="iconPath" />
+        <loader loader="ball-clip-rotate" class="loader" v-bind:count="1" v-show="loading" />
+        <img v-bind:src="iconPath" v-show="!loading" />
         <span v-if="text">{{ text }}</span>
     </span>
 </template>
@@ -57,6 +58,17 @@
 
 .button-icon.button-icon-black:hover:not(.disabled) {
     background-color: #41566f;
+}
+
+.button-icon .loader {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.button-icon .loader ::v-deep div {
+    border-color: #848484 #848484 transparent #848484;
+    height: 10px;
+    width: 10px;
 }
 
 .button-icon > img {
@@ -113,6 +125,10 @@ export const ButtonIcon = {
             default: null
         },
         disabled: {
+            type: Boolean,
+            default: false
+        },
+        loading: {
             type: Boolean,
             default: false
         }

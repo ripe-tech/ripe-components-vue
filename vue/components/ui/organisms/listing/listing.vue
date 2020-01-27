@@ -5,7 +5,7 @@
             v-bind:class="{ show: showScrollTop }"
             v-on:click="scrollToTop"
         />
-        <container-ripe>
+        <container-ripe v-bind:mode="containerMode">
             <div class="container-header">
                 <div class="container-header-right">
                     <div class="container-header-buttons" v-if="$slots['header-buttons']">
@@ -292,6 +292,10 @@ export const Listing = {
         filterButtonMaxWidth: {
             type: Number,
             default: 250
+        },
+        containerMode: {
+            type: String,
+            default: null
         }
     },
     data: function() {

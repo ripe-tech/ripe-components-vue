@@ -22,23 +22,36 @@ storiesOf("Atoms", module)
                     },
                     "black"
                 )
+            },
+            hover: {
+                default: select(
+                    "Hover",
+                    {
+                        Border: "border",
+                        Color: "color",
+                        Empty: "empty"
+                    },
+                    "border"
+                )
             }
         },
         template: `
             <div>
                 <link-ripe
-                    v-bind:text='"This is a normal link"'
+                    v-bind:text="'This is a normal link'"
                     v-bind:href="'http://platforme.com'"
-                    v-bind:disabled='disabled'
-                    v-bind:color='color'
+                    v-bind:disabled="disabled"
+                    v-bind:color="color"
+                    v-bind:hover="hover"
                 >
                 </link-ripe>
                 <link-ripe
-                    v-bind:text='"This is a small link"'
+                    v-bind:text="'This is a small link'"
                     v-bind:href="'http://platforme.com'"
-                    v-bind:disabled='disabled'
-                    v-bind:size='"small"
-                    'v-bind:color='color'
+                    v-bind:disabled="disabled"
+                    v-bind:size="'small'"
+                    v-bind:color="color"
+                    v-bind:hover="hover"
                 >
                 </link-ripe>
             </div>
