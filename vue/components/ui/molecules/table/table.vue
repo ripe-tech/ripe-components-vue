@@ -1,5 +1,6 @@
 <template>
     <table class="table" v-bind:class="{disableSelection: lastIndexWithShiftKeyDown !== null }" >
+        <global-events v-on:keydown.meta.65.exact.prevent="onCtrlA()" v-on:keydown.ctrl.65.exact.prevent="onCtrlA()" />
         <thead class="table-head">
             <tr>
                 <th class="checkboxes-th" v-if="enableCheckboxes">
@@ -401,8 +402,8 @@ export const Table = {
             this.$emit("click", item, index);
             this.clickSelectionHandler(index, event);
         },
-        onCtrlClick(index) {
-            
+        onCtrlA() {
+            this.selectedCheckboxesData = new Array(this.items.length).fill(true);
         }
     },
     mounted: function() {
