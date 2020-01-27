@@ -7,10 +7,10 @@
         <global-events
             v-on:keydown.meta.65.exact.prevent="onCtrlA()"
             v-on:keydown.ctrl.65.exact.prevent="onCtrlA()"
-            v-on:keydown.shift.up.exact="onShiftUp()"
-            v-on:keydown.shift.down.exact="onShiftDown()"
-            v-on:keydown.ctrl.alt.65.exact="onCtrlAltA()"
-            v-on:keydown.meta.alt.65.exact="onCtrlAltA()"
+            v-on:keydown.shift.up.exact.prevent="onShiftUp()"
+            v-on:keydown.shift.down.exact.prevent="onShiftDown()"
+            v-on:keydown.ctrl.alt.65.exact.prevent="onCtrlAltA()"
+            v-on:keydown.meta.alt.65.exact.prevent="onCtrlAltA()"
         />
         <thead class="table-head">
             <tr>
