@@ -1,92 +1,68 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, boolean, number, select } from "@storybook/addon-knobs";
+import { withKnobs, text, number, select } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Form Input", () => ({
         props: {
-            value: {
-                default: text("Value", "This is a text")
-            },
-            placeholder: {
-                default: text("Placeholder", "This is a placeholder")
-            },
-            disabled: {
-                default: boolean("Disabled", false)
-            },
-            ellipsis: {
-                default: boolean("Ellipsis", true)
-            },
-            header: {
-                default: text("Header", "Start Header")
-            },
-            footer: {
-                default: text("Footer", "End Footer")
-            },
-            errorText: {
-                default: text("Error Text", "")
-            },
-            warning: {
-                default: text("Warning", "")
-            },
-            success: {
-                default: text("Success", "")
-            },
-            width: {
-                default: number("Width", null)
-            },
-            minWidth: {
-                default: number("Minimum Width", null)
-            },
-            headerMinWidth: {
-                default: number("Header Minimum Width", null)
-            },
-            height: {
-                default: number("Height", null)
-            },
-            formVariant: {
+            variant: {
                 default: select(
-                    "Form Variant",
+                    "Variant",
                     {
                         Unset: null,
                         Inline: "inline"
                     },
                     null
                 )
-            }
-        },
-        data: function() {
-            return {
-                valueData: this.value
-            };
-        },
-        watch: {
-            value(value) {
-                this.valueData = value;
+            },
+            header: {
+                default: text("Header", "Header")
+            },
+            footer: {
+                default: text("Footer", "Footer")
+            },
+            headerVariant: {
+                default: select(
+                    "Header Variant",
+                    {
+                        Unset: null,
+                        Error: "error",
+                        Warning: "warning",
+                        Success: "success"
+                    },
+                    null
+                )
+            },
+            footerVariant: {
+                default: select(
+                    "Footer Variant",
+                    {
+                        Unset: null,
+                        Error: "error",
+                        Warning: "warning",
+                        Success: "success"
+                    },
+                    null
+                )
+            },
+            headerMinWidth: {
+                default: number("Header Minimum Width", null)
+            },
+            footerMinWidth: {
+                default: number("Footer Minimum Width", null)
             }
         },
         template: `
-            <div>
-                <form-input
-                    v-bind:header="header"
-                    v-bind:header-min-width="headerMinWidth"
-                    v-bind:footer="footer"
-                    v-bind:error="errorText"
-                    v-bind:warning="warning"
-                    v-bind:success="success"
-                    v-bind:variant="formVariant"
-                >
-                    <input-ripe
-                        v-bind:variant="variant"
-                        v-bind:border="border"
-                        v-bind:value.sync="valueData"
-                        v-bind:placeholder="placeholder"
-                        v-bind:disabled="disabled"
-                        v-bind:width="width"
-                        v-bind:min-width="minWidth"
-                        v-bind:height="height"></input-ripe>
-                </form-input>
-                <p>Text: {{ valueData }}</p>
-            </div>
+            <form-input
+                v-bind:variant="variant"
+                v-bind:header="header"
+                v-bind:footer="footer"
+                v-bind:header-variant="headerVariant"
+                v-bind:footer-variant="footerVariant"
+                v-bind:header-min-width="headerMinWidth"
+                v-bind:footer-min-width="footerMinWidth"    
+            >
+                <input-ripe />
+            </form-input>
         `
     }));

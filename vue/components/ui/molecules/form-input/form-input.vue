@@ -1,44 +1,29 @@
 <template>
     <div class="form-input" v-bind:class="classes">
-        <label-ripe
-            class="header"
-            v-bind:style="headerStyle"
-            v-bind:text="header"
-            v-bind:for="id"
-            v-if="header"
-        />
+        <slot name="header">
+            <label-ripe
+                class="header"
+                v-bind:style="headerStyle"
+                v-bind:class="headerClasses"
+                v-bind:text="header"
+                v-bind:for="id"
+                v-if="header"
+            />
+        </slot>
         <div class="content">
             <slot />
+        </div>
+        <slot name="footer">
             <label-ripe
                 class="footer"
+                v-bind:style="footerStyle"
+                v-bind:class="footerClasses"
                 v-bind:size="'small'"
                 v-bind:text="footer"
                 v-bind:for="id"
                 v-if="footer"
             />
-            <div class="text-container">
-                <div class="text" v-if="error">
-                    <span class="icon icon-error" />
-                    <label-ripe
-                        class="label-information"
-                        v-bind:text="error"
-                        v-bind:color="'error'"
-                    />
-                </div>
-                <div class="text" v-if="warning">
-                    <span class="icon icon-warning" />
-                    <label-ripe class="label-information" v-bind:text="warning" />
-                </div>
-                <div class="text" v-if="success">
-                    <span class="icon icon-success" />
-                    <label-ripe
-                        class="label-information"
-                        v-bind:text="success"
-                        v-bind:color="'success'"
-                    />
-                </div>
-            </div>
-        </div>
+        </slot>
     </div>
 </template>
 
@@ -49,18 +34,33 @@
     display: flex;
 }
 
-.form-input.form-input-inline .header {
-    line-height: 34px;
-    margin: 0px 4px 0px 0px;
-}
-
 .form-input .header,
 .form-input .footer {
     display: block;
 }
 
+.form-input .header.error,
+.form-input .footer.error {
+    color: #e96760;
+}
+
+.form-input .header.warning,
+.form-input .footer.warning {
+    color: #fb9032;
+}
+
+.form-input .header.success,
+.form-input .footer.success {
+    color: #42526e;
+}
+
 .form-input .header {
     margin-bottom: 6px;
+}
+
+.form-input.form-input-inline .header {
+    line-height: 34px;
+    margin: 0px 4px 0px 0px;
     min-width: 120px;
 }
 
@@ -77,32 +77,6 @@
 .form-input.form-input-inline .content {
     flex: 1;
 }
-
-.form-input .content .text-container .text .label-information {
-    margin: 0px 0px 0px 4px;
-    vertical-align: middle;
-}
-
-.form-input .icon {
-    background-position: center;
-    background-repeat: no-repeat;
-    display: inline-block;
-    height: 15px;
-    vertical-align: middle;
-    width: 15px;
-}
-
-.form-input .icon-success {
-    background-image: url("~./assets/check-filled.svg");
-}
-
-.form-input .icon-warning {
-    background-image: url("~./assets/warning.svg");
-}
-
-.form-input .icon-error {
-    background-image: url("~./assets/error.svg");
-}
 </style>
 
 <script>
@@ -110,6 +84,10 @@ export const FormInput = {
     name: "form-input",
     props: {
         id: {
+            type: String,
+            default: null
+        },
+        variant: {
             type: String,
             default: null
         },
@@ -121,23 +99,19 @@ export const FormInput = {
             type: String,
             default: null
         },
-        error: {
+        headerVariant: {
             type: String,
             default: null
         },
-        warning: {
-            type: String,
-            default: null
-        },
-        success: {
-            type: String,
-            default: null
-        },
-        variant: {
+        footerVariant: {
             type: String,
             default: null
         },
         headerMinWidth: {
+            type: Number,
+            default: null
+        },
+        footerMinWidth: {
             type: Number,
             default: null
         }
@@ -146,18 +120,22 @@ export const FormInput = {
         headerStyle() {
             return { "min-width": `${this.headerMinWidth}px` };
         },
+        footerStyle() {
+            return { "min-width": `${this.footerMinWidth}px` };
+        },
         classes() {
             const base = {};
-
-            switch (this.variant) {
-                case "inline":
-                    base["form-input-inline"] = true;
-                    break;
-
-                default:
-                    break;
-            }
-
+            if (this.variant) base[`form-input-${this.variant}`] = true;
+            return base;
+        },
+        headerClasses() {
+            const base = {};
+            if (this.headerVariant) base[`${this.headerVariant}`] = true;
+            return base;
+        },
+        footerClasses() {
+            const base = {};
+            if (this.footerVariant) base[`${this.footerVariant}`] = true;
             return base;
         }
     }
