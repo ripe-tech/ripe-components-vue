@@ -1,5 +1,5 @@
 <template>
-    <div class="select" v-bind:class="{ disabled: disabled }">
+    <div class="select" v-bind:class="classes">
         <global-events v-on:click="onGlobalClick" />
         <select
             class="dropdown-select"
@@ -43,6 +43,7 @@
                 v-bind:visible.sync="visibleData"
                 v-bind:global-events="false"
                 v-bind:highlighted="highlightedObject"
+                v-bind:style="dropdownStyle"
                 ref="dropdown"
                 v-on:update:highlighted="onDropdownHighlighted"
                 v-on:item-clicked="value => onDropdownItemClicked(value.value)"
@@ -120,6 +121,14 @@
     width: 100%;
     z-index: 1;
 }
+
+.select.select-align-right .select-container ::v-deep .dropdown-container {
+    right: 0px;
+}
+
+.select.select-align-left .select-container ::v-deep .dropdown-container {
+    left: 0px;
+}
 </style>
 
 <script>
@@ -149,9 +158,21 @@ export const Select = {
             type: Boolean,
             default: false
         },
+        width: {
+            type: Number,
+            default: null
+        },
         maxHeight: {
             type: Number,
             default: 200
+        },
+        dropdownMinWidth: {
+            type: Number,
+            default: null
+        },
+        align: {
+            type: String,
+            default: "right"
         }
     },
     data: function() {
@@ -225,7 +246,7 @@ export const Select = {
         },
         highlightFirstMatchedOption(key, scroll = true) {
             const index = this.options.findIndex(
-                option => option.label.charAt(0).toUpperCase() === key.toUpperCase()
+                option => option.label && option.label.charAt(0).toUpperCase() === key.toUpperCase()
             );
 
             if (index > -1) {
@@ -349,9 +370,17 @@ export const Select = {
         valueIndex() {
             return this.options.findIndex(option => option.value === this.valueData);
         },
+        classes() {
+            return [`select-align-${this.align}`, { disabled: this.disabled }];
+        },
         style() {
             const base = {};
             if (this.width) base.width = `${this.width}px`;
+            return base;
+        },
+        dropdownStyle() {
+            const base = {};
+            if (this.dropdownMinWidth) base["min-width"] = `${this.dropdownMinWidth}px`;
             return base;
         },
         highlightedObject() {
