@@ -160,7 +160,7 @@ export const Checkbox = {
         }
     },
     computed: {
-        style() {
+        sizeStyle() {
             return {
                 width: `${this.size}px`,
                 height: `${this.size}px`
@@ -192,15 +192,15 @@ export const Checkbox = {
             if (this.disabled && this.checkedData) base = this.disabledStyle;
             else if (this.checkedData) base = this.checkedStyle;
             else if (this.active) base = this.activeCheckStyle;
-            return { ...this.style, ...base };
+            return { ...this.sizeStyle, ...base };
         }
     },
     methods: {
-        toggle(item) {
+        toggle() {
             if (this.disabled) return;
 
             this.checkedData = !this.checkedData;
-            this.$emit("update:checked", this.value, this.checkedData, this.index);
+            this.$emit("update:checked", this.checkedData, this.value, this.index);
         },
         onSpace() {
             this.toggle();
