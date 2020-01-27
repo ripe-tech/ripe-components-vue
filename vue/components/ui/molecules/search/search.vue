@@ -119,6 +119,10 @@
     top: 3px;
 }
 
+.search .icon-clear ::v-deep img {
+    vertical-align: top;
+}
+
 .search > .suggestions {
     border: 1px solid $border-color;
     border-radius: 5px;
