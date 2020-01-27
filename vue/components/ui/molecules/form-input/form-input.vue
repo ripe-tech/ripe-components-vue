@@ -41,17 +41,17 @@
 
 .form-input .header.error,
 .form-input .footer.error {
-    color: #e96760;
+    color: $error;
 }
 
 .form-input .header.warning,
 .form-input .footer.warning {
-    color: #fb9032;
+    color: $warning;
 }
 
 .form-input .header.success,
 .form-input .footer.success {
-    color: #42526e;
+    color: $success;
 }
 
 .form-input .header {
