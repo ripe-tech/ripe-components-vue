@@ -65,9 +65,9 @@ storiesOf("Atoms", module)
             height: {
                 default: number("Height", null)
             },
-            alignment: {
+            formVariant: {
                 default: select(
-                    "Alignment",
+                    "Form Variant",
                     {
                         Unset: null,
                         Inline: "inline"
@@ -95,7 +95,7 @@ storiesOf("Atoms", module)
                     v-bind:error="errorText"
                     v-bind:warning="warning"
                     v-bind:success="success"
-                    v-bind:alignment="alignment"
+                    v-bind:variant="formVariant"
                 >
                     <input-ripe
                         v-bind:variant="variant"

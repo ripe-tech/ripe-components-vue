@@ -1,5 +1,5 @@
 <template>
-    <div class="form-input" v-bind:class="alignment">
+    <div class="form-input" v-bind:class="classes">
         <label-ripe
             class="header"
             v-bind:style="headerStyle"
@@ -7,7 +7,6 @@
             v-bind:for="id"
             v-if="header"
         />
-
         <div class="content">
             <slot />
             <label-ripe
@@ -46,11 +45,11 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.form-input.inline {
+.form-input.form-input-inline {
     display: flex;
 }
 
-.form-input.inline .header {
+.form-input.form-input-inline .header {
     line-height: 34px;
     margin: 0px 4px 0px 0px;
 }
@@ -75,7 +74,7 @@
     line-height: 0px;
 }
 
-.form-input.inline .content {
+.form-input.form-input-inline .content {
     flex: 1;
 }
 
@@ -134,7 +133,7 @@ export const FormInput = {
             type: String,
             default: null
         },
-        alignment: {
+        variant: {
             type: String,
             default: null
         },
@@ -146,6 +145,20 @@ export const FormInput = {
     computed: {
         headerStyle() {
             return { "min-width": `${this.headerMinWidth}px` };
+        },
+        classes() {
+            const base = {};
+
+            switch (this.variant) {
+                case "inline":
+                    base["form-input-inline"] = true;
+                    break;
+
+                default:
+                    break;
+            }
+
+            return base;
         }
     }
 };
