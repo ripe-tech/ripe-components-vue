@@ -34,7 +34,7 @@
                                 <slot
                                     v-bind:item="item"
                                     v-bind:index="index"
-                                    v-bind:name="`item-${column.value}`"
+                                    v-bind:name="`cell-${column.value}`"
                                 >
                                     {{
                                         item[column.value] !== null &&

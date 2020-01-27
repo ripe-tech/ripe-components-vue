@@ -67,7 +67,7 @@ storiesOf("Molecules", module).add("Table Custom", () => ({
             v-bind:columns="mockColumns"
             v-bind:items="mockItems"
         >
-            <template v-slot:item-user="{ item, index }">
+            <template v-slot:cell-user="{ item, index }">
                 <tr v-bind:key="index">
                     <td colspan="3">Column {{ index }}</td>
                 </tr>
