@@ -11,7 +11,7 @@
                 <slot name="table-header">
                     <h2 class="table-title" v-if="tableTitle">{{ tableTitle }}</h2>
                 </slot>
-                <div class="table-content" v-bind:style="tableStyle" id="table-content">
+                <div class="table-content" v-bind:style="tableStyle" ref="table-content">
                     <table-ripe
                         v-bind:columns="columns"
                         v-bind:items="itemsWithIndex"
@@ -200,11 +200,11 @@ export const TableMenu = {
         },
         menuMode: {
             type: String,
-            default: "collapse"
+            default: null
         },
         menuAlignment: {
             type: String,
-            default: "right"
+            default: null
         },
         maxHeight: {
             type: Number,
@@ -212,7 +212,7 @@ export const TableMenu = {
         },
         menuWidth: {
             type: Number,
-            default: 300
+            default: null
         },
         menuTitle: {
             type: String,
@@ -224,7 +224,7 @@ export const TableMenu = {
         },
         menuVisible: {
             type: Boolean,
-            default: true
+            default: null
         },
         menuBackgroundColor: {
             type: String,
@@ -236,7 +236,7 @@ export const TableMenu = {
         },
         animationDuration: {
             type: Number,
-            default: 0.3
+            default: null
         }
     },
     data: function() {
@@ -304,11 +304,11 @@ export const TableMenu = {
             return column.label || value;
         },
         scrollTop() {
-            const table = document.getElementById("table-content");
+            const table = this.$refs["table-content"];
             table.scrollTop = 0;
         },
         scrollBottom() {
-            const table = document.getElementById("table-content");
+            const table = this.$refs["table-content"];
             table.scrollTop = table.scrollHeight;
         },
         toggleMenu() {
