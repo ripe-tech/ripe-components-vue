@@ -103,6 +103,7 @@
 .dropdown > .dropdown-item > a {
     border-bottom: none;
     color: $dark-grey;
+    text-decoration: none;
 }
 
 .dropdown > .dropdown-item:hover > a,

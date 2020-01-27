@@ -1,6 +1,6 @@
 {
     "name": "ripe-components-vue",
-    "version": "0.5.6",
+    "version": "0.5.11",
     "description": "RIPE Components for Vue.js",
     "keywords": [
         "components",
@@ -20,6 +20,7 @@
     "files": [
         "index.js",
         "LICENSE",
+        "css/**/*.scss",
         "dist/**/*",
         "js/**/*.js",
         "res/**/*.ico",
