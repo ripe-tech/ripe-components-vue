@@ -1,5 +1,9 @@
 <template>
-    <table class="table" v-bind:class="{classes, disableSelection: lastIndexWithShift !== null}" v-bind:style="style">
+    <table
+        class="table"
+        v-bind:class="{ classes, disableSelection: lastIndexWithShift !== null }"
+        v-bind:style="style"
+    >
         <global-events
             v-on:keydown.meta.65.exact.prevent="onCtrlA()"
             v-on:keydown.ctrl.65.exact.prevent="onCtrlA()"
@@ -347,7 +351,7 @@ export const Table = {
             this.sortCheckboxes(sortedItems);
 
             return sortedItems;
-        },       
+        },
         style() {
             const base = {};
             if (this.alignment !== null) base["text-align"] = this.alignment;
@@ -359,7 +363,6 @@ export const Table = {
             };
             if (this.variant) base[this.variant] = true;
             return base;
-
         },
         isAllChecked() {
             return !this.selectedCheckboxesData.some(value => value === false);
@@ -454,8 +457,9 @@ export const Table = {
         onShiftUp() {
             if (this.lastIndex === 0) return;
 
-            if (this.lastIndexWithShift === null)
-                { this.lastIndexWithShift = this.lastIndex = this.items.length; }
+            if (this.lastIndexWithShift === null) {
+                this.lastIndexWithShift = this.lastIndex = this.items.length;
+            }
 
             if (this.lastIndex > this.lastIndexWithShift) {
                 this.$set(this.selectedCheckboxesData, this.lastIndex, false);
@@ -465,8 +469,9 @@ export const Table = {
             this.$set(this.selectedCheckboxesData, this.lastIndex, true);
         },
         onShiftDown() {
-            if (this.lastIndexWithShift === null || this.lastIndex === this.items.length - 1)
-                { return; }
+            if (this.lastIndexWithShift === null || this.lastIndex === this.items.length - 1) {
+                return;
+            }
 
             if (this.lastIndex < this.lastIndexWithShift) {
                 this.$set(this.selectedCheckboxesData, this.lastIndex, false);
