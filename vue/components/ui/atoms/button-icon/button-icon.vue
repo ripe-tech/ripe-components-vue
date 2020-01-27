@@ -5,7 +5,8 @@
         v-bind:class="classes"
         v-on:click="handleClick"
     >
-        <img v-bind:src="iconPath" />
+        <loader loader="ball-clip-rotate" class="loader" v-bind:count="1" v-show="loading" />
+        <img v-bind:src="iconPath" v-show="!loading" />
         <span v-if="text">{{ text }}</span>
     </span>
 </template>
@@ -59,10 +60,21 @@
     background-color: #41566f;
 }
 
+.button-icon .loader {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.button-icon .loader ::v-deep div {
+    border-color: #848484 #848484 transparent #848484;
+    height: 10px;
+    width: 10px;
+}
+
 .button-icon > img {
     height: 100%;
     opacity: 0.5;
-    vertical-align: top;
+    vertical-align: middle;
 }
 
 .button-icon:hover:not(.disabled) > img {
@@ -115,6 +127,10 @@ export const ButtonIcon = {
         disabled: {
             type: Boolean,
             default: false
+        },
+        loading: {
+            type: Boolean,
+            default: false
         }
     },
     computed: {
@@ -158,9 +174,9 @@ export const ButtonIcon = {
         }
     },
     methods: {
-        handleClick() {
+        handleClick(event) {
             if (this.disabled) return;
-            this.$emit("click");
+            this.$emit("click", event);
         }
     }
 };
