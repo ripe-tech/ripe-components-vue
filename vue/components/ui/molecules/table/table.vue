@@ -383,21 +383,14 @@ export const Table = {
                 
                 if(this.lastIndexWithShiftKeyDown === null) {
                     this.lastIndexWithShiftKeyDown = index;
-                    
-                    this.$set(this.selectedCheckboxesData, this.lastIndexWithShiftKeyDown, true);
                 }
                 else {
-                    console.log("select multiple");
-                    
-                    let i = this.lastIndexWithShiftKeyDown >= index ? index : this.lastIndexWithShiftKeyDown;
-                    let length = Math.abs(this.lastIndexWithShiftKeyDown - index);
-
-                    console.log("length", length);
-                    console.log("selection from: ", i, "to:", index);
-                    
-                    for(; i<=length; i++)
+                    let i = this.lastIndexWithShiftKeyDown < index ? this.lastIndexWithShiftKeyDown : index;
+                    let length = Math.abs(this.lastIndexWithShiftKeyDown - index) + 1;
+                    console.log("\n\nlength", length);
+                    for(; i<length; i++)
                     {
-                        console.log("i", i);
+                        console.log(i);
                         this.$set(this.selectedCheckboxesData, i, true);
                     }
                 }
