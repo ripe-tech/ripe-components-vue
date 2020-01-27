@@ -1,5 +1,5 @@
 <template>
-    <table class="table" v-bind:class="{ disableSelection: lastIndexWithShiftKeyDown !== null }">
+    <table class="table" v-bind:class="{ disableSelection: lastIndexWithShift !== null }">
         <global-events
             v-on:keydown.meta.65.exact.prevent="onCtrlA()"
             v-on:keydown.ctrl.65.exact.prevent="onCtrlA()"
@@ -301,7 +301,7 @@ export const Table = {
             globalCheckboxValueData: false,
             globalCheckboxIcon: "check",
             selectedCheckboxesData: this.enableCheckboxes ? this.selectedCheckboxes : [],
-            lastIndexWithShiftKeyDown: null,
+            lastIndexWithShift: null,
             lastIndex: this.items.length
         };
     },
@@ -376,7 +376,7 @@ export const Table = {
             return counter;
         },
         clickSelectionHandler(index, event) {
-            if (this.eventModifiersNumber(event) === 0) this.lastIndexWithShiftKeyDown = null;
+            if (this.eventModifiersNumber(event) === 0) this.lastIndexWithShift = null;
             if (this.eventModifiersNumber(event) !== 1) return;
 
             this.lastIndex = index;
@@ -387,14 +387,14 @@ export const Table = {
                 this.selectedCheckboxesData = new Array(this.items.length).fill(false);
                 this.$set(this.selectedCheckboxesData, index, true);
 
-                if (this.lastIndexWithShiftKeyDown === null) {
-                    this.lastIndexWithShiftKeyDown = index;
+                if (this.lastIndexWithShift === null) {
+                    this.lastIndexWithShift = index;
                 } else {
                     let i =
-                        this.lastIndexWithShiftKeyDown < index
-                            ? this.lastIndexWithShiftKeyDown
+                        this.lastIndexWithShift < index
+                            ? this.lastIndexWithShift
                             : index;
-                    const length = Math.abs(this.lastIndexWithShiftKeyDown - index) + i;
+                    const length = Math.abs(this.lastIndexWithShift - index) + i;
 
                     for (; i <= length; i++) this.$set(this.selectedCheckboxesData, i, true);
                 }
@@ -413,18 +413,18 @@ export const Table = {
         onShiftUp() {
             if (this.lastIndex === 0) return;
 
-            if(this.lastIndexWithShiftKeyDown === null) this.lastIndexWithShiftKeyDown = this.lastIndex = this.items.length;
+            if(this.lastIndexWithShift === null) this.lastIndexWithShift = this.lastIndex = this.items.length;
 
-            if (this.lastIndex > this.lastIndexWithShiftKeyDown)
+            if (this.lastIndex > this.lastIndexWithShift)
                 { this.$set(this.selectedCheckboxesData, this.lastIndex, false); }
             this.lastIndex--;
 
             this.$set(this.selectedCheckboxesData, this.lastIndex, true);
         },
         onShiftDown() {
-            if (this.lastIndexWithShiftKeyDown === null || this.lastIndex === this.items.length - 1) return;
+            if (this.lastIndexWithShift === null || this.lastIndex === this.items.length - 1) return;
 
-            if (this.lastIndex < this.lastIndexWithShiftKeyDown)
+            if (this.lastIndex < this.lastIndexWithShift)
                 { this.$set(this.selectedCheckboxesData, this.lastIndex, false); }
             this.lastIndex++;
 
