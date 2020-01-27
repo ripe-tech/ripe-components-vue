@@ -1,33 +1,36 @@
 <template>
-    <div
-        tabindex="0"
-        class="checkbox"
-        v-bind:class="{
-            checked: checkedData,
-            disabled: disabled,
-            error: error
-        }"
-        v-on:click="onClick()"
-        v-on:mousedown="onMouseDown()"
-        v-on:mouseup="onMouseUp()"
-        v-on:keydown.space="onSpace()"
-    >
-        <slot
-            name="before-item"
-            v-bind:label="label"
-            v-bind:value="value"
-            v-bind:checked="checkedData"
-        />
-        <div class="checkbox-input">
-            <div class="checkbox-square" v-bind:style="getStyle" />
-            <label class="label" v-if="label || value">{{ label ? label : value }}</label>
+    <div>
+        <global-events v-on:mouseup="onMouseUp" />
+        <div
+            tabindex="0"
+            class="checkbox"
+            v-bind:class="{
+                checked: checkedData,
+                disabled: disabled,
+                error: error
+            }"
+            v-on:click="onClick()"
+            v-on:mousedown="onMouseDown()"
+            v-on:mouseup="onMouseUp()"
+            v-on:keydown.space="onSpace()"
+        >
+            <slot
+                name="before-item"
+                v-bind:label="label"
+                v-bind:value="value"
+                v-bind:checked="checkedData"
+            />
+            <div class="checkbox-input">
+                <div class="checkbox-square" v-bind:style="getStyle" />
+                <label class="label" v-if="label || value">{{ label ? label : value }}</label>
+            </div>
+            <slot
+                name="after-item"
+                v-bind:label="label"
+                v-bind:value="value"
+                v-bind:checked="checkedData"
+            />
         </div>
-        <slot
-            name="after-item"
-            v-bind:label="label"
-            v-bind:value="value"
-            v-bind:checked="checkedData"
-        />
     </div>
 </template>
 
@@ -157,7 +160,7 @@ export const Checkbox = {
         }
     },
     computed: {
-        style() {
+        sizeStyle() {
             return {
                 width: `${this.size}px`,
                 height: `${this.size}px`
@@ -166,22 +169,22 @@ export const Checkbox = {
         checkedStyle() {
             const icon = require(`./assets/${this.icon}.svg`);
             return {
-                background: `url(${icon}) center / ${this.size / 2 + 4}px ${this.size / 2 +
-                    3}px no-repeat #1d2631`
+                background: `url(${icon}) center / ${this.size / 2 + 5}px ${this.size / 2 +
+                    4}px no-repeat #1d2631`
             };
         },
         activeCheckStyle() {
             const icon = require(`./assets/${this.icon}-dark.svg`);
             return {
-                background: `url(${icon}) center / ${this.size / 2 + 4}px ${this.size / 2 +
-                    3}px no-repeat #f4f5f7`
+                background: `url(${icon}) center / ${this.size / 2 + 5}px ${this.size / 2 +
+                    4}px no-repeat #f4f5f7`
             };
         },
         disabledStyle() {
             const icon = require(`./assets/${this.icon}-gray.svg`);
             return {
-                background: `url(${icon}) center / ${this.size / 2 + 4}px ${this.size / 2 +
-                    3}px no-repeat #f4f5f7`
+                background: `url(${icon}) center / ${this.size / 2 + 5}px ${this.size / 2 +
+                    4}px no-repeat #f4f5f7`
             };
         },
         getStyle() {
@@ -189,21 +192,21 @@ export const Checkbox = {
             if (this.disabled && this.checkedData) base = this.disabledStyle;
             else if (this.checkedData) base = this.checkedStyle;
             else if (this.active) base = this.activeCheckStyle;
-            return { ...this.style, ...base };
+            return { ...this.sizeStyle, ...base };
         }
     },
     methods: {
-        toggleItem(item) {
+        toggle() {
             if (this.disabled) return;
 
             this.checkedData = !this.checkedData;
-            this.$emit("update:checked", this.checkedData, this.index);
+            this.$emit("update:checked", this.checkedData, this.value, this.index);
         },
         onSpace() {
-            this.toggleItem();
+            this.toggle();
         },
         onClick() {
-            this.toggleItem();
+            this.toggle();
         },
         onMouseDown() {
             this.active = true;
