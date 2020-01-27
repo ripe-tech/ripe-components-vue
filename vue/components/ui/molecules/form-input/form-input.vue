@@ -10,20 +10,22 @@
                 v-if="header"
             />
         </slot>
-        <div class="content">
-            <slot />
+        <div class="flex-container">
+            <div class="content">
+                <slot />
+            </div>
+            <slot name="footer">
+                <label-ripe
+                    class="footer"
+                    v-bind:style="footerStyle"
+                    v-bind:class="footerClasses"
+                    v-bind:size="'small'"
+                    v-bind:text="footer"
+                    v-bind:for="id"
+                    v-if="footer"
+                />
+            </slot>
         </div>
-        <slot name="footer">
-            <label-ripe
-                class="footer"
-                v-bind:style="footerStyle"
-                v-bind:class="footerClasses"
-                v-bind:size="'small'"
-                v-bind:text="footer"
-                v-bind:for="id"
-                v-if="footer"
-            />
-        </slot>
     </div>
 </template>
 
@@ -32,6 +34,10 @@
 
 .form-input.form-input-inline {
     display: flex;
+}
+
+.form-input.form-input-inline .flex-container {
+    flex: 1;
 }
 
 .form-input .header,
@@ -72,10 +78,6 @@
 .form-input .content {
     font-size: 0px;
     line-height: 0px;
-}
-
-.form-input.form-input-inline .content {
-    flex: 1;
 }
 </style>
 
