@@ -1,7 +1,7 @@
 <template>
     <div class="dropdown-container">
         <global-events v-on:keydown.esc="handleGlobal()" />
-        <transition name="slide">
+        <transition name="slide" v-on:after-leave="onSlideAfterLeave">
             <ul class="dropdown" v-bind:style="dropdownStyle" v-show="visibleData" ref="dropdown">
                 <li
                     class="dropdown-item"
@@ -219,6 +219,9 @@ export const Dropdown = {
         },
         onMouseleave(index) {
             this.dehighlight(index);
+        },
+        onSlideAfterLeave() {
+            this.$emit("animation:close:ended");
         },
         _getItemClasses(item, index) {
             return {
