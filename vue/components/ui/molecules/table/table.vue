@@ -1,5 +1,9 @@
 <template>
-    <table class="table" v-bind:class="classes" v-bind:style="style">
+    <table
+        class="table"
+        v-bind:class="{ classes, disableSelection: lastIndexWithShift !== null }"
+        v-bind:style="style"
+    >
         <thead class="table-head">
             <tr>
                 <th class="checkboxes-th" v-if="enableCheckboxes">
@@ -33,7 +37,7 @@
                 <slot name="before-row" v-bind:item="item" v-bind:index="index" />
                 <tr v-bind:key="item.id" v-on:click="onClick(item, index)">
                     <slot v-bind:item="item" v-bind:index="index">
-                        <td v-if="enableCheckboxes">
+                        <td class="checkbox-td" v-if="enableCheckboxes">
                             <checkbox
                                 v-bind:size="8"
                                 v-bind:checked.sync="selectedCheckboxesData[index]"
@@ -73,6 +77,10 @@
     table-layout: fixed;
     text-align: center;
     width: 100%;
+}
+
+.table.disableSelection {
+    user-select: none;
 }
 
 .table .table-head .checkboxes-th {
@@ -121,6 +129,10 @@
     padding: 0px 20px 0px 20px;
     text-overflow: ellipsis;
     word-break: break-all;
+}
+
+.table .checkbox-td {
+    padding: 0px 0px 0px 0px;
 }
 
 .table.dense ::v-deep td {
