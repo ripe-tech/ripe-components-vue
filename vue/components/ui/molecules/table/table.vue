@@ -1,5 +1,5 @@
 <template>
-    <table class="table">
+    <table class="table" v-bind:class="classes" v-bind:style="style">
         <thead class="table-head">
             <tr>
                 <th class="checkboxes-th" v-if="enableCheckboxes">
@@ -44,7 +44,11 @@
                             v-for="column in columns"
                             v-bind:key="column.value"
                         >
-                            {{ item[column.value] }}
+                            {{
+                                item[column.value] !== null && item[column.value] !== undefined
+                                    ? item[column.value]
+                                    : "-"
+                            }}
                         </td>
                     </slot>
                 </tr>
@@ -96,12 +100,17 @@
     color: $label-color;
     font-size: 12px;
     font-weight: 600;
-    height: 36px;
+    height: 38px;
     letter-spacing: 0.5px;
-    line-height: 36px;
+    line-height: 38px;
+    padding: 0px 0px 0px 0px;
     text-transform: uppercase;
     user-select: none;
     white-space: pre;
+}
+
+.table.dense th {
+    font-weight: 600;
 }
 
 .table ::v-deep td {
@@ -109,9 +118,13 @@
     font-weight: 600;
     height: 80px;
     overflow: hidden;
-    padding: 0px 0px 0px 0px;
+    padding: 0px 20px 0px 20px;
     text-overflow: ellipsis;
     word-break: break-all;
+}
+
+.table.dense ::v-deep td {
+    height: 40px;
 }
 
 .table ::v-deep td > * {
@@ -124,7 +137,7 @@
 }
 
 .table ::v-deep td.image > * {
-    height: 100%;
+    display: inline;
 }
 
 .table ::v-deep td.image img {
@@ -217,6 +230,11 @@
     width: 20px;
 }
 
+.table.text-align-left .table-column > span::before {
+    left: auto;
+    right: 0px;
+}
+
 .table .table-column.descending > span::before,
 .table .table-column:not(.active) > span::before {
     background-position-y: bottom;
@@ -269,6 +287,14 @@ export const Table = {
         reverse: {
             type: Boolean,
             default: false
+        },
+        alignment: {
+            type: String,
+            default: null
+        },
+        variant: {
+            type: String,
+            default: null
         }
     },
     watch: {
@@ -285,7 +311,7 @@ export const Table = {
     },
     data: function() {
         return {
-            itemsData: this.enableCheckboxes ? this.checkableItems() : this.items,
+            itemsData: this.enableCheckboxes ? this.checkableItems() : this.itemsWithIndex(),
             sortData: this.sort,
             reverseData: this.reverse,
             globalCheckboxValueData: false,
@@ -305,6 +331,18 @@ export const Table = {
 
             return sortedItems;
         },
+        style() {
+            const base = {};
+            if (this.alignment !== null) base["text-align"] = this.alignment;
+            return base;
+        },
+        classes() {
+            const base = {
+                alignment: this.alignment === "left" ? "text-align-left" : ""
+            };
+            if (this.variant) base[this.variant] = true;
+            return base;
+        },
         isAllChecked() {
             return !this.selectedCheckboxesData.some(value => value === false);
         },
@@ -313,8 +351,11 @@ export const Table = {
         }
     },
     methods: {
+        itemsWithIndex() {
+            return this.items.map((item, index) => ({ _originalIndex: index, ...item }));
+        },
         checkableItems() {
-            return this.items.map((item, index) => ({ ...item, _checkboxIndex: index }));
+            return this.itemsWithIndex().map((item, index) => ({ ...item, _checkboxIndex: index }));
         },
         initialSelectedCheckboxes() {
             return new Array(this.items.length).fill(false).map((value, index) => {
@@ -358,7 +399,7 @@ export const Table = {
             this.selectedCheckboxesData = new Array(this.items.length).fill(value);
         },
         onClick(item, index) {
-            this.$emit("click", item, index);
+            this.$emit("click", item, item._originalIndex, index);
         }
     },
     mounted: function() {

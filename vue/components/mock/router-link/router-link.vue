@@ -1,5 +1,9 @@
 <template>
-    <a class="router-link" v-bind:href="to"><slot /></a>
+    <div>
+        <slot>
+            <a class="router-link" v-bind:href="to" />
+        </slot>
+    </div>
 </template>
 
 <style lang="scss" scoped>

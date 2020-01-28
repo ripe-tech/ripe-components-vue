@@ -1,7 +1,7 @@
 <template>
     <div
         class="upload-area"
-        v-bind:class="{ dragging: dragging }"
+        v-bind:class="classes"
         v-on:dragover.prevent="onDragOver($event)"
         v-on:drop.prevent="onDrop($event)"
         v-on:dragenter="onDragEnter($event)"
@@ -9,9 +9,12 @@
     >
         <slot>
             <div class="upload-area-container">
-                <p class="description">
-                    {{ descriptionText }}
-                </p>
+                <transition name="fade-in" mode="out-in">
+                    <div class="description" v-bind:key="dragging">
+                        {{ descriptionText }}
+                    </div>
+                </transition>
+                <button-icon v-bind:icon="icon" v-bind:size="110" />
                 <input
                     type="file"
                     multiple
@@ -20,7 +23,7 @@
                     v-on:change="onFilesInputChange()"
                 />
                 <button-color
-                    class="upload-button"
+                    class="button-upload"
                     v-bind:text="'Upload File'"
                     v-bind:icon="'cloud-upload'"
                     v-bind:alignment="'center'"
@@ -33,8 +36,9 @@
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
+@import "css/animations.scss";
 
-.upload-area .upload-area-container {
+.upload-area > .upload-area-container {
     align-items: center;
     border: dashed 2px $light-white;
     border-radius: 8px;
@@ -42,20 +46,57 @@
     flex-direction: column;
     height: 150px;
     justify-content: center;
-    transition: opacity 0.125s ease-in;
+    overflow: hidden;
+    position: relative;
+    transition: background-color 0.125s ease-in;
+    white-space: nowrap;
 }
 
-.upload-area.dragging .upload-area-container {
-    opacity: 0.3;
+.upload-area.dragging > .upload-area-container {
+    background-color: $lighter-grey;
+    border-color: $medium-grey;
     pointer-events: none;
 }
 
-.upload-area .upload-area-container > .description {
+.upload-area > .upload-area-container > .description {
     color: $dark;
     font-size: 14px;
     font-weight: 600;
-    letter-spacing: 0.3px;
-    margin: 0px 0px 22px 0px;
+    letter-spacing: 0.5px;
+    margin-bottom: 22px;
+}
+
+.upload-area > .upload-area-container > .description.fade-in-enter-active,
+.upload-area > .upload-area-container > .description.fade-in-leave-active {
+    transition: opacity 0.125s ease-in-out, transform 0.125s ease-in-out;
+}
+
+.upload-area .upload-area-container > .description.fade-in-enter,
+.upload-area .upload-area-container > .description.fade-in-leave-to {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.upload-area > .upload-area-container > .button-icon {
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 40px;
+    transition: opacity 0.125s ease-in;
+}
+
+.upload-area.dragging > .upload-area-container > .button-icon {
+    animation: zoom 2.5s ease-in-out infinite;
+    height: 40px;
+    opacity: 1;
+}
+
+.upload-area > .upload-area-container > .button-upload {
+    transition: opacity 0.125s ease-in;
+}
+
+.upload-area.dragging > .upload-area-container > .button-upload {
+    opacity: 0;
 }
 </style>
 
@@ -69,7 +110,11 @@ export const UploadArea = {
         },
         descriptionDragging: {
             type: String,
-            default: 'Just "drop" your files'
+            default: "Drop your files to upload"
+        },
+        draggingIcon: {
+            type: String,
+            default: null
         },
         files: {
             type: Array,
@@ -79,6 +124,13 @@ export const UploadArea = {
     computed: {
         descriptionText() {
             return this.dragging ? this.descriptionDragging : this.description;
+        },
+        icon() {
+            return this.draggingIcon ? this.draggingIcon : "cloud-upload";
+        },
+        classes() {
+            const base = { dragging: this.dragging };
+            return base;
         }
     },
     data: function() {
@@ -91,6 +143,9 @@ export const UploadArea = {
     watch: {
         files(value) {
             this.filesData = value;
+        },
+        dragging(value) {
+            this.$emit("update:dragging", value);
         }
     },
     methods: {

@@ -15,8 +15,12 @@
                     v-for="(link, index) in links"
                     v-bind:key="link.value + index"
                 >
-                    <router-link v-bind:to="link.link" v-if="link.link">
-                        {{ link.label }}
+                    <router-link
+                        v-bind:to="link.link"
+                        v-if="link.link"
+                        v-slot="{ href, navigate }"
+                    >
+                        <link-ripe v-bind:text="link.label" v-bind:href="href" v-bind:hover="'border'" v-on:click="navigate" />
                     </router-link>
                     <span v-else>{{ link.label }}</span>
                 </li>
@@ -118,6 +122,7 @@
     color: $main-color;
     display: inline-block;
     padding: 12px 24px 12px 24px;
+    text-decoration: none;
     width: 100%;
 }
 
