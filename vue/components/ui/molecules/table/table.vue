@@ -47,6 +47,7 @@
                     <slot v-bind:item="item" v-bind:index="index">
                         <td class="checkbox-td" v-if="enableCheckboxes">
                             <checkbox
+                                v-on:click.native.stop
                                 v-bind:size="8"
                                 v-bind:checked.sync="selectedCheckboxesData[index]"
                             />
