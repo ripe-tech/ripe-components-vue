@@ -47,9 +47,9 @@
                     <slot v-bind:item="item" v-bind:index="index">
                         <td class="checkbox-td" v-if="enableCheckboxes">
                             <checkbox
-                                v-on:click.native.stop
                                 v-bind:size="8"
                                 v-bind:checked.sync="selectedCheckboxesData[index]"
+                                v-on:click.native.stop
                             />
                         </td>
                         <td
@@ -465,7 +465,7 @@ export const Table = {
             this.lastIndexWithShift = null;
         },
         onShiftUp() {
-            if(this.lastIndex === null) {
+            if (this.lastIndex === null) {
                 this.lastIndex = this.lastIndexWithShift = this.items.length - 1;
                 this.$set(this.selectedCheckboxesData, this.lastIndex, true);
                 return;
@@ -480,11 +480,10 @@ export const Table = {
             }
 
             this.lastIndex--;
-            this.$set(this.selectedCheckboxesData, this.lastIndex, true); 
-
+            this.$set(this.selectedCheckboxesData, this.lastIndex, true);
         },
         onShiftDown() {
-            if(this.lastIndex === null) {
+            if (this.lastIndex === null) {
                 this.lastIndex = this.lastIndexWithShift = 0;
                 this.$set(this.selectedCheckboxesData, this.lastIndex, true);
                 return;
@@ -495,11 +494,11 @@ export const Table = {
             }
 
             if (this.lastIndex < this.lastIndexWithShift)
-                this.$set(this.selectedCheckboxesData, this.lastIndex, false);
+                { this.$set(this.selectedCheckboxesData, this.lastIndex, false); }
 
             this.lastIndex++;
 
-            this.$set(this.selectedCheckboxesData, this.lastIndex, true); 
+            this.$set(this.selectedCheckboxesData, this.lastIndex, true);
         }
     },
     mounted: function() {
