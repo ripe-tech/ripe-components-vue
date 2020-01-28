@@ -7,10 +7,10 @@
         <global-events
             v-on:keydown.meta.65.exact.prevent="onCtrlA()"
             v-on:keydown.ctrl.65.exact.prevent="onCtrlA()"
-            v-on:keydown.shift.up.exact.prevent="onShiftUp()"
-            v-on:keydown.shift.down.exact.prevent="onShiftDown()"
             v-on:keydown.ctrl.alt.65.exact.prevent="onCtrlAltA()"
             v-on:keydown.meta.alt.65.exact.prevent="onCtrlAltA()"
+            v-on:keydown.shift.up.exact.prevent="onShiftUp()"
+            v-on:keydown.shift.down.exact.prevent="onShiftDown()"
         />
         <thead class="table-head">
             <tr>
@@ -459,6 +459,11 @@ export const Table = {
         onCtrlA() {
             this.selectedCheckboxesData = new Array(this.items.length).fill(true);
         },
+        onCtrlAltA() {
+            this.selectedCheckboxesData = new Array(this.items.length).fill(false);
+            this.lastIndex = null;
+            this.lastIndexWithShift = null;
+        },
         onShiftUp() {
             if(this.lastIndex === null) {
                 this.lastIndex = this.lastIndexWithShift = this.items.length - 1;
@@ -495,11 +500,6 @@ export const Table = {
             this.lastIndex++;
 
             this.$set(this.selectedCheckboxesData, this.lastIndex, true); 
-        },
-        onCtrlAltA() {
-            this.selectedCheckboxesData = new Array(this.items.length).fill(false);
-            this.lastIndex = null;
-            this.lastIndexWithShift = null;
         }
     },
     mounted: function() {
