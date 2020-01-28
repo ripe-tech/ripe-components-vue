@@ -1,5 +1,5 @@
 <template>
-    <table class="table">
+    <table class="table" v-bind:class="classes" v-bind:style="style">
         <thead class="table-head">
             <tr>
                 <th
@@ -30,7 +30,11 @@
                             v-for="column in columns"
                             v-bind:key="column.value"
                         >
-                            {{ item[column.value] }}
+                            {{
+                                item[column.value] !== null && item[column.value] !== undefined
+                                    ? item[column.value]
+                                    : "-"
+                            }}
                         </td>
                     </slot>
                 </tr>
@@ -78,12 +82,17 @@
     color: $label-color;
     font-size: 12px;
     font-weight: 600;
-    height: 36px;
+    height: 38px;
     letter-spacing: 0.5px;
-    line-height: 36px;
+    line-height: 38px;
+    padding: 0px 0px 0px 0px;
     text-transform: uppercase;
     user-select: none;
     white-space: pre;
+}
+
+.table.dense th {
+    font-weight: 600;
 }
 
 .table ::v-deep td {
@@ -91,9 +100,13 @@
     font-weight: 600;
     height: 80px;
     overflow: hidden;
-    padding: 0px 0px 0px 0px;
+    padding: 0px 20px 0px 20px;
     text-overflow: ellipsis;
     word-break: break-all;
+}
+
+.table.dense ::v-deep td {
+    height: 40px;
 }
 
 .table ::v-deep td > * {
@@ -106,7 +119,7 @@
 }
 
 .table ::v-deep td.image > * {
-    height: 100%;
+    display: inline;
 }
 
 .table ::v-deep td.image img {
@@ -199,6 +212,11 @@
     width: 20px;
 }
 
+.table.text-align-left .table-column > span::before {
+    left: auto;
+    right: 0px;
+}
+
 .table .table-column.descending > span::before,
 .table .table-column:not(.active) > span::before {
     background-position-y: bottom;
@@ -243,6 +261,14 @@ export const Table = {
         reverse: {
             type: Boolean,
             default: false
+        },
+        alignment: {
+            type: String,
+            default: null
+        },
+        variant: {
+            type: String,
+            default: null
         }
     },
     watch: {
@@ -260,13 +286,28 @@ export const Table = {
         };
     },
     computed: {
+        itemsWithIndex() {
+            return this.items.map((item, index) => ({ _originalIndex: index, ...item }));
+        },
         sortedItems() {
             if (!this.sortData) {
-                return this.items;
+                return this.itemsWithIndex;
             }
 
-            const items = [...this.items];
+            const items = [...this.itemsWithIndex];
             return this.sortMethod(items, this.sortData, this.reverseData);
+        },
+        style() {
+            const base = {};
+            if (this.alignment !== null) base["text-align"] = this.alignment;
+            return base;
+        },
+        classes() {
+            const base = {
+                alignment: this.alignment === "left" ? "text-align-left" : ""
+            };
+            if (this.variant) base[this.variant] = true;
+            return base;
         }
     },
     methods: {
@@ -281,7 +322,7 @@ export const Table = {
             this.$emit("update:reverse", this.reverseData);
         },
         onClick(item, index) {
-            this.$emit("click", item, index);
+            this.$emit("click", item, item._originalIndex, index);
         }
     }
 };

@@ -67,6 +67,7 @@
     background-size: 20px 20px;
     border-bottom: 1px solid #e4e8f0;
     cursor: pointer;
+    font-weight: 600;
     height: 44px;
     padding: 0px 16px 0px 40px;
     user-select: none;

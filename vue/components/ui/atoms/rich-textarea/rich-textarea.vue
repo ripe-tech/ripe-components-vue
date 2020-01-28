@@ -85,15 +85,19 @@
     border-width: 2px;
 }
 
-.rich-textarea:active,
+.rich-textarea:active:not(.disabled),
 .rich-textarea:focus-within {
     border-color: $aqcua-blue;
 }
 
-.rich-textarea .textarea,
-.rich-textarea .textarea:focus,
-.rich-textarea .textarea:hover,
-.rich-textarea .textarea:disabled {
+.rich-textarea.disabled {
+    opacity: 0.4;
+}
+
+.rich-textarea > .textarea,
+.rich-textarea > .textarea:focus,
+.rich-textarea > .textarea:hover,
+.rich-textarea > .textarea:disabled {
     background-color: transparent;
     border: none;
     border-radius: 6px 6px 0px 0px;
@@ -101,22 +105,18 @@
     width: 100%;
 }
 
-.rich-textarea.disabled {
-    opacity: 0.4;
-}
-
-.rich-textarea .options {
+.rich-textarea > .options {
     background: #fafafa;
     border-radius: 0px 0px 6px 6px;
     border-top: 1px solid #e4e8f0;
     padding: 6px 12px 6px 12px;
 }
 
-.rich-textarea.border-strong .options {
+.rich-textarea.border-strong > .options {
     border-width: 2px;
 }
 
-.rich-textarea .options .attachments {
+.rich-textarea > .options > .attachments {
     display: inline-block;
     margin-bottom: 6px;
     max-height: 200px;
@@ -124,20 +124,21 @@
     overflow-y: auto;
 }
 
-.rich-textarea .options .attachments .attachment {
+.rich-textarea > .options > .attachments > .attachment {
     background-color: $white;
     border: 1px solid $light-white;
     border-top: none;
     display: flex;
+    font-weight: 600;
     line-height: 20px;
     padding: 4px 2px 4px 8px;
 }
 
-.rich-textarea .options .attachments .attachment:first-child {
+.rich-textarea > .options > .attachments > .attachment:first-child {
     border-top: 1px solid $light-white;
 }
 
-.rich-textarea .options .attachments .attachment .attachment-name {
+.rich-textarea > .options > .attachments > .attachment > .attachment-name {
     flex: 1 0;
     font-size: 11px;
     overflow: hidden;
@@ -153,6 +154,10 @@
 
 .rich-textarea .options .buttons .send-button {
     margin-left: auto;
+}
+
+.rich-textarea > .options > .attachments > .attachment > .button-remove-attachment {
+    display: inline-flex;
 }
 </style>
 

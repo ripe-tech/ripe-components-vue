@@ -18,6 +18,7 @@
 @import "css/variables.scss";
 
 .textarea {
+    appearance: none;
     background-color: $white;
     border: 1px solid $light-white;
     border-radius: 6px 6px 6px 6px;
@@ -26,6 +27,7 @@
     display: inline-block;
     font-family: $font-family;
     font-size: 13px;
+    font-weight: 500;
     height: 98px;
     letter-spacing: 0.3px;
     line-height: 20px;
@@ -104,6 +106,10 @@ export const Textarea = {
             type: Number,
             default: null
         },
+        fontWeight: {
+            type: Number,
+            default: null
+        },
         resize: {
             type: Boolean,
             default: false
@@ -120,7 +126,8 @@ export const Textarea = {
             const height = Math.max(this.heightData || 0, this.textareaHeight || 0) || null;
             const base = {
                 width: this.width === null ? null : `${this.width}px`,
-                height: height === null ? null : `${height}px`
+                height: height === null ? null : `${height}px`,
+                "font-weight": this.fontWeight === null ? null : `${this.fontWeight}`
             };
             return base;
         },

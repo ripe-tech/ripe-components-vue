@@ -8,7 +8,7 @@ storiesOf("Molecules", module)
     .add("Input Currency", () => ({
         props: {
             value: {
-                default: text("Value", "50")
+                default: number("Value", 50)
             },
             currency: {
                 default: select(
@@ -16,7 +16,19 @@ storiesOf("Molecules", module)
                     {
                         USD: "USD",
                         EUR: "EUR",
-                        GBP: "GBP"
+                        GBP: "GBP",
+                        CRC: "CRC",
+                        ILS: "ILS",
+                        INR: "INR",
+                        JPY: "JPY",
+                        KRW: "KRW",
+                        NGN: "NGN",
+                        PHP: "PHP",
+                        PLN: "PLN",
+                        PYG: "PYG",
+                        THB: "THB",
+                        UAH: "UAH",
+                        VND: "VND"
                     },
                     "USD"
                 )

@@ -49,7 +49,12 @@
                                         v-bind:item="item"
                                         v-bind:index="index"
                                     >
-                                        {{ item[field.value] || item[field.value] || "-" }}
+                                        {{
+                                            item[field.value] !== null &&
+                                                item[field.value] !== undefined
+                                                ? item[field.value]
+                                                : "-"
+                                        }}
                                     </slot>
                                 </div>
                             </slot>
