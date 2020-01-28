@@ -24,12 +24,7 @@
                     v-if="isAuth"
                     v-slot="{ href, navigate }"
                 >
-                    <link-ripe
-                        v-bind:text="loginMessage"
-                        v-bind:href="href"
-                        v-bind:hover="'border'"
-                        v-on:click="navigate"
-                    />
+                    <link-ripe v-bind:text="loginMessage" v-bind:href="href" v-bind:hover="'border'" v-on:click="navigate" />
                 </router-link>
             </div>
         </div>
