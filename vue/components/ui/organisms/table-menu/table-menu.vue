@@ -200,11 +200,11 @@ export const TableMenu = {
         },
         menuMode: {
             type: String,
-            default: null
+            default: "collapse"
         },
         menuAlignment: {
             type: String,
-            default: null
+            default: "right"
         },
         maxHeight: {
             type: Number,
@@ -212,7 +212,7 @@ export const TableMenu = {
         },
         menuWidth: {
             type: Number,
-            default: null
+            default: 300
         },
         menuTitle: {
             type: String,
@@ -224,7 +224,7 @@ export const TableMenu = {
         },
         menuVisible: {
             type: Boolean,
-            default: null
+            default: true
         },
         menuBackgroundColor: {
             type: String,
@@ -236,7 +236,7 @@ export const TableMenu = {
         },
         animationDuration: {
             type: Number,
-            default: null
+            default: 0.3
         }
     },
     data: function() {
