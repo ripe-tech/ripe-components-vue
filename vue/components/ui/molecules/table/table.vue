@@ -436,6 +436,7 @@ export const Table = {
 
             if (event.ctrlKey || event.metaKey) {
                 this.$set(this.selectedCheckboxesData, index, !this.selectedCheckboxesData[index]);
+                this.lastIndexWithShift = index;
             } else if (event.shiftKey) {
                 this.selectedCheckboxesData = new Array(this.items.length).fill(false);
                 this.$set(this.selectedCheckboxesData, index, true);
@@ -452,6 +453,8 @@ export const Table = {
         },
         onGlobalCheckbox(value) {
             this.selectedCheckboxesData = new Array(this.items.length).fill(value);
+            this.lastIndex = null;
+            this.lastIndexWithShift = null;
         },
         onClick(item, index, event) {
             this.$emit("click", item, item._originalIndex, index);
