@@ -49,8 +49,9 @@
                             <checkbox
                                 v-bind:size="8"
                                 v-bind:checked.sync="selectedCheckboxesData[index]"
-                                v-on:click.ctrl.exact.native.stop
-                                v-on:click.meta.exact.native.stop
+                                v-on:click.native.exact.stop="onCheckboxClick(index)"
+                                v-on:click.ctrl.exact.native.stop="onCheckboxCtrlClick(index)"
+                                v-on:click.meta.exact.native.stop="onCheckboxCtrlClick(index)"
                             />
                         </td>
                         <td
@@ -435,8 +436,8 @@ export const Table = {
             this.lastIndex = index;
 
             if (event.ctrlKey || event.metaKey) {
-                this.$set(this.selectedCheckboxesData, index, !this.selectedCheckboxesData[index]);
-                this.lastIndexWithShift = index;
+            this.$set(this.selectedCheckboxesData, index, !this.selectedCheckboxesData[index]);
+            this.lastIndexWithShift = index;    
             } else if (event.shiftKey) {
                 this.selectedCheckboxesData = new Array(this.items.length).fill(false);
                 this.$set(this.selectedCheckboxesData, index, true);
@@ -459,6 +460,13 @@ export const Table = {
         onClick(item, index, event) {
             this.$emit("click", item, item._originalIndex, index);
             this.clickSelectionHandler(index, event);
+        },
+        onCheckboxClick(index) {
+            
+            this.lastIndex = this.lastIndexWithShift = index;  
+        },
+        onCheckboxCtrlClick(index){
+            this.lastIndex = this.lastIndexWithShift = index;    
         },
         onCtrlA() {
             this.selectedCheckboxesData = new Array(this.items.length).fill(true);
