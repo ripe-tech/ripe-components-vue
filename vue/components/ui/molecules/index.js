@@ -13,6 +13,7 @@ import { Modal } from "./modal/modal.vue";
 import { ProgressBar } from "./progress-bar/progress-bar.vue";
 import { Table } from "./table/table.vue";
 import { Tabs } from "./tabs/tabs.vue";
+import { TagGroup } from "./tag-group/tag-group.vue";
 import { Search } from "./search/search.vue";
 import { Select } from "./select/select.vue";
 import { UploadArea } from "./upload-area/upload-area.vue";
@@ -34,6 +35,7 @@ const install = Vue => {
     Vue.component("search", Search);
     Vue.component("select-ripe", Select);
     Vue.component("table-ripe", Table);
+    Vue.component("tag-group", TagGroup);
     Vue.component("tabs", Tabs);
     Vue.component("upload-area", UploadArea);
 };
@@ -56,6 +58,7 @@ export {
     Select,
     Table,
     Tabs,
+    TagGroup,
     UploadArea
 };
 
