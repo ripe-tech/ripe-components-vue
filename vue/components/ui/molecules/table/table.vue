@@ -1,7 +1,7 @@
 <template>
     <table
         class="table"
-        v-bind:class="{ classes, disableSelection: lastIndexWithShift !== null }"
+        v-bind:class="{ classes, disableSelection: lastClickedIndex !== null }"
         v-bind:style="style"
     >
         <global-events
@@ -43,15 +43,21 @@
         <transition-group tag="tbody" v-bind:name="transition" class="table-body">
             <template v-for="(item, index) in sortedItems">
                 <slot name="before-row" v-bind:item="item" v-bind:index="index" />
-                <tr v-bind:key="item.id" v-on:click="onClick(item, index, $event)">
+                <tr
+                    v-bind:key="item.id"
+                    v-on:click.exact="onRowClick(index)"
+                    v-on:click.ctrl.exact="onRowCtrlClick(index)"
+                    v-on:click.meta.exact="onRowCtrlClick(index)"
+                    v-on:click.shift.exact="onRowShiftClick(index)"
+                >
                     <slot v-bind:item="item" v-bind:index="index">
                         <td class="checkbox-td" v-if="enableCheckboxes">
                             <checkbox
                                 v-bind:size="8"
                                 v-bind:checked.sync="selectedCheckboxesData[index]"
                                 v-on:click.native.exact.stop="onCheckboxClick(index)"
-                                v-on:click.ctrl.exact.native.stop="onCheckboxCtrlClick(index)"
-                                v-on:click.meta.exact.native.stop="onCheckboxCtrlClick(index)"
+                                v-on:click.ctrl.exact.native.stop="onCheckboxClick(index)"
+                                v-on:click.meta.exact.native.stop="onCheckboxClick(index)"
                             />
                         </td>
                         <td
@@ -340,8 +346,8 @@ export const Table = {
             globalCheckboxValueData: false,
             globalCheckboxIcon: "check",
             selectedCheckboxesData: this.enableCheckboxes ? this.selectedCheckboxes : [],
-            lastIndexWithShift: null,
-            lastIndex: null
+            lastClickedIndex: null,
+            shiftIndex: null
         };
     },
     computed: {
@@ -420,100 +426,85 @@ export const Table = {
                 item._checkboxIndex = index;
             });
         },
-        eventModifiersNumber(event) {
-            let counter = 0;
-            if (event.ctrlKey) counter++;
-            if (event.shiftKey) counter++;
-            if (event.altKey) counter++;
-            if (event.metaKey) counter++;
-
-            return counter;
+        resetSelectionIndexes() {
+            this.shiftIndex = null;
+            this.lastClickedIndex = null;
         },
-        clickSelectionHandler(index, event) {
-            if (this.eventModifiersNumber(event) === 0) this.lastIndexWithShift = null;
-            if (this.eventModifiersNumber(event) !== 1) return;
-
-            this.lastIndex = index;
-
-            if (event.ctrlKey || event.metaKey) {
-            this.$set(this.selectedCheckboxesData, index, !this.selectedCheckboxesData[index]);
-            this.lastIndexWithShift = index;    
-            } else if (event.shiftKey) {
-                this.selectedCheckboxesData = new Array(this.items.length).fill(false);
-                this.$set(this.selectedCheckboxesData, index, true);
-
-                if (this.lastIndexWithShift === null) {
-                    this.lastIndexWithShift = index;
-                } else {
-                    let i = this.lastIndexWithShift < index ? this.lastIndexWithShift : index;
-                    const length = Math.abs(this.lastIndexWithShift - index) + i;
-
-                    for (; i <= length; i++) this.$set(this.selectedCheckboxesData, i, true);
-                }
-            }
+        updateSelectionIndexes(index) {
+            this.shiftIndex = this.lastClickedIndex = index;
         },
         onGlobalCheckbox(value) {
             this.selectedCheckboxesData = new Array(this.items.length).fill(value);
-            this.lastIndex = null;
-            this.lastIndexWithShift = null;
+            this.resetSelectionIndexes();
         },
-        onClick(item, index, event) {
+        onRowClick(item, index, event) {
             this.$emit("click", item, item._originalIndex, index);
-            this.clickSelectionHandler(index, event);
+            this.resetSelectionIndexes();
+        },
+        onRowCtrlClick(index) {
+            this.$set(this.selectedCheckboxesData, index, !this.selectedCheckboxesData[index]);
+            this.updateSelectionIndexes(index);
+        },
+        onRowShiftClick(index) {
+            this.selectedCheckboxesData = new Array(this.items.length).fill(false);
+            this.$set(this.selectedCheckboxesData, index, true);
+
+            if (this.lastClickedIndex === null) this.lastClickedIndex = index;
+            else {
+                let i = this.lastClickedIndex < index ? this.lastClickedIndex : index;
+                const length = Math.abs(this.lastClickedIndex - index) + i;
+
+                for (; i <= length; i++) this.$set(this.selectedCheckboxesData, i, true);
+            }
         },
         onCheckboxClick(index) {
-            
-            this.lastIndex = this.lastIndexWithShift = index;  
-        },
-        onCheckboxCtrlClick(index){
-            this.lastIndex = this.lastIndexWithShift = index;    
+            this.updateSelectionIndexes(index);
         },
         onCtrlA() {
             this.selectedCheckboxesData = new Array(this.items.length).fill(true);
-            this.lastIndex = this.items.length - 1;
-            this.lastIndexWithShift = 0;
+
+            this.shiftIndex = this.items.length - 1;
+            this.lastClickedIndex = 0;
         },
         onCtrlAltA() {
             this.selectedCheckboxesData = new Array(this.items.length).fill(false);
-            this.lastIndex = null;
-            this.lastIndexWithShift = null;
+            this.resetSelectionIndexes();
         },
         onShiftUp() {
-            if (this.lastIndex === null) {
-                this.lastIndex = this.lastIndexWithShift = this.items.length - 1;
-                this.$set(this.selectedCheckboxesData, this.lastIndex, true);
+            if (this.shiftIndex === null) {
+                this.shiftIndex = this.lastClickedIndex = this.items.length - 1;
+                this.$set(this.selectedCheckboxesData, this.shiftIndex, true);
                 return;
             }
-            if (this.lastIndex === 0) {
-                this.$set(this.selectedCheckboxesData, this.lastIndex, true);
+            if (this.shiftIndex === 0) {
+                this.$set(this.selectedCheckboxesData, this.shiftIndex, true);
                 return;
             }
 
-            if (this.lastIndex > this.lastIndexWithShift) {
-                this.$set(this.selectedCheckboxesData, this.lastIndex, false);
+            if (this.shiftIndex > this.lastClickedIndex) {
+                this.$set(this.selectedCheckboxesData, this.shiftIndex, false);
             }
 
-            this.lastIndex--;
-            this.$set(this.selectedCheckboxesData, this.lastIndex, true);
+            this.shiftIndex--;
+            this.$set(this.selectedCheckboxesData, this.shiftIndex, true);
         },
         onShiftDown() {
-            if (this.lastIndex === null) {
-                this.lastIndex = this.lastIndexWithShift = 0;
-                this.$set(this.selectedCheckboxesData, this.lastIndex, true);
+            if (this.shiftIndex === null) {
+                this.shiftIndex = this.lastClickedIndex = 0;
+                this.$set(this.selectedCheckboxesData, this.shiftIndex, true);
                 return;
             }
-            if (this.lastIndex === this.items.length - 1) {
-                this.$set(this.selectedCheckboxesData, this.lastIndex, true);
+            if (this.shiftIndex === this.items.length - 1) {
+                this.$set(this.selectedCheckboxesData, this.shiftIndex, true);
                 return;
             }
 
-            if (this.lastIndex < this.lastIndexWithShift) {
-                this.$set(this.selectedCheckboxesData, this.lastIndex, false);
+            if (this.shiftIndex < this.lastClickedIndex) {
+                this.$set(this.selectedCheckboxesData, this.shiftIndex, false);
             }
 
-            this.lastIndex++;
-
-            this.$set(this.selectedCheckboxesData, this.lastIndex, true);
+            this.shiftIndex++;
+            this.$set(this.selectedCheckboxesData, this.shiftIndex, true);
         }
     },
     mounted: function() {
