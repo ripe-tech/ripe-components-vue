@@ -459,6 +459,8 @@ export const Table = {
         },
         onCtrlA() {
             this.selectedCheckboxesData = new Array(this.items.length).fill(true);
+            this.lastIndex = this.items.length - 1;
+            this.lastIndexWithShift = 0;
         },
         onCtrlAltA() {
             this.selectedCheckboxesData = new Array(this.items.length).fill(false);
