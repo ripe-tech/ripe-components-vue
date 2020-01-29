@@ -496,8 +496,9 @@ export const Table = {
                 return;
             }
 
-            if (this.lastIndex < this.lastIndexWithShift)
-                { this.$set(this.selectedCheckboxesData, this.lastIndex, false); }
+            if (this.lastIndex < this.lastIndexWithShift) {
+                this.$set(this.selectedCheckboxesData, this.lastIndex, false);
+            }
 
             this.lastIndex++;
 
