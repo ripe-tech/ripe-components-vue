@@ -252,7 +252,10 @@ export const TagGroup = {
         },
         updateTag(event, index) {
             const value = event.target.innerText.toUpperCase();
-            if (this.tagsData.includes(value)) return;
+            if (this.tagsData.includes(value)){
+                event.target.innerText = this.tagsData[index];
+                return;
+            } 
             this.$set(this.tagsData, index, value);
             if (!value || value === "\n") {
                 this.$delete(this.tagsData, index);
