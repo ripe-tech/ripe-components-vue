@@ -306,8 +306,11 @@ export const Table = {
             this.sortData = value;
         },
         items(value) {
-            this.itemsData = value;
-            this.selectedCheckboxesData = this.initialSelectedCheckboxes();
+            this.itemsData = value.map((item, index) => {
+                return Object.assign(item, this.itemsData[index])
+            });
+
+            //TODO handle newly loaded that dont have _index stuff...
         },
         reverse(value) {
             this.reverseData = value;
