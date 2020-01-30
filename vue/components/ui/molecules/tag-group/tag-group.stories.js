@@ -1,13 +1,10 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, select, boolean } from "@storybook/addon-knobs";
+import { withKnobs, select, text, boolean } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Tag Group", () => ({
         props: {
-            text: {
-                default: text("Text", "This is a tag")
-            },
             size: {
                 default: select(
                     "Size",
@@ -19,25 +16,17 @@ storiesOf("Molecules", module)
                     "medium"
                 )
             },
-            subtle: {
-                default: boolean("Subtle", false)
+            placeholder: {
+                default: text("Placeholder text", "Write and press enter...")
             },
-            color: {
-                default: select(
-                    "Color",
-                    {
-                        Black: "black",
-                        Grey: "grey",
-                        Orange: "orange",
-                        Blue: "blue",
-                        Green: "green",
-                        Red: "red",
-                        Purple: "purple"
-                    },
-                    "black"
-                )
+            tags: {
+                type: Array,
+                default: () => ["WHITE", "SPUTNIK", "ORCHESTRA", "PULSE"]
+            },
+            hasInput: {
+                default: boolean("Has input", true)
             }
         },
         template:
-            '<tag-group v-bind:size="size" v-bind:subtle="subtle" v-bind:color="color" v-bind:text="text" />'
+            '<tag-group v-bind:hasInput="hasInput" v-bind:size="size" v-bind:tags="tags" v-bind:placeholder="placeholder" />'
     }));

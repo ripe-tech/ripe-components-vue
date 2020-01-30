@@ -1,19 +1,24 @@
 <template>
-    <div class="tag-group" v-on:click="focusInput">
-        <transition-group name="list" tag="span">
+    <div class="tag-group" v-on:click="focusInput" v-bind:class="tagGroupClasses">
+        <transition-group name="tag-container" tag="span">
             <div
                 class="tag"
-                v-bind:class="getClasses(tag)"
+                v-bind:class="tagClasses(tag)"
                 v-for="(tag, index) in tagsData"
                 v-bind:key="`${tag}`"
                 v-on:click.stop="onClickTag"
             >
-                <button-icon v-bind:icon="'close'" v-bind:size="23" v-on:click="deleteTag(index)" />
+                <button-icon
+                    v-if="hasInput"
+                    v-bind:icon="'close'"
+                    v-bind:size="buttonSize"
+                    v-on:click="deleteTag(index)"
+                />
                 <div
                     class="text"
                     autocorrect="off"
                     spellcheck="false"
-                    v-bind:contenteditable="'true'"
+                    v-bind:contenteditable="hasInput"
                     ref="tag-text"
                     v-on:keydown.enter.prevent="updateTag($event, index)"
                     v-on:keydown.esc.prevent="updateTag($event, index)"
@@ -24,7 +29,8 @@
             </div>
         </transition-group>
         <input
-            v-bind:placeholder="'Write and press enter...'"
+            class="tag-input"
+            v-bind:placeholder="placeholder"
             v-if="hasInput"
             ref="input"
             v-model="inputValue"
@@ -37,27 +43,27 @@
 @import "css/variables.scss";
 
 .tag-group {
-    border: 2px solid transparent;
+    border: 2px solid $light-white;
     border-radius: 4px;
-    transition: border 0.15s ease-in-out;
-}
-
-.list-enter-active,
-.list-leave-active {
-    transition: all 0.15s ease-in-out;
-}
-
-.list-enter,
-.list-leave-to {
-    opacity: 0;
-    transform: scale(0);
+    transition: border 0.125s ease-in-out;
 }
 
 .tag-group:focus-within {
     border-color: $aqcua-blue;
 }
 
-.tag {
+.tag-group .tag-container-enter-active,
+.tag-group .tag-container-leave-active {
+    transition: all 0.125s ease-in-out;
+}
+
+.tag-group .tag-container-enter,
+.tag-group .tag-container-leave-to {
+    opacity: 0;
+    transform: scale(0);
+}
+
+.tag-group .tag {
     align-items: center;
     border: 2px solid transparent;
     border-radius: 4px;
@@ -68,25 +74,26 @@
     justify-content: space-around;
     letter-spacing: 0.45px;
     line-height: 15px;
-    margin: 1px;
+    margin: 3px 2px 3px 2px;
     overflow: hidden;
     padding: 0px 15px 0px 0px;
     white-space: nowrap;
 }
 
-.tag .text {
+.tag-group .tag .text {
     display: inline-block;
+    margin-left: 5px;
     outline: none;
     text-transform: uppercase;
     white-space: initial;
     word-break: break-all;
 }
 
-.tag:focus-within {
+.tag-group .tag:focus-within {
     border: 2px solid $lighter-blue;
 }
 
-.tag.tag-small {
+.tag-group.tag-group-small .tag {
     font-size: 10px;
     height: 12px;
     letter-spacing: 0.35px;
@@ -94,7 +101,7 @@
     padding: 4px 10px 4px 10px;
 }
 
-.tag.tag-large {
+.tag-group.tag-group-large .tag {
     font-size: 14px;
     height: 17px;
     letter-spacing: 0.65px;
@@ -102,56 +109,67 @@
     padding: 6px 14px 6px 14px;
 }
 
-.tag,
-.tag.tag-black {
+.tag-group .tag,
+.tag-group .tag.tag-black {
     background-color: $black;
     color: $white;
 }
 
-.tag.tag-grey {
+.tag-group .tag.tag-grey {
     background-color: $grey;
     color: $white;
 }
 
-.tag.tag-orange {
+.tag-group .tag.tag-orange {
     background-color: $orange;
     color: $white;
 }
 
-.tag.tag-blue {
+.tag-group .tag.tag-blue {
     background-color: $blue;
     color: $white;
 }
 
-.tag.tag-green {
+.tag-group .tag.tag-green {
     background-color: $green;
     color: $white;
 }
 
-.tag.tag-red {
+.tag-group .tag.tag-red {
     background-color: $red;
     color: $white;
 }
 
-.tag.tag-purple {
+.tag-group .tag.tag-purple {
     background-color: $purple;
     color: $white;
 }
 
-.tag.tag-black {
+.tag-group .tag.tag-black {
     background-color: $black;
     color: $white;
 }
 
-.tag .button-icon:hover {
+.tag-group .tag .button-icon:hover {
     background-color: #ffffff59;
 }
 
-input {
+.tag-group .tag-input {
     border: none;
     box-sizing: border-box;
-    height: 27px;
+    height: 32px;
     vertical-align: top;
+    font-size: 14px;
+}
+
+.tag-group.tag-group-small .tag-input {
+    height: 28px;
+    font-size: 12px;
+}
+
+.tag-group.tag-group-large .tag-input {
+    height: 37px;
+    font-size: 16px;
 }
 </style>
 
@@ -160,30 +178,44 @@ export const TagGroup = {
     name: "tag-group",
     props: {
         size: {
-            type: String
-        },
-        color: {
             type: String,
-            default: null
+            default: "medium"
         },
         tags: {
             type: Array,
-            default: () => ["A", "B", "C"]
+            default: () => []
         },
         colors: {
             type: Array,
-            default: () => ["black", "grey", "orange", "blue", "green", "red", "purple"]
+            default: () => ["grey", "orange", "blue", "green", "red", "purple"]
         },
         hasInput: {
             type: Boolean,
             default: true
+        },
+        placeholder: {
+            type: String,
+            default: "Write and press enter..."
         }
     },
     data: function() {
         return {
             tagsData: this.tags,
-            inputValue: null
+            inputValue: null,
+            count: 0
         };
+    },
+    computed: {
+        buttonSize() {
+            if (this.size === "medium") return 23;
+            if (this.size === "small") return 19;
+            if (this.size === "large") return 28;
+        },
+        tagGroupClasses() {
+            const base = {};
+            if (this.size) base["tag-group-" + this.size] = this.size;
+            return base;
+        }
     },
     watch: {
         tags(value) {
@@ -204,16 +236,15 @@ export const TagGroup = {
             this.inputValue = null;
         },
         getColor(tag) {
-            const colorIndex = (Math.abs(tag.toString().charCodeAt(0)) % this.color.length) + 2;
+            const colorIndex = Math.abs(tag.toString().charCodeAt(0)) % this.colors.length;
             return this.colors[colorIndex];
         },
-        getClasses(tag) {
+        tagClasses(tag) {
             const base = {};
             const color = this.getColor(tag);
             if (tag.toString().length < 1) return;
-            if (this.color) base["tag-" + color] = color;
+            base["tag-" + color] = color;
             if (this.size) base["tag-" + this.size] = this.size;
-            if (this.subtle) base["tag-subtle"] = this.subtle;
             return base;
         },
         deleteTag(index) {
@@ -229,6 +260,7 @@ export const TagGroup = {
             event.target.blur();
         },
         focusInput() {
+            if (!this.$refs.input) return
             this.$refs.input.focus();
         },
         onClickTag(ev) {
