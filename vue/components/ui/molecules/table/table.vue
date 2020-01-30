@@ -1,9 +1,5 @@
 <template>
-    <table
-        class="table"
-        v-bind:class="{ classes, disableSelection: lastIndexWithShift !== null }"
-        v-bind:style="style"
-    >
+    <table class="table" v-bind:class="{ classes }" v-bind:style="style">
         <thead class="table-head">
             <tr>
                 <th class="checkboxes-th" v-if="enableCheckboxes">
@@ -36,13 +32,13 @@
             <template v-for="(item, index) in sortedItems">
                 <slot name="before-row" v-bind:item="item" v-bind:index="index" />
                 <tr v-bind:key="item.id" v-on:click="onClick(item, index)">
+                    <td class="checkbox-td" v-if="enableCheckboxes">
+                        <checkbox
+                            v-bind:size="8"
+                            v-bind:checked.sync="selectedCheckboxesData[index]"
+                        />
+                    </td>
                     <slot v-bind:item="item" v-bind:index="index">
-                        <td class="checkbox-td" v-if="enableCheckboxes">
-                            <checkbox
-                                v-bind:size="8"
-                                v-bind:checked.sync="selectedCheckboxesData[index]"
-                            />
-                        </td>
                         <td
                             v-bind:class="column.value"
                             v-for="column in columns"
@@ -77,10 +73,6 @@
     table-layout: fixed;
     text-align: center;
     width: 100%;
-}
-
-.table.disableSelection {
-    user-select: none;
 }
 
 .table .table-head .checkboxes-th {
@@ -313,6 +305,10 @@ export const Table = {
         sort(value) {
             this.sortData = value;
         },
+        items(value) {
+            this.itemsData = value;
+            this.selectedCheckboxesData = this.initialSelectedCheckboxes();
+        },
         reverse(value) {
             this.reverseData = value;
         },
@@ -356,7 +352,10 @@ export const Table = {
             return base;
         },
         isAllChecked() {
-            return !this.selectedCheckboxesData.some(value => value === false);
+            return (
+                this.selectedCheckboxesData.length > 0 &&
+                !this.selectedCheckboxesData.some(value => value === false || value === undefined)
+            );
         },
         isAllUnchecked() {
             return !this.selectedCheckboxesData.some(value => value === true);

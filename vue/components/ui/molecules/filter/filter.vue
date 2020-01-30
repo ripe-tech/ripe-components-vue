@@ -6,8 +6,10 @@
                 v-bind:items="items"
                 v-bind:sort-method="onSort"
                 v-bind:transition="tableTransition"
-                v-bind:initial-sort="sort"
-                v-bind:initial-reverse="reverse"
+                v-bind:sort="sort"
+                v-bind:reverse="reverse"
+                v-bind:enable-checkboxes="enableCheckboxes"
+                v-bind:selected-checkboxes.sync="selectedCheckboxesData"
                 v-on:click="onTableClick"
             >
                 <template v-slot="{ item, index }">
@@ -123,6 +125,14 @@ export const Filter = {
         useQuery: {
             type: Boolean,
             default: false
+        },
+        enableCheckboxes: {
+            type: Boolean,
+            default: false
+        },
+        selectedCheckboxes: {
+            type: Array,
+            default: () => []
         }
     },
     data: function() {
@@ -134,7 +144,8 @@ export const Filter = {
             start: 0,
             itemsToLoad: true,
             loading: false,
-            tableTransition: ""
+            tableTransition: "",
+            selectedCheckboxesData: []
         };
     },
     computed: {
@@ -192,6 +203,18 @@ export const Filter = {
         items: {
             handler: function(value) {
                 this.$emit("update:items", value);
+            },
+            immediate: true
+        },
+        selectedCheckboxes: {
+            handler: function(value) {
+                this.selectedCheckboxesData = value;
+            },
+            immediate: true
+        },
+        selectedCheckboxesData: {
+            handler: function(value) {
+                this.$emit("update:selected-checkboxes", value);
             },
             immediate: true
         }
