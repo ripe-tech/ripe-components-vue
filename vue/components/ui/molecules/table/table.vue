@@ -1,7 +1,7 @@
 <template>
     <table
         class="table"
-        v-bind:class="{ classes, disableSelection: lastIndexWithShift !== null }"
+        v-bind:class="classes"
         v-bind:style="style"
     >
         <thead class="table-head">
@@ -77,10 +77,6 @@
     table-layout: fixed;
     text-align: center;
     width: 100%;
-}
-
-.table.disableSelection {
-    user-select: none;
 }
 
 .table .table-head .checkboxes-th {
