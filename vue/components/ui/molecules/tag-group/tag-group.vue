@@ -1,5 +1,5 @@
 <template>
-    <div class="tag-group" v-on:click="focusInput" v-bind:class="tagGroupClasses">
+    <div class="tag-group" v-bind:class="tagGroupClasses" v-on:click="focusInput">
         <transition-group name="tag-container" tag="span">
             <div
                 class="tag"
@@ -9,9 +9,9 @@
                 v-on:click.stop="onClickTag"
             >
                 <button-icon
-                    v-if="hasInput"
                     v-bind:icon="'close'"
                     v-bind:size="buttonSize"
+                    v-if="hasInput"
                     v-on:click="deleteTag(index)"
                 />
                 <div
@@ -157,19 +157,19 @@
 .tag-group .tag-input {
     border: none;
     box-sizing: border-box;
+    font-size: 14px;
     height: 32px;
     vertical-align: top;
-    font-size: 14px;
 }
 
 .tag-group.tag-group-small .tag-input {
-    height: 28px;
     font-size: 12px;
+    height: 28px;
 }
 
 .tag-group.tag-group-large .tag-input {
-    height: 37px;
     font-size: 16px;
+    height: 37px;
 }
 </style>
 
@@ -260,7 +260,7 @@ export const TagGroup = {
             event.target.blur();
         },
         focusInput() {
-            if (!this.$refs.input) return
+            if (!this.$refs.input) return;
             this.$refs.input.focus();
         },
         onClickTag(ev) {
