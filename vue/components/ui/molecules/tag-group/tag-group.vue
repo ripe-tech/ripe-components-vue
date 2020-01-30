@@ -42,6 +42,17 @@
     transition: border 0.15s ease-in-out;
 }
 
+.list-enter-active,
+.list-leave-active {
+    transition: all 0.15s ease-in-out;
+}
+
+.list-enter,
+.list-leave-to {
+    opacity: 0;
+    transform: scale(0);
+}
+
 .tag-group:focus-within {
     border-color: $aqcua-blue;
 }
@@ -132,26 +143,15 @@
     color: $white;
 }
 
+.tag .button-icon:hover {
+    background-color: #ffffff59;
+}
+
 input {
     border: none;
     box-sizing: border-box;
     height: 27px;
     vertical-align: top;
-}
-
-.list-enter-active,
-.list-leave-active {
-    transition: all 0.15s;
-}
-
-.list-enter,
-.list-leave-to /* .list-leave-active below version 2.1.8 */ {
-    opacity: 0;
-    transform: translateY(30px);
-}
-
-::v-deep .button-icon:hover {
-    background-color: #ffffff59;
 }
 </style>
 
