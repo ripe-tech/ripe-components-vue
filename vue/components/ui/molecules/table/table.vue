@@ -1,9 +1,5 @@
 <template>
-    <table
-        class="table"
-        v-bind:class="classes"
-        v-bind:style="style"
-    >
+    <table class="table" v-bind:class="classes" v-bind:style="style">
         <thead class="table-head">
             <tr>
                 <th class="checkboxes-th" v-if="enableCheckboxes">
