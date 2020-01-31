@@ -27,7 +27,8 @@ storiesOf("Molecules", module)
     },
     data: function() {
         return {
-            selectedCheckboxesData: []
+            selectedCheckboxesData: [],
+            selectedItemsData: []
         };
     },
     methods: {
@@ -60,6 +61,7 @@ storiesOf("Molecules", module)
             v-bind:lineup-fields="lineupFields"
             v-bind:enable-checkboxes="enableCheckboxes"
             v-bind:selected-checkboxes.sync="selectedCheckboxesData"
+            v-bind:selected-items.sync="selectedItemsData"
         >
             <template v-slot:table-item="{ item, index }">
                 <td class="id">
@@ -74,6 +76,7 @@ storiesOf("Molecules", module)
             </template>
         </filter-ripe>
         <p>Selected Checkboxes: {{ selectedCheckboxesData }}</p>
+        <p>Selected Items: {{ selectedItemsData }}</p>
     </div>
     `
 }));

@@ -36,7 +36,8 @@
                 v-bind:items.sync="items"
                 v-bind:options.sync="filterOptions"
                 v-bind:enable-checkboxes="enableCheckboxes"
-                v-bind:selected-checkboxes.sync="selectedCheckboxesData"
+                v-bind:selected-checkboxes="selectedCheckboxes"
+                v-bind:selected-items.sync="selectedItemsData"
                 ref="filter"
                 v-on:update:options="filterUpdated"
                 v-on:click:table="onTableClick"
@@ -277,15 +278,12 @@ export const Listing = {
             filterOptions: null,
             loading: false,
             visibleLightbox: null,
-            selectedCheckboxesData: []
+            selectedItemsData: []
         };
     },
     watch: {
-        selectedCheckboxes(value) {
-            this.selectedCheckboxesData = value;
-        },
-        selectedCheckboxesData(value) {
-            this.$emit("update:selected-checkboxes", value);
+        selectedItemsData(value) {
+            this.$emit("update:selected-items", value);
         }
     },
     methods: {

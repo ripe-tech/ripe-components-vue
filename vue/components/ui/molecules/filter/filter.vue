@@ -214,7 +214,9 @@ export const Filter = {
         },
         selectedCheckboxesData: {
             handler: function(value) {
+                const selectedItems = this.items.filter((item, index) => value[index]);
                 this.$emit("update:selected-checkboxes", value);
+                this.$emit("update:selected-items", selectedItems);
             },
             immediate: true
         }

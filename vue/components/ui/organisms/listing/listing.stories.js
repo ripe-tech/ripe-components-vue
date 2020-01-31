@@ -59,7 +59,7 @@ storiesOf("Organisms", module)
         },
         data: function() {
             return {
-                selectedCheckboxesData: []
+                selectedItemsData: []
             };
         },
         methods: {
@@ -91,7 +91,7 @@ storiesOf("Organisms", module)
                     v-bind:filter-fields="filterFields"
                     v-bind:container-mode="containerMode"
                     v-bind:enable-checkboxes="enableCheckboxes"
-                    v-bind:selected-checkboxes.sync="selectedCheckboxesData"
+                    v-bind:selected-items.sync="selectedItemsData"
                 >
                     <template v-slot:icons>
                         <img v-bind:src="img" v-bind:style="imgStyle" />
@@ -108,7 +108,7 @@ storiesOf("Organisms", module)
                         </td>
                     </template>
                 </listing>
-                <p>Selected checkboxes: {{ selectedCheckboxesData }}</p>
+                <p>Selected items: {{ selectedItemsData }}</p>
             </div>
         `
     }));
