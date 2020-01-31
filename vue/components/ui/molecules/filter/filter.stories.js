@@ -1,6 +1,9 @@
 import { storiesOf } from "@storybook/vue";
+import { withKnobs, boolean } from "@storybook/addon-knobs";
 
-storiesOf("Molecules", module).add("Filter", () => ({
+storiesOf("Molecules", module)
+    .addDecorator(withKnobs)
+    .add("Filter", () => ({
     props: {
         tableColumns: {
             type: Array,
@@ -17,7 +20,15 @@ storiesOf("Molecules", module).add("Filter", () => ({
                 { value: "name", label: "Name" },
                 { value: "car", label: "Car" }
             ]
+        },
+        enableCheckboxes: {
+            default: boolean("Enable Checkboxes", true)
         }
+    },
+    data: function() {
+        return {
+            selectedCheckboxesData: []
+        };
     },
     methods: {
         getItems({ options = {}, params = {} } = {}) {
@@ -47,6 +58,8 @@ storiesOf("Molecules", module).add("Filter", () => ({
             v-bind:getItems="getItems"
             v-bind:table-columns="tableColumns" 
             v-bind:lineup-fields="lineupFields"
+            v-bind:enable-checkboxes="enableCheckboxes"
+            v-bind:selected-checkboxes.sync="selectedCheckboxesData"
         >
             <template v-slot:table-item="{ item, index }">
                 <td class="id">
@@ -60,6 +73,7 @@ storiesOf("Molecules", module).add("Filter", () => ({
                 </td>
             </template>
         </filter-ripe>
+        <p>Selected Checkboxes: {{ selectedCheckboxesData }}</p>
     </div>
     `
 }));
