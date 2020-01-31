@@ -31,9 +31,7 @@
         <transition-group tag="tbody" v-bind:name="transition" class="table-body">
             <template v-for="(item, index) in sortedItems">
                 <slot name="before-row" v-bind:item="item" v-bind:index="index" />
-                
-                
-                <slot name="row" v-bind:item="item" v-bind:index="index" >
+                <slot name="row" v-bind:item="item" v-bind:index="index">
                     <tr v-bind:key="item.id" v-on:click="onClick(item, index)">
                         <td class="checkbox-td" v-if="enableCheckboxes">
                             <checkbox
@@ -41,23 +39,26 @@
                                 v-bind:checked.sync="selectedCheckboxesData[index]"
                             />
                         </td>
-                            <td
-                                v-bind:class="column.value"
-                                v-for="column in columns"
-                                v-bind:key="column.value"
+                        <td
+                            v-bind:class="column.value"
+                            v-for="column in columns"
+                            v-bind:key="column.value"
+                        >
+                            <slot
+                                v-bind:item="item"
+                                v-bind:index="index"
+                                v-bind:name="`item-${column.value}`"
                             >
-                                <slot v-bind:item="item" v-bind:index="index" v-bind:name="`item-${column.value}`">
                                 {{
                                     item[column.value] !== null && item[column.value] !== undefined
                                         ? item[column.value]
                                         : "-"
                                 }}
-                                </slot>
-                            </td>
+                            </slot>
+                        </td>
                     </tr>
                 </slot>
 
-                    
                 <slot name="after-row" v-bind:item="item" v-bind:index="index" />
             </template>
         </transition-group>
