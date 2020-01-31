@@ -26,13 +26,7 @@
                                 onClickItem(item, selectedOriginalIndex)
                         "
                     >
-                        <template v-slot:item-alive="{ item, column }">
-                            <checkmark
-                                v-bind:value="item[column.value]"
-                                v-if="column.type === 'boolean'"
-                            />
-                        </template>
-                        <template v-slot:item-programmer="{ item, column }">
+                        <template v-slot="{ item, column }">
                             <checkmark
                                 v-bind:value="item[column.value]"
                                 v-if="column.type === 'boolean'"

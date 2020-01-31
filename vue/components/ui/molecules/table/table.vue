@@ -59,11 +59,13 @@
                                 v-bind:column="column"
                                 v-bind:name="`item-${column.value}`"
                             >
-                                {{
-                                    item[column.value] !== null && item[column.value] !== undefined
-                                        ? item[column.value]
-                                        : "-"
-                                }}
+                                <slot v-bind:item="item" v-bind:index="index" v-bind:column="column">
+                                    {{
+                                        item[column.value] !== null && item[column.value] !== undefined
+                                            ? item[column.value]
+                                            : "-"
+                                    }}
+                                </slot>
                             </slot>
                         </td>
                     </tr>
