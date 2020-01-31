@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, select } from "@storybook/addon-knobs";
+import { withKnobs, text, select, boolean } from "@storybook/addon-knobs";
 
 storiesOf("Organisms", module)
     .addDecorator(withKnobs)
@@ -52,7 +52,15 @@ storiesOf("Organisms", module)
                     },
                     "default"
                 )
+            },
+            enableCheckboxes: {
+                default: boolean("Enable Checkboxes", true)
             }
+        },
+        data: function() {
+            return {
+                selectedCheckboxesData: []
+            };
         },
         methods: {
             getItems({ options = {}, params = {} } = {}) {
@@ -82,6 +90,8 @@ storiesOf("Organisms", module)
                     v-bind:use-query="false"
                     v-bind:filter-fields="filterFields"
                     v-bind:container-mode="containerMode"
+                    v-bind:enable-checkboxes="enableCheckboxes"
+                    v-bind:selected-checkboxes.sync="selectedCheckboxesData"
                 >
                     <template v-slot:icons>
                         <img v-bind:src="img" v-bind:style="imgStyle" />
@@ -98,6 +108,7 @@ storiesOf("Organisms", module)
                         </td>
                     </template>
                 </listing>
+                <p>Selected checkboxes: {{ selectedCheckboxesData }}</p>
             </div>
         `
     }));
