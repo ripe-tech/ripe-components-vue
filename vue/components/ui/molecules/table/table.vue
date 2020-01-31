@@ -32,7 +32,15 @@
             <template v-for="(item, index) in sortedItems">
                 <slot name="before-row" v-bind:item="item" v-bind:index="index" />
                 <slot name="row" v-bind:item="item" v-bind:index="index">
-                    <tr v-bind:class="{selected: allowSelectedHighlight && item._originalIndex === selectedOriginalIndex }" v-bind:key="item.id" v-on:click="onClick(item, index)">
+                    <tr
+                        v-bind:class="{
+                            selected:
+                                allowSelectedHighlight &&
+                                item._originalIndex === selectedOriginalIndex
+                        }"
+                        v-bind:key="item.id"
+                        v-on:click="onClick(item, index)"
+                    >
                         <td class="checkbox-td" v-if="enableCheckboxes">
                             <checkbox
                                 v-bind:size="8"
@@ -51,13 +59,16 @@
                                 v-bind:column="column"
                                 v-bind:name="`item-${column.value}`"
                             >
-                                {{ item[column.value] !== null && item[column.value] !== undefined
+                                {{
+                                    item[column.value] !== null && item[column.value] !== undefined
                                         ? item[column.value]
-                                        : "-" }}
+                                        : "-"
+                                }}
                             </slot>
                         </td>
                     </tr>
                 </slot>
+
                 <slot name="after-row" v-bind:item="item" v-bind:index="index" />
             </template>
         </transition-group>
@@ -101,7 +112,6 @@
 .table tbody tr:hover {
     background-color: $selected-color;
 }
-
 
 .table tbody tr.selected {
     background-color: #e3e8f1;
@@ -441,7 +451,11 @@ export const Table = {
             this.selectedCheckboxesData = new Array(this.items.length).fill(value);
         },
         onClick(item, index) {
-            this.selectedOriginalIndex = this.selectedOriginalIndex === null || this.selectedOriginalIndex !== item._originalIndex ? item._originalIndex: null;
+            this.selectedOriginalIndex =
+                this.selectedOriginalIndex === null ||
+                this.selectedOriginalIndex !== item._originalIndex
+                    ? item._originalIndex
+                    : null;
             this.$emit("click", item, this.selectedOriginalIndex, index);
         }
     },

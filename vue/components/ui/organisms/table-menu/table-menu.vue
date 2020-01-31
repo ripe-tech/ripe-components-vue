@@ -21,7 +21,10 @@
                         v-bind:enable-checkboxes="enableCheckboxes"
                         v-bind:selected-checkboxes.sync="selectedCheckboxesData"
                         v-bind:allow-selected-highlight="true"
-                        v-on:click="(item, selectedOriginalIndex) => onClickItem(item, selectedOriginalIndex)"
+                        v-on:click="
+                            (item, selectedOriginalIndex) =>
+                                onClickItem(item, selectedOriginalIndex)
+                        "
                     >
                         <template v-slot:item-alive="{ item, column }">
                             <checkmark
@@ -327,7 +330,9 @@ export const TableMenu = {
             if (textInputs.length > 0) textInputs[0].focus();
         },
         onClickItem(item, selectedOriginalIndex) {
-            selectedOriginalIndex === null ? this.hideMenu(): this.setMenuItem(selectedOriginalIndex);
+            selectedOriginalIndex === null
+                ? this.hideMenu()
+                : this.setMenuItem(selectedOriginalIndex);
         },
         onClickAddItem() {
             this.$emit("click:create");
