@@ -309,7 +309,7 @@ export const Table = {
             const addedItemsNr = value.length - this.itemsData.length;
 
             this.itemsData = value.map((item, index) => {
-                return Object.assign(item, this.itemsData[index])
+                return Object.assign(item, this.itemsData[index]);
             });
 
             this.itemsData = this.initLazyLoadedItems(this.itemsData, addedItemsNr);
@@ -380,8 +380,7 @@ export const Table = {
         },
         initLazyLoadedItems(items, addedItemsNr) {
             let item = null;
-            for (let i = items.length - addedItemsNr; i < items.length; i++)
-            {
+            for (let i = items.length - addedItemsNr; i < items.length; i++) {
                 item = items[i];
                 item._originalIndex = items[i]._checkboxIndex = i;
                 this.$set(this.selectedCheckboxesData, i, false);
