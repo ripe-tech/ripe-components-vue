@@ -26,38 +26,22 @@ storiesOf("Molecules", module)
                 )
             },
             label: {
-                default: text("Label text", "Edit")
+                default: text("Label", "Edit")
             },
             mockItems: {
                 type: Array,
                 default: () => [
-                    { value: "duplicate", label: "Duplicate" },
-                    { value: "delete", label: "Delete" }
+                    { event: "duplicate", label: "Duplicate" },
+                    { event: "delete", label: "Delete" }
                 ]
-            }
-        },
-        data: function() {
-            return {
-                primaryButtonPressed: false,
-                optionButtonPressed: null
-            };
-        },
-        methods: {
-            onOptionsButtonPressed(item) {
-                this.optionButtonPressed = item;
-            },
-            onPrimaryButtonPressed() {
-                this.primaryButtonPressed = !this.primaryButtonPressed;
             }
         },
         template: `
             <button-dropdown
-                v-bind:text="label"
+                v-bind:label="label"
                 v-bind:icon="icon"
                 v-bind:secondary-icon="secondaryIcon"
                 v-bind:items="mockItems"
-                v-on:click:item-dropdown="onOptionsButtonPressed"
-                v-on:click:primary-button="onPrimaryButtonPressed"
             />
         `
     }));

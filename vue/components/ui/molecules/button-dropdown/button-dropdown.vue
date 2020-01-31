@@ -1,14 +1,13 @@
 <template>
     <div class="button-dropdown">
-        <div class="button button-principal" v-on:click.stop="onPrimaryButtonClicked">
-            <img class="icon" v-bind:src="iconPath(icon)" />
-            <img class="icon-hover" v-bind:src="iconHoverPath(icon)" />
-            <span class="label">{{ text }} </span>
+        <div class="button button-principal" v-on:click="onPrimaryButtonClicked">
+            <img class="icon" v-bind:src="blackIcon" />
+            <img class="icon-hover" v-bind:src="whiteIcon" />
+            <span class="label">{{ label }} </span>
         </div>
-
         <div class="button button-secondary" v-on:click.stop="onToggleDropdown">
-            <img class="icon" v-bind:src="iconPath(secondaryIcon)" />
-            <img class="icon-hover" v-bind:src="iconHoverPath(secondaryIcon)" />
+            <img class="icon" v-bind:src="blackSecondaryIcon" />
+            <img class="icon-hover" v-bind:src="whiteSecondaryIcon" />
         </div>
         <dropdown
             class="dropdown-container"
@@ -105,12 +104,12 @@
 
 .button.button-secondary:hover .icon-hover,
 .button.button-principal:hover .icon-hover {
-    display: inline;
+    display: inline-block;
 }
 
 .button.button-secondary .icon,
 .button.button-principal .icon {
-    display: inline;
+    display: inline-block;
 }
 
 .button.button-secondary:hover .icon,
@@ -131,7 +130,7 @@ export const ButtonDropdown = {
             type: String,
             default: "chevron-down"
         },
-        text: {
+        label: {
             type: String,
             default: null
         },
@@ -146,6 +145,20 @@ export const ButtonDropdown = {
             dropdownVisible: false
         };
     },
+    computed: {
+        blackIcon() {
+            return this._getIconPath(this.icon, "black");
+        },
+        whiteIcon() {
+            return this._getIconPath(this.icon, "white");
+        },
+        blackSecondaryIcon() {
+            return this._getIconPath(this.secondaryIcon, "black");
+        },
+        whiteSecondaryIcon() {
+            return this._getIconPath(this.secondaryIcon, "white");
+        }
+    },
     methods: {
         toggleDropdown() {
             this.dropdownVisible = !this.dropdownVisible;
@@ -153,17 +166,14 @@ export const ButtonDropdown = {
         onToggleDropdown() {
             this.toggleDropdown();
         },
-        onPrimaryButtonClicked() {
-            this.$emit("click:primary-button");
+        onPrimaryButtonClicked(event) {
+            this.$emit("click", event);
         },
         onDropdownItemClicked(item) {
-            this.$emit("click:item-dropdown", { value: item.value });
+            this.$emit(`click:${item.event}`);
         },
-        iconPath(iconName) {
-            return require(`./../../../../assets/icons/black/${iconName}.svg`);
-        },
-        iconHoverPath(iconName) {
-            return require(`./../../../../assets/icons/white/${iconName}.svg`);
+        _getIconPath(icon, color) {
+            return require(`./../../../../assets/icons/${color}/${icon}.svg`);
         }
     }
 };
