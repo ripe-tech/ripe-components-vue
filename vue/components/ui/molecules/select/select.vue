@@ -343,7 +343,7 @@ export const Select = {
             this.highlight(indexes[0]);
         },
         onDropdownAnimationCloseEnd() {
-            this.$emit("dropdown:animation:close:end");
+            this.$emit("animation:close:end");
         }
     },
     computed: {
