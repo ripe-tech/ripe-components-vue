@@ -243,7 +243,8 @@ export const TableMenu = {
             menuVisibleData: this.menuVisible,
             sortData: this.sort,
             reverseData: this.reverse,
-            selectedCheckboxesData: []
+            selectedCheckboxesData: [],
+            selectedItems: []
         };
     },
     computed: {
@@ -264,9 +265,6 @@ export const TableMenu = {
     watch: {
         selectedIndex(value) {
             this.setMenuItem(value);
-        },
-        selectedIndexData(value) {
-            this.$emit("update:selected-index", value);
         },
         menuVisible(value) {
             this.menuVisibleData = value;
@@ -290,6 +288,9 @@ export const TableMenu = {
         },
         selectedCheckboxesData(value) {
             this.$emit("update:selected-checkboxes", value);
+
+            this.selectedItems =  this.items.filter((item, index) => value[index]);
+            this.$emit("update:selected-items", this.selectedItems);
         }
     },
     methods: {
