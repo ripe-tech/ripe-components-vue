@@ -50,15 +50,15 @@
                     v-on:click.meta.exact="onRowCtrlClick(index)"
                     v-on:click.shift.exact="onRowShiftClick(index)"
                 >
-                        <td class="checkbox-td" v-if="enableCheckboxes">
-                            <checkbox
-                                v-bind:size="8"
-                                v-bind:checked.sync="selectedCheckboxesData[index]"
-                                v-on:click.native.exact.stop="onCheckboxClick(index)"
-                                v-on:click.ctrl.exact.native.stop="onCheckboxClick(index)"
-                                v-on:click.meta.exact.native.stop="onCheckboxClick(index)"
-                            />
-                        </td>
+                    <td class="checkbox-td" v-if="enableCheckboxes">
+                        <checkbox
+                            v-bind:size="8"
+                            v-bind:checked.sync="selectedCheckboxesData[index]"
+                            v-on:click.native.exact.stop="onCheckboxClick(index)"
+                            v-on:click.ctrl.exact.native.stop="onCheckboxClick(index)"
+                            v-on:click.meta.exact.native.stop="onCheckboxClick(index)"
+                        />
+                    </td>
                     <slot v-bind:item="item" v-bind:index="index">
                         <td
                             v-bind:class="column.value"
