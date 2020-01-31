@@ -70,6 +70,7 @@
     font-size: 0px;
     height: 34px;
     line-height: 34px;
+    overflow: hidden;
     position: relative;
     width: 100%;
 }
