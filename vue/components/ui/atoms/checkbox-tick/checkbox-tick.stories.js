@@ -49,7 +49,7 @@ storiesOf("Atoms", module)
         },
         template: `
             <div>
-                <checkbox
+                <checkbox-tick
                     v-bind:label="label"
                     v-bind:value="value"
                     v-bind:checked.sync="checkedData"
@@ -64,7 +64,7 @@ storiesOf("Atoms", module)
                     <template v-slot:after-item="{ label, value, checked }" v-if="slots">
                         <p>Custom After checkbox {{ label }}</p>
                     </template>
-                </checkbox>
+                </checkbox-tick>
                 <p>Checked: {{ checkedData }}</p>
             </div>
         `

@@ -59,7 +59,7 @@ storiesOf("Molecules", module)
         },
         template: `
             <div>
-                <checkbox-group
+                <checkbox
                     v-bind:items="items"
                     v-bind:values.sync="valuesData"
                     v-bind:error="error"
