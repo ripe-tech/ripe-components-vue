@@ -70,6 +70,7 @@
     font-size: 0px;
     height: 34px;
     line-height: 34px;
+    overflow: hidden;
     position: relative;
     width: 100%;
 }
@@ -117,10 +118,6 @@
     position: absolute;
     right: 5px;
     top: 3px;
-}
-
-.search .icon-clear ::v-deep img {
-    vertical-align: top;
 }
 
 .search > .suggestions {
