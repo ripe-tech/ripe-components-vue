@@ -1,6 +1,11 @@
 <template>
-    <div class="tag" v-bind:class="classes" v-bind:style="style">
-        {{ text }}
+    <div
+        class="tag"
+        v-bind:class="classes"
+        v-bind:style="style"
+        v-on:click="onClick"
+    >
+        <slot>{{ text }}</slot>
     </div>
 </template>
 
@@ -146,6 +151,11 @@ export const Tag = {
             const base = {};
             if (this.colorHex) base["background-color"] = this.colorHex;
             return base;
+        }
+    },
+    methods: {
+        onClick(event) {
+            this.$emit("click", event);
         }
     }
 };
