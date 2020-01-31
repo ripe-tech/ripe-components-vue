@@ -25,7 +25,7 @@ const install = Vue => {
     Vue.component("button-icon-animated", ButtonIconAnimated);
     Vue.component("announcements", Announcements);
     Vue.component("chat-message", ChatMessage);
-    Vue.component("checkbox-group", CheckboxGroup);  
+    Vue.component("checkbox-group", CheckboxGroup);
     Vue.component("container-menu", ContainerMenu);
     Vue.component("filter-ripe", Filter);
     Vue.component("footer-ripe", Footer);
@@ -49,7 +49,7 @@ export {
     Announcements,
     ButtonIconAnimated,
     ChatMessage,
-    CheckboxGroup,    
+    CheckboxGroup,
     ContainerMenu,
     Filter,
     Footer,
