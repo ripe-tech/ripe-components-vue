@@ -32,7 +32,7 @@
             <template v-for="(item, index) in sortedItems">
                 <slot name="before-row" v-bind:item="item" v-bind:index="index" />
                 <slot name="row" v-bind:item="item" v-bind:index="index">
-                    <tr v-bind:class="{selected: item._originalIndex === selectedOriginalIndex }" v-bind:key="item.id" v-on:click="onClick(item, index)">
+                    <tr v-bind:class="{selected: allowSelectedHighlight && item._originalIndex === selectedOriginalIndex }" v-bind:key="item.id" v-on:click="onClick(item, index)">
                         <td class="checkbox-td" v-if="enableCheckboxes">
                             <checkbox
                                 v-bind:size="8"
@@ -308,6 +308,10 @@ export const Table = {
         variant: {
             type: String,
             default: null
+        },
+        allowSelectedHighlight: {
+            type: Boolean,
+            default: false
         }
     },
     watch: {

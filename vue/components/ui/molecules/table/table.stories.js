@@ -80,6 +80,9 @@ storiesOf("Molecules", module)
             selectedCheckboxes: {
                 type: Array,
                 default: () => [true, false, true]
+            },
+            allowSelectedHighlight: {
+                default: () => boolean("Allow selected highlight", false)
             }
         },
         data: function() {
@@ -109,6 +112,7 @@ storiesOf("Molecules", module)
                     v-bind:reverse.sync="reverseData"
                     v-bind:alignment="alignment"
                     v-bind:variant="variant"
+                    v-bind:allow-selected-highlight="allowSelectedHighlight"                    
                 />
                 <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}</p>
                 <p>Selected checkboxes: {{ selectedCheckboxesData }}</p>
