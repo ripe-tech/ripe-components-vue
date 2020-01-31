@@ -321,6 +321,7 @@ export const Table = {
         selectedCheckboxesData(value) {
             this.selectionChange();
             this.$emit("update:selected-checkboxes", this.selectedCheckboxesData);
+            this.$emit("update:selected-original-indexes", this.selectedItemsOriginalIndexes);
         }
     },
     data: function() {
@@ -365,6 +366,7 @@ export const Table = {
         },
         isAllUnchecked() {
             return !this.selectedCheckboxesData.some(value => value === true);
+        },
         }
     },
     methods: {
