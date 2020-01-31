@@ -1,42 +1,48 @@
 <template>
     <div class="radio-group">
-        <radio
-            v-bind:label="item.label || item.value"
-            v-bind:value="item.value"
-            v-bind:disabled="disabled || item.disabled"
-            v-bind:variant="error || item.error ? 'error' : null"
-            v-bind:checked="item.value === value"
-            v-bind:index="index"
-            v-bind:tabindex="_getTabIndex(item, index)"
-            v-for="(item, index) in items"
-            v-bind:key="item.value"
-            v-bind:ref="`radio-${index}`"
-            v-on:keydown.space="onSpacebar(item)"
-            v-on:keydown.up="onArrowUp(index)"
-            v-on:keydown.down="onArrowDown(index)"
-            v-on:click="onClick(item)"
-        >
-            <template v-slot:before-item>
-                <slot
-                    name="before-item"
-                    v-bind:index="index"
-                    v-bind:item="item"
-                    v-bind:checked="item.value === value"
-                />
-            </template>
-            <template v-slot:after-item>
-                <slot
-                    name="after-item"
-                    v-bind:index="index"
-                    v-bind:item="item"
-                    v-bind:checked="item.value === value"
-                />
-            </template>
-        </radio>
+        <div class="radio-item" v-for="(item, index) in items" v-bind:key="index">
+            <slot
+                name="before-item"
+                v-bind:index="index"
+                v-bind:item="item"
+                v-bind:checked="item.value === value"
+            />
+            <radio
+                v-bind:label="item.label || item.value"
+                v-bind:value="item.value"
+                v-bind:disabled="disabled || item.disabled"
+                v-bind:variant="error || item.error ? 'error' : null"
+                v-bind:checked="item.value === value"
+                v-bind:index="index"
+                v-bind:tabindex="_getTabIndex(item, index)"
+                v-bind:key="item.value"
+                v-bind:ref="`radio-${index}`"
+                v-on:keydown.space="onSpacebar(item)"
+                v-on:keydown.up="onArrowUp(index)"
+                v-on:keydown.down="onArrowDown(index)"
+                v-on:click="onClick(item)"
+            />
+            <slot
+                name="after-item"
+                v-bind:index="index"
+                v-bind:item="item"
+                v-bind:checked="item.value === value"
+            />
+        </div>
     </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.radio-item {
+    display: block;
+    font-size: 0px;
+    line-height: 13px;
+    outline: none;
+    padding: 10px 0px 10px 0px;
+    user-select: none;
+    width: fit-content;
+}
+</style>
 
 <script>
 export const RadioGroup = {

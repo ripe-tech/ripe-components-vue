@@ -6,7 +6,6 @@
         v-on:click="onClick"
         v-on:keydown="onKeydown"
     >
-        <slot name="before-item" />
         <div class="radio-input">
             <input type="radio" class="value" v-bind:id="value" />
             <div class="radio-circle" />
@@ -14,7 +13,6 @@
                 {{ label }}
             </label>
         </div>
-        <slot name="after-item" />
     </div>
 </template>
 
@@ -22,12 +20,10 @@
 @import "css/variables.scss";
 
 .radio {
-    display: block;
-    line-height: 13px;
+    display: inline-block;
+    font-size: 0px;
     outline: none;
-    padding: 10px 0px 10px 0px;
     user-select: none;
-    width: fit-content;
 }
 
 .radio > .radio-input {
@@ -100,6 +96,7 @@
 
 .radio.disabled > .radio-input > .label {
     cursor: default;
+    opacity: 0.6;
 }
 </style>
 

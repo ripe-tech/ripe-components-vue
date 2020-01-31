@@ -9,12 +9,10 @@
         v-on:keydown.space="onSpace()"
     >
         <global-events v-on:mouseup="onMouseUp" />
-        <slot name="before-item" />
         <div class="checkbox-input">
             <div class="checkbox-square" v-bind:style="getStyle" />
             <label class="label" v-if="label">{{ label }}</label>
         </div>
-        <slot name="after-item" />
     </div>
 </template>
 
@@ -94,6 +92,7 @@
 
 .checkbox.disabled > .checkbox-input > .label {
     cursor: default;
+    opacity: 0.6;
 }
 </style>
 <script>
@@ -178,7 +177,7 @@ export const Checkbox = {
             let base = {};
             if (this.disabled && this.checkedData) base = this.disabledStyle;
             else if (this.checkedData) base = this.checkedStyle;
-            else if (this.active) base = this.activeCheckStyle;
+            else if (this.active && !this.disabled) base = this.activeCheckStyle;
             return { ...this.sizeStyle, ...base };
         }
     },
