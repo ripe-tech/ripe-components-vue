@@ -367,6 +367,9 @@ export const Table = {
         isAllUnchecked() {
             return !this.selectedCheckboxesData.some(value => value === true);
         },
+        selectedItemsOriginalIndexes() {
+            //Todo
+            return [];
         }
     },
     methods: {
