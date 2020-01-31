@@ -1,51 +1,58 @@
 <template>
-    <div
-        tabindex="0"
-        class="checkbox-tick"
-        v-bind:class="classes"
-        v-on:click="onClick"
-        v-on:mousedown="onMouseDown"
-        v-on:mouseup="onMouseUp"
-        v-on:keydown.space="onSpace"
-    >
+    <div>
         <global-events v-on:mouseup="onMouseUp" />
-        <slot
-            name="before-item"
-            v-bind:label="label"
-            v-bind:value="value"
-            v-bind:checked="checkedData"
-        />
-        <div class="checkbox-tick-input">
-            <div class="checkbox-tick-square" v-bind:style="getStyle" />
-            <label class="label" v-if="label || value">{{ label ? label : value }}</label>
+        <div
+            tabindex="0"
+            class="checkbox"
+            v-bind:class="{
+                checked: checkedData,
+                disabled: disabled,
+                error: error
+            }"
+            v-on:click="onClick()"
+            v-on:mousedown="onMouseDown()"
+            v-on:mouseup="onMouseUp()"
+            v-on:keydown.space="onSpace()"
+        >
+            <slot
+                name="before-item"
+                v-bind:label="label"
+                v-bind:value="value"
+                v-bind:checked="checkedData"
+            />
+            <div class="checkbox-input">
+                <div class="checkbox-square" v-bind:style="getStyle" />
+                <label class="label" v-if="label || value">{{ label ? label : value }}</label>
+            </div>
+            <slot
+                name="after-item"
+                v-bind:label="label"
+                v-bind:value="value"
+                v-bind:checked="checkedData"
+            />
         </div>
-        <slot
-            name="after-item"
-            v-bind:label="label"
-            v-bind:value="value"
-            v-bind:checked="checkedData"
-        />
     </div>
 </template>
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.checkbox-tick {
+.checkbox {
+    display: inline-block;
     font-size: 0px;
     outline: none;
     user-select: none;
 }
 
-.checkbox-tick > .checkbox-tick-input {
+.checkbox > .checkbox-input {
     display: inline-block;
 }
 
-.checkbox-tick > .checkbox-tick-input > .value {
+.checkbox > .checkbox-input > .value {
     display: none;
 }
 
-.checkbox-tick > .checkbox-tick-input > .checkbox-tick-square {
+.checkbox > .checkbox-input > .checkbox-square {
     background-color: #fafbfc;
     border: 2px solid #dfe1e5;
     border-radius: 2px 2px 2px 2px;
@@ -57,57 +64,57 @@
     width: 4px;
 }
 
-.checkbox-tick:not(.disabled):not(.error) > .checkbox-tick-input:active > .checkbox-tick-square {
+.checkbox:not(.disabled):not(.error) > .checkbox-input:active > .checkbox-square {
     border: 2px solid #c3c9cf;
     padding: 3px 3px 3px 3px;
 }
 
-.checkbox-tick.error > .checkbox-tick-input > .checkbox-tick-square {
+.checkbox.error > .checkbox-input > .checkbox-square {
     background-color: #f4f5f7;
     border: 2px solid $dark-red;
 }
 
-.checkbox-tick.disabled > .checkbox-tick-input > .checkbox-tick-square {
+.checkbox.disabled > .checkbox-input > .checkbox-square {
     background: none center / 7px 6px no-repeat #f4f5f7;
     border: 2px solid #f4f5f7;
     cursor: default;
 }
 
-.checkbox-tick.checked > .checkbox-tick-input > .checkbox-tick-square {
+.checkbox.checked > .checkbox-input > .checkbox-square {
     border: 2px solid $dark;
     padding: 3px 3px 3px 3px;
 }
 
-.checkbox-tick.error.checked > .checkbox-tick-input > .checkbox-tick-square {
+.checkbox.error.checked > .checkbox-input > .checkbox-square {
     border: 2px solid $dark-red;
 }
 
-.checkbox-tick.disabled.checked > .checkbox-tick-input > .checkbox-tick-square {
+.checkbox.disabled.checked > .checkbox-input > .checkbox-square {
     border: 2px solid #f6f7f9;
     padding: 3px 3px 3px 3px;
 }
 
-.checkbox-tick:focus:not(.disabled) > .checkbox-tick-input > .checkbox-tick-square {
+.checkbox:focus:not(.disabled) > .checkbox-input > .checkbox-square {
     border-color: $aqcua-blue;
 }
 
-.checkbox-tick > .checkbox-tick-input > .label {
+.checkbox > .checkbox-input > .label {
     color: $grey;
     cursor: pointer;
     display: inline-block;
     font-size: 14px;
     line-height: 14px;
-    margin: 0px 0px 0px 8px;
+    margin: 0px 0px 0px 4px;
     vertical-align: middle;
 }
 
-.checkbox-tick.disabled > .checkbox-tick-input > .label {
+.checkbox.disabled > .checkbox-input > .label {
     cursor: default;
 }
 </style>
 <script>
-export const CheckboxTick = {
-    name: "checkbox-tick",
+export const Checkbox = {
+    name: "checkbox",
     props: {
         label: {
             type: String,
@@ -154,13 +161,6 @@ export const CheckboxTick = {
         }
     },
     computed: {
-        classes() {
-            return {
-                checked: this.checkedData,
-                disabled: this.disabled,
-                error: this.error
-            };
-        },
         sizeStyle() {
             return {
                 width: `${this.size}px`,
@@ -218,5 +218,5 @@ export const CheckboxTick = {
     }
 };
 
-export default CheckboxTick;
+export default Checkbox;
 </script>

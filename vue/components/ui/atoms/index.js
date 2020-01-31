@@ -4,7 +4,7 @@ import { Bubble } from "./bubble/bubble.vue";
 import { ButtonColor } from "./button-color/button-color.vue";
 import { ButtonIcon } from "./button-icon/button-icon.vue";
 import { ButtonPlatforme } from "./button-platforme/button-platforme.vue";
-import { CheckboxTick } from "./checkbox-tick/checkbox-tick.vue";
+import { Checkbox } from "./checkbox/checkbox.vue";
 import { Checkmark } from "./checkmark/checkmark.vue";
 import { Container } from "./container/container.vue";
 import { Dropdown } from "./dropdown/dropdown.vue";
@@ -28,7 +28,7 @@ const install = Vue => {
     Vue.component("button-color", ButtonColor);
     Vue.component("button-icon", ButtonIcon);
     Vue.component("button-platforme", ButtonPlatforme);
-    Vue.component("checkbox-tick", CheckboxTick);
+    Vue.component("checkbox", Checkbox);
     Vue.component("checkmark", Checkmark);
     Vue.component("container-ripe", Container);
     Vue.component("dropdown", Dropdown);
@@ -53,7 +53,7 @@ export {
     ButtonColor,
     ButtonIcon,
     ButtonPlatforme,
-    CheckboxTick,
+    Checkbox,
     Checkmark,
     Container,
     Dropdown,
