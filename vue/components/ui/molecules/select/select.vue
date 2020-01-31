@@ -46,7 +46,7 @@
                 ref="dropdown"
                 v-on:update:highlighted="onDropdownHighlighted"
                 v-on:item-clicked="value => onDropdownItemClicked(value.value)"
-                v-on:animation:close:ended="onDropdownAnimationCloseEnded"
+                v-on:animation:close:end="onDropdownAnimationCloseEnd"
             >
                 <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
                 <template
@@ -342,8 +342,8 @@ export const Select = {
             if (indexes.length === 0) return;
             this.highlight(indexes[0]);
         },
-        onDropdownAnimationCloseEnded() {
-            this.$emit("dropdown:animation:close:ended");
+        onDropdownAnimationCloseEnd() {
+            this.$emit("dropdown:animation:close:end");
         }
     },
     computed: {
