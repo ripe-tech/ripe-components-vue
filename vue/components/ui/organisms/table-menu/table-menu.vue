@@ -266,6 +266,9 @@ export const TableMenu = {
         selectedIndex(value) {
             this.setMenuItem(value);
         },
+        selectedIndexData(value) {
+            this.$emit("update:selected-index", value);
+        },
         menuVisible(value) {
             this.menuVisibleData = value;
         },
