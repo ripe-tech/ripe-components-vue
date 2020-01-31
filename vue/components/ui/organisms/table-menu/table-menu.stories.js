@@ -124,13 +124,17 @@ storiesOf("Organisms", module)
             },
             reverse: {
                 default: () => boolean("Reverse", null)
+            },
+            enableCheckboxes: {
+                default: boolean("Enable Checkboxes", true)
             }
         },
         data: function() {
             return {
                 reverseData: this.reverse,
                 sortData: this.sort,
-                menuVisibleData: this.menuVisible
+                menuVisibleData: this.menuVisible,
+                selectedCheckboxesData: []
             };
         },
         watch: {
@@ -162,8 +166,11 @@ storiesOf("Organisms", module)
                     v-bind:input-variant="inputVariant"
                     v-bind:sort.sync="sortData"
                     v-bind:reverse.sync="reverseData"
+                    v-bind:enable-checkboxes="enableCheckboxes"
+                    v-bind:selected-checkboxes.sync="selectedCheckboxesData"
                     v-bind:animation-duration="animationDuration"/>
                 <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}, Menu visible: {{ menuVisibleData }}</p>
+                <p>Selected Checkboxes: {{ selectedCheckboxesData }}</p>
             </div>
 
         `

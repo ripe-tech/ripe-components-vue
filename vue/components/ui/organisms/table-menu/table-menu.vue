@@ -14,29 +14,26 @@
                 <div class="table-content" v-bind:style="tableStyle" ref="table-content">
                     <table-ripe
                         v-bind:columns="columns"
-                        v-bind:items="itemsWithIndex"
+                        v-bind:items="items"
                         v-bind:sort.sync="sortData"
                         v-bind:sort-method="sortMethod"
                         v-bind:reverse.sync="reverseData"
+                        v-bind:enable-checkboxes="enableCheckboxes"
+                        v-bind:selected-checkboxes.sync="selectedCheckboxesData"
+                        v-bind:allow-selected-highlight="true"
+                        v-on:click="(item, selectedOriginalIndex) => onClickItem(item, selectedOriginalIndex)"
                     >
-                        <template v-slot:row="{ item }">
-                            <tr
-                                v-bind:class="[{ selected: item.id === selectedItem.id }]"
-                                v-bind:key="item.id"
-                                v-on:click="onClickItem(item)"
-                            >
-                                <td
-                                    v-bind:class="column.value"
-                                    v-for="column in columns"
-                                    v-bind:key="column.value"
-                                >
-                                    <checkmark
-                                        v-bind:value="item[column.value]"
-                                        v-if="column.type === 'boolean'"
-                                    />
-                                    <span v-else>{{ item[column.value] }}</span>
-                                </td>
-                            </tr>
+                        <template v-slot:item-alive="{ item, column }">
+                            <checkmark
+                                v-bind:value="item[column.value]"
+                                v-if="column.type === 'boolean'"
+                            />
+                        </template>
+                        <template v-slot:item-programmer="{ item, column }">
+                            <checkmark
+                                v-bind:value="item[column.value]"
+                                v-if="column.type === 'boolean'"
+                            />
                         </template>
                     </table-ripe>
                 </div>
@@ -198,6 +195,10 @@ export const TableMenu = {
             type: Boolean,
             default: false
         },
+        enableCheckboxes: {
+            type: Boolean,
+            default: false
+        },
         menuMode: {
             type: String,
             default: "collapse"
@@ -244,13 +245,11 @@ export const TableMenu = {
             selectedIndexData: this.selectedIndex,
             menuVisibleData: this.menuVisible,
             sortData: this.sort,
-            reverseData: this.reverse
+            reverseData: this.reverse,
+            selectedCheckboxesData: []
         };
     },
     computed: {
-        itemsWithIndex() {
-            return this.items.map((item, index) => ({ _originalIndex: index, ...item }));
-        },
         selectedItem() {
             return this.items[this.selectedIndexData] || {};
         },
@@ -291,12 +290,15 @@ export const TableMenu = {
         reverseData(value) {
             this.reverseData = value;
             this.$emit("update:reverse", value);
+        },
+        selectedCheckboxesData(value) {
+            this.$emit("update:selected-checkboxes", value);
         }
     },
     methods: {
         setMenuItem(index) {
             this.selectedIndexData = index;
-            this.menuVisibleData = true;
+            this.showMenu();
             this.focusFirstTextInput();
         },
         getColumnLabel(value) {
@@ -311,6 +313,12 @@ export const TableMenu = {
             const table = this.$refs["table-content"];
             table.scrollTop = table.scrollHeight;
         },
+        showMenu() {
+            this.menuVisibleData = true;
+        },
+        hideMenu() {
+            this.menuVisibleData = false;
+        },
         toggleMenu() {
             this.menuVisibleData = !this.menuVisibleData;
         },
@@ -318,10 +326,8 @@ export const TableMenu = {
             const textInputs = this.$refs.textInput || [];
             if (textInputs.length > 0) textInputs[0].focus();
         },
-        onClickItem(item) {
-            this.selectedItem.id === item.id
-                ? this.toggleMenu()
-                : this.setMenuItem(item._originalIndex);
+        onClickItem(item, selectedOriginalIndex) {
+            selectedOriginalIndex === null ? this.hideMenu(): this.setMenuItem(selectedOriginalIndex);
         },
         onClickAddItem() {
             this.$emit("click:create");
