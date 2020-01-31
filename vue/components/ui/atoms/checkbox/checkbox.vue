@@ -1,36 +1,20 @@
 <template>
-    <div>
+    <div
+        tabindex="0"
+        class="checkbox"
+        v-bind:class="classes"
+        v-on:click="onClick()"
+        v-on:mousedown="onMouseDown()"
+        v-on:mouseup="onMouseUp()"
+        v-on:keydown.space="onSpace()"
+    >
         <global-events v-on:mouseup="onMouseUp" />
-        <div
-            tabindex="0"
-            class="checkbox"
-            v-bind:class="{
-                checked: checkedData,
-                disabled: disabled,
-                error: error
-            }"
-            v-on:click="onClick()"
-            v-on:mousedown="onMouseDown()"
-            v-on:mouseup="onMouseUp()"
-            v-on:keydown.space="onSpace()"
-        >
-            <slot
-                name="before-item"
-                v-bind:label="label"
-                v-bind:value="value"
-                v-bind:checked="checkedData"
-            />
-            <div class="checkbox-input">
-                <div class="checkbox-square" v-bind:style="getStyle" />
-                <label class="label" v-if="label || value">{{ label ? label : value }}</label>
-            </div>
-            <slot
-                name="after-item"
-                v-bind:label="label"
-                v-bind:value="value"
-                v-bind:checked="checkedData"
-            />
+        <slot name="before-item" />
+        <div class="checkbox-input">
+            <div class="checkbox-square" v-bind:style="getStyle" />
+            <label class="label" v-if="label">{{ label }}</label>
         </div>
+        <slot name="after-item" />
     </div>
 </template>
 
@@ -120,23 +104,11 @@ export const Checkbox = {
             type: String,
             default: null
         },
-        value: {
-            type: String,
-            default: null
-        },
         checked: {
             type: Boolean,
             default: false
         },
-        index: {
-            type: Number,
-            default: null
-        },
         disabled: {
-            type: Boolean,
-            default: false
-        },
-        error: {
             type: Boolean,
             default: false
         },
@@ -147,6 +119,10 @@ export const Checkbox = {
         size: {
             type: Number,
             default: 4
+        },
+        variant: {
+            type: String,
+            default: null
         }
     },
     data: function() {
@@ -161,6 +137,16 @@ export const Checkbox = {
         }
     },
     computed: {
+        classes() {
+            const base = {
+                checked: this.checkedData,
+                disabled: this.disabled
+            };
+
+            if (this.variant) base[this.variant] = true;
+
+            return base;
+        },
         sizeStyle() {
             return {
                 width: `${this.size}px`,

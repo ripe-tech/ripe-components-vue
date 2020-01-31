@@ -2,27 +2,26 @@
     <div class="checkbox-group">
         <div class="checkbox-item" v-for="(item, index) in items" v-bind:key="index">
             <checkbox
-                v-bind:label="item.label"
-                v-bind:value="item.value"
+                v-bind:label="item.label || item.value"
                 v-bind:checked.sync="checkedData[item.value]"
                 v-bind:index="index"
                 v-bind:disabled="item.disabled || disabled"
-                v-bind:error="item.error || error"
+                v-bind:variant="item.error || error ? 'error' : null"
             >
-                <template v-slot:before-item="{ label, value, checked }">
+                <template v-slot:before-item>
                     <slot
                         name="before-item"
-                        v-bind:label="label"
-                        v-bind:value="value"
-                        v-bind:checked="checked"
+                        v-bind:index="index"
+                        v-bind:item="item"
+                        v-bind:checked="item.value === value"
                     />
                 </template>
-                <template v-slot:after-item="{ label, value, checked }">
+                <template v-slot:after-item>
                     <slot
                         name="after-item"
-                        v-bind:label="label"
-                        v-bind:value="value"
-                        v-bind:checked="checked"
+                        v-bind:index="index"
+                        v-bind:item="item"
+                        v-bind:checked="item.value === value"
                     />
                 </template>
             </checkbox>
