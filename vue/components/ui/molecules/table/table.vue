@@ -37,6 +37,7 @@
                             <checkbox
                                 v-bind:size="8"
                                 v-bind:checked.sync="selectedCheckboxesData[index]"
+                                v-on:click.native.exact.stop
                             />
                         </td>
                         <td
