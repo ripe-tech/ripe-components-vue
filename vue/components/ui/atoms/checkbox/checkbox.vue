@@ -1,24 +1,17 @@
 <template>
-    <div class="checkbox">
-        <div
-            class="choice"
-            v-bind:class="{
-                checked: values[item.value],
-                disabled: disabled || item.disabled,
-                error: error || item.error
-            }"
-            v-bind:index="index"
-            v-bind:tabindex="item.disabled ? '' : '0'"
-            v-for="(item, index) in items"
-            v-bind:key="index"
-            v-on:click="onClick(item)"
-            v-on:keydown.space="onSpace(item)"
-        >
-            <input type="checkbox" class="value" v-bind:id="item.value" />
-            <div class="checkbox-square" />
-            <label class="label" for="item.value">
-                {{ item.label ? item.label : item.value }}
-            </label>
+    <div
+        tabindex="0"
+        class="checkbox"
+        v-bind:class="classes"
+        v-on:click="onClick()"
+        v-on:mousedown="onMouseDown()"
+        v-on:mouseup="onMouseUp()"
+        v-on:keydown.space="onSpace()"
+    >
+        <global-events v-on:mouseup="onMouseUp" />
+        <div class="checkbox-input">
+            <div class="checkbox-square" v-bind:style="squareStyle" />
+            <label class="label" v-if="label">{{ label }}</label>
         </div>
     </div>
 </template>
@@ -26,21 +19,25 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.choice {
-    display: block;
-    line-height: 13px;
+.checkbox {
+    display: inline-block;
+    font-size: 0px;
     outline: none;
-    padding: 10px 0px 10px 0px;
     user-select: none;
-    width: fit-content;
 }
 
-.choice > .value {
+.checkbox > .checkbox-input {
+    display: inline-block;
+}
+
+.checkbox > .checkbox-input > .value {
     display: none;
 }
 
-.choice > .checkbox-square {
+.checkbox > .checkbox-input > .checkbox-square {
     background-color: #fafbfc;
+    background-position: center center;
+    background-repeat: no-repeat;
     border: 2px solid #dfe1e5;
     border-radius: 2px 2px 2px 2px;
     cursor: pointer;
@@ -51,45 +48,44 @@
     width: 4px;
 }
 
-.choice:not(.disabled):not(.error):active > .checkbox-square {
-    background: url("~./assets/check-dark.svg") center / 7px 6px no-repeat #f4f5f7;
-    border: 2px solid #c3c9cf;
+.checkbox:not(.disabled):not(.error) > .checkbox-input:active > .checkbox-square {
+    border: 2px solid #f4f5f7;
     padding: 3px 3px 3px 3px;
 }
 
-.choice.error > .checkbox-square {
+.checkbox.error > .checkbox-input > .checkbox-square {
     background-color: #f4f5f7;
     border: 2px solid $dark-red;
 }
 
-.choice.disabled > .checkbox-square {
-    background: none center / 7px 6px no-repeat #f4f5f7;
+.checkbox.disabled > .checkbox-input > .checkbox-square {
+    background-color: #f4f5f7;
     border: 2px solid #f4f5f7;
     cursor: default;
 }
 
-.choice.checked > .checkbox-square {
-    background: url("~./assets/check.svg") center / 7px 6px no-repeat $dark;
+.checkbox.checked > .checkbox-input > .checkbox-square {
+    background-color: $dark;
     border: 2px solid $dark;
     padding: 3px 3px 3px 3px;
 }
 
-.choice.error.checked > .checkbox-square {
-    background: url("~./assets/check.svg") center / 7px 6px no-repeat $dark;
+.checkbox.error.checked > .checkbox-input > .checkbox-square {
+    background-color: $dark;
     border: 2px solid $dark-red;
 }
 
-.choice.disabled.checked > .checkbox-square {
-    background: url("~./assets/check-gray.svg") center / 7px 6px no-repeat #f4f5f7;
+.checkbox.disabled.checked > .checkbox-input > .checkbox-square {
+    background-color: #f4f5f7;
     border: 2px solid #f6f7f9;
     padding: 3px 3px 3px 3px;
 }
 
-.choice:focus:not(.disabled) > .checkbox-square {
+.checkbox:focus:not(.disabled) > .checkbox-input > .checkbox-square {
     border-color: $aqcua-blue;
 }
 
-.choice > .label {
+.checkbox > .checkbox-input > .label {
     color: $grey;
     cursor: pointer;
     display: inline-block;
@@ -99,60 +95,102 @@
     vertical-align: middle;
 }
 
-.choice.disabled > .label {
+.checkbox.disabled > .checkbox-input > .label {
     cursor: default;
+    opacity: 0.6;
 }
 </style>
 <script>
 export const Checkbox = {
     name: "checkbox",
     props: {
-        items: {
-            type: Array,
-            default: () => []
+        label: {
+            type: String,
+            default: null
         },
-        values: {
-            type: Object,
-            default: () => {}
+        checked: {
+            type: Boolean,
+            default: false
         },
         disabled: {
             type: Boolean,
             default: false
         },
-        error: {
-            type: Boolean,
-            default: false
+        icon: {
+            type: String,
+            default: "check"
+        },
+        size: {
+            type: Number,
+            default: 4
+        },
+        variant: {
+            type: String,
+            default: null
+        }
+    },
+    data: function() {
+        return {
+            checkedData: this.checked,
+            active: false
+        };
+    },
+    watch: {
+        checked(value) {
+            this.checkedData = value;
+        }
+    },
+    computed: {
+        classes() {
+            const base = {
+                checked: this.checkedData,
+                disabled: this.disabled
+            };
+
+            if (this.variant) base[this.variant] = true;
+
+            return base;
+        },
+        squareStyle() {
+            const base = {
+                width: `${this.size}px`,
+                height: `${this.size}px`,
+                "background-size": `${this.size / 2 + 5}px ${this.size / 2 + 5}px`
+            };
+
+            if (this.disabled && this.checkedData) {
+                base["background-image"] = `url(${require(`./assets/${this.icon}-gray.svg`)})`;
+            }
+
+            if (!this.disabled && this.checkedData) {
+                base["background-image"] = `url(${require(`./assets/${this.icon}.svg`)})`;
+            }
+
+            if (!this.disabled && this.active) {
+                base["background-image"] = `url(${require(`./assets/${this.icon}-dark.svg`)})`;
+            }
+
+            return base;
         }
     },
     methods: {
-        selectItem(item) {
-            if (this.disabled || item.disabled) return;
-            if (this.values[item.value]) return;
+        toggle() {
+            if (this.disabled) return;
 
-            const updated = Object.assign({}, this.values);
-            updated[item.value] = true;
-
-            this.$emit("selected:value", item.value);
-            this.$emit("update:values", updated);
+            this.checkedData = !this.checkedData;
+            this.$emit("update:checked", this.checkedData, this.value, this.index);
         },
-        deselectItem(item) {
-            if (this.disabled || item.disabled) return;
-            if (!this.values[item.value]) return;
-
-            const updated = Object.assign({}, this.values);
-            delete updated[item.value];
-
-            this.$emit("deselected:value", item.value);
-            this.$emit("update:values", updated);
+        onSpace() {
+            this.toggle();
         },
-        toggleItem(item) {
-            this.values[item.value] ? this.deselectItem(item) : this.selectItem(item);
+        onClick() {
+            this.toggle();
         },
-        onSpace(item) {
-            this.toggleItem(item);
+        onMouseDown() {
+            this.active = true;
         },
-        onClick(item) {
-            this.toggleItem(item);
+        onMouseUp() {
+            this.active = false;
         }
     }
 };

@@ -4,8 +4,9 @@
         v-bind:class="{ loaded: loaded, 'no-fade': !fade }"
         v-bind:src="src"
         v-bind:alt="alt"
-        v-on:load="loaded = true"
+        v-on:load="onLoad"
         v-on:click="event => $emit('click', event)"
+        v-on:error="onError"
     />
 </template>
 
@@ -36,7 +37,7 @@ export const Image = {
         },
         alt: {
             type: String,
-            default: null
+            default: ""
         },
         fade: {
             type: Boolean,
@@ -47,6 +48,16 @@ export const Image = {
         return {
             loaded: false
         };
+    },
+    methods: {
+        onLoad(event) {
+            this.loaded = true;
+            this.$emit("load", event);
+        },
+        onError(event) {
+            this.loaded = false;
+            this.$emit("error", event);
+        }
     }
 };
 

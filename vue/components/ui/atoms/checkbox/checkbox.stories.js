@@ -1,90 +1,64 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, boolean } from "@storybook/addon-knobs";
+import { withKnobs, boolean, text, select, number } from "@storybook/addon-knobs";
 
 storiesOf("Atoms", module)
     .addDecorator(withKnobs)
     .add("Checkbox", () => ({
         props: {
-            error: {
-                default: boolean("Error", false)
-            },
             disabled: {
-                default: boolean("Disabled Group", false)
+                default: boolean("Disabled", false)
             },
-            header: {
-                default: text("Header", "Start Header")
+            checked: {
+                default: boolean("Checked", false)
             },
-            footer: {
-                default: text("Footer", "End Footer")
+            label: {
+                default: text("Label", "Checkbox")
             },
-            errorText: {
-                default: text("Error Text", "")
+            icon: {
+                default: select(
+                    "Icon",
+                    {
+                        Check: "check",
+                        Minus: "minus"
+                    },
+                    "check"
+                )
             },
-            warning: {
-                default: text("Warning", "")
+            variant: {
+                default: select(
+                    "Variant",
+                    {
+                        Unset: null,
+                        Error: "error"
+                    },
+                    null
+                )
             },
-            success: {
-                default: text("Success", "")
-            },
-            items: {
-                default: () => [
-                    {
-                        label: "Japan",
-                        value: "japan"
-                    },
-                    {
-                        label: "Morocco",
-                        value: "morocco"
-                    },
-                    {
-                        value: "Canada"
-                    },
-                    {
-                        value: "China"
-                    },
-                    {
-                        label: "Dubai",
-                        value: "dubai"
-                    },
-                    {
-                        label: "Bali",
-                        value: "bali",
-                        disabled: true
-                    },
-                    {
-                        label: "Tibet",
-                        value: "tibet"
-                    }
-                ]
+            size: {
+                default: number("Size", 4)
             }
         },
         data: function() {
             return {
-                valuesData: {
-                    japan: true,
-                    China: true,
-                    dubai: true,
-                    Canada: true
-                }
+                checkedData: this.checked
             };
+        },
+        watch: {
+            checked(value) {
+                this.checkedData = value;
+            }
         },
         template: `
             <div>
-                <form-input
-                    v-bind:header="header"
-                    v-bind:footer="footer"
-                    v-bind:error="errorText"
-                    v-bind:warning="warning"
-                    v-bind:success="success"
-                >
-                    <checkbox
-                        v-bind:items="items"
-                        v-bind:values.sync="valuesData"
-                        v-bind:disabled="disabled"
-                        v-bind:error="error"
-                    />
-                </form-input>
-                <p>Values: {{ valuesData }}</p>
+                <checkbox
+                    v-bind:label="label"
+                    v-bind:checked.sync="checkedData"
+                    v-bind:disabled="disabled"
+                    v-bind:icon="icon"
+                    v-bind:size="size"
+                    v-bind:variant="variant"
+                />
+                <p>Checked: {{ checkedData }}</p>
             </div>
         `
     }));

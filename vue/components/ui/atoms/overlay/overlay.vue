@@ -75,9 +75,9 @@ export const Overlay = {
         toggle() {
             this.visibleData = !this.visibleData;
         },
-        onClick() {
+        onClick(event) {
             this.$bus.$emit("overlay-clicked");
-            this.$emit("click");
+            this.$emit("click", event);
         }
     }
 };

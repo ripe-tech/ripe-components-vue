@@ -34,7 +34,7 @@
     font-weight: 600;
     height: 40px;
     letter-spacing: 0.5px;
-    line-height: 40px;
+    line-height: 38px;
     min-width: 180px;
     padding: 0px 20px 0px 20px;
     text-align: center;
@@ -49,19 +49,30 @@
 .button-color > * {
     display: inline-block;
     font-size: 13px;
-    line-height: 40px;
+    line-height: 38px;
     vertical-align: middle;
 }
 
 .button-color.button-color-small {
     height: 32px;
-    line-height: 32px;
+    line-height: 30px;
     min-width: 160px;
 }
 
 .button-color.button-color-small > * {
     font-size: 12px;
-    line-height: 32px;
+    line-height: 30px;
+}
+
+.button-color.button-color-tiny {
+    height: 24px;
+    line-height: 22px;
+    min-width: 120px;
+}
+
+.button-color.button-color-tiny > * {
+    font-size: 10px;
+    line-height: 22px;
 }
 
 .button-color.button-color-left {
@@ -227,6 +238,13 @@
     width: 18px;
 }
 
+.button-color.button-color-tiny .icon,
+.button-color.button-color-tiny .icon-hover {
+    height: 15px;
+    margin-top: 4px;
+    width: 15px;
+}
+
 .button-color .icon {
     display: inline-block;
 }
@@ -255,6 +273,10 @@ export const ButtonColor = {
         small: {
             type: Boolean,
             default: false
+        },
+        size: {
+            type: String,
+            default: null
         },
         color: {
             type: String,
@@ -298,12 +320,12 @@ export const ButtonColor = {
         }
     },
     methods: {
-        handleClick() {
+        handleClick(event) {
             if (this.href) {
                 if (this.target) window.open(this.href, this.target);
                 else document.location = this.href;
             }
-            this.$emit("click");
+            this.$emit("click", event);
         }
     },
     computed: {
@@ -339,6 +361,11 @@ export const ButtonColor = {
 
             return require(`./../../../../assets/icons/${iconColor}/${this.icon}.svg`);
         },
+        sizeMode() {
+            if (this.small) return "small";
+            if (this.size) return this.size;
+            return "medium";
+        },
         alignmentStyle() {
             if (this.alignment) return this.alignment;
             if (this.icon) return "right";
@@ -352,11 +379,12 @@ export const ButtonColor = {
         classes() {
             const base = {
                 "button-color-secondary": this.secondary,
-                "button-color-small": this.small,
                 "button-color-icon": this.icon,
                 disabled: this.disabled,
                 loading: this.loading
             };
+
+            base["button-color-" + this.sizeMode] = true;
 
             if (this.color) {
                 base["button-color-" + this.color] = this.color;

@@ -1,7 +1,7 @@
 <template>
     <div class="dropdown-container">
         <global-events v-on:keydown.esc="handleGlobal()" />
-        <transition name="slide">
+        <transition name="slide" v-on:after-leave="onSlideAfterLeave">
             <ul class="dropdown" v-bind:style="dropdownStyle" v-show="visibleData" ref="dropdown">
                 <li
                     class="dropdown-item"
@@ -15,16 +15,16 @@
                     <slot v-bind:item="item" v-bind:index="index" v-bind:name="item.value">
                         <slot v-bind:item="item" v-bind:index="index">
                             <router-link v-bind:to="item.link" v-if="item.link">
-                                {{ item.label }}
+                                {{ item.label || item.value }}
                             </router-link>
                             <a
                                 v-bind:href="item.href"
                                 v-bind:target="item.target || '_self'"
                                 v-else-if="item.href"
                             >
-                                {{ item.label }}
+                                {{ item.label || item.value }}
                             </a>
-                            <span v-else>{{ item.label }}</span>
+                            <span v-else>{{ item.label || item.value }}</span>
                         </slot>
                     </slot>
                 </li>
@@ -103,6 +103,7 @@
 .dropdown > .dropdown-item > a {
     border-bottom: none;
     color: $dark-grey;
+    text-decoration: none;
 }
 
 .dropdown > .dropdown-item:hover > a,
@@ -218,6 +219,9 @@ export const Dropdown = {
         },
         onMouseleave(index) {
             this.dehighlight(index);
+        },
+        onSlideAfterLeave() {
+            this.$emit("animation:close:end");
         },
         _getItemClasses(item, index) {
             return {
