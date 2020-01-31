@@ -306,11 +306,13 @@ export const Table = {
             this.sortData = value;
         },
         items(value) {
+            const addedItemsNr = value.length - this.itemsData.length;
+
             this.itemsData = value.map((item, index) => {
                 return Object.assign(item, this.itemsData[index])
             });
 
-            //TODO handle newly loaded that dont have _index stuff...
+            this.itemsData = this.initLazyLoadedItems(this.itemsData, addedItemsNr);
         },
         reverse(value) {
             this.reverseData = value;
@@ -375,6 +377,17 @@ export const Table = {
             return new Array(this.items.length).fill(false).map((value, index) => {
                 return Boolean(this.selectedCheckboxes[index]);
             });
+        },
+        initLazyLoadedItems(items, addedItemsNr) {
+            let item = null;
+            for (let i = items.length - addedItemsNr; i < items.length; i++)
+            {
+                item = items[i];
+                item._originalIndex = items[i]._checkboxIndex = i;
+                this.$set(this.selectedCheckboxesData, i, false);
+            }
+
+            return items;
         },
         selectionChange() {
             if (this.isAllChecked) {
