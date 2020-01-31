@@ -114,13 +114,13 @@ export const ButtonPlatforme = {
         }
     },
     methods: {
-        click() {
+        click(event) {
             switch (this.mode) {
                 case "loading":
                     this.loading = true;
                     break;
             }
-            this.$emit("click");
+            this.$emit("click", event);
         }
     }
 };

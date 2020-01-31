@@ -155,9 +155,9 @@ export const Reaction = {
             else this.decrement();
             this.$emit("update:userReacted", this.userReactedData);
         },
-        onClick() {
+        onClick(event) {
             if (this.behavior) this.toggle();
-            this.$emit("click");
+            this.$emit("click", event);
         }
     }
 };
