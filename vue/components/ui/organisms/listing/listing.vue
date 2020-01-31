@@ -35,6 +35,9 @@
                 v-bind:loading.sync="loading"
                 v-bind:items.sync="items"
                 v-bind:options.sync="filterOptions"
+                v-bind:enable-checkboxes="enableCheckboxes"
+                v-bind:selected-checkboxes="selectedCheckboxes"
+                v-bind:selected-items.sync="selectedItemsData"
                 ref="filter"
                 v-on:update:options="filterUpdated"
                 v-on:click:table="onTableClick"
@@ -258,6 +261,14 @@ export const Listing = {
         containerMode: {
             type: String,
             default: null
+        },
+        enableCheckboxes: {
+            type: Boolean,
+            default: false
+        },
+        selectedCheckboxes: {
+            type: Array,
+            default: () => []
         }
     },
     data: function() {
@@ -266,8 +277,14 @@ export const Listing = {
             filter: this.context && this.context.filter ? this.context.filter : "",
             filterOptions: null,
             loading: false,
-            visibleLightbox: null
+            visibleLightbox: null,
+            selectedItemsData: []
         };
+    },
+    watch: {
+        selectedItemsData(value) {
+            this.$emit("update:selected-items", value);
+        }
     },
     methods: {
         addFilter(key, value) {

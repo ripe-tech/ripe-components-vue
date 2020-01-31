@@ -32,13 +32,13 @@
             <template v-for="(item, index) in sortedItems">
                 <slot name="before-row" v-bind:item="item" v-bind:index="index" />
                 <tr v-bind:key="item.id" v-on:click="onClick(item, index)">
+                    <td class="checkbox-td" v-if="enableCheckboxes">
+                        <checkbox
+                            v-bind:size="8"
+                            v-bind:checked.sync="selectedCheckboxesData[index]"
+                        />
+                    </td>
                     <slot v-bind:item="item" v-bind:index="index">
-                        <td class="checkbox-td" v-if="enableCheckboxes">
-                            <checkbox
-                                v-bind:size="8"
-                                v-bind:checked.sync="selectedCheckboxesData[index]"
-                            />
-                        </td>
                         <td
                             v-bind:class="column.value"
                             v-for="column in columns"
@@ -305,6 +305,15 @@ export const Table = {
         sort(value) {
             this.sortData = value;
         },
+        items(value) {
+            const addedItemsNr = value.length - this.itemsData.length;
+
+            this.itemsData = value.map((item, index) => {
+                return Object.assign(item, this.itemsData[index]);
+            });
+
+            this.itemsData = this.initLazyLoadedItems(this.itemsData, addedItemsNr);
+        },
         reverse(value) {
             this.reverseData = value;
         },
@@ -348,7 +357,10 @@ export const Table = {
             return base;
         },
         isAllChecked() {
-            return !this.selectedCheckboxesData.some(value => value === false);
+            return (
+                this.selectedCheckboxesData.length > 0 &&
+                !this.selectedCheckboxesData.some(value => value === false || value === undefined)
+            );
         },
         isAllUnchecked() {
             return !this.selectedCheckboxesData.some(value => value === true);
@@ -365,6 +377,16 @@ export const Table = {
             return new Array(this.items.length).fill(false).map((value, index) => {
                 return Boolean(this.selectedCheckboxes[index]);
             });
+        },
+        initLazyLoadedItems(items, addedItemsNr) {
+            let item = null;
+            for (let i = items.length - addedItemsNr; i < items.length; i++) {
+                item = items[i];
+                item._originalIndex = items[i]._checkboxIndex = i;
+                this.$set(this.selectedCheckboxesData, i, false);
+            }
+
+            return items;
         },
         selectionChange() {
             if (this.isAllChecked) {
