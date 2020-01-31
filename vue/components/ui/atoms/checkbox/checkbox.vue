@@ -10,7 +10,7 @@
     >
         <global-events v-on:mouseup="onMouseUp" />
         <div class="checkbox-input">
-            <div class="checkbox-square" v-bind:style="getStyle" />
+            <div class="checkbox-square" v-bind:style="squareStyle" />
             <label class="label" v-if="label">{{ label }}</label>
         </div>
     </div>
@@ -36,6 +36,8 @@
 
 .checkbox > .checkbox-input > .checkbox-square {
     background-color: #fafbfc;
+    background-position: center center;
+    background-repeat: no-repeat;
     border: 2px solid #dfe1e5;
     border-radius: 2px 2px 2px 2px;
     cursor: pointer;
@@ -47,7 +49,7 @@
 }
 
 .checkbox:not(.disabled):not(.error) > .checkbox-input:active > .checkbox-square {
-    border: 2px solid #c3c9cf;
+    border: 2px solid #f4f5f7;
     padding: 3px 3px 3px 3px;
 }
 
@@ -57,21 +59,24 @@
 }
 
 .checkbox.disabled > .checkbox-input > .checkbox-square {
-    background: none center / 7px 6px no-repeat #f4f5f7;
+    background-color: #f4f5f7;
     border: 2px solid #f4f5f7;
     cursor: default;
 }
 
 .checkbox.checked > .checkbox-input > .checkbox-square {
+    background-color: $dark;
     border: 2px solid $dark;
     padding: 3px 3px 3px 3px;
 }
 
 .checkbox.error.checked > .checkbox-input > .checkbox-square {
+    background-color: $dark;
     border: 2px solid $dark-red;
 }
 
 .checkbox.disabled.checked > .checkbox-input > .checkbox-square {
+    background-color: #f4f5f7;
     border: 2px solid #f6f7f9;
     padding: 3px 3px 3px 3px;
 }
@@ -146,39 +151,26 @@ export const Checkbox = {
 
             return base;
         },
-        sizeStyle() {
-            return {
+        squareStyle() {
+            const base = {
                 width: `${this.size}px`,
-                height: `${this.size}px`
+                height: `${this.size}px`,
+                "background-size": `${this.size / 2 + 5}px ${this.size / 2 + 5}px`
             };
-        },
-        checkedStyle() {
-            const icon = require(`./assets/${this.icon}.svg`);
-            return {
-                background: `url(${icon}) center / ${this.size / 2 + 5}px ${this.size / 2 +
-                    4}px no-repeat #1d2631`
-            };
-        },
-        activeCheckStyle() {
-            const icon = require(`./assets/${this.icon}-dark.svg`);
-            return {
-                background: `url(${icon}) center / ${this.size / 2 + 5}px ${this.size / 2 +
-                    4}px no-repeat #f4f5f7`
-            };
-        },
-        disabledStyle() {
-            const icon = require(`./assets/${this.icon}-gray.svg`);
-            return {
-                background: `url(${icon}) center / ${this.size / 2 + 5}px ${this.size / 2 +
-                    4}px no-repeat #f4f5f7`
-            };
-        },
-        getStyle() {
-            let base = {};
-            if (this.disabled && this.checkedData) base = this.disabledStyle;
-            else if (this.checkedData) base = this.checkedStyle;
-            else if (this.active && !this.disabled) base = this.activeCheckStyle;
-            return { ...this.sizeStyle, ...base };
+
+            if (this.disabled && this.checkedData) {
+                base["background-image"] = `url(${require(`./assets/${this.icon}-gray.svg`)})`;
+            }
+
+            if (!this.disabled && this.checkedData) {
+                base["background-image"] = `url(${require(`./assets/${this.icon}.svg`)})`;
+            }
+
+            if (!this.disabled && this.active) {
+                base["background-image"] = `url(${require(`./assets/${this.icon}-dark.svg`)})`;
+            }
+
+            return base;
         }
     },
     methods: {
