@@ -45,10 +45,13 @@ storiesOf("Molecules", module)
                 default: boolean("Visible", false)
             },
             maxHeight: {
-                default: number("Max Height", 200)
+                default: number("Max Height", 206)
             },
             disabled: {
                 default: boolean("Disabled", false)
+            },
+            width: {
+                default: number("Width", null)
             },
             dropdownMinWidth: {
                 default: number("Dropdown Min Width", null)
@@ -87,6 +90,7 @@ storiesOf("Molecules", module)
                     v-bind:max-height="maxHeight"
                     v-bind:disabled="disabled"
                     v-bind:options="options"
+                    v-bind:width="width"
                     v-bind:dropdown-min-width="dropdownMinWidth"
                     v-bind:align="align"
                     v-bind:value.sync="valueData"

@@ -164,9 +164,13 @@ export const Select = {
         },
         maxHeight: {
             type: Number,
-            default: 200
+            default: 206
         },
         dropdownMinWidth: {
+            type: Number,
+            default: null
+        },
+        dropdownMaxWidth: {
             type: Number,
             default: null
         },
@@ -381,6 +385,7 @@ export const Select = {
         dropdownStyle() {
             const base = {};
             if (this.dropdownMinWidth) base["min-width"] = `${this.dropdownMinWidth}px`;
+            if (this.dropdownMaxWidth) base["max-width"] = `${this.dropdownMaxWidth}px`;
             return base;
         },
         highlightedObject() {
