@@ -13,7 +13,7 @@
                     >
                         <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
                     </svg>
-                    <router-link to="/">
+                    <router-link class="header-logo-container" to="/">
                         <img class="header-logo" v-bind:src="logo" />
                     </router-link>
                     <search
@@ -189,11 +189,17 @@
     vertical-align: middle;
 }
 
-.header-ripe > .header-bar > .header-container > .header-left > a {
+.header-ripe > .header-bar > .header-container > .header-left > .header-logo-container {
     border: none;
+    display: inline;
+    margin-right: 16px;
 }
 
-.header-ripe > .header-bar > .header-container > .header-left > a > .header-logo {
+.header-ripe > .header-bar > .header-container > .header-left > .header-logo-container:last-child {
+    margin-right: 0px;
+}
+
+.header-ripe > .header-bar > .header-container > .header-left > .header-logo-container > .header-logo {
     height: 30px;
     vertical-align: middle;
 }
