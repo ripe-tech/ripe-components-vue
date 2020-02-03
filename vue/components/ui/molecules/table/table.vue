@@ -310,7 +310,14 @@ export const Table = {
             const addedItemsNr = value.length - this.itemsData.length;
 
             this.itemsData = value.map((item, index) => {
-                return Object.assign(item, {_originalIndex: this.itemsData[index] ? this.itemsData[index]._originalIndex : null, _checkboxIndex: this.itemsData[index] ? this.itemsData[index]._checkboxIndex : null});
+                return Object.assign(item, {
+                    _originalIndex: this.itemsData[index]
+                        ? this.itemsData[index]._originalIndex
+                        : null,
+                    _checkboxIndex: this.itemsData[index]
+                        ? this.itemsData[index]._checkboxIndex
+                        : null
+                });
             });
 
             this.itemsData = this.initLazyLoadedItems(this.itemsData, addedItemsNr);
@@ -380,7 +387,7 @@ export const Table = {
             });
         },
         initLazyLoadedItems(items, addedItemsNr) {
-            if(addedItemsNr < 1) return items;
+            if (addedItemsNr < 1) return items;
 
             let item = null;
             for (let i = items.length - addedItemsNr; i < items.length; i++) {
