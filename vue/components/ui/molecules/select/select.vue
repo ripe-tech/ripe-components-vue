@@ -158,6 +158,10 @@ export const Select = {
             type: Boolean,
             default: false
         },
+        align: {
+            type: String,
+            default: "right"
+        },
         width: {
             type: Number,
             default: null
@@ -173,10 +177,6 @@ export const Select = {
         dropdownMaxWidth: {
             type: Number,
             default: null
-        },
-        align: {
-            type: String,
-            default: "right"
         }
     },
     data: function() {
