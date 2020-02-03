@@ -1,6 +1,6 @@
 <template>
     <div class="table-menu" v-bind:class="[menuMode, menuAlignment]">
-        <content-menu
+        <container-menu
             v-bind:alignment="menuAlignment"
             v-bind:mode="menuMode"
             v-bind:menu-visible.sync="menuVisibleData"
@@ -76,35 +76,35 @@
                     </slot>
                 </div>
             </template>
-        </content-menu>
+        </container-menu>
     </div>
 </template>
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.table-menu.left .content-menu ::v-deep .menu {
+.table-menu.left .container-menu ::v-deep .menu {
     border-right: 1px solid $border-color;
 }
 
-.table-menu.right .content-menu ::v-deep .menu {
+.table-menu.right .container-menu ::v-deep .menu {
     border-left: 1px solid $border-color;
 }
 
-.table-menu.floating .content-menu ::v-deep .menu {
+.table-menu.floating .container-menu ::v-deep .menu {
     border: 1px solid $border-color;
 }
 
-.table-menu .content-menu ::v-deep .menu > .menu-container {
+.table-menu .container-menu ::v-deep .menu > .menu-container {
     padding: 10px 20px 0px 20px;
 }
 
-.table-menu .content-menu ::v-deep .menu .form-input {
+.table-menu .container-menu ::v-deep .menu .form-input {
     display: flex;
     margin: 0px 0px 5px 0px;
 }
 
-.table-menu .content-menu ::v-deep .menu .form-input > .label {
+.table-menu .container-menu ::v-deep .menu .form-input > .label {
     color: #57626e;
     font-size: 14px;
     font-weight: 500;
@@ -117,45 +117,45 @@
     width: 60%;
 }
 
-.table-menu .content-menu ::v-deep .menu .form-input > .content {
+.table-menu .container-menu ::v-deep .menu .form-input > .content {
     width: 100%;
 }
 
-.table-menu .content-menu ::v-deep .content .table-title,
-.table-menu .content-menu ::v-deep .menu .menu-title {
+.table-menu .container-menu ::v-deep .content .table-title,
+.table-menu .container-menu ::v-deep .menu .menu-title {
     color: $dark;
     font-size: 18px;
     font-weight: 500;
     padding: 10px 0px 10px 0px;
 }
 
-.table-menu .content-menu ::v-deep .content .table-title {
+.table-menu .container-menu ::v-deep .content .table-title {
     padding: 10px 0px 10px 20px;
 }
 
-.table-menu .content-menu ::v-deep .content .table-content {
+.table-menu .container-menu ::v-deep .content .table-content {
     overflow-y: auto;
 }
 
-.table-menu .content-menu ::v-deep .content .table .table-head .table-column {
+.table-menu .container-menu ::v-deep .content .table .table-head .table-column {
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.table-menu .content-menu .content .table .table-body > tr {
+.table-menu .container-menu .content .table .table-body > tr {
     cursor: pointer;
     transition: opacity 0.1s ease-in-out;
 }
 
-.table-menu .content-menu .content .table .table-body > tr:hover {
+.table-menu .container-menu .content .table .table-body > tr:hover {
     background-color: $selected-color;
 }
 
-.table-menu .content-menu .content .table .table-body > tr.selected {
+.table-menu .container-menu .content .table .table-body > tr.selected {
     background-color: #e3e8f1;
 }
 
-.table-menu .content-menu .menu .button-color.delete-item {
+.table-menu .container-menu .menu .button-color.delete-item {
     margin: 20px 0px 20px 0px;
 }
 </style>
