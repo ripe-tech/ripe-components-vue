@@ -1,25 +1,37 @@
 <template>
     <div class="rich-textarea" v-bind:style="style" v-bind:class="classes" v-on:click="onClick">
-        <textarea-ripe
-            class="textarea"
-            v-bind:variant="variant"
-            v-bind:border="border"
-            v-bind:value.sync="valueData"
-            v-bind:placeholder="placeholder"
-            v-bind:disabled="disabled"
-            v-bind:resize="resize"
-            v-bind:id="id"
-            ref="textarea"
-            v-on:focus="onTextareaFocus"
-            v-on:blur="onTextareaBlur"
-        />
+        <div class="textarea-container">
+            <textarea-ripe
+                class="textarea"
+                v-bind:variant="variant"
+                v-bind:border="border"
+                v-bind:value.sync="valueData"
+                v-bind:placeholder="placeholder"
+                v-bind:disabled="disabled"
+                v-bind:resize="resize"
+                v-bind:id="id"
+                ref="textarea"
+                v-on:focus="onTextareaFocus"
+                v-on:blur="onTextareaBlur"
+            />
+            <button-icon
+                class="send-button"
+                v-bind:disabled="disabled || sendButtonDisabled"
+                v-bind:text="'Send message'"
+                v-bind:small="true"
+                v-bind:icon="'send'"
+                v-bind:padding-left="12"
+                v-bind:padding-right="10"
+                v-on:click="onSendMessageClick"
+            />
+        </div>
         <div class="options">
             <input
                 type="file"
                 multiple
                 hidden
                 ref="attachmentsInput"
-                v-on:change="onAttachmentsInputChange()"
+                v-on:change="onAttachmentsInputChange"
             />
             <div class="attachments" v-show="attachments.length > 0">
                 <div
@@ -34,7 +46,7 @@
                         class="button-remove-attachment"
                         v-bind:size="20"
                         v-bind:icon="'close'"
-                        v-on:click="onRemoveAttachmentButtonClick(index)"
+                        v-on:click="() => onRemoveAttachmentButtonClick(index)"
                     />
                 </div>
             </div>
@@ -44,23 +56,14 @@
                     v-bind:disabled="disabled"
                     v-bind:icon="'clip'"
                     v-if="attachment"
-                    v-on:click="onAttachmentClick()"
+                    v-on:click="onAttachmentClick"
                 />
                 <button-icon
                     class="button-smile"
                     v-bind:disabled="disabled"
                     v-bind:icon="'happy-face'"
                     v-if="smile"
-                    v-on:click="onSmileClick()"
-                />
-                <button-color
-                    class="send-button"
-                    v-bind:disabled="isSendButtonDisabled"
-                    v-bind:text="'Send message'"
-                    v-bind:small="true"
-                    v-bind:icon="'send'"
-                    v-bind:alignment="'center'"
-                    v-on:click="onSendMessageClick()"
+                    v-on:click="onSmileClick"
                 />
             </div>
         </div>
@@ -94,15 +97,25 @@
     opacity: 0.4;
 }
 
-.rich-textarea > .textarea,
-.rich-textarea > .textarea:focus,
-.rich-textarea > .textarea:hover,
-.rich-textarea > .textarea:disabled {
+.rich-textarea > .textarea-container {
+    position: relative;
+}
+
+.rich-textarea > .textarea-container > .textarea,
+.rich-textarea > .textarea-container > .textarea:focus,
+.rich-textarea > .textarea-container > .textarea:hover,
+.rich-textarea > .textarea-container > .textarea:disabled {
     background-color: transparent;
     border: none;
     border-radius: 6px 6px 0px 0px;
     height: 56px;
     width: 100%;
+}
+
+.rich-textarea > .textarea-container > .send-button {
+    bottom: 12px;
+    position: absolute;
+    right: 12px;
 }
 
 .rich-textarea > .options {
@@ -150,10 +163,6 @@
 .rich-textarea .options .buttons {
     align-items: center;
     display: flex;
-}
-
-.rich-textarea .options .buttons .send-button {
-    margin-left: auto;
 }
 
 .rich-textarea > .options > .attachments > .attachment > .button-remove-attachment {
@@ -242,9 +251,6 @@ export const RichTextarea = {
             const base = {};
             if (this.width !== null) base.width = `${this.width}px`;
             return base;
-        },
-        isSendButtonDisabled() {
-            return this.disabled || this.sendButtonDisabled;
         }
     },
     methods: {
