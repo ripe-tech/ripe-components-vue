@@ -48,7 +48,7 @@
     font-size: 13px;
     font-weight: 600;
     height: 42px;
-    letter-spacing: 0.7px;
+    letter-spacing: 0.5px;
     line-height: 42px;
     padding: 0px 20px 0px 20px;
     transition: background-color 0.15s ease-in-out;

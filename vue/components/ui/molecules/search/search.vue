@@ -75,6 +75,10 @@
     width: 100%;
 }
 
+.search.grow {
+    width: auto;
+}
+
 .search > .loader {
     left: 38px;
     top: 38px;
@@ -100,6 +104,10 @@
 
 .search ::v-deep input[type="text"] {
     padding-left: 12px;
+}
+
+.search.grow ::v-deep input[type="text"] {
+    width: 280px;
 }
 
 .search.icon-visible ::v-deep input[type="text"] {

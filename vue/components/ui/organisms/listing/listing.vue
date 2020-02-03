@@ -141,6 +141,7 @@ body.mobile .container-header-right {
 .container-header-buttons {
     display: inline-block;
     margin-right: 8px;
+    vertical-align: top;
 }
 
 body.mobile .container-header-buttons {
