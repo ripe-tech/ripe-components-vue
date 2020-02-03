@@ -133,10 +133,10 @@ storiesOf("Organisms", module)
                  />
                  <div>
                     <p v-for="(message, index) in messagesData">
-                        {{ index }} <br>
+                        {{ index }} <br />
                         {{ message.avatarUrl }}
-                        {{ message.username }} {{ message.date }} <br>
-                        {{ message.messageContent.text }} <br>
+                        {{ message.username }} {{ message.date }} <br />
+                        {{ message.messageContent.text }} <br />
                         Attachments Length: {{ message.messageContent.attachments.length }}  Reactions Length: {{ message.messageContent.reactions.length }}
                     </p>
                  </div>

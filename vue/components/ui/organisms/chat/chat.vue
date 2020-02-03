@@ -1,6 +1,6 @@
 <template>
     <div class="chat">
-        <upload-area v-on:update:files="value => onUploadAreaUpdateFiles(value)">
+        <upload-area v-on:update:files="onUploadAreaUpdateFiles">
             <div class="chat-container">
                 <div class="chat-messages-container" ref="chat-messages">
                     <chat-message
@@ -16,18 +16,17 @@
                 </div>
                 <attachments v-bind:attachments="allAttachments" />
             </div>
-            <div class="chat-input-container" v-on:keydown.enter.exact.prevent="onEnter()">
-                <rich-textarea
-                    v-bind:value.sync="textData"
-                    v-bind:attachments.sync="attachmentsData"
-                    v-bind:send-button-disabled="validMessage"
-                    v-bind:placeholder="'Say something here...'"
-                    v-bind:resize="false"
-                    v-on:focus:textarea="onTextareaFocus"
-                    v-on:blur:textarea="onTextareaBlur"
-                    v-on:click:send-message="onSendMessageClick()"
-                />
-            </div>
+            <rich-textarea
+                v-bind:value.sync="textData"
+                v-bind:attachments.sync="attachmentsData"
+                v-bind:send-button-disabled="validMessage"
+                v-bind:placeholder="'Say something here...'"
+                v-bind:resize="true"
+                v-on:focus:textarea="onTextareaFocus"
+                v-on:blur:textarea="onTextareaBlur"
+                v-on:click:send-message="onSendMessageClick"
+                v-on:keydown.enter.exact.prevent="onEnter"
+            />
         </upload-area>
     </div>
 </template>
@@ -35,62 +34,53 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.chat .upload-area {
+.chat > .upload-area {
     background-color: $soft-blue;
     box-sizing: border-box;
     padding: 20px 20px 20px 20px;
     transition: opacity 0.125s ease-in;
 }
 
-.chat .upload-area.dragging {
+.chat > .upload-area.dragging {
     opacity: 0.3;
 }
 
-.chat .upload-area .chat-container {
+.chat > .upload-area > .chat-container {
     display: flex;
     max-height: 350px;
 }
 
-.chat .upload-area .chat-container .chat-messages-container {
+.chat > .upload-area > .chat-container > .chat-messages-container {
     flex: 1 0;
     overflow: auto;
 }
 
-.chat .upload-area .chat-container .chat-messages-container .chat-message {
-    margin: 0px 0px 0px 20px;
+.chat > .upload-area > .chat-container > .chat-messages-container .chat-message {
+    margin-top: 20px;
 }
 
-.chat .upload-area .chat-container .chat-messages-container .chat-message:not(:first-child) {
-    margin: 20px 0px 0px 20px;
+.chat > .upload-area > .chat-container > .chat-messages-container .chat-message:first-child {
+    margin-top: 0px;
 }
 
-.chat .upload-area .chat-container .attachments {
+.chat > .upload-area > .chat-container > .attachments {
     display: block;
     width: 250px;
 }
 
-body.tablet .chat .upload-area .chat-container .attachments,
-body.mobile .chat .upload-area .chat-container .attachments {
+body.tablet .chat > .upload-area > .chat-container > .attachments,
+body.mobile .chat > .upload-area > .chat-container > .attachments {
     display: none;
 }
 
-.chat .upload-area .chat-input-container {
-    overflow: hidden;
-}
-
-.chat .upload-area .chat-input-container .rich-textarea {
+.chat > .upload-area > .rich-textarea {
     display: block;
     margin-top: 20px;
     width: auto;
 }
 
-.chat .upload-area.dragging .chat-input-container .rich-textarea {
+.chat > .upload-area.dragging > .rich-textarea {
     pointer-events: none;
-}
-
-.chat .upload-area .chat-input-container .send-button {
-    float: right;
-    margin-top: 16px;
 }
 </style>
 
@@ -127,18 +117,21 @@ export const Chat = {
         allAttachments() {
             return this.messages.map(message => message.messageContent.attachments).flat();
         },
-        validMessage() {
-            return !(this.textData.trim() || this.attachmentsData.length);
-        },
         normalizedAttachments() {
             return this.attachmentsData.map(attachment => ({
                 name: attachment.name,
                 path: ""
             }));
         },
+        validMessage() {
+            return !(this.textData.trim() || this.attachmentsData.length);
+        },
         richText() {
-            return this.textData.replace(/\n/g, "<br>");
+            return this.textData.replace(/\n/g, "<br />");
         }
+    },
+    mounted: function() {
+        this.scrollToLastMessage();
     },
     methods: {
         sendMessage() {
