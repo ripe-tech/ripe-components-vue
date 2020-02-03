@@ -36,12 +36,20 @@
     background-color: $lighter-grey;
 }
 
+.button-icon:active:not(.disabled) {
+    background-color: $light-grey;
+}
+
 .button-icon.button-icon-grey {
     background-color: $lighter-grey;
 }
 
 .button-icon.button-icon-grey:hover:not(.disabled) {
     background-color: #dedede;
+}
+
+.button-icon.button-icon-grey:active:not(.disabled) {
+    background-color: #cecece;
 }
 
 .button-icon.button-icon-white {
@@ -52,12 +60,20 @@
     background-color: $lighter-grey;
 }
 
+.button-icon.button-icon-white:active:not(.disabled) {
+    background-color: $light-grey;
+}
+
 .button-icon.button-icon-black {
     background-color: $dark;
 }
 
 .button-icon.button-icon-black:hover:not(.disabled) {
     background-color: #41566f;
+}
+
+.button-icon.button-icon-black:active:not(.disabled) {
+    background-color: $dark;
 }
 
 .button-icon .loader {
@@ -76,6 +92,10 @@
     opacity: 0.5;
 }
 
+.button-icon.button-icon-black > img {
+    opacity: 1;
+}
+
 .button-icon.button-icon-text > img {
     vertical-align: middle;
 }
@@ -92,6 +112,10 @@
     margin-right: 3px;
     opacity: 0.5;
     vertical-align: middle;
+}
+
+.button-icon.button-icon-black > span {
+    opacity: 1;
 }
 
 .button-icon:hover:not(.disabled) > span {
