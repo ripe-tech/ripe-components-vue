@@ -1,6 +1,7 @@
 <template>
     <div class="transfer-list">
         <select-list
+            class="select-list"
             v-bind:items="itemsLeftData"
             v-bind:values.sync="valuesLeftData"
             v-bind:min-height="selectMinHeight"
@@ -14,6 +15,7 @@
             <div class="button-move button-move-left-all" v-on:click="onMoveAllLeftClick()" />
         </div>
         <select-list
+            class="select-list"
             v-bind:items="itemsRightData"
             v-bind:values.sync="valuesRightData"
             v-bind:min-height="selectMinHeight"
@@ -24,20 +26,10 @@
 </template>
 
 <style lang="scss" scoped>
-.transfer-list > .select {
-    border: 1px solid #e4e8f0;
-    border-radius: 6px;
-    box-shadow: 0px 6px 24px 0px #43566426;
-    display: inline-block;
-    height: 260px;
-    margin: 20px 0px 0px 0px;
-    vertical-align: top;
-    width: 320px;
-}
-
 .transfer-list > .buttons {
     display: inline-block;
-    margin: 34px 50px 0px 50px;
+    margin: 0px 50px 0px 50px;
+    vertical-align: middle;
 }
 
 .transfer-list > .buttons > .button-move {
