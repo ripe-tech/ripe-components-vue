@@ -293,11 +293,10 @@ export const TableMenu = {
         selectedCheckboxesData(value) {
             this.$emit("update:selected-checkboxes", value);
 
-            this.selectedItems =  this.itemsData.filter((item, index) => value[index]);
+            this.selectedItems = this.itemsData.filter((item, index) => value[index]);
             this.$emit("update:selected-items", this.selectedItems);
         },
-        items(value)
-        {
+        items(value) {
             this.itemsData = value;
             console.log("table-menu wtf", value);
         },
