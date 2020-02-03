@@ -17,7 +17,7 @@
                 <div class="message">
                     <span v-html="message" />
                 </div>
-                <div class="links">
+                <div class="links" v-if="attachments && attachments.length > 0">
                     <div
                         class="link-container"
                         v-for="(attachment, index) in attachments"
@@ -32,7 +32,7 @@
                         />
                     </div>
                 </div>
-                <div class="reactions">
+                <div class="reactions" v-if="reactions && reactions.length > 0">
                     <reaction
                         v-bind:icon="reaction.icon"
                         v-bind:img-url="reaction.imgUrl"

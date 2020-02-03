@@ -14,7 +14,7 @@
                         v-bind:key="index"
                     />
                 </div>
-                <attachments v-bind:attachments="allAttachments" />
+                <attachments v-bind:attachments="allAttachments" v-if="allAttachments && allAttachments.length > 0" />
             </div>
             <rich-textarea
                 v-bind:value.sync="textData"
@@ -35,7 +35,6 @@
 @import "css/variables.scss";
 
 .chat > .upload-area {
-    background-color: $soft-blue;
     box-sizing: border-box;
     padding: 20px 20px 20px 20px;
     transition: opacity 0.125s ease-in;
