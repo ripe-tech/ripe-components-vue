@@ -1,7 +1,7 @@
 <template>
     <div class="chat">
         <upload-area v-on:update:files="onUploadAreaUpdateFiles">
-            <div class="chat-container">
+            <div class="chat-container" v-if="messages && messages.length > 0">
                 <div class="chat-messages-container" ref="chat-messages">
                     <chat-message
                         v-bind:username="message.username"
@@ -14,7 +14,10 @@
                         v-bind:key="index"
                     />
                 </div>
-                <attachments v-bind:attachments="allAttachments" v-if="allAttachments && allAttachments.length > 0" />
+                <attachments
+                    v-bind:attachments="allAttachments"
+                    v-if="allAttachments && allAttachments.length > 0"
+                />
             </div>
             <rich-textarea
                 v-bind:value.sync="textData"
@@ -25,7 +28,8 @@
                 v-on:focus:textarea="onTextareaFocus"
                 v-on:blur:textarea="onTextareaBlur"
                 v-on:click:send-message="onSendMessageClick"
-                v-on:keydown.enter.exact.prevent="onEnter"
+                v-on:keydown="onTextareaKeydown"
+                v-on:keydown.enter.exact.prevent="onTextareaEnter"
             />
         </upload-area>
     </div>
@@ -51,6 +55,7 @@
 
 .chat > .upload-area > .chat-container > .chat-messages-container {
     flex: 1 0;
+    margin-bottom: 20px;
     overflow: auto;
 }
 
@@ -74,7 +79,6 @@ body.mobile .chat > .upload-area > .chat-container > .attachments {
 
 .chat > .upload-area > .rich-textarea {
     display: block;
-    margin-top: 20px;
     width: auto;
 }
 
@@ -169,11 +173,14 @@ export const Chat = {
         onSendMessageClick() {
             this.sendMessage();
         },
-        onEnter() {
-            this.sendMessage();
-        },
         onUploadAreaUpdateFiles(attachments) {
             this.attachmentsData = this.attachmentsData.concat(attachments);
+        },
+        onTextareaKeydown(event) {
+            this.$emit("keydown", event);
+        },
+        onTextareaEnter() {
+            this.sendMessage();
         },
         onTextareaFocus() {
             this.$emit("focus:textarea");
