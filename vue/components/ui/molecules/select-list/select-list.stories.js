@@ -1,10 +1,19 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, number } from "@storybook/addon-knobs";
+import { withKnobs, number, boolean } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
-    .add("Select-List", () => ({
+    .add("Select List", () => ({
         props: {
+            search: {
+                default: boolean("Search", true)
+            },
+            selectMinHeight: {
+                default: number("Min Height", null)
+            },
+            selectMaxHeight: {
+                default: number("Max Height", 288)
+            },
             options: {
                 type: Array,
                 default: () => [
@@ -23,38 +32,25 @@ storiesOf("Molecules", module)
                     { value: "option_13", label: "Paulo" },
                     { value: "option_14", label: "Paulino" }
                 ]
-            },
-            values: {
-                type: Object,
-                default: () => ({})
-            },
-            selectMinHeight: {
-                default: number("Min Height", 100)
-            },
-            selectMaxHeight: {
-                default: number("Max Height", 100)
-            },
-            title: {
-                default: text("Title")
             }
         },
         data: function() {
             return {
-                valuesData: this.values
+                valuesData: {}
             };
         },
         template: `
             <div>
                 <global />
                 <select-list
-                    v-bind:items="options"
+                    v-bind:search="search"
                     v-bind:min-height="selectMinHeight"
                     v-bind:max-height="selectMaxHeight"
                     v-bind:values.sync="valuesData"
-                    v-bind:title="title"
+                    v-bind:items="options"
                 >
                 </select-list>
                 <p>Value: {{ valuesData }}</p>
             </div>
-            `
+        `
     }));
