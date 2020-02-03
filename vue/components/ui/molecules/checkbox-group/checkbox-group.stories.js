@@ -1,38 +1,15 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, boolean } from "@storybook/addon-knobs";
 
-storiesOf("Atoms", module)
+storiesOf("Molecules", module)
     .addDecorator(withKnobs)
-    .add("Checkbox", () => ({
+    .add("Checkbox Group", () => ({
         props: {
+            error: {
+                default: boolean("Error", false)
+            },
             disabled: {
                 default: boolean("Disabled", false)
-            },
-            checked: {
-                default: boolean("Checked", false)
-            },
-            label: {
-                default: text("Label", "Checkbox")
-            },
-            icon: {
-                default: select(
-                    "Icon",
-                    {
-                        Check: "check",
-                        Minus: "minus"
-                    },
-                    "check"
-                )
-            },
-            variant: {
-                default: select(
-                    "Variant",
-                    {
-                        Unset: null,
-                        Error: "error"
-                    },
-                    null
-                )
             },
             items: {
                 default: () => [
@@ -45,10 +22,11 @@ storiesOf("Atoms", module)
                         value: "morocco"
                     },
                     {
-                        value: "Canada"
+                        value: "canada"
                     },
                     {
-                        value: "China"
+                        label: "China",
+                        value: "china"
                     },
                     {
                         label: "Dubai",
@@ -61,7 +39,8 @@ storiesOf("Atoms", module)
                     },
                     {
                         label: "Tibet",
-                        value: "tibet"
+                        value: "tibet",
+                        error: true
                     }
                 ]
             }
@@ -69,24 +48,25 @@ storiesOf("Atoms", module)
         data: function() {
             return {
                 valuesData: {
-                    japan: true,
-                    China: true,
-                    dubai: true,
-                    Canada: true
+                    japan: false,
+                    morocco: true,
+                    canada: false,
+                    china: false,
+                    dubai: false,
+                    bali: true
                 }
             };
         },
         template: `
             <div>
-                <checkbox
-                    v-bind:label="label"
-                    v-bind:checked.sync="checkedData"
+                <checkbox-group
+                    v-bind:items="items"
+                    v-bind:values.sync="valuesData"
+                    v-bind:error="error"
                     v-bind:disabled="disabled"
-                    v-bind:icon="icon"
-                    v-bind:size="size"
-                    v-bind:variant="variant"
                 />
-                <p>Checked: {{ checkedData }}</p>
+                <p>Items: {{ items }}</p>
+                <p>Values: {{ valuesData }}</p>
             </div>
         `
     }));
