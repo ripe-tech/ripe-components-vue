@@ -13,6 +13,7 @@
                 ref="textarea"
                 v-on:focus="onTextareaFocus"
                 v-on:blur="onTextareaBlur"
+                v-on:keydown="onTextareaKeydown"
             />
             <button-icon
                 class="send-button"
@@ -115,7 +116,7 @@
 .rich-textarea > .textarea-container > .send-button {
     bottom: 12px;
     position: absolute;
-    right: 12px;
+    right: 20px;
 }
 
 .rich-textarea > .options {
@@ -280,6 +281,10 @@ export const RichTextarea = {
         },
         onTextareaBlur() {
             this.$emit("blur:textarea");
+        },
+        onTextareaKeydown(event) {
+            this.$emit("keydown", event);
+            this.$emit("keydown:textarea", event);
         },
         onSendMessageClick() {
             this.$emit("click:send-message");
