@@ -127,6 +127,30 @@ export const ButtonIcon = {
             type: Number,
             default: null
         },
+        paddingTop: {
+            type: Number,
+            default: null
+        },
+        paddingBottom: {
+            type: Number,
+            default: null
+        },
+        paddingLeft: {
+            type: Number,
+            default: null
+        },
+        paddingRight: {
+            type: Number,
+            default: null
+        },
+        paddingFactor: {
+            type: Number,
+            default: 4.5
+        },
+        paddingTextFactor: {
+            type: Number,
+            default: 1.5
+        },
         disabled: {
             type: Boolean,
             default: false
@@ -152,18 +176,28 @@ export const ButtonIcon = {
             return require(`./../../../../assets/icons/${iconColor}/${this.icon}.svg`);
         },
         paddingBase() {
-            return this.padding === null ? parseInt(this.size / 4.5) : this.padding;
+            return this.padding === null ? parseInt(this.size / this.paddingFactor) : this.padding;
         },
         style() {
             return {
                 height: `${this.size}px`,
-                "padding-top": `${this.paddingBase}px`,
-                "padding-bottom": `${this.paddingBase}px`,
+                "padding-top": `${this.paddingTop === null ? this.paddingBase : this.paddingTop}px`,
+                "padding-bottom": `${
+                    this.paddingBottom === null ? this.paddingBase : this.paddingBottom
+                }px`,
                 "padding-left": `${
-                    this.text ? parseInt(this.paddingBase * 1.3) : this.paddingBase
+                    this.paddingLeft === null
+                        ? this.text
+                            ? parseInt(this.paddingBase * this.paddingTextFactor)
+                            : this.paddingBase
+                        : this.paddingLeft
                 }px`,
                 "padding-right": `${
-                    this.text ? parseInt(this.paddingBase * 1.3) : this.paddingBase
+                    this.paddingRight === null
+                        ? this.text
+                            ? parseInt(this.paddingBase * this.paddingTextFactor)
+                            : this.paddingBase
+                        : this.paddingRight
                 }px`,
                 "border-radius": `${this.size}px`
             };
