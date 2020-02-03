@@ -2,7 +2,7 @@
     <div
         class="side"
         v-bind:style="style"
-        v-bind:class="[{ visible: visibleData, invisible: !visibleData }, position]"
+        v-bind:class="[{ visible: visibleData, invisible: !visibleData, padded: padded }, position]"
     >
         <global-events v-on:keydown.esc="hide" />
         <slot v-bind:hide="hide">
@@ -19,7 +19,7 @@
                         <link-ripe
                             v-bind:text="link.label"
                             v-bind:href="href"
-                            v-bind:hover="'border'"
+                            v-bind:hover="'empty'"
                             v-on:click="navigate"
                         />
                     </router-link>
@@ -41,7 +41,6 @@
     height: 100%;
     left: -280px;
     max-width: 100%;
-    padding-top: 61px;
     position: fixed;
     top: 0px;
     transition: left 0.25s cubic-bezier(0.645, 0.045, 0.355, 1),
@@ -59,6 +58,10 @@
 .side.visible {
     box-shadow: 0px 6px 15px rgba(36, 37, 38, 0.08);
     left: 0px;
+}
+
+.side.left.padded {
+    padding-top: 61px;
 }
 
 .side.right.visible {
@@ -161,6 +164,10 @@ export const Side = {
         visible: {
             type: Boolean,
             default: false
+        },
+        padded: {
+            type: Boolean,
+            default: true
         },
         width: {
             type: Number,
