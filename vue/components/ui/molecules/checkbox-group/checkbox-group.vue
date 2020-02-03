@@ -5,7 +5,7 @@
                 name="before-item"
                 v-bind:index="index"
                 v-bind:item="item"
-                v-bind:checked="item.value === value"
+                v-bind:checked="checkedData[item.value]"
             />
             <checkbox
                 v-bind:label="item.label || item.value"
@@ -18,7 +18,7 @@
                 name="after-item"
                 v-bind:index="index"
                 v-bind:item="item"
-                v-bind:checked="item.value === value"
+                v-bind:checked="checkedData[item.value]"
             />
         </div>
     </div>
