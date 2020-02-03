@@ -11,6 +11,7 @@
         v-on:input="onInput($event.target.value)"
         v-on:focus="onFocus"
         v-on:blur="onBlur"
+        v-on:keydown="onKeydown"
     />
 </template>
 
@@ -143,10 +144,14 @@ export const Textarea = {
             this.heightData = value;
         },
         resize() {
-            this.calculate();
+            this.$nextTick(() => {
+                this.calculate();
+            });
         },
         value() {
-            this.calculate();
+            this.$nextTick(() => {
+                this.calculate();
+            });
         }
     },
     methods: {
@@ -179,6 +184,9 @@ export const Textarea = {
         },
         onBlur() {
             this.$emit("blur");
+        },
+        onKeydown(event) {
+            this.$emit("keydown", event);
         }
     },
     mounted: function() {
