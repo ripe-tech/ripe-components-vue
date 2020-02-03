@@ -5,7 +5,7 @@
         v-bind:src="src"
         v-bind:alt="alt"
         v-on:load="onLoad"
-        v-on:click="event => $emit('click', event)"
+        v-on:click="onClick"
         v-on:error="onError"
     />
 </template>
@@ -53,6 +53,9 @@ export const Image = {
         onLoad(event) {
             this.loaded = true;
             this.$emit("load", event);
+        },
+        onClick(event) {
+            this.$emit("click", event);
         },
         onError(event) {
             this.loaded = false;
