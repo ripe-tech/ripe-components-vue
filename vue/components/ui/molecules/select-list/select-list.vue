@@ -1,5 +1,5 @@
 <template>
-    <div class="select-list" tabindex="0">
+    <div class="select-list" tabindex="0" v-bind:class="classes">
         <div class="select-list-search" v-if="search">
             <search
                 class="search-container"
@@ -44,14 +44,19 @@
 }
 
 .select-list > .select-list-items {
-    border-radius: 0px 0px 6px 6px;
-    border-top: 1px solid $light-white;
+    border-radius: 6px 6px 6px 6px;
+    border-top: none;
     height: 100%;
     list-style: none;
     margin: 0px 0px 0px 0px;
     overflow-y: auto;
     padding: 0px 0px 0px 0px;
     user-select: none;
+}
+
+.select-list.select-list-search > .select-list-items {
+    border-radius: 0px 0px 6px 6px;
+    border-top: 1px solid $light-white;
 }
 
 .select-list > .select-list-items > .select-list-item {
@@ -113,6 +118,10 @@ export const SelectList = {
             const base = {};
             if (this.minHeight !== null) base["min-height"] = `${this.minHeight}px`;
             if (this.maxHeight !== null) base["max-height"] = `${this.maxHeight}px`;
+            return base;
+        },
+        classes() {
+            const base = { "select-list-search": this.search };
             return base;
         }
     },
