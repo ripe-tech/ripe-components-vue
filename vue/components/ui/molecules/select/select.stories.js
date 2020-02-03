@@ -44,6 +44,17 @@ storiesOf("Molecules", module)
             visible: {
                 default: boolean("Visible", false)
             },
+            align: {
+                default: select(
+                    "Align",
+                    {
+                        None: null,
+                        Left: "left",
+                        Right: "right"
+                    },
+                    null
+                )
+            },
             maxHeight: {
                 default: number("Max Height", 206)
             },
@@ -55,17 +66,6 @@ storiesOf("Molecules", module)
             },
             dropdownMinWidth: {
                 default: number("Dropdown Min Width", null)
-            },
-            align: {
-                default: select(
-                    "Align",
-                    {
-                        None: null,
-                        Left: "left",
-                        Right: "right"
-                    },
-                    null
-                )
             }
         },
         data: function() {
