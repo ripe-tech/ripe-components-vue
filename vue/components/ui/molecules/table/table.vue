@@ -356,6 +356,9 @@ export const Table = {
         reverse(value) {
             this.reverseData = value;
         },
+        selectedCheckboxes(value) {
+            this.selectedCheckboxesData = value;
+        },
         selectedCheckboxesData(value) {
             this.selectionChange();
             this.$emit("update:selected-checkboxes", this.selectedCheckboxesData);
