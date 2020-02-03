@@ -11,6 +11,7 @@
         v-on:input="onInput($event.target.value)"
         v-on:focus="onFocus"
         v-on:blur="onBlur"
+        v-on:keyup.enter="onEnter"
     />
 </template>
 
@@ -145,6 +146,9 @@ export const Input = {
         },
         onBlur() {
             this.$emit("blur");
+        },
+        onEnter() {
+            this.$emit("enter");
         }
     },
     computed: {
