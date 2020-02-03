@@ -1,23 +1,38 @@
 <template>
     <div class="rich-textarea" v-bind:style="style" v-bind:class="classes" v-on:click="onClick">
-        <textarea-ripe
-            class="textarea"
-            v-bind:variant="variant"
-            v-bind:border="border"
-            v-bind:value.sync="valueData"
-            v-bind:placeholder="placeholder"
-            v-bind:disabled="disabled"
-            v-bind:resize="resize"
-            v-bind:id="id"
-            ref="textarea"
-        />
+        <div class="textarea-container">
+            <textarea-ripe
+                class="textarea"
+                v-bind:variant="variant"
+                v-bind:border="border"
+                v-bind:value.sync="valueData"
+                v-bind:placeholder="placeholder"
+                v-bind:disabled="disabled"
+                v-bind:resize="resize"
+                v-bind:id="id"
+                ref="textarea"
+                v-on:focus="onTextareaFocus"
+                v-on:blur="onTextareaBlur"
+                v-on:keydown="onTextareaKeydown"
+            />
+            <button-icon
+                class="send-button"
+                v-bind:disabled="disabled || sendButtonDisabled"
+                v-bind:text="'Send message'"
+                v-bind:small="true"
+                v-bind:icon="'send'"
+                v-bind:padding-left="12"
+                v-bind:padding-right="10"
+                v-on:click="onSendMessageClick"
+            />
+        </div>
         <div class="options">
             <input
                 type="file"
                 multiple
                 hidden
                 ref="attachmentsInput"
-                v-on:change="onAttachmentsInputChange()"
+                v-on:change="onAttachmentsInputChange"
             />
             <div class="attachments" v-show="attachments.length > 0">
                 <div
@@ -32,7 +47,7 @@
                         class="button-remove-attachment"
                         v-bind:size="20"
                         v-bind:icon="'close'"
-                        v-on:click="onRemoveAttachmentButtonClick(index)"
+                        v-on:click="() => onRemoveAttachmentButtonClick(index)"
                     />
                 </div>
             </div>
@@ -42,14 +57,14 @@
                     v-bind:disabled="disabled"
                     v-bind:icon="'clip'"
                     v-if="attachment"
-                    v-on:click="onAttachmentClick()"
+                    v-on:click="onAttachmentClick"
                 />
                 <button-icon
                     class="button-smile"
                     v-bind:disabled="disabled"
                     v-bind:icon="'happy-face'"
                     v-if="smile"
-                    v-on:click="onSmileClick()"
+                    v-on:click="onSmileClick"
                 />
             </div>
         </div>
@@ -83,15 +98,25 @@
     opacity: 0.4;
 }
 
-.rich-textarea > .textarea,
-.rich-textarea > .textarea:focus,
-.rich-textarea > .textarea:hover,
-.rich-textarea > .textarea:disabled {
+.rich-textarea > .textarea-container {
+    position: relative;
+}
+
+.rich-textarea > .textarea-container > .textarea,
+.rich-textarea > .textarea-container > .textarea:focus,
+.rich-textarea > .textarea-container > .textarea:hover,
+.rich-textarea > .textarea-container > .textarea:disabled {
     background-color: transparent;
     border: none;
     border-radius: 6px 6px 0px 0px;
     height: 56px;
     width: 100%;
+}
+
+.rich-textarea > .textarea-container > .send-button {
+    bottom: 12px;
+    position: absolute;
+    right: 20px;
 }
 
 .rich-textarea > .options {
@@ -173,6 +198,10 @@ export const RichTextarea = {
             type: Boolean,
             default: false
         },
+        sendButtonDisabled: {
+            type: Boolean,
+            default: false
+        },
         resize: {
             type: Boolean,
             default: true
@@ -246,6 +275,19 @@ export const RichTextarea = {
         },
         onSmileClick() {
             this.$emit("click:smile");
+        },
+        onTextareaFocus() {
+            this.$emit("focus:textarea");
+        },
+        onTextareaBlur() {
+            this.$emit("blur:textarea");
+        },
+        onTextareaKeydown(event) {
+            this.$emit("keydown", event);
+            this.$emit("keydown:textarea", event);
+        },
+        onSendMessageClick() {
+            this.$emit("click:send-message");
         }
     }
 };
