@@ -1,77 +1,64 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, boolean } from "@storybook/addon-knobs";
+import { withKnobs, boolean, text, select, number } from "@storybook/addon-knobs";
 
 storiesOf("Atoms", module)
     .addDecorator(withKnobs)
     .add("Checkbox", () => ({
         props: {
-            error: {
-                default: boolean("Error", false)
-            },
             disabled: {
                 default: boolean("Disabled", false)
             },
-            slots: {
-                default: boolean("Slots", false)
+            checked: {
+                default: boolean("Checked", false)
             },
-            items: {
-                default: () => [
+            label: {
+                default: text("Label", "Checkbox")
+            },
+            icon: {
+                default: select(
+                    "Icon",
                     {
-                        label: "Japan",
-                        value: "japan"
+                        Check: "check",
+                        Minus: "minus"
                     },
+                    "check"
+                )
+            },
+            variant: {
+                default: select(
+                    "Variant",
                     {
-                        label: "Morocco",
-                        value: "morocco"
+                        Unset: null,
+                        Error: "error"
                     },
-                    {
-                        value: "Canada"
-                    },
-                    {
-                        value: "China"
-                    },
-                    {
-                        label: "Dubai",
-                        value: "dubai"
-                    },
-                    {
-                        label: "Bali",
-                        value: "bali",
-                        disabled: true
-                    },
-                    {
-                        label: "Tibet",
-                        value: "tibet"
-                    }
-                ]
+                    null
+                )
+            },
+            size: {
+                default: number("Size", 4)
             }
         },
         data: function() {
             return {
-                valuesData: {
-                    japan: true,
-                    China: true,
-                    dubai: true,
-                    Canada: true
-                }
+                checkedData: this.checked
             };
+        },
+        watch: {
+            checked(value) {
+                this.checkedData = value;
+            }
         },
         template: `
             <div>
                 <checkbox
-                    v-bind:items="items"
-                    v-bind:values.sync="valuesData"
+                    v-bind:label="label"
+                    v-bind:checked.sync="checkedData"
                     v-bind:disabled="disabled"
-                    v-bind:error="error"
-                >
-                    <template v-slot:before-item="{ item, index }" v-if="slots">
-                        <p>Custom before checkbox {{ item.label }}</p>
-                    </template>
-                    <template v-slot:after-item="{ item, index }" v-if="slots">
-                        <p>Custom After checkbox {{ item.label }}</p>
-                    </template>
-                </checkbox>
-                <p>Values: {{ valuesData }}</p>
+                    v-bind:icon="icon"
+                    v-bind:size="size"
+                    v-bind:variant="variant"
+                />
+                <p>Checked: {{ checkedData }}</p>
             </div>
         `
     }));
