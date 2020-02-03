@@ -196,6 +196,10 @@ export const TableMenu = {
             type: Boolean,
             default: false
         },
+        selectedCheckboxes: {
+            type: Array,
+            default: () => []
+        },
         menuMode: {
             type: String,
             default: "collapse"
@@ -289,6 +293,9 @@ export const TableMenu = {
         reverseData(value) {
             this.reverseData = value;
             this.$emit("update:reverse", value);
+        },
+        selectedCheckboxes(value) {
+            this.selectedCheckboxesData = value;
         },
         selectedCheckboxesData(value) {
             this.$emit("update:selected-checkboxes", value);
