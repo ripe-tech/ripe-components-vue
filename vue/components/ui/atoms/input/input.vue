@@ -18,6 +18,7 @@
 @import "css/variables.scss";
 
 .input {
+    appearance: none;
     background-color: $white;
     border: 1px solid $light-white;
     border-radius: 6px 6px 6px 6px;
@@ -25,6 +26,7 @@
     color: $black;
     font-family: $font-family;
     font-size: 13px;
+    font-weight: 500;
     height: 34px;
     letter-spacing: 0.25px;
     line-height: 34px;
@@ -33,6 +35,14 @@
     padding-right: 12px;
     transition: width 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
     width: 100%;
+}
+
+input::-webkit-input-placeholder {
+    color: $upper-grey;
+}
+
+.input.ellipsis {
+    text-overflow: ellipsis;
 }
 
 .input.dark {
@@ -81,6 +91,10 @@ export const Input = {
             type: String,
             default: ""
         },
+        align: {
+            type: String,
+            default: null
+        },
         autofocus: {
             type: Boolean,
             default: false
@@ -89,11 +103,23 @@ export const Input = {
             type: Boolean,
             default: false
         },
+        ellipsis: {
+            type: Boolean,
+            default: true
+        },
         width: {
             type: Number,
             default: null
         },
+        minWidth: {
+            type: Number,
+            default: null
+        },
         height: {
+            type: Number,
+            default: null
+        },
+        fontWeight: {
             type: Number,
             default: null
         }
@@ -125,7 +151,10 @@ export const Input = {
         style() {
             const base = {
                 width: this.width === null ? null : `${this.width}px`,
-                height: this.height === null ? null : `${this.height}px`
+                height: this.height === null ? null : `${this.height}px`,
+                "min-width": this.minWidth === null ? null : `${this.minWidth}px`,
+                "font-weight": this.fontWeight === null ? null : `${this.fontWeight}`,
+                "text-align": this.align
             };
             return base;
         },
@@ -133,6 +162,7 @@ export const Input = {
             const base = {};
             if (this.variant) base[this.variant] = true;
             if (this.border) base[`border-${this.border}`] = true;
+            if (this.ellipsis) base.ellipsis = true;
             return base;
         }
     }
