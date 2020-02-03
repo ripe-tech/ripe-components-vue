@@ -5,10 +5,12 @@
             v-bind:class="{ show: showScrollTop }"
             v-on:click="scrollToTop"
         />
-        <container-ripe>
+        <container-ripe v-bind:mode="containerMode">
             <div class="container-header">
                 <div class="container-header-right">
-                    <slot name="icons" />
+                    <div class="container-header-buttons" v-if="$slots['header-buttons']">
+                        <slot name="header-buttons" />
+                    </div>
                     <search
                         v-bind:variant="'dark'"
                         v-bind:width="isMobileWidth() ? null : searchWidth"
@@ -25,14 +27,14 @@
             <filter-ripe
                 v-bind:get-items="getItems"
                 v-bind:get-item-url="getItemUrl"
-                v-bind:columns="columns"
-                v-bind:values="values"
+                v-bind:table-columns="tableColumns"
+                v-bind:lineup-fields="lineupFields"
+                v-bind:lineup-columns="lineupColumns"
                 v-bind:filter="filter"
                 v-bind:use-query="useQuery"
                 v-bind:loading.sync="loading"
                 v-bind:items.sync="items"
                 v-bind:options.sync="filterOptions"
-                v-bind:lineup-columns="lineupColumns"
                 ref="filter"
                 v-on:update:options="filterUpdated"
                 v-on:click:table="onTableClick"
@@ -86,6 +88,7 @@
     transform: scale(0.75);
     transition: opacity 0.125s ease-in-out, transform 0.125s ease-in-out;
     width: 50px;
+    z-index: 1;
 }
 
 .scroll-button.show {
@@ -133,6 +136,18 @@
 body.mobile .container-header-right {
     float: none;
     width: 100%;
+}
+
+.container-header-buttons {
+    display: inline-block;
+    margin-right: 8px;
+}
+
+body.mobile .container-header-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 10px;
 }
 
 .listing .filter-ripe ::v-deep table {
@@ -197,13 +212,17 @@ export const Listing = {
             type: Object,
             default: () => ({})
         },
-        columns: {
+        tableColumns: {
             type: Array,
             required: true
         },
-        values: {
+        lineupFields: {
             type: Array,
             required: true
+        },
+        lineupColumns: {
+            type: Number,
+            default: null
         },
         name: {
             type: String,
@@ -237,8 +256,8 @@ export const Listing = {
             type: Number,
             default: 304
         },
-        lineupColumns: {
-            type: Number,
+        containerMode: {
+            type: String,
             default: null
         }
     },

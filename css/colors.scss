@@ -5,10 +5,11 @@ $light-black: #0d0d0d;
 $white: #ffffff;
 $light-white: #e4e8f0;
 
-$pale-grey: #7b7b7b;
-$grey: #5d5d5d;
 $dark-grey: #4d4d4d;
+$grey: #5d5d5d;
+$pale-grey: #7b7b7b;
 $medium-grey: #a4a4a4;
+$upper-grey: #cccccc;
 $light-grey: #e2e2e2;
 $lighter-grey: #ececec;
 
@@ -42,3 +43,9 @@ $light-purple: #e1e2ff;
 $yellow: #ffd422;
 $dark-yellow: #e0bb25;
 $light-yellow: #ffe473;
+
+$dark: $dark-blue;
+
+$error: $dark-red;
+$warning: $darker-orange;
+$success: $dark-green;

@@ -3,14 +3,15 @@
         <button-icon
             class="button-icon-back"
             v-bind:icon="'arrow-left'"
-            v-bind:size="'60'"
+            v-bind:size="60"
             v-if="navigation"
             v-on:click="goBack"
         />
         <div class="error-message">
-            <img
+            <image-ripe
                 v-bind:src="image"
                 v-bind:class="{ clickable: navigation }"
+                v-bind:fade="false"
                 v-if="image"
                 v-on:click="goHome"
             />
@@ -21,8 +22,14 @@
                         name: 'signout'
                     }"
                     v-if="isAuth"
+                    v-slot="{ href, navigate }"
                 >
-                    {{ loginMessage }}
+                    <link-ripe
+                        v-bind:text="loginMessage"
+                        v-bind:href="href"
+                        v-bind:hover="'border'"
+                        v-on:click="navigate"
+                    />
                 </router-link>
             </div>
         </div>

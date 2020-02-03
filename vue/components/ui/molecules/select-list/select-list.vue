@@ -1,18 +1,23 @@
 <template>
-    <div class="select-list" tabindex="0">
-        <p class="title">
-            {{ title }}
-        </p>
-        <ul class="items" v-bind:style="style">
+    <div class="select-list" tabindex="0" v-bind:class="classes">
+        <div class="select-list-search" v-if="search">
+            <search
+                class="search-container"
+                v-bind:icon-visible="true"
+                v-bind:clear-visible="true"
+                v-bind:value.sync="searchKeyData"
+            />
+        </div>
+        <ul class="select-list-items" v-bind:style="style" v-if="itemsData && itemsData.length > 0">
             <li
-                class="item"
+                class="select-list-item"
                 v-bind:class="{ selected: isSelected(item.value) }"
-                v-for="(item, index) in items"
-                v-bind:key="item.index"
+                v-for="(item, index) in itemsData"
+                v-bind:key="index"
                 v-on:click.exact="onClick(item.value, index)"
                 v-on:click.shift="onShiftClick(item.value, index)"
             >
-                {{ item.value }}
+                {{ item.label }}
             </li>
         </ul>
     </div>
@@ -22,53 +27,54 @@
 @import "css/variables.scss";
 
 .select-list {
-    border: 1px solid transparent;
-    border-radius: 6px;
+    border: 1px solid #e4e8f0;
+    border-radius: 6px 6px 6px 6px;
+    box-shadow: 0px 6px 24px 0px rgba(128, 128, 128, 0.4);
     display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
     outline: none;
-    vertical-align: top;
     width: 320px;
 }
 
-.select-list > .title {
-    background-color: transparent;
-    font-size: 14px;
-    padding: 5px 0px 0px 0px;
+.select-list > .select-list-search {
+    background-color: $white;
+    border-radius: 6px 6px 0px 0px;
+    padding: 12px 12px 12px 12px;
 }
 
-.select-list > .items:focus {
-    border-color: $aqcua-blue;
-}
-
-.select-list > .items {
-    box-shadow: 0px 6px 24px 0px #43566426;
+.select-list > .select-list-items {
+    border-radius: 6px 6px 6px 6px;
+    border-top: none;
     height: 100%;
     list-style: none;
     margin: 0px 0px 0px 0px;
     overflow-y: auto;
     padding: 0px 0px 0px 0px;
     user-select: none;
-    width: 100%;
 }
 
-.select-list > .items > .item {
+.select-list.select-list-search > .select-list-items {
+    border-radius: 0px 0px 6px 6px;
+    border-top: 1px solid $light-white;
+}
+
+.select-list > .select-list-items > .select-list-item {
     box-sizing: border-box;
-    color: #1d2631;
+    color: $dark-grey;
     cursor: pointer;
-    font-size: 14px;
     height: 32px;
     line-height: 32px;
-    padding-left: 15px;
-    width: 303px;
+    padding: 0px 16px 0px 16px;
 }
 
-.select-list > .items > .item:hover {
+.select-list > .select-list-items > .select-list-item:hover {
     background-color: $mild-dark-blue;
     color: $white;
 }
 
-.select-list > .items > .item.selected,
-.select-list > .items > .item.selected:hover {
+.select-list > .select-list-items > .select-list-item.selected,
+.select-list > .select-list-items > .select-list-item.selected:hover {
     background-color: $dark-blue;
     color: $white;
 }
@@ -86,6 +92,10 @@ export const SelectList = {
             type: Object,
             default: () => ({})
         },
+        search: {
+            type: Boolean,
+            default: false
+        },
         minHeight: {
             type: Number,
             default: 100
@@ -93,16 +103,14 @@ export const SelectList = {
         maxHeight: {
             type: Number,
             default: null
-        },
-        title: {
-            type: String,
-            default: null
         }
     },
     data: function() {
         return {
             valuesData: this.values,
-            lastSelected: null
+            lastSelected: null,
+            itemsData: this.items,
+            searchKeyData: ""
         };
     },
     computed: {
@@ -111,17 +119,23 @@ export const SelectList = {
             if (this.minHeight !== null) base["min-height"] = `${this.minHeight}px`;
             if (this.maxHeight !== null) base["max-height"] = `${this.maxHeight}px`;
             return base;
+        },
+        classes() {
+            const base = { "select-list-search": this.search };
+            return base;
         }
     },
     watch: {
         values(value) {
             this.valuesData = value;
+        },
+        searchKeyData(value) {
+            this.itemsData = this.items.filter(item =>
+                item.label.toLowerCase().startsWith(value.toLowerCase())
+            );
         }
     },
     methods: {
-        isSelected(value) {
-            return Boolean(this.valuesData[value]);
-        },
         selectItem(value) {
             if (this.isSelected(value)) return;
             this.$set(this.valuesData, value, true);
@@ -139,6 +153,9 @@ export const SelectList = {
                 this.selectItem(value);
             }
             this.$emit("update:values", this.valuesData);
+        },
+        isSelected(value) {
+            return Boolean(this.valuesData[value]);
         },
         onClick(value, index) {
             this.toggleItem(value);

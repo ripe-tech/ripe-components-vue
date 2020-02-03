@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, number, select, boolean } from "@storybook/addon-knobs";
+import { withKnobs, text, number, select, boolean } from "@storybook/addon-knobs";
 
 storiesOf("Atoms", module)
     .addDecorator(withKnobs)
@@ -19,6 +19,9 @@ storiesOf("Atoms", module)
                     "close"
                 )
             },
+            text: {
+                default: text("Text", null)
+            },
             color: {
                 default: select(
                     "Color",
@@ -34,13 +37,25 @@ storiesOf("Atoms", module)
             size: {
                 default: number("Size", 30)
             },
+            padding: {
+                default: number("Padding", null)
+            },
             disabled: {
                 default: boolean("Disabled", false)
+            },
+            loading: {
+                default: boolean("Loading", false)
             }
         },
         template: `
-            <div>
-                <button-icon v-bind:icon="icon" v-bind:color="color" v-bind:size="size" v-bind:disabled="disabled" />
-            </div>
+            <button-icon
+                v-bind:icon="icon"
+                v-bind:text="text"
+                v-bind:color="color"
+                v-bind:size="size"
+                v-bind:padding="padding"
+                v-bind:disabled="disabled"
+                v-bind:loading="loading"
+            />
         `
     }));

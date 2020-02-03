@@ -41,11 +41,11 @@
 
 .tabs > .header > .tab-label {
     border-bottom: 2px solid transparent;
-    color: $grey;
+    color: $medium-grey;
     cursor: pointer;
     display: inline-block;
     font-size: 10px;
-    font-weight: 600;
+    font-weight: 800;
     letter-spacing: 0.75px;
     line-height: 28px;
     margin-bottom: -2px;
