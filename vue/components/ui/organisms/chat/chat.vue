@@ -36,7 +36,7 @@
 @import "css/variables.scss";
 
 .chat .upload-area {
-    background-color: $grey-6;
+    background-color: $soft-blue;
     box-sizing: border-box;
     padding: 20px 20px 20px 20px;
     transition: opacity 0.125s ease-in;
