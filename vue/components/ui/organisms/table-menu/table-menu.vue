@@ -14,7 +14,7 @@
                 <div class="table-content" v-bind:style="tableStyle" ref="table-content">
                     <table-ripe
                         v-bind:columns="columns"
-                        v-bind:items="items"
+                        v-bind:items.sync="itemsData"
                         v-bind:sort.sync="sortData"
                         v-bind:sort-method="sortMethod"
                         v-bind:reverse.sync="reverseData"
@@ -244,12 +244,13 @@ export const TableMenu = {
             sortData: this.sort,
             reverseData: this.reverse,
             selectedCheckboxesData: [],
-            selectedItems: []
+            selectedItems: [],
+            itemsData: this.items
         };
     },
     computed: {
         selectedItem() {
-            return this.items[this.selectedIndexData] || {};
+            return this.itemsData[this.selectedIndexData] || {};
         },
         tableStyle() {
             const base = {};
@@ -292,8 +293,16 @@ export const TableMenu = {
         selectedCheckboxesData(value) {
             this.$emit("update:selected-checkboxes", value);
 
-            this.selectedItems =  this.items.filter((item, index) => value[index]);
+            this.selectedItems =  this.itemsData.filter((item, index) => value[index]);
             this.$emit("update:selected-items", this.selectedItems);
+        },
+        items(value)
+        {
+            this.itemsData = value;
+            console.log("table-menu wtf", value);
+        },
+        itemsData(value) {
+            this.$emit("update:items", value);
         }
     },
     methods: {
