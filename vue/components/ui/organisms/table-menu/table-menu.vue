@@ -298,7 +298,6 @@ export const TableMenu = {
         },
         items(value) {
             this.itemsData = value;
-            console.log("table-menu wtf", value);
         },
         itemsData(value) {
             this.$emit("update:items", value);
