@@ -55,17 +55,20 @@ storiesOf("Molecules", module)
                     null
                 )
             },
-            maxHeight: {
-                default: number("Max Height", 206)
-            },
             disabled: {
                 default: boolean("Disabled", false)
             },
             width: {
                 default: number("Width", null)
             },
+            maxHeight: {
+                default: number("Max Height", 206)
+            },
             dropdownMinWidth: {
                 default: number("Dropdown Min Width", null)
+            },
+            dropdownMaxWidth: {
+                default: number("Dropdown Max Width", null)
             }
         },
         data: function() {
@@ -87,14 +90,15 @@ storiesOf("Molecules", module)
                 <global />
                 <select-ripe
                     v-bind:placeholder="placeholder"
-                    v-bind:max-height="maxHeight"
-                    v-bind:disabled="disabled"
                     v-bind:options="options"
-                    v-bind:width="width"
-                    v-bind:dropdown-min-width="dropdownMinWidth"
-                    v-bind:align="align"
                     v-bind:value.sync="valueData"
+                    v-bind:disabled="disabled"
                     v-bind:visible.sync="visibleData"
+                    v-bind:align="align"
+                    v-bind:width="width"
+                    v-bind:max-height="maxHeight"
+                    v-bind:dropdown-min-width="dropdownMinWidth"
+                    v-bind:dropdown-max-width="dropdownMaxWidth"
                 >
                 </select-ripe>
                 <p>Value: {{ valueData }}, visible: {{ visibleData }}</p>
