@@ -20,6 +20,7 @@
         v-bind:auto-hide="false"
         v-if="component"
         v-bind:is="component"
+        v-bind:key="key"
         ref="component"
         v-on="listeners"
         v-on:update:visible="onUpdateVisible"
@@ -84,16 +85,13 @@ export const Alert = {
             text: null,
             task: null,
             visible: false,
-            loading: false
+            loading: false,
+            key: true
         };
     },
     mounted: function() {
         this.$bus.$on("alert", options => this.show(options));
-    },
-    computed: {
-        componentRef() {
-            return this.component ? this.$refs.component : this.$refs.modal;
-        }
+        this.$bus.$on("alert:reset", options => this.reset());
     },
     methods: {
         show(options) {
@@ -120,6 +118,7 @@ export const Alert = {
                 subTitle,
                 text,
                 task,
+                reset = true,
                 ...attrs
             } = options;
 
@@ -147,16 +146,26 @@ export const Alert = {
             this.visible = true;
             this.loading = false;
             this.component = component;
+
+            // alternate the key to force the component
+            // to be destroyed and mounted again
+            if (reset) this.reset();
+        },
+        reset() {
+            this.key = !this.key;
         },
         markDone(event) {
             this.$bus.$emit(event);
             this.visible = false;
         },
+        getComponentRef() {
+            return this.component ? this.$refs.component : this.$refs.modal;
+        },
         async confirm() {
             if (this.task) {
                 try {
                     this.loading = true;
-                    await this.task(this, this.componentRef);
+                    await this.task(this, this.getComponentRef());
                 } catch (err) {
                     console.err(err);
                 }
