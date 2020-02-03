@@ -44,6 +44,9 @@ storiesOf("Molecules", module)
             visible: {
                 default: boolean("Visible", false)
             },
+            disabled: {
+                default: boolean("Disabled", false)
+            },
             align: {
                 default: select(
                     "Align",
@@ -54,9 +57,6 @@ storiesOf("Molecules", module)
                     },
                     null
                 )
-            },
-            disabled: {
-                default: boolean("Disabled", false)
             },
             width: {
                 default: number("Width", null)
