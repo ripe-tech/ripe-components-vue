@@ -91,6 +91,7 @@ export const Alert = {
     },
     mounted: function() {
         this.$bus.$on("alert", options => this.show(options));
+        this.$bus.$on("alert:reset", options => this.reset());
     },
     methods: {
         show(options) {
@@ -148,7 +149,10 @@ export const Alert = {
 
             // alternate the key to force the component
             // to be destroyed and mounted again
-            if (reset) this.key = !this.key;
+            if (reset) this.reset();
+        },
+        reset() {
+            this.key = !this.key;
         },
         markDone(event) {
             this.$bus.$emit(event);
