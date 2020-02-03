@@ -160,11 +160,6 @@
     white-space: nowrap;
 }
 
-.rich-textarea .options .buttons {
-    align-items: center;
-    display: flex;
-}
-
 .rich-textarea > .options > .attachments > .attachment > .button-remove-attachment {
     display: inline-flex;
 }
