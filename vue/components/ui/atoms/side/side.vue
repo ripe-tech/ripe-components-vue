@@ -60,7 +60,7 @@
     left: 0px;
 }
 
-.side.left.padded {
+.side.padded {
     padding-top: 61px;
 }
 
