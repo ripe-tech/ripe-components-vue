@@ -6,7 +6,6 @@
             v-bind:values.sync="valuesLeftData"
             v-bind:min-height="selectMinHeight"
             v-bind:max-height="selectMaxHeight"
-            v-bind:title="titleLeft"
         />
         <div class="buttons">
             <div class="button-move button-move-all-right" v-on:click="onMoveAllRightClick()" />
@@ -20,12 +19,17 @@
             v-bind:values.sync="valuesRightData"
             v-bind:min-height="selectMinHeight"
             v-bind:max-height="selectMaxHeight"
-            v-bind:title="titleRight"
         />
     </div>
 </template>
 
 <style lang="scss" scoped>
+@import "css/variables.scss";
+
+.transfer-list > .select-list {
+    vertical-align: middle;
+}
+
 .transfer-list > .buttons {
     display: inline-block;
     margin: 0px 50px 0px 50px;
@@ -42,6 +46,10 @@
     height: 32px;
     margin-top: 4px;
     width: 32px;
+}
+
+.transfer-list > .buttons > .button-move:hover {
+    background-color: $white;
 }
 
 .transfer-list > .buttons > .button-move.button-move-right {
@@ -84,14 +92,6 @@ export const TransferList = {
         valuesRight: {
             type: Object,
             default: () => ({})
-        },
-        titleLeft: {
-            type: String,
-            default: null
-        },
-        titleRight: {
-            type: String,
-            default: null
         },
         selectMinHeight: {
             type: Number,

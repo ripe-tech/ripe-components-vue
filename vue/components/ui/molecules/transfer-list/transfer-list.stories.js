@@ -1,12 +1,16 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, number, text } from "@storybook/addon-knobs";
-
-import "./transfer-list.stories.css";
+import { withKnobs, number } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Transfer List", () => ({
         props: {
+            selectMinHeight: {
+                default: number("Min Height", 300)
+            },
+            selectMaxHeight: {
+                default: number("Max Height", 300)
+            },
             itemsLeft: {
                 type: Array,
                 default: () => [
@@ -38,20 +42,6 @@ storiesOf("Molecules", module)
             valuesRight: {
                 type: Object,
                 default: () => ({})
-            },
-            titleLeft: {
-                type: String,
-                default: text("left title")
-            },
-            titleRight: {
-                type: String,
-                default: text("Right tilte")
-            },
-            selectMinHeight: {
-                default: number("Min Height", 300)
-            },
-            selectMaxHeight: {
-                default: number("Max Height", 300)
             }
         },
         data: function() {
@@ -65,15 +55,12 @@ storiesOf("Molecules", module)
         template: `
             <div class="transfer-list-stories">
                 <transfer-list
+                    v-bind:select-min-height="selectMinHeight"
+                    v-bind:select-max-height="selectMaxHeight"
                     v-bind:items-left.sync="itemsLeftData"
                     v-bind:values-left.sync="valuesLeftData"
                     v-bind:items-right.sync="itemsRightData"
                     v-bind:values-right.sync="valuesRightData"
-                    v-bind:title-left="titleLeft"
-                    v-bind:title-right="titleRight"
-                    v-bind:select-min-height="selectMinHeight"
-                    v-bind:select-max-height="selectMaxHeight"
-
                 />
                 <p>Items Left: {{ itemsLeftData }}</p>
                 <p>Selected Left: {{ valuesLeftData }}</p>
