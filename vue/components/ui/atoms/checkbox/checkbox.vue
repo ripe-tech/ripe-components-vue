@@ -19,22 +19,22 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.choice {
-    display: block;
-    line-height: 13px;
+.checkbox {
+    display: inline-block;
+    font-size: 0px;
     outline: none;
     user-select: none;
 }
 
-.choice > .checkbox-input {
+.checkbox > .checkbox-input {
     display: inline-block;
 }
 
-.choice > .checkbox-input > .value {
+.checkbox > .checkbox-input > .value {
     display: none;
 }
 
-.choice > .checkbox-input > .checkbox-square {
+.checkbox > .checkbox-input > .checkbox-square {
     background-color: #fafbfc;
     background-position: center center;
     background-repeat: no-repeat;
@@ -53,7 +53,7 @@
     padding: 3px 3px 3px 3px;
 }
 
-.choice.error > .checkbox-input > .checkbox-square {
+.checkbox.error > .checkbox-input > .checkbox-square {
     background-color: #f4f5f7;
     border: 2px solid $dark-red;
 }
@@ -81,11 +81,11 @@
     padding: 3px 3px 3px 3px;
 }
 
-.choice:focus:not(.disabled) > .checkbox-input > .checkbox-square {
+.checkbox:focus:not(.disabled) > .checkbox-input > .checkbox-square {
     border-color: $aqcua-blue;
 }
 
-.choice > .checkbox-input > .label {
+.checkbox > .checkbox-input > .label {
     color: $grey;
     cursor: pointer;
     display: inline-block;
@@ -95,7 +95,7 @@
     vertical-align: middle;
 }
 
-.choice.disabled > .checkbox-input > .label {
+.checkbox.disabled > .checkbox-input > .label {
     cursor: default;
     opacity: 0.6;
 }
@@ -186,11 +186,11 @@ export const Checkbox = {
         onClick() {
             this.toggle();
         },
-        onSpace(item) {
-            this.toggleItem(item);
+        onMouseDown() {
+            this.active = true;
         },
-        onClick(item) {
-            this.toggleItem(item);
+        onMouseUp() {
+            this.active = false;
         }
     }
 };

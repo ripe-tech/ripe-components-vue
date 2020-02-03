@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, boolean } from "@storybook/addon-knobs";
+import { withKnobs, boolean, text, select, number } from "@storybook/addon-knobs";
 
 storiesOf("Atoms", module)
     .addDecorator(withKnobs)
@@ -34,47 +34,19 @@ storiesOf("Atoms", module)
                     null
                 )
             },
-            items: {
-                default: () => [
-                    {
-                        label: "Japan",
-                        value: "japan"
-                    },
-                    {
-                        label: "Morocco",
-                        value: "morocco"
-                    },
-                    {
-                        value: "Canada"
-                    },
-                    {
-                        value: "China"
-                    },
-                    {
-                        label: "Dubai",
-                        value: "dubai"
-                    },
-                    {
-                        label: "Bali",
-                        value: "bali",
-                        disabled: true
-                    },
-                    {
-                        label: "Tibet",
-                        value: "tibet"
-                    }
-                ]
+            size: {
+                default: number("Size", 4)
             }
         },
         data: function() {
             return {
-                valuesData: {
-                    japan: true,
-                    China: true,
-                    dubai: true,
-                    Canada: true
-                }
+                checkedData: this.checked
             };
+        },
+        watch: {
+            checked(value) {
+                this.checkedData = value;
+            }
         },
         template: `
             <div>
