@@ -1,9 +1,9 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, select, number, boolean } from "@storybook/addon-knobs";
+import { withKnobs, text, select, number, boolean } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
-    .add("Content Menu", () => ({
+    .add("Container Menu", () => ({
         props: {
             alignment: {
                 default: select(
@@ -27,13 +27,16 @@ storiesOf("Molecules", module)
                 )
             },
             menuVisible: {
-                default: boolean("Visible menu", true)
+                default: boolean("Visible Menu", true)
             },
             menuWidth: {
-                default: number("Menu width", 200)
+                default: number("Menu Width", 200)
             },
             animationDuration: {
-                default: number("Animation duration", 0.3)
+                default: number("Animation Duration", 0.3)
+            },
+            animationFunction: {
+                default: text("Animation Function", "ease-in-out")
             }
         },
         data: function() {
@@ -52,12 +55,13 @@ storiesOf("Molecules", module)
             }
         },
         template: `
-            <content-menu
+            <container-menu
                 v-bind:alignment="alignment" 
                 v-bind:mode="mode" 
-                v-bind:menuVisible.sync="menuVisibleData" 
-                v-bind:menuWidth="menuWidth"
-                v-bind:animationDuration="animationDuration"
+                v-bind:menu-visible.sync="menuVisibleData" 
+                v-bind:menu-width="menuWidth"
+                v-bind:animation-duration="animationDuration"
+                v-bind:animation-function="animationFunction"
             >
                 <template v-slot:content>
                     <p>This is the actual content</p>
@@ -69,6 +73,6 @@ storiesOf("Molecules", module)
                         <p>This is a contextual menu</p>           
                     </div>
                 </template>
-            </content-menu>
+            </container-menu>
         `
     }));

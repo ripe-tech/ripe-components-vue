@@ -1,6 +1,6 @@
 <template>
     <div
-        class="content-menu"
+        class="container-menu"
         v-bind:class="[menuVisible ? 'menu-visible' : 'menu-invisible', mode, `align-${alignment}`]"
     >
         <div class="content">
@@ -15,54 +15,54 @@
 <style scoped lang="scss">
 @import "css/variables.scss";
 
-.content-menu {
+.container-menu {
     display: flex;
 }
 
-.content-menu.floating {
+.container-menu.floating {
     position: relative;
 }
 
-.content-menu .content {
+.container-menu .content {
     display: inline-block;
     flex: 1 0;
 }
 
-.content-menu.align-left .content {
+.container-menu.align-left .content {
     order: 1;
 }
 
-.content-menu .menu {
+.container-menu .menu {
     display: inline-block;
     overflow-x: hidden;
     overflow-y: auto;
     white-space: nowrap;
 }
 
-.content-menu.collapse.menu-invisible .menu,
-.content-menu.floating.menu-invisible .menu {
+.container-menu.collapse.menu-invisible .menu,
+.container-menu.floating.menu-invisible .menu {
     width: 0px;
 }
 
-.content-menu.floating .menu {
+.container-menu.floating .menu {
     height: 100%;
     position: absolute;
     top: 0px;
-    z-index: 10;
+    z-index: 1;
 }
 
-.content-menu.floating.align-left .menu {
+.container-menu.floating.align-left .menu {
     left: 0px;
 }
 
-.content-menu.floating.align-right .menu {
+.container-menu.floating.align-right .menu {
     right: 0px;
 }
 </style>
 
 <script>
-export const ContentMenu = {
-    name: "content-menu",
+export const ContainerMenu = {
+    name: "container-menu",
     props: {
         alignment: {
             type: String,
@@ -83,6 +83,10 @@ export const ContentMenu = {
         animationDuration: {
             type: Number,
             default: 0.3
+        },
+        animationFunction: {
+            type: String,
+            default: "ease-in-out"
         }
     },
     computed: {
@@ -90,12 +94,12 @@ export const ContentMenu = {
             const menuVisible = this.mode === "fixed" ? true : this.menuVisible;
             const base = {
                 width: this.menuWidth === null || !menuVisible ? null : `${this.menuWidth}px`,
-                transition: `width ${this.animationDuration}s ease-in-out`
+                transition: `width ${this.animationDuration}s ${this.animationFunction}`
             };
             return base;
         }
     }
 };
 
-export default ContentMenu;
+export default ContainerMenu;
 </script>

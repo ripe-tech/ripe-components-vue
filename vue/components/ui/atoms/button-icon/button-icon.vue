@@ -74,6 +74,9 @@
 .button-icon > img {
     height: 100%;
     opacity: 0.5;
+}
+
+.button-icon.button-icon-text > img {
     vertical-align: middle;
 }
 
@@ -167,7 +170,8 @@ export const ButtonIcon = {
         },
         classes() {
             const base = {
-                disabled: this.disabled
+                disabled: this.disabled,
+                "button-icon-text": Boolean(this.text)
             };
             if (this.color) base["button-icon-" + this.color] = this.color;
             return base;
