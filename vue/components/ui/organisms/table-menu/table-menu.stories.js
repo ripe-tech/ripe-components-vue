@@ -95,7 +95,7 @@ storiesOf("Organisms", module)
                 default: color("Menu background color", "#ffffff")
             },
             animationDuration: {
-                default: number("Animation timeout", 0.3)
+                default: number("Animation duration", 0.3)
             },
             inputVariant: {
                 default: select(

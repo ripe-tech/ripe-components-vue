@@ -200,11 +200,11 @@ export const TableMenu = {
         },
         menuMode: {
             type: String,
-            default: "collapse"
+            required: false
         },
         menuAlignment: {
             type: String,
-            default: "right"
+            required: false
         },
         maxHeight: {
             type: Number,
@@ -216,7 +216,7 @@ export const TableMenu = {
         },
         menuTitle: {
             type: String,
-            default: "Arguments"
+            required: false
         },
         tableTitle: {
             type: String,
@@ -236,7 +236,7 @@ export const TableMenu = {
         },
         animationDuration: {
             type: Number,
-            default: 0.3
+            required: false
         }
     },
     data: function() {
