@@ -44,6 +44,7 @@
             <template v-for="(item, index) in sortedItems">
                 <slot name="before-row" v-bind:item="item" v-bind:index="index" />
                 <tr
+                    v-bind:class="{ selected: isRowSelected(item._originalIndex) }"
                     v-bind:key="item.id"
                     v-on:click.exact="onRowClick(item, index)"
                     v-on:click.ctrl.exact="onRowCtrlClick(index)"
@@ -309,10 +310,6 @@ export const Table = {
                 });
             }
         },
-        transition: {
-            type: String,
-            default: null
-        },
         sort: {
             type: String,
             default: null
@@ -320,6 +317,10 @@ export const Table = {
         reverse: {
             type: Boolean,
             default: false
+        },
+        transition: {
+            type: String,
+            default: null
         },
         alignment: {
             type: String,
@@ -416,6 +417,9 @@ export const Table = {
     methods: {
         itemsWithIndex() {
             return this.items.map((item, index) => ({ _originalIndex: index, ...item }));
+        },
+        isRowSelected(originalIndex) {
+            return this.allowSelectedHighlight && originalIndex === this.selectedOriginalIndex;
         },
         itemsChangeHandler(items, itemsNrDiff) {
             // TODO check this and change to work with new checkedItems refactor
