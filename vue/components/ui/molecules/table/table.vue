@@ -338,20 +338,21 @@ export const Table = {
             this.sortData = value;
         },
         items(value) {
-            const addedItemsNr = value.length - this.itemsData.length;
+            const itemsNrDiff = value.length - this.itemsData.length;
 
-            this.itemsData = value.map((item, index) => {
-                return Object.assign(item, {
-                    _originalIndex: this.itemsData[index]
-                        ? this.itemsData[index]._originalIndex
-                        : null,
-                    _checkboxIndex: this.itemsData[index]
-                        ? this.itemsData[index]._checkboxIndex
-                        : null
-                });
-            });
+            this.itemsData = this.initLazyLoadedItems([...value], itemsNrDiff);
 
-            this.itemsData = this.initLazyLoadedItems(this.itemsData, addedItemsNr);
+
+            //const testItem = this.findItemByOriginalIndex(2, this.itemsData);
+            //console.log("testItem", testItem);
+
+            //const {_checkboxIndex, _originalIndex, ...testItem} = this.itemsData[1];
+            //console.log(testItem);
+
+            /* const itemFound = this.findItemTest(
+                {},
+                this.itemsData);
+            console.log("itemFound", itemFound); */
         },
         reverse(value) {
             this.reverseData = value;
@@ -421,18 +422,87 @@ export const Table = {
                 return Boolean(this.selectedCheckboxes[index]);
             });
         },
-        initLazyLoadedItems(items, addedItemsNr) {
-            if (addedItemsNr < 1) return items;
+        initLazyLoadedItems(items, itemsNrDiff) {
+            if (itemsNrDiff === 0) return items;
+            else if (itemsNrDiff > 0) {
+                let item = null;
+                for (let i = items.length - itemsNrDiff; i < items.length; i++) {
+                    item = items[i];
+                    item._originalIndex = items[i]._checkboxIndex = i;
+                    this.$set(this.selectedCheckboxesData, i, false);
+                }
+            } else {
+                console.log("Removed !");
+                console.log("items", items);
+                console.log("itemsData", this.itemsData);
 
-            let item = null;
-            for (let i = items.length - addedItemsNr; i < items.length; i++) {
-                item = items[i];
-                item._originalIndex = items[i]._checkboxIndex = i;
-                this.$set(this.selectedCheckboxesData, i, false);
+
+                const arr = [];
+                const unsortedCheckboxes = [...this.selectedCheckboxesData];
+
+                let item = null;
+                for (let i = 0; i < items.length; i++) {
+                    const item = this.findItemByOriginalIndex(items[i]._originalIndex, this.itemsData);
+                    console.log("item", item);
+                    if(item !== null) {
+                        this.$set(this.selectedCheckboxesData, i, unsortedCheckboxes[item._checkboxIndex]);
+                        item._originalIndex = item._checkboxIndex = i;
+                        arr.push(item);
+                    }
+                }
+
+                
+                console.log(arr);
+
+
+
+                this.$emit("update:items", arr);
+                return arr;
+
+
+
+
+
+
+
+
+
+                /* items = items.map((item, index) => {
+                    const temp = this.itemsData.find(
+                        value => {
+                            const { _checkboxIndex, _originalIndex, ...originalValue } = value;
+                            const newValue = item;
+                            delete newValue._originalIndex;
+                            delete newValue._checkboxIndex;
+                            return JSON.stringify(newValue) === JSON.stringify(originalValue);
+                        }
+                    );
+                    return Object.assign(item, {
+                        _originalIndex: index,
+                        _checkboxIndex: temp ? temp._checkboxIndex : null
+                    });
+                }); */
             }
-
             return items;
         },
+        findItemByOriginalIndex(originalIndex, items)
+        {
+            const item = items.find(item => item._originalIndex === originalIndex);
+            return item || null; 
+        },
+/*         findItemTest(item, items) {
+            console.log("wtf");
+            const { _checkboxIndex, _originalIndex, ...originalItem } = item;
+
+            const itemFound = items.find(value => {
+                const { _checkboxIndex, _originalIndex, ...originalArrItem } = value;
+                const bool = JSON.stringify(originalItem) === JSON.stringify(originalArrItem);
+                debugger;
+                return true;
+            });
+
+            return itemFound;
+        }, */
         selectionChange() {
             if (this.isAllChecked) {
                 this.globalCheckboxIcon = "check";
