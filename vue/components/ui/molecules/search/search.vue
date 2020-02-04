@@ -41,6 +41,7 @@
             class="icon-clear"
             v-bind:icon="'close'"
             v-bind:color="'none'"
+            v-bind:size="24"
             v-if="clearButtonVisible"
             v-on:click="onClearIconClick"
         />
@@ -125,7 +126,7 @@
 .search .icon-clear {
     position: absolute;
     right: 5px;
-    top: 3px;
+    top: 5px;
 }
 
 .search > .suggestions {
