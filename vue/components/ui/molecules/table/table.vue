@@ -35,7 +35,7 @@
                     <td class="checkbox-td" v-if="enableCheckboxes">
                         <checkbox
                             v-bind:size="8"
-                            v-bind:checked.sync="selectedCheckboxesData[index]"
+                            v-bind:checked.sync="checkedItemsData[item._originalIndex]"
                             v-on:click.native.exact.stop
                         />
                     </td>
@@ -271,9 +271,9 @@ export const Table = {
             type: Boolean,
             default: false
         },
-        selectedCheckboxes: {
-            type: Array,
-            default: () => []
+        checkedItems: {
+            type: Object,
+            default: () => {}
         },
         sortMethod: {
             type: Function,
@@ -312,12 +312,12 @@ export const Table = {
     },
     data: function() {
         return {
-            itemsData: this.enableCheckboxes ? this.checkableItems() : this.itemsWithIndex(),
+            itemsData: this.itemsWithIndex(),
             sortData: this.sort,
             reverseData: this.reverse,
             globalCheckboxValueData: false,
             globalCheckboxIcon: "check",
-            selectedCheckboxesData: this.enableCheckboxes ? this.selectedCheckboxes : [],
+            checkedItemsData: this.enableCheckboxes ? this.checkedItems : {},
             selectedOriginalIndex: null
         };
     },
@@ -333,12 +333,16 @@ export const Table = {
         reverse(value) {
             this.reverseData = value;
         },
-        selectedCheckboxes(value) {
-            this.selectedCheckboxesData = value;
+        checkedItems(value) {
+            this.checkedItemsData = value;
         },
-        selectedCheckboxesData(value) {
-            this.selectionChange();
-            this.$emit("update:selected-checkboxes", this.selectedCheckboxesData);
+        checkedItemsData: {
+            immediate: true,
+            deep: true,
+            handler(value) {
+                this.selectionChange();
+                this.$emit("update:checked-items", value);
+            }
         }
     },
     computed: {
@@ -349,7 +353,7 @@ export const Table = {
 
             const items = [...this.itemsData];
             const sortedItems = this.sortMethod(items, this.sortData, this.reverseData);
-            this.sortCheckboxes(sortedItems);
+            //this.sortCheckboxes(sortedItems); TODO
 
             return sortedItems;
         },
@@ -366,28 +370,18 @@ export const Table = {
             return base;
         },
         isAllChecked() {
-            return (
-                this.selectedCheckboxesData.length > 0 &&
-                !this.selectedCheckboxesData.some(value => value === false || value === undefined)
-            );
+            return Object.values(this.checkedItemsData).length === this.itemsData.length && !Object.values(this.checkedItemsData).includes(false);
         },
         isAllUnchecked() {
-            return !this.selectedCheckboxesData.some(value => value === true);
+            return !Object.values(this.checkedItemsData).includes(true);
         }
     },
     methods: {
         itemsWithIndex() {
             return this.items.map((item, index) => ({ _originalIndex: index, ...item }));
         },
-        checkableItems() {
-            return this.itemsWithIndex().map((item, index) => ({ ...item, _checkboxIndex: index }));
-        },
-        initialSelectedCheckboxes() {
-            return new Array(this.items.length).fill(false).map((value, index) => {
-                return Boolean(this.selectedCheckboxes[index]);
-            });
-        },
         itemsChangeHandler(items, itemsNrDiff) {
+             //TODO check this and change to work with new checkedItems refactor
             if (itemsNrDiff === 0) return items;
             else if (itemsNrDiff > 0) {
                 let item = null;
@@ -445,7 +439,7 @@ export const Table = {
             this.$emit("update:sort", this.sortData);
             this.$emit("update:reverse", this.reverseData);
         },
-        sortCheckboxes(sortedItems) {
+/*         sortCheckboxes(sortedItems) {
             const unsortedCheckboxes = [...this.selectedCheckboxesData];
             sortedItems.forEach((item, index) => {
                 this.$set(
@@ -455,9 +449,12 @@ export const Table = {
                 );
                 item._checkboxIndex = index;
             });
-        },
+        }, */
         onGlobalCheckbox(value) {
-            this.selectedCheckboxesData = new Array(this.items.length).fill(value);
+            this.checkedItemsData = {};
+            this.itemsData.forEach(item => {
+                this.checkedItemsData[item._originalIndex] = value;
+            });
         },
         onClick(item, index) {
             this.selectedOriginalIndex =
@@ -467,9 +464,6 @@ export const Table = {
                     : null;
             this.$emit("click", item, this.selectedOriginalIndex, index);
         }
-    },
-    mounted: function() {
-        this.selectedCheckboxesData = this.initialSelectedCheckboxes();
     }
 };
 
