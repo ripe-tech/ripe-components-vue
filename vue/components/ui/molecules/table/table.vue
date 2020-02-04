@@ -340,19 +340,7 @@ export const Table = {
         items(value) {
             const itemsNrDiff = value.length - this.itemsData.length;
 
-            this.itemsData = this.initLazyLoadedItems([...value], itemsNrDiff);
-
-
-            //const testItem = this.findItemByOriginalIndex(2, this.itemsData);
-            //console.log("testItem", testItem);
-
-            //const {_checkboxIndex, _originalIndex, ...testItem} = this.itemsData[1];
-            //console.log(testItem);
-
-            /* const itemFound = this.findItemTest(
-                {},
-                this.itemsData);
-            console.log("itemFound", itemFound); */
+            this.itemsData = this.itemsChangeHandler([...value], itemsNrDiff);
         },
         reverse(value) {
             this.reverseData = value;
@@ -422,7 +410,7 @@ export const Table = {
                 return Boolean(this.selectedCheckboxes[index]);
             });
         },
-        initLazyLoadedItems(items, itemsNrDiff) {
+        itemsChangeHandler(items, itemsNrDiff) {
             if (itemsNrDiff === 0) return items;
             else if (itemsNrDiff > 0) {
                 let item = null;
@@ -432,57 +420,27 @@ export const Table = {
                     this.$set(this.selectedCheckboxesData, i, false);
                 }
             } else {
-                console.log("Removed !");
-                console.log("items", items);
-                console.log("itemsData", this.itemsData);
-
-
-                const arr = [];
                 const unsortedCheckboxes = [...this.selectedCheckboxesData];
 
-                let item = null;
+                let itemFound = null;
                 for (let i = 0; i < items.length; i++) {
-                    const item = this.findItemByOriginalIndex(items[i]._originalIndex, this.itemsData);
-                    console.log("item", item);
-                    if(item !== null) {
-                        this.$set(this.selectedCheckboxesData, i, unsortedCheckboxes[item._checkboxIndex]);
-                        item._originalIndex = item._checkboxIndex = i;
-                        arr.push(item);
+                    itemFound =
+                        this.itemsData.find(
+                            item => items[i]._originalIndex === item._originalIndex
+                        ) || null;
+                    if (itemFound !== null) {
+                        this.$set(
+                            this.selectedCheckboxesData,
+                            i,
+                            unsortedCheckboxes[itemFound._checkboxIndex]
+                        );
+                        itemFound._originalIndex = itemFound._checkboxIndex = i;
+                        items[i] = itemFound;
                     }
                 }
-
-                
-                console.log(arr);
-
-
-
-                this.$emit("update:items", arr);
-                return arr;
-
-
-
-
-
-
-
-
-
-                /* items = items.map((item, index) => {
-                    const temp = this.itemsData.find(
-                        value => {
-                            const { _checkboxIndex, _originalIndex, ...originalValue } = value;
-                            const newValue = item;
-                            delete newValue._originalIndex;
-                            delete newValue._checkboxIndex;
-                            return JSON.stringify(newValue) === JSON.stringify(originalValue);
-                        }
-                    );
-                    return Object.assign(item, {
-                        _originalIndex: index,
-                        _checkboxIndex: temp ? temp._checkboxIndex : null
-                    });
-                }); */
             }
+
+            this.$emit("update:items", items);
             return items;
         },
         findItemByOriginalIndex(originalIndex, items)
