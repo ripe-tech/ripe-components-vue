@@ -420,24 +420,21 @@ export const Table = {
                     this.$set(this.selectedCheckboxesData, i, false);
                 }
             } else {
-                const unsortedCheckboxes = [...this.selectedCheckboxesData];
+                const unchangedCheckboxes = [...this.selectedCheckboxesData];
 
                 let itemFound = null;
                 for (let i = 0; i < items.length; i++) {
-                    itemFound =
-                        this.itemsData.find(
-                            item => items[i]._originalIndex === item._originalIndex
-                        ) || null;
-                    if (itemFound !== null) {
-                        this.$set(
-                            this.selectedCheckboxesData,
-                            i,
-                            unsortedCheckboxes[itemFound._checkboxIndex]
-                        );
+                    itemFound =this.itemsData.find(item => items[i]._originalIndex === item._originalIndex);
+                    
+                    if (itemFound !== undefined) {
+                        this.$set(this.selectedCheckboxesData, i, unchangedCheckboxes[itemFound._checkboxIndex]);
                         itemFound._originalIndex = itemFound._checkboxIndex = i;
                         items[i] = itemFound;
                     }
                 }
+
+                const removedItemsNr = itemsNrDiff*-1
+                for(let j=0; j < removedItemsNr; j++) this.selectedCheckboxesData.pop();
             }
 
             this.$emit("update:items", items);
