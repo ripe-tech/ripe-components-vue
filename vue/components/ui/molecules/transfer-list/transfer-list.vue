@@ -1,11 +1,10 @@
 <template>
-    <div class="transfer-list">
+    <div class="transfer-list" v-bind:style="style">
         <select-list
             class="select-list"
             v-bind:items="itemsLeftData"
             v-bind:values.sync="valuesLeftData"
-            v-bind:min-height="selectMinHeight"
-            v-bind:max-height="selectMaxHeight"
+            v-bind:search="search"
         />
         <div class="buttons">
             <div class="button-move button-move-all-right" v-on:click="onMoveAllRightClick()" />
@@ -17,14 +16,17 @@
             class="select-list"
             v-bind:items="itemsRightData"
             v-bind:values.sync="valuesRightData"
-            v-bind:min-height="selectMinHeight"
-            v-bind:max-height="selectMaxHeight"
+            v-bind:search="search"
         />
     </div>
 </template>
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
+
+.transfer-list {
+    height: 288px;
+}
 
 .transfer-list > .select-list {
     vertical-align: middle;
@@ -93,11 +95,11 @@ export const TransferList = {
             type: Object,
             default: () => ({})
         },
-        selectMinHeight: {
-            type: Number,
-            default: null
+        search: {
+            type: Boolean,
+            default: false
         },
-        selectMaxHeight: {
+        height: {
             type: Number,
             default: null
         }
@@ -109,6 +111,12 @@ export const TransferList = {
             itemsLeftData: this.itemsLeft,
             itemsRightData: this.itemsRight
         };
+    },
+    computed: {
+        style() {
+            const base = { height: this.height ? `${this.height}px` : null };
+            return base;
+        }
     },
     watch: {
         valuesLeft(value) {

@@ -1,18 +1,18 @@
 <template>
-    <div class="select-list" tabindex="0" v-bind:class="classes">
+    <div class="select-list" v-bind:class="classes">
         <div class="select-list-search" v-if="search">
             <search
                 class="search-container"
                 v-bind:icon-visible="true"
                 v-bind:clear-visible="true"
-                v-bind:value.sync="searchKeyData"
+                v-bind:value.sync="filter"
             />
         </div>
-        <ul class="select-list-items" v-bind:style="style" v-if="itemsData && itemsData.length > 0">
+        <ul class="select-list-items" v-bind:style="style" v-if="filteredItems && filteredItems.length > 0">
             <li
                 class="select-list-item"
                 v-bind:class="{ selected: isSelected(item.value) }"
-                v-for="(item, index) in itemsData"
+                v-for="(item, index) in filteredItems"
                 v-bind:key="index"
                 v-on:click.exact="onClick(item.value, index)"
                 v-on:click.shift="onShiftClick(item.value, index)"
@@ -33,7 +33,6 @@
     display: inline-block;
     font-size: 13px;
     font-weight: 600;
-    outline: none;
     width: 320px;
 }
 
@@ -109,8 +108,7 @@ export const SelectList = {
         return {
             valuesData: this.values,
             lastSelected: null,
-            itemsData: this.items,
-            searchKeyData: ""
+            filter: ""
         };
     },
     computed: {
@@ -123,16 +121,16 @@ export const SelectList = {
         classes() {
             const base = { "select-list-search": this.search };
             return base;
+        },
+        filteredItems() {
+            return this.items.filter(item =>
+                item.label.toLowerCase().startsWith(this.filter.toLowerCase())
+            );
         }
     },
     watch: {
         values(value) {
             this.valuesData = value;
-        },
-        searchKeyData(value) {
-            this.itemsData = this.items.filter(item =>
-                item.label.toLowerCase().startsWith(value.toLowerCase())
-            );
         }
     },
     methods: {

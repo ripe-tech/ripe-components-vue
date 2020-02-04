@@ -1,15 +1,15 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, number } from "@storybook/addon-knobs";
+import { withKnobs, boolean, number } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Transfer List", () => ({
         props: {
-            selectMinHeight: {
-                default: number("Min Height", 300)
+            search: {
+                default: boolean("Search", false)
             },
-            selectMaxHeight: {
-                default: number("Max Height", 300)
+            height: {
+                default: number("Height", 288)
             },
             itemsLeft: {
                 type: Array,
@@ -55,8 +55,8 @@ storiesOf("Molecules", module)
         template: `
             <div class="transfer-list-stories">
                 <transfer-list
-                    v-bind:select-min-height="selectMinHeight"
-                    v-bind:select-max-height="selectMaxHeight"
+                    v-bind:search="search"
+                    v-bind:height="height"
                     v-bind:items-left.sync="itemsLeftData"
                     v-bind:values-left.sync="valuesLeftData"
                     v-bind:items-right.sync="itemsRightData"
