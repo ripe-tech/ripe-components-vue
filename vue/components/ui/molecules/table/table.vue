@@ -348,7 +348,6 @@ export const Table = {
             immediate: true,
             deep: true,
             handler: function(value) {
-                console.log("ffff");
                 this.selectionChange();
                 this.$emit("update:checked-items", value);
             }
@@ -465,7 +464,7 @@ export const Table = {
         onGlobalCheckbox(value) {
             this.checkedItemsData = {};
             this.itemsData.forEach(item => {
-                this.checkedItemsData[item._originalIndex] = value;
+                this.$set(this.checkedItemsData, item._originalIndex, value);
             });
         },
         onClick(item, index) {
