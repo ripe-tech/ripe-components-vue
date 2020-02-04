@@ -42,12 +42,16 @@
     background-color: #f9fafd;
     background-position: center;
     background-repeat: no-repeat;
-    border: 2px solid #e4e8f0;
+    border: 1px solid #e4e8f0;
     border-radius: 6px;
     cursor: pointer;
     height: 32px;
-    margin-top: 4px;
+    margin-top: 10px;
     width: 32px;
+}
+
+.transfer-list > .buttons > .button-move:first-child {
+    margin-top: 0px;
 }
 
 .transfer-list > .buttons > .button-move:hover {

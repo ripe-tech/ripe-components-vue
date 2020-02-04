@@ -8,7 +8,11 @@
                 v-bind:value.sync="filter"
             />
         </div>
-        <ul class="select-list-items" v-bind:style="style" v-if="filteredItems && filteredItems.length > 0">
+        <ul
+            class="select-list-items"
+            v-bind:style="style"
+            v-if="filteredItems && filteredItems.length > 0"
+        >
             <li
                 class="select-list-item"
                 v-bind:class="{ selected: isSelected(item.value) }"
@@ -29,11 +33,11 @@
 .select-list {
     border: 1px solid #e4e8f0;
     border-radius: 6px 6px 6px 6px;
-    box-shadow: 0px 6px 24px 0px rgba(128, 128, 128, 0.4);
+    box-shadow: 0px 6px 18px 0px rgba(196, 196, 196, 0.3);
     display: inline-block;
-    height: 100%;
     font-size: 13px;
     font-weight: 600;
+    height: 100%;
     width: 320px;
 }
 
@@ -57,7 +61,7 @@
 .select-list.select-list-search > .select-list-items {
     border-radius: 0px 0px 6px 6px;
     border-top: 1px solid $light-white;
-    height: calc(100% - 61);
+    height: calc(100% - 61px);
 }
 
 .select-list > .select-list-items > .select-list-item {
