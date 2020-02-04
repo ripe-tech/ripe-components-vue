@@ -5,6 +5,47 @@ storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Table", () => ({
         props: {
+            mockColumns: {
+                type: Array,
+                default: () => [
+                    { value: "id", label: "ID" },
+                    { value: "user", label: "User" },
+                    { value: "system", label: "System" }
+                ]
+            },
+            mockItems: {
+                default: () => [
+                    {
+                        id: 1,
+                        user: "Bill Gates",
+                        system: "Windows"
+                    },
+                    {
+                        id: 2,
+                        user: "Steve Jobs",
+                        system: "Macintosh"
+                    },
+                    {
+                        id: 3,
+                        user: "Linus Torvalds",
+                        system: "Linux"
+                    },
+                    {
+                        id: 4,
+                        user: "Terry A. Davis",
+                        system: "TempleOS"
+                    }
+                ]
+            },
+            enableCheckboxes: {
+                default: () => boolean("Enable checkboxes", true)
+            },
+            checkedItems: {
+                type: Object,
+                default: () => {
+                    return { 0: true, 1: false, 2: true };
+                }
+            },
             sort: {
                 default: select(
                     "Sort Column",
@@ -42,54 +83,16 @@ storiesOf("Molecules", module)
                     null
                 )
             },
-            mockItems: {
-                default: () => [
-                    {
-                        id: 1,
-                        user: "Bill Gates",
-                        system: "Windows"
-                    },
-                    {
-                        id: 2,
-                        user: "Steve Jobs",
-                        system: "Macintosh"
-                    },
-                    {
-                        id: 3,
-                        user: "Linus Torvalds",
-                        system: "Linux"
-                    },
-                    {
-                        id: 4,
-                        user: "Terry A. Davis",
-                        system: "TempleOS"
-                    }
-                ]
-            },
-            mockColumns: {
-                type: Array,
-                default: () => [
-                    { value: "id", label: "ID" },
-                    { value: "user", label: "User" },
-                    { value: "system", label: "System" }
-                ]
-            },
-            enableCheckboxes: {
-                default: () => boolean("Enable checkboxes", true)
-            },
-            selectedCheckboxes: {
-                type: Array,
-                default: () => [true, false, true]
-            },
             allowSelectedHighlight: {
-                default: () => boolean("Allow selected highlight", false)
+                default: () => boolean("Allow selection highlight", false)
             }
         },
         data: function() {
             return {
-                reverseData: this.reverse,
+                itemsData: this.mockItems,
+                checkedItemsData: this.checkedItems,
                 sortData: this.sort,
-                selectedCheckboxesData: this.selectedCheckboxes
+                reverseData: this.reverse
             };
         },
         watch: {
@@ -105,17 +108,18 @@ storiesOf("Molecules", module)
                 <table-ripe
                     class="table"
                     v-bind:columns="mockColumns"
-                    v-bind:items="mockItems"
-                    v-bind:enableCheckboxes="enableCheckboxes"
-                    v-bind:selectedCheckboxes.sync="selectedCheckboxesData"s
+                    v-bind:items.sync="itemsData"
+                    v-bind:enable-checkboxes="enableCheckboxes"
+                    v-bind:checked-items.sync="checkedItemsData"
                     v-bind:sort.sync="sortData"
                     v-bind:reverse.sync="reverseData"
                     v-bind:alignment="alignment"
                     v-bind:variant="variant"
-                    v-bind:allow-selected-highlight="allowSelectedHighlight"                    
+                    v-bind:allow-selected-highlight="allowSelectedHighlight"
                 />
-                <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}</p>
-                <p>Selected checkboxes: {{ selectedCheckboxesData }}</p>
+                <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}</p><br>
+                <p>Items: {{ itemsData }}</p><br>
+                <p>Checked Items: {{ checkedItemsData }}</p>
             </div>
         `
     }));
