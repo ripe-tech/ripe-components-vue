@@ -126,15 +126,22 @@ storiesOf("Organisms", module)
                 default: () => boolean("Reverse", null)
             },
             enableCheckboxes: {
-                default: boolean("Enable Checkboxes", true)
+                default: () => boolean("Enable checkboxes", true)
+            },
+            checkedItems: {
+                type: Object,
+                default: () => {
+                    return { 0: true, 1: false, 2: true };
+                }
             }
         },
         data: function() {
             return {
+                itemsData: this.mockItems,
+                checkedItemsData: this.checkedItems,
                 reverseData: this.reverse,
                 sortData: this.sort,
-                menuVisibleData: this.menuVisible,
-                selectedCheckboxesData: []
+                menuVisibleData: this.menuVisible
             };
         },
         watch: {
@@ -151,9 +158,11 @@ storiesOf("Organisms", module)
         template: `
             <div>
                 <table-menu
-                    v-bind:items="mockItems"
+                    v-bind:items.sync="itemsData"
                     v-bind:columns="mockColumns"
                     v-bind:edit-columns="editColumns"
+                    v-bind:enable-checkboxes="enableCheckboxes"
+                    v-bind:checked-items.sync="checkedItemsData"
                     v-bind:selected-index="selectedIndex"
                     v-bind:table-title="tableTitle" 
                     v-bind:menu-title="menuTitle" 
@@ -166,12 +175,11 @@ storiesOf("Organisms", module)
                     v-bind:input-variant="inputVariant"
                     v-bind:sort.sync="sortData"
                     v-bind:reverse.sync="reverseData"
-                    v-bind:enable-checkboxes="enableCheckboxes"
-                    v-bind:selected-checkboxes.sync="selectedCheckboxesData"
                     v-bind:animation-duration="animationDuration"
                 />
-                    <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}, Menu visible: {{ menuVisibleData }}</p>
-                    <p>Selected Checkboxes: {{ selectedCheckboxesData }}</p>
+                    <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}, Menu visible: {{ menuVisibleData }}</p><br>
+                    <p>Items: {{ itemsData }}</p><br>
+                    <p>Checked Items: {{ checkedItemsData }}</p>
             </div>
 
         `

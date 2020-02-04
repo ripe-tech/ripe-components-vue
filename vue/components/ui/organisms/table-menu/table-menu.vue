@@ -14,7 +14,9 @@
                 <div class="table-content" v-bind:style="tableStyle" ref="table-content">
                     <table-ripe
                         v-bind:columns="columns"
-                        v-bind:items="itemsWithIndex"
+                        v-bind:items="itemsData"
+                        v-bind:enable-checkboxes="enableCheckboxes"
+                        v-bind:checked-items.sync="checkedItemsData"
                         v-bind:sort.sync="sortData"
                         v-bind:sort-method="sortMethod"
                         v-bind:reverse.sync="reverseData"
@@ -176,6 +178,14 @@ export const TableMenu = {
             type: Array,
             default: () => []
         },
+        enableCheckboxes: {
+            type: Boolean,
+            default: false
+        },
+        checkedItems: {
+            type: Object,
+            default: () => {}
+        },
         selectedIndex: {
             type: Number,
             default: null
@@ -241,6 +251,8 @@ export const TableMenu = {
     },
     data: function() {
         return {
+            itemsData: this.items,
+            checkedItemsData: this.checkedItems,
             selectedIndexData: this.selectedIndex,
             menuVisibleData: this.menuVisible,
             sortData: this.sort,
@@ -248,11 +260,8 @@ export const TableMenu = {
         };
     },
     computed: {
-        itemsWithIndex() {
-            return this.items.map((item, index) => ({ _originalIndex: index, ...item }));
-        },
         selectedItem() {
-            return this.items[this.selectedIndexData] || {};
+            return this.itemsData[this.selectedIndexData] || {};
         },
         tableStyle() {
             const base = {};
@@ -269,8 +278,8 @@ export const TableMenu = {
         selectedIndex(value) {
             this.setMenuItem(value);
         },
-        selectedIndexData(value) {
-            this.$emit("update:selected-index", value);
+        checkedItemsData(value) {
+            this.$emit("update:checked-items", value);;
         },
         menuVisible(value) {
             this.menuVisibleData = value;
