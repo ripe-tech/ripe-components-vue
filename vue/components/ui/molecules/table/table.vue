@@ -424,17 +424,23 @@ export const Table = {
 
                 let itemFound = null;
                 for (let i = 0; i < items.length; i++) {
-                    itemFound =this.itemsData.find(item => items[i]._originalIndex === item._originalIndex);
-                    
+                    itemFound = this.itemsData.find(
+                        item => items[i]._originalIndex === item._originalIndex
+                    );
+
                     if (itemFound !== undefined) {
-                        this.$set(this.selectedCheckboxesData, i, unchangedCheckboxes[itemFound._checkboxIndex]);
+                        this.$set(
+                            this.selectedCheckboxesData,
+                            i,
+                            unchangedCheckboxes[itemFound._checkboxIndex]
+                        );
                         itemFound._originalIndex = itemFound._checkboxIndex = i;
                         items[i] = itemFound;
                     }
                 }
 
-                const removedItemsNr = itemsNrDiff*-1
-                for(let j=0; j < removedItemsNr; j++) this.selectedCheckboxesData.pop();
+                const removedItemsNr = itemsNrDiff * -1;
+                for (let j = 0; j < removedItemsNr; j++) this.selectedCheckboxesData.pop();
             }
 
             this.$emit("update:items", items);
