@@ -59,7 +59,7 @@
 }
 
 .transfer-list > .buttons > .button-move:active {
-    background-color: $light-blue;
+    background-color: $hard-blue;
 }
 
 .transfer-list > .buttons > .button-move.button-move-right {
