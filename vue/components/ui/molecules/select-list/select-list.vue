@@ -31,6 +31,7 @@
     border-radius: 6px 6px 6px 6px;
     box-shadow: 0px 6px 24px 0px rgba(128, 128, 128, 0.4);
     display: inline-block;
+    height: 100%;
     font-size: 13px;
     font-weight: 600;
     width: 320px;
@@ -56,6 +57,7 @@
 .select-list.select-list-search > .select-list-items {
     border-radius: 0px 0px 6px 6px;
     border-top: 1px solid $light-white;
+    height: calc(100% - 61);
 }
 
 .select-list > .select-list-items > .select-list-item {

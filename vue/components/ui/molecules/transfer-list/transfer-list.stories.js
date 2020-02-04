@@ -53,7 +53,7 @@ storiesOf("Molecules", module)
             };
         },
         template: `
-            <div class="transfer-list-stories">
+            <div>
                 <transfer-list
                     v-bind:search="search"
                     v-bind:height="height"
