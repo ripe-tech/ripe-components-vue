@@ -39,10 +39,10 @@
 }
 
 .transfer-list > .buttons > .button-move {
-    background-color: #f9fafd;
+    background-color: $soft-blue;
     background-position: center;
     background-repeat: no-repeat;
-    border: 1px solid #e4e8f0;
+    border: 1px solid $light-white;
     border-radius: 6px;
     cursor: pointer;
     height: 32px;
@@ -56,6 +56,10 @@
 
 .transfer-list > .buttons > .button-move:hover {
     background-color: $white;
+}
+
+.transfer-list > .buttons > .button-move:active {
+    background-color: $light-blue;
 }
 
 .transfer-list > .buttons > .button-move.button-move-right {
