@@ -121,6 +121,10 @@
     background-color: $selected-color;
 }
 
+.table tbody tr.selected {
+    background-color: #e3e8f1;
+}
+
 .table th {
     color: $label-color;
     font-size: 12px;
@@ -324,6 +328,10 @@ export const Table = {
         variant: {
             type: String,
             default: null
+        },
+        allowSelectedHighlight: {
+            type: Boolean,
+            default: false
         }
     },
     watch: {
@@ -331,20 +339,9 @@ export const Table = {
             this.sortData = value;
         },
         items(value) {
-            const addedItemsNr = value.length - this.itemsData.length;
+            const itemsNrDiff = value.length - this.itemsData.length;
 
-            this.itemsData = value.map((item, index) => {
-                return Object.assign(item, {
-                    _originalIndex: this.itemsData[index]
-                        ? this.itemsData[index]._originalIndex
-                        : null,
-                    _checkboxIndex: this.itemsData[index]
-                        ? this.itemsData[index]._checkboxIndex
-                        : null
-                });
-            });
-
-            this.itemsData = this.initLazyLoadedItems(this.itemsData, addedItemsNr);
+            this.itemsData = this.itemsChangeHandler([...value], itemsNrDiff);
         },
         reverse(value) {
             this.reverseData = value;
@@ -365,6 +362,7 @@ export const Table = {
             globalCheckboxValueData: false,
             globalCheckboxIcon: "check",
             selectedCheckboxesData: this.enableCheckboxes ? this.selectedCheckboxes : [],
+            selectedOriginalIndex: null,
             lastClickedIndex: null,
             shiftIndex: null
         };
@@ -415,16 +413,40 @@ export const Table = {
                 return Boolean(this.selectedCheckboxes[index]);
             });
         },
-        initLazyLoadedItems(items, addedItemsNr) {
-            if (addedItemsNr < 1) return items;
+        itemsChangeHandler(items, itemsNrDiff) {
+            if (itemsNrDiff === 0) return items;
+            else if (itemsNrDiff > 0) {
+                let item = null;
+                for (let i = items.length - itemsNrDiff; i < items.length; i++) {
+                    item = items[i];
+                    item._originalIndex = items[i]._checkboxIndex = i;
+                    this.$set(this.selectedCheckboxesData, i, false);
+                }
+            } else {
+                const unchangedCheckboxes = [...this.selectedCheckboxesData];
 
-            let item = null;
-            for (let i = items.length - addedItemsNr; i < items.length; i++) {
-                item = items[i];
-                item._originalIndex = items[i]._checkboxIndex = i;
-                this.$set(this.selectedCheckboxesData, i, false);
+                let itemFound = null;
+                for (let i = 0; i < items.length; i++) {
+                    itemFound = this.itemsData.find(
+                        item => items[i]._originalIndex === item._originalIndex
+                    );
+
+                    if (itemFound !== undefined) {
+                        this.$set(
+                            this.selectedCheckboxesData,
+                            i,
+                            unchangedCheckboxes[itemFound._checkboxIndex]
+                        );
+                        itemFound._originalIndex = itemFound._checkboxIndex = i;
+                        items[i] = itemFound;
+                    }
+                }
+
+                const removedItemsNr = itemsNrDiff * -1;
+                for (let j = 0; j < removedItemsNr; j++) this.selectedCheckboxesData.pop();
             }
 
+            this.$emit("update:items", items);
             return items;
         },
         selectionChange() {
@@ -472,7 +494,13 @@ export const Table = {
             this.resetSelectionIndexes();
         },
         onRowClick(item, index, event) {
-            this.$emit("click", item, item._originalIndex, index);
+            this.selectedOriginalIndex =
+                this.selectedOriginalIndex === null ||
+                this.selectedOriginalIndex !== item._originalIndex
+                    ? item._originalIndex
+                    : null;
+            
+            this.$emit("click", item, this.selectedOriginalIndex, index);
             this.resetSelectionIndexes();
         },
         onRowCtrlClick(index) {

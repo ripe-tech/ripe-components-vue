@@ -15,12 +15,15 @@
 @import "css/variables.scss";
 
 a.link {
-    border-bottom: 1px solid transparent;
     color: $link-color;
     cursor: pointer;
-    padding-bottom: 1px;
     text-decoration: none;
     transition: border-color 0.1s ease-in, color 0.1s ease-in;
+}
+
+a.link.link-hover-border {
+    border-bottom: 1px solid transparent;
+    padding-bottom: 1px;
 }
 
 a.link.link-hover-border:hover,
