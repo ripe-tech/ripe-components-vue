@@ -95,7 +95,7 @@ storiesOf("Organisms", module)
                 default: color("Menu background color", "#ffffff")
             },
             animationDuration: {
-                default: number("Animation timeout", 0.3)
+                default: number("Animation duration", 0.3)
             },
             inputVariant: {
                 default: select(
@@ -168,9 +168,10 @@ storiesOf("Organisms", module)
                     v-bind:reverse.sync="reverseData"
                     v-bind:enable-checkboxes="enableCheckboxes"
                     v-bind:selected-checkboxes.sync="selectedCheckboxesData"
-                    v-bind:animation-duration="animationDuration"/>
-                <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}, Menu visible: {{ menuVisibleData }}</p>
-                <p>Selected Checkboxes: {{ selectedCheckboxesData }}</p>
+                    v-bind:animation-duration="animationDuration"
+                />
+                    <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}, Menu visible: {{ menuVisibleData }}</p>
+                    <p>Selected Checkboxes: {{ selectedCheckboxesData }}</p>
             </div>
 
         `

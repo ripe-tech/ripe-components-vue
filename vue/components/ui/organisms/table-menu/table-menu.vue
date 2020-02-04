@@ -1,6 +1,6 @@
 <template>
     <div class="table-menu" v-bind:class="[menuMode, menuAlignment]">
-        <content-menu
+        <container-menu
             v-bind:alignment="menuAlignment"
             v-bind:mode="menuMode"
             v-bind:menu-visible.sync="menuVisibleData"
@@ -14,23 +14,29 @@
                 <div class="table-content" v-bind:style="tableStyle" ref="table-content">
                     <table-ripe
                         v-bind:columns="columns"
-                        v-bind:items.sync="itemsData"
+                        v-bind:items="itemsWithIndex"
                         v-bind:sort.sync="sortData"
                         v-bind:sort-method="sortMethod"
                         v-bind:reverse.sync="reverseData"
-                        v-bind:enable-checkboxes="enableCheckboxes"
-                        v-bind:selected-checkboxes.sync="selectedCheckboxesData"
-                        v-bind:allow-selected-highlight="true"
-                        v-on:click="
-                            (item, selectedOriginalIndex) =>
-                                onClickItem(item, selectedOriginalIndex)
-                        "
                     >
-                        <template v-slot="{ item, column }">
-                            <checkmark
-                                v-bind:value="item[column.value]"
-                                v-if="column.type === 'boolean'"
-                            />
+                        <template v-slot:row="{ item }">
+                            <tr
+                                v-bind:class="[{ selected: item.id === selectedItem.id }]"
+                                v-bind:key="item.id"
+                                v-on:click="onClickItem(item)"
+                            >
+                                <td
+                                    v-bind:class="column.value"
+                                    v-for="column in columns"
+                                    v-bind:key="column.value"
+                                >
+                                    <checkmark
+                                        v-bind:value="item[column.value]"
+                                        v-if="column.type === 'boolean'"
+                                    />
+                                    <span v-else>{{ item[column.value] }}</span>
+                                </td>
+                            </tr>
                         </template>
                     </table-ripe>
                 </div>
@@ -70,35 +76,35 @@
                     </slot>
                 </div>
             </template>
-        </content-menu>
+        </container-menu>
     </div>
 </template>
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.table-menu.left .content-menu ::v-deep .menu {
+.table-menu.left .container-menu ::v-deep .menu {
     border-right: 1px solid $border-color;
 }
 
-.table-menu.right .content-menu ::v-deep .menu {
+.table-menu.right .container-menu ::v-deep .menu {
     border-left: 1px solid $border-color;
 }
 
-.table-menu.floating .content-menu ::v-deep .menu {
+.table-menu.floating .container-menu ::v-deep .menu {
     border: 1px solid $border-color;
 }
 
-.table-menu .content-menu ::v-deep .menu > .menu-container {
+.table-menu .container-menu ::v-deep .menu > .menu-container {
     padding: 10px 20px 0px 20px;
 }
 
-.table-menu .content-menu ::v-deep .menu .form-input {
+.table-menu .container-menu ::v-deep .menu .form-input {
     display: flex;
     margin: 0px 0px 5px 0px;
 }
 
-.table-menu .content-menu ::v-deep .menu .form-input > .label {
+.table-menu .container-menu ::v-deep .menu .form-input > .label {
     color: #57626e;
     font-size: 14px;
     font-weight: 500;
@@ -111,45 +117,45 @@
     width: 60%;
 }
 
-.table-menu .content-menu ::v-deep .menu .form-input > .content {
+.table-menu .container-menu ::v-deep .menu .form-input > .content {
     width: 100%;
 }
 
-.table-menu .content-menu ::v-deep .content .table-title,
-.table-menu .content-menu ::v-deep .menu .menu-title {
+.table-menu .container-menu ::v-deep .content .table-title,
+.table-menu .container-menu ::v-deep .menu .menu-title {
     color: $dark;
     font-size: 18px;
     font-weight: 500;
     padding: 10px 0px 10px 0px;
 }
 
-.table-menu .content-menu ::v-deep .content .table-title {
+.table-menu .container-menu ::v-deep .content .table-title {
     padding: 10px 0px 10px 20px;
 }
 
-.table-menu .content-menu ::v-deep .content .table-content {
+.table-menu .container-menu ::v-deep .content .table-content {
     overflow-y: auto;
 }
 
-.table-menu .content-menu ::v-deep .content .table .table-head .table-column {
+.table-menu .container-menu ::v-deep .content .table .table-head .table-column {
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.table-menu .content-menu .content .table .table-body > tr {
+.table-menu .container-menu .content .table .table-body > tr {
     cursor: pointer;
     transition: opacity 0.1s ease-in-out;
 }
 
-.table-menu .content-menu .content .table .table-body > tr:hover {
+.table-menu .container-menu .content .table .table-body > tr:hover {
     background-color: $selected-color;
 }
 
-.table-menu .content-menu .content .table .table-body > tr.selected {
+.table-menu .container-menu .content .table .table-body > tr.selected {
     background-color: #e3e8f1;
 }
 
-.table-menu .content-menu .menu .button-color.delete-item {
+.table-menu .container-menu .menu .button-color.delete-item {
     margin: 20px 0px 20px 0px;
 }
 </style>
@@ -192,21 +198,13 @@ export const TableMenu = {
             type: Boolean,
             default: false
         },
-        enableCheckboxes: {
-            type: Boolean,
-            default: false
-        },
-        selectedCheckboxes: {
-            type: Array,
-            default: () => []
-        },
         menuMode: {
             type: String,
-            default: "collapse"
+            required: false
         },
         menuAlignment: {
             type: String,
-            default: "right"
+            required: false
         },
         maxHeight: {
             type: Number,
@@ -218,7 +216,7 @@ export const TableMenu = {
         },
         menuTitle: {
             type: String,
-            default: "Arguments"
+            required: false
         },
         tableTitle: {
             type: String,
@@ -238,7 +236,7 @@ export const TableMenu = {
         },
         animationDuration: {
             type: Number,
-            default: 0.3
+            required: false
         }
     },
     data: function() {
@@ -246,15 +244,15 @@ export const TableMenu = {
             selectedIndexData: this.selectedIndex,
             menuVisibleData: this.menuVisible,
             sortData: this.sort,
-            reverseData: this.reverse,
-            selectedCheckboxesData: [],
-            selectedItems: [],
-            itemsData: this.items
+            reverseData: this.reverse
         };
     },
     computed: {
+        itemsWithIndex() {
+            return this.items.map((item, index) => ({ _originalIndex: index, ...item }));
+        },
         selectedItem() {
-            return this.itemsData[this.selectedIndexData] || {};
+            return this.items[this.selectedIndexData] || {};
         },
         tableStyle() {
             const base = {};
@@ -293,27 +291,12 @@ export const TableMenu = {
         reverseData(value) {
             this.reverseData = value;
             this.$emit("update:reverse", value);
-        },
-        selectedCheckboxes(value) {
-            this.selectedCheckboxesData = value;
-        },
-        selectedCheckboxesData(value) {
-            this.$emit("update:selected-checkboxes", value);
-
-            this.selectedItems = this.itemsData.filter((item, index) => value[index]);
-            this.$emit("update:selected-items", this.selectedItems);
-        },
-        items(value) {
-            this.itemsData = value;
-        },
-        itemsData(value) {
-            this.$emit("update:items", value);
         }
     },
     methods: {
         setMenuItem(index) {
             this.selectedIndexData = index;
-            this.showMenu();
+            this.menuVisibleData = true;
             this.focusFirstTextInput();
         },
         getColumnLabel(value) {
@@ -328,12 +311,6 @@ export const TableMenu = {
             const table = this.$refs["table-content"];
             table.scrollTop = table.scrollHeight;
         },
-        showMenu() {
-            this.menuVisibleData = true;
-        },
-        hideMenu() {
-            this.menuVisibleData = false;
-        },
         toggleMenu() {
             this.menuVisibleData = !this.menuVisibleData;
         },
@@ -341,10 +318,10 @@ export const TableMenu = {
             const textInputs = this.$refs.textInput || [];
             if (textInputs.length > 0) textInputs[0].focus();
         },
-        onClickItem(item, selectedOriginalIndex) {
-            selectedOriginalIndex === null
-                ? this.hideMenu()
-                : this.setMenuItem(selectedOriginalIndex);
+        onClickItem(item) {
+            this.selectedItem.id === item.id
+                ? this.toggleMenu()
+                : this.setMenuItem(item._originalIndex);
         },
         onClickAddItem() {
             this.$emit("click:create");
