@@ -422,18 +422,25 @@ export const Table = {
             } else {
                 const unsortedCheckboxes = [...this.selectedCheckboxesData];
 
-                let item = null;
+                let itemFound = null;
                 for (let i = 0; i < items.length; i++) {
-                    const item = this.itemsData.find(item => item._originalIndex === originalIndex) || null;
-                    if(item !== null) {
-                        this.$set(this.selectedCheckboxesData, i, unsortedCheckboxes[item._checkboxIndex]);
-                        item._originalIndex = item._checkboxIndex = i;
-                        items[i] = item;
+                    itemFound =
+                        this.itemsData.find(
+                            item => items[i]._originalIndex === item._originalIndex
+                        ) || null;
+                    if (itemFound !== null) {
+                        this.$set(
+                            this.selectedCheckboxesData,
+                            i,
+                            unsortedCheckboxes[itemFound._checkboxIndex]
+                        );
+                        itemFound._originalIndex = itemFound._checkboxIndex = i;
+                        items[i] = itemFound;
                     }
                 }
             }
 
-            this.$emit("update:items", arr);
+            this.$emit("update:items", items);
             return items;
         },
         selectionChange() {
