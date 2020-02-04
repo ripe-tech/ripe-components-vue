@@ -44,7 +44,6 @@
                                 v-on:click.native.exact.stop
                             />
                         </td>
-                    <slot v-bind:item="item" v-bind:index="index">
                         <td
                             v-bind:class="column.value"
                             v-for="column in columns"
