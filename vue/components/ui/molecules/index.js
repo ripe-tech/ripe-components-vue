@@ -40,8 +40,8 @@ const install = Vue => {
     Vue.component("progress-bar", ProgressBar);
     Vue.component("radio-group", RadioGroup);
     Vue.component("search", Search);
-    Vue.component("select-list", SelectList);
     Vue.component("select-ripe", Select);
+    Vue.component("select-list", SelectList);
     Vue.component("table-ripe", Table);
     Vue.component("tabs", Tabs);
     Vue.component("transfer-list", TransferList);
