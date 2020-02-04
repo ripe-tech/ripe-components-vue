@@ -499,7 +499,7 @@ export const Table = {
                 this.selectedOriginalIndex !== item._originalIndex
                     ? item._originalIndex
                     : null;
-            
+
             this.$emit("click", item, this.selectedOriginalIndex, index);
             this.resetSelectionIndexes();
         },
