@@ -486,7 +486,8 @@ export const Table = {
                 );
                 item._checkboxIndex = index;
             });
-        }, */  
+        }, */
+
         resetSelectionIndexes() {
             this.shiftIndex = null;
             this.lastClickedIndex = null;
@@ -545,7 +546,7 @@ export const Table = {
             this.itemsData.forEach(item => {
                 this.$set(this.checkedItemsData, item._originalIndex, false);
             });
-            
+
             this.resetSelectionIndexes();
         },
         onShiftUp() {
