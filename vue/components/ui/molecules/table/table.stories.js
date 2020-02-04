@@ -117,8 +117,8 @@ storiesOf("Molecules", module)
                     v-bind:variant="variant"
                     v-bind:allow-selected-highlight="allowSelectedHighlight"
                 />
-                <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}</p>
-                <p>Items: {{ itemsData }}</p>
+                <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}</p><br>
+                <p>Items: {{ itemsData }}</p><br>
                 <p>Checked Items: {{ checkedItemsData }}</p>
             </div>
         `
