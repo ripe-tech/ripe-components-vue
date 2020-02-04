@@ -322,24 +322,33 @@ export const Table = {
         };
     },
     watch: {
-        sort(value) {
-            this.sortData = value;
+        sort: {
+            handler: function(value) {
+                this.sortData = value;
+            }
         },
-        items(value) {
-            const itemsNrDiff = value.length - this.itemsData.length;
+        items: {
+            handler: function(value) {
+                const itemsNrDiff = value.length - this.itemsData.length;
 
-            this.itemsData = this.itemsChangeHandler([...value], itemsNrDiff);
+                this.itemsData = this.itemsChangeHandler([...value], itemsNrDiff);
+            }
         },
-        reverse(value) {
-            this.reverseData = value;
+        reverse: {
+            handler: function(value) {
+                this.reverseData = value;
+            }
         },
-        checkedItems(value) {
-            this.checkedItemsData = value;
+        checkedItems: {
+            handler: function(value) {
+                this.checkedItemsData = value;
+            }
         },
         checkedItemsData: {
             immediate: true,
             deep: true,
-            handler(value) {
+            handler: function(value) {
+                console.log("ffff");
                 this.selectionChange();
                 this.$emit("update:checked-items", value);
             }
@@ -353,7 +362,7 @@ export const Table = {
 
             const items = [...this.itemsData];
             const sortedItems = this.sortMethod(items, this.sortData, this.reverseData);
-            //this.sortCheckboxes(sortedItems); TODO
+            // this.sortCheckboxes(sortedItems); TODO
 
             return sortedItems;
         },
@@ -370,7 +379,10 @@ export const Table = {
             return base;
         },
         isAllChecked() {
-            return Object.values(this.checkedItemsData).length === this.itemsData.length && !Object.values(this.checkedItemsData).includes(false);
+            return (
+                Object.values(this.checkedItemsData).length === this.itemsData.length &&
+                !Object.values(this.checkedItemsData).includes(false)
+            );
         },
         isAllUnchecked() {
             return !Object.values(this.checkedItemsData).includes(true);
@@ -381,7 +393,7 @@ export const Table = {
             return this.items.map((item, index) => ({ _originalIndex: index, ...item }));
         },
         itemsChangeHandler(items, itemsNrDiff) {
-             //TODO check this and change to work with new checkedItems refactor
+            // TODO check this and change to work with new checkedItems refactor
             if (itemsNrDiff === 0) return items;
             else if (itemsNrDiff > 0) {
                 let item = null;
@@ -439,7 +451,7 @@ export const Table = {
             this.$emit("update:sort", this.sortData);
             this.$emit("update:reverse", this.reverseData);
         },
-/*         sortCheckboxes(sortedItems) {
+        /*         sortCheckboxes(sortedItems) {
             const unsortedCheckboxes = [...this.selectedCheckboxesData];
             sortedItems.forEach((item, index) => {
                 this.$set(
