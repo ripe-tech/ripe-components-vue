@@ -117,8 +117,7 @@ export const SelectList = {
         return {
             valuesData: this.values,
             lastSelected: null,
-            filter: "",
-            selectionEnd: null
+            filter: ""
         };
     },
     computed: {
@@ -182,23 +181,14 @@ export const SelectList = {
             this.lastSelected = index;
         },
         onShiftClick(item, index) {
+            this.unselectAll();
+
             if (this.lastSelected !== null) {
-                if (this.selectionEnd !== null) {
-                    const lower2 = Math.min(this.lastSelected, this.selectionEnd);
-                    const upper2 = Math.max(this.lastSelected, this.selectionEnd);
-
-                    for (let i = lower2; i <= upper2; i++) {
-                        this.unselectItem(this.items[i].value);
-                    }
-                }
-
                 const lower = Math.min(index, this.lastSelected);
                 const upper = Math.max(index, this.lastSelected);
                 for (let i = lower; i <= upper; i++) {
                     this.selectItem(this.items[i].value);
                 }
-
-                this.selectionEnd = index;
             }
         },
         onDblclick(event, value, index) {
