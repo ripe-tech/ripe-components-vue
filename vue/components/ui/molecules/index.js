@@ -14,10 +14,11 @@ import { Lineup } from "./lineup/lineup.vue";
 import { Modal } from "./modal/modal.vue";
 import { ProgressBar } from "./progress-bar/progress-bar.vue";
 import { RadioGroup } from "./radio-group/radio-group.vue";
-import { Table } from "./table/table.vue";
-import { Tabs } from "./tabs/tabs.vue";
 import { Search } from "./search/search.vue";
 import { Select } from "./select/select.vue";
+import { SelectList } from "./select-list/select-list.vue";
+import { Table } from "./table/table.vue";
+import { Tabs } from "./tabs/tabs.vue";
 import { UploadArea } from "./upload-area/upload-area.vue";
 
 const install = Vue => {
@@ -39,6 +40,7 @@ const install = Vue => {
     Vue.component("radio-group", RadioGroup);
     Vue.component("search", Search);
     Vue.component("select-ripe", Select);
+    Vue.component("select-list", SelectList);
     Vue.component("table-ripe", Table);
     Vue.component("tabs", Tabs);
     Vue.component("upload-area", UploadArea);
@@ -63,6 +65,7 @@ export {
     RadioGroup,
     Search,
     Select,
+    SelectList,
     Table,
     Tabs,
     UploadArea
