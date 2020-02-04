@@ -443,24 +443,6 @@ export const Table = {
             this.$emit("update:items", items);
             return items;
         },
-        findItemByOriginalIndex(originalIndex, items)
-        {
-            const item = items.find(item => item._originalIndex === originalIndex);
-            return item || null; 
-        },
-/*         findItemTest(item, items) {
-            console.log("wtf");
-            const { _checkboxIndex, _originalIndex, ...originalItem } = item;
-
-            const itemFound = items.find(value => {
-                const { _checkboxIndex, _originalIndex, ...originalArrItem } = value;
-                const bool = JSON.stringify(originalItem) === JSON.stringify(originalArrItem);
-                debugger;
-                return true;
-            });
-
-            return itemFound;
-        }, */
         selectionChange() {
             if (this.isAllChecked) {
                 this.globalCheckboxIcon = "check";
