@@ -416,6 +416,8 @@ export const Table = {
             return this.allowSelectedHighlight && originalIndex === this.selectedOriginalIndex;
         },
         itemsChangeHandler(items, itemsNrDiff) {
+            return items;
+            /*
             // TODO check this and change to work with new checkedItems refactor
             if (itemsNrDiff === 0) return items;
             else if (itemsNrDiff > 0) {
@@ -451,6 +453,7 @@ export const Table = {
 
             this.$emit("update:items", items);
             return items;
+        */
         },
         selectionChange() {
             if (this.isAllChecked) {
