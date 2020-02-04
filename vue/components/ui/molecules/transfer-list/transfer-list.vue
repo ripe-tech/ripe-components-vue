@@ -68,22 +68,22 @@
 
 .transfer-list > .buttons > .button-move.button-move-right {
     background-image: url("~../../../../assets/icons/black/chevron-right.svg");
-    background-size: 25px 25px;
+    background-size: 20px 20px;
 }
 
 .transfer-list > .buttons > .button-move.button-move-all-right {
     background-image: url("~../../../../assets/icons/black/chevrons-right.svg");
-    background-size: 25px 25px;
+    background-size: 20px 20px;
 }
 
 .transfer-list > .buttons > .button-move.button-move-left {
     background-image: url("~../../../../assets/icons/black/chevron-left.svg");
-    background-size: 25px 25px;
+    background-size: 20px 20px;
 }
 
 .transfer-list > .buttons > .button-move.button-move-left-all {
     background-image: url("~../../../../assets/icons/black/chevrons-left.svg");
-    background-size: 25px 25px;
+    background-size: 20px 20px;
 }
 </style>
 
@@ -224,11 +224,9 @@ export const TransferList = {
             const newFromItems = [];
 
             fromItems.forEach((item, index) => {
-                // the items that are selected should be copied
                 if (fromValues[item.value]) {
                     this._move(fromItems, fromValues, toItems, item);
                 } else {
-                    // keep the item in the same list
                     newFromItems.push(item);
                 }
             });
@@ -251,10 +249,7 @@ export const TransferList = {
             return newFromItems;
         },
         _move(fromItems, fromValues, toItems, item) {
-            // move the item between lists
             toItems.push(item);
-
-            // remove the item from the selected set
             this.$delete(fromValues, item.value);
         },
         onMoveRightClick() {
