@@ -5,18 +5,20 @@
             v-bind:items="itemsLeftData"
             v-bind:values.sync="valuesLeftData"
             v-bind:search="search"
+            v-on:dblclick="onDblclickLeft"
         />
         <div class="buttons">
-            <div class="button-move button-move-all-right" v-on:click="onMoveAllRightClick()" />
-            <div class="button-move button-move-right" v-on:click="onMoveRightClick()" />
-            <div class="button-move button-move-left" v-on:click="onMoveLeftClick()" />
-            <div class="button-move button-move-left-all" v-on:click="onMoveAllLeftClick()" />
+            <div class="button-move button-move-all-right" v-on:click="onMoveAllRightClick" />
+            <div class="button-move button-move-right" v-on:click="onMoveRightClick" />
+            <div class="button-move button-move-left" v-on:click="onMoveLeftClick" />
+            <div class="button-move button-move-left-all" v-on:click="onMoveAllLeftClick" />
         </div>
         <select-list
             class="select-list"
             v-bind:items="itemsRightData"
             v-bind:values.sync="valuesRightData"
             v-bind:search="search"
+            v-on:dblclick="onDblclickRight"
         />
     </div>
 </template>
@@ -153,6 +155,24 @@ export const TransferList = {
         }
     },
     methods: {
+        moveLeft(index) {
+            this._move(
+                this.itemsRightData,
+                this.valuesRightData,
+                this.itemsLeftData,
+                this.itemsRightData[index]
+            );
+            this.$delete(this.itemsRightData, index);
+        },
+        moveRight(index) {
+            this._move(
+                this.itemsLeftData,
+                this.valuesLeftData,
+                this.itemsRightData,
+                this.itemsLeftData[index]
+            );
+            this.$delete(this.itemsLeftData, index);
+        },
         moveAllRight() {
             this.itemsRightData = [...this.itemsRightData, ...this.itemsLeftData];
             this.itemsLeftData = [];
@@ -165,15 +185,15 @@ export const TransferList = {
             this.valuesLeftData = {};
             this.valuesRightData = {};
         },
-        moveRight() {
-            this.itemsLeftData = this._move(
+        moveSelectedRight() {
+            this.itemsLeftData = this._moveSelected(
                 this.itemsLeftData,
                 this.valuesLeftData,
                 this.itemsRightData
             );
         },
-        moveLeft() {
-            this.itemsRightData = this._move(
+        moveSelectedLeft() {
+            this.itemsRightData = this._moveSelected(
                 this.itemsRightData,
                 this.valuesRightData,
                 this.itemsLeftData
@@ -188,17 +208,13 @@ export const TransferList = {
          * @returns {Array} The value of 'fromItems' after the selected items
          * have been moved.
          */
-        _move(fromItems, fromValues, toItems) {
+        _moveSelected(fromItems, fromValues, toItems) {
             const newFromItems = [];
 
             fromItems.forEach((item, index) => {
                 // the items that are selected should be copied
                 if (fromValues[item.value]) {
-                    // move the item between lists
-                    toItems.push(item);
-
-                    // remove the item from the selected set
-                    this.$delete(fromValues, item.value);
+                    this._move(fromItems, fromValues, toItems, item);
                 } else {
                     // keep the item in the same list
                     newFromItems.push(item);
@@ -207,17 +223,30 @@ export const TransferList = {
 
             return newFromItems;
         },
+        _move(fromItems, fromValues, toItems, item) {
+            // move the item between lists
+            toItems.push(item);
+
+            // remove the item from the selected set
+            this.$delete(fromValues, item.value);
+        },
         onMoveRightClick() {
-            this.moveRight();
+            this.moveSelectedRight();
         },
         onMoveLeftClick() {
-            this.moveLeft();
+            this.moveSelectedLeft();
         },
         onMoveAllRightClick() {
             this.moveAllRight();
         },
         onMoveAllLeftClick() {
             this.moveAllLeft();
+        },
+        onDblclickLeft(event, value, index) {
+            this.moveRight(index);
+        },
+        onDblclickRight(event, value, index) {
+            this.moveLeft(index);
         }
     }
 };

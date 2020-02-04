@@ -18,6 +18,7 @@
                 v-bind:class="{ selected: isSelected(item.value) }"
                 v-for="(item, index) in filteredItems"
                 v-bind:key="index"
+                v-on:dblclick="onDblclick($event, item.value, index)"
                 v-on:click.exact="onClick(item.value, index)"
                 v-on:click.shift="onShiftClick(item.value, index)"
             >
@@ -173,6 +174,9 @@ export const SelectList = {
                     this.selectItem(this.items[i].value);
                 }
             }
+        },
+        onDblclick(event, value, index) {
+            this.$emit("dblclick", event, value, index);
         }
     }
 };
