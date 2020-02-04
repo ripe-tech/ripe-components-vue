@@ -19,10 +19,10 @@
                 v-for="(item, index) in filteredItems"
                 v-bind:key="index"
                 v-on:dblclick="onDblclick($event, item.value, index)"
-                v-on:click.exact="onClick(item.value, index)"
-                v-on:click.ctrl="onCtrlClick(item.value, index)"
-                v-on:click.meta="onMetaClick(item.value, index)"
-                v-on:click.shift="onShiftClick(item.value, index)"
+                v-on:click.exact="onClick($event, item.value, index)"
+                v-on:click.ctrl="onCtrlClick($event, item.value, index)"
+                v-on:click.meta="onMetaClick($event, item.value, index)"
+                v-on:click.shift="onShiftClick($event, item.value, index)"
             >
                 {{ item.label }}
             </li>
@@ -167,20 +167,23 @@ export const SelectList = {
         isSelected(value) {
             return Boolean(this.valuesData[value]);
         },
-        onCtrlClick(value, index) {
+        onCtrlClick(event, value, index) {
             this.toggleItem(value);
             this.lastSelected = index;
+            this.$emit("ctrl-click", event, value, index);
         },
-        onMetaClick(value, index) {
+        onMetaClick(event, value, index) {
             this.toggleItem(value);
             this.lastSelected = index;
+            this.$emit("meta-click", event, value, index);
         },
-        onClick(value, index) {
+        onClick(event, value, index) {
             this.unselectAll();
             this.toggleItem(value);
             this.lastSelected = index;
+            this.$emit("click", event, value, index);
         },
-        onShiftClick(item, index) {
+        onShiftClick(event, value, index) {
             this.unselectAll();
 
             if (this.lastSelected !== null) {
@@ -190,6 +193,8 @@ export const SelectList = {
                     this.selectItem(this.items[i].value);
                 }
             }
+
+            this.$emit("shift-click", event, value, index);
         },
         onDblclick(event, value, index) {
             this.$emit("dblclick", event, value, index);
