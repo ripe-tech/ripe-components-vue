@@ -183,19 +183,19 @@ export const SelectList = {
         },
         onShiftClick(item, index) {
             if (this.lastSelected !== null) {
-                const lower = Math.min(index, this.lastSelected);
-                const upper = Math.max(index, this.lastSelected);
-                for (let i = lower; i <= upper; i++) {
-                    this.selectItem(this.items[i].value);
-                }
-
                 if (this.selectionEnd !== null) {
-                    const lower2 = Math.min(this.lastSelected + 1, this.selectionEnd);
-                    const upper2 = Math.max(this.lastSelected - 1, this.selectionEnd);
+                    const lower2 = Math.min(this.lastSelected, this.selectionEnd);
+                    const upper2 = Math.max(this.lastSelected, this.selectionEnd);
 
                     for (let i = lower2; i <= upper2; i++) {
                         this.unselectItem(this.items[i].value);
                     }
+                }
+
+                const lower = Math.min(index, this.lastSelected);
+                const upper = Math.max(index, this.lastSelected);
+                for (let i = lower; i <= upper; i++) {
+                    this.selectItem(this.items[i].value);
                 }
 
                 this.selectionEnd = index;
