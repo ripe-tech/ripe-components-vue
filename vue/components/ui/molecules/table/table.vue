@@ -31,7 +31,11 @@
         <transition-group tag="tbody" v-bind:name="transition" class="table-body">
             <template v-for="(item, index) in sortedItems">
                 <slot name="before-row" v-bind:item="item" v-bind:index="index" />
-                <tr v-bind:key="item.id" v-on:click="onRowClick(item, index)">
+                <tr
+                    v-bind:class="{ selected: isRowSelected(item._originalIndex) }"
+                    v-bind:key="item.id"
+                    v-on:click="onRowClick(item, index)"
+                >
                     <td class="checkbox-td" v-if="enableCheckboxes">
                         <checkbox
                             v-bind:size="8"
@@ -285,10 +289,6 @@ export const Table = {
                 });
             }
         },
-        transition: {
-            type: String,
-            default: null
-        },
         sort: {
             type: String,
             default: null
@@ -296,6 +296,10 @@ export const Table = {
         reverse: {
             type: Boolean,
             default: false
+        },
+        transition: {
+            type: String,
+            default: null
         },
         alignment: {
             type: String,
@@ -390,6 +394,9 @@ export const Table = {
     methods: {
         itemsWithIndex() {
             return this.items.map((item, index) => ({ _originalIndex: index, ...item }));
+        },
+        isRowSelected(originalIndex) {
+            return this.allowSelectedHighlight && originalIndex === this.selectedOriginalIndex;
         },
         itemsChangeHandler(items, itemsNrDiff) {
             // TODO check this and change to work with new checkedItems refactor
