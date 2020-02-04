@@ -132,14 +132,25 @@ export const SelectList = {
             return base;
         },
         filteredItems() {
-            return this.items.filter(item =>
-                item.label.toLowerCase().startsWith(this.filter.toLowerCase())
-            );
+            return this.items
+                .map((item, index) => ({ ...item, _originalIndex: index }))
+                .filter(item => this._isShown(item));
         }
     },
     watch: {
         values(value) {
             this.valuesData = value;
+        },
+        filter(value) {
+            this.lastSelected = null;
+        },
+        filteredItems(value) {
+            const items = {};
+
+            value.forEach(item => {
+                items[item.value] = true;
+            });
+            this.$emit("update:items:visible", items);
         }
     },
     methods: {
@@ -187,12 +198,17 @@ export const SelectList = {
                 const lower = Math.min(index, this.lastSelected);
                 const upper = Math.max(index, this.lastSelected);
                 for (let i = lower; i <= upper; i++) {
-                    this.selectItem(this.items[i].value);
+                    const item = this.filteredItems[i];
+
+                    this.selectItem(item.value);
                 }
             }
         },
         onDblclick(event, value, index) {
             this.$emit("dblclick", event, value, index);
+        },
+        _isShown(item) {
+            return item.label.toLowerCase().startsWith(this.filter.toLowerCase());
         }
     }
 };

@@ -6,6 +6,7 @@
             v-bind:values.sync="valuesLeftData"
             v-bind:search="search"
             v-on:dblclick="onDblclickLeft"
+            v-on:update:items:visible="onFilteredItemsLeft"
         />
         <div class="buttons">
             <div class="button-move button-move-all-right" v-on:click="onMoveAllRightClick" />
@@ -19,6 +20,7 @@
             v-bind:values.sync="valuesRightData"
             v-bind:search="search"
             v-on:dblclick="onDblclickRight"
+            v-on:update:items:visible="onFilteredItemsRight"
         />
     </div>
 </template>
@@ -119,7 +121,9 @@ export const TransferList = {
             valuesLeftData: this.valuesLeft,
             valuesRightData: this.valuesRight,
             itemsLeftData: this.itemsLeft,
-            itemsRightData: this.itemsRight
+            itemsRightData: this.itemsRight,
+            visibleLeftData: null,
+            visibleRightData: null
         };
     },
     computed: {
@@ -174,14 +178,22 @@ export const TransferList = {
             this.$delete(this.itemsLeftData, index);
         },
         moveAllRight() {
-            this.itemsRightData = [...this.itemsRightData, ...this.itemsLeftData];
-            this.itemsLeftData = [];
+            this.itemsLeftData = this._moveVisible(
+                this.itemsLeftData,
+                this.valuesLeftData,
+                this.itemsRightData,
+                this.visibleLeftData
+            );
             this.valuesLeftData = {};
             this.valuesRightData = {};
         },
         moveAllLeft() {
-            this.itemsLeftData = [...this.itemsLeftData, ...this.itemsRightData];
-            this.itemsRightData = [];
+            this.itemsRightData = this._moveVisible(
+                this.itemsRightData,
+                this.valuesRightData,
+                this.itemsLeftData,
+                this.visibleRightData
+            );
             this.valuesLeftData = {};
             this.valuesRightData = {};
         },
@@ -223,6 +235,21 @@ export const TransferList = {
 
             return newFromItems;
         },
+        _moveVisible(fromItems, fromValues, toItems, fromVisible) {
+            const newFromItems = [];
+
+            fromItems.forEach((item, index) => {
+                // the items that are selected should be copied
+                if (!fromVisible || fromVisible[item.value]) {
+                    this._move(fromItems, fromValues, toItems, item);
+                } else {
+                    // keep the item in the same list
+                    newFromItems.push(item);
+                }
+            });
+
+            return newFromItems;
+        },
         _move(fromItems, fromValues, toItems, item) {
             // move the item between lists
             toItems.push(item);
@@ -247,6 +274,12 @@ export const TransferList = {
         },
         onDblclickRight(event, value, index) {
             this.moveLeft(index);
+        },
+        onFilteredItemsLeft(values) {
+            this.visibleLeftData = values;
+        },
+        onFilteredItemsRight(values) {
+            this.visibleRightData = values;
         }
     }
 };
