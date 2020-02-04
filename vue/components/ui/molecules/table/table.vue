@@ -310,6 +310,17 @@ export const Table = {
             default: false
         }
     },
+    data: function() {
+        return {
+            itemsData: this.enableCheckboxes ? this.checkableItems() : this.itemsWithIndex(),
+            sortData: this.sort,
+            reverseData: this.reverse,
+            globalCheckboxValueData: false,
+            globalCheckboxIcon: "check",
+            selectedCheckboxesData: this.enableCheckboxes ? this.selectedCheckboxes : [],
+            selectedOriginalIndex: null
+        };
+    },
     watch: {
         sort(value) {
             this.sortData = value;
@@ -329,17 +340,6 @@ export const Table = {
             this.selectionChange();
             this.$emit("update:selected-checkboxes", this.selectedCheckboxesData);
         }
-    },
-    data: function() {
-        return {
-            itemsData: this.enableCheckboxes ? this.checkableItems() : this.itemsWithIndex(),
-            sortData: this.sort,
-            reverseData: this.reverse,
-            globalCheckboxValueData: false,
-            globalCheckboxIcon: "check",
-            selectedCheckboxesData: this.enableCheckboxes ? this.selectedCheckboxes : [],
-            selectedOriginalIndex: null
-        };
     },
     computed: {
         sortedItems() {
