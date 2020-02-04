@@ -6,7 +6,7 @@
             v-bind:values.sync="valuesLeftData"
             v-bind:search="search"
             v-on:dblclick="onDblclickLeft"
-            v-on:update:items:visible="onFilteredItemsLeft"
+            v-on:update:items:visible="onVisibleItemsLeft"
         />
         <div class="buttons">
             <div class="button-move button-move-all-right" v-on:click="onMoveAllRightClick" />
@@ -20,7 +20,7 @@
             v-bind:values.sync="valuesRightData"
             v-bind:search="search"
             v-on:dblclick="onDblclickRight"
-            v-on:update:items:visible="onFilteredItemsRight"
+            v-on:update:items:visible="onVisibleItemsRight"
         />
     </div>
 </template>
@@ -222,7 +222,6 @@ export const TransferList = {
          */
         _moveSelected(fromItems, fromValues, toItems) {
             const newFromItems = [];
-
             fromItems.forEach((item, index) => {
                 if (fromValues[item.value]) {
                     this._move(fromItems, fromValues, toItems, item);
@@ -230,22 +229,17 @@ export const TransferList = {
                     newFromItems.push(item);
                 }
             });
-
             return newFromItems;
         },
         _moveVisible(fromItems, fromValues, toItems, fromVisible) {
             const newFromItems = [];
-
             fromItems.forEach((item, index) => {
-                // the items that are selected should be copied
                 if (!fromVisible || fromVisible[item.value]) {
                     this._move(fromItems, fromValues, toItems, item);
                 } else {
-                    // keep the item in the same list
                     newFromItems.push(item);
                 }
             });
-
             return newFromItems;
         },
         _move(fromItems, fromValues, toItems, item) {
@@ -270,10 +264,10 @@ export const TransferList = {
         onDblclickRight(event, value, index) {
             this.moveLeft(index);
         },
-        onFilteredItemsLeft(values) {
+        onVisibleItemsLeft(values) {
             this.visibleLeftData = values;
         },
-        onFilteredItemsRight(values) {
+        onVisibleItemsRight(values) {
             this.visibleRightData = values;
         }
     }

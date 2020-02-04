@@ -11,12 +11,12 @@
         <ul
             class="select-list-items"
             v-bind:style="style"
-            v-if="filteredItems && filteredItems.length > 0"
+            v-if="visibleItems && visibleItems.length > 0"
         >
             <li
                 class="select-list-item"
                 v-bind:class="{ selected: isSelected(item.value) }"
-                v-for="(item, index) in filteredItems"
+                v-for="(item, index) in visibleItems"
                 v-bind:key="index"
                 v-on:dblclick="onDblclick($event, item.value, index)"
                 v-on:click.exact="onClick($event, item.value, index)"
@@ -131,10 +131,10 @@ export const SelectList = {
             const base = { "select-list-search": this.search };
             return base;
         },
-        filteredItems() {
+        visibleItems() {
             return this.items
                 .map((item, index) => ({ ...item, _originalIndex: index }))
-                .filter(item => this._isShown(item));
+                .filter(item => this._isVisible(item));
         }
     },
     watch: {
@@ -144,9 +144,8 @@ export const SelectList = {
         filter(value) {
             this.lastSelected = null;
         },
-        filteredItems(value) {
+        visibleItems(value) {
             const items = {};
-
             value.forEach(item => {
                 items[item.value] = true;
             });
@@ -201,8 +200,7 @@ export const SelectList = {
                 const lower = Math.min(index, this.lastSelected);
                 const upper = Math.max(index, this.lastSelected);
                 for (let i = lower; i <= upper; i++) {
-                    const item = this.filteredItems[i];
-
+                    const item = this.visibleItems[i];
                     this.selectItem(item.value);
                 }
             }
@@ -212,7 +210,7 @@ export const SelectList = {
         onDblclick(event, value, index) {
             this.$emit("dblclick", event, value, index);
         },
-        _isShown(item) {
+        _isVisible(item) {
             return item.label.toLowerCase().startsWith(this.filter.toLowerCase());
         }
     }
