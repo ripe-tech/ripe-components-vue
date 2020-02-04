@@ -45,7 +45,7 @@
                 <slot name="before-row" v-bind:item="item" v-bind:index="index" />
                 <tr
                     v-bind:key="item.id"
-                    v-on:click.exact="onRowClick(index)"
+                    v-on:click.exact="onRowClick(item, index)"
                     v-on:click.ctrl.exact="onRowCtrlClick(index)"
                     v-on:click.meta.exact="onRowCtrlClick(index)"
                     v-on:click.shift.exact="onRowShiftClick(index)"
@@ -502,7 +502,7 @@ export const Table = {
 
             this.resetSelectionIndexes();
         },
-        onRowClick(item, index, event) {
+        onRowClick(item, index) {
             this.selectedOriginalIndex =
                 this.selectedOriginalIndex === null ||
                 this.selectedOriginalIndex !== item._originalIndex
@@ -513,69 +513,77 @@ export const Table = {
             this.resetSelectionIndexes();
         },
         onRowCtrlClick(index) {
-            this.$set(this.selectedCheckboxesData, index, !this.selectedCheckboxesData[index]);
+            this.$set(this.checkedItemsData, index, !this.checkedItemsData[index]);
             this.updateSelectionIndexes(index);
         },
         onRowShiftClick(index) {
-            this.selectedCheckboxesData = new Array(this.items.length).fill(false);
-            this.$set(this.selectedCheckboxesData, index, true);
+            this.checkedItemsData = {};
+            this.$set(this.checkedItemsData, index, true);
 
             if (this.lastClickedIndex === null) this.lastClickedIndex = index;
             else {
                 let i = this.lastClickedIndex < index ? this.lastClickedIndex : index;
                 const length = Math.abs(this.lastClickedIndex - index) + i;
 
-                for (; i <= length; i++) this.$set(this.selectedCheckboxesData, i, true);
+                for (; i <= length; i++) this.$set(this.checkedItemsData, i, true);
             }
         },
         onCheckboxClick(index) {
             this.updateSelectionIndexes(index);
         },
         onCtrlA() {
-            this.selectedCheckboxesData = new Array(this.items.length).fill(true);
+            this.checkedItemsData = {};
+            this.itemsData.forEach(item => {
+                this.$set(this.checkedItemsData, item._originalIndex, true);
+            });
 
             this.shiftIndex = this.items.length - 1;
             this.lastClickedIndex = 0;
         },
         onCtrlAltA() {
-            this.selectedCheckboxesData = new Array(this.items.length).fill(false);
+            this.checkedItemsData = {};
+            this.itemsData.forEach(item => {
+                this.$set(this.checkedItemsData, item._originalIndex, false);
+            });
+            
             this.resetSelectionIndexes();
         },
         onShiftUp() {
+            console.log("fff");
             if (this.shiftIndex === null) {
                 this.shiftIndex = this.lastClickedIndex = this.items.length - 1;
-                this.$set(this.selectedCheckboxesData, this.shiftIndex, true);
+                this.$set(this.checkedItemsData, this.shiftIndex, true);
                 return;
             }
             if (this.shiftIndex === 0) {
-                this.$set(this.selectedCheckboxesData, this.shiftIndex, true);
+                this.$set(this.checkedItemsData, this.shiftIndex, true);
                 return;
             }
 
             if (this.shiftIndex > this.lastClickedIndex) {
-                this.$set(this.selectedCheckboxesData, this.shiftIndex, false);
+                this.$set(this.checkedItemsData, this.shiftIndex, false);
             }
 
             this.shiftIndex--;
-            this.$set(this.selectedCheckboxesData, this.shiftIndex, true);
+            this.$set(this.checkedItemsData, this.shiftIndex, true);
         },
         onShiftDown() {
             if (this.shiftIndex === null) {
                 this.shiftIndex = this.lastClickedIndex = 0;
-                this.$set(this.selectedCheckboxesData, this.shiftIndex, true);
+                this.$set(this.checkedItemsData, this.shiftIndex, true);
                 return;
             }
             if (this.shiftIndex === this.items.length - 1) {
-                this.$set(this.selectedCheckboxesData, this.shiftIndex, true);
+                this.$set(this.checkedItemsData, this.shiftIndex, true);
                 return;
             }
 
             if (this.shiftIndex < this.lastClickedIndex) {
-                this.$set(this.selectedCheckboxesData, this.shiftIndex, false);
+                this.$set(this.checkedItemsData, this.shiftIndex, false);
             }
 
             this.shiftIndex++;
-            this.$set(this.selectedCheckboxesData, this.shiftIndex, true);
+            this.$set(this.checkedItemsData, this.shiftIndex, true);
         }
     }
 };
