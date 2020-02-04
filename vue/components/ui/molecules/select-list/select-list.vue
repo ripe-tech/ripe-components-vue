@@ -20,6 +20,8 @@
                 v-bind:key="index"
                 v-on:dblclick="onDblclick($event, item.value, index)"
                 v-on:click.exact="onClick(item.value, index)"
+                v-on:click.ctrl="onCtrlClick(item.value, index)"
+                v-on:click.meta="onMetaClick(item.value, index)"
                 v-on:click.shift="onShiftClick(item.value, index)"
             >
                 {{ item.label }}
@@ -115,7 +117,8 @@ export const SelectList = {
         return {
             valuesData: this.values,
             lastSelected: null,
-            filter: ""
+            filter: "",
+            selectionEnd: null
         };
     },
     computed: {
@@ -141,6 +144,9 @@ export const SelectList = {
         }
     },
     methods: {
+        unselectAll() {
+            this.valuesData = {};
+        },
         selectItem(value) {
             if (this.isSelected(value)) return;
             this.$set(this.valuesData, value, true);
@@ -162,7 +168,16 @@ export const SelectList = {
         isSelected(value) {
             return Boolean(this.valuesData[value]);
         },
+        onCtrlClick(value, index) {
+            this.toggleItem(value);
+            this.lastSelected = index;
+        },
+        onMetaClick(value, index) {
+            this.toggleItem(value);
+            this.lastSelected = index;
+        },
         onClick(value, index) {
+            this.unselectAll();
             this.toggleItem(value);
             this.lastSelected = index;
         },
@@ -173,6 +188,17 @@ export const SelectList = {
                 for (let i = lower; i <= upper; i++) {
                     this.selectItem(this.items[i].value);
                 }
+
+                if (this.selectionEnd !== null) {
+                    const lower2 = Math.min(this.lastSelected + 1, this.selectionEnd);
+                    const upper2 = Math.max(this.lastSelected - 1, this.selectionEnd);
+
+                    for (let i = lower2; i <= upper2; i++) {
+                        this.unselectItem(this.items[i].value);
+                    }
+                }
+
+                this.selectionEnd = index;
             }
         },
         onDblclick(event, value, index) {
