@@ -44,33 +44,39 @@
                                 v-on:click.native.exact.stop
                             />
                         </td>
-                        <slot v-bind:name="'row-content'" v-bind:item="item" v-bind:index="index">
-                            <td
-                                v-bind:class="column.value"
-                                v-for="column in columns"
-                                v-bind:key="column.value"
+                        <slot v-bind:item="item" v-bind:index="index">
+                            <slot
+                                v-bind:name="'row-content'"
+                                v-bind:item="item"
+                                v-bind:index="index"
                             >
-                                <slot
-                                    v-bind:item="item"
-                                    v-bind:index="index"
-                                    v-bind:column="column"
-                                    v-bind:name="'row-column'"
+                                <td
+                                    v-bind:class="column.value"
+                                    v-for="column in columns"
+                                    v-bind:key="column.value"
                                 >
                                     <slot
                                         v-bind:item="item"
                                         v-bind:index="index"
                                         v-bind:column="column"
-                                        v-bind:name="`item-${column.value}`"
+                                        v-bind:name="'row-column'"
                                     >
-                                        {{
-                                            item[column.value] !== null &&
-                                                item[column.value] !== undefined
-                                                ? item[column.value]
-                                                : "-"
-                                        }}
+                                        <slot
+                                            v-bind:item="item"
+                                            v-bind:index="index"
+                                            v-bind:column="column"
+                                            v-bind:name="`item-${column.value}`"
+                                        >
+                                            {{
+                                                item[column.value] !== null &&
+                                                    item[column.value] !== undefined
+                                                    ? item[column.value]
+                                                    : "-"
+                                            }}
+                                        </slot>
                                     </slot>
-                                </slot>
-                            </td>
+                                </td>
+                            </slot>
                         </slot>
                     </tr>
                 </slot>
