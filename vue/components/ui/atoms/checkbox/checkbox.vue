@@ -48,11 +48,6 @@
     width: 4px;
 }
 
-.checkbox:not(.disabled):not(.error) > .checkbox-input:active > .checkbox-square {
-    border: 2px solid #f4f5f7;
-    padding: 3px 3px 3px 3px;
-}
-
 .checkbox.error > .checkbox-input > .checkbox-square {
     background-color: #f4f5f7;
     border: 2px solid $dark-red;
@@ -68,6 +63,10 @@
     background-color: $dark;
     border: 2px solid $dark;
     padding: 3px 3px 3px 3px;
+}
+
+.checkbox.checked.active > .checkbox-input > .checkbox-square {
+    background-color: #f4f5f7;
 }
 
 .checkbox.error.checked > .checkbox-input > .checkbox-square {
@@ -144,7 +143,8 @@ export const Checkbox = {
         classes() {
             const base = {
                 checked: this.checkedData,
-                disabled: this.disabled
+                disabled: this.disabled,
+                active: this.active
             };
 
             if (this.variant) base[this.variant] = true;
