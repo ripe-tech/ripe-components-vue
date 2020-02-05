@@ -266,11 +266,14 @@ export const TableMenu = {
         selectedIndex(value) {
             this.setMenuItem(value);
         },
+        selectedIndexData(value) {
+            this.$emit("update:selected-index", value);
+        },
         items(value) {
             this.itemsData = value;
         },
         itemsData(value) {
-            this.$emit("update:items", value); 
+            this.$emit("update:items", value);
         },
         checkedItemsData(value) {
             this.$emit("update:checked-items", value);

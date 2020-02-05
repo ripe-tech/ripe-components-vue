@@ -142,12 +142,16 @@ storiesOf("Organisms", module)
             return {
                 itemsData: this.mockItems,
                 checkedItemsData: this.checkedItems,
+                selectedIndexData: this.selectedIndex,
                 reverseData: this.reverse,
                 sortData: this.sort,
                 menuVisibleData: this.menuVisible
             };
         },
         watch: {
+            selectedIndex(value) {
+                this.selectedIndexData = value;
+            },
             menuVisible(value) {
                 this.menuVisibleData = value;
             },
@@ -166,7 +170,7 @@ storiesOf("Organisms", module)
                     v-bind:edit-columns="editColumns"
                     v-bind:enable-checkboxes="enableCheckboxes"
                     v-bind:checked-items.sync="checkedItemsData"
-                    v-bind:selected-index="selectedIndex"
+                    v-bind:selected-index.sync="selectedIndexData"
                     v-bind:table-title="tableTitle" 
                     v-bind:menu-title="menuTitle" 
                     v-bind:menu-mode="menuMode" 
@@ -182,6 +186,7 @@ storiesOf("Organisms", module)
                     v-bind:allow-selected-highlight="allowSelectedHighlight"
                 />
                     <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}, Menu visible: {{ menuVisibleData }}</p><br>
+                    <p>Selected Index: {{selectedIndexData}}</p>
                     <p>Items: {{ itemsData }}</p><br>
                     <p>Checked Items: {{ checkedItemsData }}</p>
             </div>
