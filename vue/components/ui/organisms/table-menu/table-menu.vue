@@ -20,13 +20,11 @@
                         v-bind:sort.sync="sortData"
                         v-bind:sort-method="sortMethod"
                         v-bind:reverse.sync="reverseData"
+
+                        v-bind:allow-selected-highlight="allowSelectedHighlight"
                     >
                         <template v-slot:row="{ item }">
-                            <tr
-                                v-bind:class="[{ selected: item.id === selectedItem.id }]"
-                                v-bind:key="item.id"
-                                v-on:click="onClickItem(item)"
-                            >
+                            <tr v-bind:key="item.id" v-on:click="(item, selectedOriginalIndex) => onClickItem(item, selectedOriginalIndex)">
                                 <td
                                     v-bind:class="column.value"
                                     v-for="column in columns"
@@ -149,14 +147,6 @@
     transition: opacity 0.1s ease-in-out;
 }
 
-.table-menu .container-menu .content .table .table-body > tr:hover {
-    background-color: $selected-color;
-}
-
-.table-menu .container-menu .content .table .table-body > tr.selected {
-    background-color: #e3e8f1;
-}
-
 .table-menu .container-menu .menu .button-color.delete-item {
     margin: 20px 0px 20px 0px;
 }
@@ -247,6 +237,10 @@ export const TableMenu = {
         animationDuration: {
             type: Number,
             required: false
+        },
+        allowSelectedHighlight: {
+            type: Number,
+            required: false
         }
     },
     data: function() {
@@ -305,7 +299,7 @@ export const TableMenu = {
     methods: {
         setMenuItem(index) {
             this.selectedIndexData = index;
-            this.menuVisibleData = true;
+            this.showMenu();
             this.focusFirstTextInput();
         },
         getColumnLabel(value) {
@@ -320,6 +314,12 @@ export const TableMenu = {
             const table = this.$refs["table-content"];
             table.scrollTop = table.scrollHeight;
         },
+        showMenu() {
+            this.menuVisibleData = true;
+        },
+        hideMenu() {
+            this.menuVisibleData = false;
+        },
         toggleMenu() {
             this.menuVisibleData = !this.menuVisibleData;
         },
@@ -327,10 +327,9 @@ export const TableMenu = {
             const textInputs = this.$refs.textInput || [];
             if (textInputs.length > 0) textInputs[0].focus();
         },
-        onClickItem(item) {
-            this.selectedItem.id === item.id
-                ? this.toggleMenu()
-                : this.setMenuItem(item._originalIndex);
+        onClickItem(item, selectedOriginalIndex) {
+            console.log("selectedOriginalIndex", selectedOriginalIndex);
+            selectedOriginalIndex === null ? this.hideMenu(): this.setMenuItem(selectedOriginalIndex);
         },
         onClickAddItem() {
             this.$emit("click:create");
