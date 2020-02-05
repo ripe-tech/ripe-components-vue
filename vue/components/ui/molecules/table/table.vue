@@ -32,7 +32,7 @@
             <template v-for="(item, index) in sortedItems">
                 <slot name="before-row" v-bind:item="item" v-bind:index="index" />
                 <slot name="row" v-bind:item="item" v-bind:index="index">
-                   <tr
+                    <tr
                         v-bind:class="{ selected: isRowSelected(item._originalIndex) }"
                         v-bind:key="item.id"
                         v-on:click="onRowClick(item, index)"
@@ -44,7 +44,7 @@
                                 v-on:click.native.exact.stop
                             />
                         </td>
-                        <slot v-bind:item="item" v-bind:index="index">
+                        <slot v-bind:name="'row-content'" v-bind:item="item" v-bind:index="index">
                             <td
                                 v-bind:class="column.value"
                                 v-for="column in columns"
@@ -54,7 +54,7 @@
                                     v-bind:item="item"
                                     v-bind:index="index"
                                     v-bind:column="column"
-                                    v-bind:name="`item-${column.value}`"
+                                    v-bind:name="'row-column'"
                                 >
                                     <slot
                                         v-bind:item="item"
@@ -62,18 +62,19 @@
                                         v-bind:column="column"
                                         v-bind:name="`item-${column.value}`"
                                     >
-                                    {{
-                                        item[column.value] !== null &&
-                                            item[column.value] !== undefined
-                                            ? item[column.value]
-                                            : "-"
-                                    }}
+                                        {{
+                                            item[column.value] !== null &&
+                                                item[column.value] !== undefined
+                                                ? item[column.value]
+                                                : "-"
+                                        }}
                                     </slot>
-                            </slot>
-                        </td>
+                                </slot>
+                            </td>
                         </slot>
                     </tr>
                 </slot>
+
                 <slot name="after-row" v-bind:item="item" v-bind:index="index" />
             </template>
         </transition-group>

@@ -20,23 +20,17 @@
                         v-bind:sort.sync="sortData"
                         v-bind:sort-method="sortMethod"
                         v-bind:reverse.sync="reverseData"
-
                         v-bind:allow-selected-highlight="allowSelectedHighlight"
+                        v-on:click="
+                            (item, selectedOriginalIndex) =>
+                                onClickItem(item, selectedOriginalIndex)
+                        "
                     >
-                        <template v-slot:row="{ item }">
-                            <tr v-bind:key="item.id" v-on:click="onClickItem(item, item._originalIndex)">
-                                <td
-                                    v-bind:class="column.value"
-                                    v-for="column in columns"
-                                    v-bind:key="column.value"
-                                >
-                                    <checkmark
-                                        v-bind:value="item[column.value]"
-                                        v-if="column.type === 'boolean'"
-                                    />
-                                    <span v-else>{{ item[column.value] }}</span>
-                                </td>
-                            </tr>
+                        <template v-slot:row-column="{ item, column }">
+                            <checkmark
+                                v-bind:value="item[column.value]"
+                                v-if="column.type === 'boolean'"
+                            />
                         </template>
                     </table-ripe>
                 </div>
@@ -241,7 +235,7 @@ export const TableMenu = {
         allowSelectedHighlight: {
             type: Boolean,
             default: false
-        },
+        }
     },
     data: function() {
         return {
@@ -273,7 +267,7 @@ export const TableMenu = {
             this.setMenuItem(value);
         },
         checkedItemsData(value) {
-            this.$emit("update:checked-items", value);;
+            this.$emit("update:checked-items", value);
         },
         menuVisible(value) {
             this.menuVisibleData = value;
@@ -329,7 +323,9 @@ export const TableMenu = {
         },
         onClickItem(item, selectedOriginalIndex) {
             console.log("selectedOriginalIndex", selectedOriginalIndex);
-            selectedOriginalIndex === null ? this.hideMenu(): this.setMenuItem(selectedOriginalIndex);
+            selectedOriginalIndex === null
+                ? this.hideMenu()
+                : this.setMenuItem(selectedOriginalIndex);
         },
         onClickAddItem() {
             this.$emit("click:create");
