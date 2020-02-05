@@ -235,9 +235,6 @@ export const SaveFilterModal = {
             this.$emit("click:confirm");
         },
         _selectDefaultValue(tenancy) {
-            // debugger;
-            console.log(this.tenancies);
-            console.log(tenancy);
             if (this.tenancies[tenancy].choices.length === 1) {
                 this.tenancies[tenancy].selectedValue = this.tenancies[tenancy].choices[0].value;
             }
