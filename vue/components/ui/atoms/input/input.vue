@@ -1,6 +1,6 @@
 <template>
     <input
-        type="text"
+        v-bind:type="type"
         class="input"
         v-bind:style="style"
         v-bind:class="classes"
@@ -86,6 +86,10 @@ export const Input = {
         value: {
             type: String | Number,
             default: ""
+        },
+        type: {
+            type: String,
+            default: "text"
         },
         placeholder: {
             type: String,
