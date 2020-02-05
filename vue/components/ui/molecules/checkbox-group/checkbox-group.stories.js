@@ -3,7 +3,7 @@ import { withKnobs, boolean } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
-    .add("CheckboxGroup", () => ({
+    .add("Checkbox Group", () => ({
         props: {
             error: {
                 default: boolean("Error", false)

@@ -1,35 +1,17 @@
 <template>
-    <div>
+    <div
+        tabindex="0"
+        class="checkbox"
+        v-bind:class="classes"
+        v-on:click="onClick()"
+        v-on:mousedown="onMouseDown()"
+        v-on:mouseup="onMouseUp()"
+        v-on:keydown.space="onSpace()"
+    >
         <global-events v-on:mouseup="onMouseUp" />
-        <div
-            tabindex="0"
-            class="checkbox"
-            v-bind:class="{
-                checked: checkedData,
-                disabled: disabled,
-                error: error
-            }"
-            v-on:click="onClick()"
-            v-on:mousedown="onMouseDown()"
-            v-on:mouseup="onMouseUp()"
-            v-on:keydown.space="onSpace()"
-        >
-            <slot
-                name="before-item"
-                v-bind:label="label"
-                v-bind:value="value"
-                v-bind:checked="checkedData"
-            />
-            <div class="checkbox-input">
-                <div class="checkbox-square" v-bind:style="getStyle" />
-                <label class="label" v-if="label || value">{{ label ? label : value }}</label>
-            </div>
-            <slot
-                name="after-item"
-                v-bind:label="label"
-                v-bind:value="value"
-                v-bind:checked="checkedData"
-            />
+        <div class="checkbox-input">
+            <div class="checkbox-square" v-bind:style="squareStyle" />
+            <label class="label" v-if="label">{{ label }}</label>
         </div>
     </div>
 </template>
@@ -41,6 +23,7 @@
     display: inline-block;
     font-size: 0px;
     outline: none;
+    user-select: none;
 }
 
 .checkbox > .checkbox-input {
@@ -53,6 +36,8 @@
 
 .checkbox > .checkbox-input > .checkbox-square {
     background-color: #fafbfc;
+    background-position: center center;
+    background-repeat: no-repeat;
     border: 2px solid #dfe1e5;
     border-radius: 2px 2px 2px 2px;
     cursor: pointer;
@@ -64,7 +49,7 @@
 }
 
 .checkbox:not(.disabled):not(.error) > .checkbox-input:active > .checkbox-square {
-    border: 2px solid #c3c9cf;
+    border: 2px solid #f4f5f7;
     padding: 3px 3px 3px 3px;
 }
 
@@ -74,21 +59,24 @@
 }
 
 .checkbox.disabled > .checkbox-input > .checkbox-square {
-    background: none center / 7px 6px no-repeat #f4f5f7;
+    background-color: #f4f5f7;
     border: 2px solid #f4f5f7;
     cursor: default;
 }
 
 .checkbox.checked > .checkbox-input > .checkbox-square {
+    background-color: $dark;
     border: 2px solid $dark;
     padding: 3px 3px 3px 3px;
 }
 
 .checkbox.error.checked > .checkbox-input > .checkbox-square {
+    background-color: $dark;
     border: 2px solid $dark-red;
 }
 
 .checkbox.disabled.checked > .checkbox-input > .checkbox-square {
+    background-color: #f4f5f7;
     border: 2px solid #f6f7f9;
     padding: 3px 3px 3px 3px;
 }
@@ -109,6 +97,7 @@
 
 .checkbox.disabled > .checkbox-input > .label {
     cursor: default;
+    opacity: 0.6;
 }
 </style>
 <script>
@@ -119,23 +108,11 @@ export const Checkbox = {
             type: String,
             default: null
         },
-        value: {
-            type: String,
-            default: null
-        },
         checked: {
             type: Boolean,
             default: false
         },
-        index: {
-            type: Number,
-            default: null
-        },
         disabled: {
-            type: Boolean,
-            default: false
-        },
-        error: {
             type: Boolean,
             default: false
         },
@@ -146,6 +123,10 @@ export const Checkbox = {
         size: {
             type: Number,
             default: 4
+        },
+        variant: {
+            type: String,
+            default: null
         }
     },
     data: function() {
@@ -160,39 +141,36 @@ export const Checkbox = {
         }
     },
     computed: {
-        sizeStyle() {
-            return {
+        classes() {
+            const base = {
+                checked: this.checkedData,
+                disabled: this.disabled
+            };
+
+            if (this.variant) base[this.variant] = true;
+
+            return base;
+        },
+        squareStyle() {
+            const base = {
                 width: `${this.size}px`,
-                height: `${this.size}px`
+                height: `${this.size}px`,
+                "background-size": `${this.size / 2 + 5}px ${this.size / 2 + 5}px`
             };
-        },
-        checkedStyle() {
-            const icon = require(`./assets/${this.icon}.svg`);
-            return {
-                background: `url(${icon}) center / ${this.size / 2 + 5}px ${this.size / 2 +
-                    4}px no-repeat #1d2631`
-            };
-        },
-        activeCheckStyle() {
-            const icon = require(`./assets/${this.icon}-dark.svg`);
-            return {
-                background: `url(${icon}) center / ${this.size / 2 + 5}px ${this.size / 2 +
-                    4}px no-repeat #f4f5f7`
-            };
-        },
-        disabledStyle() {
-            const icon = require(`./assets/${this.icon}-gray.svg`);
-            return {
-                background: `url(${icon}) center / ${this.size / 2 + 5}px ${this.size / 2 +
-                    4}px no-repeat #f4f5f7`
-            };
-        },
-        getStyle() {
-            let base = {};
-            if (this.disabled && this.checkedData) base = this.disabledStyle;
-            else if (this.checkedData) base = this.checkedStyle;
-            else if (this.active) base = this.activeCheckStyle;
-            return { ...this.sizeStyle, ...base };
+
+            if (this.disabled && this.checkedData) {
+                base["background-image"] = `url(${require(`./assets/${this.icon}-gray.svg`)})`;
+            }
+
+            if (!this.disabled && this.checkedData) {
+                base["background-image"] = `url(${require(`./assets/${this.icon}.svg`)})`;
+            }
+
+            if (!this.disabled && this.active) {
+                base["background-image"] = `url(${require(`./assets/${this.icon}-dark.svg`)})`;
+            }
+
+            return base;
         }
     },
     methods: {
@@ -200,7 +178,7 @@ export const Checkbox = {
             if (this.disabled) return;
 
             this.checkedData = !this.checkedData;
-            this.$emit("update:checked", this.checkedData, this.value, this.index);
+            this.$emit("update:checked", this.checkedData);
         },
         onSpace() {
             this.toggle();

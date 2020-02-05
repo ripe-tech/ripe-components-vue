@@ -18,7 +18,7 @@
             v-bind:visible.sync="selectVisibleData"
             v-bind:dropdown-min-width="dropdownMinWidth"
             v-on:update:value="onSelected"
-            v-on:dropdown:animation:close:ended="onDropdownAnimationCloseEnded"
+            v-on:dropdown:animation:close:end="onDropdownAnimationCloseEnded"
         >
             <template v-for="(item, index) in filtersData" v-bind:slot="getSelectValue(item)">
                 <div

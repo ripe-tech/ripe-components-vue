@@ -25,23 +25,24 @@
                 v-bind:items="tenancyItemsCheckable"
                 v-bind:values.sync="checkboxValuesData"
             >
-                <template v-slot:after-item="{ label, value }">
+                <template v-slot:after-item="{ index, item }">
                     <p
                         class="selected-label"
                         v-show="
-                            isTenancyItemSelected(value) && tenancies[value].choices.length === 1
+                            isTenancyItemSelected(item.value) &&
+                                tenancies[item.value].choices.length === 1
                         "
                     >
-                        {{ tenancies[value].choices[0].label }}
+                        {{ tenancies[item.value].choices[0].label }}
                     </p>
                     <select-ripe
-                        v-bind:placeholder="`Select ${label}`"
+                        v-bind:placeholder="`Select ${item.label}`"
                         v-bind:width="200"
                         v-bind:max-height="150"
-                        v-bind:options="tenancies[value].choices"
-                        v-if="tenancies[value].choices.length > 1"
-                        v-show="isTenancyItemSelected(value)"
-                        v-on:update:value="valueUpdated => onSelected(value, valueUpdated)"
+                        v-bind:options="tenancies[item.value].choices"
+                        v-if="tenancies[item.value].choices.length > 1"
+                        v-show="isTenancyItemSelected(item.value)"
+                        v-on:update:value="value => onSelected(item.value, value)"
                     />
                 </template>
             </checkbox-group>
@@ -234,6 +235,9 @@ export const SaveFilterModal = {
             this.$emit("click:confirm");
         },
         _selectDefaultValue(tenancy) {
+            // debugger;
+            console.log(this.tenancies);
+            console.log(tenancy);
             if (this.tenancies[tenancy].choices.length === 1) {
                 this.tenancies[tenancy].selectedValue = this.tenancies[tenancy].choices[0].value;
             }

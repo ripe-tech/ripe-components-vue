@@ -46,8 +46,8 @@
                 v-bind:style="dropdownStyle"
                 ref="dropdown"
                 v-on:update:highlighted="onDropdownHighlighted"
-                v-on:animation:close:ended="onDropdownAnimationCloseEnded"
                 v-on:item-clicked="(value, index) => onDropdownItemClicked(value.value, index)"
+                v-on:animation:close:end="onDropdownAnimationCloseEnd"
             >
                 <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
                 <template
@@ -159,21 +159,25 @@ export const Select = {
             type: Boolean,
             default: false
         },
+        align: {
+            type: String,
+            default: "right"
+        },
         width: {
             type: Number,
             default: null
         },
         maxHeight: {
             type: Number,
-            default: 200
+            default: 206
         },
         dropdownMinWidth: {
             type: Number,
             default: null
         },
-        align: {
-            type: String,
-            default: "right"
+        dropdownMaxWidth: {
+            type: Number,
+            default: null
         }
     },
     data: function() {
@@ -364,8 +368,8 @@ export const Select = {
             if (indexes.length === 0) return;
             this.highlight(indexes[0]);
         },
-        onDropdownAnimationCloseEnded() {
-            this.$emit("dropdown:animation:close:ended");
+        onDropdownAnimationCloseEnd() {
+            this.$emit("animation:close:end");
         }
     },
     computed: {
@@ -383,14 +387,15 @@ export const Select = {
             if (this.width) base.width = `${this.width}px`;
             return base;
         },
-        highlightedObject() {
-            const base = {};
-            if (this.highlighted !== null) base[this.highlighted] = true;
-            return base;
-        },
         dropdownStyle() {
             const base = {};
             if (this.dropdownMinWidth) base["min-width"] = `${this.dropdownMinWidth}px`;
+            if (this.dropdownMaxWidth) base["max-width"] = `${this.dropdownMaxWidth}px`;
+            return base;
+        },
+        highlightedObject() {
+            const base = {};
+            if (this.highlighted !== null) base[this.highlighted] = true;
             return base;
         }
     }
