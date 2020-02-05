@@ -396,7 +396,6 @@ export const Table = {
             return this.allowSelectedHighlight && originalIndex === this.selectedOriginalIndex;
         },
         itemsChangeHandler(items, itemsNrDiff) {
-            console.log("itemsNrDiff", itemsNrDiff);
             if (itemsNrDiff >= 0) {
                 let item = null;
                 for (let i = items.length - itemsNrDiff; i < items.length; i++) {
