@@ -356,10 +356,13 @@ export const Table = {
             }
         },
         items: {
+            deep: true,
             handler: function(value) {
-                const itemsNrDiff = value.length - this.itemsData.length;
+                this.itemsData = value;
 
-                this.itemsData = this.itemsChangeHandler([...value], itemsNrDiff);
+                this.itemsData.forEach((item, index) => {
+                    item._originalIndex = index;
+                });
             }
         },
         reverse: {
@@ -388,10 +391,7 @@ export const Table = {
             }
 
             const items = [...this.itemsData];
-            const sortedItems = this.sortMethod(items, this.sortData, this.reverseData);
-            // this.sortCheckboxes(sortedItems); TODO
-
-            return sortedItems;
+            return this.sortMethod(items, this.sortData, this.reverseData);
         },
         style() {
             const base = {};
@@ -422,46 +422,6 @@ export const Table = {
         isRowSelected(originalIndex) {
             return this.allowSelectedHighlight && originalIndex === this.selectedOriginalIndex;
         },
-        itemsChangeHandler(items, itemsNrDiff) {
-            return items;
-            /*
-            // TODO check this and change to work with new checkedItems refactor
-            if (itemsNrDiff === 0) return items;
-            else if (itemsNrDiff > 0) {
-                let item = null;
-                for (let i = items.length - itemsNrDiff; i < items.length; i++) {
-                    item = items[i];
-                    item._originalIndex = items[i]._checkboxIndex = i;
-                    this.$set(this.selectedCheckboxesData, i, false);
-                }
-            } else {
-                const unchangedCheckboxes = [...this.selectedCheckboxesData];
-
-                let itemFound = null;
-                for (let i = 0; i < items.length; i++) {
-                    itemFound = this.itemsData.find(
-                        item => items[i]._originalIndex === item._originalIndex
-                    );
-
-                    if (itemFound !== undefined) {
-                        this.$set(
-                            this.selectedCheckboxesData,
-                            i,
-                            unchangedCheckboxes[itemFound._checkboxIndex]
-                        );
-                        itemFound._originalIndex = itemFound._checkboxIndex = i;
-                        items[i] = itemFound;
-                    }
-                }
-
-                const removedItemsNr = itemsNrDiff * -1;
-                for (let j = 0; j < removedItemsNr; j++) this.selectedCheckboxesData.pop();
-            }
-
-            this.$emit("update:items", items);
-            return items;
-        */
-        },
         selectionChange() {
             if (this.isAllChecked) {
                 this.globalCheckboxIcon = "check";
@@ -484,17 +444,6 @@ export const Table = {
             this.$emit("update:sort", this.sortData);
             this.$emit("update:reverse", this.reverseData);
         },
-        /*         sortCheckboxes(sortedItems) {
-            const unsortedCheckboxes = [...this.selectedCheckboxesData];
-            sortedItems.forEach((item, index) => {
-                this.$set(
-                    this.selectedCheckboxesData,
-                    index,
-                    unsortedCheckboxes[item._checkboxIndex]
-                );
-                item._checkboxIndex = index;
-            });
-        }, */
         onGlobalCheckbox(value) {
             this.checkedItemsData = {};
             this.itemsData.forEach(item => {
