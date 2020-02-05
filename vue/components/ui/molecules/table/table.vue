@@ -358,11 +358,8 @@ export const Table = {
         items: {
             deep: true,
             handler: function(value) {
-                this.itemsData = value;
-
-                this.itemsData.forEach((item, index) => {
-                    item._originalIndex = index;
-                });
+                const itemsNrDiff = value.length - this.itemsData.length;
+                this.itemsData = this.itemsChangeHandler([...value], itemsNrDiff);
             }
         },
         reverse: {
@@ -407,6 +404,7 @@ export const Table = {
         },
         isAllChecked() {
             return (
+                Object.values(this.checkedItemsData).length > 0 &&
                 Object.values(this.checkedItemsData).length === this.itemsData.length &&
                 !Object.values(this.checkedItemsData).includes(false)
             );
@@ -421,6 +419,42 @@ export const Table = {
         },
         isRowSelected(originalIndex) {
             return this.allowSelectedHighlight && originalIndex === this.selectedOriginalIndex;
+        },
+        itemsChangeHandler(items, itemsNrDiff) {
+            if (itemsNrDiff >= 0) {
+                let item = null;
+                for (let i = items.length - itemsNrDiff; i < items.length; i++) {
+                    item = items[i];
+                    item._originalIndex = i;
+                    this.checkedItemsData[item._originalIndex] = false;
+                }
+            } else {
+                const unchangedCheckedItems = JSON.parse(JSON.stringify(this.checkedItemsData));
+
+                let itemFound = null;
+                for (let i = 0; i < items.length; i++) {
+                    itemFound = this.itemsData.find(
+                        item => items[i]._originalIndex === item._originalIndex
+                    );
+
+                    if (itemFound !== undefined) {
+                        this.checkedItemsData[i] = unchangedCheckedItems[itemFound._originalIndex];
+                        itemFound._originalIndex = i;
+                        items[i] = itemFound;
+                    }
+                }
+
+                const removedItemsNr = itemsNrDiff * -1;
+                const length = Object.keys(this.checkedItemsData).length;
+
+                let key = null;
+                for (let j = length - 1; j > length - 1 - removedItemsNr; j--) {
+                    key = Object.keys(this.checkedItemsData)[j];
+                    delete this.checkedItemsData[key];
+                }
+            }
+
+            return items;
         },
         selectionChange() {
             if (this.isAllChecked) {
