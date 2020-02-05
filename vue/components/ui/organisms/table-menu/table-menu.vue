@@ -24,7 +24,7 @@
                         v-bind:allow-selected-highlight="allowSelectedHighlight"
                     >
                         <template v-slot:row="{ item }">
-                            <tr v-bind:key="item.id" v-on:click="(item, selectedOriginalIndex) => onClickItem(item, selectedOriginalIndex)">
+                            <tr v-bind:key="item.id" v-on:click="onClickItem(item, item._originalIndex)">
                                 <td
                                     v-bind:class="column.value"
                                     v-for="column in columns"
@@ -239,9 +239,9 @@ export const TableMenu = {
             required: false
         },
         allowSelectedHighlight: {
-            type: Number,
-            required: false
-        }
+            type: Boolean,
+            default: false
+        },
     },
     data: function() {
         return {
