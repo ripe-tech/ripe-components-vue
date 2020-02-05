@@ -380,6 +380,7 @@ export const Table = {
         },
         isAllChecked() {
             return (
+                Object.values(this.checkedItemsData).length > 0 &&
                 Object.values(this.checkedItemsData).length === this.itemsData.length &&
                 !Object.values(this.checkedItemsData).includes(false)
             );
