@@ -147,8 +147,8 @@ export const Input = {
         onBlur() {
             this.$emit("blur");
         },
-        onEnter() {
-            this.$emit("enter");
+        onEnter(event) {
+            this.$emit("enter", event);
         }
     },
     computed: {
