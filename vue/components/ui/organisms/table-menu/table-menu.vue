@@ -331,7 +331,6 @@ export const TableMenu = {
             if (textInputs.length > 0) textInputs[0].focus();
         },
         onClickItem(item, selectedOriginalIndex) {
-            console.log("selectedOriginalIndex", selectedOriginalIndex);
             selectedOriginalIndex === null
                 ? this.hideMenu()
                 : this.setMenuItem(selectedOriginalIndex);
