@@ -47,17 +47,23 @@
                     v-bind:class="{ selected: isRowSelected(item._originalIndex) }"
                     v-bind:key="item.id"
                     v-on:click.exact="onRowClick(item, index)"
-                    v-on:click.ctrl.exact="onRowCtrlClick(index)"
-                    v-on:click.meta.exact="onRowCtrlClick(index)"
+                    v-on:click.ctrl.exact="onRowCtrlClick(index, item._originalIndex)"
+                    v-on:click.meta.exact="onRowCtrlClick(index, item._originalIndex)"
                     v-on:click.shift.exact="onRowShiftClick(index)"
                 >
                     <td class="checkbox-td" v-if="enableCheckboxes">
                         <checkbox
                             v-bind:size="8"
                             v-bind:checked.sync="checkedItemsData[item._originalIndex]"
-                            v-on:click.native.exact.stop="onCheckboxClick(index)"
-                            v-on:click.ctrl.exact.native.stop="onCheckboxClick(index)"
-                            v-on:click.meta.exact.native.stop="onCheckboxClick(index)"
+                            v-on:click.native.exact.stop="
+                                onCheckboxClick(index, item._originalIndex)
+                            "
+                            v-on:click.ctrl.exact.native.stop="
+                                onCheckboxClick(index, item._originalIndex)
+                            "
+                            v-on:click.meta.exact.native.stop="
+                                onCheckboxClick(index, item._originalIndex)
+                            "
                         />
                     </td>
                     <slot v-bind:item="item" v-bind:index="index">
@@ -496,7 +502,16 @@ export const Table = {
             this.shiftIndex = null;
             this.lastClickedIndex = null;
         },
-        updateSelectionIndexes(index) {
+        updateSelectionIndexes(index, originalIndex) {
+            if (!this.checkedItemsData[originalIndex]) {
+                const length = Object.values(this.checkedItemsData).length - 1;
+                for (let i = length; i >= 0; i--) {
+                    if (this.checkedItemsData[i]) {
+                        this.shiftIndex = this.lastClickedIndex = i;
+                        return;
+                    }
+                }
+            }
             this.shiftIndex = this.lastClickedIndex = index;
         },
         onGlobalCheckbox(value) {
@@ -517,9 +532,9 @@ export const Table = {
             this.$emit("click", item, this.selectedOriginalIndex, index);
             this.resetSelectionIndexes();
         },
-        onRowCtrlClick(index) {
+        onRowCtrlClick(index, originalIndex) {
             this.$set(this.checkedItemsData, index, !this.checkedItemsData[index]);
-            this.updateSelectionIndexes(index);
+            this.updateSelectionIndexes(index, originalIndex);
         },
         onRowShiftClick(index) {
             this.checkedItemsData = {};
@@ -533,8 +548,8 @@ export const Table = {
                 for (; i <= length; i++) this.$set(this.checkedItemsData, i, true);
             }
         },
-        onCheckboxClick(index) {
-            this.updateSelectionIndexes(index);
+        onCheckboxClick(index, originalIndex) {
+            this.updateSelectionIndexes(index, originalIndex);
         },
         onCtrlA() {
             this.checkedItemsData = {};
