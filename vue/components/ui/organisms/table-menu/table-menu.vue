@@ -14,7 +14,7 @@
                 <div class="table-content" v-bind:style="tableStyle" ref="table-content">
                     <table-ripe
                         v-bind:columns="columns"
-                        v-bind:items="itemsData"
+                        v-bind:items.sync="itemsData"
                         v-bind:enable-checkboxes="enableCheckboxes"
                         v-bind:checked-items.sync="checkedItemsData"
                         v-bind:sort.sync="sortData"
@@ -265,6 +265,12 @@ export const TableMenu = {
     watch: {
         selectedIndex(value) {
             this.setMenuItem(value);
+        },
+        items(value) {
+            this.itemsData = value;
+        },
+        itemsData(value) {
+            this.$emit("update:items", value); 
         },
         checkedItemsData(value) {
             this.$emit("update:checked-items", value);
