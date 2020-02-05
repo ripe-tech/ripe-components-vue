@@ -332,6 +332,7 @@ export const Table = {
             }
         },
         items: {
+            deep: true,
             handler: function(value) {
                 const itemsNrDiff = value.length - this.itemsData.length;
 
@@ -399,6 +400,13 @@ export const Table = {
             return this.allowSelectedHighlight && originalIndex === this.selectedOriginalIndex;
         },
         itemsChangeHandler(items, itemsNrDiff) {
+            items.forEach((item, index) => {
+                item._originalIndex = index;
+            });
+            
+
+            return items;
+            /*
             // TODO check this and change to work with new checkedItems refactor
             if (itemsNrDiff === 0) return items;
             else if (itemsNrDiff > 0) {
@@ -434,6 +442,7 @@ export const Table = {
 
             this.$emit("update:items", items);
             return items;
+        */
         },
         selectionChange() {
             if (this.isAllChecked) {
@@ -487,3 +496,4 @@ export const Table = {
 
 export default Table;
 </script>
+
