@@ -259,7 +259,6 @@
 }
 </style>
 
-
 <script>
 export const Table = {
     name: "table-ripe",
@@ -413,7 +412,11 @@ export const Table = {
                     );
 
                     if (itemFound !== undefined) {
-                        this.$set(this.checkedItemsData, i, unchangedCheckedItems[itemFound._originalIndex]);
+                        this.$set(
+                            this.checkedItemsData,
+                            i,
+                            unchangedCheckedItems[itemFound._originalIndex]
+                        );
                         itemFound._originalIndex = i;
                         items[i] = itemFound;
                     }
