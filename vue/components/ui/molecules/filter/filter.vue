@@ -9,7 +9,8 @@
                 v-bind:sort="sort"
                 v-bind:reverse="reverse"
                 v-bind:enable-checkboxes="enableCheckboxes"
-                v-bind:selected-checkboxes.sync="selectedCheckboxesData"
+                v-bind:checked-items.sync="checkedItemsData"
+                v-bind:allow-selected-highlight="allowSelectedHighlight"
                 v-on:click="onTableClick"
             >
                 <template v-slot="{ item, index }">
@@ -130,9 +131,13 @@ export const Filter = {
             type: Boolean,
             default: false
         },
-        selectedCheckboxes: {
-            type: Array,
-            default: () => []
+        checkedItems: {
+            type: Object,
+            default: () => {}
+        },
+        allowSelectedHighlight: {
+            type: Boolean,
+            default: false
         }
     },
     data: function() {
@@ -145,7 +150,7 @@ export const Filter = {
             itemsToLoad: true,
             loading: false,
             tableTransition: "",
-            selectedCheckboxesData: []
+            checkedItemsData: this.checkedItems
         };
     },
     computed: {
@@ -206,18 +211,17 @@ export const Filter = {
             },
             immediate: true
         },
-        selectedCheckboxes: {
+        checkedItems: {
             handler: function(value) {
-                this.selectedCheckboxesData = value;
+                this.checkedItemsData = value;
             },
             immediate: true
         },
-        selectedCheckboxesData: {
+        checkedItemsData: {
             handler: function(value) {
-                const selectedItems = this.items.filter((item, index) => value[index]);
-                this.$emit("update:selected-checkboxes", value);
-                this.$emit("update:selected-items", selectedItems);
+                this.$emit("update:checked-items", value);
             },
+            deep: true,
             immediate: true
         }
     },
