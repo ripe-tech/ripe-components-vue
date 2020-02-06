@@ -38,6 +38,8 @@
 
 .form-input.form-input-inline .flex-container {
     flex: 1;
+    display: flex;
+    align-items: center;
 }
 
 .form-input .header,
