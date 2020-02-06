@@ -226,7 +226,7 @@
 .button-color .icon-hover {
     float: left;
     height: 22px;
-    margin-top: 9px;
+    margin-top: 8px;
     padding-right: 12px;
     width: 22px;
 }
