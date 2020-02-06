@@ -17,8 +17,7 @@
                 <th class="checkbox-global" v-if="enableCheckboxes">
                     <checkbox
                         v-bind:size="8"
-                        v-bind:checked="globalCheckboxValueData"
-                        v-bind:icon="globalCheckboxIcon"
+                        v-bind:checked.sync="globalCheckboxValueData"
                         v-on:update:checked="onGlobalCheckbox"
                     />
                 </th>
@@ -347,7 +346,6 @@ export const Table = {
             sortData: this.sort,
             reverseData: this.reverse,
             globalCheckboxValueData: false,
-            globalCheckboxIcon: "check",
             checkedItemsData: this.enableCheckboxes ? this.checkedItems : {},
             selectedOriginalIndex: null,
             lastClickedIndex: null,
@@ -464,16 +462,9 @@ export const Table = {
             return items;
         },
         selectionChange() {
-            if (this.isAllChecked) {
-                this.globalCheckboxIcon = "check";
-                this.globalCheckboxValueData = true;
-            } else if (this.isAllUnchecked) {
-                this.globalCheckboxIcon = "check";
-                this.globalCheckboxValueData = false;
-            } else {
-                this.globalCheckboxIcon = "minus";
-                this.globalCheckboxValueData = true;
-            }
+            if (this.isAllChecked) this.globalCheckboxValueData = true;
+            else if (this.isAllUnchecked) this.globalCheckboxValueData = false;
+            else this.globalCheckboxValueData = "partial";
         },
         columnClass(column) {
             const order = this.reverseData ? "ascending" : "descending";
@@ -502,6 +493,8 @@ export const Table = {
             this.shiftIndex = this.lastClickedIndex = index;
         },
         onGlobalCheckbox(value) {
+            if (value === "partial") return;
+
             this.checkedItemsData = {};
             this.itemsData.forEach(item => {
                 this.$set(this.checkedItemsData, item._originalIndex, value);
