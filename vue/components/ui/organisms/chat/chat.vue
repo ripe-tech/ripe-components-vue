@@ -167,6 +167,7 @@ export const Chat = {
         scrollToLastMessage() {
             this.$nextTick(() => {
                 const messagesContainer = this.$refs["chat-messages"];
+                if (!messagesContainer) return;
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
             });
         },
