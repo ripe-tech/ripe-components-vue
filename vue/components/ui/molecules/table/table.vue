@@ -2,7 +2,7 @@
     <table class="table" v-bind:class="classes" v-bind:style="style">
         <thead class="table-head">
             <tr>
-                <th class="checkboxes-th" v-if="enableCheckboxes">
+                <th class="checkbox-global" v-if="enableCheckboxes">
                     <checkbox
                         v-bind:size="8"
                         v-bind:checked="globalCheckboxValueData"
@@ -36,7 +36,7 @@
                     v-bind:key="item.id"
                     v-on:click="onRowClick(item, index)"
                 >
-                    <td class="checkbox-td" v-if="enableCheckboxes">
+                    <td class="checkbox-item" v-if="enableCheckboxes">
                         <checkbox
                             v-bind:size="8"
                             v-bind:checked.sync="checkedItemsData[item._originalIndex]"
@@ -80,7 +80,7 @@
     width: 100%;
 }
 
-.table .table-head .checkboxes-th {
+.table .table-head .checkbox-global {
     width: 45px;
 }
 
@@ -132,7 +132,7 @@
     word-break: break-all;
 }
 
-.table .checkbox-td {
+.table .checkbox-item {
     padding: 0px 0px 0px 0px;
 }
 
@@ -399,18 +399,16 @@ export const Table = {
         },
         itemsChangeHandler(items, itemsNrDiff) {
             if (itemsNrDiff >= 0) {
-                let item = null;
                 for (let i = items.length - itemsNrDiff; i < items.length; i++) {
-                    item = items[i];
+                    const item = items[i];
                     item._originalIndex = i;
                     this.$set(this.checkedItemsData, item._originalIndex, false);
                 }
             } else {
                 const unchangedCheckedItems = JSON.parse(JSON.stringify(this.checkedItemsData));
 
-                let itemFound = null;
                 for (let i = 0; i < items.length; i++) {
-                    itemFound = this.itemsData.find(
+                    const itemFound = this.itemsData.find(
                         item => items[i]._originalIndex === item._originalIndex
                     );
 
