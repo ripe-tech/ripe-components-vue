@@ -132,7 +132,7 @@ export const Filter = {
             default: false
         },
         checkedItems: {
-            type: Array,
+            type: Object,
             default: () => {}
         },
         allowSelectedHighlight: {

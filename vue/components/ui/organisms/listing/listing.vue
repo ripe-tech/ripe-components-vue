@@ -269,7 +269,7 @@ export const Listing = {
             default: false
         },
         checkedItems: {
-            type: Array,
+            type: Object,
             default: () => {}
         },
         allowSelectedHighlight: {
