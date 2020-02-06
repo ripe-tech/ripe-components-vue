@@ -286,6 +286,7 @@
 }
 </style>
 
+
 <script>
 export const Table = {
     name: "table-ripe",
@@ -431,7 +432,7 @@ export const Table = {
                 for (let i = items.length - itemsNrDiff; i < items.length; i++) {
                     item = items[i];
                     item._originalIndex = i;
-                    this.checkedItemsData[item._originalIndex] = false;
+                    this.$set(this.checkedItemsData, item._originalIndex, false);
                 }
             } else {
                 const unchangedCheckedItems = JSON.parse(JSON.stringify(this.checkedItemsData));
@@ -443,7 +444,7 @@ export const Table = {
                     );
 
                     if (itemFound !== undefined) {
-                        this.checkedItemsData[i] = unchangedCheckedItems[itemFound._originalIndex];
+                        this.$set(this.checkedItemsData, i, unchangedCheckedItems[itemFound._originalIndex]);
                         itemFound._originalIndex = i;
                         items[i] = itemFound;
                     }
@@ -455,7 +456,7 @@ export const Table = {
                 let key = null;
                 for (let j = length - 1; j > length - 1 - removedItemsNr; j--) {
                     key = Object.keys(this.checkedItemsData)[j];
-                    delete this.checkedItemsData[key];
+                    this.$delete(this.checkedItemsData, key);
                 }
             }
 
