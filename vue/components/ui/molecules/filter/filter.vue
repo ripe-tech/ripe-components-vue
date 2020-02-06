@@ -127,10 +127,6 @@ export const Filter = {
             type: Boolean,
             default: false
         },
-        Checkboxes: {
-            type: Boolean,
-            default: false
-        },     
         enableCheckboxes: {
             type: Boolean,
             default: false
@@ -154,7 +150,7 @@ export const Filter = {
             itemsToLoad: true,
             loading: false,
             tableTransition: "",
-            checkedItemsData: {}
+            checkedItemsData: this.checkedItems
         };
     },
     computed: {
