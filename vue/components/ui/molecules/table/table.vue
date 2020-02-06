@@ -14,7 +14,7 @@
         />
         <thead class="table-head">
             <tr>
-                <th class="checkboxes-th" v-if="enableCheckboxes">
+                <th class="checkbox-global" v-if="enableCheckboxes">
                     <checkbox
                         v-bind:size="8"
                         v-bind:checked="globalCheckboxValueData"
@@ -51,7 +51,7 @@
                     v-on:click.meta.exact="onRowCtrlClick(index, item._originalIndex)"
                     v-on:click.shift.exact="onRowShiftClick(index)"
                 >
-                    <td class="checkbox-td" v-if="enableCheckboxes">
+                    <td class="checkbox-item" v-if="enableCheckboxes">
                         <checkbox
                             v-bind:size="8"
                             v-bind:checked.sync="checkedItemsData[item._originalIndex]"
@@ -107,7 +107,7 @@
     user-select: none;
 }
 
-.table .table-head .checkboxes-th {
+.table .table-head .checkbox-global {
     width: 45px;
 }
 
@@ -159,7 +159,7 @@
     word-break: break-all;
 }
 
-.table .checkbox-td {
+.table .checkbox-item {
     padding: 0px 0px 0px 0px;
 }
 
@@ -285,7 +285,6 @@
     opacity: 1;
 }
 </style>
-
 
 <script>
 export const Table = {
@@ -428,23 +427,25 @@ export const Table = {
         },
         itemsChangeHandler(items, itemsNrDiff) {
             if (itemsNrDiff >= 0) {
-                let item = null;
                 for (let i = items.length - itemsNrDiff; i < items.length; i++) {
-                    item = items[i];
+                    const item = items[i];
                     item._originalIndex = i;
                     this.$set(this.checkedItemsData, item._originalIndex, false);
                 }
             } else {
                 const unchangedCheckedItems = JSON.parse(JSON.stringify(this.checkedItemsData));
 
-                let itemFound = null;
                 for (let i = 0; i < items.length; i++) {
-                    itemFound = this.itemsData.find(
+                    const itemFound = this.itemsData.find(
                         item => items[i]._originalIndex === item._originalIndex
                     );
 
                     if (itemFound !== undefined) {
-                        this.$set(this.checkedItemsData, i, unchangedCheckedItems[itemFound._originalIndex]);
+                        this.$set(
+                            this.checkedItemsData,
+                            i,
+                            unchangedCheckedItems[itemFound._originalIndex]
+                        );
                         itemFound._originalIndex = i;
                         items[i] = itemFound;
                     }
