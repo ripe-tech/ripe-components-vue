@@ -138,6 +138,9 @@ export const Checkbox = {
     watch: {
         checked(value) {
             this.checkedData = value;
+        },
+        checkedData(value) {
+            this.$emit("update:checked", this.checkedData);
         }
     },
     computed: {
@@ -178,7 +181,6 @@ export const Checkbox = {
             if (this.disabled) return;
 
             this.checkedData = !this.checkedData;
-            this.$emit("update:checked", this.checkedData);
         },
         onSpace() {
             this.toggle();
