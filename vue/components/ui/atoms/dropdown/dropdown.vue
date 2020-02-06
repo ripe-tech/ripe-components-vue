@@ -144,6 +144,10 @@ export const Dropdown = {
         maxHeight: {
             type: Number,
             default: null
+        },
+        overflow: {
+            type: String,
+            default: "auto"
         }
     },
     data: function() {
@@ -172,8 +176,8 @@ export const Dropdown = {
             if (this.width) base.width = `${this.width}px`;
             if (this.maxHeight) {
                 base["max-height"] = `${this.maxHeight}px`;
-                base.overflow = "overlay";
             }
+            if (this.overflow) base.overflow = this.overflow;
             return base;
         }
     },
