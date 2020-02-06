@@ -54,12 +54,21 @@ storiesOf("Organisms", module)
                 )
             },
             enableCheckboxes: {
-                default: boolean("Enable Checkboxes", true)
+                default: () => boolean("Enable checkboxes", false)
+            },
+            checkedItems: {
+                type: Object,
+                default: () => {
+                    return {};
+                }
+            },
+            allowSelectedHighlight: {
+                default: () => boolean("Allow selection highlight", false)
             }
         },
         data: function() {
             return {
-                selectedItemsData: []
+                checkedItemsData: this.checkedItems
             };
         },
         methods: {
@@ -91,7 +100,8 @@ storiesOf("Organisms", module)
                     v-bind:filter-fields="filterFields"
                     v-bind:container-mode="containerMode"
                     v-bind:enable-checkboxes="enableCheckboxes"
-                    v-bind:selected-items.sync="selectedItemsData"
+                    v-bind:checked-items.sync="checkedItemsData"
+                    v-bind:allow-selected-highlight="allowSelectedHighlight"
                 >
                     <template v-slot:icons>
                         <img v-bind:src="img" v-bind:style="imgStyle" />
@@ -108,7 +118,7 @@ storiesOf("Organisms", module)
                         </td>
                     </template>
                 </listing>
-                <p>Selected items: {{ selectedItemsData }}</p>
+                <p>Checked items: {{ checkedItemsData }}</p>
             </div>
         `
     }));
