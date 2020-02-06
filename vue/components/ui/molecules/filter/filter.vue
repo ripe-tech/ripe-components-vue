@@ -8,6 +8,7 @@
                 v-bind:transition="tableTransition"
                 v-bind:initial-sort="sort"
                 v-bind:initial-reverse="reverse"
+                v-bind:variant="tableVariant"
                 v-on:click="onTableClick"
             >
                 <template v-slot="{ item, index }">
@@ -105,6 +106,10 @@ export const Filter = {
             type: Array,
             default: () => []
         },
+        tableVariant: {
+            type: String,
+            default: null
+        },
         lineupFields: {
             type: Array,
             default: () => []
@@ -167,6 +172,7 @@ export const Filter = {
             deep: true,
             immediate: true,
             handler: async function(options, oldOptions) {
+                console.log("refresh");
                 // if the sort or the filter string have changed then
                 // resets the start parameter as the current items
                 // will be invalid
