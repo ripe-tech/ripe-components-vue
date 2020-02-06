@@ -172,7 +172,6 @@ export const Filter = {
             deep: true,
             immediate: true,
             handler: async function(options, oldOptions) {
-                console.log("refresh");
                 // if the sort or the filter string have changed then
                 // resets the start parameter as the current items
                 // will be invalid
