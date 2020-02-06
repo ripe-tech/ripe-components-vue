@@ -5,6 +5,51 @@ storiesOf("Organisms", module)
     .addDecorator(withKnobs)
     .add("Table Menu", () => ({
         props: {
+            selectedIndex: {
+                type: Number,
+                default: number("Selected index", null)
+            },
+            tableTitle: {
+                type: String,
+                default: text("Table header title", "Awesome programmers")
+            },
+            menuTitle: {
+                type: String,
+                default: text("Menu header title", "Something wrong?")
+            },
+            menuMode: {
+                default: select(
+                    "Menu Mode",
+                    {
+                        Collapse: "collapse",
+                        Fixed: "fixed",
+                        Floating: "floating"
+                    },
+                    "collapse"
+                )
+            },
+            menuAlignment: {
+                default: select(
+                    "Menu Alignment",
+                    {
+                        Right: "right",
+                        Left: "left"
+                    },
+                    "right"
+                )
+            },
+            menuVisible: {
+                default: boolean("Menu Visible", false)
+            },
+            menuWidth: {
+                default: number("Menu Width", 300)
+            },
+            menuBackgroundColor: {
+                default: color("Menu Background Color", "#ffffff")
+            },
+            animationDuration: {
+                default: number("Animation Duration", 0.3)
+            },
             mockItems: {
                 default: () => [
                     {
@@ -43,101 +88,22 @@ storiesOf("Organisms", module)
                     { value: "programmer", label: "Programmer", type: "boolean", edit: true },
                     { value: "net", label: "Net worth", type: "money", edit: true }
                 ]
-            },
-            selectedIndex: {
-                type: Number,
-                default: number("Selected index", null)
-            },
-            tableTitle: {
-                type: String,
-                default: text("Table header title", "")
-            },
-            menuTitle: {
-                type: String,
-                default: text("Menu header title", "Arguments")
-            },
-            menuMode: {
-                default: select(
-                    "Menu Visibility menuMode",
-                    {
-                        Collapse: "collapse",
-                        Fixed: "fixed",
-                        Floating: "floating"
-                    },
-                    "collapse"
-                )
-            },
-            menuAlignment: {
-                default: select(
-                    "Menu Orientation",
-                    {
-                        Right: "right",
-                        Left: "left"
-                    },
-                    "right"
-                )
-            },
-            menuVisible: {
-                default: boolean("Visible menu", false)
-            },
-            maxHeight: {
-                type: Number,
-                default: number("Max height", null)
-            },
-            menuWidth: {
-                default: number("Menu width", 300)
-            },
-            menuBackgroundColor: {
-                default: color("Menu background color", "#ffffff")
-            },
-            animationDuration: {
-                default: number("Animation duration", 0.3)
-            },
-            inputVariant: {
-                default: select(
-                    "Input Variant",
-                    {
-                        Unset: null,
-                        Dark: "dark"
-                    },
-                    "dark"
-                )
-            },
-            sort: {
-                default: select(
-                    "Sort Column",
-                    {
-                        Unset: null,
-                        Id: "id",
-                        User: "user",
-                        "Operating System": "os",
-                        Alive: "alive",
-                        Mars: "mars",
-                        Programmer: "programmer"
-                    },
-                    null
-                )
-            },
-            reverse: {
-                default: () => boolean("Reverse", null)
             }
         },
         data: function() {
             return {
-                reverseData: this.reverse,
-                sortData: this.sort,
-                menuVisibleData: this.menuVisible
+                reverseData: null,
+                sortData: null,
+                menuVisibleData: this.menuVisible,
+                selectedIndexData: this.selectedIndex
             };
         },
         watch: {
             menuVisible(value) {
                 this.menuVisibleData = value;
             },
-            sort(value) {
-                this.sortData = value;
-            },
-            reverse(value) {
-                this.reverseData = value;
+            selectedIndex(value) {
+                this.selectedIndexData = value;
             }
         },
         template: `
@@ -145,16 +111,14 @@ storiesOf("Organisms", module)
                 <table-menu
                     v-bind:items="mockItems"
                     v-bind:columns="mockColumns"
-                    v-bind:selected-index="selectedIndex"
+                    v-bind:selected-index.sync="selectedIndexData"
                     v-bind:table-title="tableTitle" 
                     v-bind:menu-title="menuTitle" 
                     v-bind:menu-mode="menuMode" 
                     v-bind:menu-visible.sync="menuVisibleData"
-                    v-bind:max-height="maxHeight"
                     v-bind:menu-width="menuWidth"
                     v-bind:menu-alignment="menuAlignment" 
                     v-bind:menu-background-color="menuBackgroundColor"
-                    v-bind:input-variant="inputVariant"
                     v-bind:sort.sync="sortData"
                     v-bind:reverse.sync="reverseData"
                     v-bind:animation-duration="animationDuration">
@@ -164,13 +128,18 @@ storiesOf("Organisms", module)
                     <template v-slot:item-programmer="{ item }">
                         <checkmark v-bind:value="item.programmer" />
                     </template>
-                    <template v-slot:arg-programmer="{ column, selectedItem }">
-                        <form-input v-bind:header="column.label">
-                            <input-ripe v-bind:value.sync="selectedItem[column.value]" v-bind:variant="'dark'" />
+                    <template v-slot:arg-alive="{ selectedItem }">
+                        <form-input v-bind:header="'Is it alive?'" v-bind:variant="'inline'">
+                            <checkbox v-bind:checked="selectedItem.alive" v-on:update:checked="value => $set(selectedItem, 'alive', value)" />
+                        </form-input>
+                    </template>
+                    <template v-slot:arg-programmer="{ selectedItem }">
+                        <form-input v-bind:header="'Programmer?'" v-bind:variant="'inline'">
+                            <checkbox v-bind:checked="selectedItem.programmer" v-on:update:checked="value => $set(selectedItem, 'programmer', value)" />
                         </form-input>
                     </template>
                 </table-menu>
-                <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}, Menu visible: {{ menuVisibleData }}</p>
+                <p>Menu visible: {{ menuVisibleData }}, selected: {{ selectedIndexData }}</p>
             </div>
 
         `

@@ -9,10 +9,10 @@
         v-bind:class="[menuMode, menuAlignment]"
     >
         <template v-slot:content>
-            <slot name="table-header">
-                <h2 class="table-title" v-if="tableTitle">{{ tableTitle }}</h2>
+            <slot name="content-header">
+                <h2 class="content-title" v-if="tableTitle">{{ tableTitle }}</h2>
             </slot>
-            <div class="table-content" v-bind:style="tableStyle" ref="table-content">
+            <div class="content-content" ref="content-content">
                 <table-ripe
                     v-bind:columns="columns"
                     v-bind:items="itemsWithIndex"
@@ -58,32 +58,20 @@
                     <h2 class="menu-title" v-if="menuTitle">{{ menuTitle }}</h2>
                 </slot>
                 <slot name="menu-content">
-                    <div
-                        class="argument"
-                        v-bind:class="column.value"
+                    <slot
+                        v-bind:selectedItem="selectedItem"
+                        v-bind:name="`arg-${column.value}`"
                         v-for="column in editColumns"
-                        v-bind:key="column.value"
                     >
-                        <slot
-                            v-bind:column="column"
-                            v-bind:selectedItem="selectedItem"
-                            v-bind:name="`arg-${column.value}`"
-                        >
-                            <form-input v-bind:header="column.label">
-                                <input-ripe
-                                    v-bind:value.sync="selectedItem[column.value]"
-                                    v-bind:variant="inputVariant"
-                                    ref="textInput"
-                                />
-                            </form-input>
-                        </slot>
-                    </div>
+                        <form-input v-bind:header="column.label" v-bind:variant="'inline'" v-bind:class="column.value" v-bind:key="column.value">
+                            <input-ripe v-bind:value.sync="selectedItem[column.value]" />
+                        </form-input>
+                    </slot>
                 </slot>
                 <slot name="menu-footer">
                     <button-color
                         class="delete-item"
                         v-bind:text="'Delete'"
-                        v-bind:small="true"
                         v-bind:icon="'bin'"
                         v-bind:color="'red'"
                         v-bind:min-width="0"
@@ -98,79 +86,57 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.table-menu.left.container-menu ::v-deep .menu {
-    border-right: 1px solid $border-color;
-}
-
-.table-menu.right.container-menu ::v-deep .menu {
-    border-left: 1px solid $border-color;
-}
-
-.table-menu.floating.container-menu ::v-deep .menu {
-    border: 1px solid $border-color;
-}
-
-.table-menu.container-menu ::v-deep .menu > .menu-container {
-    padding: 10px 20px 0px 20px;
-}
-
-.table-menu.container-menu ::v-deep .menu .form-input {
-    display: flex;
-    margin: 0px 0px 5px 0px;
-}
-
-.table-menu.container-menu ::v-deep .menu .form-input > .label {
-    color: #57626e;
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.3px;
-    line-height: 32px;
-    margin: 0px 0px 0px 0px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-transform: capitalize;
-    width: 60%;
-}
-
-.table-menu.container-menu ::v-deep .menu .form-input > .content {
-    width: 100%;
-}
-
-.table-menu.container-menu ::v-deep .content .table-title,
-.table-menu.container-menu ::v-deep .menu .menu-title {
+.table-menu .content-title,
+.table-menu .menu-title {
     color: $dark;
     font-size: 18px;
     font-weight: 500;
-    padding: 10px 0px 10px 0px;
 }
 
-.table-menu.container-menu ::v-deep .content .table-title {
+.table-menu .content-title {
     padding: 10px 0px 10px 20px;
 }
 
-.table-menu.container-menu ::v-deep .content .table-content {
+.table-menu .content-content {
     overflow-y: auto;
 }
 
-.table-menu.container-menu ::v-deep .content .table .table-head .table-column {
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.table-menu.container-menu .content .table .table-body > tr {
+.table-menu .content-content .table tr {
     cursor: pointer;
     transition: opacity 0.1s ease-in-out;
 }
 
-.table-menu.container-menu .content .table .table-body > tr:hover {
+.table-menu .content-content .table tr:hover {
     background-color: $selected-color;
 }
 
-.table-menu.container-menu .content .table .table-body > tr.selected {
+.table-menu .content-content .table tr.selected {
     background-color: #e3e8f1;
 }
 
-.table-menu.container-menu .menu .button-color.delete-item {
+.table-menu .menu-title {
+    padding: 10px 0px 10px 0px;
+}
+
+.table-menu.left ::v-deep .menu {
+    border-right: 1px solid $border-color;
+}
+
+.table-menu.right ::v-deep .menu {
+    border-left: 1px solid $border-color;
+}
+
+.table-menu.floating ::v-deep .menu {
+    border: 1px solid $border-color;
+}
+
+.table-menu .menu-container {
+    box-sizing: border-box;
+    height: 100%;
+    padding: 10px 20px 0px 20px;
+}
+
+.table-menu .menu-container > .button-color.delete-item {
     margin: 20px 0px 20px 0px;
 }
 </style>
@@ -217,10 +183,6 @@ export const TableMenu = {
             type: String,
             required: false
         },
-        maxHeight: {
-            type: Number,
-            default: null
-        },
         menuWidth: {
             type: Number,
             default: 300
@@ -241,10 +203,6 @@ export const TableMenu = {
             type: String,
             default: "#ffffff"
         },
-        inputVariant: {
-            type: String,
-            default: "dark"
-        },
         animationDuration: {
             type: Number,
             required: false
@@ -264,11 +222,6 @@ export const TableMenu = {
         },
         selectedItem() {
             return this.items[this.selectedIndexData] || {};
-        },
-        tableStyle() {
-            const base = {};
-            base["max-height"] = this.maxHeight ? `${this.maxHeight}px` : null;
-            return base;
         },
         menuStyle() {
             const base = {};
@@ -311,26 +264,21 @@ export const TableMenu = {
         setMenuItem(index) {
             this.selectedIndexData = index;
             this.menuVisibleData = true;
-            this.focusFirstTextInput();
         },
         getColumnLabel(value) {
             const column = this.columns.find(l => l.value === value);
             return column.label || value;
         },
         scrollTop() {
-            const table = this.$refs["table-content"];
+            const table = this.$refs["content-content"];
             table.scrollTop = 0;
         },
         scrollBottom() {
-            const table = this.$refs["table-content"];
+            const table = this.$refs["content-content"];
             table.scrollTop = table.scrollHeight;
         },
         toggleMenu() {
             this.menuVisibleData = !this.menuVisibleData;
-        },
-        focusFirstTextInput() {
-            const textInputs = this.$refs.textInput || [];
-            if (textInputs.length > 0) textInputs[0].focus();
         },
         isSelected(item) {
             return this.selectedItem.id === item.id;
@@ -339,9 +287,6 @@ export const TableMenu = {
             this.isSelected(item)
                 ? this.toggleMenu()
                 : this.setMenuItem(item._originalIndex);
-        },
-        onClickAddItem() {
-            this.$emit("click:create");
         },
         onClickDeleteItem() {
             this.$emit("click:delete", this.selectedItem, this.selectedIndexData);
