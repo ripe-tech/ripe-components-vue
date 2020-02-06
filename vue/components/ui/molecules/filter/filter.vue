@@ -19,6 +19,7 @@
                 v-bind:fields="lineupFields"
                 v-bind:get-item-url="getItemUrl"
                 v-bind:columns="lineupColumns"
+                v-bind:variant="lineupVariant"
                 v-on:click="onLineupClick"
             >
                 <slot
@@ -110,6 +111,10 @@ export const Filter = {
         },
         lineupColumns: {
             type: Number,
+            default: null
+        },
+        lineupVariant: {
+            type: String,
             default: null
         },
         limit: {

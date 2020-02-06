@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, number } from "@storybook/addon-knobs";
+import { withKnobs, number, select } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
@@ -43,6 +43,16 @@ storiesOf("Molecules", module)
             },
             columns: {
                 default: number("Columns", 2)
+            },
+            variant: {
+                default: select(
+                    "Variant",
+                    {
+                        Unset: null,
+                        Spaced: "spaced"
+                    },
+                    null
+                )
             }
         },
         template: `
@@ -50,6 +60,7 @@ storiesOf("Molecules", module)
                 v-bind:fields="fields"
                 v-bind:items="items"
                 v-bind:columns="columns"
+                v-bind:variant="variant"
             >
                 <template v-slot:shirt>
                     Custom entry

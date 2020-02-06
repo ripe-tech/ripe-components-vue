@@ -1,5 +1,5 @@
 <template>
-    <transition-group tag="div" v-bind:name="transition" class="lineup">
+    <transition-group tag="div" v-bind:name="transition" v-bind:class="classes">
         <div
             class="lineup-item"
             v-bind:class="{ clickable: clickable(item) }"
@@ -119,6 +119,10 @@
     vertical-align: top;
 }
 
+.lineup.lineup-spaced > .lineup-item > .lineup-item-container {
+    padding: 14px 12px 14px 12px;
+}
+
 .lineup > .lineup-item > .lineup-item-container > .lineup-item-contents > .key {
     color: #8d8d8d;
     font-size: 12px;
@@ -164,9 +168,22 @@ export const Lineup = {
         getItemUrl: {
             type: Function,
             default: null
+        },
+        variant: {
+            type: String,
+            default: null
         }
     },
     computed: {
+        classes() {
+            const base = {
+                lineup: true
+            };
+
+            if (this.variant) base[`lineup-${this.variant}`] = true;
+
+            return base;
+        },
         lineupItemStyle() {
             const base = {};
             base.width = this.columns === null ? null : `${100 / this.columns}%`;
