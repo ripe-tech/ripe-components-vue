@@ -178,7 +178,7 @@ export const Checkbox = {
             if (this.disabled) return;
 
             this.checkedData = !this.checkedData;
-            this.$emit("update:checked", this.checkedData, this.value, this.index);
+            this.$emit("update:checked", this.checkedData);
         },
         onSpace() {
             this.toggle();

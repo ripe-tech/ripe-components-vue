@@ -21,6 +21,9 @@ storiesOf("Atoms", module)
             visible: {
                 default: boolean("Visible", true)
             },
+            padded: {
+                default: boolean("Padded", false)
+            },
             links: {
                 default: () => [
                     {
@@ -67,9 +70,11 @@ storiesOf("Atoms", module)
                 <side 
                     v-bind:links="links" 
                     v-bind:width="width" 
-                    v-bind:visible.sync="visibleData" 
+                    v-bind:visible.sync="visibleData"
+                    v-bind:padded="padded"
                     v-bind:position="position"
                 />
                 <p style="text-align: center;">Visible: {{visibleData}}</p>
-            </div>`
+            </div>
+        `
     }));
