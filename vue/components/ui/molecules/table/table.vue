@@ -102,7 +102,7 @@
 }
 
 .table tbody tr.selected {
-    background-color: #e3e8f1;
+    background-color: $light-white;
 }
 
 .table th {
