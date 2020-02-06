@@ -434,7 +434,7 @@ export const Table = {
         },
         selectionChange() {
             if (this.isAllChecked) this.globalCheckboxValueData = true;
-            else if (this.isAllUnchecked) this.globalCheckboxValueData = false;
+            else if (this.isAllUnchecked) this.$nextTick(() => {this.globalCheckboxValueData = false; });
             else this.globalCheckboxValueData = "partial";
         },
         columnClass(column) {
