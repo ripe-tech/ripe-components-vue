@@ -18,14 +18,13 @@
             v-bind:visible.sync="selectVisibleData"
             v-bind:dropdown-min-width="dropdownMinWidth"
             v-on:update:value="onSelected"
-            v-on:dropdown:animation:close:end="onDropdownAnimationCloseEnded"
+            v-on:animation:close:end="onDropdownAnimationCloseEnded"
         >
             <template v-for="(item, index) in filtersData" v-bind:slot="getSelectValue(item)">
                 <div
                     class="filter-item"
                     v-bind:class="{ selected: isFilterSelected(index) }"
-                    v-bind:title="item.label"
-                    v-bind:key="item.name"
+                    v-bind:key="`${item.name}${item.tenancy}`"
                 >
                     <div class="filter-item-label">
                         {{ item.name }}
@@ -45,14 +44,14 @@
                 </div>
             </template>
             <template v-slot:save_filter_option>
-                <button-color
-                    class="save-filter-button"
-                    v-bind:text="'Save Filter'"
-                    v-bind:secondary="true"
-                    v-bind:alignment="'left'"
-                    v-bind:icon="'add'"
-                    v-on:click.native.stop="onAddClick()"
-                />
+                <div
+                    class="filter-item save-filter-button"
+                    v-on:click.stop="onAddClick"
+                >
+                    <div class="filter-item-label">
+                        Add Filter
+                    </div>
+                </div>
             </template>
         </select-ripe>
     </div>
@@ -101,9 +100,13 @@
 }
 
 .search-persistent > .select .save-filter-button {
-    border: none;
-    border-radius: 0px 0px 0px 0px;
-    box-sizing: unset;
+    padding-left: 14px;
+}
+
+.search-persistent > .select .save-filter-button > .filter-item-label {
+    background: url("~./../../../../assets/icons/black/add.svg") center left no-repeat;
+    background-size: 16px 16px;
+    padding-left: 24px;
 }
 
 .search-persistent > .select .filter-item-label {
@@ -115,7 +118,7 @@
 
 .search-persistent > .select .filter-item {
     font-size: 14px;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.5px;
     line-height: 32px;
 }
 
@@ -138,11 +141,14 @@
 .search-persistent > .select .filter-item > .filter-item-buttons {
     display: inline-block;
     font-size: 0px;
-    margin: 0px 5px 0px 0px;
 }
 
 .search-persistent > .select .filter-item > .filter-item-buttons > .button {
-    margin: 0px 1px 0px 1px;
+    margin-right: 1px;
+}
+
+.search-persistent > .select .filter-item > .filter-item-buttons > .button:last-child {
+    margin-right: 0px;
 }
 </style>
 
@@ -353,6 +359,7 @@ export const SearchPersistent = {
             );
         },
         async onAddClick() {
+            this.selectVisibleData = false;
             await this.alertComponent(SaveFilterModal, {
                 search: this.valueData,
                 task: async (alert, component) => {
@@ -364,7 +371,10 @@ export const SearchPersistent = {
             this.selectFilter(index);
         },
         onDropdownAnimationCloseEnded() {
-            this.selectedFilter = this.pendingSelectedFilter;
+            if (this.pendingSelectedFilter !== null) {
+                this.selectedFilter = this.pendingSelectedFilter;
+            }
+            this.pendingSelectedFilter = null;
         }
     }
 };
