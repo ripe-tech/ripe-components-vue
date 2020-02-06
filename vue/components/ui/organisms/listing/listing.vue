@@ -36,8 +36,8 @@
                 v-bind:items.sync="items"
                 v-bind:options.sync="filterOptions"
                 v-bind:enable-checkboxes="enableCheckboxes"
-                v-bind:selected-checkboxes="selectedCheckboxes"
-                v-bind:selected-items.sync="selectedItemsData"
+                v-bind:checked-items.sync="checkedItemsData"
+                v-bind:allow-selected-highlight="allowSelectedHighlight"
                 ref="filter"
                 v-on:update:options="filterUpdated"
                 v-on:click:table="onTableClick"
@@ -268,9 +268,13 @@ export const Listing = {
             type: Boolean,
             default: false
         },
-        selectedCheckboxes: {
-            type: Array,
-            default: () => []
+        checkedItems: {
+            type: Object,
+            default: () => {}
+        },
+        allowSelectedHighlight: {
+            type: Boolean,
+            default: false
         }
     },
     data: function() {
@@ -280,12 +284,15 @@ export const Listing = {
             filterOptions: null,
             loading: false,
             visibleLightbox: null,
-            selectedItemsData: []
+            checkedItemsData: this.checkedItems
         };
     },
     watch: {
-        selectedItemsData(value) {
-            this.$emit("update:selected-items", value);
+        checkedItems(value) {
+            this.checkedItemsData = value;
+        },
+        checkedItemsData(value) {
+            this.$emit("update:checked-items", value);
         }
     },
     methods: {
