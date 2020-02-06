@@ -448,7 +448,7 @@ export const Table = {
             this.$emit("update:reverse", this.reverseData);
         },
         onGlobalCheckbox(value) {
-            if(value === "partial") return;
+            if (value === "partial") return;
 
             this.checkedItemsData = {};
             this.itemsData.forEach(item => {

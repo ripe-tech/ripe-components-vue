@@ -162,10 +162,8 @@ export const Checkbox = {
             };
 
             let icon = null;
-            if(this.icon !== "check")
-                icon = this.icon;
+            if (this.icon !== "check") icon = this.icon;
             else icon = this.checkedData === "partial" ? "minus" : "check";
-
 
             if (this.disabled && this.checkedData) {
                 base["background-image"] = `url(${require(`./assets/${icon}-gray.svg`)})`;
