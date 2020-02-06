@@ -1,110 +1,125 @@
 <template>
-    <div class="table-menu" v-bind:class="[menuMode, menuAlignment]">
-        <container-menu
-            v-bind:alignment="menuAlignment"
-            v-bind:mode="menuMode"
-            v-bind:menu-visible.sync="menuVisibleData"
-            v-bind:menu-width="menuWidth"
-            v-bind:animation-duration="animationDuration"
-        >
-            <template v-slot:content>
-                <slot name="table-header">
-                    <h2 class="table-title" v-if="tableTitle">{{ tableTitle }}</h2>
-                </slot>
-                <div class="table-content" v-bind:style="tableStyle" ref="table-content">
-                    <table-ripe
-                        v-bind:columns="columns"
-                        v-bind:items="itemsWithIndex"
-                        v-bind:sort.sync="sortData"
-                        v-bind:sort-method="sortMethod"
-                        v-bind:reverse.sync="reverseData"
-                    >
-                        <template v-slot:row="{ item }">
-                            <tr
-                                v-bind:class="[{ selected: item.id === selectedItem.id }]"
-                                v-bind:key="item.id"
-                                v-on:click="onClickItem(item)"
-                            >
+    <container-menu
+        class="table-menu"
+        v-bind:alignment="menuAlignment"
+        v-bind:mode="menuMode"
+        v-bind:menu-visible.sync="menuVisibleData"
+        v-bind:menu-width="menuWidth"
+        v-bind:animation-duration="animationDuration"
+        v-bind:class="[menuMode, menuAlignment]"
+    >
+        <template v-slot:content>
+            <slot name="table-header">
+                <h2 class="table-title" v-if="tableTitle">{{ tableTitle }}</h2>
+            </slot>
+            <div class="table-content" v-bind:style="tableStyle" ref="table-content">
+                <table-ripe
+                    v-bind:columns="columns"
+                    v-bind:items="itemsWithIndex"
+                    v-bind:sort.sync="sortData"
+                    v-bind:sort-method="sortMethod"
+                    v-bind:reverse.sync="reverseData"
+                >
+                    <template v-slot:row="{ item, index }">
+                        <tr
+                            v-bind:class="[{ selected: isSelected(item) }]"
+                            v-bind:key="item.id"
+                            v-on:click="onClickItem(item)"
+                        >
+                            <slot v-bind:item="item" v-bind:index="index">
                                 <td
                                     v-bind:class="column.value"
                                     v-for="column in columns"
                                     v-bind:key="column.value"
                                 >
-                                    <checkmark
-                                        v-bind:value="item[column.value]"
-                                        v-if="column.type === 'boolean'"
-                                    />
-                                    <span v-else>{{ item[column.value] }}</span>
+                                    <slot
+                                        v-bind:item="item"
+                                        v-bind:index="index"
+                                        v-bind:name="`item-${column.value}`"
+                                    >
+                                        {{
+                                            item[column.value] !== null &&
+                                                item[column.value] !== undefined
+                                                ? item[column.value]
+                                                : "-"
+                                        }}
+                                    </slot>
                                 </td>
-                            </tr>
-                        </template>
-                    </table-ripe>
-                </div>
-                <slot name="table-footer" />
-            </template>
-            <template v-slot:menu>
-                <div class="menu-container" v-bind:style="menuStyle">
-                    <slot name="menu-header">
-                        <h2 class="menu-title" v-if="menuTitle">{{ menuTitle }}</h2>
-                    </slot>
-                    <slot name="menu-content">
-                        <div
-                            class="argument"
-                            v-bind:class="editColumn"
-                            v-for="(editColumn, index) in editColumns"
-                            v-bind:key="index"
+                            </slot>
+                        </tr>
+                    </template>
+                </table-ripe>
+            </div>
+            <slot name="table-footer" />
+        </template>
+        <template v-slot:menu>
+            <div class="menu-container" v-bind:style="menuStyle">
+                <slot name="menu-header">
+                    <h2 class="menu-title" v-if="menuTitle">{{ menuTitle }}</h2>
+                </slot>
+                <slot name="menu-content">
+                    <div
+                        class="argument"
+                        v-bind:class="column.value"
+                        v-for="column in editColumns"
+                        v-bind:key="column.value"
+                    >
+                        <slot
+                            v-bind:column="column"
+                            v-bind:selectedItem="selectedItem"
+                            v-bind:name="`arg-${column.value}`"
                         >
-                            <form-input v-bind:header="getColumnLabel(editColumn)">
+                            <form-input v-bind:header="column.label">
                                 <input-ripe
-                                    v-bind:value.sync="selectedItem[editColumn]"
+                                    v-bind:value.sync="selectedItem[column.value]"
                                     v-bind:variant="inputVariant"
                                     ref="textInput"
                                 />
                             </form-input>
-                        </div>
-                    </slot>
-                    <slot name="menu-footer">
-                        <button-color
-                            class="delete-item"
-                            v-bind:text="'Delete'"
-                            v-bind:small="true"
-                            v-bind:icon="'bin'"
-                            v-bind:color="'red'"
-                            v-bind:min-width="0"
-                            v-on:click="onClickDeleteItem"
-                        />
-                    </slot>
-                </div>
-            </template>
-        </container-menu>
-    </div>
+                        </slot>
+                    </div>
+                </slot>
+                <slot name="menu-footer">
+                    <button-color
+                        class="delete-item"
+                        v-bind:text="'Delete'"
+                        v-bind:small="true"
+                        v-bind:icon="'bin'"
+                        v-bind:color="'red'"
+                        v-bind:min-width="0"
+                        v-on:click="onClickDeleteItem"
+                    />
+                </slot>
+            </div>
+        </template>
+    </container-menu>
 </template>
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.table-menu.left .container-menu ::v-deep .menu {
+.table-menu.left.container-menu ::v-deep .menu {
     border-right: 1px solid $border-color;
 }
 
-.table-menu.right .container-menu ::v-deep .menu {
+.table-menu.right.container-menu ::v-deep .menu {
     border-left: 1px solid $border-color;
 }
 
-.table-menu.floating .container-menu ::v-deep .menu {
+.table-menu.floating.container-menu ::v-deep .menu {
     border: 1px solid $border-color;
 }
 
-.table-menu .container-menu ::v-deep .menu > .menu-container {
+.table-menu.container-menu ::v-deep .menu > .menu-container {
     padding: 10px 20px 0px 20px;
 }
 
-.table-menu .container-menu ::v-deep .menu .form-input {
+.table-menu.container-menu ::v-deep .menu .form-input {
     display: flex;
     margin: 0px 0px 5px 0px;
 }
 
-.table-menu .container-menu ::v-deep .menu .form-input > .label {
+.table-menu.container-menu ::v-deep .menu .form-input > .label {
     color: #57626e;
     font-size: 14px;
     font-weight: 500;
@@ -117,45 +132,45 @@
     width: 60%;
 }
 
-.table-menu .container-menu ::v-deep .menu .form-input > .content {
+.table-menu.container-menu ::v-deep .menu .form-input > .content {
     width: 100%;
 }
 
-.table-menu .container-menu ::v-deep .content .table-title,
-.table-menu .container-menu ::v-deep .menu .menu-title {
+.table-menu.container-menu ::v-deep .content .table-title,
+.table-menu.container-menu ::v-deep .menu .menu-title {
     color: $dark;
     font-size: 18px;
     font-weight: 500;
     padding: 10px 0px 10px 0px;
 }
 
-.table-menu .container-menu ::v-deep .content .table-title {
+.table-menu.container-menu ::v-deep .content .table-title {
     padding: 10px 0px 10px 20px;
 }
 
-.table-menu .container-menu ::v-deep .content .table-content {
+.table-menu.container-menu ::v-deep .content .table-content {
     overflow-y: auto;
 }
 
-.table-menu .container-menu ::v-deep .content .table .table-head .table-column {
+.table-menu.container-menu ::v-deep .content .table .table-head .table-column {
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.table-menu .container-menu .content .table .table-body > tr {
+.table-menu.container-menu .content .table .table-body > tr {
     cursor: pointer;
     transition: opacity 0.1s ease-in-out;
 }
 
-.table-menu .container-menu .content .table .table-body > tr:hover {
+.table-menu.container-menu .content .table .table-body > tr:hover {
     background-color: $selected-color;
 }
 
-.table-menu .container-menu .content .table .table-body > tr.selected {
+.table-menu.container-menu .content .table .table-body > tr.selected {
     background-color: #e3e8f1;
 }
 
-.table-menu .container-menu .menu .button-color.delete-item {
+.table-menu.container-menu .menu .button-color.delete-item {
     margin: 20px 0px 20px 0px;
 }
 </style>
@@ -169,10 +184,6 @@ export const TableMenu = {
             default: () => []
         },
         columns: {
-            type: Array,
-            default: () => []
-        },
-        editColumns: {
             type: Array,
             default: () => []
         },
@@ -224,7 +235,7 @@ export const TableMenu = {
         },
         menuVisible: {
             type: Boolean,
-            default: true
+            default: false
         },
         menuBackgroundColor: {
             type: String,
@@ -263,6 +274,9 @@ export const TableMenu = {
             const base = {};
             base["background-color"] = this.menuBackgroundColor ? this.menuBackgroundColor : null;
             return base;
+        },
+        editColumns() {
+            return this.columns.filter((column) => column.edit);
         }
     },
     watch: {
@@ -318,8 +332,11 @@ export const TableMenu = {
             const textInputs = this.$refs.textInput || [];
             if (textInputs.length > 0) textInputs[0].focus();
         },
+        isSelected(item) {
+            return this.selectedItem.id === item.id;
+        },
         onClickItem(item) {
-            this.selectedItem.id === item.id
+            this.isSelected(item)
                 ? this.toggleMenu()
                 : this.setMenuItem(item._originalIndex);
         },

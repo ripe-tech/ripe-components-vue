@@ -37,16 +37,12 @@ storiesOf("Organisms", module)
                 type: Array,
                 default: () => [
                     { value: "id", label: "ID" },
-                    { value: "user", label: "User", type: "text" },
-                    { value: "os", label: "Operating System", type: "text" },
-                    { value: "alive", label: "Alive", type: "boolean" },
-                    { value: "programmer", label: "Programmer", type: "boolean" },
-                    { value: "net", label: "Net worth", type: "money" }
+                    { value: "user", label: "User", type: "text", edit: true },
+                    { value: "os", label: "Operating System", type: "text", edit: true },
+                    { value: "alive", label: "Alive", type: "boolean", edit: true },
+                    { value: "programmer", label: "Programmer", type: "boolean", edit: true },
+                    { value: "net", label: "Net worth", type: "money", edit: true }
                 ]
-            },
-            editColumns: {
-                type: Array,
-                default: ["user", "os", "alive", "programmer", "net"]
             },
             selectedIndex: {
                 type: Number,
@@ -82,7 +78,7 @@ storiesOf("Organisms", module)
                 )
             },
             menuVisible: {
-                default: boolean("Visible menu", true)
+                default: boolean("Visible menu", false)
             },
             maxHeight: {
                 type: Number,
@@ -149,7 +145,6 @@ storiesOf("Organisms", module)
                 <table-menu
                     v-bind:items="mockItems"
                     v-bind:columns="mockColumns"
-                    v-bind:edit-columns="editColumns"
                     v-bind:selected-index="selectedIndex"
                     v-bind:table-title="tableTitle" 
                     v-bind:menu-title="menuTitle" 
@@ -162,7 +157,19 @@ storiesOf("Organisms", module)
                     v-bind:input-variant="inputVariant"
                     v-bind:sort.sync="sortData"
                     v-bind:reverse.sync="reverseData"
-                    v-bind:animation-duration="animationDuration"/>
+                    v-bind:animation-duration="animationDuration">
+                    <template v-slot:item-alive="{ item }">
+                        <checkmark v-bind:value="item.alive" />
+                    </template>
+                    <template v-slot:item-programmer="{ item }">
+                        <checkmark v-bind:value="item.programmer" />
+                    </template>
+                    <template v-slot:arg-programmer="{ column, selectedItem }">
+                        <form-input v-bind:header="column.label">
+                            <input-ripe v-bind:value.sync="selectedItem[column.value]" v-bind:variant="'dark'" />
+                        </form-input>
+                    </template>
+                </table-menu>
                 <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}, Menu visible: {{ menuVisibleData }}</p>
             </div>
 
