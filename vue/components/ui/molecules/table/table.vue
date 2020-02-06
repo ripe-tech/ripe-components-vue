@@ -434,8 +434,11 @@ export const Table = {
         },
         selectionChange() {
             if (this.isAllChecked) this.globalCheckboxValueData = true;
-            else if (this.isAllUnchecked) this.$nextTick(() => {this.globalCheckboxValueData = false; });
-            else this.globalCheckboxValueData = "partial";
+            else if (this.isAllUnchecked) {
+                this.$nextTick(() => {
+                    this.globalCheckboxValueData = false;
+                });
+            } else this.globalCheckboxValueData = "partial";
         },
         columnClass(column) {
             const order = this.reverseData ? "ascending" : "descending";
