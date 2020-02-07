@@ -3,8 +3,8 @@
         class="container-menu"
         v-bind:class="[menuVisible ? 'menu-visible' : 'menu-invisible', mode, `align-${alignment}`]"
     >
-        <div class="content">
-            <slot name="content" />
+        <div class="container">
+            <slot name="container" />
         </div>
         <div class="menu" v-bind:style="menuStyle">
             <slot name="menu" />
@@ -23,12 +23,12 @@
     position: relative;
 }
 
-.container-menu .content {
+.container-menu .container {
     display: inline-block;
     flex: 1 0;
 }
 
-.container-menu.align-left .content {
+.container-menu.align-left .container {
     order: 1;
 }
 
