@@ -41,7 +41,9 @@
 
 .textarea.monospaced {
     font-family: consolas, monospace;
+    height: 184px;
     letter-spacing: 0px;
+    line-height: 18px;
 }
 
 .textarea.dark {
