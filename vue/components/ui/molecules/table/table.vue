@@ -420,12 +420,13 @@ export const Table = {
             const checkedItems = {};
 
             this.items.forEach(item => {
-                checkedItems[item.id] = false;
+                checkedItems[item.id] = this.checkedItems[item.id] ? this.checkedItems[item.id]: false;
             });
 
-            return { ...checkedItems, ...this.checkedItems };
+            return checkedItems;
         },
         itemsChangeHandler(items, itemsNrDiff) {
+            this.checkedItemsData = this.initialCheckedItems();
             return this.itemsWithIndex(items);
 
             /*
