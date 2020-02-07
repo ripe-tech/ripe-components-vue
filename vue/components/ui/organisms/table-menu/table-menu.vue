@@ -50,7 +50,17 @@
                     </template>
                 </table-ripe>
             </div>
-            <slot name="table-footer" />
+            <slot name="table-footer">
+                <button-color
+                    class="add-item"
+                    v-bind:text="'Add row'"
+                    v-bind:small="true"
+                    v-bind:icon="'add'"
+                    v-bind:color="'white'"
+                    v-bind:min-width="0"
+                    v-on:click="onClickAddItem"
+                />
+            </slot>
         </template>
         <template v-slot:menu>
             <div class="menu-container" v-bind:style="menuStyle">
@@ -63,7 +73,12 @@
                         v-bind:name="`arg-${column.value}`"
                         v-for="column in editColumns"
                     >
-                        <form-input v-bind:header="column.label" v-bind:variant="'inline'" v-bind:class="column.value" v-bind:key="column.value">
+                        <form-input
+                            v-bind:header="column.label"
+                            v-bind:variant="'inline'"
+                            v-bind:class="column.value"
+                            v-bind:key="column.value"
+                        >
                             <input-ripe v-bind:value.sync="selectedItem[column.value]" />
                         </form-input>
                     </slot>
@@ -72,6 +87,7 @@
                     <button-color
                         class="delete-item"
                         v-bind:text="'Delete'"
+                        v-bind:small="true"
                         v-bind:icon="'bin'"
                         v-bind:color="'red'"
                         v-bind:min-width="0"
@@ -98,6 +114,7 @@
 }
 
 .table-menu .content-content {
+    min-height: 60px;
     overflow-y: auto;
 }
 
@@ -229,7 +246,7 @@ export const TableMenu = {
             return base;
         },
         editColumns() {
-            return this.columns.filter((column) => column.edit);
+            return this.columns.filter(column => column.edit);
         }
     },
     watch: {
@@ -284,12 +301,16 @@ export const TableMenu = {
             return this.selectedItem.id === item.id;
         },
         onClickItem(item) {
-            this.isSelected(item)
-                ? this.toggleMenu()
-                : this.setMenuItem(item._originalIndex);
+            this.isSelected(item) ? this.toggleMenu() : this.setMenuItem(item._originalIndex);
+        },
+        onClickAddItem() {
+            this.$emit("click:add");
         },
         onClickDeleteItem() {
+            if (this.selectedItem === null) return;
             this.$emit("click:delete", this.selectedItem, this.selectedIndexData);
+            this.items.splice(this.selectedIndexData, 1);
+            if (this.selectedIndexData !== 0) this.selectedIndexData -= 1;
         }
     }
 };
