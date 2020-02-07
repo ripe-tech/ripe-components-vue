@@ -22,17 +22,17 @@
             <div
                 class="select-button"
                 tabindex="0"
-                v-on:click="onClickDropdownButton()"
-                v-on:keydown.exact="onKey($event.key)"
-                v-on:keydown.esc.exact="onEscKey()"
-                v-on:keydown.up.exact="onArrowUpKey()"
-                v-on:keydown.down.exact="onArrowDownKey()"
-                v-on:keydown.left.exact="onArrowLeftKey()"
-                v-on:keydown.right.exact="onArrowRightKey()"
-                v-on:keydown.alt.down="onAltDownKey()"
-                v-on:keydown.alt.up="onAltUpKey()"
-                v-on:keydown.enter.exact="onEnterKey()"
-                v-on:keydown.space.exact="onSpaceKey()"
+                v-on:click="onClickDropdownButton"
+                v-on:keydown.exact="() => onKey($event.key)"
+                v-on:keydown.esc.exact="onEscKey"
+                v-on:keydown.up.exact="onUpKey"
+                v-on:keydown.down.exact="onDownKey"
+                v-on:keydown.left.exact="onLeftKey"
+                v-on:keydown.right.exact="onRightKey"
+                v-on:keydown.alt.down="onAltDownKey"
+                v-on:keydown.alt.up="onAltUpKey"
+                v-on:keydown.enter.exact="onEnterKey"
+                v-on:keydown.space.exact="onSpaceKey"
                 v-on:click.stop.prevent
             >
                 {{ buttonText }}
@@ -299,19 +299,19 @@ export const Select = {
         onEscKey() {
             this.closeDropdown();
         },
-        onArrowUpKey() {
+        onUpKey() {
             this.openDropdown();
             this.highlightPrevious();
         },
-        onArrowDownKey() {
+        onDownKey() {
             this.openDropdown();
             this.highlightNext();
         },
-        onArrowLeftKey() {
+        onLeftKey() {
             this.openDropdown();
             this.highlightPrevious();
         },
-        onArrowRightKey() {
+        onRightKey() {
             this.openDropdown();
             this.highlightNext();
         },

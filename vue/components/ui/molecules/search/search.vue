@@ -9,7 +9,7 @@
             clearVisible ? 'clear-visible' : 'clear-invisible'
         ]"
     >
-        <global-events v-on:keydown.esc="onEsc" />
+        <global-events v-on:keydown.esc="onEscKey" />
         <loader loader="ball-scale-multiple" v-if="loading" />
         <slot name="icon" v-else>
             <svg
@@ -252,7 +252,7 @@ export const Search = {
         clear() {
             this.valueData = "";
         },
-        onEsc() {
+        onEscKey() {
             this.blur();
         },
         onClearIconClick() {

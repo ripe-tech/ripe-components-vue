@@ -20,14 +20,14 @@
                     multiple
                     hidden
                     ref="filesInput"
-                    v-on:change="onFilesInputChange()"
+                    v-on:change="onFilesInputChange"
                 />
                 <button-color
                     class="button-upload"
                     v-bind:text="'Upload File'"
                     v-bind:icon="'cloud-upload'"
                     v-bind:alignment="'center'"
-                    v-on:click="onUploadButtonClick()"
+                    v-on:click="onUploadButtonClick"
                 />
             </div>
         </slot>

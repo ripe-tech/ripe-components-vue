@@ -4,9 +4,9 @@
         class="checkbox"
         v-bind:class="classes"
         v-on:click="onClick"
-        v-on:mousedown="onMouseDown()"
-        v-on:mouseup="onMouseUp()"
-        v-on:keydown.space="onSpace()"
+        v-on:mousedown="onMouseDown"
+        v-on:mouseup="onMouseUp"
+        v-on:keydown.space="onSpaceKey"
     >
         <global-events v-on:mouseup="onMouseUp" />
         <div class="checkbox-input">
@@ -182,7 +182,7 @@ export const Checkbox = {
 
             this.checkedData = !this.checkedData;
         },
-        onSpace() {
+        onSpaceKey() {
             this.toggle();
         },
         onClick(event) {
