@@ -71,9 +71,13 @@
 }
 
 .form-input .content {
+    font-size: 0px;
+    line-height: 0px;
+}
+
+.form-input.form-input-inline .content {
     align-items: center;
     display: flex;
-    font-size: 0px;
     height: 34px;
     line-height: 34px;
 }
