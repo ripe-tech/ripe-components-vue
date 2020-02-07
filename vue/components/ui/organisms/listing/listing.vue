@@ -32,6 +32,7 @@
                 v-bind:lineup-fields="lineupFields"
                 v-bind:lineup-columns="lineupColumns"
                 v-bind:lineup-variant="lineupVariant"
+                v-bind:limit="limit"
                 v-bind:filter="filter"
                 v-bind:use-query="useQuery"
                 v-bind:loading.sync="loading"
@@ -238,6 +239,10 @@ export const Listing = {
         lineupVariant: {
             type: String,
             default: null
+        },
+        limit: {
+            type: Number,
+            default: 25
         },
         name: {
             type: String,
