@@ -9,6 +9,9 @@
         v-bind:id="id"
         ref="textarea"
         v-on:input="onInput($event.target.value)"
+        v-on:focus="onFocus"
+        v-on:blur="onBlur"
+        v-on:keydown="onKeydown"
     />
 </template>
 
@@ -141,10 +144,14 @@ export const Textarea = {
             this.heightData = value;
         },
         resize() {
-            this.calculate();
+            this.$nextTick(() => {
+                this.calculate();
+            });
         },
         value() {
-            this.calculate();
+            this.$nextTick(() => {
+                this.calculate();
+            });
         }
     },
     methods: {
@@ -171,6 +178,15 @@ export const Textarea = {
         },
         onInput(value) {
             this.$emit("update:value", value);
+        },
+        onFocus() {
+            this.$emit("focus");
+        },
+        onBlur() {
+            this.$emit("blur");
+        },
+        onKeydown(event) {
+            this.$emit("keydown", event);
         }
     },
     mounted: function() {

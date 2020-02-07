@@ -41,6 +41,7 @@
             class="icon-clear"
             v-bind:icon="'close'"
             v-bind:color="'none'"
+            v-bind:size="24"
             v-if="clearButtonVisible"
             v-on:click="onClearIconClick"
         />
@@ -70,8 +71,13 @@
     font-size: 0px;
     height: 34px;
     line-height: 34px;
+    overflow: hidden;
     position: relative;
     width: 100%;
+}
+
+.search.grow {
+    width: auto;
 }
 
 .search > .loader {
@@ -101,6 +107,10 @@
     padding-left: 12px;
 }
 
+.search.grow ::v-deep input[type="text"] {
+    width: 280px;
+}
+
 .search.icon-visible ::v-deep input[type="text"] {
     padding-left: 33px;
 }
@@ -116,7 +126,7 @@
 .search .icon-clear {
     position: absolute;
     right: 5px;
-    top: 3px;
+    top: 5px;
 }
 
 .search > .suggestions {

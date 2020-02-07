@@ -33,7 +33,7 @@
     font-size: 0px;
     font-weight: 600;
     height: 40px;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.25px;
     line-height: 38px;
     min-width: 180px;
     padding: 0px 20px 0px 20px;
@@ -226,7 +226,7 @@
 .button-color .icon-hover {
     float: left;
     height: 22px;
-    margin-top: 9px;
+    margin-top: 8px;
     padding-right: 12px;
     width: 22px;
 }

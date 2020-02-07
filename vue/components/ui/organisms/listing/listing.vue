@@ -88,6 +88,7 @@
     transform: scale(0.75);
     transition: opacity 0.125s ease-in-out, transform 0.125s ease-in-out;
     width: 50px;
+    z-index: 1;
 }
 
 .scroll-button.show {
@@ -140,6 +141,7 @@ body.mobile .container-header-right {
 .container-header-buttons {
     display: inline-block;
     margin-right: 8px;
+    vertical-align: top;
 }
 
 body.mobile .container-header-buttons {
