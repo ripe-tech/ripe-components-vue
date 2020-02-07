@@ -107,6 +107,10 @@ export const Textarea = {
             type: Number,
             default: null
         },
+        fontSize: {
+            type: Number,
+            default: null
+        },
         fontWeight: {
             type: Number,
             default: null
@@ -128,6 +132,7 @@ export const Textarea = {
             const base = {
                 width: this.width === null ? null : `${this.width}px`,
                 height: height === null ? null : `${height}px`,
+                "font-size": this.fontSize === null ? null : `${this.fontSize}px`,
                 "font-weight": this.fontWeight === null ? null : `${this.fontWeight}`
             };
             return base;
