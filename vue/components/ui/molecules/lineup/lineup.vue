@@ -1,5 +1,5 @@
 <template>
-    <transition-group tag="div" v-bind:name="transition" v-bind:class="classes">
+    <transition-group tag="div" v-bind:name="transition" class="lineup" v-bind:class="classes">
         <div
             class="lineup-item"
             v-bind:class="{ clickable: clickable(item) }"
@@ -176,12 +176,8 @@ export const Lineup = {
     },
     computed: {
         classes() {
-            const base = {
-                lineup: true
-            };
-
+            const base = {};
             if (this.variant) base[`lineup-${this.variant}`] = true;
-
             return base;
         },
         lineupItemStyle() {
