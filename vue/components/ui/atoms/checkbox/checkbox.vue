@@ -3,7 +3,7 @@
         tabindex="0"
         class="checkbox"
         v-bind:class="classes"
-        v-on:click="onClick()"
+        v-on:click="onClick"
         v-on:mousedown="onMouseDown()"
         v-on:mouseup="onMouseUp()"
         v-on:keydown.space="onSpace()"
@@ -185,8 +185,9 @@ export const Checkbox = {
         onSpace() {
             this.toggle();
         },
-        onClick() {
+        onClick(event) {
             this.toggle();
+            this.$emit("click", event);
         },
         onMouseDown() {
             this.active = true;
