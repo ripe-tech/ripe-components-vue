@@ -46,6 +46,9 @@ storiesOf("Atoms", module)
             disabled: {
                 default: boolean("Disabled", false)
             },
+            monospaced: {
+                default: boolean("Monospaced", false)
+            },
             ellipsis: {
                 default: boolean("Ellipsis", true)
             },
@@ -100,6 +103,7 @@ storiesOf("Atoms", module)
                         v-bind:placeholder="placeholder"
                         v-bind:type="type"
                         v-bind:disabled="disabled"
+                        v-bind:monospaced="monospaced"
                         v-bind:width="width"
                         v-bind:min-width="minWidth"
                         v-bind:height="height"></input-ripe>

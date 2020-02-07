@@ -42,6 +42,11 @@ input::-webkit-input-placeholder {
     color: $upper-grey;
 }
 
+.input.monospaced {
+    font-family: consolas, monospace;
+    letter-spacing: 0px;
+}
+
 .input.ellipsis {
     text-overflow: ellipsis;
 }
@@ -105,6 +110,10 @@ export const Input = {
             default: false
         },
         disabled: {
+            type: Boolean,
+            default: false
+        },
+        monospaced: {
             type: Boolean,
             default: false
         },
@@ -172,7 +181,7 @@ export const Input = {
             return base;
         },
         classes() {
-            const base = {};
+            const base = { monospaced: this.monospaced };
             if (this.variant) base[this.variant] = true;
             if (this.border) base[`border-${this.border}`] = true;
             if (this.ellipsis) base.ellipsis = true;
