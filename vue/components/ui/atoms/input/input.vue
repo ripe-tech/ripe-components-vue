@@ -126,6 +126,10 @@ export const Input = {
         fontWeight: {
             type: Number,
             default: null
+        },
+        fontSize: {
+            type: Number,
+            default: null
         }
     },
     mounted: function() {
@@ -158,6 +162,7 @@ export const Input = {
                 height: this.height === null ? null : `${this.height}px`,
                 "min-width": this.minWidth === null ? null : `${this.minWidth}px`,
                 "font-weight": this.fontWeight === null ? null : `${this.fontWeight}`,
+                "font-size": this.fontSize === null ? null : `${this.fontSize}px`,
                 "text-align": this.align
             };
             return base;
