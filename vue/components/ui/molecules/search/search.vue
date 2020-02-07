@@ -13,6 +13,7 @@
         <loader loader="ball-scale-multiple" v-if="loading" />
         <slot name="icon" v-else>
             <svg
+                v-bind:style="svgStyle"
                 focusable="false"
                 height="24px"
                 viewBox="0 0 24 24"
@@ -32,6 +33,7 @@
             v-bind:placeholder="placeholder"
             v-bind:autofocus="autofocus"
             v-bind:width="width"
+            v-bind:height="height"
             v-bind:font-weight="600"
             ref="input"
             v-on:focus="focused = true"
@@ -69,8 +71,6 @@
 .search {
     display: inline-block;
     font-size: 0px;
-    height: 34px;
-    line-height: 34px;
     overflow: hidden;
     position: relative;
     width: 100%;
@@ -94,7 +94,6 @@
     display: inline-block;
     fill: #d0d0d0;
     margin-left: 8px;
-    margin-top: 5px;
     position: absolute;
     width: 20px;
 }
@@ -206,6 +205,10 @@ export const Search = {
             type: Number,
             default: null
         },
+        height: {
+            type: Number,
+            default: 34
+        },
         loading: {
             type: Boolean,
             default: false
@@ -239,7 +242,14 @@ export const Search = {
         style() {
             const base = {};
             if (this.width) base.width = `${this.width}px`;
+            if (this.height) base.height = `${this.height}px`;
             return base;
+        },
+        svgStyle() {
+            const margin = (this.height - 24) / 2;
+            return {
+                "margin-top": `${margin}px`
+            };
         },
         clearButtonVisible() {
             return this.valueData && this.clearVisible;
