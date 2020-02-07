@@ -34,6 +34,26 @@ storiesOf("Molecules", module)
                         id: 4,
                         user: "Terry A. Davis",
                         system: "TempleOS"
+                    },
+                    {
+                        id: 5,
+                        user: "Terry A. Davis",
+                        system: "TempleOS 2"
+                    },
+                    {
+                        id: 6,
+                        user: "Terry A. Davis",
+                        system: "TempleOS 3"
+                    },
+                    {
+                        id: 7,
+                        user: "Terry A. Davis",
+                        system: "TempleOS 4"
+                    },
+                    {
+                        id: 8,
+                        user: "Terry A. Davis",
+                        system: "TempleOS 5"
                     }
                 ]
             },
@@ -43,7 +63,7 @@ storiesOf("Molecules", module)
             checkedItems: {
                 type: Object,
                 default: () => {
-                    return { 0: true, 1: false, 2: true };
+                    return { 1: true, 2: false, 3: true };
                 }
             },
             sort: {

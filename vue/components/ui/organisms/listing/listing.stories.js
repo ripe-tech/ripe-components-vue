@@ -83,6 +83,16 @@ storiesOf("Organisms", module)
                         id: 2,
                         user: "Tech",
                         device: "Macintosh"
+                    },
+                    {
+                        id: 3,
+                        user: "Tech 3",
+                        device: "Calculator"
+                    },
+                    {
+                        id: 4,
+                        user: "Tech 4",
+                        device: "Potato"
                     }
                 ];
             }
