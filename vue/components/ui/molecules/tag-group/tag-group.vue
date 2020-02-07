@@ -46,8 +46,8 @@
 .tag-group {
     border: 2px solid $light-white;
     border-radius: 4px;
-    transition: border 0.125s ease-in-out;
     display: inline-block;
+    transition: border 0.125s ease-in-out;
 }
 
 .tag-group:focus-within {

@@ -1,10 +1,5 @@
 <template>
-    <div
-        class="tag"
-        v-bind:class="classes"
-        v-bind:style="style"
-        v-on:click="onClick"
-    >
+    <div class="tag" v-bind:class="classes" v-bind:style="style" v-on:click="onClick">
         <slot>{{ text }}</slot>
     </div>
 </template>

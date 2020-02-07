@@ -30,8 +30,7 @@ storiesOf("Molecules", module)
                 default: boolean("Subtle", false)
             }
         },
-        template:
-            `<tag-group
+        template: `<tag-group
                 v-bind:hasInput="hasInput"
                 v-bind:subtle="subtle"
                 v-bind:size="size" v-bind:tags="tags"
