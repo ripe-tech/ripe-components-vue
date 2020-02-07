@@ -343,7 +343,7 @@ export const Table = {
     },
     data: function() {
         return {
-            itemsData: this.itemsWithIndex(),
+            itemsData: this.itemsWithIndex(this.items),
             sortData: this.sort,
             reverseData: this.reverse,
             globalCheckboxValueData: false,
@@ -419,13 +419,21 @@ export const Table = {
         }
     },
     methods: {
-        itemsWithIndex() {
-            return this.items.map((item, index) => ({ _originalIndex: index, ...item }));
+        itemsWithIndex(items) {
+            return items.map((item, index) => ({ _originalIndex: index, ...item }));
         },
         isRowSelected(id) {
             return this.allowSelectedHighlight && id === this.selectedId;
         },
         itemsChangeHandler(items, itemsNrDiff) {
+
+            return this.itemsWithIndex(items);
+
+
+
+
+
+/*             
             if (itemsNrDiff >= 0) {
                 for (let i = items.length - itemsNrDiff; i < items.length; i++) {
                     const item = items[i];
@@ -462,6 +470,7 @@ export const Table = {
             }
 
             return items;
+             */
         },
         selectionChange() {
             if (this.isAllChecked) {
