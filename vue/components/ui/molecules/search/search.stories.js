@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, boolean, select } from "@storybook/addon-knobs";
+import { withKnobs, boolean, number, select } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
@@ -14,6 +14,12 @@ storiesOf("Molecules", module)
                     },
                     null
                 )
+            },
+            width: {
+                default: number("Width", null)
+            },
+            height: {
+                default: number("Height", 34)
             },
             iconVisible: {
                 default: boolean("Icon Visible", true)
@@ -90,6 +96,8 @@ storiesOf("Molecules", module)
             <div>
                 <search
                     v-bind:variant="variant"
+                    v-bind:width="width"
+                    v-bind:height="height"
                     v-bind:icon-visible="iconVisible"
                     v-bind:clear-visible="clearVisible"
                     v-bind:loading="loading"

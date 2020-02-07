@@ -88,7 +88,7 @@ storiesOf("Atoms", module)
                     v-bind:resize="resize"
                     v-bind:attachment="attachment"
                     v-bind:smile="smile"
-                    v-on:click:send-message="onSendMessageClick()"
+                    v-on:click:send-message="onSendMessageClick"
                 />
                 <div>
                     <p>Text: {{ valueData }}</p>

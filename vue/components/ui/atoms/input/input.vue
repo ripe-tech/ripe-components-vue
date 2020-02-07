@@ -11,6 +11,7 @@
         v-on:input="onInput($event.target.value)"
         v-on:focus="onFocus"
         v-on:blur="onBlur"
+        v-on:keyup="onKeyup"
     />
 </template>
 
@@ -123,6 +124,10 @@ export const Input = {
             type: Number,
             default: null
         },
+        fontSize: {
+            type: Number,
+            default: null
+        },
         fontWeight: {
             type: Number,
             default: null
@@ -149,6 +154,9 @@ export const Input = {
         },
         onBlur() {
             this.$emit("blur");
+        },
+        onKeyup(event) {
+            this.$emit("keyup", event);
         }
     },
     computed: {
@@ -157,6 +165,7 @@ export const Input = {
                 width: this.width === null ? null : `${this.width}px`,
                 height: this.height === null ? null : `${this.height}px`,
                 "min-width": this.minWidth === null ? null : `${this.minWidth}px`,
+                "font-size": this.fontSize === null ? null : `${this.fontSize}px`,
                 "font-weight": this.fontWeight === null ? null : `${this.fontWeight}`,
                 "text-align": this.align
             };

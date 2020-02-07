@@ -141,6 +141,9 @@ export const SelectList = {
         values(value) {
             this.valuesData = value;
         },
+        valuesData(value) {
+            this.$emit("update:values", value);
+        },
         filter(value) {
             this.lastSelected = null;
         },
@@ -172,7 +175,6 @@ export const SelectList = {
             } else {
                 this.selectItem(value);
             }
-            this.$emit("update:values", this.valuesData);
         },
         isSelected(value) {
             return Boolean(this.valuesData[value]);
