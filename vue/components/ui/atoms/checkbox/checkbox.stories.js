@@ -9,15 +9,7 @@ storiesOf("Atoms", module)
                 default: boolean("Disabled", false)
             },
             checked: {
-                default: select(
-                    "Checked",
-                    {
-                        Checked: true,
-                        Unchecked: false,
-                        Partial: "partial"
-                    },
-                    false
-                )
+                default: boolean("Checked", false)
             },
             label: {
                 default: text("Label", "Checkbox")
@@ -27,8 +19,7 @@ storiesOf("Atoms", module)
                     "Icon",
                     {
                         Check: "check",
-                        Minus: "minus",
-                        Smile: "happy-face"
+                        Minus: "minus"
                     },
                     "check"
                 )
