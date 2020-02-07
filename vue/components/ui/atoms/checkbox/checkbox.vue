@@ -109,7 +109,7 @@ export const Checkbox = {
             default: null
         },
         checked: {
-            type: Boolean | String,
+            type: Boolean,
             default: false
         },
         disabled: {
@@ -161,20 +161,16 @@ export const Checkbox = {
                 "background-size": `${this.size / 2 + 5}px ${this.size / 2 + 5}px`
             };
 
-            let icon = null;
-            if (this.icon !== "check") icon = this.icon;
-            else icon = this.checkedData === "partial" ? "minus" : "check";
-
             if (this.disabled && this.checkedData) {
-                base["background-image"] = `url(${require(`./assets/${icon}-gray.svg`)})`;
+                base["background-image"] = `url(${require(`./assets/${this.icon}-gray.svg`)})`;
             }
 
             if (!this.disabled && this.checkedData) {
-                base["background-image"] = `url(${require(`./assets/${icon}.svg`)})`;
+                base["background-image"] = `url(${require(`./assets/${this.icon}.svg`)})`;
             }
 
             if (!this.disabled && this.active) {
-                base["background-image"] = `url(${require(`./assets/${icon}-dark.svg`)})`;
+                base["background-image"] = `url(${require(`./assets/${this.icon}-dark.svg`)})`;
             }
 
             return base;
