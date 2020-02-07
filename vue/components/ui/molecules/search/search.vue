@@ -185,6 +185,14 @@ export const Search = {
             type: Array,
             default: () => []
         },
+        width: {
+            type: Number,
+            default: null
+        },
+        height: {
+            type: Number,
+            default: 34
+        },
         grow: {
             type: Boolean,
             default: false
@@ -200,14 +208,6 @@ export const Search = {
         clearVisible: {
             type: Boolean,
             default: false
-        },
-        width: {
-            type: Number,
-            default: null
-        },
-        height: {
-            type: Number,
-            default: 34
         },
         loading: {
             type: Boolean,
@@ -246,9 +246,8 @@ export const Search = {
             return base;
         },
         svgStyle() {
-            const margin = (this.height - 24) / 2;
             return {
-                "margin-top": `${margin}px`
+                "margin-top": `${(this.height - 24) / 2}px`
             };
         },
         clearButtonVisible() {
