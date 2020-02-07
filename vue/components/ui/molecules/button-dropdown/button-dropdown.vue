@@ -1,19 +1,19 @@
 <template>
     <div class="button-dropdown">
-        <div class="button button-principal" v-on:click="onPrimaryButtonClicked">
-            <img class="icon" v-bind:src="blackIcon" />
-            <img class="icon-hover" v-bind:src="whiteIcon" />
+        <div class="button button-primary" v-on:click="onPrimaryClick">
+            <template v-if="primaryIcon">
+                <img class="icon icon-front" v-bind:src="blackPrimaryIcon" />
+                <img class="icon icon-back" v-bind:src="whitePrimaryIcon" />
+            </template>
             <span class="label">{{ label }} </span>
         </div>
-        <div class="button button-secondary" v-on:click.stop="onToggleDropdown">
-            <img class="icon" v-bind:src="blackSecondaryIcon" />
-            <img class="icon-hover" v-bind:src="whiteSecondaryIcon" />
+        <div class="button button-secondary" v-on:click.stop="onSecondaryClick">
+            <img class="icon icon-front" v-bind:src="blackSecondaryIcon" />
+            <img class="icon icon-back" v-bind:src="whiteSecondaryIcon" />
         </div>
         <dropdown
-            class="dropdown-container"
             v-bind:items="items"
             v-bind:visible.sync="dropdownVisible"
-            v-bind:class="{ inactive: !dropdownVisible }"
             v-on:item-clicked="onDropdownItemClicked"
         />
     </div>
@@ -25,61 +25,46 @@
 .button-dropdown {
     display: inline-block;
     position: relative;
+    font-size: 0px;
 }
 
-.dropdown-container {
-    min-width: 120px;
-    position: absolute;
-    right: 0px;
-    top: 34px;
-    width: fit-content;
-}
-
-.dropdown-container.inactive {
-    border: none;
-    box-shadow: none;
-}
-
-.button {
+.button-dropdown > .button {
     background-color: $white;
     border: 1px solid #e4e8f0;
     box-sizing: border-box;
     color: $pale-grey;
+    display: inline-block;
     cursor: pointer;
-    float: left;
-    margin: 0px 0px 0px 0px;
     min-width: 20px;
     transition: background-color 0.15s ease-in-out,
         border-color 0.15s ease-in-out,
-        color 0.15s ease-in-out,
-        opacity 0.15s ease-in-out;
+        color 0.15s ease-in-out;
     user-select: none;
+    vertical-align: top;
 }
 
-.button.button-principal {
-    border-radius: 6px 0px 0px 6px;
-    border-width: 1px 0px 1px 1px;
-    padding: 4px 8px 4px 6px;
+.button-dropdown > .button:hover {
+    background-color: $black;
+    border-color: $black;
+    color: $white;
 }
 
-.button.button-secondary {
-    border-radius: 0px 6px 6px 0px;
-    padding: 4px 4px 4px 4px;
-}
-
-.button.button-principal:active,
-.button.button-secondary:active {
+.button-dropdown > .button:active {
     background-color: #2d2d2d;
     border-color: #2d2d2d;
 }
 
-.button.button-secondary:hover,
-.button.button-principal:hover {
-    background-color: $black;
-    color: $white;
+.button-dropdown > .button.button-primary {
+    border-radius: 6px 0px 0px 6px;
+    padding: 4px 8px 4px 6px;
 }
 
-.button.button-principal .label {
+.button-dropdown > .button.button-secondary {
+    border-radius: 0px 6px 6px 0px;
+    padding: 4px 4px 4px 4px;
+}
+
+.button-dropdown > .button.button-primary > .label {
     float: right;
     font-size: 14px;
     font-weight: 600;
@@ -88,33 +73,32 @@
     padding: 0px 0px 0px 6px;
 }
 
-.button.button-principal .icon,
-.button.button-secondary .icon,
-.button.button-principal .icon-hover,
-.button.button-secondary .icon-hover {
+.button-dropdown > .button > .icon {
     height: 22px;
     vertical-align: middle;
     width: 22px;
+    transition: opacity 0.15s ease-in-out;
 }
 
-.button.button-secondary .icon-hover,
-.button.button-principal .icon-hover {
-    display: none;
+.button-dropdown > .button > .icon.icon-back {
+    opacity: 0;
+    margin-left: -22px;
 }
 
-.button.button-secondary:hover .icon-hover,
-.button.button-principal:hover .icon-hover {
-    display: inline-block;
+.button-dropdown > .button:hover > .icon.icon-back {
+    opacity: 1;
 }
 
-.button.button-secondary .icon,
-.button.button-principal .icon {
-    display: inline-block;
+.button-dropdown > .button:hover > .icon.icon-front {
+    opacity: 0;
 }
 
-.button.button-secondary:hover .icon,
-.button.button-principal:hover .icon {
-    display: none;
+.button-dropdown > .dropdown-container {
+    min-width: 120px;
+    position: absolute;
+    right: 0px;
+    top: 34px;
+    width: fit-content;
 }
 </style>
 
@@ -122,7 +106,7 @@
 export const ButtonDropdown = {
     name: "button-dropdown",
     props: {
-        icon: {
+        primaryIcon: {
             type: String,
             default: null
         },
@@ -137,20 +121,24 @@ export const ButtonDropdown = {
         items: {
             type: Array,
             default: null
+        },
+        dropdownVisible: {
+            type: Boolean,
+            default: false
         }
     },
     data: function() {
         return {
             color: "white",
-            dropdownVisible: false
+            dropdownVisibleData: this.dropdownVisible
         };
     },
     computed: {
-        blackIcon() {
-            return this._getIconPath(this.icon, "black");
+        blackPrimaryIcon() {
+            return this._getIconPath(this.primaryIcon, "black");
         },
-        whiteIcon() {
-            return this._getIconPath(this.icon, "white");
+        whitePrimaryIcon() {
+            return this._getIconPath(this.primaryIcon, "white");
         },
         blackSecondaryIcon() {
             return this._getIconPath(this.secondaryIcon, "black");
@@ -159,14 +147,22 @@ export const ButtonDropdown = {
             return this._getIconPath(this.secondaryIcon, "white");
         }
     },
+    watch: {
+        dropdownVisible(value) {
+            this.dropdownVisibleData = value;
+        },
+        dropdownVisibleData(value) {
+            this.$emit("update:dropdown-visible", value);
+        }
+    },
     methods: {
         toggleDropdown() {
             this.dropdownVisible = !this.dropdownVisible;
         },
-        onToggleDropdown() {
+        onSecondaryClick() {
             this.toggleDropdown();
         },
-        onPrimaryButtonClicked(event) {
+        onPrimaryClick(event) {
             this.$emit("click", event);
         },
         onDropdownItemClicked(item) {
