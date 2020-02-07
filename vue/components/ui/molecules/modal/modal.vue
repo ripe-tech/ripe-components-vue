@@ -9,53 +9,59 @@
                 ref="overlay"
                 v-on:click="onOverlayClick"
             />
-            <div
-                class="modal-container"
-                v-bind:style="{ top: String(paddingTop) + 'px' }"
-                ref="modalSection"
-            >
-                <div class="button button-close-container" v-if="buttonClose">
-                    <slot name="button-close-content">
-                        <button-icon
-                            v-bind:icon="'close'"
-                            v-bind:size="30"
-                            v-on:click="handleClose"
-                        />
+            <div class="modal-container">
+                <div class="modal-header" v-if="buttonClose || $slots.header">
+                    <slot name="header">
+                        <slot name="button-close-content">
+                            <button-icon
+                                v-bind:icon="'close'"
+                                v-bind:size="30"
+                                v-on:click="handleClose"
+                            />
+                        </slot>
                     </slot>
                 </div>
-                <h1 class="title" v-if="title">{{ title }}</h1>
-                <h2 class="sub-title" v-if="subTitle">{{ subTitle }}</h2>
-                <div class="modal-content" ref="content">
-                    <slot />
+                <div class="modal-body">
+                    <slot name="body">
+                        <h1 class="title" v-if="title">{{ title }}</h1>
+                        <h2 class="sub-title" v-if="subTitle">{{ subTitle }}</h2>
+                        <div class="modal-content" ref="content">
+                            <slot />
+                        </div>
+                    </slot>
                 </div>
-                <div
-                    class="buttons-container"
-                    v-bind:style="{ 'text-align': buttonsAlignment }"
-                    ref="buttons"
-                >
-                    <slot name="buttons-content">
-                        <button-color
-                            v-bind:class="'button-cancel'"
-                            v-bind:secondary="true"
-                            v-bind:small="buttonsSmall"
-                            v-bind:text="cancelText"
-                            v-bind:color="cancelColor"
-                            v-bind:icon="cancelIcon"
-                            v-bind:disabled="loading || cancelDisabled"
-                            v-if="buttonCancel && cancelText"
-                            v-on:click="cancel"
-                        />
-                        <button-color
-                            v-bind:class="'button-confirm'"
-                            v-bind:small="buttonsSmall"
-                            v-bind:text="confirmText"
-                            v-bind:color="confirmColor"
-                            v-bind:icon="confirmIcon"
-                            v-bind:disabled="loading || confirmDisabled"
-                            v-bind:loading="loading"
-                            v-if="buttonConfirm && confirmText"
-                            v-on:click="confirm"
-                        />
+                <div class="modal-footer">
+                    <slot name="footer">
+                        <div
+                            class="buttons-container"
+                            v-bind:style="{ 'text-align': buttonsAlignment }"
+                            ref="buttons"
+                        >
+                            <slot name="buttons-content">
+                                <button-color
+                                    v-bind:class="'button-cancel'"
+                                    v-bind:secondary="true"
+                                    v-bind:small="buttonsSmall"
+                                    v-bind:text="cancelText"
+                                    v-bind:color="cancelColor"
+                                    v-bind:icon="cancelIcon"
+                                    v-bind:disabled="loading || cancelDisabled"
+                                    v-if="buttonCancel && cancelText"
+                                    v-on:click="cancel"
+                                />
+                                <button-color
+                                    v-bind:class="'button-confirm'"
+                                    v-bind:small="buttonsSmall"
+                                    v-bind:text="confirmText"
+                                    v-bind:color="confirmColor"
+                                    v-bind:icon="confirmIcon"
+                                    v-bind:disabled="loading || confirmDisabled"
+                                    v-bind:loading="loading"
+                                    v-if="buttonConfirm && confirmText"
+                                    v-on:click="confirm"
+                                />
+                            </slot>
+                        </div>
                     </slot>
                 </div>
             </div>
@@ -68,7 +74,10 @@
 @import "css/animations.scss";
 
 .modal {
+    align-items: center;
     bottom: 0px;
+    display: flex;
+    justify-content: center;
     left: 0px;
     opacity: 1;
     position: fixed;
@@ -98,6 +107,7 @@
     padding: 20px 26px 20px 26px;
     position: relative;
     width: 460px;
+    z-index: 1;
 }
 
 body.tablet .modal > .modal-container,
@@ -109,7 +119,7 @@ body.mobile .modal > .modal-container {
     animation: fade-shrink-visibility 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
 }
 
-.modal > .modal-container > .button.button-close-container {
+.modal > .modal-container > .modal-header {
     box-sizing: border-box;
     left: 0px;
     margin: auto;
@@ -121,28 +131,28 @@ body.mobile .modal > .modal-container {
     width: 100%;
 }
 
-.modal > .modal-container > .button.button-close-container ::v-deep .button-icon {
+.modal > .modal-container > .modal-header ::v-deep .button-icon {
     pointer-events: all;
 }
 
-.modal > .modal-container > .buttons-container {
+.modal > .modal-container > .modal-footer > .buttons-container {
     user-select: none;
 }
 
-.modal > .modal-container > .buttons-container ::v-deep .button {
+.modal > .modal-container > .modal-footer > .buttons-container ::v-deep .button {
     margin: 0px 6px 0px 6px;
     min-width: 146px;
 }
 
-.modal > .modal-container > .buttons-container ::v-deep .button:first-child {
+.modal > .modal-container > .modal-footer > .buttons-container ::v-deep .button:first-child {
     margin-left: 0px;
 }
 
-.modal > .modal-container > .buttons-container ::v-deep .button:last-child {
+.modal > .modal-container > .modal-footer > .buttons-container ::v-deep .button:last-child {
     margin-right: 0px;
 }
 
-.modal > .modal-container > .title {
+.modal > .modal-container > .modal-body > .title {
     font-size: 18px;
     font-weight: 600;
     letter-spacing: 0.5px;
@@ -150,7 +160,7 @@ body.mobile .modal > .modal-container {
     text-align: left;
 }
 
-.modal > .modal-container > .sub-title {
+.modal > .modal-container > .modal-body > .sub-title {
     font-size: 14px;
     font-weight: 500;
     letter-spacing: 0.5px;
@@ -158,7 +168,7 @@ body.mobile .modal > .modal-container {
     text-align: left;
 }
 
-.modal > .modal-container > .modal-content {
+.modal > .modal-container > .modal-body > .modal-content {
     font-size: 13px;
     font-weight: 500;
     letter-spacing: 0.25px;
@@ -271,16 +281,12 @@ export const Modal = {
     },
     data: function() {
         return {
-            visibleData: true,
-            paddingTop: 0
+            visibleData: true
         };
     },
     watch: {
         visible(value) {
             this.visibleData = value;
-        },
-        isVisible() {
-            this.$nextTick(() => this.calculate());
         }
     },
     mounted: function() {
@@ -295,13 +301,6 @@ export const Modal = {
         this.$bus.$on("hide-global", () => {
             this.hide();
         });
-        window.addEventListener("resize", this.onWindowResize);
-        this._initObservers();
-        this.calculate();
-    },
-    destroyed: function() {
-        window.removeEventListener("resize", this.onWindowResize);
-        this._destroyObservers();
     },
     methods: {
         show() {
@@ -322,10 +321,6 @@ export const Modal = {
             this.$emit("click:cancel");
             if (this.autoHide) this.hide();
         },
-        calculate() {
-            if (this.$refs.modalSection.clientHeight === 0) return;
-            this.paddingTop = window.innerHeight / 2 - this.$refs.modalSection.clientHeight / 2;
-        },
         handleClose() {
             this.hide();
         },
@@ -336,39 +331,6 @@ export const Modal = {
         onOverlayClick() {
             if (!this.overlayLeave) return;
             this.hide();
-        },
-        onWindowResize() {
-            this.calculate();
-        },
-        onContentMutated(mutations) {
-            this.calculate();
-        },
-        onButtonsMutated(mutations) {
-            this.calculate();
-        },
-        _initObservers() {
-            this.contentObserver = new MutationObserver(mutations =>
-                this.onContentMutated(mutations)
-            );
-            this.buttonsObserver = new MutationObserver(mutations =>
-                this.onButtonsMutated(mutations)
-            );
-            this.contentObserver.observe(this.$refs.content, {
-                attributes: true,
-                childList: true,
-                characterData: true,
-                subtree: true
-            });
-            this.buttonsObserver.observe(this.$refs.buttons, {
-                attributes: true,
-                childList: true,
-                characterData: true,
-                subtree: true
-            });
-        },
-        _destroyObservers() {
-            if (this.contentObserver) this.contentObserver.disconnect();
-            if (this.buttonsObserver) this.buttonsObserver.disconnect();
         }
     }
 };

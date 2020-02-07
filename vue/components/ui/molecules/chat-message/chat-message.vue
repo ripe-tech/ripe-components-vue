@@ -17,7 +17,7 @@
                 <div class="message">
                     <span v-html="message" />
                 </div>
-                <div class="links">
+                <div class="links" v-if="attachments && attachments.length > 0">
                     <div
                         class="link-container"
                         v-for="(attachment, index) in attachments"
@@ -32,7 +32,7 @@
                         />
                     </div>
                 </div>
-                <div class="reactions">
+                <div class="reactions" v-if="reactions && reactions.length > 0">
                     <reaction
                         v-bind:icon="reaction.icon"
                         v-bind:img-url="reaction.imgUrl"
@@ -56,7 +56,7 @@
     display: flex;
 }
 
-.chat-message .avatar {
+.chat-message > .avatar {
     border: 1px solid #e3e8f1;
     border-radius: 50% 50% 50% 50%;
     box-shadow: 0px 2px 5px rgba(67, 86, 100, 0.25);
@@ -65,15 +65,15 @@
     width: 24px;
 }
 
-.chat-message .message-container {
+.chat-message > .message-container {
     flex: 1 0;
 }
 
-.chat-message .message-container .message-header {
+.chat-message > .message-container > .message-header {
     margin: 3px 0px 0px 0px;
 }
 
-.chat-message .message-container .message-header .username {
+.chat-message > .message-container > .message-header > .username {
     color: #0d0d0d;
     display: inline-block;
     font-weight: bold;
@@ -82,8 +82,8 @@
     vertical-align: bottom;
 }
 
-.chat-message .message-container .message-header .date,
-.chat-message .message-container .message-header .time {
+.chat-message > .message-container > .message-header > .date,
+.chat-message > .message-container > .message-header > .time {
     color: #a4adb5;
     display: inline-block;
     font-size: 12px;
@@ -91,28 +91,29 @@
     vertical-align: bottom;
 }
 
-.chat-message .message-container .message-header .time {
+.chat-message > .message-container > .message-header > .time {
     margin-left: 3px;
 }
 
-.chat-message .message-container .message-content .message {
+.chat-message > .message-container > .message-content > .message {
     color: #0d0d0d;
+    font-size: 13px;
     letter-spacing: 0.3px;
-    line-height: 18px;
+    line-height: 20px;
     margin-top: 4px;
 }
 
-.chat-message .message-container .message-content .links {
+.chat-message > .message-container > .message-content > .links {
     line-height: 20px;
     margin: 6px 0px 0px 0px;
 }
 
-.chat-message .message-container .message-content .reactions {
+.chat-message > .message-container > .message-content > .reactions {
     font-size: 0px;
     margin-top: 10px;
 }
 
-.chat-message .message-container .message-content .reactions > .reaction {
+.chat-message > .message-container > .message-content > .reactions > .reaction {
     margin-right: 4px;
 }
 </style>

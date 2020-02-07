@@ -5,7 +5,7 @@
             v-bind:class="{ show: showScrollTop }"
             v-on:click="scrollToTop"
         />
-        <container-ripe>
+        <container-ripe v-bind:mode="containerMode">
             <div class="container-header">
                 <div class="container-header-right">
                     <div class="container-header-buttons" v-if="$slots['header-buttons']">
@@ -88,6 +88,7 @@
     transform: scale(0.75);
     transition: opacity 0.125s ease-in-out, transform 0.125s ease-in-out;
     width: 50px;
+    z-index: 1;
 }
 
 .scroll-button.show {
@@ -140,6 +141,7 @@ body.mobile .container-header-right {
 .container-header-buttons {
     display: inline-block;
     margin-right: 8px;
+    vertical-align: top;
 }
 
 body.mobile .container-header-buttons {
@@ -254,6 +256,10 @@ export const Listing = {
         searchWidth: {
             type: Number,
             default: 304
+        },
+        containerMode: {
+            type: String,
+            default: null
         }
     },
     data: function() {

@@ -33,10 +33,10 @@ storiesOf("Atoms", module)
                 default: number("Count", 0)
             },
             userReacted: {
-                default: boolean("User has reacted", false)
+                default: boolean("User Reacted", false)
             },
             behavior: {
-                default: boolean("Default behavior", true)
+                default: boolean("Default Behavior", true)
             }
         },
         methods: {

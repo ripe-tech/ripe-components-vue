@@ -5,7 +5,8 @@
         v-bind:class="classes"
         v-on:click="handleClick"
     >
-        <img v-bind:src="iconPath" />
+        <loader loader="ball-clip-rotate" class="loader" v-bind:count="1" v-show="loading" />
+        <img v-bind:src="iconPath" v-show="!loading" />
         <span v-if="text">{{ text }}</span>
     </span>
 </template>
@@ -35,12 +36,20 @@
     background-color: $lighter-grey;
 }
 
+.button-icon:active:not(.disabled) {
+    background-color: $light-grey;
+}
+
 .button-icon.button-icon-grey {
     background-color: $lighter-grey;
 }
 
 .button-icon.button-icon-grey:hover:not(.disabled) {
     background-color: #dedede;
+}
+
+.button-icon.button-icon-grey:active:not(.disabled) {
+    background-color: #cecece;
 }
 
 .button-icon.button-icon-white {
@@ -51,6 +60,10 @@
     background-color: $lighter-grey;
 }
 
+.button-icon.button-icon-white:active:not(.disabled) {
+    background-color: $light-grey;
+}
+
 .button-icon.button-icon-black {
     background-color: $dark;
 }
@@ -59,9 +72,31 @@
     background-color: #41566f;
 }
 
+.button-icon.button-icon-black:active:not(.disabled) {
+    background-color: $dark;
+}
+
+.button-icon .loader {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.button-icon .loader ::v-deep div {
+    border-color: #848484 #848484 transparent #848484;
+    height: 10px;
+    width: 10px;
+}
+
 .button-icon > img {
     height: 100%;
     opacity: 0.5;
+}
+
+.button-icon.button-icon-black > img {
+    opacity: 1;
+}
+
+.button-icon.button-icon-text > img {
     vertical-align: middle;
 }
 
@@ -77,6 +112,10 @@
     margin-right: 3px;
     opacity: 0.5;
     vertical-align: middle;
+}
+
+.button-icon.button-icon-black > span {
+    opacity: 1;
 }
 
 .button-icon:hover:not(.disabled) > span {
@@ -112,7 +151,35 @@ export const ButtonIcon = {
             type: Number,
             default: null
         },
+        paddingTop: {
+            type: Number,
+            default: null
+        },
+        paddingBottom: {
+            type: Number,
+            default: null
+        },
+        paddingLeft: {
+            type: Number,
+            default: null
+        },
+        paddingRight: {
+            type: Number,
+            default: null
+        },
+        paddingFactor: {
+            type: Number,
+            default: 4.5
+        },
+        paddingTextFactor: {
+            type: Number,
+            default: 1.5
+        },
         disabled: {
+            type: Boolean,
+            default: false
+        },
+        loading: {
             type: Boolean,
             default: false
         }
@@ -133,34 +200,46 @@ export const ButtonIcon = {
             return require(`./../../../../assets/icons/${iconColor}/${this.icon}.svg`);
         },
         paddingBase() {
-            return this.padding === null ? parseInt(this.size / 4.5) : this.padding;
+            return this.padding === null ? parseInt(this.size / this.paddingFactor) : this.padding;
         },
         style() {
             return {
                 height: `${this.size}px`,
-                "padding-top": `${this.paddingBase}px`,
-                "padding-bottom": `${this.paddingBase}px`,
+                "line-height": this.text ? "normal" : `${this.size}px`,
+                "padding-top": `${this.paddingTop === null ? this.paddingBase : this.paddingTop}px`,
+                "padding-bottom": `${
+                    this.paddingBottom === null ? this.paddingBase : this.paddingBottom
+                }px`,
                 "padding-left": `${
-                    this.text ? parseInt(this.paddingBase * 1.3) : this.paddingBase
+                    this.paddingLeft === null
+                        ? this.text
+                            ? parseInt(this.paddingBase * this.paddingTextFactor)
+                            : this.paddingBase
+                        : this.paddingLeft
                 }px`,
                 "padding-right": `${
-                    this.text ? parseInt(this.paddingBase * 1.3) : this.paddingBase
+                    this.paddingRight === null
+                        ? this.text
+                            ? parseInt(this.paddingBase * this.paddingTextFactor)
+                            : this.paddingBase
+                        : this.paddingRight
                 }px`,
                 "border-radius": `${this.size}px`
             };
         },
         classes() {
             const base = {
-                disabled: this.disabled
+                disabled: this.disabled,
+                "button-icon-text": Boolean(this.text)
             };
             if (this.color) base["button-icon-" + this.color] = this.color;
             return base;
         }
     },
     methods: {
-        handleClick() {
+        handleClick(event) {
             if (this.disabled) return;
-            this.$emit("click");
+            this.$emit("click", event);
         }
     }
 };

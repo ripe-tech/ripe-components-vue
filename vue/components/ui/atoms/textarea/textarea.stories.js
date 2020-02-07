@@ -33,7 +33,7 @@ storiesOf("Atoms", module)
                 default: text("Placeholder", "This is a placeholder")
             },
             header: {
-                default: text("Description text", "Description")
+                default: text("Description Text", "Description")
             },
             footer: {
                 default: text("Help text", "Help or instruction text goes here")

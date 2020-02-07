@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, boolean, number, select } from "@storybook/addon-knobs";
 
-storiesOf("atoms", module)
+storiesOf("Atoms", module)
     .addDecorator(withKnobs)
     .add("Side", () => ({
         props: {
@@ -20,6 +20,9 @@ storiesOf("atoms", module)
             },
             visible: {
                 default: boolean("Visible", true)
+            },
+            padded: {
+                default: boolean("Padded", false)
             },
             links: {
                 default: () => [
@@ -67,9 +70,11 @@ storiesOf("atoms", module)
                 <side 
                     v-bind:links="links" 
                     v-bind:width="width" 
-                    v-bind:visible.sync="visibleData" 
+                    v-bind:visible.sync="visibleData"
+                    v-bind:padded="padded"
                     v-bind:position="position"
                 />
                 <p style="text-align: center;">Visible: {{visibleData}}</p>
-            </div>`
+            </div>
+        `
     }));
