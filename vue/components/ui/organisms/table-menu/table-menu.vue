@@ -50,7 +50,7 @@
                     </template>
                 </table-ripe>
             </div>
-            <slot name="table-footer">
+            <slot name="content-footer">
                 <button-color
                     class="add-item"
                     v-bind:text="'Add row'"
@@ -114,7 +114,8 @@
 }
 
 .table-menu .content-content {
-    min-height: 60px;
+    min-height: 75px;
+    overflow-x: hidden;
     overflow-y: auto;
 }
 
