@@ -116,6 +116,10 @@ export const Checkbox = {
             type: Boolean,
             default: false
         },
+        icon: {
+            type: String,
+            default: "check"
+        },
         size: {
             type: Number,
             default: 4
@@ -157,7 +161,9 @@ export const Checkbox = {
                 "background-size": `${this.size / 2 + 5}px ${this.size / 2 + 5}px`
             };
 
-            const icon = this.checkedData === "partial" ? "minus" : "check";
+            let icon = null;
+            if (this.icon !== "check") icon = this.icon;
+            else icon = this.checkedData === "partial" ? "minus" : "check";
 
             if (this.disabled && this.checkedData) {
                 base["background-image"] = `url(${require(`./assets/${icon}-gray.svg`)})`;

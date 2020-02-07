@@ -22,6 +22,17 @@ storiesOf("Atoms", module)
             label: {
                 default: text("Label", "Checkbox")
             },
+            icon: {
+                default: select(
+                    "Icon",
+                    {
+                        Check: "check",
+                        Minus: "minus",
+                        Smile: "happy-face"
+                    },
+                    "check"
+                )
+            },
             variant: {
                 default: select(
                     "Variant",
