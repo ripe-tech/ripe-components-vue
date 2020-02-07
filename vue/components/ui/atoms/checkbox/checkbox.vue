@@ -3,7 +3,7 @@
         tabindex="0"
         class="checkbox"
         v-bind:class="classes"
-        v-on:click="onClick()"
+        v-on:click="onClick"
         v-on:mousedown="onMouseDown()"
         v-on:mouseup="onMouseUp()"
         v-on:keydown.space="onSpace()"
@@ -138,6 +138,9 @@ export const Checkbox = {
     watch: {
         checked(value) {
             this.checkedData = value;
+        },
+        checkedData(value) {
+            this.$emit("update:checked", this.checkedData);
         }
     },
     computed: {
@@ -178,13 +181,13 @@ export const Checkbox = {
             if (this.disabled) return;
 
             this.checkedData = !this.checkedData;
-            this.$emit("update:checked", this.checkedData);
         },
         onSpace() {
             this.toggle();
         },
-        onClick() {
+        onClick(event) {
             this.toggle();
+            this.$emit("click", event);
         },
         onMouseDown() {
             this.active = true;
