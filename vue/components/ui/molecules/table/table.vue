@@ -357,8 +357,8 @@ export const Table = {
         items: {
             deep: true,
             handler: function(value) {
-                const itemsNrDiff = value.length - this.itemsData.length;
-                this.itemsData = this.itemsChangeHandler([...value], itemsNrDiff);
+                this.checkedItemsData = this.initialCheckedItems();
+                this.itemsData = this.itemsWithIndex([...value]);
             }
         },
         reverse: {
@@ -426,49 +426,6 @@ export const Table = {
             });
 
             return checkedItems;
-        },
-        itemsChangeHandler(items, itemsNrDiff) {
-            this.checkedItemsData = this.initialCheckedItems();
-            return this.itemsWithIndex(items);
-
-            /*
-            if (itemsNrDiff >= 0) {
-                for (let i = items.length - itemsNrDiff; i < items.length; i++) {
-                    const item = items[i];
-                    item._originalIndex = i;
-                    this.$set(this.checkedItemsData, item._originalIndex, false);
-                }
-            } else {
-                const unchangedCheckedItems = JSON.parse(JSON.stringify(this.checkedItemsData));
-
-                for (let i = 0; i < items.length; i++) {
-                    const itemFound = this.itemsData.find(
-                        item => items[i]._originalIndex === item._originalIndex
-                    );
-
-                    if (itemFound !== undefined) {
-                        this.$set(
-                            this.checkedItemsData,
-                            i,
-                            unchangedCheckedItems[itemFound._originalIndex]
-                        );
-                        itemFound._originalIndex = i;
-                        items[i] = itemFound;
-                    }
-                }
-
-                const removedItemsNr = itemsNrDiff * -1;
-                const length = Object.keys(this.checkedItemsData).length;
-
-                let key = null;
-                for (let j = length - 1; j > length - 1 - removedItemsNr; j--) {
-                    key = Object.keys(this.checkedItemsData)[j];
-                    this.$delete(this.checkedItemsData, key);
-                }
-            }
-
-            return items;
-             */
         },
         setAllCheckedItemsValue(value) {
             Object.keys(this.checkedItemsData).forEach(key =>
