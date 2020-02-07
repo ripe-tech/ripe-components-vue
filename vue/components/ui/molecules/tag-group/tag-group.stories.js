@@ -16,8 +16,8 @@ storiesOf("Molecules", module)
                     "medium"
                 )
             },
-            placeholder: {
-                default: text("Placeholder text", "Write and press enter...")
+            inputPlaceholder: {
+                default: text("Input placeholder text", "Write and press enter...")
             },
             tags: {
                 type: Array,
@@ -25,8 +25,16 @@ storiesOf("Molecules", module)
             },
             hasInput: {
                 default: boolean("Has input", true)
+            },
+            subtle: {
+                default: boolean("Subtle", false)
             }
         },
         template:
-            '<tag-group v-bind:hasInput="hasInput" v-bind:size="size" v-bind:tags="tags" v-bind:placeholder="placeholder" />'
+            `<tag-group
+                v-bind:hasInput="hasInput"
+                v-bind:subtle="subtle"
+                v-bind:size="size" v-bind:tags="tags"
+                v-bind:input-placeholder="inputPlaceholder"
+            />`
     }));
