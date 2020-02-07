@@ -505,12 +505,11 @@ export const Table = {
             this.shiftIndex = this.lastClickedIndex = index;
         },
         onGlobalCheckboxClick() {
-            console.log("Clicked");
-            this.globalCheckboxValueData = this.globalCheckboxValueData && !this.isAllChecked ? true: false;
+            this.globalCheckboxValueData = !this.globalCheckboxValueData;
 
             this.checkedItemsData = {};
             this.itemsData.forEach(item => {
-                this.$set(this.checkedItemsData, item._originalIndex, true);
+                this.$set(this.checkedItemsData, item._originalIndex, this.globalCheckboxValueData);
             });
 
             this.resetSelectionIndexes();
