@@ -38,8 +38,6 @@
 
 .form-input.form-input-inline .flex-container {
     flex: 1;
-    display: flex;
-    align-items: center;
 }
 
 .form-input .header,
@@ -72,14 +70,17 @@
     min-width: 120px;
 }
 
+.form-input .content {
+    align-items: center;
+    display: flex;
+    font-size: 0px;
+    height: 34px;
+    line-height: 34px;
+}
+
 .form-input .footer {
     color: $medium-grey;
     margin-top: 6px;
-}
-
-.form-input .content {
-    font-size: 0px;
-    line-height: 0px;
 }
 </style>
 
