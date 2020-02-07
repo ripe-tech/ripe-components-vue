@@ -62,10 +62,9 @@
 .checkbox.checked > .checkbox-input > .checkbox-square {
     background-color: $dark;
     border: 2px solid $dark;
-    padding: 3px 3px 3px 3px;
 }
 
-.checkbox.checked.active > .checkbox-input > .checkbox-square {
+.checkbox.active.checked > .checkbox-input > .checkbox-square {
     background-color: #f4f5f7;
 }
 
@@ -77,7 +76,6 @@
 .checkbox.disabled.checked > .checkbox-input > .checkbox-square {
     background-color: #f4f5f7;
     border: 2px solid #f6f7f9;
-    padding: 3px 3px 3px 3px;
 }
 
 .checkbox:focus:not(.disabled) > .checkbox-input > .checkbox-square {
@@ -179,7 +177,6 @@ export const Checkbox = {
     methods: {
         toggle() {
             if (this.disabled) return;
-
             this.checkedData = !this.checkedData;
         },
         onSpaceKey() {
