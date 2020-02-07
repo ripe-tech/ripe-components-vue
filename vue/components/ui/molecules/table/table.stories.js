@@ -63,7 +63,7 @@ storiesOf("Molecules", module)
             checkedItems: {
                 type: Object,
                 default: () => {
-                    return { 0: true, 1: false, 2: true };
+                    return { 1: true, 2: false, 3: true };
                 }
             },
             sort: {

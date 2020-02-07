@@ -54,7 +54,7 @@
                     <td class="checkbox-item" v-if="enableCheckboxes">
                         <checkbox
                             v-bind:size="8"
-                            v-bind:checked.sync="checkedItemsData[item._originalIndex]"
+                            v-bind:checked.sync="checkedItemsData[item.id]"
                             v-on:click.native.exact.stop="
                                 onCheckboxClick(index, item._originalIndex)
                             "
@@ -518,7 +518,7 @@ export const Table = {
 
             this.checkedItemsData = {};
             this.itemsData.forEach(item => {
-                this.$set(this.checkedItemsData, item._originalIndex, this.globalCheckboxValueData);
+                this.$set(this.checkedItemsData, item.id, this.globalCheckboxValueData);
             });
 
             this.resetSelectionIndexes();
