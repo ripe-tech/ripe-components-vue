@@ -44,7 +44,7 @@
             <template v-for="(item, index) in sortedItems">
                 <slot name="before-row" v-bind:item="item" v-bind:index="index" />
                 <tr
-                    v-bind:class="{ selected: isRowSelected(item._originalIndex) }"
+                    v-bind:class="{ selected: isRowSelected(item.id) }"
                     v-bind:key="item.id"
                     v-on:click.exact="onRowClick(item, index)"
                     v-on:click.ctrl.exact="onRowCtrlClick(index, item._originalIndex)"
@@ -349,7 +349,7 @@ export const Table = {
             globalCheckboxValueData: false,
             globalCheckboxIcon: "check",
             checkedItemsData: this.enableCheckboxes ? this.checkedItems : {},
-            selectedOriginalIndex: null,
+            selectedId: null,
             lastClickedIndex: null,
             shiftIndex: null
         };
@@ -422,8 +422,8 @@ export const Table = {
         itemsWithIndex() {
             return this.items.map((item, index) => ({ _originalIndex: index, ...item }));
         },
-        isRowSelected(originalIndex) {
-            return this.allowSelectedHighlight && originalIndex === this.selectedOriginalIndex;
+        isRowSelected(id) {
+            return this.allowSelectedHighlight && id === this.selectedId;
         },
         itemsChangeHandler(items, itemsNrDiff) {
             if (itemsNrDiff >= 0) {
@@ -515,13 +515,13 @@ export const Table = {
             this.resetSelectionIndexes();
         },
         onRowClick(item, index) {
-            this.selectedOriginalIndex =
-                this.selectedOriginalIndex === null ||
-                this.selectedOriginalIndex !== item._originalIndex
-                    ? item._originalIndex
+            this.selectedId =
+                this.selectedId === null ||
+                this.selectedId !== item.id
+                    ? item.id
                     : null;
 
-            this.$emit("click", item, this.selectedOriginalIndex, index);
+            this.$emit("click", item, item._originalIndex, index);
             this.resetSelectionIndexes();
         },
         onRowCtrlClick(index, originalIndex) {
