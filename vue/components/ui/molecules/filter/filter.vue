@@ -8,6 +8,7 @@
                 v-bind:transition="tableTransition"
                 v-bind:initial-sort="sort"
                 v-bind:initial-reverse="reverse"
+                v-bind:variant="tableVariant"
                 v-on:click="onTableClick"
             >
                 <template v-slot="{ item, index }">
@@ -104,6 +105,10 @@ export const Filter = {
         tableColumns: {
             type: Array,
             default: () => []
+        },
+        tableVariant: {
+            type: String,
+            default: null
         },
         lineupFields: {
             type: Array,

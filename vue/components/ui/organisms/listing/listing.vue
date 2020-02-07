@@ -28,6 +28,7 @@
                 v-bind:get-items="getItems"
                 v-bind:get-item-url="getItemUrl"
                 v-bind:table-columns="tableColumns"
+                v-bind:table-variant="tableVariant"
                 v-bind:lineup-fields="lineupFields"
                 v-bind:lineup-columns="lineupColumns"
                 v-bind:lineup-variant="lineupVariant"
@@ -221,6 +222,10 @@ export const Listing = {
         tableColumns: {
             type: Array,
             required: true
+        },
+        tableVariant: {
+            type: String,
+            default: null
         },
         lineupFields: {
             type: Array,
