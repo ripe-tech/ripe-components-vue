@@ -39,6 +39,11 @@
     width: 100%;
 }
 
+.textarea.monospaced {
+    font-family: consolas, monospace;
+    letter-spacing: 0px;
+}
+
 .textarea.dark {
     background-color: $soft-blue;
 }
@@ -99,6 +104,10 @@ export const Textarea = {
             type: Boolean,
             default: false
         },
+        monospaced: {
+            type: Boolean,
+            default: false
+        },
         width: {
             type: Number,
             default: null
@@ -138,7 +147,10 @@ export const Textarea = {
             return base;
         },
         classes() {
-            const base = { resize: this.resize };
+            const base = {
+                resize: this.resize,
+                monospaced: this.monospaced
+            };
             if (this.variant) base[this.variant] = true;
             if (this.border) base[`border-${this.border}`] = true;
             return base;
