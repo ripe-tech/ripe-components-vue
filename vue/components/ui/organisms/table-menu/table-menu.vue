@@ -63,7 +63,7 @@
             </slot>
         </template>
         <template v-slot:menu>
-            <div class="menu-container" v-bind:style="menuStyle">
+            <div class="menu-container" v-bind:style="menuStyle" ref="menu-container">
                 <slot name="menu-header">
                     <h2 class="menu-title" v-if="menuTitle">{{ menuTitle }}</h2>
                 </slot>
@@ -282,10 +282,14 @@ export const TableMenu = {
         setMenuItem(index) {
             this.selectedIndexData = index;
             this.menuVisibleData = true;
+            this.focusFirstMenuInput();
         },
         getColumnLabel(value) {
             const column = this.columns.find(l => l.value === value);
             return column.label || value;
+        },
+        focusFirstMenuInput() {
+            this.$refs["menu-container"].getElementsByTagName("input")[0].focus();
         },
         scrollTop() {
             const table = this.$refs["content-content"];
@@ -296,7 +300,9 @@ export const TableMenu = {
             table.scrollTop = table.scrollHeight;
         },
         toggleMenu() {
-            this.menuVisibleData = !this.menuVisibleData;
+            this.menuVisibleData = this.menuVisibleData
+                ? false
+                : true || this.focusFirstMenuInput();
         },
         isSelected(item) {
             return this.selectedItem.id === item.id;
