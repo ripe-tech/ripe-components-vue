@@ -1,6 +1,6 @@
 <template>
     <div class="dropdown-container">
-        <global-events v-on:keydown.esc="handleGlobal()" />
+        <global-events v-on:keydown.esc="onEscKey" />
         <transition name="slide" v-on:after-leave="onSlideAfterLeave">
             <ul class="dropdown" v-bind:style="dropdownStyle" v-show="visibleData" ref="dropdown">
                 <li
@@ -144,6 +144,10 @@ export const Dropdown = {
         maxHeight: {
             type: Number,
             default: null
+        },
+        overflow: {
+            type: String,
+            default: "auto"
         }
     },
     data: function() {
@@ -172,8 +176,8 @@ export const Dropdown = {
             if (this.width) base.width = `${this.width}px`;
             if (this.maxHeight) {
                 base["max-height"] = `${this.maxHeight}px`;
-                base.overflow = "overlay";
             }
+            if (this.overflow) base.overflow = this.overflow;
             return base;
         }
     },
@@ -213,6 +217,9 @@ export const Dropdown = {
         handleGlobal() {
             if (!this.globalEvents) return;
             this.hide();
+        },
+        onEscKey() {
+            this.handleGlobal();
         },
         onMouseenter(index) {
             this.highlight(index);

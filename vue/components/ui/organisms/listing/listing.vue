@@ -28,8 +28,11 @@
                 v-bind:get-items="getItems"
                 v-bind:get-item-url="getItemUrl"
                 v-bind:table-columns="tableColumns"
+                v-bind:table-variant="tableVariant"
                 v-bind:lineup-fields="lineupFields"
                 v-bind:lineup-columns="lineupColumns"
+                v-bind:lineup-variant="lineupVariant"
+                v-bind:limit="limit"
                 v-bind:filter="filter"
                 v-bind:use-query="useQuery"
                 v-bind:loading.sync="loading"
@@ -203,6 +206,10 @@ input[type="text"]:focus {
     background-color: $white;
     border-color: #aaaaaa;
 }
+
+.listing .filter-ripe ::v-deep .lineup > .lineup-item {
+    padding: 12px 8px 12px 8px;
+}
 </style>
 
 <script>
@@ -220,6 +227,10 @@ export const Listing = {
             type: Array,
             required: true
         },
+        tableVariant: {
+            type: String,
+            default: null
+        },
         lineupFields: {
             type: Array,
             required: true
@@ -227,6 +238,14 @@ export const Listing = {
         lineupColumns: {
             type: Number,
             default: null
+        },
+        lineupVariant: {
+            type: String,
+            default: null
+        },
+        limit: {
+            type: Number,
+            default: 25
         },
         name: {
             type: String,

@@ -44,7 +44,7 @@
             <template v-for="(item, index) in sortedItems">
                 <slot name="before-row" v-bind:item="item" v-bind:index="index" />
                 <slot name="row" v-bind:item="item" v-bind:index="index">
-                    <tr
+                    <tr 
                         v-bind:class="{ selected: isRowSelected(item.id) }"
                         v-bind:key="item.id"
                         v-on:click.exact="onRowClick(item, index)"
@@ -76,13 +76,13 @@
                                         v-bind:item="item"
                                         v-bind:index="index"
                                         v-bind:column="column"
-                                        v-bind:name="'row-column'"
+                                        v-bind:name="'cell'"
                                     >
                                         <slot
                                             v-bind:item="item"
                                             v-bind:index="index"
                                             v-bind:column="column"
-                                            v-bind:name="`item-${column.value}`"
+                                            v-bind:name="`cell-${column.value}`"
                                         >
                                             {{
                                                 item[column.value] !== null &&
@@ -97,7 +97,6 @@
                         </slot>
                     </tr>
                 </slot>
-
                 <slot name="after-row" v-bind:item="item" v-bind:index="index" />
             </template>
         </transition-group>
@@ -163,7 +162,7 @@
     white-space: pre;
 }
 
-.table.dense th {
+.table.table-dense th {
     font-weight: 600;
 }
 
@@ -181,8 +180,9 @@
     padding: 0px 0px 0px 0px;
 }
 
-.table.dense ::v-deep td {
+.table.table-dense ::v-deep td {
     height: 40px;
+    padding: 0px 10px 0px 10px;
 }
 
 .table ::v-deep td > * {
@@ -272,6 +272,10 @@
 .table .table-column > span {
     padding: 0px 20px 0px 20px;
     position: relative;
+}
+
+.table.table-dense .table-column > span {
+    padding: 0px 16px 0px 16px;
 }
 
 .table .table-column > span::before {
@@ -422,7 +426,7 @@ export const Table = {
             const base = {
                 alignment: this.alignment === "left" ? "text-align-left" : ""
             };
-            if (this.variant) base[this.variant] = true;
+            if (this.variant) base[`table-${this.variant}`] = true;
             return base;
         },
         isAllChecked() {

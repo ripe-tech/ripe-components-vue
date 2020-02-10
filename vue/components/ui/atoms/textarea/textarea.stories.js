@@ -50,6 +50,9 @@ storiesOf("Atoms", module)
             disabled: {
                 default: boolean("Disabled", false)
             },
+            monospaced: {
+                default: boolean("Monospaced", false)
+            },
             width: {
                 default: number("Width", null)
             },
@@ -85,6 +88,7 @@ storiesOf("Atoms", module)
                         v-bind:value.sync="valueData"
                         v-bind:placeholder="placeholder"
                         v-bind:disabled="disabled"
+                        v-bind:monospaced="monospaced"
                         v-bind:width="width"
                         v-bind:height="height"
                         v-bind:resize="resize"
