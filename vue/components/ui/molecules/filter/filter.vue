@@ -9,10 +9,10 @@
                 v-bind:initial-sort="sort"
                 v-bind:initial-reverse="reverse"
                 v-bind:variant="tableVariant"
-                v-on:click="onTableClick"
                 v-bind:enable-checkboxes="enableCheckboxes"
                 v-bind:checked-items.sync="checkedItemsData"
                 v-bind:allow-selected-highlight="allowSelectedHighlight"
+                v-on:click="onTableClick"
             >
                 <template v-slot="{ item, index }">
                     <slot name="table-item" v-bind:item="item" v-bind:index="index" />

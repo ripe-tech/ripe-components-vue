@@ -44,7 +44,7 @@
             <template v-for="(item, index) in sortedItems">
                 <slot name="before-row" v-bind:item="item" v-bind:index="index" />
                 <slot name="row" v-bind:item="item" v-bind:index="index">
-                    <tr 
+                    <tr
                         v-bind:class="{ selected: isRowSelected(item.id) }"
                         v-bind:key="item.id"
                         v-on:click.exact="onRowClick(item, index)"
@@ -97,6 +97,7 @@
                         </slot>
                     </tr>
                 </slot>
+
                 <slot name="after-row" v-bind:item="item" v-bind:index="index" />
             </template>
         </transition-group>
