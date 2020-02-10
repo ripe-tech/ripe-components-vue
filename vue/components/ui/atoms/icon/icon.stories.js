@@ -29,11 +29,11 @@ storiesOf("Atoms", module)
             color: {
                 default: color("Color", "green")
             },
-            title: {
-                default: text("Title", "")
-            },
             opacity: {
                 default: text("Opacity", 1)
+            },
+            strokeLinecap: {
+                default: text("Stroke Linecap", "cube")
             }
         },
         template: `
@@ -46,8 +46,8 @@ storiesOf("Atoms", module)
                 v-bind:stroke-width="strokeWidth"
                 v-bind:fill="fill"
                 v-bind:color="color"
-                v-bind:title="title"
                 v-bind:opacity="opacity"
+                v-bind:stroke-linecap="strokeLinecap"
             />
         `
     }));

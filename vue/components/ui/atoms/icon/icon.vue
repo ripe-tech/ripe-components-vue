@@ -2,9 +2,10 @@
     <svg
         v-bind:width="width"
         v-bind:height="height"
-        v-bind:view-box="viewBox"
+        v-bind:viewBox="viewBox"
         v-bind:stroke="stroke"
         v-bind:stroke-width="strokeWidth"
+        v-bind:stroke-linecap="strokeLinecap"
         v-bind:fill="fill"
         v-bind:color="color"
         v-bind:opacity="opacity"
@@ -59,6 +60,10 @@ export const Icon = {
         },
         opacity: {
             type: Number,
+            default: null
+        },
+        strokeLinecap: {
+            type: String,
             default: null
         }
     },
