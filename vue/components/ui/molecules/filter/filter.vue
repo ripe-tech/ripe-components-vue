@@ -6,12 +6,13 @@
                 v-bind:items="items"
                 v-bind:sort-method="onSort"
                 v-bind:transition="tableTransition"
-                v-bind:sort="sort"
-                v-bind:reverse="reverse"
+                v-bind:initial-sort="sort"
+                v-bind:initial-reverse="reverse"
+                v-bind:variant="tableVariant"
+                v-on:click="onTableClick"
                 v-bind:enable-checkboxes="enableCheckboxes"
                 v-bind:checked-items.sync="checkedItemsData"
                 v-bind:allow-selected-highlight="allowSelectedHighlight"
-                v-on:click="onTableClick"
             >
                 <template v-slot="{ item, index }">
                     <slot name="table-item" v-bind:item="item" v-bind:index="index" />
@@ -22,6 +23,7 @@
                 v-bind:fields="lineupFields"
                 v-bind:get-item-url="getItemUrl"
                 v-bind:columns="lineupColumns"
+                v-bind:variant="lineupVariant"
                 v-on:click="onLineupClick"
             >
                 <slot
@@ -107,12 +109,20 @@ export const Filter = {
             type: Array,
             default: () => []
         },
+        tableVariant: {
+            type: String,
+            default: null
+        },
         lineupFields: {
             type: Array,
             default: () => []
         },
         lineupColumns: {
             type: Number,
+            default: null
+        },
+        lineupVariant: {
+            type: String,
             default: null
         },
         limit: {

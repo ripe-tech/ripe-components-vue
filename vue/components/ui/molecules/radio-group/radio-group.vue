@@ -17,10 +17,10 @@
                 v-bind:tabindex="_getTabIndex(item, index)"
                 v-bind:key="item.value"
                 v-bind:ref="`radio-${index}`"
-                v-on:keydown.space="onSpacebar(item)"
-                v-on:keydown.up="onArrowUp(index)"
-                v-on:keydown.down="onArrowDown(index)"
-                v-on:click="onClick(item)"
+                v-on:keydown.space="() => onSpaceKey(item)"
+                v-on:keydown.up="() => onUpKey(index)"
+                v-on:keydown.down="() => onDownKey(index)"
+                v-on:click="() => onClick(item)"
             />
             <slot
                 name="after-item"
@@ -92,17 +92,17 @@ export const RadioGroup = {
         onClick(item) {
             this.selectItem(item);
         },
-        onSpacebar(item) {
+        onSpaceKey(item) {
             this.selectItem(item);
         },
-        onArrowUp(index) {
+        onUpKey(index) {
             for (let i = index - 1; i > index - this.items.length; i--) {
                 const _index = this._negativeModulo(i, this.items.length);
                 const item = this.items[_index];
                 if (this.focusAndSelectItem(item, _index)) return;
             }
         },
-        onArrowDown(index) {
+        onDownKey(index) {
             for (let i = index + 1; i < index + this.items.length; i++) {
                 const _index = this._negativeModulo(i, this.items.length);
                 const item = this.items[_index];
