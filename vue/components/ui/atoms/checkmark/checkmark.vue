@@ -1,7 +1,10 @@
 <template>
-    <image-ripe
+    <icon
         class="checkmark"
-        v-bind:src="iconPath"
+        v-bind:icon="icon"
+        v-bind:color="'white'"
+        v-bind:border-width="4.5"
+        v-bind:stroke-linecap="'round'"
         v-bind:fade="false"
         v-bind:class="classes"
         v-bind:style="style"
@@ -35,8 +38,8 @@ export const Checkmark = {
         }
     },
     computed: {
-        iconPath() {
-            return this.value ? require("./assets/ok.svg") : require("./assets/close.svg");
+        icon() {
+            return this.value ? "ok" : "close";
         },
         style() {
             return {
