@@ -6,7 +6,7 @@
         v-on:click="handleClick"
     >
         <loader loader="ball-clip-rotate" class="loader" v-bind:count="1" v-show="loading" />
-        <img v-bind:src="iconPath" v-show="!loading" />
+        <icon v-bind:icon="icon" v-bind:color="iconColor" v-show="!loading" />
         <span v-if="text">{{ text }}</span>
     </span>
 </template>
@@ -87,20 +87,20 @@
     width: 10px;
 }
 
-.button-icon > img {
+.button-icon > .icon {
     height: 100%;
     opacity: 0.5;
 }
 
-.button-icon.button-icon-black > img {
+.button-icon.button-icon-black > .icon {
     opacity: 1;
 }
 
-.button-icon.button-icon-text > img {
+.button-icon.button-icon-text > .icon {
     vertical-align: middle;
 }
 
-.button-icon:hover:not(.disabled) > img {
+.button-icon:hover:not(.disabled) > .icon {
     opacity: 1;
 }
 
@@ -185,9 +185,12 @@ export const ButtonIcon = {
         }
     },
     computed: {
+        iconColor() {
+            if (this.color === "black") return "white";
+            if (this.color === "white") return "black";
+        },
         iconPath() {
             let iconColor;
-            if (this.src) return this.src;
             switch (this.color) {
                 case "black":
                     iconColor = "white";

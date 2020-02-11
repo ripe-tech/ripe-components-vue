@@ -4,6 +4,8 @@
         v-bind:class="classes"
         v-bind:style="style"
         v-on:click="handleClick"
+        v-on:mouseover="hover = true"
+        v-on:mouseleave="hover = false"
     >
         <loader
             loader="ball-scale-multiple"
@@ -11,8 +13,14 @@
             v-bind:loader-style="loaderStyle"
             v-show="loading"
         />
-        <img class="icon" v-bind:src="iconPath" v-if="icon && !loading" />
-        <img class="icon-hover" v-bind:src="iconHoverPath" v-if="icon && !loading" />
+        <icon
+            class="icon"
+            v-bind:icon="icon"
+            v-bind:color="computedColor"
+            v-bind:width="null"
+            v-bind:height="null"
+            v-if="icon && !loading"
+        />
         <span v-show="!loading">
             <slot>{{ text }}</slot>
         </span>
@@ -55,13 +63,13 @@
 
 .button-color.button-color-small {
     height: 32px;
-    line-height: 30px;
+    line-height: 32px;
     min-width: 160px;
 }
 
 .button-color.button-color-small > * {
     font-size: 12px;
-    line-height: 30px;
+    line-height: 32px;
 }
 
 .button-color.button-color-tiny {
@@ -222,43 +230,25 @@
     background-color: #2d2d2d;
 }
 
-.button-color .icon,
-.button-color .icon-hover {
+.button-color .icon {
     float: left;
+    font-size: 0px;
     height: 22px;
     margin-top: 8px;
     padding-right: 12px;
     width: 22px;
 }
 
-.button-color.button-color-small .icon,
-.button-color.button-color-small .icon-hover {
+.button-color.button-color-small .icon {
     height: 18px;
     margin-top: 7px;
     width: 18px;
 }
 
-.button-color.button-color-tiny .icon,
-.button-color.button-color-tiny .icon-hover {
+.button-color.button-color-tiny .icon {
     height: 15px;
     margin-top: 4px;
     width: 15px;
-}
-
-.button-color .icon {
-    display: inline-block;
-}
-
-.button-color:hover .icon {
-    display: none;
-}
-
-.button-color .icon-hover {
-    display: none;
-}
-
-.button-color:hover .icon-hover {
-    display: inline-block;
 }
 </style>
 
@@ -319,6 +309,11 @@ export const ButtonColor = {
             default: null
         }
     },
+    data: function() {
+        return {
+            hover: false
+        };
+    },
     methods: {
         handleClick(event) {
             if (this.href) {
@@ -329,42 +324,13 @@ export const ButtonColor = {
         }
     },
     computed: {
-        iconPath() {
-            let iconColor;
-
-            switch (this.color) {
-                case "white":
-                    iconColor = "black";
-                    break;
-                default:
-                    iconColor = "white";
-                    break;
-            }
-
-            if (this.secondary) iconColor = "black";
-
-            return require(`./../../../../assets/icons/${iconColor}/${this.icon}.svg`);
-        },
-        iconHoverPath() {
-            let iconColor;
-
-            switch (this.color) {
-                case "white":
-                    iconColor = "white";
-                    break;
-                default:
-                    iconColor = "white";
-                    break;
-            }
-
-            if (this.secondary) iconColor = "white";
-
-            return require(`./../../../../assets/icons/${iconColor}/${this.icon}.svg`);
-        },
         sizeMode() {
             if (this.small) return "small";
             if (this.size) return this.size;
             return "medium";
+        },
+        computedColor() {
+            return !this.hover && (this.color === "white" || this.secondary) ? "black" : "white";
         },
         alignmentStyle() {
             if (this.alignment) return this.alignment;

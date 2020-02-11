@@ -26,6 +26,10 @@ storiesOf("Atoms", module)
                     {
                         Default: "default",
                         Red: "red",
+                        Green: "green",
+                        Blue: "blue",
+                        Yellow: "yellow",
+                        Orange: "orange",
                         White: "white"
                     },
                     "default"

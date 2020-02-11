@@ -26,7 +26,7 @@ storiesOf("Atoms", module)
                 default: select(
                     "Color",
                     {
-                        None: "",
+                        None: null,
                         Grey: "grey",
                         White: "white",
                         Black: "black"
