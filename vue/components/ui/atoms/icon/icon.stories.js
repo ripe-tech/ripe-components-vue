@@ -8,6 +8,15 @@ storiesOf("Atoms", module)
             icon: {
                 default: text("Icon", "rocket")
             },
+            color: {
+                default: color("Color", "#000000")
+            },
+            fill: {
+                default: color("Fill", "#fc0000c4")
+            },
+            borderWidth: {
+                default: number("Border Width", 1)
+            },
             width: {
                 default: number("Width", 100)
             },
@@ -16,26 +25,17 @@ storiesOf("Atoms", module)
             },
             viewBox: {
                 default: text("View Box", "0 0 28 28")
-            },
-            color: {
-                default: color("Color", "#000000")
-            },
-            borderWidth: {
-                default: number("Border Width", 1)
-            },
-            fill: {
-                default: color("Fill", "#fc0000c4")
             }
         },
         template: `
             <icon
                 v-bind:icon="icon"
                 v-bind:color="color"
+                v-bind:fill="fill"
                 v-bind:borderWidth="borderWidth"
                 v-bind:width="width"
                 v-bind:height="height"
                 v-bind:view-box="viewBox"
-                v-bind:fill="fill"
             />
         `
     }));

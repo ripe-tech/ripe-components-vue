@@ -17,6 +17,18 @@ export const Icon = {
             type: String,
             default: null
         },
+        color: {
+            type: String,
+            default: null
+        },
+        fill: {
+            type: String,
+            default: null
+        },
+        borderWidth: {
+            type: Number,
+            default: null
+        },
         width: {
             type: Number,
             default: null
@@ -28,23 +40,20 @@ export const Icon = {
         viewBox: {
             type: String,
             default: null
-        },
-        color: {
-            type: String,
-            default: null
-        },
-        borderWidth: {
-            type: Number,
-            default: null
-        },
-        fill: {
-            type: String,
-            default: null
         }
     },
     watch: {
         icon(value) {
             this.setAllSvgAttributes();
+        },
+        color(value) {
+            this.setSvgAttribute("stroke", value);
+        },
+        fill(value) {
+            this.setSvgAttribute("fill", value);
+        },
+        borderWidth(value) {
+            this.setSvgAttribute("stroke-width", value);
         },
         width(value) {
             this.setSvgAttribute("width", value);
@@ -54,15 +63,6 @@ export const Icon = {
         },
         viewBox(value) {
             this.setSvgAttribute("viewBox", value);
-        },
-        color(value) {
-            this.setSvgAttribute("stroke", value);
-        },
-        borderWidth(value) {
-            this.setSvgAttribute("stroke-width", value);
-        },
-        fill(value) {
-            this.setSvgAttribute("fill", value);
         }
     },
     computed: {
@@ -85,12 +85,12 @@ export const Icon = {
         },
         setAllSvgAttributes() {
             const attrs = [
+                { key: "stroke", value: this.color },
+                { key: "fill", value: this.fill },
+                { key: "stroke-width", value: this.borderWidth },
                 { key: "width", value: this.width },
                 { key: "height", value: this.height },
-                { key: "viewBox", value: this.viewBox },
-                { key: "stroke", value: this.color },
-                { key: "stroke-width", value: this.borderWidth },
-                { key: "fill", value: this.fill }
+                { key: "viewBox", value: this.viewBox }
             ];
             this.$nextTick(() => {
                 attrs.forEach(attr => this.setSvgAttribute(attr.key, attr.value));
