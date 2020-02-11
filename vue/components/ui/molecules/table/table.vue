@@ -46,7 +46,12 @@
                 <slot name="before-row" v-bind:item="item" v-bind:index="index" />
                 <slot name="row" v-bind:item="item" v-bind:index="index">
                     <tr
-                        v-bind:class="[{selected: isRowSelected(item.id), highlighted: index === highlightedIndex}]"
+                        v-bind:class="[
+                            {
+                                selected: isRowSelected(item.id),
+                                highlighted: index === highlightedIndex
+                            }
+                        ]"
                         v-bind:key="item.id"
                         v-on:click.exact="onRowClick(item, index)"
                         v-on:click.ctrl.exact="onRowCtrlClick(index, item.id)"
