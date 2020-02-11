@@ -35,6 +35,10 @@ export const Icon = {
             type: Number,
             required: false
         },
+        borderLinecap: {
+            type: String,
+            required: false
+        },
         width: {
             type: Number,
             required: false
@@ -60,6 +64,9 @@ export const Icon = {
         },
         borderWidth(value) {
             this.setSvgAttribute("stroke-width", value);
+        },
+        borderLinecap(value) {
+            this.setSvgAttribute("stroke-linecap", value);
         },
         width(value) {
             this.setSvgAttribute("width", value);
@@ -94,6 +101,7 @@ export const Icon = {
                 { key: "stroke", value: this.color },
                 { key: "fill", value: this.fill },
                 { key: "stroke-width", value: this.borderWidth },
+                { key: "stroke-linecap", value: this.borderLinecap },
                 { key: "width", value: this.width },
                 { key: "height", value: this.height },
                 { key: "viewBox", value: this.viewBox }
