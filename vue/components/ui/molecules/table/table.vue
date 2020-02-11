@@ -374,6 +374,7 @@ export const Table = {
             handler: function(value) {
                 this.checkedItemsData = this.initialCheckedItems();
                 this.itemsData = this.itemsWithIndex([...value]);
+                this.resetSelectionIndexes();
             }
         },
         reverse: {
@@ -543,44 +544,38 @@ export const Table = {
         onShiftUp() {
             if (this.shiftIndex === null) {
                 this.shiftIndex = this.lastClickedIndex = this.items.length - 1;
-                const key = Object.keys(this.checkedItemsData)[this.shiftIndex];
-                this.$set(this.checkedItemsData, key, true);
+                this.$set(this.checkedItemsData, this.itemsData[this.shiftIndex].id, true);
                 return;
             }
-            let key = Object.keys(this.checkedItemsData)[this.shiftIndex];
             if (this.shiftIndex === 0) {
-                this.$set(this.checkedItemsData, key, true);
+                this.$set(this.checkedItemsData, this.itemsData[this.shiftIndex].id, true);
                 return;
             }
 
             if (this.shiftIndex > this.lastClickedIndex) {
-                this.$set(this.checkedItemsData, key, false);
+                this.$set(this.checkedItemsData, this.itemsData[this.shiftIndex].id, false);
             }
 
             this.shiftIndex--;
-            key = Object.keys(this.checkedItemsData)[this.shiftIndex];
-            this.$set(this.checkedItemsData, key, true);
+            this.$set(this.checkedItemsData, this.itemsData[this.shiftIndex].id, true);
         },
         onShiftDown() {
             if (this.shiftIndex === null) {
                 this.shiftIndex = this.lastClickedIndex = 0;
-                const key = Object.keys(this.checkedItemsData)[this.shiftIndex];
-                this.$set(this.checkedItemsData, key, true);
+                this.$set(this.checkedItemsData, this.itemsData[this.shiftIndex].id, true);
                 return;
             }
-            let key = Object.keys(this.checkedItemsData)[this.shiftIndex];
             if (this.shiftIndex === this.items.length - 1) {
-                this.$set(this.checkedItemsData, key, true);
+                this.$set(this.checkedItemsData, this.itemsData[this.shiftIndex].id, true);
                 return;
             }
 
             if (this.shiftIndex < this.lastClickedIndex) {
-                this.$set(this.checkedItemsData, key, false);
+                this.$set(this.checkedItemsData, this.itemsData[this.shiftIndex].id, false);
             }
 
             this.shiftIndex++;
-            key = Object.keys(this.checkedItemsData)[this.shiftIndex];
-            this.$set(this.checkedItemsData, key, true);
+            this.$set(this.checkedItemsData, this.itemsData[this.shiftIndex].id, true);
         }
     }
 };
