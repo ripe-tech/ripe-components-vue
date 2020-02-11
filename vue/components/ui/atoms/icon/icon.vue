@@ -7,6 +7,11 @@
     display: inline-block;
     font-size: 0px;
 }
+
+.icon ::v-deep svg {
+    height: 100%;
+    width: 100%;
+}
 </style>
 
 <script>
