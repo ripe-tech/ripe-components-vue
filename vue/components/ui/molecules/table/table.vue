@@ -516,10 +516,7 @@ export const Table = {
             else {
                 let i = this.lastClickedIndex < index ? this.lastClickedIndex : index;
                 const length = Math.abs(this.lastClickedIndex - index) + i;
-                for (; i <= length; i++) {
-                    const key = Object.keys(this.checkedItemsData)[i];
-                    this.$set(this.checkedItemsData, key, true);
-                }
+                for (; i <= length; i++) this.$set(this.checkedItemsData, this.itemsData[i].id, true);
             }
         },
         onCheckboxClick(index, itemId) {
