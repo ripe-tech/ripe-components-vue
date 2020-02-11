@@ -1,7 +1,7 @@
 <template>
     <div
         class="icon"
-        v-show="icon"
+        v-if="icon"
         v-on:click="onClick"
         v-html="svgFile"
     />
