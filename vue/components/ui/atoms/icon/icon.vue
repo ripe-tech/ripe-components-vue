@@ -1,24 +1,17 @@
 <template>
-    <svg
-        v-bind:width="width"
-        v-bind:height="height"
-        v-bind:viewBox="viewBox"
-        v-bind:stroke="stroke"
-        v-bind:stroke-width="strokeWidth"
-        v-bind:stroke-linecap="strokeLinecap"
-        v-bind:fill="fill"
-        v-bind:color="color"
-        v-bind:opacity="opacity"
-        v-if="icon"
+    <div
+        class="icon"
+        v-show="icon"
         v-on:click="onClick"
-        v-html="require(`!!raw-loader!./../../../../assets/icons/path/${icon}.svg`).default"
-    >
-        <slot />
-    </svg>
+        v-html="require(`!!raw-loader!./../../../../assets/icons/black/${icon}.svg`).default"
+    />
 </template>
 
-<style lang="scss" scoped>
-@import "css/variables.scss";
+<style scoped>
+.icon {
+    display: inline-block;
+    font-size: 0px;
+}
 </style>
 
 <script>
@@ -28,53 +21,27 @@ export const Icon = {
         icon: {
             type: String,
             default: null
-        },
-        width: {
-            type: Number,
-            default: 48
-        },
-        height: {
-            type: Number,
-            default: 48
-        },
-        viewBox: {
-            type: String,
-            default: "0 0 48 48"
-        },
-        stroke: {
-            type: String,
-            default: "#000"
-        },
-        strokeWidth: {
-            type: Number,
-            default: 1
-        },
-        strokeLinecap: {
-            type: String,
-            default: null
-        },
-        fill: {
-            type: String,
-            default: "none"
-        },
-        color: {
-            type: String,
-            default: null
-        },
-        opacity: {
-            type: Number,
-            default: null
         }
     },
-    data: function() {
-        return {
-            loaded: false
-        };
+    watch: {
+        $attrs(value) {
+            this.setSvgAttributes(value);
+        }
     },
     methods: {
         onClick(event) {
             this.$emit("click", event);
+        },
+        setSvgAttributes(attributes) {
+            this.$nextTick(() => {
+                for (const [key, value] of Object.entries(attributes)) {
+                    this.$el.firstElementChild.setAttribute(key, value);
+                }
+            });
         }
+    },
+    mounted: function() {
+        this.setSvgAttributes(this.$attrs);
     }
 };
 

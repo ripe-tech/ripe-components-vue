@@ -33,7 +33,7 @@ storiesOf("Atoms", module)
                 default: color("Color", "green")
             },
             opacity: {
-                default: text("Opacity", 1)
+                default: number("Opacity", 1)
             }
         },
         template: `
