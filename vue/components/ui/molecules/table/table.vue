@@ -515,8 +515,11 @@ export const Table = {
             if (this.lastClickedIndex === null) this.lastClickedIndex = this.shiftIndex = index;
             else {
                 let i = this.lastClickedIndex < index ? this.lastClickedIndex : index;
+
                 const length = Math.abs(this.lastClickedIndex - index) + i;
-                for (; i <= length; i++) this.$set(this.checkedItemsData, this.itemsData[i].id, true);
+                for (; i <= length; i++) {
+                    this.$set(this.checkedItemsData, this.itemsData[i].id, true);
+                }
             }
         },
         onCheckboxClick(index, itemId) {
