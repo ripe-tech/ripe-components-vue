@@ -11,6 +11,7 @@
             v-on:keydown.meta.alt.65.exact.prevent="onCtrlAltA()"
             v-on:keydown.shift.up.exact.prevent="onShiftUp()"
             v-on:keydown.shift.down.exact.prevent="onShiftDown()"
+            v-on:mouseover="onMouseOver()"
         />
         <thead class="table-head">
             <tr>
@@ -45,7 +46,7 @@
                 <slot name="before-row" v-bind:item="item" v-bind:index="index" />
                 <slot name="row" v-bind:item="item" v-bind:index="index">
                     <tr
-                        v-bind:class="{ selected: isRowSelected(item.id) }"
+                        v-bind:class="[{selected: isRowSelected(item.id), highlighted: index === highlightedIndex}]"
                         v-bind:key="item.id"
                         v-on:click.exact="onRowClick(item, index)"
                         v-on:click.ctrl.exact="onRowCtrlClick(index, item.id)"
@@ -128,6 +129,7 @@
     border-bottom: none;
 }
 
+.table tbody tr.highlighted,
 .table tbody tr:hover {
     background-color: $selected-color;
 }
@@ -360,7 +362,8 @@ export const Table = {
             checkedItemsData: this.enableCheckboxes ? this.initialCheckedItems() : {},
             selectedId: null,
             lastClickedIndex: null,
-            shiftIndex: null
+            shiftIndex: null,
+            highlightedIndex: null
         };
     },
     watch: {
@@ -494,6 +497,8 @@ export const Table = {
 
             this.setAllCheckedItemsValue(this.globalCheckboxValueData);
             this.resetSelectionIndexes();
+
+            this.highlightedIndex = null;
         },
         onRowClick(item, index) {
             this.selectedId =
@@ -501,10 +506,14 @@ export const Table = {
 
             this.$emit("click", item, item._originalIndex, index);
             this.resetSelectionIndexes();
+
+            this.highlightedIndex = null;
         },
         onRowCtrlClick(index, itemId) {
             this.$set(this.checkedItemsData, itemId, !this.checkedItemsData[itemId]);
             this.updateSelectionIndexes(index, itemId);
+
+            this.highlightedIndex = null;
         },
         onRowShiftClick(index, itemId) {
             this.setAllCheckedItemsValue(false);
@@ -521,9 +530,12 @@ export const Table = {
             }
 
             this.shiftIndex = index;
+
+            this.highlightedIndex = null;
         },
         onCheckboxClick(index, itemId) {
             this.updateSelectionIndexes(index, itemId);
+            this.highlightedIndex = null;
         },
         onCtrlA() {
             this.checkedItemsData = {};
@@ -533,6 +545,8 @@ export const Table = {
 
             this.shiftIndex = this.items.length - 1;
             this.lastClickedIndex = 0;
+
+            this.highlightedIndex = null;
         },
         onCtrlAltA() {
             this.checkedItemsData = {};
@@ -541,15 +555,19 @@ export const Table = {
             });
 
             this.resetSelectionIndexes();
+
+            this.highlightedIndex = null;
         },
         onShiftUp() {
             if (this.shiftIndex === null) {
                 this.shiftIndex = this.lastClickedIndex = this.items.length - 1;
                 this.$set(this.checkedItemsData, this.itemsData[this.shiftIndex].id, true);
+                this.highlightedIndex = this.shiftIndex;
                 return;
             }
             if (this.shiftIndex === 0) {
                 this.$set(this.checkedItemsData, this.itemsData[this.shiftIndex].id, true);
+                this.highlightedIndex = this.shiftIndex;
                 return;
             }
 
@@ -559,15 +577,18 @@ export const Table = {
 
             this.shiftIndex--;
             this.$set(this.checkedItemsData, this.itemsData[this.shiftIndex].id, true);
+            this.highlightedIndex = this.shiftIndex;
         },
         onShiftDown() {
             if (this.shiftIndex === null) {
                 this.shiftIndex = this.lastClickedIndex = 0;
                 this.$set(this.checkedItemsData, this.itemsData[this.shiftIndex].id, true);
+                this.highlightedIndex = this.shiftIndex;
                 return;
             }
             if (this.shiftIndex === this.items.length - 1) {
                 this.$set(this.checkedItemsData, this.itemsData[this.shiftIndex].id, true);
+                this.highlightedIndex = this.shiftIndex;
                 return;
             }
 
@@ -577,6 +598,10 @@ export const Table = {
 
             this.shiftIndex++;
             this.$set(this.checkedItemsData, this.itemsData[this.shiftIndex].id, true);
+            this.highlightedIndex = this.shiftIndex;
+        },
+        onMouseOver() {
+            this.highlightedIndex = null;
         }
     }
 };
