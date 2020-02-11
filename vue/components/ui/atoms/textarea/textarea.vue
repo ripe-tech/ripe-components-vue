@@ -39,6 +39,13 @@
     width: 100%;
 }
 
+.textarea.monospaced {
+    font-family: consolas, monospace;
+    height: 184px;
+    letter-spacing: 0px;
+    line-height: 18px;
+}
+
 .textarea.dark {
     background-color: $soft-blue;
 }
@@ -99,11 +106,19 @@ export const Textarea = {
             type: Boolean,
             default: false
         },
+        monospaced: {
+            type: Boolean,
+            default: false
+        },
         width: {
             type: Number,
             default: null
         },
         height: {
+            type: Number,
+            default: null
+        },
+        fontSize: {
             type: Number,
             default: null
         },
@@ -128,12 +143,16 @@ export const Textarea = {
             const base = {
                 width: this.width === null ? null : `${this.width}px`,
                 height: height === null ? null : `${height}px`,
+                "font-size": this.fontSize === null ? null : `${this.fontSize}px`,
                 "font-weight": this.fontWeight === null ? null : `${this.fontWeight}`
             };
             return base;
         },
         classes() {
-            const base = { resize: this.resize };
+            const base = {
+                resize: this.resize,
+                monospaced: this.monospaced
+            };
             if (this.variant) base[this.variant] = true;
             if (this.border) base[`border-${this.border}`] = true;
             return base;

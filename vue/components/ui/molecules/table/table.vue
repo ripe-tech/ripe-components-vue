@@ -34,7 +34,7 @@
                                 <slot
                                     v-bind:item="item"
                                     v-bind:index="index"
-                                    v-bind:name="`item-${column.value}`"
+                                    v-bind:name="`cell-${column.value}`"
                                 >
                                     {{
                                         item[column.value] !== null &&
@@ -101,7 +101,7 @@
     white-space: pre;
 }
 
-.table.dense th {
+.table.table-dense th {
     font-weight: 600;
 }
 
@@ -115,8 +115,9 @@
     word-break: break-all;
 }
 
-.table.dense ::v-deep td {
+.table.table-dense ::v-deep td {
     height: 40px;
+    padding: 0px 10px 0px 10px;
 }
 
 .table ::v-deep td > * {
@@ -206,6 +207,10 @@
 .table .table-column > span {
     padding: 0px 20px 0px 20px;
     position: relative;
+}
+
+.table.table-dense .table-column > span {
+    padding: 0px 16px 0px 16px;
 }
 
 .table .table-column > span::before {
@@ -316,7 +321,7 @@ export const Table = {
             const base = {
                 alignment: this.alignment === "left" ? "text-align-left" : ""
             };
-            if (this.variant) base[this.variant] = true;
+            if (this.variant) base[`table-${this.variant}`] = true;
             return base;
         }
     },

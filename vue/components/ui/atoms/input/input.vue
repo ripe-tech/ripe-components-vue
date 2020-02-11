@@ -11,6 +11,7 @@
         v-on:input="onInput($event.target.value)"
         v-on:focus="onFocus"
         v-on:blur="onBlur"
+        v-on:keyup="onKeyup"
     />
 </template>
 
@@ -39,6 +40,11 @@
 
 input::-webkit-input-placeholder {
     color: $upper-grey;
+}
+
+.input.monospaced {
+    font-family: consolas, monospace;
+    letter-spacing: 0px;
 }
 
 .input.ellipsis {
@@ -107,6 +113,10 @@ export const Input = {
             type: Boolean,
             default: false
         },
+        monospaced: {
+            type: Boolean,
+            default: false
+        },
         ellipsis: {
             type: Boolean,
             default: true
@@ -120,6 +130,10 @@ export const Input = {
             default: null
         },
         height: {
+            type: Number,
+            default: null
+        },
+        fontSize: {
             type: Number,
             default: null
         },
@@ -149,6 +163,9 @@ export const Input = {
         },
         onBlur() {
             this.$emit("blur");
+        },
+        onKeyup(event) {
+            this.$emit("keyup", event);
         }
     },
     computed: {
@@ -157,13 +174,14 @@ export const Input = {
                 width: this.width === null ? null : `${this.width}px`,
                 height: this.height === null ? null : `${this.height}px`,
                 "min-width": this.minWidth === null ? null : `${this.minWidth}px`,
+                "font-size": this.fontSize === null ? null : `${this.fontSize}px`,
                 "font-weight": this.fontWeight === null ? null : `${this.fontWeight}`,
                 "text-align": this.align
             };
             return base;
         },
         classes() {
-            const base = {};
+            const base = { monospaced: this.monospaced };
             if (this.variant) base[this.variant] = true;
             if (this.border) base[`border-${this.border}`] = true;
             if (this.ellipsis) base.ellipsis = true;
