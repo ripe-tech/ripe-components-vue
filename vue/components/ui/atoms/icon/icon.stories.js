@@ -6,48 +6,36 @@ storiesOf("Atoms", module)
     .add("Icon", () => ({
         props: {
             icon: {
-                default: text("Icon", "add")
+                default: text("Icon", "rocket")
             },
             width: {
-                default: number("Width", 48)
+                default: number("Width", 100)
             },
             height: {
-                default: number("Height", 48)
+                default: number("Height", 100)
             },
             viewBox: {
-                default: text("View Box", "0 0 48 48")
-            },
-            stroke: {
-                default: color("Stroke", "#000")
-            },
-            strokeWidth: {
-                default: number("Stroke Width", 1)
-            },
-            strokeLinecap: {
-                default: text("Stroke Linecap", "cube")
-            },
-            fill: {
-                default: color("Fill", "none")
+                default: text("View Box", "0 0 28 28")
             },
             color: {
-                default: color("Color", "green")
+                default: color("Color", "#000000")
             },
-            opacity: {
-                default: number("Opacity", 1)
+            borderWidth: {
+                default: number("Border Width", 1)
+            },
+            fill: {
+                default: color("Fill", "#fc0000c4")
             }
         },
         template: `
             <icon
                 v-bind:icon="icon"
+                v-bind:color="color"
+                v-bind:borderWidth="borderWidth"
                 v-bind:width="width"
                 v-bind:height="height"
                 v-bind:view-box="viewBox"
-                v-bind:stroke="stroke"
-                v-bind:stroke-width="strokeWidth"
-                v-bind:stroke-linecap="strokeLinecap"
                 v-bind:fill="fill"
-                v-bind:color="color"
-                v-bind:opacity="opacity"
             />
         `
     }));
