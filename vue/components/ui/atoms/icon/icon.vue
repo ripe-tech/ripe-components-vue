@@ -19,7 +19,6 @@
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
-
 </style>
 
 <script>
@@ -32,22 +31,26 @@ export const Icon = {
         },
         width: {
             type: Number,
-            default: null
+            default: 48
         },
         height: {
             type: Number,
-            default: null
+            default: 48
         },
         viewBox: {
             type: String,
-            default: null
+            default: "0 0 48 48"
         },
         stroke: {
             type: String,
-            default: null
+            default: "#000"
         },
         strokeWidth: {
             type: Number,
+            default: 1
+        },
+        strokeLinecap: {
+            type: String,
             default: null
         },
         fill: {
@@ -60,10 +63,6 @@ export const Icon = {
         },
         opacity: {
             type: Number,
-            default: null
-        },
-        strokeLinecap: {
-            type: String,
             default: null
         }
     },

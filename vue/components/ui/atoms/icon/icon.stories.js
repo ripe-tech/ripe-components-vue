@@ -18,10 +18,13 @@ storiesOf("Atoms", module)
                 default: text("View Box", "0 0 48 48")
             },
             stroke: {
-                default: color("Stroke", "red")
+                default: color("Stroke", "#000")
             },
             strokeWidth: {
                 default: number("Stroke Width", 1)
+            },
+            strokeLinecap: {
+                default: text("Stroke Linecap", "cube")
             },
             fill: {
                 default: color("Fill", "none")
@@ -31,9 +34,6 @@ storiesOf("Atoms", module)
             },
             opacity: {
                 default: text("Opacity", 1)
-            },
-            strokeLinecap: {
-                default: text("Stroke Linecap", "cube")
             }
         },
         template: `
@@ -44,10 +44,10 @@ storiesOf("Atoms", module)
                 v-bind:view-box="viewBox"
                 v-bind:stroke="stroke"
                 v-bind:stroke-width="strokeWidth"
+                v-bind:stroke-linecap="strokeLinecap"
                 v-bind:fill="fill"
                 v-bind:color="color"
                 v-bind:opacity="opacity"
-                v-bind:stroke-linecap="strokeLinecap"
             />
         `
     }));
