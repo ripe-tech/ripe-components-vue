@@ -24,7 +24,7 @@ export const Icon = {
         },
         color: {
             type: String,
-            required: true
+            required: false
         },
         fill: {
             type: String,
