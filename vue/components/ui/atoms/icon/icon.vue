@@ -15,31 +15,31 @@ export const Icon = {
     props: {
         icon: {
             type: String,
-            default: null
+            required: true
         },
         color: {
             type: String,
-            default: null
+            required: true
         },
         fill: {
             type: String,
-            default: null
+            required: false
         },
         borderWidth: {
             type: Number,
-            default: null
+            required: false
         },
         width: {
             type: Number,
-            default: null
+            required: false
         },
         height: {
             type: Number,
-            default: null
+            required: false
         },
         viewBox: {
             type: String,
-            default: null
+            required: false
         }
     },
     watch: {
@@ -80,7 +80,7 @@ export const Icon = {
             this.$emit("click", event);
         },
         setSvgAttribute(attribute, value) {
-            if (!this.$el.firstElementChild || value === null) return;
+            if (!this.$el.firstElementChild || value === undefined) return;
             this.$el.firstElementChild.setAttribute(attribute, value);
         },
         setAllSvgAttributes() {
