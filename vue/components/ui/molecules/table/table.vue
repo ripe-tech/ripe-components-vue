@@ -479,9 +479,8 @@ export const Table = {
         },
         updateSelectionIndexes(index, itemId) {
             if (!this.checkedItemsData[itemId]) {
-                for (let i = Object.keys(this.checkedItemsData).length - 1; i >= 0; i--) {
-                    const key = Object.keys(this.checkedItemsData)[i];
-                    if (this.checkedItemsData[key]) {
+                for (let i = this.itemsData.length - 1; i >= 0; i--) {
+                    if (this.checkedItemsData[this.itemsData[i].id]) {
                         this.shiftIndex = this.lastClickedIndex = i;
                         return;
                     }
