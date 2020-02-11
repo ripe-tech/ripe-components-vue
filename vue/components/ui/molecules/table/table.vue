@@ -455,10 +455,8 @@ export const Table = {
                 this.globalCheckboxIcon = "check";
                 this.globalCheckboxValueData = true;
             } else if (this.isAllUnchecked) {
-                this.$nextTick(() => {
-                    this.globalCheckboxIcon = "check";
-                    this.globalCheckboxValueData = false;
-                });
+                this.globalCheckboxIcon = "check";
+                this.globalCheckboxValueData = false;
             } else {
                 this.globalCheckboxIcon = "minus";
                 this.globalCheckboxValueData = true;
