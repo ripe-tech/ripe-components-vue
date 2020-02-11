@@ -51,13 +51,13 @@
     margin: 64px auto 0px auto;
     max-width: 1240px;
     overflow: hidden;
-    padding-bottom: 20px;
+    padding: 0px 20px 20px 20px;
 }
 
 body.mobile .footer {
     border-top: none;
     margin-top: 18px;
-    padding-bottom: 0px;
+    padding: 0px 0px 0px 0px;
 }
 
 ul {
