@@ -63,13 +63,13 @@
 
 .button-color.button-color-small {
     height: 32px;
-    line-height: 32px;
+    line-height: 30px;
     min-width: 160px;
 }
 
 .button-color.button-color-small > * {
     font-size: 12px;
-    line-height: 32px;
+    line-height: 30px;
 }
 
 .button-color.button-color-tiny {
