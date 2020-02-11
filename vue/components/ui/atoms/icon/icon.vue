@@ -4,7 +4,6 @@
 
 <style scoped>
 .icon {
-    color: #fc0000c4;
     display: inline-block;
     font-size: 0px;
 }
