@@ -15,6 +15,7 @@ import { Label } from "./label/label.vue";
 import { Link } from "./link/link.vue";
 import { Loader } from "./loader/loader.vue";
 import { Overlay } from "./overlay/overlay.vue";
+import { Padded } from "./padded/padded.vue";
 import { Radio } from "./radio/radio.vue";
 import { Reaction } from "./reaction/reaction.vue";
 import { RichTextarea } from "./rich-textarea/rich-textarea.vue";
@@ -40,6 +41,7 @@ const install = Vue => {
     Vue.component("link-ripe", Link);
     Vue.component("loader", Loader);
     Vue.component("overlay", Overlay);
+    Vue.component("padded", Padded);
     Vue.component("radio", Radio);
     Vue.component("reaction", Reaction);
     Vue.component("rich-textarea", RichTextarea);
@@ -66,6 +68,7 @@ export {
     Link,
     Loader,
     Overlay,
+    Padded,
     Radio,
     Reaction,
     RichTextarea,
