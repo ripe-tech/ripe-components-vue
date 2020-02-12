@@ -30,6 +30,8 @@
                 v-on:keydown.down.exact.prevent="onDownKey"
                 v-on:keydown.alt.down="onAltDownKey"
                 v-on:keydown.alt.up="onAltUpKey"
+                v-on:keydown.page-down="onPageDownKey"
+                v-on:keydown.page-up="onPageUpKey"
                 v-on:keydown.enter.exact="onEnterKey"
                 v-on:click.stop.prevent
             />
@@ -44,6 +46,8 @@
                 v-on:keydown.down.exact="onDownKey"
                 v-on:keydown.alt.down="onAltDownKey"
                 v-on:keydown.alt.up="onAltUpKey"
+                v-on:keydown.page-down="onPageDownKey"
+                v-on:keydown.page-up="onPageUpKey"
                 v-on:keydown.enter.exact="onEnterKey"
                 v-on:click.stop.prevent
             >
@@ -167,7 +171,7 @@
 import { partMixin } from "../../../../mixins";
 
 export const Select = {
-    name: "select",
+    name: "select-ripe",
     mixins: [partMixin],
     props: {
         mode: {
@@ -239,6 +243,9 @@ export const Select = {
         },
         filterValue(value) {
             this.filterValueData = value;
+        },
+        filterValueData(value) {
+            this.highlightFirst();
         }
     },
     methods: {
@@ -277,6 +284,9 @@ export const Select = {
             if (index === null || index < 0 || index >= this.computedOptions.length) return;
             this.highlighted = index;
             if (scroll) this.scrollTo(index);
+        },
+        highlightFirst() {
+            if (this.computedOptions.length > 0) this.highlight(0);
         },
         highlightPrevious(scroll = true) {
             if (this.highlighted === null) {
@@ -366,13 +376,21 @@ export const Select = {
             this.openDropdown();
             this.highlightNext();
         },
-        onAltUpKey() {
-            this.openDropdown();
-            this.highlight(0);
-        },
         onAltDownKey() {
             this.openDropdown();
-            this.highlight(this.options.length - 1);
+            this.highlight(this.options.length - 1, true);
+        },
+        onAltUpKey() {
+            this.openDropdown();
+            this.highlight(0, true);
+        },
+        onPageUpKey() {
+            this.openDropdown();
+            this.highlight(0, true);
+        },
+        onPageDownKey() {
+            this.openDropdown();
+            this.highlight(this.options.length - 1, true);
         },
         onEnterKey() {
             if (!this.visibleData) {
@@ -385,7 +403,9 @@ export const Select = {
                 return;
             }
 
-            this.setValue(this.computedOptions[this.highlighted].value);
+            if (this.computedOptions[this.highlighted]) {
+                this.setValue(this.computedOptions[this.highlighted].value);
+            }
             this.closeDropdown();
         },
         onSpaceKey() {
