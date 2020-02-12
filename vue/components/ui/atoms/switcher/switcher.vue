@@ -8,8 +8,8 @@
 @import "css/variables.scss";
 
 .switcher {
-    background-color: #cccccc;
-    border: 2px solid #cccccc;
+    background-color: $upper-grey;
+    border: 2px solid $upper-grey;
     border-radius: 500px;
     cursor: pointer;
     height: 20px;
@@ -19,7 +19,7 @@
 }
 
 .switcher > .switcher-button {
-    background-color: #ffffff;
+    background-color: $white;
     border-radius: 10px;
     height: 20px;
     transition-duration: 0.2s;
@@ -36,40 +36,42 @@ export const Switcher = {
             type: Boolean
         }
     },
+    data: function() {
+        return {
+            toggledData: this.toggled
+        };
+    },
     computed: {
         toggleAnimation() {
             const base = {};
-            if (this.isToggled) {
+            if (this.toggledData) {
                 base.marginLeft = "20px";
             }
             return base;
         },
         toggleAnimationStyle() {
             const base = {};
-            if (this.isToggled) {
+            if (this.toggledData) {
                 base.borderColor = "#1d1d1d";
                 base.backgroundColor = "#1d1d1d";
             }
             return base;
         }
     },
-    data: function() {
-        return {
-            isToggled: this.toggled
-        };
-    },
     watch: {
         toggled(value) {
-            this.isToggled = value;
+            this.toggledData = value;
+        },
+        toggledData(value) {
+            this.$emit("update:toggled", value);
         }
     },
     methods: {
         toggle() {
-            this.isToggled = !this.isToggled;
+            this.toggledData = !this.toggledData;
         },
         onClick() {
             this.toggle();
-            this.$emit("update:toggled", this.isToggled);
         }
     }
 };
