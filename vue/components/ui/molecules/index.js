@@ -16,7 +16,6 @@ import { ProgressBar } from "./progress-bar/progress-bar.vue";
 import { RadioGroup } from "./radio-group/radio-group.vue";
 import { Search } from "./search/search.vue";
 import { Select } from "./select/select.vue";
-import { SelectFilter } from "./select-filter/select-filter.vue";
 import { SelectList } from "./select-list/select-list.vue";
 import { Table } from "./table/table.vue";
 import { Tabs } from "./tabs/tabs.vue";
@@ -42,7 +41,6 @@ const install = Vue => {
     Vue.component("radio-group", RadioGroup);
     Vue.component("search", Search);
     Vue.component("select-ripe", Select);
-    Vue.component("select-filter", SelectFilter);
     Vue.component("select-list", SelectList);
     Vue.component("table-ripe", Table);
     Vue.component("tabs", Tabs);
@@ -70,7 +68,6 @@ export {
     Search,
     Select,
     SelectList,
-    SelectFilter,
     Table,
     Tabs,
     TransferList,
