@@ -187,20 +187,7 @@ export const ButtonIcon = {
     computed: {
         iconColor() {
             if (this.color === "black") return "white";
-            if (this.color === "white") return "black";
-        },
-        iconPath() {
-            let iconColor;
-            switch (this.color) {
-                case "black":
-                    iconColor = "white";
-                    break;
-
-                default:
-                    iconColor = "black";
-                    break;
-            }
-            return require(`./../../../../assets/icons/${iconColor}/${this.icon}.svg`);
+            return "black";
         },
         paddingBase() {
             return this.padding === null ? parseInt(this.size / this.paddingFactor) : this.padding;
