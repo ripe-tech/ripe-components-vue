@@ -3,7 +3,7 @@
         class="checkmark"
         v-bind:icon="icon"
         v-bind:color="'white'"
-        v-bind:border-width="4.5"
+        v-bind:stroke-width="4.5"
         v-bind:stroke-linecap="'round'"
         v-bind:fade="false"
         v-bind:class="classes"
