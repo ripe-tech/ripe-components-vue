@@ -19,26 +19,38 @@
             </option>
         </select>
         <div class="select-container" v-bind:style="style" v-else>
+            <input-ripe
+                v-bind:value.sync="filterValueData"
+                v-bind:placeholder="buttonText"
+                v-bind:min-width="0"
+                v-show="isFilterMode && visibleData"
+                ref="input"
+                v-on:keydown.esc.exact="onEscKey"
+                v-on:keydown.up.exact.prevent="onUpKey"
+                v-on:keydown.down.exact.prevent="onDownKey"
+                v-on:keydown.alt.down="onAltDownKey"
+                v-on:keydown.alt.up="onAltUpKey"
+                v-on:keydown.enter.exact="onEnterKey"
+                v-on:click.stop.prevent
+            />
             <div
                 class="select-button"
                 tabindex="0"
+                v-show="!isFilterMode || !visibleData"
                 v-on:click="onClickDropdownButton"
                 v-on:keydown.exact="() => onKey($event.key)"
                 v-on:keydown.esc.exact="onEscKey"
                 v-on:keydown.up.exact="onUpKey"
                 v-on:keydown.down.exact="onDownKey"
-                v-on:keydown.left.exact="onLeftKey"
-                v-on:keydown.right.exact="onRightKey"
                 v-on:keydown.alt.down="onAltDownKey"
                 v-on:keydown.alt.up="onAltUpKey"
                 v-on:keydown.enter.exact="onEnterKey"
-                v-on:keydown.space.exact="onSpaceKey"
                 v-on:click.stop.prevent
             >
                 {{ buttonText }}
             </div>
             <dropdown
-                v-bind:items="options"
+                v-bind:items="computedOptions"
                 v-bind:max-height="maxHeight"
                 v-bind:visible.sync="visibleData"
                 v-bind:global-events="false"
@@ -110,10 +122,25 @@
     border-color: $aqcua-blue;
 }
 
+.select.filter-mode .select-container .select-button:focus {
+    border-color: transparent;
+}
+
 .select.disabled .select-container .select-button {
     border-color: $soft-blue;
     cursor: default;
     opacity: 0.4;
+}
+
+.select.filter-mode .select-container ::v-deep .input {
+    background-color: $soft-blue;
+    background-image: url("~./assets/chevron-down.svg");
+    background-position: right 12px center;
+    background-repeat: no-repeat;
+    background-size: 14px 14px;
+    position: relative;
+    width: 100%;
+    z-index: 1;
 }
 
 .select .select-container ::v-deep .dropdown-container {
@@ -121,6 +148,10 @@
     position: absolute;
     width: 100%;
     z-index: 1;
+}
+
+.select.filter-mode .select-container ::v-deep .dropdown-container {
+    margin-top: 0px;
 }
 
 .select.select-align-right .select-container ::v-deep .dropdown-container {
@@ -136,9 +167,13 @@
 import { partMixin } from "../../../../mixins";
 
 export const Select = {
-    name: "select-ripe",
+    name: "select",
     mixins: [partMixin],
     props: {
+        mode: {
+            type: String,
+            default: null
+        },
         options: {
             type: Array,
             default: () => []
@@ -146,6 +181,10 @@ export const Select = {
         value: {
             type: String,
             default: null
+        },
+        filterValue: {
+            type: String,
+            default: ""
         },
         visible: {
             type: Boolean,
@@ -184,7 +223,8 @@ export const Select = {
         return {
             highlighted: null,
             valueData: this.value,
-            visibleData: this.visible
+            visibleData: this.visible,
+            filterValueData: this.filterValue
         };
     },
     watch: {
@@ -196,6 +236,9 @@ export const Select = {
         },
         value(value) {
             this.valueData = value;
+        },
+        filterValue(value) {
+            this.filterValueData = value;
         }
     },
     methods: {
@@ -231,7 +274,7 @@ export const Select = {
             this.highlighted = null;
         },
         highlight(index, scroll = false) {
-            if (index === null || index < 0 || index >= this.options.length) return;
+            if (index === null || index < 0 || index >= this.computedOptions.length) return;
             this.highlighted = index;
             if (scroll) this.scrollTo(index);
         },
@@ -246,7 +289,10 @@ export const Select = {
             if (this.highlighted === null) {
                 this.highlight(0, scroll);
             } else {
-                this.highlight(Math.min(this.options.length - 1, this.highlighted + 1), scroll);
+                this.highlight(
+                    Math.min(this.computedOptions.length - 1, this.highlighted + 1),
+                    scroll
+                );
             }
         },
         highlightFirstMatchedOption(key, scroll = true) {
@@ -262,7 +308,6 @@ export const Select = {
         scrollTo(index) {
             const dropdown = this.$refs.dropdown.$refs.dropdown;
             const dropdownElements = document.getElementsByClassName("dropdown-item");
-
             const visibleStart = dropdown.scrollTop;
             const visibleEnd = visibleStart + dropdown.clientHeight;
 
@@ -286,6 +331,12 @@ export const Select = {
         },
         onClickDropdownButton() {
             this.toggleDropdown();
+            if (this.isFilterMode) {
+                this.$nextTick(() => {
+                    this.filterValueData = "";
+                    if (this.$refs.input) this.$refs.input.focus();
+                });
+            }
         },
         onSelectButtonEnterKey() {
             this.toggleDropdown();
@@ -334,7 +385,7 @@ export const Select = {
                 return;
             }
 
-            this.setValue(this.options[this.highlighted].value);
+            this.setValue(this.computedOptions[this.highlighted].value);
             this.closeDropdown();
         },
         onSpaceKey() {
@@ -372,6 +423,21 @@ export const Select = {
         }
     },
     computed: {
+        isFilterMode() {
+            return this.mode === "filter";
+        },
+        filteredOptions() {
+            if (this.isFilterValueEmpty) return this.options;
+            return this.options.filter(option =>
+                option.label.toUpperCase().includes(this.filterValueData.toUpperCase())
+            );
+        },
+        computedOptions() {
+            return this.mode === "filter" ? this.filteredOptions : this.options;
+        },
+        isFilterValueEmpty() {
+            return this.filterValueData == null || this.filterValueData.length === 0;
+        },
         buttonText() {
             return this.valueData ? this.options[this.valueIndex].label : this.placeholder;
         },
@@ -379,7 +445,10 @@ export const Select = {
             return this.options.findIndex(option => option.value === this.valueData);
         },
         classes() {
-            return [`select-align-${this.align}`, { disabled: this.disabled }];
+            return [
+                `select-align-${this.align}`,
+                { disabled: this.disabled, "filter-mode": this.isFilterMode }
+            ];
         },
         style() {
             const base = {};

@@ -270,7 +270,10 @@ export const SelectFilter = {
             if (this.highlighted === null) {
                 this.highlight(0, scroll);
             } else {
-                this.highlight(Math.min(this.filteredOptions.length - 1, this.highlighted + 1), scroll);
+                this.highlight(
+                    Math.min(this.filteredOptions.length - 1, this.highlighted + 1),
+                    scroll
+                );
             }
         },
         highlightFirstMatchedOption(key, scroll = true) {
@@ -401,10 +404,12 @@ export const SelectFilter = {
     computed: {
         filteredOptions() {
             if (this.isFilterValueEmpty) return this.options;
-            return this.options.filter((option) => option.label.toUpperCase().includes(this.filterValueData.toUpperCase()));
+            return this.options.filter(option =>
+                option.label.toUpperCase().includes(this.filterValueData.toUpperCase())
+            );
         },
         isFilterValueEmpty() {
-            return (this.filterValueData == null || this.filterValueData.length === 0);
+            return this.filterValueData == null || this.filterValueData.length === 0;
         },
         buttonText() {
             return this.valueData ? this.options[this.valueIndex].label : this.placeholder;
