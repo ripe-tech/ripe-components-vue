@@ -48,16 +48,16 @@
 .footer {
     border-top: 1px solid #f0f0f0;
     font-size: 0px;
-    margin: 64px auto 0px auto;
+    margin: 48px auto 0px auto;
     max-width: 1240px;
     overflow: hidden;
-    padding-bottom: 20px;
+    padding: 0px 16px 16px 16px;
 }
 
 body.mobile .footer {
     border-top: none;
     margin-top: 18px;
-    padding-bottom: 0px;
+    padding: 0px 0px 0px 0px;
 }
 
 ul {
