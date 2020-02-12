@@ -12,6 +12,8 @@
         v-on:focus="onFocus"
         v-on:blur="onBlur"
         v-on:keyup="onKeyup"
+        v-on:keydown="onKeyDown"
+        v-on:click="onClick"
     />
 </template>
 
@@ -166,6 +168,12 @@ export const Input = {
         },
         onKeyup(event) {
             this.$emit("keyup", event);
+        },
+        onKeyDown(event) {
+            this.$emit("keydown", event);
+        },
+        onClick(event) {
+            this.$emit("click", event);
         }
     },
     computed: {
