@@ -14,8 +14,8 @@ storiesOf("Atoms", module)
             fill: {
                 default: color("Fill", "#fc0000c4")
             },
-            borderWidth: {
-                default: number("Border Width", 1)
+            strokeWidth: {
+                default: number("Stroke Width", 1)
             },
             width: {
                 default: number("Width", 100)
@@ -32,7 +32,7 @@ storiesOf("Atoms", module)
                 v-bind:icon="icon"
                 v-bind:color="color"
                 v-bind:fill="fill"
-                v-bind:borderWidth="borderWidth"
+                v-bind:stroke-width="strokeWidth"
                 v-bind:width="width"
                 v-bind:height="height"
                 v-bind:view-box="viewBox"

@@ -31,11 +31,11 @@ export const Icon = {
             type: String,
             required: false
         },
-        borderWidth: {
+        strokeWidth: {
             type: Number,
             required: false
         },
-        borderLinecap: {
+        strokeLinecap: {
             type: String,
             required: false
         },
@@ -62,10 +62,10 @@ export const Icon = {
         fill(value) {
             this.setSvgAttribute("fill", value);
         },
-        borderWidth(value) {
+        strokeWidth(value) {
             this.setSvgAttribute("stroke-width", value);
         },
-        borderLinecap(value) {
+        strokeLinecap(value) {
             this.setSvgAttribute("stroke-linecap", value);
         },
         width(value) {
@@ -100,8 +100,8 @@ export const Icon = {
             const attrs = [
                 { key: "stroke", value: this.color },
                 { key: "fill", value: this.fill },
-                { key: "stroke-width", value: this.borderWidth },
-                { key: "stroke-linecap", value: this.borderLinecap },
+                { key: "stroke-width", value: this.strokeWidth },
+                { key: "stroke-linecap", value: this.strokeLinecap },
                 { key: "width", value: this.width },
                 { key: "height", value: this.height },
                 { key: "viewBox", value: this.viewBox }
