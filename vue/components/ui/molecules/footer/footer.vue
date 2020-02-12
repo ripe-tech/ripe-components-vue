@@ -1,43 +1,53 @@
 <template>
     <div class="footer">
-        <div class="links-left">
-            <ul>
-                <li class="copy">
-                    © 2020 Platforme International
-                </li>
-                <li><link-ripe text="Terms" href="https://www.platforme.com/terms" /></li>
-                <li><link-ripe text="Privacy" href="https://www.platforme.com/privacy" /></li>
-            </ul>
-        </div>
-        <div class="links-right">
-            <ul>
-                <li>
-                    <link-ripe text="Contact Platforme" href="mailto:info@platforme.com" />
-                </li>
-                <li><link-ripe text="Pricing" href="#" /></li>
-                <li>
-                    <link-ripe text="API" href="https://docs.platforme.com" target="_blank" />
-                </li>
-                <li>
-                    <link-ripe text="Training" href="https://docs.platforme.com" target="_blank" />
-                </li>
-                <li>
-                    <link-ripe text="DevPortal" href="https://dev.platforme.com" target="_blank" />
-                </li>
-                <li>
-                    <link-ripe text="About" href="https://www.platforme.com" target="_blank" />
-                </li>
-            </ul>
-        </div>
-        <div class="links-logo">
-            <span class="copy">
-                © 2019 Platforme International
-            </span>
-            <span class="footer-logo">
-                <a href="https://www.platforme.com" target="_blank" class="no-style">
-                    <img src="~./assets/platforme.svg" />
-                </a>
-            </span>
+        <div class="footer-container">
+            <div class="links-left">
+                <ul>
+                    <li class="copy">
+                        © 2020 Platforme International
+                    </li>
+                    <li><link-ripe text="Terms" href="https://www.platforme.com/terms" /></li>
+                    <li><link-ripe text="Privacy" href="https://www.platforme.com/privacy" /></li>
+                </ul>
+            </div>
+            <div class="links-right">
+                <ul>
+                    <li>
+                        <link-ripe text="Contact Platforme" href="mailto:info@platforme.com" />
+                    </li>
+                    <li><link-ripe text="Pricing" href="#" /></li>
+                    <li>
+                        <link-ripe text="API" href="https://docs.platforme.com" target="_blank" />
+                    </li>
+                    <li>
+                        <link-ripe
+                            text="Training"
+                            href="https://docs.platforme.com"
+                            target="_blank"
+                        />
+                    </li>
+                    <li>
+                        <link-ripe
+                            text="DevPortal"
+                            href="https://dev.platforme.com"
+                            target="_blank"
+                        />
+                    </li>
+                    <li>
+                        <link-ripe text="About" href="https://www.platforme.com" target="_blank" />
+                    </li>
+                </ul>
+            </div>
+            <div class="links-logo">
+                <span class="copy">
+                    © 2019 Platforme International
+                </span>
+                <span class="footer-logo">
+                    <a href="https://www.platforme.com" target="_blank" class="no-style">
+                        <img src="~./assets/platforme.svg" />
+                    </a>
+                </span>
+            </div>
         </div>
     </div>
 </template>
@@ -51,12 +61,20 @@
     margin: 48px auto 0px auto;
     max-width: 1240px;
     overflow: hidden;
-    padding: 0px 16px 16px 16px;
+    padding-bottom: 16px;
 }
 
 body.mobile .footer {
     border-top: none;
     margin-top: 18px;
+    padding-bottom: 0px;
+}
+
+.footer > .footer-container {
+    padding: 0px 16px 0px 16px;
+}
+
+body.mobile .footer > .footer-container {
     padding: 0px 0px 0px 0px;
 }
 
