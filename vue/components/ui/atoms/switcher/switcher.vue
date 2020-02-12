@@ -33,7 +33,8 @@ export const Switcher = {
     name: "switcher",
     props: {
         toggled: {
-            type: Boolean
+            type: Boolean,
+            default: false
         }
     },
     data: function() {
