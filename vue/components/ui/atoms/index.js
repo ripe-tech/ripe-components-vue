@@ -8,6 +8,7 @@ import { Checkbox } from "./checkbox/checkbox.vue";
 import { Checkmark } from "./checkmark/checkmark.vue";
 import { Container } from "./container/container.vue";
 import { Dropdown } from "./dropdown/dropdown.vue";
+import { Icon } from "./icon/icon.vue";
 import { Image } from "./image/image.vue";
 import { Input } from "./input/input.vue";
 import { Label } from "./label/label.vue";
@@ -32,6 +33,7 @@ const install = Vue => {
     Vue.component("checkmark", Checkmark);
     Vue.component("container-ripe", Container);
     Vue.component("dropdown", Dropdown);
+    Vue.component("icon", Icon);
     Vue.component("image-ripe", Image);
     Vue.component("input-ripe", Input);
     Vue.component("label-ripe", Label);
@@ -57,6 +59,7 @@ export {
     Checkmark,
     Container,
     Dropdown,
+    Icon,
     Image,
     Input,
     Label,
