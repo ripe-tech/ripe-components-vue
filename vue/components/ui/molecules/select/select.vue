@@ -20,7 +20,7 @@
         </select>
         <div class="select-container" v-bind:style="style" v-else>
             <input-ripe
-                v-bind:value.sync="filterValue"
+                v-bind:value.sync="filterText"
                 v-bind:placeholder="buttonText"
                 v-bind:min-width="0"
                 v-show="isFilterMode && visibleData"
@@ -213,7 +213,7 @@ export const Select = {
             highlighted: null,
             valueData: this.value,
             visibleData: this.visible,
-            filterValue: null
+            filterText: null
         };
     },
     watch: {
@@ -226,7 +226,7 @@ export const Select = {
         value(value) {
             this.valueData = value;
         },
-        filterValue(value) {
+        filterText(value) {
             this.highlightFirstOption();
         }
     },
@@ -321,7 +321,7 @@ export const Select = {
         },
         focusFilterInput() {
             this.$nextTick(() => {
-                this.filterValue = "";
+                this.filterText = "";
                 if (this.$refs.input) this.$refs.input.focus();
             });
         },
@@ -432,16 +432,16 @@ export const Select = {
             return this.mode === "filter";
         },
         filteredOptions() {
-            if (this.isFilterValueEmpty) return this.options;
+            if (this.isfilterTextEmpty) return this.options;
             return this.options.filter(option =>
-                option.label.toUpperCase().startsWith(this.filterValue.toUpperCase())
+                option.label.toUpperCase().startsWith(this.filterText.toUpperCase())
             );
         },
         computedOptions() {
             return this.mode === "filter" ? this.filteredOptions : this.options;
         },
-        isFilterValueEmpty() {
-            return this.filterValue == null || this.filterValue.length === 0;
+        isfilterTextEmpty() {
+            return this.filterText == null || this.filterText.length === 0;
         },
         buttonText() {
             return this.valueData ? this.options[this.valueIndex].label : this.placeholder;
