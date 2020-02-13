@@ -39,17 +39,17 @@
                 class="select-button"
                 tabindex="0"
                 v-show="!isFilterMode || !visibleData"
-                v-on:click="onClickDropdownButton"
+                v-on:click.stop.prevent="onClickDropdownButton"
                 v-on:keydown.exact="() => onKey($event.key)"
                 v-on:keydown.esc.exact="onEscKey"
-                v-on:keydown.up.exact="onUpKey"
-                v-on:keydown.down.exact="onDownKey"
+                v-on:keydown.up.exact.prevent="onUpKey"
+                v-on:keydown.down.exact.prevent="onDownKey"
                 v-on:keydown.alt.down="onAltDownKey"
                 v-on:keydown.alt.up="onAltUpKey"
                 v-on:keydown.page-down="onPageDownKey"
                 v-on:keydown.page-up="onPageUpKey"
                 v-on:keydown.enter.exact="onSelectButtonEnterKey"
-                v-on:click.stop.prevent
+                v-on:keydown.space.exact.prevent="onSpaceKey"
             >
                 {{ buttonText }}
             </div>
