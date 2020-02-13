@@ -23,7 +23,8 @@
                 v-bind:value.sync="filterText"
                 v-bind:placeholder="buttonText"
                 v-bind:min-width="0"
-                v-show="isFilterMode && visibleData"
+                v-if="isFilterMode"
+                v-show="visibleData"
                 ref="input"
                 v-on:keydown.esc.exact="onEscKey"
                 v-on:keydown.up.exact.prevent="onUpKey"
@@ -128,7 +129,7 @@
     opacity: 0.4;
 }
 
-.select.filter-mode .select-container ::v-deep .input {
+.select.mode-filter .select-container ::v-deep .input {
     background-color: $soft-blue;
     border-color: $aqcua-blue;
     padding-right: 34px;
@@ -452,7 +453,7 @@ export const Select = {
         classes() {
             return [
                 `select-align-${this.align}`,
-                { disabled: this.disabled, "filter-mode": this.isFilterMode }
+                { disabled: this.disabled, "mode-filter": this.isFilterMode }
             ];
         },
         style() {
