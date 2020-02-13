@@ -48,7 +48,7 @@
                 v-on:keydown.alt.up="onAltUpKey"
                 v-on:keydown.page-down="onPageDownKey"
                 v-on:keydown.page-up="onPageUpKey"
-                v-on:keydown.enter.exact="onSelectButtonEnterKey"
+                v-on:keydown.enter.exact="onEnterKey"
                 v-on:keydown.space.exact.prevent="onSpaceKey"
             >
                 {{ buttonText }}
@@ -244,6 +244,7 @@ export const Select = {
             }
 
             this.visibleData = true;
+            if (this.isFilterMode) this.focusFilterInput();
             this.$emit("update:visible", true);
         },
         closeDropdown() {
@@ -329,11 +330,9 @@ export const Select = {
         },
         onClickDropdownButton() {
             this.toggleDropdown();
-            if (this.isFilterMode) this.focusFilterInput();
         },
         onSelectButtonEnterKey() {
             this.toggleDropdown();
-            if (this.isFilterMode) this.focusFilterInput();
         },
         onSelectButtonSpaceKey() {
             this.toggleDropdown();
@@ -403,7 +402,9 @@ export const Select = {
                 return;
             }
 
-            this.setValue(this.options[this.highlighted].value);
+            if (this.computedOptions[this.highlighted]) {
+                this.setValue(this.options[this.highlighted].value);
+            }
             this.closeDropdown();
         },
         onSelectChange(value) {
