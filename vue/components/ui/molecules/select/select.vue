@@ -306,7 +306,7 @@ export const Select = {
         },
         scrollTo(index) {
             const dropdown = this.$refs.dropdown.$refs.dropdown;
-            const dropdownElements = document.getElementsByClassName("dropdown-item");
+            const dropdownElements = dropdown.getElementsByClassName("dropdown-item");
             const visibleStart = dropdown.scrollTop;
             const visibleEnd = visibleStart + dropdown.clientHeight;
 
