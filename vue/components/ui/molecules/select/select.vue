@@ -83,6 +83,7 @@
 
 .dropdown-select,
 .select .select-container {
+    line-height: 0px;
     position: relative;
     width: 100%;
 }
@@ -103,7 +104,7 @@
     font-size: 13px;
     height: 34px;
     letter-spacing: 0.25px;
-    line-height: 34px;
+    line-height: 32px;
     outline: none;
     overflow: hidden;
     padding-left: 12px;
@@ -134,11 +135,11 @@
 
 .select.filter-mode .select-container ::v-deep .input {
     background-color: $soft-blue;
-    background-image: url("~./assets/chevron-down.svg");
     background-position: right 12px center;
     background-repeat: no-repeat;
     background-size: 14px 14px;
     border-color: $aqcua-blue;
+    padding-right: 34px;
     position: relative;
     width: 100%;
     z-index: 1;
@@ -379,13 +380,13 @@ export const Select = {
             this.openDropdown();
             this.highlight(this.options.length - 1, true);
         },
-        onAltUpKey() {
+        onAltUpKey(scroll = true) {
             this.openDropdown();
-            this.highlight(0, true);
+            this.highlight(0, scroll);
         },
-        onPageUpKey() {
+        onPageUpKey(scroll = true) {
             this.openDropdown();
-            this.highlight(0, true);
+            this.highlight(0, scroll);
         },
         onPageDownKey() {
             this.openDropdown();
