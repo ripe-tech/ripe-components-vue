@@ -138,7 +138,6 @@
 }
 
 .select .select-container ::v-deep .dropdown-container {
-    margin-top: 3px;
     position: absolute;
     width: 100%;
     z-index: 1;
@@ -150,6 +149,10 @@
 
 .select.select-align-left .select-container ::v-deep .dropdown-container {
     left: 0px;
+}
+
+.select .dropdown-container ::v-deep .dropdown .dropdown-item.highlighted {
+    background-color: $light-grey;
 }
 </style>
 
