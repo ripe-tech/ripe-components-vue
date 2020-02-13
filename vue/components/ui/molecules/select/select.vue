@@ -48,7 +48,7 @@
                 v-on:keydown.alt.up="onAltUpKey"
                 v-on:keydown.page-down="onPageDownKey"
                 v-on:keydown.page-up="onPageUpKey"
-                v-on:keydown.enter.exact="onEnterKey"
+                v-on:keydown.enter.exact="onSelectButtonEnterKey"
                 v-on:click.stop.prevent
             >
                 {{ buttonText }}
@@ -126,10 +126,6 @@
     border-color: $aqcua-blue;
 }
 
-.select.filter-mode .select-container .select-button:focus {
-    border-color: transparent;
-}
-
 .select.disabled .select-container .select-button {
     border-color: $soft-blue;
     cursor: default;
@@ -142,6 +138,7 @@
     background-position: right 12px center;
     background-repeat: no-repeat;
     background-size: 14px 14px;
+    border-color: $aqcua-blue;
     position: relative;
     width: 100%;
     z-index: 1;
@@ -336,20 +333,22 @@ export const Select = {
                 dropdown.scrollTop = indexEnd - dropdown.clientHeight;
             }
         },
+        focusFilterInput() {
+            this.$nextTick(() => {
+                this.filterValueData = "";
+                if (this.$refs.input) this.$refs.input.focus();
+            });
+        },
         onGlobalClick() {
             this.closeDropdown();
         },
         onClickDropdownButton() {
             this.toggleDropdown();
-            if (this.isFilterMode) {
-                this.$nextTick(() => {
-                    this.filterValueData = "";
-                    if (this.$refs.input) this.$refs.input.focus();
-                });
-            }
+            if (this.isFilterMode) this.focusFilterInput();
         },
         onSelectButtonEnterKey() {
             this.toggleDropdown();
+            if (this.isFilterMode) this.focusFilterInput();
         },
         onSelectButtonSpaceKey() {
             this.toggleDropdown();
@@ -449,7 +448,7 @@ export const Select = {
         filteredOptions() {
             if (this.isFilterValueEmpty) return this.options;
             return this.options.filter(option =>
-                option.label.toUpperCase().includes(this.filterValueData.toUpperCase())
+                option.label.toUpperCase().startsWith(this.filterValueData.toUpperCase())
             );
         },
         computedOptions() {
