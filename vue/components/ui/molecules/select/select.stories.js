@@ -5,18 +5,18 @@ storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Select", () => ({
         props: {
-            placeholder: {
-                default: text("Placeholder", "This is a placeholder text")
-            },
             mode: {
                 default: select(
-                    "Filter Mode",
+                    "Select Mode",
                     {
-                        filter: "filter",
-                        normal: "normal"
+                        Unset: null,
+                        Filter: "filter"
                     },
-                    "filter"
+                    null
                 )
+            },
+            placeholder: {
+                default: text("Placeholder", "This is a placeholder text")
             },
             options: {
                 type: Array,
@@ -112,6 +112,7 @@ storiesOf("Molecules", module)
             <div>
                 <global />
                 <select-ripe
+                    v-bind:mode="mode"
                     v-bind:placeholder="placeholder"
                     v-bind:options="options"
                     v-bind:value.sync="valueData"
@@ -122,7 +123,6 @@ storiesOf("Molecules", module)
                     v-bind:max-height="maxHeight"
                     v-bind:dropdown-min-width="dropdownMinWidth"
                     v-bind:dropdown-max-width="dropdownMaxWidth"
-                    v-bind:mode="mode"
                 >
                 </select-ripe>
                 <p>Value: {{ valueData }}, visible: {{ visibleData }}</p>

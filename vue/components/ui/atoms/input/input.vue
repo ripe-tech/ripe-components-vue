@@ -8,12 +8,12 @@
         v-bind:placeholder="placeholder"
         v-bind:disabled="disabled"
         ref="input"
+        v-on:click="onClick"
         v-on:input="onInput($event.target.value)"
         v-on:focus="onFocus"
         v-on:blur="onBlur"
         v-on:keyup="onKeyup"
         v-on:keydown="onKeyDown"
-        v-on:click="onClick"
     />
 </template>
 
@@ -157,6 +157,9 @@ export const Input = {
         blur() {
             this.$refs.input.blur();
         },
+        onClick(event) {
+            this.$emit("click", event);
+        },
         onInput(value) {
             this.setValue(value);
         },
@@ -171,9 +174,6 @@ export const Input = {
         },
         onKeyDown(event) {
             this.$emit("keydown", event);
-        },
-        onClick(event) {
-            this.$emit("click", event);
         }
     },
     computed: {

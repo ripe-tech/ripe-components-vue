@@ -152,10 +152,6 @@
     z-index: 1;
 }
 
-.select.filter-mode .select-container ::v-deep .dropdown-container {
-    margin-top: 0px;
-}
-
 .select.select-align-right .select-container ::v-deep .dropdown-container {
     right: 0px;
 }
@@ -186,7 +182,7 @@ export const Select = {
         },
         filterValue: {
             type: String,
-            default: ""
+            default: null
         },
         visible: {
             type: Boolean,
@@ -243,7 +239,7 @@ export const Select = {
             this.filterValueData = value;
         },
         filterValueData(value) {
-            this.highlightFirst();
+            this.highlightFirstOption();
         }
     },
     methods: {
@@ -283,10 +279,10 @@ export const Select = {
             this.highlighted = index;
             if (scroll) this.scrollTo(index);
         },
-        highlightFirst() {
+        highlightFirstOption() {
             if (this.computedOptions.length > 0) this.highlight(0);
         },
-        highlightPrevious(scroll = true) {
+        highlightPrevious(scroll = false) {
             if (this.highlighted === null) {
                 this.highlight(0, scroll);
             } else {
