@@ -90,11 +90,7 @@
 
 .dropdown-select,
 .select .select-container .select-button {
-    background-color: $soft-blue;
-    background-image: url("~./assets/chevron-down.svg");
-    background-position: right 12px center;
-    background-repeat: no-repeat;
-    background-size: 14px 14px;
+    background: url("~./assets/chevron-down.svg") right 12px center / 14px 14px no-repeat $soft-blue;
     border: 1px solid $light-white;
     border-radius: 6px 6px 6px 6px;
     box-sizing: border-box;
@@ -107,8 +103,7 @@
     line-height: 32px;
     outline: none;
     overflow: hidden;
-    padding-left: 12px;
-    padding-right: 34px;
+    padding: 0px 34px 0px 12px;
     text-overflow: ellipsis;
     transition: width 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
     user-select: none;
@@ -135,9 +130,6 @@
 
 .select.filter-mode .select-container ::v-deep .input {
     background-color: $soft-blue;
-    background-position: right 12px center;
-    background-repeat: no-repeat;
-    background-size: 14px 14px;
     border-color: $aqcua-blue;
     padding-right: 34px;
     position: relative;
