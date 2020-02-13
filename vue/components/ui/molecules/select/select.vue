@@ -20,7 +20,7 @@
         </select>
         <div class="select-container" v-bind:style="style" v-else>
             <input-ripe
-                v-bind:value.sync="filterValueData"
+                v-bind:value.sync="filterValue"
                 v-bind:placeholder="buttonText"
                 v-bind:min-width="0"
                 v-show="isFilterMode && visibleData"
@@ -175,10 +175,6 @@ export const Select = {
             type: String,
             default: null
         },
-        filterValue: {
-            type: String,
-            default: null
-        },
         visible: {
             type: Boolean,
             default: false
@@ -217,7 +213,7 @@ export const Select = {
             highlighted: null,
             valueData: this.value,
             visibleData: this.visible,
-            filterValueData: this.filterValue
+            filterValue: null
         };
     },
     watch: {
@@ -231,9 +227,6 @@ export const Select = {
             this.valueData = value;
         },
         filterValue(value) {
-            this.filterValueData = value;
-        },
-        filterValueData(value) {
             this.highlightFirstOption();
         }
     },
@@ -327,7 +320,7 @@ export const Select = {
         },
         focusFilterInput() {
             this.$nextTick(() => {
-                this.filterValueData = "";
+                this.filterValue = "";
                 if (this.$refs.input) this.$refs.input.focus();
             });
         },
@@ -440,14 +433,14 @@ export const Select = {
         filteredOptions() {
             if (this.isFilterValueEmpty) return this.options;
             return this.options.filter(option =>
-                option.label.toUpperCase().startsWith(this.filterValueData.toUpperCase())
+                option.label.toUpperCase().startsWith(this.filterValue.toUpperCase())
             );
         },
         computedOptions() {
             return this.mode === "filter" ? this.filteredOptions : this.options;
         },
         isFilterValueEmpty() {
-            return this.filterValueData == null || this.filterValueData.length === 0;
+            return this.filterValue == null || this.filterValue.length === 0;
         },
         buttonText() {
             return this.valueData ? this.options[this.valueIndex].label : this.placeholder;
