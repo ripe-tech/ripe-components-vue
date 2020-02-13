@@ -277,7 +277,7 @@ export const Select = {
         highlightFirstOption() {
             if (this.computedOptions.length > 0) this.highlight(0);
         },
-        highlightPrevious(scroll = false) {
+        highlightPrevious(scroll = true) {
             if (this.highlighted === null) {
                 this.highlight(0, scroll);
             } else {
