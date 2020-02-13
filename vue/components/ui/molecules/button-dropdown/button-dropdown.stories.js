@@ -5,6 +5,18 @@ storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Button Dropdown", () => ({
         props: {
+            size: {
+                default: select(
+                    "Size",
+                    {
+                        Default: null,
+                        Medium: "medium",
+                        Small: "small",
+                        Tiny: "tiny"
+                    },
+                    null
+                )
+            },
             primaryIcon: {
                 default: select(
                     "Primary Icon",
@@ -39,6 +51,7 @@ storiesOf("Molecules", module)
         },
         template: `
             <button-dropdown
+                v-bind:size="size"
                 v-bind:label="label"
                 v-bind:primary-icon="primaryIcon"
                 v-bind:secondary-icon="secondaryIcon"

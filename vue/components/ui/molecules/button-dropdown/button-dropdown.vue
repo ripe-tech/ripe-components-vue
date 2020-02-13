@@ -1,5 +1,5 @@
 <template>
-    <div class="button-dropdown">
+    <div class="button-dropdown" v-bind:class="classes">
         <div class="button button-primary" v-on:click="onPrimaryClick">
             <template v-if="primaryIcon">
                 <img class="icon icon-front" v-bind:src="blackPrimaryIcon" />
@@ -24,8 +24,13 @@
 
 .button-dropdown {
     display: inline-block;
-    position: relative;
     font-size: 0px;
+    line-height: 38px;
+    position: relative;
+}
+
+.button-dropdown.button-dropdown-small {
+    line-height: 30px;
 }
 
 .button-dropdown > .button {
@@ -33,14 +38,20 @@
     border: 1px solid #e4e8f0;
     box-sizing: border-box;
     color: $pale-grey;
-    display: inline-block;
     cursor: pointer;
+    display: inline-block;
+    font-size: 13px;
+    height: 38px;
     min-width: 20px;
-    transition: background-color 0.15s ease-in-out,
-        border-color 0.15s ease-in-out,
-        color 0.15s ease-in-out;
     user-select: none;
     vertical-align: top;
+    line-height: 36px;
+}
+
+.button-dropdown.button-dropdown-small > .button {
+    font-size: 12px;
+    height: 30px;
+    line-height: 28px;
 }
 
 .button-dropdown > .button:hover {
@@ -56,41 +67,39 @@
 
 .button-dropdown > .button.button-primary {
     border-radius: 6px 0px 0px 6px;
-    padding: 4px 8px 4px 6px;
+    padding: 0px 8px 0px 6px;
 }
 
 .button-dropdown > .button.button-secondary {
+    border-left: none;
     border-radius: 0px 6px 6px 0px;
-    padding: 4px 4px 4px 4px;
+    font-size: 0px;
+    padding: 0px 4px 0px 4px;
 }
 
 .button-dropdown > .button.button-primary > .label {
-    float: right;
-    font-size: 14px;
     font-weight: 600;
     letter-spacing: 0.3px;
-    line-height: 22px;
     padding: 0px 0px 0px 6px;
+    vertical-align: middle;
 }
 
 .button-dropdown > .button > .icon {
     height: 22px;
     vertical-align: middle;
     width: 22px;
-    transition: opacity 0.15s ease-in-out;
 }
 
 .button-dropdown > .button > .icon.icon-back {
-    opacity: 0;
-    margin-left: -22px;
+    display: none;
 }
 
 .button-dropdown > .button:hover > .icon.icon-back {
-    opacity: 1;
+    display: inline;
 }
 
 .button-dropdown > .button:hover > .icon.icon-front {
-    opacity: 0;
+    display: none;
 }
 
 .button-dropdown > .dropdown-container {
@@ -106,6 +115,10 @@
 export const ButtonDropdown = {
     name: "button-dropdown",
     props: {
+        size: {
+            type: String,
+            default: "medium"
+        },
         primaryIcon: {
             type: String,
             default: null
@@ -145,6 +158,11 @@ export const ButtonDropdown = {
         },
         whiteSecondaryIcon() {
             return this._getIconPath(this.secondaryIcon, "white");
+        },
+        classes() {
+            const base = {};
+            base["button-dropdown-" + this.size] = true;
+            return base;
         }
     },
     watch: {
