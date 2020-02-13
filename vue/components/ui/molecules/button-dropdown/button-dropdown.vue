@@ -2,14 +2,30 @@
     <div class="button-dropdown" v-bind:class="classes">
         <div class="button button-primary" v-on:click="onPrimaryClick">
             <template v-if="primaryIcon">
-                <img class="icon icon-front" v-bind:src="blackPrimaryIcon" />
-                <img class="icon icon-back" v-bind:src="whitePrimaryIcon" />
+                <image-ripe
+                    class="icon icon-front"
+                    v-bind:src="blackPrimaryIcon"
+                    v-bind:fade="false"
+                />
+                <image-ripe
+                    class="icon icon-back"
+                    v-bind:src="whitePrimaryIcon"
+                    v-bind:fade="false"
+                />
             </template>
             <span class="label">{{ label }} </span>
         </div>
         <div class="button button-secondary" v-on:click.stop="onSecondaryClick">
-            <img class="icon icon-front" v-bind:src="blackSecondaryIcon" />
-            <img class="icon icon-back" v-bind:src="whiteSecondaryIcon" />
+            <image-ripe
+                class="icon icon-front"
+                v-bind:src="blackSecondaryIcon"
+                v-bind:fade="false"
+            />
+            <image-ripe
+                class="icon icon-back"
+                v-bind:src="whiteSecondaryIcon"
+                v-bind:fade="false"
+            />
         </div>
         <dropdown
             v-bind:items="items"
@@ -33,6 +49,10 @@
     line-height: 30px;
 }
 
+.button-dropdown.button-dropdown-tiny {
+    line-height: 22px;
+}
+
 .button-dropdown > .button {
     background-color: $white;
     border: 1px solid #e4e8f0;
@@ -40,18 +60,33 @@
     color: $pale-grey;
     cursor: pointer;
     display: inline-block;
-    font-size: 13px;
     height: 38px;
+    line-height: 36px;
     min-width: 20px;
     user-select: none;
     vertical-align: top;
-    line-height: 36px;
 }
 
 .button-dropdown.button-dropdown-small > .button {
-    font-size: 12px;
     height: 30px;
     line-height: 28px;
+}
+
+.button-dropdown.button-dropdown-tiny > .button {
+    height: 22px;
+    line-height: 20px;
+}
+
+.button-dropdown > .button > .label {
+    font-size: 13px;
+}
+
+.button-dropdown.button-dropdown-small > .button > .label {
+    font-size: 12px;
+}
+
+.button-dropdown.button-dropdown-tiny > .button > .label {
+    font-size: 10px;
 }
 
 .button-dropdown > .button:hover {
@@ -90,6 +125,16 @@
     width: 22px;
 }
 
+.button-dropdown.button-dropdown-small > .button > .icon {
+    height: 20px;
+    width: 20px;
+}
+
+.button-dropdown.button-dropdown-tiny > .button > .icon {
+    height: 16px;
+    width: 16px;
+}
+
 .button-dropdown > .button > .icon.icon-back {
     display: none;
 }
@@ -103,10 +148,10 @@
 }
 
 .button-dropdown > .dropdown-container {
+    margin-top: 3px;
     min-width: 120px;
     position: absolute;
     right: 0px;
-    top: 34px;
     width: fit-content;
 }
 </style>
