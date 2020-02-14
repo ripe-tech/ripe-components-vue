@@ -28,11 +28,6 @@ storiesOf("Molecules", module)
                 default: () => boolean("Allow selection highlight", false)
             }
         },
-        data: function() {
-            return {
-                checkedItemsData: {}
-            };
-        },
         methods: {
             getItems({ options = {}, params = {} } = {}) {
                 return [
@@ -67,7 +62,6 @@ storiesOf("Molecules", module)
             v-bind:table-columns="tableColumns" 
             v-bind:lineup-fields="lineupFields"
             v-bind:allow-selected-highlight="allowSelectedHighlight"
-            v-on:update:checked-items="value => checkedItemsData = value"
         >
             <template v-slot:table-item="{ item, index }">
                 <td class="id">
@@ -81,7 +75,6 @@ storiesOf("Molecules", module)
                 </td>
             </template>
         </filter-ripe>
-        <p>Checked Items: {{ checkedItemsData }}</p>
     </div>
     `
     }));
