@@ -25,31 +25,31 @@ export const Icon = {
         },
         color: {
             type: String,
-            required: true
+            default: "#000000"
         },
         fill: {
             type: String,
-            required: false
+            default: "transparent"
         },
         strokeWidth: {
             type: Number,
-            required: false
+            default: null
         },
         strokeLinecap: {
             type: String,
-            required: false
+            default: null
         },
         width: {
             type: Number,
-            required: false
+            default: null
         },
         height: {
             type: Number,
-            required: false
+            default: null
         },
         viewBox: {
             type: String,
-            required: false
+            default: null
         }
     },
     watch: {
