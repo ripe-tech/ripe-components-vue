@@ -483,21 +483,21 @@ export const Table = {
             this.lastClickedIndex = null;
         },
         updateSelectionBehavioursIndexes(index, itemId) {
-            // If item is not checked, set the last checked item as the index
-            // to start the "Shift + Click" and "Shift + Up/Down" behaviours
-            // If no item is checked, defaults to the starting state
-            if (!this.checkedItemsData[itemId]) {
+            // Updates shiftIndex and lastClickedIndex depending on the situation
+            // so that the "Shift + Click" and "Shift + Up/Down" work as expected
+            if(Object.keys(this.checkedItemsData).length === this.itemsData.length) {
+                this.shiftIndex = this.items.length - 1;
+                this.lastClickedIndex = 0;
+            }
+            else if (!this.checkedItemsData[itemId]) {
                 for (let i = this.itemsData.length - 1; i >= 0; i--) {
                     if (this.checkedItemsData[this.itemsData[i].id]) {
                         this.shiftIndex = this.lastClickedIndex = i;
                         return;
                     }
                 }
-                this.resetSelectionIndexes();
-                return;
             }
-
-            this.shiftIndex = this.lastClickedIndex = index;
+            else this.shiftIndex = this.lastClickedIndex = index;
         },
         checkboxClick(index, itemId) {
             this.updateSelectionBehavioursIndexes(index, itemId);
