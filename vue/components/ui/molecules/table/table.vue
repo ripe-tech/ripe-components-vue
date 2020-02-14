@@ -447,11 +447,7 @@ export const Table = {
         processedCheckedItems() {
             const checkedItems = {};
 
-            this.items.forEach(item => {
-                checkedItems[item.id] = this.checkedItems[item.id]
-                    ? this.checkedItems[item.id]
-                    : false;
-            });
+            this.items.forEach(item => { checkedItems[item.id] = Boolean(this.checkedItems[item.id]) });
 
             return checkedItems;
         },
