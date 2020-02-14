@@ -117,7 +117,7 @@
     user-select: none;
 }
 
-.table .table-head .checkbox-global {
+.table thead > tr > th.checkbox-global {
     width: 45px;
 }
 
@@ -170,7 +170,7 @@
     word-break: break-all;
 }
 
-.table .checkbox-item {
+.table tbody > tr > td.checkbox-item {
     padding: 0px 0px 0px 0px;
 }
 
