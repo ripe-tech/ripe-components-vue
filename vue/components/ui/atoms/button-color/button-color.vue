@@ -268,10 +268,6 @@
 export const ButtonColor = {
     name: "button-color",
     props: {
-        type: {
-            type: String,
-            default: null
-        },
         secondary: {
             type: Boolean,
             default: false
@@ -293,6 +289,10 @@ export const ButtonColor = {
             default: null
         },
         text: {
+            type: String,
+            default: null
+        },
+        type: {
             type: String,
             default: null
         },
