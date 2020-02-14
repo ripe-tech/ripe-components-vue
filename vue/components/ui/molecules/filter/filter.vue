@@ -101,6 +101,14 @@ export const Filter = {
             type: Function,
             default: () => []
         },
+        enableCheckboxes: {
+            type: Boolean,
+            default: false
+        },
+        checkedItems: {
+            type: Object,
+            default: () => {}
+        },
         getItemUrl: {
             type: Function,
             default: null
@@ -137,14 +145,6 @@ export const Filter = {
             type: Boolean,
             default: false
         },
-        enableCheckboxes: {
-            type: Boolean,
-            default: false
-        },
-        checkedItems: {
-            type: Object,
-            default: () => {}
-        },
         allowSelectedHighlight: {
             type: Boolean,
             default: false
@@ -154,13 +154,13 @@ export const Filter = {
         const { sort = "id", reverse = false } = this.useQuery ? this.parseQuery() : {};
         return {
             items: [],
+            checkedItemsData: this.checkedItems,
             sort: sort,
             reverse: reverse,
             start: 0,
             itemsToLoad: true,
             loading: false,
-            tableTransition: "",
-            checkedItemsData: this.checkedItems
+            tableTransition: ""
         };
     },
     computed: {
