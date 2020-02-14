@@ -4,13 +4,13 @@
             <table-ripe
                 v-bind:columns="tableColumns"
                 v-bind:items="items"
+                v-bind:enable-checkboxes="enableCheckboxes"
+                v-bind:checked-items="checkedItems"
                 v-bind:sort-method="onSort"
                 v-bind:transition="tableTransition"
                 v-bind:initial-sort="sort"
                 v-bind:initial-reverse="reverse"
                 v-bind:variant="tableVariant"
-                v-bind:enable-checkboxes="enableCheckboxes"
-                v-bind:checked-items.sync="checkedItemsData"
                 v-bind:allow-selected-highlight="allowSelectedHighlight"
                 v-on:click="onTableClick"
             >
@@ -101,6 +101,16 @@ export const Filter = {
             type: Function,
             default: () => []
         },
+        enableCheckboxes: {
+            type: Boolean,
+            default: false
+        },
+        getCheckedItems: {
+            type: Function,
+            default: () => {
+                return {};
+            }
+        },
         getItemUrl: {
             type: Function,
             default: null
@@ -137,14 +147,6 @@ export const Filter = {
             type: Boolean,
             default: false
         },
-        enableCheckboxes: {
-            type: Boolean,
-            default: false
-        },
-        checkedItems: {
-            type: Object,
-            default: () => {}
-        },
         allowSelectedHighlight: {
             type: Boolean,
             default: false
@@ -154,13 +156,13 @@ export const Filter = {
         const { sort = "id", reverse = false } = this.useQuery ? this.parseQuery() : {};
         return {
             items: [],
+            checkedItems: {},
             sort: sort,
             reverse: reverse,
             start: 0,
             itemsToLoad: true,
             loading: false,
-            tableTransition: "",
-            checkedItemsData: this.checkedItems
+            tableTransition: ""
         };
     },
     computed: {
@@ -222,12 +224,6 @@ export const Filter = {
             immediate: true
         },
         checkedItems: {
-            handler: function(value) {
-                this.checkedItemsData = value;
-            },
-            immediate: true
-        },
-        checkedItemsData: {
             handler: function(value) {
                 this.$emit("update:checked-items", value);
             },
@@ -312,6 +308,9 @@ export const Filter = {
             if (items === undefined || items === null) {
                 return false;
             }
+
+            // gets the initial checkedItems state
+            if (this.enableCheckboxes) this.checkedItems = await this.getCheckedItems();
 
             // if this request was triggered for pagination then
             // appends the new items to the current items, otherwise
