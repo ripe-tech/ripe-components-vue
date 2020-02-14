@@ -362,7 +362,7 @@ export const Table = {
             itemsData: this.itemsWithIndex(this.items),
             sortData: this.sort,
             reverseData: this.reverse,
-            checkedItemsData: this.enableCheckboxes ? this.initialCheckedItems() : {},
+            checkedItemsData: this.enableCheckboxes ? this.processedCheckedItems() : {},
             selectedId: null,
             lastClickedIndex: null,
             shiftIndex: null,
@@ -378,7 +378,7 @@ export const Table = {
         items: {
             deep: true,
             handler: function(value) {
-                this.checkedItemsData = this.initialCheckedItems();
+                this.checkedItemsData = this.processedCheckedItems();
                 this.itemsData = this.itemsWithIndex([...value]);
                 this.resetSelectionIndexes();
             }
@@ -444,7 +444,7 @@ export const Table = {
         itemsWithIndex(items) {
             return items.map((item, index) => ({ _originalIndex: index, ...item }));
         },
-        initialCheckedItems() {
+        processedCheckedItems() {
             const checkedItems = {};
 
             this.items.forEach(item => {
