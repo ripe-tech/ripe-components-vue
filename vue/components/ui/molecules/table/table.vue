@@ -5,10 +5,10 @@
         v-bind:style="style"
     >
         <global-events
-            v-on:keydown.meta.65.exact="onCtrlA"
+            v-on:keydown.meta.65.exact="onMetaA"
             v-on:keydown.ctrl.65.exact="onCtrlA"
             v-on:keydown.ctrl.alt.65.exact="onCtrlAltA"
-            v-on:keydown.meta.alt.65.exact="onCtrlAltA"
+            v-on:keydown.meta.alt.65.exact="onMetaAltA"
             v-on:keydown.shift.up.exact="onShiftUp"
             v-on:keydown.shift.down.exact="onShiftDown"
             v-on:mouseover="onMouseOver"
@@ -55,7 +55,7 @@
                         v-bind:key="item.id"
                         v-on:click.exact="onRowClick(item, index)"
                         v-on:click.ctrl.exact="onRowCtrlClick(index, item.id)"
-                        v-on:click.meta.exact="onRowCtrlClick(index, item.id)"
+                        v-on:click.meta.exact="onRowMetaClick(index, item.id)"
                         v-on:click.shift.exact="onRowShiftClick(index, item.id)"
                     >
                         <td class="checkbox-item" v-if="enableCheckboxes">
@@ -63,8 +63,8 @@
                                 v-bind:size="8"
                                 v-bind:checked.sync="checkedItemsData[item.id]"
                                 v-on:click.native.exact.stop="onCheckboxClick(index, item.id)"
-                                v-on:click.ctrl.exact.native.stop="onCheckboxClick(index, item.id)"
-                                v-on:click.meta.exact.native.stop="onCheckboxClick(index, item.id)"
+                                v-on:click.ctrl.exact.native.stop="onCheckboxCtrlClick(index, item.id)"
+                                v-on:click.meta.exact.native.stop="onCheckboxMetaClick(index, item.id)"
                             />
                         </td>
                         <slot v-bind:item="item" v-bind:index="index">
@@ -498,6 +498,37 @@ export const Table = {
 
             this.shiftIndex = this.lastClickedIndex = index;
         },
+        checkboxClick(index, itemId) {
+            this.updateSelectionIndexes(index, itemId);
+            this.highlightedIndex = null;
+        },
+        rowCtrlClick(index, itemId){
+            this.$set(this.checkedItemsData, itemId, !this.checkedItemsData[itemId]);
+            this.updateSelectionIndexes(index, itemId);
+
+            this.highlightedIndex = null;
+        },
+        ctrlA() {
+            this.checkedItemsData = {};
+            this.itemsData.forEach(item => {
+                this.$set(this.checkedItemsData, item.id, true);
+            });
+
+            this.shiftIndex = this.items.length - 1;
+            this.lastClickedIndex = 0;
+
+            this.highlightedIndex = null;
+        },
+        ctrlAltA() {
+            this.checkedItemsData = {};
+            this.itemsData.forEach(item => {
+                this.$set(this.checkedItemsData, item.id, false);
+            });
+
+            this.resetSelectionIndexes();
+
+            this.highlightedIndex = null;
+        },
         onGlobalCheckboxClick() {
             this.globalCheckboxValueData = !this.globalCheckboxValueData;
 
@@ -516,10 +547,10 @@ export const Table = {
             this.highlightedIndex = null;
         },
         onRowCtrlClick(index, itemId) {
-            this.$set(this.checkedItemsData, itemId, !this.checkedItemsData[itemId]);
-            this.updateSelectionIndexes(index, itemId);
-
-            this.highlightedIndex = null;
+            this.rowCtrlClick(index, itemId);
+        },
+        onRowMetaClick(index, itemId) {
+            this.rowCtrlClick(index, itemId);
         },
         onRowShiftClick(index, itemId) {
             this.setAllCheckedItemsValue(false);
@@ -540,29 +571,25 @@ export const Table = {
             this.highlightedIndex = null;
         },
         onCheckboxClick(index, itemId) {
-            this.updateSelectionIndexes(index, itemId);
-            this.highlightedIndex = null;
+            this.checkboxClick(index, itemId);
+        },
+        onCheckboxCtrlClick(index, itemId) {
+            this.checkboxClick(index, itemId);
+        },
+        onCheckboxMetaClick(index, itemId) {
+            this.checkboxClick(index, itemId);
         },
         onCtrlA() {
-            this.checkedItemsData = {};
-            this.itemsData.forEach(item => {
-                this.$set(this.checkedItemsData, item.id, true);
-            });
-
-            this.shiftIndex = this.items.length - 1;
-            this.lastClickedIndex = 0;
-
-            this.highlightedIndex = null;
+            this.ctrlA();
+        },
+        onMetaA() {
+            this.ctrlA();
         },
         onCtrlAltA() {
-            this.checkedItemsData = {};
-            this.itemsData.forEach(item => {
-                this.$set(this.checkedItemsData, item.id, false);
-            });
-
-            this.resetSelectionIndexes();
-
-            this.highlightedIndex = null;
+            this.ctrlAltA();
+        },
+        onMetaAltA() {
+            this.ctrlAltA();
         },
         onShiftUp() {
             if (this.shiftIndex === null) {
