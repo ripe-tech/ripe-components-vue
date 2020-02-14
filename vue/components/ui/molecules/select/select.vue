@@ -422,9 +422,14 @@ export const Select = {
         },
         filteredOptions() {
             if (this.isfilterTextEmpty) return this.options;
-            return this.options.filter(option =>
-                option.label.toUpperCase().startsWith(this.filterText.toUpperCase())
-            );
+            return this.options.filter(option => {
+                if (option.label != null && option.label.toString().length > 0) {
+                    return option.label
+                        .toString()
+                        .toUpperCase()
+                        .startsWith(this.filterText.toString().toUpperCase());
+                }
+            });
         },
         computedOptions() {
             return this.mode === "filter" ? this.filteredOptions : this.options;
