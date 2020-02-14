@@ -106,7 +106,7 @@ storiesOf("Atoms", module)
                         v-bind:monospaced="monospaced"
                         v-bind:width="width"
                         v-bind:min-width="minWidth"
-                        v-bind:height="height"></input-ripe>
+                        v-bind:height="height" />
                 </form-input>
                 <p>Text: {{ valueData }}</p>
             </div>
