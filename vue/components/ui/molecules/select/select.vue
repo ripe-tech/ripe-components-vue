@@ -20,6 +20,7 @@
         </select>
         <div class="select-container" v-bind:style="style" v-else>
             <input-ripe
+                class="select-input"
                 v-bind:value.sync="filterText"
                 v-bind:placeholder="buttonText"
                 v-bind:min-width="0"
