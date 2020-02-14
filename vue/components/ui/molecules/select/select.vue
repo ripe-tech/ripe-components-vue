@@ -32,8 +32,8 @@
                 v-on:keydown.down.exact.prevent="onDownKey"
                 v-on:keydown.alt.down.prevent="onAltDownKey"
                 v-on:keydown.alt.up.prevent="onAltUpKey"
-                v-on:keydown.page-down.prevent="onPageDownKey"
-                v-on:keydown.page-up.prevent="onPageUpKey"
+                v-on:keydown.page-down.exact.prevent="onPageDownKey"
+                v-on:keydown.page-up.exact.prevent="onPageUpKey"
                 v-on:keydown.enter.exact="onEnterKey"
                 v-on:click.stop.prevent
             />
@@ -46,10 +46,10 @@
                 v-on:keydown.esc.exact="onEscKey"
                 v-on:keydown.up.exact.prevent="onUpKey"
                 v-on:keydown.down.exact.prevent="onDownKey"
-                v-on:keydown.alt.down="onAltDownKey"
-                v-on:keydown.alt.up="onAltUpKey"
-                v-on:keydown.page-down="onPageDownKey"
-                v-on:keydown.page-up="onPageUpKey"
+                v-on:keydown.alt.down.prevent="onAltDownKey"
+                v-on:keydown.alt.up.prevent="onAltUpKey"
+                v-on:keydown.page-down.exact.prevent="onPageDownKey"
+                v-on:keydown.page-up.exact.prevent="onPageUpKey"
                 v-on:keydown.enter.exact="onEnterKey"
                 v-on:keydown.space.exact.prevent="onSpaceKey"
             >
