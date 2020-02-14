@@ -25,11 +25,11 @@ export const Icon = {
         },
         color: {
             type: String,
-            default: "#000000"
+            default: null
         },
         fill: {
             type: String,
-            default: "transparent"
+            default: null
         },
         strokeWidth: {
             type: Number,
@@ -93,7 +93,8 @@ export const Icon = {
             this.$emit("click", event);
         },
         setSvgAttribute(attribute, value) {
-            if (!this.$el.firstElementChild || value === undefined) return;
+            if (!this.$el.firstElementChild) return;
+            if ([undefined, null].includes(value)) return;
             this.$el.firstElementChild.setAttribute(attribute, value);
         },
         setAllSvgAttributes() {

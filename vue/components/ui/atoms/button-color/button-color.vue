@@ -1,11 +1,10 @@
 <template>
-    <div
+    <button
         class="button button-color"
         v-bind:class="classes"
         v-bind:style="style"
+        v-bind:type="type"
         v-on:click="handleClick"
-        v-on:mouseover="hover = true"
-        v-on:mouseleave="hover = false"
     >
         <loader
             loader="ball-scale-multiple"
@@ -16,15 +15,23 @@
         <icon
             class="icon"
             v-bind:icon="icon"
-            v-bind:color="computedColor"
-            v-bind:width="null"
-            v-bind:height="null"
+            v-bind:color="iconColor"
+            v-bind:width="iconSize"
+            v-bind:height="iconSize"
+            v-if="icon && !loading"
+        />
+        <icon
+            class="icon-hover"
+            v-bind:icon="icon"
+            v-bind:color="iconHoverColor"
+            v-bind:width="iconSize"
+            v-bind:height="iconSize"
             v-if="icon && !loading"
         />
         <span v-show="!loading">
             <slot>{{ text }}</slot>
         </span>
-    </div>
+    </button>
 </template>
 
 <style lang="scss" scoped>
@@ -38,12 +45,14 @@
     color: $white;
     cursor: pointer;
     display: inline-block;
+    font-family: $font-family;
     font-size: 0px;
     font-weight: 600;
     height: 40px;
     letter-spacing: 0.25px;
     line-height: 38px;
     min-width: 180px;
+    outline: none;
     padding: 0px 20px 0px 20px;
     text-align: center;
     transition: background-color 0.15s ease-in-out,
@@ -230,25 +239,43 @@
     background-color: #2d2d2d;
 }
 
-.button-color .icon {
+.button-color .icon,
+.button-color .icon-hover {
     float: left;
-    font-size: 0px;
     height: 22px;
     margin-top: 8px;
     padding-right: 12px;
     width: 22px;
 }
 
-.button-color.button-color-small .icon {
+.button-color.button-color-small .icon,
+.button-color.button-color-small .icon-hover {
     height: 18px;
     margin-top: 7px;
     width: 18px;
 }
 
-.button-color.button-color-tiny .icon {
+.button-color.button-color-tiny .icon,
+.button-color.button-color-tiny .icon-hover {
     height: 15px;
     margin-top: 4px;
     width: 15px;
+}
+
+.button-color .icon {
+    display: inline-block;
+}
+
+.button-color:hover .icon {
+    display: none;
+}
+
+.button-color .icon-hover {
+    display: none;
+}
+
+.button-color:hover .icon-hover {
+    display: inline-block;
 }
 </style>
 
@@ -277,6 +304,10 @@ export const ButtonColor = {
             default: null
         },
         text: {
+            type: String,
+            default: null
+        },
+        type: {
             type: String,
             default: null
         },
@@ -309,11 +340,6 @@ export const ButtonColor = {
             default: null
         }
     },
-    data: function() {
-        return {
-            hover: false
-        };
-    },
     methods: {
         handleClick(event) {
             if (this.href) {
@@ -324,13 +350,31 @@ export const ButtonColor = {
         }
     },
     computed: {
+        iconColor() {
+            return this.color === "white" || this.secondary ? "black" : "white";
+        },
+        iconHoverColor() {
+            return this.color === "white" || this.secondary ? "white" : "white";
+        },
+        iconSize() {
+            switch (this.sizeMode) {
+                case "tiny":
+                    return 15;
+
+                case "small":
+                    return 18;
+
+                case "medium":
+                    return 22;
+
+                default:
+                    return 22;
+            }
+        },
         sizeMode() {
             if (this.small) return "small";
             if (this.size) return this.size;
             return "medium";
-        },
-        computedColor() {
-            return !this.hover && (this.color === "white" || this.secondary) ? "black" : "white";
         },
         alignmentStyle() {
             if (this.alignment) return this.alignment;
