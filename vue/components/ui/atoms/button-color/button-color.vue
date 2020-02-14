@@ -1,8 +1,9 @@
 <template>
-    <div
+    <button
         class="button button-color"
         v-bind:class="classes"
         v-bind:style="style"
+        v-bind:type="type"
         v-on:click="handleClick"
     >
         <loader
@@ -16,7 +17,7 @@
         <span v-show="!loading">
             <slot>{{ text }}</slot>
         </span>
-    </div>
+    </button>
 </template>
 
 <style lang="scss" scoped>
@@ -30,6 +31,7 @@
     color: $white;
     cursor: pointer;
     display: inline-block;
+    font-family: $font-family;
     font-size: 0px;
     font-weight: 600;
     height: 40px;
@@ -266,6 +268,10 @@
 export const ButtonColor = {
     name: "button-color",
     props: {
+        type: {
+            type: String,
+            default: null
+        },
         secondary: {
             type: Boolean,
             default: false
