@@ -532,10 +532,10 @@ export const Table = {
             this.setChecked(itemId, value);
         },
         onRowClick(item, index) {
-            this.selectedId =
-                this.selectedId === null || this.selectedId !== item.id ? item.id : null;
+            this.selectedId = this.selectedId === null || this.selectedId !== item.id ? item.id : null;
+            const selectedOriginalIndex = this.selectedId === null ? null: item._originalIndex;
 
-            this.$emit("click", item, item._originalIndex, index);
+            this.$emit("click", item, selectedOriginalIndex, index);
             this.resetSelectionIndexes();
 
             this.highlightedIndex = null;
