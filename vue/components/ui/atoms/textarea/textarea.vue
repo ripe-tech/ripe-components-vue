@@ -35,7 +35,7 @@
     outline: none;
     padding: 8px 12px 8px 12px;
     resize: none;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
+    transition: width 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
     width: 100%;
 }
 
