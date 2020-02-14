@@ -24,9 +24,20 @@ storiesOf("Molecules", module)
             enableCheckboxes: {
                 default: () => boolean("Enable checkboxes", false)
             },
+            checkedItems: {
+                type: Object,
+                default: () => {
+                    return {};
+                }
+            },
             allowSelectedHighlight: {
                 default: () => boolean("Allow selection highlight", false)
             }
+        },
+        data: function() {
+            return {
+                checkedItemsData: this.checkedItems
+            };
         },
         methods: {
             getItems({ options = {}, params = {} } = {}) {
@@ -47,9 +58,6 @@ storiesOf("Molecules", module)
                         car: "Renault"
                     }
                 ];
-            },
-            getCheckedItems() {
-                return {};
             }
         },
         template: `
@@ -57,10 +65,10 @@ storiesOf("Molecules", module)
         <global></global>
         <filter-ripe 
             v-bind:getItems="getItems"
-            v-bind:enable-checkboxes="enableCheckboxes"
-            v-bind:getCheckedItems="getCheckedItems"
             v-bind:table-columns="tableColumns" 
             v-bind:lineup-fields="lineupFields"
+            v-bind:enable-checkboxes="enableCheckboxes"
+            v-bind:checked-items.sync="checkedItemsData"
             v-bind:allow-selected-highlight="allowSelectedHighlight"
         >
             <template v-slot:table-item="{ item, index }">
@@ -75,6 +83,7 @@ storiesOf("Molecules", module)
                 </td>
             </template>
         </filter-ripe>
+        <p>Checked Items: {{ checkedItemsData }}</p>
     </div>
     `
     }));
