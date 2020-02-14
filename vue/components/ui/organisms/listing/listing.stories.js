@@ -68,7 +68,7 @@ storiesOf("Organisms", module)
         },
         data: function() {
             return {
-                checkedItemsData: this.checkedItems
+                checkedItemsData: {}
             };
         },
         methods: {
@@ -95,6 +95,9 @@ storiesOf("Organisms", module)
                         device: "Potato"
                     }
                 ];
+            },
+            getCheckedItems() {
+                return {};
             }
         },
         template: `
@@ -110,8 +113,9 @@ storiesOf("Organisms", module)
                     v-bind:filter-fields="filterFields"
                     v-bind:container-mode="containerMode"
                     v-bind:enable-checkboxes="enableCheckboxes"
-                    v-bind:checked-items.sync="checkedItemsData"
+                    v-bind:getCheckedItems="getCheckedItems"
                     v-bind:allow-selected-highlight="allowSelectedHighlight"
+                    v-on:update:checked-items="value => checkedItemsData = value"
                 >
                     <template v-slot:icons>
                         <img v-bind:src="img" v-bind:style="imgStyle" />
