@@ -68,6 +68,9 @@ storiesOf("Molecules", module)
                     { value: "user", label: "User" },
                     { value: "system", label: "System" }
                 ]
+            },
+            allowSelectedHighlight: {
+                default: () => boolean("Allow selection highlight", false)
             }
         },
         data: function() {
@@ -94,6 +97,7 @@ storiesOf("Molecules", module)
                     v-bind:reverse.sync="reverseData"
                     v-bind:alignment="alignment"
                     v-bind:variant="variant"
+                    v-bind:allow-selected-highlight="allowSelectedHighlight"
                 />
                 <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}</p>
             </div>

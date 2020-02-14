@@ -24,7 +24,11 @@
             <template v-for="(item, index) in sortedItems">
                 <slot name="before-row" v-bind:item="item" v-bind:index="index" />
                 <slot name="row" v-bind:item="item" v-bind:index="index">
-                    <tr v-bind:key="item.id" v-on:click="onClick(item, index)">
+                    <tr
+                        v-bind:class="{ selected: isRowSelected(item.id) }"
+                        v-bind:key="item.id"
+                        v-on:click="onClick(item, index)"
+                    >
                         <slot v-bind:item="item" v-bind:index="index">
                             <td
                                 v-bind:class="column.value"
@@ -86,6 +90,10 @@
 
 .table tbody tr:hover {
     background-color: $selected-color;
+}
+
+.table tbody tr.selected {
+    background-color: $light-white;
 }
 
 .table th {
@@ -284,6 +292,10 @@ export const Table = {
         variant: {
             type: String,
             default: null
+        },
+        allowSelectedHighlight: {
+            type: Boolean,
+            default: false
         }
     },
     watch: {
@@ -297,7 +309,8 @@ export const Table = {
     data: function() {
         return {
             sortData: this.sort,
-            reverseData: this.reverse
+            reverseData: this.reverse,
+            selectedId: null
         };
     },
     computed: {
@@ -336,7 +349,13 @@ export const Table = {
             this.$emit("update:sort", this.sortData);
             this.$emit("update:reverse", this.reverseData);
         },
+        isRowSelected(id) {
+            return this.allowSelectedHighlight && id === this.selectedId;
+        },
         onClick(item, index) {
+            this.selectedId =
+                this.selectedId === null || this.selectedId !== item.id ? item.id : null;
+
             this.$emit("click", item, item._originalIndex, index);
         }
     }
