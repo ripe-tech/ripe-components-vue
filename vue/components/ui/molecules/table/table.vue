@@ -1,9 +1,5 @@
 <template>
-    <table
-        class="table"
-        v-bind:class="classes"
-        v-bind:style="style"
-    >
+    <table class="table" v-bind:class="classes" v-bind:style="style">
         <global-events
             v-on:keydown.meta.65.exact="onMetaA"
             v-on:keydown.ctrl.65.exact="onCtrlA"
@@ -64,8 +60,12 @@
                                 v-bind:checked="checkedItemsData[item.id]"
                                 v-on:update:checked="value => onChecked(item.id, value)"
                                 v-on:click.native.exact.stop="onCheckboxClick(index, item.id)"
-                                v-on:click.ctrl.exact.native.stop="onCheckboxCtrlClick(index, item.id)"
-                                v-on:click.meta.exact.native.stop="onCheckboxMetaClick(index, item.id)"
+                                v-on:click.ctrl.exact.native.stop="
+                                    onCheckboxCtrlClick(index, item.id)
+                                "
+                                v-on:click.meta.exact.native.stop="
+                                    onCheckboxMetaClick(index, item.id)
+                                "
                             />
                         </td>
                         <slot v-bind:item="item" v-bind:index="index">
@@ -437,7 +437,7 @@ export const Table = {
             return !this.isAllUnchecked;
         },
         globalCheckboxIcon() {
-            return this.isAllChecked ||this.isAllUnchecked ? "check" : "minus";
+            return this.isAllChecked || this.isAllUnchecked ? "check" : "minus";
         }
     },
     methods: {
@@ -447,22 +447,22 @@ export const Table = {
         processedCheckedItems() {
             const checkedItems = {};
 
-            this.items.forEach(item => { 
-                if(this.checkedItems[item.id]) checkedItems[item.id] = this.checkedItems[item.id]
+            this.items.forEach(item => {
+                if (this.checkedItems[item.id]) checkedItems[item.id] = this.checkedItems[item.id];
             });
 
             return checkedItems;
         },
         setAllCheckedItemsValue(value) {
             this.checkedItemsData = {};
-            if(value) {
+            if (value) {
                 this.itemsData.forEach(item => {
                     this.$set(this.checkedItemsData, item.id, true);
                 });
             }
         },
         setChecked(itemId, value) {
-            if(value) this.$set(this.checkedItemsData, itemId, true);
+            if (value) this.$set(this.checkedItemsData, itemId, true);
             else this.$delete(this.checkedItemsData, itemId);
         },
         isRowSelected(id) {
@@ -485,25 +485,23 @@ export const Table = {
         updateSelectionBehavioursIndexes(index, itemId) {
             // Updates shiftIndex and lastClickedIndex depending on the situation
             // so that the "Shift + Click" and "Shift + Up/Down" work as expected
-            if(Object.keys(this.checkedItemsData).length === this.itemsData.length) {
+            if (Object.keys(this.checkedItemsData).length === this.itemsData.length) {
                 this.shiftIndex = this.items.length - 1;
                 this.lastClickedIndex = 0;
-            }
-            else if (!this.checkedItemsData[itemId]) {
+            } else if (!this.checkedItemsData[itemId]) {
                 for (let i = this.itemsData.length - 1; i >= 0; i--) {
                     if (this.checkedItemsData[this.itemsData[i].id]) {
                         this.shiftIndex = this.lastClickedIndex = i;
                         return;
                     }
                 }
-            }
-            else this.shiftIndex = this.lastClickedIndex = index;
+            } else this.shiftIndex = this.lastClickedIndex = index;
         },
         checkboxClick(index, itemId) {
             this.updateSelectionBehavioursIndexes(index, itemId);
             this.highlightedIndex = null;
         },
-        rowCtrlClick(index, itemId){
+        rowCtrlClick(index, itemId) {
             this.setChecked(itemId, !this.checkedItemsData[itemId]);
             this.updateSelectionBehavioursIndexes(index, itemId);
 
@@ -519,7 +517,7 @@ export const Table = {
         },
         ctrlAltA() {
             this.setAllCheckedItemsValue(false);
-            
+
             this.resetSelectionIndexes();
 
             this.highlightedIndex = null;
@@ -530,7 +528,7 @@ export const Table = {
 
             this.highlightedIndex = null;
         },
-        onChecked(itemId, value){
+        onChecked(itemId, value) {
             this.setChecked(itemId, value);
         },
         onRowClick(item, index) {

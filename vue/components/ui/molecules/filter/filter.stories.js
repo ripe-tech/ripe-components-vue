@@ -49,7 +49,7 @@ storiesOf("Molecules", module)
                 ];
             },
             getCheckedItems() {
-                return {2:true};
+                return {};
             }
         },
         template: `
