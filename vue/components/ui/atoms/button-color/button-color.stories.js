@@ -13,9 +13,9 @@ storiesOf("Atoms", module)
                     "Size",
                     {
                         Default: null,
-                        Medium: "medium",
+                        Tiny: "tiny",
                         Small: "small",
-                        Tiny: "tiny"
+                        Medium: "medium"
                     },
                     null
                 )
