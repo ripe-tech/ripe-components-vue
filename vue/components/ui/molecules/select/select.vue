@@ -29,10 +29,10 @@
                 v-on:keydown.esc.exact="onEscKey"
                 v-on:keydown.up.exact.prevent="onUpKey"
                 v-on:keydown.down.exact.prevent="onDownKey"
-                v-on:keydown.alt.down="onAltDownKey"
-                v-on:keydown.alt.up="onAltUpKey"
-                v-on:keydown.page-down="onPageDownKey"
-                v-on:keydown.page-up="onPageUpKey"
+                v-on:keydown.alt.down.prevent="onAltDownKey"
+                v-on:keydown.alt.up.prevent="onAltUpKey"
+                v-on:keydown.page-down.prevent="onPageDownKey"
+                v-on:keydown.page-up.prevent="onPageUpKey"
                 v-on:keydown.enter.exact="onEnterKey"
                 v-on:click.stop.prevent
             />
@@ -261,6 +261,22 @@ export const Select = {
                 this.openDropdown();
             }
         },
+        toggleAndSet() {
+            if (!this.visibleData) {
+                this.openDropdown();
+                return;
+            }
+
+            if (this.highlighted === null) {
+                this.closeDropdown();
+                return;
+            }
+
+            if (this.computedOptions[this.highlighted]) {
+                this.setValue(this.computedOptions[this.highlighted].value);
+            }
+            this.closeDropdown();
+        },
         dehighlight() {
             this.highlighted = null;
         },
@@ -301,7 +317,7 @@ export const Select = {
         },
         scrollTo(index) {
             const dropdown = this.$refs.dropdown.$refs.dropdown;
-            const dropdownElements = dropdown.getElementsByClassName("dropdown-item");
+            const dropdownElements = this.$refs.dropdown.$refs["dropdown-item"];
             const visibleStart = dropdown.scrollTop;
             const visibleEnd = visibleStart + dropdown.clientHeight;
 
@@ -320,6 +336,14 @@ export const Select = {
                 dropdown.scrollTop = indexEnd - dropdown.clientHeight;
             }
         },
+        scrollToTop(scroll = true) {
+            this.openDropdown();
+            this.highlight(0, scroll);
+        },
+        scrollToBottom(scroll = true) {
+            this.openDropdown();
+            this.highlight(this.computedOptions.length - 1, scroll);
+        },
         focusFilterInput() {
             this.$nextTick(() => {
                 this.filterText = "";
@@ -330,12 +354,6 @@ export const Select = {
             this.closeDropdown();
         },
         onClickDropdownButton() {
-            this.toggleDropdown();
-        },
-        onSelectButtonEnterKey() {
-            this.toggleDropdown();
-        },
-        onSelectButtonSpaceKey() {
             this.toggleDropdown();
         },
         onKey(key) {
@@ -361,52 +379,22 @@ export const Select = {
             this.highlightNext();
         },
         onAltDownKey() {
-            this.openDropdown();
-            this.highlight(this.options.length - 1, true);
+            this.scrollToBottom();
         },
-        onAltUpKey(scroll = true) {
-            this.openDropdown();
-            this.highlight(0, scroll);
+        onAltUpKey() {
+            this.scrollToTop();
         },
-        onPageUpKey(scroll = true) {
-            this.openDropdown();
-            this.highlight(0, scroll);
+        onPageUpKey() {
+            this.scrollToTop();
         },
         onPageDownKey() {
-            this.openDropdown();
-            this.highlight(this.options.length - 1, true);
+            this.scrollToBottom();
         },
         onEnterKey() {
-            if (!this.visibleData) {
-                this.openDropdown();
-                return;
-            }
-
-            if (this.highlighted === null) {
-                this.closeDropdown();
-                return;
-            }
-
-            if (this.computedOptions[this.highlighted]) {
-                this.setValue(this.computedOptions[this.highlighted].value);
-            }
-            this.closeDropdown();
+            this.toggleAndSet();
         },
         onSpaceKey() {
-            if (!this.visibleData) {
-                this.openDropdown();
-                return;
-            }
-
-            if (this.highlighted === null) {
-                this.closeDropdown();
-                return;
-            }
-
-            if (this.computedOptions[this.highlighted]) {
-                this.setValue(this.options[this.highlighted].value);
-            }
-            this.closeDropdown();
+            this.toggleAndSet();
         },
         onSelectChange(value) {
             this.setValue(value);
