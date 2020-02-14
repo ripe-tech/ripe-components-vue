@@ -1,7 +1,7 @@
 <template>
     <table
         class="table"
-        v-bind:class="{ classes, disableSelection: lastClickedIndex !== null }"
+        v-bind:class="classes"
         v-bind:style="style"
     >
         <global-events
@@ -420,7 +420,8 @@ export const Table = {
         },
         classes() {
             const base = {
-                alignment: this.alignment === "left" ? "text-align-left" : ""
+                alignment: this.alignment === "left" ? "text-align-left" : "",
+                disableSelection: this.lastClickedIndex !== null
             };
             if (this.variant) base[`table-${this.variant}`] = true;
             return base;
