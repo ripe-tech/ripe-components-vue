@@ -107,7 +107,9 @@ export const Filter = {
         },
         getCheckedItems: {
             type: Function,
-            default: () => {return {}}
+            default: () => {
+                return {};
+            }
         },
         getItemUrl: {
             type: Function,
@@ -308,7 +310,7 @@ export const Filter = {
             }
 
             // gets the initial checkedItems state
-            if(this.enableCheckboxes) this.checkedItems = await this.getCheckedItems();
+            if (this.enableCheckboxes) this.checkedItems = await this.getCheckedItems();
 
             // if this request was triggered for pagination then
             // appends the new items to the current items, otherwise
