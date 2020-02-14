@@ -18,7 +18,7 @@
                 <th class="checkbox-global" v-if="enableCheckboxes">
                     <checkbox
                         v-bind:size="8"
-                        v-bind:checked="globalCheckboxValueData"
+                        v-bind:checked="globalCheckboxValue"
                         v-bind:icon="globalCheckboxIcon"
                         v-on:click="onGlobalCheckboxClick"
                     />
@@ -362,8 +362,6 @@ export const Table = {
             itemsData: this.itemsWithIndex(this.items),
             sortData: this.sort,
             reverseData: this.reverse,
-            globalCheckboxValueData: false,
-            globalCheckboxIcon: "check",
             checkedItemsData: this.enableCheckboxes ? this.initialCheckedItems() : {},
             selectedId: null,
             lastClickedIndex: null,
@@ -399,7 +397,6 @@ export const Table = {
             immediate: true,
             deep: true,
             handler: function(value) {
-                this.selectionChange();
                 this.$emit("update:checked-items", value);
             }
         }
@@ -435,6 +432,12 @@ export const Table = {
         },
         isAllUnchecked() {
             return !Object.values(this.checkedItemsData).includes(true);
+        },
+        globalCheckboxValue() {
+            return !this.isAllUnchecked;
+        },
+        globalCheckboxIcon() {
+            return this.isAllChecked ||this.isAllUnchecked ? "check" : "minus";
         }
     },
     methods: {
@@ -459,18 +462,6 @@ export const Table = {
         },
         isRowSelected(id) {
             return this.allowSelectedHighlight && id === this.selectedId;
-        },
-        selectionChange() {
-            if (this.isAllChecked) {
-                this.globalCheckboxIcon = "check";
-                this.globalCheckboxValueData = true;
-            } else if (this.isAllUnchecked) {
-                this.globalCheckboxIcon = "check";
-                this.globalCheckboxValueData = false;
-            } else {
-                this.globalCheckboxIcon = "minus";
-                this.globalCheckboxValueData = true;
-            }
         },
         columnClass(column) {
             const order = this.reverseData ? "ascending" : "descending";
@@ -530,9 +521,7 @@ export const Table = {
             this.highlightedIndex = null;
         },
         onGlobalCheckboxClick() {
-            this.globalCheckboxValueData = !this.globalCheckboxValueData;
-
-            this.setAllCheckedItemsValue(this.globalCheckboxValueData);
+            this.setAllCheckedItemsValue(!this.globalCheckboxValue);
             this.resetSelectionIndexes();
 
             this.highlightedIndex = null;
