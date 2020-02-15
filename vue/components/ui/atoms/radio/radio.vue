@@ -127,9 +127,7 @@ export const Radio = {
                 disabled: this.disabled,
                 checked: this.checked
             };
-
             if (this.variant) base[this.variant] = true;
-
             return base;
         }
     },

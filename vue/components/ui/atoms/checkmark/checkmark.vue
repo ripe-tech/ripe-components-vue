@@ -59,7 +59,6 @@ export const Checkmark = {
                 unchecked: !this.value,
                 checked: this.value
             };
-
             return base;
         }
     }
