@@ -132,6 +132,12 @@ export const Radio = {
         }
     },
     methods: {
+        focus() {
+            this.$refs.root.focus();
+        },
+        blur() {
+            this.$refs.root.blur();
+        },
         onClick(event) {
             this.$emit("click", event);
         },

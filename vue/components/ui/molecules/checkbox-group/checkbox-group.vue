@@ -1,5 +1,5 @@
 <template>
-    <div class="checkbox-group">
+    <div class="checkbox-group focusable">
         <div class="checkbox-item" v-for="(item, index) in items" v-bind:key="index">
             <slot
                 name="before-item"
@@ -13,6 +13,7 @@
                 v-bind:index="index"
                 v-bind:disabled="item.disabled || disabled"
                 v-bind:variant="item.error || error ? 'error' : null"
+                v-bind:ref="`checkbox-${index}`"
             />
             <slot
                 name="after-item"
@@ -61,9 +62,31 @@ export const CheckboxGroup = {
             checkedData: this.values
         };
     },
+    computed: {
+        firstEnabledIndex() {
+            if (this.disabled) return null;
+
+            const firstEnabled = this.items
+                .map((item, index) => [item, index])
+                .find(([item, index]) => !item.disabled);
+
+            return firstEnabled ? firstEnabled[1] : null;
+        },
+        firstEnabledItem() {
+            return this.$refs[`checkbox-${this.firstEnabledIndex}`];
+        }
+    },
     watch: {
         values(value) {
             this.checkedData = value;
+        }
+    },
+    methods: {
+        focus() {
+            return this.firstEnabledItem.focus();
+        },
+        blur() {
+            return this.firstEnabledItem.blur();
         }
     }
 };

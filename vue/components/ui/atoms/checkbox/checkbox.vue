@@ -1,8 +1,9 @@
 <template>
     <div
         tabindex="0"
-        class="checkbox"
+        class="checkbox focusable"
         v-bind:class="classes"
+        ref="root"
         v-on:click="onClick"
         v-on:mousedown="onMouseDown"
         v-on:mouseup="onMouseUp"
@@ -173,6 +174,12 @@ export const Checkbox = {
         }
     },
     methods: {
+        focus() {
+            this.$refs.root.focus();
+        },
+        blur() {
+            this.$refs.root.blur();
+        },
         toggle() {
             if (this.disabled) return;
             this.checkedData = !this.checkedData;

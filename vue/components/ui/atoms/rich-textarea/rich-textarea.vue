@@ -1,5 +1,5 @@
 <template>
-    <div class="rich-textarea" v-bind:style="style" v-bind:class="classes" v-on:click="onClick">
+    <div class="rich-textarea focusable" v-bind:style="style" v-bind:class="classes" v-on:click="onClick">
         <div class="textarea-container">
             <textarea-ripe
                 class="textarea"
@@ -250,8 +250,17 @@ export const RichTextarea = {
         }
     },
     methods: {
+        focus() {
+            this.focusTextarea();
+        },
+        blur() {
+            this.blurTextarea();
+        },
         focusTextarea() {
             this.$refs.textarea.focus();
+        },
+        blurTextarea() {
+            this.$refs.textarea.blur();
         },
         addAttachments(attachments) {
             this.attachmentsData = (this.attachmentsData || []).concat([...attachments]);

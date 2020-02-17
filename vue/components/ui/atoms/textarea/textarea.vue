@@ -1,6 +1,6 @@
 <template>
     <textarea
-        class="textarea"
+        class="textarea focusable"
         v-bind:style="style"
         v-bind:class="classes"
         v-bind:value="value"
@@ -180,8 +180,8 @@ export const Textarea = {
         focus() {
             this.$refs.textarea.focus();
         },
-        bur() {
-            this.$refs.textarea.bur();
+        blur() {
+            this.$refs.textarea.blur();
         },
         calculate() {
             if (this.resize) {

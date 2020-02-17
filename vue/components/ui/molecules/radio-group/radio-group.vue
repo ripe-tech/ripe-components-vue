@@ -1,5 +1,5 @@
 <template>
-    <div class="radio-group">
+    <div class="radio-group focusable">
         <div class="radio-item" v-for="(item, index) in items" v-bind:key="index">
             <slot
                 name="before-item"
@@ -74,9 +74,18 @@ export const RadioGroup = {
                 .find(([item, index]) => !item.disabled);
 
             return firstEnabled ? firstEnabled[1] : null;
+        },
+        firstEnabledItem() {
+            return this.$refs[`radio-${this.firstEnabledIndex}`];
         }
     },
     methods: {
+        focus() {
+            return this.firstEnabledItem.focus();
+        },
+        blur() {
+            return this.firstEnabledItem.blur();
+        },
         focusAndSelectItem(item, index) {
             if (item.disabled || this.disabled) return false;
             if (index !== undefined) this.$refs[`radio-${index}`][0].$refs.root.focus();
