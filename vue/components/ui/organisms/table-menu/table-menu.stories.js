@@ -11,11 +11,11 @@ storiesOf("Organisms", module)
             },
             tableTitle: {
                 type: String,
-                default: text("Table header title", "Awesome programmers")
+                default: text("Table title", "Awesome programmers")
             },
             menuTitle: {
                 type: String,
-                default: text("Menu header title", "Something wrong?")
+                default: text("Menu title", "Something wrong?")
             },
             menuMode: {
                 default: select(
@@ -50,7 +50,7 @@ storiesOf("Organisms", module)
             animationDuration: {
                 default: number("Animation Duration", 0.3)
             },
-            mockItems: {
+            items: {
                 default: () => [
                     {
                         id: 1,
@@ -78,7 +78,7 @@ storiesOf("Organisms", module)
                     }
                 ]
             },
-            mockColumns: {
+            columns: {
                 type: Array,
                 default: () => [
                     { value: "id", label: "ID" },
@@ -92,8 +92,6 @@ storiesOf("Organisms", module)
         },
         data: function() {
             return {
-                reverseData: null,
-                sortData: null,
                 menuVisibleData: this.menuVisible,
                 selectedIndexData: this.selectedIndex
             };
@@ -109,18 +107,16 @@ storiesOf("Organisms", module)
         template: `
             <div>
                 <table-menu
-                    v-bind:items="mockItems"
-                    v-bind:columns="mockColumns"
+                    v-bind:items="items"
+                    v-bind:columns="columns"
                     v-bind:selected-index.sync="selectedIndexData"
-                    v-bind:table-title="tableTitle" 
+                    v-bind:table-title="tableTitle"
                     v-bind:menu-title="menuTitle" 
                     v-bind:menu-mode="menuMode" 
                     v-bind:menu-visible.sync="menuVisibleData"
                     v-bind:menu-width="menuWidth"
                     v-bind:menu-alignment="menuAlignment" 
                     v-bind:menu-background-color="menuBackgroundColor"
-                    v-bind:sort.sync="sortData"
-                    v-bind:reverse.sync="reverseData"
                     v-bind:animation-duration="animationDuration">
                     <template v-slot:item-alive="{ item }">
                         <checkmark v-bind:value="item.alive" />
@@ -141,6 +137,5 @@ storiesOf("Organisms", module)
                 </table-menu>
                 <p>Menu visible: {{ menuVisibleData }}, selected: {{ selectedIndexData }}</p>
             </div>
-
         `
     }));

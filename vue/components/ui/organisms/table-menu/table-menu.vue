@@ -6,13 +6,12 @@
         v-bind:menu-visible.sync="menuVisibleData"
         v-bind:menu-width="menuWidth"
         v-bind:animation-duration="animationDuration"
-        v-bind:class="[menuMode, menuAlignment]"
     >
         <template v-slot:content>
-            <slot name="content-header">
+            <slot name="header">
                 <h2 class="content-title" v-if="tableTitle">{{ tableTitle }}</h2>
             </slot>
-            <div class="content-content" ref="content-content">
+            <div class="content" ref="content">
                 <table-ripe
                     v-bind:columns="columns"
                     v-bind:items="itemsWithIndex"
@@ -23,8 +22,8 @@
                     <template v-slot:row="{ item, index }">
                         <tr
                             v-bind:class="[{ selected: isSelected(item) }]"
-                            v-bind:key="item.id"
-                            v-on:click="onClickItem(item)"
+                            v-bind:key="item.id || item.tmp_id"
+                            v-on:click="onClickItem($event, item, index)"
                         >
                             <slot v-bind:item="item" v-bind:index="index">
                                 <td
@@ -50,7 +49,7 @@
                     </template>
                 </table-ripe>
             </div>
-            <slot name="content-footer">
+            <slot name="footer">
                 <button-color
                     class="add-item"
                     v-bind:text="'Add row'"
@@ -102,8 +101,8 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.table-menu .content-title,
-.table-menu .menu-title {
+.table-menu > .content-title,
+.table-menu > .menu-title {
     color: $dark;
     font-size: 18px;
     font-weight: 500;
@@ -113,22 +112,22 @@
     padding: 10px 0px 10px 20px;
 }
 
-.table-menu .content-content {
+.table-menu .content {
     min-height: 75px;
     overflow-x: hidden;
     overflow-y: auto;
 }
 
-.table-menu .content-content .table tr {
+.table-menu .content .table tr {
     cursor: pointer;
     transition: opacity 0.1s ease-in-out;
 }
 
-.table-menu .content-content .table tr:hover {
+.table-menu .content .table tr:hover {
     background-color: $selected-color;
 }
 
-.table-menu .content-content .table tr.selected {
+.table-menu .content .table tr.selected {
     background-color: #e3e8f1;
 }
 
@@ -252,7 +251,7 @@ export const TableMenu = {
     },
     watch: {
         selectedIndex(value) {
-            this.setMenuItem(value);
+            this.openMenu(value);
         },
         selectedIndexData(value) {
             this.$emit("update:selected-index", value);
@@ -261,6 +260,7 @@ export const TableMenu = {
             this.menuVisibleData = value;
         },
         menuVisibleData(value) {
+            this.focusFirstMenuInput();
             this.$emit("update:menu-visible", value);
         },
         sort(value) {
@@ -279,45 +279,55 @@ export const TableMenu = {
         }
     },
     methods: {
-        setMenuItem(index) {
+        addEmpty() {
+            const newItem = { tmp_id: String(Math.random()) };
+            this.items.push(newItem);
+            this.menuVisibleData = true;
+            this.selectedIndexData = this.items.length - 1;
+        },
+        delete(index) {
+            this.items.splice(index, 1);
+            this.selectedIndexData = Math.max(0, index - 1);
+        },
+        isSelected(item) {
+            return (
+                this.selectedItem.id === item.id ||
+                (this.selectedItem.tmp_id && this.selectedItem.tmp_id === item.tmp_id)
+            );
+        },
+        scrollTop() {
+            const content = this.$refs.content;
+            content.scrollTop = 0;
+        },
+        scrollBottom() {
+            const content = this.$refs.content;
+            content.scrollTop = content.scrollHeight;
+        },
+        openMenu(index) {
             this.selectedIndexData = index;
             this.menuVisibleData = true;
-            this.focusFirstMenuInput();
-        },
-        getColumnLabel(value) {
-            const column = this.columns.find(l => l.value === value);
-            return column.label || value;
         },
         focusFirstMenuInput() {
             this.$refs["menu-container"].getElementsByTagName("input")[0].focus();
         },
-        scrollTop() {
-            const table = this.$refs["content-content"];
-            table.scrollTop = 0;
-        },
-        scrollBottom() {
-            const table = this.$refs["content-content"];
-            table.scrollTop = table.scrollHeight;
-        },
         toggleMenu() {
-            this.menuVisibleData = this.menuVisibleData
-                ? false
-                : true || this.focusFirstMenuInput();
+            this.menuVisibleData = !this.menuVisibleData;
         },
-        isSelected(item) {
-            return this.selectedItem.id === item.id;
+        onClickItem(event, item, index) {
+            if (this.isSelected(item)) {
+                this.toggleMenu();
+            } else {
+                this.openMenu(item._originalIndex);
+            }
+            this.$emit("click:item", event, item, index);
         },
-        onClickItem(item) {
-            this.isSelected(item) ? this.toggleMenu() : this.setMenuItem(item._originalIndex);
+        onClickAddItem(event) {
+            this.addEmpty();
+            this.$emit("click:add", event);
         },
-        onClickAddItem() {
-            this.$emit("click:add");
-        },
-        onClickDeleteItem() {
-            if (this.selectedItem === null) return;
-            this.$emit("click:delete", this.selectedItem, this.selectedIndexData);
-            this.items.splice(this.selectedIndexData, 1);
-            if (this.selectedIndexData !== 0) this.selectedIndexData -= 1;
+        onClickDeleteItem(event) {
+            this.delete(this.selectedIndexData);
+            this.$emit("click:delete", event, this.selectedItem, this.selectedIndexData);
         }
     }
 };
