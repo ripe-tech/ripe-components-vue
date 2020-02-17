@@ -188,6 +188,14 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
+.details {
+    padding: 0px 16px 0px 16px;
+}
+
+body.mobile .details {
+    padding: 0px 0px 0px 0px;
+}
+
 .container-ripe {
     min-height: 430px;
 }

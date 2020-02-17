@@ -5,6 +5,12 @@ storiesOf("Atoms", module)
     .addDecorator(withKnobs)
     .add("Attachments", () => ({
         props: {
+            width: {
+                default: number("Width", 250)
+            },
+            height: {
+                default: number("Height", 200)
+            },
             attachments: {
                 type: Array,
                 default: () => [
@@ -39,12 +45,6 @@ storiesOf("Atoms", module)
                         path: "http://i.pravatar.cc"
                     }
                 ]
-            },
-            width: {
-                default: number("Width", 250)
-            },
-            height: {
-                default: number("Height", 200)
             }
         },
         template: `
