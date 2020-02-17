@@ -4,6 +4,7 @@
             v-bind:value.sync="valueData"
             v-bind:variant="variant"
             v-bind:border="border"
+            v-bind:type="type"
             v-bind:placeholder="placeholder"
             v-bind:disabled="disabled"
             v-bind:height="height"
@@ -88,6 +89,10 @@ export const InputSymbol = {
         value: {
             type: [String, Number],
             default: ""
+        },
+        type: {
+            type: String,
+            default: null
         },
         variant: {
             type: String,
