@@ -21,7 +21,7 @@ storiesOf("Atoms", module)
             },
             fontSize: {
                 default: number("Font Size", 26)
-            },
+            }
         },
         template: `
             <div>
