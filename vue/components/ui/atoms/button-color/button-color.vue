@@ -309,7 +309,7 @@ export const ButtonColor = {
         },
         type: {
             type: String,
-            default: null
+            default: "button"
         },
         alignment: {
             type: String,
