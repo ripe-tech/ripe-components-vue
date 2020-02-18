@@ -1,8 +1,12 @@
 <template>
-    <image-ripe
+    <icon
         class="checkmark"
-        v-bind:src="iconPath"
-        v-bind:fade="false"
+        v-bind:icon="icon"
+        v-bind:color="'white'"
+        v-bind:stroke-width="4.5"
+        v-bind:stroke-linecap="'round'"
+        v-bind:width="sizeNoPadding"
+        v-bind:height="sizeNoPadding"
         v-bind:class="classes"
         v-bind:style="style"
     />
@@ -35,14 +39,18 @@ export const Checkmark = {
         }
     },
     computed: {
-        iconPath() {
-            return this.value ? require("./assets/ok.svg") : require("./assets/close.svg");
+        icon() {
+            return this.value ? "ok" : "close";
+        },
+        padding() {
+            return parseInt(this.size / 4.5);
+        },
+        sizeNoPadding() {
+            return this.size - this.padding * 2;
         },
         style() {
             return {
-                height: `${this.size}px`,
-                width: `${this.size}px`,
-                padding: `${parseInt(this.size / 4.5)}px`,
+                padding: `${this.padding}px`,
                 "border-radius": `${this.size}px`
             };
         },
@@ -51,7 +59,6 @@ export const Checkmark = {
                 unchecked: !this.value,
                 checked: this.value
             };
-
             return base;
         }
     }

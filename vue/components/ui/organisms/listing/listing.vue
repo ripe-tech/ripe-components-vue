@@ -1,5 +1,5 @@
 <template>
-    <div class="listing" v-bind:class="{ loading, empty: items.length === 0 }">
+    <div class="listing" v-bind:class="classes">
         <button
             class="scroll-button"
             v-bind:class="{ show: showScrollTop }"
@@ -59,6 +59,14 @@
                         v-bind:add-filter="addFilter"
                     />
                 </template>
+                <template v-slot:table-row="{ item, index }">
+                    <slot
+                        name="table-row"
+                        v-bind:item="item"
+                        v-bind:index="index"
+                        v-bind:add-filter="addFilter"
+                    />
+                </template>
                 <template v-slot:empty>
                     <h1 v-if="notFoundText">{{ notFoundText }}</h1>
                     <h1 v-else>No {{ name }} found</h1>
@@ -107,6 +115,15 @@
 
 .listing {
     box-sizing: border-box;
+    padding: 0px 16px 0px 16px;
+}
+
+.listing.container-expanded {
+    padding: 0px 0px 0px 0px;
+}
+
+body.mobile .listing {
+    padding: 0px 0px 0px 0px;
 }
 
 .listing.loading.empty ::v-deep .loader.loader-bottom {
@@ -316,6 +333,20 @@ export const Listing = {
         },
         onLineupClick(item, index) {
             this.$emit("click:lineup", item, index);
+        }
+    },
+    computed: {
+        classes() {
+            const base = {
+                loading: this.loading,
+                empty: this.items.length === 0
+            };
+
+            if (this.containerMode) {
+                base["container-" + this.containerMode] = this.containerMode;
+            }
+
+            return base;
         }
     },
     beforeRouteUpdate: function(to, from, next) {

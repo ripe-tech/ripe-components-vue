@@ -14,6 +14,9 @@
                 <template v-slot="{ item, index }">
                     <slot name="table-item" v-bind:item="item" v-bind:index="index" />
                 </template>
+                <template v-slot:row="{ item, index }">
+                    <slot name="table-row" v-bind:item="item" v-bind:index="index" />
+                </template>
             </table-ripe>
             <lineup
                 v-bind:items="items"

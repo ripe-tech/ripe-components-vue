@@ -36,7 +36,10 @@
     outline: none;
     padding-left: 12px;
     padding-right: 12px;
-    transition: width 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+    transition: width 0.2s ease,
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
     width: 100%;
 }
 
@@ -142,10 +145,15 @@ export const Input = {
         fontWeight: {
             type: Number,
             default: null
+        },
+        validationMessage: {
+            type: String,
+            default: null
         }
     },
     mounted: function() {
         this.autofocus && this.focus();
+        this.setValidationMessage(this.validationMessage);
     },
     methods: {
         setValue(value) {
@@ -159,6 +167,9 @@ export const Input = {
         },
         onClick(event) {
             this.$emit("click", event);
+        },
+        setValidationMessage(value) {
+            this.$refs.input.setCustomValidity(value || "");
         },
         onInput(value) {
             this.setValue(value);
@@ -193,7 +204,13 @@ export const Input = {
             if (this.variant) base[this.variant] = true;
             if (this.border) base[`border-${this.border}`] = true;
             if (this.ellipsis) base.ellipsis = true;
+            if (this.validationMessage) base.validation = true;
             return base;
+        }
+    },
+    watch: {
+        validationMessage(value) {
+            this.setValidationMessage(value);
         }
     }
 };

@@ -10,8 +10,8 @@
 
 .icon ::v-deep svg {
     display: block;
-    height: 100%;
-    width: 100%;
+    height: inherit;
+    width: inherit;
 }
 </style>
 
@@ -25,31 +25,31 @@ export const Icon = {
         },
         color: {
             type: String,
-            required: false
+            default: null
         },
         fill: {
             type: String,
-            required: false
+            default: null
         },
         strokeWidth: {
             type: Number,
-            required: false
+            default: null
         },
         strokeLinecap: {
             type: String,
-            required: false
+            default: null
         },
         width: {
             type: Number,
-            required: false
+            default: null
         },
         height: {
             type: Number,
-            required: false
+            default: null
         },
         viewBox: {
             type: String,
-            required: false
+            default: null
         }
     },
     watch: {
@@ -93,7 +93,8 @@ export const Icon = {
             this.$emit("click", event);
         },
         setSvgAttribute(attribute, value) {
-            if (!this.$el.firstElementChild || value === undefined) return;
+            if (!this.$el.firstElementChild) return;
+            if ([undefined, null].includes(value)) return;
             this.$el.firstElementChild.setAttribute(attribute, value);
         },
         setAllSvgAttributes() {

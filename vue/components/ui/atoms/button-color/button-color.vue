@@ -1,8 +1,9 @@
 <template>
-    <div
+    <button
         class="button button-color"
         v-bind:class="classes"
         v-bind:style="style"
+        v-bind:type="type"
         v-on:click="handleClick"
     >
         <loader
@@ -11,12 +12,26 @@
             v-bind:loader-style="loaderStyle"
             v-show="loading"
         />
-        <img class="icon" v-bind:src="iconPath" v-if="icon && !loading" />
-        <img class="icon-hover" v-bind:src="iconHoverPath" v-if="icon && !loading" />
+        <icon
+            class="icon"
+            v-bind:icon="icon"
+            v-bind:color="iconColor"
+            v-bind:width="iconSize"
+            v-bind:height="iconSize"
+            v-if="icon && !loading"
+        />
+        <icon
+            class="icon-hover"
+            v-bind:icon="icon"
+            v-bind:color="iconHoverColor"
+            v-bind:width="iconSize"
+            v-bind:height="iconSize"
+            v-if="icon && !loading"
+        />
         <span v-show="!loading">
             <slot>{{ text }}</slot>
         </span>
-    </div>
+    </button>
 </template>
 
 <style lang="scss" scoped>
@@ -30,12 +45,14 @@
     color: $white;
     cursor: pointer;
     display: inline-block;
+    font-family: $font-family;
     font-size: 0px;
     font-weight: 600;
     height: 40px;
     letter-spacing: 0.25px;
     line-height: 38px;
     min-width: 180px;
+    outline: none;
     padding: 0px 20px 0px 20px;
     text-align: center;
     transition: background-color 0.15s ease-in-out,
@@ -290,6 +307,10 @@ export const ButtonColor = {
             type: String,
             default: null
         },
+        type: {
+            type: String,
+            default: null
+        },
         alignment: {
             type: String,
             default: null
@@ -329,37 +350,26 @@ export const ButtonColor = {
         }
     },
     computed: {
-        iconPath() {
-            let iconColor;
-
-            switch (this.color) {
-                case "white":
-                    iconColor = "black";
-                    break;
-                default:
-                    iconColor = "white";
-                    break;
-            }
-
-            if (this.secondary) iconColor = "black";
-
-            return require(`./../../../../assets/icons/${iconColor}/${this.icon}.svg`);
+        iconColor() {
+            return this.color === "white" || this.secondary ? "black" : "white";
         },
-        iconHoverPath() {
-            let iconColor;
+        iconHoverColor() {
+            return this.color === "white" || this.secondary ? "white" : "white";
+        },
+        iconSize() {
+            switch (this.sizeMode) {
+                case "tiny":
+                    return 15;
 
-            switch (this.color) {
-                case "white":
-                    iconColor = "white";
-                    break;
+                case "small":
+                    return 18;
+
+                case "medium":
+                    return 22;
+
                 default:
-                    iconColor = "white";
-                    break;
+                    return 22;
             }
-
-            if (this.secondary) iconColor = "white";
-
-            return require(`./../../../../assets/icons/${iconColor}/${this.icon}.svg`);
         },
         sizeMode() {
             if (this.small) return "small";

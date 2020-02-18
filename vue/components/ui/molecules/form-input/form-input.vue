@@ -5,6 +5,7 @@
                 class="header"
                 v-bind:style="headerStyle"
                 v-bind:class="headerClasses"
+                v-bind:size="headerSize"
                 v-bind:text="header"
                 v-bind:for="id"
                 v-if="header"
@@ -19,7 +20,7 @@
                     class="footer"
                     v-bind:style="footerStyle"
                     v-bind:class="footerClasses"
-                    v-bind:size="'small'"
+                    v-bind:size="footerSize"
                     v-bind:text="footer"
                     v-bind:for="id"
                     v-if="footer"
@@ -112,9 +113,17 @@ export const FormInput = {
             type: String,
             default: null
         },
+        headerSize: {
+            type: String,
+            default: "normal"
+        },
         footerVariant: {
             type: String,
             default: null
+        },
+        footerSize: {
+            type: String,
+            default: "small"
         },
         headerMinWidth: {
             type: Number,
