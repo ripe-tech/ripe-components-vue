@@ -1,11 +1,13 @@
 <template>
     <div class="progress-list-item">
-        {{ title }}<br />
-        {{ description }}<br />
-        {{ finished }}<br />
-        {{ progress }}<br />
-        {{ actionText }}<br />
-        {{ actionIcon }}<br />
+        <div class="information-container">
+            <div class="information">
+                <div class="title">{{ title }}</div>
+                <div class="description">{{ description }}</div>
+            </div>
+            <div class="state">{{ actionText }}<br/>{{ actionIcon }}<br/>{{ finished }}</div>            
+        </div>
+        <div class="progress">{{ progress }} %</div>
     </div>
 </template>
 
