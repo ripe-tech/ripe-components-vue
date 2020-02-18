@@ -59,9 +59,9 @@ storiesOf("Organisms", module)
                     { label: "Item 3", event: "item_3" }
                 ]
             },
-            hideHeaderButtons: {
+            headerButtons: {
                 type: Boolean,
-                default: boolean("Hide Header buttons", false)
+                default: boolean("Header buttons", true)
             }
         },
         template: `
@@ -77,7 +77,7 @@ storiesOf("Organisms", module)
                 v-bind:context="{}"
                 v-bind:index="0"
                 v-bind:get-items="() => values"
-                v-bind:hide-header-buttons="hideHeaderButtons"
+                v-bind:header-buttons="headerButtons"
             >
                 <template v-slot:shirt>
                     <p>Custom entry</p>
