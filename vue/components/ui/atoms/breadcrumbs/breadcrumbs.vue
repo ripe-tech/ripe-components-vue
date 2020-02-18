@@ -2,10 +2,21 @@
     <div class="breadcrumbs" v-bind:style="style">
         <template v-for="(breadcrumb, index) in breadcrumbs">
             <template v-if="index != Object.keys(breadcrumbs).length - 1">
-                <link-ripe v-bind:key="index" v-bind:text="breadcrumb.text" v-bind:href="breadcrumb.route" v-bind:hover="'color'" />
-                <div v-bind:key="`${index}-division`" class="breadcrumb-division" v-html="division"/>
+                <link-ripe
+                    v-bind:text="breadcrumb.text"
+                    v-bind:href="breadcrumb.route"
+                    v-bind:hover="'color'"
+                    v-bind:key="index"
+                />
+                <div
+                    class="breadcrumb-division"
+                    v-bind:key="`${index}-division`"
+                    v-html="division"
+                />
             </template>
-            <div v-else v-bind:key="index" class="breadcrumb-last">{{breadcrumb.text}}</div>
+            <div class="breadcrumb-last" v-else v-bind:key="index">
+                {{ breadcrumb.text }}
+            </div>
         </template>
     </div>
 </template>
@@ -42,9 +53,9 @@ export const Breadcrumbs = {
     },
     computed: {
         style() {
-            return { "font-size": `${this.fontSize}px`}
+            return { "font-size": `${this.fontSize}px` };
         },
-        division(){
+        division() {
             return "&nbsp&nbsp/&nbsp&nbsp&nbsp";
         }
     }
