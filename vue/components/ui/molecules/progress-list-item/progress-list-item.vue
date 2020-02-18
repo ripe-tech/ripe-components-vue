@@ -1,6 +1,11 @@
 <template>
     <div class="progress-list-item">
-        <h1>Hello! I'm progress-list-item</h1>
+        {{ title }}<br />
+        {{ description }}<br />
+        {{ finished }}<br />
+        {{ progress }}<br />
+        {{ actionText }}<br />
+        {{ actionIcon }}<br />
     </div>
 </template>
 
@@ -11,7 +16,32 @@
 <script>
 export const ProgressListItem = {
     name: "progress-list-item",
-    props: {}
+    props: {
+        title: {
+            type: String,
+            default: null
+        },
+        description: {
+            type: String,
+            default: null
+        },
+        finished: {
+            type: Boolean,
+            default: false
+        },
+        progress: {
+            type: Number,
+            default: null
+        },
+        actionText: {
+            type: String,
+            default: null
+        },
+        actionIcon: {
+            type: String,
+            default: null
+        }
+    }
 };
 export default ProgressListItem;
 </script>
