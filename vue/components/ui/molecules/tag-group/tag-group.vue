@@ -1,8 +1,8 @@
 <template>
-    <div class="tag-group" v-bind:class="tagGroupClasses" v-on:click="focusInput">
+    <div class="tag-group" v-on:click="focusInput">
         <transition-group name="tag-container" tag="span">
             <tag
-                v-bind:color="generateColor(tag)"
+                v-bind:color="color"
                 v-bind:size="size"
                 v-bind:subtle="subtle"
                 v-for="(tag, index) in tagsData"
@@ -12,14 +12,14 @@
                 <button-icon
                     v-bind:icon="'close'"
                     v-bind:size="buttonSize"
-                    v-if="hasInput"
+                    v-if="editable"
                     v-on:click="deleteTag(index)"
                 />
                 <div
                     class="text"
                     autocorrect="off"
                     spellcheck="false"
-                    v-bind:contenteditable="hasInput"
+                    v-bind:contenteditable="editable"
                     ref="tag-text"
                     v-on:keydown.enter.prevent="updateTag($event, index)"
                     v-on:keydown.esc.prevent="updateTag($event, index)"
@@ -31,8 +31,8 @@
         </transition-group>
         <input
             class="tag-input"
-            v-bind:placeholder="inputPlaceholder"
-            v-if="hasInput"
+            v-bind:placeholder="placeholder"
+            v-if="editable"
             ref="input"
             v-model="inputValue"
             v-on:keydown.enter="addTag"
@@ -96,6 +96,10 @@
     vertical-align: top;
 }
 
+.tag-group .tag-input:focus {
+    outline: none;
+}
+
 .tag-group.tag-group-small .tag-input {
     font-size: 12px;
     height: 28px;
@@ -119,11 +123,11 @@ export const TagGroup = {
             type: Array,
             default: () => []
         },
-        hasInput: {
+        editable: {
             type: Boolean,
             default: true
         },
-        inputPlaceholder: {
+        placeholder: {
             type: String,
             default: "Write and press enter..."
         },
@@ -135,9 +139,9 @@ export const TagGroup = {
             type: Boolean,
             default: true
         },
-        colors: {
-            type: Array,
-            default: () => ["grey", "orange", "blue", "green", "red", "purple"]
+        color: {
+            type: String,
+            default: "grey"
         }
     },
     data: function() {
@@ -152,19 +156,6 @@ export const TagGroup = {
             if (this.size === "medium") return 22;
             if (this.size === "small") return 19;
             if (this.size === "large") return 28;
-        },
-        tagClasses(tag) {
-            const base = {};
-            const color = this.generateColor(tag);
-            if (tag.toString().length < 1) return;
-            base["tag-" + color] = color;
-            if (this.size) base["tag-" + this.size] = this.size;
-            return base;
-        },
-        tagGroupClasses() {
-            const base = {};
-            if (this.size) base["tag-group-" + this.size] = this.size;
-            return base;
         }
     },
     watch: {
@@ -199,10 +190,6 @@ export const TagGroup = {
         },
         deleteTag(index) {
             this.tagsData.splice(index, 1);
-        },
-        generateColor(tag) {
-            const colorIndex = Math.abs(tag.toString().charCodeAt(0)) % this.colors.length;
-            return this.colors[colorIndex];
         },
         focusInput() {
             if (!this.$refs.input) return;

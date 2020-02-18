@@ -16,24 +16,43 @@ storiesOf("Molecules", module)
                     "medium"
                 )
             },
-            inputPlaceholder: {
-                default: text("Input placeholder text", "Write and press enter...")
+            placeholder: {
+                default: text("Placeholder", "Write and press enter...")
             },
             tags: {
                 type: Array,
                 default: () => ["WHITE", "SPUTNIK", "ORCHESTRA", "PULSE"]
             },
-            hasInput: {
-                default: boolean("Has input", true)
+            editable: {
+                default: boolean("Editable", true)
             },
             subtle: {
                 default: boolean("Subtle", false)
+            },
+            color: {
+                default: select(
+                    "Color",
+                    {
+                        Black: "black",
+                        Grey: "grey",
+                        Orange: "orange",
+                        Blue: "blue",
+                        Green: "green",
+                        Red: "red",
+                        Purple: "purple"
+                    },
+                    "black"
+                )
             }
         },
-        template: `<tag-group
-                v-bind:hasInput="hasInput"
+        template: `
+            <tag-group
+                v-bind:tags="tags"
+                v-bind:editable="editable"
+                v-bind:placeholder="placeholder"
+                v-bind:size="size"
                 v-bind:subtle="subtle"
-                v-bind:size="size" v-bind:tags="tags"
-                v-bind:input-placeholder="inputPlaceholder"
-            />`
+                v-bind:color="color"
+            />
+        `
     }));
