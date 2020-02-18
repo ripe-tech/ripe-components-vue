@@ -68,7 +68,7 @@
         </container-ripe>
         <container-ripe class="details-container" v-else>
             <div class="container-header">
-                <div class="header-buttons">
+                <div class="header-buttons" v-if="headerButtons">
                     <slot name="header-buttons">
                         <slot name="header-buttons-before" />
                         <div class="header-button">
@@ -532,6 +532,10 @@ export const Details = {
         safe: {
             type: Boolean,
             default: false
+        },
+        headerButtons: {
+            type: Boolean,
+            default: true
         }
     },
     data: function() {
