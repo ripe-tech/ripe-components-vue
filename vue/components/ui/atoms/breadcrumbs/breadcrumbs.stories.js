@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs } from "@storybook/addon-knobs";
+import { withKnobs, number } from "@storybook/addon-knobs";
 
 storiesOf("Atoms", module)
     .addDecorator(withKnobs)
@@ -18,11 +18,14 @@ storiesOf("Atoms", module)
                     },
                     { text: 7 }
                 ]
-            }
+            },
+            fontSize: {
+                default: number("Font Size", 26)
+            },
         },
         template: `
             <div>
-                <breadcrumbs v-bind:breadcrumbs="breadcrumbs" />
+                <breadcrumbs v-bind:breadcrumbs="breadcrumbs" v-bind:font-size="fontSize" />
             </div>
         `
     }));
