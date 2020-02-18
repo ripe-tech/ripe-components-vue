@@ -1,7 +1,12 @@
 <template>
     <div class="breadcrumbs">
-        <h1>Hi! I'm breadcrumbs</h1>
-        {{ breadcrumbs }}
+        <template v-for="(breadcrumb, index) in breadcrumbs">
+            <template v-if="index != Object.keys(breadcrumbs).length - 1">
+                <link-ripe v-bind:key="index" v-bind:text="breadcrumb.text" v-bind:href="breadcrumb.route" v-bind:color="'grey'"/>
+                <div v-bind:key="`${index}-division`" class="breadcrumb-division" />
+            </template>
+            <div v-else v-bind:key="index" class="breadcrumb-last">{{breadcrumb.text}}</div>
+        </template>
     </div>
 </template>
 
