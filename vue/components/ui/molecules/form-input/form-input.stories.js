@@ -33,6 +33,18 @@ storiesOf("Molecules", module)
                     null
                 )
             },
+            headerSize: {
+                default: select(
+                    "Header Size",
+                    {
+                        Unset: null,
+                        Small: "small",
+                        Medium: "medium",
+                        Large: "large"
+                    },
+                    "medium"
+                )
+            },
             footerVariant: {
                 default: select(
                     "Footer Variant",
@@ -43,6 +55,18 @@ storiesOf("Molecules", module)
                         Success: "success"
                     },
                     null
+                )
+            },
+            footerSize: {
+                default: select(
+                    "Footer Size",
+                    {
+                        Unset: null,
+                        Small: "small",
+                        Medium: "medium",
+                        Large: "large"
+                    },
+                    "small"
                 )
             },
             headerMinWidth: {
@@ -58,7 +82,9 @@ storiesOf("Molecules", module)
                 v-bind:header="header"
                 v-bind:footer="footer"
                 v-bind:header-variant="headerVariant"
+                v-bind:header-size="headerSize"
                 v-bind:footer-variant="footerVariant"
+                v-bind:footer-size="footerSize"
                 v-bind:header-min-width="headerMinWidth"
                 v-bind:footer-min-width="footerMinWidth"    
             >

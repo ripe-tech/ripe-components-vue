@@ -13,9 +13,9 @@ storiesOf("Atoms", module)
                     "Size",
                     {
                         Default: null,
-                        Medium: "medium",
+                        Tiny: "tiny",
                         Small: "small",
-                        Tiny: "tiny"
+                        Medium: "medium"
                     },
                     null
                 )
@@ -26,6 +26,10 @@ storiesOf("Atoms", module)
                     {
                         Default: "default",
                         Red: "red",
+                        Green: "green",
+                        Blue: "blue",
+                        Yellow: "yellow",
+                        Orange: "orange",
                         White: "white"
                     },
                     "default"

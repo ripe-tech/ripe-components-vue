@@ -8,10 +8,14 @@
                 v-bind:transition="tableTransition"
                 v-bind:initial-sort="sort"
                 v-bind:initial-reverse="reverse"
+                v-bind:variant="tableVariant"
                 v-on:click="onTableClick"
             >
                 <template v-slot="{ item, index }">
                     <slot name="table-item" v-bind:item="item" v-bind:index="index" />
+                </template>
+                <template v-slot:row="{ item, index }">
+                    <slot name="table-row" v-bind:item="item" v-bind:index="index" />
                 </template>
             </table-ripe>
             <lineup
@@ -19,6 +23,7 @@
                 v-bind:fields="lineupFields"
                 v-bind:get-item-url="getItemUrl"
                 v-bind:columns="lineupColumns"
+                v-bind:variant="lineupVariant"
                 v-on:click="onLineupClick"
             >
                 <slot
@@ -104,12 +109,20 @@ export const Filter = {
             type: Array,
             default: () => []
         },
+        tableVariant: {
+            type: String,
+            default: null
+        },
         lineupFields: {
             type: Array,
             default: () => []
         },
         lineupColumns: {
             type: Number,
+            default: null
+        },
+        lineupVariant: {
+            type: String,
             default: null
         },
         limit: {

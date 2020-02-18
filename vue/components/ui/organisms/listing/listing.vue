@@ -1,5 +1,5 @@
 <template>
-    <div class="listing" v-bind:class="{ loading, empty: items.length === 0 }">
+    <div class="listing" v-bind:class="classes">
         <button
             class="scroll-button"
             v-bind:class="{ show: showScrollTop }"
@@ -28,8 +28,11 @@
                 v-bind:get-items="getItems"
                 v-bind:get-item-url="getItemUrl"
                 v-bind:table-columns="tableColumns"
+                v-bind:table-variant="tableVariant"
                 v-bind:lineup-fields="lineupFields"
                 v-bind:lineup-columns="lineupColumns"
+                v-bind:lineup-variant="lineupVariant"
+                v-bind:limit="limit"
                 v-bind:filter="filter"
                 v-bind:use-query="useQuery"
                 v-bind:loading.sync="loading"
@@ -51,6 +54,14 @@
                 <template v-slot:table-item="{ item, index }">
                     <slot
                         name="table-item"
+                        v-bind:item="item"
+                        v-bind:index="index"
+                        v-bind:add-filter="addFilter"
+                    />
+                </template>
+                <template v-slot:table-row="{ item, index }">
+                    <slot
+                        name="table-row"
                         v-bind:item="item"
                         v-bind:index="index"
                         v-bind:add-filter="addFilter"
@@ -104,6 +115,15 @@
 
 .listing {
     box-sizing: border-box;
+    padding: 0px 16px 0px 16px;
+}
+
+.listing.container-expanded {
+    padding: 0px 0px 0px 0px;
+}
+
+body.mobile .listing {
+    padding: 0px 0px 0px 0px;
 }
 
 .listing.loading.empty ::v-deep .loader.loader-bottom {
@@ -200,6 +220,10 @@ input[type="text"]:focus {
     background-color: $white;
     border-color: #aaaaaa;
 }
+
+.listing .filter-ripe ::v-deep .lineup > .lineup-item {
+    padding: 12px 8px 12px 8px;
+}
 </style>
 
 <script>
@@ -217,6 +241,10 @@ export const Listing = {
             type: Array,
             required: true
         },
+        tableVariant: {
+            type: String,
+            default: null
+        },
         lineupFields: {
             type: Array,
             required: true
@@ -224,6 +252,14 @@ export const Listing = {
         lineupColumns: {
             type: Number,
             default: null
+        },
+        lineupVariant: {
+            type: String,
+            default: null
+        },
+        limit: {
+            type: Number,
+            default: 25
         },
         name: {
             type: String,
@@ -297,6 +333,20 @@ export const Listing = {
         },
         onLineupClick(item, index) {
             this.$emit("click:lineup", item, index);
+        }
+    },
+    computed: {
+        classes() {
+            const base = {
+                loading: this.loading,
+                empty: this.items.length === 0
+            };
+
+            if (this.containerMode) {
+                base["container-" + this.containerMode] = this.containerMode;
+            }
+
+            return base;
         }
     },
     beforeRouteUpdate: function(to, from, next) {

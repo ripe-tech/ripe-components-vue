@@ -41,7 +41,7 @@ export const Label = {
         },
         size: {
             type: String,
-            default: "normal"
+            default: "medium"
         },
         color: {
             type: String,

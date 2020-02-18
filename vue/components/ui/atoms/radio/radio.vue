@@ -48,8 +48,6 @@
 
 .radio:not(.disabled):not(.error):active > .radio-input > .radio-circle {
     background: url("~./assets/check-dark.svg") center / 4px no-repeat #f4f5f7;
-    border: 2px solid #c3c9cf;
-    padding: 3px 3px 3px 3px;
 }
 
 .radio.error > .radio-input > .radio-circle {
@@ -66,7 +64,6 @@
 .radio.checked > .radio-input > .radio-circle {
     background: url("~./assets/check.svg") center / 4px no-repeat $dark;
     border: 2px solid $dark;
-    padding: 3px 3px 3px 3px;
 }
 
 .radio.error.checked > .radio-input > .radio-circle {
@@ -77,7 +74,6 @@
 .radio.disabled.checked > .radio-input > .radio-circle {
     background: url("~./assets/check-gray.svg") center / 4px no-repeat #f4f5f7;
     border: 2px solid #f6f7f9;
-    padding: 3px 3px 3px 3px;
 }
 
 .radio:focus:not(.disabled) > .radio-input > .radio-circle {
@@ -131,9 +127,7 @@ export const Radio = {
                 disabled: this.disabled,
                 checked: this.checked
             };
-
             if (this.variant) base[this.variant] = true;
-
             return base;
         }
     },

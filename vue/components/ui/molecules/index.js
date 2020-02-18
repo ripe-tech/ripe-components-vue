@@ -1,5 +1,6 @@
 import { Alert } from "./alert/alert.vue";
 import { Announcements } from "./announcements/announcements.vue";
+import { ButtonDropdown } from "./button-dropdown/button-dropdown.vue";
 import { ButtonIconAnimated } from "./button-icon-animated/button-icon-animated.vue";
 import { ChatMessage } from "./chat-message/chat-message.vue";
 import { CheckboxGroup } from "./checkbox-group/checkbox-group.vue";
@@ -25,6 +26,7 @@ import { UploadArea } from "./upload-area/upload-area.vue";
 
 const install = Vue => {
     Vue.component("alert", Alert);
+    Vue.component("button-dropdown", ButtonDropdown);
     Vue.component("button-icon-animated", ButtonIconAnimated);
     Vue.component("announcements", Announcements);
     Vue.component("chat-message", ChatMessage);
@@ -53,6 +55,7 @@ const install = Vue => {
 export {
     Alert,
     Announcements,
+    ButtonDropdown,
     ButtonIconAnimated,
     ChatMessage,
     CheckboxGroup,

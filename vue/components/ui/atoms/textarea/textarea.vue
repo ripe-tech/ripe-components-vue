@@ -35,8 +35,18 @@
     outline: none;
     padding: 8px 12px 8px 12px;
     resize: none;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
+    transition: width 0.2s ease,
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
     width: 100%;
+}
+
+.textarea.monospaced {
+    font-family: consolas, monospace;
+    height: 184px;
+    letter-spacing: 0px;
+    line-height: 18px;
 }
 
 .textarea.dark {
@@ -99,11 +109,19 @@ export const Textarea = {
             type: Boolean,
             default: false
         },
+        monospaced: {
+            type: Boolean,
+            default: false
+        },
         width: {
             type: Number,
             default: null
         },
         height: {
+            type: Number,
+            default: null
+        },
+        fontSize: {
             type: Number,
             default: null
         },
@@ -128,12 +146,16 @@ export const Textarea = {
             const base = {
                 width: this.width === null ? null : `${this.width}px`,
                 height: height === null ? null : `${height}px`,
+                "font-size": this.fontSize === null ? null : `${this.fontSize}px`,
                 "font-weight": this.fontWeight === null ? null : `${this.fontWeight}`
             };
             return base;
         },
         classes() {
-            const base = { resize: this.resize };
+            const base = {
+                resize: this.resize,
+                monospaced: this.monospaced
+            };
             if (this.variant) base[this.variant] = true;
             if (this.border) base[`border-${this.border}`] = true;
             return base;

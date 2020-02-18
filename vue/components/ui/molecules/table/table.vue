@@ -23,21 +23,30 @@
         <transition-group tag="tbody" v-bind:name="transition" class="table-body">
             <template v-for="(item, index) in sortedItems">
                 <slot name="before-row" v-bind:item="item" v-bind:index="index" />
-                <tr v-bind:key="item.id" v-on:click="onClick(item, index)">
-                    <slot v-bind:item="item" v-bind:index="index">
-                        <td
-                            v-bind:class="column.value"
-                            v-for="column in columns"
-                            v-bind:key="column.value"
-                        >
-                            {{
-                                item[column.value] !== null && item[column.value] !== undefined
-                                    ? item[column.value]
-                                    : "-"
-                            }}
-                        </td>
-                    </slot>
-                </tr>
+                <slot name="row" v-bind:item="item" v-bind:index="index">
+                    <tr v-bind:key="item.id" v-on:click="onClick(item, index)">
+                        <slot v-bind:item="item" v-bind:index="index">
+                            <td
+                                v-bind:class="column.value"
+                                v-for="column in columns"
+                                v-bind:key="column.value"
+                            >
+                                <slot
+                                    v-bind:item="item"
+                                    v-bind:index="index"
+                                    v-bind:name="`cell-${column.value}`"
+                                >
+                                    {{
+                                        item[column.value] !== null &&
+                                            item[column.value] !== undefined
+                                            ? item[column.value]
+                                            : "-"
+                                    }}
+                                </slot>
+                            </td>
+                        </slot>
+                    </tr>
+                </slot>
                 <slot name="after-row" v-bind:item="item" v-bind:index="index" />
             </template>
         </transition-group>
@@ -91,7 +100,7 @@
     white-space: pre;
 }
 
-.table.dense th {
+.table.table-dense th {
     font-weight: 600;
 }
 
@@ -105,8 +114,9 @@
     word-break: break-all;
 }
 
-.table.dense ::v-deep td {
+.table.table-dense ::v-deep td {
     height: 40px;
+    padding: 0px 10px 0px 10px;
 }
 
 .table ::v-deep td > * {
@@ -196,6 +206,10 @@
 .table .table-column > span {
     padding: 0px 20px 0px 20px;
     position: relative;
+}
+
+.table.table-dense .table-column > span {
+    padding: 0px 16px 0px 16px;
 }
 
 .table .table-column > span::before {
@@ -306,7 +320,7 @@ export const Table = {
             const base = {
                 alignment: this.alignment === "left" ? "text-align-left" : ""
             };
-            if (this.variant) base[this.variant] = true;
+            if (this.variant) base[`table-${this.variant}`] = true;
             return base;
         }
     },

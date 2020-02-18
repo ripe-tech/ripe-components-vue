@@ -22,7 +22,8 @@
 }
 
 .container-ripe.container-ripe-expanded {
-    margin: 32px 10px 32px 10px;
+    border-radius: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
     max-width: 100%;
 }
 
@@ -46,9 +47,7 @@ export const Container = {
     computed: {
         classes() {
             const base = {};
-
             if (this.mode) base[`container-ripe-${this.mode}`] = true;
-
             return base;
         }
     }
