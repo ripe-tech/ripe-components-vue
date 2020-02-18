@@ -32,7 +32,7 @@
                 v-bind:steps="100"
                 v-bind:current-step="progress"
                 v-bind:color="'#1d2631'"
-                v-bind:label="`${progress} %`"
+                v-bind:label="`${progress}%`"
             />
         </div>
     </div>
