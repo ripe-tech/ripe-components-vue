@@ -68,7 +68,7 @@
         </container-ripe>
         <container-ripe class="details-container" v-else>
             <div class="container-header">
-                <div class="header-buttons">
+                <div class="header-buttons" v-if="!hideHeaderButtons">
                     <slot name="header-buttons">
                         <slot name="header-buttons-before" />
                         <div class="header-button">
@@ -530,6 +530,10 @@ export const Details = {
             default: true
         },
         safe: {
+            type: Boolean,
+            default: false
+        },
+        hideHeaderButtons: {
             type: Boolean,
             default: false
         }
