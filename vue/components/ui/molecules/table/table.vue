@@ -47,6 +47,7 @@
                         </slot>
                     </tr>
                 </slot>
+
                 <slot name="after-row" v-bind:item="item" v-bind:index="index" />
             </template>
         </transition-group>
