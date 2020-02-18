@@ -15,7 +15,7 @@ storiesOf("Atoms", module)
                 default: boolean("Finished", false)
             },
             progress: {
-                default: number("Title", null)
+                default: number("Progress", null)
             },
             actionText: {
                 default: text("Action Text", "Go to build")
