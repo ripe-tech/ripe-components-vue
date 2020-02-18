@@ -61,7 +61,7 @@ storiesOf("Organisms", module)
             },
             headerButtons: {
                 type: Boolean,
-                default: boolean("Header buttons", true)
+                default: boolean("Header Buttons", true)
             }
         },
         template: `
