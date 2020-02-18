@@ -41,6 +41,10 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
+.progress-list-item {
+    padding: 16px 20px 16px 20px;
+}
+
 .progress-list-item .information-container .information,
 .progress-list-item .information-container .state {
     display: inline-block;
@@ -48,22 +52,28 @@
 
 .progress-list-item .information-container .information {
     //background-color: lightblue;
+    font-size: 14px;
+    letter-spacing: 0.3px;
 }
 
 .progress-list-item .information-container .information .title {
     font-weight: bold;
+    color: #1d2631;
 }
 
 .progress-list-item .information-container .information .description {
-    //color: gray;
+    margin: 4px 0px 0px 0px;
+    color: #a4adb5;
 }
 
 .progress-list-item .information-container .state {
     //background-color: lightcoral;
+    float: right;
 }
 
 .progress-list-item .progress {
     //background-color: lightgreen;
+    margin: 17px 0px 0px 0px;
 }
 </style>
 
