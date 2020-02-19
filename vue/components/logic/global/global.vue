@@ -2,6 +2,7 @@
     <div class="global">
         <overlay v-bind:global="true" />
         <alert />
+        <notification-message />
     </div>
 </template>
 

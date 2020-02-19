@@ -44,6 +44,13 @@ const partMixin = {
             const result = await this._alert(options);
             return result;
         },
+        async notify(message, options = {}) {
+            this.notifyMessage(message, options);
+        },
+        async notifyMessage(message, options = {}) {
+            options.text = message;
+            this._notify(options);
+        },
         async _alert(options = {}) {
             const promise = new Promise((resolve, reject) => {
                 try {
@@ -56,6 +63,9 @@ const partMixin = {
             this.$bus.$emit("alert", options);
             const result = await promise;
             return result;
+        },
+        async _notify(options = {}) {
+            this.$bus.$emit("notification", options);
         },
         isMobile() {
             return this.$root.$device && this.$root.$device.isMobile;
