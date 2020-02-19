@@ -62,13 +62,13 @@ export const ProgressBar = {
         }
     },
     computed: {
-        labelStyle() {
+        labelStyle() {
             return {
                 color: this.color,
                 "text-align": this.labelAlignment
-            }
+            };
         },
-        fillStyle: function() {
+        fillStyle() {
             return {
                 "background-color": this.color || "#4071f2",
                 width: `${(this.currentStep / this.steps) * 100}%`
