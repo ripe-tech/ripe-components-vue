@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, color, number, text } from "@storybook/addon-knobs";
+import { withKnobs, color, number, text, select } from "@storybook/addon-knobs";
 
 const style = {
     "margin-bottom": "10px",
@@ -21,6 +21,18 @@ storiesOf("Molecules", module)
             },
             label: {
                 default: text("Label", "")
+            },
+            labelAlignment: {
+                default: select(
+                    "Label Alignment",
+                    {
+                        Default: "",
+                        Left: "left",
+                        Right: "right",
+                        Center: "center"
+                    },
+                    ""
+                )
             }
         },
         data: function() {
@@ -33,7 +45,9 @@ storiesOf("Molecules", module)
                     v-bind:current-step="currentStep"
                     v-bind:color="color"
                     v-bind:label="label"
-                    v-bind:style="style" >
+                    v-bind:label-alignment="labelAlignment"
+                    v-bind:style="style"
+                    >
                 </progress-bar>
                 <progress-bar v-bind:current-step="2" color="#000000" v-bind:style="style"></progress-bar>
                 <progress-bar v-bind:current-step="3" color="#46a546" v-bind:style="style" v-bind:label="'Label'"></progress-bar>
