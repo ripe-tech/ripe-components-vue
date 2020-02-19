@@ -5,7 +5,6 @@
             v-on:keydown.ctrl.65.exact="onCtrlA"
             v-on:keydown.ctrl.alt.65.exact="onCtrlAltA"
             v-on:keydown.meta.alt.65.exact="onMetaAltA"
-            v-on:mouseover="onMouseOver"
         />
         <thead class="table-head">
             <tr>
@@ -73,8 +72,7 @@
                             </td>
                         </slot>
                     </tr>
-                </slot>
-
+                    </slot>
                 <slot name="after-row" v-bind:item="item" v-bind:index="index" />
             </template>
         </transition-group>
@@ -121,10 +119,6 @@
 
 .table tbody tr:hover {
     background-color: $selected-color;
-}
-
-.table tbody tr.selected {
-    background-color: $light-white;
 }
 
 .table th {
@@ -335,10 +329,6 @@ export const Table = {
         variant: {
             type: String,
             default: null
-        },
-        allowSelectedHighlight: {
-            type: Boolean,
-            default: false
         }
     },
     data: function() {
@@ -452,9 +442,6 @@ export const Table = {
         },
         checkboxClick(index, itemId) {
             this.lastClickedIndex = index;
-        },
-        rowCtrlClick(index, itemId) {
-            this.setChecked(itemId, !this.checkedItemsData[itemId]);
         },
         onGlobalCheckboxClick() {
             this.setAllCheckedItemsValue(this.isAllUnchecked);
