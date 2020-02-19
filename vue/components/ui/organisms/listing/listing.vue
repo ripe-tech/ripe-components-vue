@@ -62,6 +62,14 @@
                         v-bind:add-filter="addFilter"
                     />
                 </template>
+                <template v-slot:table-row="{ item, index }">
+                    <slot
+                        name="table-row"
+                        v-bind:item="item"
+                        v-bind:index="index"
+                        v-bind:add-filter="addFilter"
+                    />
+                </template>
                 <template v-slot:empty>
                     <h1 v-if="notFoundText">{{ notFoundText }}</h1>
                     <h1 v-else>No {{ name }} found</h1>

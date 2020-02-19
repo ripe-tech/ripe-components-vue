@@ -2,30 +2,14 @@
     <div class="button-dropdown" v-bind:class="classes">
         <div class="button button-primary" v-on:click="onPrimaryClick">
             <template v-if="primaryIcon">
-                <image-ripe
-                    class="icon icon-front"
-                    v-bind:src="blackPrimaryIcon"
-                    v-bind:fade="false"
-                />
-                <image-ripe
-                    class="icon icon-back"
-                    v-bind:src="whitePrimaryIcon"
-                    v-bind:fade="false"
-                />
+                <icon class="icon icon-front" v-bind:icon="primaryIcon" v-bind:color="'#000000'" />
+                <icon class="icon icon-back" v-bind:icon="primaryIcon" v-bind:color="'#ffffff'" />
             </template>
             <span class="label">{{ label }} </span>
         </div>
         <div class="button button-secondary" v-on:click.stop="onSecondaryClick">
-            <image-ripe
-                class="icon icon-front"
-                v-bind:src="blackSecondaryIcon"
-                v-bind:fade="false"
-            />
-            <image-ripe
-                class="icon icon-back"
-                v-bind:src="whiteSecondaryIcon"
-                v-bind:fade="false"
-            />
+            <icon class="icon icon-front" v-bind:icon="secondaryIcon" v-bind:color="'#000000'" />
+            <icon class="icon icon-back" v-bind:icon="secondaryIcon" v-bind:color="'#ffffff'" />
         </div>
         <dropdown
             v-bind:items="items"
@@ -140,7 +124,7 @@
 }
 
 .button-dropdown > .button:hover > .icon.icon-back {
-    display: inline;
+    display: inline-block;
 }
 
 .button-dropdown > .button:hover > .icon.icon-front {
@@ -192,18 +176,6 @@ export const ButtonDropdown = {
         };
     },
     computed: {
-        blackPrimaryIcon() {
-            return this._getIconPath(this.primaryIcon, "black");
-        },
-        whitePrimaryIcon() {
-            return this._getIconPath(this.primaryIcon, "white");
-        },
-        blackSecondaryIcon() {
-            return this._getIconPath(this.secondaryIcon, "black");
-        },
-        whiteSecondaryIcon() {
-            return this._getIconPath(this.secondaryIcon, "white");
-        },
         classes() {
             const base = {};
             base["button-dropdown-" + this.size] = true;
@@ -230,9 +202,6 @@ export const ButtonDropdown = {
         },
         onDropdownItemClicked(item) {
             this.$emit(`click:${item.event}`);
-        },
-        _getIconPath(icon, color) {
-            return require(`./../../../../assets/icons/${color}/${icon}.svg`);
         }
     }
 };
