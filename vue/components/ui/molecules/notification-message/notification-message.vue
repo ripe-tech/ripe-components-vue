@@ -25,7 +25,6 @@
     display: flex;
     justify-content: center;
     left: 0;
-    opacity: 1;
     pointer-events: none;
     position: absolute;
     right: 0;
@@ -47,15 +46,11 @@
     color: #1d2631;
     display: inline-flex;
     font-size: 14px;
-    font-stretch: normal;
-    font-style: normal;
     font-weight: 600;
     justify-content: center;
     letter-spacing: 0.3px;
-    line-height: normal;
     max-height: 100%;
     max-width: 100%;
-    opacity: 1;
     overflow-y: auto;
     padding: 17px 20px 17px 20px;
     pointer-events: initial;
@@ -141,27 +136,21 @@ export const NotificationMessage = {
         }
     },
     mounted: function() {
-        this.$bus.$on("show-notification-message", () => {
-            this.show();
-        });
-        this.$bus.$on("hide-notification-message", () => {
-            this.hide();
-        });
-        this.$bus.$on("hide-global", () => {
-            if (!this.globalEvents) return;
-            this.hide();
-        });
         this.$bus.$on("notification", options => this.show(options));
+        this.$bus.$on("hide-global", () => {
+            if (!this.globalEventsData) return;
+            this.hide();
+        });
     },
     methods: {
         show(options) {
-            console.log("received show with options: ", options);
-            const { text, timeout, icon, iconColor, reset = true } = options;
+            const { text, timeout, icon, iconColor, globalEvents, reset = true } = options;
 
             this.textData = text;
             this.iconData = icon;
             this.iconColorData = iconColor;
             this.timeoutData = timeout || this.timeout;
+            this.globalEventsData = globalEvents || this.globalEvents;
 
             if (this.visibleData) this.resetTimeout();
             this.visibleData = true;
