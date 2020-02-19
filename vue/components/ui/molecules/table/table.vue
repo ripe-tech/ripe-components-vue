@@ -412,11 +412,9 @@ export const Table = {
         },
         checkAll() {
             this.setAllCheckedItemsValue(true);
-            this.lastClickedIndex = null;
         },
         uncheckAll() {
             this.setAllCheckedItemsValue(false);
-            this.lastClickedIndex = null;
         },
         setAllCheckedItemsValue(value) {
             this.checkedItemsData = {};
@@ -459,23 +457,33 @@ export const Table = {
         onCheckboxShiftClick(index, itemId) {
             if (this.lastClickedIndex !== null) {
                 const lower = Math.min(index, this.lastClickedIndex);
-                const upper = Math.max(index, this.lastClickedIndex);
-                for (let i = lower; i <= upper; i++) {
-                    this.setChecked(this.itemsWithIndex[i].id, true);
+                let upper = Math.max(index, this.lastClickedIndex);
+
+                if(index < this.lastClickedIndex) {
+                    upper = this.lastClickedIndex
+                    this.lastClickedIndex = index;
                 }
+                else this.uncheckAll();
+
+                for (let i = lower; i <= upper; i++) this.setChecked(this.sortedItems[i].id, true);
             }
+            else this.lastClickedIndex = index;
         },
         onCtrlA() {
             this.checkAll();
+            this.lastClickedIndex = null;
         },
         onMetaA() {
             this.checkAll();
+            this.lastClickedIndex = null;
         },
         onCtrlAltA() {
             this.uncheckAll();
+            this.lastClickedIndex = null;
         },
         onMetaAltA() {
             this.uncheckAll();
+            this.lastClickedIndex = null;
         }
     }
 };
