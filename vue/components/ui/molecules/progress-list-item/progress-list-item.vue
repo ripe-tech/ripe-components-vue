@@ -28,14 +28,14 @@
                 <button-icon v-bind:icon="'close'" v-bind:size="38" v-else />
             </div>
         </div>
-            <progress-bar
-                v-if="progress !== null && !finished"
-                v-bind:steps="100"
-                v-bind:current-step="progress"
-                v-bind:color="'#1d2631'"
-                v-bind:label="`${progress}%`"
-                v-bind:label-alignment="'left'"
-            />
+        <progress-bar
+            v-bind:steps="100"
+            v-bind:current-step="progress"
+            v-bind:color="'#1d2631'"
+            v-bind:label="`${progress}%`"
+            v-bind:label-alignment="'left'"
+            v-if="progress !== null && !finished"
+        />
     </div>
 </template>
 
@@ -43,9 +43,9 @@
 @import "css/variables.scss";
 
 .progress-list-item {
-    padding: 16px 20px 16px 20px;
     border-radius: 6px;
     box-shadow: 0 2px 5px 0 rgba(67, 86, 100, 0.25);
+    padding: 16px 20px 16px 20px;
 }
 
 .progress-list-item .information-container {
@@ -58,18 +58,18 @@
 }
 
 .progress-list-item .information-container .information .title {
-    font-weight: bold;
     color: #1d2631;
+    font-weight: bold;
 }
 
 .progress-list-item .information-container .information .description {
-    margin: 4px 0px 0px 0px;
     color: #a4adb5;
+    margin: 4px 0px 0px 0px;
 }
 
 .progress-list-item .information-container .state {
-    display: inline-flex;
     align-items: center;
+    display: inline-flex;
     margin: 0px 0px 0px auto;
 }
 
