@@ -11,7 +11,7 @@
         />
         <thead class="table-head">
             <tr>
-                <th class="checkbox-global" v-if="enableCheckboxes">
+                <th class="checkbox-global" v-if="checkboxes">
                     <checkbox
                         v-bind:size="8"
                         v-bind:checked="globalCheckboxValue"
@@ -54,7 +54,7 @@
                         v-on:click.meta.exact="onRowMetaClick(index, item.id)"
                         v-on:click.shift.exact="onRowShiftClick(index, item.id)"
                     >
-                        <td class="checkbox-item" v-if="enableCheckboxes">
+                        <td class="checkbox-item" v-if="checkboxes">
                             <checkbox
                                 v-bind:size="8"
                                 v-bind:checked="checkedItemsData[item.id]"
@@ -315,7 +315,7 @@ export const Table = {
             type: Array,
             default: () => []
         },
-        enableCheckboxes: {
+        checkboxes: {
             type: Boolean,
             default: false
         },
@@ -360,10 +360,10 @@ export const Table = {
     },
     data: function() {
         return {
-            itemsData: this.itemsWithIndex(this.items),
+            itemsData: this.items,
             sortData: this.sort,
             reverseData: this.reverse,
-            checkedItemsData: this.enableCheckboxes ? this.processedCheckedItems() : {},
+            checkedItemsData: this.checkedItems,
             selectedId: null,
             lastClickedIndex: null,
             shiftIndex: null,
@@ -371,43 +371,34 @@ export const Table = {
         };
     },
     watch: {
-        sort: {
-            handler: function(value) {
-                this.sortData = value;
-            }
+        sort(value) {
+            this.sortData = value;
         },
-        items: {
-            deep: true,
-            handler: function(value) {
-                this.checkedItemsData = this.processedCheckedItems();
-                this.itemsData = this.itemsWithIndex([...value]);
-                this.resetSelectionIndexes();
-            }
+        items(value) {
+            this.itemsData = value;
+            this.garbageCollectCheckedItems();
+            this.resetSelectionIndexes();
         },
-        reverse: {
-            handler: function(value) {
-                this.reverseData = value;
-            }
+        reverse(value) {
+            this.reverseData = value;
         },
-        checkedItems: {
-            handler: function(value) {
-                this.checkedItemsData = value;
-            }
+        checkedItems(value) {
+            this.checkedItemsData = value;
         },
-        checkedItemsData: {
-            immediate: true,
-            handler: function(value) {
-                this.$emit("update:checked-items", value);
-            }
+        checkedItemsData(value) {
+            this.$emit("update:checked-items", value);
         }
     },
     computed: {
+        itemsWithIndex() {
+            return this.itemsData.map((item, index) => ({ _originalIndex: index, ...item }));
+        },
         sortedItems() {
             if (!this.sortData) {
-                return this.itemsData;
+                return this.itemsWithIndex;
             }
 
-            const items = [...this.itemsData];
+            const items = [...this.itemsWithIndex];
             return this.sortMethod(items, this.sortData, this.reverseData);
         },
         style() {
@@ -426,7 +417,7 @@ export const Table = {
         isAllChecked() {
             return (
                 Object.values(this.checkedItemsData).length > 0 &&
-                Object.values(this.checkedItemsData).length === this.itemsData.length &&
+                Object.values(this.checkedItemsData).length === this.itemsWithIndex.length &&
                 !Object.values(this.checkedItemsData).includes(false)
             );
         },
@@ -440,23 +431,23 @@ export const Table = {
             return this.isAllChecked || this.isAllUnchecked ? "check" : "minus";
         }
     },
+    mounted: function() {
+        this.garbageCollectCheckedItems();
+    },
     methods: {
-        itemsWithIndex(items) {
-            return items.map((item, index) => ({ _originalIndex: index, ...item }));
-        },
-        processedCheckedItems() {
+        garbageCollectCheckedItems() {
             const checkedItems = {};
 
-            this.items.forEach(item => {
-                if (this.checkedItems[item.id]) checkedItems[item.id] = this.checkedItems[item.id];
+            this.itemsWithIndex.forEach(item => {
+                if (this.checkedItemsData[item.id]) checkedItems[item.id] = true;
             });
 
-            return checkedItems;
+            this.checkedItemsData = checkedItems;
         },
         setAllCheckedItemsValue(value) {
             this.checkedItemsData = {};
             if (value) {
-                this.itemsData.forEach(item => {
+                this.itemsWithIndex.forEach(item => {
                     this.$set(this.checkedItemsData, item.id, true);
                 });
             }
@@ -485,12 +476,12 @@ export const Table = {
         updateSelectionBehavioursIndexes(index, itemId) {
             // Updates shiftIndex and lastClickedIndex depending on the situation
             // so that the "Shift + Click" and "Shift + Up/Down" work as expected
-            if (Object.keys(this.checkedItemsData).length === this.itemsData.length) {
+            if (Object.keys(this.checkedItemsData).length === this.itemsWithIndex.length) {
                 this.shiftIndex = this.items.length - 1;
                 this.lastClickedIndex = 0;
             } else if (!this.checkedItemsData[itemId]) {
-                for (let i = this.itemsData.length - 1; i >= 0; i--) {
-                    if (this.checkedItemsData[this.itemsData[i].id]) {
+                for (let i = this.itemsWithIndex.length - 1; i >= 0; i--) {
+                    if (this.checkedItemsData[this.itemsWithIndex[i].id]) {
                         this.shiftIndex = this.lastClickedIndex = i;
                         return;
                     }
@@ -556,7 +547,7 @@ export const Table = {
                 let i = this.lastClickedIndex < index ? this.lastClickedIndex : index;
 
                 const length = Math.abs(this.lastClickedIndex - index) + i;
-                for (; i <= length; i++) this.setChecked(this.itemsData[i].id, true);
+                for (; i <= length; i++) this.setChecked(this.itemsWithIndex[i].id, true);
             }
 
             this.shiftIndex = index;
@@ -587,43 +578,43 @@ export const Table = {
         onShiftUp() {
             if (this.shiftIndex === null) {
                 this.shiftIndex = this.lastClickedIndex = this.items.length - 1;
-                this.setChecked(this.itemsData[this.shiftIndex].id, true);
+                this.setChecked(this.itemsWithIndex[this.shiftIndex].id, true);
                 this.highlightedIndex = this.shiftIndex;
                 return;
             }
             if (this.shiftIndex === 0) {
-                this.setChecked(this.itemsData[this.shiftIndex].id, true);
+                this.setChecked(this.itemsWithIndex[this.shiftIndex].id, true);
                 this.highlightedIndex = this.shiftIndex;
                 return;
             }
 
             if (this.shiftIndex > this.lastClickedIndex) {
-                this.setChecked(this.itemsData[this.shiftIndex].id, false);
+                this.setChecked(this.itemsWithIndex[this.shiftIndex].id, false);
             }
 
             this.shiftIndex--;
-            this.setChecked(this.itemsData[this.shiftIndex].id, true);
+            this.setChecked(this.itemsWithIndex[this.shiftIndex].id, true);
             this.highlightedIndex = this.shiftIndex;
         },
         onShiftDown() {
             if (this.shiftIndex === null) {
                 this.shiftIndex = this.lastClickedIndex = 0;
-                this.setChecked(this.itemsData[this.shiftIndex].id, true);
+                this.setChecked(this.itemsWithIndex[this.shiftIndex].id, true);
                 this.highlightedIndex = this.shiftIndex;
                 return;
             }
             if (this.shiftIndex === this.items.length - 1) {
-                this.setChecked(this.itemsData[this.shiftIndex].id, true);
+                this.setChecked(this.itemsWithIndex[this.shiftIndex].id, true);
                 this.highlightedIndex = this.shiftIndex;
                 return;
             }
 
             if (this.shiftIndex < this.lastClickedIndex) {
-                this.setChecked(this.itemsData[this.shiftIndex].id, false);
+                this.setChecked(this.itemsWithIndex[this.shiftIndex].id, false);
             }
 
             this.shiftIndex++;
-            this.setChecked(this.itemsData[this.shiftIndex].id, true);
+            this.setChecked(this.itemsWithIndex[this.shiftIndex].id, true);
             this.highlightedIndex = this.shiftIndex;
         },
         onMouseOver() {

@@ -38,7 +38,7 @@
                 v-bind:loading.sync="loading"
                 v-bind:items.sync="items"
                 v-bind:options.sync="filterOptions"
-                v-bind:enable-checkboxes="enableCheckboxes"
+                v-bind:checkboxes="checkboxes"
                 v-bind:checked-items.sync="checkedItemsData"
                 v-bind:allow-selected-highlight="allowSelectedHighlight"
                 ref="filter"
@@ -292,7 +292,7 @@ export const Listing = {
             type: String,
             default: null
         },
-        enableCheckboxes: {
+        checkboxes: {
             type: Boolean,
             default: false
         },
