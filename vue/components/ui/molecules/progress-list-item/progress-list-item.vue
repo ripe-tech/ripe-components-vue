@@ -25,7 +25,7 @@
                         v-bind:height="24"
                     />
                 </template>
-                <button-icon v-bind:icon="'close'" v-bind:size="40" v-else />
+                <button-icon v-bind:icon="'close'" v-bind:size="38" v-else />
             </div>
         </div>
         <div class="progress" v-if="progress !== null && !finished">
@@ -48,13 +48,11 @@
     box-shadow: 0 2px 5px 0 rgba(67, 86, 100, 0.25);
 }
 
-.progress-list-item .information-container .information,
-.progress-list-item .information-container .state {
-    display: inline-block;
+.progress-list-item .information-container {
+    display: flex;
 }
 
 .progress-list-item .information-container .information {
-    //background-color: lightblue;
     font-size: 14px;
     letter-spacing: 0.3px;
 }
@@ -70,12 +68,13 @@
 }
 
 .progress-list-item .information-container .state {
-    //background-color: lightcoral;
-    float: right;
+    display: inline-flex;
+    align-items: center;
+    margin: 0px 0px 0px auto;
 }
 
 .progress-list-item .information-container .state .icon.ok {
-    //margin: 0px 0px 0px 30px;
+    margin: 0px 0px 0px 30px;
 }
 
 .progress-list-item .progress {
