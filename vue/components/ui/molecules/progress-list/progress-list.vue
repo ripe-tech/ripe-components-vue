@@ -1,9 +1,15 @@
 <template>
     <div class="progress-list">
         <template v-for="(item, index) in items">
-            <div v-bind:key="index">
-                {{ index }}-{{ item }}
-            </div>
+            <progress-list-item
+                v-bind:key="index"
+                v-bind:title="item.title"
+                v-bind:description="item.description"
+                v-bind:finished="item.finished"
+                v-bind:progress="item.progress"
+                v-bind:actionText="item.actionText"
+                v-bind:actionIcon="item.actionIcon"
+            />
         </template>
         {{ footerText }}
     </div>
