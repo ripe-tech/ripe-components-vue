@@ -90,7 +90,7 @@ export const NotificationMessage = {
         },
         timeout: {
             type: Number,
-            default: 2000
+            default: 1000
         },
         topHeight: {
             type: Number,
@@ -173,7 +173,7 @@ export const NotificationMessage = {
             this.timer = setTimeout(() => {
                 this.hide();
                 this.reset();
-            }, this.timeout);
+            }, this.timeoutData);
         },
         hide() {
             if (!this.visibleData) return;
