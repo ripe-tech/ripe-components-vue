@@ -2,18 +2,20 @@
     <div class="progress-list">
         <div class="progres-list-items">
             <progress-list-item
-                v-for="(item, index) in items"
-                v-bind:key="index"
                 v-bind:title="item.title"
                 v-bind:description="item.description"
                 v-bind:finished="item.finished"
                 v-bind:progress="item.progress"
-                v-bind:actionText="item.actionText"
-                v-bind:actionIcon="item.actionIcon"
+                v-bind:action-text="item.actionText"
+                v-bind:action-icon="item.actionIcon"
+                v-for="(item, index) in items"
+                v-bind:key="index"
             />
         </div>
         <slot>
-            <div class="footer">{{ footerText }}</div>
+            <div class="footer">
+                {{ footerText }}
+            </div>
         </slot>
     </div>
 </template>
@@ -35,12 +37,10 @@
 }
 
 .progress-list > .footer {
-  font-size: 14px;
-  letter-spacing: 0.3px;
-  color: #57626e;
+    color: #57626e;
+    font-size: 14px;
+    letter-spacing: 0.3px;
 }
-
-
 </style>
 
 <script>
