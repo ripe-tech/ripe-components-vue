@@ -53,7 +53,7 @@ storiesOf("Organisms", module)
                     "default"
                 )
             },
-            enableCheckboxes: {
+            checkboxes: {
                 default: () => boolean("Enable checkboxes", false)
             },
             checkedItems: {
@@ -109,7 +109,7 @@ storiesOf("Organisms", module)
                     v-bind:use-query="false"
                     v-bind:filter-fields="filterFields"
                     v-bind:container-mode="containerMode"
-                    v-bind:enable-checkboxes="enableCheckboxes"
+                    v-bind:checkboxes="checkboxes"
                     v-bind:checked-items.sync="checkedItemsData"
                     v-bind:allow-selected-highlight="allowSelectedHighlight"
                 >
