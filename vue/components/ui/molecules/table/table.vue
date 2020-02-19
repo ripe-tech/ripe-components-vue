@@ -14,7 +14,7 @@
                 <th class="checkbox-global" v-if="checkboxes">
                     <checkbox
                         v-bind:size="8"
-                        v-bind:checked="globalCheckboxValue"
+                        v-bind:checked="!isAllUnchecked"
                         v-bind:icon="globalCheckboxIcon"
                         v-on:click="onGlobalCheckboxClick"
                     />
@@ -44,7 +44,6 @@
                     <tr
                         v-bind:class="[
                             {
-                                selected: isRowSelected(item.id),
                                 highlighted: index === highlightedIndex
                             }
                         ]"
@@ -114,7 +113,7 @@
     width: 100%;
 }
 
-.table.disableSelection {
+.table.selection-disabled {
     user-select: none;
 }
 
@@ -364,7 +363,6 @@ export const Table = {
             sortData: this.sort,
             reverseData: this.reverse,
             checkedItemsData: this.checkedItems,
-            selectedId: null,
             lastClickedIndex: null,
             shiftIndex: null,
             highlightedIndex: null
@@ -409,23 +407,19 @@ export const Table = {
         classes() {
             const base = {
                 alignment: this.alignment === "left" ? "text-align-left" : "",
-                disableSelection: this.lastClickedIndex !== null
+                "selection-disabled": this.lastClickedIndex !== null
             };
             if (this.variant) base[`table-${this.variant}`] = true;
             return base;
         },
+        nrChecked() {
+            return Object.keys(this.checkedItemsData).length;
+        },
         isAllChecked() {
-            return (
-                Object.values(this.checkedItemsData).length > 0 &&
-                Object.values(this.checkedItemsData).length === this.itemsWithIndex.length &&
-                !Object.values(this.checkedItemsData).includes(false)
-            );
+            return this.nrChecked > 0 && this.nrChecked === this.itemsWithIndex.length;
         },
         isAllUnchecked() {
-            return !Object.values(this.checkedItemsData).includes(true);
-        },
-        globalCheckboxValue() {
-            return !this.isAllUnchecked;
+            return this.nrChecked === 0;
         },
         globalCheckboxIcon() {
             return this.isAllChecked || this.isAllUnchecked ? "check" : "minus";
@@ -455,9 +449,6 @@ export const Table = {
         setChecked(itemId, value) {
             if (value) this.$set(this.checkedItemsData, itemId, true);
             else this.$delete(this.checkedItemsData, itemId);
-        },
-        isRowSelected(id) {
-            return this.allowSelectedHighlight && id === this.selectedId;
         },
         columnClass(column) {
             const order = this.reverseData ? "ascending" : "descending";
@@ -514,7 +505,7 @@ export const Table = {
             this.highlightedIndex = null;
         },
         onGlobalCheckboxClick() {
-            this.setAllCheckedItemsValue(!this.globalCheckboxValue);
+            this.setAllCheckedItemsValue(this.isAllUnchecked);
             this.resetSelectionIndexes();
 
             this.highlightedIndex = null;
