@@ -5,8 +5,6 @@
             v-on:keydown.ctrl.65.exact="onCtrlA"
             v-on:keydown.ctrl.alt.65.exact="onCtrlAltA"
             v-on:keydown.meta.alt.65.exact="onMetaAltA"
-            v-on:keydown.shift.up.exact="onShiftUp"
-            v-on:keydown.shift.down.exact="onShiftDown"
             v-on:mouseover="onMouseOver"
         />
         <thead class="table-head">
@@ -42,11 +40,6 @@
                 <slot name="before-row" v-bind:item="item" v-bind:index="index" />
                 <slot name="row" v-bind:item="item" v-bind:index="index">
                     <tr
-                        v-bind:class="[
-                            {
-                                highlighted: index === highlightedIndex
-                            }
-                        ]"
                         v-bind:key="item.id"
                         v-on:click="onRowClick(item, index)"
                     >
@@ -126,7 +119,6 @@
     border-bottom: none;
 }
 
-.table tbody tr.highlighted,
 .table tbody tr:hover {
     background-color: $selected-color;
 }
@@ -355,9 +347,7 @@ export const Table = {
             sortData: this.sort,
             reverseData: this.reverse,
             checkedItemsData: this.checkedItems,
-            lastClickedIndex: null,
-            shiftIndex: null,
-            highlightedIndex: null
+            lastClickedIndex: null
         };
     },
     watch: {
@@ -432,13 +422,11 @@ export const Table = {
         },
         checkAll() {
             this.setAllCheckedItemsValue(true);
-            this.shiftIndex = this.items.length - 1;
-            this.lastClickedIndex = 0;
-            this.highlightedIndex = null;
+            this.lastClickedIndex = null;
         },
         uncheckAll() {
             this.setAllCheckedItemsValue(false);
-            this.highlightedIndex = null;
+            this.lastClickedIndex = null;
         },
         setAllCheckedItemsValue(value) {
             this.checkedItemsData = {};
@@ -462,40 +450,15 @@ export const Table = {
             this.$emit("update:sort", this.sortData);
             this.$emit("update:reverse", this.reverseData);
         },
-        resetSelectionIndexes() {
-            this.shiftIndex = null;
-            this.lastClickedIndex = null;
-        },
-        updateSelectionBehavioursIndexes(index, itemId) {
-            // Updates shiftIndex and lastClickedIndex depending on the situation
-            // so that the "Shift + Click" and "Shift + Up/Down" work as expected
-            if (Object.keys(this.checkedItemsData).length === this.itemsWithIndex.length) {
-                this.shiftIndex = this.items.length - 1;
-                this.lastClickedIndex = 0;
-            } else if (!this.checkedItemsData[itemId]) {
-                for (let i = this.itemsWithIndex.length - 1; i >= 0; i--) {
-                    if (this.checkedItemsData[this.itemsWithIndex[i].id]) {
-                        this.shiftIndex = this.lastClickedIndex = i;
-                        return;
-                    }
-                }
-            } else this.shiftIndex = this.lastClickedIndex = index;
-        },
         checkboxClick(index, itemId) {
-            this.updateSelectionBehavioursIndexes(index, itemId);
             this.lastClickedIndex = index;
-            this.highlightedIndex = null;
         },
         rowCtrlClick(index, itemId) {
             this.setChecked(itemId, !this.checkedItemsData[itemId]);
-            this.updateSelectionBehavioursIndexes(index, itemId);
-
-            this.highlightedIndex = null;
         },
         onGlobalCheckboxClick() {
             this.setAllCheckedItemsValue(this.isAllUnchecked);
-            this.resetSelectionIndexes();
-            this.highlightedIndex = null;
+            this.lastClickedIndex = null;
         },
         onChecked(itemId, value) {
             this.setChecked(itemId, value);
@@ -507,7 +470,6 @@ export const Table = {
             this.checkboxClick(index, itemId);
         },
         onCheckboxShiftClick(index, itemId) {
-            this.uncheckAll();
             if (this.lastClickedIndex !== null) {
                 const lower = Math.min(index, this.lastClickedIndex);
                 const upper = Math.max(index, this.lastClickedIndex);
@@ -524,56 +486,9 @@ export const Table = {
         },
         onCtrlAltA() {
             this.uncheckAll();
-            this.resetSelectionIndexes();
         },
         onMetaAltA() {
             this.uncheckAll();
-            this.resetSelectionIndexes();
-        },
-        onShiftUp() {
-            if (this.shiftIndex === null) {
-                this.shiftIndex = this.lastClickedIndex = this.items.length - 1;
-                this.setChecked(this.itemsWithIndex[this.shiftIndex].id, true);
-                this.highlightedIndex = this.shiftIndex;
-                return;
-            }
-            if (this.shiftIndex === 0) {
-                this.setChecked(this.itemsWithIndex[this.shiftIndex].id, true);
-                this.highlightedIndex = this.shiftIndex;
-                return;
-            }
-
-            if (this.shiftIndex > this.lastClickedIndex) {
-                this.setChecked(this.itemsWithIndex[this.shiftIndex].id, false);
-            }
-
-            this.shiftIndex--;
-            this.setChecked(this.itemsWithIndex[this.shiftIndex].id, true);
-            this.highlightedIndex = this.shiftIndex;
-        },
-        onShiftDown() {
-            if (this.shiftIndex === null) {
-                this.shiftIndex = this.lastClickedIndex = 0;
-                this.setChecked(this.itemsWithIndex[this.shiftIndex].id, true);
-                this.highlightedIndex = this.shiftIndex;
-                return;
-            }
-            if (this.shiftIndex === this.items.length - 1) {
-                this.setChecked(this.itemsWithIndex[this.shiftIndex].id, true);
-                this.highlightedIndex = this.shiftIndex;
-                return;
-            }
-
-            if (this.shiftIndex < this.lastClickedIndex) {
-                this.setChecked(this.itemsWithIndex[this.shiftIndex].id, false);
-            }
-
-            this.shiftIndex++;
-            this.setChecked(this.itemsWithIndex[this.shiftIndex].id, true);
-            this.highlightedIndex = this.shiftIndex;
-        },
-        onMouseOver() {
-            this.highlightedIndex = null;
         }
     }
 };
