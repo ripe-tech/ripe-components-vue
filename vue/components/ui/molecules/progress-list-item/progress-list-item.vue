@@ -28,14 +28,14 @@
                 <button-icon v-bind:icon="'close'" v-bind:size="38" v-else />
             </div>
         </div>
-        <div class="progress" v-if="progress !== null && !finished">
             <progress-bar
+                v-if="progress !== null && !finished"
                 v-bind:steps="100"
                 v-bind:current-step="progress"
                 v-bind:color="'#1d2631'"
                 v-bind:label="`${progress}%`"
+                v-bind:label-alignment="'left'"
             />
-        </div>
     </div>
 </template>
 
@@ -77,8 +77,7 @@
     margin: 0px 0px 0px 30px;
 }
 
-.progress-list-item .progress {
-    //background-color: lightgreen;
+.progress-list-item .progress-bar-container {
     margin: 17px 0px 0px 0px;
 }
 </style>
