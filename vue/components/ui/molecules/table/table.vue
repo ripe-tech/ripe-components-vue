@@ -38,10 +38,7 @@
             <template v-for="(item, index) in sortedItems">
                 <slot name="before-row" v-bind:item="item" v-bind:index="index" />
                 <slot name="row" v-bind:item="item" v-bind:index="index">
-                    <tr
-                        v-bind:key="item.id"
-                        v-on:click="onRowClick(item, index)"
-                    >
+                    <tr v-bind:key="item.id" v-on:click="onRowClick(item, index)">
                         <td class="checkbox-item" v-if="checkboxes">
                             <checkbox
                                 v-bind:size="8"
@@ -72,7 +69,8 @@
                             </td>
                         </slot>
                     </tr>
-                    </slot>
+                </slot>
+
                 <slot name="after-row" v-bind:item="item" v-bind:index="index" />
             </template>
         </transition-group>
@@ -459,15 +457,13 @@ export const Table = {
                 const lower = Math.min(index, this.lastClickedIndex);
                 let upper = Math.max(index, this.lastClickedIndex);
 
-                if(index < this.lastClickedIndex) {
-                    upper = this.lastClickedIndex
+                if (index < this.lastClickedIndex) {
+                    upper = this.lastClickedIndex;
                     this.lastClickedIndex = index;
-                }
-                else this.uncheckAll();
+                } else this.uncheckAll();
 
                 for (let i = lower; i <= upper; i++) this.setChecked(this.sortedItems[i].id, true);
-            }
-            else this.lastClickedIndex = index;
+            } else this.lastClickedIndex = index;
         },
         onCtrlA() {
             this.checkAll();
