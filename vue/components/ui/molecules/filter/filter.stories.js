@@ -21,7 +21,7 @@ storiesOf("Molecules", module)
                     { value: "car", label: "Car" }
                 ]
             },
-            enableCheckboxes: {
+            checkboxes: {
                 default: () => boolean("Enable checkboxes", false)
             },
             checkedItems: {
@@ -67,7 +67,7 @@ storiesOf("Molecules", module)
             v-bind:getItems="getItems"
             v-bind:table-columns="tableColumns" 
             v-bind:lineup-fields="lineupFields"
-            v-bind:enable-checkboxes="enableCheckboxes"
+            v-bind:checkboxes="checkboxes"
             v-bind:checked-items.sync="checkedItemsData"
             v-bind:allow-selected-highlight="allowSelectedHighlight"
         >

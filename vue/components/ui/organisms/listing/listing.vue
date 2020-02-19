@@ -38,7 +38,7 @@
                 v-bind:loading.sync="loading"
                 v-bind:items.sync="items"
                 v-bind:options.sync="filterOptions"
-                v-bind:enable-checkboxes="enableCheckboxes"
+                v-bind:checkboxes="checkboxes"
                 v-bind:checked-items.sync="checkedItemsData"
                 v-bind:allow-selected-highlight="allowSelectedHighlight"
                 ref="filter"
@@ -57,6 +57,14 @@
                 <template v-slot:table-item="{ item, index }">
                     <slot
                         name="table-item"
+                        v-bind:item="item"
+                        v-bind:index="index"
+                        v-bind:add-filter="addFilter"
+                    />
+                </template>
+                <template v-slot:table-row="{ item, index }">
+                    <slot
+                        name="table-row"
                         v-bind:item="item"
                         v-bind:index="index"
                         v-bind:add-filter="addFilter"
@@ -292,7 +300,7 @@ export const Listing = {
             type: String,
             default: null
         },
-        enableCheckboxes: {
+        checkboxes: {
             type: Boolean,
             default: false
         },

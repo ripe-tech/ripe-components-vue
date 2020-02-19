@@ -12,8 +12,22 @@
             v-bind:loader-style="loaderStyle"
             v-show="loading"
         />
-        <img class="icon" v-bind:src="iconPath" v-if="icon && !loading" />
-        <img class="icon-hover" v-bind:src="iconHoverPath" v-if="icon && !loading" />
+        <icon
+            class="icon"
+            v-bind:icon="icon"
+            v-bind:color="iconColor"
+            v-bind:width="iconSize"
+            v-bind:height="iconSize"
+            v-if="icon && !loading"
+        />
+        <icon
+            class="icon-hover"
+            v-bind:icon="icon"
+            v-bind:color="iconHoverColor"
+            v-bind:width="iconSize"
+            v-bind:height="iconSize"
+            v-if="icon && !loading"
+        />
         <span v-show="!loading">
             <slot>{{ text }}</slot>
         </span>
@@ -38,6 +52,7 @@
     letter-spacing: 0.25px;
     line-height: 38px;
     min-width: 180px;
+    outline: none;
     padding: 0px 20px 0px 20px;
     text-align: center;
     transition: background-color 0.15s ease-in-out,
@@ -335,37 +350,26 @@ export const ButtonColor = {
         }
     },
     computed: {
-        iconPath() {
-            let iconColor;
-
-            switch (this.color) {
-                case "white":
-                    iconColor = "black";
-                    break;
-                default:
-                    iconColor = "white";
-                    break;
-            }
-
-            if (this.secondary) iconColor = "black";
-
-            return require(`./../../../../assets/icons/${iconColor}/${this.icon}.svg`);
+        iconColor() {
+            return this.color === "white" || this.secondary ? "black" : "white";
         },
-        iconHoverPath() {
-            let iconColor;
+        iconHoverColor() {
+            return this.color === "white" || this.secondary ? "white" : "white";
+        },
+        iconSize() {
+            switch (this.sizeMode) {
+                case "tiny":
+                    return 15;
 
-            switch (this.color) {
-                case "white":
-                    iconColor = "white";
-                    break;
+                case "small":
+                    return 18;
+
+                case "medium":
+                    return 22;
+
                 default:
-                    iconColor = "white";
-                    break;
+                    return 22;
             }
-
-            if (this.secondary) iconColor = "white";
-
-            return require(`./../../../../assets/icons/${iconColor}/${this.icon}.svg`);
         },
         sizeMode() {
             if (this.small) return "small";

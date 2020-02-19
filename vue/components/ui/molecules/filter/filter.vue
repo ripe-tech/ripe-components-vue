@@ -9,13 +9,16 @@
                 v-bind:initial-sort="sort"
                 v-bind:initial-reverse="reverse"
                 v-bind:variant="tableVariant"
-                v-bind:enable-checkboxes="enableCheckboxes"
+                v-bind:checkboxes="checkboxes"
                 v-bind:checked-items.sync="checkedItemsData"
                 v-bind:allow-selected-highlight="allowSelectedHighlight"
                 v-on:click="onTableClick"
             >
                 <template v-slot="{ item, index }">
                     <slot name="table-item" v-bind:item="item" v-bind:index="index" />
+                </template>
+                <template v-slot:row="{ item, index }">
+                    <slot name="table-row" v-bind:item="item" v-bind:index="index" />
                 </template>
             </table-ripe>
             <lineup
@@ -101,7 +104,7 @@ export const Filter = {
             type: Function,
             default: () => []
         },
-        enableCheckboxes: {
+        checkboxes: {
             type: Boolean,
             default: false
         },
@@ -314,7 +317,7 @@ export const Filter = {
             }
 
             // gets the initial checkedItems state
-            if (this.enableCheckboxes) this.checkedItemsData = this.checkedItems;
+            if (this.checkboxes) this.checkedItemsData = this.checkedItems;
 
             // if this request was triggered for pagination then
             // appends the new items to the current items, otherwise

@@ -57,7 +57,7 @@ storiesOf("Molecules", module)
                     }
                 ]
             },
-            enableCheckboxes: {
+            checkboxes: {
                 default: () => boolean("Enable checkboxes", true)
             },
             checkedItems: {
@@ -129,7 +129,7 @@ storiesOf("Molecules", module)
                     class="table"
                     v-bind:columns="mockColumns"
                     v-bind:items.sync="itemsData"
-                    v-bind:enable-checkboxes="enableCheckboxes"
+                    v-bind:checkboxes="checkboxes"
                     v-bind:checked-items.sync="checkedItemsData"
                     v-bind:sort.sync="sortData"
                     v-bind:reverse.sync="reverseData"
