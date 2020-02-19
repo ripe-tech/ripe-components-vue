@@ -12,11 +12,11 @@
                 v-bind:key="index"
             />
         </div>
-        <div class="footer">
-            <slot>
+        <slot>
+            <div class="footer">
                 {{ footerText }}
-            </slot>
-        </div>
+            </div>
+        </slot>
     </div>
 </template>
 

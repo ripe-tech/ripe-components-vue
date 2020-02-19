@@ -40,9 +40,7 @@ storiesOf("Molecules", module)
         },
         template: `
             <div>
-                <progress-list v-bind:items="items" v-bind:footer-text="footerText" >
-                    Custom Footer
-                </progress-list>
+                <progress-list v-bind:items="items" v-bind:footer-text="footerText" />
             </div>
         `
     }));
