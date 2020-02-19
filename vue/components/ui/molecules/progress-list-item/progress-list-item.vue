@@ -15,6 +15,7 @@
                         v-bind:icon="actionIcon"
                         v-bind:text="actionText"
                         v-bind:size="24"
+                        v-on:click="onActionButtonClick"
                     />
                     <icon
                         class="ok"
@@ -25,7 +26,12 @@
                         v-bind:height="24"
                     />
                 </template>
-                <button-icon v-bind:icon="'close'" v-bind:size="38" v-else />
+                <button-icon
+                    v-bind:icon="'close'"
+                    v-bind:size="38"
+                    v-else
+                    v-on:click="onCloseButtonClick"
+                />
             </div>
         </div>
         <progress-bar
@@ -109,6 +115,14 @@ export const ProgressListItem = {
         actionIcon: {
             type: String,
             default: null
+        }
+    },
+    methods: {
+        onActionButtonClick(event) {
+            this.$emit("click:action");
+        },
+        onCloseButtonClick() {
+            this.$emit("click:close");
         }
     }
 };
