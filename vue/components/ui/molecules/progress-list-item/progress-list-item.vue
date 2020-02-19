@@ -64,7 +64,7 @@
 }
 
 .progress-list-item .information-container .information .title {
-    color: #1d2631;
+    color: $dark-blue;
     font-weight: bold;
 }
 
