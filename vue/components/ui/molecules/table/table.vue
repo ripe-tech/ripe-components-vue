@@ -345,7 +345,6 @@ export const Table = {
         items(value) {
             this.itemsData = value;
             this.garbageCollectCheckedItems();
-            this.resetSelectionIndexes();
         },
         reverse(value) {
             this.reverseData = value;
