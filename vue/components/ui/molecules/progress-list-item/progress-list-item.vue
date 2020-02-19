@@ -17,6 +17,7 @@
                         v-bind:size="24"
                     />
                     <icon
+                        class="ok"
                         v-bind:icon="'ok'"
                         v-bind:color="'#45a777'"
                         v-bind:stroke-width="2"
@@ -24,7 +25,7 @@
                         v-bind:height="24"
                     />
                 </template>
-                <button-icon v-bind:icon="'close'" v-bind:size="24" v-else />
+                <button-icon v-bind:icon="'close'" v-bind:size="40" v-else />
             </div>
         </div>
         <div class="progress" v-if="progress !== null && !finished">
@@ -71,6 +72,10 @@
 .progress-list-item .information-container .state {
     //background-color: lightcoral;
     float: right;
+}
+
+.progress-list-item .information-container .state .icon.ok {
+    //margin: 0px 0px 0px 30px;
 }
 
 .progress-list-item .progress {
