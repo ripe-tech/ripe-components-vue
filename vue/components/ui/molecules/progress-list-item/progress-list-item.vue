@@ -62,11 +62,15 @@
 .progress-list-item .information-container .information {
     font-size: 14px;
     letter-spacing: 0.3px;
+    max-width: 50%;
 }
 
 .progress-list-item .information-container .information .title {
     color: $dark-blue;
     font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .progress-list-item .information-container .information .description {
