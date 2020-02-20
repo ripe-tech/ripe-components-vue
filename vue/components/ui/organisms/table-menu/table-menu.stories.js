@@ -125,7 +125,7 @@ storiesOf("Organisms", module)
             reverse: {
                 default: () => boolean("Reverse", null)
             },
-            enableCheckboxes: {
+            checkboxes: {
                 default: () => boolean("Enable checkboxes", true)
             },
             checkedItems: {
@@ -168,7 +168,7 @@ storiesOf("Organisms", module)
                     v-bind:items.sync="itemsData"
                     v-bind:columns="mockColumns"
                     v-bind:edit-columns="editColumns"
-                    v-bind:enable-checkboxes="enableCheckboxes"
+                    v-bind:checkboxes="checkboxes"
                     v-bind:checked-items.sync="checkedItemsData"
                     v-bind:selected-index.sync="selectedIndexData"
                     v-bind:table-title="tableTitle" 

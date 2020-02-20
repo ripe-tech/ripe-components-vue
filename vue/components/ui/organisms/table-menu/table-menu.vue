@@ -15,7 +15,7 @@
                     <table-ripe
                         v-bind:columns="columns"
                         v-bind:items.sync="itemsData"
-                        v-bind:enable-checkboxes="enableCheckboxes"
+                        v-bind:checkboxes="checkboxes"
                         v-bind:checked-items.sync="checkedItemsData"
                         v-bind:sort.sync="sortData"
                         v-bind:sort-method="sortMethod"
@@ -162,7 +162,7 @@ export const TableMenu = {
             type: Array,
             default: () => []
         },
-        enableCheckboxes: {
+        checkboxes: {
             type: Boolean,
             default: false
         },
