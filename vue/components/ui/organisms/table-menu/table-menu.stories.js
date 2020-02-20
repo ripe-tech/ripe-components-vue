@@ -134,8 +134,8 @@ storiesOf("Organisms", module)
                     return { 0: true, 1: false, 2: true };
                 }
             },
-            allowSelectedHighlight: {
-                default: () => boolean("Allow selected Highlight", true)
+            rowSelection: {
+                default: () => boolean("Row Selection", true)
             }
         },
         data: function() {
@@ -183,7 +183,7 @@ storiesOf("Organisms", module)
                     v-bind:sort.sync="sortData"
                     v-bind:reverse.sync="reverseData"
                     v-bind:animation-duration="animationDuration"
-                    v-bind:allow-selected-highlight="allowSelectedHighlight"
+                    v-bind:row-selection="rowSelection"
                 />
                     <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}, Menu visible: {{ menuVisibleData }}</p><br>
                     <p>Selected Index: {{selectedIndexData}}</p>

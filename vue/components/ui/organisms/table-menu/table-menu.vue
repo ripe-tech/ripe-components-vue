@@ -20,11 +20,8 @@
                         v-bind:sort.sync="sortData"
                         v-bind:sort-method="sortMethod"
                         v-bind:reverse.sync="reverseData"
-                        v-bind:allow-selected-highlight="allowSelectedHighlight"
-                        v-on:click="
-                            (item, selectedOriginalIndex) =>
-                                onClickItem(item, selectedOriginalIndex)
-                        "
+                        v-bind:row-selection="rowSelection"
+                        v-on:click="onClickItem"
                     >
                         <template v-slot:row-column="{ item, column }">
                             <checkmark
@@ -232,7 +229,7 @@ export const TableMenu = {
             type: Number,
             required: false
         },
-        allowSelectedHighlight: {
+        rowSelection: {
             type: Boolean,
             default: false
         }
@@ -330,10 +327,12 @@ export const TableMenu = {
             const textInputs = this.$refs.textInput || [];
             if (textInputs.length > 0) textInputs[0].focus();
         },
-        onClickItem(item, selectedOriginalIndex) {
-            selectedOriginalIndex === null
+        onClickItem(item, selectedOriginalIndex, index, selectedId) {
+            const selectedIndex = this.selectedId !== null ? selectedOriginalIndex: null;
+      
+            selectedIndex === null
                 ? this.hideMenu()
-                : this.setMenuItem(selectedOriginalIndex);
+                : this.setMenuItem(selectedIndex);
         },
         onClickAddItem() {
             this.$emit("click:create");
