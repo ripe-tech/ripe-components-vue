@@ -317,7 +317,7 @@ export const Table = {
         return {
             sortData: this.sort,
             reverseData: this.reverse,
-            selectedIdDataData: null
+            selectedIdData: this.selectedId
         };
     },
     computed: {
