@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, select, boolean } from "@storybook/addon-knobs";
+import { withKnobs, select, boolean, number } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
@@ -98,6 +98,7 @@ storiesOf("Molecules", module)
                     v-bind:alignment="alignment"
                     v-bind:variant="variant"
                     v-bind:row-selection="rowSelection"
+                    v-bind:selected-id="selectedId"
                 />
                 <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}</p>
             </div>
