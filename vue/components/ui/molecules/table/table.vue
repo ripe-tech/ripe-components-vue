@@ -296,6 +296,10 @@ export const Table = {
         rowSelection: {
             type: Boolean,
             default: false
+        },
+        selectedId: {
+            type: Number,
+            default: null
         }
     },
     watch: {
@@ -304,13 +308,16 @@ export const Table = {
         },
         reverse(value) {
             this.reverseData = value;
+        },
+        selectedId(value) {
+            this.selectedIdData = value;
         }
     },
     data: function() {
         return {
             sortData: this.sort,
             reverseData: this.reverse,
-            selectedId: null
+            selectedIdDataData: null
         };
     },
     computed: {
@@ -350,15 +357,17 @@ export const Table = {
             this.$emit("update:reverse", this.reverseData);
         },
         isRowSelected(id) {
-            return this.rowSelection && id === this.selectedId;
+            return this.rowSelection && id === this.selectedIdData;
         },
         onClick(item, index) {
             if (this.rowSelection) {
-                this.selectedId =
-                    this.selectedId === null || this.selectedId !== item.id ? item.id : null;
+                this.selectedIdData =
+                    this.selectedIdData === null || this.selectedIdData !== item.id
+                        ? item.id
+                        : null;
             }
 
-            this.$emit("click", item, item._originalIndex, index, this.selectedId);
+            this.$emit("click", item, item._originalIndex, index, this.selectedIdData);
         }
     }
 };
