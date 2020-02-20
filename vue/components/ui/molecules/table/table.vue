@@ -353,7 +353,10 @@ export const Table = {
             return this.rowSelection && id === this.selectedId;
         },
         onClick(item, index) {
-            if(this.rowSelection) this.selectedId = this.selectedId === null || this.selectedId !== item.id ? item.id : null;
+            if (this.rowSelection) {
+                this.selectedId =
+                    this.selectedId === null || this.selectedId !== item.id ? item.id : null;
+            }
 
             this.$emit("click", item, item._originalIndex, index, this.selectedId);
         }
