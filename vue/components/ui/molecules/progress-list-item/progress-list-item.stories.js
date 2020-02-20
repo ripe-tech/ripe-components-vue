@@ -31,8 +31,8 @@ storiesOf("Molecules", module)
                     v-bind:description="description"
                     v-bind:finished="finished"
                     v-bind:progress="progress"
-                    v-bind:actionText="actionText"
-                    v-bind:actionIcon="actionIcon"
+                    v-bind:action-text="actionText"
+                    v-bind:action-icon="actionIcon"
                 />
             </div>
         `
