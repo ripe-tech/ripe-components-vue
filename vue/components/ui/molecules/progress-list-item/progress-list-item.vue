@@ -68,9 +68,9 @@
 .progress-list-item .information-container .information .title {
     color: $dark-blue;
     font-weight: bold;
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .progress-list-item .information-container .information .description {
