@@ -328,11 +328,9 @@ export const TableMenu = {
             if (textInputs.length > 0) textInputs[0].focus();
         },
         onClickItem(item, selectedOriginalIndex, index, selectedId) {
-            const selectedIndex = this.selectedId !== null ? selectedOriginalIndex: null;
-      
-            selectedIndex === null
-                ? this.hideMenu()
-                : this.setMenuItem(selectedIndex);
+            const selectedIndex = this.selectedId !== null ? selectedOriginalIndex : null;
+
+            selectedIndex === null ? this.hideMenu() : this.setMenuItem(selectedIndex);
         },
         onClickAddItem() {
             this.$emit("click:create");
