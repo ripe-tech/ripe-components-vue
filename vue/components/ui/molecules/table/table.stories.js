@@ -71,6 +71,9 @@ storiesOf("Molecules", module)
             },
             rowSelection: {
                 default: () => boolean("Row Selection", false)
+            },
+            selectedId: {
+                default: () => number("Selected Id", null)
             }
         },
         data: function() {
