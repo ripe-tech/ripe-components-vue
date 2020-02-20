@@ -293,7 +293,7 @@ export const Table = {
             type: String,
             default: null
         },
-        allowSelectedHighlight: {
+        rowSelection: {
             type: Boolean,
             default: false
         }
@@ -350,7 +350,7 @@ export const Table = {
             this.$emit("update:reverse", this.reverseData);
         },
         isRowSelected(id) {
-            return this.allowSelectedHighlight && id === this.selectedId;
+            return this.rowSelection && id === this.selectedId;
         },
         onClick(item, index) {
             this.selectedId =
