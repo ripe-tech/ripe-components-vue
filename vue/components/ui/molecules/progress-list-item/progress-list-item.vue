@@ -2,7 +2,7 @@
     <div class="progress-list-item">
         <div class="information-container">
             <div class="information">
-                <div class="title">
+                <div class="title" v-bind:title="title">
                     {{ title }}
                 </div>
                 <div class="description">
