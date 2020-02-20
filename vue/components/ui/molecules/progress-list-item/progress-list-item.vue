@@ -76,6 +76,7 @@
 .progress-list-item .information-container .information .description {
     color: #a4adb5;
     margin: 4px 0px 0px 0px;
+    word-wrap: break-word;
 }
 
 .progress-list-item .information-container .state {
