@@ -282,12 +282,9 @@
     line-height: normal;
     margin-right: -6px;
     margin-top: -4px;
-    max-width: 320px;
+    max-width: 358px;
     padding: 10px;
-    position: absolute;
-    right: 0px;
     text-align: left;
-    white-space: pre;
 }
 
 .header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown li {
@@ -422,7 +419,7 @@ export const Header = {
         },
         appsDropdownItems() {
             const items = [];
-            for (const value of ["copper", "pulse"]) {
+            for (const value of Object.keys(this.apps)) {
                 if (!this.apps[value]) continue;
                 const app = this.apps[value];
                 items.push({
