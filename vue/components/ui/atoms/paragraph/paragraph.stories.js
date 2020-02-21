@@ -13,8 +13,6 @@ storiesOf("Atoms", module)
             }
         },
         template: `
-            <div>
-                <paragraph>{{ contents }}</paragraph>
-            </div>
+            <paragraph>{{ contents }}</paragraph>
         `
     }));
