@@ -40,7 +40,6 @@
                 v-bind:options.sync="filterOptions"
                 v-bind:checkboxes="checkboxes"
                 v-bind:checked-items.sync="checkedItemsData"
-                v-bind:allow-selected-highlight="allowSelectedHighlight"
                 ref="filter"
                 v-on:update:options="filterUpdated"
                 v-on:click:table="onTableClick"
@@ -307,10 +306,6 @@ export const Listing = {
         checkedItems: {
             type: Object,
             default: () => {}
-        },
-        allowSelectedHighlight: {
-            type: Boolean,
-            default: false
         }
     },
     data: function() {

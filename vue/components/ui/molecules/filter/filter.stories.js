@@ -29,9 +29,6 @@ storiesOf("Molecules", module)
                 default: () => {
                     return {};
                 }
-            },
-            allowSelectedHighlight: {
-                default: () => boolean("Allow selection highlight", false)
             }
         },
         data: function() {
@@ -61,29 +58,28 @@ storiesOf("Molecules", module)
             }
         },
         template: `
-    <div>
-        <global></global>
-        <filter-ripe 
-            v-bind:getItems="getItems"
-            v-bind:table-columns="tableColumns" 
-            v-bind:lineup-fields="lineupFields"
-            v-bind:checkboxes="checkboxes"
-            v-bind:checked-items.sync="checkedItemsData"
-            v-bind:allow-selected-highlight="allowSelectedHighlight"
-        >
-            <template v-slot:table-item="{ item, index }">
-                <td class="id">
-                    {{ item.id }}
-                </td>
-                <td class="user">
-                    {{ item.name }}
-                </td>
-                <td class="device">
-                    {{ item.car }}
-                </td>
-            </template>
-        </filter-ripe>
-        <p>Checked Items: {{ checkedItemsData }}</p>
-    </div>
-    `
+            <div>
+                <global></global>
+                <filter-ripe 
+                    v-bind:getItems="getItems"
+                    v-bind:table-columns="tableColumns" 
+                    v-bind:lineup-fields="lineupFields"
+                    v-bind:checkboxes="checkboxes"
+                    v-bind:checked-items.sync="checkedItemsData"
+                >
+                    <template v-slot:table-item="{ item, index }">
+                        <td class="id">
+                            {{ item.id }}
+                        </td>
+                        <td class="user">
+                            {{ item.name }}
+                        </td>
+                        <td class="device">
+                            {{ item.car }}
+                        </td>
+                    </template>
+                </filter-ripe>
+                <p>Checked Items: {{ checkedItemsData }}</p>
+            </div>
+        `
     }));

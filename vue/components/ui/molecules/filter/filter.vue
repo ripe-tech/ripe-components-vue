@@ -11,7 +11,6 @@
                 v-bind:variant="tableVariant"
                 v-bind:checkboxes="checkboxes"
                 v-bind:checked-items.sync="checkedItemsData"
-                v-bind:allow-selected-highlight="allowSelectedHighlight"
                 v-on:click="onTableClick"
             >
                 <template v-slot="{ item, index }">
@@ -147,10 +146,6 @@ export const Filter = {
         useQuery: {
             type: Boolean,
             default: false
-        },
-        allowSelectedHighlight: {
-            type: Boolean,
-            default: false
         }
     },
     data: function() {
@@ -234,7 +229,6 @@ export const Filter = {
             handler: function(value) {
                 this.$emit("update:checked-items", value);
             },
-            deep: true,
             immediate: true
         }
     },

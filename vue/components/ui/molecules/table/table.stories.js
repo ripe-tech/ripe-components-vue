@@ -5,6 +5,18 @@ storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Table", () => ({
         props: {
+            sort: {
+                default: select(
+                    "Sort Column",
+                    {
+                        Unset: null,
+                        Id: "id",
+                        User: "user",
+                        System: "system"
+                    },
+                    null
+                )
+            },
             mockColumns: {
                 type: Array,
                 default: () => [
@@ -66,18 +78,6 @@ storiesOf("Molecules", module)
                     return { 1: true, 2: false, 3: true };
                 }
             },
-            sort: {
-                default: select(
-                    "Sort Column",
-                    {
-                        Unset: null,
-                        Id: "id",
-                        User: "user",
-                        System: "system"
-                    },
-                    null
-                )
-            },
             reverse: {
                 default: () => boolean("Reverse", null)
             },
@@ -102,9 +102,6 @@ storiesOf("Molecules", module)
                     },
                     null
                 )
-            },
-            allowSelectedHighlight: {
-                default: () => boolean("Allow selection highlight", false)
             }
         },
         data: function() {
@@ -135,7 +132,6 @@ storiesOf("Molecules", module)
                     v-bind:reverse.sync="reverseData"
                     v-bind:alignment="alignment"
                     v-bind:variant="variant"
-                    v-bind:allow-selected-highlight="allowSelectedHighlight"
                 />
                 <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}</p><br>
                 <p>Items: {{ itemsData }}</p><br>

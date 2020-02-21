@@ -61,9 +61,6 @@ storiesOf("Organisms", module)
                 default: () => {
                     return {};
                 }
-            },
-            allowSelectedHighlight: {
-                default: () => boolean("Allow selection highlight", false)
             }
         },
         data: function() {
@@ -111,7 +108,6 @@ storiesOf("Organisms", module)
                     v-bind:container-mode="containerMode"
                     v-bind:checkboxes="checkboxes"
                     v-bind:checked-items.sync="checkedItemsData"
-                    v-bind:allow-selected-highlight="allowSelectedHighlight"
                 >
                     <template v-slot:icons>
                         <img v-bind:src="img" v-bind:style="imgStyle" />
