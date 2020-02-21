@@ -9,7 +9,7 @@ storiesOf("Organisms", module)
         props: {
             title: {
                 type: String,
-                default: text("title", "Details")
+                default: text("Title", "Details")
             },
             itemName: {
                 type: String,
