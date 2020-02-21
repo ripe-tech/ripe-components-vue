@@ -178,6 +178,10 @@ export const Select = {
         dropdownMaxWidth: {
             type: Number,
             default: null
+        },
+        globalEvents: {
+            type: Boolean,
+            default: true
         }
     },
     data: function() {
@@ -284,8 +288,9 @@ export const Select = {
         onGlobalClick() {
             this.closeDropdown();
         },
-        onClickDropdownButton() {
-            this.toggleDropdown();
+        onClickDropdownButton(event) {
+            if (!this.isVisible) this.$nextTick(() => this.openDropdown());
+            this.$bus.$emit("hide-global:dropdown");
         },
         onSelectButtonEnterKey() {
             this.toggleDropdown();
@@ -372,6 +377,9 @@ export const Select = {
         }
     },
     computed: {
+        isVisible() {
+            return this.visibleData === true;
+        },
         buttonText() {
             return this.valueData ? this.options[this.valueIndex].label : this.placeholder;
         },
@@ -397,6 +405,11 @@ export const Select = {
             if (this.highlighted !== null) base[this.highlighted] = true;
             return base;
         }
+    },
+    mounted: function() {
+        this.$bus.$on("hide-global:dropdown", () => {
+            if (this.globalEvents) this.closeDropdown();
+        });
     }
 };
 
