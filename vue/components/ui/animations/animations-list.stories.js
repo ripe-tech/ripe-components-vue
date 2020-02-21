@@ -7,7 +7,7 @@ storiesOf("Animations", module)
         props: {
             animationDuration: {
                 default: text("Animations Duration", "3s")
-            },
+            }
         },
         template: `
             <div>
