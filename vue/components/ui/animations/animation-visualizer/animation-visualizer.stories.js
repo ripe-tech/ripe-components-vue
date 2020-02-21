@@ -34,7 +34,6 @@ storiesOf("Animations", module)
             <div>
                 <animation-visualizer
                     v-bind:title="title"
-                    v-bind:text="text"
                     v-bind:animation-name="animationName"
                     v-bind:animation-duration="animationDuration"
                     v-bind:animation-timingFunction="animationTimingFunction"
