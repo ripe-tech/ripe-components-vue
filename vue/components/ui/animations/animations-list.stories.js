@@ -74,6 +74,3 @@ storiesOf("Animations", module)
             </div>
         `
     }));
-
-/*     slide-left-fake
-    cubic-bezier(0.05, 0.95, 0.05, 0.95) */
