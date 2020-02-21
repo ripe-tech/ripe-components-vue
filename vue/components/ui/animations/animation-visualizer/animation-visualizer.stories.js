@@ -1,12 +1,27 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text } from "@storybook/addon-knobs";
+import { withKnobs, select, text } from "@storybook/addon-knobs";
 
 storiesOf("Animations", module)
     .addDecorator(withKnobs)
     .add("Animation Visualizer", () => ({
         props: {
             animationName: {
-                default: text("Animation Name", null)
+                default: select(
+                    "Animation Name",
+                    {
+                        "fade-in": "fade-in",
+                        "fade-into": "fade-into",
+                        "fade-into-drop": "fade-into-drop",
+                        "fade-into-rise": "fade-into-rise",
+                        "fade-grow": "fade-grow",
+                        "fade-grow-rise": "fade-grow-rise",
+                        "fade-shrink-visibility": "fade-shrink-visibility",
+                        "slide-left-fake": "slide-left-fake",
+                        "slide-right-fake": "slide-right-fake",
+                        "zoom": "zoom"
+                    },
+                    "fade-in"
+                )
             },
             animationDuration: {
                 default: text("Animation Duration", null)
