@@ -18,10 +18,10 @@ storiesOf("Molecules", module)
                 default: number("Progress", null)
             },
             enableAdvanceProgress: {
-                default: boolean("Enable progress advance", false)
+                default: boolean("Simulate Progress Advance", false)
             },
-            advance: {
-                default: number("Advance number", 5)
+            advanceSpeed: {
+                default: number("Simulation Advance Speed", 5)
             },
             actionText: {
                 default: text("Action Text", "Go to build")
@@ -57,7 +57,7 @@ storiesOf("Molecules", module)
                 if (!this.progressData) this.progressData = 0;
 
                 this.progressData =
-                    this.progressData + this.advance > 100 ? 100 : this.progressData + this.advance;
+                    this.progressData + this.advanceSpeed > 100 ? 100 : this.progressData + this.advanceSpeed;
                 setTimeout(() => {
                     this.updateProgress();
                 }, 1000);
