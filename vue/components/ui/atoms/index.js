@@ -16,12 +16,14 @@ import { Link } from "./link/link.vue";
 import { Loader } from "./loader/loader.vue";
 import { Overlay } from "./overlay/overlay.vue";
 import { Padded } from "./padded/padded.vue";
+import { Paragraph } from "./paragraph/paragraph.vue";
 import { Radio } from "./radio/radio.vue";
 import { Reaction } from "./reaction/reaction.vue";
 import { RichTextarea } from "./rich-textarea/rich-textarea.vue";
 import { Side } from "./side/side.vue";
 import { Tag } from "./tag/tag.vue";
 import { Textarea } from "./textarea/textarea.vue";
+import { Title } from "./title/title.vue";
 
 const install = Vue => {
     Vue.component("attachments", Attachments);
@@ -42,12 +44,14 @@ const install = Vue => {
     Vue.component("loader", Loader);
     Vue.component("overlay", Overlay);
     Vue.component("padded", Padded);
+    Vue.component("paragraph", Paragraph);
     Vue.component("radio", Radio);
     Vue.component("reaction", Reaction);
     Vue.component("rich-textarea", RichTextarea);
     Vue.component("side", Side);
     Vue.component("tag", Tag);
     Vue.component("textarea-ripe", Textarea);
+    Vue.component("title-ripe", Title);
 };
 
 export {
@@ -69,12 +73,14 @@ export {
     Loader,
     Overlay,
     Padded,
+    Paragraph,
     Radio,
     Reaction,
     RichTextarea,
     Side,
     Tag,
-    Textarea
+    Textarea,
+    Title
 };
 
 export default install;
