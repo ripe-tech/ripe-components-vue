@@ -94,11 +94,11 @@
 }
 
 .progress-list-item .information-container .state .state-completed {
-    animation: slide-left 0.2s;
+    animation: slide-left 0.35s;
 }
 
 .progress-list-item .information-container .state .state-completed.slide-leave-active {
-    animation: slide-right 0.2s;
+    animation: slide-right 0.35s;
 }
 
 .progress-list-item .information-container .state .state-completed .icon.ok {
@@ -111,9 +111,12 @@
     margin: 17px 0px 0px 0px;
 }
 
-.progress-list-item .progress-bar-container.slide-transition-enter-active,
-.progress-list-item .progress-bar-container.slide-transition-leave-active {
+.progress-list-item .progress-bar-container.slide-transition-enter-active {
     transition: 0.3s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+.progress-list-item .progress-bar-container.slide-transition-leave-active {
+    transition: 0.3s ease-in-out 0.2s, opacity 0.2s ease-in-out 0.2s;
 }
 
 .progress-list-item .progress-bar-container.slide-transition-enter,
@@ -126,9 +129,8 @@
     margin: 17px 0px 0px 0px;
 }
 
-
 .progress-list-item .progress-bar-container ::v-deep .progress-bar .fill {
-    transition: width 1s ease;
+    transition: width 0.5s ease;
 }
 </style>
 

@@ -57,7 +57,9 @@ storiesOf("Molecules", module)
                 if (!this.progressData) this.progressData = 0;
 
                 this.progressData =
-                    this.progressData + this.advanceSpeed > 100 ? 100 : this.progressData + this.advanceSpeed;
+                    this.progressData + this.advanceSpeed > 100
+                        ? 100
+                        : this.progressData + this.advanceSpeed;
                 setTimeout(() => {
                     this.updateProgress();
                 }, 1000);
