@@ -125,7 +125,7 @@ export const Reaction = {
             return this.icon ? this.iconPath : this.imgUrl;
         },
         iconPath() {
-            return require(`./../../../../assets/icons/black/${this.icon}.svg`);
+            return require(`./../../../../assets/icons/${this.icon}.svg`);
         },
         hasReactions() {
             return this.countData > 0;
