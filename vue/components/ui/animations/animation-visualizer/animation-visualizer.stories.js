@@ -36,9 +36,9 @@ storiesOf("Animations", module)
                     v-bind:title="title"
                     v-bind:animation-name="animationName"
                     v-bind:animation-duration="animationDuration"
-                    v-bind:animation-timing-function="animationTimingFunction"
+                    v-bind:animation-timingFunction="animationTimingFunction"
                     v-bind:animation-delay="animationDelay"
-                    v-bind:animation-iteration-count="animationIterationCount"
+                    v-bind:animation-iterationCount="animationIterationCount"
                     v-bind:animation-direction="animationDirection"
                     v-bind:animation-mode="animationMode"
                 />
