@@ -1,9 +1,7 @@
 <template>
     <div class="animation-visualizer">
         <h3 v-if="title">{{ title }}</h3>
-        <div class="box" v-bind:style="animationStyle">
-            Box
-        </div>
+        <div class="box" v-if="renderComponent" v-bind:style="animationStyle">Box</div>
     </div>
 </template>
 
@@ -46,7 +44,7 @@ export const AnimationVisualizer = {
         },
         animationIterationCount: {
             type: String,
-            default: "infinite"
+            default: null
         },
         animationDirection: {
             type: String,
@@ -55,19 +53,47 @@ export const AnimationVisualizer = {
         animationMode: {
             type: String,
             default: null
+        },
+        animationPlayState: {
+            type: String,
+            default: null
         }
+    },
+    data() {
+      return {
+        renderComponent: true,
+      };
     },
     computed: {
         animationStyle() {
             return {
                 "animation-name": this.animationName,
                 "animation-duration": this.animationDuration,
-                "animation-timing-function": this.animationTimingFunction,
                 "animation-delay": this.animationDelay,
+                "animation-timing-function": this.animationTimingFunction,
                 "animation-iteration-count": this.animationIterationCount,
                 "animation-direction": this.animationDirection,
-                "animation-fill-mode": this.animationMode
+                "animation-fill-mode": this.animationMode,
+                "animation-play-state": this.animationPlayState
             };
+        },
+        animationsProperties() {
+            return [this.animationName, 
+            this.animationDuration, 
+            this.animationTimingFunction,
+            this.animationDelay,
+            this.animationIterationCount,
+            this.animationDirection,
+            this.animationMode,
+            this.animationPlayState].join()
+        }
+    },
+    watch: {
+        animationsProperties(value) {
+            this.renderComponent = false;
+            this.$nextTick().then(() => {
+                this.renderComponent = true;
+            });
         }
     }
 };
