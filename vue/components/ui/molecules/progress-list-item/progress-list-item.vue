@@ -34,14 +34,16 @@
                 />
             </div>
         </div>
-        <progress-bar
-            v-bind:steps="100"
-            v-bind:current-step="progress"
-            v-bind:color="'#1d2631'"
-            v-bind:label="`${progress}%`"
-            v-bind:label-alignment="'left'"
-            v-if="progress !== null && !finished"
-        />
+         <transition name="slide-transition" mode="out-in">
+            <progress-bar
+                v-bind:steps="100"
+                v-bind:current-step="progress"
+                v-bind:color="'#1d2631'"
+                v-bind:label="`${progress}%`"
+                v-bind:label-alignment="'left'"
+                v-if="progress !== null && !finished"
+            />
+        </transition>
     </div>
 </template>
 
@@ -92,6 +94,23 @@
 .progress-list-item .progress-bar-container {
     margin: 17px 0px 0px 0px;
 }
+
+.progress-list-item .progress-bar-container.slide-transition-enter-active,
+.progress-list-item .progress-bar-container.slide-transition-leave-active{
+    transition: 0.3s ease-in-out;
+}
+
+.progress-list-item .progress-bar-container.slide-transition-enter,
+.progress-list-item .progress-bar-container.slide-transition-leave-to
+{
+    opacity: 0;
+    margin: -29px 0px 0px 0px;
+}
+
+.progress-list-item .progress-bar-container.slide-transition-enter-to {
+    margin: 17px 0px 0px 0px;
+}
+
 </style>
 
 <script>
