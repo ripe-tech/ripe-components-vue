@@ -391,7 +391,7 @@ export const Table = {
             return this.nrChecked === 0;
         },
         globalCheckboxIcon() {
-            return this.isAllChecked ? "check" : "minus";
+            return this.isAllChecked || this.isAllUnchecked ? "check" : "minus";
         }
     },
     mounted: function() {
