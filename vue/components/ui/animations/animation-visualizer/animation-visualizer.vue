@@ -1,7 +1,9 @@
 <template>
     <div class="animation-visualizer">
         <h3 v-if="title">{{ title }}</h3>
-        <div class="box" v-if="renderComponent" v-bind:style="animationStyle">Box</div>
+        <div class="box" v-bind:style="animationStyle" v-if="renderComponent">
+            Box
+        </div>
     </div>
 </template>
 
@@ -28,11 +30,11 @@ export const AnimationVisualizer = {
         },
         animationName: {
             type: String,
-            required: true
+            default: null
         },
         animationDuration: {
             type: String,
-            required: true
+            default: null
         },
         animationTimingFunction: {
             type: String,
@@ -59,10 +61,10 @@ export const AnimationVisualizer = {
             default: null
         }
     },
-    data() {
-      return {
-        renderComponent: true,
-      };
+    data: function() {
+        return {
+            renderComponent: true
+        };
     },
     computed: {
         animationStyle() {
@@ -78,14 +80,16 @@ export const AnimationVisualizer = {
             };
         },
         animationsProperties() {
-            return [this.animationName, 
-            this.animationDuration, 
-            this.animationTimingFunction,
-            this.animationDelay,
-            this.animationIterationCount,
-            this.animationDirection,
-            this.animationMode,
-            this.animationPlayState].join()
+            return [
+                this.animationName,
+                this.animationDuration,
+                this.animationTimingFunction,
+                this.animationDelay,
+                this.animationIterationCount,
+                this.animationDirection,
+                this.animationMode,
+                this.animationPlayState
+            ].join();
         }
     },
     watch: {
