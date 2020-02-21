@@ -26,17 +26,19 @@ storiesOf("Molecules", module)
                 default: select(
                     "Label Alignment",
                     {
-                        Default: "",
+                        Default: null,
                         Left: "left",
                         Right: "right",
                         Center: "center"
                     },
-                    ""
+                    null
                 )
             }
         },
         data: function() {
-            return { style };
+            return {
+                style: style
+            };
         },
         template: `
             <div>
