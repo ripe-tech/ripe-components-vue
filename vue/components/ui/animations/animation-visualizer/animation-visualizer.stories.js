@@ -5,9 +5,6 @@ storiesOf("Animations", module)
     .addDecorator(withKnobs)
     .add("Animation Visualizer", () => ({
         props: {
-            title: {
-                default: text("Title", null)
-            },
             animationName: {
                 default: text("Animation Name", null)
             },
@@ -36,7 +33,6 @@ storiesOf("Animations", module)
         template: `
             <div>
                 <animation-visualizer
-                    v-bind:title="title"
                     v-bind:animation-name="animationName"
                     v-bind:animation-duration="animationDuration"
                     v-bind:animation-timing-function="animationTimingFunction"
