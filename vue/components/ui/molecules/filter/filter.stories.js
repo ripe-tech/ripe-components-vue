@@ -22,7 +22,7 @@ storiesOf("Molecules", module)
                 ]
             },
             checkboxes: {
-                default: () => boolean("Enable checkboxes", false)
+                default: () => boolean("Checkboxes", false)
             },
             checkedItems: {
                 type: Object,

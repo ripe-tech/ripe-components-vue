@@ -54,7 +54,7 @@ storiesOf("Organisms", module)
                 )
             },
             checkboxes: {
-                default: () => boolean("Enable checkboxes", false)
+                default: () => boolean("Checkboxes", false)
             },
             checkedItems: {
                 type: Object,
@@ -83,13 +83,13 @@ storiesOf("Organisms", module)
                     },
                     {
                         id: 3,
-                        user: "Tech 3",
-                        device: "Calculator"
+                        user: "DDigitt",
+                        device: "iPad"
                     },
                     {
                         id: 4,
-                        user: "Tech 4",
-                        device: "Potato"
+                        user: "Six London",
+                        device: "Blackberry"
                     }
                 ];
             }
