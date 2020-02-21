@@ -26,7 +26,7 @@ storiesOf("Molecules", module)
                 default: select(
                     "Label Alignment",
                     {
-                        Default: null,
+                        Unset: null,
                         Left: "left",
                         Right: "right",
                         Center: "center"
