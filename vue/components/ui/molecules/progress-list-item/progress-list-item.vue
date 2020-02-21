@@ -10,31 +10,36 @@
                 </div>
             </div>
             <div class="state">
-                <template v-if="finished">
+                <transition name="slide" mode="out-in">
+                    <template v-if="finished">
+                        <div class="state-completed">
+                            <button-icon
+                                v-bind:icon="actionIcon"
+                                v-bind:text="actionText"
+                                v-bind:size="24"
+                                v-on:click="onActionButtonClick"
+                            />
+                            <icon
+                                class="ok"
+                                v-bind:icon="'ok'"
+                                v-bind:color="'#45a777'"
+                                v-bind:stroke-width="2"
+                                v-bind:width="24"
+                                v-bind:height="24"
+                            />
+                        </div>
+                    </template>
                     <button-icon
-                        v-bind:icon="actionIcon"
-                        v-bind:text="actionText"
-                        v-bind:size="24"
-                        v-on:click="onActionButtonClick"
+                        class="close"
+                        v-bind:icon="'close'"
+                        v-bind:size="38"
+                        v-else
+                        v-on:click="onCloseButtonClick"
                     />
-                    <icon
-                        class="ok"
-                        v-bind:icon="'ok'"
-                        v-bind:color="'#45a777'"
-                        v-bind:stroke-width="2"
-                        v-bind:width="24"
-                        v-bind:height="24"
-                    />
-                </template>
-                <button-icon
-                    v-bind:icon="'close'"
-                    v-bind:size="38"
-                    v-else
-                    v-on:click="onCloseButtonClick"
-                />
+                </transition>
             </div>
         </div>
-         <transition name="slide-transition" mode="out-in">
+        <transition name="slide-transition" mode="out-in">
             <progress-bar
                 v-bind:steps="100"
                 v-bind:current-step="progress"
@@ -49,6 +54,7 @@
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
+@import "css/animations.scss";
 
 .progress-list-item {
     background-color: $white;
@@ -87,8 +93,18 @@
     margin: 0px 0px 0px auto;
 }
 
-.progress-list-item .information-container .state .icon.ok {
+.progress-list-item .information-container .state .state-completed {
+    animation: slide-left 0.2s;
+}
+
+.progress-list-item .information-container .state .state-completed.slide-leave-active {
+    animation: slide-right 0.2s;
+}
+
+.progress-list-item .information-container .state .state-completed .icon.ok {
+    animation: zoom5 0.4s 0.2s;
     margin: 0px 0px 0px 30px;
+    vertical-align: middle;
 }
 
 .progress-list-item .progress-bar-container {
@@ -96,21 +112,19 @@
 }
 
 .progress-list-item .progress-bar-container.slide-transition-enter-active,
-.progress-list-item .progress-bar-container.slide-transition-leave-active{
-    transition: 0.3s ease-in-out;
+.progress-list-item .progress-bar-container.slide-transition-leave-active {
+    transition: 0.3s ease-in-out, opacity 0.2s ease-in-out;
 }
 
 .progress-list-item .progress-bar-container.slide-transition-enter,
-.progress-list-item .progress-bar-container.slide-transition-leave-to
-{
-    opacity: 0;
+.progress-list-item .progress-bar-container.slide-transition-leave-to {
     margin: -29px 0px 0px 0px;
+    opacity: 0;
 }
 
 .progress-list-item .progress-bar-container.slide-transition-enter-to {
     margin: 17px 0px 0px 0px;
 }
-
 </style>
 
 <script>
