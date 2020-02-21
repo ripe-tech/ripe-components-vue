@@ -12,12 +12,12 @@ storiesOf("Animations", module)
         computed: {
             style: function() {
                 return {
-                    "padding": "10px",
-                    "display": "inline-block",
-                    "width": "200px",
-                    "margin": "5px;"
-                    }
-                }
+                    padding: "10px",
+                    display: "inline-block",
+                    width: "200px",
+                    margin: "5px;"
+                };
+            }
         },
         template: `
             <div>

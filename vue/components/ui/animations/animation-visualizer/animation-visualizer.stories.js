@@ -18,7 +18,7 @@ storiesOf("Animations", module)
                         "fade-shrink-visibility": "fade-shrink-visibility",
                         "slide-left-fake": "slide-left-fake",
                         "slide-right-fake": "slide-right-fake",
-                        "zoom": "zoom"
+                        zoom: "zoom"
                     },
                     "fade-in"
                 )
