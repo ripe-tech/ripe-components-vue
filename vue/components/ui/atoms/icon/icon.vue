@@ -81,8 +81,7 @@ export const Icon = {
     computed: {
         svgFile() {
             try {
-                return require(`!!raw-loader!./../../../../assets/icons/${this.icon}.svg`)
-                    .default;
+                return require(`!!raw-loader!./../../../../assets/icons/${this.icon}.svg`).default;
             } catch (error) {
                 console.error(`Error loading icon '${this.icon}'.`, error);
             }
