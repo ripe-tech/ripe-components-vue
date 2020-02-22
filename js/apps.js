@@ -77,7 +77,7 @@ export const getApps = function(ctx, environment) {
             if (ctx.hasPermission("ripe-white-admin.ui")) {
                 apps.whiteAdmin = {
                     text: "White Admin CI",
-                    link: "https://ripe-white-admnin-ui-ci.platforme.com"
+                    link: "https://ripe-white-admin-ui-ci.platforme.com"
                 };
             }
             return apps;
@@ -97,7 +97,7 @@ export const getApps = function(ctx, environment) {
             if (ctx.hasPermission("ripe-white-admin.ui")) {
                 apps.whiteAdmin = {
                     text: "White Admin Now",
-                    link: "https://ripe-white-admnin-ui-now.platforme.com"
+                    link: "https://ripe-white-admin-ui-now.platforme.com"
                 };
             }
             return apps;
