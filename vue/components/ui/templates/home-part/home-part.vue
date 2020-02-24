@@ -21,6 +21,7 @@
 @import "css/variables.scss";
 
 .home-part {
+    text-align: center;
     user-select: none;
 }
 
@@ -31,11 +32,11 @@
     line-height: 100px;
 }
 
-.home-part > .top > a {
+.home-part > .top > * {
     border: none;
 }
 
-.home-part > .top > a > img {
+.home-part > .top > * > img {
     display: inline-block;
     max-height: 76px;
     vertical-align: middle;
@@ -45,7 +46,6 @@
     margin: 0px auto 0px auto;
     max-width: 1280px;
     padding: 96px 0px 96px 0px;
-    text-align: center;
 }
 
 .home-part > .middle > .area {
