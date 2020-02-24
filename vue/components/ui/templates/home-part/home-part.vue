@@ -39,6 +39,7 @@
 .home-part > .top > * > img {
     display: inline-block;
     max-height: 76px;
+    max-width: 280px;
     vertical-align: middle;
 }
 

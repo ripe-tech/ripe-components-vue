@@ -6,10 +6,13 @@ storiesOf("Templates", module)
     .add("Home", () => ({
         props: {
             logo: {
-                default: text("Logo", "https://cdn.platforme.com/images/favicon.png")
+                default: text("Logo", "https://cdn.platforme.com/images/platforme.png")
             },
             illustration: {
-                default: text("Illustration", "https://assets-ouch.icons8.com/preview/230/0a740638-d82c-4ee1-a169-c32096e14e8a.png")
+                default: text(
+                    "Illustration",
+                    "https://assets-ouch.icons8.com/preview/230/0a740638-d82c-4ee1-a169-c32096e14e8a.png"
+                )
             },
             message: {
                 default: text("Message", "Welcome to RIPE XXXX\nyour number one place for RIPE")
