@@ -1,5 +1,12 @@
 <template>
     <div class="container-ripe" v-bind:class="classes">
+        <div class="container-header" v-if="title || $slots.header">
+            <slot name="header">
+                <title-ripe v-if="title">
+                    {{ title }}
+                </title-ripe>
+            </slot>
+        </div>
         <slot />
     </div>
 </template>
@@ -33,6 +40,17 @@ body.mobile .container-ripe {
     margin: 0px auto 18px auto;
     width: 100%;
 }
+
+.container-ripe > .container-header {
+    font-size: 0px;
+    padding: 24px 24px 20px 24px;
+    text-align: left;
+}
+
+body.tablet .container-ripe > .container-header,
+body.mobile .container-ripe > .container-header {
+    padding: 20px 15px 20px 15px;
+}
 </style>
 
 <script>
@@ -42,6 +60,10 @@ export const Container = {
         mode: {
             type: String,
             default: "default"
+        },
+        title: {
+            type: String,
+            default: null
         }
     },
     computed: {
