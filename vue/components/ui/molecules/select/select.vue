@@ -22,6 +22,7 @@
             <div
                 class="select-button"
                 tabindex="0"
+                ref="select-button"
                 v-on:click="onClickDropdownButton"
                 v-on:keydown.exact="() => onKey($event.key)"
                 v-on:keydown.esc.exact="onEscKey"
@@ -33,7 +34,6 @@
                 v-on:keydown.alt.up="onAltUpKey"
                 v-on:keydown.enter.exact="onEnterKey"
                 v-on:keydown.space.exact="onSpaceKey"
-                v-on:click.stop.prevent
             >
                 {{ buttonText }}
             </div>
@@ -281,7 +281,10 @@ export const Select = {
                 dropdown.scrollTop = indexEnd - dropdown.clientHeight;
             }
         },
-        onGlobalClick() {
+        onGlobalClick(event) {
+            const selectButton = this.$refs["select-button"];
+            // The click was in select's own button, ignore
+            if (selectButton && selectButton === event.target) return;
             this.closeDropdown();
         },
         onClickDropdownButton() {
