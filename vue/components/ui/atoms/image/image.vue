@@ -4,6 +4,7 @@
         v-bind:class="{ loaded: loaded, 'no-fade': !fade }"
         v-bind:src="src"
         v-bind:alt="alt"
+        v-bind:style="style"
         v-on:load="onLoad"
         v-on:click="onClick"
         v-on:error="onError"
@@ -39,6 +40,14 @@ export const Image = {
             type: String,
             default: ""
         },
+        width: {
+            type: Number,
+            default: null
+        },
+        height: {
+            type: Number,
+            default: null
+        },
         fade: {
             type: Boolean,
             default: true
@@ -48,6 +57,14 @@ export const Image = {
         return {
             loaded: false
         };
+    },
+    computed: {
+        style() {
+            const base = {};
+            if (![undefined, null].includes(this.width)) base.width = this.width + "px";
+            if (![undefined, null].includes(this.height)) base.height = this.height + "px";
+            return base;
+        }
     },
     methods: {
         onLoad(event) {

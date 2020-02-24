@@ -14,7 +14,13 @@
                         <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
                     </svg>
                     <router-link class="header-logo-container" to="/">
-                        <image-ripe class="header-logo" v-bind:src="logo" v-bind:fade="false" />
+                        <image-ripe
+                            class="header-logo"
+                            v-bind:src="logo"
+                            v-bind:width="logoWidth"
+                            v-bind:height="logoHeight"
+                            v-bind:fade="false"
+                        />
                     </router-link>
                     <search
                         v-bind:placeholder="searchPlaceholder"
@@ -276,12 +282,9 @@
     line-height: normal;
     margin-right: -6px;
     margin-top: -4px;
-    max-width: 320px;
+    max-width: 358px;
     padding: 10px;
-    position: absolute;
-    right: 0px;
     text-align: left;
-    white-space: pre;
 }
 
 .header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown li {
@@ -364,6 +367,14 @@ export const Header = {
             type: String,
             default: null
         },
+        logoWidth: {
+            type: Number,
+            default: null
+        },
+        logoHeight: {
+            type: Number,
+            default: null
+        },
         searchPlaceholder: {
             type: String,
             default: "Search RIPE"
@@ -408,7 +419,7 @@ export const Header = {
         },
         appsDropdownItems() {
             const items = [];
-            for (const value of ["copper", "pulse"]) {
+            for (const value of Object.keys(this.apps)) {
                 if (!this.apps[value]) continue;
                 const app = this.apps[value];
                 items.push({

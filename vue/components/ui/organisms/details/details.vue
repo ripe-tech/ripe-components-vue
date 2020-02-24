@@ -58,8 +58,12 @@
                         <slot name="header-buttons-after" />
                     </slot>
                 </div>
-                <h1 class="title" v-if="invalid">{{ invalidTitle }}</h1>
-                <h1 class="title" v-else>{{ title }}</h1>
+                <title-ripe v-if="invalid">
+                    {{ invalidTitle }}
+                </title-ripe>
+                <title-ripe v-else>
+                    {{ title }}
+                </title-ripe>
             </div>
             <h1 class="item-invalid" v-if="invalid">
                 {{ invalidMessage }}
@@ -119,7 +123,7 @@
                     </slot>
                 </div>
                 <slot name="title" v-if="isLoaded">
-                    <h1 class="title">{{ title }}</h1>
+                    <title-ripe>{{ title }}</title-ripe>
                 </slot>
                 <slot name="header-extra" />
             </div>
@@ -350,17 +354,6 @@ body.mobile .button-options ::v-deep .dropdown {
     bottom: 40px;
     margin: 0px 0px 0px 0px;
     right: 0px;
-}
-
-.container-ripe .title {
-    color: $lower-color;
-    display: inline-block;
-    font-size: 26px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    line-height: 34px;
-    margin: 0px 0px 0px 0px;
-    text-align: left;
 }
 
 body.tablet .container-ripe .title,
