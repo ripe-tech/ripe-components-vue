@@ -1,7 +1,7 @@
 <template>
-    <div class="home-part">
+    <div class="home-part" v-if="visible">
         <div class="top">
-            <router-link v-bind:to="link">
+            <router-link v-bind:to="homeRoute">
                 <img v-bind:src="logo" />
             </router-link>
         </div>
@@ -87,7 +87,11 @@ export const HomePart = {
             type: String | Object,
             default: null
         },
-        link: {
+        homeRoute: {
+            type: String | Object,
+            default: null
+        },
+        nextRoute: {
             type: String | Object,
             default: null
         },
@@ -96,10 +100,31 @@ export const HomePart = {
             default: null
         }
     },
+    data: function() {
+        return {
+            visible: false
+        };
+    },
     computed: {
         messageReplaced() {
             if (!this.message) return "";
             return this.message.replace(/\n/g, "<br/>");
+        }
+    },
+    methods: {
+        login: async function() {
+            try {
+                document.location = await this.$ripeIdApi.oauthAuthorize();
+            } catch (err) {
+                this.handleError(err);
+            }
+        }
+    },
+    created: function() {
+        if (this.$root && this.$root.authenticated && this.nextRoute) {
+            this.$router.push(this.nextRoute);
+        } else {
+            this.visible = true;
         }
     }
 };
