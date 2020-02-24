@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, color, number, text, select, button, knob } from "@storybook/addon-knobs";
+import { withKnobs, color, number, text, select } from "@storybook/addon-knobs";
 
 const style = {
     "margin-bottom": "10px",
@@ -41,11 +41,11 @@ storiesOf("Molecules", module)
                 default: select(
                     "Fill Transition Mode",
                     {
-                        "ease": "ease",
+                        ease: "ease",
                         "ease-in": "ease-in",
                         "ease-out": "ease-out",
                         "ease-in-out": "ease-in-out",
-                        "linear": "linear"
+                        linear: "linear"
                     },
                     "ease"
                 )
@@ -64,7 +64,7 @@ storiesOf("Molecules", module)
             };
         },
         methods: {
-            onProgressBarSimulationButtonClick(){
+            onProgressBarSimulationButtonClick() {
                 this.simulatedCurrentStep = 0;
                 setTimeout(() => this.updateProgress(), 500);
             },
