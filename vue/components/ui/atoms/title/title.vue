@@ -8,6 +8,7 @@
 @import "css/variables.scss";
 
 .title {
+    color: $black;
     font-family: $font-family;
     font-size: 26px;
     font-weight: 500;
