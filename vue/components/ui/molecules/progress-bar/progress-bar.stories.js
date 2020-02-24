@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, color, number, text, select } from "@storybook/addon-knobs";
+import { withKnobs, color, number, text, select, button, knob } from "@storybook/addon-knobs";
 
 const style = {
     "margin-bottom": "10px",
@@ -33,12 +33,33 @@ storiesOf("Molecules", module)
                     },
                     null
                 )
+            },
+            simulationAdvanceStep: {
+                default: number("Simulation Advance Step", 5)
+            },
+            simulationStepTimeMs: {
+                default: number("Simulation Step Time (ms)", 500)
             }
         },
         data: function() {
             return {
-                style: style
+                style: style,
+                simulatedCurrentStep: 0
             };
+        },
+        methods: {
+            onProgressBarSimulationButtonClick(){
+                this.simulatedCurrentStep = 0;
+                this.updateProgress();
+            },
+            updateProgress() {
+                if (this.simulatedCurrentStep >= 100) return;
+
+                this.simulatedCurrentStep += this.simulationAdvanceStep;
+                this.simulatedCurrentStep = Math.min(this.simulatedCurrentStep, 100);
+
+                setTimeout(() => this.updateProgress(), 500);
+            }
         },
         template: `
             <div>
@@ -53,6 +74,13 @@ storiesOf("Molecules", module)
                 <progress-bar v-bind:current-step="2" color="#000000" v-bind:style="style"></progress-bar>
                 <progress-bar v-bind:current-step="3" color="#46a546" v-bind:style="style" v-bind:label="'Label'"></progress-bar>
                 <progress-bar v-bind:current-step="3" color="#c43c35" v-bind:style="style" v-bind:label="'Another label'"></progress-bar>
+                <progress-bar
+                    v-bind:steps="100"
+                    color="#000000"
+                    v-bind:current-step="simulatedCurrentStep"
+                    v-bind:label="simulatedCurrentStep+'%'"
+                />
+                <Button v-on:click="onProgressBarSimulationButtonClick">Start progress bar simulation</Button>
             </div>
         `
     }));
