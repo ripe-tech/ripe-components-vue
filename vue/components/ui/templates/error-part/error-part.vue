@@ -55,7 +55,7 @@
 .error-message > img {
     display: block;
     margin: 0px auto 24px auto;
-    width: 160px;
+    width: 240px;
 }
 
 .error-message > img.clickable {

@@ -58,8 +58,12 @@
                         <slot name="header-buttons-after" />
                     </slot>
                 </div>
-                <h1 class="title" v-if="invalid">{{ invalidTitle }}</h1>
-                <h1 class="title" v-else>{{ title }}</h1>
+                <title-ripe v-if="invalid">
+                    {{ invalidTitle }}
+                </title-ripe>
+                <title-ripe v-else>
+                    {{ title }}
+                </title-ripe>
             </div>
             <h1 class="item-invalid" v-if="invalid">
                 {{ invalidMessage }}
@@ -68,7 +72,7 @@
         </container-ripe>
         <container-ripe class="details-container" v-else>
             <div class="container-header">
-                <div class="header-buttons">
+                <div class="header-buttons" v-if="headerButtons">
                     <slot name="header-buttons">
                         <slot name="header-buttons-before" />
                         <div class="header-button">
@@ -119,7 +123,7 @@
                     </slot>
                 </div>
                 <slot name="title" v-if="isLoaded">
-                    <h1 class="title">{{ title }}</h1>
+                    <title-ripe>{{ title }}</title-ripe>
                 </slot>
                 <slot name="header-extra" />
             </div>
@@ -352,17 +356,6 @@ body.mobile .button-options ::v-deep .dropdown {
     right: 0px;
 }
 
-.container-ripe .title {
-    color: $lower-color;
-    display: inline-block;
-    font-size: 26px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    line-height: 34px;
-    margin: 0px 0px 0px 0px;
-    text-align: left;
-}
-
 body.tablet .container-ripe .title,
 body.mobile .container-ripe .title {
     width: 100%;
@@ -532,6 +525,10 @@ export const Details = {
         safe: {
             type: Boolean,
             default: false
+        },
+        headerButtons: {
+            type: Boolean,
+            default: true
         }
     },
     data: function() {

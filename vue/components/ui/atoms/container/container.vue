@@ -47,9 +47,7 @@ export const Container = {
     computed: {
         classes() {
             const base = {};
-
             if (this.mode) base[`container-ripe-${this.mode}`] = true;
-
             return base;
         }
     }

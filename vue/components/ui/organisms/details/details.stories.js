@@ -9,7 +9,7 @@ storiesOf("Organisms", module)
         props: {
             title: {
                 type: String,
-                default: text("title", "Details")
+                default: text("Title", "Details")
             },
             itemName: {
                 type: String,
@@ -58,6 +58,10 @@ storiesOf("Organisms", module)
                     { label: "Item 2", event: "item_2" },
                     { label: "Item 3", event: "item_3" }
                 ]
+            },
+            headerButtons: {
+                type: Boolean,
+                default: boolean("Header Buttons", true)
             }
         },
         template: `
@@ -73,6 +77,7 @@ storiesOf("Organisms", module)
                 v-bind:context="{}"
                 v-bind:index="0"
                 v-bind:get-items="() => values"
+                v-bind:header-buttons="headerButtons"
             >
                 <template v-slot:shirt>
                     <p>Custom entry</p>

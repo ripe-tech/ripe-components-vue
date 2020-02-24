@@ -19,10 +19,12 @@
                         v-bind:loading="loading"
                     />
                 </div>
-                <h1 class="title" v-if="titleText">{{ titleText }}</h1>
-                <h1 class="title" v-else>
-                    Your <span class="name">{{ name }}</span>
-                </h1>
+                <title-ripe v-if="titleText">
+                    {{ titleText }}
+                </title-ripe>
+                <title-ripe v-else>
+                    {{ titlePrefix }} {{ nameCapitalized }}
+                </title-ripe>
             </div>
             <filter-ripe
                 v-bind:get-items="getItems"
@@ -54,6 +56,14 @@
                 <template v-slot:table-item="{ item, index }">
                     <slot
                         name="table-item"
+                        v-bind:item="item"
+                        v-bind:index="index"
+                        v-bind:add-filter="addFilter"
+                    />
+                </template>
+                <template v-slot:table-row="{ item, index }">
+                    <slot
+                        name="table-row"
                         v-bind:item="item"
                         v-bind:index="index"
                         v-bind:add-filter="addFilter"
@@ -176,21 +186,8 @@ body.mobile .container-header {
     padding: 20px 20px 20px 20px;
 }
 
-.title {
-    font-size: 26px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    line-height: 34px;
-    margin: 0px 0px 0px 0px;
-    text-align: left;
-}
-
 body.mobile .title {
     margin-top: 16px;
-}
-
-.title .name {
-    text-transform: capitalize;
 }
 
 input[type="text"] {
@@ -273,6 +270,10 @@ export const Listing = {
             type: String,
             default: null
         },
+        titlePrefix: {
+            type: String,
+            default: "Your"
+        },
         filterText: {
             type: String,
             default: null
@@ -328,6 +329,10 @@ export const Listing = {
         }
     },
     computed: {
+        nameCapitalized() {
+            if (!this.name) return "";
+            return this.name[0].toUpperCase() + this.name.slice(1);
+        },
         classes() {
             const base = {
                 loading: this.loading,
