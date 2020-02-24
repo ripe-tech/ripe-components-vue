@@ -128,10 +128,6 @@
 .progress-list-item .progress-bar-container.slide-transition-enter-to {
     margin: 17px 0px 0px 0px;
 }
-
-.progress-list-item .progress-bar-container ::v-deep .progress-bar .fill {
-    transition: width 0.5s ease;
-}
 </style>
 
 <script>
