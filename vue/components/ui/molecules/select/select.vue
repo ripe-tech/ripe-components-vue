@@ -283,7 +283,7 @@ export const Select = {
         },
         onGlobalClick(event) {
             const selectButton = this.$refs["select-button"];
-            // The click was in select's own button, ignore
+            // The click was in this select's own button, ignore
             if (selectButton && selectButton === event.target) return;
             this.closeDropdown();
         },
