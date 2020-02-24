@@ -33,7 +33,6 @@
                 v-on:keydown.alt.up="onAltUpKey"
                 v-on:keydown.enter.exact="onEnterKey"
                 v-on:keydown.space.exact="onSpaceKey"
-                v-on:click.stop.prevent
             >
                 {{ buttonText }}
             </div>
@@ -289,7 +288,7 @@ export const Select = {
             this.closeDropdown();
         },
         onClickDropdownButton(event) {
-            if (!this.isVisible) this.$nextTick(() => this.openDropdown());
+            if (!this.isVisible) setTimeout(() => this.openDropdown());
             this.$bus.$emit("hide-global:dropdown");
         },
         onSelectButtonEnterKey() {
