@@ -22,7 +22,6 @@
             <div
                 class="select-button"
                 tabindex="0"
-                ref="select-button"
                 v-on:click="onClickDropdownButton"
                 v-on:keydown.exact="() => onKey($event.key)"
                 v-on:keydown.esc.exact="onEscKey"
