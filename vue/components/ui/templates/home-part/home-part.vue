@@ -7,7 +7,7 @@
         </div>
         <div class="middle">
             <div class="area area-left">
-                <img v-bind:src="illustration" />
+                <img class="illustration" v-bind:src="illustration" />
             </div>
             <div class="area area-right">
                 <div class="punch" v-html="messageReplaced" />
@@ -56,6 +56,11 @@
 .home-part > .middle > .area-left {
     animation: fade-into-rise 0.45s cubic-bezier(0.645, 0.045, 0.355, 1);
     margin-right: 64px;
+}
+
+.home-part > .middle > .area-left > .illustration {
+    max-height: 400px;
+    max-width: 400px;
 }
 
 .home-part > .middle > .area-right {
