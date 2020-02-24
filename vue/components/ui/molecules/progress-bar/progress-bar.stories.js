@@ -34,6 +34,22 @@ storiesOf("Molecules", module)
                     null
                 )
             },
+            fillTransitonTime: {
+                default: number("Fill Transition Time", 0.5)
+            },
+            fillTransitonMode: {
+                default: select(
+                    "Fill Transition Mode",
+                    {
+                        "ease": "ease",
+                        "ease-in": "ease-in",
+                        "ease-out": "ease-out",
+                        "ease-in-out": "ease-in-out",
+                        "linear": "linear"
+                    },
+                    "ease"
+                )
+            },
             simulationAdvanceStep: {
                 default: number("Simulation Advance Step", 5)
             },
@@ -50,7 +66,7 @@ storiesOf("Molecules", module)
         methods: {
             onProgressBarSimulationButtonClick(){
                 this.simulatedCurrentStep = 0;
-                this.updateProgress();
+                setTimeout(() => this.updateProgress(), 500);
             },
             updateProgress() {
                 if (this.simulatedCurrentStep >= 100) return;
@@ -58,7 +74,7 @@ storiesOf("Molecules", module)
                 this.simulatedCurrentStep += this.simulationAdvanceStep;
                 this.simulatedCurrentStep = Math.min(this.simulatedCurrentStep, 100);
 
-                setTimeout(() => this.updateProgress(), 500);
+                setTimeout(() => this.updateProgress(), this.simulationStepTimeMs);
             }
         },
         template: `
@@ -79,6 +95,8 @@ storiesOf("Molecules", module)
                     color="#000000"
                     v-bind:current-step="simulatedCurrentStep"
                     v-bind:label="simulatedCurrentStep+'%'"
+                    v-bind:fill-transiton-time="fillTransitonTime"
+                    v-bind:fill-transiton-mode="fillTransitonMode"
                 />
                 <Button v-on:click="onProgressBarSimulationButtonClick">Start progress bar simulation</Button>
             </div>
