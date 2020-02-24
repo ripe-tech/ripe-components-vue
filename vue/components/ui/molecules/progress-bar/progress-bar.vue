@@ -1,6 +1,6 @@
 <template>
     <div class="progress-bar-container">
-        <p class="label" v-bind:style="labelStyle" v-if="label">
+        <p class="label" v-bind:style="{ color: color }" v-if="label">
             {{ label }}
         </p>
         <div class="progress-bar">
@@ -70,13 +70,7 @@ export const ProgressBar = {
         }
     },
     computed: {
-        labelStyle() {
-            return {
-                color: this.color,
-                "text-align": this.labelAlignment
-            };
-        },
-        fillStyle() {
+        fillStyle: function() {
             return {
                 "background-color": this.color || "#4071f2",
                 width: `${(this.currentStep / this.steps) * 100}%`,

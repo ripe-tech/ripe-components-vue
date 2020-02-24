@@ -182,6 +182,10 @@ body.mobile .title {
     margin-top: 16px;
 }
 
+.title .name {
+    text-transform: capitalize;
+}
+
 input[type="text"] {
     background-color: #f2f2f2;
     border: 1px solid transparent;
@@ -262,10 +266,6 @@ export const Listing = {
             type: String,
             default: null
         },
-        titlePrefix: {
-            type: String,
-            default: "Your"
-        },
         filterText: {
             type: String,
             default: null
@@ -321,10 +321,6 @@ export const Listing = {
         }
     },
     computed: {
-        nameCapitalized() {
-            if (!this.name) return "";
-            return this.name[0].toUpperCase() + this.name.slice(1);
-        },
         classes() {
             const base = {
                 loading: this.loading,

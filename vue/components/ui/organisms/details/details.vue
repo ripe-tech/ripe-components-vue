@@ -124,7 +124,7 @@
                     </slot>
                 </div>
                 <slot name="title" v-if="isLoaded">
-                    <title-ripe>{{ title }}</title-ripe>
+                    <h1 class="title">{{ title }}</h1>
                 </slot>
                 <slot name="header-extra" />
             </template>
@@ -345,6 +345,17 @@ body.mobile .button-options ::v-deep .dropdown {
     bottom: 40px;
     margin: 0px 0px 0px 0px;
     right: 0px;
+}
+
+.container-ripe .title {
+    color: $lower-color;
+    display: inline-block;
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    line-height: 34px;
+    margin: 0px 0px 0px 0px;
+    text-align: left;
 }
 
 body.tablet .container-ripe .title,

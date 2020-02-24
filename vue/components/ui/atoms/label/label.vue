@@ -1,6 +1,6 @@
 <template>
-    <label class="label" v-bind:class="classes" v-bind:for="target">
-        <slot>{{ text }}</slot>
+    <label class="label" v-bind:class="style" v-bind:for="target">
+        <slot> {{ text }} </slot>
     </label>
 </template>
 
@@ -37,7 +37,7 @@ export const Label = {
     props: {
         text: {
             type: String,
-            default: null
+            mandatory: true
         },
         size: {
             type: String,
@@ -53,7 +53,7 @@ export const Label = {
         }
     },
     computed: {
-        classes() {
+        style() {
             const base = {};
             if (this.size) base["label-" + this.size] = this.size;
             if (this.color) base["label-" + this.color] = this.color;
