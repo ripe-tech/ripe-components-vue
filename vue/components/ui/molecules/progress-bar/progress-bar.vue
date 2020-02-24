@@ -32,6 +32,7 @@
 .fill {
     background-color: #4071f2;
     height: 100%;
+    transition: width 0.5s ease;
     width: 1%;
 }
 </style>
