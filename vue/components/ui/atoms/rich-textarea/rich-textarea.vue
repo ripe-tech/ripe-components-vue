@@ -250,8 +250,11 @@ export const RichTextarea = {
         }
     },
     methods: {
-        focusTextarea() {
+        focus() {
             this.$refs.textarea.focus();
+        },
+        blur() {
+            this.$refs.textarea.blur();
         },
         addAttachments(attachments) {
             this.attachmentsData = (this.attachmentsData || []).concat([...attachments]);
@@ -262,7 +265,7 @@ export const RichTextarea = {
             this.$emit("update:attachments", this.attachmentsData);
         },
         onClick() {
-            this.focusTextarea();
+            this.focus();
         },
         onRemoveAttachmentButtonClick(index) {
             this.removeAttachment(index);
