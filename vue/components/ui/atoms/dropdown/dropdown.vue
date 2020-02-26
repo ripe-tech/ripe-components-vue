@@ -1,7 +1,6 @@
 <template>
     <div class="dropdown-container">
-        <global-events v-on:keydown.esc="onEscKey" />
-        <global-events v-on:click="onGlobalClick" />
+        <global-events v-on:keydown.esc="onEscKey" v-on:click="onGlobalClick" />
         <transition name="slide" v-on:after-leave="onSlideAfterLeave">
             <ul class="dropdown" v-bind:style="dropdownStyle" v-show="visibleData" ref="dropdown">
                 <li
@@ -213,10 +212,10 @@ export const Dropdown = {
             if (!this.globalEvents) return;
             this.hide();
         },
-        onGlobalClick() {
+        onEscKey() {
             this.handleGlobal();
         },
-        onEscKey() {
+        onGlobalClick() {
             this.handleGlobal();
         },
         onMouseenter(index) {
