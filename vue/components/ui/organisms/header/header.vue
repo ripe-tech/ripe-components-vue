@@ -128,6 +128,7 @@
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
+@import "css/animations.scss";
 
 .hamburger {
     border-radius: 34px 34px 34px 34px;

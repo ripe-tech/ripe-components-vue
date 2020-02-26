@@ -80,6 +80,7 @@
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
+@import "css/animations.scss";
 
 ::v-deep .highlight:hover,
 ::v-deep .highlight.hover {
