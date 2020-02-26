@@ -3,7 +3,7 @@
         tabindex="0"
         class="checkbox"
         v-bind:class="classes"
-        ref="root"
+        ref="checkbox"
         v-on:click="onClick"
         v-on:mousedown="onMouseDown"
         v-on:mouseup="onMouseUp"
@@ -175,10 +175,10 @@ export const Checkbox = {
     },
     methods: {
         focus() {
-            this.$refs.root.focus();
+            this.$refs.checkbox.focus();
         },
         blur() {
-            this.$refs.root.blur();
+            this.$refs.checkbox.blur();
         },
         toggle() {
             if (this.disabled) return;

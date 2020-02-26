@@ -2,7 +2,7 @@
     <div
         class="radio"
         v-bind:class="classes"
-        ref="root"
+        ref="radio"
         v-on:click="onClick"
         v-on:keydown="onKeydown"
     >
@@ -133,10 +133,10 @@ export const Radio = {
     },
     methods: {
         focus() {
-            this.$refs.root.focus();
+            this.$refs.radio.focus();
         },
         blur() {
-            this.$refs.root.blur();
+            this.$refs.radio.blur();
         },
         onClick(event) {
             this.$emit("click", event);
