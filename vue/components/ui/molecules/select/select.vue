@@ -1,5 +1,5 @@
 <template>
-    <div class="select" v-bind:class="classes">
+    <div class="select" v-bind:class="classes" ref="select">
         <global-events v-on:click="onGlobalClick" />
         <select
             class="dropdown-select"
@@ -33,7 +33,6 @@
                 v-on:keydown.alt.up="onAltUpKey"
                 v-on:keydown.enter.exact="onEnterKey"
                 v-on:keydown.space.exact="onSpaceKey"
-                v-on:click.stop.prevent
             >
                 {{ buttonText }}
             </div>
@@ -281,7 +280,9 @@ export const Select = {
                 dropdown.scrollTop = indexEnd - dropdown.clientHeight;
             }
         },
-        onGlobalClick() {
+        onGlobalClick(event) {
+            // The click was in this select, ignore
+            if (this.$refs.select.contains(event.target)) return;
             this.closeDropdown();
         },
         onClickDropdownButton() {

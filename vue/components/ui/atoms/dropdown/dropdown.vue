@@ -8,7 +8,7 @@
                     v-bind:class="_getItemClasses(item, index)"
                     v-for="(item, index) in items.filter(v => v !== null && v !== undefined)"
                     v-bind:key="item.value"
-                    v-on:click.stop="click(item)"
+                    v-on:click="click(item)"
                     v-on:mouseenter="onMouseenter(index)"
                     v-on:mouseleave="onMouseleave(index)"
                 >
