@@ -251,15 +251,9 @@ export const RichTextarea = {
     },
     methods: {
         focus() {
-            this.focusTextarea();
-        },
-        blur() {
-            this.blurTextarea();
-        },
-        focusTextarea() {
             this.$refs.textarea.focus();
         },
-        blurTextarea() {
+        blur() {
             this.$refs.textarea.blur();
         },
         addAttachments(attachments) {
