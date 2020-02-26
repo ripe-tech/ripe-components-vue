@@ -281,7 +281,6 @@ export const Select = {
             }
         },
         onGlobalClick(event) {
-            // The click was in this select, ignore
             if (this.$refs.select.contains(event.target)) return;
             this.closeDropdown();
         },
