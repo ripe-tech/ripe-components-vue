@@ -297,7 +297,7 @@ export const ButtonColor = {
         },
         color: {
             type: String,
-            default: ""
+            default: null
         },
         minWidth: {
             type: Number,
