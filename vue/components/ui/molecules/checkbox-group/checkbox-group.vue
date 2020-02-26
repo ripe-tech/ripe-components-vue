@@ -13,7 +13,7 @@
                 v-bind:index="index"
                 v-bind:disabled="item.disabled || disabled"
                 v-bind:variant="item.error || error ? 'error' : null"
-                v-bind:ref="`checkboxes`"
+                ref="checkboxes"
             />
             <slot
                 name="after-item"

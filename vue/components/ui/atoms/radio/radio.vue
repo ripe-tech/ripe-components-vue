@@ -2,6 +2,7 @@
     <div
         class="radio"
         v-bind:class="classes"
+        v-bind:tabindex="tabindex"
         ref="radio"
         v-on:click="onClick"
         v-on:keydown="onKeydown"
@@ -122,6 +123,9 @@ export const Radio = {
         }
     },
     computed: {
+        tabindex() {
+            return this.disabled ? "" : "0";
+        },
         classes() {
             const base = {
                 disabled: this.disabled,
@@ -137,6 +141,15 @@ export const Radio = {
         },
         blur() {
             this.$refs.radio.blur();
+        },
+        isDisabled() {
+            return this.disabled;
+        },
+        isFocused() {
+            return document.activeElement === this.$refs.radio;
+        },
+        isFocusable() {
+            return !this.isDisabled();
         },
         onClick(event) {
             this.$emit("click", event);
