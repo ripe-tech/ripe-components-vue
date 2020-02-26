@@ -19,6 +19,7 @@
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
+@import "css/animations.scss";
 
 .home-part {
     text-align: center;
