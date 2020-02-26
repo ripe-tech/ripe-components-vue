@@ -180,6 +180,12 @@ export const Checkbox = {
         blur() {
             this.$refs.checkbox.blur();
         },
+        isDisabled() {
+            return this.disabled;
+        },
+        isFocusable() {
+            return !this.isDisabled();
+        },
         toggle() {
             if (this.disabled) return;
             this.checkedData = !this.checkedData;
