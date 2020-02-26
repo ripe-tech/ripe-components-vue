@@ -13,7 +13,7 @@
                 v-bind:index="index"
                 v-bind:disabled="item.disabled || disabled"
                 v-bind:variant="item.error || error ? 'error' : null"
-                v-bind:ref="`checkbox-${index}`"
+                v-bind:ref="`checkboxes`"
             />
             <slot
                 name="after-item"
@@ -62,20 +62,6 @@ export const CheckboxGroup = {
             checkedData: this.values
         };
     },
-    computed: {
-        firstEnabledIndex() {
-            if (this.disabled) return null;
-
-            const firstEnabled = this.items
-                .map((item, index) => [item, index])
-                .find(([item, index]) => !item.disabled);
-
-            return firstEnabled ? firstEnabled[1] : null;
-        },
-        firstEnabledItem() {
-            return this.$refs[`checkbox-${this.firstEnabledIndex}`];
-        }
-    },
     watch: {
         values(value) {
             this.checkedData = value;
@@ -83,10 +69,14 @@ export const CheckboxGroup = {
     },
     methods: {
         focus() {
-            return this.firstEnabledItem.focus();
+            const firstFocusable = this.$refs.checkboxes.find(c => c.isFocusable());
+            if (!firstFocusable) return;
+            firstFocusable.focus();
         },
         blur() {
-            return this.firstEnabledItem.blur();
+            const firstFocused = this.$refs.checkboxes.find(c => c.isFocused());
+            if (!firstFocused) return;
+            return firstFocused.blur();
         }
     }
 };

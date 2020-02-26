@@ -183,6 +183,9 @@ export const Checkbox = {
         isDisabled() {
             return this.disabled;
         },
+        isFocused() {
+            return document.activeElement === this.$refs.checkbox;
+        },
         isFocusable() {
             return !this.isDisabled();
         },
