@@ -1,5 +1,5 @@
 <template>
-    <div class="checkbox-group focusable">
+    <div class="checkbox-group">
         <div class="checkbox-item" v-for="(item, index) in items" v-bind:key="index">
             <slot
                 name="before-item"

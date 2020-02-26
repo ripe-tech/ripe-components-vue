@@ -1,5 +1,5 @@
 <template>
-    <div class="radio-group focusable">
+    <div class="radio-group">
         <div class="radio-item" v-for="(item, index) in items" v-bind:key="index">
             <slot
                 name="before-item"

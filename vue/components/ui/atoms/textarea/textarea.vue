@@ -1,6 +1,6 @@
 <template>
     <textarea
-        class="textarea focusable"
+        class="textarea"
         v-bind:style="style"
         v-bind:class="classes"
         v-bind:value="value"

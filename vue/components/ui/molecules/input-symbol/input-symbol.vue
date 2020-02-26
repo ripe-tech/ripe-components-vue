@@ -1,5 +1,5 @@
 <template>
-    <div class="input-symbol focusable" v-bind:class="classes" v-bind:style="style">
+    <div class="input-symbol" v-bind:class="classes" v-bind:style="style">
         <input-ripe
             v-bind:value.sync="valueData"
             v-bind:variant="variant"

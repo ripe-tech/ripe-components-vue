@@ -1,7 +1,7 @@
 <template>
     <input
         v-bind:type="type"
-        class="input focusable"
+        class="input"
         v-bind:style="style"
         v-bind:class="classes"
         v-bind:value="value"

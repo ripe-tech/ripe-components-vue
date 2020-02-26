@@ -1,7 +1,7 @@
 <template>
     <div
         tabindex="0"
-        class="checkbox focusable"
+        class="checkbox"
         v-bind:class="classes"
         ref="root"
         v-on:click="onClick"
