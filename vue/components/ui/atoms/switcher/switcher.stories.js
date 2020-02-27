@@ -5,24 +5,29 @@ storiesOf("Atoms", module)
     .addDecorator(withKnobs)
     .add("Switcher", () => ({
         props: {
-            toggled: {
-                default: boolean("Toggled", false)
+            checked: {
+                default: boolean("Checked", false)
+            },
+            disabled: {
+                default: boolean("Disabled", false)
             }
         },
         data: function() {
             return {
-                toggledData: this.toggled
+                checkedData: this.checked
             };
         },
         watch: {
-            toggled(value) {
-                this.toggledData = value;
+            checked(value) {
+                this.checkedData = value;
             }
         },
         template: `
             <div>
-                <switcher v-bind:toggled.sync="toggledData" />
-                <p>The switcher's value is: {{ toggledData }}</p>
+                <switcher
+                    v-bind:checked.sync="checkedData"
+                    v-bind:disabled="disabled" />
+                <p>The switcher's value is: {{ checkedData }}</p>
             </div>
         `
     }));

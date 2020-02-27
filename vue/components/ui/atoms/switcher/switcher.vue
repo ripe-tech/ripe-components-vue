@@ -1,5 +1,5 @@
 <template>
-    <div class="switcher" v-bind:style="toggleAnimationStyle" v-on:click="onClick">
+    <div class="switcher" v-bind:style="style" v-bind:class="classes" v-on:click="onClick">
         <div class="switcher-button" v-bind:style="toggleAnimation" />
     </div>
 </template>
@@ -18,6 +18,11 @@
     width: 40px;
 }
 
+.switcher.disabled {
+    cursor: default;
+    opacity: 0.3;
+}
+
 .switcher > .switcher-button {
     background-color: $white;
     border-radius: 10px;
@@ -32,44 +37,59 @@
 export const Switcher = {
     name: "switcher",
     props: {
-        toggled: {
+        checked: {
+            type: Boolean,
+            default: false
+        },
+        disabled: {
             type: Boolean,
             default: false
         }
     },
     data: function() {
         return {
-            toggledData: this.toggled
+            checkedData: this.checked
         };
     },
     computed: {
         toggleAnimation() {
             const base = {};
-            if (this.toggledData) {
+            if (this.checkedData) {
                 base.marginLeft = "20px";
             }
             return base;
         },
-        toggleAnimationStyle() {
+        style() {
             const base = {};
-            if (this.toggledData) {
+            if (this.checkedData) {
                 base.borderColor = "#1d1d1d";
                 base.backgroundColor = "#1d1d1d";
             }
             return base;
+        },
+        classes() {
+            const base = {
+                checked: this.checkedData,
+                disabled: this.disabled
+            };
+            return base;
         }
     },
     watch: {
-        toggled(value) {
-            this.toggledData = value;
+        checked(value) {
+            this.checkedData = value;
         },
-        toggledData(value) {
-            this.$emit("update:toggled", value);
+        checkedData(value) {
+            this.$emit("update:checked", value);
         }
     },
     methods: {
+        isDisabled() {
+            return this.disabled;
+        },
         toggle() {
-            this.toggledData = !this.toggledData;
+            if (this.disabled) return;
+            this.checkedData = !this.checkedData;
         },
         onClick() {
             this.toggle();
