@@ -147,9 +147,7 @@ export const Checkbox = {
                 disabled: this.disabled,
                 active: this.active
             };
-
             if (this.variant) base[this.variant] = true;
-
             return base;
         },
         squareStyle() {
