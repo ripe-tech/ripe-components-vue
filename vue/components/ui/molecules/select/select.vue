@@ -1,5 +1,5 @@
 <template>
-    <div class="select" v-bind:class="classes">
+    <div class="select" v-bind:class="classes" ref="select">
         <global-events v-on:click="onGlobalClick" />
         <select
             class="dropdown-select"
@@ -351,7 +351,8 @@ export const Select = {
                 if (this.$refs.input) this.$refs.input.focus();
             });
         },
-        onGlobalClick() {
+        onGlobalClick(event) {
+            if (this.$refs.select.contains(event.target) || this.$refs.input.contains(event.target)) return;
             this.closeDropdown();
         },
         onClickDropdownButton() {

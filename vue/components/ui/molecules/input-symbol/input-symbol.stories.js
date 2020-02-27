@@ -41,6 +41,18 @@ storiesOf("Molecules", module)
             value: {
                 default: text("Value", "This is a text")
             },
+            type: {
+                default: select(
+                    "Type",
+                    {
+                        Unset: null,
+                        Text: "text",
+                        Number: "number",
+                        Date: "date"
+                    },
+                    null
+                )
+            },
             symbol: {
                 default: text("Symbol", "€")
             },
@@ -76,6 +88,7 @@ storiesOf("Molecules", module)
                     v-bind:align="align"
                     v-bind:border="border"
                     v-bind:variant="variant"
+                    v-bind:type="type"
                     v-bind:disabled="disabled"
                     v-bind:placeholder="placeholder"
                     v-bind:symbol="symbol" />

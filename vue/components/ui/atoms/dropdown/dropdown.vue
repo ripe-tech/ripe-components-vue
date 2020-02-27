@@ -1,6 +1,6 @@
 <template>
     <div class="dropdown-container">
-        <global-events v-on:keydown.esc="onEscKey" />
+        <global-events v-on:keydown.esc="onEscKey" v-on:click="onGlobalClick" />
         <transition name="slide" v-on:after-leave="onSlideAfterLeave">
             <ul class="dropdown" v-bind:style="dropdownStyle" v-show="visibleData" ref="dropdown">
                 <li
@@ -9,7 +9,7 @@
                     v-for="(item, index) in items.filter(v => v !== null && v !== undefined)"
                     v-bind:key="item.value"
                     ref="dropdown-item"
-                    v-on:click.stop="click(item)"
+                    v-on:click="click(item)"
                     v-on:mouseenter="onMouseenter(index)"
                     v-on:mouseleave="onMouseleave(index)"
                 >
@@ -182,12 +182,6 @@ export const Dropdown = {
             return base;
         }
     },
-    created: function() {
-        document.addEventListener("click", this.handleGlobal);
-    },
-    destroyed: function() {
-        document.removeEventListener("click", this.handleGlobal);
-    },
     methods: {
         click(item) {
             this.$emit("item-clicked", item);
@@ -220,6 +214,9 @@ export const Dropdown = {
             this.hide();
         },
         onEscKey() {
+            this.handleGlobal();
+        },
+        onGlobalClick() {
             this.handleGlobal();
         },
         onMouseenter(index) {
