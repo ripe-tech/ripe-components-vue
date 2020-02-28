@@ -59,6 +59,14 @@ export const ProgressBar = {
         labelAlignment: {
             type: String,
             default: null
+        },
+        fillTransitonTime: {
+            type: Number,
+            default: 0.5
+        },
+        fillTransitonMode: {
+            type: String,
+            default: "ease"
         }
     },
     computed: {
@@ -71,7 +79,8 @@ export const ProgressBar = {
         fillStyle() {
             return {
                 "background-color": this.color || "#4071f2",
-                width: `${(this.currentStep / this.steps) * 100}%`
+                width: `${(this.currentStep / this.steps) * 100}%`,
+                transition: `width ${this.fillTransitonTime}s ${this.fillTransitonMode}`
             };
         }
     }

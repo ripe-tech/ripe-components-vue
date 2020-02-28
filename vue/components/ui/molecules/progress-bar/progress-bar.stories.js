@@ -33,12 +33,49 @@ storiesOf("Molecules", module)
                     },
                     null
                 )
+            },
+            fillTransitonTime: {
+                default: number("Fill Transition Time", 0.5)
+            },
+            fillTransitonMode: {
+                default: select(
+                    "Fill Transition Mode",
+                    {
+                        ease: "ease",
+                        "ease-in": "ease-in",
+                        "ease-out": "ease-out",
+                        "ease-in-out": "ease-in-out",
+                        linear: "linear"
+                    },
+                    "ease"
+                )
+            },
+            simulationAdvanceStep: {
+                default: number("Simulation Advance Step", 5)
+            },
+            simulationStepTimeMs: {
+                default: number("Simulation Step Time (ms)", 500)
             }
         },
         data: function() {
             return {
-                style: style
+                style: style,
+                simulatedCurrentStep: 0
             };
+        },
+        methods: {
+            onProgressBarSimulationButtonClick() {
+                this.simulatedCurrentStep = 0;
+                setTimeout(() => this.updateProgress(), 500);
+            },
+            updateProgress() {
+                if (this.simulatedCurrentStep >= 100) return;
+
+                this.simulatedCurrentStep += this.simulationAdvanceStep;
+                this.simulatedCurrentStep = Math.min(this.simulatedCurrentStep, 100);
+
+                setTimeout(() => this.updateProgress(), this.simulationStepTimeMs);
+            }
         },
         template: `
             <div>
@@ -53,6 +90,15 @@ storiesOf("Molecules", module)
                 <progress-bar v-bind:current-step="2" color="#000000" v-bind:style="style"></progress-bar>
                 <progress-bar v-bind:current-step="3" color="#46a546" v-bind:style="style" v-bind:label="'Label'"></progress-bar>
                 <progress-bar v-bind:current-step="3" color="#c43c35" v-bind:style="style" v-bind:label="'Another label'"></progress-bar>
+                <progress-bar
+                    v-bind:steps="100"
+                    color="#000000"
+                    v-bind:current-step="simulatedCurrentStep"
+                    v-bind:label="simulatedCurrentStep+'%'"
+                    v-bind:fill-transiton-time="fillTransitonTime"
+                    v-bind:fill-transiton-mode="fillTransitonMode"
+                />
+                <Button v-on:click="onProgressBarSimulationButtonClick">Start progress bar simulation</Button>
             </div>
         `
     }));
