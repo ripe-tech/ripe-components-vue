@@ -96,7 +96,9 @@ storiesOf("Molecules", module)
                     v-bind:fill-transition-time="fillTransitionTime"
                     v-bind:fill-transition-mode="fillTransitionMode"
                 />
-                <Button v-on:click="onProgressBarSimulationButtonClick">Start progress bar simulation</Button>
+                <button-color
+                    v-bind:size="'small'"
+                    v-on:click="onProgressBarSimulationButtonClick">Start progress bar simulation</button-color>
             </div>
         `
     }));
