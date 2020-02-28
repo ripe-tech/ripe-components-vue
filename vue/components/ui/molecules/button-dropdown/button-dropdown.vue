@@ -7,7 +7,7 @@
             </template>
             <span class="label">{{ label }} </span>
         </div>
-        <div class="button button-secondary" v-on:click="onSecondaryClick">
+        <div class="button button-secondary" v-on:click.stop="onSecondaryClick">
             <icon class="icon icon-front" v-bind:icon="secondaryIcon" v-bind:color="'#000000'" />
             <icon class="icon icon-back" v-bind:icon="secondaryIcon" v-bind:color="'#ffffff'" />
         </div>
