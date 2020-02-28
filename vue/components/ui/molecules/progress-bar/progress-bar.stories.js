@@ -34,10 +34,10 @@ storiesOf("Molecules", module)
                     null
                 )
             },
-            fillTransitonTime: {
+            fillTransitionTime: {
                 default: number("Fill Transition Time", 0.5)
             },
-            fillTransitonMode: {
+            fillTransitionMode: {
                 default: select(
                     "Fill Transition Mode",
                     {
@@ -70,10 +70,8 @@ storiesOf("Molecules", module)
             },
             updateProgress() {
                 if (this.simulatedCurrentStep >= 100) return;
-
                 this.simulatedCurrentStep += this.simulationAdvanceStep;
                 this.simulatedCurrentStep = Math.min(this.simulatedCurrentStep, 100);
-
                 setTimeout(() => this.updateProgress(), this.simulationStepTimeMs);
             }
         },
@@ -95,8 +93,8 @@ storiesOf("Molecules", module)
                     color="#000000"
                     v-bind:current-step="simulatedCurrentStep"
                     v-bind:label="simulatedCurrentStep+'%'"
-                    v-bind:fill-transiton-time="fillTransitonTime"
-                    v-bind:fill-transiton-mode="fillTransitonMode"
+                    v-bind:fill-transition-time="fillTransitionTime"
+                    v-bind:fill-transition-mode="fillTransitionMode"
                 />
                 <Button v-on:click="onProgressBarSimulationButtonClick">Start progress bar simulation</Button>
             </div>

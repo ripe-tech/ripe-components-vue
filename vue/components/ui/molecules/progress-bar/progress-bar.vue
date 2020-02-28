@@ -60,11 +60,11 @@ export const ProgressBar = {
             type: String,
             default: null
         },
-        fillTransitonTime: {
+        fillTransitionTime: {
             type: Number,
             default: 0.5
         },
-        fillTransitonMode: {
+        fillTransitionMode: {
             type: String,
             default: "ease"
         }
@@ -80,7 +80,7 @@ export const ProgressBar = {
             return {
                 "background-color": this.color || "#4071f2",
                 width: `${(this.currentStep / this.steps) * 100}%`,
-                transition: `width ${this.fillTransitonTime}s ${this.fillTransitonMode}`
+                transition: `width ${this.fillTransitionTime}s ${this.fillTransitionMode}`
             };
         }
     }
