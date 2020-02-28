@@ -71,6 +71,7 @@
             <loader loader="line-scale" v-bind:count="5" v-else />
         </container-ripe>
         <container-ripe class="details-container" v-else>
+            <slot name="details-before" />
             <template v-slot:header>
                 <div class="header-buttons" v-if="headerButtons">
                     <slot name="header-buttons">
