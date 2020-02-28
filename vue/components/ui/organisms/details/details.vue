@@ -185,6 +185,7 @@
                     </slot>
                 </div>
             </div>
+            <slot name="details-after" />
         </container-ripe>
     </div>
 </template>
