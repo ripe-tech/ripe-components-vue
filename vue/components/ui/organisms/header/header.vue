@@ -38,7 +38,7 @@
                     class="header-account"
                     v-if="account"
                     ref="headerAccount"
-                    v-on:click.stop="hideAccount"
+                    v-on:click.stop="onAccountClick"
                 >
                     <avatar
                         v-bind:src="account.avatar_url"
@@ -54,7 +54,7 @@
                         <template v-slot:announcements="{ item }">
                             <div
                                 class="dropdown-item-announcements"
-                                v-on:click="onAnnouncementsClick"
+                                v-on:click.stop="onAnnouncementsClick"
                             >
                                 <span class="announcements-dropdown-text">{{ item.label }}</span>
                                 <div class="dot" v-if="announcementsToRead" />
@@ -67,7 +67,7 @@
                     v-bind:class="{ active: appsDropdownVisible }"
                     v-if="headerApps && appsDropdownItems.length > 0"
                     ref="headerApps"
-                    v-on:click.stop="hideApps"
+                    v-on:click.stop="onAppsClick"
                 >
                     <img src="~./assets/apps.svg" />
                     <dropdown
@@ -449,21 +449,24 @@ export const Header = {
         toggleBurger() {
             this.$bus.$emit("toggle-side");
         },
-        hideAccount() {
-            const status = this.accountDropdownVisible;
-            document.body.click();
-            this.accountDropdownVisible = !status;
+        toggleAccount() {
+            this.accountDropdownVisible = !this.accountDropdownVisible;
         },
-        hideApps() {
-            const status = this.appsDropdownVisible;
-            document.body.click();
-            this.appsDropdownVisible = !status;
+        toggleApps() {
+            this.appsDropdownVisible = !this.appsDropdownVisible;
         },
         showAnnouncements() {
             this.announcementsModalVisible = true;
         },
+        onAccountClick() {
+            this.toggleAccount();
+        },
+        onAppsClick() {
+            this.toggleApps();
+        },
         onAnnouncementsClick() {
             this.showAnnouncements();
+            this.toggleAccount();
         }
     }
 };
