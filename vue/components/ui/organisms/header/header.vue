@@ -38,7 +38,7 @@
                     class="header-account"
                     v-if="account"
                     ref="headerAccount"
-                    v-on:click.stop="onAccountClick"
+                    v-on:click="onAccountClick"
                 >
                     <avatar
                         v-bind:src="account.avatar_url"
@@ -50,6 +50,7 @@
                         v-bind:items="accountDropdownItems"
                         v-bind:visible.sync="accountDropdownVisible"
                         v-bind:global-hide="true"
+                        v-bind:owners="$refs.headerAccount"
                     >
                         <template v-slot:announcements="{ item }">
                             <div
@@ -67,13 +68,14 @@
                     v-bind:class="{ active: appsDropdownVisible }"
                     v-if="headerApps && appsDropdownItems.length > 0"
                     ref="headerApps"
-                    v-on:click.stop="onAppsClick"
+                    v-on:click="onAppsClick"
                 >
                     <img src="~./assets/apps.svg" />
                     <dropdown
                         v-bind:items="appsDropdownItems"
                         v-bind:visible.sync="appsDropdownVisible"
                         v-bind:global-hide="true"
+                        v-bind:owners="$refs.headerApps"
                     >
                         <template v-slot="{ item: { value, label, image, link, cls } }">
                             <a v-bind:href="link" v-bind:class="[cls]">

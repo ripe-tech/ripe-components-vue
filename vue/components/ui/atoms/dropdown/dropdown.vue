@@ -148,6 +148,10 @@ export const Dropdown = {
         overflow: {
             type: String,
             default: "auto"
+        },
+        owners: {
+            type: Node | Array,
+            default: () => []
         }
     },
     data: function() {
@@ -215,7 +219,10 @@ export const Dropdown = {
         onEscKey() {
             this.handleGlobal();
         },
-        onGlobalClick() {
+        onGlobalClick(event) {
+            const owners = Array.isArray(this.owners) ? this.owners : [this.owners];
+            const insideOwners = owners.some(owner => owner.contains(event.target));
+            if (insideOwners) return;
             this.handleGlobal();
         },
         onMouseenter(index) {
