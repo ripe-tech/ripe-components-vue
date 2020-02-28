@@ -196,11 +196,7 @@ export const Select = {
             if (value && this.valueData) {
                 this.highlight(this.options.findIndex(option => option.value === this.valueData));
             }
-
-            if (!value) {
-                this.dehighlight();
-            }
-
+            if (!value) this.dehighlight();
             this.$emit("update:visible", value);
         },
         value(value) {
