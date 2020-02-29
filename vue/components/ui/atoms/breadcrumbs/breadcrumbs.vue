@@ -8,17 +8,17 @@
                     v-bind:href="breadcrumb.href"
                     v-bind:target="breadcrumb.target"
                     v-bind:hover="'color'"
-                    v-bind:style="style"
+                    v-bind:style="partStyle"
                     v-bind:key="index"
                 />
                 <div
                     class="breadcrumb-separator"
-                    v-bind:style="style"
+                    v-bind:style="separatorStyle"
                     v-bind:key="`${index}-separator`"
                     v-html="separator"
                 />
             </template>
-            <div class="breadcrumb-last" v-bind:style="style" v-else v-bind:key="index">
+            <div class="breadcrumb-last" v-bind:style="partStyle" v-else v-bind:key="index">
                 {{ breadcrumb.text }}
             </div>
         </template>
@@ -39,10 +39,6 @@
 .breadcrumbs > .breadcrumb-link,
 .breadcrumbs > .breadcrumb-separator {
     color: #a2adb6;
-}
-
-.breadcrumbs > .breadcrumb-separator {
-    margin: 0px 12px 0px 12px;
 }
 
 .breadcrumbs .breadcrumb-last {
@@ -68,8 +64,17 @@ export const Breadcrumbs = {
         }
     },
     computed: {
-        style() {
-            return { "font-size": `${this.fontSize}px` };
+        partStyle() {
+            const base = { "font-size": `${this.fontSize}px` };
+            return base;
+        },
+        separatorStyle() {
+            const base = {
+                "font-size": `${this.fontSize}px`,
+                "margin-left": `${parseInt(this.fontSize / 2)}px`,
+                "margin-right": `${parseInt(this.fontSize / 2)}px`
+            };
+            return base;
         }
     }
 };
