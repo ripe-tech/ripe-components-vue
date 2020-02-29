@@ -1,31 +1,41 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, number } from "@storybook/addon-knobs";
+import { withKnobs, text, number } from "@storybook/addon-knobs";
 
 storiesOf("Atoms", module)
     .addDecorator(withKnobs)
     .add("Breadcrumbs", () => ({
         props: {
+            fontSize: {
+                default: number("Font Size", 26)
+            },
+            separator: {
+                default: text("Separator", "/")
+            },
             breadcrumbs: {
                 type: Array,
                 default: () => [
                     {
-                        text: "Builds",
-                        route: "https://id.platforme.com/admin/accounts/ns%40platforme.com/avatar"
+                        text: "Google",
+                        href: "https://www.google.com"
                     },
                     {
-                        text: "Swear",
-                        route: "https://id.platforme.com/admin/accounts/t-ms%40platforme.com/avatar"
+                        text: "Platforme",
+                        href: "https://www.platforme.com",
+                        target: "_blank"
                     },
-                    { text: 7 }
+                    {
+                        text: "RIPE White"
+                    }
                 ]
-            },
-            fontSize: {
-                default: number("Font Size", 26)
             }
         },
         template: `
             <div>
-                <breadcrumbs v-bind:breadcrumbs="breadcrumbs" v-bind:font-size="fontSize" />
+                <breadcrumbs
+                    v-bind:font-size="fontSize"
+                    v-bind:separator="separator"
+                    v-bind:breadcrumbs="breadcrumbs"
+                />
             </div>
         `
     }));
