@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, select } from "@storybook/addon-knobs";
+import { withKnobs, select } from "@storybook/addon-knobs";
 
 storiesOf("Atoms", module)
     .addDecorator(withKnobs)
@@ -14,9 +14,6 @@ storiesOf("Atoms", module)
                     },
                     "default"
                 )
-            },
-            title: {
-                default: text("Title", "Container title")
             }
         },
         template: `
@@ -25,7 +22,6 @@ storiesOf("Atoms", module)
                 <container-ripe
                     style='height: 200px'
                     v-bind:mode="mode"
-                    v-bind:title="title"
                 />
             </div>
         `

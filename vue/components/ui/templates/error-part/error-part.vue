@@ -38,7 +38,6 @@
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
-@import "css/animations.scss";
 
 .error-part {
     align-items: center;
@@ -56,7 +55,7 @@
 .error-message > img {
     display: block;
     margin: 0px auto 24px auto;
-    width: 240px;
+    width: 160px;
 }
 
 .error-message > img.clickable {

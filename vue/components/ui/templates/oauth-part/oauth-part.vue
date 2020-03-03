@@ -9,7 +9,6 @@
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
-@import "css/animations.scss";
 
 .oauth-part {
     align-items: center;
