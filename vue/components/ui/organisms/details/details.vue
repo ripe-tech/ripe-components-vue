@@ -7,7 +7,7 @@
             v-on:keydown.right="onKeyRight"
         />
         <container-ripe class="loading" v-if="isLoading">
-            <div class="container-header">
+            <template v-slot:header>
                 <div class="header-buttons">
                     <slot name="header-buttons">
                         <slot name="header-buttons-before" />
@@ -58,16 +58,21 @@
                         <slot name="header-buttons-after" />
                     </slot>
                 </div>
-                <h1 class="title" v-if="invalid">{{ invalidTitle }}</h1>
-                <h1 class="title" v-else>{{ title }}</h1>
-            </div>
+                <title-ripe v-if="invalid">
+                    {{ invalidTitle }}
+                </title-ripe>
+                <title-ripe v-else>
+                    {{ title }}
+                </title-ripe>
+            </template>
             <h1 class="item-invalid" v-if="invalid">
                 {{ invalidMessage }}
             </h1>
             <loader loader="line-scale" v-bind:count="5" v-else />
         </container-ripe>
         <container-ripe class="details-container" v-else>
-            <div class="container-header">
+            <slot name="details-before" />
+            <template v-slot:header>
                 <div class="header-buttons" v-if="headerButtons">
                     <slot name="header-buttons">
                         <slot name="header-buttons-before" />
@@ -119,10 +124,10 @@
                     </slot>
                 </div>
                 <slot name="title" v-if="isLoaded">
-                    <h1 class="title">{{ title }}</h1>
+                    <title-ripe>{{ title }}</title-ripe>
                 </slot>
                 <slot name="header-extra" />
-            </div>
+            </template>
             <div class="details" v-if="isLoaded">
                 <div class="details-column details-column-image" v-if="imageUrl">
                     <lightbox
@@ -181,6 +186,7 @@
                     </slot>
                 </div>
             </div>
+            <slot name="details-after" />
         </container-ripe>
     </div>
 </template>
@@ -223,26 +229,15 @@ body.mobile .container-ripe {
     padding-top: 140px;
 }
 
-.container-ripe .container-header {
-    font-size: 0px;
-    padding: 24px 24px 24px 24px;
-    text-align: left;
-}
-
-body.tablet .container-ripe .container-header,
-body.mobile .container-ripe .container-header {
-    padding: 20px 15px 20px 15px;
-}
-
-.container-ripe .container-header .header-buttons {
+.container-ripe .header-buttons {
     float: right;
     font-size: 0px;
     text-transform: capitalize;
     user-select: none;
 }
 
-body.tablet .container-ripe .container-header .header-buttons,
-body.mobile .container-ripe .container-header .header-buttons {
+body.tablet .container-ripe .header-buttons,
+body.mobile .container-ripe .header-buttons {
     animation: none;
     background-color: $white;
     border-top: 1px solid $light-white;
@@ -350,17 +345,6 @@ body.mobile .button-options ::v-deep .dropdown {
     bottom: 40px;
     margin: 0px 0px 0px 0px;
     right: 0px;
-}
-
-.container-ripe .title {
-    color: $lower-color;
-    display: inline-block;
-    font-size: 26px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    line-height: 34px;
-    margin: 0px 0px 0px 0px;
-    text-align: left;
 }
 
 body.tablet .container-ripe .title,

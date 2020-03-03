@@ -180,8 +180,8 @@ export const Textarea = {
         focus() {
             this.$refs.textarea.focus();
         },
-        bur() {
-            this.$refs.textarea.bur();
+        blur() {
+            this.$refs.textarea.blur();
         },
         calculate() {
             if (this.resize) {
