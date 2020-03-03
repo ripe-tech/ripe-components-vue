@@ -46,6 +46,8 @@
                 v-bind:color="'#1d2631'"
                 v-bind:label="`${progress}%`"
                 v-bind:label-alignment="'left'"
+                v-bind:fill-transition-time="0.5"
+                v-bind:fill-transition-mode="'ease'"
                 v-if="progress !== null && !finished"
             />
         </transition>
