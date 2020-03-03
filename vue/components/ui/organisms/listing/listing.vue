@@ -6,7 +6,7 @@
             v-on:click="scrollToTop"
         />
         <container-ripe v-bind:mode="containerMode">
-            <template v-slot:header>
+            <div class="container-header">
                 <div class="container-header-right">
                     <div class="container-header-buttons" v-if="$slots['header-buttons']">
                         <slot name="header-buttons" />
@@ -19,13 +19,11 @@
                         v-bind:loading="loading"
                     />
                 </div>
-                <title-ripe v-if="titleText">
-                    {{ titleText }}
-                </title-ripe>
-                <title-ripe v-else>
-                    {{ titlePrefix }} {{ nameCapitalized }}
-                </title-ripe>
-            </template>
+                <h1 class="title" v-if="titleText">{{ titleText }}</h1>
+                <h1 class="title" v-else>
+                    Your <span class="name">{{ name }}</span>
+                </h1>
+            </div>
             <filter-ripe
                 v-bind:get-items="getItems"
                 v-bind:get-item-url="getItemUrl"
@@ -80,7 +78,6 @@
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
-@import "css/animations.scss";
 
 ::v-deep .highlight:hover,
 ::v-deep .highlight.hover {
@@ -176,6 +173,24 @@ body.mobile .container-header-buttons {
 
 .listing .filter-ripe ::v-deep table {
     margin-bottom: 0px;
+}
+
+.container-header {
+    padding: 24px 28px 24px 28px;
+}
+
+body.mobile .container-header {
+    height: auto;
+    padding: 20px 20px 20px 20px;
+}
+
+.title {
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    line-height: 34px;
+    margin: 0px 0px 0px 0px;
+    text-align: left;
 }
 
 body.mobile .title {

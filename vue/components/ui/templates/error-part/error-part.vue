@@ -38,7 +38,6 @@
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
-@import "css/animations.scss";
 
 .error-part {
     align-items: center;

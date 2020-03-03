@@ -63,10 +63,6 @@ export const Bubble = {
         width: {
             type: Number,
             default: null
-        },
-        globalEvents: {
-            type: Boolean,
-            default: true
         }
     },
     data: function() {
@@ -100,7 +96,6 @@ export const Bubble = {
             this.$emit("update:visible", this.visibleData);
         },
         onHandleGlobal() {
-            if (!this.globalEvents) return;
             this.hide();
         }
     }

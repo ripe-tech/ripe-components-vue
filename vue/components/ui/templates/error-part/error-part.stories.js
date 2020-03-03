@@ -15,7 +15,7 @@ storiesOf("Templates", module)
                 default: text("Login Message", "Try to login again")
             },
             image: {
-                default: text("Image", "https://cdn.platforme.com/images/platforme.png")
+                default: text("Image", null)
             },
             navigation: {
                 default: boolean("Navigation", null)

@@ -1,6 +1,5 @@
 import { Attachments } from "./attachments/attachments.vue";
 import { Avatar } from "./avatar/avatar.vue";
-import { Breadcrumbs } from "./breadcrumbs/breadcrumbs.vue";
 import { Bubble } from "./bubble/bubble.vue";
 import { ButtonColor } from "./button-color/button-color.vue";
 import { ButtonIcon } from "./button-icon/button-icon.vue";
@@ -21,14 +20,12 @@ import { Radio } from "./radio/radio.vue";
 import { Reaction } from "./reaction/reaction.vue";
 import { RichTextarea } from "./rich-textarea/rich-textarea.vue";
 import { Side } from "./side/side.vue";
-import { Switcher } from "./switcher/switcher.vue";
 import { Tag } from "./tag/tag.vue";
 import { Textarea } from "./textarea/textarea.vue";
 
 const install = Vue => {
     Vue.component("attachments", Attachments);
     Vue.component("avatar", Avatar);
-    Vue.component("breadcrumbs", Breadcrumbs);
     Vue.component("bubble", Bubble);
     Vue.component("button-color", ButtonColor);
     Vue.component("button-icon", ButtonIcon);
@@ -49,7 +46,6 @@ const install = Vue => {
     Vue.component("reaction", Reaction);
     Vue.component("rich-textarea", RichTextarea);
     Vue.component("side", Side);
-    Vue.component("switcher", Switcher);
     Vue.component("tag", Tag);
     Vue.component("textarea-ripe", Textarea);
 };
@@ -57,7 +53,6 @@ const install = Vue => {
 export {
     Attachments,
     Avatar,
-    Breadcrumbs,
     Bubble,
     ButtonColor,
     ButtonIcon,
@@ -78,7 +73,6 @@ export {
     Reaction,
     RichTextarea,
     Side,
-    Switcher,
     Tag,
     Textarea
 };

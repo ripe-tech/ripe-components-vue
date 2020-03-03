@@ -20,7 +20,7 @@ export const Icon = {
     name: "icon",
     props: {
         icon: {
-            type: String | Object,
+            type: String,
             required: true
         },
         color: {
@@ -81,11 +81,8 @@ export const Icon = {
     computed: {
         svgFile() {
             try {
-                let resource = this.icon;
-                if (typeof this.icon === "string") {
-                    resource = require(`!!raw-loader!./../../../../assets/icons/${this.icon}.svg`);
-                }
-                return resource.default;
+                return require(`!!raw-loader!./../../../../assets/icons/black/${this.icon}.svg`)
+                    .default;
             } catch (error) {
                 console.error(`Error loading icon '${this.icon}'.`, error);
             }
