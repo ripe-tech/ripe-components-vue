@@ -554,7 +554,6 @@ export const Details = {
             return this.values.filter((value, index) => this.getValueColumn(index) === columnIndex);
         },
         toggleOptions() {
-            debugger;
             this.optionsVisible = !this.optionsVisible;
         },
         async previousItem(force = false) {

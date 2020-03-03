@@ -46,6 +46,22 @@
                         v-bind:active="accountDropdownVisible"
                         v-bind:notify="announcementsToRead"
                     />
+                    <dropdown
+                        v-bind:items="accountDropdownItems"
+                        v-bind:visible.sync="accountDropdownVisible"
+                        v-bind:global-hide="true"
+                        v-bind:owners="$refs.headerAccount"
+                    >
+                        <template v-slot:announcements="{ item }">
+                            <div
+                                class="dropdown-item-announcements"
+                                v-on:click.stop="onAnnouncementsClick"
+                            >
+                                <span class="announcements-dropdown-text">{{ item.label }}</span>
+                                <div class="dot" v-if="announcementsToRead" />
+                            </div>
+                        </template>
+                    </dropdown>
                 </div>
                 <div
                     class="header-apps"
@@ -55,6 +71,19 @@
                     v-on:click="onAppsClick"
                 >
                     <img src="~./assets/apps.svg" />
+                    <dropdown
+                        v-bind:items="appsDropdownItems"
+                        v-bind:visible.sync="appsDropdownVisible"
+                        v-bind:global-hide="true"
+                        v-bind:owners="$refs.headerApps"
+                    >
+                        <template v-slot="{ item: { value, label, image, link, cls } }">
+                            <a v-bind:href="link" v-bind:class="[cls]">
+                                <img v-bind:src="image" v-bind:alt="label" />
+                                <p>{{ label }}</p>
+                            </a>
+                        </template>
+                    </dropdown>
                 </div>
             </div>
         </div>
