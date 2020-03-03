@@ -170,5 +170,6 @@ export const ProgressListItem = {
         }
     }
 };
+
 export default ProgressListItem;
 </script>
