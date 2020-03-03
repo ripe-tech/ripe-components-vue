@@ -57,5 +57,6 @@ export const ProgressList = {
         }
     }
 };
+
 export default ProgressList;
 </script>
