@@ -187,8 +187,8 @@ export const Dropdown = {
     },
     methods: {
         click(item) {
-            this.$emit("item-clicked", item);
             this.hide();
+            this.$emit("item-clicked", item);
         },
         highlight(index) {
             this.$set(this.highlightedData, index, true);
