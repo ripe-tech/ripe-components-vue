@@ -10,6 +10,7 @@
             v-bind:height="height"
             v-bind:min-width="0"
             v-bind:align="align"
+            ref="input"
             v-on:update:value="onInput"
             v-on:blur="onBlur"
             v-on:focus="onFocus"
@@ -161,6 +162,12 @@ export const InputSymbol = {
         }
     },
     methods: {
+        focus() {
+            this.$refs.input.focus();
+        },
+        blur() {
+            this.$refs.input.blur();
+        },
         onInput(value) {
             this.$emit("update:value", value);
         },

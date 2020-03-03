@@ -1,6 +1,5 @@
 <template>
-    <div class="select" v-bind:class="classes">
-        <global-events v-on:click="onGlobalClick" />
+    <div class="select" v-bind:class="classes" ref="select">
         <select
             class="dropdown-select"
             v-bind:value="value"
@@ -33,7 +32,6 @@
                 v-on:keydown.alt.up="onAltUpKey"
                 v-on:keydown.enter.exact="onEnterKey"
                 v-on:keydown.space.exact="onSpaceKey"
-                v-on:click.stop.prevent
             >
                 {{ buttonText }}
             </div>
@@ -41,9 +39,9 @@
                 v-bind:items="options"
                 v-bind:max-height="maxHeight"
                 v-bind:visible.sync="visibleData"
-                v-bind:global-events="false"
                 v-bind:highlighted="highlightedObject"
                 v-bind:style="dropdownStyle"
+                v-bind:owners="$refs.select"
                 ref="dropdown"
                 v-on:update:highlighted="onDropdownHighlighted"
                 v-on:item-clicked="value => onDropdownItemClicked(value.value)"
@@ -194,6 +192,13 @@ export const Select = {
         visible(value) {
             this.visibleData = value;
         },
+        visibleData(value) {
+            if (value && this.valueData) {
+                this.highlight(this.options.findIndex(option => option.value === this.valueData));
+            }
+            if (!value) this.dehighlight();
+            this.$emit("update:visible", value);
+        },
         value(value) {
             this.valueData = value;
         }
@@ -206,19 +211,11 @@ export const Select = {
         },
         openDropdown() {
             if (this.disabled || this.visibleData) return;
-
-            if (this.valueData) {
-                this.highlight(this.options.findIndex(option => option.value === this.valueData));
-            }
-
             this.visibleData = true;
-            this.$emit("update:visible", true);
         },
         closeDropdown() {
             if (!this.visibleData) return;
-            this.dehighlight();
             this.visibleData = false;
-            this.$emit("update:visible", false);
         },
         toggleDropdown() {
             if (this.visibleData) {
@@ -280,9 +277,6 @@ export const Select = {
             } else if (indexEnd > visibleEnd) {
                 dropdown.scrollTop = indexEnd - dropdown.clientHeight;
             }
-        },
-        onGlobalClick() {
-            this.closeDropdown();
         },
         onClickDropdownButton() {
             this.toggleDropdown();

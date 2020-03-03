@@ -6,7 +6,7 @@
             v-on:click="scrollToTop"
         />
         <container-ripe v-bind:mode="containerMode">
-            <div class="container-header">
+            <template v-slot:header>
                 <div class="container-header-right">
                     <div class="container-header-buttons" v-if="$slots['header-buttons']">
                         <slot name="header-buttons" />
@@ -25,7 +25,7 @@
                 <title-ripe v-else>
                     {{ titlePrefix }} {{ nameCapitalized }}
                 </title-ripe>
-            </div>
+            </template>
             <filter-ripe
                 v-bind:get-items="getItems"
                 v-bind:get-item-url="getItemUrl"
@@ -80,6 +80,7 @@
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
+@import "css/animations.scss";
 
 ::v-deep .highlight:hover,
 ::v-deep .highlight.hover {
@@ -175,15 +176,6 @@ body.mobile .container-header-buttons {
 
 .listing .filter-ripe ::v-deep table {
     margin-bottom: 0px;
-}
-
-.container-header {
-    padding: 24px 28px 24px 28px;
-}
-
-body.mobile .container-header {
-    height: auto;
-    padding: 20px 20px 20px 20px;
 }
 
 body.mobile .title {

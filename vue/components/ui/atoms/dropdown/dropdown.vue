@@ -1,6 +1,6 @@
 <template>
     <div class="dropdown-container">
-        <global-events v-on:keydown.esc="onEscKey" />
+        <global-events v-on:keydown.esc="onEscKey" v-on:click="onGlobalClick" />
         <transition name="slide" v-on:after-leave="onSlideAfterLeave">
             <ul class="dropdown" v-bind:style="dropdownStyle" v-show="visibleData" ref="dropdown">
                 <li
@@ -8,7 +8,7 @@
                     v-bind:class="_getItemClasses(item, index)"
                     v-for="(item, index) in items.filter(v => v !== null && v !== undefined)"
                     v-bind:key="item.value"
-                    v-on:click.stop="click(item)"
+                    v-on:click="click(item)"
                     v-on:mouseenter="onMouseenter(index)"
                     v-on:mouseleave="onMouseleave(index)"
                 >
@@ -148,6 +148,10 @@ export const Dropdown = {
         overflow: {
             type: String,
             default: "auto"
+        },
+        owners: {
+            type: Node | Array,
+            default: () => []
         }
     },
     data: function() {
@@ -181,12 +185,6 @@ export const Dropdown = {
             return base;
         }
     },
-    created: function() {
-        document.addEventListener("click", this.handleGlobal);
-    },
-    destroyed: function() {
-        document.removeEventListener("click", this.handleGlobal);
-    },
     methods: {
         click(item) {
             this.$emit("item-clicked", item);
@@ -219,6 +217,12 @@ export const Dropdown = {
             this.hide();
         },
         onEscKey() {
+            this.handleGlobal();
+        },
+        onGlobalClick(event) {
+            const owners = Array.isArray(this.owners) ? this.owners : [this.owners];
+            const insideOwners = owners.some(owner => owner.contains(event.target));
+            if (insideOwners) return;
             this.handleGlobal();
         },
         onMouseenter(index) {
