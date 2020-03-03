@@ -44,15 +44,18 @@
                             <span
                                 class="button-options"
                                 v-bind:class="{ active: optionsVisible }"
-                                v-on:click.stop="options"
+                                ref="button-options-loading"
+                                v-on:click="toggleOptions"
                             >
                                 <img src="~./assets/options.svg" />
-                                <dropdown
-                                    v-bind:items="optionsItems"
-                                    v-bind:visible.sync="optionsVisible"
-                                    v-on:item-clicked="onOptionsItemClick"
-                                />
                             </span>
+                            <dropdown
+                                class="options-dropdown"
+                                v-bind:items="optionsItems"
+                                v-bind:visible.sync="optionsVisible"
+                                v-bind:owners="$refs['button-options-loading']"
+                                v-on:item-clicked="onOptionsItemClick"
+                            />
                             <p>Status</p>
                         </div>
                         <slot name="header-buttons-after" />
@@ -109,15 +112,18 @@
                             <span
                                 class="button-options"
                                 v-bind:class="{ active: optionsVisible }"
-                                v-on:click.stop="options"
+                                ref="button-options"
+                                v-on:click="toggleOptions"
                             >
                                 <img src="~./assets/options.svg" />
-                                <dropdown
-                                    v-bind:items="optionsItems"
-                                    v-bind:visible.sync="optionsVisible"
-                                    v-on:item-clicked="onOptionsItemClick"
-                                />
                             </span>
+                            <dropdown
+                                class="options-dropdown"
+                                v-bind:items="optionsItems"
+                                v-bind:visible.sync="optionsVisible"
+                                v-bind:owners="$refs['button-options']"
+                                v-on:item-clicked="onOptionsItemClick"
+                            />
                             <p>Status</p>
                         </div>
                         <slot name="header-buttons-after" />
@@ -330,7 +336,7 @@ body.mobile .container-ripe .details {
     padding: 0px 20px 20px 20px;
 }
 
-.container-ripe .button-options ::v-deep .dropdown {
+.container-ripe .options-dropdown ::v-deep .dropdown {
     font-size: 13px;
     left: auto;
     margin-left: -142px;
@@ -340,11 +346,11 @@ body.mobile .container-ripe .details {
     text-align: left;
 }
 
-body.tablet .button-options ::v-deep .dropdown,
-body.mobile .button-options ::v-deep .dropdown {
+body.tablet .container-ripe .options-dropdown ::v-deep .dropdown,
+body.mobile .container-ripe .options-dropdown ::v-deep .dropdown {
     bottom: 40px;
     margin: 0px 0px 0px 0px;
-    right: 0px;
+    right: 13px;
 }
 
 body.tablet .container-ripe .title,
@@ -547,10 +553,9 @@ export const Details = {
         getColumnValues(columnIndex) {
             return this.values.filter((value, index) => this.getValueColumn(index) === columnIndex);
         },
-        async options() {
-            const status = this.optionsVisible;
-            document.body.click();
-            this.optionsVisible = !status;
+        toggleOptions() {
+            debugger;
+            this.optionsVisible = !this.optionsVisible;
         },
         async previousItem(force = false) {
             if (!this.hasIndex) return;
