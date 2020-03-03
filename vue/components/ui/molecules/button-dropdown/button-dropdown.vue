@@ -7,13 +7,14 @@
             </template>
             <span class="label">{{ label }} </span>
         </div>
-        <div class="button button-secondary" v-on:click.stop="onSecondaryClick">
+        <div class="button button-secondary" ref="button-secondary" v-on:click="onSecondaryClick">
             <icon class="icon icon-front" v-bind:icon="secondaryIcon" v-bind:color="'#000000'" />
             <icon class="icon icon-back" v-bind:icon="secondaryIcon" v-bind:color="'#ffffff'" />
         </div>
         <dropdown
+            v-bind:owners="$refs['button-secondary']"
             v-bind:items="items"
-            v-bind:visible.sync="dropdownVisible"
+            v-bind:visible.sync="dropdownVisibleData"
             v-on:item-clicked="onDropdownItemClicked"
         />
     </div>
@@ -192,7 +193,7 @@ export const ButtonDropdown = {
     },
     methods: {
         toggleDropdown() {
-            this.dropdownVisible = !this.dropdownVisible;
+            this.dropdownVisibleData = !this.dropdownVisibleData;
         },
         onSecondaryClick() {
             this.toggleDropdown();
