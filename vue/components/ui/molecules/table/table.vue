@@ -10,9 +10,9 @@
                     <slot name="column" v-bind:column="column">
                         <div
                             class="table-column"
-                            v-bind:class="columnClass(column.value)"
+                            v-bind:class="columnClass(column)"
                             v-if="column.label || column.value || value.name"
-                            v-on:click="sortColumn(column.value)"
+                            v-on:click="sortColumn(column)"
                         >
                             <span>{{ column.label || column.value || value.name }}</span>
                         </div>
@@ -199,8 +199,8 @@
     transition: color 0.1s ease-in;
 }
 
-.table .table-column.active,
-.table .table-column:hover {
+.table .table-column.table-column-sortable.active,
+.table .table-column.table-column-sortable:hover {
     color: #0d0d0d;
 }
 
@@ -237,8 +237,8 @@
     background-position-y: bottom;
 }
 
-.table .table-column.active > span::before,
-.table .table-column:hover > span::before {
+.table .table-column.table-column-sortable.active > span::before,
+.table .table-column.table-column-sortable:hover > span::before {
     opacity: 1;
 }
 </style>
@@ -327,12 +327,21 @@ export const Table = {
     },
     methods: {
         columnClass(column) {
-            const order = this.reverseData ? "ascending" : "descending";
-            return this.sortData === column ? `active ${order}` : "";
+            const base = { "table-column-sortable": column.sortable };
+
+            if ([column.value, column.sortValue].includes(this.sortData)) {
+                const order = this.reverseData ? "ascending" : "descending";
+                base[`active ${order}`] = true;
+            }
+
+            return base;
         },
         sortColumn(column) {
-            this.reverseData = this.sortData === column ? !this.reverseData : false;
-            this.sortData = column;
+            if (!column.sortable) return;
+
+            const field = column.sortValue || column.value;
+            this.reverseData = this.sortData === field ? !this.reverseData : false;
+            this.sortData = field;
             this.$emit("update:sort", this.sortData);
             this.$emit("update:reverse", this.reverseData);
         },
