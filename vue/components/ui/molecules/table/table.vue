@@ -199,8 +199,8 @@
     transition: color 0.1s ease-in;
 }
 
-.table .table-column.table-column-sortable.active,
-.table .table-column.table-column-sortable:hover {
+.table .table-column.sortable.active,
+.table .table-column.sortable:hover {
     color: #0d0d0d;
 }
 
@@ -237,8 +237,8 @@
     background-position-y: bottom;
 }
 
-.table .table-column.table-column-sortable.active > span::before,
-.table .table-column.table-column-sortable:hover > span::before {
+.table .table-column.sortable.active > span::before,
+.table .table-column.sortable:hover > span::before {
     opacity: 1;
 }
 </style>
@@ -328,10 +328,9 @@ export const Table = {
     methods: {
         columnClass(column) {
             const sortValue = column.sortValue || column.value;
+            const sortable = column.sortable === undefined ? true : column.sortable;
 
-            const base = {
-                "table-column-sortable": column.sortable === undefined ? true : column.sortable
-            };
+            const base = { sortable: sortable };
 
             // in case the current column is the one currently selected
             // for sorting, then the proper classes must be added according
@@ -345,9 +344,10 @@ export const Table = {
             return base;
         },
         sortColumn(column) {
-            if (!column.sortable) return;
-
             const sortValue = column.sortValue || column.value;
+            const sortable = column.sortable === undefined ? true : column.sortable;
+
+            if (!sortable) return;
 
             this.reverseData = sortValue === this.sortData ? !this.reverseData : false;
             this.sortData = sortValue;
