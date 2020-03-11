@@ -327,11 +327,19 @@ export const Table = {
     },
     methods: {
         columnClass(column) {
-            const base = { "table-column-sortable": column.sortable };
+            const sortValue = column.sortValue || column.value;
 
-            if ([column.value, column.sortValue].includes(this.sortData)) {
+            const base = {
+                "table-column-sortable": column.sortable === undefined ? true : column.sortable
+            };
+
+            // in case the current column is the one currently selected
+            // for sorting, then the proper classes must be added according
+            // to the current sorting criteria
+            if (sortValue === this.sortData) {
                 const order = this.reverseData ? "ascending" : "descending";
-                base[`active ${order}`] = true;
+                base.active = true;
+                base[order] = true;
             }
 
             return base;
@@ -339,9 +347,11 @@ export const Table = {
         sortColumn(column) {
             if (!column.sortable) return;
 
-            const field = column.sortValue || column.value;
-            this.reverseData = this.sortData === field ? !this.reverseData : false;
-            this.sortData = field;
+            const sortValue = column.sortValue || column.value;
+
+            this.reverseData = sortValue === this.sortData ? !this.reverseData : false;
+            this.sortData = sortValue;
+
             this.$emit("update:sort", this.sortData);
             this.$emit("update:reverse", this.reverseData);
         },
