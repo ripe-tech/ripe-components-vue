@@ -10,9 +10,9 @@
                     <slot name="column" v-bind:column="column">
                         <div
                             class="table-column"
-                            v-bind:class="columnClass(column.value)"
+                            v-bind:class="columnClass(column)"
                             v-if="column.label || column.value || value.name"
-                            v-on:click="sortColumn(column.value)"
+                            v-on:click="sortColumn(column)"
                         >
                             <span>{{ column.label || column.value || value.name }}</span>
                         </div>
@@ -199,8 +199,8 @@
     transition: color 0.1s ease-in;
 }
 
-.table .table-column.active,
-.table .table-column:hover {
+.table .table-column.sortable.active,
+.table .table-column.sortable:hover {
     color: #0d0d0d;
 }
 
@@ -237,8 +237,8 @@
     background-position-y: bottom;
 }
 
-.table .table-column.active > span::before,
-.table .table-column:hover > span::before {
+.table .table-column.sortable.active > span::before,
+.table .table-column.sortable:hover > span::before {
     opacity: 1;
 }
 </style>
@@ -327,12 +327,31 @@ export const Table = {
     },
     methods: {
         columnClass(column) {
-            const order = this.reverseData ? "ascending" : "descending";
-            return this.sortData === column ? `active ${order}` : "";
+            const sortValue = column.sortValue || column.value;
+            const sortable = column.sortable === undefined ? true : column.sortable;
+
+            const base = { sortable: sortable };
+
+            // in case the current column is the one currently selected
+            // for sorting, then the proper classes must be added according
+            // to the current sorting criteria
+            if (sortValue === this.sortData) {
+                const order = this.reverseData ? "ascending" : "descending";
+                base.active = true;
+                base[order] = true;
+            }
+
+            return base;
         },
         sortColumn(column) {
-            this.reverseData = this.sortData === column ? !this.reverseData : false;
-            this.sortData = column;
+            const sortValue = column.sortValue || column.value;
+            const sortable = column.sortable === undefined ? true : column.sortable;
+
+            if (!sortable) return;
+
+            this.reverseData = sortValue === this.sortData ? !this.reverseData : false;
+            this.sortData = sortValue;
+
             this.$emit("update:sort", this.sortData);
             this.$emit("update:reverse", this.reverseData);
         },
