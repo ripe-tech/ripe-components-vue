@@ -88,7 +88,7 @@
             </div>
         </div>
         <div class="header-globals">
-            <template v-if="announcements">
+            <template v-if="announcements && announcements.items">
                 <bubble
                     v-bind:visible.sync="announcementsModalVisible"
                     v-if="isMobileWidth()"
@@ -437,6 +437,7 @@ export const Header = {
         },
         announcementsToRead() {
             if (!this.announcements) return false;
+            if (!this.announcements.items) return false;
             const reference =
                 this.announcements.items.length > 0 ? this.announcements.items[0].timestamp : 0;
             return reference * 1000 > Date.now() - this.announcements.new_threshold * 1000;
