@@ -45,21 +45,21 @@
     box-sizing: border-box;
     color: #1d2631;
     display: inline-flex;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     justify-content: center;
     letter-spacing: 0.3px;
     max-height: 100%;
     max-width: 100%;
     overflow-y: auto;
-    padding: 17px 20px 17px 20px;
+    padding: 12px 18px 12px 18px;
     pointer-events: initial;
     position: relative;
     z-index: 1;
 }
 
 .notification > .notification-container > .icon {
-    padding-right: 15px;
+    padding-right: 8px;
 }
 </style>
 
@@ -113,7 +113,7 @@ export const Notification = {
             textData: this.text,
             iconData: this.icon,
             iconColorData: this.iconColor,
-            timeoutData: this.tineoutData,
+            timeoutData: this.timeoutData,
             timer: null,
             key: true
         };
