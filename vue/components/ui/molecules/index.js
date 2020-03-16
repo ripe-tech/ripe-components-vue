@@ -13,7 +13,7 @@ import { InputSymbol } from "./input-symbol/input-symbol.vue";
 import { Lightbox } from "./lightbox/lightbox.vue";
 import { Lineup } from "./lineup/lineup.vue";
 import { Modal } from "./modal/modal.vue";
-import { NotificationMessage } from "./notification-message/notification-message.vue";
+import { Notification } from "./notification/notification.vue";
 import { ProgressBar } from "./progress-bar/progress-bar.vue";
 import { RadioGroup } from "./radio-group/radio-group.vue";
 import { Search } from "./search/search.vue";
@@ -40,7 +40,7 @@ const install = Vue => {
     Vue.component("lightbox", Lightbox);
     Vue.component("lineup", Lineup);
     Vue.component("modal", Modal);
-    Vue.component("notification-message", NotificationMessage);
+    Vue.component("notification", Notification);
     Vue.component("progress-bar", ProgressBar);
     Vue.component("radio-group", RadioGroup);
     Vue.component("search", Search);
@@ -68,7 +68,7 @@ export {
     Lightbox,
     Lineup,
     Modal,
-    NotificationMessage,
+    Notification,
     ProgressBar,
     RadioGroup,
     Search,

@@ -3,14 +3,15 @@ import { withKnobs, text, boolean, color, select, number } from "@storybook/addo
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
-    .add("Notification Message", () => ({
+    .add("Notification", () => ({
         props: {
             icon: {
                 default: select(
                     "Icon",
                     {
                         Ok: "ok",
-                        Close: "close"
+                        Close: "close",
+                        Unset: null
                     },
                     "ok"
                 )
@@ -37,7 +38,7 @@ storiesOf("Molecules", module)
         },
         template: `
             <div>
-                <notification-message
+                <notification
                     v-bind:text="text"
                     v-bind:icon="icon"
                     v-bind:icon-color="iconColor"

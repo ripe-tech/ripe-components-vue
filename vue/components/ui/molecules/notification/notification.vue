@@ -1,8 +1,8 @@
 <template>
     <transition name="fade">
-        <div class="notification-message" v-bind:style="style" v-show="isVisible">
+        <div class="notification" v-bind:style="style" v-show="isVisible">
             <global-events v-on:keydown.esc="handleGlobal" />
-            <div class="message-container">
+            <div class="notification-container">
                 <icon
                     v-bind:icon="iconData"
                     v-bind:color="iconColorData"
@@ -20,7 +20,7 @@
 @import "css/variables.scss";
 @import "css/animations.scss";
 
-.notification-message {
+.notification {
     align-items: center;
     display: flex;
     justify-content: center;
@@ -33,11 +33,11 @@
     z-index: 50;
 }
 
-.notification-message.fade-leave-active {
+.notification.fade-leave-active {
     animation: fade-shrink-visibility 0.5s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
 }
 
-.notification-message > .message-container {
+.notification > .notification-container {
     animation: fade-grow-rise 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
     background-color: $white;
     border-radius: 6px 6px 6px 6px;
@@ -58,14 +58,14 @@
     z-index: 1;
 }
 
-.notification-message > .message-container > .icon {
+.notification > .notification-container > .icon {
     padding-right: 15px;
 }
 </style>
 
 <script>
-export const NotificationMessage = {
-    name: "notification-message",
+export const Notification = {
+    name: "notification",
     props: {
         text: {
             type: String,
@@ -184,5 +184,5 @@ export const NotificationMessage = {
     }
 };
 
-export default NotificationMessage;
+export default Notification;
 </script>
