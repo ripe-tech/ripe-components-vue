@@ -168,18 +168,15 @@ export const Notification = {
             if (!this.visibleData) return;
             this.visibleData = false;
         },
-        handleClose() {
-            this.hide();
-        },
-        handleGlobal() {
-            if (!this.globalEvents) return;
-            this.hide();
-        },
         reset() {
             this.key = !this.key;
         },
         resetTimeout() {
             if (this.timer) clearTimeout(this.timer);
+        },
+        handleGlobal() {
+            if (!this.globalEvents) return;
+            this.hide();
         }
     }
 };
