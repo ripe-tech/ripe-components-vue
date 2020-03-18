@@ -55,7 +55,13 @@
         </div>
         <div class="bottom">
             <div class="signature">
-                A product from <link-ripe v-bind:text="'Platforme'" v-bind:color="linksBottomColor" v-bind:hover="'border'" v-bind:href="'https://www.platforme.com'" />
+                A product from
+                <link-ripe
+                    v-bind:text="'Platforme'"
+                    v-bind:color="linksBottomColor"
+                    v-bind:hover="'border'"
+                    v-bind:href="'https://www.platforme.com'"
+                />
             </div>
             <div class="copyright">
                 ©2020 all rights reserved
@@ -69,12 +75,12 @@
 @import "css/animations.scss";
 
 .home-part {
-    min-height: 100vh;
-    background-repeat: no-repeat;
     background-position: center center;
+    background-repeat: no-repeat;
     background-size: cover;
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
 }
 
 .home-part > .top {
@@ -85,8 +91,8 @@
 
 body.tablet .home-part > .top,
 body.mobile .home-part > .top {
-    padding: 20px 20px 20px 20px;
     display: block;
+    padding: 20px 20px 20px 20px;
 }
 
 .home-part > .top > .left,
@@ -129,9 +135,9 @@ body.mobile .home-part > .top > .left {
 
 body.tablet .home-part > .top > .right > .links,
 body.mobile .home-part > .top > .right > .links {
+    display: block;
     margin-top: 10px;
     width: 100%;
-    display: block;
 }
 
 .home-part > .top > .right > .links > .link {
@@ -141,8 +147,8 @@ body.mobile .home-part > .top > .right > .links {
 
 body.tablet .home-part > .top > .right > .links > .link,
 body.mobile .home-part > .top > .right > .links > .link {
-    margin-left: 16px;
     line-height: 28px;
+    margin-left: 16px;
 }
 
 .home-part > .top > .right > .links > .link:first-child {
@@ -150,15 +156,15 @@ body.mobile .home-part > .top > .right > .links > .link {
 }
 
 .home-part > .middle {
+    align-items: center;
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap-reverse;
+    justify-content: center;
     margin: 0px auto 0px auto;
     max-width: 1280px;
-    flex: 1;
-    align-items: center;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap-reverse;
     text-align: left;
+    width: 100%;
 }
 
 .home-part.home-part-middle-dark > .middle {
@@ -202,10 +208,10 @@ body.mobile .home-part > .top > .right > .links > .link {
 
 .home-part > .middle > .area-right > .sub-message {
     font-size: 22px;
-    line-height: 30px;
     font-weight: 300;
-    margin-bottom: 60px;
     letter-spacing: 1px;
+    line-height: 30px;
+    margin-bottom: 60px;
 }
 
 .home-part > .bottom {
