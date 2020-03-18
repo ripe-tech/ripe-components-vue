@@ -1,17 +1,64 @@
 <template>
-    <div class="home-part" v-if="visible">
+    <div class="home-part" v-bind:class="classes" v-bind:style="style" v-if="visible">
         <div class="top">
-            <router-link v-bind:to="homeRoute">
-                <img v-bind:src="logo" />
-            </router-link>
+            <div class="left">
+                <router-link class="logo-container" v-bind:to="homeRoute">
+                    <image-ripe class="logo" v-bind:src="logo" />
+                </router-link>
+            </div>
+            <div class="right">
+                <div class="links">
+                    <router-link
+                        class="link"
+                        v-bind:to="link.to"
+                        v-for="link in links"
+                        v-bind:key="link.name"
+                        v-slot="{ href, navigate }"
+                    >
+                        <link-ripe
+                            v-bind:text="String(link.name)"
+                            v-bind:href="href"
+                            v-bind:color="linksTopColor"
+                            v-bind:hover="'color'"
+                            v-bind:size="'big'"
+                            v-on:click="navigate"
+                        />
+                    </router-link>
+                    <router-link
+                        class="link"
+                        v-bind:to="link.to"
+                        v-for="link in links"
+                        v-bind:key="link.name"
+                        v-slot="{ href, navigate }"
+                    >
+                        <link-ripe
+                            v-bind:text="String(link.name)"
+                            v-bind:href="href"
+                            v-bind:color="linksTopColor"
+                            v-bind:hover="'color'"
+                            v-bind:size="'big'"
+                            v-on:click="navigate"
+                        />
+                    </router-link>
+                </div>
+            </div>
         </div>
         <div class="middle">
-            <div class="area area-left">
+            <div class="area-left">
                 <img class="illustration" v-bind:src="illustration" />
             </div>
-            <div class="area area-right">
-                <div class="punch" v-html="messageReplaced" />
+            <div class="area-right">
+                <div class="message" v-if="messageReplaced" v-html="messageReplaced" />
+                <div class="sub-message" v-if="subMessageReplaced" v-html="subMessageReplaced" />
                 <button-platforme v-on:click="login" />
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="signature">
+                A product from <link-ripe v-bind:text="'Platforme'" v-bind:color="linksBottomColor" v-bind:hover="'border'" v-bind:href="'https://www.platforme.com'" />
+            </div>
+            <div class="copyright">
+                ©2020 all rights reserved
             </div>
         </div>
     </div>
@@ -22,63 +69,168 @@
 @import "css/animations.scss";
 
 .home-part {
-    text-align: center;
-    user-select: none;
+    min-height: 100vh;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
 }
 
 .home-part > .top {
     animation: fade-into-drop 0.45s cubic-bezier(0.645, 0.045, 0.355, 1);
-    border-bottom: 1px solid #e4e8f0;
-    height: 100px;
-    line-height: 100px;
+    display: flex;
+    padding: 34px 60px 34px 60px;
 }
 
-.home-part > .top > * {
-    border: none;
+body.tablet .home-part > .top,
+body.mobile .home-part > .top {
+    padding: 20px 20px 20px 20px;
+    display: block;
 }
 
-.home-part > .top > * > img {
+.home-part > .top > .left,
+.home-part > .top > .right {
     display: inline-block;
-    max-height: 76px;
-    max-width: 280px;
+}
+
+body.tablet .home-part > .top > .left,
+body.tablet .home-part > .top > .right,
+body.mobile .home-part > .top > .left,
+body.mobile .home-part > .top > .right {
+    display: block;
+}
+
+body.tablet .home-part > .top > .left,
+body.mobile .home-part > .top > .left {
+    text-align: right;
+}
+
+.home-part > .top > .left > .logo-container {
+    display: block;
+    height: 32px;
+}
+
+.home-part > .top > .left > .logo-container > .logo {
+    max-height: 100%;
     vertical-align: middle;
+}
+
+.home-part > .top > .right {
+    flex: 1;
+    text-align: right;
+}
+
+.home-part > .top > .right > .links {
+    align-items: center;
+    display: inline-flex;
+    justify-content: flex-end;
+}
+
+body.tablet .home-part > .top > .right > .links,
+body.mobile .home-part > .top > .right > .links {
+    margin-top: 10px;
+    width: 100%;
+    display: block;
+}
+
+.home-part > .top > .right > .links > .link {
+    display: inline-block;
+    margin-left: 54px;
+}
+
+body.tablet .home-part > .top > .right > .links > .link,
+body.mobile .home-part > .top > .right > .links > .link {
+    margin-left: 16px;
+    line-height: 28px;
+}
+
+.home-part > .top > .right > .links > .link:first-child {
+    margin-left: 0px;
 }
 
 .home-part > .middle {
     margin: 0px auto 0px auto;
     max-width: 1280px;
-    padding: 96px 0px 96px 0px;
+    flex: 1;
+    align-items: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap-reverse;
+    text-align: left;
 }
 
-.home-part > .middle > .area {
-    display: inline-block;
-    vertical-align: top;
+.home-part.home-part-middle-dark > .middle {
+    color: $black;
+}
+
+.home-part.home-part-middle-light > .middle {
+    color: $white;
+}
+
+.home-part > .middle > .area-left,
+.home-part > .middle > .area-right {
+    margin: 16px;
 }
 
 .home-part > .middle > .area-left {
     animation: fade-into-rise 0.45s cubic-bezier(0.645, 0.045, 0.355, 1);
-    margin-right: 64px;
+    width: 600px;
 }
 
 .home-part > .middle > .area-left > .illustration {
-    max-height: 400px;
-    max-width: 400px;
+    height: 100%;
+    width: 100%;
 }
 
 .home-part > .middle > .area-right {
     animation: fade-into-rise 0.45s cubic-bezier(0.645, 0.045, 0.355, 1);
-    box-sizing: border-box;
-    height: 340px;
-    padding: 96px 0px 96px 0px;
+    width: 400px;
 }
 
-.home-part > .middle > .area-right > .punch {
-    font-size: 26px;
+.home-part.home-part-middle-dark > .middle > .area-right {
+    color: $black;
+}
+
+.home-part > .middle > .area-right > .message {
+    font-size: 48px;
     font-weight: 600;
-    line-height: 34px;
+    line-height: 60px;
     margin-bottom: 32px;
-    max-width: 380px;
+}
+
+.home-part > .middle > .area-right > .sub-message {
+    font-size: 22px;
+    line-height: 30px;
+    font-weight: 300;
+    margin-bottom: 60px;
+    letter-spacing: 1px;
+}
+
+.home-part > .bottom {
+    padding: 34px 60px 34px 60px;
     text-align: left;
+}
+
+.home-part.home-part-bottom-dark > .bottom {
+    color: $black;
+}
+
+.home-part.home-part-bottom-light > .bottom {
+    color: $white;
+}
+
+.home-part > .bottom > .signature {
+    display: inline-block;
+    font-size: 18px;
+}
+
+.home-part > .bottom > .copyright {
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 4px;
+    opacity: 50%;
 }
 </style>
 
@@ -94,6 +246,10 @@ export const HomePart = {
             type: String | Object,
             default: null
         },
+        background: {
+            type: String | Object,
+            default: null
+        },
         homeRoute: {
             type: String | Object,
             default: null
@@ -105,6 +261,26 @@ export const HomePart = {
         message: {
             type: String,
             default: null
+        },
+        subMessage: {
+            type: String,
+            default: null
+        },
+        links: {
+            type: Array,
+            default: () => []
+        },
+        topColor: {
+            type: String,
+            default: "dark"
+        },
+        middleColor: {
+            type: String,
+            default: "dark"
+        },
+        bottomColor: {
+            type: String,
+            default: "dark"
         }
     },
     data: function() {
@@ -114,17 +290,55 @@ export const HomePart = {
     },
     computed: {
         messageReplaced() {
-            if (!this.message) return "";
-            return this.message.replace(/\n/g, "<br/>");
+            return this._replaceMessage(this.message);
+        },
+        subMessageReplaced() {
+            return this._replaceMessage(this.subMessage);
+        },
+        classes() {
+            const base = {};
+            base[`home-part-top-${this.topColor}`] = true;
+            base[`home-part-middle-${this.middleColor}`] = true;
+            base[`home-part-bottom-${this.bottomColor}`] = true;
+            return base;
+        },
+        style() {
+            const base = {};
+
+            if (this.background) {
+                base["background-image"] = `url(${this.background})`;
+            }
+
+            return base;
+        },
+        linksTopColor() {
+            return this._linksColor(this.topColor);
+        },
+        linksBottomColor() {
+            return this._linksColor(this.bottomColor);
         }
     },
     methods: {
-        login: async function() {
+        async login() {
             try {
                 document.location = await this.$ripeIdApi.oauthAuthorize();
             } catch (err) {
                 this.handleError(err);
             }
+        },
+        _linksColor(color) {
+            switch (color) {
+                case "dark":
+                    return "black";
+                case "light":
+                    return "white";
+                default:
+                    return null;
+            }
+        },
+        _replaceMessage(message) {
+            if (!message) return "";
+            return message.replace(/\n/g, "<br/>");
         }
     },
     created: function() {

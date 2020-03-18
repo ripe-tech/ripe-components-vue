@@ -40,6 +40,10 @@ a.link.link-small {
     font-size: 12px;
 }
 
+a.link.link-big {
+    font-size: 18px;
+}
+
 a.link.link-black {
     color: $black;
 }
@@ -52,6 +56,20 @@ a.link.link-black.link-hover-border.hover {
 a.link.link-black.link-hover-color:hover,
 a.link.link-black.link-hover-color.hover {
     color: $link-hover-color;
+}
+
+a.link.link-white {
+    color: $white;
+}
+
+a.link.link-white.link-hover-border:hover,
+a.link.link-white.link-hover-border.hover {
+    border-color: $white;
+}
+
+a.link.link-white.link-hover-color:hover,
+a.link.link-white.link-hover-color.hover {
+    color: $upper-grey;
 }
 
 a.link.link-grey {

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <slot>
+        <slot v-bind:navigate="() => {}" v-bind:href="'https://platforme.com?mock_router_link=true'">
             <a class="router-link" v-bind:href="to" />
         </slot>
     </div>
@@ -14,7 +14,7 @@
 export const RouterLink = {
     props: {
         to: {
-            type: String,
+            type: String | Object,
             default: "#"
         }
     }
