@@ -146,7 +146,7 @@ export const ButtonIcon = {
             default: null
         },
         iconStrokeWidth: {
-            type: String,
+            type: Number,
             default: null
         },
         text: {
