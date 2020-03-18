@@ -27,7 +27,7 @@
     justify-content: center;
     left: 0;
     pointer-events: none;
-    position: absolute;
+    position: fixed;
     right: 0;
     text-align: center;
     top: 100px;
@@ -50,10 +50,11 @@
     font-weight: 600;
     justify-content: center;
     letter-spacing: 0.3px;
+    line-height: 18px;
     max-height: 100%;
     max-width: 100%;
     overflow-y: auto;
-    padding: 12px 18px 12px 18px;
+    padding: 10px 20px 10px 20px;
     pointer-events: initial;
     position: relative;
     z-index: 1;
@@ -145,21 +146,32 @@ export const Notification = {
     },
     methods: {
         show(options) {
+            // unpacks the complete set of options for the new notification
+            // that is going to be displayed
             const { text, timeout, icon, iconColor, globalEvents, reset = true } = options;
 
+            // updates the current local values taking into account
+            // the provided set of options
             this.textData = text;
             this.iconData = icon;
             this.iconColorData = iconColor;
             this.timeoutData = timeout || this.timeout;
             this.globalEventsData = globalEvents || this.globalEvents;
 
-            if (this.visibleData) this.resetTimeout();
+            // sets the visible data value so that the current context
+            // indicates that there's data available
             this.visibleData = true;
 
             // alternate the key to force the component
             // to be destroyed and mounted again
             if (reset) this.reset();
 
+            // ensures that the previously registered timeout
+            // is cleared so that a new one can be created
+            this.resetTimeout();
+
+            // creates the timeout that is going to be used to
+            // hide and reset the current notification
             this.timer = setTimeout(() => {
                 this.hide();
                 this.reset();
@@ -173,7 +185,8 @@ export const Notification = {
             this.key = !this.key;
         },
         resetTimeout() {
-            if (this.timer) clearTimeout(this.timer);
+            if (!this.timer) return;
+            clearTimeout(this.timer);
         },
         handleGlobal() {
             if (!this.globalEvents) return;
