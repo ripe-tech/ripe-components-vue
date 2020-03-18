@@ -1,6 +1,6 @@
 <template>
     <transition name="fade">
-        <div class="notification" v-bind:style="style" v-show="isVisible">
+        <div class="notification" v-bind:style="style" v-show="isVisible" v-on:click="onClick">
             <global-events v-on:keydown.esc="handleGlobal" />
             <div class="notification-container">
                 <icon
@@ -22,6 +22,7 @@
 
 .notification {
     align-items: center;
+    cursor: pointer;
     display: flex;
     justify-content: center;
     left: 0;
@@ -176,6 +177,9 @@ export const Notification = {
         },
         handleGlobal() {
             if (!this.globalEvents) return;
+            this.hide();
+        },
+        onClick() {
             this.hide();
         }
     }
