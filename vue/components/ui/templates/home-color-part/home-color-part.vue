@@ -17,7 +17,7 @@
                         v-bind:href="href"
                         v-bind:color="linksTopColor"
                         v-bind:hover="'color'"
-                        v-bind:size="'big'"
+                        v-bind:size="'large'"
                         v-on:click="navigate"
                     />
                 </router-link>
@@ -33,7 +33,7 @@
                         v-bind:href="href"
                         v-bind:color="linksTopColor"
                         v-bind:hover="'color'"
-                        v-bind:size="'big'"
+                        v-bind:size="'large'"
                         v-on:click="navigate"
                     />
                 </router-link>

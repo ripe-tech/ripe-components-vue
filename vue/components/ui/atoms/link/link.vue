@@ -40,7 +40,7 @@ a.link.link-small {
     font-size: 12px;
 }
 
-a.link.link-big {
+a.link.link-large {
     font-size: 18px;
 }
 
