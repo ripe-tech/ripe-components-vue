@@ -24,7 +24,7 @@ storiesOf("Animations", module)
                 )
             },
             animationDuration: {
-                default: text("Animation Duration", null)
+                default: text("Animation Duration", "2s")
             },
             animationTimingFunction: {
                 default: text("Animation Timing Function", null)
@@ -55,7 +55,7 @@ storiesOf("Animations", module)
                     v-bind:animation-iteration-count="animationIterationCount"
                     v-bind:animation-direction="animationDirection"
                     v-bind:animation-mode="animationMode"
-                    v-bind:aanimation-play-state="animationPlayState"
+                    v-bind:animation-play-state="animationPlayState"
                 />
             </div>
         `
