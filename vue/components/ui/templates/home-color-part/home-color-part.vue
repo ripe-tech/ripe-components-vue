@@ -15,6 +15,7 @@
                     <link-ripe
                         v-bind:text="String(link.name)"
                         v-bind:href="href"
+                        v-bind:target="link.target"
                         v-bind:color="linksTopColor"
                         v-bind:hover="'color'"
                         v-bind:size="'large'"

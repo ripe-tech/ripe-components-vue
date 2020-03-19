@@ -14,7 +14,7 @@
 export const RouterLink = {
     props: {
         to: {
-            type: String | Object,
+            type: String,
             default: "#"
         }
     }

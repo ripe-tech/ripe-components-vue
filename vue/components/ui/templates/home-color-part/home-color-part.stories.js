@@ -55,8 +55,15 @@ storiesOf("Templates", module)
             },
             links: {
                 default: () => [
-                    { name: "Products", to: "https://www.platforme.com/" },
-                    { name: "Prices", to: { name: "someRoute" } }
+                    {
+                        name: "Products",
+                        to: "https://www.platforme.com/"
+                    },
+                    {
+                        name: "Prices",
+                        to: "https://www.platforme.com",
+                        target: "_blank"
+                    }
                 ]
             }
         },
