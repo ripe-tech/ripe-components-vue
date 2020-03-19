@@ -82,8 +82,8 @@
 .home-color-part > .top {
     animation: fade-into-drop 0.45s cubic-bezier(0.645, 0.045, 0.355, 1);
     display: flex;
-    padding: 14px 60px 14px 60px;
     flex-wrap: wrap;
+    padding: 14px 60px 14px 60px;
 }
 
 body.tablet .home-color-part > .top,
@@ -104,10 +104,10 @@ body.mobile .home-color-part > .top {
 .home-color-part > .top > .links {
     align-items: center;
     display: inline-flex;
-    justify-content: flex-end;
     flex: 1;
-    text-align: right;
     flex-wrap: wrap;
+    justify-content: flex-end;
+    text-align: right;
 }
 
 .home-color-part > .top > .links > .link {
