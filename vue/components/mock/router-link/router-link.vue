@@ -2,7 +2,7 @@
     <div>
         <slot
             v-bind:navigate="() => {}"
-            v-bind:href="'https://platforme.com?mock_router_link=true'"
+            v-bind:href="to"
         >
             <a class="router-link" v-bind:href="to" />
         </slot>
