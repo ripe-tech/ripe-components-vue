@@ -1,9 +1,6 @@
 <template>
     <div>
-        <slot
-            v-bind:navigate="() => {}"
-            v-bind:href="to"
-        >
+        <slot v-bind:navigate="() => {}" v-bind:href="to">
             <a class="router-link" v-bind:href="to" />
         </slot>
     </div>

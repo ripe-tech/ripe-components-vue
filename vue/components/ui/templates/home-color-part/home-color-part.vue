@@ -21,29 +21,13 @@
                         v-on:click="navigate"
                     />
                 </router-link>
-                <router-link
-                    class="link"
-                    v-bind:to="link.to"
-                    v-for="link in links"
-                    v-bind:key="link.name"
-                    v-slot="{ href, navigate }"
-                >
-                    <link-ripe
-                        v-bind:text="String(link.name)"
-                        v-bind:href="href"
-                        v-bind:color="linksTopColor"
-                        v-bind:hover="'color'"
-                        v-bind:size="'large'"
-                        v-on:click="navigate"
-                    />
-                </router-link>
             </div>
         </div>
         <div class="middle">
-            <div class="area-left">
+            <div class="area area-left">
                 <img class="illustration" v-bind:src="illustration" />
             </div>
-            <div class="area-right">
+            <div class="area area-right">
                 <div class="message" v-if="messageReplaced" v-html="messageReplaced" />
                 <div class="sub-message" v-if="subMessageReplaced" v-html="subMessageReplaced" />
                 <button-platforme v-on:click="login" />
@@ -60,7 +44,7 @@
                 />
             </div>
             <div class="copyright">
-                ©2020 all rights reserved
+                {{ copyright }}
             </div>
         </div>
     </div>
@@ -145,8 +129,7 @@ body.mobile .home-color-part > .top > .links > .link {
     color: $white;
 }
 
-.home-color-part > .middle > .area-left,
-.home-color-part > .middle > .area-right {
+.home-color-part > .middle > .area {
     margin: 16px;
 }
 
@@ -178,7 +161,7 @@ body.mobile .home-color-part > .top > .links > .link {
 
 .home-color-part > .middle > .area-right > .sub-message {
     font-size: 22px;
-    font-weight: 300;
+    font-weight: 400;
     letter-spacing: 1px;
     line-height: 30px;
     margin-bottom: 60px;
@@ -245,6 +228,10 @@ export const HomeColorPart = {
         links: {
             type: Array,
             default: () => []
+        },
+        copyright: {
+            type: String,
+            default: "© all rights reserved"
         },
         topColor: {
             type: String,
