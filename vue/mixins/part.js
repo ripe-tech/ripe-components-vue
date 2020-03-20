@@ -12,6 +12,7 @@ const partMixin = {
          * from the error is used.
          */
         handleError(err, message, code) {
+            if (!this.$root.$router) return;
             code = code || err.code;
             const query = { message: message || err.message };
             if (code) query.code = code;
