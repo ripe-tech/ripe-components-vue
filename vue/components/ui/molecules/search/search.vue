@@ -28,7 +28,6 @@
             </svg>
         </slot>
         <input-ripe
-            class="search-input"
             v-bind:variant="variant"
             v-bind:value.sync="valueData"
             v-bind:placeholder="placeholder"
@@ -105,6 +104,7 @@
 
 .search ::v-deep input[type="text"] {
     padding-left: 12px;
+    vertical-align: top;
 }
 
 .search.grow ::v-deep input[type="text"] {
