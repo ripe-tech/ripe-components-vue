@@ -213,6 +213,10 @@
     vertical-align: middle;
 }
 
+.header-ripe > .header-bar > .header-container > .header-left > .search ::v-deep .search-input {
+    vertical-align: top;
+}
+
 .header-ripe > .header-bar > .header-container > .header-account,
 .header-ripe > .header-bar > .header-container > .header-apps {
     cursor: pointer;

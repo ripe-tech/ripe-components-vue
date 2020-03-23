@@ -28,6 +28,7 @@
             </svg>
         </slot>
         <input-ripe
+            class="search-input"
             v-bind:variant="variant"
             v-bind:value.sync="valueData"
             v-bind:placeholder="placeholder"
