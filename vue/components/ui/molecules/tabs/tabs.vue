@@ -49,7 +49,7 @@
     letter-spacing: 0.75px;
     line-height: 28px;
     margin-bottom: -2px;
-    margin-right: 6px;
+    margin-right: 12px;
     max-width: 200px;
     min-height: 28px;
     padding: 0px 25px 0px 25px;
