@@ -150,7 +150,7 @@ export const Input = {
         }
     },
     mounted: function() {
-        this.autofocus && this.focus();
+        if (this.autofocus) this.focus();
         this.setValidationMessage(this.validationMessage);
     },
     methods: {
