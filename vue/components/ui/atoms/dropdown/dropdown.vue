@@ -70,6 +70,7 @@
     margin: 0px 0px 0px 0px;
     overflow: hidden;
     padding: 0px;
+    user-select: none;
 }
 
 .dropdown > .dropdown-item {
