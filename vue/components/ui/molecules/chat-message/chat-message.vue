@@ -68,7 +68,8 @@
 }
 
 .chat-message > .message-container > .message-header {
-    margin: 3px 0px 0px 0px;
+    line-height: 24px;
+    margin: 0px 0px 0px 0px;
 }
 
 .chat-message > .message-container > .message-header > .username {
