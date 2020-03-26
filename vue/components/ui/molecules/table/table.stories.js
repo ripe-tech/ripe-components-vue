@@ -42,6 +42,12 @@ storiesOf("Molecules", module)
                     null
                 )
             },
+            rowSelection: {
+                default: () => boolean("Row Selection", false)
+            },
+            selectedRow: {
+                default: () => number("Selected Row", null)
+            },
             mockItems: {
                 default: () => [
                     {
@@ -68,12 +74,6 @@ storiesOf("Molecules", module)
                     { value: "user", label: "User" },
                     { value: "system", label: "System" }
                 ]
-            },
-            rowSelection: {
-                default: () => boolean("Row Selection", false)
-            },
-            selectedId: {
-                default: () => number("Selected Id", null)
             }
         },
         data: function() {
@@ -101,7 +101,7 @@ storiesOf("Molecules", module)
                     v-bind:alignment="alignment"
                     v-bind:variant="variant"
                     v-bind:row-selection="rowSelection"
-                    v-bind:selected-id="selectedId"
+                    v-bind:selected-row="selectedRow"
                 />
                 <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}</p>
             </div>

@@ -93,7 +93,7 @@
 }
 
 .table tbody tr.selected {
-    background-color: $light-white;
+    background-color: $selected-dark-color;
 }
 
 .table th {
@@ -297,7 +297,7 @@ export const Table = {
             type: Boolean,
             default: false
         },
-        selectedId: {
+        selectedRow: {
             type: Number,
             default: null
         }
@@ -309,15 +309,15 @@ export const Table = {
         reverse(value) {
             this.reverseData = value;
         },
-        selectedId(value) {
-            this.selectedIdData = value;
+        selectedRow(value) {
+            this.selectedRowData = value;
         }
     },
     data: function() {
         return {
             sortData: this.sort,
             reverseData: this.reverse,
-            selectedIdData: this.selectedId
+            selectedRowData: this.selectedRow
         };
     },
     computed: {
@@ -357,17 +357,17 @@ export const Table = {
             this.$emit("update:reverse", this.reverseData);
         },
         isRowSelected(id) {
-            return this.rowSelection && id === this.selectedIdData;
+            return this.rowSelection !== null && id === this.selectedRowData;
         },
         onClick(item, index) {
             if (this.rowSelection) {
-                this.selectedIdData =
-                    this.selectedIdData === null || this.selectedIdData !== item.id
+                this.selectedRowData =
+                    this.selectedIdData === null || this.selectedRowData !== item.id
                         ? item.id
                         : null;
             }
 
-            this.$emit("click", item, item._originalIndex, index, this.selectedIdData);
+            this.$emit("click", item, item._originalIndex, index, this.selectedRowData);
         }
     }
 };
