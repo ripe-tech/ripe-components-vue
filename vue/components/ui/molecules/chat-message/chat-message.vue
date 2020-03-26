@@ -57,9 +57,7 @@
 }
 
 .chat-message > .avatar {
-    border: 1px solid #e3e8f1;
     border-radius: 50% 50% 50% 50%;
-    box-shadow: 0px 2px 5px rgba(67, 86, 100, 0.25);
     height: 24px;
     margin: 0px 8px 0px 0px;
     width: 24px;
