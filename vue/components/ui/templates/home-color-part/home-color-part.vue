@@ -164,7 +164,7 @@ body.mobile .home-color-part > .top > .links > .link {
 .home-color-part > .middle > .area-right > .sub-message {
     font-size: 22px;
     font-weight: 400;
-    letter-spacing: 1px;
+    letter-spacing: 0.25px;
     line-height: 30px;
     margin-bottom: 60px;
 }
