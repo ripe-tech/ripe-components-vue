@@ -12,9 +12,9 @@
             <icon class="icon icon-back" v-bind:icon="secondaryIcon" v-bind:color="'#ffffff'" />
         </div>
         <dropdown
-            v-bind:owners="$refs['button-secondary']"
             v-bind:items="items"
             v-bind:visible.sync="dropdownVisibleData"
+            v-bind:owners="$refs['button-secondary']"
             v-on:item-clicked="onDropdownItemClicked"
         />
     </div>
