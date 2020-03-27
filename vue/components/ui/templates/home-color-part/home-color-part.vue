@@ -42,6 +42,7 @@
                     v-bind:color="linksBottomColor"
                     v-bind:hover="'border'"
                     v-bind:href="'https://www.platforme.com'"
+                    v-bind:target="_blank"
                 />
             </div>
             <div class="copyright">
