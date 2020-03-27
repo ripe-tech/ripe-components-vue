@@ -38,7 +38,7 @@
                         <div
                             class="header-button"
                             v-bind:class="{
-                                invisible: optionsItems.length === 0 || loading
+                                invisible: optionsItems.length === 0 || isLoading
                             }"
                         >
                             <span
