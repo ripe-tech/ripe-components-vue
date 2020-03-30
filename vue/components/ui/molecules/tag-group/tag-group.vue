@@ -45,9 +45,10 @@
 @import "css/variables.scss";
 
 .tag-group {
-    border: 2px solid $light-white;
+    border: 1px solid $light-white;
     border-radius: 4px;
     display: inline-block;
+    line-height: 36px;
     transition: border 0.125s ease-in-out;
 }
 
@@ -90,11 +91,19 @@
 }
 
 .tag-group .tag-input {
+    background-color: transparent;
     border: none;
     box-sizing: border-box;
-    font-size: 14px;
-    height: 32px;
+    color: $black;
+    font-family: $font-family;
+    font-size: 13px;
+    font-weight: 500;
+    height: 36px;
     vertical-align: top;
+}
+
+.tag-group .tag-input::-webkit-input-placeholder {
+    color: $upper-grey;
 }
 
 .tag-group .tag-input:focus {
