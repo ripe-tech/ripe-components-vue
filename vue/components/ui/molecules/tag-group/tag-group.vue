@@ -24,7 +24,7 @@
                     ref="tag-text"
                     v-on:keydown.enter.prevent="event => updateTag(event, index)"
                     v-on:keydown.esc.prevent="event => updateTag(event, index)"
-                    v-on:blur="event => updateTag($event, index)"
+                    v-on:blur="event => updateTag(event, index)"
                 >
                     {{ tag }}
                 </div>
