@@ -8,7 +8,7 @@
         <loader loader="ball-clip-rotate" class="loader" v-bind:count="1" v-show="loading" />
         <icon
             v-bind:icon="icon"
-            v-bind:color="iconColor"
+            v-bind:color="iconColorData"
             v-bind:fill="iconFill"
             v-bind:stroke-width="iconStrokeWidth"
             v-show="!loading"
@@ -141,6 +141,10 @@ export const ButtonIcon = {
             type: String,
             default: null
         },
+        iconColor: {
+            type: String,
+            default: null
+        },
         iconFill: {
             type: String,
             default: null
@@ -199,7 +203,8 @@ export const ButtonIcon = {
         }
     },
     computed: {
-        iconColor() {
+        iconColorData() {
+            if (this.iconColor) return this.iconColor;
             if (this.color === "black") return "white";
             return "black";
         },
