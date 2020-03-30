@@ -15,6 +15,8 @@ import { Lineup } from "./lineup/lineup.vue";
 import { Modal } from "./modal/modal.vue";
 import { Notification } from "./notification/notification.vue";
 import { ProgressBar } from "./progress-bar/progress-bar.vue";
+import { ProgressList } from "./progress-list/progress-list.vue";
+import { ProgressListItem } from "./progress-list-item/progress-list-item.vue";
 import { RadioGroup } from "./radio-group/radio-group.vue";
 import { Search } from "./search/search.vue";
 import { Select } from "./select/select.vue";
@@ -42,6 +44,8 @@ const install = Vue => {
     Vue.component("modal", Modal);
     Vue.component("notification", Notification);
     Vue.component("progress-bar", ProgressBar);
+    Vue.component("progress-list", ProgressList);
+    Vue.component("progress-list-item", ProgressListItem);
     Vue.component("radio-group", RadioGroup);
     Vue.component("search", Search);
     Vue.component("select-ripe", Select);
@@ -70,6 +74,8 @@ export {
     Modal,
     Notification,
     ProgressBar,
+    ProgressList,
+    ProgressListItem,
     RadioGroup,
     Search,
     Select,
