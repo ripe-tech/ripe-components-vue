@@ -62,6 +62,7 @@
     background-color: $white;
     border-radius: 6px;
     box-shadow: 0 2px 5px 0 rgba(67, 86, 100, 0.25);
+    overflow: hidden;
     padding: 16px 20px 16px 20px;
 }
 
@@ -85,7 +86,8 @@
 
 .progress-list-item .information-container .information .description {
     color: #a4adb5;
-    margin: 4px 0px 0px 0px;
+    font-size: 12px;
+    margin: 6px 0px 0px 0px;
     word-wrap: break-word;
 }
 
@@ -96,15 +98,15 @@
 }
 
 .progress-list-item .information-container .state .state-completed {
-    animation: slide-left 0.35s;
+    animation: open-left-fade 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 .progress-list-item .information-container .state .state-completed.slide-leave-active {
-    animation: slide-right 0.35s;
+    animation: close-right-fade 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 .progress-list-item .information-container .state .state-completed .icon.ok {
-    animation: zoom5 0.4s 0.2s;
+    animation: zoom-extra 0.45s 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
     margin: 0px 0px 0px 30px;
     vertical-align: middle;
 }
@@ -114,11 +116,13 @@
 }
 
 .progress-list-item .progress-bar-container.slide-transition-enter-active {
-    transition: 0.3s ease-in-out, opacity 0.2s ease-in-out;
+    transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1),
+        opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1) 0.1s;
 }
 
 .progress-list-item .progress-bar-container.slide-transition-leave-active {
-    transition: 0.3s ease-in-out 0.2s, opacity 0.2s ease-in-out 0.2s;
+    transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1) 0.2s,
+        opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1) 0.1s;
 }
 
 .progress-list-item .progress-bar-container.slide-transition-enter,
