@@ -5,6 +5,9 @@ storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Progress List", () => ({
         props: {
+            footerText: {
+                default: text("Footer Text", "Footer text example")
+            },
             items: {
                 type: Array,
                 default: () => [
@@ -33,9 +36,6 @@ storiesOf("Molecules", module)
                         actionIcon: "arrow-right-top"
                     }
                 ]
-            },
-            footerText: {
-                default: text("Footer Text", "Footer text example")
             }
         },
         template: `
