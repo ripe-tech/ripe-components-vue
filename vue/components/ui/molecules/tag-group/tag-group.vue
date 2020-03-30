@@ -112,7 +112,7 @@
 }
 
 .tag-group .tag > .button-icon {
-    margin: 0px 6px 0px 6px;
+    margin: 0px 2px 0px -6px;
 }
 
 .tag-group .tag > .button-icon:hover {
