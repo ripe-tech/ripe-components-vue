@@ -11,7 +11,7 @@
             >
                 <button-icon
                     v-bind:icon="'close'"
-                    v-bind:color="'white'"
+                    v-bind:icon-color="'#ffffff'"
                     v-bind:size="buttonSize"
                     v-if="editable"
                     v-on:click="() => deleteTag(index)"
