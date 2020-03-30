@@ -11,9 +11,10 @@
             >
                 <button-icon
                     v-bind:icon="'close'"
+                    v-bind:color="'white'"
                     v-bind:size="buttonSize"
                     v-if="editable"
-                    v-on:click="deleteTag(index)"
+                    v-on:click="() => deleteTag(index)"
                 />
                 <div
                     class="text"
@@ -21,9 +22,9 @@
                     spellcheck="false"
                     v-bind:contenteditable="editable"
                     ref="tag-text"
-                    v-on:keydown.enter.prevent="updateTag($event, index)"
-                    v-on:keydown.esc.prevent="updateTag($event, index)"
-                    v-on:blur="updateTag($event, index)"
+                    v-on:keydown.enter.prevent="event => updateTag(event, index)"
+                    v-on:keydown.esc.prevent="event => updateTag(event, index)"
+                    v-on:blur="event => updateTag($event, index)"
                 >
                     {{ tag }}
                 </div>
@@ -110,7 +111,11 @@
     height: 37px;
 }
 
-.tag-group .tag .button-icon:hover {
+.tag-group .tag > .button-icon {
+    margin: 0px 6px 0px 6px;
+}
+
+.tag-group .tag > .button-icon:hover {
     background-color: #ffffff69;
 }
 </style>
@@ -153,9 +158,9 @@ export const TagGroup = {
     },
     computed: {
         buttonSize() {
-            if (this.size === "medium") return 22;
-            if (this.size === "small") return 19;
-            if (this.size === "large") return 28;
+            if (this.size === "medium") return 18;
+            if (this.size === "small") return 16;
+            if (this.size === "large") return 24;
         }
     },
     watch: {
