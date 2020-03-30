@@ -1,6 +1,6 @@
 <template>
     <div class="progress-list">
-        <div class="progres-list-items">
+        <div class="progress-list-items">
             <progress-list-item
                 v-bind:title="item.title"
                 v-bind:description="item.description"
@@ -28,11 +28,11 @@
     padding: 18px 24px 18px 24px;
 }
 
-.progress-list > .progres-list-items {
+.progress-list > .progress-list-items {
     margin: 22px 0px 30px 0px;
 }
 
-.progress-list > .progres-list-items > .progress-list-item {
+.progress-list > .progress-list-items > .progress-list-item {
     margin: 0px 0px 18px 0px;
 }
 
