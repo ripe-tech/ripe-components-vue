@@ -1,9 +1,5 @@
 <template>
-    <div
-        class="side"
-        v-bind:style="style"
-        v-bind:class="[{ visible: visibleData, invisible: !visibleData, padded: padded }, position]"
-    >
+    <div class="side" v-bind:style="style" v-bind:class="classes">
         <global-events v-on:keydown.esc="hide" />
         <slot v-bind:hide="hide">
             <ul>
@@ -222,6 +218,15 @@ export const Side = {
                         : null,
                 width: this.width ? `${this.width}px` : null
             };
+        },
+        classes() {
+            const base = {
+                visible: this.visibleData,
+                invisible: !this.visibleData,
+                padded: this.padded
+            };
+            if (this.position) base[this.position] = this.position;
+            return base;
         }
     },
     methods: {

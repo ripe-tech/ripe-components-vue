@@ -14,7 +14,13 @@
                         <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
                     </svg>
                     <router-link class="header-logo-container" to="/">
-                        <image-ripe class="header-logo" v-bind:src="logo" v-bind:fade="false" />
+                        <image-ripe
+                            class="header-logo"
+                            v-bind:src="logo"
+                            v-bind:width="logoWidth"
+                            v-bind:height="logoHeight"
+                            v-bind:fade="false"
+                        />
                     </router-link>
                     <search
                         v-bind:placeholder="searchPlaceholder"
@@ -32,7 +38,7 @@
                     class="header-account"
                     v-if="account"
                     ref="headerAccount"
-                    v-on:click.stop="hideAccount"
+                    v-on:click="onAccountClick"
                 >
                     <avatar
                         v-bind:src="account.avatar_url"
@@ -44,11 +50,12 @@
                         v-bind:items="accountDropdownItems"
                         v-bind:visible.sync="accountDropdownVisible"
                         v-bind:global-hide="true"
+                        v-bind:owners="$refs.headerAccount"
                     >
                         <template v-slot:announcements="{ item }">
                             <div
                                 class="dropdown-item-announcements"
-                                v-on:click="onAnnouncementsClick"
+                                v-on:click.stop="onAnnouncementsClick"
                             >
                                 <span class="announcements-dropdown-text">{{ item.label }}</span>
                                 <div class="dot" v-if="announcementsToRead" />
@@ -61,13 +68,14 @@
                     v-bind:class="{ active: appsDropdownVisible }"
                     v-if="headerApps && appsDropdownItems.length > 0"
                     ref="headerApps"
-                    v-on:click.stop="hideApps"
+                    v-on:click="onAppsClick"
                 >
                     <img src="~./assets/apps.svg" />
                     <dropdown
                         v-bind:items="appsDropdownItems"
                         v-bind:visible.sync="appsDropdownVisible"
                         v-bind:global-hide="true"
+                        v-bind:owners="$refs.headerApps"
                     >
                         <template v-slot="{ item: { value, label, image, link, cls } }">
                             <a v-bind:href="link" v-bind:class="[cls]">
@@ -80,7 +88,7 @@
             </div>
         </div>
         <div class="header-globals">
-            <template v-if="announcements">
+            <template v-if="announcements && announcements.items">
                 <bubble
                     v-bind:visible.sync="announcementsModalVisible"
                     v-if="isMobileWidth()"
@@ -122,6 +130,7 @@
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
+@import "css/animations.scss";
 
 .hamburger {
     border-radius: 34px 34px 34px 34px;
@@ -276,12 +285,9 @@
     line-height: normal;
     margin-right: -6px;
     margin-top: -4px;
-    max-width: 320px;
+    max-width: 358px;
     padding: 10px;
-    position: absolute;
-    right: 0px;
     text-align: left;
-    white-space: pre;
 }
 
 .header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown li {
@@ -364,6 +370,14 @@ export const Header = {
             type: String,
             default: null
         },
+        logoWidth: {
+            type: Number,
+            default: null
+        },
+        logoHeight: {
+            type: Number,
+            default: null
+        },
         searchPlaceholder: {
             type: String,
             default: "Search RIPE"
@@ -408,7 +422,7 @@ export const Header = {
         },
         appsDropdownItems() {
             const items = [];
-            for (const value of ["copper", "pulse"]) {
+            for (const value of Object.keys(this.apps)) {
                 if (!this.apps[value]) continue;
                 const app = this.apps[value];
                 items.push({
@@ -423,6 +437,7 @@ export const Header = {
         },
         announcementsToRead() {
             if (!this.announcements) return false;
+            if (!this.announcements.items) return false;
             const reference =
                 this.announcements.items.length > 0 ? this.announcements.items[0].timestamp : 0;
             return reference * 1000 > Date.now() - this.announcements.new_threshold * 1000;
@@ -437,21 +452,24 @@ export const Header = {
         toggleBurger() {
             this.$bus.$emit("toggle-side");
         },
-        hideAccount() {
-            const status = this.accountDropdownVisible;
-            document.body.click();
-            this.accountDropdownVisible = !status;
+        toggleAccount() {
+            this.accountDropdownVisible = !this.accountDropdownVisible;
         },
-        hideApps() {
-            const status = this.appsDropdownVisible;
-            document.body.click();
-            this.appsDropdownVisible = !status;
+        toggleApps() {
+            this.appsDropdownVisible = !this.appsDropdownVisible;
         },
         showAnnouncements() {
             this.announcementsModalVisible = true;
         },
+        onAccountClick() {
+            this.toggleAccount();
+        },
+        onAppsClick() {
+            this.toggleApps();
+        },
         onAnnouncementsClick() {
             this.showAnnouncements();
+            this.toggleAccount();
         }
     }
 };

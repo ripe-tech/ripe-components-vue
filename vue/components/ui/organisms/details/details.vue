@@ -7,7 +7,7 @@
             v-on:keydown.right="onKeyRight"
         />
         <container-ripe class="loading" v-if="isLoading">
-            <div class="container-header">
+            <template v-slot:header>
                 <div class="header-buttons">
                     <slot name="header-buttons">
                         <slot name="header-buttons-before" />
@@ -38,37 +38,45 @@
                         <div
                             class="header-button"
                             v-bind:class="{
-                                invisible: optionsItems.length === 0 || loading
+                                invisible: optionsItems.length === 0 || isLoading
                             }"
                         >
                             <span
                                 class="button-options"
                                 v-bind:class="{ active: optionsVisible }"
-                                v-on:click.stop="options"
+                                ref="button-options-loading"
+                                v-on:click="toggleOptions"
                             >
                                 <img src="~./assets/options.svg" />
-                                <dropdown
-                                    v-bind:items="optionsItems"
-                                    v-bind:visible.sync="optionsVisible"
-                                    v-on:item-clicked="onOptionsItemClick"
-                                />
                             </span>
+                            <dropdown
+                                class="options-dropdown"
+                                v-bind:items="optionsItems"
+                                v-bind:visible.sync="optionsVisible"
+                                v-bind:owners="$refs['button-options-loading']"
+                                v-on:item-clicked="onOptionsItemClick"
+                            />
                             <p>Status</p>
                         </div>
                         <slot name="header-buttons-after" />
                     </slot>
                 </div>
-                <h1 class="title" v-if="invalid">{{ invalidTitle }}</h1>
-                <h1 class="title" v-else>{{ title }}</h1>
-            </div>
+                <title-ripe v-if="invalid">
+                    {{ invalidTitle }}
+                </title-ripe>
+                <title-ripe v-else>
+                    {{ title }}
+                </title-ripe>
+            </template>
             <h1 class="item-invalid" v-if="invalid">
                 {{ invalidMessage }}
             </h1>
             <loader loader="line-scale" v-bind:count="5" v-else />
         </container-ripe>
         <container-ripe class="details-container" v-else>
-            <div class="container-header">
-                <div class="header-buttons">
+            <slot name="details-before" />
+            <template v-slot:header>
+                <div class="header-buttons" v-if="headerButtons">
                     <slot name="header-buttons">
                         <slot name="header-buttons-before" />
                         <div class="header-button">
@@ -104,25 +112,28 @@
                             <span
                                 class="button-options"
                                 v-bind:class="{ active: optionsVisible }"
-                                v-on:click.stop="options"
+                                ref="button-options"
+                                v-on:click="toggleOptions"
                             >
                                 <img src="~./assets/options.svg" />
-                                <dropdown
-                                    v-bind:items="optionsItems"
-                                    v-bind:visible.sync="optionsVisible"
-                                    v-on:item-clicked="onOptionsItemClick"
-                                />
                             </span>
+                            <dropdown
+                                class="options-dropdown"
+                                v-bind:items="optionsItems"
+                                v-bind:visible.sync="optionsVisible"
+                                v-bind:owners="$refs['button-options']"
+                                v-on:item-clicked="onOptionsItemClick"
+                            />
                             <p>Status</p>
                         </div>
                         <slot name="header-buttons-after" />
                     </slot>
                 </div>
                 <slot name="title" v-if="isLoaded">
-                    <h1 class="title">{{ title }}</h1>
+                    <title-ripe>{{ title }}</title-ripe>
                 </slot>
                 <slot name="header-extra" />
-            </div>
+            </template>
             <div class="details" v-if="isLoaded">
                 <div class="details-column details-column-image" v-if="imageUrl">
                     <lightbox
@@ -181,6 +192,7 @@
                     </slot>
                 </div>
             </div>
+            <slot name="details-after" />
         </container-ripe>
     </div>
 </template>
@@ -223,26 +235,15 @@ body.mobile .container-ripe {
     padding-top: 140px;
 }
 
-.container-ripe .container-header {
-    font-size: 0px;
-    padding: 24px 24px 24px 24px;
-    text-align: left;
-}
-
-body.tablet .container-ripe .container-header,
-body.mobile .container-ripe .container-header {
-    padding: 20px 15px 20px 15px;
-}
-
-.container-ripe .container-header .header-buttons {
+.container-ripe .header-buttons {
     float: right;
     font-size: 0px;
     text-transform: capitalize;
     user-select: none;
 }
 
-body.tablet .container-ripe .container-header .header-buttons,
-body.mobile .container-ripe .container-header .header-buttons {
+body.tablet .container-ripe .header-buttons,
+body.mobile .container-ripe .header-buttons {
     animation: none;
     background-color: $white;
     border-top: 1px solid $light-white;
@@ -335,7 +336,7 @@ body.mobile .container-ripe .details {
     padding: 0px 20px 20px 20px;
 }
 
-.container-ripe .button-options ::v-deep .dropdown {
+.container-ripe .options-dropdown ::v-deep .dropdown {
     font-size: 13px;
     left: auto;
     margin-left: -142px;
@@ -345,22 +346,11 @@ body.mobile .container-ripe .details {
     text-align: left;
 }
 
-body.tablet .button-options ::v-deep .dropdown,
-body.mobile .button-options ::v-deep .dropdown {
+body.tablet .container-ripe .options-dropdown ::v-deep .dropdown,
+body.mobile .container-ripe .options-dropdown ::v-deep .dropdown {
     bottom: 40px;
     margin: 0px 0px 0px 0px;
-    right: 0px;
-}
-
-.container-ripe .title {
-    color: $lower-color;
-    display: inline-block;
-    font-size: 26px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    line-height: 34px;
-    margin: 0px 0px 0px 0px;
-    text-align: left;
+    right: 13px;
 }
 
 body.tablet .container-ripe .title,
@@ -532,6 +522,10 @@ export const Details = {
         safe: {
             type: Boolean,
             default: false
+        },
+        headerButtons: {
+            type: Boolean,
+            default: true
         }
     },
     data: function() {
@@ -559,10 +553,8 @@ export const Details = {
         getColumnValues(columnIndex) {
             return this.values.filter((value, index) => this.getValueColumn(index) === columnIndex);
         },
-        async options() {
-            const status = this.optionsVisible;
-            document.body.click();
-            this.optionsVisible = !status;
+        toggleOptions() {
+            this.optionsVisible = !this.optionsVisible;
         },
         async previousItem(force = false) {
             if (!this.hasIndex) return;

@@ -6,7 +6,13 @@
         v-on:click="handleClick"
     >
         <loader loader="ball-clip-rotate" class="loader" v-bind:count="1" v-show="loading" />
-        <icon v-bind:icon="icon" v-bind:color="iconColor" v-show="!loading" />
+        <icon
+            v-bind:icon="icon"
+            v-bind:color="iconColor"
+            v-bind:fill="iconFill"
+            v-bind:stroke-width="iconStrokeWidth"
+            v-show="!loading"
+        />
         <span v-if="text">{{ text }}</span>
     </span>
 </template>
@@ -133,6 +139,14 @@ export const ButtonIcon = {
         },
         icon: {
             type: String,
+            default: null
+        },
+        iconFill: {
+            type: String,
+            default: null
+        },
+        iconStrokeWidth: {
+            type: Number,
             default: null
         },
         text: {

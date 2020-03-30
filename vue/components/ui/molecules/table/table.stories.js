@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, select, boolean } from "@storybook/addon-knobs";
+import { withKnobs, select, boolean, number } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
@@ -41,6 +41,12 @@ storiesOf("Molecules", module)
                     },
                     null
                 )
+            },
+            rowSelection: {
+                default: () => boolean("Row Selection", false)
+            },
+            selectedRow: {
+                default: () => number("Selected Row", null)
             },
             mockItems: {
                 default: () => [
@@ -94,6 +100,8 @@ storiesOf("Molecules", module)
                     v-bind:reverse.sync="reverseData"
                     v-bind:alignment="alignment"
                     v-bind:variant="variant"
+                    v-bind:row-selection="rowSelection"
+                    v-bind:selected-row="selectedRow"
                 />
                 <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}</p>
             </div>

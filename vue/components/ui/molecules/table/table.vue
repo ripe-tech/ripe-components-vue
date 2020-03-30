@@ -10,9 +10,9 @@
                     <slot name="column" v-bind:column="column">
                         <div
                             class="table-column"
-                            v-bind:class="columnClass(column.value)"
+                            v-bind:class="columnClass(column)"
                             v-if="column.label || column.value || value.name"
-                            v-on:click="sortColumn(column.value)"
+                            v-on:click="sortColumn(column)"
                         >
                             <span>{{ column.label || column.value || value.name }}</span>
                         </div>
@@ -24,7 +24,11 @@
             <template v-for="(item, index) in sortedItems">
                 <slot name="before-row" v-bind:item="item" v-bind:index="index" />
                 <slot name="row" v-bind:item="item" v-bind:index="index">
-                    <tr v-bind:key="item.id" v-on:click="onClick(item, index)">
+                    <tr
+                        v-bind:class="{ selected: isRowSelected(item.id) }"
+                        v-bind:key="item.id"
+                        v-on:click="onClick(item, index)"
+                    >
                         <slot v-bind:item="item" v-bind:index="index">
                             <td
                                 v-bind:class="column.value"
@@ -86,6 +90,10 @@
 
 .table tbody tr:hover {
     background-color: $selected-color;
+}
+
+.table tbody tr.selected {
+    background-color: $selected-dark-color;
 }
 
 .table th {
@@ -199,8 +207,8 @@
     transition: color 0.1s ease-in;
 }
 
-.table .table-column.active,
-.table .table-column:hover {
+.table .table-column.sortable.active,
+.table .table-column.sortable:hover {
     color: #0d0d0d;
 }
 
@@ -237,8 +245,8 @@
     background-position-y: bottom;
 }
 
-.table .table-column.active > span::before,
-.table .table-column:hover > span::before {
+.table .table-column.sortable.active > span::before,
+.table .table-column.sortable:hover > span::before {
     opacity: 1;
 }
 </style>
@@ -284,6 +292,14 @@ export const Table = {
         variant: {
             type: String,
             default: null
+        },
+        rowSelection: {
+            type: Boolean,
+            default: false
+        },
+        selectedRow: {
+            type: Number,
+            default: null
         }
     },
     watch: {
@@ -292,12 +308,16 @@ export const Table = {
         },
         reverse(value) {
             this.reverseData = value;
+        },
+        selectedRow(value) {
+            this.selectedRowData = value;
         }
     },
     data: function() {
         return {
             sortData: this.sort,
-            reverseData: this.reverse
+            reverseData: this.reverse,
+            selectedRowData: this.selectedRow
         };
     },
     computed: {
@@ -327,17 +347,46 @@ export const Table = {
     },
     methods: {
         columnClass(column) {
-            const order = this.reverseData ? "ascending" : "descending";
-            return this.sortData === column ? `active ${order}` : "";
+            const sortValue = column.sortValue || column.value;
+            const sortable = column.sortable === undefined ? true : column.sortable;
+
+            const base = { sortable: sortable };
+
+            // in case the current column is the one currently selected
+            // for sorting, then the proper classes must be added according
+            // to the current sorting criteria
+            if (sortValue === this.sortData) {
+                const order = this.reverseData ? "ascending" : "descending";
+                base.active = true;
+                base[order] = true;
+            }
+
+            return base;
         },
         sortColumn(column) {
-            this.reverseData = this.sortData === column ? !this.reverseData : false;
-            this.sortData = column;
+            const sortValue = column.sortValue || column.value;
+            const sortable = column.sortable === undefined ? true : column.sortable;
+
+            if (!sortable) return;
+
+            this.reverseData = sortValue === this.sortData ? !this.reverseData : false;
+            this.sortData = sortValue;
+
             this.$emit("update:sort", this.sortData);
             this.$emit("update:reverse", this.reverseData);
         },
+        isRowSelected(id) {
+            return this.rowSelection !== null && id === this.selectedRowData;
+        },
         onClick(item, index) {
-            this.$emit("click", item, item._originalIndex, index);
+            if (this.rowSelection) {
+                this.selectedRowData =
+                    this.selectedIdData === null || this.selectedRowData !== item.id
+                        ? item.id
+                        : null;
+            }
+
+            this.$emit("click", item, item._originalIndex, index, this.selectedRowData);
         }
     }
 };

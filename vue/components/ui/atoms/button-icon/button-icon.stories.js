@@ -19,6 +19,9 @@ storiesOf("Atoms", module)
                     "close"
                 )
             },
+            iconStrokeWidth: {
+                default: number("Icon Stroke Width", null)
+            },
             text: {
                 default: text("Text", null)
             },
@@ -50,6 +53,7 @@ storiesOf("Atoms", module)
         template: `
             <button-icon
                 v-bind:icon="icon"
+                v-bind:icon-stroke-width="iconStrokeWidth"
                 v-bind:text="text"
                 v-bind:color="color"
                 v-bind:size="size"

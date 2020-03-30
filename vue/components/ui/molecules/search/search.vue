@@ -104,6 +104,7 @@
 
 .search ::v-deep input[type="text"] {
     padding-left: 12px;
+    vertical-align: top;
 }
 
 .search.grow ::v-deep input[type="text"] {

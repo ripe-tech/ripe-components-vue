@@ -49,6 +49,7 @@
     letter-spacing: 0.75px;
     line-height: 28px;
     margin-bottom: -2px;
+    margin-right: 12px;
     max-width: 200px;
     min-height: 28px;
     padding: 0px 25px 0px 25px;
@@ -56,6 +57,10 @@
     transition: color 0.1s cubic-bezier(0.645, 0.045, 0.355, 1),
         border-color 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
     user-select: none;
+}
+
+.tabs > .header > .tab-label:last-child {
+    margin-right: 0px;
 }
 
 .tabs > .header > .tab-label.active {

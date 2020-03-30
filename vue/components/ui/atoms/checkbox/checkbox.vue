@@ -3,6 +3,7 @@
         tabindex="0"
         class="checkbox"
         v-bind:class="classes"
+        ref="checkbox"
         v-on:click="onClick"
         v-on:mousedown="onMouseDown"
         v-on:mouseup="onMouseUp"
@@ -137,7 +138,7 @@ export const Checkbox = {
             this.checkedData = value;
         },
         checkedData(value) {
-            this.$emit("update:checked", this.checkedData);
+            this.$emit("update:checked", value);
         }
     },
     computed: {
@@ -173,6 +174,21 @@ export const Checkbox = {
         }
     },
     methods: {
+        focus() {
+            this.$refs.checkbox.focus();
+        },
+        blur() {
+            this.$refs.checkbox.blur();
+        },
+        isDisabled() {
+            return this.disabled;
+        },
+        isFocused() {
+            return document.activeElement === this.$refs.checkbox;
+        },
+        isFocusable() {
+            return !this.isDisabled();
+        },
         toggle() {
             if (this.disabled) return;
             this.checkedData = !this.checkedData;
