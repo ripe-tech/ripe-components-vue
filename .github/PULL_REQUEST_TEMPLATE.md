@@ -1,5 +1,6 @@
 | - | - |
 | --- | --- |
-| Issue | https://github.com/ripe-tech/ripe-components-vue/issues/XXX |
-| Decisions |   |
-| Animated GIF |   |
+| Issue | https://github.com/ripe-tech/ripe-robin-revamp/issues/XXX |
+| Dependencies | |
+| Decisions | |
+| Animated GIF | |
