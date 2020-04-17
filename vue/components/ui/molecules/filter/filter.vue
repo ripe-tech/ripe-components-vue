@@ -143,7 +143,9 @@ export const Filter = {
         }
     },
     data: function() {
-        const { sort = "id", reverse = this.defaultReverse } = this.useQuery ? this.parseQuery() : {};
+        const { sort = "id", reverse = this.defaultReverse } = this.useQuery
+            ? this.parseQuery()
+            : {};
         return {
             items: [],
             sort: sort,
@@ -228,7 +230,7 @@ export const Filter = {
             const { sort, reverse, filter } = query;
             return {
                 sort: sort || undefined,
-                reverse: reverse === null || reverse === undefined ? undefined : reverse === "true",
+                reverse: reverse === null || reverse === undefined ? undefined : reverse === "1",
                 filter: filter || undefined
             };
         },
@@ -239,12 +241,10 @@ export const Filter = {
             const current = Object.assign({}, query);
             const next = Object.assign({}, query);
 
-            current.reverse = current.reverse === "true";
-
             if (sort) next.sort = sort;
             else delete next.sort;
 
-            if (reverse) next.reverse = reverse;
+            if (reverse !== this.defaultReverse) next.reverse = reverse ? "1" : "0";
             else delete next.reverse;
 
             if (filter) next.filter = filter;
