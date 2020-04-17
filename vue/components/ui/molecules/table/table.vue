@@ -11,10 +11,10 @@
                         <div
                             class="table-column"
                             v-bind:class="columnClass(column)"
-                            v-if="column.label || column.value || value.name"
+                            v-if="columnLabel(column)"
                             v-on:click="sortColumn(column)"
                         >
-                            <span>{{ column.label || column.value || value.name }}</span>
+                            <span>{{ columnLabel(column) }}</span>
                         </div>
                     </slot>
                 </th>
@@ -346,6 +346,12 @@ export const Table = {
         }
     },
     methods: {
+        columnLabel(column) {
+            if (column.label !== undefined && column.label !== null) return column.label;
+            if (column.value !== undefined && column.value !== null) return column.value;
+            if (column.name !== undefined && column.name !== null) return column.name;
+            return null;
+        },
         columnClass(column) {
             const sortValue = column.sortValue || column.value;
             const sortable = column.sortable === undefined ? true : column.sortable;
