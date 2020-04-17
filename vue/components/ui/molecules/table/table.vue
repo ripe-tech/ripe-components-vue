@@ -363,7 +363,7 @@ export const Table = {
             // for sorting, then the proper classes must be added according
             // to the current sorting criteria
             if (sortValue === this.sortData) {
-                const order = this.reverseData ? "ascending" : "descending";
+                const order = this.reverseData ? "descending" : "ascending";
                 base.active = true;
                 base[order] = true;
             }
@@ -376,7 +376,7 @@ export const Table = {
 
             if (!sortable) return;
 
-            this.reverseData = sortValue === this.sortData ? !this.reverseData : false;
+            this.reverseData = sortValue === this.sortData ? !this.reverseData : true;
             this.sortData = sortValue;
 
             this.$emit("update:sort", this.sortData);
