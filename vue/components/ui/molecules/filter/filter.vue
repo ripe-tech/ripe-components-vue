@@ -6,8 +6,8 @@
                 v-bind:items="items"
                 v-bind:sort-method="onSort"
                 v-bind:transition="tableTransition"
-                v-bind:initial-sort="sort"
-                v-bind:initial-reverse="reverse"
+                v-bind:sort="sort"
+                v-bind:reverse="reverse"
                 v-bind:variant="tableVariant"
                 v-on:click="onTableClick"
             >
@@ -196,7 +196,7 @@ export const Filter = {
 
                 // updates the top level query for the current page
                 // and triggers the update event (for listeners)
-                this.useQuery && this.updateQuery(options);
+                if (this.useQuery) this.updateQuery(options);
                 this.$emit("update:options", options);
             }
         },
@@ -220,9 +220,7 @@ export const Filter = {
             return items;
         },
         loadMore() {
-            if (!this.itemsToLoad || this.loading) {
-                return;
-            }
+            if (!this.itemsToLoad || this.loading) return;
             this.start += this.limit;
         },
         parseQuery() {
@@ -237,8 +235,11 @@ export const Filter = {
         updateQuery(options) {
             const { sort, reverse, filter } = options;
 
-            const current = this.$route.query;
-            const next = Object.assign({}, current);
+            const query = this.$route.query;
+            const current = Object.assign({}, query);
+            const next = Object.assign({}, query);
+
+            current.reverse = current.reverse === "true";
 
             if (sort) next.sort = sort;
             else delete next.sort;
