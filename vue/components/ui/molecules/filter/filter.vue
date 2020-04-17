@@ -129,6 +129,10 @@ export const Filter = {
             type: Number,
             default: 25
         },
+        defaultReverse: {
+            type: Boolean,
+            default: false
+        },
         filterTimeout: {
             type: Number,
             default: 200
@@ -139,7 +143,7 @@ export const Filter = {
         }
     },
     data: function() {
-        const { sort = "id", reverse = false } = this.useQuery ? this.parseQuery() : {};
+        const { sort = "id", reverse = this.defaultReverse } = this.useQuery ? this.parseQuery() : {};
         return {
             items: [],
             sort: sort,
@@ -226,7 +230,7 @@ export const Filter = {
             const { sort, reverse, filter } = query;
             return {
                 sort: sort || undefined,
-                reverse: reverse === null ? undefined : reverse === "true",
+                reverse: reverse === null || reverse === undefined ? undefined : reverse === "true",
                 filter: filter || undefined
             };
         },

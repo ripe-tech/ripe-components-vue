@@ -35,6 +35,7 @@
                 v-bind:lineup-columns="lineupColumns"
                 v-bind:lineup-variant="lineupVariant"
                 v-bind:limit="limit"
+                v-bind:default-reverse="defaultReverse"
                 v-bind:filter="filter"
                 v-bind:use-query="useQuery"
                 v-bind:loading.sync="loading"
@@ -269,6 +270,10 @@ export const Listing = {
         filterText: {
             type: String,
             default: null
+        },
+        defaultReverse: {
+            type: Boolean,
+            default: false
         },
         useQuery: {
             type: Boolean,
