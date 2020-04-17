@@ -3,7 +3,7 @@
         <thead class="table-head">
             <tr>
                 <th
-                    v-bind:style="{ width: column.width }"
+                    v-bind:style="[column.style, { width: column.width }]"
                     v-for="column in columns"
                     v-bind:key="column.value"
                 >
@@ -32,6 +32,7 @@
                         <slot v-bind:item="item" v-bind:index="index">
                             <td
                                 v-bind:class="column.value"
+                                v-bind:style="column.style"
                                 v-for="column in columns"
                                 v-bind:key="column.value"
                             >
