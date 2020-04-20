@@ -244,8 +244,7 @@ export const Filter = {
             if (sort) next.sort = sort;
             else delete next.sort;
 
-            if (reverse !== this.defaultReverse) next.reverse = reverse ? "1" : "0";
-            else delete next.reverse;
+            next.reverse = reverse ? "1" : "0";
 
             if (filter) next.filter = filter;
             else delete next.filter;
