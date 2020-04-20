@@ -160,6 +160,11 @@ export const Filter = {
         signature() {
             return `${this.sort}:${this.reverse}:${this.filter}:${this.start}`;
         },
+        /**
+         * Normalized options (in native Javascript format) ready to be sent
+         * to the item retrieval operations. This object can be safely used
+         * internally as opposed to the context field which is string oriented.
+         */
         options() {
             return {
                 sort: this.sort,

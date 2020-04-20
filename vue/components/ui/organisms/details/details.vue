@@ -536,6 +536,13 @@ export const Details = {
         };
     },
     computed: {
+        options() {
+            return {
+                sort: this.context.sort,
+                reverse: this.context.reverse && ["1", "true", true].includes(this.context.reverse),
+                filter: this.context.filter
+            };
+        },
         isLoaded() {
             return this.loaded && !this.switching;
         },
@@ -564,7 +571,7 @@ export const Details = {
                 return;
             }
             const [previous] = await this.getItems({
-                ...this.context,
+                ...this.options,
                 start: this.index - 1,
                 limit: 1
             });
@@ -580,7 +587,7 @@ export const Details = {
                 return;
             }
             const [next] = await this.getItems({
-                ...this.context,
+                ...this.options,
                 start: this.index + 1,
                 limit: 1
             });
