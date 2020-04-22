@@ -34,15 +34,20 @@
 }
 
 .button-icon.disabled {
-    cursor: default;
+    cursor: inherit;
     opacity: 0.4;
 }
 
-.button-icon:hover:not(.disabled) {
+.button-icon.unselectable {
+    cursor: inherit;
+    opacity: 1;
+}
+
+.button-icon:hover:not(.disabled):not(.unselectable) {
     background-color: $lighter-grey;
 }
 
-.button-icon:active:not(.disabled) {
+.button-icon:active:not(.disabled):not(.unselectable) {
     background-color: $light-grey;
 }
 
@@ -50,11 +55,11 @@
     background-color: $lighter-grey;
 }
 
-.button-icon.button-icon-grey:hover:not(.disabled) {
+.button-icon.button-icon-grey:hover:not(.disabled):not(.unselectable) {
     background-color: #dedede;
 }
 
-.button-icon.button-icon-grey:active:not(.disabled) {
+.button-icon.button-icon-grey:active:not(.disabled):not(.unselectable) {
     background-color: #cecece;
 }
 
@@ -62,11 +67,11 @@
     background-color: $white;
 }
 
-.button-icon.button-icon-white:hover:not(.disabled) {
+.button-icon.button-icon-white:hover:not(.disabled):not(.unselectable) {
     background-color: $lighter-grey;
 }
 
-.button-icon.button-icon-white:active:not(.disabled) {
+.button-icon.button-icon-white:active:not(.disabled):not(.unselectable) {
     background-color: $light-grey;
 }
 
@@ -74,11 +79,11 @@
     background-color: $dark;
 }
 
-.button-icon.button-icon-black:hover:not(.disabled) {
+.button-icon.button-icon-black:hover:not(.disabled):not(.unselectable) {
     background-color: #41566f;
 }
 
-.button-icon.button-icon-black:active:not(.disabled) {
+.button-icon.button-icon-black:active:not(.disabled):not(.unselectable) {
     background-color: $dark;
 }
 
@@ -106,7 +111,7 @@
     vertical-align: middle;
 }
 
-.button-icon:hover:not(.disabled) > .icon {
+.button-icon:hover:not(.disabled):not(.unselectable) > .icon {
     opacity: 1;
 }
 
@@ -124,7 +129,7 @@
     opacity: 1;
 }
 
-.button-icon:hover:not(.disabled) > span {
+.button-icon:hover:not(.disabled):not(.unselectable) > span {
     opacity: 1;
 }
 </style>
@@ -193,6 +198,10 @@ export const ButtonIcon = {
             type: Boolean,
             default: false
         },
+        selectable: {
+            type: Boolean,
+            default: true
+        },
         loading: {
             type: Boolean,
             default: false
@@ -234,6 +243,7 @@ export const ButtonIcon = {
         classes() {
             const base = {
                 disabled: this.disabled,
+                unselectable: !this.selectable,
                 "button-icon-text": Boolean(this.text)
             };
             if (this.color) base["button-icon-" + this.color] = this.color;
@@ -243,6 +253,7 @@ export const ButtonIcon = {
     methods: {
         handleClick(event) {
             if (this.disabled) return;
+            if (!this.selectable) return;
             this.$emit("click", event);
         }
     }
