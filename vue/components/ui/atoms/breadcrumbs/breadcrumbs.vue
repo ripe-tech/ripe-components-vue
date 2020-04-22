@@ -14,7 +14,7 @@
                 <div
                     class="breadcrumb-separator"
                     v-bind:style="separatorStyle"
-                    v-bind:key="`${index}-separator`"
+                    v-bind:key="`${index}:separator`"
                     v-html="separator"
                 />
             </template>
