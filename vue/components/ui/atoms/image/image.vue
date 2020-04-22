@@ -23,7 +23,7 @@ img.loaded {
     opacity: 1;
 }
 
-img.error.hide-error {
+img.errored.hide-error {
     display: none;
 }
 
@@ -64,7 +64,7 @@ export const Image = {
     data: function() {
         return {
             loaded: false,
-            error: false
+            errored: false
         };
     },
     computed: {
@@ -77,7 +77,7 @@ export const Image = {
         classes() {
             const base = {
                 loaded: this.loaded,
-                error: this.error,
+                errored: this.errored,
                 "no-fade": !this.fade,
                 "hide-error": this.hideError
             };
@@ -87,7 +87,7 @@ export const Image = {
     methods: {
         onLoad(event) {
             this.loaded = true;
-            this.error = false;
+            this.errored = false;
             this.$emit("load", event);
         },
         onClick(event) {
@@ -95,7 +95,7 @@ export const Image = {
         },
         onError(event) {
             this.loaded = false;
-            this.error = true;
+            this.errored = true;
             this.$emit("error", event);
         }
     }
