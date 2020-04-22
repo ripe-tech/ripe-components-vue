@@ -1,7 +1,7 @@
 <template>
     <img
         class="image"
-        v-bind:class="{ loaded: loaded, 'no-fade': !fade }"
+        v-bind:class="classes"
         v-bind:src="src"
         v-bind:alt="alt"
         v-bind:style="style"
@@ -21,6 +21,10 @@ img {
 
 img.loaded {
     opacity: 1;
+}
+
+img.error.hide-error {
+    display: none;
 }
 
 img.no-fade {
@@ -51,11 +55,16 @@ export const Image = {
         fade: {
             type: Boolean,
             default: true
+        },
+        hideError: {
+            type: Boolean,
+            default: true
         }
     },
     data: function() {
         return {
-            loaded: false
+            loaded: false,
+            error: false
         };
     },
     computed: {
@@ -64,11 +73,21 @@ export const Image = {
             if (![undefined, null].includes(this.width)) base.width = this.width + "px";
             if (![undefined, null].includes(this.height)) base.height = this.height + "px";
             return base;
+        },
+        classes() {
+            const base = {
+                loaded: this.loaded,
+                error: this.error,
+                "no-fade": !this.fade,
+                "hide-error": this.hideError
+            };
+            return base;
         }
     },
     methods: {
         onLoad(event) {
             this.loaded = true;
+            this.error = false;
             this.$emit("load", event);
         },
         onClick(event) {
@@ -76,6 +95,7 @@ export const Image = {
         },
         onError(event) {
             this.loaded = false;
+            this.error = true;
             this.$emit("error", event);
         }
     }
