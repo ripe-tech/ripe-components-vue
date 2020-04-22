@@ -8,9 +8,9 @@
                     v-bind:class="_getItemClasses(item, index)"
                     v-for="(item, index) in items.filter(v => v !== null && v !== undefined)"
                     v-bind:key="item.value"
-                    v-on:click="click(item)"
-                    v-on:mouseenter="onMouseenter(index)"
-                    v-on:mouseleave="onMouseleave(index)"
+                    v-on:click="() => click(item)"
+                    v-on:mouseenter="() => onMouseenter(index)"
+                    v-on:mouseleave="() => onMouseleave(index)"
                 >
                     <slot v-bind:item="item" v-bind:index="index" v-bind:name="item.value">
                         <slot v-bind:item="item" v-bind:index="index">
