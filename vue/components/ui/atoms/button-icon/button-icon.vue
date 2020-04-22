@@ -7,6 +7,7 @@
     >
         <loader loader="ball-clip-rotate" class="loader" v-bind:count="1" v-show="loading" />
         <icon
+            v-bind:style="{ opacity: iconOpacity }"
             v-bind:icon="icon"
             v-bind:color="iconColor"
             v-bind:fill="iconFill"
@@ -145,6 +146,10 @@ export const ButtonIcon = {
         icon: {
             type: String,
             default: null
+        },
+        iconOpacity: {
+            type: Number,
+            default: 0.5
         },
         iconFill: {
             type: String,
