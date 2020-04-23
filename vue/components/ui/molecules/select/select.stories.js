@@ -58,6 +58,17 @@ storiesOf("Molecules", module)
                     null
                 )
             },
+            direction: {
+                default: select(
+                    "Direction",
+                    {
+                        None: null,
+                        Top: "top",
+                        Bottom: "bottom"
+                    },
+                    null
+                )
+            },
             width: {
                 default: number("Width", null)
             },
@@ -86,7 +97,7 @@ storiesOf("Molecules", module)
             }
         },
         template: `
-            <div>
+            <div v-bind:style="direction === 'top' ? { 'margin-top': '300px' } : {}">
                 <global />
                 <select-ripe
                     v-bind:placeholder="placeholder"
@@ -95,6 +106,7 @@ storiesOf("Molecules", module)
                     v-bind:disabled="disabled"
                     v-bind:visible.sync="visibleData"
                     v-bind:align="align"
+                    v-bind:direction="direction"
                     v-bind:width="width"
                     v-bind:max-height="maxHeight"
                     v-bind:dropdown-min-width="dropdownMinWidth"
