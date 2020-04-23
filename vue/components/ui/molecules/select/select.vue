@@ -381,7 +381,9 @@ export const Select = {
     },
     computed: {
         buttonText() {
-            return this.valueData ? this.options[this.valueIndex].label : this.placeholder;
+            return this.options && this.options[this.valueIndex]
+                ? this.options[this.valueIndex].label
+                : this.placeholder;
         },
         valueIndex() {
             return this.options.findIndex(option => option.value === this.valueData);
