@@ -41,6 +41,7 @@
                 v-bind:visible.sync="visibleData"
                 v-bind:highlighted="highlightedObject"
                 v-bind:style="dropdownStyle"
+                v-bind:direction="direction"
                 v-bind:owners="$refs.select"
                 ref="dropdown"
                 v-on:update:highlighted="onDropdownHighlighted"
@@ -63,13 +64,13 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.dropdown-select,
+.select .dropdown-select,
 .select .select-container {
     position: relative;
     width: 100%;
 }
 
-.dropdown-select,
+.select .dropdown-select,
 .select .select-container .select-button {
     background-color: $soft-blue;
     background-image: url("~./assets/chevron-down.svg");
@@ -96,7 +97,12 @@
     white-space: nowrap;
 }
 
-.dropdown-select > .placeholder {
+.select.direction-top .dropdown-select,
+.select.direction-top .select-container .select-button {
+    background-image: url("~./assets/chevron-up.svg");
+}
+
+.select .dropdown-select > .placeholder {
     display: none;
 }
 
@@ -114,18 +120,22 @@
     opacity: 0.4;
 }
 
-.select .select-container ::v-deep .dropdown-container {
+.select .select-container .dropdown-container {
     margin-top: 3px;
     position: absolute;
     width: 100%;
     z-index: 1;
 }
 
-.select.select-align-right .select-container ::v-deep .dropdown-container {
+.select.direction-top .select-container .dropdown-container {
+    bottom: 37px;
+}
+
+.select.select-align-right .select-container .dropdown-container {
     right: 0px;
 }
 
-.select.select-align-left .select-container ::v-deep .dropdown-container {
+.select.select-align-left .select-container .dropdown-container {
     left: 0px;
 }
 </style>
@@ -160,6 +170,10 @@ export const Select = {
         align: {
             type: String,
             default: "right"
+        },
+        direction: {
+            type: String,
+            default: "bottom"
         },
         width: {
             type: Number,
@@ -373,7 +387,11 @@ export const Select = {
             return this.options.findIndex(option => option.value === this.valueData);
         },
         classes() {
-            return [`select-align-${this.align}`, { disabled: this.disabled }];
+            const base = {};
+            if (this.align) base[`select-align-${this.align}`] = this.align;
+            if (this.direction) base[`direction-${this.direction}`] = this.direction;
+            if (this.disabled) base.disabled = this.disabled;
+            return base;
         },
         style() {
             const base = {};
