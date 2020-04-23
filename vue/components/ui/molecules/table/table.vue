@@ -32,7 +32,7 @@
                         <slot v-bind:item="item" v-bind:index="index">
                             <td
                                 v-bind:class="column.value"
-                                v-bind:style="column.style"
+                                v-bind:style="[column.style, { width: column.width }]"
                                 v-for="column in columns"
                                 v-bind:key="column.value"
                             >
