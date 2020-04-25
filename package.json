@@ -31,9 +31,9 @@
     ],
     "main": "dist/ripe-components-vue.min.js",
     "scripts": {
-        "build": "webpack --mode production --config webpack.config.js",
-        "build-dev": "webpack --mode development --config webpack.config.js",
-        "build-lib": "webpack --mode production --config webpack-lib.config.js",
+        "build": "NODE_ENV=production webpack --mode production --config webpack.config.js",
+        "build-dev": "NODE_ENV=development webpack --mode development --config webpack.config.js",
+        "build-lib": "NODE_ENV=production webpack --mode production --config webpack-lib.config.js",
         "build-storybook": "build-storybook -c .storybook -o storybook",
         "dev": "webpack-dev-server --config webpack.config.js --mode development --watch --hot",
         "lint": "eslint \"./**/*.{js,vue}\"",
@@ -48,7 +48,7 @@
         "svgo": "svgo -r . --disable='removeDimensions,removeViewBox,minifyStyles'",
         "test": "mocha --recursive",
         "upgrade": "npx sort-package-json && ncu -u",
-        "watch": "webpack --config webpack.config.js --mode development --watch",
+        "watch": "NODE_ENV=development webpack --config webpack.config.js --mode development --watch",
         "webpack": "webpack --config webpack.config.js"
     },
     "dependencies": {
