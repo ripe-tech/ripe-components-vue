@@ -1,6 +1,6 @@
 <template>
     <div class="tabs">
-        <div class="header" v-bind:style="headerStyle">
+        <div class="header" v-bind:style="headerStyle" v-if="tabs.length > 1">
             <div
                 class="tab-label"
                 v-bind:class="{ active: isTabActive(index), disabled: tab.disabled }"
