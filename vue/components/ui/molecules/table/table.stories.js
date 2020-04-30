@@ -20,6 +20,9 @@ storiesOf("Molecules", module)
             reverse: {
                 default: () => boolean("Reverse", null)
             },
+            header: {
+                default: () => boolean("header", true)
+            },
             alignment: {
                 default: select(
                     "Alignment",
@@ -96,6 +99,7 @@ storiesOf("Molecules", module)
                     class="table"
                     v-bind:columns="mockColumns"
                     v-bind:items="mockItems"
+                    v-bind:header="header"
                     v-bind:sort.sync="sortData"
                     v-bind:reverse.sync="reverseData"
                     v-bind:alignment="alignment"

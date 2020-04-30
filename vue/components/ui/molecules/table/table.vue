@@ -1,8 +1,9 @@
 <template>
     <table class="table" v-bind:class="classes" v-bind:style="style">
-        <thead class="table-head">
+        <thead class="table-head" v-if="header">
             <tr>
                 <th
+                    v-bind:class="{ clickable: column.sortable !== false }"
                     v-bind:style="[column.style, { width: column.width }]"
                     v-for="column in columns"
                     v-bind:key="column.value"
@@ -25,7 +26,7 @@
                 <slot name="before-row" v-bind:item="item" v-bind:index="index" />
                 <slot name="row" v-bind:item="item" v-bind:index="index">
                     <tr
-                        v-bind:class="{ selected: isRowSelected(item.id) }"
+                        v-bind:class="rowClasses(item)"
                         v-bind:key="item.id"
                         v-on:click="onClick(item, index)"
                     >
@@ -274,6 +275,10 @@ export const Table = {
                 });
             }
         },
+        header: {
+            type: Boolean,
+            default: true
+        },
         transition: {
             type: String,
             default: null
@@ -301,6 +306,14 @@ export const Table = {
         selectedRow: {
             type: Number,
             default: null
+        },
+        clickableRows: {
+            type: Boolean,
+            default: true
+        },
+        hoverableRows: {
+            type: Boolean,
+            default: true
         }
     },
     watch: {
@@ -381,6 +394,12 @@ export const Table = {
 
             this.$emit("update:sort", this.sortData);
             this.$emit("update:reverse", this.reverseData);
+        },
+        rowClasses(item) {
+            const base = { selected: this.isRowSelected(item.id) };
+            if (this.clickableRows && item.clickable !== false) base.clickable = true;
+            if (this.hoverableRows && item.hoverable !== false) base.hoverable = true;
+            return base;
         },
         isRowSelected(id) {
             return this.rowSelection !== null && id === this.selectedRowData;
