@@ -353,7 +353,7 @@ export const Table = {
         },
         classes() {
             const base = {
-                alignment: this.alignment === "right" ? "text-align-right" : ""
+                alignment: this.alignment === "left" ? "text-align-left" : ""
             };
             if (this.variant) base[`table-${this.variant}`] = true;
             return base;
