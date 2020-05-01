@@ -26,6 +26,7 @@
                 <slot name="before-row" v-bind:item="item" v-bind:index="index" />
                 <slot name="row" v-bind:item="item" v-bind:index="index">
                     <tr
+                        v-bind:style="rowStyle(item)"
                         v-bind:class="rowClasses(item)"
                         v-bind:key="item.id"
                         v-on:click="onClick(item, index)"
@@ -394,11 +395,15 @@ export const Table = {
             this.$emit("update:sort", this.sortData);
             this.$emit("update:reverse", this.reverseData);
         },
+        rowStyle(item) {
+            const base = {};
+            return Object.assign({}, item.style, base);
+        },
         rowClasses(item) {
             const base = { selected: this.isRowSelected(item.id) };
             if (this.clickableRows && item.clickable !== false) base.clickable = true;
             if (this.hoverableRows && item.hoverable !== false) base.hoverable = true;
-            return base;
+            return Object.assign({}, item.classes, base);
         },
         isRowSelected(id) {
             return this.rowSelection !== null && id === this.selectedRowData;
