@@ -5,6 +5,9 @@ node_js:
   - "9"
   - "10"
   - "11"
+  - "12"
+  - "13"
+  - "14"
 install:
   - npm install
 script: npm run lint-all && npm run build && npm run build-lib && npm test
