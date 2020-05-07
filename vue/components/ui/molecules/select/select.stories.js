@@ -8,6 +8,9 @@ storiesOf("Molecules", module)
             placeholder: {
                 default: text("Placeholder", "This is a placeholder text")
             },
+            autoScroll: {
+                default: boolean("Auto Scroll", true)
+            },
             options: {
                 type: Array,
                 default: () => [
@@ -101,6 +104,7 @@ storiesOf("Molecules", module)
                 <global />
                 <select-ripe
                     v-bind:placeholder="placeholder"
+                    v-bind:auto-scroll="autoScroll"
                     v-bind:options="options"
                     v-bind:value.sync="valueData"
                     v-bind:disabled="disabled"
