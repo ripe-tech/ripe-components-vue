@@ -165,7 +165,7 @@ export const Select = {
         },
         autoScroll: {
             type: Boolean,
-            default: false
+            default: true
         },
         disabled: {
             type: Boolean,
