@@ -216,8 +216,9 @@ export const Select = {
                     option => option.value === this.valueData
                 );
                 this.highlight(highlightIndex);
-
-                if (this.autoScroll) this.$nextTick(() => this.scrollTo(highlightIndex));
+                if (this.autoScroll) {
+                    this.$nextTick(() => this.scrollTo(highlightIndex));
+                }
             }
             if (!value) this.dehighlight();
             this.$emit("update:visible", value);
