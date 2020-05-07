@@ -9,7 +9,7 @@ storiesOf("Molecules", module)
                 default: text("Placeholder", "This is a placeholder text")
             },
             autoScroll: {
-                default: boolean("Auto Scroll", false)
+                default: boolean("Auto Scroll", true)
             },
             options: {
                 type: Array,
