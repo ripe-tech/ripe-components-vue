@@ -43,6 +43,11 @@ storiesOf("Atoms", module)
                     },
                     null
                 )
+            },
+            selected: {
+                default: () => ({
+                    1: true
+                })
             }
         },
         data: function() {
@@ -60,6 +65,7 @@ storiesOf("Atoms", module)
             <div style="max-width: 200px">
                 <dropdown
                     v-bind:items="items"
+                    v-bind:selected="selected"
                     v-bind:visible.sync="visibleData"
                     v-bind:highlighted.sync="highlightedData"
                     v-bind:direction="direction"
