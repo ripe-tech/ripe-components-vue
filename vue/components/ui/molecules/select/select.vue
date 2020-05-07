@@ -212,10 +212,12 @@ export const Select = {
         },
         visibleData(value) {
             if (value && this.valueData) {
-                this.highlight(
-                    this.options.findIndex(option => option.value === this.valueData),
-                    this.autoScroll
+                const highlightIndex = this.options.findIndex(
+                    option => option.value === this.valueData
                 );
+                this.highlight(highlightIndex);
+
+                if (this.autoScroll) this.$nextTick(() => this.scrollTo(highlightIndex));
             }
             if (!value) this.dehighlight();
             this.$emit("update:visible", value);
@@ -278,28 +280,26 @@ export const Select = {
             }
         },
         scrollTo(index) {
-            this.$nextTick(() => {
-                const dropdown = this.$refs.dropdown.$refs.dropdown;
-                const dropdownElements = document.getElementsByClassName("dropdown-item");
+            const dropdown = this.$refs.dropdown.$refs.dropdown;
+            const dropdownElements = document.getElementsByClassName("dropdown-item");
 
-                const visibleStart = dropdown.scrollTop;
-                const visibleEnd = visibleStart + dropdown.clientHeight;
+            const visibleStart = dropdown.scrollTop;
+            const visibleEnd = visibleStart + dropdown.clientHeight;
 
-                let indexStart = 0;
-                for (let i = 0; i < index; i++) {
-                    const dropdownElement = dropdownElements[i];
-                    indexStart += dropdownElement.offsetHeight;
-                }
+            let indexStart = 0;
+            for (let i = 0; i < index; i++) {
+                const dropdownElement = dropdownElements[i];
+                indexStart += dropdownElement.offsetHeight;
+            }
 
-                const indexHeight = dropdownElements[index].offsetHeight;
-                const indexEnd = indexStart + indexHeight;
+            const indexHeight = dropdownElements[index].offsetHeight;
+            const indexEnd = indexStart + indexHeight;
 
-                if (indexStart < visibleStart) {
-                    dropdown.scrollTop = indexStart;
-                } else if (indexEnd > visibleEnd) {
-                    dropdown.scrollTop = indexEnd - dropdown.clientHeight;
-                }
-            });
+            if (indexStart < visibleStart) {
+                dropdown.scrollTop = indexStart;
+            } else if (indexEnd > visibleEnd) {
+                dropdown.scrollTop = indexEnd - dropdown.clientHeight;
+            }
         },
         onClickDropdownButton() {
             this.toggleDropdown();
