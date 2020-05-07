@@ -163,6 +163,10 @@ export const Select = {
             type: String,
             default: "None"
         },
+        autoScroll: {
+            type: Boolean,
+            default: false
+        },
         disabled: {
             type: Boolean,
             default: false
@@ -208,7 +212,11 @@ export const Select = {
         },
         visibleData(value) {
             if (value && this.valueData) {
-                this.highlight(this.options.findIndex(option => option.value === this.valueData));
+                const highlightIndex = this.options.findIndex(
+                    option => option.value === this.valueData
+                );
+                this.highlight(highlightIndex);
+                if (this.autoScroll) setTimeout(() => this.scrollTo(highlightIndex), 0);
             }
             if (!value) this.dehighlight();
             this.$emit("update:visible", value);
