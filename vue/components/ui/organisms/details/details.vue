@@ -7,7 +7,7 @@
             v-on:keydown.right="onKeyRight"
         />
         <container-ripe class="loading" v-bind:header-buttons="headerButtons" v-if="isLoading">
-<!--             <template v-slot:header>
+            <!--             <template v-slot:header>
                 <div class="header-buttons">
                     <slot name="header-buttons">
                         <slot name="header-buttons-before" />
@@ -75,7 +75,7 @@
         </container-ripe>
         <container-ripe class="details-container" v-bind:header-buttons="headerButtons" v-else>
             <slot name="details-before" />
-<!--             
+            <!--
             <template v-slot:header>
                 <div class="header-buttons" v-if="headerButtons">
                     <slot name="header-buttons">
@@ -196,9 +196,7 @@
             <slot name="details-after" />
         </container-ripe>
 
-
-
-        <container-ripe v-bind:header-buttons="headerButtons">
+        <container-ripe>
             faojfopwajfaowpihwio
         </container-ripe>
     </div>
@@ -536,39 +534,38 @@ export const Details = {
             switching: false,
             optionsVisible: false,
             lightBoxVisible: false,
-            
-            
+
             headerButtons: [
                 {
-                        id: "stats",
-                        text: "Stats",
-                        icon: "eye",
-                        size: 30
-                    },
-                    {
-                        id: "chevron-left",
-                        text: "Preview",
-                        icon: "eye",
-                        size: 30
-                    },
-                    {
-                        id: "chevron-right",
-                        text: "Preview",
-                        icon: "eye",
-                        size: 30
-                    },
-                    {
-                        id: "refresh",
-                        text: "Preview",
-                        icon: "eye",
-                        size: 30
-                    },
-                    {
-                        id: "options",
-                        text: "Preview",
-                        icon: "eye",
-                        size: 30
-                    }
+                    id: "stats",
+                    text: "Stats",
+                    icon: "eye",
+                    size: 30
+                },
+                {
+                    id: "chevron-left",
+                    text: "Preview",
+                    icon: "eye",
+                    size: 30
+                },
+                {
+                    id: "chevron-right",
+                    text: "Preview",
+                    icon: "eye",
+                    size: 30
+                },
+                {
+                    id: "refresh",
+                    text: "Preview",
+                    icon: "eye",
+                    size: 30
+                },
+                {
+                    id: "options",
+                    text: "Preview",
+                    icon: "eye",
+                    size: 30
+                }
             ]
         };
     },

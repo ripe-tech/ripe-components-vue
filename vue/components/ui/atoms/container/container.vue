@@ -1,7 +1,6 @@
 <template>
     <div class="container-ripe" v-bind:class="classes">
-        <div class="container-header" v-if="title || $slots.header">
-            <div>6tttyt7t7t7</div>
+        <div class="container-header" v-if="hasHeaderContent">
             <slot name="header">
                 <title-ripe v-if="title">
                     {{ title }}
@@ -9,7 +8,6 @@
                 <slot name="header-buttons">
                     <div class="header-buttons">
                         <slot name="header-buttons-before" />
-                        <div>hçiohioçhiohoiio</div>
                         <button-icon
                             v-bind:text="button.text"
                             v-bind:icon="button.icon"
@@ -107,6 +105,16 @@ export const Container = {
         }
     },
     computed: {
+        hasHeaderContent() {
+            return (
+                this.title ||
+                this.headerButtons.length > 0 ||
+                this.$slots.header ||
+                this.$slots["header-buttons"] ||
+                this.$slots["header-buttons-before"] ||
+                this.$slots["header-buttons-before"]
+            );
+        },
         classes() {
             const base = {};
             if (this.mode) base[`container-ripe-${this.mode}`] = true;

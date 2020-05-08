@@ -58,7 +58,7 @@ storiesOf("Organisms", module)
                     { label: "Item 2", event: "item_2" },
                     { label: "Item 3", event: "item_3" }
                 ]
-            },
+            }
         },
         template: `
             <details-ripe
