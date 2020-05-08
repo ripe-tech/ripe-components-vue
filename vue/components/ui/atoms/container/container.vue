@@ -5,6 +5,32 @@
                 <title-ripe v-if="title">
                     {{ title }}
                 </title-ripe>
+                 <div class="header-buttons">
+                    <button-icon
+                        v-bind:text="'Preview'"
+                        v-bind:icon="'eye'"
+                        v-bind:color="'none'"
+                        v-bind:size="30"
+                    />
+                    <button-icon
+                        v-bind:text="'Preview'"
+                        v-bind:icon="'eye'"
+                        v-bind:color="'none'"
+                        v-bind:size="30"
+                    />
+                    <button-icon
+                        v-bind:text="'Preview'"
+                        v-bind:icon="'eye'"
+                        v-bind:color="'none'"
+                        v-bind:size="30"
+                    />
+                    <button-icon
+                        v-bind:text="'Preview'"
+                        v-bind:icon="'eye'"
+                        v-bind:color="'none'"
+                        v-bind:size="30"
+                    />
+                </div>
             </slot>
         </div>
         <slot />
@@ -42,6 +68,7 @@ body.mobile .container-ripe {
 }
 
 .container-ripe > .container-header {
+    display: flex;
     font-size: 0px;
     padding: 24px 24px 20px 24px;
     text-align: left;
@@ -50,6 +77,14 @@ body.mobile .container-ripe {
 body.tablet .container-ripe > .container-header,
 body.mobile .container-ripe > .container-header {
     padding: 20px 15px 20px 15px;
+}
+
+.container-ripe > .container-header > .title {
+    flex: 1;
+}
+
+.container-ripe > .container-header > .header-buttons {
+    align-self: center;
 }
 </style>
 
