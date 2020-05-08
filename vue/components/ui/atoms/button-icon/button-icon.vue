@@ -5,7 +5,13 @@
         v-bind:class="classes"
         v-on:click="handleClick"
     >
-        <loader loader="ball-clip-rotate" class="loader" v-bind:loader-style="loaderStyle" v-bind:count="1" v-show="loading" />
+        <loader
+            loader="ball-clip-rotate"
+            class="loader"
+            v-bind:loader-style="loaderStyle"
+            v-bind:count="1"
+            v-show="loading"
+        />
         <icon
             v-bind:style="{ opacity: iconOpacity }"
             v-bind:icon="icon"
@@ -254,16 +260,16 @@ export const ButtonIcon = {
             return base;
         },
         loaderStyle() {
-            const scaledSize  = this.size * 10 / 30;
-            const scaledBorderWidth = this.size * 2 / 30;
-            const marginTop = this.size * 2 / 30; //Fixes the "ball-clip-rotate" animation not being centered
+            const scaledSize = (this.size * 10) / 30;
+            const scaledBorderWidth = (this.size * 2) / 30;
+            const marginTop = (this.size * 2) / 30; // Fixes the "ball-clip-rotate" animation not being centered
 
             return {
                 width: `${scaledSize}px`,
                 height: `${scaledSize}px`,
                 "border-width": `${scaledBorderWidth}px`,
                 margin: `${marginTop}px 0px 0px 0px`
-            }
+            };
         }
     },
     methods: {
