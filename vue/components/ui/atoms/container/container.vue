@@ -70,7 +70,7 @@ body.mobile .container-ripe {
     display: flex;
     font-size: 0px;
     padding: 24px 24px 20px 24px;
-    text-align: left;
+    align-items: center;
 }
 
 body.tablet .container-ripe > .container-header,
@@ -80,10 +80,6 @@ body.mobile .container-ripe > .container-header {
 
 .container-ripe > .container-header > .title {
     flex: 1;
-}
-
-.container-ripe > .container-header > .header-buttons {
-    align-self: center;
 }
 </style>
 
