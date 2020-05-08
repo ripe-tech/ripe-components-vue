@@ -1,35 +1,41 @@
 <template>
     <div class="container-ripe" v-bind:class="classes">
         <div class="container-header" v-if="title || $slots.header">
+            <div>6tttyt7t7t7</div>
             <slot name="header">
                 <title-ripe v-if="title">
                     {{ title }}
                 </title-ripe>
-                <div class="header-buttons">
-                    <button-icon
-                        v-bind:text="button.text"
-                        v-bind:icon="button.icon"
-                        v-bind:color="button.color"
-                        v-bind:size="button.size"
-                        v-bind:icon-opacity="button.iconOpacity"
-                        v-bind:icon-fill="button.iconFill"
-                        v-bind:icon-stroke-width="button.iconStrokeWidth"
-                        v-bind:padding="button.padding"
-                        v-bind:padding-top="button.paddingTop"
-                        v-bind:padding-bottom="button.paddingBottom"
-                        v-bind:padding-left="button.paddingLeft"
-                        v-bind:padding-right="button.paddingRight"
-                        v-bind:padding-factor="button.paddingFactor"
-                        v-bind:padding-text-factor="button.paddingTextFactor"
-                        v-bind:disabled="button.disabled"
-                        v-bind:selectable="button.selectable"
-                        v-bind:loading="button.loading"
-                        v-for="button in headerButtons"
-                        v-show="!button.hide"
-                        v-bind:key="button.id"
-                        v-on:click="event => onButtonIconClick(event, button.id)"
-                    />
-                </div>
+                <slot name="header-buttons">
+                    <div class="header-buttons">
+                        <slot name="header-buttons-before" />
+                        <div>hçiohioçhiohoiio</div>
+                        <button-icon
+                            v-bind:text="button.text"
+                            v-bind:icon="button.icon"
+                            v-bind:color="button.color"
+                            v-bind:size="button.size"
+                            v-bind:icon-opacity="button.iconOpacity"
+                            v-bind:icon-fill="button.iconFill"
+                            v-bind:icon-stroke-width="button.iconStrokeWidth"
+                            v-bind:padding="button.padding"
+                            v-bind:padding-top="button.paddingTop"
+                            v-bind:padding-bottom="button.paddingBottom"
+                            v-bind:padding-left="button.paddingLeft"
+                            v-bind:padding-right="button.paddingRight"
+                            v-bind:padding-factor="button.paddingFactor"
+                            v-bind:padding-text-factor="button.paddingTextFactor"
+                            v-bind:disabled="button.disabled"
+                            v-bind:selectable="button.selectable"
+                            v-bind:loading="button.loading"
+                            v-for="button in headerButtons"
+                            v-show="!button.hide"
+                            v-bind:key="button.id"
+                            v-on:click="event => onButtonIconClick(event, button.id)"
+                        />
+                        <slot name="header-buttons-after" />
+                    </div>
+                </slot>
             </slot>
         </div>
         <slot />
