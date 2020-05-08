@@ -27,7 +27,7 @@
                         v-for="button in headerButtons"
                         v-show="!button.hide"
                         v-bind:key="button.id"
-                        v-on:click="event => onButtonIconClick(button.id, event)"
+                        v-on:click="event => onButtonIconClick(event, button.id)"
                     />
                 </div>
             </slot>
@@ -108,8 +108,8 @@ export const Container = {
         }
     },
     methods: {
-        onButtonIconClick(event, buttonEvent) {
-            this.$emit("header-button:click", event, buttonEvent);
+        onButtonIconClick(event, buttonId) {
+            this.$emit("header-button:click", event, buttonId);
         }
     }
 };

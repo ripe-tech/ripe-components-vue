@@ -56,8 +56,8 @@ storiesOf("Atoms", module)
             }
         },
         methods: {
-            onHeaderButtonClick(id, event) {
-                console.log("Header Button Click", id, event);
+            onHeaderButtonClick(event, id) {
+                console.log("Header Button Click", event, id);
             }
         },
         template: `
@@ -68,7 +68,7 @@ storiesOf("Atoms", module)
                     v-bind:mode="mode"
                     v-bind:title="title"
                     v-bind:headerButtons="headerButtons"
-                    v-on:header-button:click="(id, event) => onHeaderButtonClick(id, event)"
+                    v-on:header-button:click="(event, id) => onHeaderButtonClick(event, id)"
                 />
             </div>
         `
