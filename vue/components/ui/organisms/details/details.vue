@@ -6,8 +6,8 @@
             v-on:keydown.left="onKeyLeft"
             v-on:keydown.right="onKeyRight"
         />
-        <container-ripe class="loading" v-if="isLoading">
-            <template v-slot:header>
+        <container-ripe class="loading" v-bind:header-buttons="headerButtons" v-if="isLoading">
+<!--             <template v-slot:header>
                 <div class="header-buttons">
                     <slot name="header-buttons">
                         <slot name="header-buttons-before" />
@@ -67,14 +67,15 @@
                 <title-ripe v-else>
                     {{ title }}
                 </title-ripe>
-            </template>
+            </template> -->
             <h1 class="item-invalid" v-if="invalid">
                 {{ invalidMessage }}
             </h1>
             <loader loader="line-scale" v-bind:count="5" v-else />
         </container-ripe>
-        <container-ripe class="details-container" v-else>
+        <container-ripe class="details-container" v-bind:header-buttons="headerButtons" v-else>
             <slot name="details-before" />
+<!--             
             <template v-slot:header>
                 <div class="header-buttons" v-if="headerButtons">
                     <slot name="header-buttons">
@@ -133,7 +134,7 @@
                     <title-ripe>{{ title }}</title-ripe>
                 </slot>
                 <slot name="header-extra" />
-            </template>
+            </template> -->
             <div class="details" v-if="isLoaded">
                 <div class="details-column details-column-image" v-if="imageUrl">
                     <lightbox
@@ -194,6 +195,12 @@
             </div>
             <slot name="details-after" />
         </container-ripe>
+
+
+
+        <container-ripe v-bind:header-buttons="headerButtons">
+            faojfopwajfaowpihwio
+        </container-ripe>
     </div>
 </template>
 
@@ -235,101 +242,101 @@ body.mobile .container-ripe {
     padding-top: 140px;
 }
 
-.container-ripe .header-buttons {
-    float: right;
-    font-size: 0px;
-    text-transform: capitalize;
-    user-select: none;
-}
+//.container-ripe .header-buttons {
+//    float: right;
+//    font-size: 0px;
+//    text-transform: capitalize;
+//    user-select: none;
+//}
+//
+//body.tablet .container-ripe .header-buttons,
+//body.mobile .container-ripe .header-buttons {
+//    animation: none;
+//    background-color: $white;
+//    border-top: 1px solid $light-white;
+//    bottom: 0px;
+//    display: flex;
+//    left: 0px;
+//    position: fixed;
+//    text-align: justify;
+//    transition: none;
+//    width: 100%;
+//    z-index: 10;
+//}
 
-body.tablet .container-ripe .header-buttons,
-body.mobile .container-ripe .header-buttons {
-    animation: none;
-    background-color: $white;
-    border-top: 1px solid $light-white;
-    bottom: 0px;
-    display: flex;
-    left: 0px;
-    position: fixed;
-    text-align: justify;
-    transition: none;
-    width: 100%;
-    z-index: 10;
-}
+//.container-ripe .header-buttons .header-button {
+//    display: inline-block;
+//}
+//
+//body.tablet .container-ripe .header-buttons > .header-button,
+//body.mobile .container-ripe .header-buttons > .header-button {
+//    display: inline-block;
+//    flex: auto;
+//    margin: 8px 0px 8px 0px;
+//    text-align: center;
+//}
 
-.container-ripe .header-buttons .header-button {
-    display: inline-block;
-}
+//.header-buttons > .header-button.invisible {
+//    opacity: 0.2;
+//    pointer-events: none;
+//}
+//
+//body.tablet .header-buttons > .header-button.invisible,
+//body.mobile .header-buttons > .header-button.invisible {
+//    display: inline-block;
+//}
 
-body.tablet .container-ripe .header-buttons > .header-button,
-body.mobile .container-ripe .header-buttons > .header-button {
-    display: inline-block;
-    flex: auto;
-    margin: 8px 0px 8px 0px;
-    text-align: center;
-}
+//.container-ripe .header-buttons .header-button > span {
+//    border-radius: 36px 36px 36px 36px;
+//    cursor: pointer;
+//    display: inline-block;
+//    font-size: 24px;
+//    height: 36px;
+//    line-height: 36px;
+//    text-align: center;
+//    transition: background-color 0.1s ease-in-out, opacity 0.05s ease-in-out;
+//    user-select: none;
+//    vertical-align: middle;
+//    width: 36px;
+//}
 
-.header-buttons > .header-button.invisible {
-    opacity: 0.2;
-    pointer-events: none;
-}
-
-body.tablet .header-buttons > .header-button.invisible,
-body.mobile .header-buttons > .header-button.invisible {
-    display: inline-block;
-}
-
-.container-ripe .header-buttons .header-button > span {
-    border-radius: 36px 36px 36px 36px;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 24px;
-    height: 36px;
-    line-height: 36px;
-    text-align: center;
-    transition: background-color 0.1s ease-in-out, opacity 0.05s ease-in-out;
-    user-select: none;
-    vertical-align: middle;
-    width: 36px;
-}
-
-.container-ripe .header-buttons .header-button > span:hover {
-    background-color: $lighter-grey;
-}
-
-.container-ripe .header-buttons .header-button > span.active,
-.container-ripe .header-buttons .header-button > span:active {
-    background-color: $light-grey;
-}
-
-.container-ripe .header-buttons .header-button > span > img {
-    opacity: 0.5;
-}
-
-body.tablet .container-ripe .header-buttons > .header-button > span > img,
-body.mobile .container-ripe .header-buttons > .header-button > span > img {
-    height: 20px;
-    width: 20px;
-}
-
-.container-ripe .header-buttons .header-button > span:hover > img,
-.container-ripe .header-buttons .header-button > span.active > img,
-.container-ripe .header-buttons .header-button > span:active > img {
-    opacity: 1;
-}
-
-.container-ripe .header-buttons > .header-button > p {
-    display: none;
-}
-
-body.tablet .container-ripe .header-buttons > .header-button > p,
-body.mobile .container-ripe .header-buttons > .header-button > p {
-    color: $grey;
-    display: block;
-    font-size: 11px;
-    letter-spacing: 0.25px;
-    margin: 0px 0px 0px 0px;
-}
+//.container-ripe .header-buttons .header-button > span:hover {
+//    background-color: $lighter-grey;
+//}
+//
+//.container-ripe .header-buttons .header-button > span.active,
+//.container-ripe .header-buttons .header-button > span:active {
+//    background-color: $light-grey;
+//}
+//
+//.container-ripe .header-buttons .header-button > span > img {
+//    opacity: 0.5;
+//}
+//
+//body.tablet .container-ripe .header-buttons > .header-button > span > img,
+//body.mobile .container-ripe .header-buttons > .header-button > span > img {
+//    height: 20px;
+//    width: 20px;
+//}
+//
+//.container-ripe .header-buttons .header-button > span:hover > img,
+//.container-ripe .header-buttons .header-button > span.active > img,
+//.container-ripe .header-buttons .header-button > span:active > img {
+//    opacity: 1;
+//}
+//
+//.container-ripe .header-buttons > .header-button > p {
+//    display: none;
+//}
+//
+//body.tablet .container-ripe .header-buttons > .header-button > p,
+//body.mobile .container-ripe .header-buttons > .header-button > p {
+//    color: $grey;
+//    display: block;
+//    font-size: 11px;
+//    letter-spacing: 0.25px;
+//    margin: 0px 0px 0px 0px;
+//}
 
 body.tablet .container-ripe .details,
 body.mobile .container-ripe .details {
@@ -522,17 +529,47 @@ export const Details = {
         safe: {
             type: Boolean,
             default: false
-        },
-        headerButtons: {
-            type: Boolean,
-            default: true
         }
     },
     data: function() {
         return {
             switching: false,
             optionsVisible: false,
-            lightBoxVisible: false
+            lightBoxVisible: false,
+            
+            
+            headerButtons: [
+                {
+                        id: "stats",
+                        text: "Stats",
+                        icon: "eye",
+                        size: 30
+                    },
+                    {
+                        id: "chevron-left",
+                        text: "Preview",
+                        icon: "eye",
+                        size: 30
+                    },
+                    {
+                        id: "chevron-right",
+                        text: "Preview",
+                        icon: "eye",
+                        size: 30
+                    },
+                    {
+                        id: "refresh",
+                        text: "Preview",
+                        icon: "eye",
+                        size: 30
+                    },
+                    {
+                        id: "options",
+                        text: "Preview",
+                        icon: "eye",
+                        size: 30
+                    }
+            ]
         };
     },
     computed: {
