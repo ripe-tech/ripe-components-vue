@@ -67,10 +67,10 @@ body.mobile .container-ripe {
 }
 
 .container-ripe > .container-header {
+    align-items: center;
     display: flex;
     font-size: 0px;
     padding: 24px 24px 20px 24px;
-    align-items: center;
 }
 
 body.tablet .container-ripe > .container-header,
