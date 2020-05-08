@@ -7,28 +7,26 @@
                 </title-ripe>
                  <div class="header-buttons">
                     <button-icon
-                        v-bind:text="'Preview'"
-                        v-bind:icon="'eye'"
-                        v-bind:color="'none'"
-                        v-bind:size="30"
-                    />
-                    <button-icon
-                        v-bind:text="'Preview'"
-                        v-bind:icon="'eye'"
-                        v-bind:color="'none'"
-                        v-bind:size="30"
-                    />
-                    <button-icon
-                        v-bind:text="'Preview'"
-                        v-bind:icon="'eye'"
-                        v-bind:color="'none'"
-                        v-bind:size="30"
-                    />
-                    <button-icon
-                        v-bind:text="'Preview'"
-                        v-bind:icon="'eye'"
-                        v-bind:color="'none'"
-                        v-bind:size="30"
+                        v-for="button in headerButtons" v-bind:key="button.id"
+                        v-show="!button.hide"
+                        v-bind:text="button.text"
+                        v-bind:icon="button.icon"
+                        v-bind:color="button.color"
+                        v-bind:size="button.size"
+                        v-bind:iconOpacity="button.iconOpacity"
+                        v-bind:iconFill="button.iconFill"
+                        v-bind:iconStrokeWidth="button.iconStrokeWidth"
+                        v-bind:padding="button.padding"
+                        v-bind:paddingTop="button.paddingTop"
+                        v-bind:paddingBottom="button.paddingBottom"
+                        v-bind:paddingLeft="button.paddingLeft"
+                        v-bind:paddingRight="button.paddingRight"
+                        v-bind:paddingFactor="button.paddingFactor"
+                        v-bind:paddingTextFactor="button.paddingTextFactor"
+                        v-bind:disabled="button.disabled"
+                        v-bind:selectable="button.selectable"
+                        v-bind:loading="button.loading"
+                        v-on:click="event => onButtonIconClick(button.id, event)"
                     />
                 </div>
             </slot>
@@ -99,6 +97,10 @@ export const Container = {
         title: {
             type: String,
             default: null
+        },
+        headerButtons: {
+            type: Array,
+            default: () => []
         }
     },
     computed: {
@@ -106,6 +108,11 @@ export const Container = {
             const base = {};
             if (this.mode) base[`container-ripe-${this.mode}`] = true;
             return base;
+        }
+    },
+    methods: {
+        onButtonIconClick(event, buttonEvent) {
+            this.$emit("header-button:click", event, buttonEvent);
         }
     }
 };
