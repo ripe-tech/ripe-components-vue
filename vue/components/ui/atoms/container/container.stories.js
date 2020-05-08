@@ -26,8 +26,7 @@ storiesOf("Atoms", module)
                         text: "Preview",
                         icon: "eye",
                         color: "none",
-                        size: 30,
-
+                        size: 30
                     },
                     {
                         id: "disabled",
@@ -52,13 +51,13 @@ storiesOf("Atoms", module)
                         color: "none",
                         size: 30,
                         hide: true
-                    },
+                    }
                 ]
             }
         },
         methods: {
             onHeaderButtonClick(id, event) {
-                console.log("Header Button Click", id, event)
+                console.log("Header Button Click", id, event);
             }
         },
         template: `

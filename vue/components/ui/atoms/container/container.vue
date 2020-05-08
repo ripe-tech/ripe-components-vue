@@ -5,27 +5,28 @@
                 <title-ripe v-if="title">
                     {{ title }}
                 </title-ripe>
-                 <div class="header-buttons">
+                <div class="header-buttons">
                     <button-icon
-                        v-for="button in headerButtons" v-bind:key="button.id"
-                        v-show="!button.hide"
                         v-bind:text="button.text"
                         v-bind:icon="button.icon"
                         v-bind:color="button.color"
                         v-bind:size="button.size"
-                        v-bind:iconOpacity="button.iconOpacity"
-                        v-bind:iconFill="button.iconFill"
-                        v-bind:iconStrokeWidth="button.iconStrokeWidth"
+                        v-bind:icon-opacity="button.iconOpacity"
+                        v-bind:icon-fill="button.iconFill"
+                        v-bind:icon-stroke-width="button.iconStrokeWidth"
                         v-bind:padding="button.padding"
-                        v-bind:paddingTop="button.paddingTop"
-                        v-bind:paddingBottom="button.paddingBottom"
-                        v-bind:paddingLeft="button.paddingLeft"
-                        v-bind:paddingRight="button.paddingRight"
-                        v-bind:paddingFactor="button.paddingFactor"
-                        v-bind:paddingTextFactor="button.paddingTextFactor"
+                        v-bind:padding-top="button.paddingTop"
+                        v-bind:padding-bottom="button.paddingBottom"
+                        v-bind:padding-left="button.paddingLeft"
+                        v-bind:padding-right="button.paddingRight"
+                        v-bind:padding-factor="button.paddingFactor"
+                        v-bind:padding-text-factor="button.paddingTextFactor"
                         v-bind:disabled="button.disabled"
                         v-bind:selectable="button.selectable"
                         v-bind:loading="button.loading"
+                        v-for="button in headerButtons"
+                        v-show="!button.hide"
+                        v-bind:key="button.id"
                         v-on:click="event => onButtonIconClick(button.id, event)"
                     />
                 </div>
