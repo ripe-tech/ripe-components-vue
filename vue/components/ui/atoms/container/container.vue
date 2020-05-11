@@ -6,9 +6,10 @@
                 <title-ripe v-if="title">
                     {{ title }}
                 </title-ripe>
+                <slot name="header-buttons-before">
                 <slot name="header-buttons">
                     <div class="header-buttons">
-                        <slot name="header-buttons-before" />
+                        <slot name="header-extra-buttons-before" />
                         <button-icon
                             v-bind:text="button.text"
                             v-bind:icon="button.icon"
@@ -32,9 +33,10 @@
                             v-bind:key="button.id"
                             v-on:click="event => onButtonIconClick(event, button.id)"
                         />
-                        <slot name="header-buttons-after" />
+                        <slot name="header-extra-buttons-after" />
                     </div>
                 </slot>
+                <slot name="header-buttons-after">
             </slot>
             <slot name="header-extra-after" />
         </div>
@@ -113,8 +115,10 @@ export const Container = {
                 this.headerButtons.length > 0 ||
                 this.$slots["header-extra-before"] ||
                 this.$slots.header ||
-                this.$slots["header-buttons"] ||
                 this.$slots["header-buttons-before"] ||
+                this.$slots["header-buttons"] ||
+                this.$slots["header-extra-buttons-before"] ||
+                this.$slots["header-extra-buttons-after"] ||
                 this.$slots["header-buttons-after"] ||
                 this.$slots["header-extra-after"]
             );
