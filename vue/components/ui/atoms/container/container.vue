@@ -1,6 +1,7 @@
 <template>
     <div class="container-ripe" v-bind:class="classes">
         <div class="container-header" v-if="hasHeaderContent">
+            <slot name="header-extra-before" />
             <slot name="header">
                 <title-ripe v-if="title">
                     {{ title }}
@@ -35,6 +36,7 @@
                     </div>
                 </slot>
             </slot>
+            <slot name="header-extra-after" />
         </div>
         <slot />
     </div>

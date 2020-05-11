@@ -13,6 +13,14 @@
             v-if="isLoading"
             v-on:header-button:click="this.onHeaderButtonClick"
         >
+            <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
+            <template
+                v-for="slot in Object.keys($scopedSlots)"
+                    v-bind:slot="slot"
+                    slot-scope="scope"
+                >
+                <slot v-bind:name="slot" v-bind="scope" />
+            </template>
             <template v-if="headerButtons" v-slot:header-buttons-after>
                 <button-icon
                     v-bind:icon="'options'"
@@ -54,6 +62,14 @@
             v-else
             v-on:header-button:click="this.onHeaderButtonClick"
         >
+            <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
+            <template
+                v-for="slot in Object.keys($scopedSlots)"
+                    v-bind:slot="slot"
+                    slot-scope="scope"
+                >
+                <slot v-bind:name="slot" v-bind="scope" />
+            </template>
             <template v-if="headerButtons" v-slot:header-buttons-after>
                 <button-icon
                     v-bind:icon="'options'"
