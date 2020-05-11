@@ -8,7 +8,7 @@
         />
         <container-ripe
             class="loading"
-            v-bind:title="title"
+            v-bind:title="invalid ? invalidTitle: title"
             v-bind:header-buttons="_containerHeaderButtons"
             v-if="isLoading"
             v-on:header-button:click="this.onHeaderButtonClick"
@@ -40,16 +40,6 @@
                     v-on:item-clicked="onOptionsItemClick"
                 />
             </template>
-           <!--
-            <template v-slot:header>
-                <title-ripe v-if="invalid">
-                    {{ invalidTitle }}
-                </title-ripe>
-                <title-ripe v-else>
-                    {{ title }}
-                </title-ripe>
-            </template>
-            -->
             <h1 class="item-invalid" v-if="invalid">
                 {{ invalidMessage }}
             </h1>
@@ -57,7 +47,7 @@
         </container-ripe>
         <container-ripe
             class="details-container"
-            v-bind:title="title"
+            v-bind:title="isLoaded && title"
             v-bind:header-buttons="_containerHeaderButtons"
             v-else
             v-on:header-button:click="this.onHeaderButtonClick"
@@ -90,13 +80,6 @@
                 />
             </template>
             <slot name="details-before" />
-            <!--
-            <template v-slot:header>
-                <slot name="title" v-if="isLoaded">
-                    <title-ripe>{{ title }}</title-ripe>
-                </slot>
-                <slot name="header-extra" />
-            </template> -->
             <div class="details" v-if="isLoaded">
                 <div class="details-column details-column-image" v-if="imageUrl">
                     <lightbox
