@@ -6,7 +6,7 @@
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
-@import "loaders.css";
+@import "~loaders.css";
 </style>
 
 <script>
