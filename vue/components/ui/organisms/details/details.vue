@@ -369,21 +369,27 @@ body.mobile .container-ripe .details {
 }
 
 .container-ripe .options-dropdown ::v-deep .dropdown {
-    font-size: 13px;
-    left: auto;
-    margin-left: -142px;
     margin-top: 6px;
     min-width: 180px;
     position: absolute;
-    text-align: left;
 }
 
-body.tablet .container-ripe .options-dropdown ::v-deep .dropdown,
-body.mobile .container-ripe .options-dropdown ::v-deep .dropdown {
-    bottom: 40px;
-    margin: 0px 0px 0px 0px;
-    right: 13px;
-}
+//.container-ripe .options-dropdown ::v-deep .dropdown {
+//    font-size: 13px;
+//    left: auto;
+//    margin-left: -142px;
+//    margin-top: 6px;
+//    min-width: 180px;
+//    position: absolute;
+//    text-align: left;
+//}
+//
+//body.tablet .container-ripe .options-dropdown ::v-deep .dropdown,
+//body.mobile .container-ripe .options-dropdown ::v-deep .dropdown {
+//    bottom: 40px;
+//    margin: 0px 0px 0px 0px;
+//    right: 13px;
+//}
 
 body.tablet .container-ripe .title,
 body.mobile .container-ripe .title {
