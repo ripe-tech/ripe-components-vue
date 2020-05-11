@@ -229,7 +229,7 @@ export const ButtonIcon = {
                 width: `${this.size / 3}px`,
                 height: `${this.size / 3}px`,
                 "border-width": `${this.size / 15}px`,
-                "margin-top": `${this.size / 15}px`
+                margin: `${this.size / 15}px 0px 0px 0px`
             };
         },
         style() {
