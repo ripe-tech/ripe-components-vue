@@ -5,26 +5,23 @@
             v-bind:class="{ show: showScrollTop }"
             v-on:click="scrollToTop"
         />
-        <container-ripe v-bind:mode="containerMode">
-            <template v-slot:header>
-                <div class="container-header-right">
-                    <div class="container-header-buttons" v-if="$slots['header-buttons']">
-                        <slot name="header-buttons" />
-                    </div>
-                    <search
-                        v-bind:variant="'dark'"
-                        v-bind:width="isMobileWidth() ? null : searchWidth"
-                        v-bind:placeholder="filterText ? filterText : `Search ${name}`"
-                        v-bind:value.sync="filter"
-                        v-bind:loading="loading"
-                    />
-                </div>
-                <title-ripe v-if="titleText">
-                    {{ titleText }}
-                </title-ripe>
-                <title-ripe v-else>
-                    {{ titlePrefix }} {{ nameCapitalized }}
-                </title-ripe>
+        <container-ripe v-bind:mode="containerMode" v-bind:title="titleText ? titleText: `${titlePrefix} ${nameCapitalized}`" v-bind:header-buttons="containerHeaderButtons" >
+            <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
+            <template
+                v-for="slot in Object.keys($scopedSlots)"
+                v-bind:slot="slot"
+                slot-scope="scope"
+            >
+            <slot v-bind:name="slot" v-bind="scope" />
+            </template>
+            <template v-slot:header-buttons-after>
+                <search
+                    v-bind:variant="'dark'"
+                    v-bind:width="isMobileWidth() ? null : searchWidth"
+                    v-bind:placeholder="filterText ? filterText : `Search ${name}`"
+                    v-bind:value.sync="filter"
+                    v-bind:loading="loading"
+                />
             </template>
             <filter-ripe
                 v-bind:get-items="getItems"
@@ -152,23 +149,12 @@ body.mobile .listing {
     min-height: 315px;
 }
 
-.container-header-right {
-    float: right;
-    text-align: right;
-}
-
-body.mobile .container-header-right {
+body.mobile .container-header-right { //TODO check mobile
     float: none;
     width: 100%;
 }
 
-.container-header-buttons {
-    display: inline-block;
-    margin-right: 8px;
-    vertical-align: top;
-}
-
-body.mobile .container-header-buttons {
+body.mobile .container-header-buttons { //TODO check mobile
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -286,6 +272,10 @@ export const Listing = {
         containerMode: {
             type: String,
             default: null
+        },
+        containerHeaderButtons: {
+            type: Array,
+            default: () => []
         }
     },
     data: function() {
