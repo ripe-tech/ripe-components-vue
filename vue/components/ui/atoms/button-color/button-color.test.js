@@ -1,4 +1,3 @@
-
 import { getComponent } from "../../../../../test";
 import ButtonColor from "./button-color.vue";
 

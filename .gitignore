@@ -4,9 +4,5 @@ package-lock.json
 
 /dist
 /storybook
+/coverage
 /node_modules
-
-lcov-report/
-clover.xml
-lcov.info
-coverage-final.json
