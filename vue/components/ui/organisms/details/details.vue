@@ -8,7 +8,7 @@
         />
         <container-ripe
             class="loading"
-            v-bind:title="invalid ? invalidTitle: title"
+            v-bind:title="invalid ? invalidTitle : title"
             v-bind:header-buttons="_containerHeaderButtons"
             v-if="isLoading"
             v-on:header-button:click="this.onHeaderButtonClick"
@@ -16,9 +16,9 @@
             <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
             <template
                 v-for="slot in Object.keys($scopedSlots)"
-                    v-bind:slot="slot"
-                    slot-scope="scope"
-                >
+                v-bind:slot="slot"
+                slot-scope="scope"
+            >
                 <slot v-bind:name="slot" v-bind="scope" />
             </template>
             <template v-if="headerButtons" v-slot:header-buttons-after>
@@ -36,7 +36,10 @@
                     class="options-dropdown"
                     v-bind:items="optionsItems"
                     v-bind:visible.sync="optionsVisible"
-                    v-bind:owners="$refs['button-icon-options-loading'] && $refs['button-icon-options-loading'].$el"
+                    v-bind:owners="
+                        $refs['button-icon-options-loading'] &&
+                            $refs['button-icon-options-loading'].$el
+                    "
                     v-on:item-clicked="onOptionsItemClick"
                 />
             </template>
@@ -55,9 +58,9 @@
             <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
             <template
                 v-for="slot in Object.keys($scopedSlots)"
-                    v-bind:slot="slot"
-                    slot-scope="scope"
-                >
+                v-bind:slot="slot"
+                slot-scope="scope"
+            >
                 <slot v-bind:name="slot" v-bind="scope" />
             </template>
             <template v-if="headerButtons" v-slot:header-buttons-after>
