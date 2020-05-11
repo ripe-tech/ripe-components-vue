@@ -5,7 +5,13 @@
         v-bind:class="classes"
         v-on:click="handleClick"
     >
-        <loader loader="ball-clip-rotate" class="loader" v-bind:count="1" v-show="loading" />
+        <loader
+            loader="ball-clip-rotate"
+            class="loader"
+            v-bind:loader-style="loaderStyle"
+            v-bind:count="1"
+            v-show="loading"
+        />
         <icon
             v-bind:style="{ opacity: iconOpacity }"
             v-bind:icon="icon"
@@ -95,8 +101,6 @@
 
 .button-icon .loader ::v-deep div {
     border-color: #848484 #848484 transparent #848484;
-    height: 10px;
-    width: 10px;
 }
 
 .button-icon > .icon {
@@ -220,10 +224,18 @@ export const ButtonIcon = {
         paddingBase() {
             return this.padding === null ? parseInt(this.size / this.paddingFactor) : this.padding;
         },
+        loaderStyle() {
+            return {
+                width: `${this.size / 3}px`,
+                height: `${this.size / 3}px`,
+                "border-width": `${this.size / 15}px`,
+                margin: `${this.size / 15}px 0px 0px 0px`
+            };
+        },
         style() {
             return {
                 height: `${this.size}px`,
-                width: `${this.size}px`,
+                "min-width": `${this.size}px`,
                 "line-height": this.text ? "normal" : `${this.size}px`,
                 "padding-top": `${this.paddingTop === null ? this.paddingBase : this.paddingTop}px`,
                 "padding-bottom": `${

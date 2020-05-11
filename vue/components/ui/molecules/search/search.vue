@@ -5,6 +5,7 @@
         v-bind:class="[
             focused ? 'focus' : 'unfocus',
             grow ? 'grow' : '',
+            value ? 'filled' : '',
             iconVisible ? 'icon-visible' : 'icon-invisible',
             clearVisible ? 'clear-visible' : 'clear-invisible'
         ]"
@@ -98,7 +99,8 @@
     width: 20px;
 }
 
-.search.focus > svg {
+.search.focus > svg,
+.search.filled > svg {
     fill: #2d2d2d;
 }
 
