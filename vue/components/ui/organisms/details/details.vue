@@ -195,10 +195,6 @@
             </div>
             <slot name="details-after" />
         </container-ripe>
-
-        <container-ripe>
-            faojfopwajfaowpihwio
-        </container-ripe>
     </div>
 </template>
 
@@ -539,31 +535,31 @@ export const Details = {
                 {
                     id: "stats",
                     text: "Stats",
-                    icon: "eye",
+                    icon: "stats",
                     size: 30
                 },
                 {
                     id: "chevron-left",
                     text: "Preview",
-                    icon: "eye",
+                    icon: "chevron-left",
                     size: 30
                 },
                 {
                     id: "chevron-right",
                     text: "Preview",
-                    icon: "eye",
+                    icon: "chevron-right",
                     size: 30
                 },
                 {
                     id: "refresh",
                     text: "Preview",
-                    icon: "eye",
+                    icon: "refresh",
                     size: 30
                 },
                 {
                     id: "options",
                     text: "Preview",
-                    icon: "eye",
+                    icon: "options",
                     size: 30
                 }
             ]
