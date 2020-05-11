@@ -24,7 +24,7 @@
             <template v-if="headerButtons" v-slot:header-buttons-after>
                 <button-icon
                     v-bind:icon="'options'"
-                    v-bind:size="36"
+                    v-bind:size="34"
                     v-bind:icon-fill="'#000000'"
                     v-bind:disabled="optionsItems.length === 0 || isLoading"
                     v-bind:active="optionsVisible"
@@ -66,7 +66,7 @@
             <template v-if="headerButtons" v-slot:header-buttons-after>
                 <button-icon
                     v-bind:icon="'options'"
-                    v-bind:size="36"
+                    v-bind:size="34"
                     v-bind:icon-fill="'#000000'"
                     v-bind:disabled="optionsItems.length === 0 && loaded !== false"
                     v-bind:active="optionsVisible"
@@ -400,24 +400,24 @@ export const Details = {
                       {
                           id: "stats",
                           icon: "stats",
-                          size: 36
+                          size: 34
                       },
                       {
                           id: "chevron-left",
                           icon: "chevron-left",
-                          size: 36,
+                          size: 34,
                           disabled: !this.hasIndex
                       },
                       {
                           id: "chevron-right",
                           icon: "chevron-right",
-                          size: 36,
+                          size: 34,
                           disabled: !this.hasIndex
                       },
                       {
                           id: "refresh",
                           icon: "refresh",
-                          size: 36
+                          size: 34
                       }
                   ];
         }
