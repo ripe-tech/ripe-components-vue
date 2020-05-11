@@ -86,6 +86,24 @@
             v-else
             v-on:header-button:click="this.onHeaderButtonClick"
         >
+            <template v-if="headerButtons" v-slot:header-buttons-after>
+                <button-icon
+                    v-bind:icon="'options'"
+                    v-bind:size="36"
+                    v-bind:icon-fill="'#000000'"
+                    v-bind:disabled="optionsItems.length === 0 && loaded !== false"
+                    ref="button-icon-options"
+                    v-bind:key="'options'"
+                    v-on:click="toggleOptions"
+                />
+                <dropdown
+                    class="options-dropdown"
+                    v-bind:items="optionsItems"
+                    v-bind:visible.sync="optionsVisible"
+                    v-bind:owners="$refs['button-icon-options'] && $refs['button-icon-options'].$el"
+                    v-on:item-clicked="onOptionsItemClick"
+                />
+            </template>
             <slot name="details-before" />
             <!--
             <template v-slot:header>
@@ -211,6 +229,11 @@
 </template>
 
 <style lang="scss" scoped>
+// TODO
+// - active style
+// - invalid/valid title
+// - check slots
+// - check for regressions
 @import "css/variables.scss";
 
 .details {
@@ -269,7 +292,6 @@ body.mobile .container-ripe {
 //    width: 100%;
 //    z-index: 10;
 //}
-
 //.container-ripe .header-buttons .header-button {
 //    display: inline-block;
 //}
@@ -281,7 +303,6 @@ body.mobile .container-ripe {
 //    margin: 8px 0px 8px 0px;
 //    text-align: center;
 //}
-
 //.header-buttons > .header-button.invisible {
 //    opacity: 0.2;
 //    pointer-events: none;
@@ -291,7 +312,6 @@ body.mobile .container-ripe {
 //body.mobile .header-buttons > .header-button.invisible {
 //    display: inline-block;
 //}
-
 //.container-ripe .header-buttons .header-button > span {
 //    border-radius: 36px 36px 36px 36px;
 //    cursor: pointer;
@@ -305,7 +325,6 @@ body.mobile .container-ripe {
 //    vertical-align: middle;
 //    width: 36px;
 //}
-
 //.container-ripe .header-buttons .header-button > span:hover {
 //    background-color: $lighter-grey;
 //}
@@ -588,12 +607,6 @@ export const Details = {
                       {
                           id: "refresh",
                           icon: "refresh",
-                          size: 36
-                      },
-                      {
-                          id: "options",
-                          icon: "options",
-                          iconFill: "#000000",
                           size: 36
                       }
                   ];
