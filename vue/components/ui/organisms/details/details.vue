@@ -6,7 +6,7 @@
             v-on:keydown.left="onKeyLeft"
             v-on:keydown.right="onKeyRight"
         />
-        <container-ripe v-if="isLoading" class="loading" v-bind:title="title" v-bind:header-buttons="headerButtons" v-on:header-button:click="this.onHeaderButtonClick">
+        <container-ripe v-if="isLoading" class="loading" v-bind:title="title" v-bind:header-buttons="_containerHeaderButtons" v-on:header-button:click="this.onHeaderButtonClick">
             <!--             <template v-slot:header>
                 <div class="header-buttons">
                     <slot name="header-buttons">
@@ -73,7 +73,7 @@
             </h1>
             <loader loader="line-scale" v-bind:count="5" v-else />
         </container-ripe>
-        <container-ripe v-else class="details-container" v-bind:title="title" v-bind:header-buttons="headerButtons" v-on:header-button:click="this.onHeaderButtonClick">
+        <container-ripe v-else class="details-container" v-bind:title="title" v-bind:header-buttons="_containerHeaderButtons" v-on:header-button:click="this.onHeaderButtonClick">
             <slot name="details-before" />
             <!--
             <template v-slot:header>
@@ -523,29 +523,53 @@ export const Details = {
         safe: {
             type: Boolean,
             default: false
+        },
+        headerButtons: {
+            type: Boolean,
+            default: true
+        },
+        containerHeaderButtons: {
+            type: Array,
+            default: () => []
         }
     },
     data: function() {
         return {
             switching: false,
             optionsVisible: false,
-            lightBoxVisible: false,
+            lightBoxVisible: false
+        };
+    },
+    computed: {
+        isLoaded() {
+            return this.loaded && !this.switching;
+        },
+        isLoading() {
+            return !this.isLoaded;
+        },
+        hasIndex() {
+            return this.index !== null && this.index !== undefined;
+        },
+        _containerHeaderButtons() {
+            if(!this.headerButtons) return [];
 
-            headerButtons: [
+            return this.containerHeaderButtons.length > 0 ? this.containerHeaderButtons: [
                 {
                     id: "stats",
                     icon: "stats",
-                    size: 36
+                    size: 36,
                 },
                 {
                     id: "chevron-left",
                     icon: "chevron-left",
-                    size: 36
+                    size: 36,
+                    disabled: !this.hasIndex
                 },
                 {
                     id: "chevron-right",
                     icon: "chevron-right",
-                    size: 36
+                    size: 36,
+                    disabled: !this.hasIndex
                 },
                 {
                     id: "refresh",
@@ -559,17 +583,6 @@ export const Details = {
                     size: 36
                 }
             ]
-        };
-    },
-    computed: {
-        isLoaded() {
-            return this.loaded && !this.switching;
-        },
-        isLoading() {
-            return !this.isLoaded;
-        },
-        hasIndex() {
-            return this.index !== null && this.index !== undefined;
         }
     },
     methods: {
