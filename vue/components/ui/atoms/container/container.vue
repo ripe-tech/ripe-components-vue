@@ -6,7 +6,7 @@
                 <title-ripe v-if="title">
                     {{ title }}
                 </title-ripe>
-                <slot name="header-buttons-before">
+                <slot name="header-buttons-before" />
                 <slot name="header-buttons">
                     <div class="header-buttons">
                         <slot name="header-extra-buttons-before" />
@@ -36,7 +36,7 @@
                         <slot name="header-extra-buttons-after" />
                     </div>
                 </slot>
-                <slot name="header-buttons-after">
+                <slot name="header-buttons-after" />
             </slot>
             <slot name="header-extra-after" />
         </div>
