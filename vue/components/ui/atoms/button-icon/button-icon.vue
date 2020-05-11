@@ -224,6 +224,14 @@ export const ButtonIcon = {
         paddingBase() {
             return this.padding === null ? parseInt(this.size / this.paddingFactor) : this.padding;
         },
+        loaderStyle() {
+            return {
+                width: `${this.size / 3}px`,
+                height: `${this.size / 3}px`,
+                "border-width": `${this.size / 15}px`,
+                "margin-top": `${this.size / 15}px`
+            };
+        },
         style() {
             return {
                 height: `${this.size}px`,
@@ -258,18 +266,6 @@ export const ButtonIcon = {
             };
             if (this.color) base["button-icon-" + this.color] = this.color;
             return base;
-        },
-        loaderStyle() {
-            const scaledSize = this.size / 3;
-            const scaledBorderWidth = this.size / 15;
-            const marginTop = this.size / 15;
-
-            return {
-                width: `${scaledSize}px`,
-                height: `${scaledSize}px`,
-                "border-width": `${scaledBorderWidth}px`,
-                margin: `${marginTop}px 0px 0px 0px`
-            };
         }
     },
     methods: {
