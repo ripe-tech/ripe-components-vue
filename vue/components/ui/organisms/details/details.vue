@@ -6,7 +6,7 @@
             v-on:keydown.left="onKeyLeft"
             v-on:keydown.right="onKeyRight"
         />
-        <container-ripe class="loading" v-bind:header-buttons="headerButtons" v-if="isLoading">
+        <container-ripe class="loading" v-bind:title="title" v-bind:header-buttons="headerButtons" v-if="isLoading">
             <!--             <template v-slot:header>
                 <div class="header-buttons">
                     <slot name="header-buttons">
@@ -73,7 +73,7 @@
             </h1>
             <loader loader="line-scale" v-bind:count="5" v-else />
         </container-ripe>
-        <container-ripe class="details-container" v-bind:header-buttons="headerButtons" v-else>
+        <container-ripe class="details-container" v-bind:title="title" v-bind:header-buttons="headerButtons" v-else>
             <slot name="details-before" />
             <!--
             <template v-slot:header>
