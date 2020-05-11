@@ -51,6 +51,9 @@ storiesOf("Atoms", module)
             },
             loading: {
                 default: boolean("Loading", false)
+            },
+            active: {
+                default: boolean("Active", false)
             }
         },
         template: `
@@ -64,6 +67,7 @@ storiesOf("Atoms", module)
                 v-bind:disabled="disabled"
                 v-bind:selectable="selectable"
                 v-bind:loading="loading"
+                v-bind:active="active"
             />
         `
     }));
