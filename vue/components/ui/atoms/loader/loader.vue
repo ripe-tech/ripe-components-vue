@@ -6,11 +6,10 @@
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
+@import "loaders.css";
 </style>
 
 <script>
-import "loaders.css";
-
 export const Loader = {
     name: "loader",
     props: {
