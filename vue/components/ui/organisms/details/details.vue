@@ -11,7 +11,7 @@
             v-bind:title="invalid ? invalidTitle : title"
             v-bind:header-buttons="_containerHeaderButtons"
             v-if="isLoading"
-            v-on:header-button:click="this.onHeaderButtonClick"
+            v-on:header-button:click="onHeaderButtonClick"
         >
             <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
             <template
@@ -52,7 +52,7 @@
             v-bind:title="isLoaded && title"
             v-bind:header-buttons="_containerHeaderButtons"
             v-else
-            v-on:header-button:click="this.onHeaderButtonClick"
+            v-on:header-button:click="onHeaderButtonClick"
         >
             <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
             <template
