@@ -6,7 +6,7 @@
             v-on:keydown.left="onKeyLeft"
             v-on:keydown.right="onKeyRight"
         />
-        <container-ripe class="loading" v-bind:title="title" v-bind:header-buttons="headerButtons" v-if="isLoading">
+        <container-ripe v-if="isLoading" class="loading" v-bind:title="title" v-bind:header-buttons="headerButtons" v-on:header-button:click="this.onHeaderButtonClick">
             <!--             <template v-slot:header>
                 <div class="header-buttons">
                     <slot name="header-buttons">
@@ -18,19 +18,19 @@
                             <p>{{ name }}s</p>
                         </div>
                         <div class="header-button" v-bind:class="{ invisible: !hasIndex }">
-                            <span class="button-previous" v-on:click="onPreviousClick">
+                            <span class="button-previous" v-on:click="">
                                 <img src="~./assets/chevron-left.svg" />
                             </span>
                             <p>Previous</p>
                         </div>
                         <div class="header-button" v-bind:class="{ invisible: !hasIndex }">
-                            <span class="button-next" v-on:click="onNextClick">
+                            <span class="button-next" v-on:click="">
                                 <img src="~./assets/chevron-right.svg" />
                             </span>
                             <p>Next</p>
                         </div>
                         <div class="header-button">
-                            <span class="button-refresh" v-on:click="onRefreshClick">
+                            <span class="button-refresh" v-on:click="">
                                 <img src="~./assets/refresh.svg" />
                             </span>
                             <p>Refresh</p>
@@ -73,7 +73,7 @@
             </h1>
             <loader loader="line-scale" v-bind:count="5" v-else />
         </container-ripe>
-        <container-ripe class="details-container" v-bind:title="title" v-bind:header-buttons="headerButtons" v-else>
+        <container-ripe v-else class="details-container" v-bind:title="title" v-bind:header-buttons="headerButtons" v-on:header-button:click="this.onHeaderButtonClick">
             <slot name="details-before" />
             <!--
             <template v-slot:header>
@@ -87,19 +87,19 @@
                             <p>{{ name }}s</p>
                         </div>
                         <div class="header-button" v-bind:class="{ invisible: !hasIndex }">
-                            <span class="button-previous" v-on:click="onPreviousClick">
+                            <span class="button-previous" v-on:click="">
                                 <img src="~./assets/chevron-left.svg" />
                             </span>
                             <p>Previous</p>
                         </div>
                         <div class="header-button" v-bind:class="{ invisible: !hasIndex }">
-                            <span class="button-next" v-on:click="onNextClick">
+                            <span class="button-next" v-on:click="">
                                 <img src="~./assets/chevron-right.svg" />
                             </span>
                             <p>Next</p>
                         </div>
                         <div class="header-button">
-                            <span class="button-refresh" v-on:click="onRefreshClick">
+                            <span class="button-refresh" v-on:click="">
                                 <img src="~./assets/refresh.svg" />
                             </span>
                             <p>Refresh</p>
@@ -534,33 +534,29 @@ export const Details = {
             headerButtons: [
                 {
                     id: "stats",
-                    text: "Stats",
                     icon: "stats",
-                    size: 30
+                    size: 36
                 },
                 {
                     id: "chevron-left",
-                    text: "Preview",
                     icon: "chevron-left",
-                    size: 30
+                    size: 36
                 },
                 {
                     id: "chevron-right",
-                    text: "Preview",
                     icon: "chevron-right",
-                    size: 30
+                    size: 36
                 },
                 {
                     id: "refresh",
-                    text: "Preview",
                     icon: "refresh",
-                    size: 30
+                    size: 36
                 },
                 {
                     id: "options",
-                    text: "Preview",
                     icon: "options",
-                    size: 30
+                    iconFill: "#000000",
+                    size: 36
                 }
             ]
         };
@@ -634,6 +630,19 @@ export const Details = {
         triggerAnimation(animation) {
             this.$emit("animation", animation);
         },
+        onHeaderButtonClick(event, id) {
+            switch (id) {
+                case 'chevron-left':
+                    this.previousItem();
+                    break;
+                case 'chevron-right':
+                    this.nextItem();
+                    break;
+                default: break;
+            }
+
+            this.$emit(`click:${id}`);
+        },
         onOptionsItemClick(item) {
             this.$emit(`click:${item.event}`);
         },
@@ -642,18 +651,6 @@ export const Details = {
         },
         onLightboxClose() {
             this.lightBoxVisible = false;
-        },
-        onStatsClick() {
-            this.$emit("click:stats");
-        },
-        onPreviousClick() {
-            this.previousItem();
-        },
-        onNextClick() {
-            this.nextItem();
-        },
-        onRefreshClick() {
-            this.$emit("click:refresh");
         },
         onKeyJ() {
             this.nextItem();
