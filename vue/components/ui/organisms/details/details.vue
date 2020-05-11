@@ -21,7 +21,7 @@
             >
                 <slot v-bind:name="slot" v-bind="scope" />
             </template>
-            <template v-if="headerButtons" v-slot:header-buttons-after>
+            <template v-if="header-buttons" v-slot:header-buttons-extra-after>
                 <button-icon
                     v-bind:icon="'options'"
                     v-bind:size="34"
@@ -62,7 +62,7 @@
             >
                 <slot v-bind:name="slot" v-bind="scope" />
             </template>
-            <template v-if="headerButtons" v-slot:header-buttons-after>
+            <template v-if="headerButtons" v-slot:header-buttons-extra-after>
                 <button-icon
                     v-bind:icon="'options'"
                     v-bind:size="34"
