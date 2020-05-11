@@ -6,134 +6,81 @@
             v-on:keydown.left="onKeyLeft"
             v-on:keydown.right="onKeyRight"
         />
-        <container-ripe class="loading" v-if="isLoading">
-            <template v-slot:header>
-                <div class="header-buttons">
-                    <slot name="header-buttons">
-                        <slot name="header-buttons-before" />
-                        <div class="header-button">
-                            <span class="button-stats" v-on:click="onStatsClick">
-                                <img src="~./assets/stats.svg" />
-                            </span>
-                            <p>{{ name }}s</p>
-                        </div>
-                        <div class="header-button" v-bind:class="{ invisible: !hasIndex }">
-                            <span class="button-previous" v-on:click="onPreviousClick">
-                                <img src="~./assets/chevron-left.svg" />
-                            </span>
-                            <p>Previous</p>
-                        </div>
-                        <div class="header-button" v-bind:class="{ invisible: !hasIndex }">
-                            <span class="button-next" v-on:click="onNextClick">
-                                <img src="~./assets/chevron-right.svg" />
-                            </span>
-                            <p>Next</p>
-                        </div>
-                        <div class="header-button">
-                            <span class="button-refresh" v-on:click="onRefreshClick">
-                                <img src="~./assets/refresh.svg" />
-                            </span>
-                            <p>Refresh</p>
-                        </div>
-                        <div
-                            class="header-button"
-                            v-bind:class="{
-                                invisible: optionsItems.length === 0 || isLoading
-                            }"
-                        >
-                            <span
-                                class="button-options"
-                                v-bind:class="{ active: optionsVisible }"
-                                ref="button-options-loading"
-                                v-on:click="toggleOptions"
-                            >
-                                <img src="~./assets/options.svg" />
-                            </span>
-                            <dropdown
-                                class="options-dropdown"
-                                v-bind:items="optionsItems"
-                                v-bind:visible.sync="optionsVisible"
-                                v-bind:owners="$refs['button-options-loading']"
-                                v-on:item-clicked="onOptionsItemClick"
-                            />
-                            <p>Status</p>
-                        </div>
-                        <slot name="header-buttons-after" />
-                    </slot>
-                </div>
-                <title-ripe v-if="invalid">
-                    {{ invalidTitle }}
-                </title-ripe>
-                <title-ripe v-else>
-                    {{ title }}
-                </title-ripe>
+        <container-ripe
+            class="loading"
+            v-bind:title="invalid ? invalidTitle : title"
+            v-bind:header-buttons="_containerHeaderButtons"
+            v-if="isLoading"
+            v-on:header-button:click="onHeaderButtonClick"
+        >
+            <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
+            <template
+                v-for="slot in Object.keys($scopedSlots)"
+                v-bind:slot="slot"
+                slot-scope="scope"
+            >
+                <slot v-bind:name="slot" v-bind="scope" />
+            </template>
+            <template v-if="headerButtons" v-slot:header-buttons-after>
+                <button-icon
+                    v-bind:icon="'options'"
+                    v-bind:size="34"
+                    v-bind:disabled="optionsItems.length === 0 || isLoading"
+                    v-bind:active="optionsVisible"
+                    ref="button-icon-options-loading"
+                    v-bind:key="'options'"
+                    v-on:click="toggleOptions"
+                />
+                <dropdown
+                    class="options-dropdown"
+                    v-bind:items="optionsItems"
+                    v-bind:visible.sync="optionsVisible"
+                    v-bind:owners="
+                        $refs['button-icon-options-loading'] &&
+                            $refs['button-icon-options-loading'].$el
+                    "
+                    v-on:item-clicked="onOptionsItemClick"
+                />
             </template>
             <h1 class="item-invalid" v-if="invalid">
                 {{ invalidMessage }}
             </h1>
             <loader loader="line-scale" v-bind:count="5" v-else />
         </container-ripe>
-        <container-ripe class="details-container" v-else>
-            <slot name="details-before" />
-            <template v-slot:header>
-                <div class="header-buttons" v-if="headerButtons">
-                    <slot name="header-buttons">
-                        <slot name="header-buttons-before" />
-                        <div class="header-button">
-                            <span class="button-stats" v-on:click="onStatsClick">
-                                <img src="~./assets/stats.svg" />
-                            </span>
-                            <p>{{ name }}s</p>
-                        </div>
-                        <div class="header-button" v-bind:class="{ invisible: !hasIndex }">
-                            <span class="button-previous" v-on:click="onPreviousClick">
-                                <img src="~./assets/chevron-left.svg" />
-                            </span>
-                            <p>Previous</p>
-                        </div>
-                        <div class="header-button" v-bind:class="{ invisible: !hasIndex }">
-                            <span class="button-next" v-on:click="onNextClick">
-                                <img src="~./assets/chevron-right.svg" />
-                            </span>
-                            <p>Next</p>
-                        </div>
-                        <div class="header-button">
-                            <span class="button-refresh" v-on:click="onRefreshClick">
-                                <img src="~./assets/refresh.svg" />
-                            </span>
-                            <p>Refresh</p>
-                        </div>
-                        <div
-                            class="header-button"
-                            v-bind:class="{
-                                invisible: optionsItems.length === 0 && loaded !== false
-                            }"
-                        >
-                            <span
-                                class="button-options"
-                                v-bind:class="{ active: optionsVisible }"
-                                ref="button-options"
-                                v-on:click="toggleOptions"
-                            >
-                                <img src="~./assets/options.svg" />
-                            </span>
-                            <dropdown
-                                class="options-dropdown"
-                                v-bind:items="optionsItems"
-                                v-bind:visible.sync="optionsVisible"
-                                v-bind:owners="$refs['button-options']"
-                                v-on:item-clicked="onOptionsItemClick"
-                            />
-                            <p>Status</p>
-                        </div>
-                        <slot name="header-buttons-after" />
-                    </slot>
-                </div>
-                <slot name="title" v-if="isLoaded">
-                    <title-ripe>{{ title }}</title-ripe>
-                </slot>
-                <slot name="header-extra" />
+        <container-ripe
+            class="details-container"
+            v-bind:title="isLoaded && title"
+            v-bind:header-buttons="_containerHeaderButtons"
+            v-else
+            v-on:header-button:click="onHeaderButtonClick"
+        >
+            <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
+            <template
+                v-for="slot in Object.keys($scopedSlots)"
+                v-bind:slot="slot"
+                slot-scope="scope"
+            >
+                <slot v-bind:name="slot" v-bind="scope" />
             </template>
+            <template v-if="headerButtons" v-slot:header-buttons-after>
+                <button-icon
+                    v-bind:icon="'options'"
+                    v-bind:size="34"
+                    v-bind:disabled="optionsItems.length === 0 && loaded !== false"
+                    v-bind:active="optionsVisible"
+                    ref="button-icon-options"
+                    v-bind:key="'options'"
+                    v-on:click="toggleOptions"
+                />
+                <dropdown
+                    class="options-dropdown"
+                    v-bind:items="optionsItems"
+                    v-bind:visible.sync="optionsVisible"
+                    v-bind:owners="$refs['button-icon-options'] && $refs['button-icon-options'].$el"
+                    v-on:item-clicked="onOptionsItemClick"
+                />
+            </template>
+            <slot name="details-before" />
             <div class="details" v-if="isLoaded">
                 <div class="details-column details-column-image" v-if="imageUrl">
                     <lightbox
@@ -235,122 +182,15 @@ body.mobile .container-ripe {
     padding-top: 140px;
 }
 
-.container-ripe .header-buttons {
-    float: right;
-    font-size: 0px;
-    text-transform: capitalize;
-    user-select: none;
-}
-
-body.tablet .container-ripe .header-buttons,
-body.mobile .container-ripe .header-buttons {
-    animation: none;
-    background-color: $white;
-    border-top: 1px solid $light-white;
-    bottom: 0px;
-    display: flex;
-    left: 0px;
-    position: fixed;
-    text-align: justify;
-    transition: none;
-    width: 100%;
-    z-index: 10;
-}
-
-.container-ripe .header-buttons .header-button {
-    display: inline-block;
-}
-
-body.tablet .container-ripe .header-buttons > .header-button,
-body.mobile .container-ripe .header-buttons > .header-button {
-    display: inline-block;
-    flex: auto;
-    margin: 8px 0px 8px 0px;
-    text-align: center;
-}
-
-.header-buttons > .header-button.invisible {
-    opacity: 0.2;
-    pointer-events: none;
-}
-
-body.tablet .header-buttons > .header-button.invisible,
-body.mobile .header-buttons > .header-button.invisible {
-    display: inline-block;
-}
-
-.container-ripe .header-buttons .header-button > span {
-    border-radius: 36px 36px 36px 36px;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 24px;
-    height: 36px;
-    line-height: 36px;
-    text-align: center;
-    transition: background-color 0.1s ease-in-out, opacity 0.05s ease-in-out;
-    user-select: none;
-    vertical-align: middle;
-    width: 36px;
-}
-
-.container-ripe .header-buttons .header-button > span:hover {
-    background-color: $lighter-grey;
-}
-
-.container-ripe .header-buttons .header-button > span.active,
-.container-ripe .header-buttons .header-button > span:active {
-    background-color: $light-grey;
-}
-
-.container-ripe .header-buttons .header-button > span > img {
-    opacity: 0.5;
-}
-
-body.tablet .container-ripe .header-buttons > .header-button > span > img,
-body.mobile .container-ripe .header-buttons > .header-button > span > img {
-    height: 20px;
-    width: 20px;
-}
-
-.container-ripe .header-buttons .header-button > span:hover > img,
-.container-ripe .header-buttons .header-button > span.active > img,
-.container-ripe .header-buttons .header-button > span:active > img {
-    opacity: 1;
-}
-
-.container-ripe .header-buttons > .header-button > p {
-    display: none;
-}
-
-body.tablet .container-ripe .header-buttons > .header-button > p,
-body.mobile .container-ripe .header-buttons > .header-button > p {
-    color: $grey;
-    display: block;
-    font-size: 11px;
-    letter-spacing: 0.25px;
-    margin: 0px 0px 0px 0px;
-}
-
 body.tablet .container-ripe .details,
 body.mobile .container-ripe .details {
     padding: 0px 20px 20px 20px;
 }
 
 .container-ripe .options-dropdown ::v-deep .dropdown {
-    font-size: 13px;
-    left: auto;
-    margin-left: -142px;
     margin-top: 6px;
     min-width: 180px;
     position: absolute;
-    text-align: left;
-}
-
-body.tablet .container-ripe .options-dropdown ::v-deep .dropdown,
-body.mobile .container-ripe .options-dropdown ::v-deep .dropdown {
-    bottom: 40px;
-    margin: 0px 0px 0px 0px;
-    right: 13px;
 }
 
 body.tablet .container-ripe .title,
@@ -526,6 +366,10 @@ export const Details = {
         headerButtons: {
             type: Boolean,
             default: true
+        },
+        containerHeaderButtons: {
+            type: Array,
+            default: () => []
         }
     },
     data: function() {
@@ -544,6 +388,36 @@ export const Details = {
         },
         hasIndex() {
             return this.index !== null && this.index !== undefined;
+        },
+        _containerHeaderButtons() {
+            if (!this.headerButtons) return [];
+
+            return this.containerHeaderButtons.length > 0
+                ? this.containerHeaderButtons
+                : [
+                      {
+                          id: "stats",
+                          icon: "stats",
+                          size: 34
+                      },
+                      {
+                          id: "chevron-left",
+                          icon: "chevron-left",
+                          size: 34,
+                          disabled: !this.hasIndex
+                      },
+                      {
+                          id: "chevron-right",
+                          icon: "chevron-right",
+                          size: 34,
+                          disabled: !this.hasIndex
+                      },
+                      {
+                          id: "refresh",
+                          icon: "refresh",
+                          size: 34
+                      }
+                  ];
         }
     },
     methods: {
@@ -604,6 +478,20 @@ export const Details = {
         triggerAnimation(animation) {
             this.$emit("animation", animation);
         },
+        onHeaderButtonClick(event, id) {
+            switch (id) {
+                case "chevron-left":
+                    this.previousItem();
+                    break;
+                case "chevron-right":
+                    this.nextItem();
+                    break;
+                default:
+                    break;
+            }
+
+            this.$emit(`click:${id}`);
+        },
         onOptionsItemClick(item) {
             this.$emit(`click:${item.event}`);
         },
@@ -612,18 +500,6 @@ export const Details = {
         },
         onLightboxClose() {
             this.lightBoxVisible = false;
-        },
-        onStatsClick() {
-            this.$emit("click:stats");
-        },
-        onPreviousClick() {
-            this.previousItem();
-        },
-        onNextClick() {
-            this.nextItem();
-        },
-        onRefreshClick() {
-            this.$emit("click:refresh");
         },
         onKeyJ() {
             this.nextItem();
