@@ -6,7 +6,13 @@
             v-on:keydown.left="onKeyLeft"
             v-on:keydown.right="onKeyRight"
         />
-        <container-ripe v-if="isLoading" class="loading" v-bind:title="title" v-bind:header-buttons="_containerHeaderButtons" v-on:header-button:click="this.onHeaderButtonClick">
+        <container-ripe
+            class="loading"
+            v-bind:title="title"
+            v-bind:header-buttons="_containerHeaderButtons"
+            v-if="isLoading"
+            v-on:header-button:click="this.onHeaderButtonClick"
+        >
             <!--             <template v-slot:header>
                 <div class="header-buttons">
                     <slot name="header-buttons">
@@ -73,7 +79,13 @@
             </h1>
             <loader loader="line-scale" v-bind:count="5" v-else />
         </container-ripe>
-        <container-ripe v-else class="details-container" v-bind:title="title" v-bind:header-buttons="_containerHeaderButtons" v-on:header-button:click="this.onHeaderButtonClick">
+        <container-ripe
+            class="details-container"
+            v-bind:title="title"
+            v-bind:header-buttons="_containerHeaderButtons"
+            v-else
+            v-on:header-button:click="this.onHeaderButtonClick"
+        >
             <slot name="details-before" />
             <!--
             <template v-slot:header>
@@ -551,38 +563,40 @@ export const Details = {
             return this.index !== null && this.index !== undefined;
         },
         _containerHeaderButtons() {
-            if(!this.headerButtons) return [];
+            if (!this.headerButtons) return [];
 
-            return this.containerHeaderButtons.length > 0 ? this.containerHeaderButtons: [
-                {
-                    id: "stats",
-                    icon: "stats",
-                    size: 36,
-                },
-                {
-                    id: "chevron-left",
-                    icon: "chevron-left",
-                    size: 36,
-                    disabled: !this.hasIndex
-                },
-                {
-                    id: "chevron-right",
-                    icon: "chevron-right",
-                    size: 36,
-                    disabled: !this.hasIndex
-                },
-                {
-                    id: "refresh",
-                    icon: "refresh",
-                    size: 36
-                },
-                {
-                    id: "options",
-                    icon: "options",
-                    iconFill: "#000000",
-                    size: 36
-                }
-            ]
+            return this.containerHeaderButtons.length > 0
+                ? this.containerHeaderButtons
+                : [
+                      {
+                          id: "stats",
+                          icon: "stats",
+                          size: 36
+                      },
+                      {
+                          id: "chevron-left",
+                          icon: "chevron-left",
+                          size: 36,
+                          disabled: !this.hasIndex
+                      },
+                      {
+                          id: "chevron-right",
+                          icon: "chevron-right",
+                          size: 36,
+                          disabled: !this.hasIndex
+                      },
+                      {
+                          id: "refresh",
+                          icon: "refresh",
+                          size: 36
+                      },
+                      {
+                          id: "options",
+                          icon: "options",
+                          iconFill: "#000000",
+                          size: 36
+                      }
+                  ];
         }
     },
     methods: {
@@ -645,13 +659,14 @@ export const Details = {
         },
         onHeaderButtonClick(event, id) {
             switch (id) {
-                case 'chevron-left':
+                case "chevron-left":
                     this.previousItem();
                     break;
-                case 'chevron-right':
+                case "chevron-right":
                     this.nextItem();
                     break;
-                default: break;
+                default:
+                    break;
             }
 
             this.$emit(`click:${id}`);

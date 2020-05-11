@@ -87,7 +87,7 @@ export const Icon = {
                         resource = require(`!!raw-loader!./../../../../assets/icons/extra/${this.icon}.svg`);
                     } catch (error) {
                         resource = require(`!!raw-loader!./../../../../assets/icons/${this.icon}.svg`);
-                    }   
+                    }
                 }
                 return resource.default;
             } catch (error) {
