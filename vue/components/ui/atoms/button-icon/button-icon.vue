@@ -260,9 +260,9 @@ export const ButtonIcon = {
             return base;
         },
         loaderStyle() {
-            const scaledSize = (this.size * 10) / 30;
-            const scaledBorderWidth = (this.size * 2) / 30;
-            const marginTop = (this.size * 2) / 30; // Fixes the "ball-clip-rotate" animation not being centered
+            const scaledSize = this.size / 3;
+            const scaledBorderWidth = this.size / 15;
+            const marginTop = this.size / 15;
 
             return {
                 width: `${scaledSize}px`,
