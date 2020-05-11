@@ -144,9 +144,6 @@
 </template>
 
 <style lang="scss" scoped>
-// TODO
-// - check slots
-// - check for regressions
 @import "css/variables.scss";
 
 .details {
