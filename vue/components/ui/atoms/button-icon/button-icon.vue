@@ -93,7 +93,8 @@
     background-color: #41566f;
 }
 
-.button-icon.button-icon-black.active:not(.disabled):not(.unselectable) .button-icon.button-icon-black:active:not(.disabled):not(.unselectable) {
+.button-icon.button-icon-black.active:not(.disabled):not(.unselectable),
+.button-icon.button-icon-black:active:not(.disabled):not(.unselectable) {
     background-color: $dark;
 }
 
