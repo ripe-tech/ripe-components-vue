@@ -25,7 +25,6 @@
                 <button-icon
                     v-bind:icon="'options'"
                     v-bind:size="34"
-                    v-bind:icon-fill="'#000000'"
                     v-bind:disabled="optionsItems.length === 0 || isLoading"
                     v-bind:active="optionsVisible"
                     ref="button-icon-options-loading"
@@ -67,7 +66,6 @@
                 <button-icon
                     v-bind:icon="'options'"
                     v-bind:size="34"
-                    v-bind:icon-fill="'#000000'"
                     v-bind:disabled="optionsItems.length === 0 && loaded !== false"
                     v-bind:active="optionsVisible"
                     ref="button-icon-options"
