@@ -111,10 +111,12 @@ export const Container = {
             return (
                 this.title ||
                 this.headerButtons.length > 0 ||
+                this.$slots["header-extra-before"] ||
                 this.$slots.header ||
                 this.$slots["header-buttons"] ||
                 this.$slots["header-buttons-before"] ||
-                this.$slots["header-buttons-before"]
+                this.$slots["header-buttons-after"] ||
+                this.$slots["header-extra-after"]
             );
         },
         classes() {
