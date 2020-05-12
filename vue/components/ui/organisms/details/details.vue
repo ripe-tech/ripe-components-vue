@@ -189,7 +189,7 @@ body.mobile .container-ripe .details {
 
 .container-ripe .options-dropdown ::v-deep .dropdown {
     margin-top: 6px;
-    min-width: 180px;
+    min-width: 170px;
     position: absolute;
 }
 
