@@ -93,8 +93,8 @@ body.mobile .container-ripe > .container-header {
 
 body.tablet .container-ripe > .container-header > .title,
 body.mobile .container-ripe > .container-header > .title {
-    order: 4;
     align-self: flex-start;
+    order: 4;
 }
 </style>
 
