@@ -7,7 +7,7 @@
                     {{ title }}
                 </title-ripe>
                 <slot name="header-buttons-before" />
-                <slot name="header-buttons">
+                <slot name="header-buttons" v-if="hasHeaderButtons">
                     <div class="header-buttons">
                         <slot name="header-buttons-extra-before" />
                         <button-icon
@@ -124,16 +124,21 @@ export const Container = {
         }
     },
     computed: {
+        hasHeaderButtons() {
+            return (
+                this.headerButtons.length > 0 ||
+                this.$slots["header-buttons"] ||
+                this.$slots["header-buttons-extra-before"] ||
+                this.$slots["header-buttons-extra-after"]
+            );
+        },
         hasHeaderContent() {
             return (
                 this.title ||
-                this.headerButtons.length > 0 ||
                 this.$slots["header-extra-before"] ||
                 this.$slots.header ||
                 this.$slots["header-buttons-before"] ||
-                this.$slots["header-buttons"] ||
-                this.$slots["header-buttons-extra-before"] ||
-                this.$slots["header-buttons-extra-after"] ||
+                this.hasHeaderButtons ||
                 this.$slots["header-buttons-after"] ||
                 this.$slots["header-extra-after"]
             );
