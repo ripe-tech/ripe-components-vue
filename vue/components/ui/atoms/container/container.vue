@@ -96,6 +96,13 @@ body.mobile .container-ripe > .container-header > .title {
     align-self: flex-start;
     order: 4;
 }
+
+body.tablet .container-ripe > .container-header > .header-buttons,
+body.mobile .container-ripe > .container-header > .header-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
 </style>
 
 <script>
