@@ -169,7 +169,7 @@ body.mobile .container-header-buttons { //TODO check mobile
     margin-bottom: 0px;
 }
 
-body.mobile .title {
+ body.mobile .listing > .container-ripe ::v-deep .container-header > .title {
     margin-top: 16px;
 }
 
