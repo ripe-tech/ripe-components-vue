@@ -5,14 +5,18 @@
             v-bind:class="{ show: showScrollTop }"
             v-on:click="scrollToTop"
         />
-        <container-ripe v-bind:mode="containerMode" v-bind:title="titleText ? titleText: `${titlePrefix} ${nameCapitalized}`" v-bind:header-buttons="containerHeaderButtons" >
+        <container-ripe
+            v-bind:mode="containerMode"
+            v-bind:title="titleText ? titleText : `${titlePrefix} ${nameCapitalized}`"
+            v-bind:header-buttons="containerHeaderButtons"
+        >
             <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
             <template
                 v-for="slot in Object.keys($scopedSlots)"
                 v-bind:slot="slot"
                 slot-scope="scope"
             >
-            <slot v-bind:name="slot" v-bind="scope" />
+                <slot v-bind:name="slot" v-bind="scope" />
             </template>
             <template v-slot:header-buttons-after>
                 <search
@@ -161,7 +165,7 @@ body.mobile .container-ripe ::v-deep .container-header > .header-buttons {
     margin-bottom: 0px;
 }
 
- body.mobile .listing > .container-ripe ::v-deep .container-header > .title {
+body.mobile .listing > .container-ripe ::v-deep .container-header > .title {
     margin-top: 16px;
 }
 
