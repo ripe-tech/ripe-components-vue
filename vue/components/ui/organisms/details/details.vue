@@ -294,6 +294,79 @@ body.mobile .container-ripe .details-column .label-value {
     margin-bottom: 0px;
     margin-top: 2px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+body.tablet .container-ripe ::v-deep .header-buttons,
+body.mobile .container-ripe ::v-deep .header-buttons {
+    animation: none;
+    background-color: $white;
+    border-top: 1px solid $light-white;
+    bottom: 0px;
+    display: flex;
+    left: 0px;
+    position: fixed;
+    text-align: justify;
+    transition: none;
+    width: 100%;
+    z-index: 10;
+}
+
+
+
+
+body.tablet .container-ripe ::v-deep .header-buttons > .header-button,
+body.mobile .container-ripe ::v-deep .header-buttons > .header-button {
+    display: inline-block;
+    flex: auto;
+    margin: 8px 0px 8px 0px;
+    text-align: center;
+}
+
+
+body.tablet ::v-deep .header-buttons > .header-button.invisible,
+body.mobile ::v-deep .header-buttons > .header-button.invisible {
+    display: inline-block;
+}
+
+
+body.tablet .container-ripe ::v-deep.header-buttons > .header-button > span > img,
+body.mobile .container-ripe ::v-deep .header-buttons > .header-button > span > img {
+    height: 20px;
+    width: 20px;
+}
+
+
+body.tablet .container-ripe ::v-deep.header-buttons > .header-button > p,
+body.mobile .container-ripe ::v-deep .header-buttons > .header-button > p {
+    color: $grey;
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.25px;
+    margin: 0px 0px 0px 0px;
+}
+
+
+body.tablet .container-ripe .options-dropdown ::v-deep .dropdown,
+body.mobile .container-ripe .options-dropdown ::v-deep .dropdown {
+    bottom: 40px;
+    margin: 0px 0px 0px 0px;
+    right: 13px;
+}
+
+
+
 </style>
 
 <script>
