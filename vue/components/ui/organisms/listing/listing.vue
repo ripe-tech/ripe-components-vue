@@ -149,6 +149,10 @@ body.mobile .listing {
     min-height: 315px;
 }
 
+.container-ripe ::v-deep .container-header > .header-buttons {
+    margin: 0px 8px 0px 8px;
+}
+
 body.mobile .container-header-right { //TODO check mobile
     float: none;
     width: 100%;
