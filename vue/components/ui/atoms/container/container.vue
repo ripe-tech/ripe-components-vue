@@ -9,7 +9,7 @@
                 <slot name="header-buttons-before" />
                 <slot name="header-buttons">
                     <div class="header-buttons">
-                        <slot name="header-extra-buttons-before" />
+                        <slot name="header-buttons-extra-before" />
                         <button-icon
                             v-bind:text="button.text"
                             v-bind:icon="button.icon"
@@ -33,7 +33,7 @@
                             v-bind:key="button.id"
                             v-on:click="event => onButtonIconClick(event, button.id)"
                         />
-                        <slot name="header-extra-buttons-after" />
+                        <slot name="header-buttons-extra-after" />
                     </div>
                 </slot>
                 <slot name="header-buttons-after" />
@@ -83,11 +83,18 @@ body.mobile .container-ripe {
 
 body.tablet .container-ripe > .container-header,
 body.mobile .container-ripe > .container-header {
+    flex-flow: column;
     padding: 20px 15px 20px 15px;
 }
 
 .container-ripe > .container-header > .title {
     flex: 1;
+}
+
+body.tablet .container-ripe > .container-header > .title,
+body.mobile .container-ripe > .container-header > .title {
+    align-self: flex-start;
+    order: 4;
 }
 </style>
 
@@ -117,8 +124,8 @@ export const Container = {
                 this.$slots.header ||
                 this.$slots["header-buttons-before"] ||
                 this.$slots["header-buttons"] ||
-                this.$slots["header-extra-buttons-before"] ||
-                this.$slots["header-extra-buttons-after"] ||
+                this.$slots["header-buttons-extra-before"] ||
+                this.$slots["header-buttons-extra-after"] ||
                 this.$slots["header-buttons-after"] ||
                 this.$slots["header-extra-after"]
             );
