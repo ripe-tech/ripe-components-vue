@@ -100,6 +100,7 @@ body.mobile .container-ripe > .container-header > .title {
 body.tablet .container-ripe > .container-header > .header-buttons,
 body.mobile .container-ripe > .container-header > .header-buttons {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     width: 100%;
 }
