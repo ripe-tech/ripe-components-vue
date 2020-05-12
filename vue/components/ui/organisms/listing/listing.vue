@@ -153,16 +153,8 @@ body.mobile .listing {
     margin: 0px 8px 0px 8px;
 }
 
-body.mobile .container-header-right { //TODO check mobile
-    float: none;
-    width: 100%;
-}
-
-body.mobile .container-header-buttons { //TODO check mobile
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin-bottom: 10px;
+body.mobile .container-ripe ::v-deep .container-header > .header-buttons {
+    margin: 0px 0px 10px 0px;
 }
 
 .listing .filter-ripe ::v-deep table {
