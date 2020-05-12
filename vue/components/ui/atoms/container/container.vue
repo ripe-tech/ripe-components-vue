@@ -83,11 +83,26 @@ body.mobile .container-ripe {
 
 body.tablet .container-ripe > .container-header,
 body.mobile .container-ripe > .container-header {
+    flex-flow: column;
     padding: 20px 15px 20px 15px;
 }
 
 .container-ripe > .container-header > .title {
     flex: 1;
+}
+
+body.tablet .container-ripe > .container-header > .title,
+body.mobile .container-ripe > .container-header > .title {
+    align-self: flex-start;
+    order: 4;
+}
+
+body.tablet .container-ripe > .container-header > .header-buttons,
+body.mobile .container-ripe > .container-header > .header-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
 }
 </style>
 
