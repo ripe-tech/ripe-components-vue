@@ -9,6 +9,7 @@
             v-bind:mode="containerMode"
             v-bind:title="titleText ? titleText : `${titlePrefix} ${nameCapitalized}`"
             v-bind:header-buttons="containerHeaderButtons"
+            v-on:header-button:click="onHeaderButtonClick"
         >
             <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
             <template
@@ -307,6 +308,9 @@ export const Listing = {
         },
         getFilter() {
             return this.$refs.filter;
+        },
+        onHeaderButtonClick(event, buttonId) {
+            this.$emit("header-button:click", event, buttonId);
         },
         onTableClick(item, index) {
             this.$emit("click:table", item, index);
