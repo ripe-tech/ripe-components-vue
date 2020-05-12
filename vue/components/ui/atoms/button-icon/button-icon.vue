@@ -54,6 +54,7 @@
     background-color: $lighter-grey;
 }
 
+.button-icon.active:not(.disabled):not(.unselectable),
 .button-icon:active:not(.disabled):not(.unselectable) {
     background-color: $light-grey;
 }
@@ -66,6 +67,7 @@
     background-color: #dedede;
 }
 
+.button-icon.button-icon-grey.active:not(.disabled):not(.unselectable),
 .button-icon.button-icon-grey:active:not(.disabled):not(.unselectable) {
     background-color: #cecece;
 }
@@ -78,6 +80,7 @@
     background-color: $lighter-grey;
 }
 
+.button-icon.button-icon-white.active:not(.disabled):not(.unselectable),
 .button-icon.button-icon-white:active:not(.disabled):not(.unselectable) {
     background-color: $light-grey;
 }
@@ -90,6 +93,7 @@
     background-color: #41566f;
 }
 
+.button-icon.button-icon-black.active:not(.disabled):not(.unselectable),
 .button-icon.button-icon-black:active:not(.disabled):not(.unselectable) {
     background-color: $dark;
 }
@@ -214,6 +218,10 @@ export const ButtonIcon = {
         loading: {
             type: Boolean,
             default: false
+        },
+        active: {
+            type: Boolean,
+            default: false
         }
     },
     computed: {
@@ -262,7 +270,8 @@ export const ButtonIcon = {
             const base = {
                 disabled: this.disabled,
                 unselectable: !this.selectable,
-                "button-icon-text": Boolean(this.text)
+                "button-icon-text": Boolean(this.text),
+                active: this.active
             };
             if (this.color) base["button-icon-" + this.color] = this.color;
             return base;
