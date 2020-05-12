@@ -84,9 +84,9 @@ export const Icon = {
                 let resource = this.icon;
                 if (typeof this.icon === "string") {
                     try {
-                        resource = require(`!!raw-loader!./../../../../assets/icons/extra/${this.icon}.svg`);
-                    } catch (error) {
                         resource = require(`!!raw-loader!./../../../../assets/icons/${this.icon}.svg`);
+                    } catch (err) {
+                        resource = require(`!!raw-loader!./../../../../assets/icons/extra/${this.icon}.svg`);
                     }
                 }
                 return resource.default;
