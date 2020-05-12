@@ -191,6 +191,7 @@ body.mobile .container-ripe .details {
     margin-top: 6px;
     min-width: 170px;
     position: absolute;
+    text-align: left;
 }
 
 body.tablet .container-ripe .title,
