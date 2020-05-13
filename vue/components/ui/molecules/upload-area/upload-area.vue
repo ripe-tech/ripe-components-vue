@@ -164,7 +164,6 @@ export const UploadArea = {
             this.dragging = true;
         },
         onDragLeave(event) {
-            // event was fired from a children, ignore
             if (event.currentTarget.contains(event.relatedTarget)) return false;
             this.dragging = false;
         },
