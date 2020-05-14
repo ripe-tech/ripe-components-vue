@@ -11,22 +11,37 @@
             v-bind:header-buttons="containerHeaderButtons"
             v-on:header-button:click="onHeaderButtonClick"
         >
-            <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
-            <template
-                v-for="slot in Object.keys($scopedSlots)"
-                v-bind:slot="slot"
-                slot-scope="scope"
-            >
-                <slot v-bind:name="slot" v-bind="scope" />
+            <template v-slot:header-extra-before>
+                <slot v-bind:name="'header-extra-before'" />
+            </template>
+            <template v-slot:header>
+                <slot v-bind:name="'header'" />
+            </template>
+            <template v-slot:header-buttons-before>
+                <slot v-bind:name="'header-buttons-before'" />
+            </template>
+            <template v-slot:header-buttons>
+                <slot v-bind:name="'header-buttons'" />
+            </template>
+            <template v-slot:header-buttons-extra-before>
+                <slot v-bind:name="'header-buttons-extra-before'" />
+            </template>
+            <template v-slot:header-buttons-extra-after>
+                <slot v-bind:name="'header-buttons-extra-after'" />
             </template>
             <template v-slot:header-buttons-after>
-                <search
-                    v-bind:variant="'dark'"
-                    v-bind:width="isMobileWidth() ? null : searchWidth"
-                    v-bind:placeholder="filterText ? filterText : `Search ${name}`"
-                    v-bind:value.sync="filter"
-                    v-bind:loading="loading"
-                />
+                <slot name="header-search">
+                    <search
+                        v-bind:variant="'dark'"
+                        v-bind:width="isMobileWidth() ? null : searchWidth"
+                        v-bind:placeholder="filterText ? filterText : `Search ${name}`"
+                        v-bind:value.sync="filter"
+                        v-bind:loading="loading"
+                    />
+                </slot>
+            </template>
+            <template v-slot:header-extra-after>
+                <slot v-bind:name="'header-extra-after'" />
             </template>
             <filter-ripe
                 v-bind:get-items="getItems"
