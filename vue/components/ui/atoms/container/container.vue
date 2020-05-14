@@ -1,11 +1,44 @@
 <template>
     <div class="container-ripe" v-bind:class="classes">
-        <div class="container-header" v-if="title || $slots.header">
+        <div class="container-header" v-if="hasHeaderContent">
+            <slot name="header-extra-before" />
             <slot name="header">
                 <title-ripe v-if="title">
                     {{ title }}
                 </title-ripe>
+                <slot name="header-buttons-before" />
+                <slot name="header-buttons" v-if="hasHeaderButtons">
+                    <div class="header-buttons">
+                        <slot name="header-buttons-extra-before" />
+                        <button-icon
+                            v-bind:text="button.text"
+                            v-bind:icon="button.icon"
+                            v-bind:color="button.color"
+                            v-bind:size="button.size"
+                            v-bind:icon-opacity="button.iconOpacity"
+                            v-bind:icon-fill="button.iconFill"
+                            v-bind:icon-stroke-width="button.iconStrokeWidth"
+                            v-bind:padding="button.padding"
+                            v-bind:padding-top="button.paddingTop"
+                            v-bind:padding-bottom="button.paddingBottom"
+                            v-bind:padding-left="button.paddingLeft"
+                            v-bind:padding-right="button.paddingRight"
+                            v-bind:padding-factor="button.paddingFactor"
+                            v-bind:padding-text-factor="button.paddingTextFactor"
+                            v-bind:disabled="button.disabled"
+                            v-bind:selectable="button.selectable"
+                            v-bind:loading="button.loading"
+                            v-for="button in headerButtons"
+                            v-show="!button.hide"
+                            v-bind:key="button.id"
+                            v-on:click="event => onButtonIconClick(event, button.id)"
+                        />
+                        <slot name="header-buttons-extra-after" />
+                    </div>
+                </slot>
+                <slot name="header-buttons-after" />
             </slot>
+            <slot name="header-extra-after" />
         </div>
         <slot />
     </div>
@@ -42,14 +75,34 @@ body.mobile .container-ripe {
 }
 
 .container-ripe > .container-header {
+    align-items: center;
+    display: flex;
     font-size: 0px;
     padding: 24px 24px 20px 24px;
-    text-align: left;
 }
 
 body.tablet .container-ripe > .container-header,
 body.mobile .container-ripe > .container-header {
+    flex-flow: column;
     padding: 20px 15px 20px 15px;
+}
+
+.container-ripe > .container-header > .title {
+    flex: 1;
+}
+
+body.tablet .container-ripe > .container-header > .title,
+body.mobile .container-ripe > .container-header > .title {
+    align-self: flex-start;
+    order: 4;
+}
+
+body.tablet .container-ripe > .container-header > .header-buttons,
+body.mobile .container-ripe > .container-header > .header-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
 }
 </style>
 
@@ -64,13 +117,41 @@ export const Container = {
         title: {
             type: String,
             default: null
+        },
+        headerButtons: {
+            type: Array,
+            default: () => []
         }
     },
     computed: {
+        hasHeaderButtons() {
+            return (
+                this.headerButtons.length > 0 ||
+                this.$slots["header-buttons"] ||
+                this.$slots["header-buttons-extra-before"] ||
+                this.$slots["header-buttons-extra-after"]
+            );
+        },
+        hasHeaderContent() {
+            return (
+                this.title ||
+                this.$slots["header-extra-before"] ||
+                this.$slots.header ||
+                this.$slots["header-buttons-before"] ||
+                this.hasHeaderButtons ||
+                this.$slots["header-buttons-after"] ||
+                this.$slots["header-extra-after"]
+            );
+        },
         classes() {
             const base = {};
             if (this.mode) base[`container-ripe-${this.mode}`] = true;
             return base;
+        }
+    },
+    methods: {
+        onButtonIconClick(event, buttonId) {
+            this.$emit("header-button:click", event, buttonId);
         }
     }
 };
