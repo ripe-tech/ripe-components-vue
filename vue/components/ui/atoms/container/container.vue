@@ -102,7 +102,7 @@ body.mobile .container-ripe > .container-header > .header-buttons {
     align-items: center;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-evenly;
     width: 100%;
 }
 </style>
