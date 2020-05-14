@@ -61,7 +61,7 @@
                         <slot name="header-buttons-after" />
                     </slot>
                 </div>
-                <title-ripe>{{ invalid ? invalidTitle: title }}</title-ripe>
+                <title-ripe>{{ invalid ? invalidTitle : title }}</title-ripe>
             </template>
             <h1 class="item-invalid" v-if="invalid">
                 {{ invalidMessage }}
@@ -231,9 +231,9 @@ body.mobile .details .container-ripe {
 }
 
 .details .container-ripe .header-buttons {
-    order: 3;
     float: right;
     font-size: 0px;
+    order: 3;
     text-transform: capitalize;
     user-select: none;
 }
