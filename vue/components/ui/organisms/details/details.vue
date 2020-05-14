@@ -231,6 +231,7 @@ body.mobile .details .container-ripe {
 }
 
 .details .container-ripe .header-buttons {
+    order: 3;
     float: right;
     font-size: 0px;
     text-transform: capitalize;
@@ -327,7 +328,7 @@ body.mobile .details .container-ripe .header-buttons > .header-button > p {
 }
 
 .details .container-ripe .title {
-    
+    order: -1;
 }
 
 body.tablet .details .container-ripe .details,
