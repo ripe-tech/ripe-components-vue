@@ -101,7 +101,7 @@ body.tablet .container-ripe > .container-header > .header-buttons,
 body.mobile .container-ripe > .container-header > .header-buttons {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
     width: 100%;
 }
 </style>
