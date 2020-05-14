@@ -61,12 +61,7 @@
                         <slot name="header-buttons-after" />
                     </slot>
                 </div>
-                <title-ripe v-if="invalid">
-                    {{ invalidTitle }}
-                </title-ripe>
-                <title-ripe v-else>
-                    {{ title }}
-                </title-ripe>
+                <title-ripe>{{ invalid ? invalidTitle: title }}</title-ripe>
             </template>
             <h1 class="item-invalid" v-if="invalid">
                 {{ invalidMessage }}
@@ -208,16 +203,16 @@ body.mobile .details {
     padding: 0px 0px 0px 0px;
 }
 
-.container-ripe {
+.details .container-ripe {
     min-height: 430px;
 }
 
-.container-ripe.loading {
+.details .container-ripe.loading {
     min-height: 430px;
 }
 
-body.tablet .container-ripe,
-body.mobile .container-ripe {
+body.tablet .details .container-ripe,
+body.mobile .details .container-ripe {
     border: none;
     border-bottom: 1px solid $lighter-grey;
     border-radius: 0px 0px 0px 0px;
@@ -226,8 +221,8 @@ body.mobile .container-ripe {
     margin: 0px 0px 0px 0px;
 }
 
-.container-ripe .loader,
-.container-ripe .item-invalid {
+.details .container-ripe .loader,
+.details .container-ripe .item-invalid {
     border-top: 1px solid transparent;
     height: 38px;
     line-height: 38px;
@@ -235,15 +230,15 @@ body.mobile .container-ripe {
     padding-top: 140px;
 }
 
-.container-ripe .header-buttons {
+.details .container-ripe .header-buttons {
     float: right;
     font-size: 0px;
     text-transform: capitalize;
     user-select: none;
 }
 
-body.tablet .container-ripe .header-buttons,
-body.mobile .container-ripe .header-buttons {
+body.tablet .details .container-ripe .header-buttons,
+body.mobile .details .container-ripe .header-buttons {
     animation: none;
     background-color: $white;
     border-top: 1px solid $light-white;
@@ -257,12 +252,12 @@ body.mobile .container-ripe .header-buttons {
     z-index: 10;
 }
 
-.container-ripe .header-buttons .header-button {
+.details .container-ripe .header-buttons .header-button {
     display: inline-block;
 }
 
-body.tablet .container-ripe .header-buttons > .header-button,
-body.mobile .container-ripe .header-buttons > .header-button {
+body.tablet .details .container-ripe .header-buttons > .header-button,
+body.mobile .details .container-ripe .header-buttons > .header-button {
     display: inline-block;
     flex: auto;
     margin: 8px 0px 8px 0px;
@@ -279,7 +274,7 @@ body.mobile .header-buttons > .header-button.invisible {
     display: inline-block;
 }
 
-.container-ripe .header-buttons .header-button > span {
+.details .container-ripe .header-buttons .header-button > span {
     border-radius: 36px 36px 36px 36px;
     cursor: pointer;
     display: inline-block;
@@ -293,37 +288,37 @@ body.mobile .header-buttons > .header-button.invisible {
     width: 36px;
 }
 
-.container-ripe .header-buttons .header-button > span:hover {
+.details .container-ripe .header-buttons .header-button > span:hover {
     background-color: $lighter-grey;
 }
 
-.container-ripe .header-buttons .header-button > span.active,
-.container-ripe .header-buttons .header-button > span:active {
+.details .container-ripe .header-buttons .header-button > span.active,
+.details .container-ripe .header-buttons .header-button > span:active {
     background-color: $light-grey;
 }
 
-.container-ripe .header-buttons .header-button > span > img {
+.details .container-ripe .header-buttons .header-button > span > img {
     opacity: 0.5;
 }
 
-body.tablet .container-ripe .header-buttons > .header-button > span > img,
-body.mobile .container-ripe .header-buttons > .header-button > span > img {
+body.tablet .details .container-ripe .header-buttons > .header-button > span > img,
+body.mobile .details .container-ripe .header-buttons > .header-button > span > img {
     height: 20px;
     width: 20px;
 }
 
-.container-ripe .header-buttons .header-button > span:hover > img,
-.container-ripe .header-buttons .header-button > span.active > img,
-.container-ripe .header-buttons .header-button > span:active > img {
+.details .container-ripe .header-buttons .header-button > span:hover > img,
+.details .container-ripe .header-buttons .header-button > span.active > img,
+.details .container-ripe .header-buttons .header-button > span:active > img {
     opacity: 1;
 }
 
-.container-ripe .header-buttons > .header-button > p {
+.details .container-ripe .header-buttons > .header-button > p {
     display: none;
 }
 
-body.tablet .container-ripe .header-buttons > .header-button > p,
-body.mobile .container-ripe .header-buttons > .header-button > p {
+body.tablet .details .container-ripe .header-buttons > .header-button > p,
+body.mobile .details .container-ripe .header-buttons > .header-button > p {
     color: $grey;
     display: block;
     font-size: 11px;
@@ -331,12 +326,16 @@ body.mobile .container-ripe .header-buttons > .header-button > p {
     margin: 0px 0px 0px 0px;
 }
 
-body.tablet .container-ripe .details,
-body.mobile .container-ripe .details {
+.details .container-ripe .title {
+    
+}
+
+body.tablet .details .container-ripe .details,
+body.mobile .details .container-ripe .details {
     padding: 0px 20px 20px 20px;
 }
 
-.container-ripe .options-dropdown ::v-deep .dropdown {
+.details .container-ripe .options-dropdown ::v-deep .dropdown {
     font-size: 13px;
     left: auto;
     margin-left: -142px;
@@ -346,25 +345,25 @@ body.mobile .container-ripe .details {
     text-align: left;
 }
 
-body.tablet .container-ripe .options-dropdown ::v-deep .dropdown,
-body.mobile .container-ripe .options-dropdown ::v-deep .dropdown {
+body.tablet .details .container-ripe .options-dropdown ::v-deep .dropdown,
+body.mobile .details .container-ripe .options-dropdown ::v-deep .dropdown {
     bottom: 40px;
     margin: 0px 0px 0px 0px;
     right: 13px;
 }
 
-body.tablet .container-ripe .title,
-body.mobile .container-ripe .title {
+body.tablet .details .container-ripe .title,
+body.mobile .details .container-ripe .title {
     width: 100%;
 }
 
-.container-ripe .details {
+.details .container-ripe .details {
     font-size: 0px;
     padding: 0px 24px 40px 24px;
     text-align: left;
 }
 
-.container-ripe .details-column {
+.details .container-ripe .details-column {
     box-sizing: border-box;
     display: inline-block;
     padding: 20px 20px 0px 0px;
@@ -372,14 +371,14 @@ body.mobile .container-ripe .title {
     width: 15%;
 }
 
-body.tablet .container-ripe .details-column,
-body.mobile .container-ripe .details-column {
+body.tablet .details .container-ripe .details-column,
+body.mobile .details .container-ripe .details-column {
     padding-top: 10px;
     text-align: center;
     width: 50%;
 }
 
-.container-ripe .details-column.details-column-image {
+.details .container-ripe .details-column.details-column-image {
     padding: 0px 10% 0px 0px;
     text-align: center;
     width: 40%;
@@ -391,11 +390,11 @@ body.mobile .details-column.details-column-image {
     width: 100%;
 }
 
-.container-ripe .details-column:last-child {
+.details .container-ripe .details-column:last-child {
     padding-right: 0px;
 }
 
-.container-ripe .details-column .image {
+.details .container-ripe .details-column .image {
     display: block;
     height: 250px;
     margin: 0px auto 0px auto;
@@ -405,7 +404,7 @@ body.mobile .details-column.details-column-image {
     width: auto;
 }
 
-.container-ripe .label-value {
+.details .container-ripe .label-value {
     font-weight: 600;
     max-width: 100%;
     overflow: hidden;
@@ -413,40 +412,40 @@ body.mobile .details-column.details-column-image {
     text-transform: uppercase;
 }
 
-.container-ripe .details-column .label-value {
+.details .container-ripe .details-column .label-value {
     min-height: 100px;
 }
 
-body.tablet .container-ripe .details-column .label-value,
-body.mobile .container-ripe .details-column .label-value {
+body.tablet .details .container-ripe .details-column .label-value,
+body.mobile .details .container-ripe .details-column .label-value {
     margin-top: 12px;
     min-height: 70px;
     overflow: hidden;
 }
 
-.container-ripe .details-column .label-value:last-child {
+.details .container-ripe .details-column .label-value:last-child {
     min-height: auto;
 }
 
-.container-ripe .label-value .label-value-component > p {
+.details .container-ripe .label-value .label-value-component > p {
     margin: 0px 0px 0px 0px;
 }
 
-.container-ripe .label-value .label {
+.details .container-ripe .label-value .label {
     color: $label-color;
     font-size: 12px;
     letter-spacing: 0.5px;
     margin: 0px 0px 6px 0px;
 }
 
-.container-ripe .label-value .value {
+.details .container-ripe .label-value .value {
     font-size: 14px;
     line-height: 18px;
     margin: 6px 0px 0px 0px;
     word-break: break-all;
 }
 
-.container-ripe .label-value .note {
+.details .container-ripe .label-value .note {
     color: $label-color;
     font-size: 11px;
     line-height: 16px;
