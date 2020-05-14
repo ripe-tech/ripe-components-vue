@@ -203,16 +203,16 @@ body.mobile .details {
     padding: 0px 0px 0px 0px;
 }
 
-.details .container-ripe {
+.container-ripe {
     min-height: 430px;
 }
 
-.details .container-ripe.loading {
+.container-ripe.loading {
     min-height: 430px;
 }
 
-body.tablet .details .container-ripe,
-body.mobile .details .container-ripe {
+body.tablet .container-ripe,
+body.mobile .container-ripe {
     border: none;
     border-bottom: 1px solid $lighter-grey;
     border-radius: 0px 0px 0px 0px;
@@ -221,8 +221,8 @@ body.mobile .details .container-ripe {
     margin: 0px 0px 0px 0px;
 }
 
-.details .container-ripe .loader,
-.details .container-ripe .item-invalid {
+.container-ripe .loader,
+.container-ripe .item-invalid {
     border-top: 1px solid transparent;
     height: 38px;
     line-height: 38px;
@@ -230,7 +230,7 @@ body.mobile .details .container-ripe {
     padding-top: 140px;
 }
 
-.details .container-ripe .header-buttons {
+.container-ripe .header-buttons {
     float: right;
     font-size: 0px;
     order: 3;
@@ -238,8 +238,8 @@ body.mobile .details .container-ripe {
     user-select: none;
 }
 
-body.tablet .details .container-ripe .header-buttons,
-body.mobile .details .container-ripe .header-buttons {
+body.tablet .container-ripe .header-buttons,
+body.mobile .container-ripe .header-buttons {
     animation: none;
     background-color: $white;
     border-top: 1px solid $light-white;
@@ -253,12 +253,12 @@ body.mobile .details .container-ripe .header-buttons {
     z-index: 10;
 }
 
-.details .container-ripe .header-buttons .header-button {
+.container-ripe .header-buttons .header-button {
     display: inline-block;
 }
 
-body.tablet .details .container-ripe .header-buttons > .header-button,
-body.mobile .details .container-ripe .header-buttons > .header-button {
+body.tablet .container-ripe .header-buttons > .header-button,
+body.mobile .container-ripe .header-buttons > .header-button {
     display: inline-block;
     flex: auto;
     margin: 8px 0px 8px 0px;
@@ -275,7 +275,7 @@ body.mobile .header-buttons > .header-button.invisible {
     display: inline-block;
 }
 
-.details .container-ripe .header-buttons .header-button > span {
+.container-ripe .header-buttons .header-button > span {
     border-radius: 36px 36px 36px 36px;
     cursor: pointer;
     display: inline-block;
@@ -289,37 +289,37 @@ body.mobile .header-buttons > .header-button.invisible {
     width: 36px;
 }
 
-.details .container-ripe .header-buttons .header-button > span:hover {
+.container-ripe .header-buttons .header-button > span:hover {
     background-color: $lighter-grey;
 }
 
-.details .container-ripe .header-buttons .header-button > span.active,
-.details .container-ripe .header-buttons .header-button > span:active {
+.container-ripe .header-buttons .header-button > span.active,
+.container-ripe .header-buttons .header-button > span:active {
     background-color: $light-grey;
 }
 
-.details .container-ripe .header-buttons .header-button > span > img {
+.container-ripe .header-buttons .header-button > span > img {
     opacity: 0.5;
 }
 
-body.tablet .details .container-ripe .header-buttons > .header-button > span > img,
-body.mobile .details .container-ripe .header-buttons > .header-button > span > img {
+body.tablet .container-ripe .header-buttons > .header-button > span > img,
+body.mobile .container-ripe .header-buttons > .header-button > span > img {
     height: 20px;
     width: 20px;
 }
 
-.details .container-ripe .header-buttons .header-button > span:hover > img,
-.details .container-ripe .header-buttons .header-button > span.active > img,
-.details .container-ripe .header-buttons .header-button > span:active > img {
+.container-ripe .header-buttons .header-button > span:hover > img,
+.container-ripe .header-buttons .header-button > span.active > img,
+.container-ripe .header-buttons .header-button > span:active > img {
     opacity: 1;
 }
 
-.details .container-ripe .header-buttons > .header-button > p {
+.container-ripe .header-buttons > .header-button > p {
     display: none;
 }
 
-body.tablet .details .container-ripe .header-buttons > .header-button > p,
-body.mobile .details .container-ripe .header-buttons > .header-button > p {
+body.tablet .container-ripe .header-buttons > .header-button > p,
+body.mobile .container-ripe .header-buttons > .header-button > p {
     color: $grey;
     display: block;
     font-size: 11px;
@@ -331,12 +331,12 @@ body.mobile .details .container-ripe .header-buttons > .header-button > p {
     order: -1;
 }
 
-body.tablet .details .container-ripe .details,
-body.mobile .details .container-ripe .details {
+body.tablet .container-ripe .details,
+body.mobile .container-ripe .details {
     padding: 0px 20px 20px 20px;
 }
 
-.details .container-ripe .options-dropdown ::v-deep .dropdown {
+.container-ripe .options-dropdown ::v-deep .dropdown {
     font-size: 13px;
     left: auto;
     margin-left: -142px;
@@ -346,25 +346,25 @@ body.mobile .details .container-ripe .details {
     text-align: left;
 }
 
-body.tablet .details .container-ripe .options-dropdown ::v-deep .dropdown,
-body.mobile .details .container-ripe .options-dropdown ::v-deep .dropdown {
+body.tablet .container-ripe .options-dropdown ::v-deep .dropdown,
+body.mobile .container-ripe .options-dropdown ::v-deep .dropdown {
     bottom: 40px;
     margin: 0px 0px 0px 0px;
     right: 13px;
 }
 
-body.tablet .details .container-ripe .title,
-body.mobile .details .container-ripe .title {
+body.tablet .container-ripe .title,
+body.mobile .container-ripe .title {
     width: 100%;
 }
 
-.details .container-ripe .details {
+.container-ripe .details {
     font-size: 0px;
     padding: 0px 24px 40px 24px;
     text-align: left;
 }
 
-.details .container-ripe .details-column {
+.container-ripe .details-column {
     box-sizing: border-box;
     display: inline-block;
     padding: 20px 20px 0px 0px;
@@ -372,14 +372,14 @@ body.mobile .details .container-ripe .title {
     width: 15%;
 }
 
-body.tablet .details .container-ripe .details-column,
-body.mobile .details .container-ripe .details-column {
+body.tablet .container-ripe .details-column,
+body.mobile .container-ripe .details-column {
     padding-top: 10px;
     text-align: center;
     width: 50%;
 }
 
-.details .container-ripe .details-column.details-column-image {
+.container-ripe .details-column.details-column-image {
     padding: 0px 10% 0px 0px;
     text-align: center;
     width: 40%;
@@ -391,11 +391,11 @@ body.mobile .details-column.details-column-image {
     width: 100%;
 }
 
-.details .container-ripe .details-column:last-child {
+.container-ripe .details-column:last-child {
     padding-right: 0px;
 }
 
-.details .container-ripe .details-column .image {
+.container-ripe .details-column .image {
     display: block;
     height: 250px;
     margin: 0px auto 0px auto;
@@ -405,7 +405,7 @@ body.mobile .details-column.details-column-image {
     width: auto;
 }
 
-.details .container-ripe .label-value {
+.container-ripe .label-value {
     font-weight: 600;
     max-width: 100%;
     overflow: hidden;
@@ -413,40 +413,40 @@ body.mobile .details-column.details-column-image {
     text-transform: uppercase;
 }
 
-.details .container-ripe .details-column .label-value {
+.container-ripe .details-column .label-value {
     min-height: 100px;
 }
 
-body.tablet .details .container-ripe .details-column .label-value,
-body.mobile .details .container-ripe .details-column .label-value {
+body.tablet .container-ripe .details-column .label-value,
+body.mobile .container-ripe .details-column .label-value {
     margin-top: 12px;
     min-height: 70px;
     overflow: hidden;
 }
 
-.details .container-ripe .details-column .label-value:last-child {
+.container-ripe .details-column .label-value:last-child {
     min-height: auto;
 }
 
-.details .container-ripe .label-value .label-value-component > p {
+.container-ripe .label-value .label-value-component > p {
     margin: 0px 0px 0px 0px;
 }
 
-.details .container-ripe .label-value .label {
+.container-ripe .label-value .label {
     color: $label-color;
     font-size: 12px;
     letter-spacing: 0.5px;
     margin: 0px 0px 6px 0px;
 }
 
-.details .container-ripe .label-value .value {
+.container-ripe .label-value .value {
     font-size: 14px;
     line-height: 18px;
     margin: 6px 0px 0px 0px;
     word-break: break-all;
 }
 
-.details .container-ripe .label-value .note {
+.container-ripe .label-value .note {
     color: $label-color;
     font-size: 11px;
     line-height: 16px;
