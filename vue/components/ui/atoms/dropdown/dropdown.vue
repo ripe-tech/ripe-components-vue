@@ -128,6 +128,10 @@ export const Dropdown = {
             type: Array,
             default: () => []
         },
+        selected: {
+            type: Object,
+            default: () => ({})
+        },
         highlighted: {
             type: Object,
             default: () => ({})
@@ -168,15 +172,22 @@ export const Dropdown = {
     data: function() {
         return {
             visibleData: this.visible,
-            highlightedData: this.highlighted
+            highlightedData: this.highlighted,
+            selectedData: this.selected
         };
     },
     watch: {
         visible(value) {
             this.setVisible(value);
         },
+        selected(value) {
+            this.selectedData = value;
+        },
         highlighted(value) {
             this.highlightedData = value;
+        },
+        selectedData(value) {
+            this.$emit("update:selected", value);
         },
         highlightedData(value) {
             this.$emit("update:highlighted", value);
@@ -255,7 +266,8 @@ export const Dropdown = {
         _getItemClasses(item, index) {
             return {
                 separator: item.separator,
-                highlighted: this.highlightedData[index]
+                highlighted: this.highlightedData[index],
+                selected: this.selectedData[index]
             };
         }
     }
