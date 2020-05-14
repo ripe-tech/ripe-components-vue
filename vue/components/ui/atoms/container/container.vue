@@ -99,9 +99,10 @@ body.mobile .container-ripe > .container-header > .title {
 
 body.tablet .container-ripe > .container-header > .header-buttons,
 body.mobile .container-ripe > .container-header > .header-buttons {
+    align-items: center;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
     width: 100%;
 }
 </style>
