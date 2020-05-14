@@ -48,14 +48,6 @@
                 v-on:click:table="onTableClick"
                 v-on:click:lineup="onLineupClick"
             >
-                <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
-                <template
-                    v-for="slot in Object.keys($scopedSlots)"
-                    v-bind:slot="slot"
-                    slot-scope="scope"
-                >
-                    <slot v-bind:name="slot" v-bind="scope" />
-                </template>
                 <template v-slot:table-item="{ item, index }">
                     <slot
                         name="table-item"
