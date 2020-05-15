@@ -327,10 +327,6 @@ body.mobile .container-ripe .header-buttons > .header-button > p {
     margin: 0px 0px 0px 0px;
 }
 
-.details .container-ripe .title {
-    order: -1;
-}
-
 body.tablet .container-ripe .details,
 body.mobile .container-ripe .details {
     padding: 0px 20px 20px 20px;
