@@ -71,6 +71,10 @@
         <container-ripe class="details-container" v-else>
             <slot name="details-before" />
             <template v-slot:header>
+                <slot name="title" v-if="isLoaded">
+                    <title-ripe>{{ title }}</title-ripe>
+                </slot>
+                <slot name="header-extra" />
                 <div class="header-buttons" v-if="headerButtons">
                     <slot name="header-buttons">
                         <slot name="header-buttons-before" />
@@ -124,10 +128,6 @@
                         <slot name="header-buttons-after" />
                     </slot>
                 </div>
-                <slot name="title" v-if="isLoaded">
-                    <title-ripe>{{ title }}</title-ripe>
-                </slot>
-                <slot name="header-extra" />
             </template>
             <div class="details" v-if="isLoaded">
                 <div class="details-column details-column-image" v-if="imageUrl">
@@ -231,9 +231,7 @@ body.mobile .container-ripe {
 }
 
 .container-ripe .header-buttons {
-    float: right;
     font-size: 0px;
-    order: 3;
     text-transform: capitalize;
     user-select: none;
 }
