@@ -276,7 +276,7 @@
     background-color: rgba(60, 64, 67, 0.2);
 }
 
-body.mobile .header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown-container {
+.header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown-container {
     position: fixed;
     right: 0%;
     width: 300px;
