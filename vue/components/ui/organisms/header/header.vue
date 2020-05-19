@@ -282,7 +282,7 @@ body.mobile .header-ripe > .header-bar > .header-container > .header-apps ::v-de
     width: 300px;
 }
 
-.header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown {
+.header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown-container > .dropdown {
     background-color: $white;
     box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.07);
     box-sizing: border-box;
@@ -296,11 +296,11 @@ body.mobile .header-ripe > .header-bar > .header-container > .header-apps ::v-de
     text-align: left;
 }
 
-body.mobile .header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown {
+body.mobile .header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown-container > .dropdown {
     margin: 0px 0px 0px 0px;
 }
 
-.header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown li {
+.header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown-container > .dropdown li {
     border-radius: 8px 8px 8px 8px;
     display: inline-block;
     font-size: 12px;
@@ -309,11 +309,11 @@ body.mobile .header-ripe > .header-bar > .header-container > .header-apps ::v-de
     text-align: center;
 }
 
-body.mobile .header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown li {
-    width: 138px;
+body.mobile .header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown-container > .dropdown li {
+    width: 139px;
 }
 
-.header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown li a {
+.header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown-container > .dropdown li a {
     border-bottom: none;
     color: $blacker;
     display: inline-block;
@@ -322,12 +322,12 @@ body.mobile .header-ripe > .header-bar > .header-container > .header-apps ::v-de
     width: 100px;
 }
 
-.header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown li img {
+.header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown-container > .dropdown li img {
     height: 40px;
     width: 40px;
 }
 
-.header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown li p {
+.header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown-container > .dropdown li p {
     font-weight: 600;
     margin: 6px 0px 0px 0px;
 }
