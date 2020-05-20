@@ -279,6 +279,10 @@
 .header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown-container {
     position: fixed;
     right: 0%;
+    width: 358px;
+}
+
+body.mobile .header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown-container {
     width: 300px;
 }
 
