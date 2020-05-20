@@ -126,9 +126,9 @@
 }
 
 .search .icon-clear {
+    margin-left: -29px;
+    margin-top: 5px;
     position: absolute;
-    right: 5px;
-    top: 5px;
 }
 
 .search > .suggestions {
