@@ -236,6 +236,7 @@
     margin-top: -4px;
     min-width: 180px;
     position: absolute;
+    right: 0px;
     text-align: left;
 }
 
@@ -288,6 +289,14 @@
     max-width: 358px;
     padding: 10px;
     text-align: left;
+}
+
+body.mobile .header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown {
+    border-radius: 0px 0px 0px 0px;
+    left: 0px;
+    min-width: 100%;
+    position: fixed;
+    text-align: center;
 }
 
 .header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown li {
