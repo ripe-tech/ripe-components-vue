@@ -278,7 +278,7 @@
 
 .header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown {
     background-color: $white;
-    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.07);
+    box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.07);
     box-sizing: border-box;
     cursor: auto;
     font-size: 0px;
