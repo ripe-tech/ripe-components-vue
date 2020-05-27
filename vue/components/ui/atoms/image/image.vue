@@ -40,6 +40,10 @@ export const Image = {
             type: String,
             default: null
         },
+        srcError: {
+            type: String,
+            default: null
+        },
         alt: {
             type: String,
             default: ""
@@ -58,16 +62,23 @@ export const Image = {
         },
         hideError: {
             type: Boolean,
-            default: true
+            default: null
         }
     },
     data: function() {
         return {
+            srcData: this.src,
             loaded: false,
             errored: false
         };
     },
     computed: {
+        hideErrorB() {
+            if (this.hideError !== null && this.hideError !== undefined) {
+                return this.hideError;
+            }
+            return !this.srcError;
+        },
         style() {
             const base = {};
             if (![undefined, null].includes(this.width)) base.width = this.width + "px";
@@ -79,7 +90,7 @@ export const Image = {
                 loaded: this.loaded,
                 errored: this.errored,
                 "no-fade": !this.fade,
-                "hide-error": this.hideError
+                "hide-error": this.hideErrorB
             };
             return base;
         }
@@ -96,6 +107,7 @@ export const Image = {
         onError(event) {
             this.loaded = false;
             this.errored = true;
+            if (this.srcError) this.srcData = this.srcError;
             this.$emit("error", event);
         }
     }
