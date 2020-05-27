@@ -72,6 +72,11 @@ export const Image = {
             errored: false
         };
     },
+    watch: {
+        src(value) {
+            this.srcData = value;
+        }
+    },
     computed: {
         hideErrorB() {
             if (this.hideError !== null && this.hideError !== undefined) {
