@@ -1,4 +1,4 @@
-const partMixin = {
+export const partMixin = {
     methods: {
         /**
          * Handles the error in the UI so that the user is
@@ -97,5 +97,3 @@ const partMixin = {
         }
     }
 };
-
-export { partMixin };
