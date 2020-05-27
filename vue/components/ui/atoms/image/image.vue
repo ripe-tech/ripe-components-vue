@@ -2,7 +2,7 @@
     <img
         class="image"
         v-bind:class="classes"
-        v-bind:src="src"
+        v-bind:src="srcData"
         v-bind:alt="alt"
         v-bind:style="style"
         v-on:load="onLoad"
