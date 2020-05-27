@@ -378,6 +378,14 @@ export const Header = {
             type: Boolean,
             default: true
         },
+        settings: {
+            type: Boolean,
+            default: true
+        },
+        signout: {
+            type: Boolean,
+            default: true
+        },
         headerApps: {
             type: Boolean,
             default: true
@@ -432,8 +440,21 @@ export const Header = {
             const { name, email } = this.account.meta;
             items.push({ value: "name", label: name || email || this.account.email });
             if (this.announcements) items.push({ value: "announcements", label: "What's new?" });
-            items.push({ value: "settings", label: "Account settings", separator: true });
-            items.push({ value: "signout", label: "Sign out", link: "/signout" });
+            if (this.settings) {
+                items.push({
+                    value: "settings",
+                    label: "Account settings",
+                    separator: true
+                });
+            }
+            if (this.signout) {
+                items.push({
+                    value: "signout",
+                    label: "Sign out",
+                    link: "/signout",
+                    separator: !this.settings
+                });
+            }
             return items;
         },
         appsDropdownItems() {
