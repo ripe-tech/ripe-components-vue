@@ -17,6 +17,7 @@
     },
     "license": "Apache-2.0",
     "author": "Platforme",
+    "main": "dist/ripe-components-vue.min.js",
     "files": [
         "index.js",
         "LICENSE",
@@ -58,13 +59,11 @@
         "yonius": "^0.3.14"
     },
     "devDependencies": {
-        "@babel/plugin-transform-runtime": "^7.10.0",
         "@storybook/addon-knobs": "^5.3.19",
         "@storybook/addon-storysource": "^5.3.19",
         "@storybook/source-loader": "^5.3.19",
         "@storybook/vue": "^5.3.19",
         "@vue/test-utils": "^1.0.3",
-        "babel-plugin-transform-runtime": "^6.23.0",
         "babel-preset-vue": "^2.0.2",
         "jsdom": "^16.2.2",
         "jsdom-global": "^3.0.2",
