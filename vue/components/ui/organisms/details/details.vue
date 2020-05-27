@@ -10,7 +10,7 @@
             <template v-slot:header>
                 <div class="header-buttons">
                     <slot name="header-buttons">
-                        <slot name="header-buttons-before" />
+                        <slot name="header-buttons-before" v-if="isDesktopWidth()" />
                         <div class="header-button">
                             <span class="button-stats" v-on:click="onStatsClick">
                                 <img src="~./assets/stats.svg" />
@@ -58,7 +58,7 @@
                             />
                             <p>Status</p>
                         </div>
-                        <slot name="header-buttons-after" />
+                        <slot name="header-buttons-after" v-if="isDesktopWidth()" />
                     </slot>
                 </div>
                 <title-ripe v-if="invalid">
@@ -78,7 +78,7 @@
             <template v-slot:header>
                 <div class="header-buttons" v-if="headerButtons">
                     <slot name="header-buttons">
-                        <slot name="header-buttons-before" />
+                        <slot name="header-buttons-before" v-if="isDesktopWidth()" />
                         <div class="header-button">
                             <span class="button-stats" v-on:click="onStatsClick">
                                 <img src="~./assets/stats.svg" />
@@ -126,7 +126,7 @@
                             />
                             <p>Status</p>
                         </div>
-                        <slot name="header-buttons-after" />
+                        <slot name="header-buttons-after" v-if="isDesktopWidth()" />
                     </slot>
                 </div>
                 <slot name="title" v-if="isLoaded">
@@ -456,8 +456,11 @@ body.mobile .container-ripe .details-column .label-value {
 </style>
 
 <script>
+import { partMixin } from "../../../../mixins/part";
+
 export const Details = {
     name: "details-ripe",
+    mixins: [partMixin],
     props: {
         name: {
             type: String,
