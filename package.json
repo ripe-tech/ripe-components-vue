@@ -17,7 +17,6 @@
     },
     "license": "Apache-2.0",
     "author": "Platforme",
-    "main": "dist/ripe-components-vue.min.js",
     "files": [
         "index.js",
         "LICENSE",
@@ -46,7 +45,8 @@
         "stylelint": "stylelint \"./**/*.{css,scss,vue}\"",
         "stylelint-fix": "stylelint \"./**/*.{css,scss,vue}\" --fix",
         "svgo": "svgo -r . --disable='removeDimensions,removeViewBox,minifyStyles'",
-        "test": "cross-env WP_TARGET=node mochapack --webpack-config webpack.config.js --require test/setup.js test/**/*.spec.js",
+        "test": "cross-env NODE_ENV=development mochapack --webpack-config webpack-test.config.js --require vue/test/setup.js test/**/*.js vue/**/*.test.js",
+        "test-watch": "cross-env NODE_ENV=development mochapack --webpack-config webpack-test.config.js --require vue/test/setup.js test/**/*.js vue/**/*.test.js --watch",
         "upgrade": "npx sort-package-json && ncu -u",
         "watch": "cross-env NODE_ENV=development webpack --config webpack.config.js --mode development --watch",
         "webpack": "webpack --config webpack.config.js"
@@ -58,11 +58,13 @@
         "yonius": "^0.3.14"
     },
     "devDependencies": {
+        "@babel/plugin-transform-runtime": "^7.10.0",
         "@storybook/addon-knobs": "^5.3.19",
         "@storybook/addon-storysource": "^5.3.19",
         "@storybook/source-loader": "^5.3.19",
         "@storybook/vue": "^5.3.19",
         "@vue/test-utils": "^1.0.3",
+        "babel-plugin-transform-runtime": "^6.23.0",
         "babel-preset-vue": "^2.0.2",
         "jsdom": "^16.2.2",
         "jsdom-global": "^3.0.2",
@@ -70,7 +72,8 @@
         "mochapack": "^2.0.0",
         "svgo": "^1.3.2",
         "url-loader": "^4.1.0",
-        "uxf-webpack": "^0.5.5"
+        "uxf-webpack": "^0.5.5",
+        "webpack-node-externals": "^1.7.2"
     },
     "engines": {
         "node": ">=12"

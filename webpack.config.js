@@ -1,10 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
-const nodeExternals = require("webpack-node-externals");
 
 const config = require("uxf-webpack/config/webpack.config.full");
-
-console.log(config);
 
 const info = require("./package.json");
 
@@ -20,7 +17,8 @@ config.output.filename = "ripe-components-vue.min.js?[hash]";
 config.output.library = "RipeComponentsVue";
 config.output.publicPath = "/";
 
-config.externals = [nodeExternals(), "vue"]
+config.externals = config.externals || {};
+config.externals.vue = "vue";
 
 config.plugins.push(new webpack.BannerPlugin(banner));
 

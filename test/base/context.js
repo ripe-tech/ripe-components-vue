@@ -1,7 +1,7 @@
 global.window = global;
 
 const assert = require("assert");
-const ripeComponentsVue = require("../../dist/ripe-components-vue-lib.min.js");
+const ripeComponentsVue = require("../../js");
 
 describe("serializeContext()", function() {
     it("should be able to serialize simple context", () => {
