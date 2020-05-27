@@ -39,6 +39,7 @@
                                 v-bind:key="column.value"
                             >
                                 <slot
+                                    v-bind:column="column"
                                     v-bind:item="item"
                                     v-bind:index="index"
                                     v-bind:name="`cell-${column.value}`"
@@ -80,6 +81,9 @@
 
 .table tr {
     border-bottom: 1px solid $border-color;
+}
+
+.table tr.clickable {
     cursor: pointer;
 }
 
@@ -91,7 +95,7 @@
     border-bottom: none;
 }
 
-.table tbody tr:hover {
+.table tbody tr.hoverable:hover {
     background-color: $selected-color;
 }
 
@@ -110,6 +114,10 @@
     text-transform: uppercase;
     user-select: none;
     white-space: pre;
+}
+
+.table th.clickable {
+    cursor: pointer;
 }
 
 .table.table-dense th {
