@@ -10,7 +10,10 @@
             <template v-slot:header>
                 <div class="header-buttons">
                     <slot name="header-buttons">
-                        <slot name="header-buttons-before" />
+                        <slot
+                            name="header-buttons-before"
+                            v-if="isDesktopWidth()"
+                        />
                         <div class="header-button">
                             <span class="button-stats" v-on:click="onStatsClick">
                                 <img src="~./assets/stats.svg" />
@@ -78,7 +81,10 @@
             <template v-slot:header>
                 <div class="header-buttons" v-if="headerButtons">
                     <slot name="header-buttons">
-                        <slot name="header-buttons-before" />
+                        <slot
+                            name="header-buttons-before"
+                            v-if="isDesktopWidth()"
+                        />
                         <div class="header-button">
                             <span class="button-stats" v-on:click="onStatsClick">
                                 <img src="~./assets/stats.svg" />
@@ -456,8 +462,11 @@ body.mobile .container-ripe .details-column .label-value {
 </style>
 
 <script>
+import { partMixin } from "../../../../mixins/part";
+
 export const Details = {
     name: "details-ripe",
+    mixins: [partMixin],
     props: {
         name: {
             type: String,
