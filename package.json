@@ -47,7 +47,9 @@
         "stylelint-fix": "stylelint \"./**/*.{css,scss,vue}\" --fix",
         "svgo": "svgo -r . --disable='removeDimensions,removeViewBox,minifyStyles'",
         "test": "cross-env NODE_ENV=development mochapack --webpack-config webpack-test.config.js --require vue/test/setup.js test/**/*.js vue/**/*.test.js",
+        "test-debug": "cross-env NODE_ENV=development node --inspect --inspect-brk node_modules/.bin/mochapack --webpack-config webpack-test.config.js --require vue/test/setup.js test/**/*.js vue/**/*.test.js",
         "test-watch": "cross-env NODE_ENV=development mochapack --webpack-config webpack-test.config.js --require vue/test/setup.js test/**/*.js vue/**/*.test.js --watch",
+        "test-watch-debug": "cross-env NODE_ENV=development node --inspect --inspect-brk node_modules/.bin/mochapack --webpack-config webpack-test.config.js --require vue/test/setup.js test/**/*.js vue/**/*.test.js --watch",
         "upgrade": "npx sort-package-json && ncu -u",
         "watch": "cross-env NODE_ENV=development webpack --config webpack.config.js --mode development --watch",
         "webpack": "webpack --config webpack.config.js"
