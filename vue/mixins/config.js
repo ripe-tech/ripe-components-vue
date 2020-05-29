@@ -1,6 +1,6 @@
 import { hasFeature, setFeature, setFeatures, bindFeature, unbindFeature } from "../../js";
 
-const configMixin = {
+export const configMixin = {
     methods: {
         hasFeature(name) {
             return hasFeature(name);
@@ -19,5 +19,3 @@ const configMixin = {
         }
     }
 };
-
-export { configMixin };
