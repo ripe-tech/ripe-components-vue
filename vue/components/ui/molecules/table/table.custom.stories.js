@@ -51,12 +51,12 @@ storiesOf("Molecules", module).add("Table Custom", () => ({
                 </td>
             </template>
             <template v-slot:before-row="{ item, index }">
-                <tr v-bind:key="index">
+                <tr v-bind:key="'before:' + index">
                     <td colspan="3">Before row {{ index }}</td>
                 </tr>
             </template>
             <template v-slot:after-row="{ item, index }">
-                <tr v-bind:key="index">
+                <tr v-bind:key="'after:' + index">
                     <td colspan="3">After row {{ index }}</td>
                 </tr>
             </template>
@@ -68,7 +68,7 @@ storiesOf("Molecules", module).add("Table Custom", () => ({
             v-bind:items="mockItems"
         >
             <template v-slot:cell-user="{ item, index }">
-                <tr v-bind:key="index">
+                <tr v-bind:key="'cell-user:' + index">
                     <td colspan="3">Column {{ index }}</td>
                 </tr>
             </template>
@@ -80,7 +80,7 @@ storiesOf("Molecules", module).add("Table Custom", () => ({
             v-bind:items="mockItems"
         >
             <template v-slot:row="{ item, index }">
-                <tr v-bind:key="index">
+                <tr v-bind:key="'row:' + index">
                     <td colspan="3">Row {{ index }}</td>
                 </tr>
             </template>

@@ -1,0 +1,75 @@
+.page {
+    background: #f6f6f6;
+    box-sizing: border-box;
+    height: 100%;
+    min-height: 100vh;
+    padding-top: 61px;
+}
+
+body.tablet .page,
+body.mobile .page {
+    background: #ffffff;
+}
+
+.page.fade-enter,
+.page.fade-leave-active {
+    opacity: 1;
+}
+
+body.tablet .page.page-show,
+body.mobile .page.page-show {
+    margin: 0px 0px 80px 0px;
+    overflow-x: hidden;
+}
+
+.page.page-show.fade-enter-active .container-ripe,
+.page.page-show.fade-leave-active .container-ripe {
+    transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.page.page-show.fade-enter .container-ripe,
+.page.page-show.fade-leave-active .container-ripe {
+    opacity: 0;
+}
+
+.page.page-show.fade-into .container-ripe {
+    animation: fade-into-rise 0.45s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.page.page-show.slide-left-enter-active,
+.page.page-show.slide-left-leave-active,
+.page.page-show.slide-right-enter-active,
+.page.page-show.slide-right-leave-active,
+.page.page-show.slide-left-leave-active .container-ripe,
+.page.page-show.slide-right-leave-active .container-ripe,
+.page.page-show.slide-left-enter-active .container-ripe,
+.page.page-show.slide-right-enter-active .container-ripe {
+    overflow: hidden;
+    transition: transform 0.25s ease-out, opacity 0.2s ease-in-out;
+}
+
+body.desktop .page.page-show.slide-left-enter .container-ripe,
+body.desktop .page.page-show.slide-right-leave-to .container-ripe {
+    opacity: 0;
+    transform: translateX(-70%);
+}
+
+body.desktop .page.page-show.slide-left-leave-to .container-ripe,
+body.desktop .page.page-show.slide-right-enter .container-ripe {
+    opacity: 0;
+    transform: translateX(70%);
+}
+
+body:not(.tablet):not(.mobile) .page.page-show.slide-left-fake .container-ripe {
+    animation: slide-left-fake 0.25s ease;
+}
+
+body:not(.tablet):not(.mobile) .page.page-show.slide-right-fake .container-ripe {
+    animation: slide-right-fake 0.25s ease;
+}
+
+body.tablet .page.page-show .footer-ripe,
+body.mobile .page.page-show .footer-ripe {
+    margin: 0px 0px 0px 0px;
+    padding: 35px 0px 0px 0px;
+}

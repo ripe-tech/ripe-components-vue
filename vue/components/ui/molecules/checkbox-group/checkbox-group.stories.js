@@ -60,6 +60,7 @@ storiesOf("Molecules", module)
         template: `
             <div>
                 <checkbox-group
+                    ref="checkbox-group"
                     v-bind:items="items"
                     v-bind:values.sync="valuesData"
                     v-bind:error="error"
@@ -67,6 +68,16 @@ storiesOf("Molecules", module)
                 />
                 <p>Items: {{ items }}</p>
                 <p>Values: {{ valuesData }}</p>
+                <div>
+                    <button-color
+                        v-bind:text="'Focus'"
+                        v-bind:size="'small'"
+                        v-on:click="() => $refs['checkbox-group'].focus()" />
+                    <button-color
+                        v-bind:text="'Blur'"
+                        v-bind:size="'small'"
+                        v-on:click="() => $refs['checkbox-group'].blur()" />
+                </div>
             </div>
         `
     }));

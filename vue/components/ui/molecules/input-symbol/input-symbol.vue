@@ -4,11 +4,13 @@
             v-bind:value.sync="valueData"
             v-bind:variant="variant"
             v-bind:border="border"
+            v-bind:type="type"
             v-bind:placeholder="placeholder"
             v-bind:disabled="disabled"
             v-bind:height="height"
             v-bind:min-width="0"
             v-bind:align="align"
+            ref="input"
             v-on:update:value="onInput"
             v-on:blur="onBlur"
             v-on:focus="onFocus"
@@ -89,6 +91,10 @@ export const InputSymbol = {
             type: [String, Number],
             default: ""
         },
+        type: {
+            type: String,
+            default: null
+        },
         variant: {
             type: String,
             default: null
@@ -156,6 +162,12 @@ export const InputSymbol = {
         }
     },
     methods: {
+        focus() {
+            this.$refs.input.focus();
+        },
+        blur() {
+            this.$refs.input.blur();
+        },
         onInput(value) {
             this.$emit("update:value", value);
         },

@@ -14,9 +14,8 @@
                 v-bind:variant="error || item.error ? 'error' : null"
                 v-bind:checked="item.value === value"
                 v-bind:index="index"
-                v-bind:tabindex="_getTabIndex(item, index)"
                 v-bind:key="item.value"
-                v-bind:ref="`radio-${index}`"
+                ref="radios"
                 v-on:keydown.space="() => onSpaceKey(item)"
                 v-on:keydown.up="() => onUpKey(index)"
                 v-on:keydown.down="() => onDownKey(index)"
@@ -65,21 +64,20 @@ export const RadioGroup = {
             default: false
         }
     },
-    computed: {
-        firstEnabledIndex() {
-            if (this.disabled) return null;
-
-            const firstEnabled = this.items
-                .map((item, index) => [item, index])
-                .find(([item, index]) => !item.disabled);
-
-            return firstEnabled ? firstEnabled[1] : null;
-        }
-    },
     methods: {
+        focus() {
+            const firstFocusable = this.$refs.radios.find(r => r.isFocusable());
+            if (!firstFocusable) return;
+            firstFocusable.focus();
+        },
+        blur() {
+            const firstFocused = this.$refs.radios.find(r => r.isFocused());
+            if (!firstFocused) return;
+            return firstFocused.blur();
+        },
         focusAndSelectItem(item, index) {
             if (item.disabled || this.disabled) return false;
-            if (index !== undefined) this.$refs[`radio-${index}`][0].$refs.root.focus();
+            if (index !== undefined) this.$refs.radios[index].focus();
             this.selectItem(item);
             return true;
         },
@@ -108,10 +106,6 @@ export const RadioGroup = {
                 const item = this.items[_index];
                 if (this.focusAndSelectItem(item, _index)) return;
             }
-        },
-        _getTabIndex(item, index) {
-            if (this.disabled || item.disabled) return null;
-            return this.firstEnabledIndex === index ? 0 : -1;
         },
         _negativeModulo(number, modulo) {
             return ((number % modulo) + modulo) % modulo;

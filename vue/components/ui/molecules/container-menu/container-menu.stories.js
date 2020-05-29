@@ -66,7 +66,13 @@ storiesOf("Molecules", module)
                 <template v-slot:content>
                     <p>This is the actual content</p>
                     <p style="text-align: right;">This is also the actual content</p>
-                    <button v-if="mode !== 'fixed'" v-on:click="toggleMenu">Toggle menu</button>
+                    <button-color
+                        v-bind:size="'small'"
+                        v-if="mode !== 'fixed'"
+                        v-on:click="toggleMenu"
+                    >
+                        Toggle menu
+                    </button-color>
                 </template>
                 <template v-slot:menu>
                     <div style='background-color: LightSalmon; height: 100%;'>

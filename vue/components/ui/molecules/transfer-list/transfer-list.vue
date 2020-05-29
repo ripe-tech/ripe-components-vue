@@ -67,22 +67,22 @@
 }
 
 .transfer-list > .buttons > .button-move.button-move-right {
-    background-image: url("~../../../../assets/icons/black/chevron-right.svg");
+    background-image: url("~../../../../assets/icons/chevron-right.svg");
     background-size: 20px 20px;
 }
 
 .transfer-list > .buttons > .button-move.button-move-all-right {
-    background-image: url("~../../../../assets/icons/black/chevrons-right.svg");
+    background-image: url("~../../../../assets/icons/chevrons-right.svg");
     background-size: 20px 20px;
 }
 
 .transfer-list > .buttons > .button-move.button-move-left {
-    background-image: url("~../../../../assets/icons/black/chevron-left.svg");
+    background-image: url("~../../../../assets/icons/chevron-left.svg");
     background-size: 20px 20px;
 }
 
 .transfer-list > .buttons > .button-move.button-move-left-all {
-    background-image: url("~../../../../assets/icons/black/chevrons-left.svg");
+    background-image: url("~../../../../assets/icons/chevrons-left.svg");
     background-size: 20px 20px;
 }
 </style>
