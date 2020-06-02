@@ -39,6 +39,7 @@
                                 v-bind:key="column.value"
                             >
                                 <slot
+                                    v-bind:column="column"
                                     v-bind:item="item"
                                     v-bind:index="index"
                                     v-bind:name="`cell-${column.value}`"
