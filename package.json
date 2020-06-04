@@ -55,7 +55,7 @@
         "loaders.css": "^0.1.2",
         "vue": "^2.6.11",
         "vue-global-events": "^1.1.2",
-        "yonius": "^0.3.14"
+        "yonius": "^0.4.2"
     },
     "devDependencies": {
         "@storybook/addon-knobs": "^5.3.19",
