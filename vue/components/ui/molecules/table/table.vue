@@ -139,6 +139,12 @@
     padding: 0px 10px 0px 10px;
 }
 
+.table.table-auto ::v-deep td {
+    height: auto;
+    line-height: 20px;
+    padding: 10px 20px 10px 20px;
+}
+
 .table ::v-deep td > * {
     vertical-align: middle;
 }

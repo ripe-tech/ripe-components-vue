@@ -66,6 +66,7 @@
 }
 
 .table-expandable .expanded-row > td,
+.table-expandable.table-auto .expanded-row > td,
 .table-expandable.table-dense .expanded-row > td {
     height: 0px;
     padding: 0px 0px 0px 0px;
