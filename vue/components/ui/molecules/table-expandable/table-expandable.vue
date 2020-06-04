@@ -1,7 +1,7 @@
 <template>
     <table-ripe
         class="table-expandable"
-        v-bind:items="items"
+        v-bind:items="itemsWithClasses"
         v-bind:columns="columnsWithArrow"
         v-bind:sort-method="sortMethod"
         v-bind:header="header"
@@ -77,6 +77,10 @@
     overflow: hidden;
     transition: max-height 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
+
+.table-expandable ::v-deep tr.expandable > td > * {
+    border-bottom: 1px dotted #0d0d0d;
+}
 </style>
 
 <script>
@@ -149,6 +153,17 @@ export const TableExpandable = {
         };
     },
     computed: {
+        itemsWithClasses() {
+            return this.items.map(item => {
+                const expandable = item.expandable === undefined ? true : item.expandable;
+                item.classes = Object.assign({}, item.classes, {
+                    expandable: expandable,
+                    hover: this.isExpanded(item),
+                    expanded: this.isExpanded(item)
+                });
+                return item;
+            });
+        },
         columnsWithArrow() {
             return [
                 ...this.columns,

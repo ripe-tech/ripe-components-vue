@@ -95,7 +95,8 @@
     border-bottom: none;
 }
 
-.table tbody tr.hoverable:hover {
+.table tbody tr.hoverable:hover,
+.table tbody tr.hoverable.hover {
     background-color: $selected-color;
 }
 
