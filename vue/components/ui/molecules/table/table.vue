@@ -415,9 +415,11 @@ export const Table = {
             return Object.assign({}, item.style, base);
         },
         rowClasses(item) {
-            const base = { selected: this.isRowSelected(item.id) };
-            base.clickable = item.clickable !== undefined ? item.clickable : this.clickableRows;
-            base.hoverable = item.hoverable !== undefined ? item.hoverable : this.hoverableRows;
+            const base = {
+                selected: this.isRowSelected(item.id),
+                clickable: item.clickable === undefined ? this.clickableRows : item.clickable,
+                hoverable: item.hoverable === undefined ? this.hoverableRows : item.hoverable
+            };
             return Object.assign({}, item.classes, base);
         },
         isRowSelected(id) {
