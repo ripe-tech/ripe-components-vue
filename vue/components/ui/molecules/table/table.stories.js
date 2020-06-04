@@ -40,7 +40,7 @@ storiesOf("Molecules", module)
                     "Variant",
                     {
                         Unset: null,
-                        dense: "dense"
+                        Dense: "dense"
                     },
                     null
                 )
