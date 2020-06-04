@@ -416,8 +416,8 @@ export const Table = {
         },
         rowClasses(item) {
             const base = { selected: this.isRowSelected(item.id) };
-            if (this.clickableRows && item.clickable !== false) base.clickable = true;
-            if (this.hoverableRows && item.hoverable !== false) base.hoverable = true;
+            base.clickable = item.clickable !== undefined ? item.clickable : this.clickableRows;
+            base.hoverable = item.hoverable !== undefined ? item.hoverable : this.hoverableRows;
             return Object.assign({}, item.classes, base);
         },
         isRowSelected(id) {
