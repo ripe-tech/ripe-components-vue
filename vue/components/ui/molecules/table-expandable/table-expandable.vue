@@ -165,12 +165,22 @@ export const TableExpandable = {
             });
         },
         columnsWithArrow() {
+            let arrowWidth;
+            switch (this.variant) {
+                case "dense":
+                    arrowWidth = 40;
+                    break;
+                default:
+                    arrowWidth = 60;
+                    break;
+            }
+
             return [
                 ...this.columns,
                 {
                     value: "arrow",
                     label: "",
-                    width: "50px",
+                    width: `${arrowWidth}px`,
                     sortable: false,
                     style: { "text-align": "right" }
                 }
