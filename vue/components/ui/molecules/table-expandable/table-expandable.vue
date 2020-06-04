@@ -32,7 +32,7 @@
                     v-bind:icon="isExpanded(item) ? 'chevron-up' : 'chevron-down'"
                     v-bind:color="'#c2c7cc'"
                     v-bind:width="20"
-                    v-bind:height="30"
+                    v-bind:height="20"
                 />
             </slot>
             <span class="expand-icon-missing" v-else />
