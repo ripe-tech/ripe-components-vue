@@ -136,13 +136,13 @@
 }
 
 .table.table-dense ::v-deep td {
-    height: 40px;
+    height: 38px;
     padding: 0px 10px 0px 10px;
 }
 
 .table.table-auto ::v-deep td {
     height: auto;
-    line-height: 20px;
+    line-height: 18px;
     padding: 10px 20px 10px 20px;
 }
 
