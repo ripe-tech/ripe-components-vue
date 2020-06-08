@@ -78,7 +78,7 @@
     transition: max-height 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-.table-expandable ::v-deep tr.expandable > td > * {
+.table-expandable ::v-deep tr.expandable > td:first-child > * {
     border-bottom: 1px dotted #0d0d0d;
 }
 </style>
