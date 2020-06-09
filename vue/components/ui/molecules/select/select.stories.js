@@ -18,6 +18,9 @@ storiesOf("Molecules", module)
             placeholder: {
                 default: text("Placeholder", "This is a placeholder text")
             },
+            autoScroll: {
+                default: boolean("Auto Scroll", true)
+            },
             options: {
                 type: Array,
                 default: () => [
@@ -81,6 +84,17 @@ storiesOf("Molecules", module)
                     null
                 )
             },
+            direction: {
+                default: select(
+                    "Direction",
+                    {
+                        None: null,
+                        Top: "top",
+                        Bottom: "bottom"
+                    },
+                    null
+                )
+            },
             width: {
                 default: number("Width", null)
             },
@@ -109,16 +123,18 @@ storiesOf("Molecules", module)
             }
         },
         template: `
-            <div>
+            <div v-bind:style="direction === 'top' ? { 'margin-top': '300px' } : {}">
                 <global />
                 <select-ripe
                     v-bind:mode="mode"
                     v-bind:placeholder="placeholder"
+                    v-bind:auto-scroll="autoScroll"
                     v-bind:options="options"
                     v-bind:value.sync="valueData"
                     v-bind:disabled="disabled"
                     v-bind:visible.sync="visibleData"
                     v-bind:align="align"
+                    v-bind:direction="direction"
                     v-bind:width="width"
                     v-bind:max-height="maxHeight"
                     v-bind:dropdown-min-width="dropdownMinWidth"

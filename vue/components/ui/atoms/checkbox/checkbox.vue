@@ -138,7 +138,7 @@ export const Checkbox = {
             this.checkedData = value;
         },
         checkedData(value) {
-            this.$emit("update:checked", this.checkedData);
+            this.$emit("update:checked", value);
         }
     },
     computed: {

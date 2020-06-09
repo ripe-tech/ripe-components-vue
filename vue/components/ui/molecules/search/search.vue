@@ -5,6 +5,7 @@
         v-bind:class="[
             focused ? 'focus' : 'unfocus',
             grow ? 'grow' : '',
+            value ? 'filled' : '',
             iconVisible ? 'icon-visible' : 'icon-invisible',
             clearVisible ? 'clear-visible' : 'clear-invisible'
         ]"
@@ -98,12 +99,14 @@
     width: 20px;
 }
 
-.search.focus > svg {
+.search.focus > svg,
+.search.filled > svg {
     fill: #2d2d2d;
 }
 
 .search ::v-deep input[type="text"] {
     padding-left: 12px;
+    vertical-align: top;
 }
 
 .search.grow ::v-deep input[type="text"] {
@@ -123,9 +126,9 @@
 }
 
 .search .icon-clear {
+    margin-left: -29px;
+    margin-top: 5px;
     position: absolute;
-    right: 5px;
-    top: 5px;
 }
 
 .search > .suggestions {

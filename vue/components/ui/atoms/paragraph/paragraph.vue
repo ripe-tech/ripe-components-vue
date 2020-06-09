@@ -1,5 +1,5 @@
 <template>
-    <p class="paragraph" v-bind:class="style" v-bind:for="target">
+    <p class="paragraph">
         <slot>{{ text }}</slot>
     </p>
 </template>
@@ -18,7 +18,13 @@
 
 <script>
 export const Paragraph = {
-    name: "paragraph"
+    name: "paragraph",
+    props: {
+        text: {
+            type: String,
+            default: null
+        }
+    }
 };
 
 export default Paragraph;

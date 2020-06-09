@@ -38,7 +38,7 @@
                     class="header-account"
                     v-if="account"
                     ref="headerAccount"
-                    v-on:click.stop="hideAccount"
+                    v-on:click="onAccountClick"
                 >
                     <avatar
                         v-bind:src="account.avatar_url"
@@ -50,11 +50,12 @@
                         v-bind:items="accountDropdownItems"
                         v-bind:visible.sync="accountDropdownVisible"
                         v-bind:global-hide="true"
+                        v-bind:owners="$refs.headerAccount"
                     >
                         <template v-slot:announcements="{ item }">
                             <div
                                 class="dropdown-item-announcements"
-                                v-on:click="onAnnouncementsClick"
+                                v-on:click.stop="onAnnouncementsClick"
                             >
                                 <span class="announcements-dropdown-text">{{ item.label }}</span>
                                 <div class="dot" v-if="announcementsToRead" />
@@ -67,13 +68,14 @@
                     v-bind:class="{ active: appsDropdownVisible }"
                     v-if="headerApps && appsDropdownItems.length > 0"
                     ref="headerApps"
-                    v-on:click.stop="hideApps"
+                    v-on:click="onAppsClick"
                 >
                     <img src="~./assets/apps.svg" />
                     <dropdown
                         v-bind:items="appsDropdownItems"
                         v-bind:visible.sync="appsDropdownVisible"
                         v-bind:global-hide="true"
+                        v-bind:owners="$refs.headerApps"
                     >
                         <template v-slot="{ item: { value, label, image, link, cls } }">
                             <a v-bind:href="link" v-bind:class="[cls]">
@@ -86,7 +88,7 @@
             </div>
         </div>
         <div class="header-globals">
-            <template v-if="announcements">
+            <template v-if="announcements && announcements.items">
                 <bubble
                     v-bind:visible.sync="announcementsModalVisible"
                     v-if="isMobileWidth()"
@@ -226,7 +228,7 @@
     vertical-align: middle;
 }
 
-.header-ripe > .header-bar > .header-container > .header-account ::v-deep .dropdown {
+.header-ripe > .header-bar > .header-container > .header-account > .dropdown-container ::v-deep .dropdown {
     color: $lower-color;
     font-size: 13px;
     left: auto;
@@ -234,22 +236,23 @@
     margin-top: -4px;
     min-width: 180px;
     position: absolute;
+    right: 0px;
     text-align: left;
 }
 
-.header-ripe > .header-bar > .header-container > .header-account ::v-deep .dropdown > .dropdown-item > * {
+.header-ripe > .header-bar > .header-container > .header-account > .dropdown-container ::v-deep .dropdown > .dropdown-item > * {
     box-sizing: border-box;
     display: inline-block;
     padding: 8px 14px 8px 14px;
     width: 100%;
 }
 
-.header-ripe > .header-bar > .header-container > .header-account ::v-deep .dropdown > .dropdown-item > a {
+.header-ripe > .header-bar > .header-container > .header-account > .dropdown-container ::v-deep .dropdown > .dropdown-item > a {
     color: $lower-color;
 }
 
-.header-ripe > .header-bar > .header-container > .header-account ::v-deep .dropdown > .dropdown-item:hover > a,
-.header-ripe > .header-bar > .header-container > .header-account ::v-deep .dropdown > .dropdown-item.selected > a {
+.header-ripe > .header-bar > .header-container > .header-account > .dropdown-container ::v-deep .dropdown > .dropdown-item:hover > a,
+.header-ripe > .header-bar > .header-container > .header-account > .dropdown-container ::v-deep .dropdown > .dropdown-item.selected > a {
     color: $higher-color;
 }
 
@@ -274,9 +277,13 @@
     background-color: rgba(60, 64, 67, 0.2);
 }
 
-.header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown {
+.header-ripe > .header-bar > .header-container > .header-apps > .dropdown-container {
+    margin-left: -6px;
+}
+
+.header-ripe > .header-bar > .header-container > .header-apps > .dropdown-container ::v-deep .dropdown {
     background-color: $white;
-    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.07);
+    box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.07);
     box-sizing: border-box;
     cursor: auto;
     font-size: 0px;
@@ -285,10 +292,21 @@
     margin-top: -4px;
     max-width: 358px;
     padding: 10px;
+    position: absolute;
+    right: 0px;
     text-align: left;
+    width: max-content;
 }
 
-.header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown li {
+body.mobile .header-ripe > .header-bar > .header-container > .header-apps > .dropdown-container ::v-deep .dropdown {
+    border-radius: 0px 0px 0px 0px;
+    left: 0px;
+    min-width: 100%;
+    position: fixed;
+    text-align: center;
+}
+
+.header-ripe > .header-bar > .header-container > .header-apps > .dropdown-container ::v-deep .dropdown li {
     border-radius: 8px 8px 8px 8px;
     display: inline-block;
     font-size: 12px;
@@ -297,7 +315,7 @@
     text-align: center;
 }
 
-.header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown li a {
+.header-ripe > .header-bar > .header-container > .header-apps > .dropdown-container ::v-deep .dropdown li a {
     border-bottom: none;
     color: $blacker;
     display: inline-block;
@@ -306,12 +324,12 @@
     width: 100px;
 }
 
-.header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown li img {
+.header-ripe > .header-bar > .header-container > .header-apps > .dropdown-container ::v-deep .dropdown li img {
     height: 40px;
     width: 40px;
 }
 
-.header-ripe > .header-bar > .header-container > .header-apps ::v-deep .dropdown li p {
+.header-ripe > .header-bar > .header-container > .header-apps > .dropdown-container ::v-deep .dropdown li p {
     font-weight: 600;
     margin: 6px 0px 0px 0px;
 }
@@ -357,6 +375,14 @@ export const Header = {
             default: true
         },
         search: {
+            type: Boolean,
+            default: true
+        },
+        settings: {
+            type: Boolean,
+            default: true
+        },
+        signout: {
             type: Boolean,
             default: true
         },
@@ -414,8 +440,21 @@ export const Header = {
             const { name, email } = this.account.meta;
             items.push({ value: "name", label: name || email || this.account.email });
             if (this.announcements) items.push({ value: "announcements", label: "What's new?" });
-            items.push({ value: "settings", label: "Account settings", separator: true });
-            items.push({ value: "signout", label: "Sign out", link: "/signout" });
+            if (this.settings) {
+                items.push({
+                    value: "settings",
+                    label: "Account settings",
+                    separator: true
+                });
+            }
+            if (this.signout) {
+                items.push({
+                    value: "signout",
+                    label: "Sign out",
+                    link: "/signout",
+                    separator: !this.settings
+                });
+            }
             return items;
         },
         appsDropdownItems() {
@@ -435,6 +474,7 @@ export const Header = {
         },
         announcementsToRead() {
             if (!this.announcements) return false;
+            if (!this.announcements.items) return false;
             const reference =
                 this.announcements.items.length > 0 ? this.announcements.items[0].timestamp : 0;
             return reference * 1000 > Date.now() - this.announcements.new_threshold * 1000;
@@ -449,21 +489,24 @@ export const Header = {
         toggleBurger() {
             this.$bus.$emit("toggle-side");
         },
-        hideAccount() {
-            const status = this.accountDropdownVisible;
-            document.body.click();
-            this.accountDropdownVisible = !status;
+        toggleAccount() {
+            this.accountDropdownVisible = !this.accountDropdownVisible;
         },
-        hideApps() {
-            const status = this.appsDropdownVisible;
-            document.body.click();
-            this.appsDropdownVisible = !status;
+        toggleApps() {
+            this.appsDropdownVisible = !this.appsDropdownVisible;
         },
         showAnnouncements() {
             this.announcementsModalVisible = true;
         },
+        onAccountClick() {
+            this.toggleAccount();
+        },
+        onAppsClick() {
+            this.toggleApps();
+        },
         onAnnouncementsClick() {
             this.showAnnouncements();
+            this.toggleAccount();
         }
     }
 };

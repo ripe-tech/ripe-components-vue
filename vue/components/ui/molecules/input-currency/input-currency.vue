@@ -5,7 +5,6 @@
         v-bind:variant="variant"
         v-bind:border="border"
         v-bind:placeholder="placeholder"
-        v-bind:type="'number'"
         v-bind:autofocus="autofocus"
         v-bind:disabled="disabled"
         v-bind:width="width"

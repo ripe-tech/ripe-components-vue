@@ -1,7 +1,7 @@
 <template>
     <div>
-        <slot>
-            <a class="router-link" v-bind:href="to" />
+        <slot v-bind:navigate="() => {}" v-bind:href="href">
+            <a class="router-link" v-bind:href="href" />
         </slot>
     </div>
 </template>
@@ -14,8 +14,15 @@
 export const RouterLink = {
     props: {
         to: {
-            type: String,
+            type: String | Object,
             default: "#"
+        }
+    },
+    computed: {
+        href() {
+            if (!this.to) return "#";
+            if (typeof this.to === "string") return this.to;
+            return "#";
         }
     }
 };

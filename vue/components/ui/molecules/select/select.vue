@@ -1,6 +1,5 @@
 <template>
     <div class="select" v-bind:class="classes" ref="select">
-        <global-events v-on:click="onGlobalClick" />
         <select
             class="dropdown-select"
             v-bind:value="value"
@@ -24,7 +23,7 @@
                 v-bind:value.sync="filterText"
                 v-bind:placeholder="buttonText"
                 v-bind:min-width="0"
-                v-if="isFilterMode"
+                v-if="filter"
                 v-show="visibleData"
                 ref="input"
                 v-on:keydown.esc.exact="onEscKey"
@@ -40,7 +39,8 @@
             <div
                 class="select-button"
                 tabindex="0"
-                v-show="!isFilterMode || !visibleData"
+                v-show="visibleData"
+                v-else
                 v-on:click.stop.prevent="onClickDropdownButton"
                 v-on:keydown.exact="() => onKey($event.key)"
                 v-on:keydown.esc.exact="onEscKey"
@@ -56,12 +56,13 @@
                 {{ buttonText }}
             </div>
             <dropdown
-                v-bind:items="computedOptions"
+                v-bind:items="filteredOptions"
                 v-bind:max-height="maxHeight"
                 v-bind:visible.sync="visibleData"
-                v-bind:global-events="false"
                 v-bind:highlighted="highlightedObject"
                 v-bind:style="dropdownStyle"
+                v-bind:direction="direction"
+                v-bind:owners="$refs.select"
                 ref="dropdown"
                 v-on:update:highlighted="onDropdownHighlighted"
                 v-on:item-clicked="value => onDropdownItemClicked(value.value)"
@@ -83,14 +84,14 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.dropdown-select,
+.select .dropdown-select,
 .select .select-container {
     line-height: 0px;
     position: relative;
     width: 100%;
 }
 
-.dropdown-select,
+.select .dropdown-select,
 .select .select-container .select-button {
     background: url("~./assets/chevron-down.svg") right 12px center / 14px 14px no-repeat $soft-blue;
     border: 1px solid $light-white;
@@ -112,8 +113,22 @@
     white-space: nowrap;
 }
 
-.dropdown-select > .placeholder {
+.select.direction-top .dropdown-select,
+.select.direction-top .select-container .select-button {
+    background-image: url("~./assets/chevron-up.svg");
+}
+
+.select .dropdown-select > .placeholder {
     display: none;
+}
+
+.select.select-filter .select-container .input {
+    background-color: $soft-blue;
+    border-color: $aqcua-blue;
+    padding-right: 34px;
+    position: relative;
+    width: 100%;
+    z-index: 1;
 }
 
 .select .select-container .select-button:hover {
@@ -130,26 +145,22 @@
     opacity: 0.4;
 }
 
-.select.mode-filter .select-container ::v-deep .input {
-    background-color: $soft-blue;
-    border-color: $aqcua-blue;
-    padding-right: 34px;
-    position: relative;
-    width: 100%;
-    z-index: 1;
-}
-
-.select .select-container ::v-deep .dropdown-container {
+.select .select-container .dropdown-container {
+    margin-top: 3px;
     position: absolute;
     width: 100%;
     z-index: 1;
 }
 
-.select.select-align-right .select-container ::v-deep .dropdown-container {
+.select.direction-top .select-container .dropdown-container {
+    bottom: 37px;
+}
+
+.select.select-align-right .select-container .dropdown-container {
     right: 0px;
 }
 
-.select.select-align-left .select-container ::v-deep .dropdown-container {
+.select.select-align-left .select-container .dropdown-container {
     left: 0px;
 }
 
@@ -165,10 +176,6 @@ export const Select = {
     name: "select-ripe",
     mixins: [partMixin],
     props: {
-        mode: {
-            type: String,
-            default: null
-        },
         options: {
             type: Array,
             default: () => []
@@ -185,6 +192,10 @@ export const Select = {
             type: String,
             default: "None"
         },
+        autoScroll: {
+            type: Boolean,
+            default: true
+        },
         disabled: {
             type: Boolean,
             default: false
@@ -192,6 +203,14 @@ export const Select = {
         align: {
             type: String,
             default: "right"
+        },
+        filter: {
+            type: Boolean,
+            default: false
+        },
+        direction: {
+            type: String,
+            default: "bottom"
         },
         width: {
             type: Number,
@@ -225,6 +244,19 @@ export const Select = {
         visible(value) {
             this.visibleData = value;
         },
+        visibleData(value) {
+            if (value && this.valueData) {
+                const highlightIndex = this.options.findIndex(
+                    option => option.value === this.valueData
+                );
+                this.highlight(highlightIndex);
+                if (this.autoScroll) {
+                    this.$nextTick(() => this.scrollTo(highlightIndex));
+                }
+            }
+            if (!value) this.dehighlight();
+            this.$emit("update:visible", value);
+        },
         value(value) {
             this.valueData = value;
         },
@@ -240,20 +272,14 @@ export const Select = {
         },
         openDropdown() {
             if (this.disabled || this.visibleData) return;
-
-            if (this.valueData) {
-                this.highlight(this.options.findIndex(option => option.value === this.valueData));
-            }
-
             this.visibleData = true;
-            if (this.isFilterMode) this.focusFilterInput();
-            this.$emit("update:visible", true);
+            if (!this.filter) return;
+            this.filterText = "";
+            this.$refs.input.focus();
         },
         closeDropdown() {
             if (!this.visibleData) return;
-            this.dehighlight();
             this.visibleData = false;
-            this.$emit("update:visible", false);
         },
         toggleDropdown() {
             if (this.visibleData) {
@@ -273,8 +299,8 @@ export const Select = {
                 return;
             }
 
-            if (this.computedOptions[this.highlighted]) {
-                this.setValue(this.computedOptions[this.highlighted].value);
+            if (this.filteredOptions[this.highlighted]) {
+                this.setValue(this.filteredOptions[this.highlighted].value);
             }
             this.closeDropdown();
         },
@@ -282,12 +308,12 @@ export const Select = {
             this.highlighted = null;
         },
         highlight(index, scroll = false) {
-            if (index === null || index < 0 || index >= this.computedOptions.length) return;
+            if (index === null || index < 0 || index >= this.filteredOptions.length) return;
             this.highlighted = index;
             if (scroll) this.scrollTo(index);
         },
         highlightFirstOption() {
-            if (this.computedOptions.length > 0) this.highlight(0);
+            if (this.filteredOptions.length > 0) this.highlight(0);
         },
         highlightPrevious(scroll = true) {
             if (this.highlighted === null) {
@@ -301,7 +327,7 @@ export const Select = {
                 this.highlight(0, scroll);
             } else {
                 this.highlight(
-                    Math.min(this.computedOptions.length - 1, this.highlighted + 1),
+                    Math.min(this.filteredOptions.length - 1, this.highlighted + 1),
                     scroll
                 );
             }
@@ -318,7 +344,8 @@ export const Select = {
         },
         scrollTo(index) {
             const dropdown = this.$refs.dropdown.$refs.dropdown;
-            const dropdownElements = this.$refs.dropdown.$refs["dropdown-item"];
+            const dropdownElements = dropdown.getElementsByClassName("dropdown-item");
+
             const visibleStart = dropdown.scrollTop;
             const visibleEnd = visibleStart + dropdown.clientHeight;
 
@@ -343,13 +370,7 @@ export const Select = {
         },
         scrollToBottom(scroll = true) {
             this.openDropdown();
-            this.highlight(this.computedOptions.length - 1, scroll);
-        },
-        focusFilterInput() {
-            this.$nextTick(() => {
-                this.filterText = "";
-                if (this.$refs.input) this.$refs.input.focus();
-            });
+            this.highlight(this.filteredOptions.length - 1, scroll);
         },
         onGlobalClick(event) {
             if (this.$refs.select.contains(event.target) || this.$refs.input.contains(event.target)) return;
@@ -419,37 +440,25 @@ export const Select = {
         }
     },
     computed: {
-        isFilterMode() {
-            return this.mode === "filter";
-        },
         filteredOptions() {
-            if (this.isfilterTextEmpty) return this.options;
-            return this.options.filter(option => {
-                if (option.label != null && option.label.toString().length > 0) {
-                    return option.label
-                        .toString()
-                        .toUpperCase()
-                        .startsWith(this.filterText.toString().toUpperCase());
-                }
-            });
-        },
-        computedOptions() {
-            return this.mode === "filter" ? this.filteredOptions : this.options;
-        },
-        isfilterTextEmpty() {
-            return this.filterText == null || this.filterText.length === 0;
+            if (!this.filter || !this.filterText) return this.options;
+            return this.options.filter(option => option.label && option.label.toUpperCase().startsWith(this.filterText.toUpperCase()));
         },
         buttonText() {
-            return this.valueData ? this.options[this.valueIndex].label : this.placeholder;
+            return this.options && this.options[this.valueIndex]
+                ? this.options[this.valueIndex].label
+                : this.placeholder;
         },
         valueIndex() {
             return this.options.findIndex(option => option.value === this.valueData);
         },
         classes() {
-            return [
-                `select-align-${this.align}`,
-                { disabled: this.disabled, "mode-filter": this.isFilterMode }
-            ];
+            const base = {};
+            if (this.align) base[`select-align-${this.align}`] = this.align;
+            if (this.filter) base["select-filter"] = true;
+            if (this.direction) base[`direction-${this.direction}`] = this.direction;
+            if (this.disabled) base.disabled = this.disabled;
+            return base;
         },
         style() {
             const base = {};

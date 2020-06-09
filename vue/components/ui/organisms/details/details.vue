@@ -10,7 +10,7 @@
             <template v-slot:header>
                 <div class="header-buttons">
                     <slot name="header-buttons">
-                        <slot name="header-buttons-before" />
+                        <slot name="header-buttons-before" v-if="isDesktopWidth()" />
                         <div class="header-button">
                             <span class="button-stats" v-on:click="onStatsClick">
                                 <img src="~./assets/stats.svg" />
@@ -38,24 +38,27 @@
                         <div
                             class="header-button"
                             v-bind:class="{
-                                invisible: optionsItems.length === 0 || loading
+                                invisible: optionsItems.length === 0 || isLoading
                             }"
                         >
                             <span
                                 class="button-options"
                                 v-bind:class="{ active: optionsVisible }"
-                                v-on:click.stop="options"
+                                ref="button-options-loading"
+                                v-on:click="toggleOptions"
                             >
                                 <img src="~./assets/options.svg" />
-                                <dropdown
-                                    v-bind:items="optionsItems"
-                                    v-bind:visible.sync="optionsVisible"
-                                    v-on:item-clicked="onOptionsItemClick"
-                                />
                             </span>
+                            <dropdown
+                                class="options-dropdown"
+                                v-bind:items="optionsItems"
+                                v-bind:visible.sync="optionsVisible"
+                                v-bind:owners="$refs['button-options-loading']"
+                                v-on:item-clicked="onOptionsItemClick"
+                            />
                             <p>Status</p>
                         </div>
-                        <slot name="header-buttons-after" />
+                        <slot name="header-buttons-after" v-if="isDesktopWidth()" />
                     </slot>
                 </div>
                 <title-ripe v-if="invalid">
@@ -71,10 +74,11 @@
             <loader loader="line-scale" v-bind:count="5" v-else />
         </container-ripe>
         <container-ripe class="details-container" v-else>
+            <slot name="details-before" />
             <template v-slot:header>
                 <div class="header-buttons" v-if="headerButtons">
                     <slot name="header-buttons">
-                        <slot name="header-buttons-before" />
+                        <slot name="header-buttons-before" v-if="isDesktopWidth()" />
                         <div class="header-button">
                             <span class="button-stats" v-on:click="onStatsClick">
                                 <img src="~./assets/stats.svg" />
@@ -108,18 +112,21 @@
                             <span
                                 class="button-options"
                                 v-bind:class="{ active: optionsVisible }"
-                                v-on:click.stop="options"
+                                ref="button-options"
+                                v-on:click="toggleOptions"
                             >
                                 <img src="~./assets/options.svg" />
-                                <dropdown
-                                    v-bind:items="optionsItems"
-                                    v-bind:visible.sync="optionsVisible"
-                                    v-on:item-clicked="onOptionsItemClick"
-                                />
                             </span>
+                            <dropdown
+                                class="options-dropdown"
+                                v-bind:items="optionsItems"
+                                v-bind:visible.sync="optionsVisible"
+                                v-bind:owners="$refs['button-options']"
+                                v-on:item-clicked="onOptionsItemClick"
+                            />
                             <p>Status</p>
                         </div>
-                        <slot name="header-buttons-after" />
+                        <slot name="header-buttons-after" v-if="isDesktopWidth()" />
                     </slot>
                 </div>
                 <slot name="title" v-if="isLoaded">
@@ -185,6 +192,7 @@
                     </slot>
                 </div>
             </div>
+            <slot name="details-after" />
         </container-ripe>
     </div>
 </template>
@@ -328,7 +336,7 @@ body.mobile .container-ripe .details {
     padding: 0px 20px 20px 20px;
 }
 
-.container-ripe .button-options ::v-deep .dropdown {
+.container-ripe .options-dropdown ::v-deep .dropdown {
     font-size: 13px;
     left: auto;
     margin-left: -142px;
@@ -338,11 +346,11 @@ body.mobile .container-ripe .details {
     text-align: left;
 }
 
-body.tablet .button-options ::v-deep .dropdown,
-body.mobile .button-options ::v-deep .dropdown {
+body.tablet .container-ripe .options-dropdown ::v-deep .dropdown,
+body.mobile .container-ripe .options-dropdown ::v-deep .dropdown {
     bottom: 40px;
     margin: 0px 0px 0px 0px;
-    right: 0px;
+    right: 13px;
 }
 
 body.tablet .container-ripe .title,
@@ -448,8 +456,11 @@ body.mobile .container-ripe .details-column .label-value {
 </style>
 
 <script>
+import { partMixin } from "../../../../mixins/part";
+
 export const Details = {
     name: "details-ripe",
+    mixins: [partMixin],
     props: {
         name: {
             type: String,
@@ -545,10 +556,8 @@ export const Details = {
         getColumnValues(columnIndex) {
             return this.values.filter((value, index) => this.getValueColumn(index) === columnIndex);
         },
-        async options() {
-            const status = this.optionsVisible;
-            document.body.click();
-            this.optionsVisible = !status;
+        toggleOptions() {
+            this.optionsVisible = !this.optionsVisible;
         },
         async previousItem(force = false) {
             if (!this.hasIndex) return;

@@ -43,7 +43,7 @@
     width: 100%;
 }
 
-input::-webkit-input-placeholder {
+.input::-webkit-input-placeholder {
     color: $upper-grey;
 }
 
@@ -152,7 +152,7 @@ export const Input = {
         }
     },
     mounted: function() {
-        this.autofocus && this.focus();
+        if (this.autofocus) this.focus();
         this.setValidationMessage(this.validationMessage);
     },
     methods: {

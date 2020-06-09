@@ -1,6 +1,8 @@
 <template>
     <h1 class="title" v-bind:class="classes">
-        <slot />
+        <slot>
+            {{ text }}
+        </slot>
     </h1>
 </template>
 
@@ -23,6 +25,10 @@
 export const Title = {
     name: "title-ripe",
     props: {
+        text: {
+            type: String,
+            default: null
+        },
         size: {
             type: String,
             default: "medium"
