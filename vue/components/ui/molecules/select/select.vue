@@ -20,12 +20,14 @@
         <div class="select-container" v-bind:style="style" v-else>
             <input-ripe
                 class="select-input"
+                tabindex="0"
                 v-bind:value.sync="filterText"
                 v-bind:placeholder="buttonText"
                 v-bind:min-width="0"
-                v-if="filter"
-                v-show="visibleData"
+                v-if="filter && visibleData"
                 ref="input"
+                v-on:click.stop.prevent="onClickDropdownButton"
+                v-on:keydown.exact="() => onKey($event.key)"
                 v-on:keydown.esc.exact="onEscKey"
                 v-on:keydown.up.exact.prevent="onUpKey"
                 v-on:keydown.down.exact.prevent="onDownKey"
@@ -34,12 +36,11 @@
                 v-on:keydown.page-down.exact.prevent="onPageDownKey"
                 v-on:keydown.page-up.exact.prevent="onPageUpKey"
                 v-on:keydown.enter.exact="onEnterKey"
-                v-on:click.stop.prevent
+                v-on:keydown.space.exact.prevent="onSpaceKey"
             />
             <div
                 class="select-button"
                 tabindex="0"
-                v-show="visibleData"
                 v-else
                 v-on:click.stop.prevent="onClickDropdownButton"
                 v-on:keydown.exact="() => onKey($event.key)"
@@ -90,7 +91,6 @@
     position: relative;
     width: 100%;
 }
-
 .select .dropdown-select,
 .select .select-container .select-button {
     background: url("~./assets/chevron-down.svg") right 12px center / 14px 14px no-repeat $soft-blue;
@@ -113,22 +113,18 @@
     white-space: nowrap;
 }
 
+.select .select-container .select-input {
+    background: url("~./assets/chevron-down.svg") right 12px center / 14px 14px no-repeat $soft-blue;
+}
+
 .select.direction-top .dropdown-select,
+.select.direction-top .select-container .select-input,
 .select.direction-top .select-container .select-button {
     background-image: url("~./assets/chevron-up.svg");
 }
 
 .select .dropdown-select > .placeholder {
     display: none;
-}
-
-.select.select-filter .select-container .input {
-    background-color: $soft-blue;
-    border-color: $aqcua-blue;
-    padding-right: 34px;
-    position: relative;
-    width: 100%;
-    z-index: 1;
 }
 
 .select .select-container .select-button:hover {
@@ -234,7 +230,7 @@ export const Select = {
             highlighted: null,
             valueData: this.value,
             visibleData: this.visible,
-            filterText: null
+            filterText: ""
         };
     },
     watch: {
@@ -275,7 +271,7 @@ export const Select = {
             this.visibleData = true;
             if (!this.filter) return;
             this.filterText = "";
-            this.$refs.input.focus();
+            this.$nextTick(() => this.$refs.input.focus());
         },
         closeDropdown() {
             if (!this.visibleData) return;

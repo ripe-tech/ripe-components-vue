@@ -5,16 +5,6 @@ storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Select", () => ({
         props: {
-            mode: {
-                default: select(
-                    "Select Mode",
-                    {
-                        Unset: null,
-                        Filter: "filter"
-                    },
-                    null
-                )
-            },
             placeholder: {
                 default: text("Placeholder", "This is a placeholder text")
             },
@@ -84,6 +74,9 @@ storiesOf("Molecules", module)
                     null
                 )
             },
+            filter: {
+                default: boolean("Filter", false)
+            },
             direction: {
                 default: select(
                     "Direction",
@@ -126,7 +119,6 @@ storiesOf("Molecules", module)
             <div v-bind:style="direction === 'top' ? { 'margin-top': '300px' } : {}">
                 <global />
                 <select-ripe
-                    v-bind:mode="mode"
                     v-bind:placeholder="placeholder"
                     v-bind:auto-scroll="autoScroll"
                     v-bind:options="options"
@@ -134,6 +126,7 @@ storiesOf("Molecules", module)
                     v-bind:disabled="disabled"
                     v-bind:visible.sync="visibleData"
                     v-bind:align="align"
+                    v-bind:filter="filter"
                     v-bind:direction="direction"
                     v-bind:width="width"
                     v-bind:max-height="maxHeight"
