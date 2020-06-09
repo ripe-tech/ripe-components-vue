@@ -46,12 +46,9 @@
                 v-on:keydown.esc.exact="onEscKey"
                 v-on:keydown.up.exact="onUpKey"
                 v-on:keydown.down.exact="onDownKey"
-                v-on:keydown.left.exact="onLeftKey"
-                v-on:keydown.right.exact="onRightKey"
                 v-on:keydown.alt.down="onAltDownKey"
                 v-on:keydown.alt.up="onAltUpKey"
                 v-on:keydown.enter.exact="onEnterKey"
-                v-on:keydown.space.exact="onSpaceKey"
             >
                 {{ buttonText }}
             </div>
@@ -261,7 +258,9 @@ export const Select = {
             this.valueData = value;
         },
         filterText(value) {
-            this.highlightFirstOption();
+            if (this.filteredOptions.length > 0) {
+                this.highlight(0);
+            }
         }
     },
     methods: {
@@ -292,12 +291,9 @@ export const Select = {
             this.highlighted = null;
         },
         highlight(index, scroll = false) {
-            if (index === null || index < 0 || index >= this.filteredOptions.length) return;
+            if (index === null || index < 0 || index >= this.options.length) return;
             this.highlighted = index;
             if (scroll) this.scrollTo(index);
-        },
-        highlightFirstOption() {
-            if (this.filteredOptions.length > 0) this.highlight(0);
         },
         highlightPrevious(scroll = true) {
             if (this.highlighted === null) {
@@ -352,6 +348,9 @@ export const Select = {
             this.toggleDropdown();
         },
         onSelectButtonEnterKey() {
+            this.toggleDropdown();
+        },
+        onSelectButtonSpaceKey() {
             this.toggleDropdown();
         },
         onKey(key) {
