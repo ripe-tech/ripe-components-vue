@@ -348,16 +348,10 @@ export const Select = {
                 dropdown.scrollTop = indexEnd - dropdown.clientHeight;
             }
         },
-        onGlobalClick(event) {
-            if (
-                this.$refs.select.contains(event.target) ||
-                this.$refs.input.contains(event.target)
-            ) {
-                return;
-            }
-            this.closeDropdown();
-        },
         onClickDropdownButton() {
+            this.toggleDropdown();
+        },
+        onSelectButtonEnterKey() {
             this.toggleDropdown();
         },
         onKey(key) {
@@ -382,13 +376,13 @@ export const Select = {
             this.openDropdown();
             this.highlightNext();
         },
-        onAltDownKey() {
-            this.openDropdown();
-            this.highlight(this.options.length - 1);
-        },
         onAltUpKey() {
             this.openDropdown();
             this.highlight(0);
+        },
+        onAltDownKey() {
+            this.openDropdown();
+            this.highlight(this.filteredOptions.length - 1);
         },
         onEnterKey() {
             if (!this.visibleData) {
@@ -401,9 +395,7 @@ export const Select = {
                 return;
             }
 
-            if (this.filteredOptions[this.highlighted]) {
-                this.setValue(this.filteredOptions[this.highlighted].value);
-            }
+            this.setValue(this.filteredOptions[this.highlighted].value);
             this.closeDropdown();
         },
         onSpaceKey() {
@@ -417,9 +409,7 @@ export const Select = {
                 return;
             }
 
-            if (this.filteredOptions[this.highlighted]) {
-                this.setValue(this.filteredOptions[this.highlighted].value);
-            }
+            this.setValue(this.filteredOptions[this.highlighted].value);
             this.closeDropdown();
         },
         onSelectChange(value) {
