@@ -205,6 +205,11 @@ export const Select = {
             type: Boolean,
             default: false
         },
+        filterFunction: {
+            type: Function,
+            default: (option, filter) =>
+                option.label && option.label.toUpperCase().startsWith(filter.toUpperCase())
+        },
         direction: {
             type: String,
             default: "bottom"
@@ -272,9 +277,10 @@ export const Select = {
         openDropdown() {
             if (this.disabled || this.visibleData) return;
             this.visibleData = true;
-            if (!this.filter) return;
-            this.filterText = "";
-            this.$nextTick(() => this.$refs.input.focus());
+            if (this.filter) {
+                this.filterText = "";
+                this.$nextTick(() => this.$refs.input.focus());
+            }
         },
         closeDropdown() {
             if (!this.visibleData) return;
@@ -324,7 +330,10 @@ export const Select = {
         },
         scrollTo(index) {
             const dropdown = this.$refs.dropdown.$refs.dropdown;
+            if (!dropdown) return;
+
             const dropdownElements = dropdown.getElementsByClassName("dropdown-item");
+            if (dropdownElements.length === 0) return;
 
             const visibleStart = dropdown.scrollTop;
             const visibleEnd = visibleStart + dropdown.clientHeight;
@@ -434,11 +443,7 @@ export const Select = {
     computed: {
         filteredOptions() {
             if (!this.filter || !this.filterText) return this.options;
-            return this.options.filter(
-                option =>
-                    option.label &&
-                    option.label.toUpperCase().startsWith(this.filterText.toUpperCase())
-            );
+            return this.options.filter(option => this.filterFunction(option, this.filterText));
         },
         buttonText() {
             return this.options && this.options[this.valueIndex]
@@ -449,11 +454,12 @@ export const Select = {
             return this.options.findIndex(option => option.value === this.valueData);
         },
         classes() {
-            const base = {};
+            const base = {
+                disabled: this.disabled,
+                "select-filter": this.filter
+            };
             if (this.align) base[`select-align-${this.align}`] = this.align;
-            if (this.filter) base["select-filter"] = true;
             if (this.direction) base[`direction-${this.direction}`] = this.direction;
-            if (this.disabled) base.disabled = this.disabled;
             return base;
         },
         style() {
