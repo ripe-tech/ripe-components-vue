@@ -250,7 +250,7 @@ export const Dropdown = {
         },
         onGlobalClick(event) {
             const owners = Array.isArray(this.owners) ? this.owners : [this.owners];
-            const insideOwners = owners.some(owner => owner.contains(event.target));
+            const insideOwners = owners.some(owner => owner?.contains(event.target));
             if (insideOwners) return;
             this.handleGlobal();
         },

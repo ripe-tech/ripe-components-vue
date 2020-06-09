@@ -22,37 +22,36 @@
                 class="select-input"
                 tabindex="0"
                 v-bind:value.sync="filterText"
-                v-bind:placeholder="buttonText"
-                v-bind:min-width="0"
                 v-if="filter && visibleData"
                 ref="input"
-                v-on:click.stop.prevent="onClickDropdownButton"
+                v-on:click="onClickDropdownButton"
                 v-on:keydown.exact="() => onKey($event.key)"
                 v-on:keydown.esc.exact="onEscKey"
-                v-on:keydown.up.exact.prevent="onUpKey"
-                v-on:keydown.down.exact.prevent="onDownKey"
-                v-on:keydown.alt.down.prevent="onAltDownKey"
-                v-on:keydown.alt.up.prevent="onAltUpKey"
-                v-on:keydown.page-down.exact.prevent="onPageDownKey"
-                v-on:keydown.page-up.exact.prevent="onPageUpKey"
+                v-on:keydown.up.exact="onUpKey"
+                v-on:keydown.down.exact="onDownKey"
+                v-on:keydown.left.exact="onLeftKey"
+                v-on:keydown.right.exact="onRightKey"
+                v-on:keydown.alt.down="onAltDownKey"
+                v-on:keydown.alt.up="onAltUpKey"
                 v-on:keydown.enter.exact="onEnterKey"
-                v-on:keydown.space.exact.prevent="onSpaceKey"
+                v-on:keydown.space.exact="onSpaceKey"
             />
             <div
                 class="select-button"
                 tabindex="0"
                 v-else
-                v-on:click.stop.prevent="onClickDropdownButton"
+                ref="selectButton"
+                v-on:click="onClickDropdownButton"
                 v-on:keydown.exact="() => onKey($event.key)"
                 v-on:keydown.esc.exact="onEscKey"
-                v-on:keydown.up.exact.prevent="onUpKey"
-                v-on:keydown.down.exact.prevent="onDownKey"
-                v-on:keydown.alt.down.prevent="onAltDownKey"
-                v-on:keydown.alt.up.prevent="onAltUpKey"
-                v-on:keydown.page-down.exact.prevent="onPageDownKey"
-                v-on:keydown.page-up.exact.prevent="onPageUpKey"
+                v-on:keydown.up.exact="onUpKey"
+                v-on:keydown.down.exact="onDownKey"
+                v-on:keydown.left.exact="onLeftKey"
+                v-on:keydown.right.exact="onRightKey"
+                v-on:keydown.alt.down="onAltDownKey"
+                v-on:keydown.alt.up="onAltUpKey"
                 v-on:keydown.enter.exact="onEnterKey"
-                v-on:keydown.space.exact.prevent="onSpaceKey"
+                v-on:keydown.space.exact="onSpaceKey"
             >
                 {{ buttonText }}
             </div>
@@ -63,7 +62,7 @@
                 v-bind:highlighted="highlightedObject"
                 v-bind:style="dropdownStyle"
                 v-bind:direction="direction"
-                v-bind:owners="$refs.select"
+                v-bind:owners="[$refs.selectButton, $refs.select]"
                 ref="dropdown"
                 v-on:update:highlighted="onDropdownHighlighted"
                 v-on:item-clicked="value => onDropdownItemClicked(value.value)"
@@ -87,13 +86,17 @@
 
 .select .dropdown-select,
 .select .select-container {
-    line-height: 0px;
     position: relative;
     width: 100%;
 }
+
 .select .dropdown-select,
 .select .select-container .select-button {
-    background: url("~./assets/chevron-down.svg") right 12px center / 14px 14px no-repeat $soft-blue;
+    background-color: $soft-blue;
+    background-image: url("~./assets/chevron-down.svg");
+    background-position: right 12px center;
+    background-repeat: no-repeat;
+    background-size: 14px 14px;
     border: 1px solid $light-white;
     border-radius: 6px 6px 6px 6px;
     box-sizing: border-box;
@@ -103,10 +106,11 @@
     font-size: 13px;
     height: 34px;
     letter-spacing: 0.25px;
-    line-height: 32px;
+    line-height: 34px;
     outline: none;
     overflow: hidden;
-    padding: 0px 34px 0px 12px;
+    padding-left: 12px;
+    padding-right: 34px;
     text-overflow: ellipsis;
     transition: width 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
     user-select: none;
@@ -114,7 +118,11 @@
 }
 
 .select .select-container .select-input {
-    background: url("~./assets/chevron-down.svg") right 12px center / 14px 14px no-repeat $soft-blue;
+    background-color: $soft-blue;
+    background-image: url("~./assets/chevron-down.svg");
+    background-position: right 12px center;
+    background-repeat: no-repeat;
+    background-size: 14px 14px;
 }
 
 .select.direction-top .dropdown-select,
@@ -158,10 +166,6 @@
 
 .select.select-align-left .select-container .dropdown-container {
     left: 0px;
-}
-
-.select .dropdown-container ::v-deep .dropdown .dropdown-item.highlighted {
-    background-color: $light-grey;
 }
 </style>
 
@@ -284,22 +288,6 @@ export const Select = {
                 this.openDropdown();
             }
         },
-        toggleAndSet() {
-            if (!this.visibleData) {
-                this.openDropdown();
-                return;
-            }
-
-            if (this.highlighted === null) {
-                this.closeDropdown();
-                return;
-            }
-
-            if (this.filteredOptions[this.highlighted]) {
-                this.setValue(this.filteredOptions[this.highlighted].value);
-            }
-            this.closeDropdown();
-        },
         dehighlight() {
             this.highlighted = null;
         },
@@ -360,16 +348,13 @@ export const Select = {
                 dropdown.scrollTop = indexEnd - dropdown.clientHeight;
             }
         },
-        scrollToTop(scroll = true) {
-            this.openDropdown();
-            this.highlight(0, scroll);
-        },
-        scrollToBottom(scroll = true) {
-            this.openDropdown();
-            this.highlight(this.filteredOptions.length - 1, scroll);
-        },
         onGlobalClick(event) {
-            if (this.$refs.select.contains(event.target) || this.$refs.input.contains(event.target)) return;
+            if (
+                this.$refs.select.contains(event.target) ||
+                this.$refs.input.contains(event.target)
+            ) {
+                return;
+            }
             this.closeDropdown();
         },
         onClickDropdownButton() {
@@ -398,22 +383,44 @@ export const Select = {
             this.highlightNext();
         },
         onAltDownKey() {
-            this.scrollToBottom();
+            this.openDropdown();
+            this.highlight(this.options.length - 1);
         },
         onAltUpKey() {
-            this.scrollToTop();
-        },
-        onPageUpKey() {
-            this.scrollToTop();
-        },
-        onPageDownKey() {
-            this.scrollToBottom();
+            this.openDropdown();
+            this.highlight(0);
         },
         onEnterKey() {
-            this.toggleAndSet();
+            if (!this.visibleData) {
+                this.openDropdown();
+                return;
+            }
+
+            if (this.highlighted === null) {
+                this.closeDropdown();
+                return;
+            }
+
+            if (this.filteredOptions[this.highlighted]) {
+                this.setValue(this.filteredOptions[this.highlighted].value);
+            }
+            this.closeDropdown();
         },
         onSpaceKey() {
-            this.toggleAndSet();
+            if (!this.visibleData) {
+                this.openDropdown();
+                return;
+            }
+
+            if (this.highlighted === null) {
+                this.closeDropdown();
+                return;
+            }
+
+            if (this.filteredOptions[this.highlighted]) {
+                this.setValue(this.filteredOptions[this.highlighted].value);
+            }
+            this.closeDropdown();
         },
         onSelectChange(value) {
             this.setValue(value);
@@ -438,7 +445,11 @@ export const Select = {
     computed: {
         filteredOptions() {
             if (!this.filter || !this.filterText) return this.options;
-            return this.options.filter(option => option.label && option.label.toUpperCase().startsWith(this.filterText.toUpperCase()));
+            return this.options.filter(
+                option =>
+                    option.label &&
+                    option.label.toUpperCase().startsWith(this.filterText.toUpperCase())
+            );
         },
         buttonText() {
             return this.options && this.options[this.valueIndex]
