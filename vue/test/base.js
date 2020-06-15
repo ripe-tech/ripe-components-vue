@@ -7,6 +7,7 @@ const components = require("../components");
 const mocks = require("./mocks");
 
 const localVue = testUtils.createLocalVue();
+localVue.use(components.install);
 localVue.component("global-events", globalEvents.default);
 localVue.mixin(mocks.deviceMockMixin);
 localVue.prototype.$bus = new Vue();
