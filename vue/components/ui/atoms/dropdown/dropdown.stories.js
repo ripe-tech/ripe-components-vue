@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, boolean, select } from "@storybook/addon-knobs";
+import { withKnobs, boolean, select, text } from "@storybook/addon-knobs";
 
 storiesOf("Atoms", module)
     .addDecorator(withKnobs)
@@ -48,6 +48,9 @@ storiesOf("Atoms", module)
                 default: () => ({
                     1: true
                 })
+            },
+            messageEmpty: {
+                default: text("Empty message: ", "NO ITEMS")
             }
         },
         data: function() {
@@ -69,6 +72,7 @@ storiesOf("Atoms", module)
                     v-bind:visible.sync="visibleData"
                     v-bind:highlighted.sync="highlightedData"
                     v-bind:direction="direction"
+                    v-bind:message-empty="messageEmpty"
                 />
                 <p>The dropdown is: {{ visibleData ? "visible" : "invisible" }}</p>
                 <p>Highlighted: {{ highlightedData }}</p>
