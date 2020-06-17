@@ -363,6 +363,7 @@ export const Select = {
             this.toggleDropdown();
         },
         onKey(key) {
+            if (this.filter) return;
             this.highlightFirstMatchedOption(key);
         },
         onEscKey() {
@@ -386,13 +387,14 @@ export const Select = {
         },
         onAltUpKey() {
             this.openDropdown();
-            this.highlight(0);
+            this.highlight(0, true);
         },
         onAltDownKey() {
             this.openDropdown();
-            this.highlight(this.filteredOptions.length - 1);
+            this.highlight(this.filteredOptions.length - 1, true);
         },
         onEnterKey() {
+            if (!this.filteredOptions[this.highlighted]) return;
             if (!this.visibleData) {
                 this.openDropdown();
                 return;
