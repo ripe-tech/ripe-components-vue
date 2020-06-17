@@ -113,10 +113,6 @@
     text-decoration: none;
 }
 
-.dropdown-container .dropdown > .dropdown-item.separator > span {
-    display: none;
-}
-
 .dropdown-container .dropdown > .dropdown-item:hover > a,
 .dropdown-container .dropdown > .dropdown-item.selected > a,
 .dropdown-container .dropdown > .dropdown-item.highlighted > a {
