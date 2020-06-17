@@ -8,7 +8,7 @@
                     v-bind:class="_getItemClasses(item, index)"
                     v-for="(item, index) in items.filter(v => v !== null && v !== undefined)"
                     v-bind:key="item.value"
-                    v-on:click="() => click(item)"
+                    v-on:click="() => click(item, index)"
                     v-on:mouseenter="() => onMouseenter(index)"
                     v-on:mouseleave="() => onMouseleave(index)"
                 >
@@ -215,9 +215,9 @@ export const Dropdown = {
         }
     },
     methods: {
-        click(item) {
+        click(item, index) {
             this.hide();
-            this.$emit("item-clicked", item);
+            this.$emit("item-clicked", item, index);
         },
         highlight(index) {
             this.$set(this.highlightedData, index, true);
