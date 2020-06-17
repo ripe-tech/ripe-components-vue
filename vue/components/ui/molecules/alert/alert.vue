@@ -84,6 +84,7 @@ export const Alert = {
             subTitle: null,
             text: null,
             task: null,
+            cancelTask: null,
             visible: false,
             loading: false,
             key: true
@@ -118,6 +119,7 @@ export const Alert = {
                 subTitle,
                 text,
                 task,
+                cancelTask,
                 reset = true,
                 ...attrs
             } = options;
@@ -142,6 +144,7 @@ export const Alert = {
             this.subTitle = subTitle;
             this.text = text;
             this.task = task || null;
+            this.cancelTask = cancelTask || null;
 
             this.visible = true;
             this.loading = false;
@@ -173,6 +176,14 @@ export const Alert = {
             this.markDone("alert:confirm");
         },
         async cancel() {
+            if (this.cancelTask) {
+                try {
+                    this.loading = true;
+                    await this.cancelTask(this, this.getComponentRef());
+                } catch (err) {
+                    console.err(err);
+                }
+            }
             this.markDone("alert:cancel");
         },
         async onUpdateVisible(visible) {
