@@ -15,7 +15,7 @@
         <icon
             v-bind:style="{ opacity: iconOpacity }"
             v-bind:icon="icon"
-            v-bind:color="iconColor"
+            v-bind:color="iconColorData"
             v-bind:fill="iconFill"
             v-bind:stroke-width="iconStrokeWidth"
             v-show="!loading"
@@ -159,6 +159,10 @@ export const ButtonIcon = {
             type: Number,
             default: 0.5
         },
+        iconColor: {
+            type: String,
+            default: null
+        },
         iconFill: {
             type: String,
             default: null
@@ -225,7 +229,8 @@ export const ButtonIcon = {
         }
     },
     computed: {
-        iconColor() {
+        iconColorData() {
+            if (this.iconColor) return this.iconColor;
             if (this.color === "black") return "white";
             return "black";
         },
