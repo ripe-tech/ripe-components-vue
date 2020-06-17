@@ -119,6 +119,7 @@ export const Alert = {
                 subTitle,
                 text,
                 task,
+                cancelTask,
                 reset = true,
                 ...attrs
             } = options;
@@ -143,6 +144,7 @@ export const Alert = {
             this.subTitle = subTitle;
             this.text = text;
             this.task = task || null;
+            this.cancelTask = cancelTask || null;
 
             this.visible = true;
             this.loading = false;
@@ -177,7 +179,7 @@ export const Alert = {
             if (this.cancelTask) {
                 try {
                     this.loading = true;
-                    await this.cancelTask(this, this.componentRef());
+                    await this.cancelTask(this, this.getComponentRef());
                 } catch (err) {
                     console.err(err);
                 }
