@@ -104,7 +104,7 @@
 }
 
 .search-persistent > .select .save-filter-button > .filter-item-label {
-    background: url("~./../../../../assets/icons/black/add.svg") center left no-repeat;
+    background: url("~./../../../../assets/icons/add.svg") center left no-repeat;
     background-size: 16px 16px;
     padding-left: 24px;
 }
