@@ -5,6 +5,7 @@
                 class="header"
                 v-bind:style="headerStyle"
                 v-bind:class="headerClasses"
+                v-bind:size="headerSize"
                 v-bind:text="header"
                 v-bind:for="id"
                 v-if="header"
@@ -19,7 +20,7 @@
                     class="footer"
                     v-bind:style="footerStyle"
                     v-bind:class="footerClasses"
-                    v-bind:size="'small'"
+                    v-bind:size="footerSize"
                     v-bind:text="footer"
                     v-bind:for="id"
                     v-if="footer"
@@ -70,14 +71,21 @@
     min-width: 120px;
 }
 
-.form-input .footer {
-    color: $medium-grey;
-    margin-top: 6px;
-}
-
 .form-input .content {
     font-size: 0px;
     line-height: 0px;
+}
+
+.form-input.form-input-inline .content {
+    align-items: center;
+    display: flex;
+    height: 34px;
+    line-height: 34px;
+}
+
+.form-input .footer {
+    color: $medium-grey;
+    margin-top: 6px;
 }
 </style>
 
@@ -105,9 +113,17 @@ export const FormInput = {
             type: String,
             default: null
         },
+        headerSize: {
+            type: String,
+            default: "normal"
+        },
         footerVariant: {
             type: String,
             default: null
+        },
+        footerSize: {
+            type: String,
+            default: "small"
         },
         headerMinWidth: {
             type: Number,

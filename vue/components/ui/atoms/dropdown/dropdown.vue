@@ -1,6 +1,6 @@
 <template>
-    <div class="dropdown-container">
-        <global-events v-on:keydown.esc="handleGlobal()" />
+    <div class="dropdown-container" v-bind:class="classes">
+        <global-events v-on:keydown.esc="onEscKey" v-on:click="onGlobalClick" />
         <transition name="slide" v-on:after-leave="onSlideAfterLeave">
             <ul class="dropdown" v-bind:style="dropdownStyle" v-show="visibleData" ref="dropdown">
                 <li
@@ -8,9 +8,9 @@
                     v-bind:class="_getItemClasses(item, index)"
                     v-for="(item, index) in items.filter(v => v !== null && v !== undefined)"
                     v-bind:key="item.value"
-                    v-on:click.stop="click(item, index)"
-                    v-on:mouseenter="onMouseenter(index)"
-                    v-on:mouseleave="onMouseleave(index)"
+                    v-on:click="() => click(item, index)"
+                    v-on:mouseenter="() => onMouseenter(index)"
+                    v-on:mouseleave="() => onMouseleave(index)"
                 >
                     <slot v-bind:item="item" v-bind:index="index" v-bind:name="item.value">
                         <slot v-bind:item="item" v-bind:index="index">
@@ -36,29 +36,35 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.slide-enter-active,
-.slide-leave-active {
-    transition: opacity 0.1s cubic-bezier(0.645, 0.045, 0.355, 1),
-        transform 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-
-.slide-enter,
-.slide-leave-to {
-    opacity: 0;
-    transform: translateY(-10px);
-}
-
-.slide-enter-to,
-.slide-leave {
-    opacity: 1;
-}
-
 .dropdown-container {
     position: relative;
     width: 100%;
 }
 
-.dropdown {
+.dropdown-container .slide-enter-active,
+.dropdown-container.slide-leave-active {
+    transition: opacity 0.1s cubic-bezier(0.645, 0.045, 0.355, 1),
+        transform 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.dropdown-container .slide-enter,
+.dropdown-container .slide-leave-to {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.dropdown-container.direction-top .slide-enter,
+.dropdown-container.direction-top .slide-leave-to {
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.dropdown-container .slide-enter-to,
+.dropdown-container .slide-leave {
+    opacity: 1;
+}
+
+.dropdown-container .dropdown {
     border: 1px solid #dddddd;
     border-radius: 5px;
     box-shadow: 1px 2px 5px rgba(20, 20, 20, 0.1);
@@ -70,9 +76,10 @@
     margin: 0px 0px 0px 0px;
     overflow: hidden;
     padding: 0px;
+    user-select: none;
 }
 
-.dropdown > .dropdown-item {
+.dropdown-container .dropdown > .dropdown-item {
     background-color: $white;
     cursor: pointer;
     line-height: 18px;
@@ -82,37 +89,37 @@
     white-space: nowrap;
 }
 
-.dropdown > .dropdown-item:hover,
-.dropdown > .dropdown-item:active,
-.dropdown > .dropdown-item.selected,
-.dropdown > .dropdown-item.highlighted {
+.dropdown-container .dropdown > .dropdown-item:hover,
+.dropdown-container .dropdown > .dropdown-item:active,
+.dropdown-container .dropdown > .dropdown-item.selected,
+.dropdown-container .dropdown > .dropdown-item.highlighted {
     background-color: $soft-blue;
 }
 
-.dropdown > .dropdown-item.separator {
+.dropdown-container .dropdown > .dropdown-item.separator {
     border-top: 1px solid $border-color;
 }
 
-.dropdown > .dropdown-item > * {
+.dropdown-container .dropdown > .dropdown-item > * {
     box-sizing: border-box;
     display: inline-block;
     padding: 8px 14px 8px 14px;
     width: 100%;
 }
 
-.dropdown > .dropdown-item > a {
+.dropdown-container .dropdown > .dropdown-item > a {
     border-bottom: none;
     color: $dark-grey;
     text-decoration: none;
 }
 
-.dropdown > .dropdown-item.separator > span {
+.dropdown-container .dropdown > .dropdown-item.separator > span {
     display: none;
 }
 
-.dropdown > .dropdown-item:hover > a,
-.dropdown > .dropdown-item.selected > a,
-.dropdown > .dropdown-item.highlighted > a {
+.dropdown-container .dropdown > .dropdown-item:hover > a,
+.dropdown-container .dropdown > .dropdown-item.selected > a,
+.dropdown-container .dropdown > .dropdown-item.highlighted > a {
     color: $blacker;
 }
 </style>
@@ -124,6 +131,10 @@ export const Dropdown = {
         items: {
             type: Array,
             default: () => []
+        },
+        selected: {
+            type: Object,
+            default: () => ({})
         },
         highlighted: {
             type: Object,
@@ -148,20 +159,39 @@ export const Dropdown = {
         maxHeight: {
             type: Number,
             default: null
+        },
+        overflow: {
+            type: String,
+            default: "auto"
+        },
+        direction: {
+            type: String,
+            default: "bottom"
+        },
+        owners: {
+            type: Node | Array,
+            default: () => []
         }
     },
     data: function() {
         return {
             visibleData: this.visible,
-            highlightedData: this.highlighted
+            highlightedData: this.highlighted,
+            selectedData: this.selected
         };
     },
     watch: {
         visible(value) {
             this.setVisible(value);
         },
+        selected(value) {
+            this.selectedData = value;
+        },
         highlighted(value) {
             this.highlightedData = value;
+        },
+        selectedData(value) {
+            this.$emit("update:selected", value);
         },
         highlightedData(value) {
             this.$emit("update:highlighted", value);
@@ -171,26 +201,27 @@ export const Dropdown = {
         isVisible() {
             return this.visible && this.visibleData;
         },
+        classes() {
+            const base = {};
+            if (this.direction) {
+                base[`direction-${this.direction}`] = this.direction;
+            }
+            return base;
+        },
         dropdownStyle() {
             const base = {};
             if (this.width) base.width = `${this.width}px`;
             if (this.maxHeight) {
                 base["max-height"] = `${this.maxHeight}px`;
-                base.overflow = "overlay";
             }
+            if (this.overflow) base.overflow = this.overflow;
             return base;
         }
     },
-    created: function() {
-        document.addEventListener("click", this.handleGlobal);
-    },
-    destroyed: function() {
-        document.removeEventListener("click", this.handleGlobal);
-    },
     methods: {
         click(item, index) {
-            this.$emit("item-clicked", item, index);
             this.hide();
+            this.$emit("item-clicked", item, index);
         },
         highlight(index) {
             this.$set(this.highlightedData, index, true);
@@ -218,6 +249,15 @@ export const Dropdown = {
             if (!this.globalEvents) return;
             this.hide();
         },
+        onEscKey() {
+            this.handleGlobal();
+        },
+        onGlobalClick(event) {
+            const owners = Array.isArray(this.owners) ? this.owners : [this.owners];
+            const insideOwners = owners.some(owner => owner.contains(event.target));
+            if (insideOwners) return;
+            this.handleGlobal();
+        },
         onMouseenter(index) {
             this.highlight(index);
         },
@@ -230,7 +270,8 @@ export const Dropdown = {
         _getItemClasses(item, index) {
             return {
                 separator: item.separator,
-                highlighted: this.highlightedData[index]
+                highlighted: this.highlightedData[index],
+                selected: this.selectedData[index]
             };
         }
     }

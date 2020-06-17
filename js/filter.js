@@ -12,7 +12,7 @@ export const filterToParams = (options = {}, nameAlias = {}, nameFunc = {}, filt
     const { sort, reverse, filter, start, limit } = options;
     const filterS = filter || "";
     const params = { number_records: limit, start_record: start };
-    const direction = reverse ? "ascending" : "descending";
+    const direction = reverse ? "descending" : "ascending";
     const sortS = `${sort}:${direction}`;
     const filters = [];
     const isPerfect = filterS.match(OP_REGEX);

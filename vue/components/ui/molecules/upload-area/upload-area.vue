@@ -20,14 +20,14 @@
                     multiple
                     hidden
                     ref="filesInput"
-                    v-on:change="onFilesInputChange()"
+                    v-on:change="onFilesInputChange"
                 />
                 <button-color
                     class="button-upload"
                     v-bind:text="'Upload File'"
                     v-bind:icon="'cloud-upload'"
                     v-bind:alignment="'center'"
-                    v-on:click="onUploadButtonClick()"
+                    v-on:click="onUploadButtonClick"
                 />
             </div>
         </slot>
@@ -40,7 +40,7 @@
 
 .upload-area > .upload-area-container {
     align-items: center;
-    border: dashed 2px $light-white;
+    border: 2px dashed $light-white;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
@@ -164,7 +164,6 @@ export const UploadArea = {
             this.dragging = true;
         },
         onDragLeave(event) {
-            // event was fired from a children, ignore
             if (event.currentTarget.contains(event.relatedTarget)) return false;
             this.dragging = false;
         },

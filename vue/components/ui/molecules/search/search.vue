@@ -5,14 +5,16 @@
         v-bind:class="[
             focused ? 'focus' : 'unfocus',
             grow ? 'grow' : '',
+            value ? 'filled' : '',
             iconVisible ? 'icon-visible' : 'icon-invisible',
             clearVisible ? 'clear-visible' : 'clear-invisible'
         ]"
     >
-        <global-events v-on:keydown.esc="blur()" />
+        <global-events v-on:keydown.esc="onEscKey" />
         <loader loader="ball-scale-multiple" v-if="loading" />
         <slot name="icon" v-else>
             <svg
+                v-bind:style="svgStyle"
                 focusable="false"
                 height="24px"
                 viewBox="0 0 24 24"
@@ -32,6 +34,7 @@
             v-bind:placeholder="placeholder"
             v-bind:autofocus="autofocus"
             v-bind:width="width"
+            v-bind:height="height"
             v-bind:font-weight="600"
             ref="input"
             v-on:focus="focused = true"
@@ -69,8 +72,6 @@
 .search {
     display: inline-block;
     font-size: 0px;
-    height: 34px;
-    line-height: 34px;
     overflow: hidden;
     position: relative;
     width: 100%;
@@ -94,17 +95,18 @@
     display: inline-block;
     fill: #d0d0d0;
     margin-left: 8px;
-    margin-top: 5px;
     position: absolute;
     width: 20px;
 }
 
-.search.focus > svg {
+.search.focus > svg,
+.search.filled > svg {
     fill: #2d2d2d;
 }
 
 .search ::v-deep input[type="text"] {
     padding-left: 12px;
+    vertical-align: top;
 }
 
 .search.grow ::v-deep input[type="text"] {
@@ -124,9 +126,9 @@
 }
 
 .search .icon-clear {
+    margin-left: -29px;
+    margin-top: 5px;
     position: absolute;
-    right: 5px;
-    top: 5px;
 }
 
 .search .icon-clear ::v-deep img {
@@ -190,6 +192,14 @@ export const Search = {
             type: Array,
             default: () => []
         },
+        width: {
+            type: Number,
+            default: null
+        },
+        height: {
+            type: Number,
+            default: 34
+        },
         grow: {
             type: Boolean,
             default: false
@@ -205,10 +215,6 @@ export const Search = {
         clearVisible: {
             type: Boolean,
             default: false
-        },
-        width: {
-            type: Number,
-            default: null
         },
         loading: {
             type: Boolean,
@@ -243,7 +249,13 @@ export const Search = {
         style() {
             const base = {};
             if (this.width) base.width = `${this.width}px`;
+            if (this.height) base.height = `${this.height}px`;
             return base;
+        },
+        svgStyle() {
+            return {
+                "margin-top": `${(this.height - 24) / 2}px`
+            };
         },
         clearButtonVisible() {
             return this.valueData && this.clearVisible;
@@ -255,6 +267,9 @@ export const Search = {
         },
         clear() {
             this.valueData = "";
+        },
+        onEscKey() {
+            this.blur();
         },
         onClearIconClick() {
             this.clear();

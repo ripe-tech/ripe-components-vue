@@ -6,18 +6,24 @@
                 v-bind:items="items"
                 v-bind:sort-method="onSort"
                 v-bind:transition="tableTransition"
-                v-bind:initial-sort="sort"
-                v-bind:initial-reverse="reverse"
+                v-bind:sort="sort"
+                v-bind:reverse="reverse"
+                v-bind:variant="tableVariant"
                 v-on:click="onTableClick"
             >
                 <template v-slot="{ item, index }">
                     <slot name="table-item" v-bind:item="item" v-bind:index="index" />
+                </template>
+                <template v-slot:row="{ item, index }">
+                    <slot name="table-row" v-bind:item="item" v-bind:index="index" />
                 </template>
             </table-ripe>
             <lineup
                 v-bind:items="items"
                 v-bind:fields="lineupFields"
                 v-bind:get-item-url="getItemUrl"
+                v-bind:columns="lineupColumns"
+                v-bind:variant="lineupVariant"
                 v-on:click="onLineupClick"
             >
                 <slot
@@ -103,6 +109,10 @@ export const Filter = {
             type: Array,
             default: () => []
         },
+        tableVariant: {
+            type: String,
+            default: null
+        },
         lineupFields: {
             type: Array,
             default: () => []
@@ -111,9 +121,17 @@ export const Filter = {
             type: Number,
             default: null
         },
+        lineupVariant: {
+            type: String,
+            default: null
+        },
         limit: {
             type: Number,
             default: 25
+        },
+        defaultReverse: {
+            type: Boolean,
+            default: false
         },
         filterTimeout: {
             type: Number,
@@ -125,7 +143,9 @@ export const Filter = {
         }
     },
     data: function() {
-        const { sort = "id", reverse = false } = this.useQuery ? this.parseQuery() : {};
+        const { sort = "id", reverse = this.defaultReverse } = this.useQuery
+            ? this.parseQuery()
+            : {};
         return {
             items: [],
             sort: sort,
@@ -140,6 +160,11 @@ export const Filter = {
         signature() {
             return `${this.sort}:${this.reverse}:${this.filter}:${this.start}`;
         },
+        /**
+         * Normalized options (in native Javascript format) ready to be sent
+         * to the item retrieval operations. This object can be safely used
+         * internally as opposed to the context field which is string oriented.
+         */
         options() {
             return {
                 sort: this.sort,
@@ -178,7 +203,7 @@ export const Filter = {
 
                 // updates the top level query for the current page
                 // and triggers the update event (for listeners)
-                this.useQuery && this.updateQuery(options);
+                if (this.useQuery) this.updateQuery(options);
                 this.$emit("update:options", options);
             }
         },
@@ -202,9 +227,7 @@ export const Filter = {
             return items;
         },
         loadMore() {
-            if (!this.itemsToLoad || this.loading) {
-                return;
-            }
+            if (!this.itemsToLoad || this.loading) return;
             this.start += this.limit;
         },
         parseQuery() {
@@ -212,21 +235,21 @@ export const Filter = {
             const { sort, reverse, filter } = query;
             return {
                 sort: sort || undefined,
-                reverse: reverse === null ? undefined : reverse === "true",
+                reverse: reverse === null || reverse === undefined ? undefined : reverse === "1",
                 filter: filter || undefined
             };
         },
         updateQuery(options) {
             const { sort, reverse, filter } = options;
 
-            const current = this.$route.query;
-            const next = Object.assign({}, current);
+            const query = this.$route.query;
+            const current = Object.assign({}, query);
+            const next = Object.assign({}, query);
 
             if (sort) next.sort = sort;
             else delete next.sort;
 
-            if (reverse) next.reverse = reverse;
-            else delete next.reverse;
+            next.reverse = reverse ? "1" : "0";
 
             if (filter) next.filter = filter;
             else delete next.filter;

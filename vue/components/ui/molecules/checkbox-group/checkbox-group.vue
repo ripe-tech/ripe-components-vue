@@ -13,6 +13,7 @@
                 v-bind:index="index"
                 v-bind:disabled="item.disabled || disabled"
                 v-bind:variant="item.error || error ? 'error' : null"
+                ref="checkboxes"
             />
             <slot
                 name="after-item"
@@ -45,7 +46,7 @@ export const CheckboxGroup = {
         },
         values: {
             type: Object,
-            default: () => {}
+            default: () => ({})
         },
         error: {
             type: Boolean,
@@ -64,6 +65,18 @@ export const CheckboxGroup = {
     watch: {
         values(value) {
             this.checkedData = value;
+        }
+    },
+    methods: {
+        focus() {
+            const firstFocusable = this.$refs.checkboxes.find(c => c.isFocusable());
+            if (!firstFocusable) return;
+            firstFocusable.focus();
+        },
+        blur() {
+            const firstFocused = this.$refs.checkboxes.find(c => c.isFocused());
+            if (!firstFocused) return;
+            return firstFocused.blur();
         }
     }
 };

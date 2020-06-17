@@ -2,7 +2,8 @@
     <div
         class="radio"
         v-bind:class="classes"
-        ref="root"
+        v-bind:tabindex="tabindex"
+        ref="radio"
         v-on:click="onClick"
         v-on:keydown="onKeydown"
     >
@@ -48,8 +49,6 @@
 
 .radio:not(.disabled):not(.error):active > .radio-input > .radio-circle {
     background: url("~./assets/check-dark.svg") center / 4px no-repeat #f4f5f7;
-    border: 2px solid #c3c9cf;
-    padding: 3px 3px 3px 3px;
 }
 
 .radio.error > .radio-input > .radio-circle {
@@ -66,7 +65,6 @@
 .radio.checked > .radio-input > .radio-circle {
     background: url("~./assets/check.svg") center / 4px no-repeat $dark;
     border: 2px solid $dark;
-    padding: 3px 3px 3px 3px;
 }
 
 .radio.error.checked > .radio-input > .radio-circle {
@@ -77,7 +75,6 @@
 .radio.disabled.checked > .radio-input > .radio-circle {
     background: url("~./assets/check-gray.svg") center / 4px no-repeat #f4f5f7;
     border: 2px solid #f6f7f9;
-    padding: 3px 3px 3px 3px;
 }
 
 .radio:focus:not(.disabled) > .radio-input > .radio-circle {
@@ -126,18 +123,34 @@ export const Radio = {
         }
     },
     computed: {
+        tabindex() {
+            return this.disabled ? "" : "0";
+        },
         classes() {
             const base = {
                 disabled: this.disabled,
                 checked: this.checked
             };
-
             if (this.variant) base[this.variant] = true;
-
             return base;
         }
     },
     methods: {
+        focus() {
+            this.$refs.radio.focus();
+        },
+        blur() {
+            this.$refs.radio.blur();
+        },
+        isDisabled() {
+            return this.disabled;
+        },
+        isFocused() {
+            return document.activeElement === this.$refs.radio;
+        },
+        isFocusable() {
+            return !this.isDisabled();
+        },
         onClick(event) {
             this.$emit("click", event);
         },

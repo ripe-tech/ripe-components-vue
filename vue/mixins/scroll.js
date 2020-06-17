@@ -1,4 +1,4 @@
-const scrollMixin = {
+export const scrollMixin = {
     props: {
         /**
          * The number of pixels for the margin top and bottom
@@ -59,5 +59,3 @@ const scrollMixin = {
         }
     }
 };
-
-export { scrollMixin };

@@ -1,5 +1,6 @@
 import { Alert } from "./alert/alert.vue";
 import { Announcements } from "./announcements/announcements.vue";
+import { ButtonDropdown } from "./button-dropdown/button-dropdown.vue";
 import { ButtonIconAnimated } from "./button-icon-animated/button-icon-animated.vue";
 import { ChatMessage } from "./chat-message/chat-message.vue";
 import { CheckboxGroup } from "./checkbox-group/checkbox-group.vue";
@@ -12,19 +13,24 @@ import { InputSymbol } from "./input-symbol/input-symbol.vue";
 import { Lightbox } from "./lightbox/lightbox.vue";
 import { Lineup } from "./lineup/lineup.vue";
 import { Modal } from "./modal/modal.vue";
+import { Notification } from "./notification/notification.vue";
 import { ProgressBar } from "./progress-bar/progress-bar.vue";
+import { ProgressList } from "./progress-list/progress-list.vue";
+import { ProgressListItem } from "./progress-list-item/progress-list-item.vue";
 import { RadioGroup } from "./radio-group/radio-group.vue";
 import { Search } from "./search/search.vue";
 import { SearchPersistent } from "./search-persistent/search-persistent.vue";
 import { Select } from "./select/select.vue";
 import { SelectList } from "./select-list/select-list.vue";
 import { Table } from "./table/table.vue";
+import { TableExpandable } from "./table-expandable/table-expandable.vue";
 import { Tabs } from "./tabs/tabs.vue";
 import { TransferList } from "./transfer-list/transfer-list.vue";
 import { UploadArea } from "./upload-area/upload-area.vue";
 
 const install = Vue => {
     Vue.component("alert", Alert);
+    Vue.component("button-dropdown", ButtonDropdown);
     Vue.component("button-icon-animated", ButtonIconAnimated);
     Vue.component("announcements", Announcements);
     Vue.component("chat-message", ChatMessage);
@@ -38,13 +44,17 @@ const install = Vue => {
     Vue.component("lightbox", Lightbox);
     Vue.component("lineup", Lineup);
     Vue.component("modal", Modal);
+    Vue.component("notification", Notification);
     Vue.component("progress-bar", ProgressBar);
+    Vue.component("progress-list", ProgressList);
+    Vue.component("progress-list-item", ProgressListItem);
     Vue.component("radio-group", RadioGroup);
     Vue.component("search", Search);
     Vue.component("search-persistent", SearchPersistent);
     Vue.component("select-ripe", Select);
     Vue.component("select-list", SelectList);
     Vue.component("table-ripe", Table);
+    Vue.component("table-expandable", TableExpandable);
     Vue.component("tabs", Tabs);
     Vue.component("transfer-list", TransferList);
     Vue.component("upload-area", UploadArea);
@@ -53,6 +63,7 @@ const install = Vue => {
 export {
     Alert,
     Announcements,
+    ButtonDropdown,
     ButtonIconAnimated,
     ChatMessage,
     CheckboxGroup,
@@ -65,13 +76,17 @@ export {
     Lightbox,
     Lineup,
     Modal,
+    Notification,
     ProgressBar,
+    ProgressList,
+    ProgressListItem,
     RadioGroup,
     Search,
     SearchPersistent,
     Select,
     SelectList,
     Table,
+    TableExpandable,
     Tabs,
     TransferList,
     UploadArea

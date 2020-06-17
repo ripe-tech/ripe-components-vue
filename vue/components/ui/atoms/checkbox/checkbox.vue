@@ -3,10 +3,11 @@
         tabindex="0"
         class="checkbox"
         v-bind:class="classes"
-        v-on:click="onClick()"
-        v-on:mousedown="onMouseDown()"
-        v-on:mouseup="onMouseUp()"
-        v-on:keydown.space="onSpace()"
+        ref="checkbox"
+        v-on:click="onClick"
+        v-on:mousedown="onMouseDown"
+        v-on:mouseup="onMouseUp"
+        v-on:keydown.space="onSpaceKey"
     >
         <global-events v-on:mouseup="onMouseUp" />
         <div class="checkbox-input">
@@ -48,11 +49,6 @@
     width: 4px;
 }
 
-.checkbox:not(.disabled):not(.error) > .checkbox-input:active > .checkbox-square {
-    border: 2px solid #f4f5f7;
-    padding: 3px 3px 3px 3px;
-}
-
 .checkbox.error > .checkbox-input > .checkbox-square {
     background-color: #f4f5f7;
     border: 2px solid $dark-red;
@@ -67,7 +63,10 @@
 .checkbox.checked > .checkbox-input > .checkbox-square {
     background-color: $dark;
     border: 2px solid $dark;
-    padding: 3px 3px 3px 3px;
+}
+
+.checkbox.active.checked > .checkbox-input > .checkbox-square {
+    background-color: #f4f5f7;
 }
 
 .checkbox.error.checked > .checkbox-input > .checkbox-square {
@@ -78,7 +77,6 @@
 .checkbox.disabled.checked > .checkbox-input > .checkbox-square {
     background-color: #f4f5f7;
     border: 2px solid #f6f7f9;
-    padding: 3px 3px 3px 3px;
 }
 
 .checkbox:focus:not(.disabled) > .checkbox-input > .checkbox-square {
@@ -138,17 +136,19 @@ export const Checkbox = {
     watch: {
         checked(value) {
             this.checkedData = value;
+        },
+        checkedData(value) {
+            this.$emit("update:checked", value);
         }
     },
     computed: {
         classes() {
             const base = {
                 checked: this.checkedData,
-                disabled: this.disabled
+                disabled: this.disabled,
+                active: this.active
             };
-
             if (this.variant) base[this.variant] = true;
-
             return base;
         },
         squareStyle() {
@@ -174,17 +174,31 @@ export const Checkbox = {
         }
     },
     methods: {
+        focus() {
+            this.$refs.checkbox.focus();
+        },
+        blur() {
+            this.$refs.checkbox.blur();
+        },
+        isDisabled() {
+            return this.disabled;
+        },
+        isFocused() {
+            return document.activeElement === this.$refs.checkbox;
+        },
+        isFocusable() {
+            return !this.isDisabled();
+        },
         toggle() {
             if (this.disabled) return;
-
             this.checkedData = !this.checkedData;
-            this.$emit("update:checked", this.checkedData);
         },
-        onSpace() {
+        onSpaceKey() {
             this.toggle();
         },
-        onClick() {
+        onClick(event) {
             this.toggle();
+            this.$emit("click", event);
         },
         onMouseDown() {
             this.active = true;

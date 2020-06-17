@@ -19,6 +19,9 @@ storiesOf("Atoms", module)
                     "close"
                 )
             },
+            iconStrokeWidth: {
+                default: number("Icon Stroke Width", null)
+            },
             text: {
                 default: text("Text", null)
             },
@@ -26,7 +29,7 @@ storiesOf("Atoms", module)
                 default: select(
                     "Color",
                     {
-                        None: "",
+                        None: null,
                         Grey: "grey",
                         White: "white",
                         Black: "black"
@@ -43,19 +46,28 @@ storiesOf("Atoms", module)
             disabled: {
                 default: boolean("Disabled", false)
             },
+            selectable: {
+                default: boolean("Selectable", true)
+            },
             loading: {
                 default: boolean("Loading", false)
+            },
+            active: {
+                default: boolean("Active", false)
             }
         },
         template: `
             <button-icon
                 v-bind:icon="icon"
+                v-bind:icon-stroke-width="iconStrokeWidth"
                 v-bind:text="text"
                 v-bind:color="color"
                 v-bind:size="size"
                 v-bind:padding="padding"
                 v-bind:disabled="disabled"
+                v-bind:selectable="selectable"
                 v-bind:loading="loading"
+                v-bind:active="active"
             />
         `
     }));

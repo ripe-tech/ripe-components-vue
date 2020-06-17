@@ -1,5 +1,12 @@
 <template>
     <div class="container-ripe" v-bind:class="classes">
+        <div class="container-header" v-if="title || $slots.header">
+            <slot name="header">
+                <title-ripe v-if="title">
+                    {{ title }}
+                </title-ripe>
+            </slot>
+        </div>
         <slot />
     </div>
 </template>
@@ -22,7 +29,8 @@
 }
 
 .container-ripe.container-ripe-expanded {
-    margin: 32px 10px 32px 10px;
+    border-radius: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
     max-width: 100%;
 }
 
@@ -31,6 +39,17 @@ body.mobile .container-ripe {
     box-shadow: none;
     margin: 0px auto 18px auto;
     width: 100%;
+}
+
+.container-ripe > .container-header {
+    font-size: 0px;
+    padding: 24px 24px 20px 24px;
+    text-align: left;
+}
+
+body.tablet .container-ripe > .container-header,
+body.mobile .container-ripe > .container-header {
+    padding: 20px 15px 20px 15px;
 }
 </style>
 
@@ -41,14 +60,16 @@ export const Container = {
         mode: {
             type: String,
             default: "default"
+        },
+        title: {
+            type: String,
+            default: null
         }
     },
     computed: {
         classes() {
             const base = {};
-
             if (this.mode) base[`container-ripe-${this.mode}`] = true;
-
             return base;
         }
     }

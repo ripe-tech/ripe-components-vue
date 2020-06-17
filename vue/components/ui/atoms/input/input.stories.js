@@ -32,8 +32,22 @@ storiesOf("Atoms", module)
             placeholder: {
                 default: text("Placeholder", "This is a placeholder")
             },
+            type: {
+                default: select(
+                    "Input Type",
+                    {
+                        Text: "text",
+                        URL: "url",
+                        Number: "number"
+                    },
+                    "text"
+                )
+            },
             disabled: {
                 default: boolean("Disabled", false)
+            },
+            monospaced: {
+                default: boolean("Monospaced", false)
             },
             ellipsis: {
                 default: boolean("Ellipsis", true)
@@ -43,15 +57,6 @@ storiesOf("Atoms", module)
             },
             footer: {
                 default: text("Footer", "End Footer")
-            },
-            errorText: {
-                default: text("Error Text", "")
-            },
-            warning: {
-                default: text("Warning", "")
-            },
-            success: {
-                default: text("Success", "")
             },
             width: {
                 default: number("Width", null)
@@ -78,19 +83,18 @@ storiesOf("Atoms", module)
                 <form-input
                     v-bind:header="header"
                     v-bind:footer="footer"
-                    v-bind:error="errorText"
-                    v-bind:warning="warning"
-                    v-bind:success="success"
                 >
                     <input-ripe
                         v-bind:variant="variant"
                         v-bind:border="border"
                         v-bind:value.sync="valueData"
                         v-bind:placeholder="placeholder"
+                        v-bind:type="type"
                         v-bind:disabled="disabled"
+                        v-bind:monospaced="monospaced"
                         v-bind:width="width"
                         v-bind:min-width="minWidth"
-                        v-bind:height="height"></input-ripe>
+                        v-bind:height="height" />
                 </form-input>
                 <p>Text: {{ valueData }}</p>
             </div>

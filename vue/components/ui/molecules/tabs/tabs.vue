@@ -1,9 +1,8 @@
 <template>
     <div class="tabs">
-        <div class="header" v-bind:style="headerStyle">
+        <div class="header" v-bind:style="headerStyle" v-if="tabs.length > 1">
             <div
-                class="tab-label"
-                v-bind:class="{ active: isTabActive(index), disabled: tab.disabled }"
+                v-bind:class="tabLabelClasses(tab, index)"
                 tabindex="0"
                 v-for="(tab, index) in tabs"
                 v-bind:key="tab.value"
@@ -15,7 +14,7 @@
         </div>
         <div class="tabs-container">
             <div
-                class="tab"
+                v-bind:class="tabClasses(tab)"
                 v-for="(tab, index) in tabs"
                 v-show="isTabActive(index)"
                 v-bind:key="tab.value"
@@ -49,6 +48,7 @@
     letter-spacing: 0.75px;
     line-height: 28px;
     margin-bottom: -2px;
+    margin-right: 12px;
     max-width: 200px;
     min-height: 28px;
     padding: 0px 25px 0px 25px;
@@ -56,6 +56,10 @@
     transition: color 0.1s cubic-bezier(0.645, 0.045, 0.355, 1),
         border-color 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
     user-select: none;
+}
+
+.tabs > .header > .tab-label:last-child {
+    margin-right: 0px;
 }
 
 .tabs > .header > .tab-label.active {
@@ -111,6 +115,12 @@ export const Tabs = {
     watch: {
         tab(value) {
             this.tabData = value;
+        },
+        tabData(value) {
+            this.$emit("update:tab", value);
+        },
+        tabs(value) {
+            this.tabData = Math.min(this.tabData, value.length - 1);
         }
     },
     computed: {
@@ -129,6 +139,20 @@ export const Tabs = {
         },
         isTabActive(index) {
             return index === this.tabData;
+        },
+        tabLabelClasses(tab, index) {
+            const base = {
+                "tab-label": true,
+                active: this.isTabActive(index),
+                disabled: tab.disabled
+            };
+            base[`tab-label-${tab.value}`] = true;
+            return base;
+        },
+        tabClasses(tab) {
+            const base = { tab: true };
+            base[`tab-${tab.value}`] = true;
+            return base;
         },
         onEnter(index) {
             this.selectTab(index);

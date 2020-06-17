@@ -1,6 +1,6 @@
 <template>
     <input
-        type="text"
+        v-bind:type="type"
         class="input"
         v-bind:style="style"
         v-bind:class="classes"
@@ -11,6 +11,7 @@
         v-on:input="onInput($event.target.value)"
         v-on:focus="onFocus"
         v-on:blur="onBlur"
+        v-on:keyup="onKeyup"
     />
 </template>
 
@@ -33,12 +34,20 @@
     outline: none;
     padding-left: 12px;
     padding-right: 12px;
-    transition: width 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+    transition: width 0.2s ease,
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
     width: 100%;
 }
 
-input::-webkit-input-placeholder {
+.input::-webkit-input-placeholder {
     color: $upper-grey;
+}
+
+.input.monospaced {
+    font-family: consolas, monospace;
+    letter-spacing: 0px;
 }
 
 .input.ellipsis {
@@ -87,6 +96,10 @@ export const Input = {
             type: String | Number,
             default: ""
         },
+        type: {
+            type: String,
+            default: "text"
+        },
         placeholder: {
             type: String,
             default: ""
@@ -100,6 +113,10 @@ export const Input = {
             default: false
         },
         disabled: {
+            type: Boolean,
+            default: false
+        },
+        monospaced: {
             type: Boolean,
             default: false
         },
@@ -119,13 +136,22 @@ export const Input = {
             type: Number,
             default: null
         },
+        fontSize: {
+            type: Number,
+            default: null
+        },
         fontWeight: {
             type: Number,
+            default: null
+        },
+        validationMessage: {
+            type: String,
             default: null
         }
     },
     mounted: function() {
-        this.autofocus && this.focus();
+        if (this.autofocus) this.focus();
+        this.setValidationMessage(this.validationMessage);
     },
     methods: {
         setValue(value) {
@@ -137,6 +163,9 @@ export const Input = {
         blur() {
             this.$refs.input.blur();
         },
+        setValidationMessage(value) {
+            this.$refs.input.setCustomValidity(value || "");
+        },
         onInput(value) {
             this.setValue(value);
         },
@@ -145,6 +174,9 @@ export const Input = {
         },
         onBlur() {
             this.$emit("blur");
+        },
+        onKeyup(event) {
+            this.$emit("keyup", event);
         }
     },
     computed: {
@@ -153,17 +185,24 @@ export const Input = {
                 width: this.width === null ? null : `${this.width}px`,
                 height: this.height === null ? null : `${this.height}px`,
                 "min-width": this.minWidth === null ? null : `${this.minWidth}px`,
+                "font-size": this.fontSize === null ? null : `${this.fontSize}px`,
                 "font-weight": this.fontWeight === null ? null : `${this.fontWeight}`,
                 "text-align": this.align
             };
             return base;
         },
         classes() {
-            const base = {};
+            const base = { monospaced: this.monospaced };
             if (this.variant) base[this.variant] = true;
             if (this.border) base[`border-${this.border}`] = true;
             if (this.ellipsis) base.ellipsis = true;
+            if (this.validationMessage) base.validation = true;
             return base;
+        }
+    },
+    watch: {
+        validationMessage(value) {
+            this.setValidationMessage(value);
         }
     }
 };
