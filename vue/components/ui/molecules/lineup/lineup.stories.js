@@ -71,8 +71,8 @@ storiesOf("Molecules", module)
                 <template v-slot:city-field>
                     Custom city value
                 </template>
-                <template v-slot:city-label>
-                    <p>Custom label</p>
+                <template v-slot:trousers-note>
+                    Custom trousers note
                 </template>
             </lineup>
         `
