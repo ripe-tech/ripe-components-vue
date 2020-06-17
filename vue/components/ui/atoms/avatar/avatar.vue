@@ -5,7 +5,13 @@
         v-if="hasImage"
     >
         <div class="image-container">
-            <image-ripe v-bind:src="src" v-bind:alt="alt" v-bind:fade="fade" />
+            <image-ripe
+                v-bind:src="src"
+                v-bind:src-error="srcError"
+                v-bind:alt="alt"
+                v-bind:fade="fade"
+                v-on:error="onError"
+            />
             <slot name="dot">
                 <div class="dot" />
             </slot>
@@ -141,6 +147,8 @@
 </style>
 
 <script>
+import fallback from "./assets/avatar.png";
+
 export const Avatar = {
     name: "avatar",
     props: {
@@ -151,6 +159,10 @@ export const Avatar = {
         src: {
             type: String,
             default: null
+        },
+        srcError: {
+            type: String,
+            default: fallback
         },
         alt: {
             type: String,
@@ -176,6 +188,11 @@ export const Avatar = {
     computed: {
         hasImage() {
             return Boolean(this.src);
+        }
+    },
+    methods: {
+        onError() {
+            this.$emit("error:image");
         }
     }
 };

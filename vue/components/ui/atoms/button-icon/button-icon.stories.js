@@ -46,8 +46,14 @@ storiesOf("Atoms", module)
             disabled: {
                 default: boolean("Disabled", false)
             },
+            selectable: {
+                default: boolean("Selectable", true)
+            },
             loading: {
                 default: boolean("Loading", false)
+            },
+            active: {
+                default: boolean("Active", false)
             }
         },
         template: `
@@ -59,7 +65,9 @@ storiesOf("Atoms", module)
                 v-bind:size="size"
                 v-bind:padding="padding"
                 v-bind:disabled="disabled"
+                v-bind:selectable="selectable"
                 v-bind:loading="loading"
+                v-bind:active="active"
             />
         `
     }));

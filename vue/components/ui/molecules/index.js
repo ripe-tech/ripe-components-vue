@@ -15,11 +15,14 @@ import { Lineup } from "./lineup/lineup.vue";
 import { Modal } from "./modal/modal.vue";
 import { Notification } from "./notification/notification.vue";
 import { ProgressBar } from "./progress-bar/progress-bar.vue";
+import { ProgressList } from "./progress-list/progress-list.vue";
+import { ProgressListItem } from "./progress-list-item/progress-list-item.vue";
 import { RadioGroup } from "./radio-group/radio-group.vue";
 import { Search } from "./search/search.vue";
 import { Select } from "./select/select.vue";
 import { SelectList } from "./select-list/select-list.vue";
 import { Table } from "./table/table.vue";
+import { TableExpandable } from "./table-expandable/table-expandable.vue";
 import { Tabs } from "./tabs/tabs.vue";
 import { TagGroup } from "./tag-group/tag-group.vue";
 import { TransferList } from "./transfer-list/transfer-list.vue";
@@ -43,13 +46,16 @@ const install = Vue => {
     Vue.component("modal", Modal);
     Vue.component("notification", Notification);
     Vue.component("progress-bar", ProgressBar);
+    Vue.component("progress-list", ProgressList);
+    Vue.component("progress-list-item", ProgressListItem);
     Vue.component("radio-group", RadioGroup);
     Vue.component("search", Search);
     Vue.component("select-ripe", Select);
     Vue.component("select-list", SelectList);
     Vue.component("table-ripe", Table);
-    Vue.component("tag-group", TagGroup);
+    Vue.component("table-expandable", TableExpandable);
     Vue.component("tabs", Tabs);
+    Vue.component("tag-group", TagGroup);
     Vue.component("transfer-list", TransferList);
     Vue.component("upload-area", UploadArea);
 };
@@ -72,11 +78,14 @@ export {
     Modal,
     Notification,
     ProgressBar,
+    ProgressList,
+    ProgressListItem,
     RadioGroup,
     Search,
     Select,
     SelectList,
     Table,
+    TableExpandable,
     Tabs,
     TagGroup,
     TransferList,

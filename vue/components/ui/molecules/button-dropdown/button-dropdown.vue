@@ -188,7 +188,7 @@ export const ButtonDropdown = {
             this.dropdownVisibleData = value;
         },
         dropdownVisibleData(value) {
-            this.$emit("update:dropdown-visible", value);
+            this.$emit("update:dropdownVisible", value);
         }
     },
     methods: {

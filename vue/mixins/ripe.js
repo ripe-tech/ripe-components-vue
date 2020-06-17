@@ -1,4 +1,4 @@
-const ripeMixin = {
+export const ripeMixin = {
     methods: {
         toTokensM(tokens) {
             const tokensM = {};
@@ -48,5 +48,3 @@ const ripeMixin = {
         }
     }
 };
-
-export { ripeMixin };
