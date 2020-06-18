@@ -11,7 +11,7 @@
                 <th class="checkbox-global" v-if="checkboxes">
                     <checkbox
                         v-bind:size="8"
-                        v-bind:checked="!isAllUnchecked"
+                        v-bind:checked="nrChecked > 0"
                         v-bind:icon="globalCheckboxIcon"
                         v-on:click="onGlobalCheckboxClick"
                     />
@@ -427,14 +427,8 @@ export const Table = {
         nrChecked() {
             return Object.keys(this.checkedItemsData).length;
         },
-        isAllChecked() {
-            return this.nrChecked > 0 && this.nrChecked === this.itemsWithIndex.length;
-        },
-        isAllUnchecked() {
-            return this.nrChecked === 0;
-        },
         globalCheckboxIcon() {
-            return this.isAllChecked || this.isAllUnchecked ? "check" : "minus";
+            return this.nrChecked === this.itemsWithIndex.length || this.nrChecked === 0 ? "check" : "minus";
         }
     },
     mounted: function() {
@@ -507,7 +501,8 @@ export const Table = {
             this.lastClickedIndex = index;
         },
         onGlobalCheckboxClick() {
-            this.setAllCheckedItemsValue(this.isAllUnchecked);
+            const checkAll = this.nrChecked === 0;
+            this.setAllCheckedItemsValue(checkAll);
             this.lastClickedIndex = null;
         },
         onChecked(itemId, value) {
