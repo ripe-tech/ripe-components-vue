@@ -430,32 +430,25 @@ export const Table = {
         }
     },
     methods: {
-        garbageCollectCheckedItems() {
-            const checkedItems = {};
-
-            this.itemsWithIndex.forEach(item => {
-                if (this.checkedItemsData[item.id]) checkedItems[item.id] = true;
-            });
-
-            this.checkedItemsData = checkedItems;
-        },
         checkAll() {
-            this.setAllCheckedItemsValue(true);
+            this.setCheckedAll(true);
         },
         uncheckAll() {
-            this.setAllCheckedItemsValue(false);
-        },
-        setAllCheckedItemsValue(value) {
-            this.checkedItemsData = {};
-            if (value) {
-                this.itemsWithIndex.forEach(item => {
-                    this.$set(this.checkedItemsData, item.id, true);
-                });
-            }
+            this.setCheckedAll(false);
         },
         setChecked(id, value) {
             if (value) this.$set(this.checkedItemsData, id, true);
             else this.$delete(this.checkedItemsData, id);
+        },
+        setCheckedAll(value) {
+            this.itemsWithIndex.forEach(item => this.setChecked(item.id, value));
+        },
+        garbageCollectCheckedItems() {
+            const checkedItems = {};
+            this.itemsWithIndex.forEach(item => {
+                if (this.checkedItemsData[item.id]) checkedItems[item.id] = true;
+            });
+            this.checkedItemsData = checkedItems;
         },
         columnLabel(column) {
             if (column.label !== undefined && column.label !== null) return column.label;
@@ -497,7 +490,7 @@ export const Table = {
         },
         onGlobalCheckboxClick() {
             const checkAll = this.nrChecked === 0;
-            this.setAllCheckedItemsValue(checkAll);
+            this.setCheckedAll(checkAll);
             this.lastClickedIndex = null;
         },
         onChecked(itemId, value) {
