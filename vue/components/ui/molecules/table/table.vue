@@ -485,7 +485,7 @@ export const Table = {
             this.$emit("update:sort", this.sortData);
             this.$emit("update:reverse", this.reverseData);
         },
-        checkboxClick(index, itemId) {
+        checkboxClick(index, id) {
             this.lastClickedIndex = index;
         },
         onGlobalCheckboxClick() {
@@ -493,24 +493,31 @@ export const Table = {
             this.setCheckedAll(checkAll);
             this.lastClickedIndex = null;
         },
-        onChecked(itemId, value) {
-            this.setChecked(itemId, value);
+        onChecked(id, value) {
+            this.setChecked(id, value);
         },
-        onCheckboxClick(index, itemId) {
-            this.checkboxClick(index, itemId);
+        onCheckboxClick(index, id) {
+            this.checkboxClick(index, id);
         },
-        onCheckboxShiftClick(index, itemId) {
-            if (this.lastClickedIndex !== null) {
-                const lower = Math.min(index, this.lastClickedIndex);
-                let upper = Math.max(index, this.lastClickedIndex);
+        onCheckboxShiftClick(index, id) {
+            if (this.lastClickedIndex === null) {
+                this.lastClickedIndex = index;
+                return;
+            }
 
-                if (index < this.lastClickedIndex) {
-                    upper = this.lastClickedIndex;
-                    this.lastClickedIndex = index;
-                } else this.uncheckAll();
+            const lower = Math.min(index, this.lastClickedIndex);
+            let upper = Math.max(index, this.lastClickedIndex);
 
-                for (let i = lower; i <= upper; i++) this.setChecked(this.sortedItems[i].id, true);
-            } else this.lastClickedIndex = index;
+            if (index < this.lastClickedIndex) {
+                upper = this.lastClickedIndex;
+                this.lastClickedIndex = index;
+            } else {
+                this.uncheckAll();
+            }
+
+            for (let i = lower; i <= upper; i++) {
+                this.setChecked(this.sortedItems[i].id, true);
+            }
         },
         onCtrlA() {
             this.checkAll();
