@@ -10,7 +10,8 @@
                 v-bind:reverse="reverse"
                 v-bind:variant="tableVariant"
                 v-bind:checkboxes="checkboxes"
-                v-bind:checked-items.sync="checkedItemsData"
+                v-bind:checked-items="checkedItems"
+                v-on:update:checked-items="value => $emit('update:checked-items', value)"
                 v-on:click="onTableClick"
             >
                 <template v-slot="{ item, index }">
@@ -158,7 +159,6 @@ export const Filter = {
             : {};
         return {
             items: [],
-            checkedItemsData: {},
             sort: sort,
             reverse: reverse,
             start: 0,
@@ -227,18 +227,6 @@ export const Filter = {
         items: {
             handler: function(value) {
                 this.$emit("update:items", value);
-            },
-            immediate: true
-        },
-        checkedItems: {
-            handler: function(value) {
-                this.checkedItemsData = value;
-            },
-            immediate: true
-        },
-        checkedItemsData: {
-            handler: function(value) {
-                this.$emit("update:checked-items", value);
             },
             immediate: true
         }
@@ -318,9 +306,6 @@ export const Filter = {
             if (items === undefined || items === null) {
                 return false;
             }
-
-            // gets the initial checkedItems state
-            if (this.checkboxes) this.checkedItemsData = this.checkedItems;
 
             // if this request was triggered for pagination then
             // appends the new items to the current items, otherwise
