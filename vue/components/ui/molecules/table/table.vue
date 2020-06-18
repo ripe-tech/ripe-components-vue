@@ -437,8 +437,11 @@ export const Table = {
             this.setCheckedAll(false);
         },
         setChecked(id, value) {
-            if (value) this.$set(this.checkedItemsData, id, true);
-            else this.$delete(this.checkedItemsData, id);
+            if (value) {
+                this.$set(this.checkedItemsData, id, true);
+            } else {
+                this.$delete(this.checkedItemsData, id);
+            }
         },
         setCheckedAll(value) {
             this.itemsWithIndex.forEach(item => this.setChecked(item.id, value));
