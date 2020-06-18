@@ -46,7 +46,7 @@
                                 >
                                     {{
                                         item[column.value] !== null &&
-                                            item[column.value] !== undefined
+                                        item[column.value] !== undefined
                                             ? item[column.value]
                                             : "-"
                                     }}
@@ -146,6 +146,14 @@
     padding: 10px 20px 10px 20px;
 }
 
+.table.table-dense ::v-deep td:first-child {
+    padding-left: 16px;
+}
+
+.table.table-dense ::v-deep td:last-child {
+    padding-right: 16px;
+}
+
 .table ::v-deep td > * {
     vertical-align: middle;
 }
@@ -221,25 +229,37 @@
     color: $link-hover-color;
 }
 
-.table .table-column {
+.table th > .table-column {
     transition: color 0.1s ease-in;
 }
 
-.table .table-column.sortable.active,
-.table .table-column.sortable:hover {
+.table th > .table-column.sortable.active,
+.table th > .table-column.sortable:hover {
     color: #0d0d0d;
 }
 
-.table .table-column > span {
+.table th > .table-column > span {
     padding: 0px 20px 0px 20px;
     position: relative;
 }
 
-.table.table-dense .table-column > span {
-    padding: 0px 16px 0px 16px;
+.table.table-dense th > .table-column > span {
+    padding: 0px 18px 0px 10px;
 }
 
-.table .table-column > span::before {
+.table.table-dense.text-align-left th:first-child > .table-column > span {
+    padding-left: 16px;
+}
+
+.table.table-dense.text-align-right th:last-child > .table-column > span {
+    padding-right: 16px;
+}
+
+.table.table-dense.text-align-center th > .table-column > span {
+    padding-left: 18px;
+}
+
+.table th > .table-column > span::before {
     background: url("~./assets/sorting.svg") no-repeat left top;
     content: "";
     display: inline-block;
@@ -253,18 +273,18 @@
     width: 20px;
 }
 
-.table.text-align-left .table-column > span::before {
+.table.text-align-left th > .table-column > span::before {
     left: auto;
     right: 0px;
 }
 
-.table .table-column.descending > span::before,
-.table .table-column:not(.active) > span::before {
+.table th > .table-column.descending > span::before,
+.table th > .table-column:not(.active) > span::before {
     background-position-y: bottom;
 }
 
-.table .table-column.sortable.active > span::before,
-.table .table-column.sortable:hover > span::before {
+.table th > .table-column.sortable.active > span::before,
+.table th > .table-column.sortable:hover > span::before {
     opacity: 1;
 }
 </style>
@@ -363,14 +383,14 @@ export const Table = {
             return this.sortMethod(items, this.sortData, this.reverseData);
         },
         style() {
-            const base = {};
-            if (this.alignment !== null) base["text-align"] = this.alignment;
+            const base = {
+                "text-align": this.alignment || "center"
+            };
             return base;
         },
         classes() {
-            const base = {
-                alignment: this.alignment === "left" ? "text-align-left" : ""
-            };
+            const base = {};
+            base[`text-align-${this.alignment || "center"}`] = true;
             if (this.variant) base[`table-${this.variant}`] = true;
             return base;
         }
