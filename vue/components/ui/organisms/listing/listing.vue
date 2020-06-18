@@ -169,20 +169,8 @@ body.mobile .listing {
     min-height: 315px;
 }
 
-.container-ripe ::v-deep .container-header > .header-buttons {
-    margin: 0px 8px 0px 8px;
-}
-
-body.mobile .container-ripe ::v-deep .container-header > .header-buttons {
-    margin: 0px 0px 10px 0px;
-}
-
 .listing .filter-ripe ::v-deep table {
     margin-bottom: 0px;
-}
-
-body.mobile .listing > .container-ripe ::v-deep .container-header > .title {
-    margin-top: 16px;
 }
 
 input[type="text"] {
