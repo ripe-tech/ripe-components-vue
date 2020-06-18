@@ -38,7 +38,7 @@
                                     >
                                         {{
                                             item[column.value] !== null &&
-                                            item[column.value] !== undefined
+                                                item[column.value] !== undefined
                                                 ? item[column.value]
                                                 : "-"
                                         }}
