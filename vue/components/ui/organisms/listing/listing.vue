@@ -22,9 +22,7 @@
                 <title-ripe v-if="titleText">
                     {{ titleText }}
                 </title-ripe>
-                <title-ripe v-else>
-                    {{ titlePrefix }} {{ nameCapitalized }}
-                </title-ripe>
+                <title-ripe v-else> {{ titlePrefix }} {{ nameCapitalized }} </title-ripe>
             </template>
             <filter-ripe
                 v-bind:get-items="getItems"

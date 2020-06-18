@@ -5,58 +5,6 @@ storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Table", () => ({
         props: {
-            mockColumns: {
-                type: Array,
-                default: () => [
-                    { value: "id", label: "ID" },
-                    { value: "user", label: "User" },
-                    { value: "system", label: "System" }
-                ]
-            },
-            mockItems: {
-                default: () => [
-                    {
-                        id: 1,
-                        user: "Bill Gates",
-                        system: "Windows"
-                    },
-                    {
-                        id: 2,
-                        user: "Steve Jobs",
-                        system: "Macintosh"
-                    },
-                    {
-                        id: 3,
-                        user: "Linus Torvalds",
-                        system: "Linux"
-                    },
-                    {
-                        id: 4,
-                        user: "Terry A. Davis",
-                        system: "TempleOS"
-                    },
-                    {
-                        id: 5,
-                        user: "Terry A. Davis",
-                        system: "TempleOS 2"
-                    },
-                    {
-                        id: 6,
-                        user: "Terry A. Davis",
-                        system: "TempleOS 3"
-                    },
-                    {
-                        id: 7,
-                        user: "Terry A. Davis",
-                        system: "TempleOS 4"
-                    },
-                    {
-                        id: 8,
-                        user: "Terry A. Davis",
-                        system: "TempleOS 5"
-                    }
-                ]
-            },
             checkboxes: {
                 default: () => boolean("Checkboxes", true)
             },
@@ -106,8 +54,6 @@ storiesOf("Molecules", module)
                     },
                     null
                 )
-<<<<<<< HEAD
-=======
             },
             rowSelection: {
                 default: () => boolean("Row Selection", false)
@@ -141,7 +87,6 @@ storiesOf("Molecules", module)
                     { value: "user", label: "User" },
                     { value: "system", label: "System" }
                 ]
->>>>>>> master
             }
         },
         data: function() {
@@ -165,23 +110,15 @@ storiesOf("Molecules", module)
                 <table-ripe
                     class="table"
                     v-bind:columns="mockColumns"
-<<<<<<< HEAD
-                    v-bind:items.sync="itemsData"
-                    v-bind:checkboxes="checkboxes"
-                    v-bind:checked-items.sync="checkedItemsData"
-=======
                     v-bind:items="mockItems"
+                    v-bind:checked-items.sync="checkedItemsData"
                     v-bind:header="header"
->>>>>>> master
                     v-bind:sort.sync="sortData"
                     v-bind:reverse.sync="reverseData"
                     v-bind:alignment="alignment"
                     v-bind:variant="variant"
-<<<<<<< HEAD
-=======
                     v-bind:row-selection="rowSelection"
                     v-bind:selected-row="selectedRow"
->>>>>>> master
                 />
                 <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}</p><br>
                 <p>Items: {{ itemsData }}</p><br>

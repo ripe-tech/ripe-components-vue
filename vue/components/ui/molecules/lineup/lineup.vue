@@ -51,7 +51,7 @@
                                     >
                                         {{
                                             item[field.value] !== null &&
-                                                item[field.value] !== undefined
+                                            item[field.value] !== undefined
                                                 ? item[field.value]
                                                 : "-"
                                         }}

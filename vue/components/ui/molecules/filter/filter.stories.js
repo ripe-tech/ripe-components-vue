@@ -5,6 +5,9 @@ storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Filter", () => ({
         props: {
+            checkboxes: {
+                default: () => boolean("Checkboxes", false)
+            },
             tableColumns: {
                 type: Array,
                 default: () => [
@@ -20,9 +23,6 @@ storiesOf("Molecules", module)
                     { value: "name", label: "Name" },
                     { value: "car", label: "Car" }
                 ]
-            },
-            checkboxes: {
-                default: () => boolean("Checkboxes", false)
             },
             checkedItems: {
                 type: Object,
