@@ -3,8 +3,6 @@
         <global-events
             v-on:keydown.meta.65.exact="onMetaA"
             v-on:keydown.ctrl.65.exact="onCtrlA"
-            v-on:keydown.ctrl.alt.65.exact="onCtrlAltA"
-            v-on:keydown.meta.alt.65.exact="onMetaAltA"
         />
         <thead class="table-head" v-if="header">
             <tr>
@@ -102,10 +100,6 @@
     width: 100%;
 }
 
-.table thead > tr > th.checkbox-global {
-    width: 45px;
-}
-
 .table tr {
     border-bottom: 1px solid $border-color;
 }
@@ -116,6 +110,10 @@
 
 .table thead tr {
     border-bottom: 1px solid $border-color;
+}
+
+.table thead tr th.checkbox-global {
+    width: 45px;
 }
 
 .table tbody tr:last-child {
@@ -160,10 +158,6 @@
     padding: 0px 20px 0px 20px;
     text-overflow: ellipsis;
     word-break: break-all;
-}
-
-.table tbody > tr > td.checkbox-item {
-    padding: 0px 0px 0px 0px;
 }
 
 .table.table-dense ::v-deep td {
@@ -287,6 +281,10 @@
 .table.text-align-left .table-column > span::before {
     left: auto;
     right: 0px;
+}
+
+.table .checkbox-item {
+    padding: 0px 0px 0px 0px;
 }
 
 .table .table-column.descending > span::before,
@@ -431,9 +429,6 @@ export const Table = {
             return this.nrChecked === this.itemsWithIndex.length || this.nrChecked === 0 ? "check" : "minus";
         }
     },
-    mounted: function() {
-        this.garbageCollectCheckedItems();
-    },
     methods: {
         garbageCollectCheckedItems() {
             const checkedItems = {};
@@ -458,9 +453,9 @@ export const Table = {
                 });
             }
         },
-        setChecked(itemId, value) {
-            if (value) this.$set(this.checkedItemsData, itemId, true);
-            else this.$delete(this.checkedItemsData, itemId);
+        setChecked(id, value) {
+            if (value) this.$set(this.checkedItemsData, id, true);
+            else this.$delete(this.checkedItemsData, id);
         },
         columnLabel(column) {
             if (column.label !== undefined && column.label !== null) return column.label;
@@ -530,14 +525,6 @@ export const Table = {
         },
         onMetaA() {
             this.checkAll();
-            this.lastClickedIndex = null;
-        },
-        onCtrlAltA() {
-            this.uncheckAll();
-            this.lastClickedIndex = null;
-        },
-        onMetaAltA() {
-            this.uncheckAll();
             this.lastClickedIndex = null;
         },
         rowStyle(item) {
