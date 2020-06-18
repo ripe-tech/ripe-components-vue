@@ -110,7 +110,6 @@ storiesOf("Molecules", module)
         template: `
             <div>
                 <table-ripe
-                    class="table"
                     v-bind:columns="mockColumns"
                     v-bind:items="mockItems"
                     v-bind:header="header"
@@ -120,6 +119,7 @@ storiesOf("Molecules", module)
                     v-bind:variant="variant"
                     v-bind:row-selection="rowSelection"
                     v-bind:selected-row="selectedRow"
+                    v-bind:checkboxes="checkboxes"
                     v-bind:checked-items.sync="checkedItemsData"
                 />
                 <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}</p><br>

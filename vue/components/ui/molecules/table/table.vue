@@ -102,10 +102,6 @@
     width: 100%;
 }
 
-.table.selection-disabled {
-    user-select: none;
-}
-
 .table thead > tr > th.checkbox-global {
     width: 45px;
 }
@@ -423,8 +419,7 @@ export const Table = {
         },
         classes() {
             const base = {
-                alignment: this.alignment === "left" ? "text-align-left" : "",
-                "selection-disabled": this.lastClickedIndex !== null
+                alignment: this.alignment === "left" ? "text-align-left" : ""
             };
             if (this.variant) base[`table-${this.variant}`] = true;
             return base;
