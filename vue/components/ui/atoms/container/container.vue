@@ -1,7 +1,7 @@
 <template>
     <div class="container-ripe" v-bind:class="classes">
         <div class="container-header" v-if="hasHeaderContent">
-            <slot name="header-extra-before" />
+            <slot name="header-before" />
             <slot name="header">
                 <title-ripe v-if="title">
                     {{ title }}
@@ -9,7 +9,7 @@
                 <slot name="header-buttons-before" />
                 <slot name="header-buttons" v-if="hasHeaderButtons">
                     <div class="header-buttons">
-                        <slot name="header-buttons-extra-before" />
+                        <slot name="header-buttons-inside-before" />
                         <button-icon
                             v-bind:text="button.text"
                             v-bind:icon="button.icon"
@@ -33,12 +33,12 @@
                             v-bind:key="button.id"
                             v-on:click="event => onButtonIconClick(event, button.id)"
                         />
-                        <slot name="header-buttons-extra-after" />
+                        <slot name="header-buttons-inside-after" />
                     </div>
                 </slot>
                 <slot name="header-buttons-after" />
             </slot>
-            <slot name="header-extra-after" />
+            <slot name="header-after" />
         </div>
         <slot />
     </div>
@@ -108,19 +108,19 @@ export const Container = {
             return (
                 this.headerButtons.length > 0 ||
                 this.$slots["header-buttons"] ||
-                this.$slots["header-buttons-extra-before"] ||
-                this.$slots["header-buttons-extra-after"]
+                this.$slots["header-buttons-inside-before"] ||
+                this.$slots["header-buttons-inside-after"]
             );
         },
         hasHeaderContent() {
             return (
                 this.title ||
-                this.$slots["header-extra-before"] ||
+                this.$slots["header-before"] ||
                 this.$slots.header ||
                 this.$slots["header-buttons-before"] ||
                 this.hasHeaderButtons ||
                 this.$slots["header-buttons-after"] ||
-                this.$slots["header-extra-after"]
+                this.$slots["header-after"]
             );
         },
         classes() {
