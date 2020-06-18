@@ -59,7 +59,7 @@ storiesOf("Molecules", module)
         },
         template: `
             <div>
-                <global></global>
+                <global />
                 <filter-ripe 
                     v-bind:getItems="getItems"
                     v-bind:table-columns="tableColumns" 

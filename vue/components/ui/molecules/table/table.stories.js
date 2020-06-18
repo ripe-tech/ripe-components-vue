@@ -91,10 +91,9 @@ storiesOf("Molecules", module)
         },
         data: function() {
             return {
-                itemsData: this.mockItems,
-                checkedItemsData: this.checkedItems,
                 sortData: this.sort,
-                reverseData: this.reverse
+                reverseData: this.reverse,
+                checkedItemsData: this.checkedItems
             };
         },
         watch: {
@@ -103,6 +102,9 @@ storiesOf("Molecules", module)
             },
             reverse(value) {
                 this.reverseData = value;
+            },
+            checkedItems(value) {
+                this.checkedItemsData = value;
             }
         },
         template: `
@@ -111,7 +113,6 @@ storiesOf("Molecules", module)
                     class="table"
                     v-bind:columns="mockColumns"
                     v-bind:items="mockItems"
-                    v-bind:checked-items.sync="checkedItemsData"
                     v-bind:header="header"
                     v-bind:sort.sync="sortData"
                     v-bind:reverse.sync="reverseData"
@@ -119,6 +120,7 @@ storiesOf("Molecules", module)
                     v-bind:variant="variant"
                     v-bind:row-selection="rowSelection"
                     v-bind:selected-row="selectedRow"
+                    v-bind:checked-items.sync="checkedItemsData"
                 />
                 <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}</p><br>
                 <p>Items: {{ itemsData }}</p><br>

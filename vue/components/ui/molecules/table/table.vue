@@ -380,7 +380,6 @@ export const Table = {
             this.sortData = value;
         },
         items(value) {
-            this.itemsData = value;
             this.garbageCollectCheckedItems();
         },
         reverse(value) {
@@ -407,7 +406,7 @@ export const Table = {
     },
     computed: {
         itemsWithIndex() {
-            return this.itemsData.map((item, index) => ({ _originalIndex: index, ...item }));
+            return this.items.map((item, index) => ({ _originalIndex: index, ...item }));
         },
         sortedItems() {
             if (!this.sortData) {
