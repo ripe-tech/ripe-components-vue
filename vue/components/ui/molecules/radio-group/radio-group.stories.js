@@ -31,7 +31,8 @@ storiesOf("Molecules", module)
                 default: () => [
                     {
                         label: "Margherita",
-                        value: "margherita"
+                        value: "margherita",
+                        disabled: true
                     },
                     {
                         value: "bbq_chicken",
@@ -62,11 +63,22 @@ storiesOf("Molecules", module)
         template: `
             <div>
                 <radio-group
+                    ref="radio-group"
                     v-bind:value.sync="valueData"
                     v-bind:items="items"
                     v-bind:disabled="disabled"
                     v-bind:error="error"
                 />
                 <p>Value selected: {{ valueData }}</p>
+                <div>
+                    <button-color
+                        v-bind:text="'Focus'"
+                        v-bind:size="'small'"
+                        v-on:click="() => $refs['radio-group'].focus()" />
+                    <button-color
+                        v-bind:text="'Blur'"
+                        v-bind:size="'small'"
+                        v-on:click="() => $refs['radio-group'].blur()" />
+                </div>
             </div>`
     }));

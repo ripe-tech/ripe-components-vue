@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, select, boolean } from "@storybook/addon-knobs";
+import { withKnobs, select, boolean, number } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
@@ -81,6 +81,9 @@ storiesOf("Molecules", module)
             reverse: {
                 default: () => boolean("Reverse", null)
             },
+            header: {
+                default: () => boolean("header", true)
+            },
             alignment: {
                 default: select(
                     "Alignment",
@@ -98,10 +101,47 @@ storiesOf("Molecules", module)
                     "Variant",
                     {
                         Unset: null,
-                        dense: "dense"
+                        Dense: "dense",
+                        Auto: "auto"
                     },
                     null
                 )
+<<<<<<< HEAD
+=======
+            },
+            rowSelection: {
+                default: () => boolean("Row Selection", false)
+            },
+            selectedRow: {
+                default: () => number("Selected Row", null)
+            },
+            mockItems: {
+                default: () => [
+                    {
+                        id: 1,
+                        user: "Bill Gates",
+                        system: "Windows"
+                    },
+                    {
+                        id: 2,
+                        user: "Steve Jobs",
+                        system: "Macintosh"
+                    },
+                    {
+                        id: 3,
+                        user: "Linus Torvalds",
+                        system: "Linux"
+                    }
+                ]
+            },
+            mockColumns: {
+                type: Array,
+                default: () => [
+                    { value: "id", label: "ID" },
+                    { value: "user", label: "User" },
+                    { value: "system", label: "System" }
+                ]
+>>>>>>> master
             }
         },
         data: function() {
@@ -125,13 +165,23 @@ storiesOf("Molecules", module)
                 <table-ripe
                     class="table"
                     v-bind:columns="mockColumns"
+<<<<<<< HEAD
                     v-bind:items.sync="itemsData"
                     v-bind:checkboxes="checkboxes"
                     v-bind:checked-items.sync="checkedItemsData"
+=======
+                    v-bind:items="mockItems"
+                    v-bind:header="header"
+>>>>>>> master
                     v-bind:sort.sync="sortData"
                     v-bind:reverse.sync="reverseData"
                     v-bind:alignment="alignment"
                     v-bind:variant="variant"
+<<<<<<< HEAD
+=======
+                    v-bind:row-selection="rowSelection"
+                    v-bind:selected-row="selectedRow"
+>>>>>>> master
                 />
                 <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}</p><br>
                 <p>Items: {{ itemsData }}</p><br>

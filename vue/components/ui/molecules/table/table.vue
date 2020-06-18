@@ -6,7 +6,7 @@
             v-on:keydown.ctrl.alt.65.exact="onCtrlAltA"
             v-on:keydown.meta.alt.65.exact="onMetaAltA"
         />
-        <thead class="table-head">
+        <thead class="table-head" v-if="header">
             <tr>
                 <th class="checkbox-global" v-if="checkboxes">
                     <checkbox
@@ -17,18 +17,19 @@
                     />
                 </th>
                 <th
-                    v-bind:style="{ width: column.width }"
+                    v-bind:class="{ clickable: column.sortable !== false }"
+                    v-bind:style="[column.style, { width: column.width }]"
                     v-for="column in columns"
                     v-bind:key="column.value"
                 >
                     <slot name="column" v-bind:column="column">
                         <div
                             class="table-column"
-                            v-bind:class="columnClass(column.value)"
-                            v-if="column.label || column.value || value.name"
-                            v-on:click="sortColumn(column.value)"
+                            v-bind:class="columnClass(column)"
+                            v-if="columnLabel(column)"
+                            v-on:click="sortColumn(column)"
                         >
-                            <span>{{ column.label || column.value || value.name }}</span>
+                            <span>{{ columnLabel(column) }}</span>
                         </div>
                     </slot>
                 </th>
@@ -38,7 +39,12 @@
             <template v-for="(item, index) in sortedItems">
                 <slot name="before-row" v-bind:item="item" v-bind:index="index" />
                 <slot name="row" v-bind:item="item" v-bind:index="index">
-                    <tr v-bind:key="item.id" v-on:click="onRowClick(item, index)">
+                    <tr
+                        v-bind:style="rowStyle(item)"
+                        v-bind:class="rowClasses(item)"
+                        v-bind:key="item.id"
+                        v-on:click="onClick(item, index)"
+                    >
                         <td class="checkbox-item" v-if="checkboxes">
                             <checkbox
                                 v-bind:size="8"
@@ -51,10 +57,12 @@
                         <slot v-bind:item="item" v-bind:index="index">
                             <td
                                 v-bind:class="column.value"
+                                v-bind:style="[column.style, { width: column.width }]"
                                 v-for="column in columns"
                                 v-bind:key="column.value"
                             >
                                 <slot
+                                    v-bind:column="column"
                                     v-bind:item="item"
                                     v-bind:index="index"
                                     v-bind:name="`cell-${column.value}`"
@@ -104,6 +112,9 @@
 
 .table tr {
     border-bottom: 1px solid $border-color;
+}
+
+.table tr.clickable {
     cursor: pointer;
 }
 
@@ -115,8 +126,13 @@
     border-bottom: none;
 }
 
-.table tbody tr:hover {
+.table tbody tr.hoverable:hover,
+.table tbody tr.hoverable.hover {
     background-color: $selected-color;
+}
+
+.table tbody tr.selected {
+    background-color: $selected-dark-color;
 }
 
 .table th {
@@ -130,6 +146,10 @@
     text-transform: uppercase;
     user-select: none;
     white-space: pre;
+}
+
+.table th.clickable {
+    cursor: pointer;
 }
 
 .table.table-dense th {
@@ -151,8 +171,14 @@
 }
 
 .table.table-dense ::v-deep td {
-    height: 40px;
+    height: 38px;
     padding: 0px 10px 0px 10px;
+}
+
+.table.table-auto ::v-deep td {
+    height: auto;
+    line-height: 18px;
+    padding: 10px 20px 10px 20px;
 }
 
 .table ::v-deep td > * {
@@ -234,8 +260,8 @@
     transition: color 0.1s ease-in;
 }
 
-.table .table-column.active,
-.table .table-column:hover {
+.table .table-column.sortable.active,
+.table .table-column.sortable:hover {
     color: #0d0d0d;
 }
 
@@ -272,8 +298,8 @@
     background-position-y: bottom;
 }
 
-.table .table-column.active > span::before,
-.table .table-column:hover > span::before {
+.table .table-column.sortable.active > span::before,
+.table .table-column.sortable:hover > span::before {
     opacity: 1;
 }
 </style>
@@ -308,6 +334,14 @@ export const Table = {
                 });
             }
         },
+        header: {
+            type: Boolean,
+            default: true
+        },
+        transition: {
+            type: String,
+            default: null
+        },
         sort: {
             type: String,
             default: null
@@ -316,10 +350,6 @@ export const Table = {
             type: Boolean,
             default: false
         },
-        transition: {
-            type: String,
-            default: null
-        },
         alignment: {
             type: String,
             default: null
@@ -327,16 +357,23 @@ export const Table = {
         variant: {
             type: String,
             default: null
+        },
+        rowSelection: {
+            type: Boolean,
+            default: false
+        },
+        selectedRow: {
+            type: Number,
+            default: null
+        },
+        clickableRows: {
+            type: Boolean,
+            default: true
+        },
+        hoverableRows: {
+            type: Boolean,
+            default: true
         }
-    },
-    data: function() {
-        return {
-            itemsData: this.items,
-            sortData: this.sort,
-            reverseData: this.reverse,
-            checkedItemsData: this.checkedItems,
-            lastClickedIndex: null
-        };
     },
     watch: {
         sort(value) {
@@ -354,7 +391,19 @@ export const Table = {
         },
         checkedItemsData(value) {
             this.$emit("update:checked-items", value);
+        },
+        selectedRow(value) {
+            this.selectedRowData = value;
         }
+    },
+    data: function() {
+        return {
+            sortData: this.sort,
+            reverseData: this.reverse,
+            selectedRowData: this.selectedRow,
+            checkedItemsData: this.checkedItems,
+            lastClickedIndex: null
+        };
     },
     computed: {
         itemsWithIndex() {
@@ -425,13 +474,38 @@ export const Table = {
             if (value) this.$set(this.checkedItemsData, itemId, true);
             else this.$delete(this.checkedItemsData, itemId);
         },
+        columnLabel(column) {
+            if (column.label !== undefined && column.label !== null) return column.label;
+            if (column.value !== undefined && column.value !== null) return column.value;
+            if (column.name !== undefined && column.name !== null) return column.name;
+            return null;
+        },
         columnClass(column) {
-            const order = this.reverseData ? "ascending" : "descending";
-            return this.sortData === column ? `active ${order}` : "";
+            const sortValue = column.sortValue || column.value;
+            const sortable = column.sortable === undefined ? true : column.sortable;
+
+            const base = { sortable: sortable };
+
+            // in case the current column is the one currently selected
+            // for sorting, then the proper classes must be added according
+            // to the current sorting criteria
+            if (sortValue === this.sortData) {
+                const order = this.reverseData ? "descending" : "ascending";
+                base.active = true;
+                base[order] = true;
+            }
+
+            return base;
         },
         sortColumn(column) {
-            this.reverseData = this.sortData === column ? !this.reverseData : false;
-            this.sortData = column;
+            const sortValue = column.sortValue || column.value;
+            const sortable = column.sortable === undefined ? true : column.sortable;
+
+            if (!sortable) return;
+
+            this.reverseData = sortValue === this.sortData ? !this.reverseData : true;
+            this.sortData = sortValue;
+
             this.$emit("update:sort", this.sortData);
             this.$emit("update:reverse", this.reverseData);
         },
@@ -444,9 +518,6 @@ export const Table = {
         },
         onChecked(itemId, value) {
             this.setChecked(itemId, value);
-        },
-        onRowClick(item, index) {
-            this.$emit("click", item, item._originalIndex, index);
         },
         onCheckboxClick(index, itemId) {
             this.checkboxClick(index, itemId);
@@ -479,6 +550,31 @@ export const Table = {
         onMetaAltA() {
             this.uncheckAll();
             this.lastClickedIndex = null;
+        },
+        rowStyle(item) {
+            const base = {};
+            return Object.assign({}, item.style, base);
+        },
+        rowClasses(item) {
+            const base = {
+                selected: this.isRowSelected(item.id),
+                clickable: item.clickable === undefined ? this.clickableRows : item.clickable,
+                hoverable: item.hoverable === undefined ? this.hoverableRows : item.hoverable
+            };
+            return Object.assign({}, item.classes, base);
+        },
+        isRowSelected(id) {
+            return this.rowSelection !== null && id === this.selectedRowData;
+        },
+        onClick(item, index) {
+            if (this.rowSelection) {
+                this.selectedRowData =
+                    this.selectedIdData === null || this.selectedRowData !== item.id
+                        ? item.id
+                        : null;
+            }
+
+            this.$emit("click", item, item._originalIndex, index, this.selectedRowData);
         }
     }
 };

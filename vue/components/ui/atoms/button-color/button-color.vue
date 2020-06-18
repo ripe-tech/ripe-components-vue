@@ -297,7 +297,7 @@ export const ButtonColor = {
         },
         color: {
             type: String,
-            default: ""
+            default: null
         },
         minWidth: {
             type: Number,
@@ -309,7 +309,7 @@ export const ButtonColor = {
         },
         type: {
             type: String,
-            default: null
+            default: "button"
         },
         alignment: {
             type: String,

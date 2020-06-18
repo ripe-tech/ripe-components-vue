@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, boolean } from "@storybook/addon-knobs";
+import { withKnobs, boolean, select } from "@storybook/addon-knobs";
 
 storiesOf("Atoms", module)
     .addDecorator(withKnobs)
@@ -7,6 +7,22 @@ storiesOf("Atoms", module)
         props: {
             visible: {
                 default: boolean("Visible", true)
+            },
+            direction: {
+                default: select(
+                    "Direction",
+                    {
+                        None: null,
+                        Top: "top",
+                        Bottom: "bottom"
+                    },
+                    null
+                )
+            },
+            selected: {
+                default: () => ({
+                    1: true
+                })
             },
             items: {
                 default: () => [
@@ -47,7 +63,13 @@ storiesOf("Atoms", module)
         },
         template: `
             <div style="max-width: 200px">
-                <dropdown v-bind:items="items" v-bind:visible.sync="visibleData" v-bind:highlighted.sync="highlightedData"></dropdown>
+                <dropdown
+                    v-bind:items="items"
+                    v-bind:selected="selected"
+                    v-bind:visible.sync="visibleData"
+                    v-bind:highlighted.sync="highlightedData"
+                    v-bind:direction="direction"
+                />
                 <p>The dropdown is: {{ visibleData ? "visible" : "invisible" }}</p>
                 <p>Highlighted: {{ highlightedData }}</p>
             </div>

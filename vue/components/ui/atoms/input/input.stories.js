@@ -58,15 +58,6 @@ storiesOf("Atoms", module)
             footer: {
                 default: text("Footer", "End Footer")
             },
-            errorText: {
-                default: text("Error Text", "")
-            },
-            warning: {
-                default: text("Warning", "")
-            },
-            success: {
-                default: text("Success", "")
-            },
             width: {
                 default: number("Width", null)
             },
@@ -92,9 +83,6 @@ storiesOf("Atoms", module)
                 <form-input
                     v-bind:header="header"
                     v-bind:footer="footer"
-                    v-bind:error="errorText"
-                    v-bind:warning="warning"
-                    v-bind:success="success"
                 >
                     <input-ripe
                         v-bind:variant="variant"

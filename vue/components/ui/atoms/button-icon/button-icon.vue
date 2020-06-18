@@ -5,8 +5,21 @@
         v-bind:class="classes"
         v-on:click="handleClick"
     >
-        <loader loader="ball-clip-rotate" class="loader" v-bind:count="1" v-show="loading" />
-        <icon v-bind:icon="icon" v-bind:color="iconColor" v-show="!loading" />
+        <loader
+            loader="ball-clip-rotate"
+            class="loader"
+            v-bind:loader-style="loaderStyle"
+            v-bind:count="1"
+            v-show="loading"
+        />
+        <icon
+            v-bind:style="{ opacity: iconOpacity }"
+            v-bind:icon="icon"
+            v-bind:color="iconColorData"
+            v-bind:fill="iconFill"
+            v-bind:stroke-width="iconStrokeWidth"
+            v-show="!loading"
+        />
         <span v-if="text">{{ text }}</span>
     </span>
 </template>
@@ -28,15 +41,21 @@
 }
 
 .button-icon.disabled {
-    cursor: default;
+    cursor: inherit;
     opacity: 0.4;
 }
 
-.button-icon:hover:not(.disabled) {
+.button-icon.unselectable {
+    cursor: inherit;
+    opacity: 1;
+}
+
+.button-icon:hover:not(.disabled):not(.unselectable) {
     background-color: $lighter-grey;
 }
 
-.button-icon:active:not(.disabled) {
+.button-icon.active:not(.disabled):not(.unselectable),
+.button-icon:active:not(.disabled):not(.unselectable) {
     background-color: $light-grey;
 }
 
@@ -44,11 +63,12 @@
     background-color: $lighter-grey;
 }
 
-.button-icon.button-icon-grey:hover:not(.disabled) {
+.button-icon.button-icon-grey:hover:not(.disabled):not(.unselectable) {
     background-color: #dedede;
 }
 
-.button-icon.button-icon-grey:active:not(.disabled) {
+.button-icon.button-icon-grey.active:not(.disabled):not(.unselectable),
+.button-icon.button-icon-grey:active:not(.disabled):not(.unselectable) {
     background-color: #cecece;
 }
 
@@ -56,11 +76,12 @@
     background-color: $white;
 }
 
-.button-icon.button-icon-white:hover:not(.disabled) {
+.button-icon.button-icon-white:hover:not(.disabled):not(.unselectable) {
     background-color: $lighter-grey;
 }
 
-.button-icon.button-icon-white:active:not(.disabled) {
+.button-icon.button-icon-white.active:not(.disabled):not(.unselectable),
+.button-icon.button-icon-white:active:not(.disabled):not(.unselectable) {
     background-color: $light-grey;
 }
 
@@ -68,11 +89,12 @@
     background-color: $dark;
 }
 
-.button-icon.button-icon-black:hover:not(.disabled) {
+.button-icon.button-icon-black:hover:not(.disabled):not(.unselectable) {
     background-color: #41566f;
 }
 
-.button-icon.button-icon-black:active:not(.disabled) {
+.button-icon.button-icon-black.active:not(.disabled):not(.unselectable),
+.button-icon.button-icon-black:active:not(.disabled):not(.unselectable) {
     background-color: $dark;
 }
 
@@ -83,8 +105,6 @@
 
 .button-icon .loader ::v-deep div {
     border-color: #848484 #848484 transparent #848484;
-    height: 10px;
-    width: 10px;
 }
 
 .button-icon > .icon {
@@ -100,7 +120,7 @@
     vertical-align: middle;
 }
 
-.button-icon:hover:not(.disabled) > .icon {
+.button-icon:hover:not(.disabled):not(.unselectable) > .icon {
     opacity: 1;
 }
 
@@ -118,7 +138,7 @@
     opacity: 1;
 }
 
-.button-icon:hover:not(.disabled) > span {
+.button-icon:hover:not(.disabled):not(.unselectable) > span {
     opacity: 1;
 }
 </style>
@@ -133,6 +153,22 @@ export const ButtonIcon = {
         },
         icon: {
             type: String,
+            default: null
+        },
+        iconOpacity: {
+            type: Number,
+            default: 0.5
+        },
+        iconColor: {
+            type: String,
+            default: null
+        },
+        iconFill: {
+            type: String,
+            default: null
+        },
+        iconStrokeWidth: {
+            type: Number,
             default: null
         },
         text: {
@@ -179,22 +215,40 @@ export const ButtonIcon = {
             type: Boolean,
             default: false
         },
+        selectable: {
+            type: Boolean,
+            default: true
+        },
         loading: {
+            type: Boolean,
+            default: false
+        },
+        active: {
             type: Boolean,
             default: false
         }
     },
     computed: {
-        iconColor() {
+        iconColorData() {
+            if (this.iconColor) return this.iconColor;
             if (this.color === "black") return "white";
             return "black";
         },
         paddingBase() {
             return this.padding === null ? parseInt(this.size / this.paddingFactor) : this.padding;
         },
+        loaderStyle() {
+            return {
+                width: `${this.size / 3}px`,
+                height: `${this.size / 3}px`,
+                "border-width": `${this.size / 15}px`,
+                margin: `${this.size / 15}px 0px 0px 0px`
+            };
+        },
         style() {
             return {
                 height: `${this.size}px`,
+                "min-width": `${this.size}px`,
                 "line-height": this.text ? "normal" : `${this.size}px`,
                 "padding-top": `${this.paddingTop === null ? this.paddingBase : this.paddingTop}px`,
                 "padding-bottom": `${
@@ -220,7 +274,9 @@ export const ButtonIcon = {
         classes() {
             const base = {
                 disabled: this.disabled,
-                "button-icon-text": Boolean(this.text)
+                unselectable: !this.selectable,
+                "button-icon-text": Boolean(this.text),
+                active: this.active
             };
             if (this.color) base["button-icon-" + this.color] = this.color;
             return base;
@@ -229,6 +285,7 @@ export const ButtonIcon = {
     methods: {
         handleClick(event) {
             if (this.disabled) return;
+            if (!this.selectable) return;
             this.$emit("click", event);
         }
     }
