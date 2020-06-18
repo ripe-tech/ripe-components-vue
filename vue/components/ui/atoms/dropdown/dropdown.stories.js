@@ -8,6 +8,22 @@ storiesOf("Atoms", module)
             visible: {
                 default: boolean("Visible", true)
             },
+            direction: {
+                default: select(
+                    "Direction",
+                    {
+                        None: null,
+                        Top: "top",
+                        Bottom: "bottom"
+                    },
+                    null
+                )
+            },
+            selected: {
+                default: () => ({
+                    1: true
+                })
+            },
             items: {
                 default: () => [
                     {
@@ -32,22 +48,6 @@ storiesOf("Atoms", module)
                         target: "_blank"
                     }
                 ]
-            },
-            direction: {
-                default: select(
-                    "Direction",
-                    {
-                        None: null,
-                        Top: "top",
-                        Bottom: "bottom"
-                    },
-                    null
-                )
-            },
-            selected: {
-                default: () => ({
-                    1: true
-                })
             }
         },
         data: function() {
