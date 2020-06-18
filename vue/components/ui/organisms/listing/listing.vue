@@ -11,23 +11,26 @@
             v-bind:header-buttons="containerHeaderButtons"
             v-on:header-button:click="onHeaderButtonClick"
         >
-            <template v-slot:header-extra-before>
-                <slot v-bind:name="'header-extra-before'" />
-            </template>
             <template v-slot:header>
                 <slot v-bind:name="'header'" />
             </template>
-            <template v-slot:header-buttons-before>
-                <slot v-bind:name="'header-buttons-before'" />
+            <template v-slot:header-before>
+                <slot v-bind:name="'header-before'" />
+            </template>
+            <template v-slot:header-after>
+                <slot v-bind:name="'header-after'" />
             </template>
             <template v-slot:header-buttons>
                 <slot v-bind:name="'header-buttons'" />
             </template>
-            <template v-slot:header-buttons-extra-before>
-                <slot v-bind:name="'header-buttons-extra-before'" />
+            <template v-slot:header-buttons-before>
+                <slot v-bind:name="'header-buttons-before'" />
             </template>
-            <template v-slot:header-buttons-extra-after>
-                <slot v-bind:name="'header-buttons-extra-after'" />
+            <template v-slot:header-buttons-inside-before>
+                <slot v-bind:name="'header-buttons-inside-before'" />
+            </template>
+            <template v-slot:header-buttons-inside-after>
+                <slot v-bind:name="'header-buttons-inside-after'" />
             </template>
             <template v-slot:header-buttons-after>
                 <slot name="header-search">
@@ -39,9 +42,6 @@
                         v-bind:loading="loading"
                     />
                 </slot>
-            </template>
-            <template v-slot:header-extra-after>
-                <slot v-bind:name="'header-extra-after'" />
             </template>
             <filter-ripe
                 v-bind:get-items="getItems"
