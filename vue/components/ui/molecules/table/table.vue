@@ -146,14 +146,6 @@
     padding: 10px 20px 10px 20px;
 }
 
-.table.table-dense ::v-deep td:first-child {
-    padding-left: 16px;
-}
-
-.table.table-dense ::v-deep td:last-child {
-    padding-right: 16px;
-}
-
 .table ::v-deep td > * {
     vertical-align: middle;
 }
@@ -244,19 +236,7 @@
 }
 
 .table.table-dense th > .table-column > span {
-    padding: 0px 18px 0px 10px;
-}
-
-.table.table-dense.text-align-left th:first-child > .table-column > span {
-    padding-left: 16px;
-}
-
-.table.table-dense.text-align-right th:last-child > .table-column > span {
-    padding-right: 16px;
-}
-
-.table.table-dense.text-align-center th > .table-column > span {
-    padding-left: 18px;
+    padding: 0px 16px 0px 16px;
 }
 
 .table th > .table-column > span::before {
