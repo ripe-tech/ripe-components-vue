@@ -91,8 +91,8 @@ storiesOf("Molecules", module)
         },
         data: function() {
             return {
-                sortData: this.sort,
                 reverseData: this.reverse,
+                sortData: this.sort,
                 checkedItemsData: this.checkedItems
             };
         },
