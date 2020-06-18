@@ -316,14 +316,6 @@ export const Table = {
             type: Array,
             default: () => []
         },
-        checkboxes: {
-            type: Boolean,
-            default: false
-        },
-        checkedItems: {
-            type: Object,
-            default: () => {}
-        },
         sortMethod: {
             type: Function,
             default: (items, column, reverse) => {
@@ -365,6 +357,14 @@ export const Table = {
         selectedRow: {
             type: Number,
             default: null
+        },
+        checkboxes: {
+            type: Boolean,
+            default: false
+        },
+        checkedItems: {
+            type: Object,
+            default: () => {}
         },
         clickableRows: {
             type: Boolean,

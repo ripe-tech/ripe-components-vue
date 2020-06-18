@@ -5,15 +5,6 @@ storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Table", () => ({
         props: {
-            checkboxes: {
-                default: () => boolean("Checkboxes", true)
-            },
-            checkedItems: {
-                type: Object,
-                default: () => {
-                    return { 1: true, 2: false, 3: true };
-                }
-            },
             sort: {
                 default: select(
                     "Sort Column",
@@ -61,6 +52,9 @@ storiesOf("Molecules", module)
             selectedRow: {
                 default: () => number("Selected Row", null)
             },
+            checkboxes: {
+                default: () => boolean("Checkboxes", true)
+            },
             mockItems: {
                 default: () => [
                     {
@@ -87,6 +81,12 @@ storiesOf("Molecules", module)
                     { value: "user", label: "User" },
                     { value: "system", label: "System" }
                 ]
+            },
+            checkedItems: {
+                type: Object,
+                default: () => {
+                    return { 1: true, 2: false, 3: true };
+                }
             }
         },
         data: function() {
