@@ -2,19 +2,19 @@ const assert = require("assert");
 const base = require("../../base");
 
 describe("Select", () => {
-    it("Starts with null value", () => {
+    it("should start with null value", () => {
         const component = base.getComponent("Select");
         const componentData = component.vm.$data;
         assert.strictEqual(componentData.valueData, null);
     });
 
-    it("Starts with no dropdown items", () => {
+    it("should start with no dropdown items", () => {
         const component = base.getComponent("Select");
         const dropdownItemsLength = component.findAll(".dropdown-item").length;
         assert.strictEqual(dropdownItemsLength, 0);
     });
 
-    it("Displays all options labels according to prop", async () => {
+    it("should display all options labels according to prop", async () => {
         const component = base.getComponent("Select", {
             props: {
                 options: [
@@ -36,7 +36,7 @@ describe("Select", () => {
         assert.strictEqual(dropdownThirdItem.text(), "C");
     });
 
-    it("Updates value according to prop", async () => {
+    it("should update value according to prop", async () => {
         const component = base.getComponent("Select", {
             props: {
                 options: [
@@ -72,7 +72,7 @@ describe("Select", () => {
         assert.strictEqual(componentData.valueData, "option_2");
     });
 
-    it("Updates visibility according to prop", async () => {
+    it("should update visibility according to prop", async () => {
         const component = base.getComponent("Select", {
             props: {
                 visible: true
@@ -85,7 +85,7 @@ describe("Select", () => {
         assert.strictEqual(componentData.visibleData, false);
     });
 
-    it("Updates visibility on select button click", async () => {
+    it("should update visibility on select button click", async () => {
         const component = base.getComponent("Select");
         const componentData = component.vm.$data;
 
@@ -104,7 +104,7 @@ describe("Select", () => {
         assert.strictEqual(dropdownData.visibleData, false);
     });
 
-    it("Updates visibility on item click", async () => {
+    it("should update visibility on item click", async () => {
         const component = base.getComponent("Select", {
             props: {
                 options: [
@@ -129,7 +129,7 @@ describe("Select", () => {
         assert.strictEqual(dropdownData.visibleData, false);
     });
 
-    it("Doesn't update visibility on select click when is disabled", async () => {
+    it("should doesn't update visibility on select click when is disabled", async () => {
         const component = base.getComponent("Select", {
             props: {
                 options: [
@@ -153,7 +153,7 @@ describe("Select", () => {
         assert.strictEqual(dropdownData.visibleData, false);
     });
 
-    it("Updates selected option on item click", async () => {
+    it("should update selected option on item click", async () => {
         const component = base.getComponent("Select", {
             props: {
                 options: [
@@ -174,7 +174,7 @@ describe("Select", () => {
         assert.strictEqual(componentData.valueData, "option_3");
     });
 
-    it("Updates value on arrow and enter keydown", async () => {
+    it("should update value on arrow and enter keydown", async () => {
         const component = base.getComponent("Select", {
             props: {
                 options: [
@@ -197,7 +197,7 @@ describe("Select", () => {
         assert.strictEqual(componentData.valueData, "option_2");
     });
 
-    it("Displays placeholder text according to prop", async () => {
+    it("should display placeholder text according to prop", async () => {
         const component = base.getComponent("Select", {
             props: {
                 options: [
@@ -213,7 +213,7 @@ describe("Select", () => {
         assert.strictEqual(selectButton.text(), "testing");
     });
 
-    it("Dropdown with max height is according to prop", async () => {
+    it("should show dropdown with max height according to prop", async () => {
         const component = base.getComponent("Select", {
             props: {
                 options: [
@@ -244,7 +244,7 @@ describe("Select", () => {
         assert.strictEqual(dropdownStyle.includes("max-height: 321px"), true);
     });
 
-    it("Highlights the item with first letter according to keypress", async () => {
+    it("should highlight the item with first letter according to keypress", async () => {
         const component = base.getComponent("Select", {
             props: {
                 options: [
@@ -278,7 +278,7 @@ describe("Select", () => {
         assert.strictEqual(componentData.highlighted, 5);
     });
 
-    it("Emits one event when visibility changes with it's new value", async () => {
+    it("should emit one event when visibility changes with it's new value", async () => {
         const component = base.getComponent("Select", {
             props: {
                 options: [
@@ -300,7 +300,7 @@ describe("Select", () => {
         assert.strictEqual(component.emitted("update:visible")[1][0], true);
     });
 
-    it("Emits one event when selectvalue changes with it's new value", async () => {
+    it("should emit one event when selectvalue changes with it's new value", async () => {
         const component = base.getComponent("Select", {
             props: {
                 options: [
