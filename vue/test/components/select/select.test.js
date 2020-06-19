@@ -4,8 +4,7 @@ const base = require("../../base");
 describe("Select", () => {
     it("should start with null value", () => {
         const component = base.getComponent("Select");
-        const componentData = component.vm.$data;
-        assert.strictEqual(componentData.valueData, null);
+        assert.strictEqual(component.vm.$data.valueData, null);
     });
 
     it("should start with no dropdown items", () => {
@@ -47,29 +46,29 @@ describe("Select", () => {
                 value: "option_1"
             }
         });
-        const componentData = component.vm.$data;
+
         const selectButton = component.get(".select-button");
         assert.strictEqual(selectButton.text(), "A");
-        assert.strictEqual(componentData.valueData, "option_1");
+        assert.strictEqual(component.vm.$data.valueData, "option_1");
 
         await component.setProps({ value: "option_2" });
         assert.strictEqual(selectButton.text(), "B");
-        assert.strictEqual(componentData.valueData, "option_2");
+        assert.strictEqual(component.vm.$data.valueData, "option_2");
 
         await component.setProps({ value: "option_3" });
         assert.strictEqual(selectButton.text(), "C");
-        assert.strictEqual(componentData.valueData, "option_3");
+        assert.strictEqual(component.vm.$data.valueData, "option_3");
 
         await component.setProps({ value: "option_1" });
         assert.strictEqual(selectButton.text(), "A");
-        assert.strictEqual(componentData.valueData, "option_1");
+        assert.strictEqual(component.vm.$data.valueData, "option_1");
 
         await component.setProps({ value: null });
-        assert.strictEqual(componentData.valueData, null);
+        assert.strictEqual(component.vm.$data.valueData, null);
 
         await component.setProps({ value: "option_2" });
         assert.strictEqual(selectButton.text(), "B");
-        assert.strictEqual(componentData.valueData, "option_2");
+        assert.strictEqual(component.vm.$data.valueData, "option_2");
     });
 
     it("should update visibility according to prop", async () => {
@@ -78,30 +77,27 @@ describe("Select", () => {
                 visible: true
             }
         });
-        const componentData = component.vm.$data;
-        assert.strictEqual(componentData.visibleData, true);
+        assert.strictEqual(component.vm.$data.visibleData, true);
 
         await component.setProps({ visible: false });
-        assert.strictEqual(componentData.visibleData, false);
+        assert.strictEqual(component.vm.$data.visibleData, false);
     });
 
     it("should update visibility on select button click", async () => {
         const component = base.getComponent("Select");
-        const componentData = component.vm.$data;
-
         const selectButton = component.get(".select-button");
         const dropdown = component.findComponent({ name: "dropdown" });
-        const dropdownData = dropdown.vm.$data;
 
-        // toggles visibility on select-button click
-        assert.strictEqual(componentData.visibleData, false);
-        assert.strictEqual(dropdownData.visibleData, false);
+        assert.strictEqual(component.vm.$data.visibleData, false);
+        assert.strictEqual(dropdown.vm.$data.visibleData, false);
+
         await selectButton.trigger("click");
-        assert.strictEqual(componentData.visibleData, true);
-        assert.strictEqual(dropdownData.visibleData, true);
+        assert.strictEqual(component.vm.$data.visibleData, true);
+        assert.strictEqual(dropdown.vm.$data.visibleData, true);
+
         await selectButton.trigger("click");
-        assert.strictEqual(componentData.visibleData, false);
-        assert.strictEqual(dropdownData.visibleData, false);
+        assert.strictEqual(component.vm.$data.visibleData, false);
+        assert.strictEqual(dropdown.vm.$data.visibleData, false);
     });
 
     it("should update visibility on item click", async () => {
@@ -115,18 +111,15 @@ describe("Select", () => {
                 visible: true
             }
         });
-        const componentData = component.vm.$data;
-
         const dropdown = component.findComponent({ name: "dropdown" });
-        const dropdownData = dropdown.vm.$data;
         const dropdownThirdItem = component.findAll(".dropdown-item").at(2);
 
-        // toggles visibility on item click
-        assert.strictEqual(componentData.visibleData, true);
-        assert.strictEqual(dropdownData.visibleData, true);
+        assert.strictEqual(component.vm.$data.visibleData, true);
+        assert.strictEqual(dropdown.vm.$data.visibleData, true);
+
         await dropdownThirdItem.trigger("click");
-        assert.strictEqual(componentData.visibleData, false);
-        assert.strictEqual(dropdownData.visibleData, false);
+        assert.strictEqual(component.vm.$data.visibleData, false);
+        assert.strictEqual(dropdown.vm.$data.visibleData, false);
     });
 
     it("should doesn't update visibility on select click when is disabled", async () => {
@@ -140,17 +133,15 @@ describe("Select", () => {
                 disabled: true
             }
         });
-        const componentData = component.vm.$data;
-
         const selectButton = component.get(".select-button");
         const dropdown = component.findComponent({ name: "dropdown" });
-        const dropdownData = dropdown.vm.$data;
 
-        assert.strictEqual(componentData.visibleData, false);
-        assert.strictEqual(dropdownData.visibleData, false);
+        assert.strictEqual(component.vm.$data.visibleData, false);
+        assert.strictEqual(dropdown.vm.$data.visibleData, false);
+
         await selectButton.trigger("click");
-        assert.strictEqual(componentData.visibleData, false);
-        assert.strictEqual(dropdownData.visibleData, false);
+        assert.strictEqual(component.vm.$data.visibleData, false);
+        assert.strictEqual(dropdown.vm.$data.visibleData, false);
     });
 
     it("should update selected option on item click", async () => {
@@ -164,14 +155,14 @@ describe("Select", () => {
                 value: "option_1"
             }
         });
-        const componentData = component.vm.$data;
-
         const selectButton = component.find(".select-button");
+
         await selectButton.trigger("click");
         const dropdownSecondItem = component.findAll(".dropdown-item").at(2);
+
         await dropdownSecondItem.trigger("click");
         assert.strictEqual(selectButton.text(), "C");
-        assert.strictEqual(componentData.valueData, "option_3");
+        assert.strictEqual(component.vm.$data.valueData, "option_3");
     });
 
     it("should update value on arrow and enter keydown", async () => {
@@ -185,16 +176,15 @@ describe("Select", () => {
                 value: "option_1"
             }
         });
-        const componentData = component.vm.$data;
-
         const selectButton = component.find(".select-button");
+
         await selectButton.trigger("keydown.down");
         await selectButton.trigger("keydown.down");
         await selectButton.trigger("keydown.down");
         await selectButton.trigger("keydown.up");
         await selectButton.trigger("keydown.enter");
         assert.strictEqual(selectButton.text(), "B");
-        assert.strictEqual(componentData.valueData, "option_2");
+        assert.strictEqual(component.vm.$data.valueData, "option_2");
     });
 
     it("should display placeholder text according to prop", async () => {
@@ -266,16 +256,13 @@ describe("Select", () => {
                 visible: true
             }
         });
-        const componentData = component.vm.$data;
         const selectButton = component.find(".select-button");
 
-        // keypress "k" should select option_11 which is index 10
         await selectButton.trigger("keydown", { key: "k" });
-        assert.strictEqual(componentData.highlighted, 10);
+        assert.strictEqual(component.vm.$data.highlighted, 10);
 
-        // keypress "f" should select option_6 which is index 5
         await selectButton.trigger("keydown", { key: "f" });
-        assert.strictEqual(componentData.highlighted, 5);
+        assert.strictEqual(component.vm.$data.highlighted, 5);
     });
 
     it("should emit one event when visibility changes with it's new value", async () => {
@@ -295,12 +282,13 @@ describe("Select", () => {
         await selectButton.trigger("click");
         assert.strictEqual(component.emitted("update:visible").length, 1);
         assert.strictEqual(component.emitted("update:visible")[0][0], false);
+
         await selectButton.trigger("click");
         assert.strictEqual(component.emitted("update:visible").length, 2);
         assert.strictEqual(component.emitted("update:visible")[1][0], true);
     });
 
-    it("should emit one event when selectvalue changes with it's new value", async () => {
+    it("should emit one event when select value changes with it's new value", async () => {
         const component = base.getComponent("Select", {
             props: {
                 options: [
@@ -317,6 +305,7 @@ describe("Select", () => {
         await selectButton.trigger("click");
         assert.strictEqual(component.emitted("update:visible").length, 1);
         assert.strictEqual(component.emitted("update:visible")[0][0], false);
+
         await selectButton.trigger("click");
         assert.strictEqual(component.emitted("update:visible").length, 2);
         assert.strictEqual(component.emitted("update:visible")[1][0], true);
