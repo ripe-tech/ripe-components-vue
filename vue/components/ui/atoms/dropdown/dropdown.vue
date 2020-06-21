@@ -13,7 +13,12 @@
                     v-on:mouseleave="() => onMouseleave(index)"
                 >
                     <slot v-bind:item="item" v-bind:index="index" v-bind:name="item.value">
-                        <slot v-bind:item="item" v-bind:index="index">
+                        <slot
+                            v-bind:item="item"
+                            v-bind:index="index"
+                            v-bind:highlighted="highlightedData[index]"
+                            v-bind:selected="selectedData[index]"
+                        >
                             <router-link v-bind:to="item.link" v-if="item.link">
                                 {{ item.label || item.value }}
                             </router-link>
