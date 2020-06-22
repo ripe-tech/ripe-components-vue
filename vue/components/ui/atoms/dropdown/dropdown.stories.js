@@ -24,6 +24,9 @@ storiesOf("Atoms", module)
                     1: true
                 })
             },
+            messageEmpty: {
+                default: text("Message Empty", "No Items")
+            },
             items: {
                 default: () => [
                     {
@@ -48,9 +51,6 @@ storiesOf("Atoms", module)
                         target: "_blank"
                     }
                 ]
-            },
-            messageEmpty: {
-                default: text("Empty message: ", "NO ITEMS")
             }
         },
         data: function() {
@@ -69,10 +69,10 @@ storiesOf("Atoms", module)
                 <dropdown
                     v-bind:items="items"
                     v-bind:selected="selected"
+                    v-bind:message-empty="messageEmpty"
                     v-bind:visible.sync="visibleData"
                     v-bind:highlighted.sync="highlightedData"
                     v-bind:direction="direction"
-                    v-bind:message-empty="messageEmpty"
                 />
                 <p>The dropdown is: {{ visibleData ? "visible" : "invisible" }}</p>
                 <p>Highlighted: {{ highlightedData }}</p>
