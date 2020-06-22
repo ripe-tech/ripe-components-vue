@@ -15,7 +15,8 @@ describe("Dropdown", () => {
         assert.strictEqual(dropdownItems, 0);
         assert.strictEqual(messageEmptyItem, 1);
     });
-    it("should have items accordanly with props", () => {
+
+    it("should have items accordingly with props", () => {
         const items = [
             {
                 value: "text_1",
@@ -36,6 +37,7 @@ describe("Dropdown", () => {
         assert.strictEqual(secondItem.text(), "text_2");
         assert.strictEqual(component.vm.$props.items, items);
     });
+
     it("should close on item click", async () => {
         const items = [
             {
