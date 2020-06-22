@@ -55,7 +55,20 @@
                                 v-bind:visible.sync="optionsVisible"
                                 v-bind:owners="$refs['button-options-loading']"
                                 v-on:item-clicked="onOptionsItemClick"
-                            />
+                            >
+                                <slot
+                                    v-bind:name="slot"
+                                    v-for="slot in optionsSlots"
+                                    v-bind:slot="slot.replace('options-', '')"
+                                />
+                                <template
+                                    v-for="slot in optionsScopedSlots"
+                                    v-bind:slot="slot.replace('options-', '')"
+                                    slot-scope="scope"
+                                >
+                                    <slot v-bind:name="slot" v-bind="scope" />
+                                </template>
+                            </dropdown>
                             <p>Status</p>
                         </div>
                         <slot name="header-buttons-after" v-if="isDesktopWidth()" />
@@ -123,7 +136,20 @@
                                 v-bind:visible.sync="optionsVisible"
                                 v-bind:owners="$refs['button-options']"
                                 v-on:item-clicked="onOptionsItemClick"
-                            />
+                            >
+                                <slot
+                                    v-bind:name="slot"
+                                    v-for="slot in optionsSlots"
+                                    v-bind:slot="slot.replace('options-', '')"
+                                />
+                                <template
+                                    v-for="slot in optionsScopedSlots"
+                                    v-bind:slot="slot.replace('options-', '')"
+                                    slot-scope="scope"
+                                >
+                                    <slot v-bind:name="slot" v-bind="scope" />
+                                </template>
+                            </dropdown>
                             <p>Status</p>
                         </div>
                         <slot name="header-buttons-after" v-if="isDesktopWidth()" />
@@ -546,6 +572,12 @@ export const Details = {
         },
         hasIndex() {
             return this.index !== null && this.index !== undefined;
+        },
+        optionsSlots() {
+            return Object.keys(this.$slots).filter(slot => slot.startsWith("options-"));
+        },
+        optionsScopedSlots() {
+            return Object.keys(this.$scopedSlots).filter(slot => slot.startsWith("options-"));
         }
     },
     methods: {
