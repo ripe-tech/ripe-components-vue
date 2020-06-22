@@ -69,10 +69,10 @@ storiesOf("Atoms", module)
                 <dropdown
                     v-bind:items="items"
                     v-bind:selected="selected"
-                    v-bind:message-empty="messageEmpty"
                     v-bind:visible.sync="visibleData"
                     v-bind:highlighted.sync="highlightedData"
                     v-bind:direction="direction"
+                    v-bind:message-empty="messageEmpty"
                 />
                 <p>The dropdown is: {{ visibleData ? "visible" : "invisible" }}</p>
                 <p>Highlighted: {{ highlightedData }}</p>
