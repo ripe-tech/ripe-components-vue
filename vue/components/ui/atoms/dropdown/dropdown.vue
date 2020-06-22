@@ -12,12 +12,17 @@
                     v-for="(item, index) in items.filter(v => v !== null && v !== undefined)"
                     v-else
                     v-bind:key="item.value"
-                    v-on:click="() => click(item)"
+                    v-on:click="() => click(item, index)"
                     v-on:mouseenter="() => onMouseenter(index)"
                     v-on:mouseleave="() => onMouseleave(index)"
                 >
                     <slot v-bind:item="item" v-bind:index="index" v-bind:name="item.value">
-                        <slot v-bind:item="item" v-bind:index="index">
+                        <slot
+                            v-bind:item="item"
+                            v-bind:index="index"
+                            v-bind:highlighted="highlightedData[index]"
+                            v-bind:selected="selectedData[index]"
+                        >
                             <router-link v-bind:to="item.link" v-if="item.link">
                                 {{ item.label || item.value }}
                             </router-link>
@@ -228,9 +233,9 @@ export const Dropdown = {
         }
     },
     methods: {
-        click(item) {
+        click(item, index) {
             this.hide();
-            this.$emit("item-clicked", item);
+            this.$emit("item-clicked", item, index);
         },
         highlight(index) {
             this.$set(this.highlightedData, index, true);
@@ -263,7 +268,10 @@ export const Dropdown = {
         },
         onGlobalClick(event) {
             const owners = Array.isArray(this.owners) ? this.owners : [this.owners];
-            const insideOwners = owners.some(owner => owner.contains(event.target));
+            const insideOwners = owners.some(owner => {
+                owner = owner.$el ? owner.$el : owner;
+                return owner.contains(event.target);
+            });
             if (insideOwners) return;
             this.handleGlobal();
         },

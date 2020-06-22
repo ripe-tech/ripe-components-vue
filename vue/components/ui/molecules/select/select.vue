@@ -4,7 +4,7 @@
             class="dropdown-select"
             v-bind:value="value"
             v-if="isDevice()"
-            v-on:change="onSelectChange($event.target.value)"
+            v-on:change="() => onSelectChange($event.target.value)"
         >
             <option
                 v-bind:value="options.value"

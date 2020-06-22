@@ -435,7 +435,6 @@ body.mobile .container-ripe .details-column .label-value {
 .container-ripe .label-value .label {
     color: $label-color;
     font-size: 12px;
-    letter-spacing: 0.5px;
     margin: 0px 0px 6px 0px;
 }
 
