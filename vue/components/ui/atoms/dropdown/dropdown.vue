@@ -123,7 +123,7 @@
     color: $blacker;
 }
 
-.dropdown-container .dropdown > .dropdown-empty-item {
+.dropdown-container .dropdown > .dropdown-item-empty {
     padding: 5px 5px 5px 5px;
     text-align: center;
 }
