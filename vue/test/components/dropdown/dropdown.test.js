@@ -55,7 +55,7 @@ describe("Dropdown", () => {
         assert.strictEqual(component.vm.$data.visibleData, false);
     });
 
-    it("should set item as selectedData based on the props", async () => {
+    it("should set item as selected based on the props", async () => {
         const items = [
             {
                 value: "text_1",
@@ -68,9 +68,7 @@ describe("Dropdown", () => {
         const component = base.getComponent("Dropdown", {
             props: { items: items, selected: { 1: true } }
         });
-        const numItems = items.length;
-        const itemIndex = Math.floor(Math.random() * numItems);
-        assert.strictEqual(component.vm.$data.selectedData[itemIndex], true);
+        assert.strictEqual(component.vm.$data.selectedData[1], true);
     });
 
     it("should highlight item on item mouseover", async () => {
