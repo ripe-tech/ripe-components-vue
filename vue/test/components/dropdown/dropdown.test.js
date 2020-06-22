@@ -15,7 +15,7 @@ describe("Dropdown", () => {
         assert.strictEqual(dropdownItems, 0);
         assert.strictEqual(messageEmptyItem, 1);
     });
-    it("should have items accordanly with props", () => {
+    it("should have items accordingly with props", () => {
         const items = [
             {
                 value: "text_1",
