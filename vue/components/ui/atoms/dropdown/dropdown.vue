@@ -178,13 +178,13 @@ export const Dropdown = {
             type: String,
             default: "bottom"
         },
-        owners: {
-            type: Node | Array,
-            default: () => []
-        },
         messageEmpty: {
             type: String,
             default: null
+        },
+        owners: {
+            type: Node | Array,
+            default: () => []
         }
     },
     data: function() {
