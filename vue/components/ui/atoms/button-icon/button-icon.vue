@@ -248,6 +248,7 @@ export const ButtonIcon = {
         style() {
             return {
                 height: `${this.size}px`,
+                width: this.text ? undefined : `${this.size}px`,
                 "min-width": `${this.size}px`,
                 "line-height": this.text ? "normal" : `${this.size}px`,
                 "padding-top": `${this.paddingTop === null ? this.paddingBase : this.paddingTop}px`,
