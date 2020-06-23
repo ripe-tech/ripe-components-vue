@@ -10,10 +10,9 @@ describe("Dropdown", () => {
         });
 
         const dropdownItems = component.findAll(".dropdown-item").length;
-        const messageEmptyItem = component.findAll(".dropdown-item-empty").length;
-
+        const messageEmptyItem = component.findAll(".dropdown-item-empty").at(0);
         assert.strictEqual(dropdownItems, 0);
-        assert.strictEqual(messageEmptyItem, 1);
+        assert.strictEqual(messageEmptyItem.text(), "No items");
     });
 
     it("should have items accordingly with props", () => {
@@ -29,6 +28,7 @@ describe("Dropdown", () => {
         const component = base.getComponent("Dropdown", {
             props: { items: items }
         });
+
         const itemsLength = component.findAll(".dropdown-item").length;
         const firstItem = component.findAll(".dropdown-item").at(0);
         const secondItem = component.findAll(".dropdown-item").at(1);
@@ -52,6 +52,7 @@ describe("Dropdown", () => {
             props: { items: items }
         });
 
+        assert.strictEqual(component.vm.$data.visibleData, true);
         const item = component.findAll(".dropdown-item").at(0);
         await item.trigger("click");
         assert.strictEqual(component.vm.$data.visibleData, false);
@@ -70,10 +71,11 @@ describe("Dropdown", () => {
         const component = base.getComponent("Dropdown", {
             props: { items: items, selected: { 1: true } }
         });
+
         assert.strictEqual(component.vm.$data.selectedData[1], true);
     });
 
-    it("should highlight item on item mouseover", async () => {
+    it("should highlight item on item mouseover and dehighlight", async () => {
         const items = [
             {
                 value: "text_1",
@@ -87,12 +89,21 @@ describe("Dropdown", () => {
             props: { items: items }
         });
 
-        const numItems = items.length;
-        const itemIndex = Math.floor(Math.random() * numItems);
-        const item = component.findAll(".dropdown-item").at(itemIndex);
-        await item.trigger("mouseenter");
-        await item.trigger("mouseover");
-        assert.strictEqual(component.vm.$data.highlightedData[itemIndex], true);
+        const item1Index = 0;
+        const item1 = component.findAll(".dropdown-item").at(item1Index);
+        await item1.trigger("mouseenter");
+        await item1.trigger("mouseover");
+        assert.strictEqual(component.vm.$data.highlightedData[item1Index], true);
+        await item1.trigger("mouseleave");
+        assert.strictEqual(component.vm.$data.highlightedData[item1Index], undefined);
+
+        const item2Index = 1;
+        const item2 = component.findAll(".dropdown-item").at(item2Index);
+        await item2.trigger("mouseenter");
+        await item2.trigger("mouseover");
+        assert.strictEqual(component.vm.$data.highlightedData[item2Index], true);
+        await item2.trigger("mouseleave");
+        assert.strictEqual(component.vm.$data.highlightedData[item2Index], undefined);
     });
 
     it("should send the correct highlight event", async () => {
@@ -109,13 +120,24 @@ describe("Dropdown", () => {
             props: { items: items }
         });
 
-        const numItems = items.length;
-        const itemIndex = Math.floor(Math.random() * numItems);
-        const item = component.findAll(".dropdown-item").at(itemIndex);
-        await item.trigger("mouseenter");
-        await item.trigger("mouseover");
-        await component.vm.$nextTick();
+        const itemIndex1 = 0;
+        const item1 = component.findAll(".dropdown-item").at(itemIndex1);
+        await item1.trigger("mouseenter");
+        await item1.trigger("mouseover");
+        let highlightedItem = parseInt(
+            Object.keys(component.emitted("update:highlighted")[0][0])[0]
+        );
         assert.strictEqual(component.emitted("update:highlighted").length, 1);
+        assert.strictEqual(highlightedItem, highlightedItem);
+        await item1.trigger("mouseleave");
+
+        const itemIndex2 = 1;
+        const item2 = component.findAll(".dropdown-item").at(itemIndex2);
+        await item2.trigger("mouseenter");
+        await item2.trigger("mouseover");
+        highlightedItem = parseInt(Object.keys(component.emitted("update:highlighted")[2][0])[0]);
+        assert.strictEqual(component.emitted("update:highlighted").length, 3);
+        assert.strictEqual(highlightedItem, itemIndex2);
     });
 
     it("should send the correct click event", async () => {
@@ -132,11 +154,12 @@ describe("Dropdown", () => {
             props: { items: items }
         });
 
-        const numItems = items.length;
-        const itemIndex = Math.floor(Math.random() * numItems);
-        const item = component.findAll(".dropdown-item").at(itemIndex);
+        const item = component.findAll(".dropdown-item").at(1);
         await item.trigger("click");
-        await component.vm.$nextTick();
+        const clickedItemValue = component.emitted("item-clicked")[0][0].value;
+        const clickedItemIndex = component.emitted("item-clicked")[0][1];
         assert.strictEqual(component.emitted("item-clicked").length, 1);
+        assert.strictEqual(item.text(), clickedItemValue);
+        assert.strictEqual(1, clickedItemIndex);
     });
 });

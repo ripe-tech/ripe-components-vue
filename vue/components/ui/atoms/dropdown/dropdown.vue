@@ -88,6 +88,11 @@
     user-select: none;
 }
 
+.dropdown-container .dropdown > .dropdown-item-empty {
+    padding: 5px 5px 5px 5px;
+    text-align: center;
+}
+
 .dropdown-container .dropdown > .dropdown-item {
     background-color: $white;
     cursor: pointer;
@@ -126,11 +131,6 @@
 .dropdown-container .dropdown > .dropdown-item.selected > a,
 .dropdown-container .dropdown > .dropdown-item.highlighted > a {
     color: $blacker;
-}
-
-.dropdown-container .dropdown > .dropdown-item-empty {
-    padding: 5px 5px 5px 5px;
-    text-align: center;
 }
 </style>
 
