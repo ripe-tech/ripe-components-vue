@@ -295,17 +295,17 @@ export const Listing = {
         },
         checkedItems: {
             type: Object,
-            default: () => {}
+             default: () => ({})
         }
     },
     data: function() {
         return {
             items: [],
+            checkedItemsData: this.checkedItems,
             filter: this.context && this.context.filter ? this.context.filter : "",
             filterOptions: null,
             loading: false,
-            visibleLightbox: null,
-            checkedItemsData: this.checkedItems
+            visibleLightbox: null
         };
     },
     watch: {

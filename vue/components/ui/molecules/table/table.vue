@@ -358,7 +358,7 @@ export const Table = {
         },
         checkedItems: {
             type: Object,
-            default: () => {}
+             default: () => ({})
         },
         clickableRows: {
             type: Boolean,
@@ -374,7 +374,7 @@ export const Table = {
             this.sortData = value;
         },
         items(value) {
-            this.garbageCollectCheckedItems();
+            this.collectCheckedItems();
         },
         reverse(value) {
             this.reverseData = value;
@@ -446,7 +446,7 @@ export const Table = {
         setCheckedAll(value) {
             this.itemsWithIndex.forEach(item => this.setChecked(item.id, value));
         },
-        garbageCollectCheckedItems() {
+        collectCheckedItems() {
             const checkedItems = {};
             this.itemsWithIndex.forEach(item => {
                 if (this.checkedItemsData[item.id]) checkedItems[item.id] = true;

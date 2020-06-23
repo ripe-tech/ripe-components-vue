@@ -110,7 +110,7 @@ export const Filter = {
         },
         checkedItems: {
             type: Object,
-            default: () => {}
+             default: () => ({})
         },
         getItemUrl: {
             type: Function,
