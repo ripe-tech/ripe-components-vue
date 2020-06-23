@@ -58,6 +58,8 @@
                 v-bind:loading.sync="loading"
                 v-bind:items.sync="items"
                 v-bind:options.sync="filterOptions"
+                v-bind:checkboxes="checkboxes"
+                v-bind:checked-items.sync="checkedItemsData"
                 ref="filter"
                 v-on:update:options="filterUpdated"
                 v-on:click:table="onTableClick"
@@ -277,6 +279,14 @@ export const Listing = {
             type: String,
             default: null
         },
+        checkboxes: {
+            type: Boolean,
+            default: false
+        },
+        checkedItems: {
+            type: Object,
+            default: () => ({})
+        },
         containerHeaderButtons: {
             type: Array,
             default: () => []
@@ -285,11 +295,20 @@ export const Listing = {
     data: function() {
         return {
             items: [],
+            checkedItemsData: this.checkedItems,
             filter: this.context && this.context.filter ? this.context.filter : "",
             filterOptions: null,
             loading: false,
             visibleLightbox: null
         };
+    },
+    watch: {
+        checkedItems(value) {
+            this.checkedItemsData = value;
+        },
+        checkedItemsData(value) {
+            this.$emit("update:checked-items", value);
+        }
     },
     methods: {
         addFilter(key, value) {
