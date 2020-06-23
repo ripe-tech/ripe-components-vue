@@ -48,8 +48,6 @@
                                 v-bind:size="8"
                                 v-bind:checked="checkedItemsData[item.id]"
                                 v-on:update:checked="value => onChecked(item.id, value)"
-                                v-on:click.exact="onCheckboxClick(index, item.id)"
-                                v-on:click.shift.exact="onCheckboxShiftClick(index, item.id)"
                             />
                         </td>
                         <slot v-bind:item="item" v-bind:index="index">
@@ -394,8 +392,7 @@ export const Table = {
             sortData: this.sort,
             reverseData: this.reverse,
             selectedRowData: this.selectedRow,
-            checkedItemsData: this.checkedItems,
-            lastClickedIndex: null
+            checkedItemsData: this.checkedItems
         };
     },
     computed: {
@@ -488,48 +485,6 @@ export const Table = {
             this.$emit("update:sort", this.sortData);
             this.$emit("update:reverse", this.reverseData);
         },
-        checkboxClick(index, id) {
-            this.lastClickedIndex = index;
-        },
-        onGlobalCheckboxClick() {
-            const checkAll = this.nrChecked === 0;
-            this.setCheckedAll(checkAll);
-            this.lastClickedIndex = null;
-        },
-        onChecked(id, value) {
-            this.setChecked(id, value);
-        },
-        onCheckboxClick(index, id) {
-            this.checkboxClick(index, id);
-        },
-        onCheckboxShiftClick(index, id) {
-            if (this.lastClickedIndex === null) {
-                this.lastClickedIndex = index;
-                return;
-            }
-
-            const lower = Math.min(index, this.lastClickedIndex);
-            let upper = Math.max(index, this.lastClickedIndex);
-
-            if (index < this.lastClickedIndex) {
-                upper = this.lastClickedIndex;
-                this.lastClickedIndex = index;
-            } else {
-                this.uncheckAll();
-            }
-
-            for (let i = lower; i <= upper; i++) {
-                this.setChecked(this.sortedItems[i].id, true);
-            }
-        },
-        onCtrlA() {
-            this.checkAll();
-            this.lastClickedIndex = null;
-        },
-        onMetaA() {
-            this.checkAll();
-            this.lastClickedIndex = null;
-        },
         rowStyle(item) {
             const base = {};
             return Object.assign({}, item.style, base);
@@ -554,6 +509,19 @@ export const Table = {
             }
 
             this.$emit("click", item, item._originalIndex, index, this.selectedRowData);
+        },
+        onGlobalCheckboxClick() {
+            const checkAll = this.nrChecked === 0;
+            this.setCheckedAll(checkAll);
+        },
+        onChecked(id, value) {
+            this.setChecked(id, value);
+        },
+        onCtrlA() {
+            this.checkAll();
+        },
+        onMetaA() {
+            this.checkAll();
         }
     }
 };
