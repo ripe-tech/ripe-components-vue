@@ -108,7 +108,12 @@
 }
 
 .table thead tr th.checkbox-global {
-    width: 45px;
+    text-align: center;
+    width: 58px;
+}
+
+.table.table-dense thead tr th.checkbox-global {
+    width: 38px;
 }
 
 .table tbody tr:last-child {
@@ -286,10 +291,6 @@
 .table th > .table-column.sortable.active > span::before,
 .table th > .table-column.sortable:hover > span::before {
     opacity: 1;
-}
-
-.table .checkbox-item {
-    padding: 0px 0px 0px 0px;
 }
 </style>
 
