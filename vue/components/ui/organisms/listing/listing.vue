@@ -295,7 +295,7 @@ export const Listing = {
         },
         checkedItems: {
             type: Object,
-             default: () => ({})
+            default: () => ({})
         }
     },
     data: function() {

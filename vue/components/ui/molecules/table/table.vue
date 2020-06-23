@@ -1,9 +1,6 @@
 <template>
     <table class="table" v-bind:class="classes" v-bind:style="style">
-        <global-events
-            v-on:keydown.meta.65.exact="onMetaA"
-            v-on:keydown.ctrl.65.exact="onCtrlA"
-        />
+        <global-events v-on:keydown.meta.65.exact="onMetaA" v-on:keydown.ctrl.65.exact="onCtrlA" />
         <thead class="table-head" v-if="header">
             <tr>
                 <th class="checkbox-global" v-if="checkboxes">
@@ -356,7 +353,7 @@ export const Table = {
         },
         checkedItems: {
             type: Object,
-             default: () => ({})
+            default: () => ({})
         },
         clickableRows: {
             type: Boolean,
@@ -423,7 +420,9 @@ export const Table = {
             return Object.keys(this.checkedItemsData).length;
         },
         globalCheckboxIcon() {
-            return this.nrChecked === this.itemsWithIndex.length || this.nrChecked === 0 ? "check" : "minus";
+            return this.nrChecked === this.itemsWithIndex.length || this.nrChecked === 0
+                ? "check"
+                : "minus";
         }
     },
     methods: {
