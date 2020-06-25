@@ -1,11 +1,44 @@
 <template>
     <div class="container-ripe" v-bind:class="classes">
-        <div class="container-header" v-if="title || $slots.header">
+        <div class="container-header" v-if="hasHeaderContent">
+            <slot name="header-before" />
             <slot name="header">
                 <title-ripe v-if="title">
                     {{ title }}
                 </title-ripe>
+                <slot name="header-buttons-before" />
+                <slot name="header-buttons" v-if="hasHeaderButtons">
+                    <div class="header-buttons">
+                        <slot name="header-buttons-inside-before" />
+                        <button-icon
+                            v-bind:text="button.text"
+                            v-bind:icon="button.icon"
+                            v-bind:color="button.color"
+                            v-bind:size="button.size"
+                            v-bind:icon-opacity="button.iconOpacity"
+                            v-bind:icon-fill="button.iconFill"
+                            v-bind:icon-stroke-width="button.iconStrokeWidth"
+                            v-bind:padding="button.padding"
+                            v-bind:padding-top="button.paddingTop"
+                            v-bind:padding-bottom="button.paddingBottom"
+                            v-bind:padding-left="button.paddingLeft"
+                            v-bind:padding-right="button.paddingRight"
+                            v-bind:padding-factor="button.paddingFactor"
+                            v-bind:padding-text-factor="button.paddingTextFactor"
+                            v-bind:disabled="button.disabled"
+                            v-bind:selectable="button.selectable"
+                            v-bind:loading="button.loading"
+                            v-for="button in headerButtons"
+                            v-show="!button.hide"
+                            v-bind:key="button.id"
+                            v-on:click="event => onButtonIconClick(event, button.id)"
+                        />
+                        <slot name="header-buttons-inside-after" />
+                    </div>
+                </slot>
+                <slot name="header-buttons-after" />
             </slot>
+            <slot name="header-after" />
         </div>
         <slot />
     </div>
@@ -64,13 +97,41 @@ export const Container = {
         title: {
             type: String,
             default: null
+        },
+        headerButtons: {
+            type: Array,
+            default: () => []
         }
     },
     computed: {
+        hasHeaderButtons() {
+            return (
+                this.headerButtons.length > 0 ||
+                this.$slots["header-buttons"] ||
+                this.$slots["header-buttons-inside-before"] ||
+                this.$slots["header-buttons-inside-after"]
+            );
+        },
+        hasHeaderContent() {
+            return (
+                this.title ||
+                this.$slots["header-before"] ||
+                this.$slots.header ||
+                this.$slots["header-buttons-before"] ||
+                this.hasHeaderButtons ||
+                this.$slots["header-buttons-after"] ||
+                this.$slots["header-after"]
+            );
+        },
         classes() {
             const base = {};
             if (this.mode) base[`container-ripe-${this.mode}`] = true;
             return base;
+        }
+    },
+    methods: {
+        onButtonIconClick(event, buttonId) {
+            this.$emit("header-button:click", event, buttonId);
         }
     }
 };
