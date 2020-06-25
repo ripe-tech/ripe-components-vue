@@ -24,6 +24,9 @@ storiesOf("Atoms", module)
                     1: true
                 })
             },
+            messageEmpty: {
+                default: text("Message Empty", "No Items")
+            },
             items: {
                 default: () => [
                     {
@@ -48,9 +51,6 @@ storiesOf("Atoms", module)
                         target: "_blank"
                     }
                 ]
-            },
-            messageEmpty: {
-                default: text("Empty message: ", "NO ITEMS")
             }
         },
         data: function() {

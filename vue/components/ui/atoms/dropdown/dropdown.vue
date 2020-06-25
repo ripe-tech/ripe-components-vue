@@ -3,7 +3,7 @@
         <global-events v-on:keydown.esc="onEscKey" v-on:click="onGlobalClick" />
         <transition name="slide" v-on:after-leave="onSlideAfterLeave">
             <ul class="dropdown" v-bind:style="dropdownStyle" v-show="visibleData" ref="dropdown">
-                <li class="dropdown-empty-item" v-if="items.length === 0">
+                <li class="dropdown-item-empty" v-if="items.length === 0">
                     {{ messageEmpty }}
                 </li>
                 <li
@@ -88,6 +88,11 @@
     user-select: none;
 }
 
+.dropdown-container .dropdown > .dropdown-item-empty {
+    padding: 5px 5px 5px 5px;
+    text-align: center;
+}
+
 .dropdown-container .dropdown > .dropdown-item {
     background-color: $white;
     cursor: pointer;
@@ -126,11 +131,6 @@
 .dropdown-container .dropdown > .dropdown-item.selected > a,
 .dropdown-container .dropdown > .dropdown-item.highlighted > a {
     color: $blacker;
-}
-
-.dropdown-container .dropdown > .dropdown-empty-item {
-    padding: 5px 5px 5px 5px;
-    text-align: center;
 }
 </style>
 
@@ -178,13 +178,13 @@ export const Dropdown = {
             type: String,
             default: "bottom"
         },
-        owners: {
-            type: Node | Array,
-            default: () => []
-        },
         messageEmpty: {
             type: String,
             default: null
+        },
+        owners: {
+            type: Node | Array,
+            default: () => []
         }
     },
     data: function() {
