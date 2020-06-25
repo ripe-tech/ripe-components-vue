@@ -1,13 +1,19 @@
 <template>
     <transition name="fade">
-        <div class="notification" v-bind:style="style" v-show="isVisible" v-on:click="onClick">
+        <div
+            class="notification"
+            v-bind:class="classes"
+            v-bind:style="style"
+            v-show="isVisible"
+            v-on:click="onClick"
+        >
             <global-events v-on:keydown.esc="handleGlobal" />
             <div class="notification-container">
                 <icon
                     v-bind:icon="iconData"
                     v-bind:color="iconColorData"
-                    v-bind:height="18"
-                    v-bind:width="18"
+                    v-bind:height="24"
+                    v-bind:width="24"
                     v-if="iconData"
                 />
                 {{ textData }}
@@ -32,36 +38,45 @@
     text-align: center;
     top: 100px;
     z-index: 50;
+    transition: opacity 0.125s ease-in-out;
 }
 
 .notification.fade-leave-active {
-    animation: fade-shrink-visibility 0.5s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+    opacity: 0;
 }
 
 .notification > .notification-container {
-    animation: fade-grow-rise 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
+    animation: fade-grow 0.125s cubic-bezier(0.645, 0.045, 0.355, 1);
     background-color: $white;
-    border-radius: 6px 6px 6px 6px;
-    box-shadow: 0px 0px 16px rgba(45, 58, 70, 0.25);
+    border-radius: 8px 8px 8px 8px;
+    box-shadow: 0 3px 5px -1px #00000033, 0 6px 10px 0 #00000024, 0 1px 18px 0 #0000001f;
     box-sizing: border-box;
     color: #1d2631;
     display: inline-flex;
-    font-size: 13px;
-    font-weight: 600;
+    font-family: "Roboto Slab", MarkPro, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
     justify-content: center;
     letter-spacing: 0.3px;
-    line-height: 18px;
+    line-height: 24px;
+    line-height: 24px;
     max-height: 100%;
     max-width: 100%;
     overflow-y: auto;
-    padding: 10px 20px 10px 20px;
+    padding: 12px 24px 12px 24px;
     pointer-events: initial;
     position: relative;
     z-index: 1;
 }
 
+.notification.dark > .notification-container {
+    background-color: $dark;
+    color: $white;
+}
+
 .notification > .notification-container > .icon {
-    padding-right: 8px;
+    display: flex;
+    padding-right: 16px;
 }
 </style>
 
@@ -72,6 +87,10 @@ export const Notification = {
         text: {
             type: String,
             default: "hello world"
+        },
+        variant: {
+            type: String,
+            default: null
         },
         icon: {
             type: String,
@@ -101,6 +120,11 @@ export const Notification = {
     computed: {
         isVisible() {
             return this.visibleData;
+        },
+        classes() {
+            const base = {};
+            if (this.variant) base[this.variant] = true;
+            return base;
         },
         style() {
             const base = {};
