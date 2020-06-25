@@ -30,10 +30,9 @@ describe("Dropdown", () => {
         });
 
         const dropdownItems = component.findAll(".dropdown-item");
-        const itemsLength = dropdownItems.length;
         const firstItem = dropdownItems.at(0);
         const secondItem = dropdownItems.at(1);
-        assert.strictEqual(itemsLength, 2);
+        assert.strictEqual(dropdownItems.length, 2);
         assert.strictEqual(firstItem.text(), "Text 1");
         assert.strictEqual(secondItem.text(), "text_2");
         assert.strictEqual(component.vm.$props.items, items);
