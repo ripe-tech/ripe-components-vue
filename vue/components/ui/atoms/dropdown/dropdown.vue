@@ -219,6 +219,14 @@ export const Dropdown = {
             return base;
         }
     },
+    created: function() {
+        this.onHideGlobal = this.$bus.bind("hide-global", () => {
+            this.handleGlobal();
+        });
+    },
+    destroyed: function() {
+        if (this.onHideGlobal) this.$bus.unbind(this.onHideGlobal);
+    },
     methods: {
         click(item, index) {
             this.hide();

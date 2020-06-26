@@ -1,5 +1,6 @@
 <template>
     <div class="select" v-bind:class="classes" ref="select">
+        <global-events v-on:click="onGlobalClick" />
         <select
             class="dropdown-select"
             v-bind:value="value"
@@ -39,10 +40,12 @@
                 v-bind:items="options"
                 v-bind:max-height="maxHeight"
                 v-bind:visible.sync="visibleData"
+                v-bind:global-events="true"
                 v-bind:highlighted="highlightedObject"
                 v-bind:style="dropdownStyle"
+                v-bind:selected="selected"
                 v-bind:direction="direction"
-                v-bind:owners="$refs.select"
+                v-bind:owners="$refs.select ? [$refs.select] : []"
                 ref="dropdown"
                 v-on:update:highlighted="onDropdownHighlighted"
                 v-on:item-clicked="value => onDropdownItemClicked(value.value)"
@@ -194,6 +197,10 @@ export const Select = {
         dropdownMaxWidth: {
             type: Number,
             default: null
+        },
+        owners: {
+            type: Node | Array,
+            default: () => []
         }
     },
     data: function() {
@@ -239,7 +246,9 @@ export const Select = {
         },
         closeDropdown() {
             if (!this.visibleData) return;
+            this.dehighlight();
             this.visibleData = false;
+            this.$emit("update:visible", false);
         },
         toggleDropdown() {
             if (this.visibleData) {
@@ -301,6 +310,17 @@ export const Select = {
             } else if (indexEnd > visibleEnd) {
                 dropdown.scrollTop = indexEnd - dropdown.clientHeight;
             }
+        },
+        onGlobalClick(event) {
+            const owners = Array.isArray(this.owners)
+                ? this.owners.concat(this.$refs.select)
+                : [this.owners, this.$refs.select];
+            const insideOwners = owners.some(owner => {
+                owner = owner.$el ? owner.$el : owner;
+                return owner.contains(event.target);
+            });
+            if (insideOwners) return;
+            this.closeDropdown();
         },
         onClickDropdownButton() {
             this.toggleDropdown();
@@ -394,6 +414,11 @@ export const Select = {
             return this.options && this.options[this.valueIndex]
                 ? this.options[this.valueIndex].label
                 : this.placeholder;
+        },
+        selected() {
+            const selected = {};
+            selected[this.valueIndex] = true;
+            return selected;
         },
         valueIndex() {
             return this.options.findIndex(option => option.value === this.valueData);
