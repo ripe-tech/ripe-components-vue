@@ -338,7 +338,7 @@ export const Select = {
             this.toggleDropdown();
         },
         onKey(key) {
-            console.log("onKey", key);
+            if (!key) return;
             if (Date.now() - this.keyTimestamp > this.keyTimeout) {
                 this.keyBuffer = "";
             }
@@ -354,7 +354,6 @@ export const Select = {
             this.highlightPrevious();
         },
         onDownKey() {
-            console.log("onDownKey");
             this.openDropdown();
             this.highlightNext();
         },
