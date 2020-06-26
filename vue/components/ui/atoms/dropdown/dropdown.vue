@@ -220,12 +220,12 @@ export const Dropdown = {
         }
     },
     created: function() {
-        this.onHideGlobal = this.$bus.bind("hide-global", () => {
+        this.onHideGlobal = this.$bus.$on("hide-global", () => {
             this.handleGlobal();
         });
     },
     destroyed: function() {
-        if (this.onHideGlobal) this.$bus.unbind(this.onHideGlobal);
+        if (this.onHideGlobal) this.$bus.$off("hide-global", this.onHideGlobal);
     },
     methods: {
         click(item, index) {

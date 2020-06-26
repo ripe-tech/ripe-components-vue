@@ -198,6 +198,10 @@ export const Select = {
             type: Number,
             default: null
         },
+        keyTimeout: {
+            type: Number,
+            default: 500
+        },
         owners: {
             type: Node | Array,
             default: () => []
@@ -207,7 +211,9 @@ export const Select = {
         return {
             highlighted: null,
             valueData: this.value,
-            visibleData: this.visible
+            visibleData: this.visible,
+            keyBuffer: "",
+            keyTimestamp: 0
         };
     },
     watch: {
@@ -279,9 +285,9 @@ export const Select = {
                 this.highlight(Math.min(this.options.length - 1, this.highlighted + 1), scroll);
             }
         },
-        highlightFirstMatchedOption(key, scroll = true) {
-            const index = this.options.findIndex(
-                option => option.label && option.label.charAt(0).toUpperCase() === key.toUpperCase()
+        highlightBestMatchOption(scroll = true) {
+            const index = this.options.findIndex(option =>
+                option.label.toUpperCase().startsWith(this.keyBuffer)
             );
 
             if (index > -1) {
@@ -332,7 +338,12 @@ export const Select = {
             this.toggleDropdown();
         },
         onKey(key) {
-            this.highlightFirstMatchedOption(key);
+            if (Date.now() - this.keyTimestamp > this.keyTimeout) {
+                this.keyBuffer = "";
+            }
+            this.keyBuffer += key.toUpperCase();
+            this.keyTimestamp = Date.now();
+            this.highlightBestMatchOption();
         },
         onEscKey() {
             this.closeDropdown();
