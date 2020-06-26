@@ -238,13 +238,15 @@ export const Select = {
         },
         value(value) {
             this.valueData = value;
+        },
+        valueData(value) {
+            this.$emit("update:value", value);
         }
     },
     methods: {
         setValue(value) {
             if (this.disabled) return;
             this.valueData = value;
-            this.$emit("update:value", value);
         },
         openDropdown() {
             if (this.disabled || this.visibleData) return;
@@ -254,7 +256,6 @@ export const Select = {
             if (!this.visibleData) return;
             this.dehighlight();
             this.visibleData = false;
-            this.$emit("update:visible", false);
         },
         toggleDropdown() {
             if (this.visibleData) {
