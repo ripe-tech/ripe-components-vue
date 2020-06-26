@@ -270,9 +270,9 @@ describe("Select", () => {
         await selectButton.trigger("keydown", { key: "k" });
         assert.strictEqual(component.vm.$data.highlighted, 10);
 
-        await new Promise((resolve, reject) =>
-            setTimeout(() => resolve(), 100)
-        );
+        // wait for more than the key timeout to ensure that
+        // the buffer is cleared
+        await new Promise((resolve, reject) => setTimeout(() => resolve(), 100));
 
         await selectButton.trigger("keydown", { key: "f" });
         assert.strictEqual(component.vm.$data.highlighted, 5);
