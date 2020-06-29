@@ -76,6 +76,7 @@
 
 .notification > .notification-container > .icon {
     display: flex;
+    flex-shrink: 0;
     padding-right: 16px;
 }
 
