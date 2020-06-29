@@ -78,6 +78,72 @@
     display: flex;
     padding-right: 16px;
 }
+
+@keyframes fade-grow {
+
+    from {
+        -o-opacity: 0;
+        -ms-opacity: 0;
+        -moz-opacity: 0;
+        -khtml-opacity: 0;
+        -webkit-opacity: 0;
+        opacity: 0;
+        -o-transform: scale(0.85);
+        -ms-transform: scale(0.85);
+        -moz-transform: scale(0.85);
+        -khtml-transform: scale(0.85);
+        -webkit-transform: scale(0.85);
+        transform: scale(0.85);
+    }
+
+    to {
+        -o-opacity: 1;
+        -ms-opacity: 1;
+        -moz-opacity: 1;
+        -khtml-opacity: 1;
+        -webkit-opacity: 1;
+        opacity: 1;
+        -o-transform: scale(1);
+        -ms-transform: scale(1);
+        -moz-transform: scale(1);
+        -khtml-transform: scale(1);
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+@-webkit-keyframes fade-grow {
+
+    from {
+        -o-opacity: 0;
+        -ms-opacity: 0;
+        -moz-opacity: 0;
+        -khtml-opacity: 0;
+        -webkit-opacity: 0;
+        opacity: 0;
+        -o-transform: scale(0.85);
+        -ms-transform: scale(0.85);
+        -moz-transform: scale(0.85);
+        -khtml-transform: scale(0.85);
+        -webkit-transform: scale(0.85);
+        transform: scale(0.85);
+    }
+
+    to {
+        -o-opacity: 1;
+        -ms-opacity: 1;
+        -moz-opacity: 1;
+        -khtml-opacity: 1;
+        -webkit-opacity: 1;
+        opacity: 1;
+        -o-transform: scale(1);
+        -ms-transform: scale(1);
+        -moz-transform: scale(1);
+        -khtml-transform: scale(1);
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
 </style>
 
 <script>
