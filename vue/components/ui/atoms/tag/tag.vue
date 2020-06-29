@@ -22,12 +22,8 @@
     white-space: nowrap;
 }
 
-.tag.tag-small {
-    font-size: 10px;
-    height: 12px;
-    letter-spacing: 0.35px;
-    line-height: 12px;
-    padding: 4px 10px 4px 10px;
+body.round .tag {
+    border-radius: 24px 24px 24px 24px;
 }
 
 .tag.tag-large {
@@ -36,6 +32,22 @@
     letter-spacing: 0.65px;
     line-height: 17px;
     padding: 6px 14px 6px 14px;
+}
+
+.tag.tag-small {
+    font-size: 10px;
+    height: 12px;
+    letter-spacing: 0.35px;
+    line-height: 12px;
+    padding: 4px 10px 4px 10px;
+}
+
+.tag.tag-tiny {
+    font-size: 8px;
+    height: 10px;
+    letter-spacing: 0.25px;
+    line-height: 10px;
+    padding: 4px 8px 4px 8px;
 }
 
 .tag,
