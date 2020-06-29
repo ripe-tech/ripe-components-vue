@@ -37,8 +37,8 @@
     right: 0;
     text-align: center;
     top: 100px;
-    z-index: 50;
     transition: opacity 0.125s ease-in-out;
+    z-index: 50;
 }
 
 .notification.fade-leave-active {
