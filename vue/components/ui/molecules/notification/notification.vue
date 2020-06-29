@@ -59,7 +59,6 @@
     justify-content: center;
     letter-spacing: 0.3px;
     line-height: 24px;
-    line-height: 24px;
     max-height: 100%;
     max-width: 100%;
     overflow-y: auto;
