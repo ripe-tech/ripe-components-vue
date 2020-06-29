@@ -22,10 +22,6 @@
     white-space: nowrap;
 }
 
-body.round .tag {
-    border-radius: 24px 24px 24px 24px;
-}
-
 .tag.tag-large {
     font-size: 14px;
     height: 17px;
