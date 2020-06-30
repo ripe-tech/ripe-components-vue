@@ -1,7 +1,16 @@
 <template>
     <table class="table" v-bind:class="classes" v-bind:style="style">
+        <global-events v-on:keydown.meta.65.exact="onMetaA" v-on:keydown.ctrl.65.exact="onCtrlA" />
         <thead class="table-head" v-if="header">
             <tr>
+                <th class="checkbox-global" v-if="checkboxes">
+                    <checkbox
+                        v-bind:size="8"
+                        v-bind:checked="nrChecked > 0"
+                        v-bind:icon="globalCheckboxIcon"
+                        v-on:click="onGlobalCheckboxClick"
+                    />
+                </th>
                 <th
                     v-bind:class="{ clickable: column.sortable !== false }"
                     v-bind:style="[column.style, { width: column.width }]"
@@ -31,6 +40,13 @@
                         v-bind:key="item.id"
                         v-on:click="onClick(item, index)"
                     >
+                        <td class="checkbox-item" v-if="checkboxes">
+                            <checkbox
+                                v-bind:size="8"
+                                v-bind:checked="checkedItemsData[item.id]"
+                                v-on:update:checked="value => onChecked(item.id, value)"
+                            />
+                        </td>
                         <slot v-bind:item="item" v-bind:index="index">
                             <td
                                 v-bind:class="column.value"
@@ -89,6 +105,15 @@
 
 .table thead tr {
     border-bottom: 1px solid $border-color;
+}
+
+.table thead tr th.checkbox-global {
+    text-align: center;
+    width: 58px;
+}
+
+.table.table-dense thead tr th.checkbox-global {
+    width: 38px;
 }
 
 .table tbody tr:last-child {
@@ -323,6 +348,14 @@ export const Table = {
             type: Number,
             default: null
         },
+        checkboxes: {
+            type: Boolean,
+            default: false
+        },
+        checkedItems: {
+            type: Object,
+            default: () => ({})
+        },
         clickableRows: {
             type: Boolean,
             default: true
@@ -336,8 +369,17 @@ export const Table = {
         sort(value) {
             this.sortData = value;
         },
+        items(value) {
+            this.collectCheckedItems();
+        },
         reverse(value) {
             this.reverseData = value;
+        },
+        checkedItems(value) {
+            this.checkedItemsData = value;
+        },
+        checkedItemsData(value) {
+            this.$emit("update:checked-items", value);
         },
         selectedRow(value) {
             this.selectedRowData = value;
@@ -347,7 +389,8 @@ export const Table = {
         return {
             sortData: this.sort,
             reverseData: this.reverse,
-            selectedRowData: this.selectedRow
+            selectedRowData: this.selectedRow,
+            checkedItemsData: this.checkedItems
         };
     },
     computed: {
@@ -373,9 +416,40 @@ export const Table = {
             base[`text-align-${this.alignment || "center"}`] = true;
             if (this.variant) base[`table-${this.variant}`] = true;
             return base;
+        },
+        nrChecked() {
+            return Object.keys(this.checkedItemsData).length;
+        },
+        globalCheckboxIcon() {
+            return this.nrChecked === this.itemsWithIndex.length || this.nrChecked === 0
+                ? "check"
+                : "minus";
         }
     },
     methods: {
+        checkAll() {
+            this.setCheckedAll(true);
+        },
+        uncheckAll() {
+            this.setCheckedAll(false);
+        },
+        setChecked(id, value) {
+            if (value) {
+                this.$set(this.checkedItemsData, id, true);
+            } else {
+                this.$delete(this.checkedItemsData, id);
+            }
+        },
+        setCheckedAll(value) {
+            this.itemsWithIndex.forEach(item => this.setChecked(item.id, value));
+        },
+        collectCheckedItems() {
+            const checkedItems = {};
+            this.itemsWithIndex.forEach(item => {
+                if (this.checkedItemsData[item.id]) checkedItems[item.id] = true;
+            });
+            this.checkedItemsData = checkedItems;
+        },
         columnLabel(column) {
             if (column.label !== undefined && column.label !== null) return column.label;
             if (column.value !== undefined && column.value !== null) return column.value;
@@ -435,6 +509,19 @@ export const Table = {
             }
 
             this.$emit("click", item, item._originalIndex, index, this.selectedRowData);
+        },
+        onGlobalCheckboxClick() {
+            const checkAll = this.nrChecked === 0;
+            this.setCheckedAll(checkAll);
+        },
+        onChecked(id, value) {
+            this.setChecked(id, value);
+        },
+        onCtrlA() {
+            this.checkAll();
+        },
+        onMetaA() {
+            this.checkAll();
         }
     }
 };

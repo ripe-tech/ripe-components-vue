@@ -5,8 +5,21 @@ storiesOf("Atoms", module)
     .addDecorator(withKnobs)
     .add("Dropdown", () => ({
         props: {
+            variant: {
+                default: select(
+                    "Variant",
+                    {
+                        Unset: null,
+                        Dense: "dense"
+                    },
+                    null
+                )
+            },
             visible: {
                 default: boolean("Visible", true)
+            },
+            managed: {
+                default: boolean("Managed", true)
             },
             direction: {
                 default: select(
@@ -69,8 +82,9 @@ storiesOf("Atoms", module)
                 <dropdown
                     v-bind:items="items"
                     v-bind:selected="selected"
+                    v-bind:variant="variant"
                     v-bind:visible.sync="visibleData"
-                    v-bind:highlighted.sync="highlightedData"
+                    v-bind:managed="managed"
                     v-bind:direction="direction"
                     v-bind:message-empty="messageEmpty"
                 />

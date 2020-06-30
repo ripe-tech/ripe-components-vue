@@ -1,4 +1,4 @@
-# RIPE Components for Vue.js
+<h1><a href="https://tech.platforme.com"><img src="res/logo.svg" alt="RIPE Components for Vue.js" height="60" style="height: 60px;"></a></h1>
 
 Library of shared components to be re-used in [Vue.js](https://vuejs.org/)
 

@@ -154,6 +154,14 @@ export const Dropdown = {
             type: Boolean,
             default: true
         },
+        variant: {
+            type: String,
+            default: null
+        },
+        managed: {
+            type: Boolean,
+            default: true
+        },
         globalEvents: {
             type: Boolean,
             default: true
@@ -220,6 +228,9 @@ export const Dropdown = {
             if (this.direction) {
                 base[`direction-${this.direction}`] = this.direction;
             }
+            if (this.variant) {
+                base[`${this.variant}`] = this.variant;
+            }
             return base;
         },
         dropdownStyle() {
@@ -232,10 +243,27 @@ export const Dropdown = {
             return base;
         }
     },
+    created: function() {
+        this.onHideGlobal = this.$bus.$on("hide-global", () => {
+            this.handleGlobal();
+        });
+    },
+    destroyed: function() {
+        if (this.onHideGlobal) this.$bus.$off("hide-global", this.onHideGlobal);
+    },
     methods: {
         click(item, index) {
-            this.hide();
+            if (this.managed) {
+                // invalidates all of the selected data (only one item can
+                // be selected at a time) and then updates the currently
+                // selected data index
+                Object.keys(this.selectedData).forEach(key => {
+                    this.$set(this.selectedData, key, false);
+                });
+                this.$set(this.selectedData, index, true);
+            }
             this.$emit("item-clicked", item, index);
+            this.hide();
         },
         highlight(index) {
             this.$set(this.highlightedData, index, true);
