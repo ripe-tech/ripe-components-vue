@@ -27,7 +27,12 @@ storiesOf("Molecules", module)
                     { value: "option_11", label: "K" },
                     { value: "option_12", label: "L" },
                     { value: "option_13", label: "M" },
-                    { value: "option_14", label: "N" }
+                    { value: "option_14", label: "N" },
+                    { value: "option_15", label: "O" },
+                    { value: "option_16", label: "P" },
+                    { value: "option_17", label: "Q" },
+                    { value: "option_18", label: "R" },
+                    { value: "option_19", label: "S" }
                 ]
             },
             value: {
@@ -37,9 +42,7 @@ storiesOf("Molecules", module)
                         None: null,
                         A: "option_1",
                         B: "option_2",
-                        C: "option_3",
-                        D: "option_4",
-                        E: "option_5"
+                        C: "option_3"
                     },
                     null
                 )
@@ -119,5 +122,5 @@ storiesOf("Molecules", module)
                 </select-ripe>
                 <p>Value: {{ valueData }}, visible: {{ visibleData }}</p>
             </div>
-            `
+        `
     }));
