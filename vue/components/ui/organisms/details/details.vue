@@ -12,31 +12,40 @@
                     <slot name="header-buttons">
                         <slot name="header-buttons-before" v-if="isDesktopWidth()" />
                         <div class="header-button">
-                            <span class="button-stats" v-on:click="onStatsClick">
+                            <span
+                                class="button-stats header-button-stats"
+                                v-on:click="onStatsClick"
+                            >
                                 <img src="~./assets/stats.svg" />
                             </span>
                             <p>{{ name }}s</p>
                         </div>
-                        <div class="header-button" v-bind:class="{ invisible: !hasIndex }">
+                        <div
+                            class="header-button header-button-previous"
+                            v-bind:class="{ invisible: !hasIndex }"
+                        >
                             <span class="button-previous" v-on:click="onPreviousClick">
                                 <img src="~./assets/chevron-left.svg" />
                             </span>
                             <p>Previous</p>
                         </div>
-                        <div class="header-button" v-bind:class="{ invisible: !hasIndex }">
+                        <div
+                            class="header-button header-button-next"
+                            v-bind:class="{ invisible: !hasIndex }"
+                        >
                             <span class="button-next" v-on:click="onNextClick">
                                 <img src="~./assets/chevron-right.svg" />
                             </span>
                             <p>Next</p>
                         </div>
-                        <div class="header-button">
+                        <div class="header-button header-button-refresh">
                             <span class="button-refresh" v-on:click="onRefreshClick">
                                 <img src="~./assets/refresh.svg" />
                             </span>
                             <p>Refresh</p>
                         </div>
                         <div
-                            class="header-button"
+                            class="header-button header-button-options"
                             v-bind:class="{
                                 invisible: optionsItems.length === 0 || isLoading
                             }"
@@ -92,32 +101,38 @@
                 <div class="header-buttons" v-if="headerButtons">
                     <slot name="header-buttons">
                         <slot name="header-buttons-before" v-if="isDesktopWidth()" />
-                        <div class="header-button">
+                        <div class="header-button header-button-stats">
                             <span class="button-stats" v-on:click="onStatsClick">
                                 <img src="~./assets/stats.svg" />
                             </span>
                             <p>{{ name }}s</p>
                         </div>
-                        <div class="header-button" v-bind:class="{ invisible: !hasIndex }">
+                        <div
+                            class="header-button header-button-previous"
+                            v-bind:class="{ invisible: !hasIndex }"
+                        >
                             <span class="button-previous" v-on:click="onPreviousClick">
                                 <img src="~./assets/chevron-left.svg" />
                             </span>
                             <p>Previous</p>
                         </div>
-                        <div class="header-button" v-bind:class="{ invisible: !hasIndex }">
+                        <div
+                            class="header-button header-button-next"
+                            v-bind:class="{ invisible: !hasIndex }"
+                        >
                             <span class="button-next" v-on:click="onNextClick">
                                 <img src="~./assets/chevron-right.svg" />
                             </span>
                             <p>Next</p>
                         </div>
-                        <div class="header-button">
+                        <div class="header-button header-button-refresh">
                             <span class="button-refresh" v-on:click="onRefreshClick">
                                 <img src="~./assets/refresh.svg" />
                             </span>
                             <p>Refresh</p>
                         </div>
                         <div
-                            class="header-button"
+                            class="header-button header-button-options"
                             v-bind:class="{
                                 invisible: optionsItems.length === 0 && loaded !== false
                             }"
