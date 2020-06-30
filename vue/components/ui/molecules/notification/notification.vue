@@ -46,6 +46,7 @@
 }
 
 .notification > .notification-container {
+    align-items: center;
     animation: fade-grow 0.125s cubic-bezier(0.645, 0.045, 0.355, 1);
     background-color: $white;
     border-radius: 8px 8px 8px 8px;
@@ -71,12 +72,11 @@
 .notification.dark > .notification-container {
     background-color: $dark;
     color: $white;
+    display: flex;
 }
 
 .notification > .notification-container > .icon {
-    display: flex;
-    flex-shrink: 0;
-    padding-right: 16px;
+    margin-right: 16px;
 }
 
 @keyframes fade-grow {
