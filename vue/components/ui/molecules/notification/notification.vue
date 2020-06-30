@@ -37,24 +37,22 @@
     right: 0;
     text-align: center;
     top: 100px;
-    transition: opacity 0.125s ease-in-out;
     z-index: 50;
 }
 
 .notification.fade-leave-active {
-    opacity: 0;
+    animation: fade-shrink-visibility 0.5s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
 }
 
 .notification > .notification-container {
     align-items: center;
-    animation: fade-grow 0.125s cubic-bezier(0.645, 0.045, 0.355, 1);
+    animation: fade-grow-rise 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
     background-color: $white;
     border-radius: 8px 8px 8px 8px;
-    box-shadow: 0 3px 5px -1px #00000033, 0 6px 10px 0 #00000024, 0 1px 18px 0 #0000001f;
+    box-shadow: 0px 8px 12px 0px rgba(98, 110, 117, 0.15);
     box-sizing: border-box;
     color: #1d2631;
     display: inline-flex;
-    font-family: "Roboto Slab", MarkPro, sans-serif;
     font-size: 14px;
     font-weight: 500;
     justify-content: center;
@@ -72,77 +70,10 @@
 .notification.dark > .notification-container {
     background-color: $dark;
     color: $white;
-    display: flex;
 }
 
 .notification > .notification-container > .icon {
     margin-right: 16px;
-}
-
-@keyframes fade-grow {
-
-    from {
-        -o-opacity: 0;
-        -ms-opacity: 0;
-        -moz-opacity: 0;
-        -khtml-opacity: 0;
-        -webkit-opacity: 0;
-        opacity: 0;
-        -o-transform: scale(0.85);
-        -ms-transform: scale(0.85);
-        -moz-transform: scale(0.85);
-        -khtml-transform: scale(0.85);
-        -webkit-transform: scale(0.85);
-        transform: scale(0.85);
-    }
-
-    to {
-        -o-opacity: 1;
-        -ms-opacity: 1;
-        -moz-opacity: 1;
-        -khtml-opacity: 1;
-        -webkit-opacity: 1;
-        opacity: 1;
-        -o-transform: scale(1);
-        -ms-transform: scale(1);
-        -moz-transform: scale(1);
-        -khtml-transform: scale(1);
-        -webkit-transform: scale(1);
-        transform: scale(1);
-    }
-}
-
-@-webkit-keyframes fade-grow {
-
-    from {
-        -o-opacity: 0;
-        -ms-opacity: 0;
-        -moz-opacity: 0;
-        -khtml-opacity: 0;
-        -webkit-opacity: 0;
-        opacity: 0;
-        -o-transform: scale(0.85);
-        -ms-transform: scale(0.85);
-        -moz-transform: scale(0.85);
-        -khtml-transform: scale(0.85);
-        -webkit-transform: scale(0.85);
-        transform: scale(0.85);
-    }
-
-    to {
-        -o-opacity: 1;
-        -ms-opacity: 1;
-        -moz-opacity: 1;
-        -khtml-opacity: 1;
-        -webkit-opacity: 1;
-        opacity: 1;
-        -o-transform: scale(1);
-        -ms-transform: scale(1);
-        -moz-transform: scale(1);
-        -khtml-transform: scale(1);
-        -webkit-transform: scale(1);
-        transform: scale(1);
-    }
 }
 </style>
 
