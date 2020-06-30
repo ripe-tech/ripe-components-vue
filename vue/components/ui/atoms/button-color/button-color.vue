@@ -342,6 +342,7 @@ export const ButtonColor = {
     },
     methods: {
         handleClick(event) {
+            if (this.disabled) return;
             if (this.href) {
                 if (this.target) window.open(this.href, this.target);
                 else document.location = this.href;
