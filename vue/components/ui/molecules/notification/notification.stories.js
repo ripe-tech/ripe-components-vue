@@ -9,15 +9,26 @@ storiesOf("Molecules", module)
                 default: select(
                     "Icon",
                     {
-                        Ok: "ok",
+                        Ok: "ok-circle",
                         Close: "close",
                         Unset: null
                     },
-                    "ok"
+                    "ok-circle"
                 )
             },
             iconColor: {
-                default: color("Icon Color", "green")
+                default: color("Icon Color", "#00d684")
+            },
+            variant: {
+                default: select(
+                    "Variant",
+                    {
+                        White: "white",
+                        Dark: "dark",
+                        Unset: null
+                    },
+                    "white"
+                )
             },
             text: {
                 default: text("Text", "Copied to Clipboard")
@@ -40,6 +51,7 @@ storiesOf("Molecules", module)
             <div>
                 <notification
                     v-bind:text="text"
+                    v-bind:variant="variant"
                     v-bind:icon="icon"
                     v-bind:icon-color="iconColor"
                     v-bind:visible="visible"
