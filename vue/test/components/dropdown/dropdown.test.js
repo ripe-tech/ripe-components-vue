@@ -30,12 +30,9 @@ describe("Dropdown", () => {
         });
 
         const dropdownItems = component.findAll(".dropdown-item");
-        const firstItem = dropdownItems.at(0);
-        const secondItem = dropdownItems.at(1);
         assert.strictEqual(dropdownItems.length, 2);
-        assert.strictEqual(firstItem.text(), "Text 1");
-        assert.strictEqual(secondItem.text(), "text_2");
-        assert.strictEqual(component.vm.$props.items, items);
+        assert.strictEqual(dropdownItems.at(0).text(), "Text 1");
+        assert.strictEqual(dropdownItems.at(1).text(), "text_2");
     });
 
     it("should close on item click", async () => {
@@ -53,9 +50,11 @@ describe("Dropdown", () => {
         });
 
         assert.strictEqual(component.vm.$data.visibleData, true);
+        assert.strictEqual(component.vm.$props.visible, true);
         const item = component.findAll(".dropdown-item").at(0);
         await item.trigger("click");
         assert.strictEqual(component.vm.$data.visibleData, false);
+        assert.strictEqual(component.vm.$props.visible, true);
     });
 
     it("should set item as selected based on the props", async () => {

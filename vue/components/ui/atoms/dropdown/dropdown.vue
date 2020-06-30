@@ -188,7 +188,7 @@ export const Dropdown = {
         },
         messageEmpty: {
             type: String,
-            default: null
+            default: "No Items"
         },
         owners: {
             type: Node | Array,
