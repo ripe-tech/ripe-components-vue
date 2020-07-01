@@ -160,7 +160,7 @@ export const Dropdown = {
         },
         managed: {
             type: Boolean,
-            default: true
+            default: false
         },
         globalEvents: {
             type: Boolean,
