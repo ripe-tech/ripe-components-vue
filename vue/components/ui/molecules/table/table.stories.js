@@ -123,7 +123,6 @@ storiesOf("Molecules", module)
                     v-bind:checked-items.sync="checkedItemsData"
                 />
                 <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}</p><br>
-                <p>Items: {{ itemsData }}</p><br>
                 <p>Checked Items: {{ checkedItemsData }}</p>
             </div>
         `
