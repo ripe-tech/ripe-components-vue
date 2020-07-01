@@ -23,7 +23,12 @@
                             v-bind:highlighted="highlightedData[index]"
                             v-bind:selected="selectedData[index]"
                         >
-                            <icon v-bind:width="18" v-bind:height="18" v-bind:icon="item.icon" v-if="item.icon" />
+                            <icon
+                                v-bind:width="18"
+                                v-bind:height="18"
+                                v-bind:icon="item.icon"
+                                v-if="item.icon"
+                            />
                             <router-link class="label" v-bind:to="item.link" v-if="item.link">
                                 {{ item.label || item.value }}
                             </router-link>
@@ -96,9 +101,9 @@
 }
 
 .dropdown-container .dropdown > .dropdown-item {
-    display: flex;
     background-color: $white;
     cursor: pointer;
+    display: flex;
     line-height: 18px;
     margin: 0px 0px 0px 0px;
     overflow: hidden;
@@ -109,8 +114,8 @@
 .dropdown-container .dropdown > .dropdown-item > .icon {
     box-sizing: content-box;
     height: 18px;
-    width: 18px;
     padding-right: 0px;
+    width: 18px;
 }
 
 .dropdown-container .dropdown > .dropdown-item > .label {
