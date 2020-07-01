@@ -3,10 +3,14 @@
         <global-events v-on:keydown.esc="onEscKey" v-on:click="onGlobalClick" />
         <transition name="slide" v-on:after-leave="onSlideAfterLeave">
             <ul class="dropdown" v-bind:style="dropdownStyle" v-show="visibleData" ref="dropdown">
+                <li class="dropdown-item-empty" v-if="items.length === 0">
+                    {{ messageEmpty }}
+                </li>
                 <li
                     class="dropdown-item"
                     v-bind:class="_getItemClasses(item, index)"
                     v-for="(item, index) in items.filter(v => v !== null && v !== undefined)"
+                    v-else
                     v-bind:key="item.value"
                     v-on:click="() => click(item, index)"
                     v-on:mouseenter="() => onMouseenter(index)"
@@ -82,6 +86,11 @@
     overflow: hidden;
     padding: 0px;
     user-select: none;
+}
+
+.dropdown-container .dropdown > .dropdown-item-empty {
+    padding: 5px 5px 5px 5px;
+    text-align: center;
 }
 
 .dropdown-container .dropdown > .dropdown-item {
@@ -176,6 +185,10 @@ export const Dropdown = {
         direction: {
             type: String,
             default: "bottom"
+        },
+        messageEmpty: {
+            type: String,
+            default: "No Items"
         },
         owners: {
             type: Node | Array,
