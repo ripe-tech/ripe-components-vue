@@ -51,7 +51,8 @@ storiesOf("Atoms", module)
                     },
                     {
                         value: "text_3",
-                        label: "Text 3"
+                        label: "Icon with text",
+                        icon: "clipboard"
                     },
                     {
                         value: "text_platforme",

@@ -23,17 +23,19 @@
                             v-bind:highlighted="highlightedData[index]"
                             v-bind:selected="selectedData[index]"
                         >
-                            <router-link v-bind:to="item.link" v-if="item.link">
+                            <icon v-bind:width="18" v-bind:height="18" v-bind:icon="item.icon" v-if="item.icon" />
+                            <router-link class="label" v-bind:to="item.link" v-if="item.link">
                                 {{ item.label || item.value }}
                             </router-link>
                             <a
+                                class="label"
                                 v-bind:href="item.href"
                                 v-bind:target="item.target || '_self'"
                                 v-else-if="item.href"
                             >
                                 {{ item.label || item.value }}
                             </a>
-                            <span v-else>{{ item.label || item.value }}</span>
+                            <span class="label" v-else>{{ item.label || item.value }}</span>
                         </slot>
                     </slot>
                 </li>
@@ -94,6 +96,7 @@
 }
 
 .dropdown-container .dropdown > .dropdown-item {
+    display: flex;
     background-color: $white;
     cursor: pointer;
     line-height: 18px;
@@ -101,6 +104,20 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.dropdown-container .dropdown > .dropdown-item > .icon {
+    box-sizing: content-box;
+    height: 18px;
+    width: 18px;
+    padding-right: 0px;
+}
+
+.dropdown-container .dropdown > .dropdown-item > .label {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: auto;
 }
 
 .dropdown-container .dropdown > .dropdown-item:hover,
@@ -116,7 +133,6 @@
 
 .dropdown-container .dropdown > .dropdown-item > * {
     box-sizing: border-box;
-    display: inline-block;
     padding: 8px 14px 8px 14px;
     width: 100%;
 }
