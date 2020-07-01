@@ -313,13 +313,11 @@ export const Dropdown = {
             this.$emit("animation:close:end");
         },
         _getItemClasses(item, index) {
-            const base = {
+            return {
                 separator: item.separator,
                 highlighted: this.highlightedData[index],
                 selected: this.selectedData[index]
             };
-            base[`dropdown-item-${item.value}`] = true;
-            return base;
         }
     }
 };
