@@ -6,7 +6,7 @@
             v-on:keydown.left="onKeyLeft"
             v-on:keydown.right="onKeyRight"
         />
-        <container-ripe class="loading" v-if="isLoading">
+        <container-ripe class="loading" v-bind:title="invalid ? invalidTitle : title" v-if="isLoading">
             <template v-slot:header>
                 <div class="header-buttons">
                     <slot name="header-buttons">
@@ -74,7 +74,6 @@
                         <slot name="header-buttons-after" v-if="isDesktopWidth()" />
                     </slot>
                 </div>
-                <title-ripe>{{ invalid ? invalidTitle : title }}</title-ripe>
             </template>
             <h1 class="item-invalid" v-if="invalid">
                 {{ invalidMessage }}
@@ -257,6 +256,7 @@ body.mobile .container-ripe {
 }
 
 .container-ripe .header-buttons {
+    float: right;
     font-size: 0px;
     text-transform: capitalize;
     user-select: none;
