@@ -6,7 +6,11 @@
             v-on:keydown.left="onKeyLeft"
             v-on:keydown.right="onKeyRight"
         />
-        <container-ripe class="loading" v-bind:title="invalid ? invalidTitle : title" v-if="isLoading">
+        <container-ripe
+            class="loading"
+            v-bind:title="invalid ? invalidTitle : title"
+            v-if="isLoading"
+        >
             <template v-slot:header>
                 <div class="header-buttons">
                     <slot name="header-buttons">
@@ -255,47 +259,13 @@ body.mobile .container-ripe {
     padding-top: 140px;
 }
 
-.container-ripe .header-buttons {
-    float: right;
-    font-size: 0px;
-    text-transform: capitalize;
-    user-select: none;
-}
-
-body.tablet .container-ripe .header-buttons,
-body.mobile .container-ripe .header-buttons {
-    animation: none;
-    background-color: $white;
-    border-top: 1px solid $light-white;
-    bottom: 0px;
-    display: flex;
-    left: 0px;
-    position: fixed;
-    text-align: justify;
-    transition: none;
-    width: 100%;
-    z-index: 10;
-}
-
-.container-ripe .header-buttons .header-button {
-    display: inline-block;
-}
-
-body.tablet .container-ripe .header-buttons > .header-button,
-body.mobile .container-ripe .header-buttons > .header-button {
-    display: inline-block;
-    flex: auto;
-    margin: 8px 0px 8px 0px;
-    text-align: center;
-}
-
-.header-buttons > .header-button.invisible {
+.container-ripe .header-buttons > .header-button.invisible {
     opacity: 0.2;
     pointer-events: none;
 }
 
-body.tablet .header-buttons > .header-button.invisible,
-body.mobile .header-buttons > .header-button.invisible {
+body.tablet .container-ripe .header-buttons > .header-button.invisible,
+body.mobile .container-ripe .header-buttons > .header-button.invisible {
     display: inline-block;
 }
 
