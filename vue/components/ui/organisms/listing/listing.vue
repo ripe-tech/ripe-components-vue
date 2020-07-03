@@ -171,6 +171,14 @@ body.mobile .listing {
     min-height: 315px;
 }
 
+.listing .container-ripe ::v-deep .container-header .title {
+    display: inline-block;
+}
+
+.listing .container-ripe .container-header .search {
+    float: right;
+}
+
 .listing .filter-ripe ::v-deep table {
     margin-bottom: 0px;
 }
