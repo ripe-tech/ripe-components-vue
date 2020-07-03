@@ -110,18 +110,6 @@ body.mobile .container-ripe > .container-header > .header-buttons {
     width: 100%;
     z-index: 10;
 }
-
-.container-ripe > .container-header > .header-buttons > .header-button {
-    display: inline-block;
-}
-
-body.tablet .container-ripe > .container-header > .header-buttons > .header-button,
-body.mobile .container-ripe > .container-header > .header-buttons > .header-button {
-    display: inline-block;
-    flex: auto;
-    margin: 8px 0px 8px 0px;
-    text-align: center;
-}
 </style>
 
 <script>

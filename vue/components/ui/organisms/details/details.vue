@@ -259,6 +259,18 @@ body.mobile .container-ripe {
     padding-top: 140px;
 }
 
+.container-ripe .header-buttons > .header-button {
+    display: inline-block;
+}
+
+body.tablet .container-ripe .header-buttons > .header-button,
+body.mobile .container-ripe .header-buttons > .header-button {
+    display: inline-block;
+    flex: auto;
+    margin: 8px 0px 8px 0px;
+    text-align: center;
+}
+
 .container-ripe .header-buttons > .header-button.invisible {
     opacity: 0.2;
     pointer-events: none;
