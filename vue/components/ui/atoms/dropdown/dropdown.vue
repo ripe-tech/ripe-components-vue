@@ -8,6 +8,7 @@
                 </li>
                 <li
                     class="dropdown-item"
+                    v-bind:data-value="item.value"
                     v-bind:class="_getItemClasses(item, index)"
                     v-for="(item, index) in items.filter(v => v !== null && v !== undefined)"
                     v-else
