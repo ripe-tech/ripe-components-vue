@@ -11,6 +11,7 @@
                     <div class="header-buttons">
                         <slot name="header-buttons-inside-before" />
                         <button-icon
+                            class="header-button"
                             v-bind:text="button.text"
                             v-bind:icon="button.icon"
                             v-bind:color="button.color"
@@ -109,6 +110,11 @@ body.mobile .container-ripe > .container-header > .header-buttons {
     transition: none;
     width: 100%;
     z-index: 10;
+}
+
+body.tablet .container-ripe > .container-header > .header-buttons > .header-button,
+body.mobile .container-ripe > .container-header > .header-buttons > .header-button {
+    flex: 1;
 }
 </style>
 
