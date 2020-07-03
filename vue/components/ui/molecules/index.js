@@ -22,6 +22,7 @@ import { Search } from "./search/search.vue";
 import { Select } from "./select/select.vue";
 import { SelectList } from "./select-list/select-list.vue";
 import { Table } from "./table/table.vue";
+import { TableExpandable } from "./table-expandable/table-expandable.vue";
 import { Tabs } from "./tabs/tabs.vue";
 import { TransferList } from "./transfer-list/transfer-list.vue";
 import { UploadArea } from "./upload-area/upload-area.vue";
@@ -51,6 +52,7 @@ const install = Vue => {
     Vue.component("select-ripe", Select);
     Vue.component("select-list", SelectList);
     Vue.component("table-ripe", Table);
+    Vue.component("table-expandable", TableExpandable);
     Vue.component("tabs", Tabs);
     Vue.component("transfer-list", TransferList);
     Vue.component("upload-area", UploadArea);
@@ -81,6 +83,7 @@ export {
     Select,
     SelectList,
     Table,
+    TableExpandable,
     Tabs,
     TransferList,
     UploadArea

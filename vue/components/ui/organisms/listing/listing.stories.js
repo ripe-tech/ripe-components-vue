@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, select } from "@storybook/addon-knobs";
+import { withKnobs, text, select, boolean } from "@storybook/addon-knobs";
 
 storiesOf("Organisms", module)
     .addDecorator(withKnobs)
@@ -52,7 +52,21 @@ storiesOf("Organisms", module)
                     },
                     "default"
                 )
+            },
+            checkboxes: {
+                default: () => boolean("Checkboxes", false)
+            },
+            checkedItems: {
+                type: Object,
+                default: () => {
+                    return {};
+                }
             }
+        },
+        data: function() {
+            return {
+                checkedItemsData: this.checkedItems
+            };
         },
         methods: {
             getItems({ options = {}, params = {} } = {}) {
@@ -66,6 +80,16 @@ storiesOf("Organisms", module)
                         id: 2,
                         user: "Tech",
                         device: "Macintosh"
+                    },
+                    {
+                        id: 3,
+                        user: "DDigitt",
+                        device: "iPad"
+                    },
+                    {
+                        id: 4,
+                        user: "Six London",
+                        device: "Blackberry"
                     }
                 ];
             }
@@ -82,6 +106,8 @@ storiesOf("Organisms", module)
                     v-bind:use-query="false"
                     v-bind:filter-fields="filterFields"
                     v-bind:container-mode="containerMode"
+                    v-bind:checkboxes="checkboxes"
+                    v-bind:checked-items.sync="checkedItemsData"
                 >
                     <template v-slot:icons>
                         <img v-bind:src="img" v-bind:style="imgStyle" />
@@ -98,6 +124,7 @@ storiesOf("Organisms", module)
                         </td>
                     </template>
                 </listing>
+                <p>Checked items: {{ checkedItemsData }}</p>
             </div>
         `
     }));

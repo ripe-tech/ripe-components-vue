@@ -9,6 +9,9 @@
                 v-bind:sort="sort"
                 v-bind:reverse="reverse"
                 v-bind:variant="tableVariant"
+                v-bind:checkboxes="checkboxes"
+                v-bind:checked-items="checkedItems"
+                v-on:update:checked-items="value => $emit('update:checked-items', value)"
                 v-on:click="onTableClick"
             >
                 <template v-slot="{ item, index }">
@@ -100,6 +103,14 @@ export const Filter = {
         getItems: {
             type: Function,
             default: () => []
+        },
+        checkboxes: {
+            type: Boolean,
+            default: false
+        },
+        checkedItems: {
+            type: Object,
+            default: () => ({})
         },
         getItemUrl: {
             type: Function,

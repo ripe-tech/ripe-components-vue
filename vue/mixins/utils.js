@@ -1,6 +1,6 @@
 import { normalize } from "../../js";
 
-const utilsMixin = {
+export const utilsMixin = {
     methods: {
         dateString(timestamp, separator = "/") {
             const date = new Date(timestamp * 1000);
@@ -37,5 +37,3 @@ const utilsMixin = {
         }
     }
 };
-
-export { utilsMixin };

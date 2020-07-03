@@ -46,7 +46,7 @@ export const CheckboxGroup = {
         },
         values: {
             type: Object,
-            default: () => {}
+            default: () => ({})
         },
         error: {
             type: Boolean,

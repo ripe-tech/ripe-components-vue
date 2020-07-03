@@ -40,7 +40,8 @@ storiesOf("Molecules", module)
                     "Variant",
                     {
                         Unset: null,
-                        dense: "dense"
+                        Dense: "dense",
+                        Auto: "auto"
                     },
                     null
                 )
@@ -50,6 +51,9 @@ storiesOf("Molecules", module)
             },
             selectedRow: {
                 default: () => number("Selected Row", null)
+            },
+            checkboxes: {
+                default: () => boolean("Checkboxes", true)
             },
             mockItems: {
                 default: () => [
@@ -77,12 +81,19 @@ storiesOf("Molecules", module)
                     { value: "user", label: "User" },
                     { value: "system", label: "System" }
                 ]
+            },
+            checkedItems: {
+                type: Object,
+                default: () => {
+                    return { 1: true, 2: false, 3: true };
+                }
             }
         },
         data: function() {
             return {
                 reverseData: this.reverse,
-                sortData: this.sort
+                sortData: this.sort,
+                checkedItemsData: this.checkedItems
             };
         },
         watch: {
@@ -91,12 +102,14 @@ storiesOf("Molecules", module)
             },
             reverse(value) {
                 this.reverseData = value;
+            },
+            checkedItems(value) {
+                this.checkedItemsData = value;
             }
         },
         template: `
             <div>
                 <table-ripe
-                    class="table"
                     v-bind:columns="mockColumns"
                     v-bind:items="mockItems"
                     v-bind:header="header"
@@ -106,8 +119,11 @@ storiesOf("Molecules", module)
                     v-bind:variant="variant"
                     v-bind:row-selection="rowSelection"
                     v-bind:selected-row="selectedRow"
+                    v-bind:checkboxes="checkboxes"
+                    v-bind:checked-items.sync="checkedItemsData"
                 />
-                <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}</p>
+                <p>Sort: {{ sortData }}, Reverse: {{ reverseData }}</p><br>
+                <p>Checked Items: {{ checkedItemsData }}</p>
             </div>
         `
     }));

@@ -5,12 +5,35 @@
             v-bind:class="{ show: showScrollTop }"
             v-on:click="scrollToTop"
         />
-        <container-ripe v-bind:mode="containerMode">
+        <container-ripe
+            v-bind:mode="containerMode"
+            v-bind:title="titleText ? titleText : `${titlePrefix} ${nameCapitalized}`"
+            v-bind:header-buttons="containerHeaderButtons"
+            v-on:header-button:click="onHeaderButtonClick"
+        >
             <template v-slot:header>
-                <div class="container-header-right">
-                    <div class="container-header-buttons" v-if="$slots['header-buttons']">
-                        <slot name="header-buttons" />
-                    </div>
+                <slot v-bind:name="'header'" />
+            </template>
+            <template v-slot:header-before>
+                <slot v-bind:name="'header-before'" />
+            </template>
+            <template v-slot:header-after>
+                <slot v-bind:name="'header-after'" />
+            </template>
+            <template v-slot:header-buttons>
+                <slot v-bind:name="'header-buttons'" />
+            </template>
+            <template v-slot:header-buttons-before>
+                <slot v-bind:name="'header-buttons-before'" />
+            </template>
+            <template v-slot:header-buttons-inside-before>
+                <slot v-bind:name="'header-buttons-inside-before'" />
+            </template>
+            <template v-slot:header-buttons-inside-after>
+                <slot v-bind:name="'header-buttons-inside-after'" />
+            </template>
+            <template v-slot:header-buttons-after>
+                <slot name="header-search">
                     <search
                         v-bind:variant="'dark'"
                         v-bind:width="isMobileWidth() ? null : searchWidth"
@@ -18,13 +41,7 @@
                         v-bind:value.sync="filter"
                         v-bind:loading="loading"
                     />
-                </div>
-                <title-ripe v-if="titleText">
-                    {{ titleText }}
-                </title-ripe>
-                <title-ripe v-else>
-                    {{ titlePrefix }} {{ nameCapitalized }}
-                </title-ripe>
+                </slot>
             </template>
             <filter-ripe
                 v-bind:get-items="getItems"
@@ -41,6 +58,8 @@
                 v-bind:loading.sync="loading"
                 v-bind:items.sync="items"
                 v-bind:options.sync="filterOptions"
+                v-bind:checkboxes="checkboxes"
+                v-bind:checked-items.sync="checkedItemsData"
                 ref="filter"
                 v-on:update:options="filterUpdated"
                 v-on:click:table="onTableClick"
@@ -152,35 +171,8 @@ body.mobile .listing {
     min-height: 315px;
 }
 
-.container-header-right {
-    float: right;
-    text-align: right;
-}
-
-body.mobile .container-header-right {
-    float: none;
-    width: 100%;
-}
-
-.container-header-buttons {
-    display: inline-block;
-    margin-right: 8px;
-    vertical-align: top;
-}
-
-body.mobile .container-header-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-
 .listing .filter-ripe ::v-deep table {
     margin-bottom: 0px;
-}
-
-body.mobile .title {
-    margin-top: 16px;
 }
 
 input[type="text"] {
@@ -286,16 +278,37 @@ export const Listing = {
         containerMode: {
             type: String,
             default: null
+        },
+        checkboxes: {
+            type: Boolean,
+            default: false
+        },
+        checkedItems: {
+            type: Object,
+            default: () => ({})
+        },
+        containerHeaderButtons: {
+            type: Array,
+            default: () => []
         }
     },
     data: function() {
         return {
             items: [],
+            checkedItemsData: this.checkedItems,
             filter: this.context && this.context.filter ? this.context.filter : "",
             filterOptions: null,
             loading: false,
             visibleLightbox: null
         };
+    },
+    watch: {
+        checkedItems(value) {
+            this.checkedItemsData = value;
+        },
+        checkedItemsData(value) {
+            this.$emit("update:checked-items", value);
+        }
     },
     methods: {
         addFilter(key, value) {
@@ -317,6 +330,9 @@ export const Listing = {
         },
         getFilter() {
             return this.$refs.filter;
+        },
+        onHeaderButtonClick(event, buttonId) {
+            this.$emit("header-button:click", event, buttonId);
         },
         onTableClick(item, index) {
             this.$emit("click:table", item, index);

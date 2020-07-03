@@ -54,9 +54,10 @@ storiesOf("Organisms", module)
             optionsItems: {
                 type: Array,
                 default: () => [
-                    { label: "Item 1", event: "item_1" },
-                    { label: "Item 2", event: "item_2" },
-                    { label: "Item 3", event: "item_3" }
+                    { label: "Item 1", value: "item_1", event: "item_1" },
+                    { label: "Item 2", value: "item_2", event: "item_2" },
+                    { label: "Item 3", value: "item_3", separator: true, event: "item_3" },
+                    { label: "Item 4", value: "item_4", event: "item_4" }
                 ]
             },
             headerButtons: {
@@ -84,6 +85,9 @@ storiesOf("Organisms", module)
                 </template>
                 <template v-slot:label-city>
                     <p>Custom label</p>
+                </template>
+                <template v-slot:options-item_4>
+                    <div>Custom item</div>
                 </template>
             </details-ripe>
         `

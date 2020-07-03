@@ -1,7 +1,16 @@
 <template>
     <table class="table" v-bind:class="classes" v-bind:style="style">
+        <global-events v-on:keydown.meta.65.exact="onMetaA" v-on:keydown.ctrl.65.exact="onCtrlA" />
         <thead class="table-head" v-if="header">
             <tr>
+                <th class="checkbox-global" v-if="checkboxes">
+                    <checkbox
+                        v-bind:size="8"
+                        v-bind:checked="nrChecked > 0"
+                        v-bind:icon="globalCheckboxIcon"
+                        v-on:click="onGlobalCheckboxClick"
+                    />
+                </th>
                 <th
                     v-bind:class="{ clickable: column.sortable !== false }"
                     v-bind:style="[column.style, { width: column.width }]"
@@ -31,6 +40,13 @@
                         v-bind:key="item.id"
                         v-on:click="onClick(item, index)"
                     >
+                        <td class="checkbox-item" v-if="checkboxes">
+                            <checkbox
+                                v-bind:size="8"
+                                v-bind:checked="checkedItemsData[item.id]"
+                                v-on:update:checked="value => onChecked(item.id, value)"
+                            />
+                        </td>
                         <slot v-bind:item="item" v-bind:index="index">
                             <td
                                 v-bind:class="column.value"
@@ -39,6 +55,7 @@
                                 v-bind:key="column.value"
                             >
                                 <slot
+                                    v-bind:column="column"
                                     v-bind:item="item"
                                     v-bind:index="index"
                                     v-bind:name="`cell-${column.value}`"
@@ -80,6 +97,9 @@
 
 .table tr {
     border-bottom: 1px solid $border-color;
+}
+
+.table tr.clickable {
     cursor: pointer;
 }
 
@@ -87,11 +107,21 @@
     border-bottom: 1px solid $border-color;
 }
 
+.table thead tr th.checkbox-global {
+    text-align: center;
+    width: 58px;
+}
+
+.table.table-dense thead tr th.checkbox-global {
+    width: 38px;
+}
+
 .table tbody tr:last-child {
     border-bottom: none;
 }
 
-.table tbody tr:hover {
+.table tbody tr.hoverable:hover,
+.table tbody tr.hoverable.hover {
     background-color: $selected-color;
 }
 
@@ -112,6 +142,10 @@
     white-space: pre;
 }
 
+.table th.clickable {
+    cursor: pointer;
+}
+
 .table.table-dense th {
     font-weight: 600;
 }
@@ -127,8 +161,14 @@
 }
 
 .table.table-dense ::v-deep td {
-    height: 40px;
+    height: 38px;
     padding: 0px 10px 0px 10px;
+}
+
+.table.table-auto ::v-deep td {
+    height: auto;
+    line-height: 18px;
+    padding: 10px 20px 10px 20px;
 }
 
 .table ::v-deep td > * {
@@ -206,25 +246,25 @@
     color: $link-hover-color;
 }
 
-.table .table-column {
+.table th > .table-column {
     transition: color 0.1s ease-in;
 }
 
-.table .table-column.sortable.active,
-.table .table-column.sortable:hover {
+.table th > .table-column.sortable.active,
+.table th > .table-column.sortable:hover {
     color: #0d0d0d;
 }
 
-.table .table-column > span {
+.table th > .table-column > span {
     padding: 0px 20px 0px 20px;
     position: relative;
 }
 
-.table.table-dense .table-column > span {
+.table.table-dense th > .table-column > span {
     padding: 0px 16px 0px 16px;
 }
 
-.table .table-column > span::before {
+.table th > .table-column > span::before {
     background: url("~./assets/sorting.svg") no-repeat left top;
     content: "";
     display: inline-block;
@@ -238,18 +278,18 @@
     width: 20px;
 }
 
-.table.text-align-left .table-column > span::before {
+.table.text-align-left th > .table-column > span::before {
     left: auto;
     right: 0px;
 }
 
-.table .table-column.descending > span::before,
-.table .table-column:not(.active) > span::before {
+.table th > .table-column.descending > span::before,
+.table th > .table-column:not(.active) > span::before {
     background-position-y: bottom;
 }
 
-.table .table-column.sortable.active > span::before,
-.table .table-column.sortable:hover > span::before {
+.table th > .table-column.sortable.active > span::before,
+.table th > .table-column.sortable:hover > span::before {
     opacity: 1;
 }
 </style>
@@ -308,6 +348,14 @@ export const Table = {
             type: Number,
             default: null
         },
+        checkboxes: {
+            type: Boolean,
+            default: false
+        },
+        checkedItems: {
+            type: Object,
+            default: () => ({})
+        },
         clickableRows: {
             type: Boolean,
             default: true
@@ -321,8 +369,17 @@ export const Table = {
         sort(value) {
             this.sortData = value;
         },
+        items(value) {
+            this.collectCheckedItems();
+        },
         reverse(value) {
             this.reverseData = value;
+        },
+        checkedItems(value) {
+            this.checkedItemsData = value;
+        },
+        checkedItemsData(value) {
+            this.$emit("update:checked-items", value);
         },
         selectedRow(value) {
             this.selectedRowData = value;
@@ -332,7 +389,8 @@ export const Table = {
         return {
             sortData: this.sort,
             reverseData: this.reverse,
-            selectedRowData: this.selectedRow
+            selectedRowData: this.selectedRow,
+            checkedItemsData: this.checkedItems
         };
     },
     computed: {
@@ -348,19 +406,50 @@ export const Table = {
             return this.sortMethod(items, this.sortData, this.reverseData);
         },
         style() {
-            const base = {};
-            if (this.alignment !== null) base["text-align"] = this.alignment;
+            const base = {
+                "text-align": this.alignment || "center"
+            };
             return base;
         },
         classes() {
-            const base = {
-                alignment: this.alignment === "left" ? "text-align-left" : ""
-            };
+            const base = {};
+            base[`text-align-${this.alignment || "center"}`] = true;
             if (this.variant) base[`table-${this.variant}`] = true;
             return base;
+        },
+        nrChecked() {
+            return Object.keys(this.checkedItemsData).length;
+        },
+        globalCheckboxIcon() {
+            return this.nrChecked === this.itemsWithIndex.length || this.nrChecked === 0
+                ? "check"
+                : "minus";
         }
     },
     methods: {
+        checkAll() {
+            this.setCheckedAll(true);
+        },
+        uncheckAll() {
+            this.setCheckedAll(false);
+        },
+        setChecked(id, value) {
+            if (value) {
+                this.$set(this.checkedItemsData, id, true);
+            } else {
+                this.$delete(this.checkedItemsData, id);
+            }
+        },
+        setCheckedAll(value) {
+            this.itemsWithIndex.forEach(item => this.setChecked(item.id, value));
+        },
+        collectCheckedItems() {
+            const checkedItems = {};
+            this.itemsWithIndex.forEach(item => {
+                if (this.checkedItemsData[item.id]) checkedItems[item.id] = true;
+            });
+            this.checkedItemsData = checkedItems;
+        },
         columnLabel(column) {
             if (column.label !== undefined && column.label !== null) return column.label;
             if (column.value !== undefined && column.value !== null) return column.value;
@@ -401,9 +490,11 @@ export const Table = {
             return Object.assign({}, item.style, base);
         },
         rowClasses(item) {
-            const base = { selected: this.isRowSelected(item.id) };
-            if (this.clickableRows && item.clickable !== false) base.clickable = true;
-            if (this.hoverableRows && item.hoverable !== false) base.hoverable = true;
+            const base = {
+                selected: this.isRowSelected(item.id),
+                clickable: item.clickable === undefined ? this.clickableRows : item.clickable,
+                hoverable: item.hoverable === undefined ? this.hoverableRows : item.hoverable
+            };
             return Object.assign({}, item.classes, base);
         },
         isRowSelected(id) {
@@ -418,6 +509,19 @@ export const Table = {
             }
 
             this.$emit("click", item, item._originalIndex, index, this.selectedRowData);
+        },
+        onGlobalCheckboxClick() {
+            const checkAll = this.nrChecked === 0;
+            this.setCheckedAll(checkAll);
+        },
+        onChecked(id, value) {
+            this.setChecked(id, value);
+        },
+        onCtrlA() {
+            this.checkAll();
+        },
+        onMetaA() {
+            this.checkAll();
         }
     }
 };

@@ -2,7 +2,7 @@
     <img
         class="image"
         v-bind:class="classes"
-        v-bind:src="src"
+        v-bind:src="srcData"
         v-bind:alt="alt"
         v-bind:style="style"
         v-on:load="onLoad"
@@ -40,6 +40,10 @@ export const Image = {
             type: String,
             default: null
         },
+        srcError: {
+            type: String,
+            default: null
+        },
         alt: {
             type: String,
             default: ""
@@ -58,16 +62,28 @@ export const Image = {
         },
         hideError: {
             type: Boolean,
-            default: true
+            default: null
         }
     },
     data: function() {
         return {
+            srcData: this.src,
             loaded: false,
             errored: false
         };
     },
+    watch: {
+        src(value) {
+            this.srcData = value;
+        }
+    },
     computed: {
+        hideErrorB() {
+            if (this.hideError !== null && this.hideError !== undefined) {
+                return this.hideError;
+            }
+            return !this.srcError;
+        },
         style() {
             const base = {};
             if (![undefined, null].includes(this.width)) base.width = this.width + "px";
@@ -79,7 +95,7 @@ export const Image = {
                 loaded: this.loaded,
                 errored: this.errored,
                 "no-fade": !this.fade,
-                "hide-error": this.hideError
+                "hide-error": this.hideErrorB
             };
             return base;
         }
@@ -96,6 +112,7 @@ export const Image = {
         onError(event) {
             this.loaded = false;
             this.errored = true;
+            if (this.srcError) this.srcData = this.srcError;
             this.$emit("error", event);
         }
     }

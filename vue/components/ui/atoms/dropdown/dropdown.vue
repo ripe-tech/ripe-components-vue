@@ -3,28 +3,44 @@
         <global-events v-on:keydown.esc="onEscKey" v-on:click="onGlobalClick" />
         <transition name="slide" v-on:after-leave="onSlideAfterLeave">
             <ul class="dropdown" v-bind:style="dropdownStyle" v-show="visibleData" ref="dropdown">
+                <li class="dropdown-item-empty" v-if="items.length === 0">
+                    {{ messageEmpty }}
+                </li>
                 <li
                     class="dropdown-item"
                     v-bind:class="_getItemClasses(item, index)"
                     v-for="(item, index) in items.filter(v => v !== null && v !== undefined)"
+                    v-else
                     v-bind:key="item.value"
-                    v-on:click="() => click(item)"
+                    v-on:click="() => click(item, index)"
                     v-on:mouseenter="() => onMouseenter(index)"
                     v-on:mouseleave="() => onMouseleave(index)"
                 >
                     <slot v-bind:item="item" v-bind:index="index" v-bind:name="item.value">
-                        <slot v-bind:item="item" v-bind:index="index">
-                            <router-link v-bind:to="item.link" v-if="item.link">
+                        <slot
+                            v-bind:item="item"
+                            v-bind:index="index"
+                            v-bind:highlighted="highlightedData[index]"
+                            v-bind:selected="selectedData[index]"
+                        >
+                            <icon
+                                v-bind:width="18"
+                                v-bind:height="18"
+                                v-bind:icon="item.icon"
+                                v-if="item.icon"
+                            />
+                            <router-link class="label" v-bind:to="item.link" v-if="item.link">
                                 {{ item.label || item.value }}
                             </router-link>
                             <a
+                                class="label"
                                 v-bind:href="item.href"
                                 v-bind:target="item.target || '_self'"
                                 v-else-if="item.href"
                             >
                                 {{ item.label || item.value }}
                             </a>
-                            <span v-else>{{ item.label || item.value }}</span>
+                            <span class="label" v-else>{{ item.label || item.value }}</span>
                         </slot>
                     </slot>
                 </li>
@@ -79,14 +95,34 @@
     user-select: none;
 }
 
+.dropdown-container .dropdown > .dropdown-item-empty {
+    padding: 5px 5px 5px 5px;
+    text-align: center;
+}
+
 .dropdown-container .dropdown > .dropdown-item {
     background-color: $white;
     cursor: pointer;
+    display: flex;
     line-height: 18px;
     margin: 0px 0px 0px 0px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.dropdown-container .dropdown > .dropdown-item > .icon {
+    box-sizing: content-box;
+    height: 18px;
+    padding-right: 0px;
+    width: 18px;
+}
+
+.dropdown-container .dropdown > .dropdown-item > .label {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: auto;
 }
 
 .dropdown-container .dropdown > .dropdown-item:hover,
@@ -102,7 +138,6 @@
 
 .dropdown-container .dropdown > .dropdown-item > * {
     box-sizing: border-box;
-    display: inline-block;
     padding: 8px 14px 8px 14px;
     width: 100%;
 }
@@ -128,6 +163,10 @@ export const Dropdown = {
             type: Array,
             default: () => []
         },
+        selected: {
+            type: Object,
+            default: () => ({})
+        },
         highlighted: {
             type: Object,
             default: () => ({})
@@ -135,6 +174,14 @@ export const Dropdown = {
         visible: {
             type: Boolean,
             default: true
+        },
+        variant: {
+            type: String,
+            default: null
+        },
+        managed: {
+            type: Boolean,
+            default: false
         },
         globalEvents: {
             type: Boolean,
@@ -160,6 +207,10 @@ export const Dropdown = {
             type: String,
             default: "bottom"
         },
+        messageEmpty: {
+            type: String,
+            default: "No Items"
+        },
         owners: {
             type: Node | Array,
             default: () => []
@@ -168,15 +219,22 @@ export const Dropdown = {
     data: function() {
         return {
             visibleData: this.visible,
-            highlightedData: this.highlighted
+            highlightedData: this.highlighted,
+            selectedData: this.selected
         };
     },
     watch: {
         visible(value) {
             this.setVisible(value);
         },
+        selected(value) {
+            this.selectedData = value;
+        },
         highlighted(value) {
             this.highlightedData = value;
+        },
+        selectedData(value) {
+            this.$emit("update:selected", value);
         },
         highlightedData(value) {
             this.$emit("update:highlighted", value);
@@ -191,6 +249,9 @@ export const Dropdown = {
             if (this.direction) {
                 base[`direction-${this.direction}`] = this.direction;
             }
+            if (this.variant) {
+                base[`${this.variant}`] = this.variant;
+            }
             return base;
         },
         dropdownStyle() {
@@ -203,10 +264,27 @@ export const Dropdown = {
             return base;
         }
     },
+    created: function() {
+        this.onHideGlobal = this.$bus.$on("hide-global", () => {
+            this.handleGlobal();
+        });
+    },
+    destroyed: function() {
+        if (this.onHideGlobal) this.$bus.$off("hide-global", this.onHideGlobal);
+    },
     methods: {
-        click(item) {
+        click(item, index) {
+            if (this.managed) {
+                // invalidates all of the selected data (only one item can
+                // be selected at a time) and then updates the currently
+                // selected data index
+                Object.keys(this.selectedData).forEach(key => {
+                    this.$set(this.selectedData, key, false);
+                });
+                this.$set(this.selectedData, index, true);
+            }
+            this.$emit("item-clicked", item, index);
             this.hide();
-            this.$emit("item-clicked", item);
         },
         highlight(index) {
             this.$set(this.highlightedData, index, true);
@@ -239,7 +317,10 @@ export const Dropdown = {
         },
         onGlobalClick(event) {
             const owners = Array.isArray(this.owners) ? this.owners : [this.owners];
-            const insideOwners = owners.some(owner => owner.contains(event.target));
+            const insideOwners = owners.some(owner => {
+                owner = owner.$el ? owner.$el : owner;
+                return owner.contains(event.target);
+            });
             if (insideOwners) return;
             this.handleGlobal();
         },
@@ -255,7 +336,8 @@ export const Dropdown = {
         _getItemClasses(item, index) {
             return {
                 separator: item.separator,
-                highlighted: this.highlightedData[index]
+                highlighted: this.highlightedData[index],
+                selected: this.selectedData[index]
             };
         }
     }

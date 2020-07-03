@@ -1,10 +1,11 @@
 <template>
     <div class="select" v-bind:class="classes" ref="select">
+        <global-events v-on:click="onGlobalClick" />
         <select
             class="dropdown-select"
             v-bind:value="value"
             v-if="isDevice()"
-            v-on:change="onSelectChange($event.target.value)"
+            v-on:change="() => onSelectChange($event.target.value)"
         >
             <option
                 v-bind:value="options.value"
@@ -39,10 +40,12 @@
                 v-bind:items="options"
                 v-bind:max-height="maxHeight"
                 v-bind:visible.sync="visibleData"
+                v-bind:global-events="true"
                 v-bind:highlighted="highlightedObject"
                 v-bind:style="dropdownStyle"
+                v-bind:selected="selected"
                 v-bind:direction="direction"
-                v-bind:owners="$refs.select"
+                v-bind:owners="$refs.select ? [$refs.select] : []"
                 ref="dropdown"
                 v-on:update:highlighted="onDropdownHighlighted"
                 v-on:item-clicked="value => onDropdownItemClicked(value.value)"
@@ -194,13 +197,23 @@ export const Select = {
         dropdownMaxWidth: {
             type: Number,
             default: null
+        },
+        keyTimeout: {
+            type: Number,
+            default: 500
+        },
+        owners: {
+            type: Node | Array,
+            default: () => []
         }
     },
     data: function() {
         return {
             highlighted: null,
             valueData: this.value,
-            visibleData: this.visible
+            visibleData: this.visible,
+            keyBuffer: "",
+            keyTimestamp: 0
         };
     },
     watch: {
@@ -225,13 +238,15 @@ export const Select = {
         },
         value(value) {
             this.valueData = value;
+        },
+        valueData(value) {
+            this.$emit("update:value", value);
         }
     },
     methods: {
         setValue(value) {
             if (this.disabled) return;
             this.valueData = value;
-            this.$emit("update:value", value);
         },
         openDropdown() {
             if (this.disabled || this.visibleData) return;
@@ -239,6 +254,7 @@ export const Select = {
         },
         closeDropdown() {
             if (!this.visibleData) return;
+            this.dehighlight();
             this.visibleData = false;
         },
         toggleDropdown() {
@@ -270,9 +286,9 @@ export const Select = {
                 this.highlight(Math.min(this.options.length - 1, this.highlighted + 1), scroll);
             }
         },
-        highlightFirstMatchedOption(key, scroll = true) {
-            const index = this.options.findIndex(
-                option => option.label && option.label.charAt(0).toUpperCase() === key.toUpperCase()
+        highlightBestMatchOption(scroll = true) {
+            const index = this.options.findIndex(option =>
+                option.label.toUpperCase().startsWith(this.keyBuffer)
             );
 
             if (index > -1) {
@@ -302,6 +318,17 @@ export const Select = {
                 dropdown.scrollTop = indexEnd - dropdown.clientHeight;
             }
         },
+        onGlobalClick(event) {
+            const owners = Array.isArray(this.owners)
+                ? this.owners.concat(this.$refs.select)
+                : [this.owners, this.$refs.select];
+            const insideOwners = owners.some(owner => {
+                owner = owner.$el ? owner.$el : owner;
+                return owner.contains(event.target);
+            });
+            if (insideOwners) return;
+            this.closeDropdown();
+        },
         onClickDropdownButton() {
             this.toggleDropdown();
         },
@@ -312,7 +339,13 @@ export const Select = {
             this.toggleDropdown();
         },
         onKey(key) {
-            this.highlightFirstMatchedOption(key);
+            if (!key) return;
+            if (Date.now() - this.keyTimestamp > this.keyTimeout) {
+                this.keyBuffer = "";
+            }
+            this.keyBuffer += key.toUpperCase();
+            this.keyTimestamp = Date.now();
+            this.highlightBestMatchOption();
         },
         onEscKey() {
             this.closeDropdown();
@@ -394,6 +427,11 @@ export const Select = {
             return this.options && this.options[this.valueIndex]
                 ? this.options[this.valueIndex].label
                 : this.placeholder;
+        },
+        selected() {
+            const selected = {};
+            selected[this.valueIndex] = true;
+            return selected;
         },
         valueIndex() {
             return this.options.findIndex(option => option.value === this.valueData);

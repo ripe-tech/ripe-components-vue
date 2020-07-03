@@ -10,7 +10,7 @@
             <template v-slot:header>
                 <div class="header-buttons">
                     <slot name="header-buttons">
-                        <slot name="header-buttons-before" />
+                        <slot name="header-buttons-before" v-if="isDesktopWidth()" />
                         <div class="header-button">
                             <span class="button-stats" v-on:click="onStatsClick">
                                 <img src="~./assets/stats.svg" />
@@ -55,10 +55,23 @@
                                 v-bind:visible.sync="optionsVisible"
                                 v-bind:owners="$refs['button-options-loading']"
                                 v-on:item-clicked="onOptionsItemClick"
-                            />
+                            >
+                                <slot
+                                    v-bind:name="slot"
+                                    v-for="slot in optionsSlots"
+                                    v-bind:slot="slot.replace('options-', '')"
+                                />
+                                <template
+                                    v-for="slot in optionsScopedSlots"
+                                    v-bind:slot="slot.replace('options-', '')"
+                                    slot-scope="scope"
+                                >
+                                    <slot v-bind:name="slot" v-bind="scope" />
+                                </template>
+                            </dropdown>
                             <p>Status</p>
                         </div>
-                        <slot name="header-buttons-after" />
+                        <slot name="header-buttons-after" v-if="isDesktopWidth()" />
                     </slot>
                 </div>
                 <title-ripe>{{ invalid ? invalidTitle : title }}</title-ripe>
@@ -77,7 +90,7 @@
                 <slot name="header-extra" />
                 <div class="header-buttons" v-if="headerButtons">
                     <slot name="header-buttons">
-                        <slot name="header-buttons-before" />
+                        <slot name="header-buttons-before" v-if="isDesktopWidth()" />
                         <div class="header-button">
                             <span class="button-stats" v-on:click="onStatsClick">
                                 <img src="~./assets/stats.svg" />
@@ -122,10 +135,23 @@
                                 v-bind:visible.sync="optionsVisible"
                                 v-bind:owners="$refs['button-options']"
                                 v-on:item-clicked="onOptionsItemClick"
-                            />
+                            >
+                                <slot
+                                    v-bind:name="slot"
+                                    v-for="slot in optionsSlots"
+                                    v-bind:slot="slot.replace('options-', '')"
+                                />
+                                <template
+                                    v-for="slot in optionsScopedSlots"
+                                    v-bind:slot="slot.replace('options-', '')"
+                                    slot-scope="scope"
+                                >
+                                    <slot v-bind:name="slot" v-bind="scope" />
+                                </template>
+                            </dropdown>
                             <p>Status</p>
                         </div>
-                        <slot name="header-buttons-after" />
+                        <slot name="header-buttons-after" v-if="isDesktopWidth()" />
                     </slot>
                 </div>
             </template>
@@ -429,7 +455,6 @@ body.mobile .container-ripe .details-column .label-value {
 .container-ripe .label-value .label {
     color: $label-color;
     font-size: 12px;
-    letter-spacing: 0.5px;
     margin: 0px 0px 6px 0px;
 }
 
@@ -450,8 +475,11 @@ body.mobile .container-ripe .details-column .label-value {
 </style>
 
 <script>
+import { partMixin } from "../../../../mixins/part";
+
 export const Details = {
     name: "details-ripe",
+    mixins: [partMixin],
     props: {
         name: {
             type: String,
@@ -538,6 +566,12 @@ export const Details = {
         },
         hasIndex() {
             return this.index !== null && this.index !== undefined;
+        },
+        optionsSlots() {
+            return Object.keys(this.$slots).filter(slot => slot.startsWith("options-"));
+        },
+        optionsScopedSlots() {
+            return Object.keys(this.$scopedSlots).filter(slot => slot.startsWith("options-"));
         }
     },
     methods: {

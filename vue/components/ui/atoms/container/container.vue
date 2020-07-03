@@ -1,7 +1,7 @@
 <template>
     <div class="container-ripe" v-bind:class="classes">
         <div class="container-header" v-if="hasHeaderContent">
-            <slot name="header-extra-before" />
+            <slot name="header-before" />
             <slot name="header">
                 <title-ripe v-if="title">
                     {{ title }}
@@ -9,7 +9,7 @@
                 <slot name="header-buttons-before" />
                 <slot name="header-buttons" v-if="hasHeaderButtons">
                     <div class="header-buttons">
-                        <slot name="header-buttons-extra-before" />
+                        <slot name="header-buttons-inside-before" />
                         <button-icon
                             v-bind:text="button.text"
                             v-bind:icon="button.icon"
@@ -33,12 +33,12 @@
                             v-bind:key="button.id"
                             v-on:click="event => onButtonIconClick(event, button.id)"
                         />
-                        <slot name="header-buttons-extra-after" />
+                        <slot name="header-buttons-inside-after" />
                     </div>
                 </slot>
                 <slot name="header-buttons-after" />
             </slot>
-            <slot name="header-extra-after" />
+            <slot name="header-after" />
         </div>
         <slot />
     </div>
@@ -75,35 +75,14 @@ body.mobile .container-ripe {
 }
 
 .container-ripe > .container-header {
-    align-items: center;
-    display: flex;
     font-size: 0px;
     padding: 24px 24px 20px 24px;
+    text-align: left;
 }
 
 body.tablet .container-ripe > .container-header,
 body.mobile .container-ripe > .container-header {
-    flex-flow: column;
     padding: 20px 15px 20px 15px;
-}
-
-.container-ripe > .container-header > .title {
-    flex: 1;
-}
-
-body.tablet .container-ripe > .container-header > .title,
-body.mobile .container-ripe > .container-header > .title {
-    align-self: flex-start;
-    order: 4;
-}
-
-body.tablet .container-ripe > .container-header > .header-buttons,
-body.mobile .container-ripe > .container-header > .header-buttons {
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    width: 100%;
 }
 </style>
 
@@ -129,19 +108,19 @@ export const Container = {
             return (
                 this.headerButtons.length > 0 ||
                 this.$slots["header-buttons"] ||
-                this.$slots["header-buttons-extra-before"] ||
-                this.$slots["header-buttons-extra-after"]
+                this.$slots["header-buttons-inside-before"] ||
+                this.$slots["header-buttons-inside-after"]
             );
         },
         hasHeaderContent() {
             return (
                 this.title ||
-                this.$slots["header-extra-before"] ||
+                this.$slots["header-before"] ||
                 this.$slots.header ||
                 this.$slots["header-buttons-before"] ||
                 this.hasHeaderButtons ||
                 this.$slots["header-buttons-after"] ||
-                this.$slots["header-extra-after"]
+                this.$slots["header-after"]
             );
         },
         classes() {

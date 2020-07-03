@@ -38,15 +38,6 @@ storiesOf("Atoms", module)
             footer: {
                 default: text("Help text", "Help or instruction text goes here")
             },
-            error: {
-                default: text("Error", "")
-            },
-            warning: {
-                default: text("Warning", "")
-            },
-            success: {
-                default: text("Success", "")
-            },
             disabled: {
                 default: boolean("Disabled", false)
             },
@@ -78,9 +69,6 @@ storiesOf("Atoms", module)
                 <form-input
                     v-bind:header="header"
                     v-bind:footer="footer"
-                    v-bind:error="error"
-                    v-bind:warning="warning"
-                    v-bind:success="success"
                 >
                     <textarea-ripe
                         v-bind:variant="variant"

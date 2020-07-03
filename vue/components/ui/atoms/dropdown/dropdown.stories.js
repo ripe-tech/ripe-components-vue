@@ -1,12 +1,44 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, boolean, select } from "@storybook/addon-knobs";
+import { withKnobs, boolean, select, text } from "@storybook/addon-knobs";
 
 storiesOf("Atoms", module)
     .addDecorator(withKnobs)
     .add("Dropdown", () => ({
         props: {
+            variant: {
+                default: select(
+                    "Variant",
+                    {
+                        Unset: null,
+                        Dense: "dense"
+                    },
+                    null
+                )
+            },
             visible: {
                 default: boolean("Visible", true)
+            },
+            managed: {
+                default: boolean("Managed", true)
+            },
+            direction: {
+                default: select(
+                    "Direction",
+                    {
+                        None: null,
+                        Top: "top",
+                        Bottom: "bottom"
+                    },
+                    null
+                )
+            },
+            selected: {
+                default: () => ({
+                    1: true
+                })
+            },
+            messageEmpty: {
+                default: text("Message Empty", "No Items")
             },
             items: {
                 default: () => [
@@ -19,7 +51,8 @@ storiesOf("Atoms", module)
                     },
                     {
                         value: "text_3",
-                        label: "Text 3"
+                        label: "Icon with text",
+                        icon: "clipboard"
                     },
                     {
                         value: "text_platforme",
@@ -32,17 +65,6 @@ storiesOf("Atoms", module)
                         target: "_blank"
                     }
                 ]
-            },
-            direction: {
-                default: select(
-                    "Direction",
-                    {
-                        None: null,
-                        Top: "top",
-                        Bottom: "bottom"
-                    },
-                    null
-                )
             }
         },
         data: function() {
@@ -60,9 +82,12 @@ storiesOf("Atoms", module)
             <div style="max-width: 200px">
                 <dropdown
                     v-bind:items="items"
+                    v-bind:selected="selected"
+                    v-bind:variant="variant"
                     v-bind:visible.sync="visibleData"
-                    v-bind:highlighted.sync="highlightedData"
+                    v-bind:managed="managed"
                     v-bind:direction="direction"
+                    v-bind:message-empty="messageEmpty"
                 />
                 <p>The dropdown is: {{ visibleData ? "visible" : "invisible" }}</p>
                 <p>Highlighted: {{ highlightedData }}</p>
