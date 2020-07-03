@@ -171,11 +171,7 @@ body.mobile .listing {
     min-height: 315px;
 }
 
-.listing .container-ripe ::v-deep .container-header .title {
-    display: inline-block;
-}
-
-.listing .container-ripe .container-header .search {
+.listing .container-ripe .search {
     float: right;
 }
 
@@ -201,6 +197,10 @@ input[type="text"]:hover {
 input[type="text"]:focus {
     background-color: $white;
     border-color: #aaaaaa;
+}
+
+.listing .container-ripe ::v-deep .title {
+    display: inline-block;
 }
 
 .listing .filter-ripe ::v-deep .lineup > .lineup-item {
