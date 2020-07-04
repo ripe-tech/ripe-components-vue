@@ -3,11 +3,16 @@
         <global-events v-on:keydown.esc="onEscKey" v-on:click="onGlobalClick" />
         <transition name="slide" v-on:after-leave="onSlideAfterLeave">
             <ul class="dropdown" v-bind:style="dropdownStyle" v-show="visibleData" ref="dropdown">
-                <li class="dropdown-item-empty" v-if="items.length === 0">
+                <li
+                    class="dropdown-item-empty"
+                    v-bind:data-value="'empty'"
+                    v-if="items.length === 0"
+                >
                     {{ messageEmpty }}
                 </li>
                 <li
                     class="dropdown-item"
+                    v-bind:data-value="item.value"
                     v-bind:class="_getItemClasses(item, index)"
                     v-for="(item, index) in items.filter(v => v !== null && v !== undefined)"
                     v-else
