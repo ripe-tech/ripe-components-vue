@@ -1,6 +1,7 @@
 <template>
     <div class="reaction" v-bind:class="{ 'user-reacted': userReactedData }" v-on:click="onClick">
-        <img class="image" v-bind:src="imageSrc" v-if="hasImage" />
+        <img class="image" v-bind:src="imgUrl" v-if="hasImage" />
+        <icon v-bind:width="15" v-bind:height="15" v-bind:icon="icon" v-else-if="hasIcon" />
         <div class="emoji" v-else>
             {{ emoji }}
         </div>
@@ -121,17 +122,14 @@ export const Reaction = {
         }
     },
     computed: {
-        imageSrc() {
-            return this.icon ? this.iconPath : this.imgUrl;
-        },
-        iconPath() {
-            return require(`./../../../../assets/icons/${this.icon}.svg`);
-        },
         hasReactions() {
             return this.countData > 0;
         },
         hasImage() {
-            return Boolean(this.imageSrc);
+            return Boolean(this.imgUrl);
+        },
+        hasIcon() {
+            return Boolean(this.icon);
         },
         hasEmoji() {
             return Boolean(this.emoji);
