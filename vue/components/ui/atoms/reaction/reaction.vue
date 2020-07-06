@@ -1,7 +1,7 @@
 <template>
     <div class="reaction" v-bind:class="{ 'user-reacted': userReactedData }" v-on:click="onClick">
         <image-ripe v-bind:src="imgUrl" v-if="hasImage" />
-        <icon v-bind:width="15" v-bind:height="15" v-bind:icon="icon" v-else-if="hasIcon" />
+        <icon v-bind:icon="icon" v-else-if="hasIcon" />
         <div class="emoji" v-else>
             {{ emoji }}
         </div>
@@ -57,6 +57,11 @@
 
 .reaction > .image {
     display: inline-block;
+    height: 15px;
+    width: 15px;
+}
+
+.reaction > .icon {
     height: 15px;
     width: 15px;
 }
