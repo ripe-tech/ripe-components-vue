@@ -1,6 +1,6 @@
 <template>
     <div class="reaction" v-bind:class="{ 'user-reacted': userReactedData }" v-on:click="onClick">
-        <img class="image" v-bind:src="imgUrl" v-if="hasImage" />
+        <image-ripe v-bind:src="imgUrl" v-if="hasImage" />
         <icon v-bind:width="15" v-bind:height="15" v-bind:icon="icon" v-else-if="hasIcon" />
         <div class="emoji" v-else>
             {{ emoji }}
