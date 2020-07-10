@@ -40,6 +40,12 @@
     background-color: rgba(60, 64, 67, 0.2);
 }
 
+.avatar.very-tiny.clickable {
+    height: 18px;
+    padding: 2px 2px 2px 2px;
+    width: 18px;
+}
+
 .avatar.tiny.clickable {
     height: 24px;
     padding: 4px 4px 4px 4px;
@@ -59,6 +65,12 @@
 }
 
 .avatar.large.clickable {
+    height: 54px;
+    padding: 8px 8px 8px 8px;
+    width: 54px;
+}
+
+.avatar.very-large.clickable {
     height: 96px;
     padding: 10px 10px 10px 10px;
     width: 96px;
@@ -71,6 +83,48 @@
 
 .avatar .image-container > .image {
     border-radius: 50% 50% 50% 50%;
+}
+
+.avatar.very-tiny .image-container,
+.avatar.very-tiny .image-container > .image {
+    height: 18px;
+    line-height: 18px;
+    width: 18px;
+}
+
+.avatar.tiny .image-container,
+.avatar.tiny .image-container > .image {
+    height: 24px;
+    line-height: 24px;
+    width: 24px;
+}
+
+.avatar.small .image-container,
+.avatar.small .image-container > .image {
+    height: 34px;
+    line-height: 34px;
+    width: 34px;
+}
+
+.avatar.medium .image-container,
+.avatar.medium .image-container > .image {
+    height: 40px;
+    line-height: 40px;
+    width: 40px;
+}
+
+.avatar.large .image-container,
+.avatar.large .image-container > .image {
+    height: 56px;
+    line-height: 56px;
+    width: 56px;
+}
+
+.avatar.very-large .image-container,
+.avatar.very-large .image-container > .image {
+    height: 96px;
+    line-height: 96px;
+    width: 96px;
 }
 
 .avatar .image-container > .dot {
@@ -87,11 +141,12 @@
     display: inline-block;
 }
 
-.avatar.tiny .image-container,
-.avatar.tiny .image-container > .image {
-    height: 24px;
-    line-height: 24px;
-    width: 24px;
+.avatar.very-tiny .image-container > .dot {
+    border-width: 0.3px;
+    height: 2px;
+    right: 1px;
+    top: 1px;
+    width: 2px;
 }
 
 .avatar.tiny .image-container > .dot {
@@ -102,25 +157,11 @@
     width: 5px;
 }
 
-.avatar.small .image-container,
-.avatar.small .image-container > .image {
-    height: 34px;
-    line-height: 34px;
-    width: 34px;
-}
-
 .avatar.small .image-container > .dot {
     height: 7px;
     right: 0px;
     top: 0px;
     width: 7px;
-}
-
-.avatar.medium .image-container,
-.avatar.medium .image-container > .image {
-    height: 40px;
-    line-height: 40px;
-    width: 40px;
 }
 
 .avatar.medium .image-container > .dot {
@@ -130,14 +171,14 @@
     width: 8px;
 }
 
-.avatar.large .image-container,
-.avatar.large .image-container > .image {
-    height: 96px;
-    line-height: 96px;
-    width: 96px;
+.avatar.large .image-container > .dot {
+    height: 10px;
+    right: 2px;
+    top: 2px;
+    width: 10px;
 }
 
-.avatar.large .image-container > .dot {
+.avatar.very-large .image-container > .dot {
     border-width: 2px;
     height: 19px;
     right: 2px;
