@@ -17,7 +17,7 @@
 .reaction {
     background-color: $lighter-grey;
     border: 1px solid transparent;
-    border-radius: 24px;
+    border-radius: 24px 24px 24px 24px;
     cursor: pointer;
     display: inline-block;
     font-size: 0px;

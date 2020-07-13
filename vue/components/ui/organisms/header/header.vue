@@ -341,7 +341,7 @@ body.mobile .header-ripe > .header-bar > .header-container > .header-apps > .dro
 .header-ripe > .header-bar .dropdown-item-announcements .dot {
     background-color: #4b8dd7;
     border: 1px solid #ffffff;
-    border-radius: 50%;
+    border-radius: 50% 50% 50% 50%;
     float: right;
     height: 8px;
     margin: 3px 3px 0px 0px;

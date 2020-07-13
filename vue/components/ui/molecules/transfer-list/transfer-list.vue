@@ -47,7 +47,7 @@
     background-position: center;
     background-repeat: no-repeat;
     border: 1px solid $light-white;
-    border-radius: 6px;
+    border-radius: 6px 6px 6px 6px;
     cursor: pointer;
     height: 32px;
     margin-top: 10px;

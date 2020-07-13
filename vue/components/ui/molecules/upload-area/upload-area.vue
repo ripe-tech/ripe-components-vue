@@ -41,7 +41,7 @@
 .upload-area > .upload-area-container {
     align-items: center;
     border: 2px dashed $light-white;
-    border-radius: 8px;
+    border-radius: 8px 8px 8px 8px;
     display: flex;
     flex-direction: column;
     height: 150px;

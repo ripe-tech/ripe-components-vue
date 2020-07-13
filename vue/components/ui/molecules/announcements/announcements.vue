@@ -118,7 +118,7 @@
 .announcements .announcements-list > .announcement .dot {
     background-color: #4b8dd7;
     border: 1px solid #ffffff;
-    border-radius: 50%;
+    border-radius: 50% 50% 50% 50%;
     cursor: pointer;
     float: right;
     height: 8px;

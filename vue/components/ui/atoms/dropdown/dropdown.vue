@@ -87,7 +87,7 @@
 
 .dropdown-container .dropdown {
     border: 1px solid #dddddd;
-    border-radius: 5px;
+    border-radius: 5px 5px 5px 5px;
     box-shadow: 1px 2px 5px rgba(20, 20, 20, 0.1);
     box-sizing: border-box;
     color: $dark-grey;

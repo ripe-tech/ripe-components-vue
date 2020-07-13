@@ -22,7 +22,7 @@
 
 .button.button-platforme {
     background-color: #0b57af;
-    border-radius: 5px;
+    border-radius: 5px 5px 5px 5px;
     color: $white;
     cursor: pointer;
     font-size: 13px;
