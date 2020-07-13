@@ -7,7 +7,14 @@
         v-on:dragenter="onDragEnter($event)"
         v-on:dragleave="onDragLeave($event)"
     >
-        <slot>
+        <input
+            type="file"
+            multiple
+            hidden
+            ref="filesInput"
+            v-on:change="onFilesInputChange"
+        />
+        <slot v-bind:open-modal="openModal">
             <div class="upload-area-container">
                 <transition name="fade-in" mode="out-in">
                     <div class="description" v-bind:key="dragging">
@@ -15,13 +22,6 @@
                     </div>
                 </transition>
                 <button-icon v-bind:icon="icon" v-bind:size="110" />
-                <input
-                    type="file"
-                    multiple
-                    hidden
-                    ref="filesInput"
-                    v-on:change="onFilesInputChange"
-                />
                 <button-color
                     class="button-upload"
                     v-bind:text="'Upload File'"
@@ -152,6 +152,9 @@ export const UploadArea = {
         setFiles(filesList) {
             this.filesData = [...filesList];
             this.$emit("update:files", this.filesData);
+        },
+        openModal() {
+            this.$refs.filesInput.click();
         },
         onDragOver(event) {
             event.dataTransfer.dropEffect = "copy";
