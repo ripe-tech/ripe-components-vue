@@ -12,7 +12,8 @@ storiesOf("Atoms", module)
                         Tiny: "tiny",
                         Small: "small",
                         Medium: "medium",
-                        Large: "large"
+                        Large: "large",
+                        "Very Large": "very-large"
                     },
                     "medium"
                 )

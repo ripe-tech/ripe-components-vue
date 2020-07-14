@@ -133,7 +133,7 @@
 
 .search > .suggestions {
     border: 1px solid $border-color;
-    border-radius: 5px;
+    border-radius: 5px 5px 5px 5px;
     font-size: 15px;
     margin-top: -2px;
     overflow: hidden;

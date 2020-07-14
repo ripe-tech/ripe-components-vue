@@ -8,7 +8,7 @@
 @import "css/variables.scss";
 
 .tag {
-    border-radius: 4px;
+    border-radius: 4px 4px 4px 4px;
     display: inline-block;
     font-size: 12px;
     font-weight: 600;

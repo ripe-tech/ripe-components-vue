@@ -111,7 +111,7 @@
 .scroll-button {
     background: $white url("~./assets/arrow-up.svg") no-repeat center;
     border: none;
-    border-radius: 40px;
+    border-radius: 40px 40px 40px 40px;
     bottom: 20px;
     box-shadow: 0px 0px 36px -15px #aaaaaa;
     height: 50px;

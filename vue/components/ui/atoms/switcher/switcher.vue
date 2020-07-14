@@ -10,7 +10,7 @@
 .switcher {
     background-color: $upper-grey;
     border: 2px solid $upper-grey;
-    border-radius: 500px;
+    border-radius: 500px 500px 500px 500px;
     cursor: pointer;
     height: 20px;
     transition-duration: 0.4s;
@@ -25,7 +25,7 @@
 
 .switcher > .switcher-button {
     background-color: $white;
-    border-radius: 10px;
+    border-radius: 10px 10px 10px 10px;
     height: 20px;
     transition-duration: 0.2s;
     transition-property: margin;

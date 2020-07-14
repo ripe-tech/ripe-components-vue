@@ -1,6 +1,7 @@
 <template>
     <div class="reaction" v-bind:class="{ 'user-reacted': userReactedData }" v-on:click="onClick">
-        <img class="image" v-bind:src="imageSrc" v-if="hasImage" />
+        <image-ripe v-bind:src="imgUrl" v-if="hasImage" />
+        <icon v-bind:icon="icon" v-else-if="hasIcon" />
         <div class="emoji" v-else>
             {{ emoji }}
         </div>
@@ -16,7 +17,7 @@
 .reaction {
     background-color: $lighter-grey;
     border: 1px solid transparent;
-    border-radius: 24px;
+    border-radius: 24px 24px 24px 24px;
     cursor: pointer;
     display: inline-block;
     font-size: 0px;
@@ -56,6 +57,11 @@
 
 .reaction > .image {
     display: inline-block;
+    height: 15px;
+    width: 15px;
+}
+
+.reaction > .icon {
     height: 15px;
     width: 15px;
 }
@@ -121,17 +127,14 @@ export const Reaction = {
         }
     },
     computed: {
-        imageSrc() {
-            return this.icon ? this.iconPath : this.imgUrl;
-        },
-        iconPath() {
-            return require(`./../../../../assets/icons/${this.icon}.svg`);
-        },
         hasReactions() {
             return this.countData > 0;
         },
         hasImage() {
-            return Boolean(this.imageSrc);
+            return Boolean(this.imgUrl);
+        },
+        hasIcon() {
+            return Boolean(this.icon);
         },
         hasEmoji() {
             return Boolean(this.emoji);

@@ -60,8 +60,8 @@
 
 .progress-list-item {
     background-color: $white;
-    border-radius: 6px;
-    box-shadow: 0 2px 5px 0 rgba(67, 86, 100, 0.25);
+    border-radius: 6px 6px 6px 6px;
+    box-shadow: 0px 2px 5px 0px rgba(67, 86, 100, 0.25);
     overflow: hidden;
     padding: 16px 20px 16px 20px;
     user-select: none;
