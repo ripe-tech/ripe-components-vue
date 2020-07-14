@@ -6,10 +6,7 @@
             v-on:keydown.left="onKeyLeft"
             v-on:keydown.right="onKeyRight"
         />
-        <container-ripe
-            class="loading"
-            v-if="isLoading"
-        >
+        <container-ripe class="loading" v-if="isLoading">
             <template v-slot:header>
                 <slot name="title" v-if="isLoaded">
                     <title-ripe>{{ invalid ? invalidTitle : title }}</title-ripe>
