@@ -8,7 +8,6 @@
         />
         <container-ripe
             class="loading"
-            v-bind:title="invalid ? invalidTitle : title"
             v-if="isLoading"
         >
             <template v-slot:header>
