@@ -12,6 +12,9 @@
             v-if="isLoading"
         >
             <template v-slot:header>
+                <slot name="title" v-if="isLoaded">
+                    <title-ripe>{{ invalid ? invalidTitle : title }}</title-ripe>
+                </slot>
                 <div class="header-buttons">
                     <slot name="header-buttons">
                         <slot name="header-buttons-before" v-if="isDesktopWidth()" />
