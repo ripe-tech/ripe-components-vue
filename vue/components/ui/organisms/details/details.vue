@@ -8,6 +8,9 @@
         />
         <container-ripe class="loading" v-if="isLoading">
             <template v-slot:header>
+                <slot name="title" v-if="isLoaded">
+                    <title-ripe>{{ invalid ? invalidTitle : title }}</title-ripe>
+                </slot>
                 <div class="header-buttons">
                     <slot name="header-buttons">
                         <slot name="header-buttons-before" v-if="isDesktopWidth()" />
@@ -74,12 +77,6 @@
                         <slot name="header-buttons-after" v-if="isDesktopWidth()" />
                     </slot>
                 </div>
-                <title-ripe v-if="invalid">
-                    {{ invalidTitle }}
-                </title-ripe>
-                <title-ripe v-else>
-                    {{ title }}
-                </title-ripe>
             </template>
             <h1 class="item-invalid" v-if="invalid">
                 {{ invalidMessage }}
@@ -89,6 +86,10 @@
         <container-ripe class="details-container" v-else>
             <slot name="details-before" />
             <template v-slot:header>
+                <slot name="title" v-if="isLoaded">
+                    <title-ripe>{{ title }}</title-ripe>
+                </slot>
+                <slot name="header-extra" />
                 <div class="header-buttons" v-if="headerButtons">
                     <slot name="header-buttons">
                         <slot name="header-buttons-before" v-if="isDesktopWidth()" />
@@ -155,10 +156,6 @@
                         <slot name="header-buttons-after" v-if="isDesktopWidth()" />
                     </slot>
                 </div>
-                <slot name="title" v-if="isLoaded">
-                    <title-ripe>{{ title }}</title-ripe>
-                </slot>
-                <slot name="header-extra" />
             </template>
             <div class="details" v-if="isLoaded">
                 <div class="details-column details-column-image" v-if="imageUrl">
@@ -261,29 +258,7 @@ body.mobile .container-ripe {
     padding-top: 140px;
 }
 
-.container-ripe .header-buttons {
-    float: right;
-    font-size: 0px;
-    text-transform: capitalize;
-    user-select: none;
-}
-
-body.tablet .container-ripe .header-buttons,
-body.mobile .container-ripe .header-buttons {
-    animation: none;
-    background-color: $white;
-    border-top: 1px solid $light-white;
-    bottom: 0px;
-    display: flex;
-    left: 0px;
-    position: fixed;
-    text-align: justify;
-    transition: none;
-    width: 100%;
-    z-index: 10;
-}
-
-.container-ripe .header-buttons .header-button {
+.container-ripe .header-buttons > .header-button {
     display: inline-block;
 }
 
@@ -295,13 +270,13 @@ body.mobile .container-ripe .header-buttons > .header-button {
     text-align: center;
 }
 
-.header-buttons > .header-button.invisible {
+.container-ripe .header-buttons > .header-button.invisible {
     opacity: 0.2;
     pointer-events: none;
 }
 
-body.tablet .header-buttons > .header-button.invisible,
-body.mobile .header-buttons > .header-button.invisible {
+body.tablet .container-ripe .header-buttons > .header-button.invisible,
+body.mobile .container-ripe .header-buttons > .header-button.invisible {
     display: inline-block;
 }
 

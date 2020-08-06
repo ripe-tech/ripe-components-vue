@@ -31,8 +31,6 @@
             </template>
             <template v-slot:header-buttons-inside-after>
                 <slot v-bind:name="'header-buttons-inside-after'" />
-            </template>
-            <template v-slot:header-buttons-after>
                 <slot name="header-search">
                     <search
                         v-bind:variant="'dark'"
@@ -42,6 +40,9 @@
                         v-bind:loading="loading"
                     />
                 </slot>
+            </template>
+            <template v-slot:header-buttons-after>
+                <slot v-bind:name="'header-buttons-after'" />
             </template>
             <filter-ripe
                 v-bind:get-items="getItems"

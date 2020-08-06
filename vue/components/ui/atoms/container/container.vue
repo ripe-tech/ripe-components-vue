@@ -11,6 +11,7 @@
                     <div class="header-buttons">
                         <slot name="header-buttons-inside-before" />
                         <button-icon
+                            class="header-button"
                             v-bind:text="button.text"
                             v-bind:icon="button.icon"
                             v-bind:color="button.color"
@@ -83,6 +84,37 @@ body.mobile .container-ripe {
 body.tablet .container-ripe > .container-header,
 body.mobile .container-ripe > .container-header {
     padding: 20px 15px 20px 15px;
+}
+
+.container-ripe > .container-header > .title {
+    display: inline-block;
+}
+
+.container-ripe > .container-header > .header-buttons {
+    float: right;
+    font-size: 0px;
+    text-transform: capitalize;
+    user-select: none;
+}
+
+body.tablet .container-ripe > .container-header > .header-buttons,
+body.mobile .container-ripe > .container-header > .header-buttons {
+    animation: none;
+    background-color: $white;
+    border-top: 1px solid $light-white;
+    bottom: 0px;
+    display: flex;
+    left: 0px;
+    position: fixed;
+    text-align: justify;
+    transition: none;
+    width: 100%;
+    z-index: 10;
+}
+
+body.tablet .container-ripe > .container-header > .header-buttons > .header-button,
+body.mobile .container-ripe > .container-header > .header-buttons > .header-button {
+    flex: 1;
 }
 </style>
 
