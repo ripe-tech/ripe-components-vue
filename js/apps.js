@@ -99,7 +99,7 @@ export const getApps = function(ctx, environment) {
                 };
             }
             if (ctx.hasPermission("ripe-registry.ui")) {
-                apps.whiteAdmin = {
+                apps.registry = {
                     text: "Registry CI",
                     link: "https://ripe-registry-ui-ci.platforme.com"
                 };
@@ -125,7 +125,7 @@ export const getApps = function(ctx, environment) {
                 };
             }
             if (ctx.hasPermission("ripe-registry.ui")) {
-                apps.whiteAdmin = {
+                apps.registry = {
                     text: "Registry Now",
                     link: "https://ripe-registry-ui-now.platforme.com"
                 };
@@ -163,7 +163,7 @@ export const getApps = function(ctx, environment) {
                 };
             }
             if (ctx.hasPermission("ripe-registry.ui")) {
-                apps.orchestra = {
+                apps.registry = {
                     text: "Registry Test",
                     link: "https://ripe-registry-ui-test.platforme.com"
                 };
