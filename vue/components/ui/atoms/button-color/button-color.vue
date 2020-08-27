@@ -129,7 +129,6 @@
     background-color: $white;
     border: 1px solid #e4e8f0;
     color: $grey;
-    transition: opacity 0.15s ease-in-out;
 }
 
 .button-color.button-color-secondary:hover,
