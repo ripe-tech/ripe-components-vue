@@ -8,6 +8,7 @@
                 v-bind:transition="tableTransition"
                 v-bind:sort="sort"
                 v-bind:reverse="reverse"
+                v-bind:alignment="tableAlignment"
                 v-bind:variant="tableVariant"
                 v-bind:checkboxes="checkboxes"
                 v-bind:checked-items="checkedItems"
@@ -17,8 +18,17 @@
                 <template v-slot="{ item, index }">
                     <slot name="table-item" v-bind:item="item" v-bind:index="index" />
                 </template>
-                <template v-slot:row="{ item, index }">
-                    <slot name="table-row" v-bind:item="item" v-bind:index="index" />
+                <slot
+                    v-bind:name="slot"
+                    v-for="slot in tableSlots"
+                    v-bind:slot="slot.replace('table-', '')"
+                />
+                <template
+                    v-for="slot in tableScopedSlots"
+                    v-bind:slot="slot.replace('table-', '')"
+                    slot-scope="scope"
+                >
+                    <slot v-bind:name="slot" v-bind="scope" />
                 </template>
             </table-ripe>
             <lineup
@@ -120,6 +130,10 @@ export const Filter = {
             type: Array,
             default: () => []
         },
+        tableAlignment: {
+            type: String,
+            default: null
+        },
         tableVariant: {
             type: String,
             default: null
@@ -184,6 +198,12 @@ export const Filter = {
                 start: this.start,
                 limit: this.limit
             };
+        },
+        tableSlots() {
+            return Object.keys(this.$slots).filter(slot => slot.startsWith("table-"));
+        },
+        tableScopedSlots() {
+            return Object.keys(this.$scopedSlots).filter(slot => slot.startsWith("table-"));
         },
         lineupSlots() {
             return Object.keys(this.$slots).filter(slot => slot.startsWith("lineup-"));
