@@ -166,16 +166,16 @@ export const Notification = {
         });
     },
     methods: {
-        show(options) {
+        show(options = {}) {
             // unpacks the complete set of options for the new notification
             // that is going to be displayed
             const { text, timeout, icon, iconColor, globalEvents, reset = true } = options;
 
             // updates the current local values taking into account
             // the provided set of options
-            this.textData = text;
-            this.iconData = icon;
-            this.iconColorData = iconColor;
+            this.textData = text || this.textData;
+            this.iconData = icon || this.icon;
+            this.iconColorData = iconColor || this.iconColor;
             this.timeoutData = timeout || this.timeout;
             this.globalEventsData = globalEvents || this.globalEvents;
 
