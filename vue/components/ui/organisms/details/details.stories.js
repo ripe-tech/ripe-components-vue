@@ -63,83 +63,32 @@ storiesOf("Organisms", module)
             headerButtons: {
                 type: Boolean,
                 default: boolean("Header Buttons", true)
-            },
-            breadcrumbs: {
-                type: Array,
-                default: () => [
-                    {
-                        text: "Google",
-                        href: "https://www.google.com"
-                    },
-                    {
-                        text: "Platforme",
-                        href: "https://www.platforme.com",
-                        target: "_blank"
-                    },
-                    {
-                        text: "RIPE White"
-                    }
-                ]
-            },
-            breadcrumbsFontSize: {
-                default: number("Breadcrumbs Font Size", 26)
-            },
-            breadcrumbsSeparator: {
-                default: text("Breadcrumbs Separator", "/")
             }
         },
         template: `
-            <div>
-                <details-ripe
-                    v-bind:values="values"
-                    v-bind:columns="columns"
-                    v-bind:title="title"
-                    v-bind:image-url="imageUrl"
-                    v-bind:options-items="optionsItems"
-                    v-bind:item="item"
-                    v-bind:name="itemName"
-                    v-bind:loaded="loaded"
-                    v-bind:context="{}"
-                    v-bind:index="0"
-                    v-bind:get-items="() => values"
-                    v-bind:header-buttons="headerButtons"
-                >
-                    <template v-slot:shirt>
-                        <p>Custom entry</p>
-                    </template>
-                    <template v-slot:label-city>
-                        <p>Custom label</p>
-                    </template>
-                    <template v-slot:options-item_4>
-                        <div>Custom item</div>
-                    </template>
-                </details-ripe>
-                <details-ripe
-                    v-bind:values="values"
-                    v-bind:columns="columns"
-                    v-bind:title="breadcrumbs"
-                    v-bind:breadcrumbs-font-size="breadcrumbsFontSize"
-                    v-bind:breadcrumbs-separator="breadcrumbsSeparator"
-                    v-bind:image-url="imageUrl"
-                    v-bind:options-items="optionsItems"
-                    v-bind:item="item"
-                    v-bind:name="itemName"
-                    v-bind:loaded="loaded"
-                    v-bind:context="{}"
-                    v-bind:index="0"
-                    v-bind:get-items="() => values"
-                    v-bind:header-buttons="headerButtons"
-                >
-                    <template v-slot:shirt>
-                        <p>Custom entry</p>
-                    </template>
-                    <template v-slot:label-city>
-                        <p>Custom label</p>
-                    </template>
-                    <template v-slot:options-item_4>
-                        <div>Custom item</div>
-                    </template>
-                </details-ripe>
-            </div>
+            <details-ripe
+                v-bind:values="values"
+                v-bind:columns="columns"
+                v-bind:title="title"
+                v-bind:image-url="imageUrl"
+                v-bind:options-items="optionsItems"
+                v-bind:item="item"
+                v-bind:name="itemName"
+                v-bind:loaded="loaded"
+                v-bind:context="{}"
+                v-bind:index="0"
+                v-bind:get-items="() => values"
+                v-bind:header-buttons="headerButtons"
+            >
+                <template v-slot:shirt>
+                    <p>Custom entry</p>
+                </template>
+                <template v-slot:label-city>
+                    <p>Custom label</p>
+                </template>
+                <template v-slot:options-item_4>
+                    <div>Custom item</div>
+                </template>
+            </details-ripe>
         `
     }));
