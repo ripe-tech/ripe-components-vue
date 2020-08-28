@@ -168,7 +168,12 @@
                     />
                     <slot name="image-footer" />
                 </div>
-                <div class="details-column" v-for="column in columns" v-bind:key="column">
+                <div
+                    class="details-column"
+                    v-bind:style="detailsColumnStyle"
+                    v-for="column in columns"
+                    v-bind:key="column"
+                >
                     <slot v-bind:name="value.value" v-for="value in getColumnValues(column - 1)">
                         <div
                             class="label-value"
@@ -553,6 +558,11 @@ export const Details = {
         },
         optionsScopedSlots() {
             return Object.keys(this.$scopedSlots).filter(slot => slot.startsWith("options-"));
+        },
+        detailsColumnStyle() {
+            const base = {};
+            if (!this.imageUrl) base.width = `${100 / this.columns}%`;
+            return base;
         }
     },
     methods: {
