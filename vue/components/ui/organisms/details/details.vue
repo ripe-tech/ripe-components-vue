@@ -9,7 +9,15 @@
         <container-ripe class="loading" v-if="isLoading">
             <template v-slot:header>
                 <slot name="title" v-if="isLoaded">
-                    <title-ripe>{{ invalid ? invalidTitle : title }}</title-ripe>
+                    <breadcrumbs
+                        v-bind:font-size="breadcrumbsFontSize"
+                        v-bind:separator="breadcrumbsSeparator"
+                        v-bind:breadcrumbs="title"
+                        v-if="title && Array.isArray(title)"
+                    />
+                    <title-ripe v-else>
+                        {{ invalid ? invalidTitle : title }}
+                    </title-ripe>
                 </slot>
                 <div class="header-buttons">
                     <slot name="header-buttons">
@@ -87,7 +95,15 @@
             <slot name="details-before" />
             <template v-slot:header>
                 <slot name="title" v-if="isLoaded">
-                    <title-ripe>{{ title }}</title-ripe>
+                    <breadcrumbs
+                        v-bind:font-size="breadcrumbsFontSize"
+                        v-bind:separator="breadcrumbsSeparator"
+                        v-bind:breadcrumbs="title"
+                        v-if="title && Array.isArray(title)"
+                    />
+                    <title-ripe v-else>
+                        {{ title }}
+                    </title-ripe>
                 </slot>
                 <slot name="header-extra" />
                 <div class="header-buttons" v-if="headerButtons">
@@ -467,8 +483,16 @@ export const Details = {
             required: true
         },
         title: {
-            type: String,
+            type: String | Array,
             required: true
+        },
+        breadcrumbsFontSize: {
+            type: Number,
+            default: 26
+        },
+        breadcrumbsSeparator: {
+            type: String,
+            default: "/"
         },
         invalidTitle: {
             type: String,
