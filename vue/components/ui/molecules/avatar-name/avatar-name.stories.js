@@ -13,11 +13,9 @@ storiesOf("Molecules", module)
             }
         },
         template: `
-            <div>
-                <avatar-name
-                    v-bind:avatar-props="{ src: avatarSrc }"
-                    v-bind:name="name"
-                />
-            </div>
+            <avatar-name
+                v-bind:avatar-props="{ src: avatarSrc }"
+                v-bind:name="name"
+            />
         `
     }));
