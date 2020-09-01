@@ -34,7 +34,9 @@
                 v-on:keydown.enter.exact="onEnterKey"
                 v-on:keydown.space.exact="onSpaceKey"
             >
-                {{ buttonText }}
+                <slot v-bind:name="'selected'">
+                    {{ buttonText }}
+                </slot>
             </div>
             <dropdown
                 v-bind:items="options"
