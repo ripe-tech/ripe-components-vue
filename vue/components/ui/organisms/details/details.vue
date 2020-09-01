@@ -13,7 +13,7 @@
                         v-bind:font-size="breadcrumbsFontSize"
                         v-bind:separator="breadcrumbsSeparator"
                         v-bind:breadcrumbs="title"
-                        v-if="title && Array.isArray(title)"
+                        v-if="hasBreadcrumbs"
                     />
                     <title-ripe v-else>
                         {{ invalid ? invalidTitle : title }}
@@ -99,7 +99,7 @@
                         v-bind:font-size="breadcrumbsFontSize"
                         v-bind:separator="breadcrumbsSeparator"
                         v-bind:breadcrumbs="title"
-                        v-if="title && Array.isArray(title)"
+                        v-if="hasBreadcrumbs"
                     />
                     <title-ripe v-else>
                         {{ title }}
@@ -568,6 +568,9 @@ export const Details = {
         },
         isLoading() {
             return !this.isLoaded;
+        },
+        hasBreadcrumbs() {
+            return this.title && Array.isArray(this.title);
         },
         hasIndex() {
             return this.index !== null && this.index !== undefined;

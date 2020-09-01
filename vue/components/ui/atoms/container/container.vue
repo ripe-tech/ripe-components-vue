@@ -7,7 +7,7 @@
                     v-bind:font-size="breadcrumbsFontSize"
                     v-bind:separator="breadcrumbsSeparator"
                     v-bind:breadcrumbs="title"
-                    v-if="title && Array.isArray(title)"
+                    v-if="hasBreadcrumbs"
                 />
                 <title-ripe v-else-if="title">
                     {{ title }}
@@ -151,6 +151,9 @@ export const Container = {
         }
     },
     computed: {
+        hasBreadcrumbs() {
+            return this.title && Array.isArray(this.title);
+        },
         hasHeaderButtons() {
             return (
                 this.headerButtons.length > 0 ||
