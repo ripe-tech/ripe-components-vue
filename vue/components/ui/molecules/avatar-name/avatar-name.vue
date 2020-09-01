@@ -1,6 +1,6 @@
 <template>
     <div class="avatar-name">
-        <avatar v-bind="{ ...{ size: 'tiny' }, ...avatarProps }" />
+        <avatar v-bind="{ size: 'tiny', ...avatarProps }" />
         <div class="name" v-bind:title="name">
             {{ name }}
         </div>
