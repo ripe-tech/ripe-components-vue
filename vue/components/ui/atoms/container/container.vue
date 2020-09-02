@@ -21,7 +21,6 @@
                                 class="header-button"
                                 v-bind="{
                                     text: button.text,
-                                    icon: button.icon,
                                     size: 'small',
                                     minWidth: 0,
                                     ...button.buttonColorProps

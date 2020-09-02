@@ -22,12 +22,19 @@ storiesOf("Atoms", module)
                 type: Array,
                 default: () => [
                     {
+                        id: "color",
+                        text: "Color",
+                        isButtonColor: true,
+                        buttonColorProps: {
+                            color: "red"
+                        }
+                    },
+                    {
                         id: "preview",
                         text: "Preview",
                         icon: "eye",
                         color: "none",
-                        size: 30,
-                        isButtonColor: true
+                        size: 30
                     },
                     {
                         id: "disabled",
