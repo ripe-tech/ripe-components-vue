@@ -184,7 +184,12 @@
                     />
                     <slot name="image-footer" />
                 </div>
-                <div class="details-column" v-for="column in columns" v-bind:key="column">
+                <div
+                    class="details-column"
+                    v-bind:style="detailsColumnStyle"
+                    v-for="column in columns"
+                    v-bind:key="column"
+                >
                     <slot v-bind:name="value.value" v-for="value in getColumnValues(column - 1)">
                         <div
                             class="label-value"
@@ -386,7 +391,6 @@ body.mobile .container-ripe .title {
     display: inline-block;
     padding: 20px 20px 0px 0px;
     vertical-align: top;
-    width: 15%;
 }
 
 body.tablet .container-ripe .details-column,
@@ -514,6 +518,10 @@ export const Details = {
             type: Array,
             required: true
         },
+        columnWidth: {
+            type: String,
+            default: null
+        },
         imageUrl: {
             type: String,
             default: null
@@ -580,6 +588,14 @@ export const Details = {
         },
         optionsScopedSlots() {
             return Object.keys(this.$scopedSlots).filter(slot => slot.startsWith("options-"));
+        },
+        detailsColumnStyle() {
+            const base = {
+                width: this.columnWidth
+                    ? this.columnWidth
+                    : `${(this.imageUrl ? 60 : 100) / this.columns}%`
+            };
+            return base;
         }
     },
     methods: {
