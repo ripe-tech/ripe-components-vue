@@ -384,6 +384,7 @@ body.mobile .container-ripe .title {
     font-size: 0px;
     padding: 0px 24px 40px 24px;
     text-align: left;
+    white-space: nowrap;
 }
 
 .container-ripe .details-column {
