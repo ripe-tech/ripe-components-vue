@@ -19,10 +19,10 @@
                         <template v-for="button in headerButtons">
                             <button-color
                                 class="header-button"
-                                v-bind:text="button.text"
                                 v-bind="{
+                                    text: button.text,
+                                    icon: button.icon,
                                     size: 'small',
-                                    alignment: 'left',
                                     minWidth: 0,
                                     ...button.buttonColorProps
                                 }"
@@ -34,7 +34,6 @@
                             <button-icon
                                 class="header-button"
                                 v-bind:text="button.text"
-                                v-bind:icon="button.icon"
                                 v-bind:color="button.color"
                                 v-bind:size="button.size"
                                 v-bind:icon-opacity="button.iconOpacity"
