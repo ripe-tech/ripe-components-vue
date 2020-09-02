@@ -121,7 +121,7 @@ body.mobile .container-ripe > .container-header {
 .container-ripe > .container-header > .header-buttons > .header-button {
     margin: 0px 4px 0px 0px;
     vertical-align: middle;
- }
+}
 
 body.tablet .container-ripe > .container-header > .header-buttons,
 body.mobile .container-ripe > .container-header > .header-buttons {
