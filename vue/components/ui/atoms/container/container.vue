@@ -3,7 +3,13 @@
         <div class="container-header" v-if="hasHeaderContent">
             <slot name="header-before" />
             <slot name="header">
-                <title-ripe v-if="title">
+                <breadcrumbs
+                    v-bind:font-size="breadcrumbsFontSize"
+                    v-bind:separator="breadcrumbsSeparator"
+                    v-bind:breadcrumbs="title"
+                    v-if="hasBreadcrumbs"
+                />
+                <title-ripe v-else-if="title">
                     {{ title }}
                 </title-ripe>
                 <slot name="header-buttons-before" />
@@ -86,7 +92,8 @@ body.mobile .container-ripe > .container-header {
     padding: 20px 15px 20px 15px;
 }
 
-.container-ripe > .container-header > .title {
+.container-ripe > .container-header > .title,
+.container-ripe > .container-header > .breadcrumbs {
     display: inline-block;
 }
 
@@ -127,8 +134,16 @@ export const Container = {
             default: "default"
         },
         title: {
-            type: String,
+            type: String | Array,
             default: null
+        },
+        breadcrumbsFontSize: {
+            type: Number,
+            default: 26
+        },
+        breadcrumbsSeparator: {
+            type: String,
+            default: "/"
         },
         headerButtons: {
             type: Array,
@@ -136,6 +151,9 @@ export const Container = {
         }
     },
     computed: {
+        hasBreadcrumbs() {
+            return this.title && Array.isArray(this.title);
+        },
         hasHeaderButtons() {
             return (
                 this.headerButtons.length > 0 ||
