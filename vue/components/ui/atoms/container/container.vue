@@ -26,7 +26,7 @@
                                     ...button.buttonColorProps
                                 }"
                                 v-show="!button.hide"
-                                v-if="button.isButtonColor"
+                                v-if="button.type === 'color'"
                                 v-bind:key="button.id"
                                 v-on:click="event => onHeaderButtonClick(event, button.id)"
                             />
