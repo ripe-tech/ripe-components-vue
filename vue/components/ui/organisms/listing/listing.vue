@@ -172,6 +172,10 @@ body.mobile .listing {
     min-height: 315px;
 }
 
+.listing .container-ripe .search {
+    vertical-align: middle;
+}
+
 .listing .filter-ripe ::v-deep table {
     margin-bottom: 0px;
 }

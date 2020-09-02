@@ -16,30 +16,46 @@
                 <slot name="header-buttons" v-if="hasHeaderButtons">
                     <div class="header-buttons">
                         <slot name="header-buttons-inside-before" />
-                        <button-icon
-                            class="header-button"
-                            v-bind:text="button.text"
-                            v-bind:icon="button.icon"
-                            v-bind:color="button.color"
-                            v-bind:size="button.size"
-                            v-bind:icon-opacity="button.iconOpacity"
-                            v-bind:icon-fill="button.iconFill"
-                            v-bind:icon-stroke-width="button.iconStrokeWidth"
-                            v-bind:padding="button.padding"
-                            v-bind:padding-top="button.paddingTop"
-                            v-bind:padding-bottom="button.paddingBottom"
-                            v-bind:padding-left="button.paddingLeft"
-                            v-bind:padding-right="button.paddingRight"
-                            v-bind:padding-factor="button.paddingFactor"
-                            v-bind:padding-text-factor="button.paddingTextFactor"
-                            v-bind:disabled="button.disabled"
-                            v-bind:selectable="button.selectable"
-                            v-bind:loading="button.loading"
-                            v-for="button in headerButtons"
-                            v-show="!button.hide"
-                            v-bind:key="button.id"
-                            v-on:click="event => onButtonIconClick(event, button.id)"
-                        />
+                        <template v-for="button in headerButtons">
+                            <button-color
+                                class="header-button"
+                                v-bind:text="button.text"
+                                v-bind="{
+                                    size: 'small',
+                                    alignment: 'left',
+                                    minWidth: 0,
+                                    ...button.buttonColorProps
+                                }"
+                                v-show="!button.hide"
+                                v-if="button.isButtonColor"
+                                v-bind:key="button.id"
+                                v-on:click="event => onHeaderButtonClick(event, button.id)"
+                            />
+                            <button-icon
+                                class="header-button"
+                                v-bind:text="button.text"
+                                v-bind:icon="button.icon"
+                                v-bind:color="button.color"
+                                v-bind:size="button.size"
+                                v-bind:icon-opacity="button.iconOpacity"
+                                v-bind:icon-fill="button.iconFill"
+                                v-bind:icon-stroke-width="button.iconStrokeWidth"
+                                v-bind:padding="button.padding"
+                                v-bind:padding-top="button.paddingTop"
+                                v-bind:padding-bottom="button.paddingBottom"
+                                v-bind:padding-left="button.paddingLeft"
+                                v-bind:padding-right="button.paddingRight"
+                                v-bind:padding-factor="button.paddingFactor"
+                                v-bind:padding-text-factor="button.paddingTextFactor"
+                                v-bind:disabled="button.disabled"
+                                v-bind:selectable="button.selectable"
+                                v-bind:loading="button.loading"
+                                v-show="!button.hide"
+                                v-else
+                                v-bind:key="button.id"
+                                v-on:click="event => onHeaderButtonClick(event, button.id)"
+                            />
+                        </template>
                         <slot name="header-buttons-inside-after" />
                     </div>
                 </slot>
@@ -102,6 +118,10 @@ body.mobile .container-ripe > .container-header {
     font-size: 0px;
     text-transform: capitalize;
     user-select: none;
+}
+
+.container-ripe > .container-header > .header-buttons > .header-button {
+    margin: 0px 4px 0px 0px;
 }
 
 body.tablet .container-ripe > .container-header > .header-buttons,
@@ -180,7 +200,7 @@ export const Container = {
         }
     },
     methods: {
-        onButtonIconClick(event, buttonId) {
+        onHeaderButtonClick(event, buttonId) {
             this.$emit("header-button:click", event, buttonId);
         }
     }

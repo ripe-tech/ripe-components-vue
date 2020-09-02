@@ -26,7 +26,8 @@ storiesOf("Atoms", module)
                         text: "Preview",
                         icon: "eye",
                         color: "none",
-                        size: 30
+                        size: 30,
+                        isButtonColor: true
                     },
                     {
                         id: "disabled",
