@@ -391,7 +391,6 @@ body.mobile .container-ripe .title {
     display: inline-block;
     padding: 20px 20px 0px 0px;
     vertical-align: top;
-    width: 15%;
 }
 
 body.tablet .container-ripe .details-column,
@@ -519,6 +518,10 @@ export const Details = {
             type: Array,
             required: true
         },
+        columnWidth: {
+            type: String,
+            default: null
+        },
         imageUrl: {
             type: String,
             default: null
@@ -587,8 +590,11 @@ export const Details = {
             return Object.keys(this.$scopedSlots).filter(slot => slot.startsWith("options-"));
         },
         detailsColumnStyle() {
-            const base = {};
-            if (!this.imageUrl) base.width = `${100 / this.columns}%`;
+            const base = {
+                width: this.columnWidth
+                    ? this.columnWidth
+                    : `${(this.imageUrl ? 60 : 100) / this.columns}%`
+            };
             return base;
         }
     },
