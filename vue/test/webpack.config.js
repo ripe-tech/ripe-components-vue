@@ -34,6 +34,10 @@ config.module.rules.push({
         }
     ]
 });
+config.module.rules.push({
+    test: /\.(css|scss|sass)$/,
+    use: ["null-loader"]
+});
 
 config.module.rules.find(rule => rule.loader === "vue-loader").options.optimizeSSR = false;
 
