@@ -2,15 +2,21 @@
     <div class="breadcrumbs">
         <template v-for="(breadcrumb, index) in breadcrumbs">
             <template v-if="index !== breadcrumbs.length - 1">
-                <link-ripe
-                    class="breadcrumb-link"
-                    v-bind:text="breadcrumb.text"
-                    v-bind:href="breadcrumb.href"
-                    v-bind:target="breadcrumb.target"
-                    v-bind:hover="'color'"
-                    v-bind:style="partStyle"
+                <router-link
+                    v-bind:to="breadcrumb.href"
+                    v-slot="{ href, navigate }"
                     v-bind:key="index"
-                />
+                >
+                    <link-ripe
+                        class="breadcrumb-link"
+                        v-bind:text="breadcrumb.text"
+                        v-bind:href="href"
+                        v-bind:target="breadcrumb.target"
+                        v-bind:hover="'color'"
+                        v-bind:style="partStyle"
+                        v-on:click="navigate"
+                    />
+                </router-link>
                 <div
                     class="breadcrumb-separator"
                     v-bind:style="separatorStyle"
