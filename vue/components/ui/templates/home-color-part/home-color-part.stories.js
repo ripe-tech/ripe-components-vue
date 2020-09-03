@@ -57,7 +57,7 @@ storiesOf("Templates", module)
                 default: () => [
                     {
                         name: "Products",
-                        to: "https://www.platforme.com/"
+                        to: "https://www.platforme.com"
                     },
                     {
                         name: "Prices",

@@ -64,7 +64,7 @@ storiesOf("Organisms", module)
             },
             createUrl: {
                 type: String,
-                default: text("Create Url", "https://www.platforme.com/")
+                default: text("Create Url", "https://www.platforme.com")
             }
         },
         data: function() {
