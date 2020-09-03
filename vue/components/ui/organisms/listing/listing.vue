@@ -187,6 +187,7 @@ body.mobile .listing {
 
 .listing .container-ripe .button-create {
     display: inline-block;
+    vertical-align: middle;
 }
 
 .listing .container-ripe .search {
