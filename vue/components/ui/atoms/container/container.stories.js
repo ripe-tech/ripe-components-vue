@@ -24,7 +24,7 @@ storiesOf("Atoms", module)
                     {
                         id: "color",
                         text: "Color",
-                        isButtonColor: true,
+                        type: "color",
                         buttonColorProps: {
                             color: "red"
                         }
