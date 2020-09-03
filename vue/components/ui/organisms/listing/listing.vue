@@ -185,7 +185,7 @@ body.mobile .listing {
     opacity: 0;
 }
 
-.listing .button-create {
+.listing .container-ripe .button-create {
     display: inline-block;
 }
 
