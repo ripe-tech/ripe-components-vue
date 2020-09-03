@@ -48,6 +48,7 @@
                 v-bind:get-items="getItems"
                 v-bind:get-item-url="getItemUrl"
                 v-bind:table-columns="tableColumns"
+                v-bind:table-alignment="tableAlignment"
                 v-bind:table-variant="tableVariant"
                 v-bind:lineup-fields="lineupFields"
                 v-bind:lineup-columns="lineupColumns"
@@ -215,6 +216,10 @@ export const Listing = {
         tableColumns: {
             type: Array,
             required: true
+        },
+        tableAlignment: {
+            type: String,
+            default: null
         },
         tableVariant: {
             type: String,
