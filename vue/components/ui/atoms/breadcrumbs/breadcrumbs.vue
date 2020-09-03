@@ -4,26 +4,19 @@
             <template v-if="index !== breadcrumbs.length - 1">
                 <router-link
                     v-bind:to="breadcrumb.href"
-                    v-if="typeof breadcrumb.href === 'object'"
+                    v-slot="{ href, navigate }"
                     v-bind:key="index"
                 >
                     <link-ripe
                         class="breadcrumb-link"
                         v-bind:text="breadcrumb.text"
+                        v-bind:href="href"
+                        v-bind:target="breadcrumb.target"
                         v-bind:hover="'color'"
                         v-bind:style="partStyle"
+                        v-on:click="navigate"
                     />
                 </router-link>
-                <link-ripe
-                    class="breadcrumb-link"
-                    v-bind:text="breadcrumb.text"
-                    v-bind:href="breadcrumb.href"
-                    v-bind:target="breadcrumb.target"
-                    v-bind:hover="'color'"
-                    v-bind:style="partStyle"
-                    v-else
-                    v-bind:key="index"
-                />
                 <div
                     class="breadcrumb-separator"
                     v-bind:style="separatorStyle"
