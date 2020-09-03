@@ -61,6 +61,10 @@ storiesOf("Organisms", module)
                 default: () => {
                     return {};
                 }
+            },
+            createUrl: {
+                type: String,
+                default: text("Create Url", "https://www.platforme.com/")
             }
         },
         data: function() {
@@ -108,6 +112,7 @@ storiesOf("Organisms", module)
                     v-bind:container-mode="containerMode"
                     v-bind:checkboxes="checkboxes"
                     v-bind:checked-items.sync="checkedItemsData"
+                    v-bind:create-url="createUrl"
                 >
                     <template v-slot:icons>
                         <img v-bind:src="img" v-bind:style="imgStyle" />
