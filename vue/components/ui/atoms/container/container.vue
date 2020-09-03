@@ -200,6 +200,7 @@ export const Container = {
     },
     methods: {
         onHeaderButtonClick(event, buttonId) {
+            this.$emit(`header-button:click:${buttonId}`, event);
             this.$emit("header-button:click", event, buttonId);
         }
     }
