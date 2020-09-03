@@ -279,6 +279,21 @@ body.mobile .container-ripe {
     padding-top: 140px;
 }
 
+body.tablet .container-ripe .header-buttons,
+body.mobile .container-ripe .header-buttons {
+    animation: none;
+    background-color: $white;
+    border-top: 1px solid $light-white;
+    bottom: 0px;
+    display: flex;
+    left: 0px;
+    position: fixed;
+    text-align: justify;
+    transition: none;
+    width: 100%;
+    z-index: 10;
+}
+
 .container-ripe .header-buttons > .header-button {
     display: inline-block;
 }

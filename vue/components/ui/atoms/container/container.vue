@@ -103,26 +103,6 @@ body.mobile .container-ripe > .container-header {
     text-transform: capitalize;
     user-select: none;
 }
-
-body.tablet .container-ripe > .container-header > .header-buttons,
-body.mobile .container-ripe > .container-header > .header-buttons {
-    animation: none;
-    background-color: $white;
-    border-top: 1px solid $light-white;
-    bottom: 0px;
-    display: flex;
-    left: 0px;
-    position: fixed;
-    text-align: justify;
-    transition: none;
-    width: 100%;
-    z-index: 10;
-}
-
-body.tablet .container-ripe > .container-header > .header-buttons > .header-button,
-body.mobile .container-ripe > .container-header > .header-buttons > .header-button {
-    flex: 1;
-}
 </style>
 
 <script>
