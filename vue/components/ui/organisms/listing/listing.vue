@@ -337,6 +337,7 @@ export const Listing = {
             return this.$refs.filter;
         },
         onHeaderButtonClick(event, buttonId) {
+            this.$emit(`header-button:click:${buttonId}`, event);
             this.$emit("header-button:click", event, buttonId);
         },
         onTableClick(item, index) {
