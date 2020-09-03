@@ -31,13 +31,20 @@
             </template>
             <template v-slot:header-buttons-inside-after>
                 <slot v-bind:name="'header-buttons-inside-after'" />
-                <router-link class="button-create" v-bind:to="createUrl">
+                <router-link
+                    class="button-create"
+                    v-bind:to="createUrl"
+                    v-if="createUrl"
+                    v-slot="{ href, navigate }"
+                >
                     <button-color
                         v-bind:text="`Create ${name}`"
                         v-bind:size="'small'"
                         v-bind:alignment="'left'"
                         v-bind:icon="'add'"
                         v-bind:min-width="0"
+                        v-bind:href="href"
+                        v-on:click="navigate"
                     />
                 </router-link>
                 <slot name="header-search">
@@ -178,6 +185,10 @@ body.mobile .listing {
     opacity: 0;
 }
 
+.listing .button-create {
+    display: inline-block;
+}
+
 .listing .container-ripe .search {
     margin: 0px 0px 0px 8px;
     vertical-align: middle;
@@ -313,7 +324,7 @@ export const Listing = {
         },
         createUrl: {
             type: String | Object,
-            default: "#"
+            default: null
         }
     },
     data: function() {
