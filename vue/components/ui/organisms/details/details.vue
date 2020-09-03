@@ -590,10 +590,11 @@ export const Details = {
             return Object.keys(this.$scopedSlots).filter(slot => slot.startsWith("options-"));
         },
         detailsColumnStyle() {
+            const desktopWidth = this.columnWidth
+                ? this.columnWidth
+                : `${(this.imageUrl ? 60 : 100) / this.columns}%`;
             const base = {
-                width: this.columnWidth
-                    ? this.columnWidth
-                    : `${(this.imageUrl ? 60 : 100) / this.columns}%`
+                width: this.isDesktopWidth() ? desktopWidth : null
             };
             return base;
         }
