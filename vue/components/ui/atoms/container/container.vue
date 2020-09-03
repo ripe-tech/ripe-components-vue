@@ -119,8 +119,11 @@ body.mobile .container-ripe > .container-header {
 }
 
 .container-ripe > .container-header > .header-buttons > .header-button {
-    margin: 0px 4px 0px 0px;
     vertical-align: middle;
+}
+
+.container-ripe > .container-header > .header-buttons > .header-button.button-color {
+    margin: 0px 4px 0px 0px;
 }
 
 body.tablet .container-ripe > .container-header > .header-buttons,
