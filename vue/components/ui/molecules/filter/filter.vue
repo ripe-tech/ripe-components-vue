@@ -158,6 +158,10 @@ export const Filter = {
             type: Boolean,
             default: false
         },
+        defaultSort: {
+            type: String,
+            default: "id"
+        },
         filterTimeout: {
             type: Number,
             default: 200
@@ -168,7 +172,7 @@ export const Filter = {
         }
     },
     data: function() {
-        const { sort = "id", reverse = this.defaultReverse } = this.useQuery
+        const { sort = this.defaultSort, reverse = this.defaultReverse } = this.useQuery
             ? this.parseQuery()
             : {};
         return {

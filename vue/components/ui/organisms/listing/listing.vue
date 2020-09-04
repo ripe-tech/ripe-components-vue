@@ -71,6 +71,7 @@
                 v-bind:lineup-variant="lineupVariant"
                 v-bind:limit="limit"
                 v-bind:default-reverse="defaultReverse"
+                v-bind:default-sort="defaultSort"
                 v-bind:filter="filter"
                 v-bind:use-query="useQuery"
                 v-bind:loading.sync="loading"
@@ -298,6 +299,10 @@ export const Listing = {
         defaultReverse: {
             type: Boolean,
             default: false
+        },
+        defaultSort: {
+            type: String,
+            default: "name"
         },
         useQuery: {
             type: Boolean,
