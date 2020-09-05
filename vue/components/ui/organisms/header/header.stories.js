@@ -68,6 +68,10 @@ storiesOf("Organisms", module)
                     pulse: {
                         text: "Pulse",
                         link: "https://pulse.platforme.com"
+                    },
+                    registry: {
+                        text: "Registry",
+                        link: "https://registry-ui.platforme.com"
                     }
                 },
                 mockLinks: [

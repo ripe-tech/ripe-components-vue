@@ -20,6 +20,12 @@ export const getApps = function(ctx, environment) {
                     link: "https://white-admin-ui.platforme.com"
                 };
             }
+            if (ctx.hasPermission("ripe-registry.ui")) {
+                apps.registry = {
+                    text: "Registry",
+                    link: "https://registry-ui.platforme.com"
+                };
+            }
             return apps;
         case "stage":
             if (ctx.hasPermission("ripe-copper.ui")) {
@@ -38,6 +44,12 @@ export const getApps = function(ctx, environment) {
                 apps.whiteAdmin = {
                     text: "White Admin Stage",
                     link: "https://ripe-white-admin-ui-stage.platforme.com"
+                };
+            }
+            if (ctx.hasPermission("ripe-registry.ui")) {
+                apps.registry = {
+                    text: "Registry Stage",
+                    link: "https://ripe-registry-ui-stage.platforme.com"
                 };
             }
             return apps;
@@ -60,6 +72,12 @@ export const getApps = function(ctx, environment) {
                     link: "https://ripe-white-admin-ui-sbx.platforme.com"
                 };
             }
+            if (ctx.hasPermission("ripe-registry.ui")) {
+                apps.registry = {
+                    text: "Registry Sandbox",
+                    link: "https://ripe-registry-ui-sbx.platforme.com"
+                };
+            }
             return apps;
         case "ci":
             if (ctx.hasPermission("ripe-copper.ui")) {
@@ -80,6 +98,12 @@ export const getApps = function(ctx, environment) {
                     link: "https://ripe-white-admin-ui-ci.platforme.com"
                 };
             }
+            if (ctx.hasPermission("ripe-registry.ui")) {
+                apps.registry = {
+                    text: "Registry CI",
+                    link: "https://ripe-registry-ui-ci.platforme.com"
+                };
+            }
             return apps;
         case "now":
             if (ctx.hasPermission("ripe-copper.ui")) {
@@ -98,6 +122,12 @@ export const getApps = function(ctx, environment) {
                 apps.whiteAdmin = {
                     text: "White Admin Now",
                     link: "https://ripe-white-admin-ui-now.platforme.com"
+                };
+            }
+            if (ctx.hasPermission("ripe-registry.ui")) {
+                apps.registry = {
+                    text: "Registry Now",
+                    link: "https://ripe-registry-ui-now.platforme.com"
                 };
             }
             return apps;
@@ -130,6 +160,12 @@ export const getApps = function(ctx, environment) {
                 apps.orchestra = {
                     text: "Orchestra Test",
                     link: "https://ripe-orchestra-ui-test.platforme.com"
+                };
+            }
+            if (ctx.hasPermission("ripe-registry.ui")) {
+                apps.registry = {
+                    text: "Registry Test",
+                    link: "https://ripe-registry-ui-test.platforme.com"
                 };
             }
             return apps;
