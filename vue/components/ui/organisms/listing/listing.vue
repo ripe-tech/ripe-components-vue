@@ -302,7 +302,7 @@ export const Listing = {
         },
         defaultSort: {
             type: String,
-            default: "name"
+            default: "id"
         },
         useQuery: {
             type: Boolean,
