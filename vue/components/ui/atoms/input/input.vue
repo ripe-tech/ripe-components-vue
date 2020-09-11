@@ -7,6 +7,7 @@
         v-bind:value="value"
         v-bind:placeholder="placeholder"
         v-bind:disabled="disabled"
+        v-bind:maxLength="maxLength"
         ref="input"
         v-on:input="event => onInput(event.target.value)"
         v-on:focus="onFocus"
@@ -146,6 +147,10 @@ export const Input = {
         },
         validationMessage: {
             type: String,
+            default: null
+        },
+        maxLength: {
+            type: Number,
             default: null
         }
     },

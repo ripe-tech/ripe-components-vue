@@ -66,6 +66,9 @@ storiesOf("Atoms", module)
             },
             height: {
                 default: number("Height", null)
+            },
+            maxLength: {
+                default: number("Max Length", null)
             }
         },
         data: function() {
@@ -94,7 +97,8 @@ storiesOf("Atoms", module)
                         v-bind:monospaced="monospaced"
                         v-bind:width="width"
                         v-bind:min-width="minWidth"
-                        v-bind:height="height" />
+                        v-bind:height="height"
+                        v-bind:maxLength="maxLength" />
                 </form-input>
                 <p>Text: {{ valueData }}</p>
             </div>
