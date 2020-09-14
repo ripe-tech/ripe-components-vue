@@ -18,6 +18,17 @@ storiesOf("Molecules", module)
             header: {
                 default: text("Header", "Header")
             },
+            alignment: {
+                default: select(
+                    "Alignment",
+                    {
+                        Left: "left",
+                        Center: "center",
+                        Right: "right"
+                    },
+                    "left"
+                )
+            },
             footer: {
                 default: text("Footer", "Footer")
             },
@@ -79,6 +90,7 @@ storiesOf("Molecules", module)
         template: `
             <form-input
                 v-bind:variant="variant"
+                v-bind:alignment="alignment"
                 v-bind:header="header"
                 v-bind:footer="footer"
                 v-bind:header-variant="headerVariant"
