@@ -33,6 +33,18 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
+.form-input.form-input-align-left {
+    text-align: left;
+}
+
+.form-input.form-input-align-center {
+    text-align: center;
+}
+
+.form-input.form-input-align-right {
+    text-align: right;
+}
+
 .form-input.form-input-inline {
     display: flex;
 }
@@ -101,6 +113,10 @@ export const FormInput = {
             type: String,
             default: null
         },
+        alignment: {
+            type: String,
+            default: "left"
+        },
         header: {
             type: String,
             default: null
@@ -143,6 +159,7 @@ export const FormInput = {
         },
         classes() {
             const base = {};
+            if (this.alignment) base[`form-input-align-${this.alignment}`] = true;
             if (this.variant) base[`form-input-${this.variant}`] = true;
             return base;
         },
