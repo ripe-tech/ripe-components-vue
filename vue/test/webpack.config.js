@@ -1,7 +1,6 @@
 const config = require("uxf-webpack/config/webpack.config.full");
 
 config.mode = "development";
-config.externals = ["vue"];
 config.output.devtoolModuleFilenameTemplate = "[absolute-resource-path]";
 config.output.devtoolFallbackModuleFilenameTemplate = "[absolute-resource-path]?[hash]";
 config.target = "node";
@@ -22,11 +21,22 @@ config.module.rules.push({
         {
             loader: "babel-loader",
             query: {
+                sourceType: "unambiguous",
                 presets: [
                     [
                         "@babel/preset-env",
                         {
-                            targets: { node: "current" }
+                            targets: { node: "current" },
+                            useBuiltIns: "usage",
+                            corejs: "3"
+                        }
+                    ]
+                ],
+                plugins: [
+                    [
+                        "@babel/plugin-transform-runtime",
+                        {
+                            regenerator: true
                         }
                     ]
                 ]
