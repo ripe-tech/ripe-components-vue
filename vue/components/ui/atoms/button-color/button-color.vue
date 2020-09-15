@@ -248,6 +248,11 @@
     width: 22px;
 }
 
+.button-color.button-color-no-text .icon,
+.button-color.button-color-no-text .icon-hover {
+    padding-right: 0px;
+}
+
 .button-color.button-color-small .icon,
 .button-color.button-color-small .icon-hover {
     height: 18px;
@@ -391,6 +396,7 @@ export const ButtonColor = {
             const base = {
                 "button-color-secondary": this.secondary,
                 "button-color-icon": this.icon,
+                "button-color-no-text": !this.text && !this.$slots.default,
                 disabled: this.disabled,
                 loading: this.loading
             };
