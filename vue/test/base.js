@@ -1,4 +1,4 @@
-const Vue = require("vue");
+const Vue = require("vue").default;
 const testUtils = require("@vue/test-utils");
 const globalEvents = require("vue-global-events");
 
