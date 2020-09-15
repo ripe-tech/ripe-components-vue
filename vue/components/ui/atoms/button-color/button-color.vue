@@ -248,11 +248,6 @@
     width: 22px;
 }
 
-.button-color.button-color-no-text .icon,
-.button-color.button-color-no-text .icon-hover {
-    padding-right: 0px;
-}
-
 .button-color.button-color-small .icon,
 .button-color.button-color-small .icon-hover {
     height: 18px;
@@ -265,6 +260,11 @@
     height: 15px;
     margin-top: 4px;
     width: 15px;
+}
+
+.button-color.button-color-no-text .icon,
+.button-color.button-color-no-text .icon-hover {
+    padding-right: 0px;
 }
 
 .button-color .icon {
