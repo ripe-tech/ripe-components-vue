@@ -18,7 +18,6 @@
             v-bind:color="iconColor"
             v-bind:width="iconSize"
             v-bind:height="iconSize"
-            v-bind:style="iconStyle"
             v-if="icon && !loading"
         />
         <icon
@@ -27,7 +26,6 @@
             v-bind:color="iconHoverColor"
             v-bind:width="iconSize"
             v-bind:height="iconSize"
-            v-bind:style="iconStyle"
             v-if="icon && !loading"
         />
         <span v-show="!loading">
@@ -246,7 +244,13 @@
     float: left;
     height: 22px;
     margin-top: 8px;
+    padding-right: 12px;
     width: 22px;
+}
+
+.button-color.button-color-no-text .icon,
+.button-color.button-color-no-text .icon-hover {
+    padding-right: 0px;
 }
 
 .button-color.button-color-small .icon,
@@ -392,6 +396,7 @@ export const ButtonColor = {
             const base = {
                 "button-color-secondary": this.secondary,
                 "button-color-icon": this.icon,
+                "button-color-no-text": !this.text && !this.$slots.default,
                 disabled: this.disabled,
                 loading: this.loading
             };
@@ -407,11 +412,6 @@ export const ButtonColor = {
             }
 
             return base;
-        },
-        iconStyle() {
-            return {
-                "padding-right": this.text || this.$slots.default ? 12 : 0
-            };
         }
     }
 };
