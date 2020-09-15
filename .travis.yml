@@ -7,6 +7,7 @@ node_js:
   - "13"
   - "14"
 install:
+  - rm -rf node_modules && rm -rf package-lock.json
   - npm install
 script: npm run lint && npm run build && npm run build-lib && npm test
 before_deploy: npm run build
