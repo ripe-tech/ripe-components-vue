@@ -18,6 +18,7 @@
             v-bind:color="iconColor"
             v-bind:width="iconSize"
             v-bind:height="iconSize"
+            v-bind:style="iconStyle"
             v-if="icon && !loading"
         />
         <icon
@@ -26,6 +27,7 @@
             v-bind:color="iconHoverColor"
             v-bind:width="iconSize"
             v-bind:height="iconSize"
+            v-bind:style="iconStyle"
             v-if="icon && !loading"
         />
         <span v-show="!loading">
@@ -244,7 +246,6 @@
     float: left;
     height: 22px;
     margin-top: 8px;
-    padding-right: 12px;
     width: 22px;
 }
 
@@ -406,6 +407,11 @@ export const ButtonColor = {
             }
 
             return base;
+        },
+        iconStyle() {
+            return {
+                "padding-right": this.text || this.$slots.default ? 12 : 0
+            };
         }
     }
 };
