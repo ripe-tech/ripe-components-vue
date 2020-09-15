@@ -27,7 +27,7 @@ config.module.rules.push({
                         "@babel/preset-env",
                         {
                             targets: { node: "current" },
-                            useBuiltIns: "usage",
+                            useBuiltIns: "entry",
                             corejs: "3"
                         }
                     ]
