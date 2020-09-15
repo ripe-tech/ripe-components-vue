@@ -19,3 +19,5 @@ deploy:
   on:
     tags: true
     node_js: "10"
+cache:
+  npm: false
