@@ -62,12 +62,12 @@ storiesOf("Atoms", module)
         template: `
             <div>
                 <reaction
-                v-bind:icon="icon" 
-                v-bind:imgUrl="imgUrl"
-                v-bind:emoji="emoji"
-                v-bind:count.sync="countData"
-                v-bind:user-reacted.sync="userReactedData"
-                v-bind:behavior="behavior"/>
+                    v-bind:icon="icon" 
+                    v-bind:imgUrl="imgUrl"
+                    v-bind:emoji="emoji"
+                    v-bind:count.sync="countData"
+                    v-bind:user-reacted.sync="userReactedData"
+                    v-bind:behavior="behavior" />
                 <p v-on:click="resetCount">Reactions (click to reset): {{ countData }}, User Reacted: {{ userReactedData }}</p>
             </div>
         `
