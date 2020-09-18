@@ -16,6 +16,7 @@
                 v-on:click="goHome"
             />
             <object
+                class="animation"
                 type="image/svg+xml"
                 v-bind:data="animatedSvg"
                 v-if="animations && hasAnimation"
@@ -66,6 +67,11 @@
 
 .error-message > img.clickable {
     cursor: pointer;
+}
+
+.error-message > .animation {
+    display: block;
+    width: 600px;
 }
 
 .error-message > div {
