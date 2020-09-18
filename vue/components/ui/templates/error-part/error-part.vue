@@ -15,6 +15,11 @@
                 v-if="image"
                 v-on:click="goHome"
             />
+            <object
+                type="image/svg+xml"
+                v-bind:data="animatedSvg"
+                v-if="animations && hasAnimation"
+            />
             <span>{{ message }}</span>
             <div>
                 <router-link
@@ -97,6 +102,10 @@ export const ErrorPart = {
         navigation: {
             type: Boolean,
             default: true
+        },
+        animations: {
+            type: Boolean,
+            default: true
         }
     },
     methods: {
@@ -110,6 +119,12 @@ export const ErrorPart = {
         }
     },
     computed: {
+        hasAnimation() {
+            return [404, 500].includes(this.code);
+        },
+        animatedSvg() {
+            return require(`./assets/${this.code}-loop-cropped.svg`);
+        },
         isAuth() {
             return [401, 403, 440, 499].includes(this.code);
         }
