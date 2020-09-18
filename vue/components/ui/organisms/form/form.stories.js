@@ -88,11 +88,11 @@ storiesOf("Organisms", module)
             return {
                 valuesData: {
                     username: "My username",
-                    email: "My email",
+                    email: "a@a.pt",
                     username2: "My username 2",
-                    email2: "My email 2",
+                    email2: "b@b.pt",
                     username3: "My username 3",
-                    email3: "My email 3",
+                    email3: "c@c.pt",
                     age: 1,
                     age2: 2
                 }
