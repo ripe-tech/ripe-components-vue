@@ -7,8 +7,13 @@
     >
         <form class="form-form" ref="form" v-on:submit.stop.prevent="onSubmit">
             <tabs v-bind:tabs="tabs">
-                <template v-for="(columns, tabName) in items" v-slot:[tabName]>
-                    <div class="column" v-for="(column, index) in columns" v-bind:key="index">
+                <template v-for="(columns, tab) in items" v-slot:[tab]>
+                    <div
+                        class="column"
+                        v-bind:style="columnStyle(tab)"
+                        v-for="(column, index) in columns"
+                        v-bind:key="index"
+                    >
                         <div class="section" v-for="section in column" v-bind:key="section.title">
                             <h3 class="section-title">{{ section.title }}</h3>
                             <template v-for="field in section.fields">
@@ -77,7 +82,6 @@
     display: inline-block;
     padding: 10px 10px 10px 10px;
     vertical-align: top;
-    width: 33.33%;
 }
 
 body.tablet .form > .form-form > .tabs .column,
@@ -106,8 +110,11 @@ body.mobile .form > .form-form > .tabs .column {
 </style>
 
 <script>
+import { partMixin } from "../../../../mixins";
+
 export const Form = {
     name: "form-ripe",
+    mixins: [partMixin],
     props: {
         title: {
             type: String,
@@ -177,6 +184,14 @@ export const Form = {
         }
     },
     methods: {
+        columnStyle(tabName) {
+            const tab = this.items[tabName];
+            const width = `${100 / tab.length}%`;
+            const base = {
+                width: this.isTabletWidth() || this.isMobileWidth() ? null : width
+            };
+            return base;
+        },
         goNext() {
             if (!this.navigation) return;
             if (!this.next) return;

@@ -113,6 +113,7 @@ storiesOf("Organisms", module)
         },
         template: `
             <div>
+                <global />
                 <form-ripe
                     v-bind:title="title"
                     v-bind:items="items"
