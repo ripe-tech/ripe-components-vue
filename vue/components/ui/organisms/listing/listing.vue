@@ -208,7 +208,7 @@ body.mobile .listing {
     vertical-align: middle;
 }
 
-.listing .container-ripe .search {
+.listing .container-ripe .search.search-mobile {
     margin: 0px 0px 16px 0px;
 }
 
