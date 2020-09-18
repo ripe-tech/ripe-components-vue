@@ -15,7 +15,18 @@
                 <slot v-bind:name="'header'" />
             </template>
             <template v-slot:header-before>
-                <slot v-bind:name="'header-before'" />
+                <slot v-bind:name="'header-before'">
+                    <slot name="header-search">
+                        <search
+                            class="search-mobile"
+                            v-bind:variant="'dark'"
+                            v-bind:placeholder="filterText ? filterText : `Search ${name}`"
+                            v-bind:value.sync="filter"
+                            v-bind:loading="loading"
+                            v-if="isMobileWidth()"
+                        />
+                    </slot>
+                </slot>
             </template>
             <template v-slot:header-after>
                 <slot v-bind:name="'header-after'" />
@@ -50,10 +61,11 @@
                 <slot name="header-search">
                     <search
                         v-bind:variant="'dark'"
-                        v-bind:width="isMobileWidth() ? null : searchWidth"
+                        v-bind:width="searchWidth"
                         v-bind:placeholder="filterText ? filterText : `Search ${name}`"
                         v-bind:value.sync="filter"
                         v-bind:loading="loading"
+                        v-if="!isMobileWidth()"
                     />
                 </slot>
             </template>
@@ -194,6 +206,10 @@ body.mobile .listing {
 .listing .container-ripe .search {
     margin: 0px 0px 0px 8px;
     vertical-align: middle;
+}
+
+.listing .container-ripe .search {
+    margin: 0px 0px 16px 0px;
 }
 
 .listing.empty .container-ripe {
