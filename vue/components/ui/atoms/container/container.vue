@@ -162,6 +162,7 @@ export const Container = {
     methods: {
         onButtonIconClick(event, buttonId) {
             this.$emit("header-button:click", event, buttonId);
+            this.$emit(`header-button:click:${buttonId}`, event);
         }
     }
 };
