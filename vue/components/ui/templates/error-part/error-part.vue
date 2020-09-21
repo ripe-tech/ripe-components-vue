@@ -81,9 +81,9 @@
 
 .error-message > .animation > .animated-svg.code404 {
     width: 1400px;
-    height: 600px;
+    height: 1000px;
     left: -472px;
-    top: -210px;
+    top: -400px;
 }
 
 .error-message > .animation > .animated-svg.code500 {
