@@ -16,7 +16,12 @@
                 v-on:click="goHome"
             />
             <div class="animation" v-if="animations && hasAnimation">
-                <object class="animated-svg" v-bind:class="animatedSvgClasses" type="image/svg+xml" v-bind:data="animatedSvg" />
+                <object
+                    class="animated-svg"
+                    v-bind:class="animatedSvgClasses"
+                    type="image/svg+xml"
+                    v-bind:data="animatedSvg"
+                />
             </div>
 
             <span>{{ message }}</span>
@@ -68,29 +73,28 @@
 }
 
 .error-message > .animation {
-    position: relative;
-    width: 400px;
     height: 200px;
     margin: 160px 0px 80px 0px;
+    position: relative;
+    width: 400px;
 }
 
 .error-message > .animation > .animated-svg {
     position: absolute;
-    z-index: 100;
 }
 
 .error-message > .animation > .animated-svg.code404 {
-    width: 1400px;
     height: 1000px;
     left: -472px;
     top: -400px;
+    width: 1400px;
 }
 
 .error-message > .animation > .animated-svg.code500 {
-    width: 700px;
     height: 400px;
     left: 0px;
     top: -130px;
+    width: 700px;
 }
 
 .error-message > div {
