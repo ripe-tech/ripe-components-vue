@@ -23,7 +23,6 @@
                     v-bind:data="animatedSvg"
                 />
             </div>
-
             <span>{{ message }}</span>
             <div>
                 <router-link
@@ -83,14 +82,14 @@
     position: absolute;
 }
 
-.error-message > .animation > .animated-svg.code404 {
+.error-message > .animation > .animated-svg.error-404 {
     height: 1000px;
     left: -472px;
     top: -400px;
     width: 1400px;
 }
 
-.error-message > .animation > .animated-svg.code500 {
+.error-message > .animation > .animated-svg.error-500 {
     height: 400px;
     left: 0px;
     top: -130px;
@@ -152,12 +151,12 @@ export const ErrorPart = {
             return [404, 500].includes(this.code);
         },
         animatedSvg() {
-            return require(`./assets/${this.code}-error-animation.svg`);
+            return require(`./assets/${this.code}.svg`);
         },
         animatedSvgClasses() {
             return {
-                code404: this.code === 404,
-                code500: this.code === 500
+                "error-404": this.code === 404,
+                "error-500": this.code === 500
             };
         },
         isAuth() {
