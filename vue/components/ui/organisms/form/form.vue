@@ -118,7 +118,7 @@ export const Form = {
     mixins: [partMixin],
     props: {
         title: {
-            type: String,
+            type: String | Array,
             required: true
         },
         items: {
