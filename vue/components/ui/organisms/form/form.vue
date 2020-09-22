@@ -43,10 +43,10 @@
                                         v-on:update:value="value => onValue(field.value, value)"
                                     >
                                         <template v-slot:selected>
-                                            <slot name="select-selected" />
+                                            <slot v-bind:name="`select-${field.value}-selected`" />
                                         </template>
                                         <template v-slot="{ item }">
-                                            <slot name="select" v-bind:item="item" />
+                                            <slot v-bind:name="`select-${field.value}`" v-bind:item="item" />
                                         </template>
                                     </select-ripe>
                                     <switcher
