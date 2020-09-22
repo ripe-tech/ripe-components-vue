@@ -15,6 +15,13 @@
                 v-if="image"
                 v-on:click="goHome"
             />
+            <div
+                class="animation"
+                v-bind:class="animationClasses"
+                v-if="animations && hasAnimation"
+            >
+                <object class="animated-svg" type="image/svg+xml" v-bind:data="animatedSvg" />
+            </div>
             <span>{{ message }}</span>
             <div>
                 <router-link
@@ -63,6 +70,31 @@
     cursor: pointer;
 }
 
+.error-message > .animation {
+    height: 300px;
+    margin: 30px 0px 30px 0px;
+    position: relative;
+    width: 500px;
+}
+
+.error-message > .animation.error-404 {
+    height: 400px;
+    margin-bottom: -100px;
+    width: 900px;
+}
+
+.error-message > .animation > .animated-svg {
+    height: 100%;
+    left: 0px;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+}
+
+.error-message > .animation.error-404 > .animated-svg {
+    top: -54px;
+}
+
 .error-message > div {
     margin: 24px auto 0px auto;
 }
@@ -97,6 +129,10 @@ export const ErrorPart = {
         navigation: {
             type: Boolean,
             default: true
+        },
+        animations: {
+            type: Boolean,
+            default: true
         }
     },
     methods: {
@@ -112,6 +148,17 @@ export const ErrorPart = {
     computed: {
         isAuth() {
             return [401, 403, 440, 499].includes(this.code);
+        },
+        hasAnimation() {
+            return [404, 500].includes(this.code);
+        },
+        animatedSvg() {
+            return require(`./assets/${this.code}.svg`);
+        },
+        animationClasses() {
+            const base = {};
+            base[`error-${this.code}`] = true;
+            return base;
         }
     }
 };
