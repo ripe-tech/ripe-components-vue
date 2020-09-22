@@ -61,7 +61,7 @@
                 </template>
             </tabs>
             <form-buttons
-                v-bind:reject="Boolean(onDelete)"
+                v-bind:reject="Boolean(onDiscard)"
                 v-bind:accept="Boolean(onSave)"
                 v-bind:reject-button-props="{
                     text: 'Discard'
@@ -72,6 +72,7 @@
                     type: 'submit',
                     loading: saving
                 }"
+                v-on:click:reject="onReject"
             />
         </form>
     </container-ripe>
@@ -141,6 +142,10 @@ export const Form = {
             type: String | Object,
             default: null
         },
+        onDiscard: {
+            type: Function,
+            default: null
+        },
         onSave: {
             type: Function,
             default: null
@@ -206,6 +211,10 @@ export const Form = {
                 this.$router.go(-1);
             }
         },
+        async discard() {
+            if (!this.onDiscard) return;
+            await this.onDiscard(this.values);
+        },
         async save() {
             if (!this.onSave) return;
             this.saving = true;
@@ -228,6 +237,9 @@ export const Form = {
         },
         onValue(field, value) {
             this.$set(this.valuesData, field, value);
+        },
+        async onReject() {
+            await this.discard();
         },
         async onSubmit() {
             await this.save();
