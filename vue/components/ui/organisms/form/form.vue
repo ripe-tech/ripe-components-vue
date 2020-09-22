@@ -46,10 +46,12 @@
                                             <slot v-bind:name="`select-${field.value}-selected`" />
                                         </template>
                                         <template v-slot="{ item }">
-                                            <slot
-                                                v-bind:name="`select-${field.value}`"
-                                                v-bind:item="item"
-                                            />
+                                            <slot v-bind:name="'select'" v-bind:item="item">
+                                                <slot
+                                                    v-bind:name="`select-${field.value}`"
+                                                    v-bind:item="item"
+                                                />
+                                            </slot>
                                         </template>
                                     </select-ripe>
                                     <switcher
