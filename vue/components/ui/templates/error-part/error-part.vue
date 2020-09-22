@@ -146,6 +146,9 @@ export const ErrorPart = {
         }
     },
     computed: {
+        isAuth() {
+            return [401, 403, 440, 499].includes(this.code);
+        },
         hasAnimation() {
             return [404, 500].includes(this.code);
         },
@@ -156,9 +159,6 @@ export const ErrorPart = {
             const base = {};
             base[`error-${this.code}`] = true;
             return base;
-        },
-        isAuth() {
-            return [401, 403, 440, 499].includes(this.code);
         }
     }
 };
