@@ -41,7 +41,17 @@
                                         v-bind:value="values[field.value]"
                                         v-else-if="field.type === 'select'"
                                         v-on:update:value="value => onValue(field.value, value)"
-                                    />
+                                    >
+                                        <template v-slot:selected>
+                                            <slot v-bind:name="`select-${field.value}-selected`" />
+                                        </template>
+                                        <template v-slot="{ item }">
+                                            <slot
+                                                v-bind:name="`select-${field.value}`"
+                                                v-bind:item="item"
+                                            />
+                                        </template>
+                                    </select-ripe>
                                     <switcher
                                         v-bind="field.props"
                                         v-bind:checked="values[field.value]"
