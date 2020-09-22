@@ -15,13 +15,12 @@
                 v-if="image"
                 v-on:click="goHome"
             />
-            <div class="animation" v-if="animations && hasAnimation">
-                <object
-                    class="animated-svg"
-                    v-bind:class="animatedSvgClasses"
-                    type="image/svg+xml"
-                    v-bind:data="animatedSvg"
-                />
+            <div
+                class="animation"
+                v-bind:class="animationClasses"
+                v-if="animations && hasAnimation"
+            >
+                <object class="animated-svg" type="image/svg+xml" v-bind:data="animatedSvg" />
             </div>
             <span>{{ message }}</span>
             <div>
@@ -72,28 +71,28 @@
 }
 
 .error-message > .animation {
-    height: 200px;
-    margin: 160px 0px 80px 0px;
+    height: 300px;
+    margin: 30px 0px 30px 0px;
     position: relative;
-    width: 400px;
+    width: 500px;
+}
+
+.error-message > .animation.error-404 {
+    height: 400px;
+    margin-bottom: -100px;
+    width: 900px;
 }
 
 .error-message > .animation > .animated-svg {
-    position: absolute;
-}
-
-.error-message > .animation > .animated-svg.error-404 {
-    height: 1000px;
-    left: -472px;
-    top: -400px;
-    width: 1400px;
-}
-
-.error-message > .animation > .animated-svg.error-500 {
-    height: 400px;
+    height: 100%;
     left: 0px;
-    top: -130px;
-    width: 700px;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+}
+
+.error-message > .animation.error-404 > .animated-svg {
+    top: -54px;
 }
 
 .error-message > div {
@@ -153,11 +152,10 @@ export const ErrorPart = {
         animatedSvg() {
             return require(`./assets/${this.code}.svg`);
         },
-        animatedSvgClasses() {
-            return {
-                "error-404": this.code === 404,
-                "error-500": this.code === 500
-            };
+        animationClasses() {
+            const base = {};
+            base[`error-${this.code}`] = true;
+            return base;
         },
         isAuth() {
             return [401, 403, 440, 499].includes(this.code);
