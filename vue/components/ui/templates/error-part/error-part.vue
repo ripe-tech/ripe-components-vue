@@ -152,7 +152,7 @@ export const ErrorPart = {
             return [404, 500].includes(this.code);
         },
         animatedSvg() {
-            return require(`./assets/${this.code}-loop-cropped.svg`);
+            return require(`./assets/${this.code}-error-animation.svg`);
         },
         animatedSvgClasses() {
             return {
