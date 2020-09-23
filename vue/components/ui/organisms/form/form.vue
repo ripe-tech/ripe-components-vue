@@ -82,13 +82,15 @@
                 v-bind:reject="Boolean(onDiscard)"
                 v-bind:accept="Boolean(onSave)"
                 v-bind:reject-button-props="{
-                    text: 'Discard'
+                    text: 'Discard',
+                    ...rejectButtonProps
                 }"
                 v-bind:accept-button-props="{
                     text: 'Save',
                     icon: 'save',
                     type: 'submit',
-                    loading: saving
+                    loading: saving,
+                    ...acceptButtonProps
                 }"
                 v-on:click:reject="onReject"
             />
@@ -159,6 +161,14 @@ export const Form = {
         next: {
             type: String | Object,
             default: null
+        },
+        rejectButtonProps: {
+            type: Object,
+            default: () => ({})
+        },
+        acceptButtonProps: {
+            type: Object,
+            default: () => ({})
         },
         onDiscard: {
             type: Function,
