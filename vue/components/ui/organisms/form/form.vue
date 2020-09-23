@@ -60,6 +60,12 @@
                                         v-else-if="field.type === 'boolean'"
                                         v-on:update:checked="value => onValue(field.value, value)"
                                     />
+                                    <textarea-ripe
+                                        v-bind="field.props"
+                                        v-bind:value="values[field.value]"
+                                        v-else-if="field.type === 'textarea'"
+                                        v-on:update:value="value => onValue(field.value, value)"
+                                    />
                                     <files-uploader
                                         v-bind="field.props"
                                         v-bind:files="values[field.value]"
