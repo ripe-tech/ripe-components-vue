@@ -181,6 +181,34 @@ export const Form = {
         onDelete: {
             type: Function,
             default: null
+        },
+        saveNotification: {
+            type: Boolean,
+            default: true
+        },
+        saveNotificationMessage: {
+            type: Function,
+            default: () => {
+                return "Changes saved!";
+            }
+        },
+        saveNotificationProps: {
+            type: Object,
+            default: () => ({})
+        },
+        errorNotification: {
+            type: Boolean,
+            default: true
+        },
+        errorNotificationMessage: {
+            type: Function,
+            default: error => {
+                return error.message ? error.message : "Something went wrong";
+            }
+        },
+        errorNotificationProps: {
+            type: Object,
+            default: () => ({})
         }
     },
     data: function() {
@@ -248,6 +276,26 @@ export const Form = {
             this.saving = true;
             try {
                 await this.onSave(this.values);
+
+                if (this.saveNotification) {
+                    this.notify(this.saveNotificationMessage(), {
+                        icon: "ok",
+                        iconColor: "#45a777",
+                        topHeight: 130,
+                        timeout: 2000,
+                        ...this.saveNotificationProps
+                    });
+                }
+            } catch (error) {
+                if (this.errorNotification) {
+                    this.notify(this.errorNotificationMessage(error), {
+                        icon: "error",
+                        iconColor: "#ce544d",
+                        topHeight: 130,
+                        timeout: 2000,
+                        ...this.errorNotificationProps
+                    });
+                }
             } finally {
                 this.saving = false;
             }
