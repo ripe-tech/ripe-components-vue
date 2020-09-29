@@ -1,7 +1,7 @@
 <template>
     <padded class="entity-editor">
         <form-ripe
-            v-bind:title="title"
+            v-bind:title="composedTitle"
             v-bind:items="items"
             v-bind:values.sync="valuesData"
             v-bind="{
@@ -42,10 +42,6 @@ export const EntityEditor = {
             type: String,
             required: true
         },
-        title: {
-            type: String | Array,
-            default: () => []
-        },
         items: {
             type: Object,
             required: true
@@ -54,17 +50,9 @@ export const EntityEditor = {
             type: Object,
             required: true
         },
-        formProps: {
-            type: Object,
-            default: () => ({})
-        },
-        clearFormValues: {
-            type: Object,
-            default: () => ({})
-        },
         getEntity: {
             type: Function,
-            default: () => {}
+            default: null
         },
         createEntity: {
             type: Function,
@@ -73,7 +61,24 @@ export const EntityEditor = {
         updateEntity: {
             type: Function,
             default: null
+        },
+        clearFormValues: {
+            type: Object,
+            default: () => ({})
+        },
+        getEntityName: {
+            type: Function,
+            default: null
+        },
+        title: {
+            type: String | Array,
+            default: null
+        },
+        formProps: {
+            type: Object,
+            default: () => ({})
         }
+
     },
     data: function() {
         return {
@@ -89,22 +94,17 @@ export const EntityEditor = {
         loading() {
             return !this.isCreate && !this.entity && !this.invalidRequest;
         },
-        entityCreateName() {
-            return `Create ${this.entityName}`;
-        },
         name() {
-            if (this.isCreate) return this.entityCreateName;
+            if (this.isCreate) return `New ${this.entityName}`;
             else return this.entity ? this.getEntityName(this.entity) : null;
         },
-        composedBreadcrumbs() {
-            return [
-                ...this.breadcrumbs,
-                this.list ? this._listRoute : null,
-                { text: this.name }
-            ].filter(v => v);
+        composedTitle() {
+            return Array.isArray(this.title)
+                ? this.title.concat([{ text: this.name }])
+                : this.title;
         },
         acceptButtonProps() {
-            return this.isCreate ? { text: this.entityCreateName } : {};
+            return this.isCreate ? { text: `Create ${this.entityName}` } : {};
         }
     },
     created: async function() {
