@@ -1,16 +1,12 @@
 <template>
     <padded class="entity-editor">
         <form-ripe
-            v-bind:title="composedTitle"
+            v-bind:title="_title"
             v-bind:items="items"
             v-bind:values.sync="valuesData"
-            v-bind="{
-                saveNotification: !isCreate,
-                acceptButtonProps: acceptButtonProps,
-                ...formProps
-            }"
+            v-bind="{saveNotification: true,...formProps}"
             v-bind:on-discard="onDiscard"
-            v-bind:on-save="onSave"
+            v-bind:on-save="updateEntity"
             v-if="!loading"
         >
             <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
@@ -38,15 +34,11 @@
 export const EntityEditor = {
     name: "entity-editor",
     props: {
-        entityName: {
-            type: String,
+        getName: {
+            type: Function,
             required: true
         },
         items: {
-            type: Object,
-            required: true
-        },
-        values: {
             type: Object,
             required: true
         },
@@ -54,25 +46,17 @@ export const EntityEditor = {
             type: Function,
             default: null
         },
-        createEntity: {
-            type: Function,
-            default: null
-        },
         updateEntity: {
-            type: Function,
-            default: null
-        },
-        clearFormValues: {
-            type: Object,
-            default: () => ({})
-        },
-        getEntityName: {
             type: Function,
             default: null
         },
         title: {
             type: String | Array,
             default: null
+        },
+        values: {
+            type: Object,
+            default: () => {}
         },
         formProps: {
             type: Object,
@@ -88,27 +72,18 @@ export const EntityEditor = {
         };
     },
     computed: {
-        isCreate() {
-            return Boolean(this.createEntity);
-        },
         loading() {
-            return !this.isCreate && !this.entity && !this.invalidRequest;
+            return !this.entity && !this.invalidRequest;
         },
         name() {
-            if (this.isCreate) return `New ${this.entityName}`;
-            else return this.entity ? this.getEntityName(this.entity) : null;
+            return this.entity ? this.getName(this.entity) : null;
         },
-        composedTitle() {
-            return Array.isArray(this.title)
-                ? this.title.concat([{ text: this.name }])
-                : this.title;
-        },
-        acceptButtonProps() {
-            return this.isCreate ? { text: `Create ${this.entityName}` } : {};
+        _title() {
+            return Array.isArray(this.title) ? this.title.concat([{ text: this.name }]) : this.title;
         }
     },
     created: async function() {
-        if (!this.isCreate) await this.loadEntity();
+        await this.loadEntity();
     },
     watch: {
         valuesData(value) {
@@ -118,9 +93,6 @@ export const EntityEditor = {
     methods: {
         resetForm() {
             this.valuesData = { ...this.entity };
-        },
-        clearForm() {
-            this.valuesData = this.clearFormValues;
         },
         async loadEntity() {
             try {
@@ -132,12 +104,10 @@ export const EntityEditor = {
             }
         },
         onDiscard() {
-            if (this.isCreate) this.clearForm();
-            else this.resetForm();
+            this.resetForm();
         },
         async onSave(values) {
-            if (this.isCreate) await this.createEntity(values);
-            else await this.updateEntity(values);
+            this.updateEntity(values);
         }
     }
 };
