@@ -6,7 +6,7 @@
             v-bind:values.sync="valuesData"
             v-bind="{ saveNotification: true, ...formProps }"
             v-bind:on-discard="onDiscard"
-            v-bind:on-save="updateEntity"
+            v-bind:on-save="onSave"
             v-if="!loading"
         >
             <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />

@@ -1,7 +1,7 @@
 <template>
     <padded class="entity-creator">
         <form-ripe
-            v-bind:title="composedTitle"
+            v-bind:title="_title"
             v-bind:items="items"
             v-bind:values.sync="valuesData"
             v-bind="{
