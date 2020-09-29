@@ -286,6 +286,8 @@ export const Form = {
                         ...this.saveNotificationProps
                     });
                 }
+
+                this.goNext();
             } catch (error) {
                 if (this.errorNotification) {
                     this.notify(this.errorNotificationMessage(error), {
@@ -299,17 +301,17 @@ export const Form = {
             } finally {
                 this.saving = false;
             }
-            this.goNext();
         },
         async delete() {
             if (!this.onDelete) return;
             this.deleting = true;
             try {
                 await this.onDelete();
+
+                this.goPrevious();
             } finally {
                 this.deleting = false;
             }
-            this.goPrevious();
         },
         onValue(field, value) {
             this.$set(this.valuesData, field, value);
