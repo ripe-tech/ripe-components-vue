@@ -21,8 +21,11 @@
 <style lang="scss" scoped></style>
 
 <script>
+import { partMixin } from "../../../../mixins";
+
 export const EntityShow = {
     name: "entity-show",
+    mixins: [partMixin],
     props: {
         name: {
             type: String,
@@ -71,6 +74,10 @@ export const EntityShow = {
             }
         },
         errorNotificationProps: {
+            type: Object,
+            default: () => ({})
+        },
+        detailsProps: {
             type: Object,
             default: () => ({})
         }
