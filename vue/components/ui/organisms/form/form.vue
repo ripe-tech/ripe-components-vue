@@ -42,13 +42,21 @@
                                         v-else-if="field.type === 'select'"
                                         v-on:update:value="value => onValue(field.value, value)"
                                     >
-                                        <template v-slot:selected>
-                                            <slot v-bind:name="`select-${field.value}-selected`" />
+                                        <template v-slot:selected="{ item }">
+                                            <slot
+                                                v-bind:name="'select-selected'"
+                                                v-bind:item="item"
+                                            >
+                                                <slot
+                                                    v-bind:name="`${field.value}-select-selected`"
+                                                    v-bind:item="item"
+                                                />
+                                            </slot>
                                         </template>
                                         <template v-slot="{ item }">
                                             <slot v-bind:name="'select'" v-bind:item="item">
                                                 <slot
-                                                    v-bind:name="`select-${field.value}`"
+                                                    v-bind:name="`${field.value}-select`"
                                                     v-bind:item="item"
                                                 />
                                             </slot>
