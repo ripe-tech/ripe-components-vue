@@ -19,11 +19,10 @@
                             <template v-for="field in section.fields">
                                 <form-input
                                     class="section-field"
-                                    v-bind:header="fieldLabel(field)"
-                                    v-bind="{
-                                        ...requiredFieldProps(field),
-                                        ...field.formInputProps
-                                    }"
+                                    v-bind:header="
+                                        field.label !== undefined ? field.label : field.value
+                                    "
+                                    v-bind="field.formInputProps"
                                     v-bind:key="field.value"
                                 >
                                     <input-ripe
@@ -222,7 +221,6 @@ export const Form = {
     },
     data: function() {
         return {
-            saveAttempted: false,
             saving: false,
             deleting: false,
             valuesData: this.values
@@ -264,18 +262,6 @@ export const Form = {
             };
             return base;
         },
-        fieldLabel(field) {
-            return field.label !== undefined ? field.label : field.value;
-        },
-        requiredFieldProps(field) {
-            return field.required
-                ? {
-                      title: `${this.fieldLabel(field)} required`,
-                      "header-variant":
-                          this.saveAttempted && !this.valuesData[field.value] ? "error" : null
-                  }
-                : {};
-        },
         goNext() {
             if (!this.navigation) return;
             if (!this.next) return;
@@ -295,7 +281,7 @@ export const Form = {
         },
         async save() {
             if (!this.onSave) return;
-            this.saving = this.saveAttempted = true;
+            this.saving = true;
             try {
                 await this.onSave(this.values);
 
