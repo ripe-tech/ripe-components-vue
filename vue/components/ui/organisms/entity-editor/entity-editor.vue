@@ -56,7 +56,7 @@ export const EntityEditor = {
         },
         values: {
             type: Object,
-            default: () => {}
+            default: () => ({})
         },
         formProps: {
             type: Object,

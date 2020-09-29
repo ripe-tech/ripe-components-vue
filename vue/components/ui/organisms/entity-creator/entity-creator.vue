@@ -48,7 +48,7 @@ export const EntityCreator = {
         },
         values: {
             type: Object,
-            default: () => {}
+            default: () => ({})
         },
         clearFormValues: {
             type: Object,
