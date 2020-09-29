@@ -1,14 +1,19 @@
 <template>
     <details-ripe
-        v-bind:title="title"
+        v-bind:title="_title"
         v-bind:name="name"
         v-bind:values="values"
         v-bind:item="entity"
         v-bind:get-items="getEntities"
+        v-bind:options-items="optionsItems"
+        v-on:click:stats="onStatsButtonClick"
+        v-on:click:refresh="onRefreshButtonClick"
+        v-on:click:edit="onEditButtonClick"
+        v-on:click:delete="onDeleteButtonClick"
     >
         <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
         <template v-for="slot in Object.keys($scopedSlots)" v-bind:slot="slot" slot-scope="scope">
-            <slot v-bind:name="slot" v-bind="scope" />
+            <slot v-bind:name="slot" v-bind="scope" v-bind:entity="entity" />
         </template>
     </details-ripe>
 </template>
@@ -23,10 +28,6 @@ export const EntityShow = {
             type: String,
             required: true
         },
-        title: {
-            type: String,
-            required: true
-        },
         values: {
             type: Array,
             required: true
@@ -35,15 +36,107 @@ export const EntityShow = {
             type: Function,
             required: true
         },
+        getEntityName: {
+            type: Function,
+            required: true
+        },
         getEntities: {
             type: Function,
             required: true
+        },
+        title: {
+            type: String | Array,
+            default: null
+        },
+        listRoute: {
+            type: Object | String,
+            default: null
+        },
+        editRoute: {
+            type: Object | String,
+            default: null
+        },
+        deleteEntity: {
+            type: Function,
+            default: null
+        },
+        errorNotification: {
+            type: Boolean,
+            default: true
+        },
+        errorNotificationMessage: {
+            type: Function,
+            default: error => {
+                return error.message ? error.message : "Something went wrong";
+            }
+        },
+        errorNotificationProps: {
+            type: Object,
+            default: () => ({})
         }
     },
     data: function() {
         return {
             entity: {}
         };
+    },
+    computed: {
+        entityName() {
+            return this.getEntityName(this.entity);
+        },
+        _title() {
+            if (Array.isArray(this.title)) {
+                return this.entity ? this.title.concat([{ text: this.entityName }]) : null;
+            } else return this.title;
+        },
+        _listRoute() {
+            return this.listRoute || { name: `${this.name.toLowerCase()}-list` };
+        },
+        optionsItems() {
+            return [
+                this.editRoute ? { label: "Edit", value: "edit", event: "edit" } : null,
+                this.deleteEntity ? { label: "Delete", value: "delete", event: "delete" } : null
+            ].filter(v => v);
+        }
+    },
+    created: async function() {
+        await this.loadEntity();
+    },
+    methods: {
+        async loadEntity() {
+            this.entity = await this.getEntity();
+        },
+        async delete() {
+            try {
+                await this.deleteEntity();
+                this.$router.push(this._listRoute);
+            } catch (error) {
+                this.notify(this.errorNotificationMessage(error), {
+                    icon: "error",
+                    iconColor: "#ce544d",
+                    topHeight: 130,
+                    timeout: 2000,
+                    ...this.errorNotificationProps
+                });
+            }
+        },
+        onStatsButtonClick() {
+            this.$router.push(this._listRoute);
+        },
+        async onRefreshButtonClick() {
+            await this.loadEntity();
+        },
+        onEditButtonClick() {
+            this.$router.push(this.editRoute);
+        },
+        async onDeleteButtonClick() {
+            const confirmed = await this.alert(
+                `Are you sure you really want to <strong>delete ${this.name} ${this.entityName}</strong>?<br/>Please bare in mind that this action <strong>is not reversible</strong>!`,
+                { title: `Delete ${this.name} ${this.entityName}` }
+            );
+
+            if (confirmed) await this.delete();
+        }
     }
 };
 
