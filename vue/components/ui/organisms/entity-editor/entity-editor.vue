@@ -1,8 +1,8 @@
 <template>
-    <padded>
+    <padded class="entity-editor">
         <form-ripe
-            v-bind:title="breadcrumbs"
-            v-bind:items="formItems"
+            v-bind:title="title"
+            v-bind:items="items"
             v-bind:values.sync="valuesData"
             v-bind="{
                 saveNotification: !isCreate,
@@ -38,28 +38,20 @@
 export const EntityEditor = {
     name: "entity-editor",
     props: {
-        isCreate: {
-            type: Boolean,
-            default: false
-        },
         entityName: {
             type: String,
             required: true
         },
-        breadcrumbs: {
+        title: {
             type: String | Array,
             default: () => []
         },
-        formItems: {
+        items: {
             type: Object,
             required: true
         },
         values: {
             type: Object,
-            required: true
-        },
-        isFormValid: {
-            type: Boolean,
             required: true
         },
         formProps: {
@@ -76,11 +68,11 @@ export const EntityEditor = {
         },
         createEntity: {
             type: Function,
-            default: () => {}
+            default: null
         },
         updateEntity: {
             type: Function,
-            default: () => {}
+            default: null
         }
     },
     data: function() {
@@ -91,6 +83,9 @@ export const EntityEditor = {
         };
     },
     computed: {
+        isCreate() {
+            return Boolean(this.createEntity);
+        },
         loading() {
             return !this.isCreate && !this.entity && !this.invalidRequest;
         },
@@ -141,8 +136,6 @@ export const EntityEditor = {
             else this.resetForm();
         },
         async onSave(values) {
-            if (!this.isFormValid) throw Error("Invalid Form");
-
             if (this.isCreate) await this.createEntity(values);
             else await this.updateEntity(values);
         }
