@@ -29,7 +29,7 @@
 </template>
 
 <style lang="scss" scoped>
-.entity-edit > .container-loading {
+.entity-editor > .container-loading {
     padding: 150px 0px 150px 0px;
 }
 </style>
