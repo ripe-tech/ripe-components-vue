@@ -66,13 +66,12 @@ export const EntityEditor = {
     data: function() {
         return {
             valuesData: this.values,
-            entity: null,
-            invalidRequest: false
+            entity: null
         };
     },
     computed: {
         loading() {
-            return !this.entity && !this.invalidRequest;
+            return !this.entity;
         },
         name() {
             return this.entity ? this.getName(this.entity) : null;
@@ -96,13 +95,8 @@ export const EntityEditor = {
             this.valuesData = { ...this.entity };
         },
         async loadEntity() {
-            try {
-                this.invalidRequest = false;
-                this.entity = await this.getEntity();
-                this.resetForm();
-            } catch (error) {
-                this.invalidRequest = true;
-            }
+            this.entity = await this.getEntitie();
+            this.resetForm();
         },
         onDiscard() {
             this.resetForm();
