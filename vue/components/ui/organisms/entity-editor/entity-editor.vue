@@ -4,7 +4,7 @@
             v-bind:title="_title"
             v-bind:items="items"
             v-bind:values.sync="valuesData"
-            v-bind="{saveNotification: true,...formProps}"
+            v-bind="{ saveNotification: true, ...formProps }"
             v-bind:on-discard="onDiscard"
             v-bind:on-save="updateEntity"
             v-if="!loading"
@@ -44,11 +44,11 @@ export const EntityEditor = {
         },
         getEntity: {
             type: Function,
-            default: null
+            required: true
         },
         updateEntity: {
             type: Function,
-            default: null
+            required: true
         },
         title: {
             type: String | Array,
@@ -62,7 +62,6 @@ export const EntityEditor = {
             type: Object,
             default: () => ({})
         }
-
     },
     data: function() {
         return {
@@ -79,7 +78,9 @@ export const EntityEditor = {
             return this.entity ? this.getName(this.entity) : null;
         },
         _title() {
-            return Array.isArray(this.title) ? this.title.concat([{ text: this.name }]) : this.title;
+            return Array.isArray(this.title)
+                ? this.title.concat([{ text: this.name }])
+                : this.title;
         }
     },
     created: async function() {
