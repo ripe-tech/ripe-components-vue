@@ -2,7 +2,7 @@
     <padded class="entity-editor">
         <form-ripe
             v-bind:title="_title"
-            v-bind:items="items"
+            v-bind:fields="fields"
             v-bind:values.sync="valuesData"
             v-bind="formProps"
             v-bind:on-discard="onDiscard"
@@ -38,7 +38,7 @@ export const EntityEditor = {
             type: Function,
             default: entity => entity.name
         },
-        items: {
+        fields: {
             type: Object,
             required: true
         },

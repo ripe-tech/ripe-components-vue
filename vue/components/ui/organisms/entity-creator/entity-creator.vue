@@ -2,7 +2,7 @@
     <padded class="entity-creator">
         <form-ripe
             v-bind:title="_title"
-            v-bind:items="items"
+            v-bind:fields="fields"
             v-bind:values.sync="valuesData"
             v-bind="{
                 saveNotification: false,
@@ -34,7 +34,7 @@ export const EntityCreator = {
             type: String,
             required: true
         },
-        items: {
+        fields: {
             type: Object,
             required: true
         },
