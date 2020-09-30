@@ -95,7 +95,7 @@ export const EntityEditor = {
             this.valuesData = { ...this.entity };
         },
         async loadEntity() {
-            this.entity = await this.getEntitie();
+            this.entity = await this.getEntity();
             this.resetForm();
         },
         onDiscard() {
