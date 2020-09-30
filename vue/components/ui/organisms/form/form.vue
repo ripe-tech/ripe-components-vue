@@ -115,7 +115,7 @@
 .form > .form-form > .tabs .column {
     box-sizing: border-box;
     display: inline-block;
-    padding: 10px 0px 10px 0px;
+    padding: 10px 10px 10px 10px;
     vertical-align: top;
 }
 
@@ -123,7 +123,7 @@ body.tablet .form > .form-form > .tabs .column,
 body.mobile .form > .form-form > .tabs .column {
     box-sizing: border-box;
     margin: 0px 0px 0px 0px;
-    padding: 0px 0px 0px 00px;
+    padding: 0px 10px 0px 10px;
     width: 100%;
 }
 
