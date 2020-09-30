@@ -3,6 +3,7 @@
         class="form"
         v-bind:title="title"
         v-bind:header-buttons="buttons"
+        v-on:header-button:click="onHeaderButtonClick"
         v-on:header-button:click:delete="onDeleteClick"
     >
         <form class="form-form" ref="form" v-on:submit.stop.prevent="onSubmit">
@@ -171,6 +172,10 @@ export const Form = {
             type: Boolean,
             default: true
         },
+        headerButtons: {
+            type: Array,
+            default: () => []
+        },
         previous: {
             type: String | Object,
             default: null
@@ -241,7 +246,8 @@ export const Form = {
                     color: "none",
                     loading: this.deleting,
                     size: 32
-                }
+                },
+                ...this.headerButtons
             ].filter(v => v);
         },
         tabs() {
@@ -334,6 +340,9 @@ export const Form = {
         },
         async onSubmit() {
             await this.save();
+        },
+        onHeaderButtonClick(event, buttonId) {
+            this.$emit("header-button:click", event, buttonId);
         },
         async onDeleteClick() {
             await this.delete();
