@@ -98,6 +98,7 @@
                     icon: 'save',
                     type: 'submit',
                     loading: saving,
+                    minWidth: 100,
                     ...acceptButtonProps
                 }"
                 v-on:click:reject="onReject"
