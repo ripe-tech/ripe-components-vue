@@ -7,7 +7,7 @@
     >
         <form class="form-form" ref="form" v-on:submit.stop.prevent="onSubmit">
             <tabs v-bind:tabs="tabs">
-                <template v-for="(columns, tab) in items" v-slot:[tab]>
+                <template v-for="(columns, tab) in fields" v-slot:[tab]>
                     <div
                         class="column"
                         v-bind:style="columnStyle(tab)"
@@ -155,7 +155,7 @@ export const Form = {
             type: String | Array,
             required: true
         },
-        items: {
+        fields: {
             type: Object,
             required: true
         },
@@ -245,8 +245,8 @@ export const Form = {
             ].filter(v => v);
         },
         tabs() {
-            return Object.keys(this.items).map(item => ({
-                value: item
+            return Object.keys(this.fields).map(field => ({
+                value: field
             }));
         }
     },
@@ -260,7 +260,7 @@ export const Form = {
     },
     methods: {
         columnStyle(tabName) {
-            const tab = this.items[tabName];
+            const tab = this.fields[tabName];
             const width = `${100 / tab.length}%`;
             const base = {
                 width: this.isTabletWidth() || this.isMobileWidth() ? null : width
