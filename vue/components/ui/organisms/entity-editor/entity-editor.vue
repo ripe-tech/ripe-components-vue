@@ -3,11 +3,13 @@
         <form-ripe
             v-bind:title="_title"
             v-bind:fields="fields"
+            v-bind:header-buttons="headerButtons"
             v-bind:values.sync="valuesData"
             v-bind="formProps"
             v-bind:on-discard="onDiscard"
             v-bind:on-save="onSave"
             v-if="!loading"
+            v-on:header-button:click="onHeaderButtonClick"
         >
             <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
             <template
@@ -53,6 +55,10 @@ export const EntityEditor = {
         title: {
             type: String | Array,
             default: null
+        },
+        headerButtons: {
+            type: Array,
+            default: () => []
         },
         values: {
             type: Object,
@@ -103,6 +109,9 @@ export const EntityEditor = {
         },
         async onSave(values) {
             this.updateEntity(values);
+        },
+        onHeaderButtonClick(event, buttonId) {
+            this.$emit("header-button:click", event, buttonId);
         }
     }
 };
