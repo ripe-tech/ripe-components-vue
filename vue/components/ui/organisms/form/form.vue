@@ -107,6 +107,10 @@
 </template>
 
 <style lang="scss" scoped>
+.form > .form-form {
+    padding: 0px 24px 0px 24px;
+}
+
 .form > .form-form > .tabs .column {
     box-sizing: border-box;
     display: inline-block;
