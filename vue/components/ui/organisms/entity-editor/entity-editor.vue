@@ -4,6 +4,7 @@
             v-bind:title="_title"
             v-bind:fields="fields"
             v-bind:header-buttons="headerButtons"
+            v-bind:on-delete="onDelete"
             v-bind:values.sync="valuesData"
             v-bind="formProps"
             v-bind:on-discard="onDiscard"
@@ -54,6 +55,10 @@ export const EntityEditor = {
         },
         title: {
             type: String | Array,
+            default: null
+        },
+        onDelete: {
+            type: Function,
             default: null
         },
         headerButtons: {
