@@ -196,9 +196,7 @@ export const Form = {
         },
         saveNotificationMessage: {
             type: Function,
-            default: () => {
-                return "Changes saved!";
-            }
+            default: values => "Changes saved!"
         },
         saveNotificationProps: {
             type: Object,
@@ -210,9 +208,7 @@ export const Form = {
         },
         errorNotificationMessage: {
             type: Function,
-            default: error => {
-                return error.message ? error.message : "Something went wrong";
-            }
+            default: error => error.message || "Something went wrong"
         },
         errorNotificationProps: {
             type: Object,
@@ -286,7 +282,7 @@ export const Form = {
                 await this.onSave(this.values);
 
                 if (this.saveNotification) {
-                    this.notify(this.saveNotificationMessage(), {
+                    this.notify(this.saveNotificationMessage(this.values), {
                         icon: "ok",
                         iconColor: "#45a777",
                         topHeight: 130,

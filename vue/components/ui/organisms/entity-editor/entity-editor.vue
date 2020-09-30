@@ -4,7 +4,7 @@
             v-bind:title="_title"
             v-bind:items="items"
             v-bind:values.sync="valuesData"
-            v-bind="{ saveNotification: true, ...formProps }"
+            v-bind="formProps"
             v-bind:on-discard="onDiscard"
             v-bind:on-save="onSave"
             v-if="!loading"
@@ -36,7 +36,7 @@ export const EntityEditor = {
     props: {
         getName: {
             type: Function,
-            required: true
+            default: entity => entity.name
         },
         items: {
             type: Object,
