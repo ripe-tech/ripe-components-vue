@@ -2,7 +2,7 @@
     <details-ripe
         v-bind:title="_title"
         v-bind:name="name"
-        v-bind:values="values"
+        v-bind:values="fields"
         v-bind:item="entity"
         v-bind:get-items="getEntities"
         v-bind:options-items="optionsItems"
@@ -31,7 +31,7 @@ export const EntityShow = {
             type: String,
             required: true
         },
-        values: {
+        fields: {
             type: Array,
             required: true
         },
