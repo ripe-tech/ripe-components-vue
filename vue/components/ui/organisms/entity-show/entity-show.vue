@@ -3,8 +3,8 @@
         v-bind:title="_title"
         v-bind:name="name"
         v-bind:values="fields"
-        v-bind:item="entity"
-        v-bind:get-items="getEntities"
+        v-bind:item="item"
+        v-bind:get-items="getItems"
         v-bind:options-items="optionsItems"
         v-bind:loaded="Boolean(entity)"
         v-on:click:stats="onStatsButtonClick"
@@ -91,6 +91,12 @@ export const EntityShow = {
         };
     },
     computed: {
+        item() {
+            return this.entity;
+        },
+        getItems() {
+            return this.getEntities;
+        },
         entityName() {
             return this.getEntityName(this.entity);
         },
