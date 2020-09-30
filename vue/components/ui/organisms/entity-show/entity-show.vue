@@ -6,6 +6,7 @@
         v-bind:item="entity"
         v-bind:get-items="getEntities"
         v-bind:options-items="optionsItems"
+        v-bind:loaded="Boolean(entity)"
         v-on:click:stats="onStatsButtonClick"
         v-on:click:refresh="onRefreshButtonClick"
         v-on:click:edit="onEditButtonClick"
@@ -39,17 +40,21 @@ export const EntityShow = {
             type: Function,
             required: true
         },
-        getEntityName: {
-            type: Function,
-            required: true
-        },
         getEntities: {
             type: Function,
             required: true
         },
         title: {
-            type: String | Array,
+            type: String,
             default: null
+        },
+        breadcrumbs: {
+            type: Array,
+            default: null
+        },
+        getEntityName: {
+            type: Function,
+            required: entity => entity.name || null
         },
         listRoute: {
             type: Object | String,
@@ -63,17 +68,15 @@ export const EntityShow = {
             type: Function,
             default: null
         },
-        errorNotification: {
+        errorMessage: {
             type: Boolean,
             default: true
         },
-        errorNotificationMessage: {
+        getErrorMessage: {
             type: Function,
-            default: error => {
-                return error.message ? error.message : "Something went wrong";
-            }
+            default: error => error.message || "Something went wrong"
         },
-        errorNotificationProps: {
+        errorMessageProps: {
             type: Object,
             default: () => ({})
         },
@@ -92,9 +95,10 @@ export const EntityShow = {
             return this.getEntityName(this.entity);
         },
         _title() {
-            if (Array.isArray(this.title)) {
-                return this.entity ? this.title.concat([{ text: this.entityName }]) : null;
-            } else return this.title;
+            if (this.title) return this.title;
+            if (this.breadcrumbs) return this.title.concat([{ text: this.entityName }]);
+
+            return null;
         },
         _listRoute() {
             return this.listRoute || { name: `${this.name.toLowerCase()}-list` };
@@ -118,12 +122,12 @@ export const EntityShow = {
                 await this.deleteEntity();
                 this.$router.push(this._listRoute);
             } catch (error) {
-                this.notify(this.errorNotificationMessage(error), {
+                this.notify(this.getErrorMessage(error), {
                     icon: "error",
                     iconColor: "#ce544d",
                     topHeight: 130,
                     timeout: 2000,
-                    ...this.errorNotificationProps
+                    ...this.errorMessageProps
                 });
             }
         },
