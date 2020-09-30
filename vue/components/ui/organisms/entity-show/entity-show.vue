@@ -54,7 +54,7 @@ export const EntityShow = {
         },
         getEntityName: {
             type: Function,
-            default: entity => entity.name || null
+            default: entity => entity.name
         },
         listRoute: {
             type: Object | String,
