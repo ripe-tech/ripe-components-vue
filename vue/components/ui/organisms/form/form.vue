@@ -127,8 +127,13 @@ body.tablet .form > .form-form > .tabs .column,
 body.mobile .form > .form-form > .tabs .column {
     box-sizing: border-box;
     margin: 0px 0px 0px 0px;
-    padding: 0px 10px 0px 10px;
+    padding: 0px 20px 0px 0px;
     width: 100%;
+}
+
+body.tablet .form > .form-form > .tabs .column:not(:last-child),
+body.mobile .form > .form-form > .tabs .column:not(:last-child)  {
+    padding: 0px 0px 0px 0px;
 }
 
 .form > .form-form > .tabs .column > .section > .section-title {
