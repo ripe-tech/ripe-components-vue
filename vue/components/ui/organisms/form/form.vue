@@ -115,25 +115,20 @@
 .form > .form-form > .tabs .column {
     box-sizing: border-box;
     display: inline-block;
-    padding: 10px 20px 10px 0px;
+    padding: 10px 0px 10px 0px;
     vertical-align: top;
 }
 
 .form > .form-form > .tabs .column:not(:last-child) {
-    padding: 10px 0px 10px 0px;
+    padding: 10px 20px 10px 0px;
 }
 
 body.tablet .form > .form-form > .tabs .column,
 body.mobile .form > .form-form > .tabs .column {
     box-sizing: border-box;
     margin: 0px 0px 0px 0px;
-    padding: 0px 20px 0px 0px;
-    width: 100%;
-}
-
-body.tablet .form > .form-form > .tabs .column:not(:last-child),
-body.mobile .form > .form-form > .tabs .column:not(:last-child)  {
     padding: 0px 0px 0px 0px;
+    width: 100%;
 }
 
 .form > .form-form > .tabs .column > .section > .section-title {
