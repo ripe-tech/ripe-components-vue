@@ -9,7 +9,7 @@ storiesOf("Organisms", module)
                 type: String,
                 default: text("Title", "My form")
             },
-            items: {
+            fields: {
                 type: Object,
                 default: () => ({
                     "General Info": [
@@ -116,7 +116,7 @@ storiesOf("Organisms", module)
                 <global />
                 <form-ripe
                     v-bind:title="title"
-                    v-bind:items="items"
+                    v-bind:fields="fields"
                     v-bind:values.sync="valuesData"
                     v-bind:on-delete="onDelete"
                     v-bind:on-save="onSave"
