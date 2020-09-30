@@ -54,7 +54,7 @@ export const EntityShow = {
         },
         getEntityName: {
             type: Function,
-            required: entity => entity.name || null
+            default: entity => entity.name || null
         },
         listRoute: {
             type: Object | String,
@@ -96,7 +96,7 @@ export const EntityShow = {
         },
         _title() {
             if (this.title) return this.title;
-            if (this.breadcrumbs) return this.title.concat([{ text: this.entityName }]);
+            if (this.breadcrumbs) return this.breadcrumbs.concat([{ text: this.entityName }]);
 
             return null;
         },
