@@ -36,14 +36,6 @@ export const EntityShow = {
             type: Array,
             required: true
         },
-        getEntity: {
-            type: Function,
-            required: true
-        },
-        getEntities: {
-            type: Function,
-            required: true
-        },
         title: {
             type: String,
             default: null
@@ -51,6 +43,14 @@ export const EntityShow = {
         breadcrumbs: {
             type: Array,
             default: null
+        },
+        getEntity: {
+            type: Function,
+            required: true
+        },
+        getEntities: {
+            type: Function,
+            required: true
         },
         getEntityName: {
             type: Function,
@@ -68,19 +68,11 @@ export const EntityShow = {
             type: Function,
             default: null
         },
-        errorMessage: {
-            type: Boolean,
-            default: true
-        },
         getErrorMessage: {
             type: Function,
             default: error => error.message || "Something went wrong"
         },
         errorMessageProps: {
-            type: Object,
-            default: () => ({})
-        },
-        detailsProps: {
             type: Object,
             default: () => ({})
         }
@@ -92,10 +84,13 @@ export const EntityShow = {
     },
     computed: {
         item() {
-            return this.entity;
+            return this._entityToItem(this.entity);
         },
         getItems() {
-            return this.getEntities;
+            return async () => {
+                const entitites = await this.getEntities();
+                return entitites.map(entity => this._entityToItem(entity));
+            };
         },
         entityName() {
             return this.getEntityName(this.entity);
@@ -103,7 +98,6 @@ export const EntityShow = {
         _title() {
             if (this.title) return this.title;
             if (this.breadcrumbs) return this.breadcrumbs.concat([{ text: this.entityName }]);
-
             return null;
         },
         _listRoute() {
@@ -120,6 +114,9 @@ export const EntityShow = {
         await this.loadEntity();
     },
     methods: {
+        _entityToItem(entity) {
+            return entity;
+        },
         async loadEntity() {
             this.entity = await this.getEntity();
         },
