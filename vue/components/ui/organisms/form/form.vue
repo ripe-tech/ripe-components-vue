@@ -38,21 +38,22 @@
                                                     'string',
                                                     'number',
                                                     'email',
-                                                    'input'
+                                                    'input',
+                                                    'image-url'
                                                 ].includes(field.meta)
                                         "
                                         v-on:update:value="value => onValue(field.value, value)"
-                                    />
-                                    <image-ripe
-                                        class="text-image"
-                                        v-bind:src="values[field.value]"
-                                        v-else-if="field.meta === 'image-url'"
                                     />
                                     <textarea-ripe
                                         v-bind="field.props"
                                         v-bind:value="values[field.value]"
                                         v-else-if="field.meta === 'longtext'"
                                         v-on:update:value="value => onValue(field.value, value)"
+                                    />
+                                    <image-ripe
+                                        class="text-image"
+                                        v-bind:src="values[field.value] || field.imageSrc"
+                                        v-if="field.meta === 'image-url'"
                                     />
                                     <select-ripe
                                         v-bind="field.props"
