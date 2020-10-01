@@ -1,14 +1,15 @@
 <template>
     <padded class="entity-editor">
         <form-ripe
-            v-bind:title="_title"
-            v-bind:fields="fields"
-            v-bind:header-buttons="headerButtons"
-            v-bind:on-delete="onDelete"
             v-bind:values.sync="valuesData"
-            v-bind="formProps"
-            v-bind:on-discard="onDiscard"
-            v-bind:on-save="onSave"
+            v-bind="{
+                title: _title,
+                fields: fields,
+                onDelete: onDelete,
+                onDiscard: onDiscard,
+                onSave: onSave,
+                ...formProps
+            }"
             v-if="!loading"
             v-on:header-button:click="onHeaderButtonClick"
         >
@@ -60,10 +61,6 @@ export const EntityEditor = {
         onDelete: {
             type: Function,
             default: null
-        },
-        headerButtons: {
-            type: Array,
-            default: () => []
         },
         values: {
             type: Object,

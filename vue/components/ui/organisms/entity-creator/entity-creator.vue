@@ -1,17 +1,16 @@
 <template>
     <padded class="entity-creator">
         <form-ripe
-            v-bind:title="_title"
-            v-bind:fields="fields"
-            v-bind:header-buttons="headerButtons"
             v-bind:values.sync="valuesData"
             v-bind="{
+                title: _title,
+                fields: fields,
                 saveNotification: false,
                 acceptButtonProps: { text: `Create ${name}` },
+                onDiscard: onDiscard,
+                onSave: onSave,
                 ...formProps
             }"
-            v-bind:on-discard="onDiscard"
-            v-bind:on-save="onSave"
             v-on:header-button:click="onHeaderButtonClick"
         >
             <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
@@ -47,10 +46,6 @@ export const EntityCreator = {
         title: {
             type: String | Array,
             default: null
-        },
-        headerButtons: {
-            type: Array,
-            default: () => []
         },
         values: {
             type: Object,
