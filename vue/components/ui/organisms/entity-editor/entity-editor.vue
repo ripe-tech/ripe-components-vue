@@ -39,9 +39,9 @@
 export const EntityEditor = {
     name: "entity-editor",
     props: {
-        getName: {
-            type: Function,
-            default: entity => entity.name
+        name: {
+            type: String,
+            required: true
         },
         fields: {
             type: Object,
@@ -54,6 +54,10 @@ export const EntityEditor = {
         updateEntity: {
             type: Function,
             required: true
+        },
+        getName: {
+            type: Function,
+            default: entity => entity.name
         },
         title: {
             type: String,
