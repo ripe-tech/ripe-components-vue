@@ -172,7 +172,11 @@ export const Form = {
             type: Boolean,
             default: true
         },
-        headerButtons: {
+        headerButtonsBefore: {
+            type: Array,
+            default: () => []
+        },
+        headerButtonsAfter: {
             type: Array,
             default: () => []
         },
@@ -239,6 +243,7 @@ export const Form = {
     computed: {
         buttons() {
             return [
+                ...this.headerButtonsBefore,
                 this.onDelete && {
                     id: "delete",
                     text: "Delete",
@@ -247,7 +252,7 @@ export const Form = {
                     loading: this.deleting,
                     size: 32
                 },
-                ...this.headerButtons
+                ...this.headerButtonsAfter
             ].filter(v => v);
         },
         tabs() {
