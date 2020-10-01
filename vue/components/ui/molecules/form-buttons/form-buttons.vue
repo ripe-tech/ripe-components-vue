@@ -28,8 +28,8 @@
 
 <style lang="scss" scoped>
 .forms-buttons {
-    text-align: right;
     margin: 24px 10px 24px 10px;
+    text-align: right;
 }
 
 .forms-buttons > .button-reject {
