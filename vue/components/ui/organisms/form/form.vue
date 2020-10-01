@@ -27,7 +27,7 @@
                                     v-bind:key="field.value"
                                 >
                                     <input-ripe
-                                        v-bind:type="field.meta"
+                                        v-bind:type="inputType(field)"
                                         v-bind="field.props"
                                         v-bind:value="values[field.value]"
                                         v-if="
@@ -47,12 +47,12 @@
                                     <image-ripe
                                         class="text-image"
                                         v-bind:src="values[field.value]"
-                                        v-if="field.type === 'text' && field.meta === 'image-url'"
+                                        v-else-if="field.meta === 'image-url'"
                                     />
                                     <textarea-ripe
                                         v-bind="field.props"
                                         v-bind:value="values[field.value]"
-                                        v-else-if="field.type === 'text' && field.meta === 'long'"
+                                        v-else-if="field.meta === 'longtext'"
                                         v-on:update:value="value => onValue(field.value, value)"
                                     />
                                     <select-ripe
@@ -160,13 +160,10 @@ body.mobile .form > .form-form > .tabs .column {
     margin-bottom: 0px;
 }
 
-.form > .form-form > .tabs .column > .section > .section-field ::v-deep .content {
-    text-align: center;
-}
-
 .form > .form-form > .tabs .column > .section > .section-field .text-image {
     box-sizing: border-box;
-    margin: 20px 0px 0px 0px;
+    display: block;
+    margin: 20px auto 0px auto;
     max-height: 70px;
     max-width: 100%;
     padding: 0px 10px 0px 10px;
@@ -301,6 +298,9 @@ export const Form = {
                 width: this.isTabletWidth() || this.isMobileWidth() ? null : width
             };
             return base;
+        },
+        inputType(field) {
+            return field.meta;
         },
         goNext() {
             if (!this.navigation) return;
