@@ -6,10 +6,10 @@
                 title: _title,
                 fields: fields,
                 saveNotification: false,
-                acceptButtonProps: { text: `Create ${name}` },
                 onDiscard: onDiscard,
                 onSave: onSave,
-                ...formProps
+                ...formProps,
+                acceptButtonProps: { text: `Create ${name}`, ...formProps.acceptButtonProps }
             }"
             v-on:header-button:click="onHeaderButtonClick"
         >
