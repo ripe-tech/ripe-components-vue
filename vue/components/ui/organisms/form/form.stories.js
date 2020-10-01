@@ -19,11 +19,12 @@ storiesOf("Organisms", module)
                                 fields: [
                                     {
                                         value: "username",
-                                        type: "string"
+                                        type: "text"
                                     },
                                     {
                                         value: "email",
-                                        type: "email"
+                                        type: "text",
+                                        meta: "email"
                                     }
                                 ]
                             },
@@ -32,11 +33,12 @@ storiesOf("Organisms", module)
                                 fields: [
                                     {
                                         value: "username2",
-                                        type: "string"
+                                        type: "text"
                                     },
                                     {
                                         value: "email2",
-                                        type: "email"
+                                        type: "text",
+                                        meta: "email"
                                     }
                                 ]
                             }
@@ -47,11 +49,17 @@ storiesOf("Organisms", module)
                                 fields: [
                                     {
                                         value: "username3",
-                                        type: "string"
+                                        type: "text"
                                     },
                                     {
-                                        value: "email3",
-                                        type: "email"
+                                        value: "description",
+                                        type: "text",
+                                        meta: "long"
+                                    },
+                                    {
+                                        value: "imageUrl",
+                                        type: "text",
+                                        meta: "image-url"
                                     }
                                 ]
                             }
@@ -64,7 +72,8 @@ storiesOf("Organisms", module)
                                 fields: [
                                     {
                                         value: "age",
-                                        type: "number"
+                                        type: "text",
+                                        meta: "number"
                                     }
                                 ]
                             }
@@ -75,7 +84,8 @@ storiesOf("Organisms", module)
                                 fields: [
                                     {
                                         value: "age2",
-                                        type: "number"
+                                        type: "text",
+                                        meta: "number"
                                     }
                                 ]
                             }
@@ -94,7 +104,9 @@ storiesOf("Organisms", module)
                     username3: "My username 3",
                     email3: "c@c.pt",
                     age: 1,
-                    age2: 2
+                    age2: 2,
+                    description: "",
+                    imageUrl: "https://pepethefrogfaith.files.wordpress.com/2016/09/pepe.png?w=640"
                 }
             };
         },

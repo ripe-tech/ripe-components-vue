@@ -27,14 +27,32 @@
                                     v-bind:key="field.value"
                                 >
                                     <input-ripe
-                                        v-bind:type="field.type"
+                                        v-bind:type="inputType(field)"
                                         v-bind="field.props"
                                         v-bind:value="values[field.value]"
                                         v-if="
-                                            ['string', 'number', 'email', 'input'].includes(
-                                                field.type
-                                            )
+                                            field.type === 'text' &&
+                                                [
+                                                    null,
+                                                    undefined,
+                                                    'string',
+                                                    'number',
+                                                    'email',
+                                                    'input',
+                                                    'image-url'
+                                                ].includes(field.meta)
                                         "
+                                        v-on:update:value="value => onValue(field.value, value)"
+                                    />
+                                    <image-ripe
+                                        class="text-image"
+                                        v-bind:src="values[field.value]"
+                                        v-else-if="field.meta === 'image-url'"
+                                    />
+                                    <textarea-ripe
+                                        v-bind="field.props"
+                                        v-bind:value="values[field.value]"
+                                        v-else-if="field.meta === 'longtext'"
                                         v-on:update:value="value => onValue(field.value, value)"
                                     />
                                     <select-ripe
@@ -68,12 +86,6 @@
                                         v-bind:checked="values[field.value]"
                                         v-else-if="field.type === 'boolean'"
                                         v-on:update:checked="value => onValue(field.value, value)"
-                                    />
-                                    <textarea-ripe
-                                        v-bind="field.props"
-                                        v-bind:value="values[field.value]"
-                                        v-else-if="field.type === 'textarea'"
-                                        v-on:update:value="value => onValue(field.value, value)"
                                     />
                                     <files-uploader
                                         v-bind="field.props"
@@ -146,6 +158,15 @@ body.mobile .form > .form-form > .tabs .column {
 
 .form > .form-form > .tabs .column > .section > .section-field:last-child {
     margin-bottom: 0px;
+}
+
+.form > .form-form > .tabs .column > .section > .section-field .text-image {
+    box-sizing: border-box;
+    display: block;
+    margin: 20px auto 0px auto;
+    max-height: 70px;
+    max-width: 100%;
+    padding: 0px 10px 0px 10px;
 }
 </style>
 
@@ -277,6 +298,9 @@ export const Form = {
                 width: this.isTabletWidth() || this.isMobileWidth() ? null : width
             };
             return base;
+        },
+        inputType(field) {
+            return field.meta;
         },
         goNext() {
             if (!this.navigation) return;
