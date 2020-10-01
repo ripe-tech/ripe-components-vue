@@ -28,16 +28,12 @@
 
 <style lang="scss" scoped>
 .forms-buttons {
-    border-top: 1px solid #e4e8f0;
-    box-sizing: border-box;
-    margin: 56px 0px 0px 0px;
-    padding: 28px 28px 28px 28px;
+    margin: 24px 10px 24px 10px;
     text-align: right;
-    width: 100%;
 }
 
 .forms-buttons > .button-reject {
-    margin: 0px 8px 0px 0px;
+    margin: 0px 6px 0px 0px;
 }
 </style>
 
