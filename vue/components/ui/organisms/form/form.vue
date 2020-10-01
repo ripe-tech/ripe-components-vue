@@ -26,39 +26,37 @@
                                     v-bind="field.formInputProps"
                                     v-bind:key="field.value"
                                 >
+                                    <template v-if="type === 'text' && field.meta === 'image-url'">
+                                        <input-ripe
+                                            v-bind:type="inputType(field)"
+                                            v-bind="field.props"
+                                            v-bind:value="values[field.value]"
+                                            v-on:update:value="value => onValue(field.value, value)"
+                                        />
+                                        <image-ripe
+                                            class="text-image"
+                                            v-bind:src="values[field.value] || field.imageSrc"
+                                        />
+                                    </template>
+                                    <textarea-ripe
+                                        v-bind="field.props"
+                                        v-bind:value="values[field.value]"
+                                        v-else-if="
+                                            field.type === 'text' && field.meta === 'longtext'
+                                        "
+                                        v-on:update:value="value => onValue(field.value, value)"
+                                    />
                                     <input-ripe
                                         v-bind:type="inputType(field)"
                                         v-bind="field.props"
                                         v-bind:value="values[field.value]"
-                                        v-if="
-                                            field.type === 'text' &&
-                                                [
-                                                    null,
-                                                    undefined,
-                                                    'string',
-                                                    'number',
-                                                    'email',
-                                                    'input',
-                                                    'image-url'
-                                                ].includes(field.meta)
-                                        "
+                                        v-else-if="field.type === 'text'"
                                         v-on:update:value="value => onValue(field.value, value)"
-                                    />
-                                    <textarea-ripe
-                                        v-bind="field.props"
-                                        v-bind:value="values[field.value]"
-                                        v-else-if="field.meta === 'longtext'"
-                                        v-on:update:value="value => onValue(field.value, value)"
-                                    />
-                                    <image-ripe
-                                        class="text-image"
-                                        v-bind:src="values[field.value] || field.imageSrc"
-                                        v-if="field.meta === 'image-url'"
                                     />
                                     <select-ripe
                                         v-bind="field.props"
                                         v-bind:value="values[field.value]"
-                                        v-else-if="field.type === 'select'"
+                                        v-else-if="field.type === 'enum'"
                                         v-on:update:value="value => onValue(field.value, value)"
                                     >
                                         <template v-slot:selected="{ item }">
