@@ -73,6 +73,9 @@ export const EntityCreator = {
         }
     },
     watch: {
+        values(value) {
+            this.valuesData = value;
+        },
         valuesData(value) {
             this.$emit("update:values", value);
         }
