@@ -55,7 +55,11 @@ export const EntityEditor = {
             required: true
         },
         title: {
-            type: String | Array,
+            type: String,
+            default: null
+        },
+        breadcrumbs: {
+            type: Array,
             default: null
         },
         onDelete: {
@@ -81,13 +85,13 @@ export const EntityEditor = {
         loading() {
             return !this.entity;
         },
-        name() {
+        entityName() {
             return this.entity ? this.getName(this.entity) : null;
         },
         _title() {
-            return Array.isArray(this.title)
-                ? this.title.concat([{ text: this.name }])
-                : this.title;
+            if (this.title) return this.title;
+            if (this.breadcrumbs) return this.breadcrumbs.concat([{ text: this.entityName }]);
+            return null;
         }
     },
     created: async function() {

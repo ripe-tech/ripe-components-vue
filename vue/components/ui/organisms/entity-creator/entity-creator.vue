@@ -44,7 +44,11 @@ export const EntityCreator = {
             required: true
         },
         title: {
-            type: String | Array,
+            type: String,
+            default: null
+        },
+        breadcrumbs: {
+            type: Array,
             default: null
         },
         values: {
@@ -67,9 +71,9 @@ export const EntityCreator = {
     },
     computed: {
         _title() {
-            return Array.isArray(this.title)
-                ? this.title.concat([{ text: `New ${this.name}` }])
-                : this.title;
+            if (this.title) return this.title;
+            if (this.breadcrumbs) return this.breadcrumbs.concat([{ text: this.name }]);
+            return null;
         }
     },
     watch: {
