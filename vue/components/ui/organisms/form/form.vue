@@ -38,8 +38,7 @@
                                                     'string',
                                                     'number',
                                                     'email',
-                                                    'input',
-                                                    'image-url'
+                                                    'input'
                                                 ].includes(field.meta)
                                         "
                                         v-on:update:value="value => onValue(field.value, value)"
