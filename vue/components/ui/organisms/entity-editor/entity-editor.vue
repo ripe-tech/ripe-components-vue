@@ -94,9 +94,6 @@ export const EntityEditor = {
         await this.loadEntity();
     },
     watch: {
-        values(value) {
-            this.valuesData = value;
-        },
         valuesData(value) {
             this.$emit("update:values", value);
         }
