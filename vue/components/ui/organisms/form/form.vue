@@ -11,15 +11,22 @@
                 <template v-for="(columns, tab) in fields" v-slot:[tab]>
                     <div
                         class="column"
+                        v-bind:classes="columnClasses(index)"
                         v-bind:style="columnStyle(tab)"
                         v-for="(column, index) in columns"
                         v-bind:key="index"
                     >
-                        <div class="section" v-for="section in column" v-bind:key="section.title">
+                        <div
+                            class="section"
+                            v-bind:classes="sectionClasses(sectionIndex)"
+                            v-for="(section, sectionIndex) in column"
+                            v-bind:key="section.title"
+                        >
                             <h3 class="section-title">{{ section.title }}</h3>
                             <template v-for="field in section.fields">
                                 <form-input
                                     class="section-field"
+                                    v-bind:classes="formInputClasses(field)"
                                     v-bind:header="
                                         field.label !== undefined ? field.label : field.value
                                     "
@@ -291,12 +298,25 @@ export const Form = {
         }
     },
     methods: {
+        columnClasses(index) {
+            return `column-${index}`;
+        },
         columnStyle(tabName) {
             const tab = this.fields[tabName];
             const width = `${100 / tab.length}%`;
             const base = {
                 width: this.isTabletWidth() || this.isMobileWidth() ? null : width
             };
+            return base;
+        },
+        sectionClasses(index) {
+            return `section-${index}`;
+        },
+        formInputClasses(field) {
+            const base = {};
+            base[`field-${field.value}`] = Boolean(field.value);
+            base[`field-${field.type}`] = Boolean(field.type);
+            base[`field-${field.meta}`] = Boolean(field.meta);
             return base;
         },
         inputType(field) {
