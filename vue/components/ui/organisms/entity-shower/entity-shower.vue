@@ -24,8 +24,8 @@
 <script>
 import { partMixin } from "../../../../mixins";
 
-export const EntityShow = {
-    name: "entity-show",
+export const EntityShower = {
+    name: "entity-shower",
     mixins: [partMixin],
     props: {
         name: {
@@ -154,5 +154,5 @@ export const EntityShow = {
     }
 };
 
-export default EntityShow;
+export default EntityShower;
 </script>
