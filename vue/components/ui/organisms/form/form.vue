@@ -30,11 +30,7 @@
                                         v-bind:type="field.type"
                                         v-bind="field.props"
                                         v-bind:value="values[field.value]"
-                                        v-if="
-                                            ['string', 'number', 'email', 'input'].includes(
-                                                field.type
-                                            )
-                                        "
+                                        v-if="field.type === 'text' && !field.meta"
                                         v-on:update:value="value => onValue(field.value, value)"
                                     />
                                     <select-ripe
@@ -72,7 +68,7 @@
                                     <textarea-ripe
                                         v-bind="field.props"
                                         v-bind:value="values[field.value]"
-                                        v-else-if="field.type === 'textarea'"
+                                        v-else-if="field.type === 'text' && field.meta === 'long'"
                                         v-on:update:value="value => onValue(field.value, value)"
                                     />
                                     <files-uploader
