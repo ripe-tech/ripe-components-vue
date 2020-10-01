@@ -8,6 +8,7 @@
                 saveNotification: false,
                 onDiscard: onDiscard,
                 onSave: onSave,
+                next: _next,
                 ...formProps,
                 acceptButtonProps: { text: `Create ${name}`, ...formProps.acceptButtonProps }
             }"
@@ -59,6 +60,10 @@ export const EntityCreator = {
             type: Object,
             default: () => ({})
         },
+        next: {
+            type: String | Object,
+            default: null
+        },
         formProps: {
             type: Object,
             default: () => ({})
@@ -74,6 +79,14 @@ export const EntityCreator = {
             if (this.title) return this.title;
             if (this.breadcrumbs) return this.breadcrumbs.concat([{ text: this.name }]);
             return null;
+        },
+        _next() {
+            return (
+                this.next || {
+                    name: `${this.name.toLowerCase()}-show`,
+                    params: { id: this.values.id }
+                }
+            );
         }
     },
     watch: {
