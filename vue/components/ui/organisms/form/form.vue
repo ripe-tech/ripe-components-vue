@@ -123,6 +123,13 @@
 </template>
 
 <style lang="scss" scoped>
+.form {
+    animation: fade-into-rise 0.45s cubic-bezier(0.645, 0.045, 0.355, 1);
+    box-sizing: border-box;
+    display: inline-block;
+    width: 100%;
+}
+
 .form > .form-form {
     padding: 0px 14px 0px 14px;
 }
