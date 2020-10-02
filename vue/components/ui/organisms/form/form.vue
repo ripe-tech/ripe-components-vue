@@ -381,6 +381,7 @@ export const Form = {
         },
         onHeaderButtonClick(event, buttonId) {
             this.$emit("header-button:click", event, buttonId);
+            this.$emit(`header-button:click:${buttonId}`, event);
         },
         async onDeleteClick() {
             await this.delete();
