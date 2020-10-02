@@ -36,8 +36,11 @@
 <style lang="scss" scoped></style>
 
 <script>
+import { partMixin } from "../../../../mixins";
+
 export const EntityLister = {
     name: "entity-lister",
+    mixins: [partMixin],
     props: {
         name: {
             type: String,
