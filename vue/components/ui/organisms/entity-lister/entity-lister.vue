@@ -17,7 +17,7 @@
         <template v-slot:table-cell-actions="{ item }">
             <router-link
                 class="button-edit"
-                v-bind:to="_editRoute(item)"
+                v-bind:to="editRoute(item)"
                 v-if="editButton"
             >
                 <button-icon v-bind:icon="'edit'" v-bind:text="'Edit'" v-bind:size="42" />
@@ -71,8 +71,8 @@ export const EntityLister = {
             type: Boolean,
             default: true
         },
-        editRoute: {
-            type: String | Object,
+        getEditRoute: {
+            type: Function,
             default: null
         },
         deleteEntity: {
@@ -108,8 +108,10 @@ export const EntityLister = {
         }
     },
     methods: {
-        _editRoute(item) {
-            return this.editRoute || { name: `${this.name}-edit`, params: { id: item.id } };
+        editRoute(item) {
+            return this.getEditRoute
+                ? this.getEditRoute(item)
+                : { name: `${this.name}-edit`, params: { id: item.id } };
         },
         showRoute(item) {
             return this.getShowRoute
