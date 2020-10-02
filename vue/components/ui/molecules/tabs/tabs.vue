@@ -155,7 +155,7 @@ export const Tabs = {
         tabClasses(tab) {
             const base = { tab: true };
             base[`tab-${tab.value}`] = true;
-            base[`tab-${this.buildslug(tab.value)}`] = true;
+            base[`tab-${this.buildSlug(tab.value)}`] = true;
             return base;
         },
         onEnter(index) {
