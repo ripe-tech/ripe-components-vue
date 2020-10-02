@@ -5,7 +5,6 @@
             v-bind="{
                 color: 'white',
                 alignment: 'left',
-                minWidth: 0,
                 ...rejectButtonProps
             }"
             v-if="reject"
@@ -17,7 +16,6 @@
                 icon: 'save',
                 color: 'green',
                 alignment: 'left',
-                minWidth: 0,
                 ...acceptButtonProps
             }"
             v-if="accept"
