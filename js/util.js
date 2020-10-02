@@ -5,9 +5,8 @@ export const normalize = value => {
 export const buildslug = value => {
     return value
         .toLowerCase()
-        .normalize("NFD")
         .trim()
-        .replace(/\s+/g, "-")
-        .replace(/[^\w\-]+/g, "")
-        .replace(/\-\-+/g, "-");
+        .replace(/\s+/g, "-") // replace spaces with -
+        .replace(/[^\w\-]+/g, "") // remove all non-word chars
+        .replace(/\-\-+/g, "-"); // replace multiple - with a single -
 };
