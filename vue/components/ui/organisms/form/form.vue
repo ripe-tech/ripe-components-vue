@@ -249,7 +249,7 @@ export const Form = {
             type: Boolean,
             default: true
         },
-        saveNotificationMessage: {
+        saveMessage: {
             type: Function,
             default: values => "Changes saved!"
         },
@@ -257,15 +257,15 @@ export const Form = {
             type: Object,
             default: () => ({})
         },
-        errorNotification: {
+        error: {
             type: Boolean,
             default: true
         },
-        errorNotificationMessage: {
+        errorMessage: {
             type: Function,
             default: error => error.message || "Something went wrong"
         },
-        errorNotificationProps: {
+        errorMessageProps: {
             type: Object,
             default: () => ({})
         }
@@ -346,7 +346,19 @@ export const Form = {
         },
         async discard() {
             if (!this.onDiscard) return;
-            await this.onDiscard(this.values);
+            try {
+                await this.onDiscard(this.values);
+            } catch (error) {
+                if (this.error) {
+                    this.notify(this.errorMessage(error), {
+                        icon: "error",
+                        iconColor: "#ce544d",
+                        topHeight: 130,
+                        timeout: 2000,
+                        ...this.errorMessageProps
+                    });
+                }
+            }
         },
         async save() {
             if (!this.onSave) return;
@@ -355,7 +367,7 @@ export const Form = {
                 await this.onSave(this.values);
 
                 if (this.saveNotification) {
-                    this.notify(this.saveNotificationMessage(this.values), {
+                    this.notify(this.saveMessage(this.values), {
                         icon: "ok",
                         iconColor: "#45a777",
                         topHeight: 130,
@@ -366,13 +378,13 @@ export const Form = {
 
                 this.goNext();
             } catch (error) {
-                if (this.errorNotification) {
-                    this.notify(this.errorNotificationMessage(error), {
+                if (this.error) {
+                    this.notify(this.errorMessage(error), {
                         icon: "error",
                         iconColor: "#ce544d",
                         topHeight: 130,
                         timeout: 2000,
-                        ...this.errorNotificationProps
+                        ...this.errorMessageProps
                     });
                 }
             } finally {
@@ -386,6 +398,16 @@ export const Form = {
                 await this.onDelete();
 
                 this.goPrevious();
+            } catch (error) {
+                if (this.error) {
+                    this.notify(this.errorMessage(error), {
+                        icon: "error",
+                        iconColor: "#ce544d",
+                        topHeight: 130,
+                        timeout: 2000,
+                        ...this.errorMessageProps
+                    });
+                }
             } finally {
                 this.deleting = false;
             }

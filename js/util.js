@@ -3,13 +3,15 @@ export const normalize = value => {
 };
 
 export const buildSlug = value => {
-    return value
-        .toLowerCase()
-        .trim()
-        // replace spaces with -
-        .replace(/\s+/g, "-")
-         // remove all non-word chars
-        .replace(/[^\w\-]+/g, "")
-        // replace multiple - with a single -
-        .replace(/\-\-+/g, "-");
+    return (
+        value
+            .toLowerCase()
+            .trim()
+            // replace spaces with -
+            .replace(/\s+/g, "-")
+            // remove all non-word chars
+            .replace(/[^\w\-]+/g, "")
+            // replace multiple - with a single -
+            .replace(/\-\-+/g, "-")
+    );
 };
