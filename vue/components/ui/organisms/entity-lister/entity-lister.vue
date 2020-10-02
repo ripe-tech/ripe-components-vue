@@ -131,6 +131,7 @@ export const EntityLister = {
                 )}</strong>?<br/>Please bare in mind that this action <strong>is not reversible</strong>!`,
                 { title: `Delete ${this.name} ${this.getEntityName(item)}` }
             );
+
             if (confirmed) await this.deleteEntity(item);
         }
     }
