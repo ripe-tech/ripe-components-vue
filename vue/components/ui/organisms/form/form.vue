@@ -104,12 +104,14 @@
                 v-bind:accept="Boolean(onSave)"
                 v-bind:reject-button-props="{
                     text: 'Discard',
+                    small: true,
                     ...rejectButtonProps
                 }"
                 v-bind:accept-button-props="{
                     text: 'Save',
                     icon: 'save',
                     type: 'submit',
+                    small: true,
                     loading: saving,
                     minWidth: 100,
                     ...acceptButtonProps
