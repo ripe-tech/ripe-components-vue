@@ -8,7 +8,12 @@
         v-bind:lineup-fields="columns"
         v-bind:get-items="getEntities"
         v-on:click:table="onTableRowClick"
-    />
+    >
+        <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
+        <template v-for="slot in Object.keys($scopedSlots)" v-bind:slot="slot" slot-scope="scope">
+            <slot v-bind:name="slot" v-bind="scope" />
+        </template>
+    </listing>
 </template>
 
 <style lang="scss" scoped></style>
