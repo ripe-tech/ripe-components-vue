@@ -1,5 +1,6 @@
 <template>
     <listing
+        class="entity-lister"
         v-bind:name="name"
         v-bind:title-text="_title"
         v-bind:create-url="createUrl"
@@ -19,8 +20,8 @@
 <style lang="scss" scoped></style>
 
 <script>
-export const EntityListing = {
-    name: "entity-listing",
+export const EntityLister = {
+    name: "entity-lister",
     props: {
         name: {
             type: String,
@@ -73,5 +74,5 @@ export const EntityListing = {
     }
 };
 
-export default EntityListing;
+export default EntityLister;
 </script>
