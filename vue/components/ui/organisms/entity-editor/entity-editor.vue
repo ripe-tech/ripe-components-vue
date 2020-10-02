@@ -138,6 +138,7 @@ export const EntityEditor = {
         },
         onHeaderButtonClick(event, buttonId) {
             this.$emit("header-button:click", event, buttonId);
+            this.$emit(`header-button:click:${buttonId}`, event);
         }
     }
 };
