@@ -11,15 +11,22 @@
                 <template v-for="(columns, tab) in fields" v-slot:[tab]>
                     <div
                         class="column"
+                        v-bind:classes="columnClasses(index)"
                         v-bind:style="columnStyle(tab)"
                         v-for="(column, index) in columns"
                         v-bind:key="index"
                     >
-                        <div class="section" v-for="section in column" v-bind:key="section.title">
+                        <div
+                            class="section"
+                            v-bind:classes="sectionClasses(section)"
+                            v-for="section in column"
+                            v-bind:key="section.title"
+                        >
                             <h3 class="section-title">{{ section.title }}</h3>
                             <template v-for="field in section.fields">
                                 <form-input
                                     class="section-field"
+                                    v-bind:classes="formInputClasses(field)"
                                     v-bind:header="
                                         field.label !== undefined ? field.label : field.value
                                     "
@@ -180,11 +187,11 @@ body.mobile .form > .form-form > .tabs .column {
 </style>
 
 <script>
-import { partMixin } from "../../../../mixins";
+import { utilsMixin, partMixin } from "../../../../mixins";
 
 export const Form = {
     name: "form-ripe",
-    mixins: [partMixin],
+    mixins: [utilsMixin, partMixin],
     props: {
         title: {
             type: String | Array,
@@ -242,7 +249,7 @@ export const Form = {
             type: Boolean,
             default: true
         },
-        saveNotificationMessage: {
+        saveMessage: {
             type: Function,
             default: values => "Changes saved!"
         },
@@ -250,15 +257,15 @@ export const Form = {
             type: Object,
             default: () => ({})
         },
-        errorNotification: {
+        error: {
             type: Boolean,
             default: true
         },
-        errorNotificationMessage: {
+        errorMessage: {
             type: Function,
             default: error => error.message || "Something went wrong"
         },
-        errorNotificationProps: {
+        errorMessageProps: {
             type: Object,
             default: () => ({})
         }
@@ -300,12 +307,25 @@ export const Form = {
         }
     },
     methods: {
+        columnClasses(index) {
+            return `column-${index}`;
+        },
         columnStyle(tabName) {
             const tab = this.fields[tabName];
             const width = `${100 / tab.length}%`;
             const base = {
                 width: this.isTabletWidth() || this.isMobileWidth() ? null : width
             };
+            return base;
+        },
+        sectionClasses(section) {
+            return `section-${this.buildSlug(section.title)}`;
+        },
+        formInputClasses(field) {
+            const base = {};
+            base[`field-${field.value}`] = true;
+            base[`field-${field.type}`] = true;
+            base[`field-${field.meta}`] = Boolean(field.meta);
             return base;
         },
         inputType(field) {
@@ -326,7 +346,19 @@ export const Form = {
         },
         async discard() {
             if (!this.onDiscard) return;
-            await this.onDiscard(this.values);
+            try {
+                await this.onDiscard(this.values);
+            } catch (error) {
+                if (this.error) {
+                    this.notify(this.errorMessage(error), {
+                        icon: "error",
+                        iconColor: "#ce544d",
+                        topHeight: 130,
+                        timeout: 2000,
+                        ...this.errorMessageProps
+                    });
+                }
+            }
         },
         async save() {
             if (!this.onSave) return;
@@ -335,7 +367,7 @@ export const Form = {
                 await this.onSave(this.values);
 
                 if (this.saveNotification) {
-                    this.notify(this.saveNotificationMessage(this.values), {
+                    this.notify(this.saveMessage(this.values), {
                         icon: "ok",
                         iconColor: "#45a777",
                         topHeight: 130,
@@ -346,13 +378,13 @@ export const Form = {
 
                 this.goNext();
             } catch (error) {
-                if (this.errorNotification) {
-                    this.notify(this.errorNotificationMessage(error), {
+                if (this.error) {
+                    this.notify(this.errorMessage(error), {
                         icon: "error",
                         iconColor: "#ce544d",
                         topHeight: 130,
                         timeout: 2000,
-                        ...this.errorNotificationProps
+                        ...this.errorMessageProps
                     });
                 }
             } finally {
@@ -366,6 +398,16 @@ export const Form = {
                 await this.onDelete();
 
                 this.goPrevious();
+            } catch (error) {
+                if (this.error) {
+                    this.notify(this.errorMessage(error), {
+                        icon: "error",
+                        iconColor: "#ce544d",
+                        topHeight: 130,
+                        timeout: 2000,
+                        ...this.errorMessageProps
+                    });
+                }
             } finally {
                 this.deleting = false;
             }
