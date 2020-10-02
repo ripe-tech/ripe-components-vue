@@ -20,17 +20,15 @@ storiesOf("Molecules", module)
         },
         methods: {},
         template: `
-            <div>
-                <form-buttons
-                    v-bind:reject-button-props="{
-                        text: rejectButtonText,
-                        icon: rejectButtonIcon
-                    }"
-                    v-bind:accept-button-props="{
-                        text: acceptButtonText,
-                        icon: acceptButtonIcon
-                    }"
-                />
-            </div>
+            <form-buttons
+                v-bind:reject-button-props="{
+                    text: rejectButtonText,
+                    icon: rejectButtonIcon
+                }"
+                v-bind:accept-button-props="{
+                    text: acceptButtonText,
+                    icon: acceptButtonIcon
+                }"
+            />
         `
     }));
