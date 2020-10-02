@@ -26,7 +26,9 @@
                                     v-bind="field.formInputProps"
                                     v-bind:key="field.value"
                                 >
-                                    <template v-if="field.type === 'text' && field.meta === 'image-url'">
+                                    <template
+                                        v-if="field.type === 'text' && field.meta === 'image-url'"
+                                    >
                                         <input-ripe
                                             v-bind:type="inputType(field)"
                                             v-bind="field.props"
