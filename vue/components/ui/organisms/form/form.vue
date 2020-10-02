@@ -45,6 +45,7 @@
                                         <image-ripe
                                             class="text-image"
                                             v-bind:src="values[field.value] || field.imageSrc"
+                                            v-if="values[field.value] || field.imageSrc"
                                         />
                                     </template>
                                     <textarea-ripe
