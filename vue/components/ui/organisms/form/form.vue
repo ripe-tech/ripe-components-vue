@@ -111,12 +111,14 @@
                 v-bind:accept="Boolean(onSave)"
                 v-bind:reject-button-props="{
                     text: 'Discard',
+                    small: true,
                     ...rejectButtonProps
                 }"
                 v-bind:accept-button-props="{
                     text: 'Save',
                     icon: 'save',
                     type: 'submit',
+                    small: true,
                     loading: saving,
                     minWidth: 100,
                     ...acceptButtonProps
@@ -129,25 +131,25 @@
 
 <style lang="scss" scoped>
 .form > .form-form {
-    padding: 0px 24px 0px 24px;
+    padding: 0px 14px 0px 14px;
+}
+
+.form > .form-form > .tabs ::v-deep > .header {
+    margin: 0px 10px 0px 10px;
 }
 
 .form > .form-form > .tabs .column {
     box-sizing: border-box;
     display: inline-block;
-    padding: 10px 0px 10px 0px;
+    padding: 10px 10px 10px 10px;
     vertical-align: top;
-}
-
-.form > .form-form > .tabs .column:not(:last-child) {
-    padding: 10px 20px 10px 0px;
 }
 
 body.tablet .form > .form-form > .tabs .column,
 body.mobile .form > .form-form > .tabs .column {
     box-sizing: border-box;
     margin: 0px 0px 0px 0px;
-    padding: 0px 0px 0px 0px;
+    padding: 0px 10px 0px 10px;
     width: 100%;
 }
 
