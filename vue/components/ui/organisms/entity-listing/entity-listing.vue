@@ -2,7 +2,7 @@
     <listing
         v-bind:name="name"
         v-bind:title-text="_title"
-        v-bind:create-url="createRoute"
+        v-bind:create-url="createUrl"
         v-bind:table-columns="columns"
         v-bind:table-alignment="'left'"
         v-bind:lineup-fields="columns"
@@ -38,6 +38,10 @@ export const EntityListing = {
             type: String,
             default: null
         },
+        createButton: {
+            type: Boolean,
+            default: true
+        },
         createRoute: {
             type: String | Object,
             default: null
@@ -52,6 +56,8 @@ export const EntityListing = {
             return this.title || `${this.name}s`;
         },
         createUrl() {
+            if (!this.createButton) return null;
+
             return this.createRoute || { name: `${this.name}-create` };
         }
     },
