@@ -1,4 +1,4 @@
-import { normalize, buildslug } from "../../js";
+import { normalize, buildSlug } from "../../js";
 
 export const utilsMixin = {
     methods: {
@@ -35,8 +35,8 @@ export const utilsMixin = {
         normalize(value) {
             return normalize(value);
         },
-        buildslug(value) {
-            return buildslug(value);
+        buildSlug(value) {
+            return buildSlug(value);
         }
     }
 };

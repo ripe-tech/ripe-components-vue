@@ -319,7 +319,7 @@ export const Form = {
             return base;
         },
         sectionClasses(section) {
-            return `section-${this.buildslug(section.title)}`;
+            return `section-${this.buildSlug(section.title)}`;
         },
         formInputClasses(field) {
             const base = {};
