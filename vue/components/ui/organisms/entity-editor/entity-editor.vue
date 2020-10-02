@@ -134,7 +134,7 @@ export const EntityEditor = {
             this.resetForm();
         },
         async onSave(values) {
-            this.updateEntity(values);
+            await this.updateEntity(values);
         },
         onHeaderButtonClick(event, buttonId) {
             this.$emit("header-button:click", event, buttonId);
