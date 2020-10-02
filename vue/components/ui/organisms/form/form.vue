@@ -320,7 +320,9 @@ export const Form = {
             return base;
         },
         sectionClasses(section) {
-            return `section-${this.buildSlug(section.title)}`;
+            const base = {};
+            if (section.title) base[`section-${this.buildSlug(section.title)}`] = true;
+            return base;
         },
         formInputClasses(field) {
             const base = {};
