@@ -27,7 +27,7 @@
                 v-bind:text="'Delete'"
                 v-bind:size="42"
                 v-if="deleteEntity"
-                v-on:click="onDeleteButtonClick"
+                v-on:click.stop="onDeleteButtonClick"
             />
         </template>
     </listing>
