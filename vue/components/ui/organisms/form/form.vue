@@ -18,8 +18,8 @@
                     >
                         <div
                             class="section"
-                            v-bind:classes="sectionClasses(sectionIndex)"
-                            v-for="(section, sectionIndex) in column"
+                            v-bind:classes="sectionClasses(section)"
+                            v-for="section in column"
                             v-bind:key="section.title"
                         >
                             <h3 class="section-title">{{ section.title }}</h3>
@@ -187,11 +187,11 @@ body.mobile .form > .form-form > .tabs .column {
 </style>
 
 <script>
-import { partMixin } from "../../../../mixins";
+import { utilsMixin, partMixin } from "../../../../mixins";
 
 export const Form = {
     name: "form-ripe",
-    mixins: [partMixin],
+    mixins: [utilsMixin, partMixin],
     props: {
         title: {
             type: String | Array,
@@ -318,13 +318,13 @@ export const Form = {
             };
             return base;
         },
-        sectionClasses(index) {
-            return `section-${index}`;
+        sectionClasses(section) {
+            return `section-${this.buildslug(section.title)}`;
         },
         formInputClasses(field) {
             const base = {};
-            base[`field-${field.value}`] = Boolean(field.value);
-            base[`field-${field.type}`] = Boolean(field.type);
+            base[`field-${field.value}`] = true;
+            base[`field-${field.type}`] = true;
             base[`field-${field.meta}`] = Boolean(field.meta);
             return base;
         },
