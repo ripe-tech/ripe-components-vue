@@ -77,7 +77,7 @@ export const EntityCreator = {
     computed: {
         _title() {
             if (this.title) return this.title;
-            if (this.breadcrumbs) return this.breadcrumbs.concat([{ text: this.name }]);
+            if (this.breadcrumbs) return this.breadcrumbs.concat([{ text: `New ${this.name}` }]);
             return null;
         },
         _next() {
