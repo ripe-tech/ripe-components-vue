@@ -94,7 +94,7 @@ export const EntityLister = {
         createUrl() {
             if (!this.createButton) return null;
 
-            return this.createRoute || { name: `${this.name}-create` };
+            return this.createRoute || { name: `${this.name.toLowerCase()}-create` };
         },
         actionsWidth() {
             let width = 40;
@@ -114,12 +114,12 @@ export const EntityLister = {
         editRoute(item) {
             return this.getEditRoute
                 ? this.getEditRoute(item)
-                : { name: `${this.name}-edit`, params: { id: item.id } };
+                : { name: `${this.name.toLowerCase()}-edit`, params: { id: item.id } };
         },
         showRoute(item) {
             return this.getShowRoute
                 ? this.getShowRoute(item)
-                : { name: `${this.name}-show`, params: { id: item.id.name } };
+                : { name: `${this.name.toLowerCase()}-show`, params: { id: item.id.name } };
         },
         onTableRowClick(item) {
             this.$router.push(this.showRoute(item));
