@@ -18,7 +18,7 @@
             <router-link
                 class="button-edit"
                 v-bind:to="editRoute(item)"
-                v-if="editButton"
+                v-if="editEntity"
             >
                 <button-icon v-bind:icon="'edit'" v-bind:text="'Edit'" v-bind:size="42" />
             </router-link>
@@ -70,7 +70,7 @@ export const EntityLister = {
             type: String | Object,
             default: null
         },
-        editButton: {
+        editEntity: {
             type: Boolean,
             default: true
         },
@@ -98,12 +98,12 @@ export const EntityLister = {
         },
         actionsWidth() {
             let width = 40;
-            if (this.editButton) width += 85;
+            if (this.editEntity) width += 85;
             if (this.deleteEntity) width += 100;
             return width;
         },
         _columns() {
-            return this.editButton || this.deleteEntity
+            return this.editEntity || this.deleteEntity
                 ? this.columns.concat([
                       { value: "actions", label: "Actions", width: `${this.actionsWidth}px` }
                   ])
