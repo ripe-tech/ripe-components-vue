@@ -71,21 +71,21 @@
                                     >
                                         <template v-slot:selected="{ item }">
                                             <slot
-                                                v-bind:name="'select-selected'"
+                                                v-bind:name="`${field.value}-select-selected`"
                                                 v-bind:item="item"
                                             >
                                                 <slot
-                                                    v-bind:name="`${field.value}-select-selected`"
+                                                    v-bind:name="'select-selected'"
                                                     v-bind:item="item"
                                                 />
                                             </slot>
                                         </template>
                                         <template v-slot="{ item }">
-                                            <slot v-bind:name="'select'" v-bind:item="item">
-                                                <slot
-                                                    v-bind:name="`${field.value}-select`"
-                                                    v-bind:item="item"
-                                                />
+                                            <slot
+                                                v-bind:name="`${field.value}-select`"
+                                                v-bind:item="item"
+                                            >
+                                                <slot v-bind:name="'select'" v-bind:item="item" />
                                             </slot>
                                         </template>
                                     </select-ripe>
