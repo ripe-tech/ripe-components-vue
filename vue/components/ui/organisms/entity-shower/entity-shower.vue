@@ -28,50 +28,93 @@ export const EntityShower = {
     name: "entity-shower",
     mixins: [partMixin],
     props: {
+        /**
+         * The entity name. Example: for an entity "Person" which has a property
+         * "name" with the value "John", this prop value should be "Person".
+         */
         name: {
             type: String,
             required: true
         },
+        /**
+         * Used to specify which of the entity's properties are going be shown.
+         * Example: [{ value: "name" }, { value: "email", label: "Personal email" }].
+         */
         fields: {
             type: Array,
             required: true
         },
+        /**
+         * Method used to get the entity to be shown.
+         */
         getEntity: {
             type: Function,
             required: true
         },
+        /**
+         * Gets all entities.
+         */
         getEntities: {
             type: Function,
             required: true
         },
+        /**
+         * Container title. If set, overrides the breadcrumbs.
+         */
         title: {
             type: String,
             default: null
         },
+        /**
+         * Container breadcrumbs. The entity's value defined by the "getEntityName" prop
+         * will be appended to these breadcrumbs.
+         */
         breadcrumbs: {
             type: Array,
             default: null
         },
+        /**
+         * Used to get a user-facing value that identifies the entity.
+         * Defaults to the property "name".
+         */
         getEntityName: {
             type: Function,
             default: entity => entity.name
         },
+        /**
+         * Overrides the entity list route. Example:
+         * { name: "person-list", params: { a: "...", b: "..." } }.
+         */
         listRoute: {
             type: Object | String,
             default: null
         },
+        /**
+         * Entity's edit page route. If set, an edit option is shown in the options
+         * dropdown. Example: { name: "person-edit", params: { username: "..." } }.
+         */
         editRoute: {
             type: Object | String,
             default: null
         },
+        /**
+         * Entity's delete method. If set, a delete option is shown in the options
+         * dropdown.
+         */
         deleteEntity: {
             type: Function,
             default: null
         },
+        /**
+         * Returns a the message to show when an error occurs.
+         */
         getErrorMessage: {
             type: Function,
             default: error => error.message || "Something went wrong"
         },
+        /**
+         * Props that can be used to customize the error message.
+         */
         errorMessageProps: {
             type: Object,
             default: () => ({})
