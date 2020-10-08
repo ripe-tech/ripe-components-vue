@@ -28,50 +28,91 @@ export const EntityShower = {
     name: "entity-shower",
     mixins: [partMixin],
     props: {
+        /**
+         * The entity name
+         */
         name: {
             type: String,
             required: true
         },
+        /**
+         * Entity fields that are going to be shown
+         */
         fields: {
             type: Array,
             required: true
         },
+        /**
+         * Container title, if set will override the breadcrumbs
+         */
         title: {
             type: String,
             default: null
         },
+        /**
+         * Container breadcrumbs on which the entity's name field will
+         * be appended. Is overridden by title
+         */
         breadcrumbs: {
             type: Array,
             default: null
         },
+        /**
+         * Gets the entity to be show
+         */
         getEntity: {
             type: Function,
             required: true
         },
+        /**
+         * Gets the list of all entities
+         */
         getEntities: {
             type: Function,
             required: true
         },
+        /**
+         * Loaded entity field that is used as its name. Defaults to
+         * property "name"
+         */
         getEntityName: {
             type: Function,
             default: entity => entity.name
         },
+        /**
+         * Overrides the entity list route
+         */
         listRoute: {
             type: Object | String,
             default: null
         },
+        /**
+         * Entity's edit page route. If set, an edit option is shown
+         * in the options dropdown
+         */
         editRoute: {
             type: Object | String,
             default: null
         },
+        /**
+         * Entity's delete method. If set, a delete option is shown in
+         * the options dropdown
+         */
         deleteEntity: {
             type: Function,
             default: null
         },
+        /**
+         * Message shown when an error occurs
+         * the options dropdown
+         */
         getErrorMessage: {
             type: Function,
             default: error => error.message || "Something went wrong"
         },
+        /**
+         * Props that can be used to customize the error notification
+         */
         errorMessageProps: {
             type: Object,
             default: () => ({})
