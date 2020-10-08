@@ -43,6 +43,20 @@ export const EntityShower = {
             required: true
         },
         /**
+         * Gets the entity to be show
+         */
+        getEntity: {
+            type: Function,
+            required: true
+        },
+        /**
+         * Gets the list of all entities
+         */
+        getEntities: {
+            type: Function,
+            required: true
+        },
+        /**
          * Container title, if set will override the breadcrumbs
          */
         title: {
@@ -56,20 +70,6 @@ export const EntityShower = {
         breadcrumbs: {
             type: Array,
             default: null
-        },
-        /**
-         * Gets the entity to be show
-         */
-        getEntity: {
-            type: Function,
-            required: true
-        },
-        /**
-         * Gets the list of all entities
-         */
-        getEntities: {
-            type: Function,
-            required: true
         },
         /**
          * Loaded entity field that is used as its name. Defaults to
