@@ -8,6 +8,7 @@
         v-bind:table-alignment="'left'"
         v-bind:lineup-fields="_columns"
         v-bind:get-items="getEntities"
+        v-bind="listingProps"
         v-on:click:table="onTableRowClick"
     >
         <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
@@ -85,6 +86,10 @@ export const EntityLister = {
         getEntityName: {
             type: Function,
             default: entity => entity.name
+        },
+        listingProps: {
+            type: Object,
+            default: () => ({})
         }
     },
     computed: {
