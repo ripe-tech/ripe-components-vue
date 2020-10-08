@@ -51,6 +51,9 @@ storiesOf("Organisms", module)
                     }
                 ]
             },
+            title: {
+                default: text("Title", null)
+            },
             createButton: {
                 default: boolean("Create Button", false)
             },
@@ -63,6 +66,7 @@ storiesOf("Organisms", module)
                 v-bind:name="name"
                 v-bind:columns="columns"
                 v-bind:get-entities="getEntities"
+                v-bind:title="title"
                 v-bind:create-button="createButton"
                 v-bind:edit-entity="editEntity"
                 v-bind:listing-props="{ useQuery: false }"
