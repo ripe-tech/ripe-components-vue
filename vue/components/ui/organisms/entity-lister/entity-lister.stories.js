@@ -70,6 +70,10 @@ storiesOf("Organisms", module)
                 v-bind:create-button="createButton"
                 v-bind:edit-entity="editEntity"
                 v-bind:listing-props="{ useQuery: false }"
-            />
+            >
+                <template v-slot:table-cell-phone="{ item }">
+                    Custom phone - {{ item.phone }}
+                </template>
+            </entity-lister>
         `
     }));
