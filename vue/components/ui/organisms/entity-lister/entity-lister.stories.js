@@ -16,16 +16,9 @@ storiesOf("Organisms", module)
                     { value: "phone", label: "Phone" }
                 ]
             },
-            createButton: {
-                default: boolean("Create Button", false)
-            },
-            editEntity: {
-                default: boolean("Edit Button", false)
-            }
-        },
-        methods: {
-            getEntities() {
-                return [
+            getEntities: {
+                type: Function,
+                default: () => [
                     {
                         id: 0,
                         name: "Louise J Figueroa",
@@ -37,8 +30,32 @@ storiesOf("Organisms", module)
                         name: "Linda J Silber",
                         email: "axel2008@yahoo.com",
                         phone: "904-254-9396"
+                    },
+                    {
+                        id: 2,
+                        name: "Linda J Silber",
+                        email: "axel2008@yahoo.com",
+                        phone: "904-254-9396"
+                    },
+                    {
+                        id: 3,
+                        name: "David C Fenner",
+                        email: "willy1973@hotmail.com",
+                        phone: "614-537-3579"
+                    },
+                    {
+                        id: 4,
+                        name: "Edward C Hansen",
+                        email: "twila1995@hotmail.com",
+                        phone: "832-563-0129"
                     }
-                ];
+                ]
+            },
+            createButton: {
+                default: boolean("Create Button", false)
+            },
+            editEntity: {
+                default: boolean("Edit Button", false)
             }
         },
         template: `
