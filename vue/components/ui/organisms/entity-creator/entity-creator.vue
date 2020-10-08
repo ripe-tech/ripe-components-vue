@@ -32,38 +32,68 @@
 export const EntityCreator = {
     name: "entity-creator",
     props: {
+        /**
+         * The entity name. Example: for an entity "Person" which has a property
+         * "name" with the value "John", this prop value should be "Person".
+         */
         name: {
             type: String,
             required: true
         },
+        /**
+         * Used to structure and populate the create form.
+         */
         fields: {
             type: Object,
             required: true
         },
+        /**
+         * Method used to create the entity.
+         */
         createEntity: {
             type: Function,
             required: true
         },
+        /**
+         * Container title. If set, overrides the breadcrumbs.
+         */
         title: {
             type: String,
             default: null
         },
+        /**
+         * Container breadcrumbs. The entity's name will be appended to these breadcrumbs.
+         */
         breadcrumbs: {
             type: Array,
             default: null
         },
+        /**
+         * Values resulted from the form's inputs.
+         */
         values: {
             type: Object,
             default: () => ({})
         },
+        /**
+         * Method used to override how the clear values are cleared when pressing the
+         * discard button. Example: () => ({ name: "custom name" }).
+         */
         clearFormValues: {
             type: Object,
             default: () => ({})
         },
+        /**
+         * Overrides the next route. Example:
+         * { name: "person-show", params: { name: "...", email: "..." } }.
+         */
         next: {
             type: String | Object,
             default: null
         },
+        /**
+         * Props that can be used to customize the form.
+         */
         formProps: {
             type: Object,
             default: () => ({})
