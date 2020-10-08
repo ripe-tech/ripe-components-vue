@@ -45,21 +45,21 @@ export const EntityShower = {
             required: true
         },
         /**
-         * Method used to get the entity to be show.
+         * Method used to get the entity to be shown.
          */
         getEntity: {
             type: Function,
             required: true
         },
         /**
-         * Gets the list of all entities.
+         * Gets all entities.
          */
         getEntities: {
             type: Function,
             required: true
         },
         /**
-         * Container title. If set will override the breadcrumbs.
+         * Container title. If set, overrides the breadcrumbs.
          */
         title: {
             type: String,
@@ -67,16 +67,15 @@ export const EntityShower = {
         },
         /**
          * Container breadcrumbs. The entity's value defined by the "getEntityName" prop
-         * will be appended to these breadcrumbs. Is overridden by the prop "title".
+         * will be appended to these breadcrumbs.
          */
         breadcrumbs: {
             type: Array,
             default: null
         },
         /**
-         * Used to get a value that identifies the entity. Defaults to the property "name".
-         * Example: for an entity "Person" which has a property "name" with the value
-         * "John", this prop value would be "John".
+         * Used to get a user-facing value that identifies the entity.
+         * Defaults to the property "name".
          */
         getEntityName: {
             type: Function,
@@ -92,8 +91,7 @@ export const EntityShower = {
         },
         /**
          * Entity's edit page route. If set, an edit option is shown in the options
-         * dropdown. Example:
-         * { name: "person-edit", params: { username: "..." } }.
+         * dropdown. Example: { name: "person-edit", params: { username: "..." } }.
          */
         editRoute: {
             type: Object | String,
@@ -108,7 +106,7 @@ export const EntityShower = {
             default: null
         },
         /**
-         * Message shown when an error occurs.
+         * Returns a the message to show when an error occurs.
          */
         getErrorMessage: {
             type: Function,
