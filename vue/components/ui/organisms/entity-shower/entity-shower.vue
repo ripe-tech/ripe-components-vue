@@ -36,14 +36,6 @@ export const EntityShower = {
             type: Array,
             required: true
         },
-        title: {
-            type: String,
-            default: null
-        },
-        breadcrumbs: {
-            type: Array,
-            default: null
-        },
         getEntity: {
             type: Function,
             required: true
@@ -51,6 +43,14 @@ export const EntityShower = {
         getEntities: {
             type: Function,
             required: true
+        },
+        title: {
+            type: String,
+            default: null
+        },
+        breadcrumbs: {
+            type: Array,
+            default: null
         },
         getEntityName: {
             type: Function,
