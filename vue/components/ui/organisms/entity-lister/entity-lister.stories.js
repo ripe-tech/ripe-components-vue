@@ -52,7 +52,7 @@ storiesOf("Organisms", module)
                 ]
             },
             title: {
-                default: text("Title", null)
+                default: text("Title", "")
             },
             createButton: {
                 default: boolean("Create Button", false)
