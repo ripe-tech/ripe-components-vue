@@ -43,50 +43,99 @@ export const EntityLister = {
     name: "entity-lister",
     mixins: [partMixin],
     props: {
+        /**
+         * The entity name. Example: if we are listing entities "Person" which have a
+         * property "name" with the value "John", this prop value should be "Person".
+         */
         name: {
             type: String,
             required: true
         },
+        /**
+         * Used to specify the columns of the entities list.
+         * Example: [
+         * { value: "name", label: "Name" },
+         * { value: "email", label: "Email" },
+         * { value: "phone", label: "Phone" }
+         * ].
+         */
         columns: {
             type: Array,
             required: true
         },
+        /**
+         * Gets all the entities to be listed.
+         */
         getEntities: {
             type: Function,
             required: true
         },
+        /**
+         * Container title. If not set, the title will be the entity's name with "s" attached
+         * at the end of the name.
+         */
         title: {
             type: String,
             default: null
         },
+        /**
+         * Method that overrides each of entities show route. Example:
+         * item => ({ name: "person-show", params: { username: item.username } }).
+         */
         getShowRoute: {
             type: Function,
             default: null
         },
+        /**
+         * Show/hide the create button.
+         */
         createButton: {
             type: Boolean,
             default: true
         },
+        /**
+         * Overrides the entity create route. Example:
+         * { name: "person-create", params: { a: "...", b: "..." } }.
+         */
         createRoute: {
             type: String | Object,
             default: null
         },
+        /**
+         * Show/hide the edit button that appears in each table row.
+         */
         editEntity: {
             type: Boolean,
             default: true
         },
+        /**
+         * Method that overrides each of entities edit route. Example:
+         * item => ({ name: "person-edit", params: { username: item.username } }).
+         */
         getEditRoute: {
             type: Function,
             default: null
         },
+        /**
+         * Entities delete method. If set, a delete button is shown in the actions column
+         * for each table row.
+         */
         deleteEntity: {
             type: Function,
             default: null
         },
+        /**
+         * Used to get a value that identifies the entity. Defaults to the property "name".
+         * Example: for an entity "Person" which has a property "name" with the value
+         * "John", this prop value would be "John".
+         */
         getEntityName: {
             type: Function,
             default: entity => entity.name
         },
+        /**
+         * Props that can be used to customize the listing component.
+         */
         listingProps: {
             type: Object,
             default: () => ({})
