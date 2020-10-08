@@ -29,89 +29,93 @@ export const EntityShower = {
     mixins: [partMixin],
     props: {
         /**
-         * The entity name
+         * The entity name. Example: for an entity "Person" which has a property
+         * "name" with the value "John", this prop value should be "Person".
          */
         name: {
             type: String,
             required: true
         },
         /**
-         * Entity fields that are going to be shown
+         * Used to specify which of the entity's properties are going be shown.
+         * Example: [{ value: "name" }, { value: "email", label: "Personal email" }].
          */
         fields: {
             type: Array,
             required: true
         },
         /**
-         * Gets the entity to be show
+         * Method used to get the entity to be show.
          */
         getEntity: {
             type: Function,
             required: true
         },
         /**
-         * Gets the list of all entities
+         * Gets the list of all entities.
          */
         getEntities: {
             type: Function,
             required: true
         },
         /**
-         * Container title, if set will override the breadcrumbs
+         * Container title. If set will override the breadcrumbs.
          */
         title: {
             type: String,
             default: null
         },
         /**
-         * Container breadcrumbs on which the entity's name field will
-         * be appended. Is overridden by title
+         * Container breadcrumbs. The entity's value defined by the "getEntityName" prop
+         * will be appended to these breadcrumbs. Is overridden by the prop "title".
          */
         breadcrumbs: {
             type: Array,
             default: null
         },
         /**
-         * Loaded entity field that is used as its name. Defaults to
-         * property "name"
+         * Used to get a value that identifies the entity. Defaults to the property "name".
+         * Example: for an entity "Person" which has a property "name" with the value
+         * "John", this prop value would be "John".
          */
         getEntityName: {
             type: Function,
             default: entity => entity.name
         },
         /**
-         * Overrides the entity list route
+         * Overrides the entity list route. Example:
+         * { name: "person-list", params: { a: "...", b: "..." } }.
          */
         listRoute: {
             type: Object | String,
             default: null
         },
         /**
-         * Entity's edit page route. If set, an edit option is shown
-         * in the options dropdown
+         * Entity's edit page route. If set, an edit option is shown in the options
+         * dropdown. Example:
+         * { name: "person-edit", params: { username: "..." } }.
          */
         editRoute: {
             type: Object | String,
             default: null
         },
         /**
-         * Entity's delete method. If set, a delete option is shown in
-         * the options dropdown
+         * Entity's delete method. If set, a delete option is shown in the options
+         * dropdown.
          */
         deleteEntity: {
             type: Function,
             default: null
         },
         /**
-         * Message shown when an error occurs
-         * the options dropdown
+         * Message shown when an error occurs.
          */
         getErrorMessage: {
             type: Function,
             default: error => error.message || "Something went wrong"
         },
         /**
-         * Props that can be used to customize the error notification
+         * Props that can be used to customize the error message.
          */
         errorMessageProps: {
             type: Object,
