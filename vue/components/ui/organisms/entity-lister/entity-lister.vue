@@ -71,8 +71,7 @@ export const EntityLister = {
             required: true
         },
         /**
-         * Container title. If not set, the title will be the entity's name with "s" attached
-         * at the end of the name.
+         * Container title. Default: the entity's name suffixed with "s".
          */
         title: {
             type: String,
