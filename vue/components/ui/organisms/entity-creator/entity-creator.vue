@@ -94,7 +94,7 @@ export const EntityCreator = {
          *             }
          *         ]
          *     ]
-         * }
+         * }.
          */
         fields: {
             type: Object,
