@@ -48,7 +48,60 @@ export const EntityEditor = {
             required: true
         },
         /**
-         * Used to structure and populate the edit form.
+         * Used to structure and populate the create form. Example:
+         * {
+         *     "Person Info": [
+         *         [
+         *             {
+         *                 fields: [
+         *                     {
+         *                         value: "name",
+         *                         label: "Name*",
+         *                         type: "text",
+         *                         props: { placeholder: "First and last" }
+         *                     },
+         *                     {
+         *                         value: "email",
+         *                         label: "E-mail*",
+         *                         type: "text",
+         *                         props: { placeholder: "User email", disabled: true }
+         *                     },
+         *                     {
+         *                         value: "address",
+         *                         label: "Address",
+         *                         type: "text",
+         *                         meta: "longtext",
+         *                         props: { placeholder: "Username" }
+         *                     }
+         *                 ]
+         *             }
+         *         ],
+         *         [
+         *             {
+         *                 fields: [
+         *                     {
+         *                         value: "company",
+         *                         label: "Organization",
+         *                         type: "text",
+         *                         props: { placeholder: "Organization" }
+         *                     },
+         *                     {
+         *                         value: "position",
+         *                         label: "Position",
+         *                         type: "text",
+         *                         props: { placeholder: "Position" }
+         *                     },
+         *                     {
+         *                         value: "phone",
+         *                         label: "Phone",
+         *                         type: "text",
+         *                         props: { placeholder: "+- - - -" }
+         *                     }
+         *                 ]
+         *             }
+         *         ]
+         *     ]
+         * }.
          */
         fields: {
             type: Object,
@@ -100,7 +153,8 @@ export const EntityEditor = {
             default: null
         },
         /**
-         * Values resulted from the form's inputs.
+         * Values resulted from changing the form's inputs. This prop supports the ".sync"
+         * modifier.
          */
         values: {
             type: Object,
@@ -124,7 +178,7 @@ export const EntityEditor = {
     },
     data: function() {
         return {
-            valuesData: this.values,
+            valuesData: {},
             entity: null
         };
     },
