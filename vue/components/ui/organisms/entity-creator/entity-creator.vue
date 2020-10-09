@@ -101,7 +101,8 @@ export const EntityCreator = {
     },
     data: function() {
         return {
-            valuesData: this.values
+            valuesData: this.values,
+            clearFormValues: { ...this.values }
         };
     },
     computed: {
@@ -129,7 +130,7 @@ export const EntityCreator = {
     },
     methods: {
         clearForm() {
-            this.valuesData = this.clearFormValues;
+            this.valuesData = { ...this.clearFormValues };
         },
         onDiscard() {
             this.clearForm();
