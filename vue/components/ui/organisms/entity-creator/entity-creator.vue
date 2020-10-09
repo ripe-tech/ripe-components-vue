@@ -76,14 +76,6 @@ export const EntityCreator = {
             default: () => ({})
         },
         /**
-         * Method used to override how the clear values are cleared when pressing the
-         * discard button. Example: () => ({ name: "custom name" }).
-         */
-        clearFormValues: {
-            type: Object,
-            default: () => ({})
-        },
-        /**
          * Overrides the next route. Example:
          * { name: "person-show", params: { name: "...", email: "..." } }.
          */
