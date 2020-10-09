@@ -52,43 +52,6 @@ export const EntityCreator = {
          *                         label: "Name*",
          *                         type: "text",
          *                         props: { placeholder: "First and last" }
-         *                     },
-         *                     {
-         *                         value: "email",
-         *                         label: "E-mail*",
-         *                         type: "text",
-         *                         props: { placeholder: "User email" }
-         *                     },
-         *                     {
-         *                         value: "address",
-         *                         label: "Address",
-         *                         type: "text",
-         *                         meta: "longtext",
-         *                         props: { placeholder: "Username" }
-         *                     }
-         *                 ]
-         *             }
-         *         ],
-         *         [
-         *             {
-         *                 fields: [
-         *                     {
-         *                         value: "company",
-         *                         label: "Organization",
-         *                         type: "text",
-         *                         props: { placeholder: "Organization" }
-         *                     },
-         *                     {
-         *                         value: "position",
-         *                         label: "Position",
-         *                         type: "text",
-         *                         props: { placeholder: "Position" }
-         *                     },
-         *                     {
-         *                         value: "phone",
-         *                         label: "Phone",
-         *                         type: "text",
-         *                         props: { placeholder: "+- - - -" }
          *                     }
          *                 ]
          *             }
