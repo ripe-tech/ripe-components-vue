@@ -86,7 +86,7 @@ export const EntityEditor = {
     },
     data: function() {
         return {
-            valuesData: this.values,
+            valuesData: {},
             entity: null
         };
     },
