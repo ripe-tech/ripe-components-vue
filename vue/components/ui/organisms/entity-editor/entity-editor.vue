@@ -39,46 +39,101 @@
 export const EntityEditor = {
     name: "entity-editor",
     props: {
+        /**
+         * The entity name. Example: for an entity "Person" which has a property
+         * "name" with the value "John", this prop value should be "Person".
+         */
         name: {
             type: String,
             required: true
         },
+        /**
+         * Used to structure and populate the create form. Example:
+         * {
+         *     "Person Info": [
+         *         [
+         *             {
+         *                 fields: [
+         *                     {
+         *                         value: "name",
+         *                         label: "Name*",
+         *                         type: "text",
+         *                         props: { placeholder: "First and last" }
+         *                     }
+         *                 ]
+         *             }
+         *         ]
+         *     ]
+         * }.
+         */
         fields: {
             type: Object,
             required: true
         },
+        /**
+         * Method used to get the entity to be edited.
+         */
         getEntity: {
             type: Function,
             required: true
         },
+        /**
+         * Method used to save the changes made.
+         */
         updateEntity: {
             type: Function,
             required: true
         },
+        /**
+         * Used to get a user-facing value that identifies the entity.
+         * Defaults to the property "name".
+         */
         getName: {
             type: Function,
             default: entity => entity.name
         },
+        /**
+         * Container title. If set, overrides the breadcrumbs.
+         */
         title: {
             type: String,
             default: null
         },
+        /**
+         * Container breadcrumbs. The entity's value defined by the "getName" prop
+         * will be appended to these breadcrumbs.
+         */
         breadcrumbs: {
             type: Array,
             default: null
         },
+        /**
+         * Entity's delete method. If set, a delete button is shown in upper top corner
+         * of the container.
+         */
         onDelete: {
             type: Function,
             default: null
         },
+        /**
+         * Values resulted from changing the form's inputs. This prop supports the ".sync"
+         * modifier.
+         */
         values: {
             type: Object,
             default: () => ({})
         },
+        /**
+         * Overrides the next route. Example:
+         * { name: "person-show", params: { name: "...", email: "..." } }.
+         */
         next: {
             type: String | Object,
             default: null
         },
+        /**
+         * Props that can be used to customize the form.
+         */
         formProps: {
             type: Object,
             default: () => ({})
