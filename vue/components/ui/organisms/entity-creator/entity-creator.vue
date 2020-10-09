@@ -41,7 +41,60 @@ export const EntityCreator = {
             required: true
         },
         /**
-         * Used to structure and populate the create form.
+         * Used to structure and populate the create form. Example:
+         * {
+         *     "Person Info": [
+         *         [
+         *             {
+         *                 fields: [
+         *                     {
+         *                         value: "name",
+         *                         label: "Name*",
+         *                         type: "text",
+         *                         props: { placeholder: "First and last" }
+         *                     },
+         *                     {
+         *                         value: "email",
+         *                         label: "E-mail*",
+         *                         type: "text",
+         *                         props: { placeholder: "User email" }
+         *                     },
+         *                     {
+         *                         value: "address",
+         *                         label: "Address",
+         *                         type: "text",
+         *                         meta: "longtext",
+         *                         props: { placeholder: "Username" }
+         *                     }
+         *                 ]
+         *             }
+         *         ],
+         *         [
+         *             {
+         *                 fields: [
+         *                     {
+         *                         value: "company",
+         *                         label: "Organization",
+         *                         type: "text",
+         *                         props: { placeholder: "Organization" }
+         *                     },
+         *                     {
+         *                         value: "position",
+         *                         label: "Position",
+         *                         type: "text",
+         *                         props: { placeholder: "Position" }
+         *                     },
+         *                     {
+         *                         value: "phone",
+         *                         label: "Phone",
+         *                         type: "text",
+         *                         props: { placeholder: "+- - - -" }
+         *                     }
+         *                 ]
+         *             }
+         *         ]
+         *     ]
+         * }
          */
         fields: {
             type: Object,
@@ -69,7 +122,9 @@ export const EntityCreator = {
             default: null
         },
         /**
-         * Values resulted from the form's inputs.
+         * Values resulted from the form's inputs. The initial values of this prop are used
+         * as the clear values for when the discard button is pressed. Example:
+         * { project: "required project example" }.
          */
         values: {
             type: Object,
