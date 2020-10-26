@@ -52,8 +52,16 @@
     vertical-align: top;
 }
 
+.input-color-container.invalid > .input {
+    border-color: $red;
+}
+
 .input-color-container > .input-color-native {
     display: none;
+}
+
+.input-color-container > .input-color-native:invalid {
+    display: inline-block;
 }
 </style>
 
@@ -99,14 +107,25 @@ export const InputColor = {
         classes() {
             const base = {};
             if (this.disabled) base.disabled = true;
+            if (!this.hasValidColor) base.invalid = true;
             return base;
         },
         style() {
             const base = {
-                "background-color": this.valueData === null ? null : this.valueData,
+                "background-color": this.valueData === null ? null : this.colorComputed,
                 height: this.height === null ? null : this.height + "px"
             };
             return base;
+        },
+        colorComputed() {
+            return this.hasValidColor ? this.valueData : "#ffffff";
+        },
+        /**
+         * Weather or not `valueData` is a string with valid hex color code.
+         * @returns true if `valueData` is a string with a valid hex color code or false if otherwise.
+         */
+        hasValidColor() {
+            return /^#([0-9A-F]{3}){1,2}$/i.test(this.valueData);
         }
     },
     watch: {
