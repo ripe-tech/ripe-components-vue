@@ -15,7 +15,6 @@
             type="color"
             v-bind:value="valueData"
             v-bind:disabled="disabled"
-            v-show="false"
             ref="nativeColorInput"
             v-on:input="onInput($event.target.value)"
         />
@@ -28,10 +27,6 @@
 .input-color-container {
     display: inline-block;
     font-size: 0px;
-}
-
-.input-color-container > .input {
-    vertical-align: top;
 }
 
 .input-color-container > .color-picker {
@@ -50,8 +45,15 @@
 }
 
 .input-color-container.disabled > .color-picker:hover {
-    border-color: $red;
     cursor: not-allowed;
+}
+
+.input-color-container > .input {
+    vertical-align: top;
+}
+
+.input-color-container > .input-color-native {
+    display: none;
 }
 </style>
 
@@ -108,8 +110,11 @@ export const InputColor = {
         }
     },
     watch: {
-        value: function(value) {
+        value(value) {
             this.valueData = value;
+        },
+        valueData(value) {
+            this.$emit("update:value", value);
         }
     },
     methods: {
@@ -118,7 +123,6 @@ export const InputColor = {
         },
         onInput(value) {
             this.valueData = value;
-            this.$emit("update:value", value);
         },
         onClickPicker() {
             this.showColorMenu();
