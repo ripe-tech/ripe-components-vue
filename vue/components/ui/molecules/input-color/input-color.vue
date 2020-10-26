@@ -63,7 +63,7 @@ export const InputColor = {
          */
         value: {
             type: String,
-            default: "#ff0000"
+            default: "#000000"
         },
         /**
          * The variant color of the input for the color-picker.
