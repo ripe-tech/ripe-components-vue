@@ -113,7 +113,7 @@ export const InputColor = {
         }
     },
     methods: {
-        openColorPicker() {
+        showColorMenu() {
             this.$refs.nativeColorInput.click();
         },
         onInput(value) {
@@ -121,7 +121,7 @@ export const InputColor = {
             this.$emit("update:value", value);
         },
         onClickPicker() {
-            this.openColorPicker();
+            this.showColorMenu();
         }
     }
 };
