@@ -15,7 +15,10 @@ describe("InputColor", () => {
         });
 
         const colorPicker = component.find(".color-picker");
-        assert.strictEqual(colorPicker.attributes("style").includes("background-color: rgb(255, 0, 0)"), true);
+        assert.strictEqual(
+            colorPicker.attributes("style").includes("background-color: rgb(255, 0, 0)"),
+            true
+        );
     });
     it("should set the correct color sent as a prop in the native input and internal data", () => {
         const component = base.getComponent("InputColor", {
@@ -35,6 +38,9 @@ describe("InputColor", () => {
         assert.strictEqual(component.vm.hasValidColor, false);
 
         const colorPicker = component.find(".color-picker");
-        assert.strictEqual(colorPicker.attributes("style").includes("background-color: rgb(255, 255, 255)"), true);
+        assert.strictEqual(
+            colorPicker.attributes("style").includes("background-color: rgb(255, 255, 255)"),
+            true
+        );
     });
 });
