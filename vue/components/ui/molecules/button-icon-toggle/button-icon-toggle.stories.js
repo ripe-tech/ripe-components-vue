@@ -61,7 +61,7 @@ storiesOf("Molecules", module)
                 default: number("Size", 40)
             },
             value: {
-                default: boolean("Value", false)
+                default: boolean("Value", true)
             }
         },
         watch: {
