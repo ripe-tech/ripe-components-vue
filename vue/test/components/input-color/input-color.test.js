@@ -9,15 +9,15 @@ describe("InputColor", () => {
 
         assert.strictEqual(component.exists(), true);
     });
-    it("should display the correct color sent as a prop", () => {
+    it("should display the correct color sent as a prop in the color picker", () => {
         const component = base.getComponent("InputColor", {
             props: { value: "#ff0000" }
         });
 
         const colorPicker = component.find(".color-picker");
-        assert.strictEqual(colorPicker.attributes("style").includes("rgb(255, 0, 0)"), true);
+        assert.strictEqual(colorPicker.attributes("style").includes("background-color: rgb(255, 0, 0)"), true);
     });
-    it("should set the correct color sent as a prop in the native input", () => {
+    it("should set the correct color sent as a prop in the native input and internal data", () => {
         const component = base.getComponent("InputColor", {
             props: { value: "#ff0000" }
         });
@@ -26,5 +26,15 @@ describe("InputColor", () => {
 
         const inputNative = component.find(".input-color-native");
         assert.strictEqual(inputNative.element._value, "#ff0000");
+    });
+    it("should display empty color picker when it has an invalid color value", () => {
+        const component = base.getComponent("InputColor", {
+            props: { value: "#ff0000INVALID" }
+        });
+
+        assert.strictEqual(component.vm.hasValidColor, false);
+
+        const colorPicker = component.find(".color-picker");
+        assert.strictEqual(colorPicker.attributes("style").includes("background-color: rgb(255, 255, 255)"), true);
     });
 });
