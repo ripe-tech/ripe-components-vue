@@ -49,7 +49,7 @@
         "svgo": "svgo -r . --disable='removeDimensions,removeViewBox,minifyStyles'",
         "test": "npm run test:mocha && npm run test:vue",
         "test-debug": "cross-env NODE_ENV=development node --inspect node_modules/.bin/mochapack --webpack-config vue/test/webpack.config.js --require vue/test/setup.js vue/**/*.test.js",
-        "test-watch:vue": "npm run test-vue -- --watch",
+        "test-watch:vue": "npm run test:vue -- --watch",
         "test:mocha": "mocha --recursive test",
         "test:vue": "cross-env NODE_ENV=development mochapack --webpack-config vue/test/webpack.config.js --require vue/test/setup.js vue/test/**/*.test.js",
         "upgrade": "npx sort-package-json && ncu -u",
