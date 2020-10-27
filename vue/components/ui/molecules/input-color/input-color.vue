@@ -14,9 +14,9 @@
         <input
             class="input-color-native"
             type="color"
-            v-bind:value="colorComputed"
+            v-bind:value="inputColorNativeValue"
             v-bind:disabled="disabled"
-            ref="nativeColorInput"
+            ref="inputColorNative"
             v-on:input="onPickerInput($event.target.value)"
         />
     </div>
@@ -117,13 +117,16 @@ export const InputColor = {
         },
         style() {
             const base = {
-                "background-color": this.valueData === null ? null : this.colorComputed,
+                "background-color": this.valueData === null ? null : this.inputColorNativeValue,
                 height: this.height === null ? null : this.height + "px"
             };
             return base;
         },
         colorComputed() {
             return `#${this.valueData}`;
+        },
+        inputColorNativeValue() {
+            return this.hasValidColor ? this.colorComputed : "#ffffff";
         },
         /**
          * Weather or not `valueData` is a string with valid hex color code.
@@ -141,7 +144,7 @@ export const InputColor = {
             this.valueData = value;
         },
         valueData(value) {
-            this.valueData = value.replace("#", "");
+            this.valueData = value.replaceAll("#", "");
         },
         colorComputed(value) {
             this.$emit("update:value", value);
@@ -149,7 +152,7 @@ export const InputColor = {
     },
     methods: {
         showColorMenu() {
-            this.$refs.nativeColorInput.click();
+            this.$refs.inputColorNative.click();
         },
         onUserInput(value) {
             this.valueData = value;
