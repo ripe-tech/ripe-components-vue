@@ -1,22 +1,23 @@
 <template>
     <div class="input-color-container" v-bind:class="classes">
-        <div class="color-picker" v-bind:style="style" v-on:click="onClickPicker" />
-        <input-ripe
+        <div class="picker-color" v-bind:style="style" v-on:click="onPickerClick" />
+        <input-symbol
             class="input-color"
             v-bind:value.sync="valueData"
             v-bind:width="100"
             v-bind:disabled="disabled"
             v-bind:variant="variant"
             v-bind:height="height"
-            v-on:update:value="onInput"
+            v-bind:symbol="'#'"
+            v-on:update:value="onUserInput"
         />
         <input
             class="input-color-native"
             type="color"
-            v-bind:value="valueData"
+            v-bind:value="colorComputed"
             v-bind:disabled="disabled"
             ref="nativeColorInput"
-            v-on:input="onInput($event.target.value)"
+            v-on:input="onPickerInput($event.target.value)"
         />
     </div>
 </template>
@@ -29,30 +30,34 @@
     font-size: 0px;
 }
 
-.input-color-container > .color-picker {
+.input-color-container > .picker-color {
     border: 1px solid #e4e8f0;
     border-radius: 6px 6px 6px 6px;
-    box-sizing: border-box;
     display: inline-block;
     height: 34px;
     margin: 0px 5px 0px 0px;
     width: 100px;
 }
 
-.input-color-container > .color-picker:hover {
+.input-color-container:not(.disabled) > .picker-color:hover {
     border-color: $aqcua-blue;
     cursor: pointer;
 }
 
-.input-color-container.disabled > .color-picker:hover {
+.input-color-container.disabled > .picker-color {
+    opacity: 0.4;
+}
+
+.input-color-container.disabled > .picker-color:hover {
     cursor: not-allowed;
 }
 
-.input-color-container > .input {
+.input-color-container > .input-color {
+    display: inline-flex;
     vertical-align: top;
 }
 
-.input-color-container.invalid > .input {
+.input-color-container.invalid > .input-color {
     border-color: $red;
 }
 
@@ -69,14 +74,14 @@
 export const InputColor = {
     props: {
         /**
-         * The initial hex color value of the color-picker.
+         * The hex color value.
          */
         value: {
             type: String,
             default: "#000000"
         },
         /**
-         * The variant color of the input for the color-picker.
+         * The color variant of the color input.
          * @values dark
          */
         variant: {
@@ -84,14 +89,14 @@ export const InputColor = {
             default: null
         },
         /**
-         * The height of the color-picker color box and input in pixels.
+         * The height of the color picker and color input in pixels.
          */
         height: {
             type: Number,
             required: false
         },
         /**
-         * If weather or not the input-color is in read-only mode.
+         * If weather or not the color input is read-only.
          */
         disabled: {
             type: Boolean,
@@ -100,7 +105,7 @@ export const InputColor = {
     },
     data: function() {
         return {
-            valueData: this.value
+            valueData: null
         };
     },
     computed: {
@@ -118,21 +123,27 @@ export const InputColor = {
             return base;
         },
         colorComputed() {
-            return this.hasValidColor ? this.valueData : "#ffffff";
+            return `#${this.valueData}`;
         },
         /**
          * Weather or not `valueData` is a string with valid hex color code.
          * @returns true if `valueData` is a string with a valid hex color code or false if otherwise.
          */
         hasValidColor() {
-            return /^#([0-9A-F]{3}){1,2}$/i.test(this.valueData);
+            return /^#([0-9A-F]{3}){1,2}$/i.test(`#${this.valueData}`);
         }
+    },
+    created: function() {
+        this.valueData = this.value;
     },
     watch: {
         value(value) {
             this.valueData = value;
         },
         valueData(value) {
+            this.valueData = value.replace("#", "");
+        },
+        colorComputed(value) {
             this.$emit("update:value", value);
         }
     },
@@ -140,10 +151,13 @@ export const InputColor = {
         showColorMenu() {
             this.$refs.nativeColorInput.click();
         },
-        onInput(value) {
+        onUserInput(value) {
             this.valueData = value;
         },
-        onClickPicker() {
+        onPickerInput(value) {
+            this.valueData = value.replace("#", "");
+        },
+        onPickerClick() {
             this.showColorMenu();
         }
     }
