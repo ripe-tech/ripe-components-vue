@@ -15,7 +15,7 @@ export const ButtonIconToggle = {
     name: "button-icon-toggle",
     props: {
         /**
-         * The name of the primary icon to appear in the middle of the buttonbundleRenderer.
+         * The name of the primary icon to appear in the middle of the button.
          * This icon will show when `value` is true.
          */
         icon: {
@@ -43,7 +43,7 @@ export const ButtonIconToggle = {
          */
         colorSecondary: {
             type: String,
-            default: "black"
+            default: null
         },
         /**
          * The size of the button in pixels.
@@ -77,7 +77,7 @@ export const ButtonIconToggle = {
     },
     computed: {
         colorComputed() {
-            return this.valueData ? this.colorSecondary : this.color;
+            return this.valueData ? this.colorSecondary || this.color : this.color;
         },
         iconComputed() {
             return this.valueData ? this.iconSecondary || this.icon : this.icon;
@@ -88,8 +88,8 @@ export const ButtonIconToggle = {
             this.valueData = !this.valueData;
         },
         onClick(event) {
-            this.$emit("click", event);
             this.toggleValue();
+            this.$emit("click", event);
         }
     }
 };
