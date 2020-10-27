@@ -8,7 +8,33 @@
 
 <script>
 export const BoxResizable = {
-    name: "box-resizable"
+    name: "box-resizable",
+    props: {
+        x1: {
+            type: Number,
+            default: 0
+        },
+        y1: {
+            type: Number,
+            default: 1
+        },
+        x2: {
+            type: Number,
+            default: 2
+        },
+        y2: {
+            type: Number,
+            default: 1
+        },
+        color: {
+            type: String,
+            default: "#e96760"
+        },
+        colorControls: {
+            type: String,
+            default: "#ffffff"
+        }
+    }
 };
 
 export default BoxResizable;
