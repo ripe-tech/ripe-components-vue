@@ -1,7 +1,7 @@
 const assert = require("assert");
 const base = require("../../base");
 
-describe("Select", () => {
+describe("SliderRipe", () => {
     it("should initialize the input color", () => {
         const component = base.getComponent("SliderRipe");
 
