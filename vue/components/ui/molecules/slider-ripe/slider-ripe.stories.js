@@ -1,60 +1,27 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, boolean, number, select } from "@storybook/addon-knobs";
+import { withKnobs, boolean, number } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Slider Ripe", () => ({
         props: {
-            variant: {
-                default: select(
-                    "Variant",
-                    {
-                        Unset: null,
-                        Dark: "dark"
-                    },
-                    null
-                )
-            },
-            border: {
-                default: select(
-                    "Border",
-                    {
-                        Unset: null,
-                        Strong: "strong",
-                        Thin: "thin"
-                    },
-                    "thin"
-                )
-            },
-            align: {
-                default: select(
-                    "Align",
-                    {
-                        Unset: null,
-                        Left: "left",
-                        Center: "center",
-                        Right: "right"
-                    },
-                    "right"
-                )
-            },
             value: {
-                default: number("Value", 40)
+                default: number("Value", 0)
             },
-            symbol: {
-                default: text("Symbol", "€")
+            min: {
+                default: number("Minimum Value", 0)
             },
-            placeholder: {
-                default: text("Placeholder", "This is a placeholder")
+            max: {
+                default: number("Maximum Value", 100)
+            },
+            step: {
+                default: number("Step Value", 1)
             },
             disabled: {
                 default: boolean("Disabled", false)
             },
-            height: {
-                default: number("Height", null)
-            },
             width: {
-                default: number("Width", 300)
+                default: number("Width", 150)
             }
         },
         data: function() {
@@ -71,9 +38,11 @@ storiesOf("Molecules", module)
             <div>
                 <slider-ripe
                     v-bind:value.sync="valueData"
-                    v-bind:height="height"
+                    v-bind:min="min"
+                    v-bind:max="max"
+                    v-bind:step="step"
                     v-bind:width="width"
-                    v-bind:border="border" />
+                    v-bind:disabled="disabled" />
                 <p>Value: {{ valueData }}</p>
             </div>
         `

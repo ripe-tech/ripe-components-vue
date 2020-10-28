@@ -2,14 +2,13 @@
     <input-ripe
         class="slider-ripe"
         v-bind:value.sync="valueData"
-        v-bind:variant="variant"
-        v-bind:border="border"
         v-bind:type="'range'"
         v-bind:disabled="disabled"
-        v-bind:height="height"
         v-bind:min-width="0"
-        v-bind:class="classes"
-        v-bind:style="style"
+        v-bind:width="width"
+        v-bind:min="min"
+        v-bind:max="max"
+        v-bind:step="step"
         ref="input"
         v-on:update:value="onInput"
         v-on:blur="onBlur"
@@ -20,151 +19,101 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-input[type=range] {
-  -webkit-appearance: none;
-  margin: 18px 0;
-  width: 100%;
+.slider-ripe {
+    appearance: none;
+    border: none;
+    height: 20px;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
 }
 
-input[type=range]:focus {
-  outline: none;
+.slider-ripe::-webkit-slider-runnable-track {
+    background: #57626e;
+    border-radius: 4px;
+    cursor: pointer;
+    height: 3px;
 }
 
-input[type=range]::-webkit-slider-runnable-track {
-  width: 100%;
-  height: 8.4px;
-  cursor: pointer;
-  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-  background: #7C7C7C;
-  border-radius: 1.3px;
-  border: 0.2px solid #010101;
+.slider-ripe::-moz-range-track {
+    background: #57626e;
+    border-radius: 4px;
+    cursor: pointer;
+    height: 3px;
 }
 
-input[type=range]::-webkit-slider-thumb {
-  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-  border: 1px solid #000000;
-  height: 36px;
-  width: 16px;
-  border-radius: 3px;
-  background: #ffffff;
-  cursor: pointer;
-  -webkit-appearance: none;
-  margin-top: -14px;
+.slider-ripe::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background: #57626e;
+    border: 2px solid #e4e8f0;
+    border-radius: 50%;
+    cursor: col-resize;
+    height: 16px;
+    margin-top: -7px;
+    width: 16px;
 }
 
-input[type=range]:focus::-webkit-slider-runnable-track {
-  background: #7C7C7C;
-}
-
-input[type=range]::-moz-range-track {
-  width: 100%;
-  height: 8.4px;
-  cursor: pointer;
-  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-  background: #7C7C7C;
-  border-radius: 1.3px;
-  border: 0.2px solid #010101;
-}
-
-input[type=range]::-moz-range-thumb {
-  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-  border: 1px solid #000000;
-  height: 36px;
-  width: 16px;
-  border-radius: 3px;
-  background: #ffffff;
-  cursor: pointer;
-}
-
-input[type=range]::-ms-track {
-  width: 100%;
-  height: 8.4px;
-  cursor: pointer;
-  background: transparent;
-  border-color: transparent;
-  border-width: 16px 0;
-  color: transparent;
-}
-
-input[type=range]::-ms-fill-lower {
-  background: #7C7C7C;
-  border: 0.2px solid #010101;
-  border-radius: 2.6px;
-  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-}
-
-input[type=range]::-ms-fill-upper {
-  background: #7C7C7C;
-  border: 0.2px solid #010101;
-  border-radius: 2.6px;
-  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-}
-
-input[type=range]::-ms-thumb {
-  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-  border: 1px solid #000000;
-  height: 36px;
-  width: 16px;
-  border-radius: 3px;
-  background: #ffffff;
-  cursor: pointer;
-}
-
-input[type=range]:focus::-ms-fill-lower {
-  background: #7C7C7C;
-}
-
-input[type=range]:focus::-ms-fill-upper {
-  background: #7C7C7C;
+.slider-ripe::-moz-range-thumb {
+    background: #57626e;
+    border: 2px solid #e4e8f0;
+    border-radius: 50%;
+    cursor: col-resize;
+    height: 12px;
+    width: 12px;
 }
 </style>
 
 <script>
 export const SliderRipe = {
     props: {
+        /**
+         * The value of the slider knob.
+         */
         value: {
             type: String | Number,
-            default: ""
-        },
-        variant: {
-            type: String,
             default: null
         },
-        border: {
-            type: String,
-            default: "thin"
+        /**
+         * The minimum value of the slider track.
+         */
+        min: {
+            type: Number,
+            default: 0
         },
-        autofocus: {
-            type: Boolean,
-            default: false
+        /**
+         * The maximum value of the slider track.
+         */
+        max: {
+            type: Number,
+            default: 100
         },
+        /**
+         * The step unit of the slider knob.
+         */
+        step: {
+            type: Number,
+            default: 1
+        },
+        /**
+         * Weather or not the slider is disabled and unable to move.
+         */
         disabled: {
             type: Boolean,
             default: false
         },
+        /**
+         * The width of the slider track in pixels.
+         */
         width: {
             type: Number,
-            default: null
-        },
-        height: {
-            type: Number,
-            default: null
+            default: 150
         }
     },
     data: function() {
         return {
-            valueData: this.value
+            valueData: this.value || this.min
         };
     },
     computed: {
-        classes() {
-            const base = {
-                disabled: this.disabled
-            };
-            if (this.variant) base[`color-${this.variant}`] = true;
-            if (this.border) base[`border-${this.border}`] = true;
-            return base;
-        },
         style() {
             const base = {
                 width: this.width === null ? null : `${this.width}px`
@@ -178,12 +127,6 @@ export const SliderRipe = {
         }
     },
     methods: {
-        focus() {
-            this.$refs.input.focus();
-        },
-        blur() {
-            this.$refs.input.blur();
-        },
         onInput(value) {
             this.$emit("update:value", value);
         },
