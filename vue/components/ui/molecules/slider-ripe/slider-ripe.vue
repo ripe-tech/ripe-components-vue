@@ -9,7 +9,6 @@
         v-bind:min="min"
         v-bind:max="max"
         v-bind:step="step"
-        ref="input"
         v-on:update:value="onInput"
         v-on:blur="onBlur"
         v-on:focus="onFocus"
@@ -44,7 +43,7 @@
 .slider-ripe::-webkit-slider-thumb {
     -webkit-appearance: none;
     background: #57626e;
-    border: 2px solid #e4e8f0;
+    border: 2px solid $light-white;
     border-radius: 50%;
     cursor: col-resize;
     height: 16px;
@@ -54,7 +53,7 @@
 
 .slider-ripe::-moz-range-thumb {
     background: #57626e;
-    border: 2px solid #e4e8f0;
+    border: 2px solid $light-white;
     border-radius: 50%;
     cursor: col-resize;
     height: 12px;
