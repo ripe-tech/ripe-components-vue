@@ -273,7 +273,8 @@ export const ButtonIcon = {
                             : this.paddingBase
                         : this.paddingRight
                 }px`,
-                "border-radius": `${this.borderRadius || this.size}px`
+                "border-radius":
+                    this.borderRadius === null ? `${this.size}px` : `${this.borderRadius}px`
             };
         },
         classes() {
