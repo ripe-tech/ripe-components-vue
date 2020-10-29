@@ -66,7 +66,7 @@ storiesOf("Atoms", module)
                 v-bind:text="text"
                 v-bind:color="color"
                 v-bind:size="size"
-                v-bind:borderRadius="borderRadius"
+                v-bind:border-radius="borderRadius"
                 v-bind:padding="padding"
                 v-bind:disabled="disabled"
                 v-bind:selectable="selectable"
