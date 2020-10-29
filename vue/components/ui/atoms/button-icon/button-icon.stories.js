@@ -41,7 +41,7 @@ storiesOf("Atoms", module)
                 default: number("Size", 30)
             },
             borderRadius: {
-                default: number("Border Radius", 20)
+                default: number("Border Radius", null)
             },
             padding: {
                 default: number("Padding", null)
