@@ -40,6 +40,9 @@ storiesOf("Atoms", module)
             size: {
                 default: number("Size", 30)
             },
+            borderRadius: {
+                default: number("Border Radius", 20)
+            },
             padding: {
                 default: number("Padding", null)
             },
@@ -63,6 +66,7 @@ storiesOf("Atoms", module)
                 v-bind:text="text"
                 v-bind:color="color"
                 v-bind:size="size"
+                v-bind:borderRadius="borderRadius"
                 v-bind:padding="padding"
                 v-bind:disabled="disabled"
                 v-bind:selectable="selectable"
