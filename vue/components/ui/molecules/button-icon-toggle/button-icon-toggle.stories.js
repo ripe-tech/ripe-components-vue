@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, number, select, boolean } from "@storybook/addon-knobs";
+import { withKnobs, select, boolean } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
@@ -57,9 +57,6 @@ storiesOf("Molecules", module)
                     "black"
                 )
             },
-            size: {
-                default: number("Size", 40)
-            },
             value: {
                 default: boolean("Value", true)
             }
@@ -81,7 +78,6 @@ storiesOf("Molecules", module)
                 v-bind:icon-secondary="iconSecondary"
                 v-bind:color="color"
                 v-bind:color-secondary="colorSecondary"
-                v-bind:size="size"
                 v-bind:value.sync="valueData" />
             <div>Value: {{ valueData }}</div>
         </div>

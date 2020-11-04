@@ -45,14 +45,4 @@ describe("ButtonIconToggle", () => {
         assert.strictEqual(buttonIconProps.color, "white");
         assert.strictEqual(buttonIconProps.icon, "walking");
     });
-
-    it("should display primary color and primary icon when value is true but secondary props are not set", () => {
-        const component = base.getComponent("ButtonIconToggle", {
-            props: { value: true, color: "white", icon: "walking" }
-        });
-
-        const buttonIconProps = component.findComponent({ name: "button-icon" }).vm.$props;
-        assert.strictEqual(buttonIconProps.color, "white");
-        assert.strictEqual(buttonIconProps.icon, "walking");
-    });
 });

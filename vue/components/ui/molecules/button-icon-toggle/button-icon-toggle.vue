@@ -1,9 +1,9 @@
 <template>
     <button-icon
         class="button-icon-toggle"
+        v-bind="buttonIconProps"
         v-bind:icon="iconComputed"
         v-bind:color="colorComputed"
-        v-bind:size="size"
         v-on:click="onClick"
     />
 </template>
@@ -29,7 +29,7 @@ export const ButtonIconToggle = {
          */
         iconSecondary: {
             type: String,
-            default: null
+            default: "close"
         },
         /**
          * The color of the button when `value` is false.
@@ -43,14 +43,7 @@ export const ButtonIconToggle = {
          */
         colorSecondary: {
             type: String,
-            default: null
-        },
-        /**
-         * The size of the button in pixels.
-         */
-        size: {
-            type: Number,
-            required: false
+            default: "black"
         },
         /**
          * The value of the button.
@@ -59,11 +52,14 @@ export const ButtonIconToggle = {
         value: {
             type: Boolean,
             default: false
+        },
+        buttonIconProps: {
+            type: Object,
+            default: () => {}
         }
     },
     data: function() {
         return {
-            animating: false,
             valueData: this.value
         };
     },
