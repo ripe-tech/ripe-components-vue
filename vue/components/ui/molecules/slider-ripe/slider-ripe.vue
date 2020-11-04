@@ -89,7 +89,7 @@ export const SliderRipe = {
     },
     data: function() {
         return {
-            valueData: this.value || 0,
+            valueData: null,
             defaultInputProps: {
                 min: 0,
                 max: 100,
@@ -109,6 +109,9 @@ export const SliderRipe = {
                 ...this.inputProps
             };
         }
+    },
+    created: function() {
+        this.valueData = this.value || this.mergedInputProps.min;
     },
     methods: {
         onInput(value) {
