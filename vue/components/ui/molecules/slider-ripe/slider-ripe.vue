@@ -1,14 +1,9 @@
 <template>
     <input-ripe
         class="slider-ripe"
+        v-bind="mergedInputProps"
         v-bind:value.sync="valueData"
         v-bind:type="'range'"
-        v-bind:disabled="disabled"
-        v-bind:min-width="0"
-        v-bind:width="width"
-        v-bind:min="min"
-        v-bind:max="max"
-        v-bind:step="step"
         v-on:update:value="onInput"
         v-on:blur="onBlur"
         v-on:focus="onFocus"
@@ -51,6 +46,10 @@
     width: 16px;
 }
 
+.slider-ripe:focus::-webkit-slider-thumb {
+    border-color: $aqcua-blue;
+}
+
 .slider-ripe::-moz-range-thumb {
     background: #57626e;
     border: 2px solid $light-white;
@@ -58,6 +57,10 @@
     cursor: col-resize;
     height: 12px;
     width: 12px;
+}
+
+.slider-ripe:focus::-moz-range-thumb {
+    border-color: $aqcua-blue;
 }
 </style>
 
@@ -72,57 +75,39 @@ export const SliderRipe = {
             default: null
         },
         /**
-         * The minimum value of the slider track.
+         * Set of props that are passed to input-ripe component.
+         * `min` - The minimum value of the slider track.
+         * `max` - The maximum value of the slider track.
+         * `step` - The step unit of the slider knob.
+         * `disabled` - Weather or not the slider is disabled and unable to move.
+         * `width` - The width of the slider track in pixels.
          */
-        min: {
-            type: Number,
-            default: 0
-        },
-        /**
-         * The maximum value of the slider track.
-         */
-        max: {
-            type: Number,
-            default: 100
-        },
-        /**
-         * The step unit of the slider knob.
-         */
-        step: {
-            type: Number,
-            default: 1
-        },
-        /**
-         * Weather or not the slider is disabled and unable to move.
-         */
-        disabled: {
-            type: Boolean,
-            default: false
-        },
-        /**
-         * The width of the slider track in pixels.
-         */
-        width: {
-            type: Number,
-            default: 150
+        inputProps: {
+            type: Object,
+            default: () => ({})
         }
     },
     data: function() {
         return {
-            valueData: this.value || this.min
+            valueData: this.value || 0,
+            defaultInputProps: {
+                min: 0,
+                max: 100,
+                step: 1
+            }
         };
-    },
-    computed: {
-        style() {
-            const base = {
-                width: this.width === null ? null : `${this.width}px`
-            };
-            return base;
-        }
     },
     watch: {
         value: function(value) {
             this.valueData = value;
+        }
+    },
+    computed: {
+        mergedInputProps() {
+            return {
+                ...this.defaultInputProps,
+                ...this.inputProps
+            };
         }
     },
     methods: {

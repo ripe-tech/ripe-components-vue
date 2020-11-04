@@ -2,7 +2,7 @@ const assert = require("assert");
 const base = require("../../base");
 
 describe("SliderRipe", () => {
-    it("should initialize the input color", () => {
+    it("should initialize the slider ripe", () => {
         const component = base.getComponent("SliderRipe");
 
         assert.strictEqual(component.exists(), true);
@@ -16,7 +16,7 @@ describe("SliderRipe", () => {
 
     it("should start with value set as as the minimum if no value is specified by prop", () => {
         const component = base.getComponent("SliderRipe", {
-            props: { min: 22 }
+            props: { "input-props": { min: 22 } }
         });
 
         assert.strictEqual(component.vm.$data.valueData, 22);
