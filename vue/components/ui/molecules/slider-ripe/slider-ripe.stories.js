@@ -37,12 +37,8 @@ storiesOf("Molecules", module)
         template: `
             <div>
                 <slider-ripe
-                    v-bind:value.sync="valueData"
-                    v-bind:min="min"
-                    v-bind:max="max"
-                    v-bind:step="step"
-                    v-bind:width="width"
-                    v-bind:disabled="disabled" />
+                    v-bind:input-props="{ min: min, max: max, step: step, disabled: disabled, width: width }"
+                    v-bind:value.sync="valueData" />
                 <p>Value: {{ valueData }}</p>
             </div>
         `
