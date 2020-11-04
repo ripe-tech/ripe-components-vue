@@ -3,7 +3,6 @@
         <slider-ripe
             v-bind:value.sync="valueData"
             v-bind:disabled="disabled"
-            v-bind:width="width"
             v-bind:min="min"
             v-bind:max="max"
             v-bind:step="step"
@@ -11,9 +10,10 @@
             v-on:focus="onFocus"
         />
         <input-symbol
-            v-bind:value.sync="valueData"
+            v-bind:value="valueData"
+            v-bind:input-props="inputProps"
             v-bind:disabled="disabled"
-            v-bind:width="90"
+            v-bind:width="100"
             v-bind:height="32"
             v-bind:symbol="symbol"
             v-bind:variant="variant"
@@ -28,17 +28,12 @@
 @import "css/variables.scss";
 
 .input-slider {
-    display: block;
+    align-items: center;
+    display: flex;
 }
 
 .input-slider > .slider-ripe {
-    height: 32px;
     margin: 0px 10px 0px 0px;
-}
-
-.input-slider > .input-symbol {
-    display: inline-flex;
-    vertical-align: top;
 }
 </style>
 
@@ -50,7 +45,7 @@ export const InputSlider = {
          */
         value: {
             type: String | Number,
-            required: false
+            default: null
         },
         /**
          * The minimum value of the slider track.
@@ -117,25 +112,25 @@ export const InputSlider = {
         },
         classes() {
             return "";
-        },
-        isInvalid() {
-            return this.valueData > this.max || this.valueData < this.min || isNaN(this.valueData);
-        },
-        valueComputed() {
-            return this.isInvalid ? this.min : this.valueData;
         }
     },
     watch: {
         value: function(value) {
             this.valueData = value;
         },
-        valueComputed: function(value) {
+        valueData: function(value) {
             this.$emit("update:value", value);
         }
     },
     methods: {
+        isInvalid(value) {
+            return value > this.max || value < this.min || isNaN(value);
+        },
+        setValue(value) {
+            if (!this.isInvalid(value)) this.valueData = value;
+        },
         onUserInput(value) {
-            if (this.isInvalid) this.valueData = this.valueComputed;
+            this.setValue(value);
         },
         onFocus() {
             this.$emit("focus");

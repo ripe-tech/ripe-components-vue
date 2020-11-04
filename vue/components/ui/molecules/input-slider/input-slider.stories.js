@@ -20,9 +20,6 @@ storiesOf("Molecules", module)
             disabled: {
                 default: boolean("Disabled", false)
             },
-            width: {
-                default: number("Width", 150)
-            },
             symbol: {
                 default: text("Symbol", "%")
             },
@@ -54,7 +51,6 @@ storiesOf("Molecules", module)
                     v-bind:min="min"
                     v-bind:max="max"
                     v-bind:step="step"
-                    v-bind:width="width"
                     v-bind:symbol="symbol"
                     v-bind:variant="variant"
                     v-bind:disabled="disabled" />
