@@ -25,7 +25,6 @@ export const ButtonIconToggle = {
         /**
          * The name of the icon to appear in the middle of the button.
          * This icon will show when `value` is false.
-         * If none is received, `icon` will be considered instead.
          */
         iconSecondary: {
             type: String,
@@ -47,7 +46,6 @@ export const ButtonIconToggle = {
         },
         /**
          * The value of the button.
-         * @values true, false
          */
         value: {
             type: Boolean,
@@ -73,10 +71,10 @@ export const ButtonIconToggle = {
     },
     computed: {
         colorComputed() {
-            return this.valueData ? this.colorSecondary || this.color : this.color;
+            return this.valueData ? this.colorSecondary : this.color;
         },
         iconComputed() {
-            return this.valueData ? this.iconSecondary || this.icon : this.icon;
+            return this.valueData ? this.iconSecondary : this.icon;
         }
     },
     methods: {
