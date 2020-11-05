@@ -48,11 +48,8 @@ storiesOf("Molecules", module)
             <div>
                 <input-slider
                     v-bind:value.sync="valueData"
-                    v-bind:min="min"
-                    v-bind:max="max"
-                    v-bind:step="step"
-                    v-bind:symbol="symbol"
-                    v-bind:variant="variant"
+                    v-bind:slider-props="{ min: min, max: max, step: step}"
+                    v-bind:input-props="{ symbol: symbol, variant: variant }"
                     v-bind:disabled="disabled" />
                 <p>Value: {{ valueData }}</p>
             </div>

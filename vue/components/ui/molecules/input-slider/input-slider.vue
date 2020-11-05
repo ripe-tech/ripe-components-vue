@@ -1,22 +1,16 @@
 <template>
     <div class="input-slider" v-bind:class="classes">
-        <slider-ripe
+        <slider
             v-bind:value.sync="valueData"
+            v-bind="mergedSliderProps"
             v-bind:disabled="disabled"
-            v-bind:min="min"
-            v-bind:max="max"
-            v-bind:step="step"
             v-on:blur="onBlur"
             v-on:focus="onFocus"
         />
         <input-symbol
             v-bind:value="valueData"
-            v-bind:input-props="inputProps"
+            v-bind="mergedInputProps"
             v-bind:disabled="disabled"
-            v-bind:width="100"
-            v-bind:height="32"
-            v-bind:symbol="symbol"
-            v-bind:variant="variant"
             v-on:update:value="onUserInput"
             v-on:blur="onBlur"
             v-on:focus="onFocus"
@@ -32,7 +26,7 @@
     display: flex;
 }
 
-.input-slider > .slider-ripe {
+.input-slider > .slider {
     margin: 0px 10px 0px 0px;
 }
 </style>
@@ -48,70 +42,49 @@ export const InputSlider = {
             default: null
         },
         /**
-         * The minimum value of the slider track.
+         * Set of props passed on to input-ripe.
          */
-        min: {
-            type: Number,
-            default: 0
+        inputProps: {
+            type: Object,
+            default: () => {}
         },
         /**
-         * The maximum value of the slider track.
+         * Set of props passed on to slider.
          */
-        max: {
-            type: Number,
-            default: 100
-        },
-        /**
-         * The step unit of the slider knob.
-         */
-        step: {
-            type: Number,
-            default: 1
+        sliderProps: {
+            type: Object,
+            default: () => {}
         },
         /**
          * Weather or not the slider is disabled and unable to move.
          */
         disabled: {
             type: Boolean,
-            default: false
-        },
-        /**
-         * The width of the slider track in pixels.
-         */
-        width: {
-            type: Number,
-            default: 150
-        },
-        /**
-         * The unit symbol to show on the user text input next to the slider.
-         */
-        symbol: {
-            type: String,
-            default: "%"
-        },
-        /**
-         * The color variant of the text input next to the slider.
-         * @options dark
-         */
-        variant: {
-            type: String,
-            default: null
+            required: false
         }
     },
     data: function() {
         return {
-            valueData: this.value || this.min
+            valueData: this.value || (this.sliderProps && this.sliderProps.min) || 0,
+            defaultInputProps: { width: 100 },
+            defaultSliderProps: {}
         };
     },
     computed: {
-        style() {
-            const base = {
-                width: this.width === null ? null : `${this.width}px`
-            };
-            return base;
-        },
         classes() {
             return "";
+        },
+        mergedInputProps() {
+            return {
+                ...this.defaultInputProps,
+                ...this.inputProps
+            };
+        },
+        mergedSliderProps() {
+            return {
+                ...this.defaultSliderProps,
+                ...this.sliderProps
+            };
         }
     },
     watch: {
