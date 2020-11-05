@@ -75,12 +75,7 @@ export const SliderRipe = {
             default: null
         },
         /**
-         * Set of props that are passed to input-ripe component.
-         * `min` - The minimum value of the slider track.
-         * `max` - The maximum value of the slider track.
-         * `step` - The step unit of the slider knob.
-         * `disabled` - Weather or not the slider is disabled and unable to move.
-         * `width` - The width of the slider track in pixels.
+         * Set of props passed on to input-ripe.
          */
         inputProps: {
             type: Object,
