@@ -14,7 +14,7 @@
         <input
             class="input-color-native"
             type="color"
-            v-bind:value="inputColorNativeValue"
+            v-bind:value="valueNative"
             v-bind:disabled="disabled"
             ref="inputColorNative"
             v-on:input="onPickerInput($event.target.value)"
@@ -117,16 +117,16 @@ export const InputColor = {
         },
         style() {
             const base = {
-                "background-color": this.valueData === null ? null : this.inputColorNativeValue,
+                "background-color": this.valueData === null ? null : this.valueNative,
                 height: this.height === null ? null : this.height + "px"
             };
             return base;
         },
-        colorComputed() {
+        colorPrefixed() {
             return `#${this.valueData}`;
         },
-        inputColorNativeValue() {
-            return this.hasValidColor ? this.colorComputed : "#ffffff";
+        valueNative() {
+            return this.hasValidColor ? this.colorPrefixed : "#ffffff";
         },
         /**
          * Weather or not `valueData` is a string with valid hex color code.
@@ -146,7 +146,7 @@ export const InputColor = {
         valueData(value) {
             this.valueData = value.replaceAll("#", "");
         },
-        colorComputed(value) {
+        colorPrefixed(value) {
             this.$emit("update:value", value);
         }
     },
