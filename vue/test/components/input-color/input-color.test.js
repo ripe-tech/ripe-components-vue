@@ -33,4 +33,19 @@ describe("InputColor", () => {
         assert.strictEqual(inputNative.element._value, "#ff0000");
         assert.strictEqual(component.vm.colorPrefixed, "#ff0000");
     });
+
+    it("should display empty color picker when it has an invalid color value", async () => {
+        const component = base.getComponent("InputColor", {
+            props: { value: "ff0000INVALID" }
+        });
+        await component.vm.$nextTick();
+
+        assert.strictEqual(component.vm.hasValidColor, false);
+
+        const colorPicker = component.find(".picker-color");
+        assert.strictEqual(
+            colorPicker.attributes("style").includes("background-color: rgb(255, 255, 255)"),
+            true
+        );
+    });
 });
