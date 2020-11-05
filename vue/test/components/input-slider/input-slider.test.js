@@ -19,7 +19,7 @@ describe("InputSlider", () => {
         const inputSymbol = component.findComponent({ name: "InputSymbol" });
         assert.strictEqual(inputSymbol.vm.$data.valueData, 11);
 
-        const sliderValue = component.find(".slider-ripe");
+        const sliderValue = component.find(".slider");
         assert.strictEqual(sliderValue.element._value, 11);
     });
 });
