@@ -94,7 +94,7 @@ export const InputColor = {
     computed: {
         classes() {
             const base = {};
-            if (this.disabled) base.disabled = true;
+            if (this.inputProps.disabled) base.disabled = true;
             if (!this.hasValidColor) base.invalid = true;
             return base;
         },
@@ -144,6 +144,7 @@ export const InputColor = {
             this.setValue(value);
         },
         onPickerClick() {
+            if (this.inputProps.disabled) return;
             this.showColorMenu();
         }
     }
