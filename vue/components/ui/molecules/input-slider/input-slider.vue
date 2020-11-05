@@ -66,7 +66,7 @@ export const InputSlider = {
     data: function() {
         return {
             valueData: this.value || (this.sliderProps && this.sliderProps.min) || 0,
-            defaultInputProps: { width: 100 },
+            defaultInputProps: { symbol: "%", width: 100 },
             defaultSliderProps: {}
         };
     },
