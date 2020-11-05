@@ -19,9 +19,6 @@ storiesOf("Molecules", module)
             },
             disabled: {
                 default: boolean("Disabled", false)
-            },
-            width: {
-                default: number("Width", 150)
             }
         },
         data: function() {
@@ -37,7 +34,7 @@ storiesOf("Molecules", module)
         template: `
             <div>
                 <slider-ripe
-                    v-bind:input-props="{ min: min, max: max, step: step, disabled: disabled, width: width }"
+                    v-bind:input-props="{ min: min, max: max, step: step, disabled: disabled }"
                     v-bind:value.sync="valueData" />
                 <p>Value: {{ valueData }}</p>
             </div>
