@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, number, select, boolean } from "@storybook/addon-knobs";
+import { withKnobs, text, select, boolean } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
@@ -16,7 +16,7 @@ storiesOf("Molecules", module)
                 )
             },
             value: {
-                default: text("Value", "#386cd2")
+                default: text("Value", "386cd2")
             },
             disabled: {
                 default: boolean("Disabled", false)

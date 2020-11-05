@@ -88,7 +88,7 @@ export const InputColor = {
     },
     data: function() {
         return {
-            valueData: null
+            valueData: this.value
         };
     },
     computed: {
@@ -119,21 +119,21 @@ export const InputColor = {
             return /^#([0-9A-F]{3}){1,2}$/i.test(`#${this.valueData}`);
         }
     },
-    created: function() {
-        this.valueData = this.value;
-    },
     watch: {
         value(value) {
             this.valueData = value;
         },
         valueData(value) {
-            this.valueData = value.replaceAll("#", "");
+            this.setValue(value);
         },
         colorPrefixed(value) {
             this.$emit("update:value", value);
         }
     },
     methods: {
+        setValue(value) {
+            this.valueData = value.replace("#", "");
+        },
         showColorMenu() {
             this.$refs.inputColorNative.click();
         },
@@ -141,7 +141,7 @@ export const InputColor = {
             this.valueData = value;
         },
         onPickerInput(value) {
-            this.valueData = value.replace("#", "");
+            this.setValue(value);
         },
         onPickerClick() {
             this.showColorMenu();
