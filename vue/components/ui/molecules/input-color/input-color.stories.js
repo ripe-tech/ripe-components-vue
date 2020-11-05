@@ -18,9 +18,6 @@ storiesOf("Molecules", module)
             value: {
                 default: text("Value", "#386cd2")
             },
-            height: {
-                default: number("Height", 34)
-            },
             disabled: {
                 default: boolean("Disabled", false)
             }
@@ -39,7 +36,7 @@ storiesOf("Molecules", module)
             <div>
                 <input-color
                     v-bind:value.sync="valueData"
-                    v-bind:height="height"
+                    v-bind:input-props="{ disabled: disabled, variant: variant}"
                     v-bind:disabled="disabled"
                     v-bind:variant="variant" />
                 <p>Color Value: {{ valueData }}</p>

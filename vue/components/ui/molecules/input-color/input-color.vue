@@ -5,9 +5,7 @@
             class="input-color"
             v-bind:value.sync="valueData"
             v-bind:width="100"
-            v-bind:disabled="disabled"
-            v-bind:variant="variant"
-            v-bind:height="height"
+            v-bind="inputProps"
             v-bind:symbol="'#'"
             v-on:update:value="onUserInput"
         />
@@ -81,26 +79,11 @@ export const InputColor = {
             default: "#000000"
         },
         /**
-         * The color variant of the color input.
-         * @values dark
+         * Set of props passed on to input-ripe.
          */
-        variant: {
-            type: String,
-            default: null
-        },
-        /**
-         * The height of the color picker and color input in pixels.
-         */
-        height: {
-            type: Number,
-            required: false
-        },
-        /**
-         * If weather or not the color input is read-only.
-         */
-        disabled: {
-            type: Boolean,
-            default: false
+        inputProps: {
+            type: Object,
+            default: () => {}
         }
     },
     data: function() {
