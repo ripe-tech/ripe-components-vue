@@ -24,7 +24,7 @@ import { RadioGroup } from "./radio-group/radio-group.vue";
 import { Search } from "./search/search.vue";
 import { Select } from "./select/select.vue";
 import { SelectList } from "./select-list/select-list.vue";
-import { SliderRipe } from "./slider-ripe/slider-ripe.vue";
+import { Slider } from "./slider/slider.vue";
 import { Table } from "./table/table.vue";
 import { TableExpandable } from "./table-expandable/table-expandable.vue";
 import { Tabs } from "./tabs/tabs.vue";
@@ -58,7 +58,7 @@ const install = Vue => {
     Vue.component("search", Search);
     Vue.component("select-ripe", Select);
     Vue.component("select-list", SelectList);
-    Vue.component("slider-ripe", SliderRipe);
+    Vue.component("slider", Slider);
     Vue.component("table-ripe", Table);
     Vue.component("table-expandable", TableExpandable);
     Vue.component("tabs", Tabs);
@@ -93,7 +93,7 @@ export {
     Search,
     Select,
     SelectList,
-    SliderRipe,
+    Slider,
     Table,
     TableExpandable,
     Tabs,

@@ -1,6 +1,6 @@
 <template>
     <input-ripe
-        class="slider-ripe"
+        class="slider"
         v-bind="mergedInputProps"
         v-bind:value.sync="valueData"
         v-bind:type="'range'"
@@ -13,7 +13,7 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.slider-ripe {
+.slider {
     appearance: none;
     border: none;
     height: 20px;
@@ -21,21 +21,21 @@
     padding: 0px 0px 0px 0px;
 }
 
-.slider-ripe::-webkit-slider-runnable-track {
+.slider::-webkit-slider-runnable-track {
     background: #57626e;
     border-radius: 4px;
     cursor: pointer;
     height: 3px;
 }
 
-.slider-ripe::-moz-range-track {
+.slider::-moz-range-track {
     background: #57626e;
     border-radius: 4px;
     cursor: pointer;
     height: 3px;
 }
 
-.slider-ripe::-webkit-slider-thumb {
+.slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     background: #57626e;
     border: 2px solid $light-white;
@@ -46,11 +46,11 @@
     width: 16px;
 }
 
-.slider-ripe:focus::-webkit-slider-thumb {
+.slider:focus::-webkit-slider-thumb {
     border-color: $aqcua-blue;
 }
 
-.slider-ripe::-moz-range-thumb {
+.slider::-moz-range-thumb {
     background: #57626e;
     border: 2px solid $light-white;
     border-radius: 50%;
@@ -59,13 +59,13 @@
     width: 12px;
 }
 
-.slider-ripe:focus::-moz-range-thumb {
+.slider:focus::-moz-range-thumb {
     border-color: $aqcua-blue;
 }
 </style>
 
 <script>
-export const SliderRipe = {
+export const Slider = {
     props: {
         /**
          * The value of the slider knob.
@@ -75,12 +75,7 @@ export const SliderRipe = {
             default: null
         },
         /**
-         * Set of props that are passed to input-ripe component.
-         * `min` - The minimum value of the slider track.
-         * `max` - The maximum value of the slider track.
-         * `step` - The step unit of the slider knob.
-         * `disabled` - Weather or not the slider is disabled and unable to move.
-         * `width` - The width of the slider track in pixels.
+         * Set of props passed on to input-ripe.
          */
         inputProps: {
             type: Object,
@@ -126,5 +121,5 @@ export const SliderRipe = {
     }
 };
 
-export default SliderRipe;
+export default Slider;
 </script>
