@@ -13,7 +13,6 @@
             class="input-color-native"
             type="color"
             v-bind:value="valueNative"
-            v-bind:disabled="disabled"
             ref="inputColorNative"
             v-on:input="onPickerInput($event.target.value)"
         />
