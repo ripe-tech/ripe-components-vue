@@ -29,4 +29,12 @@ describe("Slider", () => {
 
         assert.strictEqual(component.vm.$data.valueData, 11);
     });
+
+    it("should emit `update:value` event when input value changes", async () => {
+        const component = base.getComponent("Slider");
+
+        component.setValue("10");
+
+        assert.strictEqual(component.emitted("update:value")[0][0], "10");
+    });
 });
