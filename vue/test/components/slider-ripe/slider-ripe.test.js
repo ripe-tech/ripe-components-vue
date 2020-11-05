@@ -1,21 +1,21 @@
 const assert = require("assert");
 const base = require("../../base");
 
-describe("SliderRipe", () => {
+describe("Slider", () => {
     it("should initialize the slider ripe", () => {
-        const component = base.getComponent("SliderRipe");
+        const component = base.getComponent("Slider");
 
         assert.strictEqual(component.exists(), true);
     });
 
     it("should start with value as 0 if no minimum or slider values are specified by prop", () => {
-        const component = base.getComponent("SliderRipe");
+        const component = base.getComponent("Slider");
 
         assert.strictEqual(component.vm.$data.valueData, 0);
     });
 
     it("should start with value set as as the minimum if no value is specified by prop", () => {
-        const component = base.getComponent("SliderRipe", {
+        const component = base.getComponent("Slider", {
             props: { "input-props": { min: 22 } }
         });
 
@@ -23,7 +23,7 @@ describe("SliderRipe", () => {
     });
 
     it("should start with value if it is passed by prop", () => {
-        const component = base.getComponent("SliderRipe", {
+        const component = base.getComponent("Slider", {
             props: { value: 11 }
         });
 

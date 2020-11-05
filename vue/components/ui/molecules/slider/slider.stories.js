@@ -3,7 +3,7 @@ import { withKnobs, boolean, number } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
-    .add("Slider Ripe", () => ({
+    .add("Slider", () => ({
         props: {
             value: {
                 default: number("Value", 0)
@@ -33,7 +33,7 @@ storiesOf("Molecules", module)
         },
         template: `
             <div>
-                <slider-ripe
+                <slider
                     v-bind:input-props="{ min: min, max: max, step: step, disabled: disabled }"
                     v-bind:value.sync="valueData" />
                 <p>Value: {{ valueData }}</p>
