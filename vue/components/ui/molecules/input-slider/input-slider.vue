@@ -104,7 +104,8 @@ export const InputSlider = {
             );
         },
         setValue(value) {
-            if (!this.isInvalid(value)) this.valueData = value;
+            if (this.isInvalid(value)) return;
+            this.valueData = value;
         },
         onUserInput(value) {
             this.setValue(value);
