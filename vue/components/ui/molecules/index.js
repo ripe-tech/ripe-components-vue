@@ -11,6 +11,7 @@ import { Filter } from "./filter/filter.vue";
 import { Footer } from "./footer/footer.vue";
 import { FormInput } from "./form-input/form-input.vue";
 import { InputCurrency } from "./input-currency/input-currency.vue";
+import { InputSlider } from "./input-slider/input-slider.vue";
 import { InputSymbol } from "./input-symbol/input-symbol.vue";
 import { Lightbox } from "./lightbox/lightbox.vue";
 import { Lineup } from "./lineup/lineup.vue";
@@ -23,6 +24,7 @@ import { RadioGroup } from "./radio-group/radio-group.vue";
 import { Search } from "./search/search.vue";
 import { Select } from "./select/select.vue";
 import { SelectList } from "./select-list/select-list.vue";
+import { Slider } from "./slider/slider.vue";
 import { Table } from "./table/table.vue";
 import { TableExpandable } from "./table-expandable/table-expandable.vue";
 import { Tabs } from "./tabs/tabs.vue";
@@ -43,6 +45,7 @@ const install = Vue => {
     Vue.component("footer-ripe", Footer);
     Vue.component("form-input", FormInput);
     Vue.component("input-currency", InputCurrency);
+    Vue.component("input-slider", InputSlider);
     Vue.component("input-symbol", InputSymbol);
     Vue.component("lightbox", Lightbox);
     Vue.component("lineup", Lineup);
@@ -55,6 +58,7 @@ const install = Vue => {
     Vue.component("search", Search);
     Vue.component("select-ripe", Select);
     Vue.component("select-list", SelectList);
+    Vue.component("slider", Slider);
     Vue.component("table-ripe", Table);
     Vue.component("table-expandable", TableExpandable);
     Vue.component("tabs", Tabs);
@@ -76,6 +80,7 @@ export {
     Footer,
     FormInput,
     InputCurrency,
+    InputSlider,
     InputSymbol,
     Lightbox,
     Lineup,
@@ -88,6 +93,7 @@ export {
     Search,
     Select,
     SelectList,
+    Slider,
     Table,
     TableExpandable,
     Tabs,
