@@ -42,6 +42,13 @@ export const InputSlider = {
             default: null
         },
         /**
+         * Weather or not the slider is disabled and unable to move.
+         */
+        disabled: {
+            type: Boolean,
+            required: false
+        },
+        /**
          * Set of props passed on to input-ripe.
          */
         inputProps: {
@@ -54,13 +61,6 @@ export const InputSlider = {
         sliderProps: {
             type: Object,
             default: () => {}
-        },
-        /**
-         * Weather or not the slider is disabled and unable to move.
-         */
-        disabled: {
-            type: Boolean,
-            required: false
         }
     },
     data: function() {
