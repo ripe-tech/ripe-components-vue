@@ -97,7 +97,11 @@ export const InputSlider = {
     },
     methods: {
         isInvalid(value) {
-            return value > this.max || value < this.min || isNaN(value);
+            return (
+                value > this.mergedSliderProps.max ||
+                value < this.mergedSliderProps.min ||
+                isNaN(value)
+            );
         },
         setValue(value) {
             if (!this.isInvalid(value)) this.valueData = value;
