@@ -9,13 +9,13 @@ storiesOf("Molecules", module)
                 default: number("Value", 0)
             },
             min: {
-                default: number("Minimum Value", 0)
+                default: number("Minimum", 0)
             },
             max: {
-                default: number("Maximum Value", 100)
+                default: number("Maximum", 100)
             },
             step: {
-                default: number("Step Value", 1)
+                default: number("Step", 1)
             },
             disabled: {
                 default: boolean("Disabled", false)
