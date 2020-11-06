@@ -2,7 +2,7 @@ const assert = require("assert");
 const base = require("../../base");
 
 describe("Slider", () => {
-    it("should initialize the slider ripe", () => {
+    it("should initialize the slider", () => {
         const component = base.getComponent("Slider");
 
         assert.strictEqual(component.exists(), true);
