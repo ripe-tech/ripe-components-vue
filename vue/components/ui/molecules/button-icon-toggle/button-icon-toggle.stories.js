@@ -72,14 +72,14 @@ storiesOf("Molecules", module)
             };
         },
         template: `
-        <div>
-            <button-icon-toggle
-                v-bind:icon="icon"
-                v-bind:icon-secondary="iconSecondary"
-                v-bind:color="color"
-                v-bind:color-secondary="colorSecondary"
-                v-bind:value.sync="valueData" />
-            <div>Value: {{ valueData }}</div>
-        </div>
+            <div>
+                <button-icon-toggle
+                    v-bind:icon="icon"
+                    v-bind:icon-secondary="iconSecondary"
+                    v-bind:color="color"
+                    v-bind:color-secondary="colorSecondary"
+                    v-bind:value.sync="valueData" />
+                <div>Value: {{ valueData }}</div>
+            </div>
         `
     }));
