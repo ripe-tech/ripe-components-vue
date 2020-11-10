@@ -28,7 +28,7 @@ export const ButtonIconToggle = {
          */
         iconSecondary: {
             type: String,
-            default: "close"
+            default: null
         },
         /**
          * The color of the button when `value` is false.
@@ -74,7 +74,10 @@ export const ButtonIconToggle = {
             return this.valueData ? this.colorSecondary : this.color;
         },
         iconComputed() {
-            return this.valueData ? this.iconSecondary : this.icon;
+            return this.valueData ? this._iconSecondary : this.icon;
+        },
+        _iconSecondary() {
+            return this.iconSecondary ? this.iconSecondary : this.icon;
         }
     },
     methods: {
