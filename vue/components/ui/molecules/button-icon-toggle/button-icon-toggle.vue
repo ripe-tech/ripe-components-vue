@@ -74,9 +74,9 @@ export const ButtonIconToggle = {
             return this.valueData ? this.colorSecondary : this.color;
         },
         iconComputed() {
-            return this.valueData ? this.iconSecondaryComputed : this.icon;
+            return this.valueData ? this._iconSecondary : this.icon;
         },
-        iconSecondaryComputed() {
+        _iconSecondary() {
             return this.iconSecondary ? this.iconSecondary : this.icon;
         }
     },
