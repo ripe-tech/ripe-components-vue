@@ -12,7 +12,7 @@
         <input
             class="input-color-native"
             type="color"
-            v-bind:value="valueNative"
+            v-bind:value="inputValue"
             ref="inputColorNative"
             v-on:input="onPickerInput($event.target.value)"
         />
@@ -75,14 +75,14 @@ export const InputColor = {
          */
         value: {
             type: String,
-            default: "#000000"
+            default: "000000"
         },
         /**
          * Set of props passed on to input-ripe.
          */
         inputProps: {
             type: Object,
-            default: () => {}
+            default: () => ({})
         }
     },
     data: function() {
@@ -99,7 +99,7 @@ export const InputColor = {
         },
         style() {
             const base = {
-                "background-color": this.valueData === null ? null : this.valueNative,
+                "background-color": this.valueData === null ? null : this.inputValue,
                 height: this.height === null ? null : this.height + "px"
             };
             return base;
@@ -107,7 +107,7 @@ export const InputColor = {
         colorPrefixed() {
             return `#${this.valueData}`;
         },
-        valueNative() {
+        inputValue() {
             return this.hasValidColor ? this.colorPrefixed : "#ffffff";
         },
         /**
@@ -115,7 +115,7 @@ export const InputColor = {
          * @returns true if `valueData` is a string with a valid hex color code or false if otherwise.
          */
         hasValidColor() {
-            return /^#([0-9A-F]{3}){1,2}$/i.test(`#${this.valueData}`);
+            return /^#([0-9A-F]{3}){1,2}$/i.test(this.colorPrefixed);
         }
     },
     watch: {
