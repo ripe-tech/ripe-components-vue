@@ -16,29 +16,27 @@ const KEYWORDS = {
     },
     "@tomorrow": field => {
         const today = new Date(new Date().setHours(0, 0, 0, 0));
-        const tomorrow = new Date(today);
-        tomorrow.setDate(today.getDate() + 1);
-        const afterTomorrow = new Date(tomorrow);
-        afterTomorrow.setDate(tomorrow.getDate() + 1);
+        const tomorrow = new Date(tomorrow.setDate(today.getDate() + 1));
+        const afterTomorrow = new Date(afterTomorrow.setDate(tomorrow.getDate() + 1));
         return `${field}>=${tomorrow.getTime()} and ${field}<${afterTomorrow.getTime()}`;
     },
     "@this-week": field => {
         const today = new Date();
-        const startOfWeek = new Date(today.setDate(today.getDate() - today.getDay()));
-        const endOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + 6));
+        const week = new Date(today.setDate(today.getDate() - today.getDay()));
+        const nextWeek = new Date(today.setDate(today.getDate() - today.getDay() + 7));
 
-        const startOfWeekTime = new Date(startOfWeek.setHours(0, 0, 0, 0));
-        const endOfWeekTime = new Date(endOfWeek.setHours(23, 59, 59, 0));
-        return `${field}>=${startOfWeekTime.getTime()} and ${field}<${endOfWeekTime.getTime()}`;
+        const weekTime = new Date(week.setHours(0, 0, 0, 0));
+        const nextWeekTime = new Date(nextWeek.setHours(0, 0, 0, 0));
+        return `${field}>=${weekTime.getTime()} and ${field}<${nextWeekTime.getTime()}`;
     },
     "@next-week": field => {
         const today = new Date();
-        const startOfNextWeek = new Date(today.setDate(today.getDate() - today.getDay() + 7));
-        const endOfNextWeek = new Date(today.setDate(today.getDate() - today.getDay() + 6));
+        const nextWeek = new Date(today.setDate(today.getDate() - today.getDay() + 7));
+        const nextNextWeek = new Date(today.setDate(today.getDate() - today.getDay() + 7));
 
-        const startOfNextWeekTime = new Date(startOfNextWeek.setHours(0, 0, 0, 0));
-        const endOfNextWeekTime = new Date(endOfNextWeek.setHours(23, 59, 59, 0));
-        return `${field}>=${startOfNextWeekTime.getTime()} and ${field}<${endOfNextWeekTime.getTime()}`;
+        const nextWeekTime = new Date(nextWeek.setHours(0, 0, 0, 0));
+        const nextNextWeekTime = new Date(nextNextWeek.setHours(0, 0, 0, 0));
+        return `${field}>=${nextWeekTime.getTime()} and ${field}<${nextNextWeekTime.getTime()}`;
     },
     "@this-month": field => {
         const today = new Date();
