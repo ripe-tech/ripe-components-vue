@@ -9,13 +9,13 @@ const OP_ALIAS = {
 
 const KEYWORDS = {
     "@today": field => {
-        const today = new Date(new Date().setHours(0,0,0,0));
+        const today = new Date(new Date().setHours(0, 0, 0, 0));
         const tomorrow = new Date(today);
         tomorrow.setDate(today.getDate() + 1);
         return `${field}>=${today.getTime()} and ${field}<${tomorrow.getTime()}`;
     },
     "@tomorrow": field => {
-        const today = new Date(new Date().setHours(0,0,0,0));
+        const today = new Date(new Date().setHours(0, 0, 0, 0));
         const tomorrow = new Date(today);
         tomorrow.setDate(today.getDate() + 1);
         const afterTomorrow = new Date(tomorrow);
@@ -27,8 +27,8 @@ const KEYWORDS = {
         const startOfWeek = new Date(today.setDate(today.getDate() - today.getDay()));
         const endOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + 6));
 
-        const startOfWeekTime = new Date(startOfWeek.setHours(0,0,0,0))
-        const endOfWeekTime = new Date(endOfWeek.setHours(23,59,59,0));
+        const startOfWeekTime = new Date(startOfWeek.setHours(0, 0, 0, 0));
+        const endOfWeekTime = new Date(endOfWeek.setHours(23, 59, 59, 0));
         return `${field}>=${startOfWeekTime.getTime()} and ${field}<${endOfWeekTime.getTime()}`;
     },
     "@next-week": field => {
@@ -36,8 +36,8 @@ const KEYWORDS = {
         const startOfNextWeek = new Date(today.setDate(today.getDate() - today.getDay() + 7));
         const endOfNextWeek = new Date(today.setDate(today.getDate() - today.getDay() + 6));
 
-        const startOfNextWeekTime = new Date(startOfNextWeek.setHours(0,0,0,0))
-        const endOfNextWeekTime = new Date(endOfNextWeek.setHours(23,59,59,0));
+        const startOfNextWeekTime = new Date(startOfNextWeek.setHours(0, 0, 0, 0));
+        const endOfNextWeekTime = new Date(endOfNextWeek.setHours(23, 59, 59, 0));
         return `${field}>=${startOfNextWeekTime.getTime()} and ${field}<${endOfNextWeekTime.getTime()}`;
     },
     "@this-month": field => {
@@ -46,8 +46,8 @@ const KEYWORDS = {
         const startOfMonth = new Date(today.setDate(1));
         const nextMonth = new Date(new Date(today.setMonth(month + 1)).setDate(1));
 
-        const startOfMonthTime = new Date(startOfMonth.setHours(0,0,0,0));
-        const nextMonthTime = new Date(nextMonth.setHours(0,0,0,0));
+        const startOfMonthTime = new Date(startOfMonth.setHours(0, 0, 0, 0));
+        const nextMonthTime = new Date(nextMonth.setHours(0, 0, 0, 0));
         return `${field}>=${startOfMonthTime.getTime()} and ${field}<${nextMonthTime.getTime()}`;
     },
     "@next-month": field => {
@@ -56,34 +56,29 @@ const KEYWORDS = {
         const nextMonth = new Date(new Date(today.setMonth(month + 1)).setDate(1));
         const nextNextMonth = new Date(new Date(today.setMonth(month + 2)).setDate(1));
 
-        const nextMonthTime = new Date(nextMonth.setHours(0,0,0,0));
-        const nextNextMonthTime = new Date(nextNextMonth.setHours(0,0,0,0));
+        const nextMonthTime = new Date(nextMonth.setHours(0, 0, 0, 0));
+        const nextNextMonthTime = new Date(nextNextMonth.setHours(0, 0, 0, 0));
         return `${field}>=${nextMonthTime.getTime()} and ${field}<${nextNextMonthTime.getTime()}`;
     }
 };
 
-export const filterToParams = (
-    options = {},
-    nameAlias = {},
-    nameFunc = {},
-    filterFields = {}
-) => {
+export const filterToParams = (options = {}, nameAlias = {}, nameFunc = {}, filterFields = {}) => {
     let operator = "$or";
     const { sort, reverse, filter, start, limit } = options;
     let filterS = filter || "";
 
     // searches the filter for queries that contain keywords
-    const keywords = filterS.split(" ").filter(value =>
-        Object.keys(KEYWORDS).some(key => value.includes(nameAlias[key] || key))
-    );
-    
+    const keywords = filterS
+        .split(" ")
+        .filter(value => Object.keys(KEYWORDS).some(key => value.includes(nameAlias[key] || key)));
+
     // replaces the queries with keywords for their respective
     // translation
     for (const keyword of keywords) {
         const result = keyword.match(OP_REGEX);
         if (!result) continue;
-        let [field, value] = keyword.split(OP_REGEX, 2);
-        if (!(value in KEYWORDS)) continue; 
+        const [field, value] = keyword.split(OP_REGEX, 2);
+        if (!(value in KEYWORDS)) continue;
         filterS = filterS.replace(keyword, KEYWORDS[value](field));
     }
 
