@@ -16,8 +16,8 @@ const KEYWORDS = {
     },
     "@tomorrow": field => {
         const today = new Date(new Date().setHours(0, 0, 0, 0));
-        const tomorrow = new Date(tomorrow.setDate(today.getDate() + 1));
-        const afterTomorrow = new Date(afterTomorrow.setDate(tomorrow.getDate() + 1));
+        const tomorrow = new Date(today.setDate(today.getDate() + 1));
+        const afterTomorrow = new Date(tomorrow.setDate(tomorrow.getDate() + 1));
         return `${field}>=${tomorrow.getTime()} and ${field}<${afterTomorrow.getTime()}`;
     },
     "@this-week": field => {
