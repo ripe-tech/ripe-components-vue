@@ -12,51 +12,45 @@ const KEYWORDS = {
         const today = new Date(new Date().setHours(0, 0, 0, 0));
         const tomorrow = new Date(today);
         tomorrow.setDate(today.getDate() + 1);
+
         return `${field}>=${today.getTime()} and ${field}<${tomorrow.getTime()}`;
     },
     "@tomorrow": field => {
         const today = new Date(new Date().setHours(0, 0, 0, 0));
         const tomorrow = new Date(today.setDate(today.getDate() + 1));
         const afterTomorrow = new Date(tomorrow.setDate(tomorrow.getDate() + 1));
+        
         return `${field}>=${tomorrow.getTime()} and ${field}<${afterTomorrow.getTime()}`;
     },
     "@this-week": field => {
-        const today = new Date();
+        const today = new Date(new Date().setHours(0, 0, 0, 0));
         const week = new Date(today.setDate(today.getDate() - today.getDay()));
         const nextWeek = new Date(today.setDate(today.getDate() - today.getDay() + 7));
 
-        const weekTime = new Date(week.setHours(0, 0, 0, 0));
-        const nextWeekTime = new Date(nextWeek.setHours(0, 0, 0, 0));
-        return `${field}>=${weekTime.getTime()} and ${field}<${nextWeekTime.getTime()}`;
+        return `${field}>=${week.getTime()} and ${field}<${nextWeek.getTime()}`;
     },
     "@next-week": field => {
-        const today = new Date();
+        const today = new Date(new Date().setHours(0, 0, 0, 0));
         const nextWeek = new Date(today.setDate(today.getDate() - today.getDay() + 7));
         const nextNextWeek = new Date(today.setDate(today.getDate() - today.getDay() + 7));
 
-        const nextWeekTime = new Date(nextWeek.setHours(0, 0, 0, 0));
-        const nextNextWeekTime = new Date(nextNextWeek.setHours(0, 0, 0, 0));
-        return `${field}>=${nextWeekTime.getTime()} and ${field}<${nextNextWeekTime.getTime()}`;
+        return `${field}>=${nextWeek.getTime()} and ${field}<${nextNextWeek.getTime()}`;
     },
     "@this-month": field => {
-        const today = new Date();
+        const today = new Date(new Date().setHours(0, 0, 0, 0));
         const month = today.getMonth();
         const startOfMonth = new Date(today.setDate(1));
         const nextMonth = new Date(new Date(today.setMonth(month + 1)).setDate(1));
 
-        const startOfMonthTime = new Date(startOfMonth.setHours(0, 0, 0, 0));
-        const nextMonthTime = new Date(nextMonth.setHours(0, 0, 0, 0));
-        return `${field}>=${startOfMonthTime.getTime()} and ${field}<${nextMonthTime.getTime()}`;
+        return `${field}>=${startOfMonth.getTime()} and ${field}<${nextMonth.getTime()}`;
     },
     "@next-month": field => {
-        const today = new Date();
+        const today = new Date(new Date().setHours(0, 0, 0, 0));
         const month = today.getMonth();
         const nextMonth = new Date(new Date(today.setMonth(month + 1)).setDate(1));
         const nextNextMonth = new Date(new Date(today.setMonth(month + 2)).setDate(1));
 
-        const nextMonthTime = new Date(nextMonth.setHours(0, 0, 0, 0));
-        const nextNextMonthTime = new Date(nextNextMonth.setHours(0, 0, 0, 0));
-        return `${field}>=${nextMonthTime.getTime()} and ${field}<${nextNextMonthTime.getTime()}`;
+        return `${field}>=${nextMonth.getTime()} and ${field}<${nextNextMonth.getTime()}`;
     }
 };
 
