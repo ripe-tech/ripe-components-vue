@@ -18,7 +18,7 @@ const KEYWORDS = {
     "@tomorrow": field => {
         const today = new Date(new Date().setHours(0, 0, 0, 0));
         const tomorrow = new Date(today.setDate(today.getDate() + 1));
-        const afterTomorrow = new Date(tomorrow.setDate(tomorrow.getDate() + 1));
+        const afterTomorrow = new Date(today.setDate(today.getDate() + 1));
 
         return `${field}>=${tomorrow.getTime()} and ${field}<${afterTomorrow.getTime()}`;
     },
@@ -54,19 +54,9 @@ const KEYWORDS = {
     }
 };
 
-export const filterToParams = (
-    options = {},
-    nameAlias = {},
-    nameFunc = {},
-    filterFields = {},
-    keywordFields = []
-) => {
-    let operator = "$or";
-    const { sort, reverse, filter, start, limit } = options;
-    let filterS = filter || "";
-
+const _filterKeywords = (filter, nameAlias = {}, keywordFields = []) => {
     // searches the filter for queries that contain keywords
-    const keywords = filterS
+    const keywords = filter
         .split(" ")
         .filter(value => Object.keys(KEYWORDS).some(key => value.includes(nameAlias[key] || key)));
 
@@ -83,15 +73,30 @@ export const filterToParams = (
                 replaceS += KEYWORDS[keyword](keywordFields[i]);
                 if (i < keywordFields.length - 1) replaceS += " and ";
             }
-            filterS = filterS.replace(keyword, replaceS);
+            filter = filter.replace(keyword, replaceS);
         } else {
             // replaces the key and keyword with the translation
             // of the keyword
             const [field, value] = keyword.split(OP_REGEX, 2);
             if (!(value in KEYWORDS)) continue;
-            filterS = filterS.replace(keyword, KEYWORDS[value](field));
+            filter = filter.replace(keyword, KEYWORDS[value](field));
         }
     }
+
+    return filter;
+};
+
+export const filterToParams = (
+    options = {},
+    nameAlias = {},
+    nameFunc = {},
+    filterFields = {},
+    keywordFields = []
+) => {
+    let operator = "$or";
+    const { sort, reverse, filter, start, limit } = options;
+    let filterS = filter || "";
+    filterS = _filterKeywords(filterS, nameAlias, keywordFields);
 
     const params = { number_records: limit, start_record: start };
     const direction = reverse ? "descending" : "ascending";
