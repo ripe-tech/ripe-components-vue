@@ -15,6 +15,14 @@ const KEYWORDS = {
 
         return `${field}>=${today.getTime()} and ${field}<${tomorrow.getTime()}`;
     },
+    "@yesterday": field => {
+        const today = new Date(new Date().setHours(0, 0, 0, 0));
+        const todayTime = today.getTime();
+        const yesterday = new Date(today);
+        yesterday.setDate(today.getDate() - 1);
+
+        return `${field}>=${yesterday.getTime()} and ${field}<${todayTime}`;
+    },
     "@tomorrow": field => {
         const today = new Date(new Date().setHours(0, 0, 0, 0));
         const tomorrow = new Date(today.setDate(today.getDate() + 1));
@@ -52,38 +60,6 @@ const KEYWORDS = {
 
         return `${field}>=${nextMonth.getTime()} and ${field}<${nextNextMonth.getTime()}`;
     }
-};
-
-const _filterKeywords = (filter, nameAlias = {}, keywordFields = []) => {
-    // searches the filter for queries that contain keywords
-    const keywords = filter
-        .split(" ")
-        .filter(value => Object.keys(KEYWORDS).some(key => value.includes(nameAlias[key] || key)));
-
-    // replaces the keywords in the queries with their respective translation,
-    // a keyword with no key will be replaced with the fields provided in
-    // the `keywordFields` argument
-    for (const keyword of keywords) {
-        const result = keyword.match(OP_REGEX);
-        if (!result) {
-            // replaces the keyword with no key by the
-            // query with the keys passed as argument
-            let replaceS = "";
-            for (const i in keywordFields) {
-                replaceS += KEYWORDS[keyword](keywordFields[i]);
-                if (i < keywordFields.length - 1) replaceS += " and ";
-            }
-            filter = filter.replace(keyword, replaceS);
-        } else {
-            // replaces the key and keyword with the translation
-            // of the keyword
-            const [field, value] = keyword.split(OP_REGEX, 2);
-            if (!(value in KEYWORDS)) continue;
-            filter = filter.replace(keyword, KEYWORDS[value](field));
-        }
-    }
-
-    return filter;
 };
 
 export const filterToParams = (
@@ -133,6 +109,38 @@ export const filterToParams = (
         params.filter_operator = operator;
     }
     return params;
+};
+
+const _filterKeywords = (filter, nameAlias = {}, keywordFields = []) => {
+    // searches the filter for queries that contain keywords
+    const keywords = filter
+        .split(" ")
+        .filter(value => Object.keys(KEYWORDS).some(key => value.includes(nameAlias[key] || key)));
+
+    // replaces the keywords in the queries with their respective translation,
+    // a keyword with no key will be replaced with the fields provided in
+    // the `keywordFields` argument
+    for (const keyword of keywords) {
+        const result = keyword.match(OP_REGEX);
+        if (!result) {
+            // replaces the keyword with no key by the
+            // query with the keys passed as argument
+            let replaceS = "";
+            for (const i in keywordFields) {
+                replaceS += KEYWORDS[keyword](keywordFields[i]);
+                if (i < keywordFields.length - 1) replaceS += " and ";
+            }
+            filter = filter.replace(keyword, replaceS);
+        } else {
+            // replaces the key and keyword with the translation
+            // of the keyword
+            const [field, value] = keyword.split(OP_REGEX, 2);
+            if (!(value in KEYWORDS)) continue;
+            filter = filter.replace(keyword, KEYWORDS[value](field));
+        }
+    }
+
+    return filter;
 };
 
 export default filterToParams;
