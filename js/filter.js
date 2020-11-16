@@ -19,7 +19,7 @@ const KEYWORDS = {
         const today = new Date(new Date().setHours(0, 0, 0, 0));
         const tomorrow = new Date(today.setDate(today.getDate() + 1));
         const afterTomorrow = new Date(tomorrow.setDate(tomorrow.getDate() + 1));
-        
+
         return `${field}>=${tomorrow.getTime()} and ${field}<${afterTomorrow.getTime()}`;
     },
     "@this-week": field => {
@@ -54,7 +54,13 @@ const KEYWORDS = {
     }
 };
 
-export const filterToParams = (options = {}, nameAlias = {}, nameFunc = {}, filterFields = {}) => {
+export const filterToParams = (
+    options = {},
+    nameAlias = {},
+    nameFunc = {},
+    filterFields = {},
+    keywordFields = []
+) => {
     let operator = "$or";
     const { sort, reverse, filter, start, limit } = options;
     let filterS = filter || "";
@@ -64,14 +70,27 @@ export const filterToParams = (options = {}, nameAlias = {}, nameFunc = {}, filt
         .split(" ")
         .filter(value => Object.keys(KEYWORDS).some(key => value.includes(nameAlias[key] || key)));
 
-    // replaces the queries with keywords for their respective
-    // translation
+    // replaces the keywords in the queries with their respective translation,
+    // a keyword with no key will be replaced with the fields provided in
+    // the `keywordFields` argument
     for (const keyword of keywords) {
         const result = keyword.match(OP_REGEX);
-        if (!result) continue;
-        const [field, value] = keyword.split(OP_REGEX, 2);
-        if (!(value in KEYWORDS)) continue;
-        filterS = filterS.replace(keyword, KEYWORDS[value](field));
+        if (!result) {
+            // replaces the keyword with no key by the
+            // query with the keys passed as argument
+            let replaceS = "";
+            for (const i in keywordFields) {
+                replaceS += KEYWORDS[keyword](keywordFields[i]);
+                if (i < keywordFields.length - 1) replaceS += " and ";
+            }
+            filterS = filterS.replace(keyword, replaceS);
+        } else {
+            // replaces the key and keyword with the translation
+            // of the keyword
+            const [field, value] = keyword.split(OP_REGEX, 2);
+            if (!(value in KEYWORDS)) continue;
+            filterS = filterS.replace(keyword, KEYWORDS[value](field));
+        }
     }
 
     const params = { number_records: limit, start_record: start };
