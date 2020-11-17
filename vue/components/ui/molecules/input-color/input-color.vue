@@ -112,7 +112,9 @@ export const InputColor = {
         },
         /**
          * Weather or not `valueData` is a string with valid hex color code.
-         * @returns true if `valueData` is a string with a valid hex color code or false if otherwise.
+         *
+         * @returns {Boolean} If `valueData` is a string with a valid hex color
+         * code according to pre-defined regex.
          */
         hasValidColor() {
             return /^#([0-9A-F]{3}){1,2}$/i.test(this.colorPrefixed);
