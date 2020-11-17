@@ -123,19 +123,18 @@ export const InputColor = {
             this.valueData = value;
         },
         valueData(value) {
-            this.setValue(value);
+            this.$emit("update:value", value);
         }
     },
     methods: {
         setValue(value) {
             this.valueData = value.replace("#", "");
-            this.$emit("update:value", value);
         },
         showColorMenu() {
             this.$refs.inputColorNative.click();
         },
         onUserInput(value) {
-            this.valueData = value;
+            this.setValue(value);
         },
         onPickerInput(value) {
             this.setValue(value);
