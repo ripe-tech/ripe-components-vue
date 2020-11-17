@@ -124,14 +124,12 @@ export const InputColor = {
         },
         valueData(value) {
             this.setValue(value);
-        },
-        colorPrefixed(value) {
-            this.$emit("update:value", value);
         }
     },
     methods: {
         setValue(value) {
             this.valueData = value.replace("#", "");
+            this.$emit("update:value", value);
         },
         showColorMenu() {
             this.$refs.inputColorNative.click();
