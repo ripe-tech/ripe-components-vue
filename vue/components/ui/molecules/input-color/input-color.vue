@@ -143,6 +143,7 @@ export const InputColor = {
         },
         onPickerClick() {
             if (this.inputProps && this.inputProps.disabled) return;
+            if (!this.hasValidColor) this.setValue("ffffff");
             this.showColorMenu();
         }
     }
