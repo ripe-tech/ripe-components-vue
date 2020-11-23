@@ -36,9 +36,7 @@ storiesOf("Molecules", module)
             <div>
                 <input-color
                     v-bind:value.sync="valueData"
-                    v-bind:input-props="{ disabled: disabled, variant: variant}"
-                    v-bind:disabled="disabled"
-                    v-bind:variant="variant" />
+                    v-bind:input-props="{ disabled: disabled, variant: variant}" />
                 <p>Color Value: {{ valueData }}</p>
             </div>
         `
