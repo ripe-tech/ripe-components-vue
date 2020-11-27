@@ -2,7 +2,7 @@ const assert = require("assert");
 const base = require("../../base");
 
 describe("Section", () => {
-    it("should start with the correct state", async () => {
+    it("should start with the correct state", () => {
         const component = base.getComponent("SelectCheckboxes", {
             props: {
                 label: "Label Example",
