@@ -44,8 +44,10 @@ describe("Section", () => {
         assert.strictEqual(checkboxes.at(4).find(".checkbox.checked").exists(), false);
         assert.strictEqual(checkboxes.at(4).find(".checkbox > .checkbox-input > .label").text(), "Dubai");
         assert.strictEqual(checkboxes.at(5).find(".checkbox.checked").exists(), true);
+        assert.strictEqual(checkboxes.at(5).find(".checkbox.disabled").exists(), true);
         assert.strictEqual(checkboxes.at(5).find(".checkbox > .checkbox-input > .label").text(), "Bali");
         assert.strictEqual(checkboxes.at(6).find(".checkbox.checked").exists(), false);
+        assert.strictEqual(checkboxes.at(6).find(".checkbox.error").exists(), true);
         assert.strictEqual(checkboxes.at(6).find(".checkbox > .checkbox-input > .label").text(), "Tibet");
     });
 });
