@@ -7,35 +7,13 @@ describe("Section", () => {
             props: {
                 label: "Label Example",
                 items: [
-                    {
-                        label: "Japan",
-                        value: "japan"
-                    },
-                    {
-                        label: "Morocco",
-                        value: "morocco"
-                    },
-                    {
-                        value: "canada"
-                    },
-                    {
-                        label: "China",
-                        value: "china"
-                    },
-                    {
-                        label: "Dubai",
-                        value: "dubai"
-                    },
-                    {
-                        label: "Bali",
-                        value: "bali",
-                        disabled: true
-                    },
-                    {
-                        label: "Tibet",
-                        value: "tibet",
-                        error: true
-                    }
+                    { label: "Japan", value: "japan" },
+                    { label: "Morocco", value: "morocco" },
+                    { value: "canada" },
+                    { label: "China", value: "china" },
+                    { label: "Dubai", value: "dubai" },
+                    { label: "Bali", value: "bali", disabled: true },
+                    { label: "Tibet", value: "tibet", error: true }
                 ],
                 values: {
                     japan: false,
@@ -52,5 +30,8 @@ describe("Section", () => {
             component.find(".select > .select-container > .select-button").text(),
             "Label Example"
         );
+        const dropdown = component.find(".select > .select-container > .dropdown-container");
+        const checkboxes = dropdown.findAll(".checkboxes > .checkbox-group > .checkbox-item");
+        assert.strictEqual(checkboxes.length, 7);
     });
 });
