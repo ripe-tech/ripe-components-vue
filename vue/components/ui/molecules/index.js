@@ -25,6 +25,7 @@ import { ProgressListItem } from "./progress-list-item/progress-list-item.vue";
 import { RadioGroup } from "./radio-group/radio-group.vue";
 import { Search } from "./search/search.vue";
 import { Select } from "./select/select.vue";
+import { SelectCheckboxes } from "./select-checkboxes/select-checkboxes.vue";
 import { SelectList } from "./select-list/select-list.vue";
 import { Slider } from "./slider/slider.vue";
 import { Table } from "./table/table.vue";
@@ -61,6 +62,7 @@ const install = Vue => {
     Vue.component("radio-group", RadioGroup);
     Vue.component("search", Search);
     Vue.component("select-ripe", Select);
+    Vue.component("select-checkboxes", SelectCheckboxes);
     Vue.component("select-list", SelectList);
     Vue.component("slider", Slider);
     Vue.component("table-ripe", Table);
@@ -98,6 +100,7 @@ export {
     RadioGroup,
     Search,
     Select,
+    SelectCheckboxes,
     SelectList,
     Slider,
     Table,
