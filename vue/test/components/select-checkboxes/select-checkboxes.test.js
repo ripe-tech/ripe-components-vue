@@ -89,7 +89,7 @@ describe("Section", () => {
         );
     });
 
-    it("should change checked value in allowed checkboxes", () => {
+    it("should change checked value in allowed checkboxes", async () => {
         const component = base.getComponent("SelectCheckboxes", {
             props: {
                 label: "Label Example",
@@ -113,10 +113,6 @@ describe("Section", () => {
             }
         });
 
-        assert.strictEqual(
-            component.find(".select > .select-container > .select-button").text(),
-            "Label Example"
-        );
         const dropdown = component.find(".select > .select-container > .dropdown-container");
         const checkboxes = dropdown.findAll(".checkboxes > .checkbox-group > .checkbox-item");
         assert.strictEqual(checkboxes.length, 7);
@@ -157,5 +153,16 @@ describe("Section", () => {
             checkboxes.at(6).find(".checkbox > .checkbox-input > .label").text(),
             "Tibet"
         );
+
+        await checkboxes.at(0).find(".checkbox > .checkbox-input").trigger("click");
+        assert.strictEqual(checkboxes.at(0).find(".checkbox.checked").exists(), true);
+        await checkboxes.at(1).find(".checkbox > .checkbox-input").trigger("click");
+        assert.strictEqual(checkboxes.at(1).find(".checkbox.checked").exists(), false);
+        await checkboxes.at(3).find(".checkbox > .checkbox-input").trigger("click");
+        assert.strictEqual(checkboxes.at(3).find(".checkbox.checked").exists(), true);
+        await checkboxes.at(5).find(".checkbox > .checkbox-input").trigger("click");
+        assert.strictEqual(checkboxes.at(5).find(".checkbox.checked").exists(), true);
+        await checkboxes.at(6).find(".checkbox > .checkbox-input").trigger("click");
+        assert.strictEqual(checkboxes.at(6).find(".checkbox.checked").exists(), true);
     });
 });
