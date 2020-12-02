@@ -34,42 +34,21 @@ describe("Select Checkboxes", () => {
         const checkboxes = dropdown.findAll(".checkboxes > .checkbox-group > .checkbox-item");
         assert.strictEqual(checkboxes.length, 7);
         assert.strictEqual(checkboxes.at(0).find(".checkbox.checked").exists(), false);
-        assert.strictEqual(
-            checkboxes.at(0).find(".checkbox > .checkbox-input > .label").text(),
-            "Japan"
-        );
+        assert.strictEqual(checkboxes.at(0).text(), "Japan");
         assert.strictEqual(checkboxes.at(1).find(".checkbox.checked").exists(), true);
-        assert.strictEqual(
-            checkboxes.at(1).find(".checkbox > .checkbox-input > .label").text(),
-            "Morocco"
-        );
+        assert.strictEqual(checkboxes.at(1).text(), "Morocco");
         assert.strictEqual(checkboxes.at(2).find(".checkbox.checked").exists(), false);
-        assert.strictEqual(
-            checkboxes.at(2).find(".checkbox > .checkbox-input > .label").text(),
-            "canada"
-        );
+        assert.strictEqual(checkboxes.at(2).text(), "canada");
         assert.strictEqual(checkboxes.at(3).find(".checkbox.checked").exists(), false);
-        assert.strictEqual(
-            checkboxes.at(3).find(".checkbox > .checkbox-input > .label").text(),
-            "China"
-        );
+        assert.strictEqual(checkboxes.at(3).text(), "China");
         assert.strictEqual(checkboxes.at(4).find(".checkbox.checked").exists(), false);
-        assert.strictEqual(
-            checkboxes.at(4).find(".checkbox > .checkbox-input > .label").text(),
-            "Dubai"
-        );
+        assert.strictEqual(checkboxes.at(4).text(), "Dubai");
         assert.strictEqual(checkboxes.at(5).find(".checkbox.checked").exists(), true);
         assert.strictEqual(checkboxes.at(5).find(".checkbox.disabled").exists(), true);
-        assert.strictEqual(
-            checkboxes.at(5).find(".checkbox > .checkbox-input > .label").text(),
-            "Bali"
-        );
+        assert.strictEqual(checkboxes.at(5).text(), "Bali");
         assert.strictEqual(checkboxes.at(6).find(".checkbox.checked").exists(), false);
         assert.strictEqual(checkboxes.at(6).find(".checkbox.error").exists(), true);
-        assert.strictEqual(
-            checkboxes.at(6).find(".checkbox > .checkbox-input > .label").text(),
-            "Tibet"
-        );
+        assert.strictEqual(checkboxes.at(6).text(), "Tibet");
     });
 
     it("should change label via prop", async () => {
@@ -117,42 +96,21 @@ describe("Select Checkboxes", () => {
         const checkboxes = dropdown.findAll(".checkboxes > .checkbox-group > .checkbox-item");
         assert.strictEqual(checkboxes.length, 7);
         assert.strictEqual(checkboxes.at(0).find(".checkbox.checked").exists(), false);
-        assert.strictEqual(
-            checkboxes.at(0).find(".checkbox > .checkbox-input > .label").text(),
-            "Japan"
-        );
+        assert.strictEqual(checkboxes.at(0).text(), "Japan");
         assert.strictEqual(checkboxes.at(1).find(".checkbox.checked").exists(), true);
-        assert.strictEqual(
-            checkboxes.at(1).find(".checkbox > .checkbox-input > .label").text(),
-            "Morocco"
-        );
+        assert.strictEqual(checkboxes.at(1).text(), "Morocco");
         assert.strictEqual(checkboxes.at(2).find(".checkbox.checked").exists(), false);
-        assert.strictEqual(
-            checkboxes.at(2).find(".checkbox > .checkbox-input > .label").text(),
-            "canada"
-        );
+        assert.strictEqual(checkboxes.at(2).text(), "canada");
         assert.strictEqual(checkboxes.at(3).find(".checkbox.checked").exists(), false);
-        assert.strictEqual(
-            checkboxes.at(3).find(".checkbox > .checkbox-input > .label").text(),
-            "China"
-        );
+        assert.strictEqual(checkboxes.at(3).text(), "China");
         assert.strictEqual(checkboxes.at(4).find(".checkbox.checked").exists(), false);
-        assert.strictEqual(
-            checkboxes.at(4).find(".checkbox > .checkbox-input > .label").text(),
-            "Dubai"
-        );
+        assert.strictEqual(checkboxes.at(4).text(), "Dubai");
         assert.strictEqual(checkboxes.at(5).find(".checkbox.checked").exists(), true);
         assert.strictEqual(checkboxes.at(5).find(".checkbox.disabled").exists(), true);
-        assert.strictEqual(
-            checkboxes.at(5).find(".checkbox > .checkbox-input > .label").text(),
-            "Bali"
-        );
+        assert.strictEqual(checkboxes.at(5).text(), "Bali");
         assert.strictEqual(checkboxes.at(6).find(".checkbox.checked").exists(), false);
         assert.strictEqual(checkboxes.at(6).find(".checkbox.error").exists(), true);
-        assert.strictEqual(
-            checkboxes.at(6).find(".checkbox > .checkbox-input > .label").text(),
-            "Tibet"
-        );
+        assert.strictEqual(checkboxes.at(6).text(), "Tibet");
 
         await checkboxes.at(0).find(".checkbox > .checkbox-input").trigger("click");
         assert.strictEqual(checkboxes.at(0).find(".checkbox.checked").exists(), true);
