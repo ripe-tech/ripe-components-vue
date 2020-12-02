@@ -112,15 +112,15 @@ describe("Select Checkboxes", () => {
         assert.strictEqual(checkboxes.at(6).find(".checkbox.error").exists(), true);
         assert.strictEqual(checkboxes.at(6).text(), "Tibet");
 
-        await checkboxes.at(0).find(".checkbox > .checkbox-input").trigger("click");
+        await checkboxes.at(0).find(".checkbox").trigger("click");
         assert.strictEqual(checkboxes.at(0).find(".checkbox.checked").exists(), true);
-        await checkboxes.at(1).find(".checkbox > .checkbox-input").trigger("click");
+        await checkboxes.at(1).find(".checkbox").trigger("click");
         assert.strictEqual(checkboxes.at(1).find(".checkbox.checked").exists(), false);
-        await checkboxes.at(3).find(".checkbox > .checkbox-input").trigger("click");
+        await checkboxes.at(3).find(".checkbox").trigger("click");
         assert.strictEqual(checkboxes.at(3).find(".checkbox.checked").exists(), true);
-        await checkboxes.at(5).find(".checkbox > .checkbox-input").trigger("click");
+        await checkboxes.at(5).find(".checkbox").trigger("click");
         assert.strictEqual(checkboxes.at(5).find(".checkbox.checked").exists(), true);
-        await checkboxes.at(6).find(".checkbox > .checkbox-input").trigger("click");
+        await checkboxes.at(6).find(".checkbox").trigger("click");
         assert.strictEqual(checkboxes.at(6).find(".checkbox.checked").exists(), true);
     });
 });
