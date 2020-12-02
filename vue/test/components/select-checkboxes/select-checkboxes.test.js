@@ -1,7 +1,7 @@
 const assert = require("assert");
 const base = require("../../base");
 
-describe("Section", () => {
+describe("Select Checkboxes", () => {
     it("should start with the correct state", () => {
         const component = base.getComponent("SelectCheckboxes", {
             props: {
