@@ -1,6 +1,7 @@
 <template>
     <button-icon
         class="button-icon-toggle"
+        v-bind:class="classes"
         v-bind="buttonIconProps"
         v-bind:icon="iconComputed"
         v-bind:color="colorComputed"
@@ -74,10 +75,14 @@ export const ButtonIconToggle = {
             return this.valueData ? this.colorSecondary : this.color;
         },
         iconComputed() {
-            return this.valueData ? this._iconSecondary : this.icon;
+            return this.valueData ? this.iconSecondaryComputed : this.icon;
         },
-        _iconSecondary() {
+        iconSecondaryComputed() {
             return this.iconSecondary ? this.iconSecondary : this.icon;
+        },
+        classes() {
+            const base = { active: this.valueData };
+            return base;
         }
     },
     methods: {
