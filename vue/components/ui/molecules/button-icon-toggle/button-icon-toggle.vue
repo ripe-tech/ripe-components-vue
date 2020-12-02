@@ -71,18 +71,18 @@ export const ButtonIconToggle = {
         }
     },
     computed: {
-        classes() {
-            const base = { active: this.valueData };
-            return base;
-        },
         colorComputed() {
             return this.valueData ? this.colorSecondary : this.color;
         },
         iconComputed() {
-            return this.valueData ? this._iconSecondary : this.icon;
+            return this.valueData ? this.iconSecondaryComputed : this.icon;
         },
-        _iconSecondary() {
+        iconSecondaryComputed() {
             return this.iconSecondary ? this.iconSecondary : this.icon;
+        },
+        classes() {
+            const base = { active: this.valueData };
+            return base;
         }
     },
     methods: {
