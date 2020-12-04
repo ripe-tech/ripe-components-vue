@@ -3,6 +3,10 @@
         <button-icon
             class="button-icon-front"
             v-bind:icon="icon"
+            v-bind:icon-opacity="iconOpacity"
+            v-bind:icon-color="iconColor"
+            v-bind:icon-fill="iconFill"
+            v-bind:icon-stroke-width="iconStrokeWidth"
             v-bind:color="color"
             v-bind:size="size"
             v-bind:disabled="disabled"
@@ -11,6 +15,10 @@
         <button-icon
             class="button-icon-back"
             v-bind:icon="animationIcon"
+            v-bind:icon-opacity="iconOpacity"
+            v-bind:icon-color="iconColor"
+            v-bind:icon-fill="iconFill"
+            v-bind:icon-stroke-width="iconStrokeWidth"
             v-bind:color="color"
             v-bind:size="size"
             v-bind:disabled="disabled"
@@ -65,6 +73,22 @@ export const ButtonIconAnimated = {
             type: String,
             mandatory: true
         },
+        iconOpacity: {
+            type: Number,
+            default: 0.5
+        },
+        iconColor: {
+            type: String,
+            default: null
+        },
+        iconFill: {
+            type: String,
+            default: null
+        },
+        iconStrokeWidth: {
+            type: Number,
+            default: null
+        },
         color: {
             type: String,
             default: null
@@ -79,7 +103,7 @@ export const ButtonIconAnimated = {
         },
         animationTimeout: {
             type: Number,
-            default: 500
+            default: 7500
         }
     },
     data: function() {
