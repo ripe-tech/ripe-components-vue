@@ -37,12 +37,10 @@
 .button-icon-animated.not-animating .button-icon-front {
     opacity: 1;
     pointer-events: auto;
-    transition: none;
 }
 
 .button-icon-animated .button-icon-front {
     opacity: 0;
-    transition: opacity 0.25s ease-in;
 }
 
 .button-icon-animated .button-icon-back {
@@ -51,13 +49,11 @@
     pointer-events: auto;
     position: absolute;
     top: 0px;
-    transition: none;
 }
 
 .button-icon-animated.not-animating .button-icon-back {
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.25s ease-in;
 }
 </style>
 
