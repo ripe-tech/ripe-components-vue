@@ -21,7 +21,7 @@
             v-bind:icon-stroke-width="iconStrokeWidth"
             v-bind:color="color"
             v-bind:size="size"
-            v-bind:disabled="disabled"
+            v-bind:disabled="disabled || backDisabled"
         />
     </div>
 </template>
@@ -94,6 +94,10 @@ export const ButtonIconAnimated = {
             default: 28
         },
         disabled: {
+            type: Boolean,
+            default: false
+        },
+        backDisabled: {
             type: Boolean,
             default: false
         },
