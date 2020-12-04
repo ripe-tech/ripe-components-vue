@@ -103,7 +103,7 @@ export const ButtonIconAnimated = {
         },
         animationTimeout: {
             type: Number,
-            default: 7500
+            default: 2500
         }
     },
     data: function() {
