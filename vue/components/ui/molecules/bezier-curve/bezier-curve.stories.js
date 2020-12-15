@@ -85,22 +85,22 @@ storiesOf("Molecules", module)
             }
         },
         template: `
-        <div>
-            <p>{{ bezier }}</p>
-            <bezier-curve
-                v-bind:x1.sync="bezier.x1"
-                v-bind:y1.sync="bezier.y1"
-                v-bind:x2.sync="bezier.x2"
-                v-bind:y2.sync="bezier.y2"
-                v-bind:cx1.sync="bezier.cx1"
-                v-bind:cy1.sync="bezier.cy1"
-                v-bind:cx2.sync="bezier.cx2"
-                v-bind:cy2.sync="bezier.cy2"
-                v-bind:resolution="resolution"
-                v-bind:show-points="showPoints"
-                v-bind:emit-interval="emitInterval"
-                v-bind:disabled="disabled"
-            />
-        </div>
+            <div>
+                <p>{{ bezier }}</p>
+                <bezier-curve
+                    v-bind:x1.sync="bezier.x1"
+                    v-bind:y1.sync="bezier.y1"
+                    v-bind:x2.sync="bezier.x2"
+                    v-bind:y2.sync="bezier.y2"
+                    v-bind:cx1.sync="bezier.cx1"
+                    v-bind:cy1.sync="bezier.cy1"
+                    v-bind:cx2.sync="bezier.cx2"
+                    v-bind:cy2.sync="bezier.cy2"
+                    v-bind:resolution="resolution"
+                    v-bind:show-points="showPoints"
+                    v-bind:emit-interval="emitInterval"
+                    v-bind:disabled="disabled"
+                />
+            </div>
         `
     }));
