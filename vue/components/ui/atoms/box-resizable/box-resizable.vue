@@ -24,8 +24,8 @@
 }
 
 .box-resizable > .content {
-    width: 100%;
     height: 100%;
+    width: 100%;
 }
 
 .box-resizable > .gizmos > .handler {
@@ -34,8 +34,8 @@
     box-sizing: border-box;
     height: 10px;
     position: absolute;
-    width: 10px;
     transform: translate(-5px, -5px);
+    width: 10px;
 }
 
 .box-resizable > .gizmos > .handler.x0y0 {
@@ -58,16 +58,34 @@
     top: 100%;
 }
 
+.box-resizable > .gizmos > .handler.x0y0:hover,
+.box-resizable > .gizmos > .handler.x1y1:hover {
+    cursor: nwse-resize;
+}
+
+.box-resizable > .gizmos > .handler.x1y0:hover,
+.box-resizable > .gizmos > .handler.x0y1:hover {
+    cursor: nesw-resize;
+}
+
 .box-resizable > .gizmos > .handler.center {
+    border-radius: 50%;
     left: 50%;
     top: 50%;
-    border-radius: 50%;
+}
+
+.box-resizable > .gizmos > .handler.center:hover {
+    cursor: move;
 }
 
 .box-resizable > .gizmos > .handler.rotation {
-    top: 0px;
-    left: 50%;
     border-radius: 50%;
+    left: 50%;
+    top: 0px;
+}
+
+.box-resizable > .gizmos > .handler.rotation:hover {
+    cursor: url("~./assets/rotate.svg") 12 12, auto;
 }
 </style>
 
