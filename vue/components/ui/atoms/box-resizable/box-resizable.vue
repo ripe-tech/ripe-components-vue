@@ -181,6 +181,10 @@ export const BoxResizable = {
         window.addEventListener("mouseup", this.onMouseUp);
         window.addEventListener("mousemove", this.onMouseMove);
     },
+    destroyed: function() {
+        window.removeEventListener("mousemove", this.onMouseMove);
+        window.removeEventListener("mouseup", this.onMouseUp);
+    },
     methods: {
         onHandlerRotationMouseDown(event) {
             this.rotating = true;
