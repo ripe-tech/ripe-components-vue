@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, number } from "@storybook/addon-knobs";
+import { withKnobs, number, color } from "@storybook/addon-knobs";
 
 storiesOf("Atoms", module)
     .addDecorator(withKnobs)
@@ -19,6 +19,9 @@ storiesOf("Atoms", module)
             },
             rotation: {
                 default: number("Rotation", 0)
+            },
+            color: {
+                default: color("Color", "#ff0000")
             }
         },
         template: `
@@ -28,6 +31,7 @@ storiesOf("Atoms", module)
                 v-bind:x1="x1"
                 v-bind:y1="y1"
                 v-bind:rotation="rotation"
+                v-bind:color="color"
             />
         `
     }));

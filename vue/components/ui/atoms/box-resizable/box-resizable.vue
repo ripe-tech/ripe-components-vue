@@ -13,8 +13,8 @@
 
 <style lang="scss" scoped>
 .box-resizable {
-    border-width: 2px;
     border-style: solid;
+    border-width: 2px;
     box-sizing: border-box;
     position: absolute;
     transform-origin: center center;
