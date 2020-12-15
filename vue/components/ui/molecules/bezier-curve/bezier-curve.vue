@@ -17,8 +17,6 @@
             v-bind:y1="bezier.y1"
             v-bind:x2="bezier.cx1"
             v-bind:y2="bezier.cy1"
-            stroke="teal"
-            stroke-width="1"
             v-show="showPoints"
         />
         <line
@@ -27,24 +25,15 @@
             v-bind:y1="bezier.y2"
             v-bind:x2="bezier.cx2"
             v-bind:y2="bezier.cy2"
-            stroke="teal"
-            stroke-width="1"
             v-show="showPoints"
         />
-        <path
-            class="curve"
-            v-bind:d="path"
-            stroke="black"
-            stroke-width="5"
-            fill="none"
-            id="curve"
-        />
+        <path class="curve" v-bind:d="path" id="curve" />
         <circle
             class="point"
             v-bind:cx="bezier.x1"
             v-bind:cy="bezier.y1"
             v-show="showPoints"
-            id="ept1"
+            id="endpoint-1"
             v-on:touchstart="onTouchStart"
             v-on:mousedown="onMouseDown"
         />
@@ -53,7 +42,7 @@
             v-bind:cx="bezier.x2"
             v-bind:cy="bezier.y2"
             v-show="showPoints"
-            id="ept2"
+            id="endpoint-2"
             v-on:touchstart="onTouchStart"
             v-on:mousedown="onMouseDown"
         />
@@ -62,7 +51,7 @@
             v-bind:cx="bezier.cx1"
             v-bind:cy="bezier.cy1"
             v-show="showPoints"
-            id="pt1"
+            id="controlpoint-1"
             v-on:touchstart="onTouchStart"
             v-on:mousedown="onMouseDown"
         />
@@ -71,7 +60,7 @@
             v-bind:cx="bezier.cx2"
             v-bind:cy="bezier.cy2"
             v-show="showPoints"
-            id="pt2"
+            id="controlpoint-2"
             v-on:touchstart="onTouchStart"
             v-on:mousedown="onMouseDown"
         />
@@ -85,12 +74,23 @@
     pointer-events: none;
 }
 
+.curve {
+    fill: none;
+    stroke: #000000;
+    stroke-width: 5px;
+}
+
+.slope {
+    stroke: #008080;
+    stroke-width: 1;
+}
+
 .point {
     cursor: pointer;
-    r: 0.3rem;
+    fill: #ffffff;
     filter: drop-shadow(2px 2px 1px #00000066);
-    stroke: black;
-    fill: white;
+    r: 0.3rem;
+    stroke: #000000;
     stroke-width: 0.5px;
 }
 
@@ -105,9 +105,9 @@
 
 body.tablet .point,
 body.mobile .point {
-    stroke-width: 1px;
+    filter: drop-shadow(5px 5px 4px #0000005e);
     r: 2rem;
-    filter: drop-shadow(5px 5px 4px #0000005e)
+    stroke-width: 1px;
 }
 </style>
 
@@ -197,13 +197,13 @@ export const BezierCurve = {
         },
         getCoordinatesKey(target) {
             switch (target) {
-                case "pt1":
+                case "controlpoint-1":
                     return { x: "cx1", y: "cy1" };
-                case "pt2":
+                case "controlpoint-2":
                     return { x: "cx2", y: "cy2" };
-                case "ept1":
+                case "endpoint-1":
                     return { x: "x1", y: "y1" };
-                case "ept2":
+                case "endpoint-2":
                     return { x: "x2", y: "y2" };
                 default:
                     return { x: "x", y: "y" };
