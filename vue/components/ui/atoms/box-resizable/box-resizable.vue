@@ -1,10 +1,10 @@
 <template>
     <div class="box-resizable" v-bind:style="style">
         <div class="gizmos">
-            <div class="handler x0" />
-            <div class="handler x1" />
-            <div class="handler y0" />
-            <div class="handler y1" />
+            <div class="handler x0y0" />
+            <div class="handler x1y0" />
+            <div class="handler x0y1" />
+            <div class="handler x1y1" />
             <div class="handler center" />
             <div class="handler rotation" />
         </div>
@@ -18,6 +18,36 @@
     box-sizing: border-box;
     position: absolute;
     transform-origin: center center;
+}
+
+.box-resizable > .gizmos > .handler {
+    background-color: #ffffff;
+    border-style: solid;
+    border-width: 2px;
+    box-sizing: border-box;
+    height: 10px;
+    position: absolute;
+    width: 10px;
+}
+
+.box-resizable > .gizmos > .handler.x0y0 {
+    left: 0px;
+    top: 0px;
+}
+
+.box-resizable > .gizmos > .handler.x1y0 {
+    left: 100%;
+    top: 0px;
+}
+
+.box-resizable > .gizmos > .handler.x0y1 {
+    left: 0px;
+    top: 100%;
+}
+
+.box-resizable > .gizmos > .handler.x1y1 {
+    left: 100%;
+    top: 100%;
 }
 </style>
 
