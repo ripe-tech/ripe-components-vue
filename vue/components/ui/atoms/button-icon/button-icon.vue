@@ -179,6 +179,10 @@ export const ButtonIcon = {
             type: String,
             default: null
         },
+        borderRadius: {
+            type: Number,
+            default: null
+        },
         size: {
             type: Number,
             default: 28
@@ -269,7 +273,8 @@ export const ButtonIcon = {
                             : this.paddingBase
                         : this.paddingRight
                 }px`,
-                "border-radius": `${this.size}px`
+                "border-radius":
+                    this.borderRadius === null ? `${this.size}px` : `${this.borderRadius}px`
             };
         },
         classes() {
