@@ -115,50 +115,89 @@ body.mobile .point {
 export const BezierCurve = {
     name: "bezier-curve",
     props: {
+        /**
+         * Bezier curve endpoint 1 X coordinate.
+         */
         x1: {
             type: Number,
             required: true
         },
+        /**
+         * Bezier curve endpoint 1 Y coordinate.
+         */
         y1: {
             type: Number,
             required: true
         },
+        /**
+         * Bezier curve endpoint 2 X coordinate.
+         */
         x2: {
             type: Number,
             required: true
         },
+        /**
+         * Bezier curve endpoint 2 Y coordinate.
+         */
         y2: {
             type: Number,
             required: true
         },
+        /**
+         * Bezier curve control point 1 X coordinate.
+         */
         cx1: {
             type: Number,
             required: true
         },
+        /**
+         * Bezier curve control point 1 Y coordinate.
+         */
         cy1: {
             type: Number,
             required: true
         },
+        /**
+         * Bezier curve control point 2 X coordinate.
+         */
         cx2: {
             type: Number,
             required: true
         },
+        /**
+         * Bezier curve control point 2 Y coordinate.
+         */
         cy2: {
             type: Number,
             required: true
         },
+        /**
+         * The number of pixels of the svg viewport
+         * in the format "`width`x`height`".
+         */
         resolution: {
             type: String,
             default: "1024x1024"
         },
+        /**
+         * Visibilty of bezier curve control points.
+         */
         showPoints: {
             type: Boolean,
             default: true
         },
+        /**
+         * The interval at which the new coordinates
+         * will be emited when dragging.
+         */
         emitInterval: {
             type: Number,
             default: 200
         },
+        /**
+         * Weather or not the control points are disabled
+         * and unable to control.
+         */
         disabled: {
             type: Boolean,
             default: false
@@ -181,6 +220,30 @@ export const BezierCurve = {
         };
     },
     watch: {
+        x1(value) {
+            this.$set(this.bezier, "x1", value);
+        },
+        y1(value) {
+            this.$set(this.bezier, "y1", value);
+        },
+        x2(value) {
+            this.$set(this.bezier, "x2", value);
+        },
+        y2(value) {
+            this.$set(this.bezier, "y2", value);
+        },
+        cx1(value) {
+            this.$set(this.bezier, "cx1", value);
+        },
+        cy1(value) {
+            this.$set(this.bezier, "cy1", value);
+        },
+        cx2(value) {
+            this.$set(this.bezier, "cx2", value);
+        },
+        cy2(value) {
+            this.$set(this.bezier, "cy2", value);
+        },
         dragging(value) {
             if (value && this.emitInterval !== null) this.startReactiveEmits();
         }
