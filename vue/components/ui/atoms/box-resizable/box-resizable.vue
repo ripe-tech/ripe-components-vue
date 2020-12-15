@@ -9,7 +9,11 @@
             <div class="handler x0y1" v-bind:style="handlerStyle" />
             <div class="handler x1y1" v-bind:style="handlerStyle" />
             <div class="handler center" v-bind:style="handlerStyle" />
-            <div class="handler rotation" v-bind:style="handlerStyle" />
+            <div
+                class="handler rotation"
+                v-bind:style="handlerStyle"
+                v-on:mousedown="onHandlerRotationMouseDown"
+            />
         </div>
     </div>
 </template>
@@ -147,6 +151,12 @@ export const BoxResizable = {
                 "border-color": this.color,
                 "background-color": this.colorControls
             };
+        },
+        centerPos() {
+            return {
+                x: (this.x1Data - this.x0Data) / 2,
+                y: (this.y1Data - this.y0Data) / 2
+            };
         }
     },
     watch: {
@@ -164,6 +174,29 @@ export const BoxResizable = {
         },
         rotation(value) {
             this.rotationData = value;
+        }
+    },
+    mounted: function() {
+        window.addEventListener("mouseup", this.onMouseUp);
+        window.addEventListener("mousemove", this.onMouseMove);
+    },
+    methods: {
+        onHandlerRotationMouseDown(event) {
+            this.rotating = true;
+        },
+        onMouseUp(event) {
+            this.rotating = false;
+        },
+        onMouseMove(event) {
+            console.log("centerpoint", this.centerPos);
+            if (!this.rotating) return;
+            this.rotate(event.pageX, event.pageY);
+        },
+        rotate(mouseX, mouseY) {
+            const dX = mouseX - this.centerPos.x;
+            const dY = mouseY - this.centerPos.y;
+            const angle = (Math.atan2(dY, dX) * 180) / Math.PI;
+            this.rotationData = angle < 0 ? angle + 360 : angle;
         }
     }
 };
