@@ -96,6 +96,13 @@
     stroke-width: 0.5px;
 }
 
+body.tablet .bezier-curve .point,
+body.mobile .bezier-curve .point {
+    filter: drop-shadow(5px 5px 4px #0000005e);
+    r: 2rem;
+    stroke-width: 1px;
+}
+
 .bezier-curve .point:hover {
     cursor: pointer;
     filter: drop-shadow(0px 0px 3px #007bff);
@@ -103,13 +110,6 @@
 
 .bezier-curve .point:active {
     cursor: move;
-}
-
-body.tablet .bezier-curve .point,
-body.mobile .bezier-curve .point {
-    filter: drop-shadow(5px 5px 4px #0000005e);
-    r: 2rem;
-    stroke-width: 1px;
 }
 </style>
 
@@ -182,7 +182,7 @@ export const BezierCurve = {
             default: "1024x1024"
         },
         /**
-         * Visibilty of bezier curve control points.
+         * Visibilty of Bezier curve control points.
          */
         showPoints: {
             type: Boolean,
@@ -207,8 +207,6 @@ export const BezierCurve = {
     },
     data: function() {
         return {
-            dragging: null,
-            reactiveEmit: null,
             bezier: {
                 x1: this.x1,
                 y1: this.y1,
@@ -218,7 +216,9 @@ export const BezierCurve = {
                 cx2: this.cx2,
                 cy1: this.cy1,
                 cy2: this.cy2
-            }
+            },
+            dragging: null,
+            reactiveEmit: null
         };
     },
     watch: {
@@ -270,21 +270,27 @@ export const BezierCurve = {
             if (x < 0 || y < 0 || x > maxWidth || y > maxHeight) return false;
             return true;
         },
+        /**
+         * @returns {Object} with coordinates label for a given point `target`.
+         */
         getCoordinatesKey(target) {
             switch (target) {
-                case "controlpoint-1":
-                    return { x: "cx1", y: "cy1" };
-                case "controlpoint-2":
-                    return { x: "cx2", y: "cy2" };
                 case "endpoint-1":
                     return { x: "x1", y: "y1" };
                 case "endpoint-2":
                     return { x: "x2", y: "y2" };
+                case "controlpoint-1":
+                    return { x: "cx1", y: "cy1" };
+                case "controlpoint-2":
+                    return { x: "cx2", y: "cy2" };
                 default:
                     return { x: "x", y: "y" };
             }
         },
-        getCursorPosition(event) {
+        /**
+         * Gets the user cursor position considering the SVG matrix axis.
+         */
+        getCursorInSvgPos(event) {
             const svgMatrix = this.$refs.svg.getScreenCTM();
             const deviceEvent = event.type === "touchmove" ? event.touches[0] : event;
             return {
@@ -297,22 +303,28 @@ export const BezierCurve = {
             this.$set(this.bezier, coordinatesKey.x, position.x);
             this.$set(this.bezier, coordinatesKey.y, position.y);
         },
+        /**
+         * Starts emitting the current drag once every `emitInterval` milliseconds.
+         */
         startReactiveEmits() {
             this.reactiveEmit = setInterval(this.emitCurrentDrag, this.emitInterval);
         },
+        /**
+         * Emits the coordinates of the point that's currently being dragged
+         */
         emitCurrentDrag() {
+            if (!this.dragging) return;
             const { x, y } = this.getCoordinatesKey(this.dragging);
             this.$emit(`update:${x}`, parseFloat(this.bezier[x]).toFixed(2));
             this.$emit(`update:${y}`, parseFloat(this.bezier[y]).toFixed(2));
         },
         onStartDrag(event) {
-            const point = event.target.id;
-            this.dragging = point;
+            this.dragging = event.target.id;
         },
         onDrag(event) {
             if (this.dragging) {
                 event.preventDefault();
-                const coordinates = this.getCursorPosition(event);
+                const coordinates = this.getCursorInSvgPos(event);
                 if (this.validCoordinates(coordinates)) {
                     this.setPosition(this.dragging, coordinates);
                 }
