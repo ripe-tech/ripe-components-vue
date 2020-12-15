@@ -32,6 +32,9 @@ storiesOf("Atoms", module)
                 v-bind:y1="y1"
                 v-bind:rotation="rotation"
                 v-bind:color="color"
-            />
+            >
+                <img src="https://placekitten.com/200/100"> 
+            </box-resizable>
+            
         `
     }));

@@ -1,5 +1,6 @@
 <template>
     <div class="box-resizable" v-bind:style="style">
+        <slot />
         <div class="gizmos">
             <div class="handler x0y0" v-bind:style="handlerStyle" />
             <div class="handler x1y0" v-bind:style="handlerStyle" />
