@@ -17,6 +17,7 @@
     border: 2px solid #ff0000;
     box-sizing: border-box;
     position: absolute;
+    transform-origin: center center;
 }
 </style>
 
@@ -40,6 +41,10 @@ export const BoxResizable = {
             type: Number,
             default: 100
         },
+        rotation: {
+            type: Number,
+            default: 0
+        },
         color: {
             type: String,
             default: "#e96760"
@@ -54,27 +59,36 @@ export const BoxResizable = {
             x0Data: this.x0,
             y0Data: this.y0,
             x1Data: this.x1,
-            y1Data: this.y1
+            y1Data: this.y1,
+            rotationData: this.rotation
         };
     },
     computed: {
-        size() {
-            return {
-                width: `${this.x1Data - this.x0Data}px`,
-                height: `${this.y1Data - this.y0Data}px`
-            };
-        },
-        position() {
-            return {
-                left: `${this.x0Data}px`,
-                top: `${this.y0Data}px`
-            };
-        },
         style() {
             return {
-                ...this.size,
-                ...this.position
+                width: `${this.x1Data - this.x0Data}px`,
+                height: `${this.y1Data - this.y0Data}px`,
+                left: `${this.x0Data}px`,
+                top: `${this.y0Data}px`,
+                transform: `rotate(${this.rotationData}deg)`
             };
+        }
+    },
+    watch: {
+        x0(value) {
+            this.x0Data = value;
+        },
+        y0(value) {
+            this.y0Data = value;
+        },
+        x1(value) {
+            this.x1Data = value;
+        },
+        y1(value) {
+            this.y1Data = value;
+        },
+        rotation(value) {
+            this.rotationData = value;
         }
     }
 };

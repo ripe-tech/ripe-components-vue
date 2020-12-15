@@ -16,6 +16,9 @@ storiesOf("Atoms", module)
             },
             y1: {
                 default: number("Y1", 150)
+            },
+            rotation: {
+                default: number("Rotation", 0)
             }
         },
         template: `
@@ -24,6 +27,7 @@ storiesOf("Atoms", module)
                 v-bind:y0="y0"
                 v-bind:x1="x1"
                 v-bind:y1="y1"
+                v-bind:rotation="rotation"
             />
         `
     }));
