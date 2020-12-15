@@ -33,7 +33,7 @@ storiesOf("Atoms", module)
                 v-bind:rotation="rotation"
                 v-bind:color="color"
             >
-                <img src="https://placekitten.com/200/100"> 
+                <div>Content example</div>
             </box-resizable>
             
         `
