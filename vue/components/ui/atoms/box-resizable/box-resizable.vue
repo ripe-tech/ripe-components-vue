@@ -1,12 +1,12 @@
 <template>
     <div class="box-resizable" v-bind:style="style">
         <div class="gizmos">
-            <div class="handler x0y0" />
-            <div class="handler x1y0" />
-            <div class="handler x0y1" />
-            <div class="handler x1y1" />
-            <div class="handler center" />
-            <div class="handler rotation" />
+            <div class="handler x0y0" v-bind:style="handlerStyle" />
+            <div class="handler x1y0" v-bind:style="handlerStyle" />
+            <div class="handler x0y1" v-bind:style="handlerStyle" />
+            <div class="handler x1y1" v-bind:style="handlerStyle" />
+            <div class="handler center" v-bind:style="handlerStyle" />
+            <div class="handler rotation" v-bind:style="handlerStyle" />
         </div>
     </div>
 </template>
@@ -21,13 +21,13 @@
 }
 
 .box-resizable > .gizmos > .handler {
-    background-color: #ffffff;
     border-style: solid;
     border-width: 2px;
     box-sizing: border-box;
     height: 10px;
     position: absolute;
     width: 10px;
+    transform: translate(-5px, -5px);
 }
 
 .box-resizable > .gizmos > .handler.x0y0 {
@@ -102,6 +102,12 @@ export const BoxResizable = {
                 top: `${this.y0Data}px`,
                 transform: `rotate(${this.rotationData}deg)`,
                 "border-color": this.color
+            };
+        },
+        handlerStyle() {
+            return {
+                "border-color": this.color,
+                "background-color": this.colorControls
             };
         }
     },
