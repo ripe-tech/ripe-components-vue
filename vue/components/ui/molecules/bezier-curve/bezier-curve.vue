@@ -192,7 +192,7 @@ export const BezierCurve = {
          */
         emitInterval: {
             type: Number,
-            default: 200
+            default: 250
         },
         /**
          * Weather or not the control points are disabled

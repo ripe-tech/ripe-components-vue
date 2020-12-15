@@ -36,7 +36,7 @@ storiesOf("Molecules", module)
                 default: boolean("Show Points", true)
             },
             emitInterval: {
-                default: number("Emit Interval", 200)
+                default: number("Emit Interval", 250)
             },
             disabled: {
                 default: boolean("Disabled", false)
