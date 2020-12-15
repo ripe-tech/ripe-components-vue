@@ -18,6 +18,7 @@
             v-bind:x2="bezier.cx1"
             v-bind:y2="bezier.cy1"
             v-show="showPoints"
+            id="slope-1"
         />
         <line
             class="slope"
@@ -26,6 +27,7 @@
             v-bind:x2="bezier.cx2"
             v-bind:y2="bezier.cy2"
             v-show="showPoints"
+            id="slope-2"
         />
         <path class="curve" v-bind:d="path" id="curve" />
         <circle
