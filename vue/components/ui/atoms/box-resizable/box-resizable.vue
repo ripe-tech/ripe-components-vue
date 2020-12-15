@@ -1,10 +1,28 @@
 <template>
     <div class="box-resizable">
-        Hello from box-resizable
+        <div class="gizmos">
+            <div class="handler x0" />
+            <div class="handler x1" />
+            <div class="handler y0" />
+            <div class="handler y1" />
+            <div class="handler center" />
+            <div class="handler rotation" />
+        </div>
     </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.box-resizable {
+    background-color: #20b2aa;
+    border: 2px solid #ff0000;
+    box-sizing: border-box;
+    height: 100px;
+    left: 50px;
+    position: absolute;
+    top: 50px;
+    width: 200px;
+}
+</style>
 
 <script>
 export const BoxResizable = {
