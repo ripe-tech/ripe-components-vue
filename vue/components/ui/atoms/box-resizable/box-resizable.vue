@@ -49,6 +49,17 @@
     left: 100%;
     top: 100%;
 }
+
+.box-resizable > .gizmos > .handler.center {
+    left: 50%;
+    top: 50%;
+    border-radius: 50%;
+}
+
+.box-resizable > .gizmos > .handler.rotation {
+    left: 50%;
+    border-radius: 50%;
+}
 </style>
 
 <script>
