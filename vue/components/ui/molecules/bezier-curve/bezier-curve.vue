@@ -8,7 +8,7 @@
         v-on:touchmove="onTouchMove"
         v-on:mouseup="onMouseUp"
         v-on:touchend="onTouchEnd"
-        v-on:touchcancel="onTouchEnd"
+        v-on:touchcancel="onTouchCancel"
         v-on:touchleave="onTouchLeave"
     >
         <line
@@ -155,6 +155,10 @@ export const BezierCurve = {
             type: Boolean,
             default: true
         },
+        emitInterval: {
+            type: Number,
+            default: 200
+        },
         disabled: {
             type: Boolean,
             default: false
@@ -163,6 +167,7 @@ export const BezierCurve = {
     data: function() {
         return {
             dragging: null,
+            reactiveEmit: null,
             bezier: {
                 x1: this.x1,
                 y1: this.y1,
@@ -174,6 +179,11 @@ export const BezierCurve = {
                 cy2: this.cy2
             }
         };
+    },
+    watch: {
+        dragging(value) {
+            if (value && this.emitInterval !== null) this.startReactiveEmits();
+        }
     },
     computed: {
         path() {
@@ -222,6 +232,14 @@ export const BezierCurve = {
             this.$set(this.bezier, coordinatesKey.x, position.x);
             this.$set(this.bezier, coordinatesKey.y, position.y);
         },
+        startReactiveEmits() {
+            this.reactiveEmit = setInterval(this.emitCurrentDrag, this.emitInterval);
+        },
+        emitCurrentDrag() {
+            const { x, y } = this.getCoordinatesKey(this.dragging);
+            this.$emit(x, this.bezier[x]);
+            this.$emit(y, this.bezier[y]);
+        },
         onStartDrag(event) {
             const point = event.target.id;
             this.dragging = point;
@@ -236,9 +254,8 @@ export const BezierCurve = {
             }
         },
         onStopDrag() {
-            const { x, y } = this.getCoordinatesKey(this.dragging);
-            this.$emit(x, this.bezier[x]);
-            this.$emit(y, this.bezier[y]);
+            if (this.reactiveEmit) clearInterval(this.reactiveEmit);
+            this.emitCurrentDrag();
             this.dragging = null;
         },
         onMouseDown(event) {

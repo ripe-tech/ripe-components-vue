@@ -35,6 +35,9 @@ storiesOf("Molecules", module)
             showPoints: {
                 default: boolean("Show Points", true)
             },
+            emitInterval: {
+                default: number("Emit Interval", 200)
+            },
             disabled: {
                 default: boolean("Disabled", false)
             }
@@ -50,7 +53,8 @@ storiesOf("Molecules", module)
                 v-bind:cx2="cx2"
                 v-bind:cy2="cy2"
                 v-bind:resolution="resolution"
-                v-bind:showPoints="showPoints"
+                v-bind:show-points="showPoints"
+                v-bind:emit-interval="emitInterval"
                 v-bind:disabled="disabled"
             />
         `
