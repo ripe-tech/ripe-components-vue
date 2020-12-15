@@ -155,8 +155,8 @@ export const BoxResizable = {
         },
         centerPos() {
             return {
-                x: (this.x1Data - this.x0Data) / 2,
-                y: (this.y1Data - this.y0Data) / 2
+                x: (this.x1Data - this.x0Data) / 2 + this.x0Data,
+                y: (this.y1Data - this.y0Data) / 2 + this.y0Data
             };
         }
     },
@@ -189,7 +189,6 @@ export const BoxResizable = {
             this.rotating = false;
         },
         onMouseMove(event) {
-            console.log("centerpoint", this.centerPos);
             if (!this.rotating) return;
             this.rotate(event.pageX, event.pageY);
         },
