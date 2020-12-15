@@ -57,6 +57,7 @@
 }
 
 .box-resizable > .gizmos > .handler.rotation {
+    top: 0px;
     left: 50%;
     border-radius: 50%;
 }
