@@ -195,7 +195,7 @@ export const BoxResizable = {
         rotate(mouseX, mouseY) {
             const dX = mouseX - this.centerPos.x;
             const dY = mouseY - this.centerPos.y;
-            const angle = (Math.atan2(dY, dX) * 180) / Math.PI;
+            const angle = (Math.atan2(dY, dX) * 180) / Math.PI + 90;
             this.rotationData = angle < 0 ? angle + 360 : angle;
         }
     }
