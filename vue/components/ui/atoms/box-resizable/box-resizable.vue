@@ -13,8 +13,8 @@
 
 <style lang="scss" scoped>
 .box-resizable {
-    background-color: #20b2aa;
-    border: 2px solid #ff0000;
+    border-width: 2px;
+    border-style: solid;
     box-sizing: border-box;
     position: absolute;
     transform-origin: center center;
@@ -47,7 +47,7 @@ export const BoxResizable = {
         },
         color: {
             type: String,
-            default: "#e96760"
+            default: "#ff0000"
         },
         colorControls: {
             type: String,
@@ -70,7 +70,8 @@ export const BoxResizable = {
                 height: `${this.y1Data - this.y0Data}px`,
                 left: `${this.x0Data}px`,
                 top: `${this.y0Data}px`,
-                transform: `rotate(${this.rotationData}deg)`
+                transform: `rotate(${this.rotationData}deg)`,
+                "border-color": this.color
             };
         }
     },
