@@ -94,6 +94,7 @@
 </style>
 
 <script>
+// TODO GIZMO_STATES enum
 export const BoxResizable = {
     name: "box-resizable",
     props: {
