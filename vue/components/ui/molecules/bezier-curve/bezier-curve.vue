@@ -74,18 +74,18 @@
     pointer-events: none;
 }
 
-.curve {
+.bezier-curve .curve {
     fill: none;
     stroke: #000000;
     stroke-width: 5px;
 }
 
-.slope {
+.bezier-curve .slope {
     stroke: #008080;
     stroke-width: 1;
 }
 
-.point {
+.bezier-curve .point {
     cursor: pointer;
     fill: #ffffff;
     filter: drop-shadow(2px 2px 1px #00000066);
@@ -94,17 +94,17 @@
     stroke-width: 0.5px;
 }
 
-.point:hover {
+.bezier-curve .point:hover {
     cursor: pointer;
     filter: drop-shadow(0px 0px 3px #007bff);
 }
 
-.point:active {
+.bezier-curve .point:active {
     cursor: move;
 }
 
-body.tablet .point,
-body.mobile .point {
+body.tablet .bezier-curve .point,
+body.mobile .bezier-curve .point {
     filter: drop-shadow(5px 5px 4px #0000005e);
     r: 2rem;
     stroke-width: 1px;
@@ -300,8 +300,8 @@ export const BezierCurve = {
         },
         emitCurrentDrag() {
             const { x, y } = this.getCoordinatesKey(this.dragging);
-            this.$emit(x, this.bezier[x]);
-            this.$emit(y, this.bezier[y]);
+            this.$emit(`update:${x}`, parseFloat(this.bezier[x]).toFixed(2));
+            this.$emit(`update:${y}`, parseFloat(this.bezier[y]).toFixed(2));
         },
         onStartDrag(event) {
             const point = event.target.id;

@@ -42,20 +42,65 @@ storiesOf("Molecules", module)
                 default: boolean("Disabled", false)
             }
         },
+        data: function() {
+            return {
+                bezier: {
+                    x1: this.x1,
+                    y1: this.y1,
+                    x2: this.x2,
+                    y2: this.y2,
+                    cx1: this.cx1,
+                    cx2: this.cx2,
+                    cy1: this.cy1,
+                    cy2: this.cy2
+                }
+            };
+        },
+        watch: {
+            watch: {
+                x1(value) {
+                    this.$set(this.bezier, "x1", value);
+                },
+                y1(value) {
+                    this.$set(this.bezier, "y1", value);
+                },
+                x2(value) {
+                    this.$set(this.bezier, "x2", value);
+                },
+                y2(value) {
+                    this.$set(this.bezier, "y2", value);
+                },
+                cx1(value) {
+                    this.$set(this.bezier, "cx1", value);
+                },
+                cy1(value) {
+                    this.$set(this.bezier, "cy1", value);
+                },
+                cx2(value) {
+                    this.$set(this.bezier, "cx2", value);
+                },
+                cy2(value) {
+                    this.$set(this.bezier, "cy2", value);
+                }
+            }
+        },
         template: `
+        <div>
+            <p>{{ bezier }}</p>
             <bezier-curve
-                v-bind:x1="x1"
-                v-bind:y1="y1"
-                v-bind:x2="x2"
-                v-bind:y2="y2"
-                v-bind:cx1="cx1"
-                v-bind:cy1="cy1"
-                v-bind:cx2="cx2"
-                v-bind:cy2="cy2"
+                v-bind:x1.sync="bezier.x1"
+                v-bind:y1.sync="bezier.y1"
+                v-bind:x2.sync="bezier.x2"
+                v-bind:y2.sync="bezier.y2"
+                v-bind:cx1.sync="bezier.cx1"
+                v-bind:cy1.sync="bezier.cy1"
+                v-bind:cx2.sync="bezier.cx2"
+                v-bind:cy2.sync="bezier.cy2"
                 v-bind:resolution="resolution"
                 v-bind:show-points="showPoints"
                 v-bind:emit-interval="emitInterval"
                 v-bind:disabled="disabled"
             />
+        </div>
         `
     }));
