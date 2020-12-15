@@ -97,14 +97,14 @@ describe("BezierCurve", () => {
         controlPoint1.trigger("mousedown");
         controlPoint1.trigger("mouseup");
         await component.vm.$nextTick();
-        assert.strictEqual(component.emitted("update:cx1")[0][0], "186.00");
-        assert.strictEqual(component.emitted("update:cy1")[0][0], "641.00");
+        assert.strictEqual(component.emitted("update:cx1")[0][0], 186);
+        assert.strictEqual(component.emitted("update:cy1")[0][0], 641);
 
         const controlPoint2 = component.find("#controlpoint-2");
         controlPoint2.trigger("touchstart");
         controlPoint2.trigger("touchend");
         await component.vm.$nextTick();
-        assert.strictEqual(component.emitted("update:cx2")[0][0], "203.00");
-        assert.strictEqual(component.emitted("update:cy2")[0][0], "431.00");
+        assert.strictEqual(component.emitted("update:cx2")[0][0], 203);
+        assert.strictEqual(component.emitted("update:cy2")[0][0], 431);
     });
 });
