@@ -197,6 +197,14 @@ export const BezierCurve = {
             default: 250
         },
         /**
+         * The decimal places to define the numerical precision
+         * when emitting the position of control and end points.
+         */
+        roundPlaces: {
+            type: Number,
+            default: 2
+        },
+        /**
          * Weather or not the control points are disabled
          * and unable to control.
          */
@@ -315,8 +323,8 @@ export const BezierCurve = {
         emitCurrentDrag() {
             if (!this.dragging) return;
             const { x, y } = this.getCoordinatesKey(this.dragging);
-            this.$emit(`update:${x}`, parseFloat(this.bezier[x]).toFixed(2));
-            this.$emit(`update:${y}`, parseFloat(this.bezier[y]).toFixed(2));
+            this.$emit(`update:${x}`, this._round(this.bezier[x]));
+            this.$emit(`update:${y}`, this._round(this.bezier[y]));
         },
         onStartDrag(event) {
             this.dragging = event.target.id;
@@ -358,6 +366,9 @@ export const BezierCurve = {
         },
         onTouchLeave() {
             this.onStopDrag();
+        },
+        _round(num, places = this.roundPlaces) {
+            return +(Math.round(num + "e+" + places) + "e-" + places);
         }
     }
 };
