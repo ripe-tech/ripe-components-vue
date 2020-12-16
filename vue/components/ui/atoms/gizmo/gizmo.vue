@@ -30,8 +30,7 @@
 }
 
 .gizmo > .gizmo-inner > .icon {
-    left: 0px;
-    padding: 1px; //same as border width so it is centered
+    left: 0.5px;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
