@@ -4,6 +4,38 @@
             <slot />
         </div>
         <div class="gizmos">
+            <gizmo
+                class="line-top"
+                v-bind:x="width / 2"
+                v-bind:y="0"
+                v-bind:width="width"
+                v-bind:height="0"
+                v-bind:interactable-margin="5"
+            />
+            <gizmo
+                class="line-right"
+                v-bind:x="width"
+                v-bind:y="height / 2"
+                v-bind:width="0"
+                v-bind:height="height"
+                v-bind:interactable-margin="5"
+            />
+            <gizmo
+                class="line-bottom"
+                v-bind:x="width / 2"
+                v-bind:y="height"
+                v-bind:width="width"
+                v-bind:height="0"
+                v-bind:interactable-margin="5"
+            />
+            <gizmo
+                class="line-left"
+                v-bind:x="0"
+                v-bind:y="height / 2"
+                v-bind:width="0"
+                v-bind:height="height"
+                v-bind:interactable-margin="5"
+            />
             <gizmo class="x0y0" v-bind:x="0" v-bind:y="0" v-bind:interactable-margin="5" />
             <gizmo class="x1y0" v-bind:x="width" v-bind:y="0" v-bind:interactable-margin="5" />
             <gizmo class="x0y1" v-bind:x="0" v-bind:y="height" v-bind:interactable-margin="5" />
