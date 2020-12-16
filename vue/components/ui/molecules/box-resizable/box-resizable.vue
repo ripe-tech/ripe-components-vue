@@ -53,7 +53,7 @@
                 v-bind:y="0"
                 v-bind:interactable-margin="5"
                 v-bind:round="true"
-                v-on:mousedown="onHandlerRotationMouseDown"
+                v-on:mousedown="onGizmoRotationMouseDown"
             />
         </div>
     </div>
@@ -220,8 +220,7 @@ export const BoxResizable = {
         window.removeEventListener("mouseup", this.onMouseUp);
     },
     methods: {
-        onHandlerRotationMouseDown(event) {
-            console.log("aaaaa");
+        onGizmoRotationMouseDown(event) {
             this.rotating = true;
         },
         onMouseUp(event) {
