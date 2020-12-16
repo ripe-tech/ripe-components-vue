@@ -101,60 +101,23 @@
     top: 0px;
 }
 
-/*
-.box-resizable {
-    border-style: solid;
-    border-width: 2px;
-    box-sizing: border-box;
-    position: absolute;
-    transform-origin: center center;
-}
-
-.box-resizable > .content {
-    height: 100%;
-    width: 100%;
-}
-
-.box-resizable > .gizmos > .handler {
-    border-style: solid;
-    border-width: 2px;
-    box-sizing: border-box;
-    height: 10px;
-    position: absolute;
-    transform: translate(-5px, -5px);
-    width: 10px;
-}
-
-.box-resizable > .gizmos > .gizmo.x0y0:hover,
-.box-resizable > .gizmos > .gizmo.x1y1:hover {
+.box-resizable > .gizmos > .gizmo.corner-top-left:hover,
+.box-resizable > .gizmos > .gizmo.corner-bottom-right:hover {
     cursor: nwse-resize;
 }
 
-.box-resizable > .gizmos > .gizmo.x1y0:hover,
-.box-resizable > .gizmos > .gizmo.x0y1:hover {
+.box-resizable > .gizmos > .gizmo.corner-top-right:hover,
+.box-resizable > .gizmos > .gizmo.corner-bottom-left:hover {
     cursor: nesw-resize;
 }
 
-.box-resizable > .gizmos > .handler.center {
-    border-radius: 50%;
-    left: 50%;
-    top: 50%;
-}
-
-.box-resizable > .gizmos > .handler.center:hover {
+.box-resizable > .gizmos > .gizmo.center:hover {
     cursor: move;
 }
 
-.box-resizable > .gizmos > .handler.rotation {
-    border-radius: 50%;
-    left: 50%;
-    top: 0px;
+.box-resizable > .gizmos > .gizmo.rotation:hover {
+    cursor: crosshair;
 }
-
-.box-resizable > .gizmos > .handler.rotation:hover {
-    cursor: url("~./assets/rotate.svg") 12 12, auto;
-}
-*/
 </style>
 
 <script>

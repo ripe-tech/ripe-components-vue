@@ -105,10 +105,10 @@ export const Gizmo = {
             base.width = `${this.width}px`;
             base.height = `${this.height}px`;
             if (this.round) base["border-radius"] = "50%";
-            if(this.backgroundColor) base["background-color"] = this.backgroundColor;
-            if(this.borderStyle) base["border-style"] = this.borderStyle;
-            if(this.borderWidth) base["border-width"] = `${this.borderWidth}px`;
-            if(this.borderColor) base["border-color"] = this.borderColor;
+            if (this.backgroundColor) base["background-color"] = this.backgroundColor;
+            if (this.borderStyle) base["border-style"] = this.borderStyle;
+            if (this.borderWidth) base["border-width"] = `${this.borderWidth}px`;
+            if (this.borderColor) base["border-color"] = this.borderColor;
             return base;
         },
         iconStyle() {
