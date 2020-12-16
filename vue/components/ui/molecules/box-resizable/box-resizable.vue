@@ -36,10 +36,30 @@
                 v-bind:height="height"
                 v-bind:interactable-margin="5"
             />
-            <gizmo class="corner-top-left" v-bind:x="0" v-bind:y="0" v-bind:interactable-margin="5" />
-            <gizmo class="corner-top-right" v-bind:x="width" v-bind:y="0" v-bind:interactable-margin="5" />
-            <gizmo class="corner-bottom-left" v-bind:x="0" v-bind:y="height" v-bind:interactable-margin="5" />
-            <gizmo class="corner-bottom-right" v-bind:x="width" v-bind:y="height" v-bind:interactable-margin="5" />
+            <gizmo
+                class="corner-top-left"
+                v-bind:x="0"
+                v-bind:y="0"
+                v-bind:interactable-margin="5"
+            />
+            <gizmo
+                class="corner-top-right"
+                v-bind:x="width"
+                v-bind:y="0"
+                v-bind:interactable-margin="5"
+            />
+            <gizmo
+                class="corner-bottom-left"
+                v-bind:x="0"
+                v-bind:y="height"
+                v-bind:interactable-margin="5"
+            />
+            <gizmo
+                class="corner-bottom-right"
+                v-bind:x="width"
+                v-bind:y="height"
+                v-bind:interactable-margin="5"
+            />
             <gizmo
                 class="center"
                 v-bind:x="width / 2"
@@ -128,7 +148,19 @@
 </style>
 
 <script>
-const GIZMO_INTERACTING_ENUM = { NONE: 1, LINE_TOP: 2, LINE_RIGHT: 3, LINE_BOTTOM: 4, LINE_LEFT: 5, CORNER_TOP_LEFT: 6, CORNER_TOP_RIGHT: 7, CORNER_BOTTOM_LEFT: 8, CORNER_BOTTOM_RIGHT: 9, CENTER: 10, ROTATION: 11 };
+const GIZMO_INTERACTING_ENUM = {
+    NONE: 1,
+    LINE_TOP: 2,
+    LINE_RIGHT: 3,
+    LINE_BOTTOM: 4,
+    LINE_LEFT: 5,
+    CORNER_TOP_LEFT: 6,
+    CORNER_TOP_RIGHT: 7,
+    CORNER_BOTTOM_LEFT: 8,
+    CORNER_BOTTOM_RIGHT: 9,
+    CENTER: 10,
+    ROTATION: 11
+};
 
 export const BoxResizable = {
     name: "box-resizable",
@@ -237,8 +269,8 @@ export const BoxResizable = {
                 case GIZMO_INTERACTING_ENUM.ROTATION:
                     this.rotate(event.pageX, event.pageY);
                     break;
-                default: return;
-            };
+                default:
+            }
         },
         rotate(mouseX, mouseY) {
             const dX = mouseX - this.centerPos.x;
