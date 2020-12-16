@@ -36,12 +36,7 @@
                 v-bind:height="height"
                 v-bind="lineGizmoProps"
             />
-            <gizmo
-                class="corner-top-left"
-                v-bind:x="0"
-                v-bind:y="0"
-                v-bind="cornerGizmoProps"
-            />
+            <gizmo class="corner-top-left" v-bind:x="0" v-bind:y="0" v-bind="cornerGizmoProps" />
             <gizmo
                 class="corner-top-right"
                 v-bind:x="width"
@@ -71,8 +66,13 @@
                 class="rotation"
                 v-bind:x="width / 2"
                 v-bind:y="0"
+                v-bind:width="20"
+                v-bind:height="20"
+                v-bind:icon="'rotate'"
+                v-bind:icon-size="18"
                 v-bind:round="true"
-                v-bind="cornerGizmoProps"
+                v-bind:border-width="1"
+                v-bind="gizmoProps"
                 v-on:mousedown="startGizmoInteraction(GIZMO_INTERACTING_ENUM.ROTATION)"
             />
         </div>
