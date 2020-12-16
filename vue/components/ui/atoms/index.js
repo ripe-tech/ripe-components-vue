@@ -1,6 +1,5 @@
 import { Attachments } from "./attachments/attachments.vue";
 import { Avatar } from "./avatar/avatar.vue";
-import { BoxResizable } from "./box-resizable/box-resizable.vue";
 import { Breadcrumbs } from "./breadcrumbs/breadcrumbs.vue";
 import { Bubble } from "./bubble/bubble.vue";
 import { ButtonColor } from "./button-color/button-color.vue";
@@ -31,7 +30,6 @@ import { Title } from "./title/title.vue";
 const install = Vue => {
     Vue.component("attachments", Attachments);
     Vue.component("avatar", Avatar);
-    Vue.component("box-resizable", BoxResizable);
     Vue.component("breadcrumbs", Breadcrumbs);
     Vue.component("bubble", Bubble);
     Vue.component("button-color", ButtonColor);
@@ -63,7 +61,6 @@ const install = Vue => {
 export {
     Attachments,
     Avatar,
-    BoxResizable,
     Breadcrumbs,
     Bubble,
     ButtonColor,
