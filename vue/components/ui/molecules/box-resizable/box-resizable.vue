@@ -4,10 +4,11 @@
             <slot />
         </div>
         <div class="gizmos">
-            <div class="handler x0y0" v-bind:style="handlerStyle" />
-            <div class="handler x1y0" v-bind:style="handlerStyle" />
-            <div class="handler x0y1" v-bind:style="handlerStyle" />
-            <div class="handler x1y1" v-bind:style="handlerStyle" />
+            <gizmo class="x0y0" v-bind:x="0" v-bind:y="0" v-bind:interactable-margin="5" />
+            <gizmo class="x1y0" v-bind:x="200" v-bind:y="0" v-bind:interactable-margin="5" />
+            <gizmo class="x0y1" v-bind:x="0" v-bind:y="100" v-bind:interactable-margin="5" />
+            <gizmo class="x1y1" v-bind:x="200" v-bind:y="100" v-bind:interactable-margin="5" />
+            <!-- <gizmo class="center" v-bind:x="centerPos.x" v-bind:y="centerPos.y" v-bind:round="true" /> -->
             <div class="handler center" v-bind:style="handlerStyle" />
             <div
                 class="handler rotation"
@@ -42,33 +43,13 @@
     width: 10px;
 }
 
-.box-resizable > .gizmos > .handler.x0y0 {
-    left: 0px;
-    top: 0px;
-}
-
-.box-resizable > .gizmos > .handler.x1y0 {
-    left: 100%;
-    top: 0px;
-}
-
-.box-resizable > .gizmos > .handler.x0y1 {
-    left: 0px;
-    top: 100%;
-}
-
-.box-resizable > .gizmos > .handler.x1y1 {
-    left: 100%;
-    top: 100%;
-}
-
-.box-resizable > .gizmos > .handler.x0y0:hover,
-.box-resizable > .gizmos > .handler.x1y1:hover {
+.box-resizable > .gizmos > .gizmo.x0y0:hover,
+.box-resizable > .gizmos > .gizmo.x1y1:hover {
     cursor: nwse-resize;
 }
 
-.box-resizable > .gizmos > .handler.x1y0:hover,
-.box-resizable > .gizmos > .handler.x0y1:hover {
+.box-resizable > .gizmos > .gizmo.x1y0:hover,
+.box-resizable > .gizmos > .gizmo.x0y1:hover {
     cursor: nesw-resize;
 }
 

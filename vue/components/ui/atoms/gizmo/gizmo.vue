@@ -11,7 +11,6 @@
 .gizmo {
     box-sizing: border-box;
     position: absolute;
-    transform: translate(-15px, -15px);
 }
 
 .gizmo > .gizmo-inner {
@@ -82,6 +81,10 @@ export const Gizmo = {
             if (this.interactableMargin) {
                 base.padding = `${this.interactableMargin}px ${this.interactableMargin}px ${this.interactableMargin}px ${this.interactableMargin}px `;
             }
+
+            const x = -this.width/2 - this.interactableMargin;
+            const y = -this.height/2 - this.interactableMargin;
+            base.transform = `translate(${x}px, ${y}px)`;
             return base;
         },
         innerStyle() {
