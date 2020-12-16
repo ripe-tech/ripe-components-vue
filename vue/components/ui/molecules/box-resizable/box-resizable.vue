@@ -3,27 +3,27 @@
         <div class="content">
             <slot />
         </div>
-        <!--
         <div class="gizmos">
             <gizmo class="x0y0" v-bind:x="0" v-bind:y="0" v-bind:interactable-margin="5" />
-            <gizmo class="x1y0" v-bind:x="200" v-bind:y="0" v-bind:interactable-margin="5" />
-            <gizmo class="x0y1" v-bind:x="0" v-bind:y="100" v-bind:interactable-margin="5" />
-            <gizmo class="x1y1" v-bind:x="200" v-bind:y="100" v-bind:interactable-margin="5" />
-            <gizmo class="center" v-bind:x="centerPos.x" v-bind:y="centerPos.y" v-bind:round="true" />
-            <div class="handler center" v-bind:style="handlerStyle" />
-            <div
-                class="handler rotation"
-                v-bind:style="handlerStyle"
-                v-on:mousedown="onHandlerRotationMouseDown"
-            />
+            <gizmo class="x1y0" v-bind:x="width" v-bind:y="0" v-bind:interactable-margin="5" />
+            <gizmo class="x0y1" v-bind:x="0" v-bind:y="height" v-bind:interactable-margin="5" />
+            <gizmo class="x1y1" v-bind:x="width" v-bind:y="height" v-bind:interactable-margin="5" />
+            <gizmo class="center" v-bind:x="width / 2" v-bind:y="height / 2" v-bind:interactable-margin="5" v-bind:round="true" />
+            <gizmo class="rotation" v-bind:x="width / 2" v-bind:y="0" v-bind:interactable-margin="5" v-bind:round="true" />
         </div>
-        -->
     </div>
 </template>
 
 <style lang="scss" scoped>
 .box-resizable {
     background-color: #fdcdff;
+    position: absolute;
+}
+
+.box-resizable > .gizmos {
+    left: 0px;
+    top: 0px;
+    position: absolute;
 }
 
 /*
