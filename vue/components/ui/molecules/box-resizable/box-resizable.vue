@@ -36,10 +36,10 @@
                 v-bind:height="height"
                 v-bind:interactable-margin="5"
             />
-            <gizmo class="x0y0" v-bind:x="0" v-bind:y="0" v-bind:interactable-margin="5" />
-            <gizmo class="x1y0" v-bind:x="width" v-bind:y="0" v-bind:interactable-margin="5" />
-            <gizmo class="x0y1" v-bind:x="0" v-bind:y="height" v-bind:interactable-margin="5" />
-            <gizmo class="x1y1" v-bind:x="width" v-bind:y="height" v-bind:interactable-margin="5" />
+            <gizmo class="corner-top-left" v-bind:x="0" v-bind:y="0" v-bind:interactable-margin="5" />
+            <gizmo class="corner-top-right" v-bind:x="width" v-bind:y="0" v-bind:interactable-margin="5" />
+            <gizmo class="corner-bottom-left" v-bind:x="0" v-bind:y="height" v-bind:interactable-margin="5" />
+            <gizmo class="corner-bottom-right" v-bind:x="width" v-bind:y="height" v-bind:interactable-margin="5" />
             <gizmo
                 class="center"
                 v-bind:x="width / 2"
@@ -53,7 +53,7 @@
                 v-bind:y="0"
                 v-bind:interactable-margin="5"
                 v-bind:round="true"
-                v-on:mousedown="onGizmoRotationMouseDown"
+                v-on:mousedown="startGizmoInteraction(GIZMO_INTERACTING_ENUM.ROTATION)"
             />
         </div>
     </div>
@@ -128,7 +128,8 @@
 </style>
 
 <script>
-// TODO GIZMO_STATES enum
+const GIZMO_INTERACTING_ENUM = { NONE: 1, LINE_TOP: 2, LINE_RIGHT: 3, LINE_BOTTOM: 4, LINE_LEFT: 5, CORNER_TOP_LEFT: 6, CORNER_TOP_RIGHT: 7, CORNER_BOTTOM_LEFT: 8, CORNER_BOTTOM_RIGHT: 9, CENTER: 10, ROTATION: 11 };
+
 export const BoxResizable = {
     name: "box-resizable",
     props: {
@@ -167,7 +168,9 @@ export const BoxResizable = {
             yData: this.y,
             widthData: this.width,
             heightData: this.height,
-            rotationData: this.rotation
+            rotationData: this.rotation,
+            gizmoInteracting: GIZMO_INTERACTING_ENUM.NONE,
+            GIZMO_INTERACTING_ENUM: GIZMO_INTERACTING_ENUM
         };
     },
     computed: {
@@ -220,15 +223,22 @@ export const BoxResizable = {
         window.removeEventListener("mouseup", this.onMouseUp);
     },
     methods: {
-        onGizmoRotationMouseDown(event) {
-            this.rotating = true;
+        startGizmoInteraction(gizmo) {
+            this.gizmoInteracting = gizmo;
+        },
+        stopGizmoInteraction() {
+            this.gizmoInteracting = GIZMO_INTERACTING_ENUM.NONE;
         },
         onMouseUp(event) {
-            this.rotating = false;
+            this.stopGizmoInteraction();
         },
         onMouseMove(event) {
-            if (!this.rotating) return;
-            this.rotate(event.pageX, event.pageY);
+            switch (this.gizmoInteracting) {
+                case GIZMO_INTERACTING_ENUM.ROTATION:
+                    this.rotate(event.pageX, event.pageY);
+                    break;
+                default: return;
+            };
         },
         rotate(mouseX, mouseY) {
             const dX = mouseX - this.centerPos.x;
