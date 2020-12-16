@@ -1,8 +1,7 @@
 <template>
     <div class="gizmo" v-bind:style="style">
-        <div class="gizmo-inner" v-bind:style="innerStyle">
-            <icon v-bind:icon="'close'" v-bind:width="20" v-bind:height="20" />
-        </div>
+        <div class="gizmo-inner" v-bind:style="innerStyle" />
+        <icon v-bind:icon="icon" v-bind:style="iconStyle" v-if="icon" />
     </div>
 </template>
 
@@ -26,12 +25,11 @@
     border-color: #0000ff;
 }
 
-.gizmo > .gizmo-inner > .icon {
-    left: 0.5px;
+.gizmo > .icon {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
-    background-color: #ff00ff;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 </style>
 
@@ -62,6 +60,18 @@ export const Gizmo = {
         round: {
             type: Boolean,
             default: false
+        },
+        icon: {
+            type: String,
+            default: null
+        },
+        iconSize: {
+            type: Number,
+            default: 10
+        },
+        iconBackgroundColor: {
+            type: String,
+            default: null
         }
     },
     computed: {
@@ -76,6 +86,13 @@ export const Gizmo = {
             return {
                 width: `${this.width}px`,
                 height: `${this.height}px`
+            };
+        },
+        iconStyle() {
+            return {
+                width: `${this.iconSize}px`,
+                height: `${this.iconSize}px`,
+                "background-color": this.iconBackgroundColor
             };
         }
     }
