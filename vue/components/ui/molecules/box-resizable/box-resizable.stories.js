@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, number } from "@storybook/addon-knobs";
+import { withKnobs, number, color } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
@@ -16,13 +16,13 @@ storiesOf("Molecules", module)
             },
             height: {
                 default: number("Height", 100)
+            },
+            rotation: {
+                default: number("Rotation", 0)
+            },
+            color: {
+                default: color("Color", "#ff0000")
             }
-            // rotation: {
-            //     default: number("Rotation", 0)
-            // },
-            // color: {
-            //     default: color("Color", "#ff0000")
-            // }
         },
         template: `
             <box-resizable
