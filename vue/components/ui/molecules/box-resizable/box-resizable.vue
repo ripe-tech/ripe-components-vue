@@ -3,12 +3,13 @@
         <div class="content">
             <slot />
         </div>
+        <!--
         <div class="gizmos">
             <gizmo class="x0y0" v-bind:x="0" v-bind:y="0" v-bind:interactable-margin="5" />
             <gizmo class="x1y0" v-bind:x="200" v-bind:y="0" v-bind:interactable-margin="5" />
             <gizmo class="x0y1" v-bind:x="0" v-bind:y="100" v-bind:interactable-margin="5" />
             <gizmo class="x1y1" v-bind:x="200" v-bind:y="100" v-bind:interactable-margin="5" />
-            <!-- <gizmo class="center" v-bind:x="centerPos.x" v-bind:y="centerPos.y" v-bind:round="true" /> -->
+            <gizmo class="center" v-bind:x="centerPos.x" v-bind:y="centerPos.y" v-bind:round="true" />
             <div class="handler center" v-bind:style="handlerStyle" />
             <div
                 class="handler rotation"
@@ -16,10 +17,16 @@
                 v-on:mousedown="onHandlerRotationMouseDown"
             />
         </div>
+        -->
     </div>
 </template>
 
 <style lang="scss" scoped>
+.box-resizable {
+    background-color: #fdcdff;
+}
+
+/*
 .box-resizable {
     border-style: solid;
     border-width: 2px;
@@ -72,6 +79,7 @@
 .box-resizable > .gizmos > .handler.rotation:hover {
     cursor: url("~./assets/rotate.svg") 12 12, auto;
 }
+*/
 </style>
 
 <script>
@@ -79,111 +87,111 @@
 export const BoxResizable = {
     name: "box-resizable",
     props: {
-        x0: {
+        x: {
             type: Number,
             default: 0
         },
-        y0: {
+        y: {
             type: Number,
             default: 0
         },
-        x1: {
+        width: {
             type: Number,
             default: 200
         },
-        y1: {
+        height: {
             type: Number,
             default: 100
-        },
-        rotation: {
-            type: Number,
-            default: 0
-        },
-        color: {
-            type: String,
-            default: "#ff0000"
-        },
-        colorControls: {
-            type: String,
-            default: "#ffffff"
         }
+        // rotation: {
+        //     type: Number,
+        //     default: 0
+        // },
+        // color: {
+        //     type: String,
+        //     default: "#ff0000"
+        // },
+        // colorControls: {
+        //     type: String,
+        //     default: "#ffffff"
+        // }
     },
     data: function() {
         return {
-            x0Data: this.x0,
-            y0Data: this.y0,
-            x1Data: this.x1,
-            y1Data: this.y1,
-            rotationData: this.rotation
+            xData: this.x,
+            yData: this.y,
+            widthData: this.width,
+            heightData: this.height
+            // rotationData: this.rotation
         };
     },
     computed: {
         style() {
             return {
-                width: `${this.x1Data - this.x0Data}px`,
-                height: `${this.y1Data - this.y0Data}px`,
-                left: `${this.x0Data}px`,
-                top: `${this.y0Data}px`,
-                transform: `rotate(${this.rotationData}deg)`,
-                "border-color": this.color
+                left: `${this.xData}px`,
+                top: `${this.yData}px`,
+                width: `${this.widthData}px`,
+                height: `${this.heightData}px`
+                // transform: `rotate(${this.rotationData}deg)`,
+                // "border-color": this.color
             };
         },
-        handlerStyle() {
-            return {
-                "border-color": this.color,
-                "background-color": this.colorControls
-            };
-        },
-        centerPos() {
-            return {
-                x: (this.x1Data - this.x0Data) / 2 + this.x0Data,
-                y: (this.y1Data - this.y0Data) / 2 + this.y0Data
-            };
-        }
+        // handlerStyle() {
+        //     return {
+        //         "border-color": this.color,
+        //         "background-color": this.colorControls
+        //     };
+        // },
+        // centerPos() {
+        //     return {
+        //         x: (this.x1Data - this.x0Data) / 2 + this.x0Data,
+        //         y: (this.y1Data - this.y0Data) / 2 + this.y0Data
+        //     };
+        // }
     },
     watch: {
-        x0(value) {
-            this.x0Data = value;
+        x(value) {
+            this.xData = value;
         },
-        y0(value) {
-            this.y0Data = value;
+        y(value) {
+            this.yData = value;
         },
-        x1(value) {
-            this.x1Data = value;
+        width(value) {
+            this.widthData = value;
         },
-        y1(value) {
-            this.y1Data = value;
-        },
-        rotation(value) {
-            this.rotationData = value;
+        height(value) {
+            this.heightData = value;
         }
-    },
-    mounted: function() {
-        window.addEventListener("mouseup", this.onMouseUp);
-        window.addEventListener("mousemove", this.onMouseMove);
-    },
-    destroyed: function() {
-        window.removeEventListener("mousemove", this.onMouseMove);
-        window.removeEventListener("mouseup", this.onMouseUp);
-    },
-    methods: {
-        onHandlerRotationMouseDown(event) {
-            this.rotating = true;
-        },
-        onMouseUp(event) {
-            this.rotating = false;
-        },
-        onMouseMove(event) {
-            if (!this.rotating) return;
-            this.rotate(event.pageX, event.pageY);
-        },
-        rotate(mouseX, mouseY) {
-            const dX = mouseX - this.centerPos.x;
-            const dY = mouseY - this.centerPos.y;
-            const angle = (Math.atan2(dY, dX) * 180) / Math.PI + 90;
-            this.rotationData = angle < 0 ? angle + 360 : angle;
-        }
+        // rotation(value) {
+        //     this.rotationData = value;
+        // }
     }
+    // mounted: function() {
+    //     window.addEventListener("mouseup", this.onMouseUp);
+    //     window.addEventListener("mousemove", this.onMouseMove);
+    // },
+    // destroyed: function() {
+    //     window.removeEventListener("mousemove", this.onMouseMove);
+    //     window.removeEventListener("mouseup", this.onMouseUp);
+    // },
+    // methods: {
+    //     onHandlerRotationMouseDown(event) {
+    //         this.rotating = true;
+    //     },
+    //     onMouseUp(event) {
+    //         this.rotating = false;
+    //     },
+    //     onMouseMove(event) {
+    //         if (!this.rotating) return;
+    //         this.rotate(event.pageX, event.pageY);
+    //     },
+    //     rotate(mouseX, mouseY) {
+    //         const dX = mouseX - this.centerPos.x;
+    //         const dY = mouseY - this.centerPos.y;
+    //         const angle = (Math.atan2(dY, dX) * 180) / Math.PI + 90;
+    //         this.rotationData = angle < 0 ? angle + 360 : angle;
+    //     }
+    // }
 };
 
 export default BoxResizable;
