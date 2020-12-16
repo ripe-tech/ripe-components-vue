@@ -261,6 +261,12 @@ export const BoxResizable = {
         stopGizmoInteraction() {
             this.gizmoInteracting = GIZMO_INTERACTING_ENUM.NONE;
         },
+        rotate(mouseX, mouseY) {
+            const dX = mouseX - this.centerPos.x;
+            const dY = mouseY - this.centerPos.y;
+            const angle = (Math.atan2(dY, dX) * 180) / Math.PI + 90;
+            this.rotationData = angle < 0 ? angle + 360 : angle;
+        },
         onMouseUp(event) {
             this.stopGizmoInteraction();
         },
@@ -271,12 +277,6 @@ export const BoxResizable = {
                     break;
                 default:
             }
-        },
-        rotate(mouseX, mouseY) {
-            const dX = mouseX - this.centerPos.x;
-            const dY = mouseY - this.centerPos.y;
-            const angle = (Math.atan2(dY, dX) * 180) / Math.PI + 90;
-            this.rotationData = angle < 0 ? angle + 360 : angle;
         }
     }
 };
