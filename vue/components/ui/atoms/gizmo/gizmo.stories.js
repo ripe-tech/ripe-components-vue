@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, number, text, color } from "@storybook/addon-knobs";
+import { withKnobs, number, text, color, boolean } from "@storybook/addon-knobs";
 
 storiesOf("Atoms", module)
     .addDecorator(withKnobs)
@@ -20,6 +20,9 @@ storiesOf("Atoms", module)
             interactableMargin: {
                 default: number("Interactable Margin", 10)
             },
+            round: {
+                default: boolean("Round", false)
+            },
             icon: {
                 default: text("Icon", "back-right")
             },
@@ -37,6 +40,7 @@ storiesOf("Atoms", module)
                 v-bind:width="width"
                 v-bind:height="height"
                 v-bind:interactable-margin="interactableMargin"
+                v-bind:round="round"
                 v-bind:icon="icon"
                 v-bind:icon-size="iconSize"
                 v-bind:icon-background-color="iconBackgroundColor"

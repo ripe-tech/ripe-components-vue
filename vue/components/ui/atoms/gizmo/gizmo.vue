@@ -88,12 +88,14 @@ export const Gizmo = {
             const base = {};
             base.width = `${this.width}px`;
             base.height = `${this.height}px`;
+            if(this.round) base["border-radius"] = "50%";
             return base;
         },
         iconStyle() {
             const base = {};
             base.width = `${this.iconSize}px`;
             base.height = `${this.iconSize}px`;
+            if(this.round) base["border-radius"] = "50%";
             if (this.iconBackgroundColor) base["background-color"] = this.iconBackgroundColor;
             return base;
         }
