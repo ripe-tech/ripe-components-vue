@@ -10,8 +10,7 @@
                 v-bind:y="0"
                 v-bind:width="width"
                 v-bind:height="0"
-                v-bind:interactable-margin="5"
-                v-bind="gizmoProps"
+                v-bind="lineGizmoProps"
             />
             <gizmo
                 class="line-right"
@@ -19,8 +18,7 @@
                 v-bind:y="height / 2"
                 v-bind:width="0"
                 v-bind:height="height"
-                v-bind:interactable-margin="5"
-                v-bind="gizmoProps"
+                v-bind="lineGizmoProps"
             />
             <gizmo
                 class="line-bottom"
@@ -28,8 +26,7 @@
                 v-bind:y="height"
                 v-bind:width="width"
                 v-bind:height="0"
-                v-bind:interactable-margin="5"
-                v-bind="gizmoProps"
+                v-bind="lineGizmoProps"
             />
             <gizmo
                 class="line-left"
@@ -37,52 +34,45 @@
                 v-bind:y="height / 2"
                 v-bind:width="0"
                 v-bind:height="height"
-                v-bind:interactable-margin="5"
-                v-bind="gizmoProps"
+                v-bind="lineGizmoProps"
             />
             <gizmo
                 class="corner-top-left"
                 v-bind:x="0"
                 v-bind:y="0"
-                v-bind:interactable-margin="5"
-                v-bind="gizmoProps"
+                v-bind="cornerGizmoProps"
             />
             <gizmo
                 class="corner-top-right"
                 v-bind:x="width"
                 v-bind:y="0"
-                v-bind:interactable-margin="5"
-                v-bind="gizmoProps"
+                v-bind="cornerGizmoProps"
             />
             <gizmo
                 class="corner-bottom-left"
                 v-bind:x="0"
                 v-bind:y="height"
-                v-bind:interactable-margin="5"
-                v-bind="gizmoProps"
+                v-bind="cornerGizmoProps"
             />
             <gizmo
                 class="corner-bottom-right"
                 v-bind:x="width"
                 v-bind:y="height"
-                v-bind:interactable-margin="5"
-                v-bind="gizmoProps"
+                v-bind="cornerGizmoProps"
             />
             <gizmo
                 class="center"
                 v-bind:x="width / 2"
                 v-bind:y="height / 2"
-                v-bind:interactable-margin="5"
                 v-bind:round="true"
-                v-bind="gizmoProps"
+                v-bind="cornerGizmoProps"
             />
             <gizmo
                 class="rotation"
                 v-bind:x="width / 2"
                 v-bind:y="0"
-                v-bind:interactable-margin="5"
                 v-bind:round="true"
-                v-bind="gizmoProps"
+                v-bind="cornerGizmoProps"
                 v-on:mousedown="startGizmoInteraction(GIZMO_INTERACTING_ENUM.ROTATION)"
             />
         </div>
@@ -190,10 +180,22 @@ export const BoxResizable = {
         },
         gizmoProps() {
             return {
+                interactableMargin: 5,
                 backgroundColor: this.colorControls,
                 borderStyle: "solid",
-                borderWidth: 2,
                 borderColor: this.color
+            };
+        },
+        cornerGizmoProps() {
+            return {
+                ...this.gizmoProps,
+                borderWidth: 2
+            };
+        },
+        lineGizmoProps() {
+            return {
+                ...this.gizmoProps,
+                borderWidth: 1
             };
         },
         centerPos() {
