@@ -17,11 +17,6 @@
     box-sizing: border-box;
 }
 
-.gizmo:hover > .gizmo-inner,
-.gizmo.hover > .gizmo-inner {
-    box-shadow: 0px 0px 1px 1px #0ff;
-}
-
 .gizmo > .icon {
     left: 50%;
     position: absolute;
@@ -71,10 +66,6 @@ export const Gizmo = {
             default: null
         },
         borderColor: {
-            type: String,
-            default: null
-        },
-        borderColorHover: {
             type: String,
             default: null
         },
