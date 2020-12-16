@@ -1,7 +1,7 @@
 <template>
     <div class="gizmo" v-bind:style="style" v-on:mousedown="onMouseDown">
         <div class="gizmo-inner" v-bind:style="innerStyle" />
-        <icon v-bind:icon="icon" v-bind:style="iconStyle" v-if="icon" />
+        <icon v-bind:icon="icon" v-bind:style="iconStyle" v-bind="iconProps" v-if="icon" />
     </div>
 </template>
 
@@ -14,13 +14,11 @@
 }
 
 .gizmo > .gizmo-inner {
-    border-color: #ff0000;
-    border-style: solid;
-    border-width: 1px;
     box-sizing: border-box;
 }
 
-.gizmo:hover > .gizmo-inner {
+.gizmo:hover > .gizmo-inner,
+.gizmo.hover > .gizmo-inner {
     border-color: #0000ff;
 }
 
@@ -60,6 +58,26 @@ export const Gizmo = {
             type: Boolean,
             default: false
         },
+        backgroundColor: {
+            type: String,
+            default: null
+        },
+        borderStyle: {
+            type: String,
+            default: null
+        },
+        borderWidth: {
+            type: Number,
+            default: null
+        },
+        borderColor: {
+            type: String,
+            default: null
+        },
+        borderColorHover: {
+            type: String,
+            default: null
+        },
         icon: {
             type: String,
             default: null
@@ -71,6 +89,10 @@ export const Gizmo = {
         iconBackgroundColor: {
             type: String,
             default: null
+        },
+        iconProps: {
+            type: Object,
+            default: () => ({})
         }
     },
     computed: {
@@ -92,6 +114,10 @@ export const Gizmo = {
             base.width = `${this.width}px`;
             base.height = `${this.height}px`;
             if (this.round) base["border-radius"] = "50%";
+            if(this.backgroundColor) base["background-color"] = this.backgroundColor;
+            if(this.borderStyle) base["border-style"] = this.borderStyle;
+            if(this.borderWidth) base["border-width"] = `${this.borderWidth}px`;
+            if(this.borderColor) base["border-color"] = this.borderColor;
             return base;
         },
         iconStyle() {
