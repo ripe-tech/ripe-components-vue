@@ -76,24 +76,24 @@ export const Gizmo = {
     },
     computed: {
         style() {
-            return {
-                left: `${this.x}px`,
-                top: `${this.y}px`,
-                padding: this.interactableMargin ? `${this.interactableMargin}px` : undefined
-            };
+            const base = {};
+            base.left = `${this.x}px`;
+            base.top = `${this.y}px`;
+            if(this.interactableMargin) base.padding = `${this.interactableMargin}px ${this.interactableMargin}px ${this.interactableMargin}px ${this.interactableMargin}px `;
+            return base;
         },
         innerStyle() {
-            return {
-                width: `${this.width}px`,
-                height: `${this.height}px`
-            };
+             const base = {};
+             base.width = `${this.width}px`;
+            base.height = `${this.height}px`;
+            return base;
         },
         iconStyle() {
-            return {
-                width: `${this.iconSize}px`,
-                height: `${this.iconSize}px`,
-                "background-color": this.iconBackgroundColor
-            };
+            const base = {};
+            base.width = `${this.iconSize}px`;
+            base.height = `${this.iconSize}px`;
+            if(this.iconBackgroundColor) base["background-color"] = this.iconBackgroundColor;
+            return base;
         }
     }
 };
