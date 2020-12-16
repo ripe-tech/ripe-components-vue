@@ -53,6 +53,7 @@
                 v-bind:y="0"
                 v-bind:interactable-margin="5"
                 v-bind:round="true"
+                v-on:mousedown="onHandlerRotationMouseDown"
             />
         </div>
     </div>
@@ -146,11 +147,11 @@ export const BoxResizable = {
         height: {
             type: Number,
             default: 100
+        },
+        rotation: {
+            type: Number,
+            default: 0
         }
-        // rotation: {
-        //     type: Number,
-        //     default: 0
-        // },
         // color: {
         //     type: String,
         //     default: "#ff0000"
@@ -165,8 +166,8 @@ export const BoxResizable = {
             xData: this.x,
             yData: this.y,
             widthData: this.width,
-            heightData: this.height
-            // rotationData: this.rotation
+            heightData: this.height,
+            rotationData: this.rotation
         };
     },
     computed: {
@@ -175,23 +176,23 @@ export const BoxResizable = {
                 left: `${this.xData}px`,
                 top: `${this.yData}px`,
                 width: `${this.widthData}px`,
-                height: `${this.heightData}px`
-                // transform: `rotate(${this.rotationData}deg)`,
+                height: `${this.heightData}px`,
+                transform: `rotate(${this.rotationData}deg)`
                 // "border-color": this.color
             };
-        }
+        },
         // handlerStyle() {
         //     return {
         //         "border-color": this.color,
         //         "background-color": this.colorControls
         //     };
         // },
-        // centerPos() {
-        //     return {
-        //         x: (this.x1Data - this.x0Data) / 2 + this.x0Data,
-        //         y: (this.y1Data - this.y0Data) / 2 + this.y0Data
-        //     };
-        // }
+        centerPos() {
+            return {
+                x: this.width / 2 + this.x,
+                y: this.height / 2 + this.y
+            };
+        }
     },
     watch: {
         x(value) {
@@ -205,37 +206,38 @@ export const BoxResizable = {
         },
         height(value) {
             this.heightData = value;
+        },
+        rotation(value) {
+            this.rotationData = value;
         }
-        // rotation(value) {
-        //     this.rotationData = value;
-        // }
+    },
+    mounted: function() {
+        window.addEventListener("mouseup", this.onMouseUp);
+        window.addEventListener("mousemove", this.onMouseMove);
+    },
+    destroyed: function() {
+        window.removeEventListener("mousemove", this.onMouseMove);
+        window.removeEventListener("mouseup", this.onMouseUp);
+    },
+    methods: {
+        onHandlerRotationMouseDown(event) {
+            console.log("aaaaa");
+            this.rotating = true;
+        },
+        onMouseUp(event) {
+            this.rotating = false;
+        },
+        onMouseMove(event) {
+            if (!this.rotating) return;
+            this.rotate(event.pageX, event.pageY);
+        },
+        rotate(mouseX, mouseY) {
+            const dX = mouseX - this.centerPos.x;
+            const dY = mouseY - this.centerPos.y;
+            const angle = (Math.atan2(dY, dX) * 180) / Math.PI + 90;
+            this.rotationData = angle < 0 ? angle + 360 : angle;
+        }
     }
-    // mounted: function() {
-    //     window.addEventListener("mouseup", this.onMouseUp);
-    //     window.addEventListener("mousemove", this.onMouseMove);
-    // },
-    // destroyed: function() {
-    //     window.removeEventListener("mousemove", this.onMouseMove);
-    //     window.removeEventListener("mouseup", this.onMouseUp);
-    // },
-    // methods: {
-    //     onHandlerRotationMouseDown(event) {
-    //         this.rotating = true;
-    //     },
-    //     onMouseUp(event) {
-    //         this.rotating = false;
-    //     },
-    //     onMouseMove(event) {
-    //         if (!this.rotating) return;
-    //         this.rotate(event.pageX, event.pageY);
-    //     },
-    //     rotate(mouseX, mouseY) {
-    //         const dX = mouseX - this.centerPos.x;
-    //         const dY = mouseY - this.centerPos.y;
-    //         const angle = (Math.atan2(dY, dX) * 180) / Math.PI + 90;
-    //         this.rotationData = angle < 0 ? angle + 360 : angle;
-    //     }
-    // }
 };
 
 export default BoxResizable;

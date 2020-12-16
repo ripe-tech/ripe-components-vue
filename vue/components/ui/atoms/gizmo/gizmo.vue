@@ -1,5 +1,5 @@
 <template>
-    <div class="gizmo" v-bind:style="style">
+    <div class="gizmo" v-bind:style="style" v-on:mousedown="onMouseDown">
         <div class="gizmo-inner" v-bind:style="innerStyle" />
         <icon v-bind:icon="icon" v-bind:style="iconStyle" v-if="icon" />
     </div>
@@ -101,6 +101,11 @@ export const Gizmo = {
             if (this.round) base["border-radius"] = "50%";
             if (this.iconBackgroundColor) base["background-color"] = this.iconBackgroundColor;
             return base;
+        }
+    },
+    methods: {
+        onMouseDown(event) {
+            this.$emit("mousedown", event);
         }
     }
 };
