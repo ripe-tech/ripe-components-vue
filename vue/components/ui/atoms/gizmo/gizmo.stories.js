@@ -1,24 +1,33 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, number } from "@storybook/addon-knobs";
+import { withKnobs, number, text, color } from "@storybook/addon-knobs";
 
 storiesOf("Atoms", module)
     .addDecorator(withKnobs)
     .add("Gizmo", () => ({
         props: {
             x: {
-                default: number("X", 30)
+                default: number("X", 60)
             },
             y: {
-                default: number("Y", 30)
+                default: number("Y", 60)
             },
             width: {
-                default: number("Width", 0)
+                default: number("Width", 30)
             },
             height: {
-                default: number("Height", 100)
+                default: number("Height", 30)
             },
             interactableMargin: {
-                default: number("interactable Margin", 10)
+                default: number("Interactable Margin", 10)
+            },
+            icon: {
+                default: text("Icon", "back-right")
+            },
+            iconSize: {
+                default: number("Icon size", 25)
+            },
+            iconBackgroundColor: {
+                default: color("Icon Background Color", "#ffffff")
             }
         },
         template: `
@@ -28,6 +37,9 @@ storiesOf("Atoms", module)
                 v-bind:width="width"
                 v-bind:height="height"
                 v-bind:interactable-margin="interactableMargin"
+                v-bind:icon="icon"
+                v-bind:icon-size="iconSize"
+                v-bind:icon-background-color="iconBackgroundColor"
             />
         `
     }));
