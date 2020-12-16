@@ -82,8 +82,8 @@ export const Gizmo = {
                 base.padding = `${this.interactableMargin}px ${this.interactableMargin}px ${this.interactableMargin}px ${this.interactableMargin}px `;
             }
 
-            const x = -this.width/2 - this.interactableMargin;
-            const y = -this.height/2 - this.interactableMargin;
+            const x = -this.width / 2 - this.interactableMargin;
+            const y = -this.height / 2 - this.interactableMargin;
             base.transform = `translate(${x}px, ${y}px)`;
             return base;
         },
@@ -91,14 +91,14 @@ export const Gizmo = {
             const base = {};
             base.width = `${this.width}px`;
             base.height = `${this.height}px`;
-            if(this.round) base["border-radius"] = "50%";
+            if (this.round) base["border-radius"] = "50%";
             return base;
         },
         iconStyle() {
             const base = {};
             base.width = `${this.iconSize}px`;
             base.height = `${this.iconSize}px`;
-            if(this.round) base["border-radius"] = "50%";
+            if (this.round) base["border-radius"] = "50%";
             if (this.iconBackgroundColor) base["background-color"] = this.iconBackgroundColor;
             return base;
         }

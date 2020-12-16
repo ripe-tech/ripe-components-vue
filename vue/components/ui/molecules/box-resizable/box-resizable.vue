@@ -8,8 +8,20 @@
             <gizmo class="x1y0" v-bind:x="width" v-bind:y="0" v-bind:interactable-margin="5" />
             <gizmo class="x0y1" v-bind:x="0" v-bind:y="height" v-bind:interactable-margin="5" />
             <gizmo class="x1y1" v-bind:x="width" v-bind:y="height" v-bind:interactable-margin="5" />
-            <gizmo class="center" v-bind:x="width / 2" v-bind:y="height / 2" v-bind:interactable-margin="5" v-bind:round="true" />
-            <gizmo class="rotation" v-bind:x="width / 2" v-bind:y="0" v-bind:interactable-margin="5" v-bind:round="true" />
+            <gizmo
+                class="center"
+                v-bind:x="width / 2"
+                v-bind:y="height / 2"
+                v-bind:interactable-margin="5"
+                v-bind:round="true"
+            />
+            <gizmo
+                class="rotation"
+                v-bind:x="width / 2"
+                v-bind:y="0"
+                v-bind:interactable-margin="5"
+                v-bind:round="true"
+            />
         </div>
     </div>
 </template>
@@ -22,8 +34,8 @@
 
 .box-resizable > .gizmos {
     left: 0px;
-    top: 0px;
     position: absolute;
+    top: 0px;
 }
 
 /*
@@ -135,7 +147,7 @@ export const BoxResizable = {
                 // transform: `rotate(${this.rotationData}deg)`,
                 // "border-color": this.color
             };
-        },
+        }
         // handlerStyle() {
         //     return {
         //         "border-color": this.color,
