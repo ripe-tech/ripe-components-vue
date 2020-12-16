@@ -26,9 +26,9 @@
 }
 
 .gizmo > .icon {
+    left: 50%;
     position: absolute;
     top: 50%;
-    left: 50%;
     transform: translate(-50%, -50%);
 }
 </style>
@@ -79,12 +79,13 @@ export const Gizmo = {
             const base = {};
             base.left = `${this.x}px`;
             base.top = `${this.y}px`;
-            if(this.interactableMargin) base.padding = `${this.interactableMargin}px ${this.interactableMargin}px ${this.interactableMargin}px ${this.interactableMargin}px `;
+            if (this.interactableMargin)
+                { base.padding = `${this.interactableMargin}px ${this.interactableMargin}px ${this.interactableMargin}px ${this.interactableMargin}px `; }
             return base;
         },
         innerStyle() {
-             const base = {};
-             base.width = `${this.width}px`;
+            const base = {};
+            base.width = `${this.width}px`;
             base.height = `${this.height}px`;
             return base;
         },
@@ -92,7 +93,7 @@ export const Gizmo = {
             const base = {};
             base.width = `${this.iconSize}px`;
             base.height = `${this.iconSize}px`;
-            if(this.iconBackgroundColor) base["background-color"] = this.iconBackgroundColor;
+            if (this.iconBackgroundColor) base["background-color"] = this.iconBackgroundColor;
             return base;
         }
     }
