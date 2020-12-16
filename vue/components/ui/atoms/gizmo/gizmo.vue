@@ -19,7 +19,7 @@
 
 .gizmo:hover > .gizmo-inner,
 .gizmo.hover > .gizmo-inner {
-    border-color: #0000ff;
+    box-shadow: 0px 0px 1px 1px #0ff;
 }
 
 .gizmo > .icon {
