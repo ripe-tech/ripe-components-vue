@@ -272,6 +272,16 @@ export const BoxResizable = {
         },
         onMouseMove(event) {
             switch (this.gizmoInteracting) {
+                case GIZMO_INTERACTING_ENUM.LINE_TOP:
+                case GIZMO_INTERACTING_ENUM.LINE_RIGHT:
+                case GIZMO_INTERACTING_ENUM.LINE_BOTTOM:
+                case GIZMO_INTERACTING_ENUM.LINE_LEFT:
+                case GIZMO_INTERACTING_ENUM.CORNER_TOP_LEFT:
+                case GIZMO_INTERACTING_ENUM.CORNER_TOP_RIGHT:
+                case GIZMO_INTERACTING_ENUM.CORNER_BOTTOM_LEFT:
+                case GIZMO_INTERACTING_ENUM.CORNER_BOTTOM_RIGHT:
+                case GIZMO_INTERACTING_ENUM.CENTER:
+                    break;
                 case GIZMO_INTERACTING_ENUM.ROTATION:
                     this.rotate(event.pageX, event.pageY);
                     break;
