@@ -5,17 +5,17 @@ storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Box Resizable", () => ({
         props: {
-            x0: {
-                default: number("X0", 50)
+            x: {
+                default: number("X", 50)
             },
-            y0: {
-                default: number("Y0", 50)
+            y: {
+                default: number("Y", 50)
             },
-            x1: {
-                default: number("X1", 250)
+            width: {
+                default: number("Width", 200)
             },
-            y1: {
-                default: number("Y1", 150)
+            height: {
+                default: number("Height", 100)
             },
             rotation: {
                 default: number("Rotation", 0)
@@ -26,10 +26,10 @@ storiesOf("Molecules", module)
         },
         template: `
             <box-resizable
-                v-bind:x0="x0"
-                v-bind:y0="y0"
-                v-bind:x1="x1"
-                v-bind:y1="y1"
+                v-bind:x="x"
+                v-bind:y="y"
+                v-bind:width="width"
+                v-bind:height="height"
                 v-bind:rotation="rotation"
                 v-bind:color="color"
             >

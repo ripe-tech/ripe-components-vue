@@ -1,7 +1,7 @@
 <template>
-    <div class="gizmo" v-bind:style="style">
+    <div class="gizmo" v-bind:style="style" v-on:mousedown="onMouseDown">
         <div class="gizmo-inner" v-bind:style="innerStyle" />
-        <icon v-bind:icon="icon" v-bind:style="iconStyle" v-if="icon" />
+        <icon v-bind:icon="icon" v-bind:style="iconStyle" v-bind="iconProps" v-if="icon" />
     </div>
 </template>
 
@@ -14,14 +14,7 @@
 }
 
 .gizmo > .gizmo-inner {
-    border-color: #ff0000;
-    border-style: solid;
-    border-width: 1px;
     box-sizing: border-box;
-}
-
-.gizmo:hover > .gizmo-inner {
-    border-color: #0000ff;
 }
 
 .gizmo > .icon {
@@ -60,6 +53,22 @@ export const Gizmo = {
             type: Boolean,
             default: false
         },
+        backgroundColor: {
+            type: String,
+            default: null
+        },
+        borderStyle: {
+            type: String,
+            default: null
+        },
+        borderWidth: {
+            type: Number,
+            default: null
+        },
+        borderColor: {
+            type: String,
+            default: null
+        },
         icon: {
             type: String,
             default: null
@@ -71,6 +80,10 @@ export const Gizmo = {
         iconBackgroundColor: {
             type: String,
             default: null
+        },
+        iconProps: {
+            type: Object,
+            default: () => ({})
         }
     },
     computed: {
@@ -82,8 +95,8 @@ export const Gizmo = {
                 base.padding = `${this.interactableMargin}px ${this.interactableMargin}px ${this.interactableMargin}px ${this.interactableMargin}px `;
             }
 
-            const x = -this.width/2 - this.interactableMargin;
-            const y = -this.height/2 - this.interactableMargin;
+            const x = -this.width / 2 - this.interactableMargin;
+            const y = -this.height / 2 - this.interactableMargin;
             base.transform = `translate(${x}px, ${y}px)`;
             return base;
         },
@@ -91,16 +104,25 @@ export const Gizmo = {
             const base = {};
             base.width = `${this.width}px`;
             base.height = `${this.height}px`;
-            if(this.round) base["border-radius"] = "50%";
+            if (this.round) base["border-radius"] = "50%";
+            if (this.backgroundColor) base["background-color"] = this.backgroundColor;
+            if (this.borderStyle) base["border-style"] = this.borderStyle;
+            if (this.borderWidth) base["border-width"] = `${this.borderWidth}px`;
+            if (this.borderColor) base["border-color"] = this.borderColor;
             return base;
         },
         iconStyle() {
             const base = {};
             base.width = `${this.iconSize}px`;
             base.height = `${this.iconSize}px`;
-            if(this.round) base["border-radius"] = "50%";
+            if (this.round) base["border-radius"] = "50%";
             if (this.iconBackgroundColor) base["background-color"] = this.iconBackgroundColor;
             return base;
+        }
+    },
+    methods: {
+        onMouseDown(event) {
+            this.$emit("mousedown", event);
         }
     }
 };
