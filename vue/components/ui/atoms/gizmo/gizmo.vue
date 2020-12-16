@@ -79,8 +79,9 @@ export const Gizmo = {
             const base = {};
             base.left = `${this.x}px`;
             base.top = `${this.y}px`;
-            if (this.interactableMargin)
-                { base.padding = `${this.interactableMargin}px ${this.interactableMargin}px ${this.interactableMargin}px ${this.interactableMargin}px `; }
+            if (this.interactableMargin) {
+                base.padding = `${this.interactableMargin}px ${this.interactableMargin}px ${this.interactableMargin}px ${this.interactableMargin}px `;
+            }
             return base;
         },
         innerStyle() {
