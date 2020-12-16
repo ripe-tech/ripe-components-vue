@@ -1,6 +1,8 @@
 <template>
     <div class="gizmo">
-        <div class="gizmo-inner" />
+        <div class="gizmo-inner">
+            <icon v-bind:icon="'close'" v-bind:width="20" v-bind:height="20" />
+        </div>
     </div>
 </template>
 
@@ -25,6 +27,15 @@
 
 .gizmo:hover > .gizmo-inner {
     border-color: #0000ff;
+}
+
+.gizmo > .gizmo-inner > .icon {
+    left: 0px;
+    padding: 1px; //same as border width so it is centered
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #ff00ff;
 }
 </style>
 
