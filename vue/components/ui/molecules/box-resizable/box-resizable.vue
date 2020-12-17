@@ -268,7 +268,9 @@ export const BoxResizable = {
             this.rotationData = angle < 0 ? angle + 360 : angle;
         },
         resizeRight(mouseX) {
-            this.widthData = mouseX - this.xData;
+            // TODO resizing with angle should adjust x and y
+            const newWidth = mouseX - this.xData;
+            this.widthData = newWidth <= 0 ? 0 : newWidth;
         },
         onMouseUp(event) {
             this.stopGizmoInteraction();
