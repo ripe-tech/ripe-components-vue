@@ -273,21 +273,33 @@ export const BoxResizable = {
             const angle = (Math.atan2(dY, dX) * 180) / Math.PI + 90;
             this.rotationData = angle < 0 ? angle + 360 : angle;
         },
+        resizeTop(mouseY) {},
         resizeRight(mouseX) {
             const newWidth = mouseX - this.xData;
             this.widthData = newWidth <= 0 ? 0 : newWidth;
         },
+        resizeBottom(mouseY) {
+            const newHeight = mouseY - this.yData;
+            this.heightData = newHeight <= 0 ? 0 : newHeight;
+        },
+        resizeLeft(mouseX) {},
         onMouseUp(event) {
             this.stopGizmoInteraction();
         },
         onMouseMove(event) {
             switch (this.gizmoInteracting) {
                 case GIZMO_INTERACTING_ENUM.LINE_TOP:
+                    this.resizeTop(event.pageY);
+                    break;
                 case GIZMO_INTERACTING_ENUM.LINE_RIGHT:
                     this.resizeRight(event.pageX);
                     break;
                 case GIZMO_INTERACTING_ENUM.LINE_BOTTOM:
+                     this.resizeBottom(event.pageY);
+                     break;
                 case GIZMO_INTERACTING_ENUM.LINE_LEFT:
+                    this.resizeLeft(event.pageX);
+                    break;
                 case GIZMO_INTERACTING_ENUM.CORNER_TOP_LEFT:
                 case GIZMO_INTERACTING_ENUM.CORNER_TOP_RIGHT:
                 case GIZMO_INTERACTING_ENUM.CORNER_BOTTOM_LEFT:
