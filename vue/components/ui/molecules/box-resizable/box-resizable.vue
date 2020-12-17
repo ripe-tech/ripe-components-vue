@@ -313,9 +313,20 @@ export const BoxResizable = {
                     this.resizeLeft(event.pageX);
                     break;
                 case GIZMO_INTERACTING_ENUM.CORNER_TOP_LEFT:
+                    this.resizeTop(event.pageY);
+                    this.resizeLeft(event.pageX);
+                    break;
                 case GIZMO_INTERACTING_ENUM.CORNER_TOP_RIGHT:
+                    this.resizeTop(event.pageY);
+                    this.resizeRight(event.pageX);
+                    break;
                 case GIZMO_INTERACTING_ENUM.CORNER_BOTTOM_LEFT:
+                    this.resizeBottom(event.pageY);
+                    this.resizeLeft(event.pageX);
+                    break;
                 case GIZMO_INTERACTING_ENUM.CORNER_BOTTOM_RIGHT:
+                    this.resizeBottom(event.pageY);
+                    this.resizeRight(event.pageX);
                     break;
                 case GIZMO_INTERACTING_ENUM.CENTER:
                     this.move(event.pageX, event.pageY);
