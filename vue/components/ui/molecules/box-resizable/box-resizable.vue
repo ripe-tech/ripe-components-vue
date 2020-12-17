@@ -97,6 +97,7 @@
 .box-resizable {
     background-color: #fdcdff;
     position: absolute;
+    transform-origin: top left;
 }
 
 .box-resizable > .gizmos {
@@ -198,8 +199,8 @@ export const BoxResizable = {
                 left: `${this.xData}px`,
                 top: `${this.yData}px`,
                 width: `${this.widthData}px`,
-                height: `${this.heightData}px`,
-                transform: `rotate(${this.rotationData}deg)`
+                height: `${this.heightData}px`
+                // TODO transform: `rotate(${this.rotationData}deg)`
             };
         },
         gizmoProps() {
@@ -261,18 +262,18 @@ export const BoxResizable = {
         stopGizmoInteraction() {
             this.gizmoInteracting = GIZMO_INTERACTING_ENUM.NONE;
         },
+        move(x, y) {
+            this.xData = x - this.widthData / 2;
+            this.yData = y - this.heightData / 2;
+        },
         rotate(mouseX, mouseY) {
+            // TODO redo this so the code can be simple and easy to use
             const dX = mouseX - this.centerPos.x;
             const dY = mouseY - this.centerPos.y;
             const angle = (Math.atan2(dY, dX) * 180) / Math.PI + 90;
             this.rotationData = angle < 0 ? angle + 360 : angle;
         },
-        move(x, y) {
-            this.xData = x - this.widthData / 2;
-            this.yData = y - this.heightData / 2;
-        },
         resizeRight(mouseX) {
-            // TODO resizing with angle should adjust x and y
             const newWidth = mouseX - this.xData;
             this.widthData = newWidth <= 0 ? 0 : newWidth;
         },
@@ -296,7 +297,7 @@ export const BoxResizable = {
                     this.move(event.pageX, event.pageY);
                     break;
                 case GIZMO_INTERACTING_ENUM.ROTATION:
-                    this.rotate(event.pageX, event.pageY);
+                    // TODO this.rotate(event.pageX, event.pageY);
                     break;
                 default:
             }
