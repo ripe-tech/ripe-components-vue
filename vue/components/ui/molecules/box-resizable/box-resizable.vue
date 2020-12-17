@@ -307,8 +307,8 @@ export const BoxResizable = {
                     this.resizeRight(event.pageX);
                     break;
                 case GIZMO_INTERACTING_ENUM.LINE_BOTTOM:
-                     this.resizeBottom(event.pageY);
-                     break;
+                    this.resizeBottom(event.pageY);
+                    break;
                 case GIZMO_INTERACTING_ENUM.LINE_LEFT:
                     this.resizeLeft(event.pageX);
                     break;
