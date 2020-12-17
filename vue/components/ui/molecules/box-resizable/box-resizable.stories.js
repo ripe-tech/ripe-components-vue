@@ -22,6 +22,9 @@ storiesOf("Molecules", module)
             },
             color: {
                 default: color("Color", "#ff0000")
+            },
+            colorControls: {
+                default: color("Color Controls", "#ffffff")
             }
         },
         data: function() {
@@ -43,6 +46,7 @@ storiesOf("Molecules", module)
                     v-bind:height.sync="heightData"
                     v-bind:rotation.sync="rotationData"
                     v-bind:color="color"
+                    v-bind:color-controls="colorControls"
                 >
                     <div>Content example</div>
                 </box-resizable>
