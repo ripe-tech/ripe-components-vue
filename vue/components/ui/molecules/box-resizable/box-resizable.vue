@@ -152,30 +152,51 @@ const GIZMO_INTERACTING_ENUM = {
 export const BoxResizable = {
     name: "box-resizable",
     props: {
+        /**
+         * Box's top left x coordinate.
+         */
         x: {
             type: Number,
             default: 0
         },
+        /**
+         * Box's top left y coordinate.
+         */
         y: {
             type: Number,
             default: 0
         },
+        /**
+         * Box's width in pixels.
+         */
         width: {
             type: Number,
             default: 200
         },
+        /**
+         * Box's height in pixels.
+         */
         height: {
             type: Number,
             default: 100
         },
+        /**
+         * Box's rotation angle in degrees.
+         */
         rotation: {
             type: Number,
             default: 0
         },
+        /**
+         * Box's outline color.
+         */
         color: {
             type: String,
             default: "#ff0000"
         },
+        /**
+         * Box's gizmos color.
+         */
         colorControls: {
             type: String,
             default: "#ffffff"
