@@ -2,10 +2,10 @@
     <div class="steps-container">
         <div class="step" v-for="(step, index) in steps" v-bind:key="index">
             <div class="step-number" v-bind:style="stepStyle(index)">
+                <div class="highlight" v-show="index + 1 == currentStep" />
                 <div class="number">
                     {{ index + 1 }}
                 </div>
-                <div class="step-border" v-show="index + 1 == currentStep" />
             </div>
             <div class="step-text">
                 {{ step }}
@@ -34,7 +34,7 @@
     width: 52px;
 }
 
-.steps-container > .step > .step-number > .step-border {
+.steps-container > .step > .step-number > .highlight {
     background: transparent;
     border: 2px solid $white;
     border-radius: 50%;
@@ -80,21 +80,19 @@
 export const Steps = {
     name: "steps",
     props: {
+        /**
+         * The list of steps in text format.
+         */
         steps: {
             type: Array,
-            default: []
+            required: true
         },
+        /**
+         * The number of the current step starting from 1.
+         */
         currentStep: {
             type: Number,
             default: 1
-        }
-    },
-    computed: {
-        labelStyle() {
-            return {
-                color: this.color,
-                "text-align": this.labelAlignment
-            };
         }
     },
     methods: {
