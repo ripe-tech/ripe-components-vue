@@ -273,7 +273,13 @@ export const BoxResizable = {
             const angle = (Math.atan2(dY, dX) * 180) / Math.PI + 90;
             this.rotationData = angle < 0 ? angle + 360 : angle;
         },
-        resizeTop(mouseY) {},
+        resizeTop(mouseY) {
+            if (mouseY >= this.yData + this.heightData) return;
+
+            const newHeight = this.yData - mouseY;
+            this.yData = mouseY;
+            this.heightData += newHeight;
+        },
         resizeRight(mouseX) {
             const newWidth = mouseX - this.xData;
             this.widthData = newWidth <= 0 ? 0 : newWidth;
@@ -282,7 +288,13 @@ export const BoxResizable = {
             const newHeight = mouseY - this.yData;
             this.heightData = newHeight <= 0 ? 0 : newHeight;
         },
-        resizeLeft(mouseX) {},
+        resizeLeft(mouseX) {
+            if (mouseX >= this.xData + this.widthData) return;
+
+            const newWidth = this.xData - mouseX;
+            this.xData = mouseX;
+            this.widthData += newWidth;
+        },
         onMouseUp(event) {
             this.stopGizmoInteraction();
         },
