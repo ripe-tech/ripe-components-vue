@@ -233,17 +233,32 @@ export const BoxResizable = {
         x(value) {
             this.xData = value;
         },
+        xData(value) {
+            this.$emit("update:x", value);
+        },
         y(value) {
             this.yData = value;
+        },
+        yData(value) {
+            this.$emit("update:y", value);
         },
         width(value) {
             this.widthData = value;
         },
+        widthData(value) {
+            this.$emit("update:width", value);
+        },
         height(value) {
             this.heightData = value;
         },
+        heightData(value) {
+            this.$emit("update:height", value);
+        },
         rotation(value) {
             this.rotationData = value;
+        },
+        rotationData(value) {
+            this.$emit("update:rotation", value);
         }
     },
     mounted: function() {
@@ -266,7 +281,6 @@ export const BoxResizable = {
             this.yData = y - this.heightData / 2;
         },
         rotate(mouseX, mouseY) {
-            // TODO redo this so the code can be simple and easy to use
             const dX = mouseX - this.centerPos.x;
             const dY = mouseY - this.centerPos.y;
             const angle = (Math.atan2(dY, dX) * 180) / Math.PI + 90;

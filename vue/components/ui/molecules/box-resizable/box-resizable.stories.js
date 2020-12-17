@@ -24,17 +24,28 @@ storiesOf("Molecules", module)
                 default: color("Color", "#ff0000")
             }
         },
+        data: function() {
+            return {
+                xData: this.x,
+                yData: this.y,
+                widthData: this.width,
+                heightData: this.height,
+                rotationData: this.rotation
+            };
+        },
         template: `
-            <box-resizable
-                v-bind:x="x"
-                v-bind:y="y"
-                v-bind:width="width"
-                v-bind:height="height"
-                v-bind:rotation="rotation"
-                v-bind:color="color"
-            >
-                <div>Content example</div>
-            </box-resizable>
-            
+            <div>
+                <div>x: {{ xData }}, y: {{ yData }}, width: {{ widthData }}, height: {{ heightData }}, rotation: {{ rotationData }}</div>
+                <box-resizable
+                    v-bind:x.sync="xData"
+                    v-bind:y.sync="yData"
+                    v-bind:width.sync="widthData"
+                    v-bind:height.sync="heightData"
+                    v-bind:rotation.sync="rotationData"
+                    v-bind:color="color"
+                >
+                    <div>Content example</div>
+                </box-resizable>
+            </div>
         `
     }));
