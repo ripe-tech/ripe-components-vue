@@ -6,65 +6,79 @@
         <div class="gizmos">
             <gizmo
                 class="line-top"
-                v-bind:x="width / 2"
+                v-bind:x="widthData / 2"
                 v-bind:y="0"
-                v-bind:width="width"
+                v-bind:width="widthData"
                 v-bind:height="0"
                 v-bind="lineGizmoProps"
+                v-on:mousedown="startGizmoInteraction(GIZMO_INTERACTING_ENUM.LINE_TOP)"
             />
             <gizmo
                 class="line-right"
-                v-bind:x="width"
-                v-bind:y="height / 2"
+                v-bind:x="widthData"
+                v-bind:y="heightData / 2"
                 v-bind:width="0"
-                v-bind:height="height"
+                v-bind:height="heightData"
                 v-bind="lineGizmoProps"
+                v-on:mousedown="startGizmoInteraction(GIZMO_INTERACTING_ENUM.LINE_RIGHT)"
             />
             <gizmo
                 class="line-bottom"
-                v-bind:x="width / 2"
-                v-bind:y="height"
-                v-bind:width="width"
+                v-bind:x="widthData / 2"
+                v-bind:y="heightData"
+                v-bind:width="widthData"
                 v-bind:height="0"
                 v-bind="lineGizmoProps"
+                v-on:mousedown="startGizmoInteraction(GIZMO_INTERACTING_ENUM.LINE_BOTTOM)"
             />
             <gizmo
                 class="line-left"
                 v-bind:x="0"
-                v-bind:y="height / 2"
+                v-bind:y="heightData / 2"
                 v-bind:width="0"
-                v-bind:height="height"
+                v-bind:height="heightData"
                 v-bind="lineGizmoProps"
+                v-on:mousedown="startGizmoInteraction(GIZMO_INTERACTING_ENUM.LINE_LEFT)"
             />
-            <gizmo class="corner-top-left" v-bind:x="0" v-bind:y="0" v-bind="cornerGizmoProps" />
             <gizmo
-                class="corner-top-right"
-                v-bind:x="width"
+                class="corner-top-left"
+                v-bind:x="0"
                 v-bind:y="0"
                 v-bind="cornerGizmoProps"
+                v-on:mousedown="startGizmoInteraction(GIZMO_INTERACTING_ENUM.CORNER_TOP_LEFT)"
+            />
+            <gizmo
+                class="corner-top-right"
+                v-bind:x="widthData"
+                v-bind:y="0"
+                v-bind="cornerGizmoProps"
+                v-on:mousedown="startGizmoInteraction(GIZMO_INTERACTING_ENUM.CORNER_TOP_RIGHT)"
             />
             <gizmo
                 class="corner-bottom-left"
                 v-bind:x="0"
-                v-bind:y="height"
+                v-bind:y="heightData"
                 v-bind="cornerGizmoProps"
+                v-on:mousedown="startGizmoInteraction(GIZMO_INTERACTING_ENUM.CORNER_BOTTOM_LEFT)"
             />
             <gizmo
                 class="corner-bottom-right"
-                v-bind:x="width"
-                v-bind:y="height"
+                v-bind:x="widthData"
+                v-bind:y="heightData"
                 v-bind="cornerGizmoProps"
+                v-on:mousedown="startGizmoInteraction(GIZMO_INTERACTING_ENUM.CORNER_BOTTOM_RIGHT)"
             />
             <gizmo
                 class="center"
-                v-bind:x="width / 2"
-                v-bind:y="height / 2"
+                v-bind:x="widthData / 2"
+                v-bind:y="heightData / 2"
                 v-bind:round="true"
                 v-bind="cornerGizmoProps"
+                v-on:mousedown="startGizmoInteraction(GIZMO_INTERACTING_ENUM.CENTER)"
             />
             <gizmo
                 class="rotation"
-                v-bind:x="width / 2"
+                v-bind:x="widthData / 2"
                 v-bind:y="0"
                 v-bind:width="20"
                 v-bind:height="20"
