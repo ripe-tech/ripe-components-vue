@@ -224,8 +224,8 @@ export const BoxResizable = {
         },
         centerPos() {
             return {
-                x: this.width / 2 + this.x,
-                y: this.height / 2 + this.y
+                x: this.widthData / 2 + this.xData,
+                y: this.heightData / 2 + this.yData
             };
         }
     },
