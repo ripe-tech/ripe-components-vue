@@ -97,7 +97,6 @@
 .box-resizable {
     background-color: #fdcdff;
     position: absolute;
-    transform-origin: top left;
 }
 
 .box-resizable > .gizmos {
@@ -199,8 +198,8 @@ export const BoxResizable = {
                 left: `${this.xData}px`,
                 top: `${this.yData}px`,
                 width: `${this.widthData}px`,
-                height: `${this.heightData}px`
-                // TODO transform: `rotate(${this.rotationData}deg)`
+                height: `${this.heightData}px`,
+                transform: `rotate(${this.rotationData}deg)`
             };
         },
         gizmoProps() {
@@ -332,7 +331,7 @@ export const BoxResizable = {
                     this.move(event.pageX, event.pageY);
                     break;
                 case GIZMO_INTERACTING_ENUM.ROTATION:
-                    // TODO this.rotate(event.pageX, event.pageY);
+                    this.rotate(event.pageX, event.pageY);
                     break;
                 default:
             }
