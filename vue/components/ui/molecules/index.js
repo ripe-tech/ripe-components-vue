@@ -28,6 +28,7 @@ import { Select } from "./select/select.vue";
 import { SelectCheckboxes } from "./select-checkboxes/select-checkboxes.vue";
 import { SelectList } from "./select-list/select-list.vue";
 import { Slider } from "./slider/slider.vue";
+import { Steps } from "./steps/steps.vue";
 import { Table } from "./table/table.vue";
 import { TableExpandable } from "./table-expandable/table-expandable.vue";
 import { Tabs } from "./tabs/tabs.vue";
@@ -65,6 +66,7 @@ const install = Vue => {
     Vue.component("select-checkboxes", SelectCheckboxes);
     Vue.component("select-list", SelectList);
     Vue.component("slider", Slider);
+    Vue.component("steps", Steps);
     Vue.component("table-ripe", Table);
     Vue.component("table-expandable", TableExpandable);
     Vue.component("tabs", Tabs);
@@ -103,6 +105,7 @@ export {
     SelectCheckboxes,
     SelectList,
     Slider,
+    Steps,
     Table,
     TableExpandable,
     Tabs,
