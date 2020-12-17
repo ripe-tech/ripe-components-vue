@@ -267,6 +267,10 @@ export const BoxResizable = {
             const angle = (Math.atan2(dY, dX) * 180) / Math.PI + 90;
             this.rotationData = angle < 0 ? angle + 360 : angle;
         },
+        move(x, y) {
+            this.xData = x - this.widthData / 2;
+            this.yData = y - this.heightData / 2;
+        },
         resizeRight(mouseX) {
             // TODO resizing with angle should adjust x and y
             const newWidth = mouseX - this.xData;
@@ -287,7 +291,9 @@ export const BoxResizable = {
                 case GIZMO_INTERACTING_ENUM.CORNER_TOP_RIGHT:
                 case GIZMO_INTERACTING_ENUM.CORNER_BOTTOM_LEFT:
                 case GIZMO_INTERACTING_ENUM.CORNER_BOTTOM_RIGHT:
+                    break;
                 case GIZMO_INTERACTING_ENUM.CENTER:
+                    this.move(event.pageX, event.pageY);
                     break;
                 case GIZMO_INTERACTING_ENUM.ROTATION:
                     this.rotate(event.pageX, event.pageY);
