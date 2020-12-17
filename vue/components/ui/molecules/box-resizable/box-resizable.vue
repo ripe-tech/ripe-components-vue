@@ -91,6 +91,16 @@
     top: 0px;
 }
 
+.box-resizable > .gizmos > .gizmo.line-top:hover,
+.box-resizable > .gizmos > .gizmo.line-bottom:hover {
+    cursor: ns-resize;
+}
+
+.box-resizable > .gizmos > .gizmo.line-left:hover,
+.box-resizable > .gizmos > .gizmo.line-right:hover {
+    cursor: ew-resize;
+}
+
 .box-resizable > .gizmos > .gizmo.corner-top-left:hover,
 .box-resizable > .gizmos > .gizmo.corner-bottom-right:hover {
     cursor: nwse-resize;
