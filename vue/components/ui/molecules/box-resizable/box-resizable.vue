@@ -267,6 +267,9 @@ export const BoxResizable = {
             const angle = (Math.atan2(dY, dX) * 180) / Math.PI + 90;
             this.rotationData = angle < 0 ? angle + 360 : angle;
         },
+        resizeRight(mouseX) {
+            this.widthData = mouseX - this.xData;
+        },
         onMouseUp(event) {
             this.stopGizmoInteraction();
         },
@@ -274,6 +277,8 @@ export const BoxResizable = {
             switch (this.gizmoInteracting) {
                 case GIZMO_INTERACTING_ENUM.LINE_TOP:
                 case GIZMO_INTERACTING_ENUM.LINE_RIGHT:
+                    this.resizeRight(event.pageX);
+                    break;
                 case GIZMO_INTERACTING_ENUM.LINE_BOTTOM:
                 case GIZMO_INTERACTING_ENUM.LINE_LEFT:
                 case GIZMO_INTERACTING_ENUM.CORNER_TOP_LEFT:
