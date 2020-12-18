@@ -326,11 +326,9 @@ export const BoxResizable = {
             const widthAdded = (newWidth - this.widthData);
 
             this.widthData = newWidth <= 0 ? 0 : newWidth;
+            if (this.widthData === 0) return;
 
-            // const angleDeg = 0;
-            const angleDeg = this.rotationData;
-            const angleRad = (angleDeg - 90) * Math.PI / 180;
-
+            const angleRad = (this.rotationData - 90) * Math.PI / 180;
             const dx = (widthAdded / 2) * Math.sin(angleRad + 90);
             const dy = (widthAdded / 2) * Math.cos(angleRad);
 
