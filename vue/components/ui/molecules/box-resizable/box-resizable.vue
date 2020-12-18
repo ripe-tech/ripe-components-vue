@@ -323,11 +323,6 @@ export const BoxResizable = {
         },
         resizeRight(mouseX) {
             const newWidth = mouseX - this.xData;
-            // const newWidth = mouseX - 50;
-
-            // console.log("\n\ninfo:");
-            // console.log(this.xStart, this.yStart);
-            // console.log("newWidth:", newWidth - this.widthData);
             const widthAdded = (newWidth - this.widthData);
 
             this.widthData = newWidth <= 0 ? 0 : newWidth;
@@ -335,15 +330,14 @@ export const BoxResizable = {
             // const angleDeg = 0;
             const angleDeg = this.rotationData;
             const angleRad = (angleDeg - 90) * Math.PI / 180;
-            const yl = (widthAdded / 2) * Math.cos(angleRad) + 0 * -Math.sin(angleRad);
-            const newY = yl * Math.sin(angleRad + 90) + 0 * Math.cos(angleRad);
 
-            const dx = (widthAdded) * Math.sin(angleRad + 90);
+            const dx = (widthAdded / 2) * Math.sin(angleRad + 90);
+            const dy = (widthAdded / 2) * Math.cos(angleRad);
 
-            console.log("dx:", dx, "dy:", yl, "newY:", newY);
+            console.log("dx:", dx, "dy:", dy);
 
-            // this.xData -= dy / 2;
-            this.yData += yl;
+            // this.xData -= dx;
+            this.yData += dy;
         },
         resizeBottom(mouseY) {
             const newHeight = mouseY - this.yData;
