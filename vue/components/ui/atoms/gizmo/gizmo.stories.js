@@ -23,6 +23,18 @@ storiesOf("Atoms", module)
             round: {
                 default: boolean("Round", false)
             },
+            backgroundColor: {
+                default: color("Background Color", "#ffffff")
+            },
+            borderStyle: {
+                default: text("Border Style", "solid")
+            },
+            borderWidth: {
+                default: number("Border Width", 2)
+            },
+            borderColor: {
+                default: color("Border Color", "#ff0000")
+            },
             icon: {
                 default: text("Icon", "back-right")
             },
@@ -41,6 +53,10 @@ storiesOf("Atoms", module)
                 v-bind:height="height"
                 v-bind:interactable-margin="interactableMargin"
                 v-bind:round="round"
+                v-bind:background-color="backgroundColor"
+                v-bind:border-style="borderStyle"
+                v-bind:border-width="borderWidth"
+                v-bind:border-color="borderColor"
                 v-bind:icon="icon"
                 v-bind:icon-size="iconSize"
                 v-bind:icon-background-color="iconBackgroundColor"
