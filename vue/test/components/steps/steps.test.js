@@ -4,13 +4,13 @@ const base = require("../../base");
 describe("Steps", () => {
     it("should initialize the steps", () => {
         const component = base.getComponent("Steps", {
-            props: { steps: ["A", "B", "C"], currentStep: 1 }
+            props: { steps: ["A", "B", "C"], step: 1 }
         });
         assert.strictEqual(component.exists(), true);
     });
     it("should only highlight the current step", () => {
         const component = base.getComponent("Steps", {
-            props: { steps: ["A", "B", "C", "D", "E"], currentStep: 2 }
+            props: { steps: ["A", "B", "C", "D", "E"], step: 2 }
         });
         const steps = component.findAll(".step .highlight");
         assert.strictEqual(steps.at(0).isVisible(), false);
@@ -19,9 +19,21 @@ describe("Steps", () => {
         assert.strictEqual(steps.at(2).isVisible(), false);
         assert.strictEqual(steps.at(2).isVisible(), false);
     });
+    it("should change to clicked step and emit change", async () => {
+        const component = base.getComponent("Steps", {
+            props: { steps: ["A", "B", "C", "D", "E"], step: 1, clickable: true }
+        });
+        const steps = component.findAll(".step");
+        await steps.at(4).trigger("click");
+        assert.strictEqual(component.vm.$data.stepData, 5);
+        assert.strictEqual(component.emitted("update:value")[0][0], 5);
+        await steps.at(2).trigger("click");
+        assert.strictEqual(component.vm.$data.stepData, 3);
+        assert.strictEqual(component.emitted("update:value")[1][0], 3);
+    });
     it("should have white background if step is not completed and gray if otherwise", () => {
         const component = base.getComponent("Steps", {
-            props: { steps: ["A", "B", "C", "D", "E"], currentStep: 3 }
+            props: { steps: ["A", "B", "C", "D", "E"], step: 3 }
         });
         const steps = component.findAll(".step .step-number");
         assert.strictEqual(
