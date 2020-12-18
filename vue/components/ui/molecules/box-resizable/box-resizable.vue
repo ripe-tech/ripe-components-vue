@@ -334,7 +334,7 @@ export const BoxResizable = {
 
             console.log("dx:", dx, "dy:", dy);
 
-            this.xData += dx;
+            this.xData += dx; // TODO not working, dont know why...
             this.yData += dy;
         },
         resizeBottom(mouseY) {
