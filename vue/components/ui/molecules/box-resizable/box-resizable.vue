@@ -329,12 +329,12 @@ export const BoxResizable = {
             if (this.widthData === 0) return;
 
             const angleRad = (this.rotationData - 90) * Math.PI / 180;
-            const dx = (widthAdded / 2) * Math.sin(angleRad + 90);
+            const dx = (widthAdded / 2) * Math.sin(angleRad);
             const dy = (widthAdded / 2) * Math.cos(angleRad);
 
             console.log("dx:", dx, "dy:", dy);
 
-            // this.xData -= dx;
+            this.xData += dx;
             this.yData += dy;
         },
         resizeBottom(mouseY) {
