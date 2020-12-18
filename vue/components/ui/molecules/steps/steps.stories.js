@@ -1,12 +1,15 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, number } from "@storybook/addon-knobs";
+import { withKnobs, number, boolean } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
     .add("Steps", () => ({
         props: {
-            currentStep: {
+            step: {
                 default: number("Current step", 2, { min: 0, max: 5 })
+            },
+            clickable: {
+                default: boolean("Clickable", true)
             },
             simulationAdvanceStep: {
                 default: number("Simulation Advance Step", 1)
@@ -41,14 +44,15 @@ storiesOf("Molecules", module)
             }
         },
         watch: {
-            currentStep(value) {
+            step(value) {
                 this.simulatedCurrentStep = value;
             }
         },
         template: `
             <div>
                 <steps
-                    v-bind:current-step="simulatedCurrentStep"
+                    v-bind:step="simulatedCurrentStep"
+                    v-bind:clickable="clickable"
                     v-bind:steps="steps"
                 />
                 <button-color

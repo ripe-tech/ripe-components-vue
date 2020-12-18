@@ -1,8 +1,14 @@
 <template>
     <div class="steps-container">
-        <div class="step" v-for="(step, index) in steps" v-bind:key="index">
+        <div
+            class="step"
+            v-bind:classes="stepClasses"
+            v-for="(step, index) in steps"
+            v-bind:key="index"
+            v-on:click="onClick(index)"
+        >
             <div class="step-number" v-bind:style="stepStyle(index)">
-                <div class="highlight" v-show="index + 1 == currentStep" />
+                <div class="highlight" v-show="index + 1 == stepData" />
                 <div class="number">
                     {{ index + 1 }}
                 </div>
@@ -15,7 +21,7 @@
             class="progress-bar"
             v-bind:steps="steps.length - 1"
             v-bind:color="'#59626d'"
-            v-bind:current-step="currentStep - 1"
+            v-bind:current-step="stepData - 1"
         />
     </div>
 </template>
@@ -32,6 +38,10 @@
 
 .steps-container > .step {
     width: 52px;
+}
+
+.steps-container > .step.clickable {
+    cursor: pointer;
 }
 
 .steps-container > .step > .step-number > .highlight {
@@ -90,19 +100,47 @@ export const Steps = {
         /**
          * The number of the current step starting from 1.
          */
-        currentStep: {
+        step: {
             type: Number,
             default: 1
+        },
+        /**
+         * Weather or not it's possible to change to the clicked step.
+         */
+        clickable: {
+            type: Boolean,
+            default: false
+        }
+    },
+    data: function() {
+        return {
+            stepData: this.step
+        };
+    },
+    watch: {
+        step(value) {
+            this.stepData = value;
+        },
+        stepData(value) {
+            this.$emit("update:value", value);
         }
     },
     methods: {
+        stepClasses() {
+            const base = { clickable: this.clickable };
+            return base;
+        },
         stepStyle(index) {
             const step = index + 1;
             return {
-                "background-color": step > this.currentStep ? "#ffffff" : "#59626d",
-                border: step > this.currentStep ? "1px solid #eceef1" : "1px solid transparent",
-                color: step > this.currentStep ? "#afb6bc" : "#ffffff"
+                "background-color": step > this.stepData ? "#ffffff" : "#59626d",
+                border: step > this.stepData ? "1px solid #eceef1" : "1px solid transparent",
+                color: step > this.stepData ? "#afb6bc" : "#ffffff"
             };
+        },
+        onClick(index) {
+            if (!this.clickable) return;
+            this.stepData = index + 1;
         }
     }
 };
