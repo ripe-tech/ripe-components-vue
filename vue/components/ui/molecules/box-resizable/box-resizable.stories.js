@@ -36,6 +36,23 @@ storiesOf("Molecules", module)
                 rotationData: this.rotation
             };
         },
+        watch: {
+            x(value) {
+                this.xData = value;
+            },
+            y(value) {
+                this.yData = value;
+            },
+            width(value) {
+                this.widthData = value;
+            },
+            height(value) {
+                this.heightData = value;
+            },
+            rotation(value) {
+                this.rotationData = value;
+            }
+        },
         template: `
             <div>
                 <div>x: {{ xData }}, y: {{ yData }}, width: {{ widthData }}, height: {{ heightData }}, rotation: {{ rotationData }}</div>
