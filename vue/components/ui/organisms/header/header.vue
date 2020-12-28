@@ -92,7 +92,7 @@
                 <bubble
                     v-bind:visible.sync="announcementsModalVisible"
                     v-if="isMobileWidth()"
-                    v-slot:default="{ hide }"
+                    v-slot="{ hide }"
                 >
                     <announcements
                         v-bind:title="announcements.title"
@@ -110,7 +110,7 @@
                     v-bind:width="370"
                     v-bind:position="'right'"
                     v-else
-                    v-slot:default="{ hide }"
+                    v-slot="{ hide }"
                 >
                     <announcements
                         v-bind:title="announcements.title"
