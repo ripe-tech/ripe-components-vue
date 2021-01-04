@@ -291,6 +291,9 @@ export const BoxResizable = {
         window.removeEventListener("mouseup", this.onMouseUp);
     },
     methods: {
+        degToRad(degrees) {
+            return (degrees * Math.PI) / 180;
+        },
         startGizmoInteraction(gizmo) {
             this.gizmoInteracting = gizmo;
         },
@@ -321,7 +324,8 @@ export const BoxResizable = {
             this.widthData = newWidth <= 0 ? 0 : newWidth;
             if (this.widthData === 0) return;
 
-            const angleRad = (this.rotationData * Math.PI) / 180;
+            const angleRad = this.degToRad(this.rotationData);
+
             const dy = (widthAdded / 2) * Math.sin(angleRad);
 
             const adj = (widthAdded / 2) * Math.cos(angleRad);
