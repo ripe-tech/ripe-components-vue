@@ -354,9 +354,18 @@ export const BoxResizable = {
         resizeLeft(mouseX) {
             if (mouseX >= this.xData + this.widthData) return;
 
-            const newWidth = this.xData - mouseX;
-            this.xData = mouseX;
-            this.widthData += newWidth;
+            const widthAdded = this.xData - mouseX;
+            this.widthData += widthAdded;
+
+            const angleRad = this.degToRad(this.rotationData);
+
+            const dy = (widthAdded / 2) * Math.sin(angleRad);
+
+            const adj = (widthAdded / 2) * Math.cos(angleRad);
+            const dx = widthAdded / 2 - adj;
+
+            this.xData = mouseX + dx;
+            this.yData -= dy;
         },
         onMouseUp(event) {
             this.stopGizmoInteraction();
