@@ -1,5 +1,5 @@
 <template>
-    <div class="container-ripe" v-bind:class="classes">
+    <div class="container-ripe" v-bind:style="style" v-bind:class="classes">
         <div class="container-header" v-if="hasHeaderContent">
             <slot name="header-before" />
             <slot name="header">
@@ -48,6 +48,11 @@
             <slot name="header-after" />
         </div>
         <slot />
+        <div class="container-footer" v-if="hasFooterContent">
+            <slot name="footer-before" />
+            <slot name="footer" />
+            <slot name="footer-after" />
+        </div>
     </div>
 </template>
 
@@ -59,7 +64,6 @@
     border-radius: 8px 8px 8px 8px;
     box-shadow: 0px 6px 15px rgba(36, 37, 38, 0.08);
     margin: 32px auto 32px auto;
-    max-width: 1240px;
     overflow: hidden;
     transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
@@ -103,6 +107,12 @@ body.mobile .container-ripe > .container-header {
     text-transform: capitalize;
     user-select: none;
 }
+
+.container-ripe > .container-footer {
+    font-size: 0px;
+    padding: 24px 24px 20px 24px;
+    text-align: right;
+}
 </style>
 
 <script>
@@ -128,6 +138,10 @@ export const Container = {
         headerButtons: {
             type: Array,
             default: () => []
+        },
+        maxWidth: {
+            type: Number,
+            default: 1240
         }
     },
     computed: {
@@ -152,6 +166,17 @@ export const Container = {
                 this.$slots["header-buttons-after"] ||
                 this.$slots["header-after"]
             );
+        },
+        hasFooterContent() {
+            return (
+                this.$slots["footer-before"] || this.$slots.footer || this.$slots["footer-after"]
+            );
+        },
+        style() {
+            const base = {
+                "max-width": `${this.maxWidth}px`
+            };
+            return base;
         },
         classes() {
             const base = {};
