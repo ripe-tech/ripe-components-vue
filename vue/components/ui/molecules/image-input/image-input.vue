@@ -54,9 +54,6 @@
     border: 1px solid #e4e8f0;
     border-radius: 6px;
     cursor: pointer;
-    height: 30px;
-    height: 100%;
-    width: 100%;
 }
 
 .image-input:hover {
@@ -119,16 +116,17 @@ export const ImageInput = {
     name: "image-input",
     props: {
         /**
-         * Set of images to be considered in the internal
-         * data and preveiws.
+         * The initial set of images to be uploaded.
+         * An image should be an object with data property
+         * having the content of the image in base64.
          */
         images: {
             type: Array,
             default: []
         },
         /**
-         * Support for multiple images allowing the user
-         * to upload more than one image.
+         * Support for multiple images, this allowing the user
+         * to select and upload more than one image.
          */
         multiple: {
             type: Boolean,
