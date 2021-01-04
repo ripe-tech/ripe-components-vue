@@ -304,6 +304,16 @@ export const BoxResizable = {
 
             return { xOffset: dx, yOffset: dy };
         },
+        heightChangeOffsets(heightChange) {
+            const angleRad = this.degToRad(this.rotationData);
+
+            const dx = (heightChange / 2) * Math.sin(angleRad);
+
+            const adj = (heightChange / 2) * Math.cos(angleRad);
+            const dy = heightChange / 2 - adj;
+
+            return { xOffset: dx, yOffset: dy };
+        },
         startGizmoInteraction(gizmo) {
             this.gizmoInteracting = gizmo;
         },
@@ -323,18 +333,12 @@ export const BoxResizable = {
         resizeTop(mouseY) {
             if (mouseY >= this.yData + this.heightData) return;
 
-            const heightAdded = this.yData - mouseY;
-            this.heightData += heightAdded;
+            const heightChange = this.yData - mouseY;
+            this.heightData += heightChange;
 
-            const angleRad = this.degToRad(this.rotationData);
-
-            const dx = (heightAdded / 2) * Math.sin(angleRad);
-
-            const adj = (heightAdded / 2) * Math.cos(angleRad);
-            const dy = heightAdded / 2 - adj;
-
-            this.xData += dx;
-            this.yData = mouseY + dy;
+            const offsets = this.heightChangeOffsets(heightChange);
+            this.xData += offsets.xOffset;
+            this.yData = mouseY + offsets.yOffset;
         },
         resizeRight(mouseX) {
             const newWidth = mouseX - this.xData;
@@ -349,20 +353,14 @@ export const BoxResizable = {
         },
         resizeBottom(mouseY) {
             const newHeight = mouseY - this.yData;
-            const heightAdded = newHeight - this.heightData;
+            const heightChange = newHeight - this.heightData;
 
             this.heightData = newHeight <= 0 ? 0 : newHeight;
             if (this.heightData === 0) return;
 
-            const angleRad = this.degToRad(this.rotationData);
-
-            const dx = (heightAdded / 2) * Math.sin(angleRad);
-
-            const adj = (heightAdded / 2) * Math.cos(angleRad);
-            const dy = heightAdded / 2 - adj;
-
-            this.xData -= dx;
-            this.yData -= dy;
+            const offsets = this.heightChangeOffsets(heightChange);
+            this.xData -= offsets.xOffset;
+            this.yData -= offsets.yOffset;
         },
         resizeLeft(mouseX) {
             if (mouseX >= this.xData + this.widthData) return;
