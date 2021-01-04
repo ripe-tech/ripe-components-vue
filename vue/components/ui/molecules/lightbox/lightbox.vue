@@ -1,5 +1,5 @@
 <template>
-    <div class="lightbox">
+    <div class="lightbox" v-bind:class="classes">
         <global-events v-on:keydown.esc="close" />
         <image-ripe
             v-bind:src="image || ''"
@@ -38,6 +38,10 @@
     max-height: inherit;
     max-width: inherit;
     width: inherit;
+}
+
+.lightbox.fit > img {
+    object-fit: contain;
 }
 
 .lightbox-container {
@@ -94,6 +98,10 @@ export const Lightbox = {
             type: String,
             default: null
         },
+        imageFit: {
+            type: Boolean,
+            default: false
+        },
         alt: {
             type: String,
             default: null
@@ -106,6 +114,14 @@ export const Lightbox = {
     methods: {
         close() {
             this.$emit("close");
+        }
+    },
+    computed: {
+        classes() {
+            const base = {
+                fit: this.imageFit
+            };
+            return base;
         }
     }
 };

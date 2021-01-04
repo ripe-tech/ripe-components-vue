@@ -1,13 +1,13 @@
 <template>
     <upload-area
-        class="image-input"
+        class="input-image"
         v-bind:files.sync="files"
         v-bind:multiple="multiple"
         v-bind:accept="'image/*'"
         v-on:update:files="loadFiles"
     >
         <template v-slot="{ openModal }">
-            <div class="image-input-content" v-on:click="openModal">
+            <div class="input-image-content" v-on:click="openModal">
                 <icon
                     class="upload-icon"
                     v-bind:icon="'add-camera'"
@@ -25,20 +25,21 @@
                         class="image-preview"
                         v-bind:image="image.data"
                         v-bind:visible="visibleLightbox === index"
+                        v-bind:image-fit="true"
                         v-on:close="onCloseLightbox"
-                        v-on:click.stop="onClickLightbox(index)"
+                        v-on:click="onClickLightbox(index)"
                     />
                     <div class="name">
                         {{ image.name }}
                     </div>
                     <button-icon
-                        class="remove-button"
+                        class="button-remove"
                         title="Remove"
                         v-bind:icon="'remove'"
                         v-bind:width="20"
                         v-bind:height="20"
                         v-bind:color="'grey'"
-                        v-on:click.stop="onClickFileRemove(index)"
+                        v-on:click="onClickFileRemove(index)"
                     />
                 </div>
             </div>
@@ -49,22 +50,22 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.image-input {
+.input-image {
     background-color: #f9fafd;
     border: 1px solid #e4e8f0;
     border-radius: 6px;
     cursor: pointer;
 }
 
-.image-input:hover {
+.input-image:hover {
     border-color: #1d1d1d;
 }
 
-.image-input.dragging {
+.input-image.dragging {
     opacity: 0.3;
 }
 
-.image-input > .image-input-content {
+.input-image > .input-image-content {
     box-sizing: border-box;
     cursor: pointer;
     display: flex;
@@ -74,7 +75,7 @@
     width: 100%;
 }
 
-.image-input > .image-input-content > .image-container {
+.input-image > .input-image-content > .image-container {
     align-items: center;
     cursor: initial;
     display: flex;
@@ -83,27 +84,23 @@
     white-space: nowrap;
 }
 
-.image-input > .image-input-content > .image-container > .remove-button {
+.input-image > .input-image-content > .image-container > .button-remove {
     cursor: pointer;
     display: none;
     margin-right: 10px;
 }
 
-.image-input > .image-input-content > .image-container:hover > .remove-button {
+.input-image > .input-image-content > .image-container:hover > .button-remove {
     display: inline-block;
 }
 
-.image-input > .image-input-content > .image-container > .image-preview {
+.input-image > .input-image-content > .image-container > .image-preview {
     height: 30px;
     vertical-align: top;
     width: 30px;
 }
 
-.image-input > .image-input-content > .image-container > .image-preview ::v-deep img {
-    object-fit: contain;
-}
-
-.image-input > .image-input-content > .image-container > .name {
+.input-image > .input-image-content > .image-container > .name {
     display: inline-block;
     line-height: 30px;
     margin: 0px 10px;
@@ -112,8 +109,8 @@
 </style>
 
 <script>
-export const ImageInput = {
-    name: "image-input",
+export const InputImage = {
+    name: "input-image",
     props: {
         /**
          * The initial set of images to be uploaded.
@@ -145,6 +142,9 @@ export const ImageInput = {
         };
     },
     watch: {
+        images(value) {
+            this.imagesData = value;
+        },
         imagesData(value) {
             this.$emit("update:images", value);
         }
@@ -170,9 +170,9 @@ export const ImageInput = {
         async loadFile(file) {
             const data = await new Promise((resolve, reject) => {
                 const reader = new FileReader();
-                reader.readAsDataURL(file);
                 reader.onload = () => resolve(reader.result);
                 reader.onerror = error => reject(error);
+                reader.readAsDataURL(file);
             });
             this.imagesData.push({
                 name: file.name,
@@ -184,5 +184,5 @@ export const ImageInput = {
         }
     }
 };
-export default ImageInput;
+export default InputImage;
 </script>

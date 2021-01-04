@@ -1,9 +1,9 @@
 const assert = require("assert");
 const base = require("../../base");
 
-describe("ImageInput", () => {
-    it("should initialize the input color", () => {
-        const component = base.getComponent("ImageInput");
+describe("InputImage", () => {
+    it("should initialize the input image", () => {
+        const component = base.getComponent("InputImage");
 
         assert.strictEqual(component.exists(), true);
     });

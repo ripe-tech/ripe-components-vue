@@ -3,7 +3,7 @@ import { withKnobs, boolean } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
-    .add("Image Input", () => ({
+    .add("Input Image", () => ({
         props: {
             multiple: {
                 default: boolean("Multiple", true)
@@ -16,7 +16,7 @@ storiesOf("Molecules", module)
         },
         template: `
             <div>
-                <image-input 
+                <input-image 
                     v-bind:images.sync="images"
                     v-bind:multiple="multiple"
                 />
