@@ -316,16 +316,16 @@ export const BoxResizable = {
         },
         resizeRight(mouseX) {
             const newWidth = mouseX - this.xData;
-            const widthAdded = (newWidth - this.widthData);
+            const widthAdded = newWidth - this.widthData;
 
             this.widthData = newWidth <= 0 ? 0 : newWidth;
             if (this.widthData === 0) return;
 
-            const angleRad = this.rotationData * Math.PI / 180;
+            const angleRad = (this.rotationData * Math.PI) / 180;
             const dy = (widthAdded / 2) * Math.sin(angleRad);
 
-            const c = (widthAdded / 2) * Math.cos(angleRad);
-            const dx = (widthAdded / 2) - c;
+            const adj = (widthAdded / 2) * Math.cos(angleRad);
+            const dx = widthAdded / 2 - adj;
 
             this.xData -= dx;
             this.yData += dy;
