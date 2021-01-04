@@ -294,6 +294,16 @@ export const BoxResizable = {
         degToRad(degrees) {
             return (degrees * Math.PI) / 180;
         },
+        widthChangeOffsets(widthChange) {
+            const angleRad = this.degToRad(this.rotationData);
+
+            const dy = (widthChange / 2) * Math.sin(angleRad);
+
+            const adj = (widthChange / 2) * Math.cos(angleRad);
+            const dx = widthChange / 2 - adj;
+
+            return { xOffset: dx, yOffset: dy };
+        },
         startGizmoInteraction(gizmo) {
             this.gizmoInteracting = gizmo;
         },
@@ -328,20 +338,14 @@ export const BoxResizable = {
         },
         resizeRight(mouseX) {
             const newWidth = mouseX - this.xData;
-            const widthAdded = newWidth - this.widthData;
+            const widthChange = newWidth - this.widthData;
 
             this.widthData = newWidth <= 0 ? 0 : newWidth;
             if (this.widthData === 0) return;
 
-            const angleRad = this.degToRad(this.rotationData);
-
-            const dy = (widthAdded / 2) * Math.sin(angleRad);
-
-            const adj = (widthAdded / 2) * Math.cos(angleRad);
-            const dx = widthAdded / 2 - adj;
-
-            this.xData -= dx;
-            this.yData += dy;
+            const offsets = this.widthChangeOffsets(widthChange);
+            this.xData -= offsets.xOffset;
+            this.yData += offsets.yOffset;
         },
         resizeBottom(mouseY) {
             const newHeight = mouseY - this.yData;
@@ -363,18 +367,12 @@ export const BoxResizable = {
         resizeLeft(mouseX) {
             if (mouseX >= this.xData + this.widthData) return;
 
-            const widthAdded = this.xData - mouseX;
-            this.widthData += widthAdded;
+            const widthChange = this.xData - mouseX;
+            this.widthData += widthChange;
 
-            const angleRad = this.degToRad(this.rotationData);
-
-            const dy = (widthAdded / 2) * Math.sin(angleRad);
-
-            const adj = (widthAdded / 2) * Math.cos(angleRad);
-            const dx = widthAdded / 2 - adj;
-
-            this.xData = mouseX + dx;
-            this.yData -= dy;
+            const offsets = this.widthChangeOffsets(widthChange);
+            this.xData = mouseX + offsets.xOffset;
+            this.yData -= offsets.yOffset;
         },
         onMouseUp(event) {
             this.stopGizmoInteraction();
