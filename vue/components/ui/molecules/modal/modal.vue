@@ -108,6 +108,7 @@
     position: relative;
     width: 460px;
     z-index: 1;
+    font-family: $font-family;
 }
 
 body.tablet .modal > .modal-container,
