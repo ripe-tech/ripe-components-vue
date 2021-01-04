@@ -313,9 +313,18 @@ export const BoxResizable = {
         resizeTop(mouseY) {
             if (mouseY >= this.yData + this.heightData) return;
 
-            const newHeight = this.yData - mouseY;
-            this.yData = mouseY;
-            this.heightData += newHeight;
+            const heightAdded = this.yData - mouseY;
+            this.heightData += heightAdded;
+
+            const angleRad = this.degToRad(this.rotationData);
+
+            const dx = (heightAdded / 2) * Math.sin(angleRad);
+
+            const adj = (heightAdded / 2) * Math.cos(angleRad);
+            const dy = heightAdded / 2 - adj;
+
+            this.xData += dx;
+            this.yData = mouseY + dy;
         },
         resizeRight(mouseX) {
             const newWidth = mouseX - this.xData;
