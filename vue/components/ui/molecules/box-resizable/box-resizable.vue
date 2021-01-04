@@ -328,13 +328,13 @@ export const BoxResizable = {
             this.widthData = newWidth <= 0 ? 0 : newWidth;
             if (this.widthData === 0) return;
 
-            const angleRad = (this.rotationData - 90) * Math.PI / 180;
-            const dx = (widthAdded / 2) * Math.sin(angleRad);
-            const dy = (widthAdded / 2) * Math.cos(angleRad);
+            const angleRad = this.rotationData * Math.PI / 180;
+            const dy = (widthAdded / 2) * Math.sin(angleRad);
 
-            console.log("dx:", dx, "dy:", dy);
+            const c = (widthAdded / 2) * Math.cos(angleRad);
+            const dx = (widthAdded / 2) - c;
 
-            // this.xData += dx; // TODO not working, dont know why...
+            this.xData -= dx;
             this.yData += dy;
         },
         resizeBottom(mouseY) {
