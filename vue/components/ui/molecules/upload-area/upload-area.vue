@@ -9,8 +9,9 @@
     >
         <input
             type="file"
-            multiple
             hidden
+            v-bind:multiple="multiple"
+            v-bind:accept="accept"
             ref="filesInput"
             v-on:change="onFilesInputChange"
         />
@@ -119,6 +120,14 @@ export const UploadArea = {
         files: {
             type: Array,
             default: () => []
+        },
+        multiple: {
+            type: Boolean,
+            default: true
+        },
+        accept: {
+            type: String,
+            default: null
         }
     },
     computed: {
