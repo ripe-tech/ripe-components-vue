@@ -340,9 +340,17 @@ export const BoxResizable = {
             this.xData += offsets.xOffset;
             this.yData = mouseY + offsets.yOffset;
         },
-        resizeRight(mouseX) {
-            const mouseW = ((this.heightData / 2) * Math.tan(this.degToRad(this.rotationData)));
-            console.log(mouseW);
+        resizeRight(mouseX, mouseY) {
+            const c = mouseY - this.yData - (this.widthData / 2) * Math.sin(this.degToRad(this.rotationData));
+            const h = c / Math.cos(this.degToRad(this.rotationData));
+            // const h = this.heightData / 2;
+            const mouseW = (h * Math.tan(this.degToRad(this.rotationData)));
+            console.log(h.toFixed(3), mouseW.toFixed(3));
+
+            // const redLine = this.heightData / 2 * Math.cos(this.degToRad(this.rotationData));
+            // mouseW - redLine
+            // const finalW =
+
             const widthChange = mouseX - this.xData - this.widthData + mouseW;
 
             const newWidth = this.widthData + widthChange;
@@ -383,7 +391,7 @@ export const BoxResizable = {
                     this.resizeTop(event.pageY);
                     break;
                 case GIZMO_INTERACTING_ENUM.LINE_RIGHT:
-                    this.resizeRight(event.pageX);
+                    this.resizeRight(event.pageX, event.pageY);
                     break;
                 case GIZMO_INTERACTING_ENUM.LINE_BOTTOM:
                     this.resizeBottom(event.pageY);
