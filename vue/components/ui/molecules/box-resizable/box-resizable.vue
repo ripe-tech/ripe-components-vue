@@ -11,7 +11,7 @@
                 v-bind:width="widthData"
                 v-bind:height="0"
                 v-bind="lineGizmoProps"
-                v-on:mousedown="event => startGizmoInteraction(event, GIZMO_INTERACTING_ENUM.LINE_TOP)"
+                v-on:mousedown="startGizmoInteraction(GIZMO_INTERACTING_ENUM.LINE_TOP)"
             />
             <gizmo
                 class="line-right"
@@ -20,7 +20,7 @@
                 v-bind:width="0"
                 v-bind:height="heightData"
                 v-bind="lineGizmoProps"
-                v-on:mousedown="event => startGizmoInteraction(event, GIZMO_INTERACTING_ENUM.LINE_RIGHT)"
+                v-on:mousedown="startGizmoInteraction(GIZMO_INTERACTING_ENUM.LINE_RIGHT)"
             />
             <gizmo
                 class="line-bottom"
@@ -29,7 +29,7 @@
                 v-bind:width="widthData"
                 v-bind:height="0"
                 v-bind="lineGizmoProps"
-                v-on:mousedown="event => startGizmoInteraction(event, GIZMO_INTERACTING_ENUM.LINE_BOTTOM)"
+                v-on:mousedown="startGizmoInteraction(GIZMO_INTERACTING_ENUM.LINE_BOTTOM)"
             />
             <gizmo
                 class="line-left"
@@ -38,35 +38,35 @@
                 v-bind:width="0"
                 v-bind:height="heightData"
                 v-bind="lineGizmoProps"
-                v-on:mousedown="event => startGizmoInteraction(event, GIZMO_INTERACTING_ENUM.LINE_LEFT)"
+                v-on:mousedown="startGizmoInteraction(GIZMO_INTERACTING_ENUM.LINE_LEFT)"
             />
             <gizmo
                 class="corner-top-left"
                 v-bind:x="0"
                 v-bind:y="0"
                 v-bind="cornerGizmoProps"
-                v-on:mousedown="event => startGizmoInteraction(event, GIZMO_INTERACTING_ENUM.CORNER_TOP_LEFT)"
+                v-on:mousedown="startGizmoInteraction(GIZMO_INTERACTING_ENUM.CORNER_TOP_LEFT)"
             />
             <gizmo
                 class="corner-top-right"
                 v-bind:x="widthData"
                 v-bind:y="0"
                 v-bind="cornerGizmoProps"
-                v-on:mousedown="event => startGizmoInteraction(event, GIZMO_INTERACTING_ENUM.CORNER_TOP_RIGHT)"
+                v-on:mousedown="startGizmoInteraction(GIZMO_INTERACTING_ENUM.CORNER_TOP_RIGHT)"
             />
             <gizmo
                 class="corner-bottom-left"
                 v-bind:x="0"
                 v-bind:y="heightData"
                 v-bind="cornerGizmoProps"
-                v-on:mousedown="event => startGizmoInteraction(event, GIZMO_INTERACTING_ENUM.CORNER_BOTTOM_LEFT)"
+                v-on:mousedown="startGizmoInteraction(GIZMO_INTERACTING_ENUM.CORNER_BOTTOM_LEFT)"
             />
             <gizmo
                 class="corner-bottom-right"
                 v-bind:x="widthData"
                 v-bind:y="heightData"
                 v-bind="cornerGizmoProps"
-                v-on:mousedown="event => startGizmoInteraction(event, GIZMO_INTERACTING_ENUM.CORNER_BOTTOM_RIGHT)"
+                v-on:mousedown="startGizmoInteraction(GIZMO_INTERACTING_ENUM.CORNER_BOTTOM_RIGHT)"
             />
             <gizmo
                 class="center"
@@ -74,7 +74,7 @@
                 v-bind:y="heightData / 2"
                 v-bind:round="true"
                 v-bind="cornerGizmoProps"
-                v-on:mousedown="event => startGizmoInteraction(event, GIZMO_INTERACTING_ENUM.CENTER)"
+                v-on:mousedown="startGizmoInteraction(GIZMO_INTERACTING_ENUM.CENTER)"
             />
             <gizmo
                 class="rotation"
@@ -87,7 +87,7 @@
                 v-bind:round="true"
                 v-bind:border-width="1"
                 v-bind="gizmoProps"
-                v-on:mousedown="event => startGizmoInteraction(event, GIZMO_INTERACTING_ENUM.ROTATION)"
+                v-on:mousedown="startGizmoInteraction(GIZMO_INTERACTING_ENUM.ROTATION)"
             />
         </div>
     </div>
@@ -210,10 +210,7 @@ export const BoxResizable = {
             heightData: this.height,
             rotationData: this.rotation,
             gizmoInteracting: GIZMO_INTERACTING_ENUM.NONE,
-            GIZMO_INTERACTING_ENUM: GIZMO_INTERACTING_ENUM,
-
-            xStart: null,
-            yStart: null
+            GIZMO_INTERACTING_ENUM: GIZMO_INTERACTING_ENUM
         };
     },
     computed: {
@@ -295,13 +292,9 @@ export const BoxResizable = {
     },
     methods: {
         startGizmoInteraction(event, gizmo) {
-            this.xStart = event.pageX;
-            this.yStart = event.pageY;
             this.gizmoInteracting = gizmo;
         },
         stopGizmoInteraction() {
-            this.xStart = null;
-            this.yStart = null;
             this.gizmoInteracting = GIZMO_INTERACTING_ENUM.NONE;
         },
         move(x, y) {
