@@ -6,6 +6,13 @@ Library of shared components to be re-used in [Vue.js](https://vuejs.org/)
 
 There's a CI/CD integration running using [now.sh](https://zeit.co) @ [https://ripe-components-vue-now.platforme.com](https://ripe-components-vue-now.platforme.com).
 
+### Usage
+
+```javascript
+import RipeComponentsVue from "ripe-components-vue";
+Vue.use(RipeComponentsVue);
+```
+
 ## License
 
 RIPE Component for Vue.js Javascript is currently licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/).

@@ -77,7 +77,7 @@
                         v-bind:global-hide="true"
                         v-bind:owners="$refs.headerApps"
                     >
-                        <template v-slot="{ item: { value, label, image, link, cls } }">
+                        <template v-slot="{ item: { label, image, link, cls } }">
                             <a v-bind:href="link" v-bind:class="[cls]">
                                 <img v-bind:src="image" v-bind:alt="label" />
                                 <p>{{ label }}</p>
@@ -92,7 +92,7 @@
                 <bubble
                     v-bind:visible.sync="announcementsModalVisible"
                     v-if="isMobileWidth()"
-                    v-slot:default="{ hide }"
+                    v-slot="{ hide }"
                 >
                     <announcements
                         v-bind:title="announcements.title"
@@ -110,7 +110,7 @@
                     v-bind:width="370"
                     v-bind:position="'right'"
                     v-else
-                    v-slot:default="{ hide }"
+                    v-slot="{ hide }"
                 >
                     <announcements
                         v-bind:title="announcements.title"
