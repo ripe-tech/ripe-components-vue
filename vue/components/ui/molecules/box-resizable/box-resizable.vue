@@ -291,7 +291,7 @@ export const BoxResizable = {
         window.removeEventListener("mouseup", this.onMouseUp);
     },
     methods: {
-        startGizmoInteraction(event, gizmo) {
+        startGizmoInteraction(gizmo) {
             this.gizmoInteracting = gizmo;
         },
         stopGizmoInteraction() {
