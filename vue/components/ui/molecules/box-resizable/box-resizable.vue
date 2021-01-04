@@ -341,7 +341,9 @@ export const BoxResizable = {
             this.yData = mouseY + offsets.yOffset;
         },
         resizeRight(mouseX) {
-            const widthChange = mouseX - this.xData - this.widthData;
+            const mouseW = ((this.heightData / 2) * Math.tan(this.degToRad(this.rotationData)));
+            console.log(mouseW);
+            const widthChange = mouseX - this.xData - this.widthData + mouseW;
 
             const newWidth = this.widthData + widthChange;
             this.widthData = newWidth >= 0 ? newWidth : 0;
