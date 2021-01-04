@@ -291,6 +291,29 @@ export const BoxResizable = {
         window.removeEventListener("mouseup", this.onMouseUp);
     },
     methods: {
+        degToRad(degrees) {
+            return (degrees * Math.PI) / 180;
+        },
+        widthChangeOffsets(widthChange) {
+            const angleRad = this.degToRad(this.rotationData);
+
+            const dy = (widthChange / 2) * Math.sin(angleRad);
+
+            const adj = (widthChange / 2) * Math.cos(angleRad);
+            const dx = widthChange / 2 - adj;
+
+            return { xOffset: dx, yOffset: dy };
+        },
+        heightChangeOffsets(heightChange) {
+            const angleRad = this.degToRad(this.rotationData);
+
+            const dx = (heightChange / 2) * Math.sin(angleRad);
+
+            const adj = (heightChange / 2) * Math.cos(angleRad);
+            const dy = heightChange / 2 - adj;
+
+            return { xOffset: dx, yOffset: dy };
+        },
         startGizmoInteraction(gizmo) {
             this.gizmoInteracting = gizmo;
         },
@@ -310,24 +333,44 @@ export const BoxResizable = {
         resizeTop(mouseY) {
             if (mouseY >= this.yData + this.heightData) return;
 
-            const newHeight = this.yData - mouseY;
-            this.yData = mouseY;
-            this.heightData += newHeight;
+            const heightChange = this.yData - mouseY;
+            this.heightData += heightChange;
+
+            const offsets = this.heightChangeOffsets(heightChange);
+            this.xData += offsets.xOffset;
+            this.yData = mouseY + offsets.yOffset;
         },
         resizeRight(mouseX) {
             const newWidth = mouseX - this.xData;
+            const widthChange = newWidth - this.widthData;
+
             this.widthData = newWidth <= 0 ? 0 : newWidth;
+            if (this.widthData === 0) return;
+
+            const offsets = this.widthChangeOffsets(widthChange);
+            this.xData -= offsets.xOffset;
+            this.yData += offsets.yOffset;
         },
         resizeBottom(mouseY) {
             const newHeight = mouseY - this.yData;
+            const heightChange = newHeight - this.heightData;
+
             this.heightData = newHeight <= 0 ? 0 : newHeight;
+            if (this.heightData === 0) return;
+
+            const offsets = this.heightChangeOffsets(heightChange);
+            this.xData -= offsets.xOffset;
+            this.yData -= offsets.yOffset;
         },
         resizeLeft(mouseX) {
             if (mouseX >= this.xData + this.widthData) return;
 
-            const newWidth = this.xData - mouseX;
-            this.xData = mouseX;
-            this.widthData += newWidth;
+            const widthChange = this.xData - mouseX;
+            this.widthData += widthChange;
+
+            const offsets = this.widthChangeOffsets(widthChange);
+            this.xData = mouseX + offsets.xOffset;
+            this.yData -= offsets.yOffset;
         },
         onMouseUp(event) {
             this.stopGizmoInteraction();
