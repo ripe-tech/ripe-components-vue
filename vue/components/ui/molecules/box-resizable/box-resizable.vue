@@ -341,10 +341,10 @@ export const BoxResizable = {
             this.yData = mouseY + offsets.yOffset;
         },
         resizeRight(mouseX) {
-            const newWidth = mouseX - this.xData;
-            const widthChange = newWidth - this.widthData;
+            const widthChange = mouseX - this.xData - this.widthData;
 
-            this.widthData = newWidth <= 0 ? 0 : newWidth;
+            const newWidth = this.widthData + widthChange;
+            this.widthData = newWidth >= 0 ? newWidth : 0;
             if (this.widthData === 0) return;
 
             const offsets = this.widthChangeOffsets(widthChange);
@@ -352,10 +352,10 @@ export const BoxResizable = {
             this.yData += offsets.yOffset;
         },
         resizeBottom(mouseY) {
-            const newHeight = mouseY - this.yData;
-            const heightChange = newHeight - this.heightData;
+            const heightChange = mouseY - this.yData - this.heightData;
 
-            this.heightData = newHeight <= 0 ? 0 : newHeight;
+            const newHeight = this.heightData + heightChange;
+            this.heightData = newHeight >= 0 ? newHeight : 0;
             if (this.heightData === 0) return;
 
             const offsets = this.heightChangeOffsets(heightChange);
