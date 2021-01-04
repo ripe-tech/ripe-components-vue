@@ -118,10 +118,18 @@
 export const ImageInput = {
     name: "image-input",
     props: {
+        /**
+         * Set of images to be considered in the internal
+         * data and preveiws.
+         */
         images: {
             type: Array,
             default: []
         },
+        /**
+         * Support for multiple images allowing the user
+         * to upload more than one image.
+         */
         multiple: {
             type: Boolean,
             defsault: true
