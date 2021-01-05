@@ -3,7 +3,7 @@
         class="input-image"
         v-bind:files.sync="files"
         v-bind:multiple="multiple"
-        v-bind:accept="'image/*'"
+        v-bind:accept="accept"
         v-on:update:files="loadFiles"
     >
         <template v-slot="{ openModal }">
@@ -127,7 +127,15 @@ export const InputImage = {
          */
         multiple: {
             type: Boolean,
-            defsault: true
+            default: true
+        },
+        /**
+         * The content types (MIME types) to be allowed within
+         * the underlying upload area.
+         */
+        accept: {
+            type: String,
+            default: "image/*"
         }
     },
     computed: {
