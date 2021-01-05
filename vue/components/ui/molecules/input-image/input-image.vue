@@ -158,22 +158,13 @@ export const InputImage = {
         }
     },
     methods: {
-        loadFiles(files) {
+        async loadFiles(files) {
             if (this.multiple) {
-                Object.values(files).forEach(file => this.loadFile(file));
+                await Promise.all(Object.values(files).map(file => this.loadFile(file)));
             } else {
                 this.imagesData = [];
-                this.loadFile(files[0]);
+                await this.loadFile(files[0]);
             }
-        },
-        onClickFileRemove(index) {
-            this.imagesData.splice(index, 1);
-        },
-        onClickLightbox(index) {
-            this.visibleLightbox = index;
-        },
-        onCloseLightbox() {
-            this.visibleLightbox = null;
         },
         async loadFile(file) {
             const data = await new Promise((resolve, reject) => {
@@ -189,6 +180,15 @@ export const InputImage = {
                 lastModified: file.lastModified,
                 data: data
             });
+        },
+        onClickFileRemove(index) {
+            this.imagesData.splice(index, 1);
+        },
+        onClickLightbox(index) {
+            this.visibleLightbox = index;
+        },
+        onCloseLightbox() {
+            this.visibleLightbox = null;
         }
     }
 };
