@@ -3,6 +3,7 @@
         <global-events v-on:keydown.esc="close" />
         <image-ripe
             v-bind:src="image || ''"
+            v-bind:style="imageStyle"
             v-bind:alt="alt || ''"
             v-on:click="event => $emit('click', event)"
         />
@@ -38,10 +39,6 @@
     max-height: inherit;
     max-width: inherit;
     width: inherit;
-}
-
-.lightbox.fit > img {
-    object-fit: contain;
 }
 
 .lightbox-container {
@@ -98,9 +95,9 @@ export const Lightbox = {
             type: String,
             default: null
         },
-        imageFit: {
-            type: Boolean,
-            default: false
+        objectFit: {
+            type: String,
+            default: null
         },
         alt: {
             type: String,
@@ -117,10 +114,8 @@ export const Lightbox = {
         }
     },
     computed: {
-        classes() {
-            const base = {
-                fit: this.imageFit
-            };
+        imageStyle() {
+            const base = { "object-fit": this.objectFit };
             return base;
         }
     }
