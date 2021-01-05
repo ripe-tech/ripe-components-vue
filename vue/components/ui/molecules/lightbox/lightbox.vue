@@ -115,7 +115,8 @@ export const Lightbox = {
     },
     computed: {
         imageStyle() {
-            const base = { "object-fit": this.objectFit };
+            const base = {};
+            if (this.objectFit) base["object-fit"] = this.objectFit;
             return base;
         }
     }
