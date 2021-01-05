@@ -1,5 +1,5 @@
 <template>
-    <div class="lightbox" v-bind:class="classes">
+    <div class="lightbox">
         <global-events v-on:keydown.esc="close" />
         <image-ripe
             v-bind:src="image || ''"
@@ -11,7 +11,7 @@
             <div
                 class="lightbox-container"
                 v-if="visible && (imageLightbox || image)"
-                v-on:click="$emit('close')"
+                v-on:click="() => $emit('close')"
             >
                 <div class="image-container">
                     <image-ripe
