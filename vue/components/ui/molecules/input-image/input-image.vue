@@ -25,7 +25,7 @@
                         class="image-preview"
                         v-bind:image="image.data"
                         v-bind:visible="visibleLightbox === index"
-                        v-bind:image-fit="true"
+                        v-bind:object-fit="'contain'"
                         v-on:close="onCloseLightbox"
                         v-on:click="onClickLightbox(index)"
                     />
