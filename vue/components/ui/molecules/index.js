@@ -3,6 +3,7 @@ import { Announcements } from "./announcements/announcements.vue";
 import { AvatarName } from "./avatar-name/avatar-name.vue";
 import { AvatarNameEmail } from "./avatar-name-email/avatar-name-email.vue";
 import { BoxResizable } from "./box-resizable/box-resizable.vue";
+import { Test } from "./box-resizable/test.vue";
 import { ButtonDropdown } from "./button-dropdown/button-dropdown.vue";
 import { ButtonIconAnimated } from "./button-icon-animated/button-icon-animated.vue";
 import { ButtonIconToggle } from "./button-icon-toggle/button-icon-toggle.vue";
@@ -41,6 +42,7 @@ const install = Vue => {
     Vue.component("avatar-name", AvatarName);
     Vue.component("avatar-name-email", AvatarNameEmail);
     Vue.component("box-resizable", BoxResizable);
+    Vue.component("test", Test);
     Vue.component("button-dropdown", ButtonDropdown);
     Vue.component("button-icon-animated", ButtonIconAnimated);
     Vue.component("button-icon-toggle", ButtonIconToggle);
@@ -80,6 +82,7 @@ export {
     AvatarName,
     AvatarNameEmail,
     BoxResizable,
+    Test,
     ButtonDropdown,
     ButtonIconAnimated,
     ButtonIconToggle,

@@ -95,7 +95,6 @@
 
 <style lang="scss" scoped>
 .box-resizable {
-    background-color: #fdcdff;
     position: absolute;
 }
 
@@ -341,17 +340,17 @@ export const BoxResizable = {
             this.yData = mouseY + offsets.yOffset;
         },
         resizeRight(mouseX, mouseY) {
-            const c = mouseY - this.yData - (this.widthData / 2) * Math.sin(this.degToRad(this.rotationData));
+            const c =
+                mouseY -
+                this.yData -
+                (this.widthData / 2) * Math.sin(this.degToRad(this.rotationData));
             const h = c / Math.cos(this.degToRad(this.rotationData));
             // const h = this.heightData / 2;
-            const mouseW = (h * Math.tan(this.degToRad(this.rotationData)));
+            const mouseW = h * Math.tan(this.degToRad(this.rotationData));
             console.log(h.toFixed(3), mouseW.toFixed(3));
 
-            // const redLine = this.heightData / 2 * Math.cos(this.degToRad(this.rotationData));
-            // mouseW - redLine
-            // const finalW =
-
-            const widthChange = mouseX - this.xData - this.widthData + mouseW;
+            // const widthChange = mouseX - this.xData - this.widthData + mouseW;
+            const widthChange = mouseX - this.xData - this.widthData;
 
             const newWidth = this.widthData + widthChange;
             this.widthData = newWidth >= 0 ? newWidth : 0;

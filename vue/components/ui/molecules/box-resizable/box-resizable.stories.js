@@ -56,6 +56,12 @@ storiesOf("Molecules", module)
         template: `
             <div>
                 <div>x: {{ xData }}, y: {{ yData }}, width: {{ widthData }}, height: {{ heightData }}, rotation: {{ rotationData }}</div>
+                <test
+                    v-bind:x.sync="xData"
+                    v-bind:y.sync="yData"
+                    v-bind:width.sync="widthData"
+                    v-bind:height.sync="heightData"
+                />
                 <box-resizable
                     v-bind:x.sync="xData"
                     v-bind:y.sync="yData"
