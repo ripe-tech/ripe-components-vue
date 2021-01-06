@@ -108,6 +108,11 @@ export const ScrollableButtons = {
         };
     },
     computed: {
+        selectedCenterX() {
+            // console.log(this.$refs["buttons-container"].scrollWidth);
+            // console.log(this.$refs["buttons-container"].childNodes[10]);
+            return 0;
+        },
         buttonsContainerClasses() {
             const base = {};
             if (this.smoothScroll) base["smooth-scroll"] = true;
@@ -141,13 +146,17 @@ export const ScrollableButtons = {
             return base;
         },
         snapSelectedToCenter() {
-            this.smoothScroll = true;
+            console.log(this.$refs["buttons-container"].childNodes[9]);
+            const selectedIndex = this.items.findIndex(item => item.value === this.selectedData);
+            this.$refs["buttons-container"].childNodes[selectedIndex].scrollIntoView({behavior: "smooth", inline: "center"});
+/*             this.smoothScroll = true;
             this.$nextTick(() => {
-                this.$refs["buttons-container"].scrollLeft = 0;
+                // this.$refs["buttons-container"].scrollLeft = this.selectedCenterX;
+                this.$refs["buttons-container"].childNodes[9].scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
                 setTimeout(() => {
                     this.smoothScroll = false;
                 }, 400);
-            });
+            }); */
         },
         onButtonsContainerWheel(event) {
             this.$refs["buttons-container"].scrollLeft += event.deltaY * -this.scrollSpeed;
