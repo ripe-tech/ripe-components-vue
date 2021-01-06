@@ -5,7 +5,6 @@
         </div>
         <div
             class="buttons-container"
-            v-bind:class="buttonsContainerClasses"
             ref="buttons-container"
             v-on:wheel="onButtonsContainerWheel"
             v-on:mousedown="onButtonsContainerMouseDown"
@@ -50,10 +49,6 @@
     flex: 1;
     overflow: hidden;
     white-space: nowrap;
-}
-
-.scrollable-buttons > .buttons-container.smooth-scroll {
-    scroll-behavior: smooth;
 }
 
 .scrollable-buttons > .buttons-container > .button {
@@ -103,21 +98,8 @@ export const ScrollableButtons = {
         return {
             selectedData: this.selected,
             isMouseDown: false,
-            isDraggingButtons: false,
-            smoothScroll: false
+            isDraggingButtons: false
         };
-    },
-    computed: {
-        selectedCenterX() {
-            // console.log(this.$refs["buttons-container"].scrollWidth);
-            // console.log(this.$refs["buttons-container"].childNodes[10]);
-            return 0;
-        },
-        buttonsContainerClasses() {
-            const base = {};
-            if (this.smoothScroll) base["smooth-scroll"] = true;
-            return base;
-        }
     },
     watch: {
         selected(value) {
@@ -142,21 +124,14 @@ export const ScrollableButtons = {
             base[`button-${item.value}`] = true;
             if (item.value === this.selectedData) base.selected = true;
             if (index === this.items?.length - 1) base.last = true;
-            if (this.smoothScroll) base["smooth-scroll"] = true;
             return base;
         },
         snapSelectedToCenter() {
-            console.log(this.$refs["buttons-container"].childNodes[9]);
             const selectedIndex = this.items.findIndex(item => item.value === this.selectedData);
-            this.$refs["buttons-container"].childNodes[selectedIndex].scrollIntoView({behavior: "smooth", inline: "center"});
-/*             this.smoothScroll = true;
-            this.$nextTick(() => {
-                // this.$refs["buttons-container"].scrollLeft = this.selectedCenterX;
-                this.$refs["buttons-container"].childNodes[9].scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
-                setTimeout(() => {
-                    this.smoothScroll = false;
-                }, 400);
-            }); */
+            this.$refs["buttons-container"].childNodes[selectedIndex].scrollIntoView({
+                behavior: "smooth",
+                inline: "center"
+            });
         },
         onButtonsContainerWheel(event) {
             this.$refs["buttons-container"].scrollLeft += event.deltaY * -this.scrollSpeed;
