@@ -121,7 +121,9 @@ export const ScrollableButtons = {
             this.isMouseDown = false;
         },
         onButtonsContainerMouseMove(event) {
-            console.log(event);
+            if (!this.isMouseDown) return;
+
+            this.$refs["buttons-container"].scrollLeft -= event.movementX;
         },
         onButtonClick(event, item) {
             this.selectedData = item.value;
