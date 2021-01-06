@@ -3,7 +3,14 @@
         <div class="previous" v-if="arrows">
             TODO left
         </div>
-        <div class="buttons-container" ref="buttons-container" v-on:wheel="onButtonsContainerWheel">
+        <div
+            class="buttons-container"
+            ref="buttons-container"
+            v-on:wheel="onButtonsContainerWheel"
+            v-on:mousedown="onButtonsContainerMouseDown"
+            v-on:mouseup="onButtonsContainerMouseUp"
+            v-on:mousemove="onButtonsContainerMouseMove"
+        >
             <div
                 class="button"
                 v-bind:class="buttonClasses(item, index)"
@@ -91,7 +98,8 @@ export const ScrollableButtons = {
     },
     data: function() {
         return {
-            selectedData: this.selected
+            selectedData: this.selected,
+            isMouseDown: false
         };
     },
     watch: {
@@ -104,7 +112,16 @@ export const ScrollableButtons = {
     },
     methods: {
         onButtonsContainerWheel(event) {
-            this.$refs["buttons-container"].scrollLeft += event.deltaY * (-this.scrollSpeed);
+            this.$refs["buttons-container"].scrollLeft += event.deltaY * -this.scrollSpeed;
+        },
+        onButtonsContainerMouseDown(event) {
+            this.isMouseDown = true;
+        },
+        onButtonsContainerMouseUp(event) {
+            this.isMouseDown = false;
+        },
+        onButtonsContainerMouseMove(event) {
+            console.log(event);
         },
         onButtonClick(event, item) {
             this.selectedData = item.value;
