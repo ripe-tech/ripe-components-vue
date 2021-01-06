@@ -8,8 +8,6 @@
             ref="buttons-container"
             v-on:wheel="onButtonsContainerWheel"
             v-on:mousedown="onButtonsContainerMouseDown"
-            v-on:mouseup="onButtonsContainerMouseUp"
-            v-on:mousemove="onButtonsContainerMouseMove"
         >
             <div
                 class="button"
@@ -99,7 +97,7 @@ export const ScrollableButtons = {
     data: function() {
         return {
             selectedData: this.selected,
-            isMouseDown: false
+            isDraggingButtons: false
         };
     },
     watch: {
@@ -110,18 +108,26 @@ export const ScrollableButtons = {
             this.$emit("update:selected", value);
         }
     },
+    created: function() {
+        window.addEventListener("mouseup", this.onButtonsContainerMouseUp);
+        window.addEventListener("mousemove", this.onButtonsContainerMouseMove);
+    },
+    destroyed: function() {
+        window.removeEventListener("mouseup", this.onButtonsContainerMouseUp);
+        window.removeEventListener("mousemove", this.onButtonsContainerMouseMove);
+    },
     methods: {
         onButtonsContainerWheel(event) {
             this.$refs["buttons-container"].scrollLeft += event.deltaY * -this.scrollSpeed;
         },
         onButtonsContainerMouseDown(event) {
-            this.isMouseDown = true;
+            this.isDraggingButtons = true;
         },
         onButtonsContainerMouseUp(event) {
-            this.isMouseDown = false;
+            this.isDraggingButtons = false;
         },
         onButtonsContainerMouseMove(event) {
-            if (!this.isMouseDown) return;
+            if (!this.isDraggingButtons) return;
 
             this.$refs["buttons-container"].scrollLeft -= event.movementX;
         },
