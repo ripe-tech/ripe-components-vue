@@ -5,6 +5,7 @@
         </div>
         <div
             class="buttons-container"
+            v-bind:class="buttonsContainerClasses"
             ref="buttons-container"
             v-on:wheel="onButtonsContainerWheel"
             v-on:mousedown="onButtonsContainerMouseDown"
@@ -49,6 +50,10 @@
     flex: 1;
     overflow: hidden;
     white-space: nowrap;
+}
+
+.scrollable-buttons > .buttons-container.smooth-scroll {
+    scroll-behavior: smooth;
 }
 
 .scrollable-buttons > .buttons-container > .button {
@@ -98,14 +103,23 @@ export const ScrollableButtons = {
         return {
             selectedData: this.selected,
             isMouseDown: false,
-            isDraggingButtons: false
+            isDraggingButtons: false,
+            smoothScroll: false
         };
+    },
+    computed: {
+        buttonsContainerClasses() {
+            const base = {};
+            if (this.smoothScroll) base["smooth-scroll"] = true;
+            return base;
+        }
     },
     watch: {
         selected(value) {
             this.selectedData = value;
         },
         selectedData(value) {
+            this.snapSelectedToCenter();
             this.$emit("update:selected", value);
         }
     },
@@ -123,7 +137,17 @@ export const ScrollableButtons = {
             base[`button-${item.value}`] = true;
             if (item.value === this.selectedData) base.selected = true;
             if (index === this.items?.length - 1) base.last = true;
+            if (this.smoothScroll) base["smooth-scroll"] = true;
             return base;
+        },
+        snapSelectedToCenter() {
+            this.smoothScroll = true;
+            this.$nextTick(() => {
+                this.$refs["buttons-container"].scrollLeft = 0;
+                setTimeout(() => {
+                    this.smoothScroll = false;
+                }, 400);
+            });
         },
         onButtonsContainerWheel(event) {
             this.$refs["buttons-container"].scrollLeft += event.deltaY * -this.scrollSpeed;
