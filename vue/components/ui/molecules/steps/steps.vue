@@ -131,7 +131,7 @@ export const Steps = {
         };
     },
     computed: {
-        stepClasses(index) {
+        stepClasses() {
             return index => {
                 const step = index + 1;
                 const base = {};
