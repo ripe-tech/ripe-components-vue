@@ -5,7 +5,8 @@
             v-bind:icon="'chevron-left'"
             v-bind:disabled="isButtonPreviousDisabled"
             v-bind="_buttonIconProps"
-            v-if="arrows"
+            v-if="showArrows"
+            ref="button-icon-previous"
             v-on:click="onButtonIconPreviousClick"
         />
         <div
@@ -34,7 +35,8 @@
             v-bind:icon="'chevron-right'"
             v-bind:disabled="isButtonNextDisabled"
             v-bind="_buttonIconProps"
-            v-if="arrows"
+            v-if="showArrows"
+            ref="button-icon-next"
             v-on:click="onButtonIconNextClick"
         />
     </div>
@@ -99,6 +101,10 @@ export const ScrollableItems = {
             type: Boolean,
             default: true
         },
+        autoHideArrows: {
+            type: Boolean,
+            default: true
+        },
         alignment: {
             type: String,
             default: "center"
@@ -116,10 +122,15 @@ export const ScrollableItems = {
         return {
             selectedData: this.selected,
             isMouseDown: false,
-            isDraggingItems: false
+            isDraggingItems: false,
+            availableWidth: 0
         };
     },
     computed: {
+        showArrows() {
+            const hideArrows = this.autoHideArrows && !(this.availableWidth > 0);
+            return this.arrows && !hideArrows;
+        },
         _buttonIconProps() {
             return {
                 borderRadius: 0,
@@ -152,10 +163,13 @@ export const ScrollableItems = {
         }
     },
     created: function() {
+        window.addEventListener("resize", this.onResize);
         window.addEventListener("mouseup", this.onItemsContainerMouseUp);
         window.addEventListener("mousemove", this.onItemsContainerMouseMove);
     },
+    mounted: function() {},
     destroyed: function() {
+        window.addEventListener("resize", this.onResize);
         window.removeEventListener("mouseup", this.onItemsContainerMouseUp);
         window.removeEventListener("mousemove", this.onItemsContainerMouseMove);
     },
@@ -167,11 +181,18 @@ export const ScrollableItems = {
             if (this.items.length && index === this.items.length - 1) base.last = true;
             return base;
         },
+        calculateAvailableWidth() {
+            if (!this.$refs["items-container"]) return;
+            this.availableWidth = this.$refs["items-container"].scrollLeftMax;
+        },
         snapSelectedToCenter() {
             this.$refs["items-container"].childNodes[this.selectedIndex].scrollIntoView({
                 behavior: "smooth",
                 inline: "center"
             });
+        },
+        onResize(event) {
+            this.calculateAvailableWidth();
         },
         onButtonIconPreviousClick(event) {
             this.selectedData = this.items[this.selectedIndex - 1].value;
