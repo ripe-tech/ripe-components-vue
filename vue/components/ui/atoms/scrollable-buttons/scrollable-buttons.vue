@@ -3,18 +3,20 @@
         <div class="previous" v-if="arrows">
             TODO left
         </div>
-        <div
-            class="button"
-            v-bind:class="buttonClasses(item, index)"
-            v-for="(item, index) in items"
-            v-bind:key="item.value"
-            v-on:click="onButtonClick($event, item)"
-        >
-            <slot v-bind:item="item">
-                <slot v-bind:name="item.value" v-bind:item="item">
-                    {{ item.label || item.value }}
+        <div class="buttons-container">
+            <div
+                class="button"
+                v-bind:class="buttonClasses(item, index)"
+                v-for="(item, index) in items"
+                v-bind:key="item.value"
+                v-on:click="onButtonClick($event, item)"
+            >
+                <slot v-bind:item="item">
+                    <slot v-bind:name="item.value" v-bind:item="item">
+                        {{ item.label || item.value }}
+                    </slot>
                 </slot>
-            </slot>
+            </div>
         </div>
         <div class="next" v-if="arrows">
             TODO right
@@ -25,14 +27,26 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
+.scrollable-buttons {
+    display: flex;
+    user-select: none;
+}
+
 .scrollable-buttons > .previous,
-.scrollable-buttons > .button,
+.scrollable-buttons > .buttons-container,
+.scrollable-buttons > .buttons-container > .button,
 .scrollable-buttons > .next {
     cursor: pointer;
     display: inline-block;
 }
 
-.scrollable-buttons > .button {
+.scrollable-buttons > .buttons-container {
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.scrollable-buttons > .buttons-container > .button {
     font-size: 16px;
     font-weight: 700;
     margin: 0px 12px 0px 0px;
@@ -40,16 +54,16 @@
     transition: opacity 0.2s ease-out;
 }
 
-.scrollable-buttons > .button.last {
+.scrollable-buttons > .buttons-container > .button.last {
     margin: 0px 0px 0px 0px;
 }
 
-.scrollable-buttons > .button:hover,
-.scrollable-buttons > .button.hover {
+.scrollable-buttons > .buttons-container > .button:hover,
+.scrollable-buttons > .buttons-container > .button.hover {
     opacity: 0.7;
 }
 
-.scrollable-buttons > .button.selected {
+.scrollable-buttons > .buttons-container > .button.selected {
     opacity: 1;
 }
 </style>
