@@ -154,7 +154,7 @@ export const ScrollableButtons = {
             const base = {};
             base[`button-${item.value}`] = true;
             if (item.value === this.selectedData) base.selected = true;
-            if (index === this.items?.length - 1) base.last = true;
+            if (this.items.length && index === this.items.length - 1) base.last = true;
             return base;
         },
         snapSelectedToCenter() {
