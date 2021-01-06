@@ -8,6 +8,7 @@ describe("Steps", () => {
         });
         assert.strictEqual(component.exists(), true);
     });
+
     it("should only highlight the current step", () => {
         const component = base.getComponent("Steps", {
             props: { steps: ["A", "B", "C", "D", "E"], step: 2 }
@@ -19,6 +20,7 @@ describe("Steps", () => {
         assert.strictEqual(steps.at(2).isVisible(), false);
         assert.strictEqual(steps.at(2).isVisible(), false);
     });
+
     it("should change to clicked step and emit change", async () => {
         const component = base.getComponent("Steps", {
             props: { steps: ["A", "B", "C", "D", "E"], step: 1, clickable: true }
@@ -31,6 +33,7 @@ describe("Steps", () => {
         assert.strictEqual(component.vm.$data.stepData, 3);
         assert.strictEqual(component.emitted("update:value")[1][0], 3);
     });
+
     it("should have white background if step is not completed and gray if otherwise", () => {
         const component = base.getComponent("Steps", {
             props: { steps: ["A", "B", "C", "D", "E"], step: 3 }
