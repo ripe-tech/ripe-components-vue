@@ -150,12 +150,12 @@ export const ScrollableItems = {
             selectedData: this.selected,
             isMouseDown: false,
             isDraggingItems: false,
-            availableWidth: 0
+            scrollableWidth: 0
         };
     },
     computed: {
         showArrows() {
-            const hideArrows = this.autoHideArrows && !(this.availableWidth > 0);
+            const hideArrows = this.autoHideArrows && !(this.scrollableWidth > 0);
             return this.arrows && !hideArrows;
         },
         _buttonIconProps() {
@@ -202,14 +202,14 @@ export const ScrollableItems = {
     methods: {
         itemClasses(item, index) {
             const base = {};
-            base[`button-${item.value}`] = true;
+            base[`item-${item.value}`] = true;
             if (item.value === this.selectedData) base.selected = true;
             if (this.items.length && index === this.items.length - 1) base.last = true;
             return base;
         },
-        calculateAvailableWidth() {
+        calculateScrollableWidth() {
             if (!this.$refs["items-container"]) return;
-            this.availableWidth = this.$refs["items-container"].scrollLeftMax;
+            this.scrollableWidth = this.$refs["items-container"].scrollLeftMax;
         },
         snapSelectedToCenter() {
             this.$refs["items-container"].childNodes[this.selectedIndex].scrollIntoView({
@@ -218,7 +218,7 @@ export const ScrollableItems = {
             });
         },
         onResize(event) {
-            this.calculateAvailableWidth();
+            this.calculateScrollableWidth();
         },
         onButtonIconPreviousClick(event) {
             this.selectedData = this.items[this.selectedIndex - 1].value;
