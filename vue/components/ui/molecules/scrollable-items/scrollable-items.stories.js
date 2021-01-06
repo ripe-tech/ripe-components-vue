@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs } from "@storybook/addon-knobs";
+import { withKnobs, boolean, select, number } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
@@ -56,11 +56,44 @@ storiesOf("Molecules", module)
                         value: "item12"
                     }
                 ]
+            },
+            arrows: {
+                default: boolean("Arrows", true)
+            },
+            autoHideArrows: {
+                default: boolean("Auto Hide Arrows", false)
+            },
+            alignment: {
+                default: select(
+                    "Alignment",
+                    {
+                        Left: "left",
+                        Right: "right",
+                        Center: "center"
+                    },
+                    "center"
+                )
+            },
+            scrollSpeed: {
+                default: number("Scroll Speed", 10)
             }
         },
+        data: function() {
+            return {
+                selected: null
+            };
+        },
         template: `
-            <scrollable-items
-                v-bind:items="items"
-            />
+            <div>
+                <scrollable-items
+                    v-bind:items="items"
+                    v-bind:selected.sync="selected"
+                    v-bind:arrows="arrows"
+                    v-bind:auto-hide-arrows="autoHideArrows"
+                    v-bind:alignment="alignment"
+                    v-bind:scroll-speed="scrollSpeed"
+                />
+                <div>Selected: {{ selected }}</div>
+            </div>
         `
     }));
