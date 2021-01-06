@@ -1,6 +1,6 @@
 <template>
     <div class="scrollable-buttons">
-        <div class="previous">
+        <div class="previous" v-if="arrows">
             TODO left
         </div>
         <div
@@ -16,7 +16,7 @@
                 </slot>
             </slot>
         </div>
-        <div class="next">
+        <div class="next" v-if="arrows">
             TODO right
         </div>
     </div>
@@ -60,6 +60,10 @@ export const ScrollableButtons = {
         selected: {
             type: String,
             default: null
+        },
+        arrows: {
+            type: Boolean,
+            default: true
         }
     },
     data: function() {
