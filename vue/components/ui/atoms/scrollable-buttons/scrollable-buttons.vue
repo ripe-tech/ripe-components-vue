@@ -1,8 +1,13 @@
 <template>
     <div class="scrollable-buttons">
-        <div class="previous" v-if="arrows">
-            TODO left
-        </div>
+        <button-icon
+            class="button-icon-previous"
+            v-bind:icon="'chevron-left'"
+            v-bind:disabled="isButtonPreviousDisabled"
+            v-bind="_buttonIconProps"
+            v-if="arrows"
+            v-on:click="onButtonIconPreviousClick"
+        />
         <div
             class="buttons-container"
             ref="buttons-container"
@@ -23,9 +28,14 @@
                 </slot>
             </div>
         </div>
-        <div class="next" v-if="arrows">
-            TODO right
-        </div>
+        <button-icon
+            class="button-icon-next"
+            v-bind:icon="'chevron-right'"
+            v-bind:disabled="isButtonNextDisabled"
+            v-bind="_buttonIconProps"
+            v-if="arrows"
+            v-on:click="onButtonIconNextClick"
+        />
     </div>
 </template>
 
@@ -33,14 +43,13 @@
 @import "css/variables.scss";
 
 .scrollable-buttons {
+    align-items: center;
     display: flex;
     user-select: none;
 }
 
-.scrollable-buttons > .previous,
 .scrollable-buttons > .buttons-container,
-.scrollable-buttons > .buttons-container > .button,
-.scrollable-buttons > .next {
+.scrollable-buttons > .buttons-container > .button {
     cursor: pointer;
     display: inline-block;
 }
@@ -92,6 +101,10 @@ export const ScrollableButtons = {
         scrollSpeed: {
             type: Number,
             default: 10
+        },
+        buttonIconProps: {
+            type: Object,
+            default: () => ({})
         }
     },
     data: function() {
@@ -100,6 +113,24 @@ export const ScrollableButtons = {
             isMouseDown: false,
             isDraggingButtons: false
         };
+    },
+    computed: {
+        _buttonIconProps() {
+            return {
+                borderRadius: 0,
+                iconStrokeWidth: 3,
+                ...this.buttonIconProps
+            };
+        },
+        selectedIndex() {
+            return this.items.findIndex(item => item.value === this.selectedData);
+        },
+        isButtonPreviousDisabled() {
+            return this.selectedIndex <= 0;
+        },
+        isButtonNextDisabled() {
+            return this.selectedIndex >= this.items.length - 1;
+        }
     },
     watch: {
         selected(value) {
@@ -127,11 +158,13 @@ export const ScrollableButtons = {
             return base;
         },
         snapSelectedToCenter() {
-            const selectedIndex = this.items.findIndex(item => item.value === this.selectedData);
-            this.$refs["buttons-container"].childNodes[selectedIndex].scrollIntoView({
+            this.$refs["buttons-container"].childNodes[this.selectedIndex].scrollIntoView({
                 behavior: "smooth",
                 inline: "center"
             });
+        },
+        onButtonIconPreviousClick(event) {
+            this.selectedData = this.items[this.selectedIndex - 1].value;
         },
         onButtonsContainerWheel(event) {
             this.$refs["buttons-container"].scrollLeft += event.deltaY * -this.scrollSpeed;
@@ -153,6 +186,9 @@ export const ScrollableButtons = {
 
             this.selectedData = item.value;
             this.$emit("button-click", event, item);
+        },
+        onButtonIconNextClick(event) {
+            this.selectedData = this.items[this.selectedIndex + 1].value;
         }
     }
 };
