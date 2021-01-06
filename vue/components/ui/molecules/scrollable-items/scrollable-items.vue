@@ -10,6 +10,7 @@
         />
         <div
             class="items-container"
+            v-bind:style="itemsContainerStyle"
             ref="items-container"
             v-on:wheel="onItemsContainerWheel"
             v-on:mousedown="onItemsContainerMouseDown"
@@ -98,6 +99,10 @@ export const ScrollableItems = {
             type: Boolean,
             default: true
         },
+        alignment: {
+            type: String,
+            default: "center"
+        },
         scrollSpeed: {
             type: Number,
             default: 10
@@ -120,6 +125,11 @@ export const ScrollableItems = {
                 borderRadius: 0,
                 iconStrokeWidth: 3,
                 ...this.buttonIconProps
+            };
+        },
+        itemsContainerStyle() {
+            return {
+                "text-align": this.alignment
             };
         },
         selectedIndex() {
