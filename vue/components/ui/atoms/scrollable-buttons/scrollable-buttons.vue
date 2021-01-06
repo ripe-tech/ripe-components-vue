@@ -118,6 +118,13 @@ export const ScrollableButtons = {
         window.removeEventListener("mousemove", this.onButtonsContainerMouseMove);
     },
     methods: {
+        buttonClasses(item, index) {
+            const base = {};
+            base[`button-${item.value}`] = true;
+            if (item.value === this.selectedData) base.selected = true;
+            if (index === this.items?.length - 1) base.last = true;
+            return base;
+        },
         onButtonsContainerWheel(event) {
             this.$refs["buttons-container"].scrollLeft += event.deltaY * -this.scrollSpeed;
         },
@@ -138,13 +145,6 @@ export const ScrollableButtons = {
 
             this.selectedData = item.value;
             this.$emit("button-click", event, item);
-        },
-        buttonClasses(item, index) {
-            const base = {};
-            base[`button-${item.value}`] = true;
-            if (item.value === this.selectedData) base.selected = true;
-            if (index === this.items?.length - 1) base.last = true;
-            return base;
         }
     }
 };
