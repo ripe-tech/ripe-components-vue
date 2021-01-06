@@ -152,14 +152,6 @@ export const Steps = {
         }
     },
     methods: {
-        stepStyle(index) {
-            const step = index + 1;
-            return {
-                "background-color": step > this.stepData ? "#ffffff" : "#59626d",
-                border: step > this.stepData ? "1px solid #eceef1" : "1px solid transparent",
-                color: step > this.stepData ? "#afb6bc" : "#ffffff"
-            };
-        },
         onClick(index) {
             if (!this.clickable) return;
             this.stepData = index + 1;
