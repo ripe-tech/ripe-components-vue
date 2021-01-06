@@ -2,11 +2,14 @@
     <div class="scrollable-buttons">
         <div
             class="button"
+            v-bind:class="buttonClasses(item)"
             v-for="item in items"
             v-bind:key="item.value"
         >
-            <slot v-bind:name="item.value" v-bind:item="item">
-                {{ item.label || item.value }}
+            <slot v-bind:item="item">
+                <slot v-bind:name="item.value" v-bind:item="item">
+                    {{ item.label || item.value }}
+                </slot>
             </slot>
         </div>
     </div>
@@ -23,6 +26,13 @@ export const ScrollableButtons = {
         items: {
             type: Array,
             default: () => []
+        }
+    },
+    methods: {
+        buttonClasses(item) {
+            const base = {};
+            base[`button-${item.value}`] = true;
+            return base;
         }
     }
 };
