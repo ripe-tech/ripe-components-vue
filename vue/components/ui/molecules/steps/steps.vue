@@ -2,12 +2,12 @@
     <div class="steps-container">
         <div
             class="step"
-            v-bind:class="stepClasses"
+            v-bind:class="stepClasses(index)"
             v-for="(step, index) in steps"
             v-bind:key="index"
             v-on:click="onClick(index)"
         >
-            <div class="step-number" v-bind:style="stepStyle(index)">
+            <div class="step-number">
                 <div class="highlight" v-show="index + 1 == stepData" />
                 <div class="number">
                     {{ index + 1 }}
@@ -38,6 +38,19 @@
 
 .steps-container > .step {
     width: 52px;
+}
+
+.steps-container > .step.current > .step-number,
+.steps-container > .step.finished > .step-number {
+    background-color: #59626d;
+    border: 1px solid transparent;
+    color: #ffffff;
+}
+
+.steps-container > .step.unfinished > .step-number {
+    background-color: #ffffff;
+    border: 1px solid #eceef1;
+    color: #afb6bc;
 }
 
 .steps-container > .step.clickable {
@@ -118,10 +131,16 @@ export const Steps = {
         };
     },
     computed: {
-        stepClasses() {
-            const base = {};
-            if (this.clickable) base.clickable = true;
-            return base;
+        stepClasses(index) {
+            return index => {
+                const step = index + 1;
+                const base = {};
+                if (this.clickable) base.clickable = true;
+                if (step < this.stepData) base.finished = true;
+                if (step === this.stepData) base.current = true;
+                if (step > this.stepData) base.unfinished = true;
+                return base;
+            };
         }
     },
     watch: {
