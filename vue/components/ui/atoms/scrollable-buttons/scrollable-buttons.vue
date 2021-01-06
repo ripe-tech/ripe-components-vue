@@ -14,7 +14,7 @@
                 v-bind:class="buttonClasses(item, index)"
                 v-for="(item, index) in items"
                 v-bind:key="item.value"
-                v-on:click="onButtonClick($event, item)"
+                v-on:mouseup="onButtonMouseUp($event, item)"
             >
                 <slot v-bind:item="item">
                     <slot v-bind:name="item.value" v-bind:item="item">
@@ -97,6 +97,7 @@ export const ScrollableButtons = {
     data: function() {
         return {
             selectedData: this.selected,
+            isMouseDown: false,
             isDraggingButtons: false
         };
     },
@@ -121,17 +122,20 @@ export const ScrollableButtons = {
             this.$refs["buttons-container"].scrollLeft += event.deltaY * -this.scrollSpeed;
         },
         onButtonsContainerMouseDown(event) {
-            this.isDraggingButtons = true;
+            this.isMouseDown = true;
         },
         onButtonsContainerMouseUp(event) {
-            this.isDraggingButtons = false;
+            this.isDraggingButtons = this.isMouseDown = false;
         },
         onButtonsContainerMouseMove(event) {
-            if (!this.isDraggingButtons) return;
+            if (!this.isMouseDown) return;
+            this.isDraggingButtons = true;
 
             this.$refs["buttons-container"].scrollLeft -= event.movementX;
         },
-        onButtonClick(event, item) {
+        onButtonMouseUp(event, item) {
+            if (this.isDraggingButtons) return;
+
             this.selectedData = item.value;
             this.$emit("button-click", event, item);
         },
