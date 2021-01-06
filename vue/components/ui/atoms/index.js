@@ -21,7 +21,6 @@ import { Paragraph } from "./paragraph/paragraph.vue";
 import { Radio } from "./radio/radio.vue";
 import { Reaction } from "./reaction/reaction.vue";
 import { RichTextarea } from "./rich-textarea/rich-textarea.vue";
-import { ScrollableButtons } from "./scrollable-buttons/scrollable-buttons.vue";
 import { Side } from "./side/side.vue";
 import { Switcher } from "./switcher/switcher.vue";
 import { Tag } from "./tag/tag.vue";
@@ -52,7 +51,6 @@ const install = Vue => {
     Vue.component("radio", Radio);
     Vue.component("reaction", Reaction);
     Vue.component("rich-textarea", RichTextarea);
-    Vue.component("scrollable-buttons", ScrollableButtons);
     Vue.component("side", Side);
     Vue.component("switcher", Switcher);
     Vue.component("tag", Tag);
@@ -84,7 +82,6 @@ export {
     Radio,
     Reaction,
     RichTextarea,
-    ScrollableButtons,
     Side,
     Switcher,
     Tag,

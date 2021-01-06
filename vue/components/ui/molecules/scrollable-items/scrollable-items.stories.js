@@ -1,9 +1,9 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs } from "@storybook/addon-knobs";
 
-storiesOf("Atoms", module)
+storiesOf("Molecules", module)
     .addDecorator(withKnobs)
-    .add("Scrollable Buttons", () => ({
+    .add("Scrollable Items", () => ({
         props: {
             items: {
                 default: () => [
@@ -59,7 +59,7 @@ storiesOf("Atoms", module)
             }
         },
         template: `
-            <scrollable-buttons
+            <scrollable-items
                 v-bind:items="items"
             />
         `

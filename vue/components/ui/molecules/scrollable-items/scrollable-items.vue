@@ -1,5 +1,5 @@
 <template>
-    <div class="scrollable-buttons">
+    <div class="scrollable-items">
         <button-icon
             class="button-icon-previous"
             v-bind:icon="'chevron-left'"
@@ -42,25 +42,25 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.scrollable-buttons {
+.scrollable-items {
     align-items: center;
     display: flex;
     user-select: none;
 }
 
-.scrollable-buttons > .items-container,
-.scrollable-buttons > .items-container > .item {
+.scrollable-items > .items-container,
+.scrollable-items > .items-container > .item {
     cursor: pointer;
     display: inline-block;
 }
 
-.scrollable-buttons > .items-container {
+.scrollable-items > .items-container {
     flex: 1;
     overflow: hidden;
     white-space: nowrap;
 }
 
-.scrollable-buttons > .items-container > .item {
+.scrollable-items > .items-container > .item {
     font-size: 16px;
     font-weight: 700;
     margin: 0px 12px 0px 0px;
@@ -68,23 +68,23 @@
     transition: opacity 0.2s ease-out;
 }
 
-.scrollable-buttons > .items-container > .item.last {
+.scrollable-items > .items-container > .item.last {
     margin: 0px 0px 0px 0px;
 }
 
-.scrollable-buttons > .items-container > .item:hover,
-.scrollable-buttons > .items-container > .item.hover {
+.scrollable-items > .items-container > .item:hover,
+.scrollable-items > .items-container > .item.hover {
     opacity: 0.7;
 }
 
-.scrollable-buttons > .items-container > .item.selected {
+.scrollable-items > .items-container > .item.selected {
     opacity: 1;
 }
 </style>
 
 <script>
-export const ScrollableButtons = {
-    name: "scrollable-buttons",
+export const ScrollableItems = {
+    name: "scrollable-items",
     props: {
         items: {
             type: Array,
@@ -193,5 +193,5 @@ export const ScrollableButtons = {
     }
 };
 
-export default ScrollableButtons;
+export default ScrollableItems;
 </script>
