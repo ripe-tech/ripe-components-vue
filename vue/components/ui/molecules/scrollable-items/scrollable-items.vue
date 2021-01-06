@@ -164,14 +164,13 @@ export const ScrollableItems = {
     },
     created: function() {
         window.addEventListener("resize", this.onResize);
-        window.addEventListener("mouseup", this.onItemsContainerMouseUp);
-        window.addEventListener("mousemove", this.onItemsContainerMouseMove);
+        window.addEventListener("mouseup", this.onMouseUp);
+        window.addEventListener("mousemove", this.onMouseMove);
     },
-    mounted: function() {},
     destroyed: function() {
-        window.addEventListener("resize", this.onResize);
-        window.removeEventListener("mouseup", this.onItemsContainerMouseUp);
-        window.removeEventListener("mousemove", this.onItemsContainerMouseMove);
+        window.removeEventListener("mousemove", this.onMouseMove);
+        window.removeEventListener("mouseup", this.onMouseUp);
+        window.removeEventListener("resize", this.onResize);
     },
     methods: {
         itemClasses(item, index) {
@@ -203,10 +202,10 @@ export const ScrollableItems = {
         onItemsContainerMouseDown(event) {
             this.isMouseDown = true;
         },
-        onItemsContainerMouseUp(event) {
+        onMouseUp(event) {
             this.isDraggingItems = this.isMouseDown = false;
         },
-        onItemsContainerMouseMove(event) {
+        onMouseMove(event) {
             if (!this.isMouseDown) return;
             this.isDraggingItems = true;
 
