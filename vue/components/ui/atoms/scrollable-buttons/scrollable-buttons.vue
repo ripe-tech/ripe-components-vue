@@ -9,17 +9,17 @@
             v-on:click="onButtonIconPreviousClick"
         />
         <div
-            class="buttons-container"
-            ref="buttons-container"
-            v-on:wheel="onButtonsContainerWheel"
-            v-on:mousedown="onButtonsContainerMouseDown"
+            class="items-container"
+            ref="items-container"
+            v-on:wheel="onItemsContainerWheel"
+            v-on:mousedown="onItemsContainerMouseDown"
         >
             <div
-                class="button"
-                v-bind:class="buttonClasses(item, index)"
+                class="item"
+                v-bind:class="itemClasses(item, index)"
                 v-for="(item, index) in items"
                 v-bind:key="item.value"
-                v-on:mouseup="onButtonMouseUp($event, item)"
+                v-on:mouseup="onItemMouseUp($event, item)"
             >
                 <slot v-bind:item="item">
                     <slot v-bind:name="item.value" v-bind:item="item">
@@ -48,19 +48,19 @@
     user-select: none;
 }
 
-.scrollable-buttons > .buttons-container,
-.scrollable-buttons > .buttons-container > .button {
+.scrollable-buttons > .items-container,
+.scrollable-buttons > .items-container > .item {
     cursor: pointer;
     display: inline-block;
 }
 
-.scrollable-buttons > .buttons-container {
+.scrollable-buttons > .items-container {
     flex: 1;
     overflow: hidden;
     white-space: nowrap;
 }
 
-.scrollable-buttons > .buttons-container > .button {
+.scrollable-buttons > .items-container > .item {
     font-size: 16px;
     font-weight: 700;
     margin: 0px 12px 0px 0px;
@@ -68,16 +68,16 @@
     transition: opacity 0.2s ease-out;
 }
 
-.scrollable-buttons > .buttons-container > .button.last {
+.scrollable-buttons > .items-container > .item.last {
     margin: 0px 0px 0px 0px;
 }
 
-.scrollable-buttons > .buttons-container > .button:hover,
-.scrollable-buttons > .buttons-container > .button.hover {
+.scrollable-buttons > .items-container > .item:hover,
+.scrollable-buttons > .items-container > .item.hover {
     opacity: 0.7;
 }
 
-.scrollable-buttons > .buttons-container > .button.selected {
+.scrollable-buttons > .items-container > .item.selected {
     opacity: 1;
 }
 </style>
@@ -111,7 +111,7 @@ export const ScrollableButtons = {
         return {
             selectedData: this.selected,
             isMouseDown: false,
-            isDraggingButtons: false
+            isDraggingItems: false
         };
     },
     computed: {
@@ -142,15 +142,15 @@ export const ScrollableButtons = {
         }
     },
     created: function() {
-        window.addEventListener("mouseup", this.onButtonsContainerMouseUp);
-        window.addEventListener("mousemove", this.onButtonsContainerMouseMove);
+        window.addEventListener("mouseup", this.onItemsContainerMouseUp);
+        window.addEventListener("mousemove", this.onItemsContainerMouseMove);
     },
     destroyed: function() {
-        window.removeEventListener("mouseup", this.onButtonsContainerMouseUp);
-        window.removeEventListener("mousemove", this.onButtonsContainerMouseMove);
+        window.removeEventListener("mouseup", this.onItemsContainerMouseUp);
+        window.removeEventListener("mousemove", this.onItemsContainerMouseMove);
     },
     methods: {
-        buttonClasses(item, index) {
+        itemClasses(item, index) {
             const base = {};
             base[`button-${item.value}`] = true;
             if (item.value === this.selectedData) base.selected = true;
@@ -158,7 +158,7 @@ export const ScrollableButtons = {
             return base;
         },
         snapSelectedToCenter() {
-            this.$refs["buttons-container"].childNodes[this.selectedIndex].scrollIntoView({
+            this.$refs["items-container"].childNodes[this.selectedIndex].scrollIntoView({
                 behavior: "smooth",
                 inline: "center"
             });
@@ -166,23 +166,23 @@ export const ScrollableButtons = {
         onButtonIconPreviousClick(event) {
             this.selectedData = this.items[this.selectedIndex - 1].value;
         },
-        onButtonsContainerWheel(event) {
-            this.$refs["buttons-container"].scrollLeft += event.deltaY * -this.scrollSpeed;
+        onItemsContainerWheel(event) {
+            this.$refs["items-container"].scrollLeft += event.deltaY * -this.scrollSpeed;
         },
-        onButtonsContainerMouseDown(event) {
+        onItemsContainerMouseDown(event) {
             this.isMouseDown = true;
         },
-        onButtonsContainerMouseUp(event) {
-            this.isDraggingButtons = this.isMouseDown = false;
+        onItemsContainerMouseUp(event) {
+            this.isDraggingItems = this.isMouseDown = false;
         },
-        onButtonsContainerMouseMove(event) {
+        onItemsContainerMouseMove(event) {
             if (!this.isMouseDown) return;
-            this.isDraggingButtons = true;
+            this.isDraggingItems = true;
 
-            this.$refs["buttons-container"].scrollLeft -= event.movementX;
+            this.$refs["items-container"].scrollLeft -= event.movementX;
         },
-        onButtonMouseUp(event, item) {
-            if (this.isDraggingButtons) return;
+        onItemMouseUp(event, item) {
+            if (this.isDraggingItems) return;
 
             this.selectedData = item.value;
             this.$emit("button-click", event, item);

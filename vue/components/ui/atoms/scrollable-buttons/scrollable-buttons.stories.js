@@ -8,76 +8,52 @@ storiesOf("Atoms", module)
             items: {
                 default: () => [
                     {
-                        label: "Button 1",
-                        value: "button1"
+                        label: "Item Example 1",
+                        value: "item1"
                     },
                     {
-                        label: "Button 2",
-                        value: "button2"
+                        label: "Item Example 2",
+                        value: "item2"
                     },
                     {
-                        label: "Button 3",
-                        value: "button3"
+                        label: "Item Example 3",
+                        value: "item3"
                     },
                     {
-                        label: "Button 4",
-                        value: "button4"
+                        label: "Item Example 4",
+                        value: "item4"
                     },
                     {
-                        label: "Button 5",
-                        value: "button5"
+                        label: "Item Example 5",
+                        value: "item5"
                     },
                     {
-                        label: "Button 6",
-                        value: "button6"
+                        label: "Item Example 6",
+                        value: "item6"
                     },
                     {
-                        label: "Button 7",
-                        value: "button7"
+                        label: "Item Example 7",
+                        value: "item7"
                     },
                     {
-                        label: "Button 8",
-                        value: "button8"
+                        label: "Item Example 8",
+                        value: "item8"
                     },
                     {
-                        label: "Button 9",
-                        value: "button9"
+                        label: "Item Example 9",
+                        value: "item9"
                     },
                     {
-                        label: "Button 10",
-                        value: "button10"
+                        label: "Item Example 10",
+                        value: "item10"
                     },
                     {
-                        label: "Button 11",
-                        value: "button11"
+                        label: "Item Example 11",
+                        value: "item11"
                     },
                     {
-                        label: "Button 12",
-                        value: "button12"
-                    },
-                    {
-                        label: "Button 13",
-                        value: "button13"
-                    },
-                    {
-                        label: "Button 14",
-                        value: "button14"
-                    },
-                    {
-                        label: "Button 15",
-                        value: "button15"
-                    },
-                    {
-                        label: "Button 16",
-                        value: "button16"
-                    },
-                    {
-                        label: "Button 17",
-                        value: "button17"
-                    },
-                    {
-                        label: "Button 18",
-                        value: "button18"
+                        label: "Item Example 12",
+                        value: "item12"
                     }
                 ]
             }
