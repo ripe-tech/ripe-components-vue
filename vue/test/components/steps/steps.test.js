@@ -57,45 +57,15 @@ describe("Steps", () => {
         assert.strictEqual(steps.at(0).get(".highlight").selector, ".highlight");
     });
 
-    it("should have white background if step is not completed and gray if otherwise", () => {
+    it("should have the correct classes depending on step's state", () => {
         const component = base.getComponent("Steps", {
             props: { steps: ["A", "B", "C", "D", "E"], step: 3 }
         });
-        const steps = component.findAll(".step .step-number");
-        assert.strictEqual(
-            steps
-                .at(0)
-                .attributes("style")
-                .includes("rgb(89, 98, 109)"),
-            true
-        );
-        assert.strictEqual(
-            steps
-                .at(1)
-                .attributes("style")
-                .includes("rgb(89, 98, 109)"),
-            true
-        );
-        assert.strictEqual(
-            steps
-                .at(2)
-                .attributes("style")
-                .includes("rgb(89, 98, 109)"),
-            true
-        );
-        assert.strictEqual(
-            steps
-                .at(3)
-                .attributes("style")
-                .includes("rgb(255, 255, 255)"),
-            true
-        );
-        assert.strictEqual(
-            steps
-                .at(4)
-                .attributes("style")
-                .includes("rgb(255, 255, 255)"),
-            true
-        );
+        const steps = component.findAll(".step");
+        assert.strictEqual(steps.at(0).classes("finished"), true);
+        assert.strictEqual(steps.at(1).classes("finished"), true);
+        assert.strictEqual(steps.at(2).classes("current"), true);
+        assert.strictEqual(steps.at(3).classes("unfinished"), true);
+        assert.strictEqual(steps.at(4).classes("unfinished"), true);
     });
 });
