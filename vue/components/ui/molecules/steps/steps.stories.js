@@ -6,7 +6,7 @@ storiesOf("Molecules", module)
     .add("Steps", () => ({
         props: {
             step: {
-                default: number("Current step", 2, { min: 0, max: 5 })
+                default: number("Step", 2, { min: 0, max: 5 })
             },
             clickable: {
                 default: boolean("Clickable", true)
@@ -14,7 +14,7 @@ storiesOf("Molecules", module)
             simulationAdvanceStep: {
                 default: number("Simulation Advance Step", 1)
             },
-            simulationStepTimeMs: {
+            simulationStepTime: {
                 default: number("Simulation Step Time (ms)", 500)
             }
         },
@@ -40,7 +40,7 @@ storiesOf("Molecules", module)
                 this.simulatedCurrentStep += this.simulationAdvanceStep;
                 this.simulatedCurrentStep = Math.min(this.simulatedCurrentStep, 5);
                 if (this.simulatedCurrentStep >= 5) return;
-                this.progressTimer = setTimeout(this.updateProgress, this.simulationStepTimeMs);
+                this.progressTimer = setTimeout(this.updateProgress, this.simulationStepTime);
             }
         },
         watch: {
