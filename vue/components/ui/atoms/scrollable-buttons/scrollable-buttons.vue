@@ -1,5 +1,8 @@
 <template>
     <div class="scrollable-buttons">
+        <div class="previous">
+            TODO left
+        </div>
         <div
             class="button"
             v-bind:class="buttonClasses(item)"
@@ -12,11 +15,21 @@
                 </slot>
             </slot>
         </div>
+        <div class="next">
+            TODO right
+        </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
+
+.scrollable-buttons > .previous,
+.scrollable-buttons > .button,
+.scrollable-buttons > .next {
+     display: inline-block;
+}
+
 </style>
 
 <script>
