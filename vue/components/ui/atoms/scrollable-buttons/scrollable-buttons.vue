@@ -5,8 +5,8 @@
         </div>
         <div
             class="button"
-            v-bind:class="buttonClasses(item)"
-            v-for="item in items"
+            v-bind:class="buttonClasses(item, index)"
+            v-for="(item, index) in items"
             v-bind:key="item.value"
             v-on:click="onButtonClick($event, item)"
         >
@@ -35,8 +35,13 @@
 .scrollable-buttons > .button {
     font-size: 16px;
     font-weight: 700;
+    margin: 0px 12px 0px 0px;
     opacity: 0.5;
     transition: opacity 0.2s ease-out;
+}
+
+.scrollable-buttons > .button.last {
+    margin: 0px 0px 0px 0px;
 }
 
 .scrollable-buttons > .button:hover,
@@ -84,10 +89,11 @@ export const ScrollableButtons = {
             this.selectedData = item.value;
             this.$emit("button-click", event, item);
         },
-        buttonClasses(item) {
+        buttonClasses(item, index) {
             const base = {};
             base[`button-${item.value}`] = true;
             if (item.value === this.selectedData) base.selected = true;
+            if (index === this.items?.length - 1) base.last = true;
             return base;
         }
     }
