@@ -2,7 +2,7 @@
     <div class="steps-container">
         <div
             class="step"
-            v-bind:classes="stepClasses"
+            v-bind:class="stepClasses"
             v-for="(step, index) in steps"
             v-bind:key="index"
             v-on:click="onClick(index)"
@@ -117,6 +117,13 @@ export const Steps = {
             stepData: this.step
         };
     },
+    computed: {
+        stepClasses() {
+            const base = {};
+            if (this.clickable) base.clickable = true;
+            return base;
+        }
+    },
     watch: {
         step(value) {
             this.stepData = value;
@@ -126,10 +133,6 @@ export const Steps = {
         }
     },
     methods: {
-        stepClasses() {
-            const base = { clickable: this.clickable };
-            return base;
-        },
         stepStyle(index) {
             const step = index + 1;
             return {
