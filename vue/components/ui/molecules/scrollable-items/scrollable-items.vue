@@ -89,30 +89,56 @@
 export const ScrollableItems = {
     name: "scrollable-items",
     props: {
+        /**
+         * List of scrollable items. Example:
+         * [{ label: "Item 1", value: "item1" },
+         * { label: "Item 2", value: "item2" }].
+         */
         items: {
             type: Array,
             default: () => []
         },
+        /**
+         * Item currently selected. Example: "item1".
+         */
         selected: {
             type: String,
             default: null
         },
+        /**
+         * Enables/Disables the previous/next arrow buttons that are shown in
+         * the left and right side of component.
+         */
         arrows: {
             type: Boolean,
             default: true
         },
+        /**
+         * If set to true, the arrows will disappear when there is enough space
+         * for all the items to be visible.
+         */
         autoHideArrows: {
             type: Boolean,
             default: true
         },
+        /**
+         * Dictates how the items are horizontally aligned. Example: "center".
+         */
         alignment: {
             type: String,
             default: "center"
         },
+        /**
+         * Dictates the horizontal scroll speed of the items when using the mouse
+         * scroll wheel. Negative values inverts the default direction of the scroll.
+         */
         scrollSpeed: {
             type: Number,
             default: 10
         },
+        /**
+         * Props for the arrow button icon components.
+         */
         buttonIconProps: {
             type: Object,
             default: () => ({})
