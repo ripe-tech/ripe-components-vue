@@ -66,6 +66,7 @@
 .scrollable-items > .items-container > .item {
     font-size: 16px;
     font-weight: 700;
+    line-height: 28px;
     margin: 0px 12px 0px 0px;
     opacity: 0.5;
     transition: opacity 0.2s ease-out;
