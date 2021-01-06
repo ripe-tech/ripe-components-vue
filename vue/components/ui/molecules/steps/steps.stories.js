@@ -37,9 +37,9 @@ storiesOf("Molecules", module)
                 this.updateProgress();
             },
             updateProgress() {
-                if (this.simulatedCurrentStep >= 5) return;
                 this.simulatedCurrentStep += this.simulationAdvanceStep;
                 this.simulatedCurrentStep = Math.min(this.simulatedCurrentStep, 5);
+                if (this.simulatedCurrentStep >= 5) return;
                 this.progressTimer = setTimeout(this.updateProgress, this.simulationStepTimeMs);
             }
         },
