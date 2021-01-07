@@ -44,14 +44,14 @@ storiesOf("Molecules", module)
             curveStroke: {
                 default: text("Curve Stroke", "#000000")
             },
-            lineStroke: {
-                default: text("Line Stroke", "#000000")
+            slopeStroke: {
+                default: text("Slope Stroke", "#000000")
             },
             curveWidth: {
                 default: number("Curve Width", 4)
             },
-            lineWidth: {
-                default: number("Line Width", 1)
+            slopeWidth: {
+                default: number("Slope Width", 1)
             }
         },
         data: function() {
@@ -113,9 +113,9 @@ storiesOf("Molecules", module)
                     v-bind:show-points="showPoints"
                     v-bind:disabled="disabled"
                     v-bind:curve-stroke="curveStroke"
-                    v-bind:line-stroke="lineStroke"
+                    v-bind:slope-stroke="slopeStroke"
                     v-bind:curve-width="curveWidth"
-                    v-bind:line-width="lineWidth"
+                    v-bind:slope-width="slopeWidth"
                 />
             </div>
         `

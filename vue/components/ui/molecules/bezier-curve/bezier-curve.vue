@@ -200,19 +200,31 @@ export const BezierCurve = {
             type: Boolean,
             default: false
         },
+        /**
+         * The stroke color of the curve.
+         */
         curveStroke: {
             type: String,
             default: "#000000"
         },
-        lineStroke: {
+        /**
+         * The stroke color of the slope.
+         */
+        slopeStroke: {
             type: String,
             default: "#000000"
         },
+        /**
+         * The stroke width of the curve.
+         */
         curveWidth: {
             type: Number,
             default: 5
         },
-        lineWidth: {
+        /**
+         * The stroke width of the slope.
+         */
+        slopeWidth: {
             type: Number,
             default: 1
         }
@@ -250,8 +262,8 @@ export const BezierCurve = {
         },
         slopeStyle() {
             return {
-                stroke: this.lineStroke,
-                "stroke-width": `${this.lineWidth}px`
+                stroke: this.slopeStroke,
+                "stroke-width": `${this.slopeWidth}px`
             };
         }
     },
