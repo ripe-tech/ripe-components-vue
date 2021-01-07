@@ -1,6 +1,6 @@
 {
     "name": "ripe-components-vue",
-    "version": "0.8.1",
+    "version": "0.8.2",
     "description": "RIPE Components for Vue.js",
     "keywords": [
         "components",
@@ -70,6 +70,7 @@
         "@vue/test-utils": "^1.1.1",
         "jsdom": "^16.4.0",
         "jsdom-global": "^3.0.2",
+        "mocha": "^8.2.1",
         "mochapack": "^2.0.6",
         "node-fetch": "^2.6.1",
         "null-loader": "^4.0.1",

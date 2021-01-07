@@ -99,6 +99,7 @@
     box-shadow: 0px 0px 24px $blacker;
     box-sizing: border-box;
     display: inline-block;
+    font-family: $font-family;
     max-height: 80%;
     max-height: 100%;
     max-width: 100%;

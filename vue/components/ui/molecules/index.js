@@ -12,6 +12,7 @@ import { ContainerMenu } from "./container-menu/container-menu.vue";
 import { Filter } from "./filter/filter.vue";
 import { Footer } from "./footer/footer.vue";
 import { FormInput } from "./form-input/form-input.vue";
+import { InputImage } from "./input-image/input-image.vue";
 import { InputColor } from "./input-color/input-color.vue";
 import { InputCurrency } from "./input-currency/input-currency.vue";
 import { InputSlider } from "./input-slider/input-slider.vue";
@@ -29,6 +30,7 @@ import { Select } from "./select/select.vue";
 import { SelectCheckboxes } from "./select-checkboxes/select-checkboxes.vue";
 import { SelectList } from "./select-list/select-list.vue";
 import { Slider } from "./slider/slider.vue";
+import { Steps } from "./steps/steps.vue";
 import { Table } from "./table/table.vue";
 import { TableExpandable } from "./table-expandable/table-expandable.vue";
 import { Tabs } from "./tabs/tabs.vue";
@@ -50,6 +52,7 @@ const install = Vue => {
     Vue.component("filter-ripe", Filter);
     Vue.component("footer-ripe", Footer);
     Vue.component("form-input", FormInput);
+    Vue.component("input-image", InputImage);
     Vue.component("input-color", InputColor);
     Vue.component("input-currency", InputCurrency);
     Vue.component("input-slider", InputSlider);
@@ -67,6 +70,7 @@ const install = Vue => {
     Vue.component("select-checkboxes", SelectCheckboxes);
     Vue.component("select-list", SelectList);
     Vue.component("slider", Slider);
+    Vue.component("steps", Steps);
     Vue.component("table-ripe", Table);
     Vue.component("table-expandable", TableExpandable);
     Vue.component("tabs", Tabs);
@@ -89,6 +93,7 @@ export {
     Filter,
     Footer,
     FormInput,
+    InputImage,
     InputColor,
     InputCurrency,
     InputSlider,
@@ -106,6 +111,7 @@ export {
     SelectCheckboxes,
     SelectList,
     Slider,
+    Steps,
     Table,
     TableExpandable,
     Tabs,
