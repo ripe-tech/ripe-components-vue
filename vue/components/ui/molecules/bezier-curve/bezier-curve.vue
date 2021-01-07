@@ -13,49 +13,49 @@
     >
         <line
             class="slope slope-1"
-            v-bind:x1="bezier.x1"
-            v-bind:y1="bezier.y1"
-            v-bind:x2="bezier.cx1"
-            v-bind:y2="bezier.cy1"
+            v-bind:x1="x1Data"
+            v-bind:y1="y1Data"
+            v-bind:x2="cx1Data"
+            v-bind:y2="cy1Data"
             v-show="showPoints"
         />
         <line
             class="slope slope-2"
-            v-bind:x1="bezier.x2"
-            v-bind:y1="bezier.y2"
-            v-bind:x2="bezier.cx2"
-            v-bind:y2="bezier.cy2"
+            v-bind:x1="x2Data"
+            v-bind:y1="y2Data"
+            v-bind:x2="cx2Data"
+            v-bind:y2="cy2Data"
             v-show="showPoints"
         />
-        <path class="curve" v-bind:d="path" id="curve" />
+        <path class="curve" v-bind:d="path" />
         <circle
             class="point end-point end-point-1"
-            v-bind:cx="bezier.x1"
-            v-bind:cy="bezier.y1"
+            v-bind:cx="x1Data"
+            v-bind:cy="y1Data"
             v-show="showPoints"
             v-on:touchstart="onTouchStart"
             v-on:mousedown="onMouseDown"
         />
         <circle
             class="point end-point end-point-2"
-            v-bind:cx="bezier.x2"
-            v-bind:cy="bezier.y2"
+            v-bind:cx="x2Data"
+            v-bind:cy="y2Data"
             v-show="showPoints"
             v-on:touchstart="onTouchStart"
             v-on:mousedown="onMouseDown"
         />
         <circle
             class="point control-point control-point-1"
-            v-bind:cx="bezier.cx1"
-            v-bind:cy="bezier.cy1"
+            v-bind:cx="cx1Data"
+            v-bind:cy="cy1Data"
             v-show="showPoints"
             v-on:touchstart="onTouchStart"
             v-on:mousedown="onMouseDown"
         />
         <circle
             class="point control-point control-point-2"
-            v-bind:cx="bezier.cx2"
-            v-bind:cy="bezier.cy2"
+            v-bind:cx="cx2Data"
+            v-bind:cy="cy2Data"
             v-show="showPoints"
             v-on:touchstart="onTouchStart"
             v-on:mousedown="onMouseDown"
@@ -197,14 +197,6 @@ export const BezierCurve = {
             default: true
         },
         /**
-         * The interval at which the new coordinates
-         * will be emited when dragging.
-         */
-        emitInterval: {
-            type: Number,
-            default: 250
-        },
-        /**
          * The decimal places to define the numerical precision
          * when emitting the position of control and end points.
          */
@@ -223,52 +215,70 @@ export const BezierCurve = {
     },
     data: function() {
         return {
-            bezier: {
-                x1: this.x1,
-                y1: this.y1,
-                x2: this.x2,
-                y2: this.y2,
-                cx1: this.cx1,
-                cx2: this.cx2,
-                cy1: this.cy1,
-                cy2: this.cy2
-            },
-            dragging: null,
-            reactiveEmit: null
+            x1Data: this.x1,
+            y1Data: this.y1,
+            x2Data: this.x2,
+            y2Data: this.y2,
+            cx1Data: this.cx1,
+            cx2Data: this.cx2,
+            cy1Data: this.cy1,
+            cy2Data: this.cy2,
+            dragging: null
         };
     },
     watch: {
         x1(value) {
-            this.$set(this.bezier, "x1", value);
+            this.x1Data = value;
         },
         y1(value) {
-            this.$set(this.bezier, "y1", value);
+            this.y1Data = value;
         },
         x2(value) {
-            this.$set(this.bezier, "x2", value);
+            this.x2Data = value;
         },
         y2(value) {
-            this.$set(this.bezier, "y2", value);
+            this.y2Data = value;
         },
         cx1(value) {
-            this.$set(this.bezier, "cx1", value);
+            this.cx1Data = value;
         },
         cy1(value) {
-            this.$set(this.bezier, "cy1", value);
+            this.cy1Data = value;
         },
         cx2(value) {
-            this.$set(this.bezier, "cx2", value);
+            this.cx2Data = value;
         },
         cy2(value) {
-            this.$set(this.bezier, "cy2", value);
+            this.cy2Data = value;
         },
-        dragging(value) {
-            if (value && this.emitInterval !== null) this.startReactiveEmits();
+        x1Data(value) {
+            this.emitPointValue("x1", value);
+        },
+        y1Data(value) {
+            this.emitPointValue("y1", value);
+        },
+        x2Data(value) {
+            this.emitPointValue("x2", value);
+        },
+        y2Data(value) {
+            this.emitPointValue("y2", value);
+        },
+        cx1Data(value) {
+            this.emitPointValue("cx1", value);
+        },
+        cy1Data(value) {
+            this.emitPointValue("cy1", value);
+        },
+        cx2Data(value) {
+            this.emitPointValue("cx2", value);
+        },
+        cy2Data(value) {
+            this.emitPointValue("cy2", value);
         }
     },
     computed: {
         path() {
-            return `M ${this.bezier.x1}, ${this.bezier.y1} C ${this.bezier.cx1}, ${this.bezier.cy1}, ${this.bezier.cx2}, ${this.bezier.cy2}, ${this.bezier.x2}, ${this.bezier.y2}`;
+            return `M ${this.x1Data}, ${this.y1Data} C ${this.cx1Data}, ${this.cy1Data}, ${this.cx2Data}, ${this.cy2Data}, ${this.x2Data}, ${this.y2Data}`;
         },
         viewBox() {
             return `0, 0, ${this.resolutionWidth}, ${this.resolutionHeight}`;
@@ -315,23 +325,14 @@ export const BezierCurve = {
         },
         setPosition(point, position) {
             const coordinatesKey = this.getCoordinatesKey(point);
-            this.$set(this.bezier, coordinatesKey.x, position.x);
-            this.$set(this.bezier, coordinatesKey.y, position.y);
+            this[`${coordinatesKey.x}Data`] = position.x;
+            this[`${coordinatesKey.y}Data`] = position.y;
         },
         /**
-         * Starts emitting the current drag once every `emitInterval` milliseconds.
+         * Emits the `value` of the `point` specified in the arguments
          */
-        startReactiveEmits() {
-            this.reactiveEmit = setInterval(this.emitCurrentDrag, this.emitInterval);
-        },
-        /**
-         * Emits the coordinates of the point that's currently being dragged
-         */
-        emitCurrentDrag() {
-            if (!this.dragging) return;
-            const { x, y } = this.getCoordinatesKey(this.dragging);
-            this.$emit(`update:${x}`, this._round(this.bezier[x]));
-            this.$emit(`update:${y}`, this._round(this.bezier[y]));
+        emitPointValue(point, value) {
+            this.$emit(`update:${point}`, this._round(value));
         },
         onStartDrag(event) {
             const pointName = event.target.classList[event.target.classList.length - 1];
@@ -347,8 +348,6 @@ export const BezierCurve = {
             }
         },
         onStopDrag() {
-            if (this.reactiveEmit) clearInterval(this.reactiveEmit);
-            this.emitCurrentDrag();
             this.dragging = null;
         },
         onMouseDown(event) {
