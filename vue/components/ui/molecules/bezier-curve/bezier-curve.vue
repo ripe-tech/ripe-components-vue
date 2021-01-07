@@ -288,23 +288,6 @@ export const BezierCurve = {
             return true;
         },
         /**
-         * @returns {Object} with coordinates label for a given point `target`.
-         */
-        getCoordinatesKey(target) {
-            switch (target) {
-                case "end-point-1":
-                    return { x: "x1", y: "y1" };
-                case "end-point-2":
-                    return { x: "x2", y: "y2" };
-                case "control-point-1":
-                    return { x: "cx1", y: "cy1" };
-                case "control-point-2":
-                    return { x: "cx2", y: "cy2" };
-                default:
-                    return { x: "x", y: "y" };
-            }
-        },
-        /**
          * Gets the user cursor position considering the SVG matrix axis.
          */
         getCursorInSvgPos(event) {
@@ -316,7 +299,28 @@ export const BezierCurve = {
             };
         },
         setPosition(point, position) {
-            const coordinatesKey = this.getCoordinatesKey(point);
+            const coordinatesKey = {};
+            switch (point) {
+                case "end-point-1":
+                    coordinatesKey.x = "x1";
+                    coordinatesKey.y = "y1";
+                    break;
+                case "end-point-2":
+                    coordinatesKey.x = "x2";
+                    coordinatesKey.y = "y2";
+                    break;
+                case "control-point-1":
+                    coordinatesKey.x = "cx1";
+                    coordinatesKey.y = "cy1";
+                    break;
+                case "control-point-2":
+                    coordinatesKey.x = "cx2";
+                    coordinatesKey.y = "cy2";
+                    break;
+                default:
+                    coordinatesKey.x = "x";
+                    coordinatesKey.y = "y";
+            }
             this[`${coordinatesKey.x}Data`] = position.x;
             this[`${coordinatesKey.y}Data`] = position.y;
         },
@@ -324,7 +328,7 @@ export const BezierCurve = {
          * Emits the `value` of the `point` specified in the arguments
          */
         emitPointValue(point, value) {
-            this.$emit(`update:${point}`, this._round(value));
+            this.$emit(`update:${point}`, Number(value.toFixed(this.roundPlaces)));
         },
         onStartDrag(event) {
             const pointName = event.target.classList[event.target.classList.length - 1];
@@ -368,11 +372,6 @@ export const BezierCurve = {
         },
         onTouchLeave() {
             this.onStopDrag();
-        },
-        // rounds a `number` to given `places` decimal places
-        // goes around some javascript rounding errors
-        _round(number, places = this.roundPlaces) {
-            return +(Math.round(number + "e+" + places) + "e-" + places);
         }
     }
 };
