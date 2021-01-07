@@ -22,13 +22,15 @@ describe("Scrollable Items", () => {
         await component.setData({ scrollableWidth: 500 });
         assert.strictEqual(component.find(".button-icon-previous").exists(), true);
         assert.strictEqual(component.find(".button-icon-next").exists(), true);
-        assert.strictEqual(component.find(".items-container").exists(), true);
-        assert.strictEqual(component.find(".items-container > .item-item1").exists(), true);
-        assert.strictEqual(component.find(".items-container > .item-item2").exists(), true);
-        assert.strictEqual(component.find(".items-container > .item-item3").exists(), true);
-        assert.strictEqual(component.find(".items-container > .item-item4").exists(), true);
-        assert.strictEqual(component.find(".items-container > .item-item5").exists(), true);
-        assert.strictEqual(component.find(".items-container > .item-item6").exists(), true);
+        const itemsContainer = component.find(".items-container"); 
+        assert.strictEqual(itemsContainer.exists(), true);
+        assert.strictEqual(itemsContainer.findAll(".item").length, 6);
+        assert.strictEqual(itemsContainer.find(".item-item1").exists(), true);
+        assert.strictEqual(itemsContainer.find(".item-item2").exists(), true);
+        assert.strictEqual(itemsContainer.find(".item-item3").exists(), true);
+        assert.strictEqual(itemsContainer.find(".item-item4").exists(), true);
+        assert.strictEqual(itemsContainer.find(".item-item5").exists(), true);
+        assert.strictEqual(itemsContainer.find(".item-item6").exists(), true);
     });
 
     it("should disable/enable the arrow buttons", async () => {
