@@ -61,7 +61,7 @@ describe("Scrollable Items", () => {
         assert.strictEqual(component.find(".button-icon-previous").exists(), true);
         assert.strictEqual(component.find(".button-icon-next").exists(), true);
     });
-/*
+
     it("should auto hide the arrows buttons", async () => {
         const component = base.getComponent("ScrollableItems", {
             props: {
@@ -75,8 +75,30 @@ describe("Scrollable Items", () => {
                 ]
             }
         });
+
+        await component.setData({ scrollableWidth: 500 });
+        assert.strictEqual(component.find(".button-icon-previous").exists(), true);
+        assert.strictEqual(component.find(".button-icon-next").exists(), true);
+
+        await component.setData({ scrollableWidth: 0 });
+        assert.strictEqual(component.find(".button-icon-previous").exists(), false);
+        assert.strictEqual(component.find(".button-icon-next").exists(), false);
+
+        await component.setData({ scrollableWidth: 500 });
+        assert.strictEqual(component.find(".button-icon-previous").exists(), true);
+        assert.strictEqual(component.find(".button-icon-next").exists(), true);
+
+        await component.setProps({ autoHideArrows: false });
+        await component.setData({ scrollableWidth: 500 });
+        assert.strictEqual(component.find(".button-icon-previous").exists(), true);
+        assert.strictEqual(component.find(".button-icon-next").exists(), true);
+
+        await component.setData({ scrollableWidth: 0 });
+        assert.strictEqual(component.find(".button-icon-previous").exists(), true);
+        assert.strictEqual(component.find(".button-icon-next").exists(), true);
     });
 
+    /*
     it("should change the selected item when the item is clicked", async () => {
         const component = base.getComponent("ScrollableItems", {
             props: {
