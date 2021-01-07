@@ -229,8 +229,7 @@ describe("Scrollable Items", () => {
         assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), false);
     });
 
-    /*
-    it("should disable the arrow buttons when the select item is one of the tips of the items list", async () => {
+    it("should disable the arrow buttons when the selected item is one of the tips of the items list", async () => {
         const component = base.getComponent("ScrollableItems", {
             props: {
                 items: [
@@ -240,11 +239,37 @@ describe("Scrollable Items", () => {
                     { label: "Item Example 4", value: "item4" },
                     { label: "Item Example 5", value: "item5" },
                     { label: "Item Example 6", value: "item6" }
-                ]
-            }
+                ],
+                autoHideArrows: false
+            },
+            mixins: [{ methods: { snapSelectedToCenter() {} } }]
         });
+
+        assert.strictEqual(component.find(".button-icon-previous").exists(), true);
+        assert.strictEqual(component.find(".button-icon-next").exists(), true);
+        assert.strictEqual(component.find(".button-icon-previous.disabled").exists(), true);
+        assert.strictEqual(component.find(".button-icon-next.disabled").exists(), false);
+
+        await component.setProps({ selected: "item3" });
+        assert.strictEqual(component.find(".button-icon-previous").exists(), true);
+        assert.strictEqual(component.find(".button-icon-next").exists(), true);
+        assert.strictEqual(component.find(".button-icon-previous.disabled").exists(), false);
+        assert.strictEqual(component.find(".button-icon-next.disabled").exists(), false);
+
+        await component.setProps({ selected: "item6" });
+        assert.strictEqual(component.find(".button-icon-previous").exists(), true);
+        assert.strictEqual(component.find(".button-icon-next").exists(), true);
+        assert.strictEqual(component.find(".button-icon-previous.disabled").exists(), false);
+        assert.strictEqual(component.find(".button-icon-next.disabled").exists(), true);
+
+        await component.setProps({ selected: "item1" });
+        assert.strictEqual(component.find(".button-icon-previous").exists(), true);
+        assert.strictEqual(component.find(".button-icon-next").exists(), true);
+        assert.strictEqual(component.find(".button-icon-previous.disabled").exists(), true);
+        assert.strictEqual(component.find(".button-icon-next.disabled").exists(), false);
     });
 
+    /*
     it("should change the selected item when the arrow buttons are clicked", async () => {
         const component = base.getComponent("ScrollableItems", {
             props: {
