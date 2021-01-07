@@ -59,8 +59,14 @@
 
 .scrollable-items > .items-container {
     flex: 1;
-    overflow: hidden;
+    -ms-overflow-style: none;
+    overflow-x: scroll;
+    scrollbar-width: none;
     white-space: nowrap;
+}
+
+.scrollable-items > .items-container::-webkit-scrollbar {
+    display: none;
 }
 
 .scrollable-items > .items-container > .item {
