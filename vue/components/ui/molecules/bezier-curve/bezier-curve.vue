@@ -367,8 +367,10 @@ export const BezierCurve = {
         onTouchLeave() {
             this.onStopDrag();
         },
-        _round(num, places = this.roundPlaces) {
-            return +(Math.round(num + "e+" + places) + "e-" + places);
+        // rounds a `number` to given `places` decimal places
+        // goes around some javascript rounding errors
+        _round(number, places = this.roundPlaces) {
+            return +(Math.round(number + "e+" + places) + "e-" + places);
         }
     }
 };
