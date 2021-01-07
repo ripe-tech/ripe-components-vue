@@ -12,57 +12,51 @@
         v-on:touchleave="onTouchLeave"
     >
         <line
-            class="slope"
+            class="slope slope-1"
             v-bind:x1="bezier.x1"
             v-bind:y1="bezier.y1"
             v-bind:x2="bezier.cx1"
             v-bind:y2="bezier.cy1"
             v-show="showPoints"
-            id="slope-1"
         />
         <line
-            class="slope"
+            class="slope slope-2"
             v-bind:x1="bezier.x2"
             v-bind:y1="bezier.y2"
             v-bind:x2="bezier.cx2"
             v-bind:y2="bezier.cy2"
             v-show="showPoints"
-            id="slope-2"
         />
         <path class="curve" v-bind:d="path" id="curve" />
         <circle
-            class="point"
+            class="point end-point end-point-1"
             v-bind:cx="bezier.x1"
             v-bind:cy="bezier.y1"
             v-show="showPoints"
-            id="endpoint-1"
             v-on:touchstart="onTouchStart"
             v-on:mousedown="onMouseDown"
         />
         <circle
-            class="point"
+            class="point end-point end-point-2"
             v-bind:cx="bezier.x2"
             v-bind:cy="bezier.y2"
             v-show="showPoints"
-            id="endpoint-2"
             v-on:touchstart="onTouchStart"
             v-on:mousedown="onMouseDown"
         />
         <circle
-            class="point"
+            class="point control-point control-point-1"
             v-bind:cx="bezier.cx1"
             v-bind:cy="bezier.cy1"
             v-show="showPoints"
-            id="controlpoint-1"
             v-on:touchstart="onTouchStart"
             v-on:mousedown="onMouseDown"
         />
         <circle
-            class="point"
+            class="point control-point control-point-2"
             v-bind:cx="bezier.cx2"
             v-bind:cy="bezier.cy2"
             v-show="showPoints"
-            id="controlpoint-2"
             v-on:touchstart="onTouchStart"
             v-on:mousedown="onMouseDown"
         />
@@ -283,13 +277,13 @@ export const BezierCurve = {
          */
         getCoordinatesKey(target) {
             switch (target) {
-                case "endpoint-1":
+                case "end-point-1":
                     return { x: "x1", y: "y1" };
-                case "endpoint-2":
+                case "end-point-2":
                     return { x: "x2", y: "y2" };
-                case "controlpoint-1":
+                case "control-point-1":
                     return { x: "cx1", y: "cy1" };
-                case "controlpoint-2":
+                case "control-point-2":
                     return { x: "cx2", y: "cy2" };
                 default:
                     return { x: "x", y: "y" };
@@ -327,7 +321,8 @@ export const BezierCurve = {
             this.$emit(`update:${y}`, this._round(this.bezier[y]));
         },
         onStartDrag(event) {
-            this.dragging = event.target.id;
+            const pointName = event.target.classList[event.target.classList.length - 1];
+            this.dragging = pointName;
         },
         onDrag(event) {
             if (this.dragging) {
