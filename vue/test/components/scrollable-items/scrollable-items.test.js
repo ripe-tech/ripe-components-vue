@@ -118,7 +118,7 @@ describe("Scrollable Items", () => {
             mixins: [{ methods: { snapSelectedToCenter() {} } }]
         });
 
-        assert.strictEqual(component.emitted("update:selected"), undefined)
+        assert.strictEqual(component.emitted("update:selected"), undefined);
         const itemsContainer = component.find(".items-container");
         assert.strictEqual(itemsContainer.exists(), true);
         assert.strictEqual(itemsContainer.findAll(".item").length, 6);
