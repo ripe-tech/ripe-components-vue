@@ -166,7 +166,6 @@ describe("Scrollable Items", () => {
         assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), false);
     });
 
-    /*
     it("should change the selected item via prop", async () => {
         const component = base.getComponent("ScrollableItems", {
             props: {
@@ -178,10 +177,59 @@ describe("Scrollable Items", () => {
                     { label: "Item Example 5", value: "item5" },
                     { label: "Item Example 6", value: "item6" }
                 ]
-            }
+            },
+            mixins: [{ methods: { snapSelectedToCenter() {} } }]
         });
+
+        const itemsContainer = component.find(".items-container");
+        assert.strictEqual(itemsContainer.exists(), true);
+        assert.strictEqual(itemsContainer.findAll(".item").length, 6);
+        assert.strictEqual(itemsContainer.find(".item-item1").exists(), true);
+        assert.strictEqual(itemsContainer.find(".item-item2").exists(), true);
+        assert.strictEqual(itemsContainer.find(".item-item3").exists(), true);
+        assert.strictEqual(itemsContainer.find(".item-item4").exists(), true);
+        assert.strictEqual(itemsContainer.find(".item-item5").exists(), true);
+        assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item3.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item4.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item5.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), false);
+
+        await component.setProps({ selected: "item3" });
+        assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item3.selected").exists(), true);
+        assert.strictEqual(itemsContainer.find(".item-item4.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item5.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), false);
+
+        await component.setProps({ selected: "item1" });
+        assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), true);
+        assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item3.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item4.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item5.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), false);
+
+        await component.setProps({ selected: "item6" });
+        assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item3.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item4.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item5.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), true);
+
+        await component.setProps({ selected: "item2" });
+        assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), true);
+        assert.strictEqual(itemsContainer.find(".item-item3.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item4.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item5.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), false);
     });
 
+    /*
     it("should disable the arrow buttons when the select item is one of the tips of the items list", async () => {
         const component = base.getComponent("ScrollableItems", {
             props: {
