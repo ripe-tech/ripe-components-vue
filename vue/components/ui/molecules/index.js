@@ -2,6 +2,7 @@ import { Alert } from "./alert/alert.vue";
 import { Announcements } from "./announcements/announcements.vue";
 import { AvatarName } from "./avatar-name/avatar-name.vue";
 import { AvatarNameEmail } from "./avatar-name-email/avatar-name-email.vue";
+import { BezierCurve } from "./bezier-curve/bezier-curve.vue";
 import { ButtonDropdown } from "./button-dropdown/button-dropdown.vue";
 import { ButtonIconAnimated } from "./button-icon-animated/button-icon-animated.vue";
 import { ButtonIconToggle } from "./button-icon-toggle/button-icon-toggle.vue";
@@ -41,6 +42,7 @@ const install = Vue => {
     Vue.component("announcements", Announcements);
     Vue.component("avatar-name", AvatarName);
     Vue.component("avatar-name-email", AvatarNameEmail);
+    Vue.component("bezier-curve", BezierCurve);
     Vue.component("button-dropdown", ButtonDropdown);
     Vue.component("button-icon-animated", ButtonIconAnimated);
     Vue.component("button-icon-toggle", ButtonIconToggle);
@@ -81,6 +83,7 @@ export {
     Announcements,
     AvatarName,
     AvatarNameEmail,
+    BezierCurve,
     ButtonDropdown,
     ButtonIconAnimated,
     ButtonIconToggle,
