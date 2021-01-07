@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, number, boolean } from "@storybook/addon-knobs";
+import { withKnobs, number, boolean, text } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
@@ -40,6 +40,18 @@ storiesOf("Molecules", module)
             },
             disabled: {
                 default: boolean("Disabled", false)
+            },
+            curveStroke: {
+                default: text("Curve Stroke", "#000000")
+            },
+            lineStroke: {
+                default: text("Line Stroke", "#000000")
+            },
+            curveWidth: {
+                default: number("Curve Width", 4)
+            },
+            lineWidth: {
+                default: number("Line Width", 1)
             }
         },
         data: function() {
@@ -100,6 +112,10 @@ storiesOf("Molecules", module)
                     v-bind:height="height"
                     v-bind:show-points="showPoints"
                     v-bind:disabled="disabled"
+                    v-bind:curve-stroke="curveStroke"
+                    v-bind:line-stroke="lineStroke"
+                    v-bind:curve-width="curveWidth"
+                    v-bind:line-width="lineWidth"
                 />
             </div>
         `

@@ -18,6 +18,7 @@
             v-bind:y1="y1Data"
             v-bind:x2="cx1Data"
             v-bind:y2="cy1Data"
+            v-bind:style="slopeStyle"
             v-show="showPoints"
         />
         <line
@@ -26,9 +27,10 @@
             v-bind:y1="y2Data"
             v-bind:x2="cx2Data"
             v-bind:y2="cy2Data"
+            v-bind:style="slopeStyle"
             v-show="showPoints"
         />
-        <path class="curve" v-bind:d="path" />
+        <path class="curve" v-bind:d="path" v-bind:style="curveStyle" />
         <circle
             class="point end-point end-point-1"
             v-bind:cx="x1Data"
@@ -73,13 +75,6 @@
 
 .bezier-curve .curve {
     fill: none;
-    stroke: #000000;
-    stroke-width: 5px;
-}
-
-.bezier-curve .slope {
-    stroke: #008080;
-    stroke-width: 1;
 }
 
 .bezier-curve .point {
@@ -204,6 +199,22 @@ export const BezierCurve = {
         disabled: {
             type: Boolean,
             default: false
+        },
+        curveStroke: {
+            type: String,
+            default: "#000000"
+        },
+        lineStroke: {
+            type: String,
+            default: "#000000"
+        },
+        curveWidth: {
+            type: Number,
+            default: 5
+        },
+        lineWidth: {
+            type: Number,
+            default: 1
         }
     },
     data: function() {
@@ -218,6 +229,31 @@ export const BezierCurve = {
             cy2Data: this.cy2,
             dragging: null
         };
+    },
+    computed: {
+        path() {
+            return `M ${this.x1Data}, ${this.y1Data} C ${this.cx1Data}, ${this.cy1Data}, ${this.cx2Data}, ${this.cy2Data}, ${this.x2Data}, ${this.y2Data}`;
+        },
+        viewBox() {
+            return `0, 0, ${this.width}, ${this.height}`;
+        },
+        classes() {
+            const base = {};
+            if (this.disabled) base.disabled = this.disabled;
+            return base;
+        },
+        curveStyle() {
+            return {
+                stroke: this.curveStroke,
+                "stroke-width": `${this.curveWidth}px`
+            };
+        },
+        slopeStyle() {
+            return {
+                stroke: this.lineStroke,
+                "stroke-width": `${this.lineWidth}px`
+            };
+        }
     },
     watch: {
         x1(value) {
@@ -267,19 +303,6 @@ export const BezierCurve = {
         },
         cy2Data(value) {
             this.emitPointValue("cy2", value);
-        }
-    },
-    computed: {
-        path() {
-            return `M ${this.x1Data}, ${this.y1Data} C ${this.cx1Data}, ${this.cy1Data}, ${this.cx2Data}, ${this.cy2Data}, ${this.x2Data}, ${this.y2Data}`;
-        },
-        viewBox() {
-            return `0, 0, ${this.width}, ${this.height}`;
-        },
-        classes() {
-            const base = {};
-            if (this.disabled) base.disabled = this.disabled;
-            return base;
         }
     },
     methods: {
