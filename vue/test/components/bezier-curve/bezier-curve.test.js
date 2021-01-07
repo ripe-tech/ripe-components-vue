@@ -2,7 +2,7 @@ const assert = require("assert");
 const base = require("../../base");
 
 describe("BezierCurve", () => {
-    it("should initialize the input slider", () => {
+    it("should initialize the bezier curve", () => {
         const component = base.getComponent("BezierCurve", {
             props: {
                 x1: 521,
