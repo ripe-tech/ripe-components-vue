@@ -154,9 +154,10 @@ export const ScrollableItems = {
         };
     },
     computed: {
-        showArrows() {
-            const hideArrows = this.autoHideArrows && !(this.scrollableWidth > 0);
-            return this.arrows && !hideArrows;
+        itemsContainerStyle() {
+            return {
+                "text-align": this.alignment
+            };
         },
         _buttonIconProps() {
             return {
@@ -165,10 +166,9 @@ export const ScrollableItems = {
                 ...this.buttonIconProps
             };
         },
-        itemsContainerStyle() {
-            return {
-                "text-align": this.alignment
-            };
+        showArrows() {
+            const hideArrows = this.autoHideArrows && !(this.scrollableWidth > 0);
+            return this.arrows && !hideArrows;
         },
         selectedIndex() {
             return this.items.findIndex(item => item.value === this.selectedData);
