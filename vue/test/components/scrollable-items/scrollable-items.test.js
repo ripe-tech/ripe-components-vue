@@ -269,7 +269,6 @@ describe("Scrollable Items", () => {
         assert.strictEqual(component.find(".button-icon-next.disabled").exists(), false);
     });
 
-    /*
     it("should change the selected item when the arrow buttons are clicked", async () => {
         const component = base.getComponent("ScrollableItems", {
             props: {
@@ -280,9 +279,101 @@ describe("Scrollable Items", () => {
                     { label: "Item Example 4", value: "item4" },
                     { label: "Item Example 5", value: "item5" },
                     { label: "Item Example 6", value: "item6" }
-                ]
-            }
+                ],
+                autoHideArrows: false
+            },
+            mixins: [{ methods: { snapSelectedToCenter() {} } }]
         });
+
+        const previousButton = component.find(".button-icon-previous");
+        const nextButton = component.find(".button-icon-next");
+        assert.strictEqual(previousButton.exists(), true);
+        assert.strictEqual(nextButton.exists(), true);
+        const itemsContainer = component.find(".items-container");
+        assert.strictEqual(itemsContainer.exists(), true);
+        assert.strictEqual(itemsContainer.findAll(".item").length, 6);
+        assert.strictEqual(itemsContainer.find(".item-item1").exists(), true);
+        assert.strictEqual(itemsContainer.find(".item-item2").exists(), true);
+        assert.strictEqual(itemsContainer.find(".item-item3").exists(), true);
+        assert.strictEqual(itemsContainer.find(".item-item4").exists(), true);
+        assert.strictEqual(itemsContainer.find(".item-item5").exists(), true);
+        assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item3.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item4.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item5.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), false);
+
+        await previousButton.trigger("click");
+        assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item3.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item4.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item5.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), false);
+
+        await nextButton.trigger("click");
+        assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), true);
+        assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item3.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item4.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item5.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), false);
+
+        await previousButton.trigger("click");
+        assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), true);
+        assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item3.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item4.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item5.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), false);
+
+        await nextButton.trigger("click");
+        assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), true);
+        assert.strictEqual(itemsContainer.find(".item-item3.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item4.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item5.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), false);
+
+        await nextButton.trigger("click");
+        assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item3.selected").exists(), true);
+        assert.strictEqual(itemsContainer.find(".item-item4.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item5.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), false);
+
+        await component.setProps({ selected: "item5" });
+        assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item3.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item4.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item5.selected").exists(), true);
+        assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), false);
+
+        await nextButton.trigger("click");
+        assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item3.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item4.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item5.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), true);
+
+        await nextButton.trigger("click");
+        assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item3.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item4.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item5.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), true);
+
+        await previousButton.trigger("click");
+        assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item3.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item4.selected").exists(), false);
+        assert.strictEqual(itemsContainer.find(".item-item5.selected").exists(), true);
+        assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), false);
     });
-    */
 });
