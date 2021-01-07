@@ -176,6 +176,20 @@ export const BezierCurve = {
             default: "1024x1024"
         },
         /**
+         * The number of pixels of the svg viewport in the x axis
+         */
+        resolutionWidth: {
+            type: Number,
+            default: 1024
+        },
+        /**
+         * The number of pixels of the svg viewport in the x axis
+         */
+        resolutionHeight: {
+            type: Number,
+            default: 1024
+        },
+        /**
          * Visibilty of Bezier curve control points.
          */
         showPoints: {
@@ -257,8 +271,7 @@ export const BezierCurve = {
             return `M ${this.bezier.x1}, ${this.bezier.y1} C ${this.bezier.cx1}, ${this.bezier.cy1}, ${this.bezier.cx2}, ${this.bezier.cy2}, ${this.bezier.x2}, ${this.bezier.y2}`;
         },
         viewBox() {
-            const [width, height] = this.resolution.split("x");
-            return `0, 0, ${width}, ${height}`;
+            return `0, 0, ${this.resolutionWidth}, ${this.resolutionHeight}`;
         },
         classes() {
             const base = {};
