@@ -2,7 +2,7 @@ const assert = require("assert");
 const base = require("../../base");
 
 describe("Scrollable Items", () => {
-    it("should initiate the componet", async () => {
+    it("should initiate the component", async () => {
         const component = base.getComponent("ScrollableItems", {
             props: {
                 items: [
