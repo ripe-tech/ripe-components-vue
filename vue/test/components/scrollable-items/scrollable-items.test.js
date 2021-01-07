@@ -76,6 +76,9 @@ describe("Scrollable Items", () => {
             }
         });
 
+        // Setting "scrollableWidth" greater than 0 is a workaround to make the test work properly.
+        // It makes the component think it doesn't have
+        // enough space to show all the items
         await component.setData({ scrollableWidth: 500 });
         assert.strictEqual(component.find(".button-icon-previous").exists(), true);
         assert.strictEqual(component.find(".button-icon-next").exists(), true);
