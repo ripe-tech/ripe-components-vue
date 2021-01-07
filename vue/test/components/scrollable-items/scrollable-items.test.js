@@ -17,8 +17,8 @@ describe("Scrollable Items", () => {
         });
 
         // Setting "scrollableWidth" greater than 0 is a workaround to make the test work properly.
-        // It makes the component think it doesn't have
-        // enough space to show all the items
+        // It makes the component think it doesn't have enough space to show all the items, thus
+        // the default behaviour will be to show the arrows
         await component.setData({ scrollableWidth: 500 });
         assert.strictEqual(component.find(".button-icon-previous").exists(), true);
         assert.strictEqual(component.find(".button-icon-next").exists(), true);
@@ -48,8 +48,8 @@ describe("Scrollable Items", () => {
         });
 
         // Setting "scrollableWidth" greater than 0 is a workaround to make the test work properly.
-        // It makes the component think it doesn't have
-        // enough space to show all the items
+        // It makes the component think it doesn't have enough space to show all the items, thus
+        // the default behaviour will be to show the arrows
         await component.setData({ scrollableWidth: 500 });
 
         assert.strictEqual(component.find(".button-icon-previous").exists(), true);
@@ -79,8 +79,8 @@ describe("Scrollable Items", () => {
         });
 
         // Setting "scrollableWidth" greater than 0 is a workaround to make the test work properly.
-        // It makes the component think it doesn't have
-        // enough space to show all the items
+        // It makes the component think it doesn't have enough space to show all the items, thus
+        // the default behaviour will be to show the arrows
         await component.setData({ scrollableWidth: 500 });
         assert.strictEqual(component.find(".button-icon-previous").exists(), true);
         assert.strictEqual(component.find(".button-icon-next").exists(), true);
@@ -118,6 +118,7 @@ describe("Scrollable Items", () => {
             mixins: [{ methods: { snapSelectedToCenter() {} } }]
         });
 
+        assert.strictEqual(component.emitted("update:selected"), undefined)
         const itemsContainer = component.find(".items-container");
         assert.strictEqual(itemsContainer.exists(), true);
         assert.strictEqual(itemsContainer.findAll(".item").length, 6);
@@ -134,6 +135,7 @@ describe("Scrollable Items", () => {
         assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), false);
 
         await itemsContainer.find(".item-item3").trigger("mouseup");
+        assert.strictEqual(component.emitted("update:selected")[0][0], "item3");
         assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item3.selected").exists(), true);
@@ -142,6 +144,7 @@ describe("Scrollable Items", () => {
         assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), false);
 
         await itemsContainer.find(".item-item1").trigger("mouseup");
+        assert.strictEqual(component.emitted("update:selected")[1][0], "item1");
         assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), true);
         assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item3.selected").exists(), false);
@@ -150,6 +153,7 @@ describe("Scrollable Items", () => {
         assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), false);
 
         await itemsContainer.find(".item-item6").trigger("mouseup");
+        assert.strictEqual(component.emitted("update:selected")[2][0], "item6");
         assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item3.selected").exists(), false);
@@ -158,6 +162,7 @@ describe("Scrollable Items", () => {
         assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), true);
 
         await itemsContainer.find(".item-item2").trigger("mouseup");
+        assert.strictEqual(component.emitted("update:selected")[3][0], "item2");
         assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), true);
         assert.strictEqual(itemsContainer.find(".item-item3.selected").exists(), false);
@@ -285,6 +290,7 @@ describe("Scrollable Items", () => {
             mixins: [{ methods: { snapSelectedToCenter() {} } }]
         });
 
+        assert.strictEqual(component.emitted("update:selected"), undefined);
         const previousButton = component.find(".button-icon-previous");
         const nextButton = component.find(".button-icon-next");
         assert.strictEqual(previousButton.exists(), true);
@@ -305,6 +311,7 @@ describe("Scrollable Items", () => {
         assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), false);
 
         await previousButton.trigger("click");
+        assert.strictEqual(component.emitted("update:selected"), undefined);
         assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item3.selected").exists(), false);
@@ -313,6 +320,7 @@ describe("Scrollable Items", () => {
         assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), false);
 
         await nextButton.trigger("click");
+        assert.strictEqual(component.emitted("update:selected")[0][0], "item1");
         assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), true);
         assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item3.selected").exists(), false);
@@ -321,6 +329,7 @@ describe("Scrollable Items", () => {
         assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), false);
 
         await previousButton.trigger("click");
+        assert.strictEqual(component.emitted("update:selected")[1], undefined);
         assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), true);
         assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item3.selected").exists(), false);
@@ -329,6 +338,7 @@ describe("Scrollable Items", () => {
         assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), false);
 
         await nextButton.trigger("click");
+        assert.strictEqual(component.emitted("update:selected")[1][0], "item2");
         assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), true);
         assert.strictEqual(itemsContainer.find(".item-item3.selected").exists(), false);
@@ -337,6 +347,7 @@ describe("Scrollable Items", () => {
         assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), false);
 
         await nextButton.trigger("click");
+        assert.strictEqual(component.emitted("update:selected")[2][0], "item3");
         assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item3.selected").exists(), true);
@@ -345,6 +356,7 @@ describe("Scrollable Items", () => {
         assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), false);
 
         await component.setProps({ selected: "item5" });
+        assert.strictEqual(component.emitted("update:selected")[3][0], "item5");
         assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item3.selected").exists(), false);
@@ -353,6 +365,7 @@ describe("Scrollable Items", () => {
         assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), false);
 
         await nextButton.trigger("click");
+        assert.strictEqual(component.emitted("update:selected")[4][0], "item6");
         assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item3.selected").exists(), false);
@@ -361,6 +374,7 @@ describe("Scrollable Items", () => {
         assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), true);
 
         await nextButton.trigger("click");
+        assert.strictEqual(component.emitted("update:selected")[5], undefined);
         assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item3.selected").exists(), false);
@@ -369,6 +383,7 @@ describe("Scrollable Items", () => {
         assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), true);
 
         await previousButton.trigger("click");
+        assert.strictEqual(component.emitted("update:selected")[5][0], "item5");
         assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item3.selected").exists(), false);
