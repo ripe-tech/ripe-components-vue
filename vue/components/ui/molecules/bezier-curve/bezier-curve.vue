@@ -10,6 +10,7 @@
         v-on:touchend="onTouchEnd"
         v-on:touchcancel="onTouchCancel"
         v-on:touchleave="onTouchLeave"
+        v-on:mouseleave="onMouseLeave"
     >
         <line
             class="slope slope-1"
@@ -168,24 +169,16 @@ export const BezierCurve = {
             required: true
         },
         /**
-         * The number of pixels of the svg viewport
-         * in the format "`width`x`height`".
-         */
-        resolution: {
-            type: String,
-            default: "1024x1024"
-        },
-        /**
          * The number of pixels of the svg viewport in the x axis
          */
-        resolutionWidth: {
+        width: {
             type: Number,
             default: 1024
         },
         /**
          * The number of pixels of the svg viewport in the x axis
          */
-        resolutionHeight: {
+        height: {
             type: Number,
             default: 1024
         },
@@ -281,7 +274,7 @@ export const BezierCurve = {
             return `M ${this.x1Data}, ${this.y1Data} C ${this.cx1Data}, ${this.cy1Data}, ${this.cx2Data}, ${this.cy2Data}, ${this.x2Data}, ${this.y2Data}`;
         },
         viewBox() {
-            return `0, 0, ${this.resolutionWidth}, ${this.resolutionHeight}`;
+            return `0, 0, ${this.width}, ${this.height}`;
         },
         classes() {
             const base = {};
@@ -291,8 +284,7 @@ export const BezierCurve = {
     },
     methods: {
         validCoordinates({ x, y }) {
-            const [maxWidth, maxHeight] = this.resolution.split("x").map(n => parseFloat(n));
-            if (x < 0 || y < 0 || x > maxWidth || y > maxHeight) return false;
+            if (x < 0 || y < 0 || x > this.width || y > this.height) return false;
             return true;
         },
         /**
@@ -353,17 +345,20 @@ export const BezierCurve = {
         onMouseDown(event) {
             this.onStartDrag(event);
         },
-        onTouchStart(event) {
-            this.onStartDrag(event);
-        },
         onMouseMove(event) {
-            this.onDrag(event);
-        },
-        onTouchMove(event) {
             this.onDrag(event);
         },
         onMouseUp() {
             this.onStopDrag();
+        },
+        onMouseLeave() {
+            this.onStopDrag();
+        },
+        onTouchStart(event) {
+            this.onStartDrag(event);
+        },
+        onTouchMove(event) {
+            this.onDrag(event);
         },
         onTouchEnd() {
             this.onStopDrag();

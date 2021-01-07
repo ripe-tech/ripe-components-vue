@@ -29,14 +29,14 @@ storiesOf("Molecules", module)
             cy2: {
                 default: number("cy2", 431)
             },
-            resolution: {
-                default: text("Resolution", "1024x1024")
+            width: {
+                default: number("Width", 1024)
+            },
+            height: {
+                default: number("Height", 1024)
             },
             showPoints: {
                 default: boolean("Show Points", true)
-            },
-            emitInterval: {
-                default: number("Emit Interval", 250)
             },
             disabled: {
                 default: boolean("Disabled", false)
@@ -96,9 +96,9 @@ storiesOf("Molecules", module)
                     v-bind:cy1.sync="bezier.cy1"
                     v-bind:cx2.sync="bezier.cx2"
                     v-bind:cy2.sync="bezier.cy2"
-                    v-bind:resolution="resolution"
+                    v-bind:width="width"
+                    v-bind:height="height"
                     v-bind:show-points="showPoints"
-                    v-bind:emit-interval="emitInterval"
                     v-bind:disabled="disabled"
                 />
             </div>

@@ -30,8 +30,8 @@ describe("BezierCurve", () => {
                 cx2: 203,
                 cy1: 641,
                 cy2: 431,
-                resolutionWidth: 640,
-                resolutionHeight: 480
+                width: 640,
+                height: 480
             }
         });
 
