@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, number } from "@storybook/addon-knobs";
+import { withKnobs, number, boolean, color } from "@storybook/addon-knobs";
 
 storiesOf("Molecules", module)
     .addDecorator(withKnobs)
@@ -7,6 +7,18 @@ storiesOf("Molecules", module)
         props: {
             imageIndex: {
                 default: number("Image Index", 0)
+            },
+            width: {
+                default: number("Width", 320)
+            },
+            height: {
+                default: number("Height", 500)
+            },
+            arrows: {
+                default: boolean("Arrows", true)
+            },
+            arrowsColor: {
+                default: color("Arrows Color", "#808080")
             }
         },
         data: function() {
@@ -38,6 +50,10 @@ storiesOf("Molecules", module)
         <div>
             <carousel
                 v-bind:images="images"
+                v-bind:width="width"
+                v-bind:height="height"
+                v-bind:arrows="arrows"
+                v-bind:arrows-color="arrowsColor"
                 v-bind:image-index.sync="imageIndexData"
                 ref="carousel"
             />
