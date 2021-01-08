@@ -78,7 +78,7 @@
     transition: opacity 0.2s ease-out;
 }
 
-.scrollable-items > .items-container > .item.last {
+.scrollable-items > .items-container > .item:last-child {
     margin: 0px 0px 0px 0px;
 }
 
@@ -209,7 +209,6 @@ export const ScrollableItems = {
             const base = {};
             base[`item-${item.value}`] = true;
             if (item.value === this.selectedData) base.selected = true;
-            if (this.items.length && index === this.items.length - 1) base.last = true;
             return base;
         },
         calculateScrollableWidth() {
