@@ -1,6 +1,7 @@
 <template>
     <div
         class="carousel"
+        v-bind:style="style"
         ref="carousel"
         v-on:mousedown="onMouseDown"
         v-on:mouseup="onMouseUp"
@@ -10,12 +11,16 @@
         v-on:touchcancel="onTouchCancel"
         v-on:touchleave="onTouchLeave"
     >
-        <transition-group
-            class="slide-container"
-            tag="div"
-            name="fade"
-            v-bind:style="slideContainerStyle"
-        >
+        <icon
+            class="arrow arrow-previous"
+            v-bind:color="arrowsColor"
+            v-bind:icon="'chevron-left'"
+            v-bind:width="36"
+            v-bind:height="36"
+            v-show="arrowsVisibility"
+            v-on:click="previous"
+        />
+        <transition-group class="slide-container" tag="div" name="fade">
             <div
                 class="slide"
                 v-for="(image, index) in images"
@@ -27,23 +32,69 @@
                 </div>
             </div>
         </transition-group>
+        <icon
+            class="arrow arrow-next"
+            v-bind:color="arrowsColor"
+            v-bind:icon="'chevron-right'"
+            v-bind:width="36"
+            v-bind:height="36"
+            v-show="arrowsVisibility"
+            v-on:click="next"
+        />
     </div>
 </template>
 
 <style lang="scss" scoped>
 .carousel {
+    height: 100%;
     overflow: hidden;
+    position: relative;
     user-select: none;
+    width: 100%;
+}
+
+.carousel .arrow {
+    cursor: pointer;
+    position: absolute;
+    top: calc(50% - 18px);
+    transition: scale ease-in-out 0.1s, transform ease-in-out 0.1s;
+    z-index: 1;
+}
+
+.carousel .arrow:hover {
+    scale: 1.3;
+}
+
+.carousel .arrow:active {
+    scale: 1.4;
+}
+
+.carousel .arrow-previous {
+    left: 0px;
+}
+
+.carousel .arrow-next {
+    right: 0px;
+}
+
+.carousel .arrow-previous:active {
+    transform: translate(-5px);
+}
+
+.carousel .arrow-next:active {
+    transform: translate(5px);
 }
 
 .carousel .slide-container {
-    cursor: pointer;
+    height: 100%;
     position: relative;
     text-align: left;
     white-space: nowrap;
+    width: 100%;
 }
 
 .carousel .slide-container .slide {
+    cursor: pointer;
     display: inline-block;
     height: 100%;
     position: absolute;
@@ -70,7 +121,7 @@
 
 .fade-enter-active,
 .fade-leave-active {
-    transition: opacity 0.4s;
+    transition: opacity 0.5s;
 }
 
 .fade-enter,
@@ -88,7 +139,7 @@ export const Carousel = {
          */
         images: {
             type: Array,
-            default: []
+            default: () => []
         },
         /**
          * The index of the image to be displayed first.
@@ -110,6 +161,20 @@ export const Carousel = {
         height: {
             type: Number,
             default: 400
+        },
+        /**
+         * Weather or not the arrows to navigate between slides should show.
+         */
+        arrows: {
+            type: Boolean,
+            default: true
+        },
+        /**
+         * The color of the arrow to move between the slide images.
+         */
+        arrowsColor: {
+            type: String,
+            default: "#808080"
         }
     },
     data: function() {
@@ -120,11 +185,14 @@ export const Carousel = {
         };
     },
     computed: {
-        slideContainerStyle() {
+        style() {
             const base = {};
             if (this.width) base.width = this.width + "px";
             if (this.height) base.height = this.height + "px";
             return base;
+        },
+        arrowsVisibility() {
+            return this.images.length > 1 && this.arrows;
         }
     },
     watch: {
