@@ -21,7 +21,7 @@
                 v-bind:class="itemClasses(item, index)"
                 v-for="(item, index) in items"
                 v-bind:key="item.value"
-                v-on:mouseup="onItemMouseUp($event, item)"
+                v-on:click="onItemClick($event, item)"
             >
                 <slot v-bind:item="item">
                     <slot v-bind:name="item.value" v-bind:item="item">
@@ -234,7 +234,7 @@ export const ScrollableItems = {
         onItemsContainerMouseDown(event) {
             this.isMouseDown = true;
         },
-        onItemMouseUp(event, item) {
+        onItemClick(event, item) {
             this.selectedData = item.value;
             this.$emit("item-click", event, item);
         },
