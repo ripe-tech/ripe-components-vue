@@ -33,14 +33,6 @@ storiesOf("Molecules", module)
                 imageIndexData: this.imageIndex
             };
         },
-        methods: {
-            next() {
-                this.$refs.carousel.next();
-            },
-            previous() {
-                this.$refs.carousel.previous();
-            }
-        },
         watch: {
             imageIndex(value) {
                 this.imageIndexData = value;
@@ -58,8 +50,6 @@ storiesOf("Molecules", module)
                 ref="carousel"
             />
             <p>{{imageIndexData}} </p>
-            <button v-on:click="previous"> Previous </button>
-            <button v-on:click="next"> Next </button>
         </div>
         `
     }));
