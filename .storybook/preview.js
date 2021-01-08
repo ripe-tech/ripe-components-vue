@@ -9,5 +9,3 @@ Vue.use(RipeComponentsVue);
 Vue.component("global-events", GlobalEvents);
 
 Vue.prototype.$bus = new Vue();
-
-export const parameters = { layout: "fullscreen" };
