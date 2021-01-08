@@ -214,6 +214,7 @@ export const ScrollableItems = {
             this.scrollableWidth = this.$refs["items-container"].scrollLeftMax;
         },
         snapSelectedToCenter() {
+            if (this.selectedIndex < 0) return;
             this.$refs["items-container"].childNodes[this.selectedIndex].scrollIntoView({
                 behavior: "smooth",
                 inline: "center"
