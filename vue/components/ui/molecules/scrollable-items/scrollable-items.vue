@@ -3,11 +3,11 @@
         <button-icon
             class="button-icon-previous"
             v-bind:icon="'chevron-left'"
-            v-bind:disabled="isButtonPreviousDisabled"
+            v-bind:disabled="isPreviousDisabled"
             v-bind="_buttonIconProps"
             v-if="showArrows"
             ref="button-icon-previous"
-            v-on:click="onButtonIconPreviousClick"
+            v-on:click="onPreviousClick"
         />
         <div
             class="items-container"
@@ -33,11 +33,11 @@
         <button-icon
             class="button-icon-next"
             v-bind:icon="'chevron-right'"
-            v-bind:disabled="isButtonNextDisabled"
+            v-bind:disabled="isNextDisabled"
             v-bind="_buttonIconProps"
             v-if="showArrows"
             ref="button-icon-next"
-            v-on:click="onButtonIconNextClick"
+            v-on:click="onNextClick"
         />
     </div>
 </template>
@@ -173,16 +173,16 @@ export const ScrollableItems = {
             };
         },
         showArrows() {
-            const hideArrows = this.autoHideArrows && !(this.scrollableWidth > 0);
+            const hideArrows = this.autoHideArrows && this.scrollableWidth <= 0;
             return this.arrows && !hideArrows;
         },
         selectedIndex() {
             return this.items.findIndex(item => item.value === this.selectedData);
         },
-        isButtonPreviousDisabled() {
+        isPreviousDisabled() {
             return this.selectedIndex <= 0;
         },
-        isButtonNextDisabled() {
+        isNextDisabled() {
             return this.selectedIndex >= this.items.length - 1;
         }
     },
@@ -226,7 +226,7 @@ export const ScrollableItems = {
         onResize(event) {
             this.calculateScrollableWidth();
         },
-        onButtonIconPreviousClick(event) {
+        onPreviousClick(event) {
             this.selectedData = this.items[this.selectedIndex - 1].value;
         },
         onItemsContainerWheel(event) {
@@ -250,7 +250,7 @@ export const ScrollableItems = {
             this.selectedData = item.value;
             this.$emit("button-click", event, item);
         },
-        onButtonIconNextClick(event) {
+        onNextClick(event) {
             this.selectedData = this.items[this.selectedIndex + 1].value;
         }
     }
