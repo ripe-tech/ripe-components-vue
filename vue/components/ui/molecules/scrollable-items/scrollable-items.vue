@@ -154,8 +154,6 @@ export const ScrollableItems = {
     data: function() {
         return {
             selectedData: this.selected,
-            isMouseDown: false,
-            isDraggingItems: false,
             scrollableWidth: 0
         };
     },
@@ -197,12 +195,8 @@ export const ScrollableItems = {
     },
     created: function() {
         window.addEventListener("resize", this.onResize);
-        window.addEventListener("mouseup", this.onMouseUp);
-        window.addEventListener("mousemove", this.onMouseMove);
     },
     destroyed: function() {
-        window.removeEventListener("mousemove", this.onMouseMove);
-        window.removeEventListener("mouseup", this.onMouseUp);
         window.removeEventListener("resize", this.onResize);
     },
     methods: {
@@ -235,20 +229,9 @@ export const ScrollableItems = {
         onItemsContainerMouseDown(event) {
             this.isMouseDown = true;
         },
-        onMouseUp(event) {
-            this.isDraggingItems = this.isMouseDown = false;
-        },
-        onMouseMove(event) {
-            if (!this.isMouseDown) return;
-            this.isDraggingItems = true;
-
-            this.$refs["items-container"].scrollLeft -= event.movementX;
-        },
         onItemMouseUp(event, item) {
-            if (this.isDraggingItems) return;
-
             this.selectedData = item.value;
-            this.$emit("button-click", event, item);
+            this.$emit("item-click", event, item);
         },
         onNextClick(event) {
             this.selectedData = this.items[this.selectedIndex + 1].value;
