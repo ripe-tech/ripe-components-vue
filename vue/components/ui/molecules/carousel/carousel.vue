@@ -15,20 +15,27 @@
             class="arrow arrow-previous"
             v-bind:color="arrowsColor"
             v-bind:icon="'chevron-left'"
-            v-bind:width="36"
-            v-bind:height="36"
+            v-bind:width="arrowsSize"
+            v-bind:height="arrowsSize"
             v-show="arrowsVisibility"
             v-on:click="previous"
         />
         <transition-group class="slide-container" tag="div" name="fade">
             <div
                 class="slide"
-                v-for="(image, index) in images"
-                v-show="index === imageIndexData"
-                v-bind:key="`${image}-${index}`"
+                v-for="(item, index) in items"
+                v-show="index === valueData"
+                v-bind:key="`${item}-${index}`"
             >
                 <div class="slide-content">
-                    <image-ripe class="slide-image" v-bind:src="image" v-on:load="onLoadImage" />
+                    <slot v-bind:item="item" v-bind:index="index" v-bind:name="`slide-${index}`">
+                        <image-ripe
+                            class="slide-item"
+                            v-bind:src="item.src"
+                            v-bind:style="imageStyle(index)"
+                            v-on:load="onLoadImage"
+                        />
+                    </slot>
                 </div>
             </div>
         </transition-group>
@@ -36,8 +43,8 @@
             class="arrow arrow-next"
             v-bind:color="arrowsColor"
             v-bind:icon="'chevron-right'"
-            v-bind:width="36"
-            v-bind:height="36"
+            v-bind:width="arrowsSize"
+            v-bind:height="arrowsSize"
             v-show="arrowsVisibility"
             v-on:click="next"
         />
@@ -46,7 +53,10 @@
 
 <style lang="scss" scoped>
 .carousel {
+    align-items: center;
+    display: flex;
     height: 100%;
+    justify-content: center;
     overflow: hidden;
     position: relative;
     user-select: none;
@@ -56,7 +66,6 @@
 .carousel .arrow {
     cursor: pointer;
     position: absolute;
-    top: calc(50% - 18px);
     transition: scale ease-in-out 0.1s, transform ease-in-out 0.1s;
     z-index: 1;
 }
@@ -108,13 +117,11 @@
     display: flex;
     height: 100%;
     justify-content: center;
-    padding: 0px 5px 0px 5px;
     width: 100%;
 }
 
 .carousel .slide-container .slide .slide-content .image {
     height: 100%;
-    object-fit: contain;
     pointer-events: none;
     width: 100%;
 }
@@ -135,16 +142,16 @@ export const Carousel = {
     name: "carousel",
     props: {
         /**
-         * Set of images to be displayed in the carousel slider.
+         * Set of items to be displayed in the carousel slider.
          */
-        images: {
+        items: {
             type: Array,
             default: () => []
         },
         /**
          * The index of the image to be displayed first.
          */
-        imageIndex: {
+        value: {
             type: Number,
             default: 0
         },
@@ -170,18 +177,39 @@ export const Carousel = {
             default: true
         },
         /**
-         * The color of the arrow to move between the slide images.
+         * The size of the arrows to move between the slide items in pixels.
+         */
+        arrowsSize: {
+            type: Number,
+            default: 36
+        },
+        /**
+         * The color of the arrows to move between the slide items.
          */
         arrowsColor: {
             type: String,
             default: "#808080"
+        },
+        /**
+         * The fit style of the images.
+         */
+        imageFit: {
+            type: String,
+            default: "contain"
+        },
+        /**
+         * The amount of pixels that need to be dragged to trigger a swipe.
+         */
+        swipeThreshhold: {
+            type: Number,
+            default: 50
         }
     },
     data: function() {
         return {
             dragStartPosition: null,
-            loadedImages: 0,
-            imageIndexData: this.imageIndex
+            loadedItems: 0,
+            valueData: this.value
         };
     },
     computed: {
@@ -191,36 +219,37 @@ export const Carousel = {
             if (this.height) base.height = this.height + "px";
             return base;
         },
+        imageStyle() {
+            return index => {
+                const base = {};
+                if (this.imageFit) base["object-fit"] = this.imageFit;
+                if (this.items[index]["object-fit"])
+                    { base["object-fit"] = this.items[index]["object-fit"]; }
+                return base;
+            };
+        },
         arrowsVisibility() {
-            return this.images.length > 1 && this.arrows;
+            return this.items.length > 1 && this.arrows;
         }
     },
     watch: {
-        imageIndexData(value) {
-            this.$emit("update:image-index", value);
+        valueData(value) {
+            this.$emit("update:value", value);
         },
-        imageIndex(value) {
-            this.imageIndexData = value;
+        value(value) {
+            this.valueData = value;
         },
-        loadedImages(value) {
-            const loadingPercentage = value / this.images.length;
+        loadedItems(value) {
+            const loadingPercentage = value / this.items.length;
             this.$emit("update:load", loadingPercentage);
         }
     },
     methods: {
         next() {
-            const nextIndex =
-                this.imageIndexData + 1 > this.images.length - 1 ? 0 : this.imageIndexData + 1;
-            this.imageIndexData = nextIndex;
+            this.valueData = (this.valueData + 1) % this.items.length;
         },
         previous() {
-            const previousIndex =
-                this.imageIndexData - 1 < 0 ? this.images.length - 1 : this.imageIndexData - 1;
-            this.imageIndexData = previousIndex;
-        },
-        swipeHorizontal(distance) {
-            if (distance < -50) this.next();
-            if (distance > 50) this.previous();
+            this.valueData = this.valueData - 1 < 0 ? this.items.length - 1 : this.valueData - 1;
         },
         getCursorPosition(event) {
             const deviceEvent = event.type === "touchmove" ? event.touches[0] : event;
@@ -236,24 +265,19 @@ export const Carousel = {
                 dy: currentPos.y - initialPosition.y
             };
         },
-        setInitialDragPosition(event) {
-            const cursorPosition = this.getCursorPosition(event);
-            this.dragStartPosition = cursorPosition;
-        },
-        stopDrag(position) {
-            this.dragStartPosition = null;
-        },
         onLoadImage() {
-            this.loadedImages += 1;
+            this.loadedItems += 1;
         },
         onStartDrag(event) {
-            this.setInitialDragPosition(event);
+            const cursorPosition = this.getCursorPosition(event);
+            this.dragStartPosition = cursorPosition;
         },
         onStopDrag(event) {
             if (!this.dragStartPosition) return;
             const dragDistance = this.getDragDistance(this.dragStartPosition, event);
-            this.swipeHorizontal(dragDistance.dx);
-            this.stopDrag();
+            if (dragDistance.dx < -1 * this.swipeThreshhold) this.next();
+            if (dragDistance.dx > this.swipeThreshhold) this.previous();
+            this.dragStartPosition = null;
         },
         onMouseDown(event) {
             this.onStartDrag(event);
