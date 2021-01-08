@@ -135,7 +135,7 @@ describe("Scrollable Items", () => {
         assert.strictEqual(itemsContainer.find(".item-item5.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), false);
 
-        await itemsContainer.find(".item-item3").trigger("mouseup");
+        await itemsContainer.find(".item-item3").trigger("click");
         assert.strictEqual(component.emitted("update:selected")[0][0], "item3");
         assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), false);
@@ -144,7 +144,7 @@ describe("Scrollable Items", () => {
         assert.strictEqual(itemsContainer.find(".item-item5.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), false);
 
-        await itemsContainer.find(".item-item1").trigger("mouseup");
+        await itemsContainer.find(".item-item1").trigger("click");
         assert.strictEqual(component.emitted("update:selected")[1][0], "item1");
         assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), true);
         assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), false);
@@ -153,7 +153,7 @@ describe("Scrollable Items", () => {
         assert.strictEqual(itemsContainer.find(".item-item5.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), false);
 
-        await itemsContainer.find(".item-item6").trigger("mouseup");
+        await itemsContainer.find(".item-item6").trigger("click");
         assert.strictEqual(component.emitted("update:selected")[2][0], "item6");
         assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), false);
@@ -162,7 +162,7 @@ describe("Scrollable Items", () => {
         assert.strictEqual(itemsContainer.find(".item-item5.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item6.selected").exists(), true);
 
-        await itemsContainer.find(".item-item2").trigger("mouseup");
+        await itemsContainer.find(".item-item2").trigger("click");
         assert.strictEqual(component.emitted("update:selected")[3][0], "item2");
         assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), true);
