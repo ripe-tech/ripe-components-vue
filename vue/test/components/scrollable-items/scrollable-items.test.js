@@ -127,6 +127,7 @@ describe("Scrollable Items", () => {
         assert.strictEqual(itemsContainer.find(".item-item3").exists(), true);
         assert.strictEqual(itemsContainer.find(".item-item4").exists(), true);
         assert.strictEqual(itemsContainer.find(".item-item5").exists(), true);
+        assert.strictEqual(itemsContainer.find(".item-item6").exists(), true);
         assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item3.selected").exists(), false);
@@ -194,6 +195,7 @@ describe("Scrollable Items", () => {
         assert.strictEqual(itemsContainer.find(".item-item3").exists(), true);
         assert.strictEqual(itemsContainer.find(".item-item4").exists(), true);
         assert.strictEqual(itemsContainer.find(".item-item5").exists(), true);
+        assert.strictEqual(itemsContainer.find(".item-item6").exists(), true);
         assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item3.selected").exists(), false);
@@ -303,6 +305,7 @@ describe("Scrollable Items", () => {
         assert.strictEqual(itemsContainer.find(".item-item3").exists(), true);
         assert.strictEqual(itemsContainer.find(".item-item4").exists(), true);
         assert.strictEqual(itemsContainer.find(".item-item5").exists(), true);
+        assert.strictEqual(itemsContainer.find(".item-item6").exists(), true);
         assert.strictEqual(itemsContainer.find(".item-item1.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item2.selected").exists(), false);
         assert.strictEqual(itemsContainer.find(".item-item3.selected").exists(), false);
