@@ -185,6 +185,11 @@ export const ScrollableItems = {
         }
     },
     watch: {
+        items() {
+            this.$nextTick(() => {
+                this.calculateScrollableWidth();
+            });
+        },
         selected(value) {
             this.selectedData = value;
         },
