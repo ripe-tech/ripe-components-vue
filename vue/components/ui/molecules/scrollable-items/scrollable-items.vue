@@ -192,7 +192,7 @@ export const ScrollableItems = {
             this.selectedData = value;
         },
         selectedData(value) {
-            this.snapSelectedToCenter();
+            this.$nextTick(() => this.snapSelectedToCenter());
             this.$emit("update:selected", value);
         }
     },
