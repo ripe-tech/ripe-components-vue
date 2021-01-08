@@ -114,8 +114,7 @@ describe("Scrollable Items", () => {
                     { label: "Item Example 5", value: "item5" },
                     { label: "Item Example 6", value: "item6" }
                 ]
-            },
-            mixins: [{ methods: { snapSelectedToCenter() {} } }]
+            }
         });
 
         assert.strictEqual(component.emitted("update:selected"), undefined);
@@ -183,8 +182,7 @@ describe("Scrollable Items", () => {
                     { label: "Item Example 5", value: "item5" },
                     { label: "Item Example 6", value: "item6" }
                 ]
-            },
-            mixins: [{ methods: { snapSelectedToCenter() {} } }]
+            }
         });
 
         const itemsContainer = component.find(".items-container");
@@ -248,8 +246,7 @@ describe("Scrollable Items", () => {
                     { label: "Item Example 6", value: "item6" }
                 ],
                 autoHideArrows: false
-            },
-            mixins: [{ methods: { snapSelectedToCenter() {} } }]
+            }
         });
 
         assert.strictEqual(component.find(".button-icon-previous").exists(), true);
@@ -288,8 +285,7 @@ describe("Scrollable Items", () => {
                     { label: "Item Example 6", value: "item6" }
                 ],
                 autoHideArrows: false
-            },
-            mixins: [{ methods: { snapSelectedToCenter() {} } }]
+            }
         });
 
         assert.strictEqual(component.emitted("update:selected"), undefined);

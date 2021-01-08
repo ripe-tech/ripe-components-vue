@@ -12,6 +12,8 @@ localVue.component("global-events", globalEvents.default);
 localVue.mixin(mocks.deviceMockMixin);
 localVue.prototype.$bus = new Vue();
 
+window.HTMLElement.prototype.scrollIntoView = () => {};
+
 /**
  * Initializes a mounted component.
  *
