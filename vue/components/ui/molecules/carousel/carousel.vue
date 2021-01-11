@@ -221,8 +221,9 @@ export const Carousel = {
             return index => {
                 const base = {};
                 if (this.imageFit) base["object-fit"] = this.imageFit;
-                if (this.items[index]["object-fit"])
-                    { base["object-fit"] = this.items[index]["object-fit"]; }
+                if (this.items[index]["object-fit"]) {
+                    base["object-fit"] = this.items[index]["object-fit"];
+                }
                 return base;
             };
         },
