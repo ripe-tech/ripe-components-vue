@@ -71,7 +71,11 @@ storiesOf("Molecules", module)
                 v-bind:arrows-color="arrowsColor"
                 v-bind:swipe-threshhold="swipeThreshhold"
                 ref="carousel"
-            />
+            >
+                <template v-slot:slide-2>
+                    Slide 2
+                </template>
+            </carousel>
             <p>{{valueData}} </p>
         </div>
         `
