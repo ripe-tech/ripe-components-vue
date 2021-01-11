@@ -4,7 +4,7 @@ Library of shared components to be re-used in [Vue.js](https://vuejs.org/)
 
 ## Storybook
 
-There's a CI/CD integration running using [now.sh](https://zeit.co) @ [https://ripe-components-vue-now.platforme.com](https://ripe-components-vue-now.platforme.com).
+There's a CI/CD integration running using [vercel.com](https://vercel.com) @ [https://ripe-components-vue-now.platforme.com](https://ripe-components-vue-now.platforme.com).
 
 ### Usage
 
