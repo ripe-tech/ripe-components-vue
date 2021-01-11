@@ -23,8 +23,8 @@ storiesOf("Molecules", module)
             arrowsColor: {
                 default: color("Arrows Color", "#808080")
             },
-            swipeThreshhold: {
-                default: number("Swipe Threshhold", 50)
+            swipeThreshold: {
+                default: number("Swipe Threshold", 50)
             }
         },
         data: function() {
@@ -69,14 +69,28 @@ storiesOf("Molecules", module)
                 v-bind:arrows="arrows"
                 v-bind:arrows-size="arrowsSize"
                 v-bind:arrows-color="arrowsColor"
-                v-bind:swipe-threshhold="swipeThreshhold"
-                ref="carousel"
+                v-bind:swipe-threshold="swipeThreshold"
             >
+            </carousel>
+            <p>{{valueData}} </p>
+            <carousel
+                v-bind:width="width"
+                v-bind:height="height"
+                v-bind:arrows="arrows"
+                v-bind:arrows-size="arrowsSize"
+                v-bind:arrows-color="arrowsColor"
+                v-bind:swipe-threshold="swipeThreshold"
+            >
+                <template v-slot:slide-1>
+                    Slide 1
+                </template>
                 <template v-slot:slide-2>
                     Slide 2
                 </template>
+                <template v-slot:slide-3>
+                    Slide 3
+                </template>
             </carousel>
-            <p>{{valueData}} </p>
         </div>
         `
     }));

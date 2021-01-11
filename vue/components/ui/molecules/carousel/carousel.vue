@@ -199,7 +199,7 @@ export const Carousel = {
         /**
          * The amount of pixels that need to be dragged to trigger a swipe.
          */
-        swipeThreshhold: {
+        swipeThreshold: {
             type: Number,
             default: 50
         }
@@ -267,8 +267,8 @@ export const Carousel = {
         onStopDrag(event) {
             if (!this.dragStartPosition) return;
             const dragDistance = this.getDragDistance(this.dragStartPosition, event);
-            if (dragDistance.dx < -1 * this.swipeThreshhold) this.next();
-            if (dragDistance.dx > this.swipeThreshhold) this.previous();
+            if (dragDistance.dx < -1 * this.swipeThreshold) this.next();
+            if (dragDistance.dx > this.swipeThreshold) this.previous();
             this.dragStartPosition = null;
         },
         onMouseDown(event) {
