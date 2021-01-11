@@ -33,7 +33,6 @@
                             class="slide-item"
                             v-bind:src="item.src"
                             v-bind:style="imageStyle(index)"
-                            v-on:load="onLoadImage"
                         />
                     </slot>
                 </div>
@@ -208,7 +207,6 @@ export const Carousel = {
     data: function() {
         return {
             dragStartPosition: null,
-            loadedItems: 0,
             valueData: this.value
         };
     },
@@ -238,10 +236,6 @@ export const Carousel = {
         },
         value(value) {
             this.valueData = value;
-        },
-        loadedItems(value) {
-            const loadingPercentage = value / this.items.length;
-            this.$emit("update:load", loadingPercentage);
         }
     },
     methods: {
@@ -264,9 +258,6 @@ export const Carousel = {
                 dx: currentPos.x - initialPosition.x,
                 dy: currentPos.y - initialPosition.y
             };
-        },
-        onLoadImage() {
-            this.loadedItems += 1;
         },
         onStartDrag(event) {
             const cursorPosition = this.getCursorPosition(event);
