@@ -14,7 +14,6 @@
             v-bind:style="itemsContainerStyle"
             ref="items-container"
             v-on:wheel="onItemsContainerWheel"
-            v-on:mousedown="onItemsContainerMouseDown"
         >
             <div
                 class="item"
@@ -228,9 +227,6 @@ export const ScrollableItems = {
         },
         onItemsContainerWheel(event) {
             this.$refs["items-container"].scrollLeft += event.deltaY * -this.scrollSpeed;
-        },
-        onItemsContainerMouseDown(event) {
-            this.isMouseDown = true;
         },
         onItemClick(event, item) {
             this.selectedData = item.value;
