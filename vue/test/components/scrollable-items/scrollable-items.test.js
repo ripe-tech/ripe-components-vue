@@ -7,7 +7,7 @@ const base = require("../../base");
  * changes. This occurs because jsdom doesn't implement a CSS layout box.
  * This problem was discussed here: https://github.com/ripe-tech/ripe-components-vue/pull/418#discussion_r553475692
  */
-const setScrollableWdith = async (scrollableItemsComponent, width) => {
+const updateScrollableWidth = async (scrollableItemsComponent, width) => {
     // Setting "scrollableWidth" in "ScrollableComponent" greater than 0 is a workaround to
     // make the test work properly. It makes the component think it doesn't have enough space
     // to show all the items, thus the default behaviour will be to show the arrows
@@ -28,8 +28,8 @@ describe("Scrollable Items", () => {
                 ]
             }
         });
+        await updateScrollableWidth(component, 500);
 
-        await setScrollableWdith(component, 500);
         assert.strictEqual(component.find(".button-icon-previous").exists(), true);
         assert.strictEqual(component.find(".button-icon-next").exists(), true);
         const itemsContainer = component.find(".items-container");
@@ -56,8 +56,8 @@ describe("Scrollable Items", () => {
                 ]
             }
         });
+        await updateScrollableWidth(component, 500);
 
-        await setScrollableWdith(component, 500);
         assert.strictEqual(component.find(".button-icon-previous").exists(), true);
         assert.strictEqual(component.find(".button-icon-next").exists(), true);
 
@@ -84,24 +84,24 @@ describe("Scrollable Items", () => {
             }
         });
 
-        await setScrollableWdith(component, 500);
+        await updateScrollableWidth(component, 500);
         assert.strictEqual(component.find(".button-icon-previous").exists(), true);
         assert.strictEqual(component.find(".button-icon-next").exists(), true);
 
-        await setScrollableWdith(component, 0);
+        await updateScrollableWidth(component, 0);
         assert.strictEqual(component.find(".button-icon-previous").exists(), false);
         assert.strictEqual(component.find(".button-icon-next").exists(), false);
 
-        await setScrollableWdith(component, 500);
+        await updateScrollableWidth(component, 500);
         assert.strictEqual(component.find(".button-icon-previous").exists(), true);
         assert.strictEqual(component.find(".button-icon-next").exists(), true);
 
         await component.setProps({ autoHideArrows: false });
-        await setScrollableWdith(component, 500);
+        await updateScrollableWidth(component, 500);
         assert.strictEqual(component.find(".button-icon-previous").exists(), true);
         assert.strictEqual(component.find(".button-icon-next").exists(), true);
 
-        await setScrollableWdith(component, 0);
+        await updateScrollableWidth(component, 0);
         assert.strictEqual(component.find(".button-icon-previous").exists(), true);
         assert.strictEqual(component.find(".button-icon-next").exists(), true);
     });
