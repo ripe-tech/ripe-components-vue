@@ -30,7 +30,6 @@ describe("Scrollable Items", () => {
         });
 
         await setScrollableWdith(component, 500);
-
         assert.strictEqual(component.find(".button-icon-previous").exists(), true);
         assert.strictEqual(component.find(".button-icon-next").exists(), true);
         const itemsContainer = component.find(".items-container");
@@ -59,7 +58,6 @@ describe("Scrollable Items", () => {
         });
 
         await setScrollableWdith(component, 500);
-
         assert.strictEqual(component.find(".button-icon-previous").exists(), true);
         assert.strictEqual(component.find(".button-icon-next").exists(), true);
 
