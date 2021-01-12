@@ -226,7 +226,7 @@ export const ScrollableItems = {
             this.selectedData = this.items[this.selectedIndex - 1].value;
         },
         onItemsContainerWheel(event) {
-            this.$refs["items-container"].scrollLeft += event.deltaY * -this.scrollSpeed;
+            this.$refs["items-container"].scrollLeft -= event.deltaY * this.scrollSpeed;
         },
         onItemClick(event, item) {
             this.selectedData = item.value;
