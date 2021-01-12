@@ -1,14 +1,14 @@
-export const blobMixin = {
+export const downloadMixin = {
     methods: {
         /**
-         * Downloads a blob file with a given filename
+         * Downloads a file with a given filename.
          *
-         * @param {Object} blob File to be downloaded
-         * @param {String} filename Name to give the file
+         * @param {Object} obj Object to be downloaded.
+         * @param {String} filename Name to give the file.
          */
-        downloadBlob(blob, filename) {
+        download(obj, filename) {
             const anchor = document.createElement("a");
-            const url = URL.createObjectURL(blob);
+            const url = URL.createObjectURL(obj);
             anchor.href = url;
             anchor.download = filename;
             document.body.appendChild(anchor);
