@@ -84,8 +84,20 @@ export const Icon = {
                 let resource = this.icon;
                 if (typeof this.icon === "string") {
                     try {
-                        resource = require(`!!raw-loader!./../../../../assets/icons/${this.icon}.svg`);
+                        if (
+                            this.$root.$iconSources &&
+                            this.$root.$iconSources.keys().includes(this.icon)
+                        ) {
+                            // if there is an iconSources defined at the root
+                            // that contains the item, use it
+                            resource = this.$root.$iconSources(`./${this.icon}.svg`);
+                        } else {
+                            // otherwise fallback to default icons
+                            resource = require(`!!raw-loader!./../../../../assets/icons/${this.icon}.svg`);
+                        }
                     } catch (err) {
+                        // if none of the other resolution strategies worked,
+                        // try finding the icon in the 'extra' folder
                         resource = require(`!!raw-loader!./../../../../assets/icons/extra/${this.icon}.svg`);
                     }
                 }
