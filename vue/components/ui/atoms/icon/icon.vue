@@ -83,22 +83,22 @@ export const Icon = {
             try {
                 let resource = this.icon;
                 if (typeof this.icon === "string") {
-                    try {
-                        if (
-                            this.$root.$iconSources &&
-                            this.$root.$iconSources.keys().includes(this.icon)
-                        ) {
-                            // if there is an iconSources defined at the root
-                            // that contains the item, use it
-                            resource = this.$root.$iconSources(`./${this.icon}.svg`);
-                        } else {
-                            // otherwise fallback to default icons
+                    const iconContexts =
+                        this.$root && this.$root.$iconContexts ? this.$root.$iconContexts : [];
+                    const iconContext = iconContexts.find(c => c.keys().includes(this.icon));
+                    if (iconContext) {
+                        // if there is a custom context defined at the root
+                        // that contains the item, use it
+                        resource = iconContext(`./${this.icon}.svg`);
+                    } else {
+                        // otherwise fallback to default icons
+                        try {
                             resource = require(`!!raw-loader!./../../../../assets/icons/${this.icon}.svg`);
+                        } catch (err) {
+                            // search the extra folder if the icon
+                            // doesn't belong to the default set
+                            resource = require(`!!raw-loader!./../../../../assets/icons/extra/${this.icon}.svg`);
                         }
-                    } catch (err) {
-                        // if none of the other resolution strategies worked,
-                        // try finding the icon in the 'extra' folder
-                        resource = require(`!!raw-loader!./../../../../assets/icons/extra/${this.icon}.svg`);
                     }
                 }
                 return resource.default;
