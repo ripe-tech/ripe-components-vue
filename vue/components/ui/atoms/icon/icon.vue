@@ -83,20 +83,24 @@ export const Icon = {
             try {
                 let resource = this.icon;
                 if (typeof this.icon === "string") {
+                    // "gathers" the complete set of icon contexts and
+                    // determines if at least one includes the provided
+                    // icon as part of its source
                     const iconContexts =
                         this.$root && this.$root.$iconContexts ? this.$root.$iconContexts : [];
                     const iconContext = iconContexts.find(c => c.keys().includes(this.icon));
+
+                    // if there is a custom context defined at the root that
+                    // contains the item, then uses it
                     if (iconContext) {
-                        // if there is a custom context defined at the root
-                        // that contains the item, use it
                         resource = iconContext(`./${this.icon}.svg`);
-                    } else {
-                        // otherwise fallback to default icons
+                    }
+                    // otherwise fallback to default strategy for the retrieval
+                    // of icons, using the `try` and `catch` strategy
+                    else {
                         try {
                             resource = require(`!!raw-loader!./../../../../assets/icons/${this.icon}.svg`);
                         } catch (err) {
-                            // search the extra folder if the icon
-                            // doesn't belong to the default set
                             resource = require(`!!raw-loader!./../../../../assets/icons/extra/${this.icon}.svg`);
                         }
                     }
