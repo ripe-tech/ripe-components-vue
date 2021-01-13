@@ -33,6 +33,8 @@
         v-bind:confirm-icon="confirmIcon"
         v-bind:confirm-color="confirmColor"
         v-bind:buttons-alignment="buttonsAlignment"
+        v-bind:button-confirm="buttonConfirm"
+        v-bind:button-cancel="buttonCancel"
         v-bind:button-close="buttonClose"
         v-bind:cancel-text="cancelText"
         v-bind:cancel-icon="cancelIcon"
