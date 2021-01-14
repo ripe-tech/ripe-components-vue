@@ -251,7 +251,7 @@
 .button-color.button-color-small .icon,
 .button-color.button-color-small .icon-hover {
     height: 18px;
-    margin-top: 7px;
+    margin-top: 6px;
     width: 18px;
 }
 
