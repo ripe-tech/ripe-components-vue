@@ -1,8 +1,8 @@
 <template>
     <div
         class="carousel"
-        v-bind:style="style"
         v-bind:class="classes"
+        v-bind:style="style"
         ref="carousel"
         v-on:mousedown="onMouseDown"
         v-on:mouseup="onMouseUp"
