@@ -1,7 +1,7 @@
 <template>
     <div class="chat">
         <upload-area v-on:update:files="onUploadAreaUpdateFiles">
-            <div class="chat-container" v-if="messages && messages.length > 0">
+            <div class="chat-container">
                 <div class="chat-messages-container" ref="chat-messages">
                     <chat-message
                         v-bind:username="message.username"
@@ -40,7 +40,7 @@
 
 .chat > .upload-area {
     box-sizing: border-box;
-    padding: 20px 20px 20px 20px;
+    padding: 0px 20px 20px 20px;
     transition: opacity 0.125s ease-in;
 }
 
@@ -57,6 +57,7 @@
     flex: 1 0;
     margin-bottom: 20px;
     overflow: auto;
+    padding-top: 20px;
 }
 
 .chat > .upload-area > .chat-container > .chat-messages-container .chat-message {
@@ -68,6 +69,7 @@
 }
 
 .chat > .upload-area > .chat-container > .attachments {
+    border-bottom: none;
     display: block;
     width: 250px;
 }
