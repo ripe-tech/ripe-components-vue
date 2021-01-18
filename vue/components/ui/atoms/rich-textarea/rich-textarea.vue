@@ -212,7 +212,7 @@ export const RichTextarea = {
         },
         smile: {
             type: Boolean,
-            default: true
+            default: false
         },
         width: {
             type: Number,
