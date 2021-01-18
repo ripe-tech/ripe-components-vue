@@ -1,6 +1,7 @@
 <template>
     <div
         class="carousel"
+        v-bind:class="classes"
         v-bind:style="style"
         ref="carousel"
         v-on:mousedown="onMouseDown"
@@ -102,13 +103,17 @@
 }
 
 .carousel .slide-container .slide {
-    cursor: pointer;
+    cursor: grab;
     display: inline-block;
     height: 100%;
     position: absolute;
     text-align: center;
     vertical-align: top;
     width: 100%;
+}
+
+.carousel.grabbing .slide-container .slide {
+    cursor: grabbing;
 }
 
 .carousel .slide-container .slide .slide-content {
@@ -215,6 +220,11 @@ export const Carousel = {
             const base = {};
             if (this.width) base.width = this.width + "px";
             if (this.height) base.height = this.height + "px";
+            return base;
+        },
+        classes() {
+            const base = {};
+            if (this.dragStartPosition) base.grabbing = true;
             return base;
         },
         imageStyle() {
