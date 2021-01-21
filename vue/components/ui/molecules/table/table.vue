@@ -271,7 +271,15 @@
 }
 
 .table.table-dense th > .table-column > span {
-    padding: 0px 16px 0px 16px;
+    padding: 0px 18px 0px 18px;
+}
+
+.table.table-dense.text-align-left th > .table-column > span {
+    padding-left: 10px;
+}
+
+.table.table-dense.text-align-right th > .table-column > span {
+    padding-right: 10px;
 }
 
 .table th > .table-column > span::before {
