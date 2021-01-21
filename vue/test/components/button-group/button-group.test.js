@@ -51,6 +51,26 @@ describe("ButtonGroup", () => {
         assert.strictEqual(disabledButtonItems.length, 0);
     });
 
+    it("should disable 3 buttons in the button group", async () => {
+        const component = base.getComponent("ButtonGroup", {
+            props: {
+                items: [
+                    { value: "1", label: "Item 1", disabled: true },
+                    { value: "2", label: "Item 2" },
+                    { value: "3", label: "Item 3", disabled: true },
+                    { value: "4", label: "Item 4", disabled: true },
+                    { value: "5", label: "Item 5" }
+                ]
+            }
+        });
+
+        const disabledButtonItems = component.findAll(".button-color.disabled");
+        assert.strictEqual(disabledButtonItems.length, 3);
+        assert.strictEqual(disabledButtonItems.at(0).text(), "Item 1");
+        assert.strictEqual(disabledButtonItems.at(1).text(), "Item 3");
+        assert.strictEqual(disabledButtonItems.at(2).text(), "Item 4");
+    });
+
     it("should select a button in the button group", async () => {
         const component = base.getComponent("ButtonGroup", {
             props: {
