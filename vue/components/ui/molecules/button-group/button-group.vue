@@ -10,7 +10,7 @@
                 <button-color
                     class="button-color"
                     v-bind:class="buttonClasses(item)"
-                    v-bind:disabled="disabled"
+                    v-bind:disabled="disabled || item.disabled"
                     v-bind:color="item.color"
                 >
                     <slot
@@ -56,8 +56,8 @@ export const ButtonGroup = {
     name: "button-group",
     props: {
         /**
-         * The items representing each button, for example
-         * { value: "1", label: "Item 1", color: "blue" }
+         * The items representing each button. Example:
+         * { value: "1", label: "Item 1", color: "blue", disabled: false }.
          */
         items: {
             type: Array,
@@ -105,7 +105,7 @@ export const ButtonGroup = {
             return base;
         },
         onClick(event, item) {
-            if (this.disabled) return;
+            if (this.disabled || item.disabled) return;
 
             this.valueData = item.value;
             /**

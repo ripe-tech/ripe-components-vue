@@ -12,7 +12,7 @@ storiesOf("Molecules", module)
                     { value: "2", label: "Item 2" },
                     { value: "3", label: "Item 3" },
                     { value: "4", label: "Item 4", color: "red" },
-                    { value: "5", label: "Item 5" }
+                    { value: "5", label: "Item 5", disabled: true }
                 ]
             },
             disabled: {
