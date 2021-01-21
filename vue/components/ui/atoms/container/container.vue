@@ -141,7 +141,7 @@ export const Container = {
         },
         maxWidth: {
             type: Number,
-            default: 1240
+            default: null
         }
     },
     computed: {
@@ -173,9 +173,8 @@ export const Container = {
             );
         },
         style() {
-            const base = {
-                "max-width": `${this.maxWidth}px`
-            };
+            const base = {};
+            if (this.maxWidth) base["max-width"] = `${this.maxWidth}px`;
             return base;
         },
         classes() {
