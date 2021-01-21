@@ -114,7 +114,7 @@
 .table thead.sticky tr th {
     background-color: #ffffff;
     position: sticky;
-    top: 0;
+    top: 0px;
 }
 
 .table thead tr th.checkbox-global {
