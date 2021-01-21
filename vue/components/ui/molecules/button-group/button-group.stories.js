@@ -17,17 +17,28 @@ storiesOf("Molecules", module)
             },
             disabled: {
                 type: Boolean,
-                default: boolean("Disabled component", false)
+                default: boolean("Disabled", false)
+            }
+        },
+        data: function() {
+            return {
+                valueData: null
             }
         },
         template: `
+            <div>
             <button-group
                 v-bind:items="items"
                 v-bind:disabled="disabled"
+                    v-bind:value.sync="valueData"
             >
                 <template v-slot:button-3>
                     Special Item 3
                 </template>
             </button-group>
+                <div>
+                    Selected value: {{ valueData }}
+                </div>
+            </div>
         `
     }));
