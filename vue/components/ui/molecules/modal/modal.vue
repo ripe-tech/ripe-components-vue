@@ -177,6 +177,11 @@ body.mobile .modal > .modal-container {
     margin: 22px 0px 26px 0px;
     text-align: left;
 }
+
+.modal > .modal-container > .modal-body > .modal-content a {
+    color: #000000;
+    font-weight: 600;
+}
 </style>
 
 <script>
