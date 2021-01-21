@@ -408,11 +408,6 @@ export const Table = {
         };
     },
     computed: {
-        theadClasses() {
-            return {
-                sticky: this.stickyHeader
-            };
-        },
         itemsWithIndex() {
             return this.items.map((item, index) => ({ _originalIndex: index, ...item }));
         },
@@ -423,6 +418,11 @@ export const Table = {
 
             const items = [...this.itemsWithIndex];
             return this.sortMethod(items, this.sortData, this.reverseData);
+        },
+        theadClasses() {
+            return {
+                sticky: this.stickyHeader
+            };
         },
         style() {
             const base = {
