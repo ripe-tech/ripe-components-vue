@@ -55,7 +55,7 @@
         v-on:click:confirm="onConfirm"
         v-on:click:cancel="onCancel"
     >
-        <p><span v-html="text" /></p>
+        <p class="text" v-html="text" />
     </modal>
 </template>
 

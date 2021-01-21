@@ -178,8 +178,8 @@ body.mobile .modal > .modal-container {
     text-align: left;
 }
 
-.modal > .modal-container > .modal-body > .modal-content a {
-    color: #000000;
+.modal > .modal-container > .modal-body > .modal-content ::v-deep p.text a {
+    color: $black;
     font-weight: 600;
 }
 </style>
