@@ -98,10 +98,9 @@ export const ButtonGroup = {
     },
     methods: {
         buttonClasses(item) {
-            const base = {
-                selected: this.valueData === item.value
-            };
+            const base = {};
             base[item.value] = true;
+            base.selected = this.valueData === item.value;
             return base;
         },
         onClick(event, item) {
