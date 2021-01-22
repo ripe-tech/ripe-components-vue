@@ -174,7 +174,12 @@ export const Container = {
         },
         style() {
             const base = {};
-            if (this.maxWidth) base["max-width"] = `${this.maxWidth}px`;
+            if (this.maxWidth && typeof this.maxWidth === "number") {
+                base["max-width"] = `${this.maxWidth}px`;
+            }
+            if (this.maxWidth && typeof this.maxWidth === "string") {
+                base["max-width"] = this.maxWidth;
+            }
             return base;
         },
         classes() {
