@@ -88,7 +88,9 @@ export const Icon = {
                     // icon as part of its source
                     const iconContexts =
                         this.$root && this.$root.$iconContexts ? this.$root.$iconContexts : [];
-                    const iconContext = iconContexts.find(c => c.keys().includes(this.icon));
+                    const iconContext = iconContexts.find(c =>
+                        c.keys().find(key => key === `./${this.icon}.svg`)
+                    );
 
                     // if there is a custom context defined at the root that
                     // contains the item, then uses it
