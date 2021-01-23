@@ -116,8 +116,11 @@ body.mobile .container-ripe > .container-header {
 </style>
 
 <script>
+import { partMixin } from "../../../../mixins";
+
 export const Container = {
     name: "container-ripe",
+    mixins: [partMixin],
     props: {
         mode: {
             type: String,
@@ -140,8 +143,16 @@ export const Container = {
             default: () => []
         },
         maxWidth: {
-            type: Number,
+            type: Number | String,
+            default: 1240
+        },
+        maxWidthTablet: {
+            type: Number | String,
             default: null
+        },
+        maxWidthMobile: {
+            type: Number | String,
+            default: "100%"
         }
     },
     computed: {
@@ -174,11 +185,14 @@ export const Container = {
         },
         style() {
             const base = {};
-            if (this.maxWidth && typeof this.maxWidth === "number") {
-                base["max-width"] = `${this.maxWidth}px`;
+            let maxWidth = this.maxWidth;
+            if (this.isTabletWidth() && this.maxWidthTable) maxWidth = this.maxWidthTablet;
+            if (this.isMobileWidth() && this.maxWidthMobile) maxWidth = this.maxWidthMobile;
+            if (maxWidth && typeof maxWidth === "number") {
+                base["max-width"] = `${maxWidth}px`;
             }
-            if (this.maxWidth && typeof this.maxWidth === "string") {
-                base["max-width"] = this.maxWidth;
+            if (maxWidth && typeof maxWidth === "string") {
+                base["max-width"] = maxWidth;
             }
             return base;
         },
