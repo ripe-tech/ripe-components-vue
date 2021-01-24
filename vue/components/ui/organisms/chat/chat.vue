@@ -25,6 +25,7 @@
                 v-bind:send-button-disabled="validMessage"
                 v-bind:placeholder="'Say something here...'"
                 v-bind:resize="true"
+                v-bind:send-button-props="{ loading: sendingMessage, disabled: sendingMessage }"
                 v-on:focus:textarea="onTextareaFocus"
                 v-on:blur:textarea="onTextareaBlur"
                 v-on:click:send-message="onSendMessageClick"
@@ -102,13 +103,18 @@ export const Chat = {
         messages: {
             type: Array,
             default: () => []
+        },
+        sendMessage: {
+            type: Function,
+            default: () => true
         }
     },
     data: function() {
         return {
             messagesData: this.messages,
             textData: "",
-            attachmentsData: []
+            attachmentsData: [],
+            sendingMessage: false
         };
     },
     watch: {
@@ -137,10 +143,10 @@ export const Chat = {
         this.scrollToLastMessage();
     },
     methods: {
-        sendMessage() {
+        async trySendMessage() {
             if (this.validMessage) return;
 
-            this.messagesData.push({
+            const message = {
                 username: this.username,
                 avatarUrl: this.avatarUrl,
                 date: Date.now() / 1000,
@@ -149,12 +155,18 @@ export const Chat = {
                     attachments: this.normalizedAttachments,
                     reactions: []
                 }
-            });
+            };
 
-            this.$emit("new:message", {
-                messageText: this.richText,
-                attachments: this.attachmentsData
-            });
+            this.sendingMessage = true;
+            try {
+                const messageSent = this.sendMessage ? await this.sendMessage(message) : true;
+                if (!messageSent) return;
+            } finally {
+                this.sendingMessage = false;
+            }
+
+            this.messagesData.push(message);
+            this.$emit("new:message", message);
             this.$emit("update:messages", this.messagesData);
 
             this.clearMessage();
@@ -171,8 +183,8 @@ export const Chat = {
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
             });
         },
-        onSendMessageClick() {
-            this.sendMessage();
+        async onSendMessageClick() {
+            await this.trySendMessage();
         },
         onUploadAreaUpdateFiles(attachments) {
             this.attachmentsData = this.attachmentsData.concat(attachments);
@@ -180,8 +192,8 @@ export const Chat = {
         onTextareaKeydown(event) {
             this.$emit("keydown", event);
         },
-        onTextareaEnter() {
-            this.sendMessage();
+        async onTextareaEnter() {
+            await this.trySendMessage();
         },
         onTextareaFocus() {
             this.$emit("focus:textarea");
