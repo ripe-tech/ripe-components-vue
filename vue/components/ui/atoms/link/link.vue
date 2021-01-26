@@ -7,7 +7,9 @@
         v-bind:target="target"
         v-on:click="onClick"
     >
-        {{ text }}
+        <slot>
+            {{ text }}
+        </slot>
     </a>
 </template>
 
