@@ -106,7 +106,7 @@ export const Chat = {
         },
         sendMessage: {
             type: Function,
-            default: () => true
+            default: message => message
         }
     },
     data: function() {
@@ -144,7 +144,7 @@ export const Chat = {
     },
     methods: {
         async trySendMessage() {
-            if (this.validMessage) return;
+            if (this.validMessage) return null;
 
             const message = {
                 username: this.username,
@@ -157,10 +157,10 @@ export const Chat = {
                 }
             };
 
+            let result;
             this.sendingMessage = true;
             try {
-                const messageSent = this.sendMessage ? await this.sendMessage(message) : true;
-                if (!messageSent) return;
+                result = await this.sendMessage(message);
             } finally {
                 this.sendingMessage = false;
             }
@@ -171,6 +171,8 @@ export const Chat = {
 
             this.clearMessage();
             this.scrollToLastMessage();
+
+            return result;
         },
         clearMessage() {
             this.textData = "";
