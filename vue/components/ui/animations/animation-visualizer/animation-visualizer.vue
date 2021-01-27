@@ -68,7 +68,7 @@ export const AnimationVisualizer = {
     },
     computed: {
         animationStyle() {
-            return {
+            const base = {
                 "animation-name": this.animationName,
                 "animation-duration": this.animationDuration,
                 "animation-delay": this.animationDelay,
@@ -78,6 +78,7 @@ export const AnimationVisualizer = {
                 "animation-fill-mode": this.animationMode,
                 "animation-play-state": this.animationPlayState
             };
+            return base;
         },
         animationsProperties() {
             return [

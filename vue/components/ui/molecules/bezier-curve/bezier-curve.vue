@@ -255,16 +255,18 @@ export const BezierCurve = {
             return base;
         },
         curveStyle() {
-            return {
+            const base = {
                 stroke: this.curveStroke,
                 "stroke-width": `${this.curveWidth}px`
             };
+            return base;
         },
         slopeStyle() {
-            return {
+            const base = {
                 stroke: this.slopeStroke,
                 "stroke-width": `${this.slopeWidth}px`
             };
+            return base;
         }
     },
     watch: {
