@@ -269,11 +269,9 @@ export const HomeColorPart = {
         },
         style() {
             const base = {};
-
             if (this.background) {
                 base["background-image"] = `url(${this.background})`;
             }
-
             return base;
         },
         linksTopColor() {

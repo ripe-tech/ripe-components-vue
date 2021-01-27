@@ -249,9 +249,10 @@ export const Search = {
             return base;
         },
         svgStyle() {
-            return {
+            const base = {
                 "margin-top": `${(this.height - 24) / 2}px`
             };
+            return base;
         },
         clearButtonVisible() {
             return this.valueData && this.clearVisible;
