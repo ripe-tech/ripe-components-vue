@@ -19,7 +19,7 @@
 <style lang="scss" scoped>
 .select-checkboxes .checkboxes {
     box-sizing: border-box;
-    margin: 0px 15px 0px 15px;
+    margin: 5px 15px 5px 15px;
     width: 100%;
 }
 
