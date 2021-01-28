@@ -126,12 +126,6 @@ export const Chat = {
         allAttachments() {
             return this.messages.map(message => message.messageContent.attachments).flat();
         },
-        normalizedAttachments() {
-            return this.attachmentsData.map(attachment => ({
-                name: attachment.name,
-                path: ""
-            }));
-        },
         validMessage() {
             return !(this.textData.trim() || this.attachmentsData.length);
         },
@@ -152,7 +146,7 @@ export const Chat = {
                 date: Date.now() / 1000,
                 messageContent: {
                     text: this.richText,
-                    attachments: this.normalizedAttachments,
+                    attachments: this.attachmentsData,
                     reactions: []
                 }
             };
@@ -165,8 +159,11 @@ export const Chat = {
                 this.sendingMessage = false;
             }
 
-            this.messagesData.push(message);
-            this.$emit("new:message", message);
+            if (!result) return;
+
+            result = Array.isArray(result) ? result : [];
+            this.messagesData.push(...result);
+            result.forEach(v => this.$emit("new:message", v));
             this.$emit("update:messages", this.messagesData);
 
             this.clearMessage();
