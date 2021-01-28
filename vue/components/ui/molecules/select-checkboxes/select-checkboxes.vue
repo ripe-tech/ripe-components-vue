@@ -18,9 +18,9 @@
 
 <style lang="scss" scoped>
 .select-checkboxes .checkboxes {
+    box-sizing: border-box;
     margin: 0px 15px 0px 15px;
     width: 100%;
-    box-sizing: border-box;
 }
 
 .select-checkboxes .checkboxes ::v-deep .checkbox-item {
