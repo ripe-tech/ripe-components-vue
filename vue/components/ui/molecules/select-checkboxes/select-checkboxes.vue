@@ -18,7 +18,21 @@
 
 <style lang="scss" scoped>
 .select-checkboxes .checkboxes {
-    margin: 0px 0px 0px 15px;
+    margin: 0px 15px 0px 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.select-checkboxes .checkboxes ::v-deep .checkbox-item {
+    width: 100%;
+}
+
+.select-checkboxes .checkboxes ::v-deep .checkbox {
+    width: 100%;
+}
+
+.select-checkboxes .checkboxes ::v-deep .checkbox > .checkbox-input > .label {
+    margin-left: 10px;
 }
 </style>
 
