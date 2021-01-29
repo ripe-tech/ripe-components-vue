@@ -225,19 +225,15 @@
 .button-color.button-color-transparent {
     background-color: $transparent;
     border-color: $transparent;
-    color: $grey;
+    color: $pale-grey;
 }
 
-.button-color.button-color-transparent:hover {
-    background-color: $blacker;
-    border-color: $blacker;
-    color: $white;
+.button-color.button-color-transparent:hover > span {
+    text-decoration: underline;
 }
 
-.button-color.button-color-transparent:active {
-    background-color: $grey;
-    border-color: $grey;
-    color: $white;
+.button-color.button-color-transparent:active > span {
+    color: $blacker;
 }
 
 .button-color ::v-deep .loader {
