@@ -3,6 +3,7 @@
         class="select-checkboxes"
         v-bind:options="selectOptions"
         v-bind:value="'checkbox-group'"
+        v-bind:disabled="disabled"
         v-bind="{
             autoScroll: false,
             maxHeight: 210,
@@ -72,6 +73,14 @@ export const SelectCheckboxes = {
         values: {
             type: Object,
             default: () => ({})
+        },
+        /**
+         * If the underlying select element should be disabled
+         * disallowing interaction.
+         */
+        disabled: {
+            type: Boolean,
+            default: false
         },
         /**
          * Set of props passed on to select-ripe.
