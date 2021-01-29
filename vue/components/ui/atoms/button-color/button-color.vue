@@ -222,6 +222,24 @@
     border-color: $darker-orange;
 }
 
+.button-color.button-color-transparent {
+    background-color: $transparent;
+    border-color: $transparent;
+    color: $grey;
+}
+
+.button-color.button-color-transparent:hover {
+    background-color: $blacker;
+    border-color: $blacker;
+    color: $white;
+}
+
+.button-color.button-color-transparent:active {
+    background-color: $grey;
+    border-color: $grey;
+    color: $white;
+}
+
 .button-color ::v-deep .loader {
     display: inline-block;
     transform: translateY(-17px);
