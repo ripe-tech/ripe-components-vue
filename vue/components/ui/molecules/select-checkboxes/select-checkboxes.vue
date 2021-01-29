@@ -5,6 +5,7 @@
         v-bind:value="'checkbox-group'"
         v-bind="{
             autoScroll: false,
+            maxHeight: 210,
             ...selectProps
         }"
     >
