@@ -75,7 +75,6 @@
 .container-ripe.container-ripe-expanded {
     border-radius: 0px 0px 0px 0px;
     margin: 0px 0px 0px 0px;
-    max-width: 100%;
 }
 
 body.mobile .container-ripe {
@@ -186,6 +185,7 @@ export const Container = {
         style() {
             const base = {};
             let maxWidth = this.maxWidth;
+            if (this.mode === "expanded") maxWidth = "100%";
             if (this.isTabletWidth() && this.maxWidthTable) maxWidth = this.maxWidthTablet;
             if (this.isMobileWidth() && this.maxWidthMobile) maxWidth = this.maxWidthMobile;
             if (maxWidth && typeof maxWidth === "number") {
