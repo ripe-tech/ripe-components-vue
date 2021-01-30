@@ -611,6 +611,7 @@ export const Details = {
             const base = {
                 width: this.isTabletWidth() || this.isMobileWidth() ? null : width
             };
+
             return base;
         }
     },
