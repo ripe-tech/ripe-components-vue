@@ -5,9 +5,11 @@
         v-bind:style="style"
         ref="carousel"
         v-on:mousedown="onMouseDown"
+        v-on:mousemove="onMouseMove"
         v-on:mouseup="onMouseUp"
         v-on:mouseleave="onMouseLeave"
         v-on:touchstart="onTouchStart"
+        v-on:touchmove="onTouchMove"
         v-on:touchend="onTouchEnd"
         v-on:touchcancel="onTouchCancel"
         v-on:touchleave="onTouchLeave"
@@ -212,6 +214,7 @@ export const Carousel = {
     data: function() {
         return {
             dragStartPosition: null,
+            dragCurrentPosition: null,
             valueData: this.value
         };
     },
@@ -257,14 +260,13 @@ export const Carousel = {
             this.valueData = this.valueData - 1 < 0 ? this.items.length - 1 : this.valueData - 1;
         },
         getCursorPosition(event) {
-            const deviceEvent = event.type === "touchmove" ? event.touches[0] : event;
+            const deviceEvent = event.type.startsWith("touch") ? event.touches[0] : event;
             return {
-                x: deviceEvent.pageX - this.$refs.carousel.offsetLeft,
-                y: deviceEvent.pageY - this.$refs.carousel.offsetTop
+                x: (deviceEvent.clientX || deviceEvent.pageX) - this.$refs.carousel.offsetLeft,
+                y: (deviceEvent.clientY || deviceEvent.pageY) - this.$refs.carousel.offsetTop
             };
         },
-        getDragDistance(initialPosition, event) {
-            const currentPos = this.getCursorPosition(event);
+        getDragDistance(initialPosition, currentPos) {
             return {
                 dx: currentPos.x - initialPosition.x,
                 dy: currentPos.y - initialPosition.y
@@ -274,15 +276,31 @@ export const Carousel = {
             const cursorPosition = this.getCursorPosition(event);
             this.dragStartPosition = cursorPosition;
         },
-        onStopDrag(event) {
+        onDrag(event) {
             if (!this.dragStartPosition) return;
-            const dragDistance = this.getDragDistance(this.dragStartPosition, event);
-            if (dragDistance.dx < -1 * this.swipeThreshold) this.next();
-            if (dragDistance.dx > this.swipeThreshold) this.previous();
+            const cursorPosition = this.getCursorPosition(event);
+            this.dragCurrentPosition = cursorPosition;
+            const dragDistance = this.getDragDistance(
+                this.dragStartPosition,
+                this.dragCurrentPosition
+            );
+            if (dragDistance.dx < -1 * this.swipeThreshold) {
+                this.next();
+                this.dragStartPosition = null;
+            }
+            if (dragDistance.dx > this.swipeThreshold) {
+                this.previous();
+                this.dragStartPosition = null;
+            }
+        },
+        onStopDrag(event) {
             this.dragStartPosition = null;
         },
         onMouseDown(event) {
             this.onStartDrag(event);
+        },
+        onMouseMove(event) {
+            this.onDrag(event);
         },
         onMouseUp(event) {
             this.onStopDrag(event);
@@ -292,6 +310,9 @@ export const Carousel = {
         },
         onTouchStart(event) {
             this.onStartDrag(event);
+        },
+        onTouchMove(event) {
+            this.onDrag(event);
         },
         onTouchEnd(event) {
             this.onStopDrag(event);
