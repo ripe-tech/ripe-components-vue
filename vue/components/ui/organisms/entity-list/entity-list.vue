@@ -1,6 +1,6 @@
 <template>
     <listing
-        class="entity-lister"
+        class="entity-list"
         v-bind:name="name"
         v-bind:title-text="_title"
         v-bind:create-url="createUrl"
@@ -39,13 +39,14 @@
 <script>
 import { partMixin } from "../../../../mixins";
 
-export const EntityLister = {
-    name: "entity-lister",
+export const EntityList = {
+    name: "entity-list",
     mixins: [partMixin],
     props: {
         /**
-         * The entity name. Example: if we are listing entities "Person" which have a
-         * property "name" with the value "John", this prop value should be "Person".
+         * The entity name, if we are listing entities "Person"
+         * which have a property "name" with the value "John",
+         * this prop value should be "Person".
          */
         name: {
             type: String,
@@ -53,48 +54,44 @@ export const EntityLister = {
         },
         /**
          * Used to specify the columns of the entities list.
-         * Example: [
-         * { value: "name", label: "Name" },
-         * { value: "email", label: "Email" },
-         * { value: "phone", label: "Phone" }
-         * ].
+         * as sequence of object containing value and label.
          */
         columns: {
             type: Array,
             required: true
         },
         /**
-         * Gets all the entities to be listed.
+         * Method that gets all the entities to be listed.
          */
         getEntities: {
             type: Function,
             required: true
         },
         /**
-         * Container title. Default: the entity's name suffixed with "s".
+         * Container title, as in the entity's name suffixed
+         * with "s".
          */
         title: {
             type: String,
             default: null
         },
         /**
-         * Method that overrides each of entities show route. Example:
-         * item => ({ name: "person-show", params: { username: item.username } }).
+         * Method that overrides each of entities show route.
          */
         getShowRoute: {
             type: Function,
             default: null
         },
         /**
-         * Show/hide the create button.
+         * Controls the visibility of the create button, used to create
+         * new entities.
          */
-        createButton: {
+        createEntity: {
             type: Boolean,
             default: true
         },
         /**
-         * Overrides the entity create route. Example:
-         * { name: "person-create", params: { a: "...", b: "..." } }.
+         * Overrides the entity create route.
          */
         createRoute: {
             type: String | Object,
@@ -108,25 +105,23 @@ export const EntityLister = {
             default: true
         },
         /**
-         * Method that overrides each of entities edit route. Example:
-         * item => ({ name: "person-edit", params: { username: item.username } }).
+         * Method that overrides each of entities edit route.
          */
         getEditRoute: {
             type: Function,
             default: null
         },
         /**
-         * Entities delete method. If set, a delete button is shown in the actions column
-         * for each table row.
+         * Entities delete method, if set a delete button is shown in the
+         * actions column for each table row.
          */
         deleteEntity: {
             type: Function,
             default: null
         },
         /**
-         * Used to get a value that identifies the entity. Defaults to the property "name".
-         * Example: for an entity "Person" which has a property "name" with the value
-         * "John", this prop value would be "John".
+         * Used to get a value that identifies the entity. Defaults to
+         * the property "name".
          */
         getEntityName: {
             type: Function,
@@ -145,8 +140,7 @@ export const EntityLister = {
             return this.title || `${this.name}s`;
         },
         createUrl() {
-            if (!this.createButton) return null;
-
+            if (!this.createEntity) return null;
             return this.createRoute || { name: `${this.name.toLowerCase()}-create` };
         },
         actionsWidth() {
@@ -184,11 +178,11 @@ export const EntityLister = {
                 )}</strong>?<br/>Please bare in mind that this action <strong>is not reversible</strong>!`,
                 { title: `Delete ${this.name} ${this.getEntityName(item)}` }
             );
-
-            if (confirmed) await this.deleteEntity(item);
+            if (!confirmed) return;
+            await this.deleteEntity(item);
         }
     }
 };
 
-export default EntityLister;
+export default EntityList;
 </script>
