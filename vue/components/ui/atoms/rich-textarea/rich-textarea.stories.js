@@ -52,7 +52,7 @@ storiesOf("Atoms", module)
                 default: boolean("Attachment", true)
             },
             smile: {
-                default: boolean("Smile", true)
+                default: boolean("Smile", false)
             }
         },
         data: function() {

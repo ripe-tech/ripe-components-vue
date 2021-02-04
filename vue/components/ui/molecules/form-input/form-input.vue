@@ -152,10 +152,12 @@ export const FormInput = {
     },
     computed: {
         headerStyle() {
-            return { "min-width": `${this.headerMinWidth}px` };
+            const base = { "min-width": `${this.headerMinWidth}px` };
+            return base;
         },
         footerStyle() {
-            return { "min-width": `${this.footerMinWidth}px` };
+            const base = { "min-width": `${this.footerMinWidth}px` };
+            return base;
         },
         classes() {
             const base = {};

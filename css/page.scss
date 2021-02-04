@@ -11,6 +11,15 @@ body.mobile .page {
     background: #ffffff;
 }
 
+.page.page-light {
+    background: #fbfbfd;
+}
+
+body.tablet .page.page-light,
+body.mobile .page.page-light {
+    background: #fbfbfd;
+}
+
 .page.fade-enter,
 .page.fade-leave-active {
     opacity: 1;

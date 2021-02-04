@@ -1,5 +1,14 @@
 <template>
     <div class="input-symbol" v-bind:class="classes" v-bind:style="style">
+        <div
+            class="symbol symbol-left"
+            v-bind:style="symbolStyle"
+            v-show="symbolPosition === 'left'"
+        >
+            <slot name="symbol">
+                {{ symbol }}
+            </slot>
+        </div>
         <input-ripe
             v-bind:value.sync="valueData"
             v-bind:variant="variant"
@@ -15,8 +24,14 @@
             v-on:blur="onBlur"
             v-on:focus="onFocus"
         />
-        <div class="symbol" v-bind:style="symbolStyle">
-            {{ symbol }}
+        <div
+            class="symbol symbol-right"
+            v-bind:style="symbolStyle"
+            v-show="symbolPosition === 'right'"
+        >
+            <slot name="symbol">
+                {{ symbol }}
+            </slot>
         </div>
     </div>
 </template>
@@ -45,7 +60,7 @@
 
 .input-symbol > .input {
     border: none;
-    border-radius: 6px 0px 0px 6px;
+    border-radius: 6px 6px 6px 6px;
     flex-shrink: 1;
     padding-right: 7px;
 }
@@ -71,6 +86,12 @@
     width: 34px;
 }
 
+.input-symbol > .symbol.symbol-left {
+    border-left: none;
+    border-radius: 6px 0px 0px 6px;
+    border-right: 1px solid #e4e8f0;
+}
+
 .input-symbol.color-white > .symbol {
     background-color: #fcfcfc;
 }
@@ -85,7 +106,11 @@ export const InputSymbol = {
     props: {
         symbol: {
             type: String,
-            required: true
+            default: null
+        },
+        symbolPosition: {
+            type: String,
+            default: "right"
         },
         value: {
             type: [String, Number],

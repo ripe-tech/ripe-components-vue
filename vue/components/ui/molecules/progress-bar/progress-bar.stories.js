@@ -53,7 +53,7 @@ storiesOf("Molecules", module)
             simulationAdvanceStep: {
                 default: number("Simulation Advance Step", 5)
             },
-            simulationStepTimeMs: {
+            simulationStepTime: {
                 default: number("Simulation Step Time (ms)", 500)
             }
         },
@@ -72,7 +72,7 @@ storiesOf("Molecules", module)
                 if (this.simulatedCurrentStep >= 100) return;
                 this.simulatedCurrentStep += this.simulationAdvanceStep;
                 this.simulatedCurrentStep = Math.min(this.simulatedCurrentStep, 100);
-                setTimeout(() => this.updateProgress(), this.simulationStepTimeMs);
+                setTimeout(() => this.updateProgress(), this.simulationStepTime);
             }
         },
         template: `
