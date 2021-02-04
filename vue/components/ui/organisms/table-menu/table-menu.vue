@@ -23,7 +23,7 @@
                         <tr
                             v-bind:class="[{ selected: isSelected(item) }]"
                             v-bind:key="item.id || item.tmp_id"
-                            v-on:click="onClickItem($event, item, index)"
+                            v-on:click="event => onClickItem(event, item, index)"
                         >
                             <slot v-bind:item="item" v-bind:index="index">
                                 <td
