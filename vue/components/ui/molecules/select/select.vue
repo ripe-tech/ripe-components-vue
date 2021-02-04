@@ -23,7 +23,7 @@
                 class="select-button"
                 tabindex="0"
                 v-on:click="onClickDropdownButton"
-                v-on:keydown.exact="() => onKey($event.key)"
+                v-on:keydown.exact="event => onKey(event.key)"
                 v-on:keydown.esc.exact="onEscKey"
                 v-on:keydown.up.exact="onUpKey"
                 v-on:keydown.down.exact="onDownKey"
