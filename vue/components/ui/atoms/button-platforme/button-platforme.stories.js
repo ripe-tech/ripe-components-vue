@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text, boolean } from "@storybook/addon-knobs";
 
-storiesOf("Atoms", module)
+storiesOf("Components/Atoms/Button Platforme", module)
     .addDecorator(withKnobs)
     .add("Button Platforme", () => ({
         props: {

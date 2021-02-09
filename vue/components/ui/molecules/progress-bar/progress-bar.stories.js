@@ -6,7 +6,7 @@ const style = {
     "max-width": "200px"
 };
 
-storiesOf("Molecules", module)
+storiesOf("Components/Molecules/Progress Bar", module)
     .addDecorator(withKnobs)
     .add("Progress Bar", () => ({
         props: {

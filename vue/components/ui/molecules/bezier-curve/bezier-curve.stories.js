@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, number, boolean, text } from "@storybook/addon-knobs";
 
-storiesOf("Molecules", module)
+storiesOf("Components/Molecules/Bezier Curve", module)
     .addDecorator(withKnobs)
     .add("Bezier Curve", () => ({
         props: {

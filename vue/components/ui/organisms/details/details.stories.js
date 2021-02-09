@@ -3,7 +3,7 @@ import { withKnobs, text, number, boolean } from "@storybook/addon-knobs";
 
 import "./details.stories.css";
 
-storiesOf("Organisms", module)
+storiesOf("Components/Organisms/Details", module)
     .addDecorator(withKnobs)
     .add("Details", () => ({
         props: {
