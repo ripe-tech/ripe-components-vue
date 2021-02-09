@@ -1,6 +1,6 @@
 import { storiesOf } from "@storybook/vue";
 
-storiesOf("Atoms", module).add("Label", () => ({
+storiesOf("Components/Atoms/Label", module).add("Label", () => ({
     template: `
         <div>
             <div><label-ripe v-bind:text='"This is a normal label"'></label-ripe></div>

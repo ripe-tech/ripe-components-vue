@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text, select, boolean } from "@storybook/addon-knobs";
 
-storiesOf("Molecules", module)
+storiesOf("Components/Molecules/Input Color", module)
     .addDecorator(withKnobs)
     .add("Input Color", () => ({
         props: {

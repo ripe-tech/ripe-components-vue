@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, number, boolean, color } from "@storybook/addon-knobs";
 
-storiesOf("Molecules", module)
+storiesOf("Components/Molecules/Carousel", module)
     .addDecorator(withKnobs)
     .add("Carousel", () => ({
         props: {
