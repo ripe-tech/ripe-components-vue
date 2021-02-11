@@ -35,7 +35,7 @@ const getComponent = function(
     if (route) {
         options.mocks.$route = route;
     }
-    const wrapper = testUtils.mount(components[component], options);
+    const wrapper = testUtils.mount(components[component] || {}, options);
     return wrapper;
 };
 

@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, boolean, number, text, select } from "@storybook/addon-knobs";
 
-storiesOf("Molecules", module)
+storiesOf("Components/Molecules/Input Slider", module)
     .addDecorator(withKnobs)
     .add("Input Slider", () => ({
         props: {

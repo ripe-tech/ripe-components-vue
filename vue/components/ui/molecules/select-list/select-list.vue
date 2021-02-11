@@ -18,11 +18,11 @@
                 v-bind:class="{ selected: isSelected(item.value) }"
                 v-for="(item, index) in visibleItems"
                 v-bind:key="index"
-                v-on:dblclick="onDblclick($event, item.value, index)"
-                v-on:click.exact="onClick($event, item.value, index)"
-                v-on:click.ctrl="onCtrlClick($event, item.value, index)"
-                v-on:click.meta="onMetaClick($event, item.value, index)"
-                v-on:click.shift="onShiftClick($event, item.value, index)"
+                v-on:dblclick="event => onDblclick(event, item.value, index)"
+                v-on:click.exact="event => onClick(event, item.value, index)"
+                v-on:click.ctrl="event => onCtrlClick(event, item.value, index)"
+                v-on:click.meta="event => onMetaClick(event, item.value, index)"
+                v-on:click.shift="event => onShiftClick(event, item.value, index)"
             >
                 {{ item.label }}
             </li>

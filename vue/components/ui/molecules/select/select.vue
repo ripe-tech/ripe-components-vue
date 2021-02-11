@@ -5,7 +5,7 @@
             class="dropdown-select"
             v-bind:value="value"
             v-if="isDevice()"
-            v-on:change="() => onSelectChange($event.target.value)"
+            v-on:change="event => onSelectChange(event.target.value)"
         >
             <option
                 v-bind:value="options.value"
@@ -23,7 +23,7 @@
                 class="select-button"
                 tabindex="0"
                 v-on:click="onClickDropdownButton"
-                v-on:keydown.exact="() => onKey($event.key)"
+                v-on:keydown.exact="event => onKey(event.key)"
                 v-on:keydown.esc.exact="onEscKey"
                 v-on:keydown.up.exact="onUpKey"
                 v-on:keydown.down.exact="onDownKey"

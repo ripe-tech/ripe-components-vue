@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, select, boolean } from "@storybook/addon-knobs";
 
-storiesOf("Molecules", module)
+storiesOf("Components/Molecules/Button Icon Toggle", module)
     .addDecorator(withKnobs)
     .add("Button Icon Toggle", () => ({
         props: {

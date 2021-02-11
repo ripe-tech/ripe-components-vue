@@ -222,6 +222,20 @@
     border-color: $darker-orange;
 }
 
+.button-color.button-color-transparent {
+    background-color: $transparent;
+    border-color: $transparent;
+    color: $pale-grey;
+}
+
+.button-color.button-color-transparent:hover > span {
+    text-decoration: underline;
+}
+
+.button-color.button-color-transparent:active > span {
+    color: $blacker;
+}
+
 .button-color ::v-deep .loader {
     display: inline-block;
     transform: translateY(-17px);
@@ -251,7 +265,7 @@
 .button-color.button-color-small .icon,
 .button-color.button-color-small .icon-hover {
     height: 18px;
-    margin-top: 7px;
+    margin-top: 6px;
     width: 18px;
 }
 
@@ -388,9 +402,10 @@ export const ButtonColor = {
             return "center";
         },
         style() {
-            return {
+            const base = {
                 "min-width": this.minWidth === null ? null : `${this.minWidth}px`
             };
+            return base;
         },
         classes() {
             const base = {

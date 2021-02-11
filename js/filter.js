@@ -85,7 +85,7 @@ export const filterToParams = (
             if (!result) continue;
             let arithOp = result[0];
             let [key, value] = part.split(OP_REGEX, 2);
-            key = key.replace(new RegExp("-", "g"), "_");
+            key = key.replace(/-/g, "_");
             const field = nameAlias[key] || key;
             const fieldFunc = nameFunc[field];
             value = fieldFunc ? fieldFunc(value) : value;

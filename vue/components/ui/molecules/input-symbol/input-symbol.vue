@@ -5,7 +5,9 @@
             v-bind:style="symbolStyle"
             v-show="symbolPosition === 'left'"
         >
-            {{ symbol }}
+            <slot name="symbol">
+                {{ symbol }}
+            </slot>
         </div>
         <input-ripe
             v-bind:value.sync="valueData"
@@ -27,7 +29,9 @@
             v-bind:style="symbolStyle"
             v-show="symbolPosition === 'right'"
         >
-            {{ symbol }}
+            <slot name="symbol">
+                {{ symbol }}
+            </slot>
         </div>
     </div>
 </template>
@@ -102,7 +106,7 @@ export const InputSymbol = {
     props: {
         symbol: {
             type: String,
-            required: true
+            default: null
         },
         symbolPosition: {
             type: String,

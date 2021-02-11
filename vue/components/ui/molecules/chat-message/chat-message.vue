@@ -69,7 +69,7 @@
 
 .chat-message > .message-container > .message-header {
     line-height: 24px;
-    margin: 0px 0px 0px 0px;
+    margin: 0px 0px 10px 0px;
 }
 
 .chat-message > .message-container > .message-header > .username {

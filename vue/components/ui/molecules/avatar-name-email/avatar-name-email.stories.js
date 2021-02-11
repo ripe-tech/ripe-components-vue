@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text } from "@storybook/addon-knobs";
 
-storiesOf("Molecules", module)
+storiesOf("Components/Molecules/Avatar Name Email", module)
     .addDecorator(withKnobs)
     .add("Avatar Name Email", () => ({
         props: {

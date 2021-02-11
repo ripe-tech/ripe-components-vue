@@ -207,7 +207,7 @@ export const Side = {
             return this.visibleData;
         },
         style() {
-            return {
+            const base = {
                 left:
                     this.width && this.position === "left"
                         ? `${this.visibleData ? 0 : this.width * -1}px`
@@ -218,6 +218,7 @@ export const Side = {
                         : null,
                 width: this.width ? `${this.width}px` : null
             };
+            return base;
         },
         classes() {
             const base = {

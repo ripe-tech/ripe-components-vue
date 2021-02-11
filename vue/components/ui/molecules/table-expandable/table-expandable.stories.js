@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, select } from "@storybook/addon-knobs";
 
-storiesOf("Molecules", module)
+storiesOf("Components/Molecules/Table Expandable", module)
     .addDecorator(withKnobs)
     .add("Table Expandable", () => ({
         props: {

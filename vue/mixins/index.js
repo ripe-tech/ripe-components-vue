@@ -1,6 +1,7 @@
 export * from "./clipboard";
 export * from "./config";
 export * from "./device";
+export * from "./download";
 export * from "./oauth";
 export * from "./part";
 export * from "./ripe";
