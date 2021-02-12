@@ -36,6 +36,7 @@ import { Table } from "./table/table.vue";
 import { TableExpandable } from "./table-expandable/table-expandable.vue";
 import { Tabs } from "./tabs/tabs.vue";
 import { TransferList } from "./transfer-list/transfer-list.vue";
+import { Tooltip } from "./tooltip/tooltip.vue";
 import { UploadArea } from "./upload-area/upload-area.vue";
 
 const install = Vue => {
@@ -77,6 +78,7 @@ const install = Vue => {
     Vue.component("table-expandable", TableExpandable);
     Vue.component("tabs", Tabs);
     Vue.component("transfer-list", TransferList);
+    Vue.component("tooltip", Tooltip);
     Vue.component("upload-area", UploadArea);
 };
 
@@ -119,6 +121,7 @@ export {
     TableExpandable,
     Tabs,
     TransferList,
+    Tooltip,
     UploadArea
 };
 
