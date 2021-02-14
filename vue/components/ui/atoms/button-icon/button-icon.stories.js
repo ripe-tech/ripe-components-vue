@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text, number, select, boolean } from "@storybook/addon-knobs";
 
-storiesOf("Atoms", module)
+storiesOf("Components/Atoms/Button Icon", module)
     .addDecorator(withKnobs)
     .add("Button Icon", () => ({
         props: {
@@ -40,6 +40,9 @@ storiesOf("Atoms", module)
             size: {
                 default: number("Size", 30)
             },
+            borderRadius: {
+                default: number("Border Radius", null)
+            },
             padding: {
                 default: number("Padding", null)
             },
@@ -63,6 +66,7 @@ storiesOf("Atoms", module)
                 v-bind:text="text"
                 v-bind:color="color"
                 v-bind:size="size"
+                v-bind:border-radius="borderRadius"
                 v-bind:padding="padding"
                 v-bind:disabled="disabled"
                 v-bind:selectable="selectable"

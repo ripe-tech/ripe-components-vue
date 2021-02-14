@@ -6,6 +6,9 @@ export const oauthMixin = Vue.util.mergeOptions(partMixin, {
         async oauth(next) {
             try {
                 const code = this.getQueryParam("code");
+                const error = this.getQueryParam("error");
+                const errorDescription = this.getQueryParam("error_description");
+                if (errorDescription || error) throw new Error(errorDescription || error);
                 await this.$ripeIdApi.oauthAccess(code);
                 const result = await this.$ripeIdApi.issueToken();
                 const account = await this.$ripeIdApi.selfAccount();

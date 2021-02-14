@@ -49,10 +49,11 @@ export const Checkmark = {
             return this.size - this.padding * 2;
         },
         style() {
-            return {
+            const base = {
                 padding: `${this.padding}px`,
                 "border-radius": `${this.size}px`
             };
+            return base;
         },
         classes() {
             const base = {

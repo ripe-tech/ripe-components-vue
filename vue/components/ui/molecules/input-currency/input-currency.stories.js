@@ -3,7 +3,7 @@ import { withKnobs, text, boolean, number, select } from "@storybook/addon-knobs
 
 import rates from "./assets/rates_example.json";
 
-storiesOf("Molecules", module)
+storiesOf("Components/Molecules/Input Currency", module)
     .addDecorator(withKnobs)
     .add("Input Currency", () => ({
         props: {

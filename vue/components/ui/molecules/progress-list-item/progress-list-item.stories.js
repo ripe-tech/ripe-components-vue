@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text, boolean, number } from "@storybook/addon-knobs";
 
-storiesOf("Molecules", module)
+storiesOf("Components/Molecules/Progress List Item", module)
     .addDecorator(withKnobs)
     .add("Progress List Item", () => ({
         props: {

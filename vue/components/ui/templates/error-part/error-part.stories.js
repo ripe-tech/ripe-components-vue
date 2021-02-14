@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text, boolean, number } from "@storybook/addon-knobs";
 
-storiesOf("Templates", module)
+storiesOf("Components/Templates/Error", module)
     .addDecorator(withKnobs)
     .add("Error", () => ({
         props: {

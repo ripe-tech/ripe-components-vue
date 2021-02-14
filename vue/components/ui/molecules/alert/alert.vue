@@ -33,6 +33,8 @@
         v-bind:confirm-icon="confirmIcon"
         v-bind:confirm-color="confirmColor"
         v-bind:buttons-alignment="buttonsAlignment"
+        v-bind:button-confirm="buttonConfirm"
+        v-bind:button-cancel="buttonCancel"
         v-bind:button-close="buttonClose"
         v-bind:cancel-text="cancelText"
         v-bind:cancel-icon="cancelIcon"
@@ -53,7 +55,7 @@
         v-on:click:confirm="onConfirm"
         v-on:click:cancel="onCancel"
     >
-        <p><span v-html="text" /></p>
+        <p class="text" v-html="text" />
     </modal>
 </template>
 

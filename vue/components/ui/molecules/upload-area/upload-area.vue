@@ -2,15 +2,16 @@
     <div
         class="upload-area"
         v-bind:class="classes"
-        v-on:dragover.prevent="onDragOver($event)"
-        v-on:drop.prevent="onDrop($event)"
-        v-on:dragenter="onDragEnter($event)"
-        v-on:dragleave="onDragLeave($event)"
+        v-on:dragover.prevent="event => onDragOver(event)"
+        v-on:drop.prevent="event => onDrop(event)"
+        v-on:dragenter="event => onDragEnter(event)"
+        v-on:dragleave="event => onDragLeave(event)"
     >
         <input
             type="file"
-            multiple
             hidden
+            v-bind:multiple="multiple"
+            v-bind:accept="accept"
             ref="filesInput"
             v-on:change="onFilesInputChange"
         />
@@ -119,6 +120,14 @@ export const UploadArea = {
         files: {
             type: Array,
             default: () => []
+        },
+        multiple: {
+            type: Boolean,
+            default: true
+        },
+        accept: {
+            type: String,
+            default: null
         }
     },
     computed: {

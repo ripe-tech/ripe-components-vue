@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, select, boolean, number } from "@storybook/addon-knobs";
 
-storiesOf("Molecules", module)
+storiesOf("Components/Molecules/Table", module)
     .addDecorator(withKnobs)
     .add("Table", () => ({
         props: {
@@ -21,7 +21,7 @@ storiesOf("Molecules", module)
                 default: () => boolean("Reverse", null)
             },
             header: {
-                default: () => boolean("header", true)
+                default: () => boolean("Header", true)
             },
             alignment: {
                 default: select(

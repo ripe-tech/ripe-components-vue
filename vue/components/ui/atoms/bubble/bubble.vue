@@ -84,13 +84,14 @@ export const Bubble = {
             return this.visibleData;
         },
         style() {
-            return {
+            const base = {
                 top: this.top === null ? null : `${this.top}px`,
                 right: this.right === null ? null : `${this.right}px`,
                 bottom: this.bottom === null ? null : `${this.bottom}px`,
                 left: this.left === null ? null : `${this.left}px`,
                 width: this.width === null ? null : `${this.width}px`
             };
+            return base;
         }
     },
     methods: {

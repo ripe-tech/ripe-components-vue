@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text, boolean, number, select } from "@storybook/addon-knobs";
 
-storiesOf("Molecules", module)
+storiesOf("Components/Molecules/Input Symbol", module)
     .addDecorator(withKnobs)
     .add("Input Symbol", () => ({
         props: {
@@ -56,6 +56,17 @@ storiesOf("Molecules", module)
             symbol: {
                 default: text("Symbol", "€")
             },
+            symbolPosition: {
+                default: select(
+                    "Symbol Position",
+                    {
+                        Unset: null,
+                        Left: "left",
+                        Right: "right"
+                    },
+                    "right"
+                )
+            },
             placeholder: {
                 default: text("Placeholder", "This is a placeholder")
             },
@@ -91,7 +102,8 @@ storiesOf("Molecules", module)
                     v-bind:type="type"
                     v-bind:disabled="disabled"
                     v-bind:placeholder="placeholder"
-                    v-bind:symbol="symbol" />
+                    v-bind:symbol="symbol"
+                    v-bind:symbol-position="symbolPosition" />
                 <p>Text: {{ valueData }}</p>
             </div>
         `
