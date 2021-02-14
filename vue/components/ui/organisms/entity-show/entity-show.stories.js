@@ -3,7 +3,7 @@ import { withKnobs, text } from "@storybook/addon-knobs";
 
 storiesOf("Organisms", module)
     .addDecorator(withKnobs)
-    .add("Entity Shower", () => ({
+    .add("Entity Show", () => ({
         props: {
             name: {
                 default: text("Name", "Person")
@@ -57,7 +57,7 @@ storiesOf("Organisms", module)
             }
         },
         template: `
-            <entity-shower
+            <entity-show
                 v-bind:name="name"
                 v-bind:fields="fields"
                 v-bind:get-entity="getEntity"
@@ -67,6 +67,6 @@ storiesOf("Organisms", module)
                 <template v-slot:value-state="{ entity }">
                     custom state - {{entity.state}}
                 </template>
-            </entity-shower>
+            </entity-show>
         `
     }));
