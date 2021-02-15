@@ -29,15 +29,17 @@ export const EntityShow = {
     mixins: [partMixin],
     props: {
         /**
-         * The entity name. Example: for an entity "Person" which has a property
-         * "name" with the value "John", this prop value should be "Person".
+         * The entity name, for example an entity "Person"
+         * which has a property "name" with the value "John",
+         * this prop value should be "Person".
          */
         name: {
             type: String,
             required: true
         },
         /**
-         * Used to specify which of the entity's properties are going be shown.
+         * Used to specify which of the entity's properties
+         * are going be shown.
          * Example: [{ value: "name" }, { value: "email", label: "Personal email" }].
          */
         fields: {
@@ -45,29 +47,31 @@ export const EntityShow = {
             required: true
         },
         /**
-         * Method used to get the entity to be shown.
+         * Method used to get the entity object that is going
+         * to be shown within this component.
          */
         getEntity: {
             type: Function,
             required: true
         },
         /**
-         * Gets all entities.
+         * Gets all entities, this method is going to be used
+         * among other things in the navigation of the panel.
          */
         getEntities: {
             type: Function,
             required: true
         },
         /**
-         * Container title. If set, overrides the breadcrumbs.
+         * Container title, if set, overrides the breadcrumbs.
          */
         title: {
             type: String,
             default: null
         },
         /**
-         * Container breadcrumbs. The entity's value defined by the "getEntityName" prop
-         * will be appended to these breadcrumbs.
+         * Container breadcrumbs. The entity's value defined by the
+         * "getEntityName" prop will be appended to these breadcrumbs.
          */
         breadcrumbs: {
             type: Array,
@@ -98,8 +102,8 @@ export const EntityShow = {
             default: null
         },
         /**
-         * Entity's delete method. If set, a delete option is shown in the options
-         * dropdown.
+         * Entity's delete method, If set, a delete option is shown in the options
+         * dropdown allowing the delete operation.
          */
         deleteEntity: {
             type: Function,
@@ -131,8 +135,8 @@ export const EntityShow = {
         },
         getItems() {
             return async () => {
-                const entitites = await this.getEntities();
-                return entitites.map(entity => this._entityToItem(entity));
+                const entities = await this.getEntities();
+                return entities.map(entity => this._entityToItem(entity));
             };
         },
         entityName() {
