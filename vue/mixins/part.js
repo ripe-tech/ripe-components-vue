@@ -40,6 +40,13 @@ export const partMixin = {
             const result = await this._alert(options);
             return result;
         },
+        async alertSimple(message, options = {}) {
+            options.text = message;
+            if (options.title === undefined) options.title = "Alert";
+            if (options.buttonCancel === undefined) options.buttonCancel = false;
+            const result = await this._alert(options);
+            return result;
+        },
         async alertComponent(component, options = {}) {
             options.component = component;
             const result = await this._alert(options);

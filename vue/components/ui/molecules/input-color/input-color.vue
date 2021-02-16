@@ -14,7 +14,7 @@
             type="color"
             v-bind:value="inputValue"
             ref="inputColorNative"
-            v-on:input="onPickerInput($event.target.value)"
+            v-on:input="event => onPickerInput(event.target.value)"
         />
     </div>
 </template>

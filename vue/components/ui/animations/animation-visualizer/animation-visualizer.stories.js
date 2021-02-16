@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, select, text } from "@storybook/addon-knobs";
 
-storiesOf("Animations", module)
+storiesOf("Components/Animations/Animation Visualizer", module)
     .addDecorator(withKnobs)
     .add("Animation Visualizer", () => ({
         props: {

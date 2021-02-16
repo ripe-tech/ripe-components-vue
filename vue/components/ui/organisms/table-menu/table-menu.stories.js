@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, select, boolean, number, color, text } from "@storybook/addon-knobs";
 
-storiesOf("Organisms", module)
+storiesOf("Components/Organisms/Table Menu", module)
     .addDecorator(withKnobs)
     .add("Table Menu", () => ({
         props: {

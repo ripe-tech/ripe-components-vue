@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text, number } from "@storybook/addon-knobs";
 
-storiesOf("Atoms", module)
+storiesOf("Components/Atoms/Breadcrumbs", module)
     .addDecorator(withKnobs)
     .add("Breadcrumbs", () => ({
         props: {

@@ -242,15 +242,16 @@ export const ButtonIcon = {
             return this.padding === null ? parseInt(this.size / this.paddingFactor) : this.padding;
         },
         loaderStyle() {
-            return {
+            const base = {
                 width: `${this.size / 3}px`,
                 height: `${this.size / 3}px`,
                 "border-width": `${this.size / 15}px`,
                 margin: `${this.size / 15}px 0px 0px 0px`
             };
+            return base;
         },
         style() {
-            return {
+            const base = {
                 height: `${this.size}px`,
                 width: this.text ? undefined : `${this.size}px`,
                 "min-width": `${this.size}px`,
@@ -276,6 +277,7 @@ export const ButtonIcon = {
                 "border-radius":
                     this.borderRadius === null ? `${this.size}px` : `${this.borderRadius}px`
             };
+            return base;
         },
         classes() {
             const base = {

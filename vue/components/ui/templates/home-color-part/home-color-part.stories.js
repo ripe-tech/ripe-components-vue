@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text, select } from "@storybook/addon-knobs";
 
-storiesOf("Templates", module)
+storiesOf("Components/Templates/Home Color", module)
     .addDecorator(withKnobs)
     .add("Home Color", () => ({
         props: {

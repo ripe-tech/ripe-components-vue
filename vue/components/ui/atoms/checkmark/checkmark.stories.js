@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, boolean, number } from "@storybook/addon-knobs";
 
-storiesOf("Atoms", module)
+storiesOf("Components/Atoms/Checkmark", module)
     .addDecorator(withKnobs)
     .add("Checkmark", () => ({
         props: {

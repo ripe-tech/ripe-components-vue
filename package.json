@@ -1,6 +1,6 @@
 {
     "name": "ripe-components-vue",
-    "version": "0.8.1",
+    "version": "0.8.20",
     "description": "RIPE Components for Vue.js",
     "keywords": [
         "components",
@@ -27,6 +27,7 @@
         "res/**/*.ico",
         "res/**/*.png",
         "test/**/*.js",
+        "vue/**/*.css",
         "vue/**/*.js",
         "vue/**/*.vue"
     ],
@@ -34,7 +35,7 @@
         "build": "cross-env NODE_ENV=production webpack --mode production --config webpack.config.js",
         "build-dev": "cross-env NODE_ENV=development webpack --mode development --config webpack.config.js",
         "build-lib": "cross-env NODE_ENV=production webpack --mode production --config webpack-lib.config.js",
-        "build-storybook": "build-storybook -c .storybook -o storybook",
+        "build-storybook": "cross-env NODE_ENV=development build-storybook -c .storybook -o storybook",
         "dev": "cross-env NODE_ENV=development webpack-dev-server --config webpack.config.js --mode development --watch --hot",
         "lint": "npm run lint:base && npm run lint:stylelint",
         "lint-fix": "npm run lint-fix:base && npm run lint-fix:stylelint",
@@ -42,7 +43,6 @@
         "lint-fix:stylelint": "stylelint \"./**/*.{css,scss,vue}\" --fix",
         "lint:base": "eslint \"./**/*.{js,vue}\"",
         "lint:stylelint": "stylelint \"./**/*.{css,scss,vue}\"",
-        "now-build": "npm run build && npm run build-storybook",
         "prettier": "prettier \"./**/*.{js,vue,json}\" --write",
         "pretty": "npm run prettier && npm run lint-fix && npm run svgo",
         "storybook": "start-storybook -p 9001 -c .storybook",
@@ -53,6 +53,7 @@
         "test:mocha": "mocha --recursive test",
         "test:vue": "cross-env NODE_ENV=development mochapack --webpack-config vue/test/webpack.config.js --require vue/test/setup.js vue/test/**/*.test.js",
         "upgrade": "npx sort-package-json && ncu -u",
+        "vercel-build": "npm run build && npm run build-storybook",
         "watch": "cross-env NODE_ENV=development webpack --config webpack.config.js --mode development --watch",
         "webpack": "webpack --config webpack.config.js"
     },
@@ -60,22 +61,23 @@
         "loaders.css": "^0.1.2",
         "vue": "^2.6.12",
         "vue-global-events": "^1.2.1",
-        "yonius": "^0.5.5"
+        "yonius": "^0.6.5"
     },
     "devDependencies": {
-        "@storybook/addon-knobs": "^6.0.28",
-        "@storybook/addon-storysource": "^6.0.28",
-        "@storybook/source-loader": "^6.0.28",
-        "@storybook/vue": "^6.0.28",
-        "@vue/test-utils": "^1.1.1",
+        "@storybook/addon-knobs": "^6.1.15",
+        "@storybook/addon-storysource": "^6.1.15",
+        "@storybook/source-loader": "^6.1.15",
+        "@storybook/vue": "^6.1.15",
+        "@vue/test-utils": "^1.1.2",
         "jsdom": "^16.4.0",
         "jsdom-global": "^3.0.2",
+        "mocha": "^8.2.1",
         "mochapack": "^2.0.6",
         "node-fetch": "^2.6.1",
         "null-loader": "^4.0.1",
         "svgo": "^1.3.2",
         "url-loader": "^4.1.1",
-        "uxf-webpack": "^0.7.0"
+        "uxf-webpack": "^0.8.2"
     },
     "engines": {
         "node": ">=12"

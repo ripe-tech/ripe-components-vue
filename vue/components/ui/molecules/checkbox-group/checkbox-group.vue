@@ -29,9 +29,9 @@
 .checkbox-item {
     display: block;
     font-size: 0px;
-    line-height: 13px;
+    line-height: 33px;
     outline: none;
-    padding: 10px 0px 10px 0px;
+    padding: 0px 0px 0px 0px;
     user-select: none;
     width: fit-content;
 }

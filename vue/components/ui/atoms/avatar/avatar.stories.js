@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text, select, boolean } from "@storybook/addon-knobs";
 
-storiesOf("Atoms", module)
+storiesOf("Components/Atoms/Avatar", module)
     .addDecorator(withKnobs)
     .add("Avatar", () => ({
         props: {

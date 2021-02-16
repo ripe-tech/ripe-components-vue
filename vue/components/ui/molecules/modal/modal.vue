@@ -99,6 +99,7 @@
     box-shadow: 0px 0px 24px $blacker;
     box-sizing: border-box;
     display: inline-block;
+    font-family: $font-family;
     max-height: 80%;
     max-height: 100%;
     max-width: 100%;
@@ -175,6 +176,11 @@ body.mobile .modal > .modal-container {
     line-height: 22px;
     margin: 22px 0px 26px 0px;
     text-align: left;
+}
+
+.modal > .modal-container > .modal-body > .modal-content ::v-deep p.text a {
+    color: $black;
+    font-weight: 600;
 }
 </style>
 
