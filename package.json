@@ -30,6 +30,7 @@
         "vue/**/*.css",
         "vue/**/*.js",
         "vue/**/*.json",
+        "vue/**/*.svg",
         "vue/**/*.vue"
     ],
     "scripts": {
