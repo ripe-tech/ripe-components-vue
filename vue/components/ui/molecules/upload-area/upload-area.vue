@@ -165,10 +165,6 @@ export const UploadArea = {
         },
         dragging(value) {
             this.$emit("update:dragging", value);
-        },
-        draggingDisabled(value) {
-            // this.$emit("")
-            console.log("svkjsdsdn");
         }
     },
     methods: {
@@ -205,33 +201,7 @@ export const UploadArea = {
         },
         onUploadButtonClick() {
             this.$refs.filesInput.click();
-        },
-        async uploadRules() {
-            const content = window.content;
-            const headers = ["brand", "shoe", "variant", "part", "material", "color", "vat_included", "ddp_included", "fixed_price", "round_price", "pivot", "priority", "price_eur", "price_usd", "price_gbp"];
-            const promises = [];
-            const rulesPayload = {};
-
-            console.log(headers);
-
-            content.forEach(values => {
-                values.forEach((value, index) => {
-                    rulesPayload[headers[index]] = value;
-                });
-                const promise = window.api.createPriceRule(rulesPayload);
-                promises.push(promise);
-            });
-
-            document.body.classList.add("loading");
-
-            try {
-                await Promise.all(promises);
-                alert("Rules saved in the database");
-                // _cleanupDom();
-            } finally {
-                document.body.classList.remove("loading");
-            }
-}
+        }
     }
 };
 export default UploadArea;
