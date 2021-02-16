@@ -29,6 +29,7 @@
         "test/**/*.js",
         "vue/**/*.css",
         "vue/**/*.js",
+        "vue/**/*.json",
         "vue/**/*.vue"
     ],
     "scripts": {
