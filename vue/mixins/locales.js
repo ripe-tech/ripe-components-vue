@@ -20,12 +20,12 @@ export const localeMixin = {
          * locale: "en_us".
          */
         addLocales(locales = {}, locale = null) {
-            const _locale = locale || this.$store.state.locale;
+            const _locale = locale || this.$store.state.localePlugin.locale;
 
-            const localeObj = this.$store.state.locales[_locale] || {};
+            const localeObj = this.$store.state.localePlugin.locales[_locale] || {};
             const updatedLocaleObj = { ...localeObj, ...locales };
             this.setLocales({
-                ...this.$store.state.locales,
+                ...this.$store.state.localePlugin.locales,
                 ...{ [_locale]: updatedLocaleObj }
             });
         },
@@ -36,7 +36,7 @@ export const localeMixin = {
          */
         /*
         loadLocalLocales(locale = null) {
-            const _locale = locale || this.$store.state.locale;
+            const _locale = locale || this.$store.state.localePlugin.locale;
 
             let localLocalesJson = null;
             try {
@@ -52,11 +52,27 @@ export const localeMixin = {
          * Should be called when first opening the extension. It gets and sets the
          * user's locale and loads that locale's local locales.
          */
-        initLocales() {
+        initLocales(store) {
             // Get locale from somewhere, fallback to "en_us"
             const locale = "en_us" || "en_us";
 
-            this.setLocale(locale);
+            store.registerModule("localePlugin", {
+                state: {
+                    locale: false,
+                    locales: {}
+                },
+                mutations: {
+                    SET_LOCALE(state, value) {
+                        state.locale = value;
+                    },
+                    SET_LOCALES(state, value) {
+                        state.locales = value;
+                    }
+                }
+            });
+            store.commit("SET_LOCALE", locale);
+
+            // this.setLocale(locale);
             // this.loadLocalLocales();
         },
         /**
@@ -64,8 +80,8 @@ export const localeMixin = {
          * isn't specified, it will use the already chosen locale.
          */
         isValueLocalized(value, locale = null) {
-            const _locale = locale || this.$store.state.locale;
-            const locales = this.$store.state.locales;
+            const _locale = locale || this.$store.state.localePlugin.locale;
+            const locales = this.$store.state.localePlugin.locales;
             return locales[_locale] && locales[_locale][value];
         },
         /**
@@ -73,8 +89,8 @@ export const localeMixin = {
          * the key. If the locale isn't specified, it will use the already chosen locale.
          */
         locale(value, defaultValue, locale = null) {
-            const _locale = locale || this.$store.state.locale;
-            const locales = this.$store.state.locales;
+            const _locale = locale || this.$store.state.localePlugin.locale;
+            const locales = this.$store.state.localePlugin.locales;
             return this.isValueLocalized(value, _locale) ? locales[_locale][value] : value;
         }
     }
