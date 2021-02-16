@@ -27,6 +27,7 @@
         "res/**/*.ico",
         "res/**/*.png",
         "test/**/*.js",
+        "vue/**/*.css",
         "vue/**/*.js",
         "vue/**/*.vue"
     ],
