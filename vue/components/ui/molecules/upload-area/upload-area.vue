@@ -27,6 +27,7 @@
                     v-bind:text="'Upload File'"
                     v-bind:icon="'cloud-upload'"
                     v-bind:alignment="'center'"
+                    v-bind:disabled="disabled"
                     v-on:click="onUploadButtonClick"
                 />
             </div>
@@ -56,6 +57,10 @@
     background-color: $lighter-grey;
     border-color: $medium-grey;
     pointer-events: none;
+}
+
+.upload-area.disabled > .upload-area-container {
+    cursor: not-allowed;
 }
 
 .upload-area > .upload-area-container > .description {
@@ -112,6 +117,10 @@ export const UploadArea = {
             type: String,
             default: "Drop your files to upload"
         },
+        disabled: {
+            type: Boolean,
+            default: false
+        },
         draggingIcon: {
             type: String,
             default: null
@@ -129,7 +138,7 @@ export const UploadArea = {
             return this.draggingIcon ? this.draggingIcon : "cloud-upload";
         },
         classes() {
-            const base = { dragging: this.dragging };
+            const base = { dragging: this.dragging, disabled: this.draggingDisabled };
             return base;
         }
     },
@@ -137,6 +146,7 @@ export const UploadArea = {
         return {
             filesData: this.files,
             dragging: false,
+            draggingDisabled: false,
             dragEnterTarget: null
         };
     },
@@ -146,6 +156,10 @@ export const UploadArea = {
         },
         dragging(value) {
             this.$emit("update:dragging", value);
+        },
+        draggingDisabled(value) {
+            // this.$emit("")
+            console.log("svkjsdsdn");
         }
     },
     methods: {
@@ -157,17 +171,24 @@ export const UploadArea = {
             this.$refs.filesInput.click();
         },
         onDragOver(event) {
+            if (this.disabled) return;
             event.dataTransfer.dropEffect = "copy";
         },
         onDrop(event) {
+            if (this.disabled) return;
             this.setFiles(event.dataTransfer.files);
             this.dragging = false;
         },
         onDragEnter(event) {
+            if (this.disabled) {
+                this.draggingDisabled = true;
+                return;
+            };
             this.dragging = true;
         },
         onDragLeave(event) {
             if (event.currentTarget.contains(event.relatedTarget)) return false;
+            if (this.disabled) this.draggingDisabled = false;
             this.dragging = false;
         },
         onFilesInputChange() {
@@ -175,7 +196,33 @@ export const UploadArea = {
         },
         onUploadButtonClick() {
             this.$refs.filesInput.click();
-        }
+        },
+        async uploadRules() {
+            const content = window.content;
+            const headers = ["brand", "shoe", "variant", "part", "material", "color", "vat_included", "ddp_included", "fixed_price", "round_price", "pivot", "priority", "price_eur", "price_usd", "price_gbp"];
+            const promises = [];
+            const rulesPayload = {};
+
+            console.log(headers);
+
+            content.forEach(values => {
+                values.forEach((value, index) => {
+                    rulesPayload[headers[index]] = value;
+                });
+                const promise = window.api.createPriceRule(rulesPayload);
+                promises.push(promise);
+            });
+
+            document.body.classList.add("loading");
+
+            try {
+                await Promise.all(promises);
+                alert("Rules saved in the database");
+                // _cleanupDom();
+            } finally {
+                document.body.classList.remove("loading");
+            }
+}
     }
 };
 export default UploadArea;
