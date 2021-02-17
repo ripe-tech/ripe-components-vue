@@ -33,6 +33,9 @@ export const localeMixin = {
          * Should be called when first opening the extension. It setups the
          * locales plugin by registering a new module named "localePlugin"
          * and sets the given locale and local locales.
+         * localLocales: { en_us: { "ripe_twitch.value_a.value_b": "Value Example" },
+         * pt_pt: { "ripe_twitch.value_a.value_b": "Value Example" } }
+         * locale: "en_us".
          */
         setupLocalePlugin(store, localLocales, locale) {
             const _localLocales = localLocales || {};
