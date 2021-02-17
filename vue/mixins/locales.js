@@ -78,7 +78,8 @@ export const localeMixin = {
         locale(value, defaultValue, locale = null) {
             const _locale = locale || this.$store.state.localePlugin.locale;
             const locales = this.$store.state.localePlugin.locales;
-            return this.isValueLocalized(value, _locale) ? locales[_locale][value] : value;
+            if (this.isValueLocalized(value, _locale)) return locales[_locale][value];
+            return defaultValue || value;
         }
     }
 };
