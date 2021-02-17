@@ -30,32 +30,15 @@ export const localeMixin = {
             });
         },
         /**
-         * Load the local locales information located in the JSON files located
-         * in the "locales" folder located in the project's root. If the locale
-         * isn't specified, it will use the already chosen locale.
+         * Should be called when first opening the extension. It setups the
+         * locales plugin by registering a new module named "localePlugin"
+         * and sets the given locale and local locales.
          */
-        /*
-        loadLocalLocales(locale = null) {
-            const _locale = locale || this.$store.state.localePlugin.locale;
+        setupLocalePlugin(store, localLocales, locale) {
+            const _localLocales = localLocales || {};
+            const _locale = locale || Object.keys(localLocales)[0];
 
-            let localLocalesJson = null;
-            try {
-                localLocalesJson = require(`../locales/${_locale}.json`);
-            } catch (error) {
-                localLocalesJson = {};
-            }
-
-            this.addLocales(localLocalesJson, _locale);
-        },
-        */
-        /**
-         * Should be called when first opening the extension. It gets and sets the
-         * user's locale and loads that locale's local locales.
-         */
-        initLocales(store) {
-            // Get locale from somewhere, fallback to "en_us"
-            const locale = "en_us" || "en_us";
-
+            // Setup localePlugin store
             store.registerModule("localePlugin", {
                 state: {
                     locale: false,
@@ -70,10 +53,11 @@ export const localeMixin = {
                     }
                 }
             });
-            store.commit("SET_LOCALE", locale);
-
-            // this.setLocale(locale);
-            // this.loadLocalLocales();
+            store.commit("SET_LOCALE", _locale);
+            store.commit("SET_LOCALES", _localLocales);
+        },
+        destroyLocalePlugin() {
+            this.$store.unregisterModule("localePlugin");
         },
         /**
          * Checks if a value is localized in the provided locale. If the locale
