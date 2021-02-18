@@ -4,7 +4,7 @@
             <div><b>Current Locale: </b>{{ getLocale() }}</div>
             <div><b>Chosen Locale: </b>{{ $store.state.localePlugin.locale }}</div>
             <div><b>Fallback Locale: </b>{{ getLocaleFallback() }}</div>
-            <div><b>Twitch Value: </b>{{ locale("example.key.button_example") }}</div>
+            <div><b>Test Value: </b>{{ locale("example.key.button_example") }}</div>
         </div>
         <div class="button-container">
             <button-color
