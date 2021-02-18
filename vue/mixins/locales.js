@@ -7,10 +7,25 @@ export const localeMixin = {
             this.$store.commit("SET_LOCALE", locale);
         },
         /**
+         * Get the currently chosen locale.
+         */
+        getLocale() {
+            return (
+                this.$store.state.localePlugin.locale ||
+                this.$store.state.localePlugin.localeFallback
+            );
+        },
+        /**
          * Set the fallback locale. Example: "en_us".
          */
         setLocaleFallback(locale) {
             this.$store.commit("SET_LOCALE_FALLBACK", locale);
+        },
+        /**
+         * Get the fallback locale.
+         */
+        getLocaleFallback() {
+            return this.$store.state.localePlugin.localeFallback;
         },
         /**
          * Set locales information. Example:
@@ -20,19 +35,25 @@ export const localeMixin = {
             this.$store.commit("SET_LOCALES", locales);
         },
         /**
+         * Get the object with all the locales.
+         */
+        getLocales() {
+            return this.$store.state.localePlugin.locales;
+        },
+        /**
          * Append new locales information. If the locale isn't specified,
          * it will use the already chosen locale. Example:
          * locales: { "ripe_twitch.value_a.value_b": "Value Example" }
          * locale: "en_us".
          */
         addLocales(locales = {}, locale = null) {
-            const _locale = locale || this.$store.state.localePlugin.locale;
+            locale = locale || this.getLocale();
 
-            const localeObj = this.$store.state.localePlugin.locales[_locale] || {};
+            const localeObj = this.getLocales()[locale] || {};
             const updatedLocaleObj = { ...localeObj, ...locales };
             this.setLocales({
-                ...this.$store.state.localePlugin.locales,
-                ...{ [_locale]: updatedLocaleObj }
+                ...this.getLocales(),
+                ...{ [locale]: updatedLocaleObj }
             });
         },
         /**
@@ -51,26 +72,26 @@ export const localeMixin = {
             // Setup localePlugin store
             store.registerModule("localePlugin", {
                 state: {
-                    locale: null,
-                    localeFallback: null,
-                    locales: {}
+                    locale: locale,
+                    localeFallback: localeFallback,
+                    locales: localLocales
                 },
                 mutations: {
                     SET_LOCALE(state, value) {
                         state.locale = value;
                     },
                     SET_LOCALE_FALLBACK(state, value) {
-                        state.fallback = value;
+                        state.localeFallback = value;
                     },
                     SET_LOCALES(state, value) {
                         state.locales = value;
                     }
                 }
             });
-            store.commit("SET_LOCALE", locale);
-            store.commit("SET_LOCALES", localLocales);
-            store.commit("SET_LOCALE_FALLBACK", localeFallback);
         },
+        /**
+         * Destroy traces of the locale plugin.
+         */
         destroyLocalePlugin() {
             this.$store.unregisterModule("localePlugin");
         },
@@ -79,18 +100,20 @@ export const localeMixin = {
          * isn't specified, it will use the already chosen locale.
          */
         isValueLocalized(value, locale = null) {
-            const _locale = locale || this.$store.state.localePlugin.locale;
-            const locales = this.$store.state.localePlugin.locales;
-            return locales[_locale] && locales[_locale][value];
+            locale = locale || this.getLocale();
+            const locales = this.getLocales();
+
+            return locales[locale] && locales[locale][value];
         },
         /**
          * Return the localized value for the given key. If there isn't any, it returns
          * the key. If the locale isn't specified, it will use the already chosen locale.
          */
         locale(value, defaultValue, locale = null) {
-            const _locale = locale || this.$store.state.localePlugin.locale;
-            const locales = this.$store.state.localePlugin.locales;
-            if (this.isValueLocalized(value, _locale)) return locales[_locale][value];
+            locale = locale || this.getLocale();
+            const locales = this.getLocales();
+
+            if (this.isValueLocalized(value, locale)) return locales[locale][value];
             return defaultValue || value;
         }
     }
