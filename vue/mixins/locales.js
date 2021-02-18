@@ -1,13 +1,18 @@
 export const localeMixin = {
     methods: {
         /**
-         * Set currently chosen locale. Example: "en_us".
+         * Set the currently chosen locale.
+         *
+         * @param {String} locale  The ISO-15897 standard locale definition string to be set.
          */
         setLocale(locale) {
             this.$store.commit("SET_LOCALE", locale);
         },
         /**
-         * Get the currently chosen locale.
+         * Gets the currently chosen locale.
+         *
+         * @returns {String} The chosen locale. If it's not set, it will return the fallback
+         * locale instead.
          */
         getLocale() {
             return (
@@ -16,35 +21,45 @@ export const localeMixin = {
             );
         },
         /**
-         * Set the fallback locale. Example: "en_us".
+         * Sets the fallback locale.
+         *
+         * @param {String} locale  The ISO-15897 standard locale definition string to be set.
          */
         setLocaleFallback(locale) {
             this.$store.commit("SET_LOCALE_FALLBACK", locale);
         },
         /**
-         * Get the fallback locale.
+         * Gets the fallback locale.
+         *
+         * @returns {String} The fallback locale.
          */
         getLocaleFallback() {
             return this.$store.state.localePlugin.localeFallback;
         },
         /**
-         * Set locales information. Example:
+         * Set the locales information.
+         *
+         * @param {Object} locales  The locales information object. Example:
          * { en_us: { "ripe_twitch.value_a.value_b": "Value Example" } }.
          */
         setLocales(locales = {}) {
             this.$store.commit("SET_LOCALES", locales);
         },
         /**
-         * Get the object with all the locales.
+         * Gets the object with all the locales.
+         *
+         * @returns {Object} The object with all the locales.
          */
         getLocales() {
             return this.$store.state.localePlugin.locales;
         },
         /**
-         * Append new locales information. If the locale isn't specified,
-         * it will use the already chosen locale. Example:
-         * locales: { "ripe_twitch.value_a.value_b": "Value Example" }
-         * locale: "en_us".
+         * Appends new locales information to the specified locale. If the locale isn't
+         * specified, it will use the already chosen locale.
+         *
+         * @param {Object} locales  The locales information object. Example:
+         * { en_us: { "ripe_twitch.value_a.value_b": "Value Example" } }.
+         * @param {String} locale  The ISO-15897 standard locale definition string to be set.
          */
         addLocales(locales = {}, locale = null) {
             locale = locale || this.getLocale();
@@ -57,12 +72,22 @@ export const localeMixin = {
             });
         },
         /**
-         * Should be called when first opening the extension. It setups the
-         * locales plugin by registering a new module named "localePlugin"
-         * and sets the given locale and local locales.
-         * localLocales: { en_us: { "ripe_twitch.value_a.value_b": "Value Example" },
-         * pt_pt: { "ripe_twitch.value_a.value_b": "Value Example" } }
-         * locale: "en_us".
+         * Should be called when first opening the extension. It setups the locales plugin by
+         * registering a new module in the store named "localePlugin" and sets the given locale,
+         * local locales, and fallback locale.
+         *
+         * @param {Object} store  Vuex store that is going to be used to register the needed
+         * localePlugin module.
+         * @param {Object} localLocales  The local locales information object that should be loaded
+         * and added throught this field. Example:
+         * {
+         *     en_us: { "ripe_twitch.value_a.value_b": "Value Example" },
+         *     pt_pt: { "ripe_twitch.value_a.value_b": "Valor Exemplo"}
+         * }.
+         * @param {String} locale  The ISO-15897 standard locale definition string to be set as the
+         * chosen locale.
+         * @param {String} localeFallback  The ISO-15897 standard locale definition string to be set as the
+         * fallback locale.
          */
         setupLocalePlugin(store, localLocales, locale, localeFallback) {
             localLocales = localLocales || {};
@@ -90,7 +115,7 @@ export const localeMixin = {
             });
         },
         /**
-         * Destroy traces of the locale plugin.
+         * Destroy traces of the locale plugin by unregistering the "localePlugin" module from the store.
          */
         destroyLocalePlugin() {
             this.$store.unregisterModule("localePlugin");
@@ -98,6 +123,10 @@ export const localeMixin = {
         /**
          * Checks if a value is localized in the provided locale. If the locale
          * isn't specified, it will use the already chosen locale.
+         *
+         * @param {String} value  The value that is going to be checked.
+         * @param {String} locale  The ISO-15897 standard locale definition string to be used for the check.
+         * @returns {Boolean} Returns true if the value is localized, false otherwise.
          */
         isValueLocalized(value, locale = null) {
             locale = locale || this.getLocale();
@@ -106,8 +135,15 @@ export const localeMixin = {
             return locales[locale] && locales[locale][value];
         },
         /**
-         * Return the localized value for the given key. If there isn't any, it returns
-         * the key. If the locale isn't specified, it will use the already chosen locale.
+         * Localizes a value to the specified locale. If the locale isn't specified, it will use
+         * the already chosen locale.
+         *
+         * @param {String} value  The value that is going to be localized.
+         * @param {String} defaultValue  The value to be returned if the value can't be localized.
+         * @param {String} locale  The ISO-15897 standard locale definition string to be used in the
+         * localization process.
+         * @returns {String} Localized value. If the "value" can't be localized and the "defaultValue" isn't
+         * set, it returns the "value".
          */
         locale(value, defaultValue, locale = null) {
             locale = locale || this.getLocale();
