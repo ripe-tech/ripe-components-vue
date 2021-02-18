@@ -7,6 +7,12 @@ export const localeMixin = {
             this.$store.commit("SET_LOCALE", locale);
         },
         /**
+         * Set the fallback locale. Example: "en_us".
+         */
+        setLocaleFallback(locale) {
+            this.$store.commit("SET_LOCALE_FALLBACK", locale);
+        },
+        /**
          * Set locales information. Example:
          * { en_us: { "ripe_twitch.value_a.value_b": "Value Example" } }.
          */
@@ -37,27 +43,33 @@ export const localeMixin = {
          * pt_pt: { "ripe_twitch.value_a.value_b": "Value Example" } }
          * locale: "en_us".
          */
-        setupLocalePlugin(store, localLocales, locale) {
-            const _localLocales = localLocales || {};
-            const _locale = locale || Object.keys(localLocales)[0];
+        setupLocalePlugin(store, localLocales, locale, localeFallback) {
+            localLocales = localLocales || {};
+            locale = locale || Object.keys(localLocales)[0];
+            localeFallback = localeFallback || "en_us";
 
             // Setup localePlugin store
             store.registerModule("localePlugin", {
                 state: {
-                    locale: false,
+                    locale: null,
+                    localeFallback: null,
                     locales: {}
                 },
                 mutations: {
                     SET_LOCALE(state, value) {
                         state.locale = value;
                     },
+                    SET_LOCALE_FALLBACK(state, value) {
+                        state.fallback = value;
+                    },
                     SET_LOCALES(state, value) {
                         state.locales = value;
                     }
                 }
             });
-            store.commit("SET_LOCALE", _locale);
-            store.commit("SET_LOCALES", _localLocales);
+            store.commit("SET_LOCALE", locale);
+            store.commit("SET_LOCALES", localLocales);
+            store.commit("SET_LOCALE_FALLBACK", localeFallback);
         },
         destroyLocalePlugin() {
             this.$store.unregisterModule("localePlugin");
