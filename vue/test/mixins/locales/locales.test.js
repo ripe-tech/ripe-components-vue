@@ -6,7 +6,14 @@ const { localeMixin } = require("../../../mixins/locales");
 
 describe("Locales Mixin", () => {
     Vue.use(vuex);
-    this.$store = new vuex.Store();
+
+    beforeEach(() => {
+        this.$store = new vuex.Store();
+    });
+
+    afterEach(() => {
+        this.$store = null;
+    });
 
     it("should setup the locale mixin store module correctly", () => {
         assert.deepStrictEqual(this.$store.state, {});
