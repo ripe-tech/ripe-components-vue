@@ -188,7 +188,7 @@ export const UploadArea = {
             if (this.disabled) {
                 this.draggingDisabled = true;
                 return;
-            };
+            }
             this.dragging = true;
         },
         onDragLeave(event) {
