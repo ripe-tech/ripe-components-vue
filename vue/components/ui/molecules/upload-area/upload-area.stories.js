@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, select } from "@storybook/addon-knobs";
+import { withKnobs, text, select, boolean } from "@storybook/addon-knobs";
 
 storiesOf("Components/Molecules/Upload Area", module)
     .addDecorator(withKnobs)
@@ -10,6 +10,9 @@ storiesOf("Components/Molecules/Upload Area", module)
             },
             descriptionDragging: {
                 default: text("Description Dragging", "Drop your files to upload")
+            },
+            disabled: {
+                default: boolean("Disabled", true)
             },
             draggingIcon: {
                 default: select(
@@ -41,6 +44,7 @@ storiesOf("Components/Molecules/Upload Area", module)
                     v-bind:description="description"
                     v-bind:description-dragging="descriptionDragging"
                     v-bind:dragging-icon="draggingIcon"
+                    v-bind:disabled="disabled"
                     v-bind:dragging.sync="draggingData"
                 />
                 <p>Dragging: {{ draggingData }}</p>
