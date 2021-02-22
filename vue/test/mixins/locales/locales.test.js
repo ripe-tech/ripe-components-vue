@@ -242,4 +242,46 @@ describe("Locales Mixin", () => {
             en_gb: { "example.key.button_example": "Button Example en_gb" }
         });
     });
+
+    it("should add locales to the chosen locale if locale argument isn't passed", () => {
+        this.testComponent.setupLocalePlugin(
+            this.testComponent.$store,
+            {
+                en_us: { "example.key.button_example": "Button Example" },
+                pt_pt: { "example.key.button_example": "Botão Example" }
+            },
+            "pt_pt",
+            "en_us"
+        );
+        assert.deepStrictEqual(this.testComponent.$store.state.localePlugin.locales, {
+            en_us: { "example.key.button_example": "Button Example" },
+            pt_pt: { "example.key.button_example": "Botão Example" }
+        });
+
+        this.testComponent.addLocales({
+            "example.key.button_example": "Button Example updated in pt_pt"
+        });
+        assert.deepStrictEqual(this.testComponent.$store.state.localePlugin.locales, {
+            en_us: { "example.key.button_example": "Button Example" },
+            pt_pt: { "example.key.button_example": "Button Example updated in pt_pt" }
+        });
+
+        this.testComponent.addLocales({ "new.example.key": "New Key example" });
+        assert.deepStrictEqual(this.testComponent.$store.state.localePlugin.locales, {
+            en_us: { "example.key.button_example": "Button Example" },
+            pt_pt: {
+                "example.key.button_example": "Button Example updated in pt_pt",
+                "new.example.key": "New Key example"
+            }
+        });
+
+        this.testComponent.addLocales({ "example.key.button_example": "Updated Key example" });
+        assert.deepStrictEqual(this.testComponent.$store.state.localePlugin.locales, {
+            en_us: { "example.key.button_example": "Button Example" },
+            pt_pt: {
+                "example.key.button_example": "Updated Key example",
+                "new.example.key": "New Key example"
+            }
+        });
+    });
 });
