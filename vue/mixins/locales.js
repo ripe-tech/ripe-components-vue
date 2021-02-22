@@ -97,7 +97,7 @@ export const localeMixin = {
             // Setup localePlugin store
             store.registerModule("localePlugin", {
                 state: {
-                    locale: locale,
+                    locale: locale || null,
                     localeFallback: localeFallback,
                     locales: localLocales
                 },
