@@ -106,9 +106,18 @@ describe("Locales Mixin", () => {
 
         assert.strictEqual(this.testComponent.isValueLocalized("example.not.added"), false);
         assert.strictEqual(this.testComponent.isValueLocalized("example.key.button_example"), true);
-        assert.strictEqual(this.testComponent.isValueLocalized("example.key.button_example", "en_us"), true);
-        assert.strictEqual(this.testComponent.isValueLocalized("example.key.button_example", "pt_pt"), true);
-        assert.strictEqual(this.testComponent.isValueLocalized("example.key.button_example", "en_gb"), false);
+        assert.strictEqual(
+            this.testComponent.isValueLocalized("example.key.button_example", "en_us"),
+            true
+        );
+        assert.strictEqual(
+            this.testComponent.isValueLocalized("example.key.button_example", "pt_pt"),
+            true
+        );
+        assert.strictEqual(
+            this.testComponent.isValueLocalized("example.key.button_example", "en_gb"),
+            false
+        );
     });
 
     it("should get locale", () => {
@@ -151,5 +160,36 @@ describe("Locales Mixin", () => {
 
         this.testComponent.setLocaleFallback("en_us");
         assert.strictEqual(this.testComponent.$store.state.localePlugin.localeFallback, "en_us");
+    });
+
+    it("should get locales", () => {
+        this.testComponent.setupLocalePlugin(
+            this.testComponent.$store,
+            {
+                en_us: { "example.key.button_example": "Button Example" },
+                pt_pt: { "example.key.button_example": "Botão Example" }
+            },
+            "en_us",
+            "en_us"
+        );
+        assert.deepStrictEqual(this.testComponent.$store.state, {
+            localePlugin: {
+                locale: "en_us",
+                localeFallback: "en_us",
+                locales: {
+                    en_us: {
+                        "example.key.button_example": "Button Example"
+                    },
+                    pt_pt: {
+                        "example.key.button_example": "Botão Example"
+                    }
+                }
+            }
+        });
+
+        assert.deepStrictEqual(this.testComponent.getLocales(), {
+            en_us: { "example.key.button_example": "Button Example" },
+            pt_pt: { "example.key.button_example": "Botão Example" }
+        });
     });
 });
