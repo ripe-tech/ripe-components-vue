@@ -296,4 +296,42 @@ describe("Locales Mixin", () => {
             }
         });
     });
+
+    it("should localize a value", () => {
+        this.testComponent.setupLocalePlugin(
+            this.testComponent.$store,
+            {
+                en_us: { "example.key.button_example": "Button Example" },
+                pt_pt: { "example.key.button_example": "Botão Example" }
+            },
+            "en_us",
+            "en_us"
+        );
+        assert.deepStrictEqual(this.testComponent.$store.state, {
+            localePlugin: {
+                locale: "en_us",
+                localeFallback: "en_us",
+                locales: {
+                    en_us: {
+                        "example.key.button_example": "Button Example"
+                    },
+                    pt_pt: {
+                        "example.key.button_example": "Botão Example"
+                    }
+                }
+            }
+        });
+
+        assert.strictEqual(this.testComponent.locale("example.key.button_example"), "Button Example");
+        assert.strictEqual(this.testComponent.locale("no.key.example"), "no.key.example");
+
+        this.testComponent.setLocale("pt_pt");
+        assert.strictEqual(this.testComponent.locale("example.key.button_example"), "Botão Example");
+
+        this.testComponent.setLocale(null);
+        assert.strictEqual(this.testComponent.locale("example.key.button_example"), "Button Example");
+
+        this.testComponent.setLocaleFallback(null);
+        assert.strictEqual(this.testComponent.locale("example.key.button_example"), "example.key.button_example");
+    });
 });
