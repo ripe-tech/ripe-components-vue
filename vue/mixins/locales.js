@@ -132,7 +132,7 @@ export const localeMixin = {
             locale = locale || this.getLocale();
             const locales = this.getLocales();
 
-            return locales[locale] && locales[locale][value];
+            return Boolean(locales[locale] && locales[locale][value]);
         },
         /**
          * Localizes a value to the specified locale. If the locale isn't specified, it will use
