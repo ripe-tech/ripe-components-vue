@@ -322,17 +322,29 @@ describe("Locales Mixin", () => {
             }
         });
 
-        assert.strictEqual(this.testComponent.locale("example.key.button_example"), "Button Example");
+        assert.strictEqual(
+            this.testComponent.locale("example.key.button_example"),
+            "Button Example"
+        );
         assert.strictEqual(this.testComponent.locale("no.key.example"), "no.key.example");
 
         this.testComponent.setLocale("pt_pt");
-        assert.strictEqual(this.testComponent.locale("example.key.button_example"), "Botão Example");
+        assert.strictEqual(
+            this.testComponent.locale("example.key.button_example"),
+            "Botão Example"
+        );
 
         this.testComponent.setLocale(null);
-        assert.strictEqual(this.testComponent.locale("example.key.button_example"), "Button Example");
+        assert.strictEqual(
+            this.testComponent.locale("example.key.button_example"),
+            "Button Example"
+        );
 
         this.testComponent.setLocaleFallback(null);
-        assert.strictEqual(this.testComponent.locale("example.key.button_example"), "example.key.button_example");
+        assert.strictEqual(
+            this.testComponent.locale("example.key.button_example"),
+            "example.key.button_example"
+        );
     });
 
     it("should localize a value to a specific locale", () => {
@@ -360,15 +372,33 @@ describe("Locales Mixin", () => {
             }
         });
 
-        assert.strictEqual(this.testComponent.locale("example.key.button_example", undefined, "en_us"), "Button Example");
-        assert.strictEqual(this.testComponent.locale("example.key.button_example", undefined, "pt_pt"), "Botão Example");
-        assert.strictEqual(this.testComponent.locale("example.key.button_example", undefined, "en_gb"), "example.key.button_example");
-        assert.strictEqual(this.testComponent.locale("example.key.button_example", undefined, null), "Button Example");
+        assert.strictEqual(
+            this.testComponent.locale("example.key.button_example", undefined, "en_us"),
+            "Button Example"
+        );
+        assert.strictEqual(
+            this.testComponent.locale("example.key.button_example", undefined, "pt_pt"),
+            "Botão Example"
+        );
+        assert.strictEqual(
+            this.testComponent.locale("example.key.button_example", undefined, "en_gb"),
+            "example.key.button_example"
+        );
+        assert.strictEqual(
+            this.testComponent.locale("example.key.button_example", undefined, null),
+            "Button Example"
+        );
 
         this.testComponent.setLocale(null);
         this.testComponent.setLocaleFallback(null);
-        assert.strictEqual(this.testComponent.locale("example.key.button_example", undefined, "en_gb"), "example.key.button_example");
-        assert.strictEqual(this.testComponent.locale("example.key.button_example", undefined, null), "example.key.button_example");
+        assert.strictEqual(
+            this.testComponent.locale("example.key.button_example", undefined, "en_gb"),
+            "example.key.button_example"
+        );
+        assert.strictEqual(
+            this.testComponent.locale("example.key.button_example", undefined, null),
+            "example.key.button_example"
+        );
     });
 
     it("should return the default value when localizing a value that can't be localized", () => {
@@ -396,14 +426,48 @@ describe("Locales Mixin", () => {
             }
         });
 
-        assert.strictEqual(this.testComponent.locale("example.key.button_example", "default value example", "en_us"), "Button Example");
-        assert.strictEqual(this.testComponent.locale("example.key.button_example", "default value example", "pt_pt"), "Botão Example");
-        assert.strictEqual(this.testComponent.locale("example.key.button_example", "default value example", "en_gb"), "default value example");
-        assert.strictEqual(this.testComponent.locale("example.key.button_example", "default value example", null), "Button Example");
+        assert.strictEqual(
+            this.testComponent.locale(
+                "example.key.button_example",
+                "default value example",
+                "en_us"
+            ),
+            "Button Example"
+        );
+        assert.strictEqual(
+            this.testComponent.locale(
+                "example.key.button_example",
+                "default value example",
+                "pt_pt"
+            ),
+            "Botão Example"
+        );
+        assert.strictEqual(
+            this.testComponent.locale(
+                "example.key.button_example",
+                "default value example",
+                "en_gb"
+            ),
+            "default value example"
+        );
+        assert.strictEqual(
+            this.testComponent.locale("example.key.button_example", "default value example", null),
+            "Button Example"
+        );
 
         this.testComponent.setLocale(null);
         this.testComponent.setLocaleFallback(null);
-        assert.strictEqual(this.testComponent.locale("example.key.button_example", "default value example", "en_gb"), "default value example");
-        assert.strictEqual(this.testComponent.locale("example.key.button_example", "default value example", null), "default value example");
+        assert.strictEqual(
+            this.testComponent.locale(
+                "example.key.button_example",
+                "default value example",
+                "en_gb"
+            ),
+            "default value example"
+        );
+        assert.strictEqual(
+            this.testComponent.locale("example.key.button_example", "default value example", null),
+            "default value example"
+        );
     });
 });
