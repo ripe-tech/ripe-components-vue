@@ -28,6 +28,7 @@
                     v-bind:text="'Upload File'"
                     v-bind:icon="'cloud-upload'"
                     v-bind:alignment="'center'"
+                    v-bind:disabled="disabled"
                     v-on:click="onUploadButtonClick"
                 />
             </div>
@@ -57,6 +58,10 @@
     background-color: $lighter-grey;
     border-color: $medium-grey;
     pointer-events: none;
+}
+
+.upload-area.disabled > .upload-area-container {
+    cursor: not-allowed;
 }
 
 .upload-area > .upload-area-container > .description {
@@ -113,6 +118,10 @@ export const UploadArea = {
             type: String,
             default: "Drop your files to upload"
         },
+        disabled: {
+            type: Boolean,
+            default: false
+        },
         draggingIcon: {
             type: String,
             default: null
@@ -138,7 +147,7 @@ export const UploadArea = {
             return this.draggingIcon ? this.draggingIcon : "cloud-upload";
         },
         classes() {
-            const base = { dragging: this.dragging };
+            const base = { dragging: this.dragging, disabled: this.draggingDisabled };
             return base;
         }
     },
@@ -146,6 +155,7 @@ export const UploadArea = {
         return {
             filesData: this.files,
             dragging: false,
+            draggingDisabled: false,
             dragEnterTarget: null
         };
     },
@@ -166,17 +176,24 @@ export const UploadArea = {
             this.$refs.filesInput.click();
         },
         onDragOver(event) {
+            if (this.disabled) return;
             event.dataTransfer.dropEffect = "copy";
         },
         onDrop(event) {
+            if (this.disabled) return;
             this.setFiles(event.dataTransfer.files);
             this.dragging = false;
         },
         onDragEnter(event) {
+            if (this.disabled) {
+                this.draggingDisabled = true;
+                return;
+            }
             this.dragging = true;
         },
         onDragLeave(event) {
             if (event.currentTarget.contains(event.relatedTarget)) return false;
+            if (this.disabled) this.draggingDisabled = false;
             this.dragging = false;
         },
         onFilesInputChange() {

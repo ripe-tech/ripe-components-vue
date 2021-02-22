@@ -96,10 +96,12 @@ export const Image = {
             const base = {};
             if (![undefined, null].includes(this.width)) base.width = this.width + "px";
             if (![undefined, null].includes(this.height)) base.height = this.height + "px";
-            if (![undefined, null].includes(this.maxWidth))
-                { base["max-width"] = this.maxWidth + "px"; }
-            if (![undefined, null].includes(this.maxHeight))
-                { base["max-height"] = this.maxHeight + "px"; }
+            if (![undefined, null].includes(this.maxWidth)) {
+                base["max-width"] = this.maxWidth + "px";
+            }
+            if (![undefined, null].includes(this.maxHeight)) {
+                base["max-height"] = this.maxHeight + "px";
+            }
             return base;
         },
         classes() {
