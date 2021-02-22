@@ -110,4 +110,12 @@ describe("Locales Mixin", () => {
         assert.strictEqual(this.testComponent.isValueLocalized("example.key.button_example", "pt_pt"), true);
         assert.strictEqual(this.testComponent.isValueLocalized("example.key.button_example", "en_gb"), false);
     });
+
+    it("should get locale", () => {
+        this.testComponent.setupLocalePlugin(this.testComponent.$store, {}, "en_us", "en_us");
+        assert.strictEqual(this.testComponent.$store.state.localePlugin.locale, "en_us");
+        assert.strictEqual(this.testComponent.$store.state.localePlugin.localeFallback, "en_us");
+
+        assert.strictEqual(this.testComponent.getLocale(), "en_us");
+    });
 });
