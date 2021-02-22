@@ -143,4 +143,13 @@ describe("Locales Mixin", () => {
 
         assert.strictEqual(this.testComponent.getLocaleFallback(), "pt_pt");
     });
+
+    it("should set locale fallback", () => {
+        this.testComponent.setupLocalePlugin(this.testComponent.$store, {}, null, "pt_pt");
+        assert.strictEqual(this.testComponent.$store.state.localePlugin.locale, null);
+        assert.strictEqual(this.testComponent.$store.state.localePlugin.localeFallback, "pt_pt");
+
+        this.testComponent.setLocaleFallback("en_us");
+        assert.strictEqual(this.testComponent.$store.state.localePlugin.localeFallback, "en_us");
+    });
 });
