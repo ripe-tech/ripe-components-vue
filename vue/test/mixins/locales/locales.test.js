@@ -12,9 +12,7 @@ describe("Locales Mixin", () => {
         this.testComponent = new Vue({
             mixins: [localeMixin],
             store: new vuex.Store(),
-            // eslint-disable-next-line quotes
-            template: `<div />`,
-            title: "LocalesMixinTest"
+            template: "<div />"
         }).$mount();
     });
 
