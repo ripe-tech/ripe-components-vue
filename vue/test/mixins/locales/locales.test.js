@@ -172,24 +172,37 @@ describe("Locales Mixin", () => {
             "en_us",
             "en_us"
         );
-        assert.deepStrictEqual(this.testComponent.$store.state, {
-            localePlugin: {
-                locale: "en_us",
-                localeFallback: "en_us",
-                locales: {
-                    en_us: {
-                        "example.key.button_example": "Button Example"
-                    },
-                    pt_pt: {
-                        "example.key.button_example": "Botão Example"
-                    }
-                }
-            }
+        assert.deepStrictEqual(this.testComponent.$store.state.localePlugin.locales, {
+            en_us: { "example.key.button_example": "Button Example" },
+            pt_pt: { "example.key.button_example": "Botão Example" }
         });
 
         assert.deepStrictEqual(this.testComponent.getLocales(), {
             en_us: { "example.key.button_example": "Button Example" },
             pt_pt: { "example.key.button_example": "Botão Example" }
+        });
+    });
+
+    it("should set locales", () => {
+        this.testComponent.setupLocalePlugin(
+            this.testComponent.$store,
+            {
+                en_us: { "example.key.button_example": "Button Example" },
+                pt_pt: { "example.key.button_example": "Botão Example" }
+            },
+            "en_us",
+            "en_us"
+        );
+        assert.deepStrictEqual(this.testComponent.$store.state.localePlugin.locales, {
+            en_us: { "example.key.button_example": "Button Example" },
+            pt_pt: { "example.key.button_example": "Botão Example" }
+        });
+
+        this.testComponent.setLocales({
+            en_gb: { "example.key.button_example": "Button Example" }
+        });
+        assert.deepStrictEqual(this.testComponent.$store.state.localePlugin.locales, {
+            en_gb: { "example.key.button_example": "Button Example" }
         });
     });
 });
