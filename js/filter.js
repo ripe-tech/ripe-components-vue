@@ -1,5 +1,5 @@
 const OP_REGEX = /(?:(?:<=)|(?:<)|(?:>=)|(?:>)|(?:=))/;
-const KEYWORD_REGEX = /(?:[\w]*(?:(?:<=)|(?:<)|(?:>=)|(?:>)|(?:=))@[\w-?\w]*)/g;
+const KEYWORD_REGEX = /(?:@[\w-?]*)/g;
 
 const OP_ALIAS = {
     ">": "gt",
@@ -9,42 +9,42 @@ const OP_ALIAS = {
 };
 
 const KEYWORDS = {
-    "@today": (field, op = "=") => {
+    "@today": (field, op) => {
         const today = new Date(new Date().setHours(0, 0, 0, 0));
         const tomorrow = new Date(today);
         tomorrow.setDate(today.getDate() + 1);
 
         return _buildKeywordQuery(field, op, today, tomorrow);
     },
-    "@yesterday": (field, op = "=") => {
+    "@yesterday": (field, op) => {
         const today = new Date(new Date().setHours(0, 0, 0, 0));
         const yesterday = new Date(today);
         yesterday.setDate(today.getDate() - 1);
 
         return _buildKeywordQuery(field, op, yesterday, today);
     },
-    "@tomorrow": (field, op = "=") => {
+    "@tomorrow": (field, op) => {
         const today = new Date(new Date().setHours(0, 0, 0, 0));
         const tomorrow = new Date(today.setDate(today.getDate() + 1));
         const afterTomorrow = new Date(today.setDate(today.getDate() + 1));
 
         return _buildKeywordQuery(field, op, tomorrow, afterTomorrow);
     },
-    "@this-week": (field, op = "=") => {
+    "@this-week": (field, op) => {
         const today = new Date(new Date().setHours(0, 0, 0, 0));
         const week = new Date(today.setDate(today.getDate() - today.getDay()));
         const nextWeek = new Date(today.setDate(today.getDate() - today.getDay() + 7));
 
         return _buildKeywordQuery(field, op, week, nextWeek);
     },
-    "@next-week": (field, op = "=") => {
+    "@next-week": (field, op) => {
         const today = new Date(new Date().setHours(0, 0, 0, 0));
         const nextWeek = new Date(today.setDate(today.getDate() - today.getDay() + 7));
         const nextNextWeek = new Date(today.setDate(today.getDate() - today.getDay() + 7));
 
         return _buildKeywordQuery(field, op, nextWeek, nextNextWeek);
     },
-    "@this-month": (field, op = "=") => {
+    "@this-month": (field, op) => {
         const today = new Date(new Date().setHours(0, 0, 0, 0));
         const month = today.getMonth();
         const startOfMonth = new Date(today.setDate(1));
@@ -52,7 +52,7 @@ const KEYWORDS = {
 
         return _buildKeywordQuery(field, op, startOfMonth, nextMonth);
     },
-    "@next-month": (field, op = "=") => {
+    "@next-month": (field, op) => {
         const today = new Date(new Date().setHours(0, 0, 0, 0));
         const month = today.getMonth();
         const nextMonth = new Date(new Date(today.setMonth(month + 1)).setDate(1));
@@ -62,11 +62,16 @@ const KEYWORDS = {
     }
 };
 
-export const filterToParams = (options = {}, nameAlias = {}, nameFunc = {}, filterFields = {}) => {
+export const filterToParams = (
+    options = {},
+    nameAlias = {},
+    nameFunc = {},
+    filterFields = {},
+    keywordFields = []
+) => {
     let operator = "$or";
     const { sort, reverse, filter, start, limit } = options;
-    let filterS = filter || "";
-    filterS = _filterKeywords(filterS);
+    const filterS = filter || "";
 
     const params = { number_records: limit, start_record: start };
     const direction = reverse ? "descending" : "ascending";
@@ -82,17 +87,17 @@ export const filterToParams = (options = {}, nameAlias = {}, nameFunc = {}, filt
             key = key.replace(/-/g, "_");
             const field = nameAlias[key] || key;
             const fieldFunc = nameFunc[field];
-            value = fieldFunc ? fieldFunc(value) : value;
+            value = value in KEYWORDS ? value : fieldFunc ? fieldFunc(value) : value;
             arithOp = arithOp === "=" ? filterFields[field] : OP_ALIAS[arithOp];
             if (!field || !arithOp) continue;
-            filters.push(`${field}:${arithOp}:${value}`);
+            filters.push(..._buildFilter(field, arithOp, value, keywordFields));
         }
         operator = "$and";
     } else {
         filters.push(
-            ...Object.entries(filterFields).map(
-                ([field, operator]) => `${field}:${operator}:${filterS}`
-            )
+            ...Object.entries(filterFields)
+                .map(([field, operator]) => _buildFilter(field, operator, filterS, keywordFields))
+                .flat()
         );
     }
     if (sort) {
@@ -105,42 +110,37 @@ export const filterToParams = (options = {}, nameAlias = {}, nameFunc = {}, filt
     return params;
 };
 
-const _filterKeywords = filter => {
-    // searches the filter for queries that contain keywords,
-    // if none exist, return the filter as is
-    const keywords = filter.match(KEYWORD_REGEX);
-    if (!keywords) return filter;
+const _buildFilter = (field, arithOp, value, keywordFields) => {
+    if (!value) return [`${field}:${arithOp}:${value}`];
 
-    // iterates over the keywords found and verifies
-    // if the operator is correctly implement, replacing
-    // the keyword with the respective translation
-    for (const keyword of keywords) {
-        const result = keyword.match(OP_REGEX);
-        if (!result) continue;
+    // verifies if the value is a keyword, if not
+    // returns the filter query with the given value
+    const result = value.match(KEYWORD_REGEX);
+    if (!result || !Object.keys(KEYWORDS).includes(value)) return [`${field}:${arithOp}:${value}`];
 
-        // replaces the keywords in the queries with their
-        // respective translation
-        const arithOp = result[0];
-        const [field, value] = keyword.split(OP_REGEX, 2);
-        if (!(value in KEYWORDS)) continue;
-        filter = filter.replace(keyword, KEYWORDS[value](field, arithOp));
-    }
+    // verifies if the field given allows the usage of
+    // keywords, forbidding invalid usage of keywords
+    // with fields that do not permit it
+    if (keywordFields.length > 0 && !keywordFields.includes(field)) return [];
 
-    return filter;
+    // replaces the keyword in the value with its
+    // respective translation
+    return KEYWORDS[value](field, arithOp);
 };
 
 const _buildKeywordQuery = (field, op, left, right) => {
     switch (op) {
-        case ">":
-        case ">=":
-            return `${field}${op}${right.getTime()}`;
-        case "<":
-        case "<=":
-            return `${field}${op}${left.getTime()}`;
-        case "=":
-            return `${field}>=${left.getTime()} and ${field}<${right.getTime()}`;
+        case "gt":
+        case "gte":
+            return [`${field}:${op}:${right.getTime() / 1000}`];
+        case "lt":
+        case "lte":
+            return [`${field}:${op}:${left.getTime() / 1000}`];
         default:
-            break;
+            return [
+                `${field}:gte:${left.getTime() / 1000}`,
+                `${field}:lt:${right.getTime() / 1000}`
+            ];
     }
 };
 
