@@ -6,7 +6,7 @@ export const localeMixin = {
          * @param {String} locale  The ISO-15897 standard locale definition string to be set.
          */
         setLocale(locale) {
-            this.$store.commit("SET_LOCALE", locale);
+            this.$store.commit("locale", locale);
         },
         /**
          * Gets the currently chosen locale.
@@ -26,7 +26,7 @@ export const localeMixin = {
          * @param {String} locale  The ISO-15897 standard locale definition string to be set.
          */
         setLocaleFallback(locale) {
-            this.$store.commit("SET_LOCALE_FALLBACK", locale);
+            this.$store.commit("localeFallback", locale);
         },
         /**
          * Gets the fallback locale.
@@ -43,7 +43,7 @@ export const localeMixin = {
          * { en_us: { "ripe_twitch.value_a.value_b": "Value Example" } }.
          */
         setLocales(locales = {}) {
-            this.$store.commit("SET_LOCALES", locales);
+            this.$store.commit("locales", locales);
         },
         /**
          * Gets the object with all the locales.
@@ -105,13 +105,13 @@ export const localeMixin = {
                     locales: localLocales
                 },
                 mutations: {
-                    SET_LOCALE(state, value) {
+                    locale(state, value) {
                         state.locale = value;
                     },
-                    SET_LOCALE_FALLBACK(state, value) {
+                    localeFallback(state, value) {
                         state.localeFallback = value;
                     },
-                    SET_LOCALES(state, value) {
+                    locales(state, value) {
                         state.locales = value;
                     }
                 }
