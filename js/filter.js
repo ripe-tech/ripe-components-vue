@@ -62,12 +62,7 @@ const KEYWORDS = {
     }
 };
 
-export const filterToParams = (
-    options = {},
-    nameAlias = {},
-    nameFunc = {},
-    filterFields = {}
-) => {
+export const filterToParams = (options = {}, nameAlias = {}, nameFunc = {}, filterFields = {}) => {
     let operator = "$or";
     const { sort, reverse, filter, start, limit } = options;
     let filterS = filter || "";
@@ -110,20 +105,22 @@ export const filterToParams = (
     return params;
 };
 
-const _filterKeywords = (filter) => {
+const _filterKeywords = filter => {
     // searches the filter for queries that contain keywords,
     // if none exist, return the filter as is
     const keywords = filter.match(KEYWORD_REGEX);
     if (!keywords) return filter;
 
-    // replaces the keywords in the queries with their
-    // respective translation
+    // iterates over the keywords found and verifies
+    // if the operator is correctly implement, replacing
+    // the keyword with the respective translation
     for (const keyword of keywords) {
-        const arithOp = keyword.match(OP_REGEX);
-        if (!arithOp) return;
+        const result = keyword.match(OP_REGEX);
+        if (!result) continue;
 
-        // replaces the key and keyword with the translation
-        // of the keyword
+        // replaces the keywords in the queries with their
+        // respective translation
+        const arithOp = result[0];
         const [field, value] = keyword.split(OP_REGEX, 2);
         if (!(value in KEYWORDS)) continue;
         filter = filter.replace(keyword, KEYWORDS[value](field, arithOp));
