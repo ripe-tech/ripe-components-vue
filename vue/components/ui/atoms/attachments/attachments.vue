@@ -1,9 +1,5 @@
 <template>
-    <div
-        class="attachments"
-        v-bind:class="{ 'attachments-empty': attachments.length === 0 }"
-        v-bind:style="attachmentsStyle"
-    >
+    <div class="attachments" v-bind:class="attachmentsClasses" v-bind:style="attachmentsStyle">
         <div class="attachments-title" v-if="title">
             {{ title }}
         </div>
@@ -13,6 +9,7 @@
                 v-bind:title="attachment.name"
                 v-for="(attachment, index) in attachments"
                 v-bind:key="index"
+                v-on:click="event => onAttachmentClick(event, attachment, index)"
             >
                 <link-ripe
                     v-bind:text="attachment.name"
@@ -84,10 +81,6 @@
     border-color: transparent;
 }
 
-.attachments .attachments-list .attachment:hover {
-    background-color: $white;
-}
-
 .attachments .attachments-list .attachment:active {
     background-color: $white;
 }
@@ -100,6 +93,10 @@
     vertical-align: top;
     white-space: nowrap;
     width: 100%;
+}
+
+.attachments.attachments-hover-color .attachments-list .attachment:hover {
+    background-color: $white;
 }
 </style>
 
@@ -122,12 +119,21 @@ export const Attachments = {
         height: {
             type: Number,
             default: null
+        },
+        hover: {
+            type: String,
+            default: "color"
         }
     },
     data: function() {
         return {};
     },
     computed: {
+        attachmentsClasses() {
+            const base = { "attachments-empty": this.attachments.length === 0 };
+            if (this.hover) base["attachments-hover-" + this.hover] = this.hover;
+            return base;
+        },
         attachmentsStyle() {
             const base = {};
             if (this.width) base.width = `${this.width}px`;
@@ -137,6 +143,11 @@ export const Attachments = {
             const base = {};
             if (this.height) base.height = `${this.height}px`;
             return base;
+        }
+    },
+    methods: {
+        onAttachmentClick(event, attachment, index) {
+            this.$emit("click:attachment", event, attachment, index);
         }
     }
 };

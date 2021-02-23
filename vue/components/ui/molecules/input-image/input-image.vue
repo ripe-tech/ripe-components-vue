@@ -1,7 +1,6 @@
 <template>
     <upload-area
         class="input-image"
-        v-bind:files.sync="files"
         v-bind:multiple="multiple"
         v-bind:accept="accept"
         v-on:update:files="loadFiles"
@@ -119,7 +118,7 @@ export const InputImage = {
          */
         images: {
             type: Array,
-            default: []
+            default: () => []
         },
         /**
          * Support for multiple images, this allowing the user
