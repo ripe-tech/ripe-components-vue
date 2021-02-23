@@ -10,8 +10,6 @@ export const parameters = {
     layout: "fullscreen"
 };
 
-// makes use of Vuex to make use of things like
-// data store (for some of the components)
 Vue.use(Vuex);
 
 Vue.use(RipeComponentsVue);
