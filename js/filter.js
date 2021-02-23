@@ -1,5 +1,4 @@
 const OP_REGEX = /(?:(?:<=)|(?:<)|(?:>=)|(?:>)|(?:=))/;
-const KEYWORD_REGEX = /(?:@[\w-?]*)/g;
 
 const OP_ALIAS = {
     ">": "gt",
@@ -67,7 +66,7 @@ export const filterToParams = (
     nameAlias = {},
     nameFunc = {},
     filterFields = {},
-    keywordFields = []
+    keywordFieldValues = []
 ) => {
     let operator = "$or";
     const { sort, reverse, filter, start, limit } = options;
@@ -87,17 +86,16 @@ export const filterToParams = (
             key = key.replace(/-/g, "_");
             const field = nameAlias[key] || key;
             const fieldFunc = nameFunc[field];
-            value = value in KEYWORDS ? value : fieldFunc ? fieldFunc(value) : value;
+            value = KEYWORDS[value] || !fieldFunc ? value : fieldFunc(value);
             arithOp = arithOp === "=" ? filterFields[field] : OP_ALIAS[arithOp];
             if (!field || !arithOp) continue;
-            filters.push(..._buildFilter(field, arithOp, value, keywordFields));
+            filters.push(..._buildFilter(field, arithOp, value, keywordFieldValues));
         }
         operator = "$and";
     } else {
         filters.push(
             ...Object.entries(filterFields)
-                .map(([field, operator]) => _buildFilter(field, operator, filterS, keywordFields))
-                .flat()
+                .flatMap(([field, operator]) => _buildFilter(field, operator, filterS, keywordFieldValues))
         );
     }
     if (sort) {
@@ -110,18 +108,11 @@ export const filterToParams = (
     return params;
 };
 
-const _buildFilter = (field, arithOp, value, keywordFields) => {
-    if (!value) return [`${field}:${arithOp}:${value}`];
-
+const _buildFilter = (field, arithOp, value, keywordFieldValues) => {
     // verifies if the value is a keyword, if not
     // returns the filter query with the given value
-    const result = value.match(KEYWORD_REGEX);
-    if (!result || !Object.keys(KEYWORDS).includes(value)) return [`${field}:${arithOp}:${value}`];
-
-    // verifies if the field given allows the usage of
-    // keywords, forbidding invalid usage of keywords
-    // with fields that do not permit it
-    if (keywordFields.length > 0 && !keywordFields.includes(field)) return [];
+    const keywordF = KEYWORDS[value];
+    if (!keywordF) return [`${field}:${arithOp}:${value}`];
 
     // replaces the keyword in the value with its
     // respective translation
