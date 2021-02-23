@@ -23,15 +23,14 @@ describe("Locales Mixin", () => {
     it("should setup the locale mixin store module correctly", () => {
         assert.deepStrictEqual(this.testComponent.$store.state, {});
 
-        this.testComponent.setupLocalePlugin(
-            this.testComponent.$store,
-            {
+        this.testComponent.setupLocalePlugin(this.testComponent.$store, {
+            localLocales: {
                 en_us: { "example.key.button_example": "Button Example" },
                 pt_pt: { "example.key.button_example": "Botão Example" }
             },
-            "en_us",
-            "en_us"
-        );
+            locale: "en_us",
+            localeFallback: "en_us"
+        });
         assert.deepStrictEqual(this.testComponent.$store.state, {
             localePlugin: {
                 locale: "en_us",
@@ -49,15 +48,14 @@ describe("Locales Mixin", () => {
     });
 
     it("should remove localePlugin from the store", () => {
-        this.testComponent.setupLocalePlugin(
-            this.testComponent.$store,
-            {
+        this.testComponent.setupLocalePlugin(this.testComponent.$store, {
+            localLocales: {
                 en_us: { "example.key.button_example": "Button Example" },
                 pt_pt: { "example.key.button_example": "Botão Example" }
             },
-            "en_us",
-            "en_us"
-        );
+            locale: "en_us",
+            localeFallback: "en_us"
+        });
         assert.deepStrictEqual(this.testComponent.$store.state, {
             localePlugin: {
                 locale: "en_us",
@@ -78,15 +76,14 @@ describe("Locales Mixin", () => {
     });
 
     it("should check if the value is localized", () => {
-        this.testComponent.setupLocalePlugin(
-            this.testComponent.$store,
-            {
+        this.testComponent.setupLocalePlugin(this.testComponent.$store, {
+            localLocales: {
                 en_us: { "example.key.button_example": "Button Example" },
                 pt_pt: { "example.key.button_example": "Botão Example" }
             },
-            "en_us",
-            "en_us"
-        );
+            locale: "en_us",
+            localeFallback: "en_us"
+        });
         assert.deepStrictEqual(this.testComponent.$store.state, {
             localePlugin: {
                 locale: "en_us",
@@ -119,7 +116,11 @@ describe("Locales Mixin", () => {
     });
 
     it("should get locale", () => {
-        this.testComponent.setupLocalePlugin(this.testComponent.$store, {}, "en_us", "en_us");
+        this.testComponent.setupLocalePlugin(this.testComponent.$store, {
+            localLocales: {},
+            locale: "en_us",
+            localeFallback: "en_us"
+        });
         assert.strictEqual(this.testComponent.$store.state.localePlugin.locale, "en_us");
         assert.strictEqual(this.testComponent.$store.state.localePlugin.localeFallback, "en_us");
 
@@ -127,7 +128,11 @@ describe("Locales Mixin", () => {
     });
 
     it("should get locale fallback when locale isn't set", () => {
-        this.testComponent.setupLocalePlugin(this.testComponent.$store, {}, null, "pt_pt");
+        this.testComponent.setupLocalePlugin(this.testComponent.$store, {
+            localLocales: {},
+            locale: null,
+            localeFallback: "pt_pt"
+        });
         assert.strictEqual(this.testComponent.$store.state.localePlugin.locale, null);
         assert.strictEqual(this.testComponent.$store.state.localePlugin.localeFallback, "pt_pt");
 
@@ -135,7 +140,11 @@ describe("Locales Mixin", () => {
     });
 
     it("should set locale", () => {
-        this.testComponent.setupLocalePlugin(this.testComponent.$store, {}, null, "pt_pt");
+        this.testComponent.setupLocalePlugin(this.testComponent.$store, {
+            localLocales: {},
+            locale: null,
+            localeFallback: "pt_pt"
+        });
         assert.strictEqual(this.testComponent.$store.state.localePlugin.locale, null);
         assert.strictEqual(this.testComponent.$store.state.localePlugin.localeFallback, "pt_pt");
 
@@ -144,7 +153,11 @@ describe("Locales Mixin", () => {
     });
 
     it("should get locale fallback", () => {
-        this.testComponent.setupLocalePlugin(this.testComponent.$store, {}, "en_us", "pt_pt");
+        this.testComponent.setupLocalePlugin(this.testComponent.$store, {
+            localLocales: {},
+            locale: "en_us",
+            localeFallback: "pt_pt"
+        });
         assert.strictEqual(this.testComponent.$store.state.localePlugin.locale, "en_us");
         assert.strictEqual(this.testComponent.$store.state.localePlugin.localeFallback, "pt_pt");
 
@@ -152,7 +165,11 @@ describe("Locales Mixin", () => {
     });
 
     it("should set locale fallback", () => {
-        this.testComponent.setupLocalePlugin(this.testComponent.$store, {}, null, "pt_pt");
+        this.testComponent.setupLocalePlugin(this.testComponent.$store, {
+            localLocales: {},
+            locale: null,
+            localeFallback: "pt_pt"
+        });
         assert.strictEqual(this.testComponent.$store.state.localePlugin.locale, null);
         assert.strictEqual(this.testComponent.$store.state.localePlugin.localeFallback, "pt_pt");
 
@@ -161,15 +178,14 @@ describe("Locales Mixin", () => {
     });
 
     it("should get locales", () => {
-        this.testComponent.setupLocalePlugin(
-            this.testComponent.$store,
-            {
+        this.testComponent.setupLocalePlugin(this.testComponent.$store, {
+            localLocales: {
                 en_us: { "example.key.button_example": "Button Example" },
                 pt_pt: { "example.key.button_example": "Botão Example" }
             },
-            "en_us",
-            "en_us"
-        );
+            locale: "en_us",
+            localeFallback: "en_us"
+        });
         assert.deepStrictEqual(this.testComponent.$store.state.localePlugin.locales, {
             en_us: { "example.key.button_example": "Button Example" },
             pt_pt: { "example.key.button_example": "Botão Example" }
@@ -182,15 +198,14 @@ describe("Locales Mixin", () => {
     });
 
     it("should set locales", () => {
-        this.testComponent.setupLocalePlugin(
-            this.testComponent.$store,
-            {
+        this.testComponent.setupLocalePlugin(this.testComponent.$store, {
+            localLocales: {
                 en_us: { "example.key.button_example": "Button Example" },
                 pt_pt: { "example.key.button_example": "Botão Example" }
             },
-            "en_us",
-            "en_us"
-        );
+            locale: "en_us",
+            localeFallback: "en_us"
+        });
         assert.deepStrictEqual(this.testComponent.$store.state.localePlugin.locales, {
             en_us: { "example.key.button_example": "Button Example" },
             pt_pt: { "example.key.button_example": "Botão Example" }
@@ -205,15 +220,14 @@ describe("Locales Mixin", () => {
     });
 
     it("should add locales", () => {
-        this.testComponent.setupLocalePlugin(
-            this.testComponent.$store,
-            {
+        this.testComponent.setupLocalePlugin(this.testComponent.$store, {
+            localLocales: {
                 en_us: { "example.key.button_example": "Button Example" },
                 pt_pt: { "example.key.button_example": "Botão Example" }
             },
-            "en_us",
-            "en_us"
-        );
+            locale: "en_us",
+            localeFallback: "en_us"
+        });
         assert.deepStrictEqual(this.testComponent.$store.state.localePlugin.locales, {
             en_us: { "example.key.button_example": "Button Example" },
             pt_pt: { "example.key.button_example": "Botão Example" }
@@ -254,15 +268,14 @@ describe("Locales Mixin", () => {
     });
 
     it("should add locales to the chosen locale if locale argument isn't passed", () => {
-        this.testComponent.setupLocalePlugin(
-            this.testComponent.$store,
-            {
+        this.testComponent.setupLocalePlugin(this.testComponent.$store, {
+            localLocales: {
                 en_us: { "example.key.button_example": "Button Example" },
                 pt_pt: { "example.key.button_example": "Botão Example" }
             },
-            "pt_pt",
-            "en_us"
-        );
+            locale: "pt_pt",
+            localeFallback: "en_us"
+        });
         assert.deepStrictEqual(this.testComponent.$store.state.localePlugin.locales, {
             en_us: { "example.key.button_example": "Button Example" },
             pt_pt: { "example.key.button_example": "Botão Example" }
@@ -296,15 +309,14 @@ describe("Locales Mixin", () => {
     });
 
     it("should localize a value", () => {
-        this.testComponent.setupLocalePlugin(
-            this.testComponent.$store,
-            {
+        this.testComponent.setupLocalePlugin(this.testComponent.$store, {
+            localLocales: {
                 en_us: { "example.key.button_example": "Button Example" },
                 pt_pt: { "example.key.button_example": "Botão Example" }
             },
-            "en_us",
-            "en_us"
-        );
+            locale: "en_us",
+            localeFallback: "en_us"
+        });
         assert.deepStrictEqual(this.testComponent.$store.state, {
             localePlugin: {
                 locale: "en_us",
@@ -346,15 +358,14 @@ describe("Locales Mixin", () => {
     });
 
     it("should localize a value to a specific locale", () => {
-        this.testComponent.setupLocalePlugin(
-            this.testComponent.$store,
-            {
+        this.testComponent.setupLocalePlugin(this.testComponent.$store, {
+            localLocales: {
                 en_us: { "example.key.button_example": "Button Example" },
                 pt_pt: { "example.key.button_example": "Botão Example" }
             },
-            "en_us",
-            "en_us"
-        );
+            locale: "en_us",
+            localeFallback: "en_us"
+        });
         assert.deepStrictEqual(this.testComponent.$store.state, {
             localePlugin: {
                 locale: "en_us",
@@ -400,15 +411,14 @@ describe("Locales Mixin", () => {
     });
 
     it("should return the default value when localizing a value that can't be localized", () => {
-        this.testComponent.setupLocalePlugin(
-            this.testComponent.$store,
-            {
+        this.testComponent.setupLocalePlugin(this.testComponent.$store, {
+            localLocales: {
                 en_us: { "example.key.button_example": "Button Example" },
                 pt_pt: { "example.key.button_example": "Botão Example" }
             },
-            "en_us",
-            "en_us"
-        );
+            locale: "en_us",
+            localeFallback: "en_us"
+        });
         assert.deepStrictEqual(this.testComponent.$store.state, {
             localePlugin: {
                 locale: "en_us",

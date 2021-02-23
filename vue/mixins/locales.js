@@ -89,7 +89,10 @@ export const localeMixin = {
          * @param {String} localeFallback  The ISO-15897 standard locale definition string to be set as the
          * fallback locale.
          */
-        setupLocalePlugin(store, localLocales, locale, localeFallback) {
+        setupLocalePlugin(
+            store,
+            { localLocales = null, locale = null, localeFallback = null } = {}
+        ) {
             localLocales = localLocales || {};
             locale = locale || Object.keys(localLocales)[0];
             localeFallback = localeFallback || "en_us";
