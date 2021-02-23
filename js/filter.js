@@ -1,4 +1,5 @@
 const OP_REGEX = /(?:(?:<=)|(?:<)|(?:>=)|(?:>)|(?:=))/;
+const KEYWORD_REGEX = /(?:[\w]*(?:(?:<=)|(?:<)|(?:>=)|(?:>)|(?:=))@[\w]*)/g;
 
 const OP_ALIAS = {
     ">": "gt",
@@ -13,46 +14,35 @@ const KEYWORDS = {
         const tomorrow = new Date(today);
         tomorrow.setDate(today.getDate() + 1);
 
-        if (op === ">" || op === ">=") return `${field}${op}${tomorrow.getTime()}`;
-        else if (op === "<" || op === "<=") return `${field}${op}${today.getTime()}`;
-        return `${field}>=${today.getTime()} and ${field}<${tomorrow.getTime()}`;
+        return _buildKeywordQuery(field, op, today, tomorrow);
     },
     "@yesterday": (field, op = "=") => {
         const today = new Date(new Date().setHours(0, 0, 0, 0));
-        const todayTime = today.getTime();
         const yesterday = new Date(today);
         yesterday.setDate(today.getDate() - 1);
 
-        if (op === ">" || op === ">=") return `${field}${op}${todayTime}`;
-        else if (op === "<" || op === "<=") return `${field}${op}${yesterday.getTime()}`;
-        return `${field}>=${yesterday.getTime()} and ${field}<${todayTime}`;
+        return _buildKeywordQuery(field, op, yesterday, today);
     },
     "@tomorrow": (field, op = "=") => {
         const today = new Date(new Date().setHours(0, 0, 0, 0));
         const tomorrow = new Date(today.setDate(today.getDate() + 1));
         const afterTomorrow = new Date(today.setDate(today.getDate() + 1));
 
-        if (op === ">" || op === ">=") return `${field}${op}${afterTomorrow.getTime()}`;
-        else if (op === "<" || op === "<=") return `${field}${op}${tomorrow.getTime()}`;
-        return `${field}>=${tomorrow.getTime()} and ${field}<${afterTomorrow.getTime()}`;
+        return _buildKeywordQuery(field, op, tomorrow, afterTomorrow);
     },
     "@this-week": (field, op = "=") => {
         const today = new Date(new Date().setHours(0, 0, 0, 0));
         const week = new Date(today.setDate(today.getDate() - today.getDay()));
         const nextWeek = new Date(today.setDate(today.getDate() - today.getDay() + 7));
 
-        if (op === ">" || op === ">=") return `${field}${op}${nextWeek.getTime()}`;
-        else if (op === "<" || op === "<=") return `${field}${op}${week.getTime()}`;
-        return `${field}>=${week.getTime()} and ${field}<${nextWeek.getTime()}`;
+        return _buildKeywordQuery(field, op, week, nextWeek);
     },
     "@next-week": (field, op = "=") => {
         const today = new Date(new Date().setHours(0, 0, 0, 0));
         const nextWeek = new Date(today.setDate(today.getDate() - today.getDay() + 7));
         const nextNextWeek = new Date(today.setDate(today.getDate() - today.getDay() + 7));
 
-        if (op === ">" || op === ">=") return `${field}${op}${nextNextWeek.getTime()}`;
-        else if (op === "<" || op === "<=") return `${field}${op}${nextWeek.getTime()}`;
-        return `${field}>=${nextWeek.getTime()} and ${field}<${nextNextWeek.getTime()}`;
+        return _buildKeywordQuery(field, op, nextWeek, nextNextWeek);
     },
     "@this-month": (field, op = "=") => {
         const today = new Date(new Date().setHours(0, 0, 0, 0));
@@ -60,9 +50,7 @@ const KEYWORDS = {
         const startOfMonth = new Date(today.setDate(1));
         const nextMonth = new Date(new Date(today.setMonth(month + 1)).setDate(1));
 
-        if (op === ">" || op === ">=") return `${field}${op}${nextMonth.getTime()}`;
-        else if (op === "<" || op === "<=") return `${field}${op}${startOfMonth.getTime()}`;
-        return `${field}>=${startOfMonth.getTime()} and ${field}<${nextMonth.getTime()}`;
+        return _buildKeywordQuery(field, op, startOfMonth, nextMonth);
     },
     "@next-month": (field, op = "=") => {
         const today = new Date(new Date().setHours(0, 0, 0, 0));
@@ -70,9 +58,7 @@ const KEYWORDS = {
         const nextMonth = new Date(new Date(today.setMonth(month + 1)).setDate(1));
         const nextNextMonth = new Date(new Date(today.setMonth(month + 2)).setDate(1));
 
-        if (op === ">" || op === ">=") return `${field}${op}${nextNextMonth.getTime()}`;
-        else if (op === "<" || op === "<=") return `${field}${op}${nextMonth.getTime()}`;
-        return `${field}>=${nextMonth.getTime()} and ${field}<${nextNextMonth.getTime()}`;
+        return _buildKeywordQuery(field, op, nextMonth, nextNextMonth);
     }
 };
 
@@ -80,13 +66,12 @@ export const filterToParams = (
     options = {},
     nameAlias = {},
     nameFunc = {},
-    filterFields = {},
-    keywordFields = []
+    filterFields = {}
 ) => {
     let operator = "$or";
     const { sort, reverse, filter, start, limit } = options;
     let filterS = filter || "";
-    filterS = _filterKeywords(filterS, nameAlias, keywordFields);
+    filterS = _filterKeywords(filterS);
 
     const params = { number_records: limit, start_record: start };
     const direction = reverse ? "descending" : "ascending";
@@ -125,15 +110,14 @@ export const filterToParams = (
     return params;
 };
 
-const _filterKeywords = (filter, nameAlias = {}, keywordFields = []) => {
-    // searches the filter for queries that contain keywords
-    const keywords = filter
-        .split(" ")
-        .filter(value => Object.keys(KEYWORDS).some(key => value.includes(nameAlias[key] || key)));
+const _filterKeywords = (filter) => {
+    // searches the filter for queries that contain keywords,
+    // if none exist, return the filter as is
+    const keywords = filter.match(KEYWORD_REGEX);
+    if (!keywords) return filter;
 
-    // replaces the keywords in the queries with their respective translation,
-    // a keyword with no key will be replaced with the fields provided in
-    // the `keywordFields` argument
+    // replaces the keywords in the queries with their
+    // respective translation
     for (const keyword of keywords) {
         const arithOp = keyword.match(OP_REGEX);
         if (!arithOp) return;
@@ -146,6 +130,21 @@ const _filterKeywords = (filter, nameAlias = {}, keywordFields = []) => {
     }
 
     return filter;
+};
+
+const _buildKeywordQuery = (field, op, left, right) => {
+    switch (op) {
+        case ">":
+        case ">=":
+            return `${field}${op}${right.getTime()}`;
+        case "<":
+        case "<=":
+            return `${field}${op}${left.getTime()}`;
+        case "=":
+            return `${field}>=${left.getTime()} and ${field}<${right.getTime()}`;
+        default:
+            break;
+    }
 };
 
 export default filterToParams;
