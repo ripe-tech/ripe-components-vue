@@ -34,5 +34,5 @@ storiesOf("Mixins/Locale Mixin", module).add("Locale Mixin", () => ({
     },
     template: `
             <locales-story />
-        `
+    `
 }));
