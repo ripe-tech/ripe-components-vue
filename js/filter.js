@@ -114,6 +114,12 @@ const _buildFilter = (field, arithOp, value, keywordFieldValues) => {
     const keywordF = KEYWORDS[value];
     if (!keywordF) return [`${field}:${arithOp}:${value}`];
 
+    // verifies if the field given allows the usage of the
+    // current keyword, forbidding invalid usage of keyword
+    // with fields that do not support it
+    const keywordValues = keywordFieldValues[field];
+    if (!keywordValues || !keywordValues.includes(value)) return [];
+
     // replaces the keyword in the value with its
     // respective translation
     return KEYWORDS[value](field, arithOp);
