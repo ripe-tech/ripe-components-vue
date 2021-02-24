@@ -10,7 +10,7 @@ describe("Locales Mixin", () => {
     };
 
     it("should setup the locale mixin store module correctly", () => {
-        const component = base.getCustomComponent(localeTestComponent, { });
+        const component = base.getComponent("Tag", { props: { text: "tag" }, mixins: [localeMixin] });
         component.vm.setupLocalePlugin(component.vm.$store, {
             localLocales: {
                 en_us: { "example.key.button_example": "Button Example" },
@@ -36,7 +36,7 @@ describe("Locales Mixin", () => {
     });
 
     it("should remove localePlugin from the store", () => {
-        const component = base.getCustomComponent(localeTestComponent);
+        const component = base.getComponent("Tag", { props: { text: "tag" }, mixins: [localeMixin] });
         component.vm.setupLocalePlugin(component.vm.$store, {
             localLocales: {
                 en_us: { "example.key.button_example": "Button Example" },
@@ -65,7 +65,7 @@ describe("Locales Mixin", () => {
     });
 
     it("should check if the value is localized", () => {
-        const component = base.getCustomComponent(localeTestComponent);
+        const component = base.getComponent("Tag", { props: { text: "tag" }, mixins: [localeMixin] });
         component.vm.setupLocalePlugin(component.vm.$store, {
             localLocales: {
                 en_us: { "example.key.button_example": "Button Example" },
@@ -106,7 +106,7 @@ describe("Locales Mixin", () => {
     });
 
     it("should get locale", () => {
-        const component = base.getCustomComponent(localeTestComponent);
+        const component = base.getComponent("Tag", { props: { text: "tag" }, mixins: [localeMixin] });
         component.vm.setupLocalePlugin(component.vm.$store, {
             localLocales: {},
             locale: "en_us",
@@ -119,7 +119,7 @@ describe("Locales Mixin", () => {
     });
 
     it("should get locale fallback when locale isn't set", () => {
-        const component = base.getCustomComponent(localeTestComponent);
+        const component = base.getComponent("Tag", { props: { text: "tag" }, mixins: [localeMixin] });
         component.vm.setupLocalePlugin(component.vm.$store, {
             localLocales: {},
             locale: null,
@@ -132,7 +132,7 @@ describe("Locales Mixin", () => {
     });
 
     it("should set locale", () => {
-        const component = base.getCustomComponent(localeTestComponent);
+        const component = base.getComponent("Tag", { props: { text: "tag" }, mixins: [localeMixin] });
         component.vm.setupLocalePlugin(component.vm.$store, {
             localLocales: {},
             locale: null,
@@ -146,7 +146,7 @@ describe("Locales Mixin", () => {
     });
 
     it("should get locale fallback", () => {
-        const component = base.getCustomComponent(localeTestComponent);
+        const component = base.getComponent("Tag", { props: { text: "tag" }, mixins: [localeMixin] });
         component.vm.setupLocalePlugin(component.vm.$store, {
             localLocales: {},
             locale: "en_us",
@@ -159,7 +159,7 @@ describe("Locales Mixin", () => {
     });
 
     it("should set locale fallback", () => {
-        const component = base.getCustomComponent(localeTestComponent);
+        const component = base.getComponent("Tag", { props: { text: "tag" }, mixins: [localeMixin] });
         component.vm.setupLocalePlugin(component.vm.$store, {
             localLocales: {},
             locale: null,
@@ -173,7 +173,7 @@ describe("Locales Mixin", () => {
     });
 
     it("should get locales", () => {
-        const component = base.getCustomComponent(localeTestComponent);
+        const component = base.getComponent("Tag", { props: { text: "tag" }, mixins: [localeMixin] });
         component.vm.setupLocalePlugin(component.vm.$store, {
             localLocales: {
                 en_us: { "example.key.button_example": "Button Example" },
@@ -194,7 +194,7 @@ describe("Locales Mixin", () => {
     });
 
     it("should set locales", () => {
-        const component = base.getCustomComponent(localeTestComponent);
+        const component = base.getComponent("Tag", { props: { text: "tag" }, mixins: [localeMixin] });
         component.vm.setupLocalePlugin(component.vm.$store, {
             localLocales: {
                 en_us: { "example.key.button_example": "Button Example" },
@@ -217,7 +217,7 @@ describe("Locales Mixin", () => {
     });
 
     it("should add locales", () => {
-        const component = base.getCustomComponent(localeTestComponent);
+        const component = base.getComponent("Tag", { props: { text: "tag" }, mixins: [localeMixin] });
         component.vm.setupLocalePlugin(component.vm.$store, {
             localLocales: {
                 en_us: { "example.key.button_example": "Button Example" },
@@ -260,7 +260,7 @@ describe("Locales Mixin", () => {
     });
 
     it("should add locales to the chosen locale if locale argument isn't passed", () => {
-        const component = base.getCustomComponent(localeTestComponent);
+        const component = base.getComponent("Tag", { props: { text: "tag" }, mixins: [localeMixin] });
         component.vm.setupLocalePlugin(component.vm.$store, {
             localLocales: {
                 en_us: { "example.key.button_example": "Button Example" },
@@ -302,7 +302,7 @@ describe("Locales Mixin", () => {
     });
 
     it("should localize a value", () => {
-        const component = base.getCustomComponent(localeTestComponent);
+        const component = base.getComponent("Tag", { props: { text: "tag" }, mixins: [localeMixin] });
         component.vm.setupLocalePlugin(component.vm.$store, {
             localLocales: {
                 en_us: { "example.key.button_example": "Button Example" },
@@ -343,7 +343,7 @@ describe("Locales Mixin", () => {
     });
 
     it("should localize a value to a specific locale", () => {
-        const component = base.getCustomComponent(localeTestComponent);
+        const component = base.getComponent("Tag", { props: { text: "tag" }, mixins: [localeMixin] });
         component.vm.setupLocalePlugin(component.vm.$store, {
             localLocales: {
                 en_us: { "example.key.button_example": "Button Example" },
@@ -397,7 +397,7 @@ describe("Locales Mixin", () => {
     });
 
     it("should return the default value when localizing a value that can't be localized", () => {
-        const component = base.getCustomComponent(localeTestComponent);
+        const component = base.getComponent("Tag", { props: { text: "tag" }, mixins: [localeMixin] });
         component.vm.setupLocalePlugin(component.vm.$store, {
             localLocales: {
                 en_us: { "example.key.button_example": "Button Example" },
