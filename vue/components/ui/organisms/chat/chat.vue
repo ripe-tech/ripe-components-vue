@@ -68,9 +68,6 @@
 
 .chat > .upload-area > .chat-container > .chat-messages-container .chat-message:first-child {
     border-top: none;
-}
-
-.chat > .upload-area > .chat-container > .chat-messages-container .chat-message:first-child {
     margin-top: 0px;
 }
 
