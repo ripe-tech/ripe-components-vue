@@ -61,7 +61,13 @@
 }
 
 .chat > .upload-area > .chat-container > .chat-messages-container .chat-message {
-    margin-top: 20px;
+    border-top: 1px solid $border-color;
+    margin-top: 12px;
+    padding-top: 14px;
+}
+
+.chat > .upload-area > .chat-container > .chat-messages-container .chat-message:first-child {
+    border-top: none;
 }
 
 .chat > .upload-area > .chat-container > .chat-messages-container .chat-message:first-child {
