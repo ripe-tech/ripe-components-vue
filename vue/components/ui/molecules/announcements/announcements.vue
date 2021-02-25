@@ -139,6 +139,7 @@
 
 .announcements .announcements-list > .announcement .content {
     font-size: 14px;
+    font-weight: 400;
     letter-spacing: 0.35px;
     line-height: 24px;
     margin-top: 8px;
