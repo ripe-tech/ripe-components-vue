@@ -35,10 +35,10 @@
 
 .lightbox > img {
     cursor: pointer;
-    object-fit: contain;
     height: inherit;
     max-height: inherit;
     max-width: inherit;
+    object-fit: contain;
     width: inherit;
 }
 
