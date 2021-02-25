@@ -67,7 +67,7 @@
 
 .side ul {
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 500;
     list-style: none;
     margin: 12px 0px 12px 0px;
     padding: 0px 0px 0px 0px;
