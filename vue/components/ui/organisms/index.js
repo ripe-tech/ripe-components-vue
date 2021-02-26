@@ -3,6 +3,7 @@ import { Details } from "./details/details.vue";
 import { EntityList } from "./entity-list/entity-list.vue";
 import { EntityShow } from "./entity-show/entity-show.vue";
 import { Header } from "./header/header.vue";
+import { InputList } from "./input-list/input-list.vue";
 import { Listing } from "./listing/listing.vue";
 import { TableMenu } from "./table-menu/table-menu.vue";
 
@@ -12,6 +13,7 @@ const install = Vue => {
     Vue.component("entity-list", EntityList);
     Vue.component("entity-show", EntityShow);
     Vue.component("header-ripe", Header);
+    Vue.component("input-list", InputList);
     Vue.component("listing", Listing);
     Vue.component("table-menu", TableMenu);
 };
