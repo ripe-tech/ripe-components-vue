@@ -156,7 +156,7 @@ export const InputList = {
             const base = {};
             if (this.buttonAddRow === "top") {
                 base.position = "absolute";
-                base.top = "5px";
+                base.top = "7px";
                 base.right = "0px";
             }
             return base;
