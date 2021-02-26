@@ -76,17 +76,17 @@
     color: #0d0d0d;
     display: inline-block;
     font-weight: 600;
+    line-height: 18px;
     padding: 0px 6px 0px 0px;
     vertical-align: top;
-    line-height: 18px;
 }
 
 .chat-message > .message-container > .message-header > .date-time {
     font-size: 10px;
     font-weight: 500;
-    vertical-align: top;
     line-height: 13px;
     margin-top: 1px;
+    vertical-align: top;
 }
 
 .chat-message > .message-container > .message-header > .date-time > .date,
