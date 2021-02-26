@@ -23,6 +23,7 @@
             v-show="arrowsVisibility"
             v-on:click="previous"
         />
+        <slot name="before-slide" />
         <transition-group class="slide-container" tag="div" name="fade">
             <div
                 class="slide"
@@ -41,6 +42,7 @@
                 </div>
             </div>
         </transition-group>
+        <slot name="after-slide" />
         <icon
             class="arrow arrow-next"
             v-bind:color="arrowsColor"
