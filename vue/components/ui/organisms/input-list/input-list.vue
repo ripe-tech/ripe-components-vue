@@ -143,7 +143,7 @@ export const InputList = {
         },
         buttonAddRow: {
             type: String,
-            default: "bottom"
+            default: "top"
         }
     },
     data: function() {

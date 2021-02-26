@@ -40,7 +40,7 @@ storiesOf("Components/Organisms/Input List", module).add("Input List", () => ({
                     Bottom: "bottom",
                     None: null
                 },
-                "bottom"
+                "top"
             )
         }
     },
