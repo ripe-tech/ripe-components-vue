@@ -77,12 +77,16 @@
     display: inline-block;
     font-weight: 600;
     padding: 0px 6px 0px 0px;
-    vertical-align: bottom;
+    vertical-align: top;
+    line-height: 18px;
 }
 
 .chat-message > .message-container > .message-header > .date-time {
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 500;
+    vertical-align: top;
+    line-height: 13px;
+    margin-top: 1px;
 }
 
 .chat-message > .message-container > .message-header > .date-time > .date,
