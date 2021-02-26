@@ -50,13 +50,13 @@ storiesOf("Components/Organisms/Input List", module).add("Input List", () => ({
         };
     },
     template: `
-            <div>
-                <input-list
-                    v-bind:fields="fields"
-                    v-bind:values.sync="values"
-                    v-bind:button-add-row="buttonAddRow"
-                />
-                <p> Values: {{ values }} </p>
-            </div>
+        <div>
+            <input-list
+                v-bind:fields="fields"
+                v-bind:values.sync="values"
+                v-bind:button-add-row="buttonAddRow"
+            />
+            <p> Values: {{ values }} </p>
+        </div>
     `
 }));
