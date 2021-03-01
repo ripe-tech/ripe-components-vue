@@ -66,7 +66,7 @@ export const filterToParams = (
     nameAlias = {},
     nameFunc = {},
     filterFields = {},
-    keywordFieldValues = []
+    keywordFields = {}
 ) => {
     let operator = "$or";
     const { sort, reverse, filter, start, limit } = options;
@@ -89,13 +89,14 @@ export const filterToParams = (
             value = KEYWORDS[value] || !fieldFunc ? value : fieldFunc(value);
             arithOp = arithOp === "=" ? filterFields[field] : OP_ALIAS[arithOp];
             if (!field || !arithOp) continue;
-            filters.push(..._buildFilter(field, arithOp, value, keywordFieldValues));
+            filters.push(..._buildFilter(field, arithOp, value, keywordFields));
         }
         operator = "$and";
     } else {
         filters.push(
-            ...Object.entries(filterFields)
-                .flatMap(([field, operator]) => _buildFilter(field, operator, filterS, keywordFieldValues))
+            ...Object.entries(filterFields).flatMap(([field, operator]) =>
+                _buildFilter(field, operator, filterS, keywordFields)
+            )
         );
     }
     if (sort) {
@@ -108,7 +109,25 @@ export const filterToParams = (
     return params;
 };
 
-const _buildFilter = (field, arithOp, value, keywordFieldValues) => {
+/**
+ * Builds the individual filter value (or set of filters) for the
+ * provided values taking into account the provided arithmetic/logic
+ * operator, the value and possible keyword values.
+ *
+ * This function supports the "expansion" of a keyword value into
+ * multiple filter statements.
+ *
+ * @param {String} field The name of the field from which the filter
+ * or set of filters is going to be built.
+ * @param {String} arithOp The arithmetic operator (as a string) to be used
+ * for a base comparison.
+ * @param {String} value The target value of the comparison operation.
+ * @param {Object} keywordFields An object that associated a certain field name
+ * with the set of keywords that are "allowed".
+ * @returns {Array} The sequence of filters (in canonical format) to be used
+ * in the construction of a "normalized" query.
+ */
+const _buildFilter = (field, arithOp, value, keywordFields) => {
     // verifies if the value is a keyword, if not
     // returns the filter query with the given value
     const keywordF = KEYWORDS[value];
@@ -117,8 +136,8 @@ const _buildFilter = (field, arithOp, value, keywordFieldValues) => {
     // verifies if the field given allows the usage of the
     // current keyword, forbidding invalid usage of keyword
     // with fields that do not support it
-    const keywordValues = keywordFieldValues[field];
-    if (!keywordValues || !keywordValues.includes(value)) return [];
+    const keywords = keywordFields[field];
+    if (!keywords || !keywords.includes(value)) return [];
 
     // replaces the keyword in the value with its
     // respective translation
