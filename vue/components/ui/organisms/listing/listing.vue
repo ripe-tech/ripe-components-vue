@@ -17,11 +17,14 @@
             <template v-slot:header-before>
                 <slot v-bind:name="'header-before'">
                     <slot name="header-search">
-                        <div
-                            class="search-container"
+                        <tooltip
+                            class="tooltip-mobile"
+                            v-bind:text="tooltipSearchText"
+                            v-bind:variant="'grey'"
+                            v-bind:border-radius="'5px'"
+                            v-bind:font-size="11"
+                            v-bind:width="210"
                             v-if="isMobileWidth()"
-                            v-on:mouseover="onSearchMouseOver"
-                            v-on:mouseleave="onSearchMouseLeave"
                         >
                             <search
                                 class="search-mobile"
@@ -30,17 +33,7 @@
                                 v-bind:value.sync="filter"
                                 v-bind:loading="loading"
                             />
-                            <tooltip
-                                class="tooltip-mobile"
-                                v-bind:text="tooltipSearchText"
-                                v-bind:visible="visibleTooltip"
-                                v-bind:variant="'grey'"
-                                v-bind:border-radius="'5px'"
-                                v-bind:font-size="11"
-                                v-bind:width="210"
-                                v-if="tooltipSearchText"
-                            />
-                        </div>
+                        </tooltip>
                     </slot>
                 </slot>
             </template>
@@ -75,11 +68,13 @@
                     />
                 </router-link>
                 <slot name="header-search">
-                    <div
-                        class="search-container"
+                    <tooltip
+                        v-bind:text="tooltipSearchText"
+                        v-bind:variant="'grey'"
+                        v-bind:border-radius="'5px'"
+                        v-bind:font-size="11"
+                        v-bind:width="210"
                         v-if="!isMobileWidth()"
-                        v-on:mouseover="onSearchMouseOver"
-                        v-on:mouseleave="onSearchMouseLeave"
                     >
                         <search
                             v-bind:variant="'dark'"
@@ -88,16 +83,7 @@
                             v-bind:value.sync="filter"
                             v-bind:loading="loading"
                         />
-                        <tooltip
-                            v-bind:text="tooltipSearchText"
-                            v-bind:visible="visibleTooltip"
-                            v-bind:variant="'grey'"
-                            v-bind:border-radius="'5px'"
-                            v-bind:font-size="11"
-                            v-bind:width="210"
-                            v-if="tooltipSearchText"
-                        />
-                    </div>
+                    </tooltip>
                 </slot>
             </template>
             <template v-slot:header-buttons-after>
@@ -239,21 +225,16 @@ body.mobile .listing {
     vertical-align: middle;
 }
 
-.listing .container-ripe .search-container {
-    position: relative;
-}
-
 .listing .container-ripe .tooltip {
     text-transform: none;
-    width: 100%;
 }
 
 .listing .container-ripe .tooltip.tooltip-mobile {
-    bottom: 16px;
+    margin-bottom: 16px;
 }
 
 .listing .container-ripe .search.search-mobile {
-    margin: 0px 0px 16px 0px;
+    margin: 0px 0px 0px 0px;
 }
 
 .listing.empty .container-ripe {
@@ -404,8 +385,7 @@ export const Listing = {
             filter: this.context && this.context.filter ? this.context.filter : "",
             filterOptions: null,
             loading: false,
-            visibleLightbox: null,
-            visibleTooltip: false
+            visibleLightbox: null
         };
     },
     watch: {
@@ -445,12 +425,6 @@ export const Listing = {
         },
         onLineupClick(item, index) {
             this.$emit("click:lineup", item, index);
-        },
-        onSearchMouseOver() {
-            this.visibleTooltip = true;
-        },
-        onSearchMouseLeave() {
-            this.visibleTooltip = false;
         }
     },
     computed: {
