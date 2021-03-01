@@ -19,6 +19,7 @@
                     <slot name="header-search">
                         <div
                             class="search-container"
+                            v-if="isMobileWidth()"
                             v-on:mouseover="onSearchMouseOver"
                             v-on:mouseleave="onSearchMouseLeave"
                         >
@@ -28,7 +29,6 @@
                                 v-bind:placeholder="filterText ? filterText : `Search ${name}`"
                                 v-bind:value.sync="filter"
                                 v-bind:loading="loading"
-                                v-if="isMobileWidth()"
                             />
                             <tooltip
                                 class="tooltip-mobile"
@@ -38,7 +38,7 @@
                                 v-bind:border-radius="'5px'"
                                 v-bind:font-size="11"
                                 v-bind:width="210"
-                                v-if="isMobileWidth() && tooltipSearchText"
+                                v-if="tooltipSearchText"
                             />
                         </div>
                     </slot>
@@ -77,6 +77,7 @@
                 <slot name="header-search">
                     <div
                         class="search-container"
+                        v-if="!isMobileWidth()"
                         v-on:mouseover="onSearchMouseOver"
                         v-on:mouseleave="onSearchMouseLeave"
                     >
@@ -86,7 +87,6 @@
                             v-bind:placeholder="filterText ? filterText : `Search ${name}`"
                             v-bind:value.sync="filter"
                             v-bind:loading="loading"
-                            v-if="!isMobileWidth()"
                         />
                         <tooltip
                             v-bind:text="tooltipSearchText"
@@ -95,7 +95,7 @@
                             v-bind:border-radius="'5px'"
                             v-bind:font-size="11"
                             v-bind:width="210"
-                            v-if="!isMobileWidth() && tooltipSearchText"
+                            v-if="tooltipSearchText"
                         />
                     </div>
                 </slot>
@@ -434,9 +434,6 @@ export const Listing = {
         async refresh() {
             await this.getFilter().refresh();
         },
-        toggleTooltip(value) {
-            this.visibleTooltip = value;
-        },
         getFilter() {
             return this.$refs.filter;
         },
@@ -450,10 +447,10 @@ export const Listing = {
             this.$emit("click:lineup", item, index);
         },
         onSearchMouseOver() {
-            this.toggleTooltip(true);
+            this.visibleTooltip = true;
         },
         onSearchMouseLeave() {
-            this.toggleTooltip(false);
+            this.visibleTooltip = false;
         }
     },
     computed: {
