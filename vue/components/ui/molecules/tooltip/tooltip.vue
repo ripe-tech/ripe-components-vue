@@ -2,7 +2,13 @@
     <abbr class="tooltip tooltip-native" v-bind:title="text" v-if="native && text">
         <slot />
     </abbr>
-    <div class="tooltip tooltip-custom" v-bind:class="classes" v-else>
+    <div
+        class="tooltip tooltip-custom"
+        v-bind:class="classes"
+        v-else
+        v-on:mouseenter="onMouseenter"
+        v-on:mouseleave="onMouseleave"
+    >
         <slot />
         <transition v-bind:name="animationData">
             <div class="tooltip-inner" v-bind:style="tooltipInnerStyle" v-show="visibleData">
@@ -185,6 +191,10 @@ export const Tooltip = {
         duration: {
             type: Number,
             default: 250
+        },
+        sequenceTimeout: {
+            type: Number,
+            default: 50
         }
     },
     data: function() {
@@ -192,7 +202,9 @@ export const Tooltip = {
             animationData: null,
             delayData: null,
             durationData: null,
-            visibleData: false
+            visibleData: false,
+            lastEnter: null,
+            lastLeave: null
         };
     },
     watch: {
@@ -204,6 +216,7 @@ export const Tooltip = {
         },
         disabled(value) {
             if (value) this.hide(false);
+            this.$bus.$emit("tooltip:leave", this._uid);
         },
         delay(value) {
             this.delayData = value;
@@ -237,17 +250,59 @@ export const Tooltip = {
             return base;
         }
     },
+    created: function() {
+        this.onTooltipEnter = this.$bus.$on("tooltip:enter", id => {
+            this.lastEnter = Date.now();
+        });
+        this.onTooltipLeave = this.$bus.$on("tooltip:leave", id => {
+            this.lastLeave = Date.now();
+        });
+    },
+    destroyed: function() {
+        if (this.onTooltipEnter) this.$bus.$off("tooltip:enter", this.onTooltipEnter);
+        if (this.onTooltipLeave) this.$bus.$off("tooltip:leave", this.onTooltipLeave);
+    },
     methods: {
         show(animated = true) {
             if (this.disabled || this.visibleData) return;
             this._setVisibility(true, animated);
+            this.$bus.$emit("tooltip:shown", this._uid);
         },
         hide(animated = true) {
             if (!this.visibleData) return;
             this._setVisibility(false, animated);
+            this.$bus.$emit("tooltip:hidden", this._uid);
         },
         scheduleShow() {
             this.show(true);
+        },
+        onMouseenter() {
+            if (this.disabled) return;
+            // verifies if the current tooltip should be immediately shown
+            // because a tooltip in the group was currently shown
+            const wasVisible =
+                this.lastLeave && this.lastEnter
+                    ? this.lastLeave - this.lastEnter > this.delay
+                    : false;
+            const shouldShow = wasVisible && Date.now() - this.lastLeave < this.sequenceTimeout;
+            if (shouldShow) {
+                this.show(false);
+                return;
+            }
+            // schedules a show operation to be performed after the
+            // delay amount of time has passed
+            this.scheduleShow();
+            // triggers the enter event indicating that we've entered
+            // a certain tooltip target area
+            this.$bus.$emit("tooltip:enter", this._uid);
+        },
+        onMouseleave() {
+            if (this.disabled) return;
+            // makes sure that the tooltip is hidden
+            this.hide(false);
+            // triggers the leave event indicating that we've left
+            // a certain tooltip target area
+            this.$bus.$emit("tooltip:leave", this._uid);
         },
         _setVisibility(visible, animated) {
             if (visible && animated) {
@@ -255,7 +310,6 @@ export const Tooltip = {
             } else {
                 this.delayData = null;
             }
-
             if (animated) {
                 this.animationData = this.animation;
                 this.durationData = this.duration;
