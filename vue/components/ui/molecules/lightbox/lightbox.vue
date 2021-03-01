@@ -3,6 +3,7 @@
         <global-events v-on:keydown.esc="close" />
         <image-ripe
             v-bind:src="image || ''"
+            v-bind:style="imageStyle"
             v-bind:alt="alt || ''"
             v-on:click="event => $emit('click', event)"
         />
@@ -10,7 +11,7 @@
             <div
                 class="lightbox-container"
                 v-if="visible && (imageLightbox || image)"
-                v-on:click="$emit('close')"
+                v-on:click="() => $emit('close')"
             >
                 <div class="image-container">
                     <image-ripe
@@ -37,6 +38,7 @@
     height: inherit;
     max-height: inherit;
     max-width: inherit;
+    object-fit: contain;
     width: inherit;
 }
 
@@ -94,6 +96,10 @@ export const Lightbox = {
             type: String,
             default: null
         },
+        objectFit: {
+            type: String,
+            default: null
+        },
         alt: {
             type: String,
             default: null
@@ -106,6 +112,13 @@ export const Lightbox = {
     methods: {
         close() {
             this.$emit("close");
+        }
+    },
+    computed: {
+        imageStyle() {
+            const base = {};
+            if (this.objectFit) base["object-fit"] = this.objectFit;
+            return base;
         }
     }
 };

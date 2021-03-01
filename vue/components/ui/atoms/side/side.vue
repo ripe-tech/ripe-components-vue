@@ -67,7 +67,7 @@
 
 .side ul {
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 500;
     list-style: none;
     margin: 12px 0px 12px 0px;
     padding: 0px 0px 0px 0px;
@@ -207,7 +207,7 @@ export const Side = {
             return this.visibleData;
         },
         style() {
-            return {
+            const base = {
                 left:
                     this.width && this.position === "left"
                         ? `${this.visibleData ? 0 : this.width * -1}px`
@@ -218,6 +218,7 @@ export const Side = {
                         : null,
                 width: this.width ? `${this.width}px` : null
             };
+            return base;
         },
         classes() {
             const base = {

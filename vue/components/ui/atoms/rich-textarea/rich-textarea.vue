@@ -17,6 +17,7 @@
             />
             <button-icon
                 class="send-button"
+                v-bind="sendButtonProps"
                 v-bind:disabled="disabled || sendButtonDisabled"
                 v-bind:text="'Send message'"
                 v-bind:small="true"
@@ -212,11 +213,15 @@ export const RichTextarea = {
         },
         smile: {
             type: Boolean,
-            default: true
+            default: false
         },
         width: {
             type: Number,
             default: null
+        },
+        sendButtonProps: {
+            type: Object,
+            default: () => ({})
         }
     },
     data: function() {

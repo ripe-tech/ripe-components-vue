@@ -25,6 +25,7 @@
                 v-bind:send-button-disabled="validMessage"
                 v-bind:placeholder="'Say something here...'"
                 v-bind:resize="true"
+                v-bind:send-button-props="{ loading: sendingMessage, disabled: sendingMessage }"
                 v-on:focus:textarea="onTextareaFocus"
                 v-on:blur:textarea="onTextareaBlur"
                 v-on:click:send-message="onSendMessageClick"
@@ -60,10 +61,13 @@
 }
 
 .chat > .upload-area > .chat-container > .chat-messages-container .chat-message {
-    margin-top: 20px;
+    border-top: 1px solid $border-color;
+    margin-top: 12px;
+    padding-top: 14px;
 }
 
 .chat > .upload-area > .chat-container > .chat-messages-container .chat-message:first-child {
+    border-top: none;
     margin-top: 0px;
 }
 
@@ -102,13 +106,18 @@ export const Chat = {
         messages: {
             type: Array,
             default: () => []
+        },
+        sendMessage: {
+            type: Function,
+            default: message => message
         }
     },
     data: function() {
         return {
             messagesData: this.messages,
             textData: "",
-            attachmentsData: []
+            attachmentsData: [],
+            sendingMessage: false
         };
     },
     watch: {
@@ -119,12 +128,6 @@ export const Chat = {
     computed: {
         allAttachments() {
             return this.messages.map(message => message.messageContent.attachments).flat();
-        },
-        normalizedAttachments() {
-            return this.attachmentsData.map(attachment => ({
-                name: attachment.name,
-                path: ""
-            }));
         },
         validMessage() {
             return !(this.textData.trim() || this.attachmentsData.length);
@@ -137,28 +140,39 @@ export const Chat = {
         this.scrollToLastMessage();
     },
     methods: {
-        sendMessage() {
-            if (this.validMessage) return;
+        async trySendMessage() {
+            if (this.validMessage) return null;
 
-            this.messagesData.push({
+            const message = {
                 username: this.username,
                 avatarUrl: this.avatarUrl,
                 date: Date.now() / 1000,
                 messageContent: {
                     text: this.richText,
-                    attachments: this.normalizedAttachments,
+                    attachments: this.attachmentsData,
                     reactions: []
                 }
-            });
+            };
 
-            this.$emit("new:message", {
-                messageText: this.richText,
-                attachments: this.attachmentsData
-            });
+            let result;
+            this.sendingMessage = true;
+            try {
+                result = await this.sendMessage(message);
+            } finally {
+                this.sendingMessage = false;
+            }
+
+            if (!result) return;
+
+            result = Array.isArray(result) ? result : [];
+            this.messagesData.push(...result);
+            result.forEach(v => this.$emit("new:message", v));
             this.$emit("update:messages", this.messagesData);
 
             this.clearMessage();
             this.scrollToLastMessage();
+
+            return result;
         },
         clearMessage() {
             this.textData = "";
@@ -171,8 +185,8 @@ export const Chat = {
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
             });
         },
-        onSendMessageClick() {
-            this.sendMessage();
+        async onSendMessageClick() {
+            await this.trySendMessage();
         },
         onUploadAreaUpdateFiles(attachments) {
             this.attachmentsData = this.attachmentsData.concat(attachments);
@@ -180,8 +194,8 @@ export const Chat = {
         onTextareaKeydown(event) {
             this.$emit("keydown", event);
         },
-        onTextareaEnter() {
-            this.sendMessage();
+        async onTextareaEnter() {
+            await this.trySendMessage();
         },
         onTextareaFocus() {
             this.$emit("focus:textarea");

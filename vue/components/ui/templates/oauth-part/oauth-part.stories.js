@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text } from "@storybook/addon-knobs";
 
-storiesOf("Templates", module)
+storiesOf("Components/Templates/OAuth", module)
     .addDecorator(withKnobs)
     .add("OAuth", () => ({
         props: {

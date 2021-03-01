@@ -1,16 +1,18 @@
 <template>
     <div class="chat-message">
-        <avatar class="avatar" v-bind:src="avatar" v-bind:size="'tiny'" />
+        <avatar class="avatar" v-bind:src="avatar" v-bind:size="'small'" />
         <div class="message-container">
             <div class="message-header">
                 <div class="username">
                     {{ username }}
                 </div>
-                <div class="date">
-                    {{ dateString(date) }}
-                </div>
-                <div class="time">
-                    {{ timeString(date) }}
+                <div class="date-time">
+                    <div class="date">
+                        {{ dateString(date) }}
+                    </div>
+                    <div class="time">
+                        {{ timeString(date, undefined, { seconds: false }) }}
+                    </div>
                 </div>
             </div>
             <div class="message-content">
@@ -29,6 +31,7 @@
                             v-bind:disabled="false"
                             v-bind:size="'small'"
                             v-bind:color="'blue'"
+                            v-bind:target="'_blank'"
                         />
                     </div>
                 </div>
@@ -57,10 +60,7 @@
 }
 
 .chat-message > .avatar {
-    border-radius: 50% 50% 50% 50%;
-    height: 24px;
-    margin: 0px 8px 0px 0px;
-    width: 24px;
+    margin: 0px 12px 0px 0px;
 }
 
 .chat-message > .message-container {
@@ -68,26 +68,30 @@
 }
 
 .chat-message > .message-container > .message-header {
-    line-height: 24px;
-    margin: 0px 0px 0px 0px;
+    line-height: 18px;
+    margin: 0px 0px 10px 0px;
 }
 
 .chat-message > .message-container > .message-header > .username {
     color: #0d0d0d;
     display: inline-block;
-    font-weight: bold;
-    letter-spacing: 0.7px;
+    font-weight: 600;
+    line-height: 18px;
     padding: 0px 6px 0px 0px;
-    vertical-align: bottom;
+    vertical-align: top;
 }
 
-.chat-message > .message-container > .message-header > .date,
-.chat-message > .message-container > .message-header > .time {
-    color: #a4adb5;
+.chat-message > .message-container > .message-header > .date-time {
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 13px;
+    margin-top: 1px;
+    vertical-align: top;
+}
+
+.chat-message > .message-container > .message-header > .date-time > .date,
+.chat-message > .message-container > .message-header > .date-time > .time {
     display: inline-block;
-    font-size: 12px;
-    letter-spacing: 0.3px;
-    vertical-align: bottom;
 }
 
 .chat-message > .message-container > .message-header > .time {
@@ -97,7 +101,6 @@
 .chat-message > .message-container > .message-content > .message {
     color: #0d0d0d;
     font-size: 13px;
-    letter-spacing: 0.3px;
     line-height: 20px;
     margin-top: 4px;
 }

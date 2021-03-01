@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, boolean } from "@storybook/addon-knobs";
 
-storiesOf("Molecules", module)
+storiesOf("Components/Molecules/Checkbox Group", module)
     .addDecorator(withKnobs)
     .add("Checkbox Group", () => ({
         props: {

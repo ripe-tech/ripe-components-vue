@@ -4,7 +4,14 @@ Library of shared components to be re-used in [Vue.js](https://vuejs.org/)
 
 ## Storybook
 
-There's a CI/CD integration running using [now.sh](https://zeit.co) @ [https://ripe-components-vue-now.platforme.com](https://ripe-components-vue-now.platforme.com).
+There's a CI/CD integration running using [vercel.com](https://vercel.com) @ [https://ripe-components-vue-now.platforme.com](https://ripe-components-vue-now.platforme.com).
+
+### Usage
+
+```javascript
+import RipeComponentsVue from "ripe-components-vue";
+Vue.use(RipeComponentsVue);
+```
 
 ## License
 
@@ -12,7 +19,7 @@ RIPE Component for Vue.js Javascript is currently licensed under the [Apache Lic
 
 ## Build Automation
 
-[![Build Status](https://travis-ci.org/ripe-tech/ripe-components-vue.svg?branch=master)](https://travis-ci.org/ripe-tech/ripe-components-vue)
+[![Build Status](https://travis-ci.com/ripe-tech/ripe-components-vue.svg?branch=master)](https://travis-ci.com/ripe-tech/ripe-components-vue)
 [![Build Status GitHub](https://github.com/ripe-tech/ripe-components-vue/workflows/Main%20Workflow/badge.svg)](https://github.com/ripe-tech/ripe-components-vue/actions)
 [![npm Status](https://img.shields.io/npm/v/ripe-components-vue.svg)](https://www.npmjs.com/package/ripe-components-vue)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://www.apache.org/licenses/)

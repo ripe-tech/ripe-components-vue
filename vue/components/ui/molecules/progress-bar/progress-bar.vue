@@ -71,17 +71,19 @@ export const ProgressBar = {
     },
     computed: {
         labelStyle() {
-            return {
+            const base = {
                 color: this.color,
                 "text-align": this.labelAlignment
             };
+            return base;
         },
         fillStyle() {
-            return {
+            const base = {
                 "background-color": this.color || "#4071f2",
                 width: `${(this.currentStep / this.steps) * 100}%`,
                 transition: `width ${this.fillTransitionTime}s ${this.fillTransitionMode}`
             };
+            return base;
         }
     }
 };
