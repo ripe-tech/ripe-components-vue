@@ -144,14 +144,14 @@ const _buildFilter = (field, arithOp, value, keywordFields) => {
     return KEYWORDS[value](field, arithOp);
 };
 
-const _buildKeywordQuery = (field, op, left, right) => {
-    switch (op) {
+const _buildKeywordQuery = (field, operator, left, right) => {
+    switch (operator) {
         case "gt":
         case "gte":
-            return [`${field}:${op}:${right.getTime() / 1000}`];
+            return [`${field}:${operator}:${right.getTime() / 1000}`];
         case "lt":
         case "lte":
-            return [`${field}:${op}:${left.getTime() / 1000}`];
+            return [`${field}:${operator}:${left.getTime() / 1000}`];
         default:
             return [
                 `${field}:gte:${left.getTime() / 1000}`,
