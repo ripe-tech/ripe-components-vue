@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text, select, number, boolean } from "@storybook/addon-knobs";
 
-storiesOf("Components/Molecules/Molecules", module)
+storiesOf("Components/Molecules/Tooltip", module)
     .addDecorator(withKnobs)
     .add("Tooltip", () => ({
         props: {
