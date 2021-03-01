@@ -8,56 +8,49 @@ const OP_ALIAS = {
 };
 
 const KEYWORDS = {
-    "@today": (field, op) => {
+    "@today": (field, operator) => {
         const today = new Date(new Date().setHours(0, 0, 0, 0));
         const tomorrow = new Date(today);
         tomorrow.setDate(today.getDate() + 1);
-
-        return _buildKeywordQuery(field, op, today, tomorrow);
+        return _buildKeywordQuery(field, operator, today, tomorrow);
     },
-    "@yesterday": (field, op) => {
+    "@yesterday": (field, operator) => {
         const today = new Date(new Date().setHours(0, 0, 0, 0));
         const yesterday = new Date(today);
         yesterday.setDate(today.getDate() - 1);
-
-        return _buildKeywordQuery(field, op, yesterday, today);
+        return _buildKeywordQuery(field, operator, yesterday, today);
     },
-    "@tomorrow": (field, op) => {
+    "@tomorrow": (field, operator) => {
         const today = new Date(new Date().setHours(0, 0, 0, 0));
         const tomorrow = new Date(today.setDate(today.getDate() + 1));
         const afterTomorrow = new Date(today.setDate(today.getDate() + 1));
-
-        return _buildKeywordQuery(field, op, tomorrow, afterTomorrow);
+        return _buildKeywordQuery(field, operator, tomorrow, afterTomorrow);
     },
-    "@this-week": (field, op) => {
+    "@this-week": (field, operator) => {
         const today = new Date(new Date().setHours(0, 0, 0, 0));
         const week = new Date(today.setDate(today.getDate() - today.getDay()));
         const nextWeek = new Date(today.setDate(today.getDate() - today.getDay() + 7));
-
-        return _buildKeywordQuery(field, op, week, nextWeek);
+        return _buildKeywordQuery(field, operator, week, nextWeek);
     },
-    "@next-week": (field, op) => {
+    "@next-week": (field, operator) => {
         const today = new Date(new Date().setHours(0, 0, 0, 0));
         const nextWeek = new Date(today.setDate(today.getDate() - today.getDay() + 7));
         const nextNextWeek = new Date(today.setDate(today.getDate() - today.getDay() + 7));
-
-        return _buildKeywordQuery(field, op, nextWeek, nextNextWeek);
+        return _buildKeywordQuery(field, operator, nextWeek, nextNextWeek);
     },
-    "@this-month": (field, op) => {
+    "@this-month": (field, operator) => {
         const today = new Date(new Date().setHours(0, 0, 0, 0));
         const month = today.getMonth();
         const startOfMonth = new Date(today.setDate(1));
         const nextMonth = new Date(new Date(today.setMonth(month + 1)).setDate(1));
-
-        return _buildKeywordQuery(field, op, startOfMonth, nextMonth);
+        return _buildKeywordQuery(field, operator, startOfMonth, nextMonth);
     },
-    "@next-month": (field, op) => {
+    "@next-month": (field, operator) => {
         const today = new Date(new Date().setHours(0, 0, 0, 0));
         const month = today.getMonth();
         const nextMonth = new Date(new Date(today.setMonth(month + 1)).setDate(1));
         const nextNextMonth = new Date(new Date(today.setMonth(month + 2)).setDate(1));
-
-        return _buildKeywordQuery(field, op, nextMonth, nextNextMonth);
+        return _buildKeywordQuery(field, operator, nextMonth, nextNextMonth);
     }
 };
 
