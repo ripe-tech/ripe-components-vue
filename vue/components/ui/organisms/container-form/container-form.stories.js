@@ -1,10 +1,14 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs } from "@storybook/addon-knobs";
+import { withKnobs, text } from "@storybook/addon-knobs";
 
-storiesOf("Components/Organisms/Form", module)
+storiesOf("Components/Organisms/Container Form", module)
     .addDecorator(withKnobs)
-    .add("Form", () => ({
+    .add("Container Form", () => ({
         props: {
+            title: {
+                type: String,
+                default: text("Title", "My form")
+            },
             fields: {
                 type: Object,
                 default: () => ({
@@ -122,11 +126,12 @@ storiesOf("Components/Organisms/Form", module)
         template: `
             <div>
                 <global />
-                <form-ripe
+                <container-form
+                    v-bind:title="title"
                     v-bind:fields="fields"
                     v-bind:values.sync="valuesData"
                     v-bind:on-delete="onDelete"
-                    v-bind:on-save="onSave"
+                    v-bind:form-props="{ 'on-save': onSave }"
                 />
                 <p>{{ valuesData }}</p>
             </div>
