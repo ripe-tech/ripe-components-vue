@@ -17,14 +17,30 @@
             <template v-slot:header-before>
                 <slot v-bind:name="'header-before'">
                     <slot name="header-search">
-                        <search
-                            class="search-mobile"
-                            v-bind:variant="'dark'"
-                            v-bind:placeholder="filterText ? filterText : `Search ${name}`"
-                            v-bind:value.sync="filter"
-                            v-bind:loading="loading"
-                            v-if="isMobileWidth()"
-                        />
+                        <div
+                            class="search-container"
+                            v-on:mouseover="onSearchMouseOver"
+                            v-on:mouseleave="onSearchMouseLeave"
+                        >
+                            <search
+                                class="search-mobile"
+                                v-bind:variant="'dark'"
+                                v-bind:placeholder="filterText ? filterText : `Search ${name}`"
+                                v-bind:value.sync="filter"
+                                v-bind:loading="loading"
+                                v-if="isMobileWidth()"
+                            />
+                            <tooltip
+                                class="tooltip-mobile"
+                                v-bind:text="tooltipSearchText"
+                                v-bind:visible="visibleTooltip"
+                                v-bind:variant="'grey'"
+                                v-bind:border-radius="'5px'"
+                                v-bind:font-size="11"
+                                v-bind:width="210"
+                                v-if="isMobileWidth() && tooltipSearchText"
+                            />
+                        </div>
                     </slot>
                 </slot>
             </template>
@@ -59,14 +75,29 @@
                     />
                 </router-link>
                 <slot name="header-search">
-                    <search
-                        v-bind:variant="'dark'"
-                        v-bind:width="searchWidth"
-                        v-bind:placeholder="filterText ? filterText : `Search ${name}`"
-                        v-bind:value.sync="filter"
-                        v-bind:loading="loading"
-                        v-if="!isMobileWidth()"
-                    />
+                    <div
+                        class="search-container"
+                        v-on:mouseover="onSearchMouseOver"
+                        v-on:mouseleave="onSearchMouseLeave"
+                    >
+                        <search
+                            v-bind:variant="'dark'"
+                            v-bind:width="searchWidth"
+                            v-bind:placeholder="filterText ? filterText : `Search ${name}`"
+                            v-bind:value.sync="filter"
+                            v-bind:loading="loading"
+                            v-if="!isMobileWidth()"
+                        />
+                        <tooltip
+                            v-bind:text="tooltipSearchText"
+                            v-bind:visible="visibleTooltip"
+                            v-bind:variant="'grey'"
+                            v-bind:border-radius="'5px'"
+                            v-bind:font-size="11"
+                            v-bind:width="210"
+                            v-if="!isMobileWidth() && tooltipSearchText"
+                        />
+                    </div>
                 </slot>
             </template>
             <template v-slot:header-buttons-after>
@@ -208,6 +239,19 @@ body.mobile .listing {
     vertical-align: middle;
 }
 
+.listing .container-ripe .search-container {
+    position: relative;
+}
+
+.listing .container-ripe .tooltip {
+    text-transform: none;
+    width: 100%;
+}
+
+.listing .container-ripe .tooltip.tooltip-mobile {
+    bottom: 16px;
+}
+
 .listing .container-ripe .search.search-mobile {
     margin: 0px 0px 16px 0px;
 }
@@ -312,6 +356,10 @@ export const Listing = {
             type: String,
             default: null
         },
+        tooltipSearchText: {
+            type: String,
+            default: null
+        },
         defaultReverse: {
             type: Boolean,
             default: false
@@ -356,7 +404,8 @@ export const Listing = {
             filter: this.context && this.context.filter ? this.context.filter : "",
             filterOptions: null,
             loading: false,
-            visibleLightbox: null
+            visibleLightbox: null,
+            visibleTooltip: false
         };
     },
     watch: {
@@ -385,6 +434,9 @@ export const Listing = {
         async refresh() {
             await this.getFilter().refresh();
         },
+        toggleTooltip(value) {
+            this.visibleTooltip = value;
+        },
         getFilter() {
             return this.$refs.filter;
         },
@@ -396,6 +448,12 @@ export const Listing = {
         },
         onLineupClick(item, index) {
             this.$emit("click:lineup", item, index);
+        },
+        onSearchMouseOver() {
+            this.toggleTooltip(true);
+        },
+        onSearchMouseLeave() {
+            this.toggleTooltip(false);
         }
     },
     computed: {
