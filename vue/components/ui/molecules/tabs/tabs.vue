@@ -91,8 +91,11 @@
 </style>
 
 <script>
+import { utilsMixin } from "../../../../mixins";
+
 export const Tabs = {
     name: "tabs",
+    mixins: [utilsMixin],
     props: {
         tabs: {
             type: Array,
@@ -152,6 +155,7 @@ export const Tabs = {
         tabClasses(tab) {
             const base = { tab: true };
             base[`tab-${tab.value}`] = true;
+            if (tab.value) base[`tab-${this.buildSlug(tab.value)}`] = true;
             return base;
         },
         onEnter(index) {

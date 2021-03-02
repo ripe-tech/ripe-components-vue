@@ -34,7 +34,7 @@
                 v-on:keydown.enter.exact="onEnterKey"
                 v-on:keydown.space.exact="onSpaceKey"
             >
-                <slot v-bind:name="'selected'">
+                <slot v-bind:name="'selected'" v-bind:item="selectedOption">
                     {{ buttonText }}
                 </slot>
             </div>
@@ -425,10 +425,11 @@ export const Select = {
         }
     },
     computed: {
+        selectedOption() {
+            return this.options ? this.options[this.valueIndex] : null;
+        },
         buttonText() {
-            return this.options && this.options[this.valueIndex]
-                ? this.options[this.valueIndex].label
-                : this.placeholder;
+            return this.selectedOption ? this.selectedOption.label : this.placeholder;
         },
         selected() {
             const selected = {};
