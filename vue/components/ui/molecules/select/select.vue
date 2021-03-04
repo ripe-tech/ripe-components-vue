@@ -210,7 +210,7 @@ export const Select = {
         },
         mobileNative: {
             type: Boolean,
-            default: false
+            default: true
         }
     },
     data: function() {
