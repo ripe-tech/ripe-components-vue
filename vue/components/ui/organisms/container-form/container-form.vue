@@ -46,6 +46,10 @@ export const ContainerForm = {
             type: Array,
             default: () => []
         },
+        onDelete: {
+            type: Function,
+            default: null
+        },
         formProps: {
             type: Object,
             default: () => ({})

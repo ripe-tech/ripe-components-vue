@@ -11,7 +11,6 @@ import { ChatMessage } from "./chat-message/chat-message.vue";
 import { CheckboxGroup } from "./checkbox-group/checkbox-group.vue";
 import { ContainerMenu } from "./container-menu/container-menu.vue";
 import { Filter } from "./filter/filter.vue";
-import { FormButtons } from "./form-buttons/form-buttons.vue";
 import { Footer } from "./footer/footer.vue";
 import { FormInput } from "./form-input/form-input.vue";
 import { InputImage } from "./input-image/input-image.vue";
@@ -54,7 +53,6 @@ const install = Vue => {
     Vue.component("checkbox-group", CheckboxGroup);
     Vue.component("container-menu", ContainerMenu);
     Vue.component("filter-ripe", Filter);
-    Vue.component("form-buttons", FormButtons);
     Vue.component("footer-ripe", Footer);
     Vue.component("form-input", FormInput);
     Vue.component("input-image", InputImage);
@@ -98,7 +96,6 @@ export {
     CheckboxGroup,
     ContainerMenu,
     Filter,
-    FormButtons,
     Footer,
     FormInput,
     InputImage,

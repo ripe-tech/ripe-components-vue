@@ -1,16 +1,15 @@
 <template>
     <padded class="entity-creator">
-        <form-ripe
+        <container-form
             v-bind:values.sync="valuesData"
-            v-bind="{
-                title: _title,
-                fields: fields,
+            v-bind:title="_title"
+            v-bind:fields="fields"
+            v-bind:form-props="{
                 saveNotification: false,
                 onDiscard: onDiscard,
                 onSave: onSave,
-                next: _next,
-                ...formProps,
-                acceptButtonProps: { text: `Create ${name}`, ...formProps.acceptButtonProps }
+                acceptButtonProps: { text: `Create ${name}`, ...formProps.acceptButtonProps },
+                ...formProps
             }"
             v-on:header-button:click="onHeaderButtonClick"
         >
@@ -22,7 +21,7 @@
             >
                 <slot v-bind:name="slot" v-bind="scope" />
             </template>
-        </form-ripe>
+        </container-form>
     </padded>
 </template>
 

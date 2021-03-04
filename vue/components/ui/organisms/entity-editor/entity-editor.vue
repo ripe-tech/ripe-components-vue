@@ -1,14 +1,13 @@
 <template>
     <padded class="entity-editor">
-        <form-ripe
+        <container-form
             v-bind:values.sync="valuesData"
-            v-bind="{
-                title: _title,
-                fields: fields,
-                onDelete: onDelete,
+            v-bind:title="_title"
+            v-bind:fields="fields"
+            v-bind:on-delete="onDelete"
+            v-bind:form-props="{
                 onDiscard: onDiscard,
                 onSave: onSave,
-                next: _next,
                 ...formProps
             }"
             v-if="!loading"
@@ -22,7 +21,7 @@
             >
                 <slot v-bind:name="slot" v-bind="scope" />
             </template>
-        </form-ripe>
+        </container-form>
         <container-ripe class="container-loading" v-else>
             <loader loader="line-scale" v-bind:count="5" />
         </container-ripe>

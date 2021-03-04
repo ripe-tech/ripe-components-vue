@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text } from "@storybook/addon-knobs";
 
-storiesOf("Organisms", module)
+storiesOf("Components/Organisms/Entity Editor", module)
     .addDecorator(withKnobs)
     .add("Entity Editor", () => ({
         props: {
@@ -86,21 +86,23 @@ storiesOf("Organisms", module)
             }
         },
         template: `
-            <entity-editor
-                v-bind:name="'Person'"
-                v-bind:fields="fields"
-                v-bind:get-entity="getEntity"
-                v-bind:update-entity="updateEntity"
-                v-bind:breadcrumbs="breadcrumbs"
-                v-bind:form-props="{
-                    rejectButtonProps: {
-                        text: rejectButtonText,
-                        minWidth: 40
-                    },
-                    acceptButtonProps: {
-                        icon: acceptButtonIcon
-                    }
-                }"
-            />
+            <div>
+                <global />
+                <entity-editor
+                    v-bind:name="'Person'"
+                    v-bind:fields="fields"
+                    v-bind:get-entity="getEntity"
+                    v-bind:update-entity="updateEntity"
+                    v-bind:breadcrumbs="breadcrumbs"
+                    v-bind:form-props="{
+                        rejectButtonProps: {
+                            text: rejectButtonText
+                        },
+                        acceptButtonProps: {
+                            icon: acceptButtonIcon
+                        }
+                    }"
+                />
+            </div>
         `
     }));
