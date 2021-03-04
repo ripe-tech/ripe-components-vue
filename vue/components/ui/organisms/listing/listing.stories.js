@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text, select, boolean } from "@storybook/addon-knobs";
 
-storiesOf("Organisms", module)
+storiesOf("Components/Organisms/Listing", module)
     .addDecorator(withKnobs)
     .add("Listing", () => ({
         props: {
@@ -65,6 +65,10 @@ storiesOf("Organisms", module)
             createUrl: {
                 type: String,
                 default: text("Create Url", "https://www.platforme.com")
+            },
+            tooltipSearchText: {
+                type: String,
+                default: text("Search Tooltip text", "")
             }
         },
         data: function() {
@@ -113,6 +117,7 @@ storiesOf("Organisms", module)
                     v-bind:checkboxes="checkboxes"
                     v-bind:checked-items.sync="checkedItemsData"
                     v-bind:create-url="createUrl"
+                    v-bind:tooltip-search-text="tooltipSearchText"
                 >
                     <template v-slot:icons>
                         <img v-bind:src="img" v-bind:style="imgStyle" />

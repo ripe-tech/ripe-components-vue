@@ -1,7 +1,7 @@
 <template>
     <table class="table" v-bind:class="classes" v-bind:style="style">
         <global-events v-on:keydown.meta.65.exact="onMetaA" v-on:keydown.ctrl.65.exact="onCtrlA" />
-        <thead class="table-head" v-if="header">
+        <thead class="table-head" v-bind:class="theadClasses" v-if="header">
             <tr>
                 <th class="checkbox-global" v-if="checkboxes">
                     <checkbox
@@ -103,8 +103,18 @@
     cursor: pointer;
 }
 
+.table thead.sticky {
+    position: relative;
+}
+
 .table thead tr {
     border-bottom: 1px solid $border-color;
+}
+
+.table thead.sticky tr th {
+    background-color: #ffffff;
+    position: sticky;
+    top: 0px;
 }
 
 .table thead tr th.checkbox-global {
@@ -131,7 +141,7 @@
 
 .table th {
     color: $label-color;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
     height: 38px;
     letter-spacing: 0.5px;
@@ -261,7 +271,15 @@
 }
 
 .table.table-dense th > .table-column > span {
-    padding: 0px 16px 0px 16px;
+    padding: 0px 18px 0px 18px;
+}
+
+.table.table-dense.text-align-left th > .table-column > span {
+    padding-left: 10px;
+}
+
+.table.table-dense.text-align-right th > .table-column > span {
+    padding-right: 10px;
 }
 
 .table th > .table-column > span::before {
@@ -363,6 +381,10 @@ export const Table = {
         hoverableRows: {
             type: Boolean,
             default: true
+        },
+        stickyHeader: {
+            type: Boolean,
+            default: false
         }
     },
     watch: {
@@ -404,6 +426,11 @@ export const Table = {
 
             const items = [...this.itemsWithIndex];
             return this.sortMethod(items, this.sortData, this.reverseData);
+        },
+        theadClasses() {
+            return {
+                sticky: this.stickyHeader
+            };
         },
         style() {
             const base = {

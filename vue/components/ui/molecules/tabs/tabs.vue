@@ -44,8 +44,8 @@
     cursor: pointer;
     display: inline-block;
     font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 0.75px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
     line-height: 28px;
     margin-bottom: -2px;
     margin-right: 12px;

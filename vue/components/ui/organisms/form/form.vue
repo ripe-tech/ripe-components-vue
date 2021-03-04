@@ -1,167 +1,150 @@
 <template>
-    <container-ripe
-        class="form"
-        v-bind:title="title"
-        v-bind:header-buttons="buttons"
-        v-on:header-button:click="onHeaderButtonClick"
-        v-on:header-button:click:delete="onDeleteClick"
-    >
-        <form class="form-form" ref="form" v-on:submit.stop.prevent="onSubmit">
-            <tabs v-bind:tabs="tabs">
-                <template v-for="(columns, tab) in fields" v-slot:[tab]>
+    <form class="form" ref="form" v-on:submit.stop.prevent="onSubmit">
+        <tabs v-bind:tabs="tabs">
+            <template v-for="(columns, tab) in fields" v-slot:[tab]>
+                <div
+                    class="column"
+                    v-bind:classes="columnClasses(index)"
+                    v-bind:style="columnStyle(tab)"
+                    v-for="(column, index) in columns"
+                    v-bind:key="index"
+                >
                     <div
-                        class="column"
-                        v-bind:classes="columnClasses(index)"
-                        v-bind:style="columnStyle(tab)"
-                        v-for="(column, index) in columns"
-                        v-bind:key="index"
+                        class="section"
+                        v-bind:classes="sectionClasses(section)"
+                        v-for="section in column"
+                        v-bind:key="section.title"
                     >
-                        <div
-                            class="section"
-                            v-bind:classes="sectionClasses(section)"
-                            v-for="section in column"
-                            v-bind:key="section.title"
-                        >
-                            <h3 class="section-title">{{ section.title }}</h3>
-                            <template v-for="field in section.fields">
-                                <form-input
-                                    class="section-field"
-                                    v-bind:classes="formInputClasses(field)"
-                                    v-bind:header="
-                                        field.label !== undefined ? field.label : field.value
-                                    "
-                                    v-bind="field.formInputProps"
-                                    v-bind:key="field.value"
+                        <h3 class="section-title">{{ section.title }}</h3>
+                        <template v-for="field in section.fields">
+                            <form-input
+                                class="section-field"
+                                v-bind:classes="formInputClasses(field)"
+                                v-bind:header="
+                                    field.label !== undefined ? field.label : field.value
+                                "
+                                v-bind="field.formInputProps"
+                                v-bind:key="field.value"
+                            >
+                                <template
+                                    v-if="field.type === 'text' && field.meta === 'image-url'"
                                 >
-                                    <template
-                                        v-if="field.type === 'text' && field.meta === 'image-url'"
-                                    >
-                                        <input-ripe
-                                            v-bind:type="inputType(field)"
-                                            v-bind="field.props"
-                                            v-bind:value="values[field.value]"
-                                            v-on:update:value="value => onValue(field.value, value)"
-                                        />
-                                        <image-ripe
-                                            class="text-image"
-                                            v-bind:src="values[field.value] || field.imageSrc"
-                                            v-if="values[field.value] || field.imageSrc"
-                                        />
-                                    </template>
-                                    <textarea-ripe
-                                        v-bind="field.props"
-                                        v-bind:value="values[field.value]"
-                                        v-else-if="
-                                            field.type === 'text' && field.meta === 'longtext'
-                                        "
-                                        v-on:update:value="value => onValue(field.value, value)"
-                                    />
                                     <input-ripe
                                         v-bind:type="inputType(field)"
                                         v-bind="field.props"
                                         v-bind:value="values[field.value]"
-                                        v-else-if="field.type === 'text'"
                                         v-on:update:value="value => onValue(field.value, value)"
                                     />
-                                    <select-ripe
-                                        v-bind="field.props"
-                                        v-bind:value="values[field.value]"
-                                        v-else-if="field.type === 'enum'"
-                                        v-on:update:value="value => onValue(field.value, value)"
-                                    >
-                                        <template v-slot:selected="{ item }">
-                                            <slot
-                                                v-bind:name="`${field.value}-select-selected`"
-                                                v-bind:item="item"
-                                            >
-                                                <slot
-                                                    v-bind:name="'select-selected'"
-                                                    v-bind:item="item"
-                                                />
-                                            </slot>
-                                        </template>
-                                        <template v-slot="{ item }">
-                                            <slot
-                                                v-bind:name="`${field.value}-select`"
-                                                v-bind:item="item"
-                                            >
-                                                <slot v-bind:name="'select'" v-bind:item="item" />
-                                            </slot>
-                                        </template>
-                                    </select-ripe>
-                                    <switcher
-                                        v-bind="field.props"
-                                        v-bind:checked="values[field.value]"
-                                        v-else-if="field.type === 'boolean'"
-                                        v-on:update:checked="value => onValue(field.value, value)"
+                                    <image-ripe
+                                        class="text-image"
+                                        v-bind:src="values[field.value] || field.imageSrc"
+                                        v-if="values[field.value] || field.imageSrc"
                                     />
-                                    <files-uploader
-                                        v-bind="field.props"
-                                        v-bind:files="values[field.value]"
-                                        v-else-if="field.type === 'file'"
-                                        v-on:update:files="value => onValue(field.value, value)"
-                                    />
-                                </form-input>
-                            </template>
-                        </div>
+                                </template>
+                                <textarea-ripe
+                                    v-bind="field.props"
+                                    v-bind:value="values[field.value]"
+                                    v-else-if="field.type === 'text' && field.meta === 'longtext'"
+                                    v-on:update:value="value => onValue(field.value, value)"
+                                />
+                                <input-ripe
+                                    v-bind:type="inputType(field)"
+                                    v-bind="field.props"
+                                    v-bind:value="values[field.value]"
+                                    v-else-if="field.type === 'text'"
+                                    v-on:update:value="value => onValue(field.value, value)"
+                                />
+                                <select-ripe
+                                    v-bind="field.props"
+                                    v-bind:value="values[field.value]"
+                                    v-else-if="field.type === 'enum'"
+                                    v-on:update:value="value => onValue(field.value, value)"
+                                >
+                                    <template v-slot:selected="{ item }">
+                                        <slot
+                                            v-bind:name="`${field.value}-select-selected`"
+                                            v-bind:item="item"
+                                        >
+                                            <slot
+                                                v-bind:name="'select-selected'"
+                                                v-bind:item="item"
+                                            />
+                                        </slot>
+                                    </template>
+                                    <template v-slot="{ item }">
+                                        <slot
+                                            v-bind:name="`${field.value}-select`"
+                                            v-bind:item="item"
+                                        >
+                                            <slot v-bind:name="'select'" v-bind:item="item" />
+                                        </slot>
+                                    </template>
+                                </select-ripe>
+                                <switcher
+                                    v-bind="field.props"
+                                    v-bind:checked="values[field.value]"
+                                    v-else-if="field.type === 'boolean'"
+                                    v-on:update:checked="value => onValue(field.value, value)"
+                                />
+                                <files-uploader
+                                    v-bind="field.props"
+                                    v-bind:files="values[field.value]"
+                                    v-else-if="field.type === 'file'"
+                                    v-on:update:files="value => onValue(field.value, value)"
+                                />
+                            </form-input>
+                        </template>
                     </div>
-                </template>
-            </tabs>
-            <form-buttons
-                v-bind:reject="Boolean(onDiscard)"
-                v-bind:accept="Boolean(onSave)"
-                v-bind:reject-button-props="{
-                    text: 'Discard',
-                    small: true,
-                    ...rejectButtonProps
-                }"
-                v-bind:accept-button-props="{
-                    text: 'Save',
-                    icon: 'save',
-                    type: 'submit',
-                    small: true,
-                    loading: saving,
-                    minWidth: 100,
-                    ...acceptButtonProps
-                }"
-                v-on:click:reject="onReject"
-            />
-        </form>
-    </container-ripe>
+                </div>
+            </template>
+        </tabs>
+        <form-buttons
+            v-bind:reject="Boolean(onDiscard)"
+            v-bind:accept="Boolean(onSave)"
+            v-bind:reject-button-props="{
+                text: 'Discard',
+                small: true,
+                ...rejectButtonProps
+            }"
+            v-bind:accept-button-props="{
+                text: 'Save',
+                icon: 'save',
+                type: 'submit',
+                small: true,
+                loading: saving,
+                minWidth: 100,
+                ...acceptButtonProps
+            }"
+            v-on:click:reject="onReject"
+        />
+    </form>
 </template>
 
 <style lang="scss" scoped>
 .form {
-    animation: fade-into-rise 0.45s cubic-bezier(0.645, 0.045, 0.355, 1);
-    box-sizing: border-box;
-    display: inline-block;
-    width: 100%;
-}
-
-.form > .form-form {
     padding: 0px 14px 0px 14px;
 }
 
-.form > .form-form > .tabs ::v-deep > .header {
+.form > .tabs ::v-deep > .header {
     margin: 0px 10px 0px 10px;
 }
 
-.form > .form-form > .tabs .column {
+.form > .tabs .column {
     box-sizing: border-box;
     display: inline-block;
     padding: 10px 10px 10px 10px;
     vertical-align: top;
 }
 
-body.tablet .form > .form-form > .tabs .column,
-body.mobile .form > .form-form > .tabs .column {
+body.tablet .form > .tabs .column,
+body.mobile .form > .tabs .column {
     box-sizing: border-box;
     margin: 0px 0px 0px 0px;
     padding: 0px 10px 0px 10px;
     width: 100%;
 }
 
-.form > .form-form > .tabs .column > .section > .section-title {
+.form > .tabs .column > .section > .section-title {
     color: #1d2631;
     font-size: 16px;
     font-weight: 600;
@@ -169,15 +152,15 @@ body.mobile .form > .form-form > .tabs .column {
     text-align: left;
 }
 
-.form > .form-form > .tabs .column > .section > .section-field {
+.form > .tabs .column > .section > .section-field {
     margin: 0px 0px 20px 0px;
 }
 
-.form > .form-form > .tabs .column > .section > .section-field:last-child {
+.form > .tabs .column > .section > .section-field:last-child {
     margin-bottom: 0px;
 }
 
-.form > .form-form > .tabs .column > .section > .section-field .text-image {
+.form > .tabs .column > .section > .section-field .text-image {
     box-sizing: border-box;
     display: block;
     margin: 20px auto 0px auto;
@@ -194,10 +177,6 @@ export const Form = {
     name: "form-ripe",
     mixins: [utilsMixin, partMixin],
     props: {
-        title: {
-            type: String | Array,
-            required: true
-        },
         fields: {
             type: Object,
             required: true
@@ -205,26 +184,6 @@ export const Form = {
         values: {
             type: Object,
             required: true
-        },
-        navigation: {
-            type: Boolean,
-            default: true
-        },
-        headerButtonsBefore: {
-            type: Array,
-            default: () => []
-        },
-        headerButtonsAfter: {
-            type: Array,
-            default: () => []
-        },
-        previous: {
-            type: String | Object,
-            default: null
-        },
-        next: {
-            type: String | Object,
-            default: null
         },
         rejectButtonProps: {
             type: Object,
@@ -239,10 +198,6 @@ export const Form = {
             default: null
         },
         onSave: {
-            type: Function,
-            default: null
-        },
-        onDelete: {
             type: Function,
             default: null
         },
@@ -274,25 +229,10 @@ export const Form = {
     data: function() {
         return {
             saving: false,
-            deleting: false,
             valuesData: this.values
         };
     },
     computed: {
-        buttons() {
-            return [
-                ...this.headerButtonsBefore,
-                this.onDelete && {
-                    id: "delete",
-                    text: "Delete",
-                    icon: "bin",
-                    color: "none",
-                    loading: this.deleting,
-                    size: 32
-                },
-                ...this.headerButtonsAfter
-            ].filter(v => v);
-        },
         tabs() {
             return Object.keys(this.fields).map(field => ({
                 value: field
@@ -334,19 +274,6 @@ export const Form = {
         inputType(field) {
             return field.meta;
         },
-        goNext() {
-            if (!this.navigation) return;
-            if (!this.next) return;
-            this.$router.push(this.next);
-        },
-        goPrevious() {
-            if (!this.navigation || !this.$router) return;
-            if (this.previous) {
-                this.$router.push(this.previous);
-            } else {
-                this.$router.go(-1);
-            }
-        },
         async discard() {
             if (!this.onDiscard) return;
             try {
@@ -378,8 +305,6 @@ export const Form = {
                         ...this.saveNotificationProps
                     });
                 }
-
-                this.goNext();
             } catch (error) {
                 if (this.error) {
                     this.notify(this.errorMessage(error), {
@@ -394,27 +319,6 @@ export const Form = {
                 this.saving = false;
             }
         },
-        async delete() {
-            if (!this.onDelete) return;
-            this.deleting = true;
-            try {
-                await this.onDelete();
-
-                this.goPrevious();
-            } catch (error) {
-                if (this.error) {
-                    this.notify(this.errorMessage(error), {
-                        icon: "error",
-                        iconColor: "#ce544d",
-                        topHeight: 130,
-                        timeout: 2000,
-                        ...this.errorMessageProps
-                    });
-                }
-            } finally {
-                this.deleting = false;
-            }
-        },
         onValue(field, value) {
             this.$set(this.valuesData, field, value);
         },
@@ -423,13 +327,6 @@ export const Form = {
         },
         async onSubmit() {
             await this.save();
-        },
-        onHeaderButtonClick(event, buttonId) {
-            this.$emit("header-button:click", event, buttonId);
-            this.$emit(`header-button:click:${buttonId}`, event);
-        },
-        async onDeleteClick() {
-            await this.delete();
         }
     }
 };
