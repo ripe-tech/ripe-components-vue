@@ -103,7 +103,7 @@
 }
 
 .select .dropdown-select {
-    background-image: none;
+    background-image: unset;
 }
 
 .select.direction-top .select-container .select-button {
