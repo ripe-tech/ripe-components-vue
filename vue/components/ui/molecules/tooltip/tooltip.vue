@@ -5,7 +5,7 @@
     <div
         class="tooltip tooltip-custom"
         v-bind:class="classes"
-        v-else
+        v-else-if="text"
         v-on:mouseenter="onMouseenter"
         v-on:mouseleave="onMouseleave"
     >
@@ -20,6 +20,9 @@
                 <div class="tip" />
             </div>
         </transition>
+    </div>
+    <div class="tooltip tooltip-empty" v-else>
+        <slot />
     </div>
 </template>
 
