@@ -213,7 +213,7 @@ export const Select = {
         },
         mobileNative: {
             type: Boolean,
-            default: true
+            default: false
         }
     },
     data: function() {
