@@ -4,7 +4,7 @@
         <select
             class="dropdown-select"
             v-bind:value="value"
-            v-if="mobileNative && isDevice()"
+            v-if="isDevice()"
             v-on:change="event => onSelectChange(event.target.value)"
         >
             <option
@@ -210,10 +210,6 @@ export const Select = {
         owners: {
             type: Node | Array,
             default: () => []
-        },
-        mobileNative: {
-            type: Boolean,
-            default: false
         }
     },
     data: function() {
