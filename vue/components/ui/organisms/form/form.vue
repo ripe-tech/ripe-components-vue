@@ -104,7 +104,7 @@
                 v-bind="{
                     text: 'Discard',
                     small: true,
-                    minWidth: 0,
+                    minWidth: 83,
                     color: 'white',
                     ...rejectButtonProps
                 }"
@@ -118,7 +118,7 @@
                     type: 'submit',
                     small: true,
                     loading: saving,
-                    minWidth: 0,
+                    minWidth: 83,
                     icon: 'save',
                     color: 'green',
                     ...acceptButtonProps

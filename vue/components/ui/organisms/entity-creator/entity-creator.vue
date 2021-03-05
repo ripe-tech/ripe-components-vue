@@ -119,14 +119,6 @@ export const EntityCreator = {
             if (this.title) return this.title;
             if (this.breadcrumbs) return this.breadcrumbs.concat([{ text: `New ${this.name}` }]);
             return null;
-        },
-        _next() {
-            return (
-                this.next || {
-                    name: `${this.name.toLowerCase()}-show`,
-                    params: { id: this.values.id }
-                }
-            );
         }
     },
     watch: {
@@ -141,11 +133,20 @@ export const EntityCreator = {
         clearForm() {
             this.valuesData = { ...this.clearFormValues };
         },
+        goNext() {
+            if (!this.$router) return;
+            const next = this.next || {
+                name: `${this.name.toLowerCase()}-show`,
+                params: { id: this.values.id }
+            };
+            this.$router.push(next);
+        },
         onDiscard() {
             this.clearForm();
         },
         async onSave(values) {
             await this.createEntity(values);
+            this.goNext();
         },
         onHeaderButtonClick(event, buttonId) {
             this.$emit("header-button:click", event, buttonId);

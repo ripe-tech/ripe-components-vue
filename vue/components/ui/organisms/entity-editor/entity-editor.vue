@@ -123,10 +123,9 @@ export const EntityEditor = {
             default: () => ({})
         },
         /**
-         * Overrides the next route. Example:
-         * { name: "person-show", params: { name: "...", email: "..." } }.
+         * Overrides the previous route. Example: "person-list".
          */
-        next: {
+        previous: {
             type: String | Object,
             default: null
         },
@@ -156,13 +155,11 @@ export const EntityEditor = {
             if (this.breadcrumbs) return this.breadcrumbs.concat([{ text: this.entityName }]);
             return null;
         },
-        _next() {
-            return (
-                this.next || {
-                    name: `${this.name.toLowerCase()}-show`,
-                    params: { id: this.values.id }
-                }
-            );
+        _onDelete() {
+            if (!this.onDelete) return null;
+            return async () => {
+                await this.onDelete();
+            };
         }
     },
     created: async function() {
@@ -183,6 +180,14 @@ export const EntityEditor = {
         async loadEntity() {
             this.entity = await this.getEntity();
             this.resetForm();
+        },
+        goPrevious() {
+            if (!this.$router) return;
+            if (this.previous) {
+                this.$router.push(this.previous);
+            } else {
+                this.$router.go(-1);
+            }
         },
         onDiscard() {
             this.resetForm();
