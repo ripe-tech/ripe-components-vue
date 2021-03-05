@@ -91,7 +91,7 @@
     font-size: 13px;
     height: 34px;
     letter-spacing: 0.25px;
-    line-height: 34px;
+    line-height: 30px;
     outline: none;
     overflow: hidden;
     padding-left: 12px;
