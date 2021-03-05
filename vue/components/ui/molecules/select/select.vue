@@ -102,7 +102,10 @@
     white-space: nowrap;
 }
 
-.select.direction-top .dropdown-select,
+.select .dropdown-select {
+    background-image: unset;
+}
+
 .select.direction-top .select-container .select-button {
     background-image: url("~./assets/chevron-up.svg");
 }
