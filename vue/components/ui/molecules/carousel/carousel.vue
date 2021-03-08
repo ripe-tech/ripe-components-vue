@@ -195,14 +195,14 @@ export const Carousel = {
          */
         width: {
             type: Number,
-            default: 320
+            required: false
         },
         /**
          * The height of the carousel in pixels.
          */
         height: {
             type: Number,
-            default: 400
+            required: false
         },
         /**
          * Weather or not the arrows to navigate between slides should show.
