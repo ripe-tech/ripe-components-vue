@@ -23,7 +23,7 @@
             v-show="arrowsVisibility"
             v-on:click="previous"
         />
-        <transition-group class="slide-container" tag="div" name="fade">
+        <transition-group class="slide-container" tag="div" v-bind:name="animation">
             <div
                 class="slide"
                 v-for="(item, index) in items"
@@ -132,14 +132,43 @@
     width: 100%;
 }
 
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity 0.5s;
+.swipe-left-enter-active,
+.swipe-left-leave-active,
+.swipe-right-enter-active,
+.swipe-right-leave-active {
+    transition: transform 0.5s;
 }
 
-.fade-enter,
-.fade-leave-to {
-    opacity: 0;
+.swipe-right-enter {
+    transform: translateX(-100%) translateY(-5%) scale(0.6);
+}
+
+.swipe-right-enter-to {
+    transform: translateX(0%) translateY(0%) scale(1);
+}
+
+.swipe-right-leave {
+    transform: translateX(0) translateY(-5%) scale(1);
+}
+
+.swipe-right-leave-to {
+    transform: translateX(100%) translateY(0%) scale(0.6);
+}
+
+.swipe-left-enter {
+    transform: translateX(100%) translateY(-5%) scale(0.6);
+}
+
+.swipe-left-enter-to {
+    transform: translateX(0%) translateY(0%) scale(1);
+}
+
+.swipe-left-leave {
+    transform: translateX(0) translateY(-5%) scale(1);
+}
+
+.swipe-left-leave-to {
+    transform: translateX(-100%) translateY(0%) scale(0.6);
 }
 </style>
 
@@ -215,7 +244,8 @@ export const Carousel = {
         return {
             dragStartPosition: null,
             dragCurrentPosition: null,
-            valueData: this.value
+            valueData: this.value,
+            action: null
         };
     },
     computed: {
@@ -229,6 +259,9 @@ export const Carousel = {
             const base = {};
             if (this.dragStartPosition) base.grabbing = true;
             return base;
+        },
+        animation() {
+            return this.action === "next" ? "swipe-left" : "swipe-right";
         },
         imageStyle() {
             return index => {
@@ -245,7 +278,8 @@ export const Carousel = {
         }
     },
     watch: {
-        valueData(value) {
+        valueData(value, previousValue) {
+            this.action = value > previousValue ? "next" : "previous";
             this.$emit("update:value", value);
         },
         value(value) {
