@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, number, boolean, color } from "@storybook/addon-knobs";
+import { withKnobs, number, boolean, color, select } from "@storybook/addon-knobs";
 
 storiesOf("Components/Molecules/Carousel", module)
     .addDecorator(withKnobs)
@@ -13,6 +13,19 @@ storiesOf("Components/Molecules/Carousel", module)
             },
             height: {
                 default: number("Height", 500)
+            },
+            animation: {
+                default: select(
+                    "Animation Name",
+                    {
+                        fade: "fade",
+                        slide: "slide"
+                    },
+                    "fade"
+                )
+            },
+            wrap: {
+                default: boolean("Wrap", true)
             },
             arrows: {
                 default: boolean("Arrows", true)
@@ -66,9 +79,11 @@ storiesOf("Components/Molecules/Carousel", module)
                 v-bind:value.sync="valueData"
                 v-bind:width="width"
                 v-bind:height="height"
+                v-bind:animation="animation"
                 v-bind:arrows="arrows"
                 v-bind:arrows-size="arrowsSize"
                 v-bind:arrows-color="arrowsColor"
+                v-bind:wrap="wrap"
                 v-bind:swipe-threshold="swipeThreshold"
             >
             </carousel>
