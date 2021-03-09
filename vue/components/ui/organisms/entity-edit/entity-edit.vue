@@ -138,12 +138,6 @@ export const EntityEdit = {
             if (this.title) return this.title;
             if (this.breadcrumbs) return this.breadcrumbs.concat([{ text: this.entityName }]);
             return null;
-        },
-        _onDelete() {
-            if (!this.deleteEntity) return null;
-            return async () => {
-                await this.deleteEntity();
-            };
         }
     },
     created: async function() {
