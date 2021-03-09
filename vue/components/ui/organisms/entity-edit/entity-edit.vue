@@ -165,14 +165,6 @@ export const EntityEdit = {
             this.entity = await this.getEntity();
             this.resetForm();
         },
-        goPrevious() {
-            if (!this.$router) return;
-            if (this.previous) {
-                this.$router.push(this.previous);
-            } else {
-                this.$router.go(-1);
-            }
-        },
         onDiscard() {
             this.resetForm();
         },
