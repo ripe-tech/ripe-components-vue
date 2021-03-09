@@ -76,14 +76,6 @@ export const EntityEdit = {
             default: null
         },
         /**
-         * Used to get a user-facing value that identifies the entity.
-         * Defaults to the property "name".
-         */
-        getName: {
-            type: Function,
-            default: entity => entity.name
-        },
-        /**
          * Container title. If set, overrides the breadcrumbs.
          */
         title: {
@@ -91,12 +83,20 @@ export const EntityEdit = {
             default: null
         },
         /**
-         * Container breadcrumbs. The entity's value defined by the "getName" prop
+         * Container breadcrumbs. The entity's value defined by the "getEntityName" prop
          * will be appended to these breadcrumbs.
          */
         breadcrumbs: {
             type: Array,
             default: null
+        },
+        /**
+         * Used to get a user-facing value that identifies the entity.
+         * Defaults to the property "name".
+         */
+        getEntityName: {
+            type: Function,
+            default: entity => entity.name
         },
         /**
          * Values resulted from changing the form's inputs. This prop supports the ".sync"
@@ -132,7 +132,7 @@ export const EntityEdit = {
             return !this.entity;
         },
         entityName() {
-            return this.entity ? this.getName(this.entity) : null;
+            return this.entity ? this.getEntityName(this.entity) : null;
         },
         _title() {
             if (this.title) return this.title;
