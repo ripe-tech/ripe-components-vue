@@ -261,7 +261,7 @@ export const Carousel = {
          * The transitionAnimation for slide changes.
          * @values fade, slide
          */
-        animationName: {
+        animation: {
             type: String,
             default: "fade"
         },
@@ -270,7 +270,7 @@ export const Carousel = {
          */
         wrap: {
             type: Boolean,
-            default: false
+            default: true
         }
     },
     data: function() {
@@ -279,7 +279,7 @@ export const Carousel = {
             dragCurrentPosition: null,
             valueData: this.value,
             action: null,
-            animation: null
+            animationData: null
         };
     },
     computed: {
@@ -292,12 +292,11 @@ export const Carousel = {
         classes() {
             const base = {};
             if (this.dragStartPosition) base.grabbing = true;
-            if (this.animation) base[this.animation] = true;
+            if (this.animationData) base[this.animationData] = true;
             return base;
         },
         transitionAnimation() {
-            if (this.animationName === "fade") return "fade";
-            switch (this.animationName) {
+            switch (this.animation) {
                 case "fade":
                     return "fade";
                 case "slide":
@@ -331,15 +330,15 @@ export const Carousel = {
     },
     methods: {
         next() {
-            if (this.wrap && this.valueData === this.items.length - 1) {
-                this.animation = "slide-right-fake";
+            if (!this.wrap && this.valueData === this.items.length - 1) {
+                this.animationData = "slide-right-fake";
                 return;
             }
             this.valueData = (this.valueData + 1) % this.items.length;
         },
         previous() {
-            if (this.wrap && this.valueData === 0) {
-                this.animation = "slide-left-fake";
+            if (!this.wrap && this.valueData === 0) {
+                this.animationData = "slide-left-fake";
                 return;
             }
             this.valueData = this.valueData - 1 < 0 ? this.items.length - 1 : this.valueData - 1;
@@ -358,7 +357,7 @@ export const Carousel = {
             };
         },
         onAnimationEnd() {
-            this.animation = null;
+            this.animationData = null;
         },
         onStartDrag(event) {
             const cursorPosition = this.getCursorPosition(event);

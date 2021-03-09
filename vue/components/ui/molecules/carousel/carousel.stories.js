@@ -14,7 +14,7 @@ storiesOf("Components/Molecules/Carousel", module)
             height: {
                 default: number("Height", 500)
             },
-            animationName: {
+            animation: {
                 default: select(
                     "Animation Name",
                     {
@@ -23,6 +23,9 @@ storiesOf("Components/Molecules/Carousel", module)
                     },
                     "fade"
                 )
+            },
+            wrap: {
+                default: boolean("Wrap", true)
             },
             arrows: {
                 default: boolean("Arrows", true)
@@ -76,10 +79,11 @@ storiesOf("Components/Molecules/Carousel", module)
                 v-bind:value.sync="valueData"
                 v-bind:width="width"
                 v-bind:height="height"
-                v-bind:animation-name="animationName"
+                v-bind:animation="animation"
                 v-bind:arrows="arrows"
                 v-bind:arrows-size="arrowsSize"
                 v-bind:arrows-color="arrowsColor"
+                v-bind:wrap="wrap"
                 v-bind:swipe-threshold="swipeThreshold"
             >
             </carousel>
