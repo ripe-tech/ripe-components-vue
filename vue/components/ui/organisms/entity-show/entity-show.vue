@@ -40,7 +40,6 @@ export const EntityShow = {
         /**
          * Used to specify which of the entity's properties
          * are going be shown.
-         * Example: [{ value: "name" }, { value: "email", label: "Personal email" }].
          */
         fields: {
             type: Array,
@@ -86,8 +85,7 @@ export const EntityShow = {
             default: entity => entity.name
         },
         /**
-         * Overrides the entity list route. Example:
-         * { name: "person-list", params: { a: "...", b: "..." } }.
+         * Overrides the entity list route.
          */
         listRoute: {
             type: Object | String,
@@ -95,7 +93,7 @@ export const EntityShow = {
         },
         /**
          * Entity's edit page route. If set, an edit option is shown in the options
-         * dropdown. Example: { name: "person-edit", params: { username: "..." } }.
+         * dropdown.
          */
         editRoute: {
             type: Object | String,
@@ -140,7 +138,7 @@ export const EntityShow = {
             };
         },
         entityName() {
-            return this.getEntityName(this.entity);
+            return this.entity ? this.getEntityName(this.entity) : null;
         },
         _title() {
             if (this.title) return this.title;

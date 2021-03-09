@@ -98,25 +98,35 @@
                 </div>
             </template>
         </tabs>
-        <form-buttons
-            v-bind:reject="Boolean(onDiscard)"
-            v-bind:accept="Boolean(onSave)"
-            v-bind:reject-button-props="{
-                text: 'Discard',
-                small: true,
-                ...rejectButtonProps
-            }"
-            v-bind:accept-button-props="{
-                text: 'Save',
-                icon: 'save',
-                type: 'submit',
-                small: true,
-                loading: saving,
-                minWidth: 100,
-                ...acceptButtonProps
-            }"
-            v-on:click:reject="onReject"
-        />
+        <div class="buttons" v-if="onSave || onDiscard">
+            <button-color
+                class="button-reject"
+                v-bind="{
+                    text: 'Discard',
+                    small: true,
+                    minWidth: 83,
+                    color: 'white',
+                    ...rejectButtonProps
+                }"
+                v-if="onDiscard"
+                v-on:click="onReject"
+            />
+            <button-color
+                class="button-accept"
+                v-bind="{
+                    text: 'Save',
+                    type: 'submit',
+                    small: true,
+                    loading: saving,
+                    minWidth: 83,
+                    icon: 'save',
+                    color: 'green',
+                    ...acceptButtonProps
+                }"
+                v-if="onSave"
+                v-on:click="onSubmit"
+            />
+        </div>
     </form>
 </template>
 
@@ -167,6 +177,15 @@ body.mobile .form > .tabs .column {
     max-height: 70px;
     max-width: 100%;
     padding: 0px 10px 0px 10px;
+}
+
+.form > .buttons {
+    margin: 24px 10px 24px 10px;
+    text-align: right;
+}
+
+.form > .buttons > .button-reject {
+    margin: 0px 6px 0px 0px;
 }
 </style>
 

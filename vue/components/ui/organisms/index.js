@@ -1,6 +1,8 @@
 import { Chat } from "./chat/chat.vue";
 import { ContainerForm } from "./container-form/container-form.vue";
 import { Details } from "./details/details.vue";
+import { EntityCreate } from "./entity-create/entity-create.vue";
+import { EntityEdit } from "./entity-edit/entity-edit.vue";
 import { EntityList } from "./entity-list/entity-list.vue";
 import { EntityShow } from "./entity-show/entity-show.vue";
 import { Form } from "./form/form.vue";
@@ -13,6 +15,8 @@ const install = Vue => {
     Vue.component("chat", Chat);
     Vue.component("container-form", ContainerForm);
     Vue.component("details-ripe", Details);
+    Vue.component("entity-create", EntityCreate);
+    Vue.component("entity-edit", EntityEdit);
     Vue.component("entity-list", EntityList);
     Vue.component("entity-show", EntityShow);
     Vue.component("form-ripe", Form);
@@ -22,6 +26,18 @@ const install = Vue => {
     Vue.component("table-menu", TableMenu);
 };
 
-export { Chat, ContainerForm, Details, EntityList, EntityShow, Form, Header, Listing, TableMenu };
+export {
+    Chat,
+    ContainerForm,
+    Details,
+    EntityCreate,
+    EntityEdit,
+    EntityList,
+    EntityShow,
+    Form,
+    Header,
+    Listing,
+    TableMenu
+};
 
 export default install;
