@@ -4,7 +4,7 @@
             v-bind:values.sync="valuesData"
             v-bind:title="_title"
             v-bind:fields="fields"
-            v-bind:on-delete="onDelete"
+            v-bind:on-delete="deleteEntity"
             v-bind:form-props="{
                 onDiscard: onDiscard,
                 onSave: onSave,
@@ -68,6 +68,14 @@ export const EntityEdit = {
             required: true
         },
         /**
+         * Entity's delete method. If set, a delete button is shown in upper top corner
+         * of the container.
+         */
+        deleteEntity: {
+            type: Function,
+            default: null
+        },
+        /**
          * Used to get a user-facing value that identifies the entity.
          * Defaults to the property "name".
          */
@@ -88,14 +96,6 @@ export const EntityEdit = {
          */
         breadcrumbs: {
             type: Array,
-            default: null
-        },
-        /**
-         * Entity's delete method. If set, a delete button is shown in upper top corner
-         * of the container.
-         */
-        onDelete: {
-            type: Function,
             default: null
         },
         /**
@@ -140,9 +140,9 @@ export const EntityEdit = {
             return null;
         },
         _onDelete() {
-            if (!this.onDelete) return null;
+            if (!this.deleteEntity) return null;
             return async () => {
-                await this.onDelete();
+                await this.deleteEntity();
             };
         }
     },
