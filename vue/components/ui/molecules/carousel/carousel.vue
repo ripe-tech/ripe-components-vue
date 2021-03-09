@@ -270,7 +270,7 @@ export const Carousel = {
          */
         wrap: {
             type: Boolean,
-            default: true
+            default: false
         }
     },
     data: function() {
