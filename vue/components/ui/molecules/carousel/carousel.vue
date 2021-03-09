@@ -23,12 +23,14 @@
             v-show="arrowsVisibility"
             v-on:click="previous"
         />
-        <transition-group class="slide-container" tag="div" v-bind:name="animation">
+        <transition-group class="slide-container" tag="div" v-bind:name="transitionAnimation">
             <div
                 class="slide"
+                v-bind:classes="slideClasses"
                 v-for="(item, index) in items"
                 v-show="index === valueData"
                 v-bind:key="`${item}-${index}`"
+                v-on:animationend="onAnimationEnd"
             >
                 <div class="slide-content">
                     <slot v-bind:item="item" v-bind:index="index" v-bind:name="`slide-${index}`">
@@ -54,6 +56,8 @@
 </template>
 
 <style lang="scss" scoped>
+@import "css/animations.scss";
+
 .carousel {
     align-items: center;
     display: flex;
@@ -114,8 +118,12 @@
     width: 100%;
 }
 
-.carousel.grabbing .slide-container .slide {
-    cursor: grabbing;
+.carousel.slide-left-fake .slide-container .slide {
+    animation: slide-left-fake 0.25s ease;
+}
+
+.carousel.slide-right-fake .slide-container .slide {
+    animation: slide-right-fake 0.25s ease;
 }
 
 .carousel .slide-container .slide .slide-content {
@@ -132,42 +140,52 @@
     width: 100%;
 }
 
-.swipe-left-enter-active,
-.swipe-left-leave-active,
-.swipe-right-enter-active,
-.swipe-right-leave-active {
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.slide-left-enter-active,
+.slide-left-leave-active,
+.slide-right-enter-active,
+.slide-right-leave-active {
     transition: transform 0.5s;
 }
 
-.swipe-right-enter {
+.slide-right-enter {
     transform: translateX(-100%) translateY(-5%) scale(0.6);
 }
 
-.swipe-right-enter-to {
+.slide-right-enter-to {
     transform: translateX(0%) translateY(0%) scale(1);
 }
 
-.swipe-right-leave {
+.slide-right-leave {
     transform: translateX(0) translateY(-5%) scale(1);
 }
 
-.swipe-right-leave-to {
+.slide-right-leave-to {
     transform: translateX(100%) translateY(0%) scale(0.6);
 }
 
-.swipe-left-enter {
+.slide-left-enter {
     transform: translateX(100%) translateY(-5%) scale(0.6);
 }
 
-.swipe-left-enter-to {
+.slide-left-enter-to {
     transform: translateX(0%) translateY(0%) scale(1);
 }
 
-.swipe-left-leave {
+.slide-left-leave {
     transform: translateX(0) translateY(-5%) scale(1);
 }
 
-.swipe-left-leave-to {
+.slide-left-leave-to {
     transform: translateX(-100%) translateY(0%) scale(0.6);
 }
 </style>
@@ -238,6 +256,21 @@ export const Carousel = {
         swipeThreshold: {
             type: Number,
             default: 50
+        },
+        /**
+         * The transitionAnimation for slide changes.
+         * @values fade, slide
+         */
+        animationName: {
+            type: String,
+            default: "fade"
+        },
+        /**
+         * Weather or not sliding against an end should wrap to the other end.
+         */
+        wrap: {
+            type: Boolean,
+            default: true
         }
     },
     data: function() {
@@ -245,7 +278,8 @@ export const Carousel = {
             dragStartPosition: null,
             dragCurrentPosition: null,
             valueData: this.value,
-            action: null
+            action: null,
+            animation: null
         };
     },
     computed: {
@@ -258,10 +292,19 @@ export const Carousel = {
         classes() {
             const base = {};
             if (this.dragStartPosition) base.grabbing = true;
+            if (this.animation) base[this.animation] = true;
             return base;
         },
-        animation() {
-            return this.action === "next" ? "swipe-left" : "swipe-right";
+        transitionAnimation() {
+            if (this.animationName === "fade") return "fade";
+            switch (this.animationName) {
+                case "fade":
+                    return "fade";
+                case "slide":
+                    return this.action === "next" ? "slide-left" : "slide-right";
+                default:
+                    return this.action === "next" ? "slide-left" : "slide-right";
+            }
         },
         imageStyle() {
             return index => {
@@ -288,9 +331,17 @@ export const Carousel = {
     },
     methods: {
         next() {
+            if (this.wrap && this.valueData === this.items.length - 1) {
+                this.animation = "slide-right-fake";
+                return;
+            }
             this.valueData = (this.valueData + 1) % this.items.length;
         },
         previous() {
+            if (this.wrap && this.valueData === 0) {
+                this.animation = "slide-left-fake";
+                return;
+            }
             this.valueData = this.valueData - 1 < 0 ? this.items.length - 1 : this.valueData - 1;
         },
         getCursorPosition(event) {
@@ -305,6 +356,9 @@ export const Carousel = {
                 dx: currentPos.x - initialPosition.x,
                 dy: currentPos.y - initialPosition.y
             };
+        },
+        onAnimationEnd() {
+            this.animation = null;
         },
         onStartDrag(event) {
             const cursorPosition = this.getCursorPosition(event);
