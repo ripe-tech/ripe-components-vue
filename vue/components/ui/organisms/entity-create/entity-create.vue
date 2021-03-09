@@ -123,7 +123,7 @@ export const EntityCreate = {
             };
             this.$router.push(next);
         },
-        onDiscard() {
+        async onDiscard() {
             this.clearForm();
         },
         async onSave(values) {

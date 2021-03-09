@@ -160,7 +160,7 @@ export const EntityEdit = {
             this.entity = await this.getEntity();
             this.resetForm();
         },
-        onDiscard() {
+        async onDiscard() {
             this.resetForm();
         },
         async onSave(values) {
