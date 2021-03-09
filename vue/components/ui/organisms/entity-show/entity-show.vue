@@ -138,7 +138,7 @@ export const EntityShow = {
             };
         },
         entityName() {
-            return this.getEntityName(this.entity);
+            return this.entity ? this.getEntityName(this.entity) : null;
         },
         _title() {
             if (this.title) return this.title;

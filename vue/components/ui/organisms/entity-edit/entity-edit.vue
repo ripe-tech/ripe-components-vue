@@ -39,8 +39,9 @@ export const EntityEdit = {
     name: "entity-edit",
     props: {
         /**
-         * The entity name. Example: for an entity "Person" which has a property
-         * "name" with the value "John", this prop value should be "Person".
+         * The entity name. Example: for an entity "Person" which
+         * has a property "name" with the value "John", this prop
+         * value should be "Person".
          */
         name: {
             type: String,
@@ -61,15 +62,15 @@ export const EntityEdit = {
             required: true
         },
         /**
-         * Method used to save the changes made.
+         * Method used to save the changes made for the entity.
          */
         updateEntity: {
             type: Function,
             required: true
         },
         /**
-         * Entity's delete method. If set, a delete button is shown in upper top corner
-         * of the container.
+         * Method used the current entity. If set, a delete button is shown
+         * in upper top corner of the container.
          */
         deleteEntity: {
             type: Function,
