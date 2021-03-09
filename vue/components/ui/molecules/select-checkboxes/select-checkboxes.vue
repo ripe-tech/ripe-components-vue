@@ -50,25 +50,14 @@ export const SelectCheckboxes = {
             required: true
         },
         /**
-         * Checkbox group items. Example:
-         * [
-         *     { label: "Japan", value: "japan"},
-         *     { value: "canada" },
-         *     { label: "Bali", value: "bali", disabled: true },
-         *     { label: "Tibet", value: "tibet", error: true }
-         * ].
+         * Checkbox group items.
          */
         items: {
             type: Array,
             default: () => []
         },
         /**
-         * Values of the checked items. Example:
-         * {
-         *     japan: false,
-         *     canada: false,
-         *     bali: true
-         * }.
+         * Values of the checked items.
          */
         values: {
             type: Object,

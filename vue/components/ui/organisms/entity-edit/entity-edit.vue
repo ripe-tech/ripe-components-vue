@@ -1,5 +1,5 @@
 <template>
-    <padded class="entity-editor">
+    <padded class="entity-edit">
         <container-form
             v-bind:values.sync="valuesData"
             v-bind:title="_title"
@@ -29,14 +29,14 @@
 </template>
 
 <style lang="scss" scoped>
-.entity-editor > .container-loading {
+.entity-edit > .container-loading {
     padding: 150px 0px 150px 0px;
 }
 </style>
 
 <script>
-export const EntityEditor = {
-    name: "entity-editor",
+export const EntityEdit = {
+    name: "entity-edit",
     props: {
         /**
          * The entity name. Example: for an entity "Person" which has a property
@@ -47,23 +47,7 @@ export const EntityEditor = {
             required: true
         },
         /**
-         * Used to structure and populate the create form. Example:
-         * {
-         *     "Person Info": [
-         *         [
-         *             {
-         *                 fields: [
-         *                     {
-         *                         value: "name",
-         *                         label: "Name*",
-         *                         type: "text",
-         *                         props: { placeholder: "First and last" }
-         *                     }
-         *                 ]
-         *             }
-         *         ]
-         *     ]
-         * }.
+         * Used to structure and populate the create form.
          */
         fields: {
             type: Object,
@@ -123,7 +107,7 @@ export const EntityEditor = {
             default: () => ({})
         },
         /**
-         * Overrides the previous route. Example: "person-list".
+         * Overrides the previous route.
          */
         previous: {
             type: String | Object,
@@ -202,5 +186,5 @@ export const EntityEditor = {
     }
 };
 
-export default EntityEditor;
+export default EntityEdit;
 </script>

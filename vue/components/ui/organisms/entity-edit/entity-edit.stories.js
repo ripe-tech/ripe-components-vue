@@ -1,9 +1,9 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text } from "@storybook/addon-knobs";
 
-storiesOf("Components/Organisms/Entity Editor", module)
+storiesOf("Components/Organisms/Entity Edit", module)
     .addDecorator(withKnobs)
-    .add("Entity Editor", () => ({
+    .add("Entity Edit", () => ({
         props: {
             fields: {
                 type: Object,
@@ -88,7 +88,7 @@ storiesOf("Components/Organisms/Entity Editor", module)
         template: `
             <div>
                 <global />
-                <entity-editor
+                <entity-edit
                     v-bind:name="'Person'"
                     v-bind:fields="fields"
                     v-bind:get-entity="getEntity"

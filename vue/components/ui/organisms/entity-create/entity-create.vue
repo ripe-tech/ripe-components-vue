@@ -1,5 +1,5 @@
 <template>
-    <padded class="entity-creator">
+    <padded class="entity-create">
         <container-form
             v-bind:values.sync="valuesData"
             v-bind:title="_title"
@@ -28,8 +28,8 @@
 <style lang="scss" scoped></style>
 
 <script>
-export const EntityCreator = {
-    name: "entity-creator",
+export const EntityCreate = {
+    name: "entity-create",
     props: {
         /**
          * The entity name. Example: for an entity "Person" which has a property
@@ -40,23 +40,7 @@ export const EntityCreator = {
             required: true
         },
         /**
-         * Used to structure and populate the create form. Example:
-         * {
-         *     "Person Info": [
-         *         [
-         *             {
-         *                 fields: [
-         *                     {
-         *                         value: "name",
-         *                         label: "Name*",
-         *                         type: "text",
-         *                         props: { placeholder: "First and last" }
-         *                     }
-         *                 ]
-         *             }
-         *         ]
-         *     ]
-         * }.
+         * Used to structure and populate the create form.
          */
         fields: {
             type: Object,
@@ -85,16 +69,14 @@ export const EntityCreator = {
         },
         /**
          * Values resulted from the form's inputs. The initial values of this prop are used
-         * as the clear values for when the discard button is pressed. Example:
-         * { project: "required project example" }.
+         * as the clear values for when the discard button is pressed.
          */
         values: {
             type: Object,
             default: () => ({})
         },
         /**
-         * Overrides the next route. Example:
-         * { name: "person-show", params: { name: "...", email: "..." } }.
+         * Overrides the next route.
          */
         next: {
             type: String | Object,
@@ -155,5 +137,5 @@ export const EntityCreator = {
     }
 };
 
-export default EntityCreator;
+export default EntityCreate;
 </script>

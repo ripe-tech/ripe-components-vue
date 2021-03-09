@@ -1,9 +1,9 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text } from "@storybook/addon-knobs";
 
-storiesOf("Components/Organisms/Entity Creator", module)
+storiesOf("Components/Organisms/Entity Create", module)
     .addDecorator(withKnobs)
-    .add("Entity Creator", () => ({
+    .add("Entity Create", () => ({
         props: {
             name: {
                 default: text("Name", "Person")
@@ -82,7 +82,7 @@ storiesOf("Components/Organisms/Entity Creator", module)
         template: `
             <div>
                 <global />
-                <entity-creator
+                <entity-create
                     v-bind:name="name"
                     v-bind:fields="fields"
                     v-bind:create-entity="createEntity"
