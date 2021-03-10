@@ -10,25 +10,23 @@
             <div class="message" v-html="messageHtml" />
             <template v-slot:footer>
                 <div class="buttons-container">
-                    <div class="buttons">
-                        <button-color
-                            class="button button-ask-cancel"
-                            v-bind:secondary="true"
-                            v-bind:disabled="loading"
-                            v-bind:text="buttonCancelData"
-                            v-bind:color="buttonCancelColor"
-                            v-if="buttonCancelData"
-                            v-on:click="onCancelClick"
-                        />
-                        <button-color
-                            class="button button-ask-confirm"
-                            v-bind:text="buttonConfirmData"
-                            v-bind:color="buttonConfirmColorData"
-                            v-bind:loading="loading"
-                            v-if="buttonConfirmData"
-                            v-on:click="onConfirmClick"
-                        />
-                    </div>
+                    <button-color
+                        class="button-ask-cancel"
+                        v-bind:secondary="true"
+                        v-bind:disabled="loading"
+                        v-bind:text="buttonCancelData"
+                        v-bind:color="buttonCancelColor"
+                        v-if="buttonCancelData"
+                        v-on:click="onCancelClick"
+                    />
+                    <button-color
+                        class="button-ask-confirm"
+                        v-bind:text="buttonConfirmData"
+                        v-bind:color="buttonConfirmColorData"
+                        v-bind:loading="loading"
+                        v-if="buttonConfirmData"
+                        v-on:click="onConfirmClick"
+                    />
                 </div>
             </template>
         </modal>
@@ -36,11 +34,6 @@
 </template>
 
 <style scoped>
-.ask {
-    position: absolute;
-    z-index: 11;
-}
-
 .ask .message {
     color: #57626e;
     font-size: 15px;
@@ -61,12 +54,9 @@
     margin-top: 15px;
 }
 
-.ask .buttons-container > .buttons > .button.button-secondary {
-    min-width: auto;
-}
-
-.ask .buttons-container > .buttons > .button:first-of-type {
+.ask .buttons-container > .button-ask-cancel {
     margin: 0px 5px 0px 0px;
+    min-width: auto;
 }
 </style>
 
