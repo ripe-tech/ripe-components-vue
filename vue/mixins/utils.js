@@ -2,6 +2,14 @@ import { normalize, buildSlug } from "../../js";
 
 export const utilsMixin = {
     methods: {
+        async ask(options = {}) {
+            const promise = new Promise((resolve, reject) => {
+                options.callback = resolve;
+                this.$bus.$emit("ask", options);
+            });
+            const { result } = await promise;
+            return result;
+        },
         dateString(timestamp, separator = "/", { year = true, month = true, day = true } = {}) {
             const buffer = [];
             const date = new Date(timestamp * 1000);
