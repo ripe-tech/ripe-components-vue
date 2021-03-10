@@ -1,6 +1,9 @@
 <template>
     <div class="switcher" v-bind:style="style" v-bind:class="classes" v-on:click="onClick">
         <div class="switcher-button" v-bind:style="toggleAnimation" />
+        <div class="switcher-text" v-if="text">
+            {{ text }}
+        </div>
     </div>
 </template>
 
@@ -13,6 +16,7 @@
     border-radius: 500px 500px 500px 500px;
     cursor: pointer;
     height: 20px;
+    position: relative;
     transition-duration: 0.4s;
     transition-property: border-color, background-color;
     width: 40px;
@@ -31,6 +35,14 @@
     transition-property: margin;
     width: 20px;
 }
+
+.switcher > .switcher-text {
+    font-size: 12px;
+    left: 50px;
+    line-height: 12px;
+    position: absolute;
+    top: 4px;
+}
 </style>
 
 <script>
@@ -44,6 +56,18 @@ export const Switcher = {
         disabled: {
             type: Boolean,
             default: false
+        },
+        checkedColor: {
+            type: String,
+            default: null
+        },
+        checkedText: {
+            type: String,
+            default: null
+        },
+        uncheckedText: {
+            type: String,
+            default: null
         }
     },
     data: function() {
@@ -62,8 +86,8 @@ export const Switcher = {
         style() {
             const base = {};
             if (this.checkedData) {
-                base.borderColor = "#1d1d1d";
-                base.backgroundColor = "#1d1d1d";
+                base.borderColor = this.checkedColor || "#1d1d1d";
+                base.backgroundColor = this.checkedColor || "#1d1d1d";
             }
             return base;
         },
@@ -73,6 +97,9 @@ export const Switcher = {
                 disabled: this.disabled
             };
             return base;
+        },
+        text() {
+            return this.checkedData ? this.checkedText : this.uncheckedText;
         }
     },
     watch: {
