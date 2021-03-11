@@ -6,7 +6,16 @@
         v-on:header-button:click="onHeaderButtonClick"
         v-on:header-button:click:delete="onDeleteClick"
     >
-        <form-ripe v-bind="formProps" v-bind:fields="fields" v-bind:values.sync="valuesData" />
+        <form-ripe v-bind="formProps" v-bind:fields="fields" v-bind:values.sync="valuesData">
+            <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
+            <template
+                v-for="slot in Object.keys($scopedSlots)"
+                v-bind:slot="slot"
+                slot-scope="scope"
+            >
+                <slot v-bind:name="slot" v-bind="scope" />
+            </template>
+        </form-ripe>
     </container-ripe>
 </template>
 
