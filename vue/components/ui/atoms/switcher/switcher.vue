@@ -1,11 +1,6 @@
 <template>
-    <div class="switcher">
-        <div
-            class="switcher-container"
-            v-bind:style="style"
-            v-bind:class="classes"
-            v-on:click="onClick"
-        >
+    <div class="switcher" v-bind:class="classes">
+        <div class="switcher-button-container" v-bind:style="styleContainer" v-on:click="onClick">
             <div class="switcher-button" v-bind:style="toggleAnimation" />
         </div>
         <div class="switcher-text" v-if="text">
@@ -22,7 +17,12 @@
     display: inline-flex;
 }
 
-.switcher-container {
+.switcher.disabled {
+    cursor: default;
+    opacity: 0.3;
+}
+
+.switcher > .switcher-button-container {
     border: 2px solid;
     border-radius: 500px 500px 500px 500px;
     cursor: pointer;
@@ -33,12 +33,7 @@
     width: 40px;
 }
 
-.switcher.disabled {
-    cursor: default;
-    opacity: 0.3;
-}
-
-.switcher-container > .switcher-button {
+.switcher > .switcher-button-container > .switcher-button {
     background-color: $white;
     border-radius: 10px 10px 10px 10px;
     height: 20px;
@@ -95,17 +90,17 @@ export const Switcher = {
             }
             return base;
         },
-        style() {
-            const base = {
-                borderColor: this.checkedData ? this.checkedColor : this.uncheckedColor,
-                backgroundColor: this.checkedData ? this.checkedColor : this.uncheckedColor
-            };
-            return base;
-        },
         classes() {
             const base = {
                 checked: this.checkedData,
                 disabled: this.disabled
+            };
+            return base;
+        },
+        styleContainer() {
+            const base = {
+                borderColor: this.checkedData ? this.checkedColor : this.uncheckedColor,
+                backgroundColor: this.checkedData ? this.checkedColor : this.uncheckedColor
             };
             return base;
         },
