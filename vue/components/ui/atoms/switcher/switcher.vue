@@ -1,6 +1,13 @@
 <template>
-    <div class="switcher" v-bind:style="style" v-bind:class="classes" v-on:click="onClick">
-        <div class="switcher-button" v-bind:style="toggleAnimation" />
+    <div class="switcher">
+        <div
+            class="switcher-container"
+            v-bind:style="style"
+            v-bind:class="classes"
+            v-on:click="onClick"
+        >
+            <div class="switcher-button" v-bind:style="toggleAnimation" />
+        </div>
         <div class="switcher-text" v-if="text">
             {{ text }}
         </div>
@@ -11,8 +18,12 @@
 @import "css/variables.scss";
 
 .switcher {
-    background-color: $upper-grey;
-    border: 2px solid $upper-grey;
+    align-items: center;
+    display: inline-flex;
+}
+
+.switcher-container {
+    border: 2px solid;
     border-radius: 500px 500px 500px 500px;
     cursor: pointer;
     height: 20px;
@@ -27,7 +38,7 @@
     opacity: 0.3;
 }
 
-.switcher > .switcher-button {
+.switcher-container > .switcher-button {
     background-color: $white;
     border-radius: 10px 10px 10px 10px;
     height: 20px;
@@ -38,10 +49,7 @@
 
 .switcher > .switcher-text {
     font-size: 12px;
-    left: 50px;
-    line-height: 12px;
-    position: absolute;
-    top: 4px;
+    margin-left: 5px;
 }
 </style>
 
@@ -59,7 +67,11 @@ export const Switcher = {
         },
         checkedColor: {
             type: String,
-            default: null
+            default: "#1d1d1d"
+        },
+        uncheckedColor: {
+            type: String,
+            default: "#cccccc"
         },
         checkedText: {
             type: String,
@@ -84,11 +96,10 @@ export const Switcher = {
             return base;
         },
         style() {
-            const base = {};
-            if (this.checkedData) {
-                base.borderColor = this.checkedColor || "#1d1d1d";
-                base.backgroundColor = this.checkedColor || "#1d1d1d";
-            }
+            const base = {
+                borderColor: this.checkedData ? this.checkedColor : this.uncheckedColor,
+                backgroundColor: this.checkedData ? this.checkedColor : this.uncheckedColor
+            };
             return base;
         },
         classes() {

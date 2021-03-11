@@ -12,7 +12,10 @@ storiesOf("Components/Atoms/Switcher", module)
                 default: boolean("Disabled", false)
             },
             checkedColor: {
-                default: text("Checked Color", null)
+                default: text("Checked Color", "#1d1d1d")
+            },
+            uncheckedColor: {
+                default: text("Unchecked Color", "#cccccc")
             },
             checkedText: {
                 default: text("Checked Text", null)
