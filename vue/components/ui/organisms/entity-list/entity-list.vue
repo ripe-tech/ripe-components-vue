@@ -15,10 +15,10 @@
         <template v-for="slot in Object.keys($scopedSlots)" v-bind:slot="slot" slot-scope="scope">
             <slot v-bind:name="slot" v-bind="scope" />
         </template>
-        <template v-slot:table-cell-actions="{ item }">
+        <template v-slot:table-cell-actions="{ item, index }">
             <router-link
                 class="button-edit"
-                v-bind:to="editRoute(item)"
+                v-bind:to="editRoute(item, index)"
                 v-if="editEntity"
             >
                 <button-icon v-bind:icon="'edit'" v-bind:text="'Edit'" v-bind:size="42" />
@@ -158,9 +158,9 @@ export const EntityList = {
         }
     },
     methods: {
-        editRoute(item) {
+        editRoute(item, index) {
             return this.getEditRoute
-                ? this.getEditRoute(item)
+                ? this.getEditRoute(item, index)
                 : { name: `${this.name.toLowerCase()}-edit`, params: { id: item.id } };
         },
         showRoute(item, index) {
