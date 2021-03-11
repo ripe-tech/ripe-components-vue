@@ -26,72 +26,82 @@
                                 v-bind="field.formInputProps"
                                 v-bind:key="field.value"
                             >
-                                <template
-                                    v-if="field.type === 'text' && field.meta === 'image-url'"
+                                <slot
+                                    v-bind:name="field.value"
+                                    v-bind:field="field"
+                                    v-bind:props="field.props"
+                                    v-bind:value="values[field.value]"
+                                    v-bind:on-value="onValue"
                                 >
+                                    <template
+                                        v-if="field.type === 'text' && field.meta === 'image-url'"
+                                    >
+                                        <input-ripe
+                                            v-bind:type="inputType(field)"
+                                            v-bind="field.props"
+                                            v-bind:value="values[field.value]"
+                                            v-on:update:value="value => onValue(field.value, value)"
+                                        />
+                                        <image-ripe
+                                            class="text-image"
+                                            v-bind:src="values[field.value] || field.imageSrc"
+                                            v-if="values[field.value] || field.imageSrc"
+                                        />
+                                    </template>
+                                    <textarea-ripe
+                                        v-bind="field.props"
+                                        v-bind:value="values[field.value]"
+                                        v-else-if="
+                                            field.type === 'text' && field.meta === 'longtext'
+                                        "
+                                        v-on:update:value="value => onValue(field.value, value)"
+                                    />
                                     <input-ripe
                                         v-bind:type="inputType(field)"
                                         v-bind="field.props"
                                         v-bind:value="values[field.value]"
+                                        v-else-if="field.type === 'text'"
                                         v-on:update:value="value => onValue(field.value, value)"
                                     />
-                                    <image-ripe
-                                        class="text-image"
-                                        v-bind:src="values[field.value] || field.imageSrc"
-                                        v-if="values[field.value] || field.imageSrc"
-                                    />
-                                </template>
-                                <textarea-ripe
-                                    v-bind="field.props"
-                                    v-bind:value="values[field.value]"
-                                    v-else-if="field.type === 'text' && field.meta === 'longtext'"
-                                    v-on:update:value="value => onValue(field.value, value)"
-                                />
-                                <input-ripe
-                                    v-bind:type="inputType(field)"
-                                    v-bind="field.props"
-                                    v-bind:value="values[field.value]"
-                                    v-else-if="field.type === 'text'"
-                                    v-on:update:value="value => onValue(field.value, value)"
-                                />
-                                <select-ripe
-                                    v-bind="field.props"
-                                    v-bind:value="values[field.value]"
-                                    v-else-if="field.type === 'enum'"
-                                    v-on:update:value="value => onValue(field.value, value)"
-                                >
-                                    <template v-slot:selected="{ item }">
-                                        <slot
-                                            v-bind:name="`${field.value}-select-selected`"
-                                            v-bind:item="item"
-                                        >
+                                    <select-ripe
+                                        v-bind="field.props"
+                                        v-bind:value="values[field.value]"
+                                        v-else-if="field.type === 'enum'"
+                                        v-on:update:value="value => onValue(field.value, value)"
+                                    >
+                                        <template v-slot:selected="{ item }">
                                             <slot
-                                                v-bind:name="'select-selected'"
+                                                v-bind:name="`${field.value}-select-selected`"
                                                 v-bind:item="item"
-                                            />
-                                        </slot>
-                                    </template>
-                                    <template v-slot="{ item }">
-                                        <slot
-                                            v-bind:name="`${field.value}-select`"
-                                            v-bind:item="item"
-                                        >
-                                            <slot v-bind:name="'select'" v-bind:item="item" />
-                                        </slot>
-                                    </template>
-                                </select-ripe>
-                                <switcher
-                                    v-bind="field.props"
-                                    v-bind:checked="values[field.value]"
-                                    v-else-if="field.type === 'boolean'"
-                                    v-on:update:checked="value => onValue(field.value, value)"
-                                />
-                                <files-uploader
-                                    v-bind="field.props"
-                                    v-bind:files="values[field.value]"
-                                    v-else-if="field.type === 'file'"
-                                    v-on:update:files="value => onValue(field.value, value)"
-                                />
+                                            >
+                                                <slot
+                                                    v-bind:name="'select-selected'"
+                                                    v-bind:item="item"
+                                                />
+                                            </slot>
+                                        </template>
+                                        <template v-slot="{ item }">
+                                            <slot
+                                                v-bind:name="`${field.value}-select`"
+                                                v-bind:item="item"
+                                            >
+                                                <slot v-bind:name="'select'" v-bind:item="item" />
+                                            </slot>
+                                        </template>
+                                    </select-ripe>
+                                    <switcher
+                                        v-bind="field.props"
+                                        v-bind:checked="values[field.value]"
+                                        v-else-if="field.type === 'boolean'"
+                                        v-on:update:checked="value => onValue(field.value, value)"
+                                    />
+                                    <files-uploader
+                                        v-bind="field.props"
+                                        v-bind:files="values[field.value]"
+                                        v-else-if="field.type === 'file'"
+                                        v-on:update:files="value => onValue(field.value, value)"
+                                    />
+                                </slot>
                             </form-input>
                         </template>
                     </div>
