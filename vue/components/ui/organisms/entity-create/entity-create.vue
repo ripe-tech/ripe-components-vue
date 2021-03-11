@@ -79,7 +79,7 @@ export const EntityCreate = {
          * Overrides the next route.
          */
         next: {
-            type: String | Object,
+            type: String | Object | Function,
             default: null
         },
         /**
@@ -117,11 +117,15 @@ export const EntityCreate = {
         },
         goNext() {
             if (!this.$router) return;
-            const next = this.next || {
+            const next =
+                this.next && (typeof this.next === "function")
+                    ? this.next(this.values.id)
+                    : this.next;
+            const nextRoute = next || {
                 name: `${this.name.toLowerCase()}-show`,
                 params: { id: this.values.id }
             };
-            this.$router.push(next);
+            this.$router.push(nextRoute);
         },
         async onDiscard() {
             this.clearForm();
