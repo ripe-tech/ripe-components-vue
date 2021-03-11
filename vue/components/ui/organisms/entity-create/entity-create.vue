@@ -8,8 +8,8 @@
                 saveNotification: false,
                 onDiscard: onDiscard,
                 onSave: onSave,
+                ...formProps,
                 acceptButtonProps: { text: `Create ${name}`, ...formProps.acceptButtonProps },
-                ...formProps
             }"
             v-on:header-button:click="onHeaderButtonClick"
         >
