@@ -29,7 +29,8 @@
                                 <slot
                                     v-bind:name="field.value"
                                     v-bind:field="field"
-                                    v-bind:values="values"
+                                    v-bind:props="field.props"
+                                    v-bind:value="values[field.value]"
                                     v-bind:on-value="onValue"
                                 >
                                     <template
