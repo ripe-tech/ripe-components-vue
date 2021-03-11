@@ -163,13 +163,13 @@ export const EntityList = {
                 ? this.getEditRoute(item)
                 : { name: `${this.name.toLowerCase()}-edit`, params: { id: item.id } };
         },
-        showRoute(item) {
+        showRoute(item, index) {
             return this.getShowRoute
-                ? this.getShowRoute(item)
+                ? this.getShowRoute(item, index)
                 : { name: `${this.name.toLowerCase()}-show`, params: { id: item.id.name } };
         },
-        onTableRowClick(item) {
-            this.$router.push(this.showRoute(item));
+        onTableRowClick(item, index) {
+            this.$router.push(this.showRoute(item, index));
         },
         async onDeleteButtonClick(item) {
             const confirmed = await this.alert(
