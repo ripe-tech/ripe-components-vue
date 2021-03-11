@@ -33,23 +33,23 @@
 }
 
 .switcher.switcher-colored > .switcher-button-container {
-    border-color: $upper-grey;
     background-color: $upper-grey;
+    border-color: $upper-grey;
 }
 
 .switcher.switcher-colored.checked > .switcher-button-container {
-    border-color: $green;
     background-color: $green;
+    border-color: $green;
 }
 
 .switcher.switcher-grey > .switcher-button-container {
-    border-color: $upper-grey;
     background-color: $upper-grey;
+    border-color: $upper-grey;
 }
 
 .switcher.switcher-grey.checked > .switcher-button-container {
-    border-color: $black;
     background-color: $black;
+    border-color: $black;
 }
 
 .switcher > .switcher-button-container > .switcher-button {
