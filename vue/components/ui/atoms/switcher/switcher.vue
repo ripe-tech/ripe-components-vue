@@ -1,6 +1,6 @@
 <template>
     <div class="switcher" v-bind:class="classes">
-        <div class="switcher-button-container" v-bind:style="styleContainer" v-on:click="onClick">
+        <div class="switcher-button-container" v-on:click="onClick">
             <div class="switcher-button" v-bind:style="toggleAnimation" />
         </div>
         <div class="switcher-text" v-if="text">
@@ -27,10 +27,29 @@
     border-radius: 500px 500px 500px 500px;
     cursor: pointer;
     height: 20px;
-    position: relative;
     transition-duration: 0.4s;
     transition-property: border-color, background-color;
     width: 40px;
+}
+
+.switcher.switcher-colored > .switcher-button-container {
+    border-color: $upper-grey;
+    background-color: $upper-grey;
+}
+
+.switcher.switcher-colored.checked > .switcher-button-container {
+    border-color: $green;
+    background-color: $green;
+}
+
+.switcher.switcher-grey > .switcher-button-container {
+    border-color: $upper-grey;
+    background-color: $upper-grey;
+}
+
+.switcher.switcher-grey.checked > .switcher-button-container {
+    border-color: $black;
+    background-color: $black;
 }
 
 .switcher > .switcher-button-container > .switcher-button {
@@ -60,13 +79,9 @@ export const Switcher = {
             type: Boolean,
             default: false
         },
-        checkedColor: {
+        variant: {
             type: String,
-            default: "#1d1d1d"
-        },
-        uncheckedColor: {
-            type: String,
-            default: "#cccccc"
+            default: "colored"
         },
         checkedText: {
             type: String,
@@ -95,6 +110,7 @@ export const Switcher = {
                 checked: this.checkedData,
                 disabled: this.disabled
             };
+            base[`switcher-${this.variant}`] = true;
             return base;
         },
         styleContainer() {
