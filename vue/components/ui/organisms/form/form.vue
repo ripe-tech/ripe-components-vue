@@ -134,7 +134,6 @@
                     ...acceptButtonProps
                 }"
                 v-if="onSave"
-                v-on:click="onSubmit"
             />
         </div>
     </form>
