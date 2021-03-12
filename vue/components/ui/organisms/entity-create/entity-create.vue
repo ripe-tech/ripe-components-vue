@@ -83,6 +83,13 @@ export const EntityCreate = {
             default: null
         },
         /**
+         * Method to be called on discard.
+         */
+        onDiscardCallback: {
+            type: Function,
+            default: null
+        },
+        /**
          * Props that can be used to customize the form.
          */
         formProps: {
@@ -125,6 +132,8 @@ export const EntityCreate = {
         },
         async onDiscard() {
             this.clearForm();
+            if (!this.onDiscardCallback) return;
+            await this.onDiscardCallback();
         },
         async onSave(values) {
             await this.createEntity(values);
