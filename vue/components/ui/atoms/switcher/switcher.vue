@@ -1,6 +1,11 @@
 <template>
-    <div class="switcher" v-bind:style="style" v-bind:class="classes" v-on:click="onClick">
-        <div class="switcher-button" v-bind:style="toggleAnimation" />
+    <div class="switcher" v-bind:class="classes">
+        <div class="switcher-button-container" v-on:click="onClick">
+            <div class="switcher-button" v-bind:style="toggleAnimation" />
+        </div>
+        <div class="switcher-text" v-if="text">
+            {{ text }}
+        </div>
     </div>
 </template>
 
@@ -8,8 +13,17 @@
 @import "css/variables.scss";
 
 .switcher {
-    background-color: $upper-grey;
-    border: 2px solid $upper-grey;
+    align-items: center;
+    display: inline-flex;
+}
+
+.switcher.disabled {
+    cursor: default;
+    opacity: 0.3;
+}
+
+.switcher > .switcher-button-container {
+    border: 2px solid;
     border-radius: 500px 500px 500px 500px;
     cursor: pointer;
     height: 20px;
@@ -18,18 +32,38 @@
     width: 40px;
 }
 
-.switcher.disabled {
-    cursor: default;
-    opacity: 0.3;
+.switcher.switcher-colored > .switcher-button-container {
+    background-color: $upper-grey;
+    border-color: $upper-grey;
 }
 
-.switcher > .switcher-button {
+.switcher.switcher-colored.checked > .switcher-button-container {
+    background-color: $green;
+    border-color: $green;
+}
+
+.switcher.switcher-grey > .switcher-button-container {
+    background-color: $upper-grey;
+    border-color: $upper-grey;
+}
+
+.switcher.switcher-grey.checked > .switcher-button-container {
+    background-color: $black;
+    border-color: $black;
+}
+
+.switcher > .switcher-button-container > .switcher-button {
     background-color: $white;
     border-radius: 10px 10px 10px 10px;
     height: 20px;
     transition-duration: 0.2s;
     transition-property: margin;
     width: 20px;
+}
+
+.switcher > .switcher-text {
+    font-size: 12px;
+    margin-left: 5px;
 }
 </style>
 
@@ -44,6 +78,18 @@ export const Switcher = {
         disabled: {
             type: Boolean,
             default: false
+        },
+        variant: {
+            type: String,
+            default: "colored"
+        },
+        checkedText: {
+            type: String,
+            default: null
+        },
+        uncheckedText: {
+            type: String,
+            default: null
         }
     },
     data: function() {
@@ -59,20 +105,16 @@ export const Switcher = {
             }
             return base;
         },
-        style() {
-            const base = {};
-            if (this.checkedData) {
-                base.borderColor = "#1d1d1d";
-                base.backgroundColor = "#1d1d1d";
-            }
-            return base;
-        },
         classes() {
             const base = {
                 checked: this.checkedData,
                 disabled: this.disabled
             };
+            base[`switcher-${this.variant}`] = true;
             return base;
+        },
+        text() {
+            return this.checkedData ? this.checkedText : this.uncheckedText;
         }
     },
     watch: {

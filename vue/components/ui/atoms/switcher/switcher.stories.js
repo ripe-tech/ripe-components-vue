@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, boolean } from "@storybook/addon-knobs";
+import { withKnobs, boolean, select, text } from "@storybook/addon-knobs";
 
 storiesOf("Components/Atoms/Switcher", module)
     .addDecorator(withKnobs)
@@ -10,6 +10,23 @@ storiesOf("Components/Atoms/Switcher", module)
             },
             disabled: {
                 default: boolean("Disabled", false)
+            },
+            variant: {
+                default: select(
+                    "Variant",
+                    {
+                        Unset: null,
+                        Colored: "colored",
+                        Grey: "grey"
+                    },
+                    null
+                )
+            },
+            checkedText: {
+                default: text("Checked Text", null)
+            },
+            uncheckedText: {
+                default: text("Unchecked Text", null)
             }
         },
         data: function() {
@@ -26,7 +43,11 @@ storiesOf("Components/Atoms/Switcher", module)
             <div>
                 <switcher
                     v-bind:checked.sync="checkedData"
-                    v-bind:disabled="disabled" />
+                    v-bind:disabled="disabled"
+                    v-bind:variant="variant || undefined"
+                    v-bind:checked-text="checkedText"
+                    v-bind:unchecked-text="uncheckedText"
+                />
                 <p>The switcher's value is: {{ checkedData }}</p>
             </div>
         `
