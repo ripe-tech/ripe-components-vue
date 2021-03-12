@@ -113,13 +113,6 @@ export const Switcher = {
             base[`switcher-${this.variant}`] = true;
             return base;
         },
-        styleContainer() {
-            const base = {
-                borderColor: this.checkedData ? this.checkedColor : this.uncheckedColor,
-                backgroundColor: this.checkedData ? this.checkedColor : this.uncheckedColor
-            };
-            return base;
-        },
         text() {
             return this.checkedData ? this.checkedText : this.uncheckedText;
         }
