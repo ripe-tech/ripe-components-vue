@@ -8,8 +8,8 @@
             v-bind="options(item)"
             v-for="(item, index) in items"
             v-bind:key="index"
-            v-on:click="event => onClick(item, index, event)"
-            v-on:click:button="event => onButtonClick(item, index, event)"
+            v-on:click="event => onClick(event, item, index)"
+            v-on:click:button="event => onButtonClick(event, item, index)"
             v-on:update:highlight="value => onUpdateHighlight(item, value)"
         />
     </div>
@@ -99,11 +99,11 @@ export const ImageList = {
         onUpdateHighlight(item, value) {
             this.$emit("update:highlight", item, value);
         },
-        onClick(item, index, event) {
-            this.$emit("click", item, index, event);
+        onClick(event, item, index) {
+            this.$emit("click", event, item, index);
         },
-        onButtonClick(item, index, event) {
-            this.$emit("click:button", item, index, event);
+        onButtonClick(event, item, index) {
+            this.$emit("click:button", event, item, index);
         }
     }
 };
