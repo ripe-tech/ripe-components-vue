@@ -20,12 +20,6 @@ storiesOf("Components/Atoms/Image Item", module)
             width: {
                 default: number("Width", null)
             },
-            showButton: {
-                default: boolean("Show Button", true)
-            },
-            showName: {
-                default: boolean("Show Name", true)
-            },
             highlight: {
                 type: Boolean,
                 default: boolean("Highlight", false)
@@ -33,6 +27,11 @@ storiesOf("Components/Atoms/Image Item", module)
             animationDuration: {
                 type: Number,
                 default: number("Animation Duration", 3000)
+            },
+            buttonProps: {
+                default: () => ({
+                    icon: "bin"
+                })
             }
         },
         template: `
@@ -41,10 +40,9 @@ storiesOf("Components/Atoms/Image Item", module)
                 v-bind:name="name"
                 v-bind:height="height"
                 v-bind:width="width"
-                v-bind:show-button="showButton"
-                v-bind:show-name="showName"
                 v-bind:highlight="highlight"
                 v-bind:animation-duration="animationDuration"
+                v-bind:button-props="buttonProps"
             />
         `
     }));

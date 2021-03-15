@@ -1,12 +1,12 @@
 <template>
     <div class="image-item" v-bind:class="classes" v-on:click="onClick">
-        <div class="item-button" v-if="showButton">
+        <div class="item-button" v-if="buttonProps">
             <button-icon v-bind="buttonProps" v-bind:size="32" v-on:click.stop="onButtonClick" />
         </div>
         <div class="item-image" v-bind:style="style" v-on:animationend="onAnimationEnd">
             <image-ripe v-bind:style="imageStyle" v-bind:src="imageUrl" v-bind:alt="name" />
         </div>
-        <div class="item-name" v-bind:style="nameStyle" v-if="showName">
+        <div class="item-name" v-bind:style="nameStyle" v-if="name">
             {{ name }}
         </div>
     </div>
@@ -50,17 +50,6 @@
     width: 200px;
 }
 
-@keyframes highlight-image {
-
-    0% {
-        background-color: rgba(205, 255, 210, 0.3);
-    }
-
-    100% {
-        background-color: #f9fafd;
-    }
-}
-
 .image-item.highlight > .item-image {
     animation-name: highlight-image;
     animation-timing-function: linear;
@@ -73,6 +62,17 @@
     margin-top: 10px;
     text-transform: capitalize;
     width: 214px;
+}
+
+@keyframes highlight-image {
+
+    0% {
+        background-color: rgba(205, 255, 210, 0.3);
+    }
+
+    100% {
+        background-color: #f9fafd;
+    }
 }
 </style>
 
@@ -92,7 +92,7 @@ export const ImageItem = {
          */
         name: {
             type: String,
-            required: true
+            default: null
         },
         /**
          * The height of the item.
@@ -113,23 +113,7 @@ export const ImageItem = {
          */
         buttonProps: {
             type: Object,
-            default: () => ({
-                icon: "bin"
-            })
-        },
-        /**
-         * If the button is enabled.
-         */
-        showButton: {
-            type: Boolean,
-            default: true
-        },
-        /**
-         * If the name is shown.
-         */
-        showName: {
-            type: Boolean,
-            default: true
+            default: null
         },
         /**
          * If the item displays the
@@ -189,11 +173,11 @@ export const ImageItem = {
         onAnimationEnd() {
             this.highlightData = false;
         },
-        onClick() {
-            this.$emit("click");
+        onClick(event) {
+            this.$emit("click", event);
         },
-        onButtonClick() {
-            this.$emit("click:button");
+        onButtonClick(event) {
+            this.$emit("click:button", event);
         }
     }
 };

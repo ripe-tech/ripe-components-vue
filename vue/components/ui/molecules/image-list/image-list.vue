@@ -8,8 +8,8 @@
             v-bind="options(item)"
             v-for="(item, index) in items"
             v-bind:key="index"
-            v-on:click="() => onClick(item, index)"
-            v-on:click:button="() => onButtonClick(item, index)"
+            v-on:click="event => onClick(item, index, event)"
+            v-on:click:button="event => onButtonClick(item, index, event)"
             v-on:update:highlight="value => onUpdateHighlight(item, value)"
         />
     </div>
@@ -37,8 +37,6 @@ export const ImageList = {
          * List of items to show that contains the item image URL,
          * its name and a options object that can override the item
          * global properties.
-         * Example: [{ imageUrl: "https://1.jpg", name: "Name",
-         * options: { buttonProps: { icon: "rocket" }, width: 200 } }].
          */
         items: {
             type: Array,
@@ -92,8 +90,6 @@ export const ImageList = {
     methods: {
         options(item) {
             const base = {
-                showButton: this.showButtons,
-                showName: this.showNames,
                 height: this.itemHeight,
                 width: this.itemWidth,
                 ...(item.options || {})
@@ -103,11 +99,11 @@ export const ImageList = {
         onUpdateHighlight(item, value) {
             this.$emit("update:highlight", item, value);
         },
-        onClick(item, index) {
-            this.$emit("click", item, index);
+        onClick(item, index, event) {
+            this.$emit("click", item, index, event);
         },
-        onButtonClick(item, index) {
-            this.$emit("click:button", item, index);
+        onButtonClick(item, index, event) {
+            this.$emit("click:button", item, index, event);
         }
     }
 };

@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, boolean, number } from "@storybook/addon-knobs";
+import { withKnobs, number } from "@storybook/addon-knobs";
 
 storiesOf("Components/Molecules/Image List", module)
     .addDecorator(withKnobs)
@@ -10,10 +10,7 @@ storiesOf("Components/Molecules/Image List", module)
                     {
                         name: "Dummy Red",
                         imageUrl:
-                            "https://ripe-core-sbx.platforme.com/api/compose?brand=dummy&format=png&frame=side-0&height=200&model=cube&p=shadow%3Adefault%3Adefault&p=side%3Aleather_cbe%3Ared&p=top0_bottom%3Aleather_cbe%3Ablack&width=200",
-                        options: {
-                            showButton: false
-                        }
+                            "https://ripe-core-sbx.platforme.com/api/compose?brand=dummy&format=png&frame=side-0&height=200&model=cube&p=shadow%3Adefault%3Adefault&p=side%3Aleather_cbe%3Ared&p=top0_bottom%3Aleather_cbe%3Ablack&width=200"
                     },
                     {
                         name: "Dummy Blue",
@@ -29,19 +26,30 @@ storiesOf("Components/Molecules/Image List", module)
                     {
                         name: "Dummy",
                         imageUrl:
-                            "https://ripe-core-sbx.platforme.com/api/compose?brand=dummy&format=png&frame=side-0&height=200&model=cube&p=shadow%3Adefault%3Adefault&p=side%3Aleather_cbe%3Ared&p=top0_bottom%3Aleather_cbe%3Ablack&width=200"
+                            "https://ripe-core-sbx.platforme.com/api/compose?brand=dummy&format=png&frame=side-0&height=200&model=cube&p=shadow%3Adefault%3Adefault&p=side%3Aleather_cbe%3Ared&p=top0_bottom%3Aleather_cbe%3Ablack&width=200",
+                        options: {
+                            buttonProps: {
+                                icon: "bin"
+                            }
+                        }
                     },
                     {
                         name: "Dummy Red 2",
                         imageUrl:
-                            "https://ripe-core-sbx.platforme.com/api/compose?brand=dummy&format=png&frame=side-0&height=200&model=cube&p=shadow%3Adefault%3Adefault&p=side%3Aleather_cbe%3Ared&p=top0_bottom%3Aleather_cbe%3Ablack&width=200"
-                    },
+                            "https://ripe-core-sbx.platforme.com/api/compose?brand=dummy&format=png&frame=side-0&height=200&model=cube&p=shadow%3Adefault%3Adefault&p=side%3Aleather_cbe%3Ared&p=top0_bottom%3Aleather_cbe%3Ablack&width=200",
+                        options: {
+                            buttonProps: {
+                                icon: "bin"
+                            }
+                        }
+                    }
                     {
-                        name: "Dummy Blue 3",
                         imageUrl:
                             "https://ripe-core-sbx.platforme.com/api/compose?brand=dummy&format=png&frame=side-0&height=200&model=cube&p=shadow%3Adefault%3Adefault&p=side%3Aleather_cbe%3Ared&p=top0_bottom%3Aleather_cbe%3Ablack&width=200",
                         options: {
-                            showName: false
+                            buttonProps: {
+                                icon: "bin"
+                            }
                         }
                     }
                 ]
@@ -51,12 +59,6 @@ storiesOf("Components/Molecules/Image List", module)
             },
             itemWidth: {
                 default: number("Item Width", null)
-            },
-            showButtons: {
-                default: boolean("Show Buttons", true)
-            },
-            showNames: {
-                default: boolean("Show Names", true)
             },
             highlightIndex: {
                 type: Number,
@@ -72,8 +74,6 @@ storiesOf("Components/Molecules/Image List", module)
                 v-bind:items="items"
                 v-bind:item-height="itemHeight"
                 v-bind:item-width="itemWidth"
-                v-bind:show-buttons="showButtons"
-                v-bind:show-names="showNames"
                 v-bind:highlight-index="highlightIndex"
                 v-bind:animation-duration="animationDuration"
             />
