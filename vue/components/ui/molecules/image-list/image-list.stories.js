@@ -42,7 +42,7 @@ storiesOf("Components/Molecules/Image List", module)
                                 icon: "bin"
                             }
                         }
-                    }
+                    },
                     {
                         imageUrl:
                             "https://ripe-core-sbx.platforme.com/api/compose?brand=dummy&format=png&frame=side-0&height=200&model=cube&p=shadow%3Adefault%3Adefault&p=side%3Aleather_cbe%3Ared&p=top0_bottom%3Aleather_cbe%3Ablack&width=200",
