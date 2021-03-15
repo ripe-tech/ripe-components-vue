@@ -6,7 +6,7 @@
         <div class="item-image" v-bind:style="style" v-on:animationend="onAnimationEnd">
             <image-ripe v-bind:style="imageStyle" v-bind:src="imageUrl" v-bind:alt="name" />
         </div>
-        <div class="item-name" v-if="showName">
+        <div class="item-name" v-bind:style="nameStyle" v-if="showName">
             {{ name }}
         </div>
     </div>
@@ -72,6 +72,7 @@
     font-weight: 600;
     margin-top: 10px;
     text-transform: capitalize;
+    width: 214px;
 }
 </style>
 
@@ -167,6 +168,11 @@ export const ImageItem = {
         imageStyle() {
             const base = {};
             if (this.height) base.height = `${this.height}px`;
+            if (this.width) base.width = `${this.width}px`;
+            return base;
+        },
+        nameStyle() {
+            const base = {};
             if (this.width) base.width = `${this.width}px`;
             return base;
         }
