@@ -57,19 +57,12 @@ export const ImageList = {
             default: null
         },
         /**
-         * If the items enable the buttons to
-         * allow certain operations.
+         * The props for the image item
+         * button.
          */
-        showButtons: {
-            type: Boolean,
-            default: true
-        },
-        /**
-         * If the items show their names.
-         */
-        showNames: {
-            type: Boolean,
-            default: true
+        buttonProps: {
+            type: Object,
+            default: null
         },
         /**
          * The index of the image that will
@@ -92,6 +85,7 @@ export const ImageList = {
             const base = {
                 height: this.itemHeight,
                 width: this.itemWidth,
+                buttonProps: this.buttonProps,
                 ...(item.options || {})
             };
             return base;
