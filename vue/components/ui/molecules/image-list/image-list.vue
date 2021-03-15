@@ -24,8 +24,8 @@
 
 .image-list > .image-item {
     display: inline-block;
-    flex: 1 1;
-    margin: 0px 10px 30px 0px;
+    flex: 0 1;
+    margin: 0px 20px 30px 0px;
 }
 </style>
 
