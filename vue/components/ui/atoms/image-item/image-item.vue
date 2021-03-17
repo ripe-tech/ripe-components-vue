@@ -146,6 +146,13 @@ export const ImageItem = {
             default: null
         },
         /**
+         * The name text alignment.
+         */
+        textAlign: {
+            type: String,
+            default: null
+        },
+        /**
          * The props for the item button.
          */
         buttonProps: {
@@ -210,6 +217,7 @@ export const ImageItem = {
         nameStyle() {
             const base = {};
             if (this.width) base.width = `${this.width}px`;
+            if (this.textAlign) base["text-align"] = this.textAlign;
             return base;
         }
     },
@@ -230,7 +238,7 @@ export const ImageItem = {
         },
         onButtonClick(event) {
             if (this.optionsItems.length === 0) {
-            this.$emit("click:button", event);
+                this.$emit("click:button", event);
                 return;
             }
             this.optionsVisible = !this.optionsVisible;

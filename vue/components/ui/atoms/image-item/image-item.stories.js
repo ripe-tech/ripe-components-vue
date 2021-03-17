@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, boolean, number, text } from "@storybook/addon-knobs";
+import { withKnobs, boolean, number, text, select } from "@storybook/addon-knobs";
 
 storiesOf("Components/Atoms/Image Item", module)
     .addDecorator(withKnobs)
@@ -33,6 +33,18 @@ storiesOf("Components/Atoms/Image Item", module)
                     icon: "bin"
                 })
             },
+            textAlign: {
+                default: select(
+                    "Text Align",
+                    {
+                        Default: null,
+                        Left: "left",
+                        Right: "right",
+                        Center: "center"
+                    },
+                    null
+                )
+            },
             optionsItems: {
                 type: Array,
                 default: () => [
@@ -49,6 +61,7 @@ storiesOf("Components/Atoms/Image Item", module)
                 v-bind:name="name"
                 v-bind:height="height"
                 v-bind:width="width"
+                v-bind:text-align="textAlign"
                 v-bind:highlight="highlight"
                 v-bind:animation-duration="animationDuration"
                 v-bind:button-props="buttonProps"

@@ -58,6 +58,13 @@ export const ImageList = {
             default: null
         },
         /**
+         * Each item's text alignment.
+         */
+        textAlign: {
+            type: String,
+            default: null
+        },
+        /**
          * The props for the image item
          * button.
          */
@@ -94,6 +101,7 @@ export const ImageList = {
             const base = {
                 height: this.itemHeight,
                 width: this.itemWidth,
+                textAlign: this.textAlign,
                 buttonProps: this.buttonProps,
                 optionsItems: this.optionsItems,
                 ...(item.options || {})
