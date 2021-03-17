@@ -14,6 +14,9 @@ storiesOf("Components/Atoms/Image Item", module)
             name: {
                 default: text("Name", "Dummy Cube")
             },
+            description: {
+                default: text("Description", "This is a cube")
+            },
             height: {
                 default: number("Height", null)
             },
@@ -59,6 +62,7 @@ storiesOf("Components/Atoms/Image Item", module)
             <image-item
                 v-bind:image-url="imageUrl"
                 v-bind:name="name"
+                v-bind:description="description"
                 v-bind:height="height"
                 v-bind:width="width"
                 v-bind:text-align="textAlign"

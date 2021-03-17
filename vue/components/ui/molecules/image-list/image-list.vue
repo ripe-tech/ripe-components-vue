@@ -3,6 +3,7 @@
         <image-item
             v-bind:image-url="item.imageUrl"
             v-bind:name="item.name"
+            v-bind:description="item.description"
             v-bind:highlight="highlightIndex === index"
             v-bind:animation-duration="animationDuration"
             v-bind="options(item)"

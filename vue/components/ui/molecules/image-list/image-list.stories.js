@@ -14,6 +14,7 @@ storiesOf("Components/Molecules/Image List", module)
                     },
                     {
                         name: "Dummy Blue",
+                        description: "A blue cube",
                         imageUrl:
                             "https://ripe-core-sbx.platforme.com/api/compose?brand=dummy&format=png&frame=side-0&height=200&model=cube&p=shadow%3Adefault%3Adefault&p=side%3Aleather_cbe%3Ared&p=top0_bottom%3Aleather_cbe%3Ablack&width=200",
                         options: {
@@ -35,6 +36,7 @@ storiesOf("Components/Molecules/Image List", module)
                     },
                     {
                         name: "Dummy Red 2",
+                        description: "A very red cube",
                         imageUrl:
                             "https://ripe-core-sbx.platforme.com/api/compose?brand=dummy&format=png&frame=side-0&height=200&model=cube&p=shadow%3Adefault%3Adefault&p=side%3Aleather_cbe%3Ared&p=top0_bottom%3Aleather_cbe%3Ablack&width=200",
                         options: {

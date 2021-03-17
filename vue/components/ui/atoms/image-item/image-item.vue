@@ -33,8 +33,15 @@
         <div class="item-image" v-bind:style="style" v-on:animationend="onAnimationEnd">
             <image-ripe v-bind:style="imageStyle" v-bind:src="imageUrl" v-bind:alt="name" />
         </div>
-        <div class="item-name" v-bind:style="nameStyle" v-if="name">
-            {{ name }}
+        <div class="item-text" v-bind:style="nameStyle" v-if="name">
+            <div class="name">
+                {{ name }}
+            </div>
+            <div class="description">
+                <slot name="description">
+                    {{ description }}
+                </slot>
+            </div>
         </div>
     </div>
 </template>
@@ -92,13 +99,21 @@
     animation-timing-function: linear;
 }
 
-.image-item > .item-name {
+.image-item > .item-text {
+    margin-top: 10px;
+    width: 214px;
+}
+
+.image-item > .item-text > .name {
     color: #1d2631;
     font-size: 18px;
     font-weight: 600;
-    margin-top: 10px;
     text-transform: capitalize;
-    width: 214px;
+}
+
+.image-item > .item-text > .description {
+    font-size: 14px;
+    font-weight: 400;
 }
 
 @keyframes highlight-image {
@@ -128,6 +143,13 @@ export const ImageItem = {
          * The name of the item.
          */
         name: {
+            type: String,
+            default: null
+        },
+        /**
+         * The description of the item.
+         */
+        description: {
             type: String,
             default: null
         },
