@@ -11,6 +11,7 @@
             v-on:click="event => onClick(event, item, index)"
             v-on:click:button="event => onButtonClick(event, item, index)"
             v-on:update:highlight="value => onUpdateHighlight(item, value)"
+            v-on="$listeners"
         />
     </div>
 </template>
@@ -65,6 +66,14 @@ export const ImageList = {
             default: null
         },
         /**
+         * The action options to include in each
+         * image item dropdown.
+         */
+        optionsItems: {
+            type: Array,
+            default: () => []
+        },
+        /**
          * The index of the image that will
          * be highlighted.
          */
@@ -86,6 +95,7 @@ export const ImageList = {
                 height: this.itemHeight,
                 width: this.itemWidth,
                 buttonProps: this.buttonProps,
+                optionsItems: this.optionsItems,
                 ...(item.options || {})
             };
             return base;

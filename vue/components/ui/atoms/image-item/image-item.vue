@@ -1,7 +1,34 @@
 <template>
     <div class="image-item" v-bind:class="classes" v-on:click="onClick">
         <div class="item-button" v-if="buttonProps">
-            <button-icon v-bind="buttonProps" v-bind:size="32" v-on:click.stop="onButtonClick" />
+            <button-icon
+                class="button-options"
+                v-bind:icon="'options'"
+                v-bind:size="32"
+                ref="button-options-loading"
+                v-bind="buttonProps"
+                v-on:click.stop="onButtonClick"
+            />
+            <dropdown
+                class="options-dropdown"
+                v-bind:items="optionsItems"
+                v-bind:visible.sync="optionsVisible"
+                v-bind:owners="$refs['button-options-loading']"
+                v-on:item-clicked="onOptionsItemClick"
+            >
+                <slot
+                    v-bind:name="slot"
+                    v-for="slot in optionsSlots"
+                    v-bind:slot="slot.replace('options-', '')"
+                />
+                <template
+                    v-for="slot in optionsScopedSlots"
+                    v-bind:slot="slot.replace('options-', '')"
+                    slot-scope="scope"
+                >
+                    <slot v-bind:name="slot" v-bind="scope" />
+                </template>
+            </dropdown>
         </div>
         <div class="item-image" v-bind:style="style" v-on:animationend="onAnimationEnd">
             <image-ripe v-bind:style="imageStyle" v-bind:src="imageUrl" v-bind:alt="name" />
@@ -28,6 +55,16 @@
     left: 165px;
     padding: 10px 10px 10px 10px;
     position: absolute;
+}
+
+.image-item .item-button > .options-dropdown ::v-deep .dropdown {
+    font-size: 13px;
+    left: auto;
+    margin-left: -142px;
+    margin-top: 6px;
+    min-width: 180px;
+    position: absolute;
+    text-align: left;
 }
 
 .image-item > .item-image {
@@ -116,6 +153,14 @@ export const ImageItem = {
             default: null
         },
         /**
+         * The action options to include in the
+         * dropdown.
+         */
+        optionsItems: {
+            type: Array,
+            default: () => []
+        },
+        /**
          * If the item displays the
          * highlight animation.
          */
@@ -133,10 +178,17 @@ export const ImageItem = {
     },
     data: function() {
         return {
-            highlightData: this.highlight
+            highlightData: this.highlight,
+            optionsVisible: false
         };
     },
     computed: {
+        optionsSlots() {
+            return Object.keys(this.$slots).filter(slot => slot.startsWith("options-"));
+        },
+        optionsScopedSlots() {
+            return Object.keys(this.$scopedSlots).filter(slot => slot.startsWith("options-"));
+        },
         classes() {
             const base = {};
             base.highlight = this.highlightData;
@@ -177,7 +229,14 @@ export const ImageItem = {
             this.$emit("click", event);
         },
         onButtonClick(event) {
+            if (this.optionsItems.length === 0) {
             this.$emit("click:button", event);
+                return;
+            }
+            this.optionsVisible = !this.optionsVisible;
+        },
+        onOptionsItemClick(item) {
+            this.$emit(`click:${item.event}`);
         }
     }
 };

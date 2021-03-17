@@ -67,6 +67,20 @@ storiesOf("Components/Molecules/Image List", module)
             animationDuration: {
                 type: Number,
                 default: number("Animation Duration", 3000)
+            },
+            optionsItems: {
+                type: Array,
+                default: () => [
+                    { label: "Item 1", value: "item_1", event: "item_1" },
+                    { label: "Item 2", value: "item_2", event: "item_2" },
+                    { label: "Item 3", value: "item_3", separator: true, event: "item_3" },
+                    { label: "Item 4", value: "item_4", event: "item_4" }
+                ]
+            }
+        },
+        methods: {
+            onItemClick() {
+                console.log("Item 1 clicked");
             }
         },
         template: `
@@ -76,6 +90,8 @@ storiesOf("Components/Molecules/Image List", module)
                 v-bind:item-width="itemWidth"
                 v-bind:highlight-index="highlightIndex"
                 v-bind:animation-duration="animationDuration"
+                v-bind:options-items="optionsItems"
+                v-on:click:item_1="onItemClick"
             />
         `
     }));
