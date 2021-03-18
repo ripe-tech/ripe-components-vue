@@ -11,7 +11,7 @@
             v-bind:key="index"
             v-on:click="event => onClick(event, item, index)"
             v-on:click:button="event => onButtonClick(event, item, index)"
-            v-on:update:highlight="value => onUpdateHighlight(item, value)"
+            v-on:update:highlight="value => onUpdateHighlight(item, index, value)"
             v-on="$listeners"
         />
     </div>
@@ -109,8 +109,8 @@ export const ImageList = {
             };
             return base;
         },
-        onUpdateHighlight(item, value) {
-            this.$emit("update:highlight", item, value);
+        onUpdateHighlight(item, index, value) {
+            this.$emit("update:highlight", item, index, value);
         },
         onClick(event, item, index) {
             this.$emit("click", event, item, index);

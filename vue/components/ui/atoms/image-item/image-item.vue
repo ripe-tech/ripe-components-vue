@@ -37,11 +37,11 @@
             <div class="name">
                 {{ name }}
             </div>
-            <div class="description">
-                <slot name="description">
+            <slot name="description">
+                <div class="description">
                     {{ description }}
-                </slot>
-            </div>
+                </div>
+            </slot>
         </div>
     </div>
 </template>
@@ -114,6 +114,7 @@
 .image-item > .item-text > .description {
     font-size: 14px;
     font-weight: 400;
+    margin-top: 5px;
 }
 
 @keyframes highlight-image {
@@ -268,8 +269,8 @@ export const ImageItem = {
             }
             this.optionsVisible = !this.optionsVisible;
         },
-        onOptionsItemClick(item) {
-            this.$emit(`click:${item.event}`);
+        onOptionsItemClick(item, index) {
+            this.$emit(`click:option:${item.event}`, item, index);
         }
     }
 };
