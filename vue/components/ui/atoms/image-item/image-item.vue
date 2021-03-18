@@ -1,6 +1,6 @@
 <template>
     <div class="image-item" v-bind:class="classes" v-on:click="onClick">
-        <div class="item-button">
+        <div class="item-button" v-on:click.stop>
             <button-icon
                 v-bind:size="32"
                 v-bind="optionsItems[0]"
@@ -39,7 +39,7 @@
         <div
             class="item-image"
             v-bind:style="style"
-            v-bind:class="{ 'dropdown-open': this.optionsVisible }"
+            v-bind:class="{ 'dropdown-open': optionsVisible }"
             v-on:animationend="onAnimationEnd"
         >
             <image-ripe v-bind:style="imageStyle" v-bind:src="imageUrl" v-bind:alt="name" />

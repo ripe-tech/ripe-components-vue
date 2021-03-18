@@ -12,7 +12,7 @@
             v-on:click="event => onClick(event, item, index)"
             v-on:click:button="event => onButtonClick(event, item, index)"
             v-on:update:highlight="value => onUpdateHighlight(item, index, value)"
-            v-on="$listeners"
+            v-on="listeners"
         />
     </div>
 </template>
@@ -87,6 +87,12 @@ export const ImageList = {
         animationDuration: {
             type: Number,
             default: 3000
+        }
+    },
+    computed: {
+        listeners() {
+            const { click, ...listeners } = this.$listeners;
+            return listeners;
         }
     },
     methods: {

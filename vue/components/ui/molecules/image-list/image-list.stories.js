@@ -102,7 +102,7 @@ storiesOf("Components/Molecules/Image List", module)
                 v-bind:highlight-index="highlightIndex"
                 v-bind:animation-duration="animationDuration"
                 v-bind:options-items="optionsItems"
-                v-on:click:item_1="onItemClick"
+                v-on:click:option:item_1="onItemClick"
             />
         `
     }));
