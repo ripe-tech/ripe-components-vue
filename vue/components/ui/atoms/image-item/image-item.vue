@@ -3,7 +3,7 @@
         <div class="item-button" v-if="buttonProps">
             <button-icon
                 class="button-options"
-                v-bind:icon="'options'"
+                v-bind:icon="buttonIcon"
                 v-bind:size="32"
                 ref="button-options-loading"
                 v-bind="buttonProps"
@@ -241,6 +241,9 @@ export const ImageItem = {
             if (this.width) base.width = `${this.width}px`;
             if (this.textAlign) base["text-align"] = this.textAlign;
             return base;
+        },
+        buttonIcon() {
+            return this.buttonProps.icon || "options";
         }
     },
     watch: {
