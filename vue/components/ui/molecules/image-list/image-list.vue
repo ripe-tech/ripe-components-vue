@@ -66,14 +66,6 @@ export const ImageList = {
             default: null
         },
         /**
-         * The props for the image item
-         * button.
-         */
-        buttonProps: {
-            type: Object,
-            default: null
-        },
-        /**
          * The action options to include in each
          * image item dropdown.
          */
@@ -103,7 +95,6 @@ export const ImageList = {
                 height: this.itemHeight,
                 width: this.itemWidth,
                 textAlign: this.textAlign,
-                buttonProps: this.buttonProps,
                 optionsItems: this.optionsItems,
                 ...(item.options || {})
             };

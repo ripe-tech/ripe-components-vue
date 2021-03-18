@@ -10,29 +10,21 @@ storiesOf("Components/Molecules/Image List", module)
                     {
                         name: "Dummy Red",
                         imageUrl:
-                            "https://ripe-core-sbx.platforme.com/api/compose?brand=dummy&format=png&frame=side-0&height=200&model=cube&p=shadow%3Adefault%3Adefault&p=side%3Aleather_cbe%3Ared&p=top0_bottom%3Aleather_cbe%3Ablack&width=200"
+                            "https://ripe-core-sbx.platforme.com/api/compose?brand=dummy&format=png&frame=side-0&height=200&model=cube&p=shadow%3Adefault%3Adefault&p=side%3Aleather_cbe%3Ared&p=top0_bottom%3Aleather_cbe%3Ablack&width=200",
+                        options: {
+                            optionsItems: []
+                        }
                     },
                     {
                         name: "Dummy Blue",
                         description: "A blue cube",
                         imageUrl:
-                            "https://ripe-core-sbx.platforme.com/api/compose?brand=dummy&format=png&frame=side-0&height=200&model=cube&p=shadow%3Adefault%3Adefault&p=side%3Aleather_cbe%3Ared&p=top0_bottom%3Aleather_cbe%3Ablack&width=200",
-                        options: {
-                            buttonProps: {
-                                iconColor: "red",
-                                icon: "rocket"
-                            }
-                        }
+                            "https://ripe-core-sbx.platforme.com/api/compose?brand=dummy&format=png&frame=side-0&height=200&model=cube&p=shadow%3Adefault%3Adefault&p=side%3Aleather_cbe%3Ared&p=top0_bottom%3Aleather_cbe%3Ablack&width=200"
                     },
                     {
                         name: "Dummy",
                         imageUrl:
-                            "https://ripe-core-sbx.platforme.com/api/compose?brand=dummy&format=png&frame=side-0&height=200&model=cube&p=shadow%3Adefault%3Adefault&p=side%3Aleather_cbe%3Ared&p=top0_bottom%3Aleather_cbe%3Ablack&width=200",
-                        options: {
-                            buttonProps: {
-                                icon: "bin"
-                            }
-                        }
+                            "https://ripe-core-sbx.platforme.com/api/compose?brand=dummy&format=png&frame=side-0&height=200&model=cube&p=shadow%3Adefault%3Adefault&p=side%3Aleather_cbe%3Ared&p=top0_bottom%3Aleather_cbe%3Ablack&width=200"
                     },
                     {
                         name: "Dummy Red 2",
@@ -40,18 +32,22 @@ storiesOf("Components/Molecules/Image List", module)
                         imageUrl:
                             "https://ripe-core-sbx.platforme.com/api/compose?brand=dummy&format=png&frame=side-0&height=200&model=cube&p=shadow%3Adefault%3Adefault&p=side%3Aleather_cbe%3Ared&p=top0_bottom%3Aleather_cbe%3Ablack&width=200",
                         options: {
-                            buttonProps: {
-                                icon: "bin"
-                            }
+                            optionsItems: [
+                                {
+                                    icon: "bin",
+                                    iconColor: "red"
+                                }
+                            ]
                         }
                     },
                     {
                         imageUrl:
                             "https://ripe-core-sbx.platforme.com/api/compose?brand=dummy&format=png&frame=side-0&height=200&model=cube&p=shadow%3Adefault%3Adefault&p=side%3Aleather_cbe%3Ared&p=top0_bottom%3Aleather_cbe%3Ablack&width=200",
                         options: {
-                            buttonProps: {
-                                icon: "bin"
-                            }
+                            optionsItems: [
+                                { label: "Item 1", value: "item_1", event: "item_1" },
+                                { label: "Item 2", value: "item_2", event: "item_2" }
+                            ]
                         }
                     }
                 ]

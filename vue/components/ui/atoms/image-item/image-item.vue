@@ -1,13 +1,19 @@
 <template>
     <div class="image-item" v-bind:class="classes" v-on:click="onClick">
-        <div class="item-button" v-if="buttonProps">
+        <div class="item-button">
+            <button-icon
+                v-bind:size="32"
+                v-bind="optionsItems[0]"
+                v-if="optionsItems.length === 1"
+                v-on:click.stop="onButtonClick"
+            />
             <button-icon
                 class="button-options"
-                v-bind:icon="buttonIcon"
+                v-bind:icon="'options'"
                 v-bind:size="32"
+                v-else-if="optionsItems.length > 1"
                 ref="button-options-loading"
-                v-bind="buttonProps"
-                v-on:click.stop="onButtonClick"
+                v-on:click.stop="onOptionsButtonClick"
             />
             <dropdown
                 class="options-dropdown"
@@ -176,15 +182,11 @@ export const ImageItem = {
             default: null
         },
         /**
-         * The props for the item button.
-         */
-        buttonProps: {
-            type: Object,
-            default: null
-        },
-        /**
          * The action options to include in the
-         * dropdown.
+         * dropdown. If only one option is provided,
+         * there is no need for a event, the dropdown
+         * won't appear and will only show a button,
+         * where its click event is propagated.
          */
         optionsItems: {
             type: Array,
@@ -242,9 +244,6 @@ export const ImageItem = {
             if (this.width) base.width = `${this.width}px`;
             if (this.textAlign) base["text-align"] = this.textAlign;
             return base;
-        },
-        buttonIcon() {
-            return this.buttonProps.icon || "options";
         }
     },
     watch: {
@@ -263,10 +262,9 @@ export const ImageItem = {
             this.$emit("click", event);
         },
         onButtonClick(event) {
-            if (this.optionsItems.length === 0) {
-                this.$emit("click:button", event);
-                return;
-            }
+            this.$emit("click:button", event);
+        },
+        onOptionsButtonClick() {
             this.optionsVisible = !this.optionsVisible;
         },
         onOptionsItemClick(item, index) {

@@ -31,11 +31,6 @@ storiesOf("Components/Atoms/Image Item", module)
                 type: Number,
                 default: number("Animation Duration", 3000)
             },
-            buttonProps: {
-                default: () => ({
-                    icon: "bin"
-                })
-            },
             textAlign: {
                 default: select(
                     "Text Align",
@@ -68,7 +63,6 @@ storiesOf("Components/Atoms/Image Item", module)
                 v-bind:text-align="textAlign"
                 v-bind:highlight="highlight"
                 v-bind:animation-duration="animationDuration"
-                v-bind:button-props="buttonProps"
                 v-bind:options-items="optionsItems"
             />
         `
