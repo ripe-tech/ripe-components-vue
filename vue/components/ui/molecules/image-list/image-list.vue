@@ -91,7 +91,10 @@ export const ImageList = {
     },
     computed: {
         listeners() {
-            const { click, ...listeners } = this.$listeners;
+            const listeners = { ...this.$listeners };
+            delete listeners.click;
+            delete listeners["click:button"];
+            delete listeners["update:highlight"];
             return listeners;
         }
     },
