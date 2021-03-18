@@ -36,7 +36,12 @@
                 </template>
             </dropdown>
         </div>
-        <div class="item-image" v-bind:style="style" v-on:animationend="onAnimationEnd">
+        <div
+            class="item-image"
+            v-bind:style="style"
+            v-bind:class="{ 'dropdown-open': this.optionsVisible }"
+            v-on:animationend="onAnimationEnd"
+        >
             <image-ripe v-bind:style="imageStyle" v-bind:src="imageUrl" v-bind:alt="name" />
         </div>
         <div class="item-text" v-bind:style="nameStyle" v-if="name">
@@ -93,6 +98,10 @@
 
 .image-item > .item-image:hover > .image {
     opacity: 0.6;
+}
+
+.image-item > .item-image.dropdown-open:hover > .image {
+    opacity: 1;
 }
 
 .image-item > .item-image > .image {
