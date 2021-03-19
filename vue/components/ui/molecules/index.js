@@ -13,6 +13,7 @@ import { ContainerMenu } from "./container-menu/container-menu.vue";
 import { Filter } from "./filter/filter.vue";
 import { Footer } from "./footer/footer.vue";
 import { FormInput } from "./form-input/form-input.vue";
+import { ImageList } from "./image-list/image-list.vue";
 import { InputImage } from "./input-image/input-image.vue";
 import { InputColor } from "./input-color/input-color.vue";
 import { InputCurrency } from "./input-currency/input-currency.vue";
@@ -55,6 +56,7 @@ const install = Vue => {
     Vue.component("filter-ripe", Filter);
     Vue.component("footer-ripe", Footer);
     Vue.component("form-input", FormInput);
+    Vue.component("image-list", ImageList);
     Vue.component("input-image", InputImage);
     Vue.component("input-color", InputColor);
     Vue.component("input-currency", InputCurrency);
@@ -98,6 +100,7 @@ export {
     Filter,
     Footer,
     FormInput,
+    ImageList,
     InputImage,
     InputColor,
     InputCurrency,
