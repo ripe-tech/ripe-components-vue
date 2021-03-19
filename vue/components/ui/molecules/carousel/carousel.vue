@@ -26,11 +26,16 @@
         <transition-group class="slide-container" tag="div" v-bind:name="transitionAnimation">
             <div
                 class="slide"
-                v-bind:classes="slideClasses"
                 v-for="(item, index) in items"
                 v-show="index === valueData"
                 v-bind:key="`${item}-${index}`"
+                v-on:transitionstart="onAnimationStart"
+                v-on:transitioncancel="onAnimationEnd"
+                v-on:transitionend="onAnimationEnd"
+                v-on:animationstart="onAnimationStart"
+                v-on:animationcancel="onAnimationEnd"
                 v-on:animationend="onAnimationEnd"
+                v-on:animationiteration="onAnimationEnd"
             >
                 <div class="slide-content">
                     <slot v-bind:item="item" v-bind:index="index" v-bind:name="`slide-${index}`">
@@ -100,7 +105,15 @@
     transform: translate(5px);
 }
 
+.carousel.animating .arrow:active,
+.carousel.animating .arrow-previous:active,
+.carousel.animating .arrow-next:active {
+    scale: 1.3;
+    transform: initial;
+}
+
 .carousel .slide-container {
+    cursor: grab;
     height: 100%;
     position: relative;
     text-align: left;
@@ -109,13 +122,16 @@
 }
 
 .carousel .slide-container .slide {
-    cursor: grab;
     display: inline-block;
     height: 100%;
     position: absolute;
     text-align: center;
     vertical-align: top;
     width: 100%;
+}
+
+.carousel.grabbing:not(.animating) .slide-container .slide {
+    cursor: grabbing;
 }
 
 .carousel.slide-left-fake .slide-container .slide {
@@ -142,7 +158,7 @@
 
 .fade-enter-active,
 .fade-leave-active {
-    transition: opacity 0.5s;
+    transition: opacity 0.45s;
 }
 
 .fade-enter,
@@ -154,7 +170,7 @@
 .slide-left-leave-active,
 .slide-right-enter-active,
 .slide-right-leave-active {
-    transition: transform 0.5s;
+    transition: transform 0.45s;
 }
 
 .slide-right-enter {
@@ -279,7 +295,8 @@ export const Carousel = {
             dragCurrentPosition: null,
             valueData: this.value,
             action: null,
-            animationData: null
+            animationData: null,
+            animating: false
         };
     },
     computed: {
@@ -292,6 +309,7 @@ export const Carousel = {
         classes() {
             const base = {};
             if (this.dragStartPosition) base.grabbing = true;
+            if (this.animating) base.animating = true;
             if (this.animationData) base[this.animationData] = true;
             return base;
         },
@@ -321,27 +339,34 @@ export const Carousel = {
     },
     watch: {
         valueData(value, previousValue) {
-            this.action = value > previousValue ? "next" : "previous";
+            this.action = this.action || (value > previousValue ? "next" : "previous");
             this.$emit("update:value", value);
         },
         value(value) {
             this.valueData = value;
+        },
+        animating(value) {
+            this.$emit("update:animating", value);
         }
     },
     methods: {
         next() {
+            if (this.animating) return;
             if (!this.wrap && this.valueData === this.items.length - 1) {
                 this.animationData = "slide-right-fake";
                 return;
             }
+            this.action = "next";
             this.valueData = (this.valueData + 1) % this.items.length;
         },
         previous() {
+            if (this.animating) return;
             if (!this.wrap && this.valueData === 0) {
                 this.animationData = "slide-left-fake";
                 return;
             }
-            this.valueData = this.valueData - 1 < 0 ? this.items.length - 1 : this.valueData - 1;
+            this.action = "previous";
+            this.valueData = (this.valueData + 1) % this.items.length;
         },
         getCursorPosition(event) {
             const deviceEvent = event.type.startsWith("touch") ? event.touches[0] : event;
@@ -356,7 +381,12 @@ export const Carousel = {
                 dy: currentPos.y - initialPosition.y
             };
         },
-        onAnimationEnd() {
+        onAnimationStart() {
+            this.animating = true;
+        },
+        onAnimationEnd(event) {
+            this.action = null;
+            this.animating = false;
             this.animationData = null;
         },
         onStartDrag(event) {
