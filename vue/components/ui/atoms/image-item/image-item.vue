@@ -92,6 +92,7 @@
     border-radius: 10px;
     display: flex;
     height: 260px;
+    user-select: none;
     justify-content: center;
     width: 214px;
 }
@@ -191,19 +192,17 @@ export const ImageItem = {
             default: null
         },
         /**
-         * The action options to include in the
-         * dropdown. If only one option is provided,
-         * there is no need for a event, the dropdown
-         * won't appear and will only show a button,
-         * where its click event is propagated.
+         * The action options to include in the dropdown. If
+         * only one option is provided, there is no need for
+         * a event, the dropdown won't appear and will only
+         * show a button, where its click event is propagated.
          */
         optionsItems: {
             type: Array,
             default: () => []
         },
         /**
-         * If the item displays the
-         * highlight animation.
+         * If the item displays the highlight animation.
          */
         highlight: {
             type: Boolean,

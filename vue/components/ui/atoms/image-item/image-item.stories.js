@@ -24,11 +24,9 @@ storiesOf("Components/Atoms/Image Item", module)
                 default: number("Width", null)
             },
             highlight: {
-                type: Boolean,
                 default: boolean("Highlight", false)
             },
             animationDuration: {
-                type: Number,
                 default: number("Animation Duration", 3000)
             },
             textAlign: {
