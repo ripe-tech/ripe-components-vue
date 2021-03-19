@@ -347,7 +347,7 @@ export const Carousel = {
     watch: {
         valueData(value, previousValue) {
             this.action = this.action || (value > previousValue ? "next" : "previous");
-            this.$emit("update:value", value);
+            this.$emit("update:value", value, previousValue);
         },
         value(value) {
             this.valueData = value;
