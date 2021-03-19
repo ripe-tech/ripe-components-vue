@@ -282,6 +282,13 @@ export const Carousel = {
             default: "fade"
         },
         /**
+         * Weather or not accepts sliding actions only after animation ends.
+         */
+        waitAnimation: {
+            type: Boolean,
+            default: false
+        },
+        /**
          * Weather or not sliding against an end should wrap to the other end.
          */
         wrap: {
@@ -351,7 +358,7 @@ export const Carousel = {
     },
     methods: {
         next() {
-            if (this.animating) return;
+            if (this.waitAnimation && this.animating) return;
             if (!this.wrap && this.valueData === this.items.length - 1) {
                 this.animationData = "slide-right-fake";
                 return;
@@ -360,7 +367,7 @@ export const Carousel = {
             this.valueData = (this.valueData + 1) % this.items.length;
         },
         previous() {
-            if (this.animating) return;
+            if (this.waitAnimation && this.animating) return;
             if (!this.wrap && this.valueData === 0) {
                 this.animationData = "slide-left-fake";
                 return;
