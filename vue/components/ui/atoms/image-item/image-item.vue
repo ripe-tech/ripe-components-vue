@@ -92,8 +92,8 @@
     border-radius: 10px;
     display: flex;
     height: 260px;
-    user-select: none;
     justify-content: center;
+    user-select: none;
     width: 214px;
 }
 

@@ -9,7 +9,7 @@
                 onDiscard: onDiscard,
                 onSave: onSave,
                 ...formProps,
-                acceptButtonProps: { text: `Create ${name}`, ...formProps.acceptButtonProps },
+                acceptButtonProps: { text: `Create ${name}`, ...formProps.acceptButtonProps }
             }"
             v-on:header-button:click="onHeaderButtonClick"
         >
