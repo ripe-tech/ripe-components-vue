@@ -373,7 +373,7 @@ export const Carousel = {
                 return;
             }
             this.action = "previous";
-            this.valueData = (this.valueData + 1) % this.items.length;
+            this.valueData = this.valueData - 1 < 0 ? this.items.length - 1 : this.valueData - 1;
         },
         getCursorPosition(event) {
             const deviceEvent = event.type.startsWith("touch") ? event.touches[0] : event;
