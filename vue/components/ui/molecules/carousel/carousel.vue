@@ -23,19 +23,20 @@
             v-show="arrowsVisibility"
             v-on:click="previous"
         />
-        <transition-group class="slide-container" tag="div" v-bind:name="transitionAnimation">
+        <transition-group
+            class="slide-container"
+            tag="div"
+            v-bind:name="transitionAnimation"
+            v-on:before-enter="onAnimationStart"
+            v-on:enter-cancelled="onAnimationStart"
+            v-on:after-leave="onAnimationEnd"
+            v-on:leave-cancelled="onAnimationEnd"
+        >
             <div
                 class="slide"
                 v-for="(item, index) in items"
                 v-show="index === valueData"
                 v-bind:key="`${item}-${index}`"
-                v-on:transitionstart="onAnimationStart"
-                v-on:transitioncancel="onAnimationEnd"
-                v-on:transitionend="onAnimationEnd"
-                v-on:animationstart="onAnimationStart"
-                v-on:animationcancel="onAnimationEnd"
-                v-on:animationend="onAnimationEnd"
-                v-on:animationiteration="onAnimationEnd"
             >
                 <div class="slide-content">
                     <slot v-bind:item="item" v-bind:index="index" v-bind:name="`slide-${index}`">
