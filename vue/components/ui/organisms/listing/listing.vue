@@ -63,6 +63,7 @@
                             v-bind:size="'small'"
                             v-bind:alignment="'left'"
                             v-bind:icon="'add'"
+                            v-bind:icon-size="17"
                             v-bind:min-width="0"
                             v-bind:href="href"
                             v-on:click="navigate"
@@ -220,6 +221,12 @@ body.mobile .listing {
 .listing .container-ripe .button-create {
     display: inline-block;
     vertical-align: middle;
+}
+
+.listing .container-ripe .button-create ::v-deep .icon {
+    height: 17px;
+    margin-top: 7px;
+    width: 17px;
 }
 
 .listing .container-ripe .search {
