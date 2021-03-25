@@ -63,7 +63,6 @@
                             v-bind:size="'small'"
                             v-bind:alignment="'left'"
                             v-bind:icon="'add'"
-                            v-bind:icon-size="17"
                             v-bind:min-width="0"
                             v-bind:href="href"
                             v-on:click="navigate"
