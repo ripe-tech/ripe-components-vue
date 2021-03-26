@@ -38,12 +38,12 @@
         </div>
         <div
             class="item-image"
-            v-bind:style="style"
+            v-bind:style="imageStyle"
             v-bind:class="{ 'dropdown-open': optionsVisible }"
             ref="image"
             v-on:animationend="onAnimationEnd"
         >
-            <image-ripe v-bind:style="style" v-bind:src="imageUrl" v-bind:alt="name" />
+            <image-ripe v-bind:style="imageStyle" v-bind:src="imageUrl" v-bind:alt="name" />
         </div>
         <div class="item-text" v-bind:style="nameStyle" v-if="name">
             <div class="name">
@@ -221,7 +221,7 @@ export const ImageItem = {
         optionsScopedSlots() {
             return Object.keys(this.$scopedSlots).filter(slot => slot.startsWith("options-"));
         },
-        style() {
+        imageStyle() {
             const base = {};
             if (this.height) base.height = `${this.height}px`;
             if (this.width) base.width = `${this.width}px`;
