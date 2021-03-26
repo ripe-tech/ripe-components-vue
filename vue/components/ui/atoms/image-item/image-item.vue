@@ -1,5 +1,5 @@
 <template>
-    <div class="image-item" v-bind:class="classes" v-on:click="onClick">
+    <div class="image-item" v-on:click="onClick">
         <div class="item-button" v-on:click.stop>
             <button-icon
                 v-bind:size="32"
@@ -40,9 +40,10 @@
             class="item-image"
             v-bind:style="style"
             v-bind:class="{ 'dropdown-open': optionsVisible }"
+            ref="image"
             v-on:animationend="onAnimationEnd"
         >
-            <image-ripe v-bind:style="imageStyle" v-bind:src="imageUrl" v-bind:alt="name" />
+            <image-ripe v-bind:style="style" v-bind:src="imageUrl" v-bind:alt="name" />
         </div>
         <div class="item-text" v-bind:style="nameStyle" v-if="name">
             <div class="name">
@@ -110,11 +111,6 @@
     width: 200px;
 }
 
-.image-item.highlight > .item-image {
-    animation-name: highlight-image;
-    animation-timing-function: linear;
-}
-
 .image-item > .item-text {
     margin-top: 10px;
     width: 214px;
@@ -131,17 +127,6 @@
     font-size: 14px;
     font-weight: 400;
     margin-top: 5px;
-}
-
-@keyframes highlight-image {
-
-    0% {
-        background-color: #aeffe2;
-    }
-
-    100% {
-        background-color: #f9fafd;
-    }
 }
 </style>
 
@@ -209,6 +194,13 @@ export const ImageItem = {
             default: false
         },
         /**
+         * The background color of the highlight animation.
+         */
+        highlightColor: {
+            type: String,
+            default: "#aeffe2"
+        },
+        /**
          * The duration of the highlight animation.
          */
         animationDuration: {
@@ -229,19 +221,7 @@ export const ImageItem = {
         optionsScopedSlots() {
             return Object.keys(this.$scopedSlots).filter(slot => slot.startsWith("options-"));
         },
-        classes() {
-            const base = {};
-            base.highlight = this.highlightData;
-            return base;
-        },
         style() {
-            const base = {};
-            if (this.highlightData) base["animation-duration"] = `${this.animationDuration}ms`;
-            if (this.height) base.height = `${this.height}px`;
-            if (this.width) base.width = `${this.width}px`;
-            return base;
-        },
-        imageStyle() {
             const base = {};
             if (this.height) base.height = `${this.height}px`;
             if (this.width) base.width = `${this.width}px`;
@@ -260,6 +240,17 @@ export const ImageItem = {
         },
         highlightData(value) {
             this.$emit("update:highlight", value);
+            if (!value) return;
+
+            // animates the image background with the
+            // highlight animation with the given
+            // color and timing
+            this.$refs.image.animate(
+                {
+                    backgroundColor: [this.highlightColor, "#f9fafd"]
+                },
+                this.animationDuration
+            );
         }
     },
     methods: {
