@@ -64,7 +64,7 @@ storiesOf("Components/Molecules/Image List", module)
             },
             animationDuration: {
                 type: Number,
-                default: number("Animation Duration", 3000)
+                default: number("Animation Duration", 2000)
             },
             textAlign: {
                 default: select(

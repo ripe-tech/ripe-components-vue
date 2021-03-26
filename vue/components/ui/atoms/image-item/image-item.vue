@@ -136,7 +136,7 @@
 @keyframes highlight-image {
 
     0% {
-        background-color: rgba(205, 255, 210, 0.3);
+        background-color: #aeffe2;
     }
 
     100% {
@@ -213,7 +213,7 @@ export const ImageItem = {
          */
         animationDuration: {
             type: Number,
-            default: 3000
+            default: 2000
         }
     },
     data: function() {

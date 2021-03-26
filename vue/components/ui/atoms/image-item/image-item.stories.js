@@ -27,7 +27,7 @@ storiesOf("Components/Atoms/Image Item", module)
                 default: boolean("Highlight", false)
             },
             animationDuration: {
-                default: number("Animation Duration", 3000)
+                default: number("Animation Duration", 2000)
             },
             textAlign: {
                 default: select(

@@ -86,7 +86,7 @@ export const ImageList = {
          */
         animationDuration: {
             type: Number,
-            default: 3000
+            default: 2000
         }
     },
     computed: {
