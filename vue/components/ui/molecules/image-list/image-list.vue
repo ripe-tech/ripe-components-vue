@@ -5,6 +5,7 @@
             v-bind:name="item.name"
             v-bind:description="item.description"
             v-bind:highlight="highlightIndex === index"
+            v-bind:highlight-color="highlightColor"
             v-bind:animation-duration="animationDuration"
             v-bind="options(item)"
             v-for="(item, index) in items"
@@ -82,11 +83,18 @@ export const ImageList = {
             default: null
         },
         /**
+         * The background color of the highlight animation.
+         */
+        highlightColor: {
+            type: String,
+            default: "#aeffe2"
+        },
+        /**
          * The duration of the highlight animation.
          */
         animationDuration: {
             type: Number,
-            default: 3000
+            default: 2000
         }
     },
     computed: {

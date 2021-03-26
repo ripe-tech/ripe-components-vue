@@ -26,8 +26,11 @@ storiesOf("Components/Atoms/Image Item", module)
             highlight: {
                 default: boolean("Highlight", false)
             },
+            highlightColor: {
+                default: text("Highlight Color", "#aeffe2")
+            },
             animationDuration: {
-                default: number("Animation Duration", 3000)
+                default: number("Animation Duration", 2000)
             },
             textAlign: {
                 default: select(
@@ -60,6 +63,7 @@ storiesOf("Components/Atoms/Image Item", module)
                 v-bind:width="width"
                 v-bind:text-align="textAlign"
                 v-bind:highlight="highlight"
+                v-bind:highlight-color="highlightColor"
                 v-bind:animation-duration="animationDuration"
                 v-bind:options-items="optionsItems"
             />
