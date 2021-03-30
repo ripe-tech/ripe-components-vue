@@ -89,7 +89,7 @@
             <h1 class="item-invalid" v-if="invalid">
                 {{ invalidMessage }}
             </h1>
-            <loader loader="line-scale" v-bind:count="5" v-else />
+            <loader-logo v-else />
         </container-ripe>
         <container-ripe class="details-container" v-else>
             <slot name="details-before" />

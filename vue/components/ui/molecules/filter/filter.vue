@@ -57,7 +57,7 @@
                     <h1>No items found</h1>
                 </slot>
             </div>
-            <loader class="loader-bottom" loader="line-scale" v-bind:count="5" />
+            <loader-logo class="loader-bottom" />
         </slot>
     </div>
 </template>

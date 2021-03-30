@@ -23,7 +23,7 @@
             </template>
         </container-form>
         <container-ripe class="container-loading" v-else>
-            <loader loader="line-scale" v-bind:count="5" />
+            <loader-logo />
         </container-ripe>
     </padded>
 </template>
