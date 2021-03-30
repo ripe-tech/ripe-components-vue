@@ -2,14 +2,8 @@
     <div class="loader-logo">
         <object
             class="platforme-loader"
-            style="height: 100px;
-    left: 50%;
-    margin-left: -50px;
-    margin-top: -50px;
-    position: fixed;
-    top: 50%;
-    width: 100px;"
             type="image/svg+xml"
+            v-bind:style="style"
             v-bind:data="require('./assets/loader.svga')"
         />
     </div>
@@ -21,7 +15,23 @@
 
 <script>
 export const LoaderLogo = {
-    name: "loader-logo"
+    name: "loader-logo",
+    props: {
+        size: {
+            type: Number,
+            default: 60
+        }
+    },
+    computed: {
+        style() {
+            const base = {};
+            if (this.size) {
+                base.width = `${this.size}px`;
+                base.height = `${this.size}px`;
+            }
+            return base;
+        }
+    }
 };
 
 export default LoaderLogo;
