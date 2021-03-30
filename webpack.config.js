@@ -33,9 +33,9 @@ config.module.rules.push(
     },
     {
         test: /\.svga$/,
-        loader: "file-loader",
+        loader: "url-loader",
         options: {
-            name: "[contenthash].svg",
+            mimetype: "image/svg+xml",
             esModule: false
         }
     }

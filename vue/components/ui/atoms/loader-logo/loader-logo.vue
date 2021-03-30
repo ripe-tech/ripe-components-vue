@@ -1,7 +1,6 @@
 <template>
     <div class="loader-logo">
         <object
-            class="platforme-loader"
             type="image/svg+xml"
             v-bind:style="style"
             v-bind:data="require('./assets/loader.svga')"

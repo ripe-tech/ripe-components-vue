@@ -199,8 +199,9 @@ body.mobile .listing {
     padding: 0px 0px 0px 0px;
 }
 
-.listing.loading.empty ::v-deep .loader.loader-bottom {
-    margin: 76px 0px 76px 0px;
+.listing.loading.empty ::v-deep .loader.loader-bottom,
+.listing.loading.empty ::v-deep .loader-logo.loader-bottom {
+    margin: 67px 0px 67px 0px;
 }
 
 .container-ripe {

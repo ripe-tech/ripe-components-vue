@@ -80,13 +80,15 @@ body.mobile .filter-ripe .lineup {
 .filter-ripe .empty-message {
     line-height: 30px;
     margin: 82px 0px 82px;
+    text-align: center;
 }
 
 .filter-ripe .empty-message > h1 {
     font-weight: 500;
 }
 
-.filter-ripe .loader {
+.filter-ripe .loader,
+.filter-ripe .loader-logo {
     display: none;
     margin: 24px 0px 24px 0px;
     opacity: 0;
@@ -94,7 +96,8 @@ body.mobile .filter-ripe .lineup {
     text-align: center;
 }
 
-.filter-ripe.loading .loader {
+.filter-ripe.loading .loader,
+.filter-ripe.loading .loader-logo {
     display: block;
     opacity: 1;
 }

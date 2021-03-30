@@ -14,9 +14,9 @@ module.exports = async ({ config, mode }) => {
         },
         {
             test: /\.svga$/,
-            loader: "file-loader",
+            loader: "url-loader",
             options: {
-                name: "[contenthash].svg",
+                mimetype: "image/svg+xml",
                 esModule: false
             }
         }
