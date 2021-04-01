@@ -245,8 +245,9 @@ export const ImageItem = {
         }
     },
     mounted: function() {
-        if (!this.highlightData) return;
-        this.animate();
+        // trigger the highlight animation
+        // if needed
+        if (this.highlightData) this.animate();
     },
     methods: {
         animate() {
