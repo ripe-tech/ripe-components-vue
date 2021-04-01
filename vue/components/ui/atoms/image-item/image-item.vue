@@ -241,7 +241,16 @@ export const ImageItem = {
         highlightData(value) {
             this.$emit("update:highlight", value);
             if (!value) return;
-
+            this.animate();
+        }
+    },
+    mounted: function() {
+        // triggers the highlight animation if needed
+        // meaning that the highlight reaction is enabled
+        if (this.highlightData) this.animate();
+    },
+    methods: {
+        animate() {
             // animates the image background with the
             // highlight animation with the given
             // color and timing
@@ -251,9 +260,7 @@ export const ImageItem = {
                 },
                 this.animationDuration
             );
-        }
-    },
-    methods: {
+        },
         onAnimationEnd() {
             this.highlightData = false;
         },
