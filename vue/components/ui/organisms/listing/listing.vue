@@ -234,6 +234,7 @@ body.mobile .listing {
 
 .listing .container-ripe .tooltip.tooltip-mobile {
     margin-bottom: 16px;
+    width: 100%;
 }
 
 .listing .container-ripe .search.search-mobile {
