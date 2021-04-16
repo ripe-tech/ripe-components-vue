@@ -89,7 +89,7 @@
             <h1 class="item-invalid" v-if="invalid">
                 {{ invalidMessage }}
             </h1>
-            <loader loader="line-scale" v-bind:count="5" v-else />
+            <loader-logo v-else />
         </container-ripe>
         <container-ripe class="details-container" v-else>
             <slot name="details-before" />
@@ -271,12 +271,17 @@ body.mobile .container-ripe {
 }
 
 .container-ripe .loader,
+.container-ripe .loader-logo,
 .container-ripe .item-invalid {
     border-top: 1px solid transparent;
     height: 38px;
     line-height: 38px;
     margin: 0px 0px 0px 0px;
     padding-top: 140px;
+}
+
+.container-ripe .loader-logo {
+    padding-top: 120px;
 }
 
 body.tablet .container-ripe .header-buttons,

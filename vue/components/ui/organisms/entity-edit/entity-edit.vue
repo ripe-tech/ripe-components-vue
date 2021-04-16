@@ -23,7 +23,7 @@
             </template>
         </container-form>
         <container-ripe class="container-loading" v-else>
-            <loader loader="line-scale" v-bind:count="5" />
+            <loader-logo />
         </container-ripe>
     </padded>
 </template>
@@ -31,6 +31,7 @@
 <style lang="scss" scoped>
 .entity-edit > .container-loading {
     padding: 150px 0px 150px 0px;
+    text-align: center;
 }
 </style>
 
@@ -84,8 +85,8 @@ export const EntityEdit = {
             default: null
         },
         /**
-         * Container breadcrumbs. The entity's value defined by the "getEntityName" prop
-         * will be appended to these breadcrumbs.
+         * Container breadcrumbs. The entity's value defined by the
+         * "getEntityName" prop will be appended to these breadcrumbs.
          */
         breadcrumbs: {
             type: Array,
@@ -100,8 +101,8 @@ export const EntityEdit = {
             default: entity => entity.name
         },
         /**
-         * Values resulted from changing the form's inputs. This prop supports the ".sync"
-         * modifier.
+         * Values resulted from changing the form's inputs.
+         * This prop supports the ".sync" modifier.
          */
         values: {
             type: Object,

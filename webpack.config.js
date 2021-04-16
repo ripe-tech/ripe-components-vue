@@ -23,12 +23,22 @@ config.externals.vue = "vue";
 config.plugins.push(new webpack.BannerPlugin(banner));
 
 config.module.rules = config.module.rules.filter(rule => rule.loader !== "file-loader");
-config.module.rules.push({
-    test: /\.(png|jpg|gif|svg|ico)$/,
-    loader: "url-loader",
-    options: {
-        esModule: false
+config.module.rules.push(
+    {
+        test: /\.(png|jpg|gif|svg|ico)$/,
+        loader: "url-loader",
+        options: {
+            esModule: false
+        }
+    },
+    {
+        test: /\.svga$/,
+        loader: "url-loader",
+        options: {
+            mimetype: "image/svg+xml",
+            esModule: false
+        }
     }
-});
+);
 
 module.exports = config;

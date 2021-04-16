@@ -16,6 +16,7 @@ import { Input } from "./input/input.vue";
 import { Label } from "./label/label.vue";
 import { Link } from "./link/link.vue";
 import { Loader } from "./loader/loader.vue";
+import { LoaderLogo } from "./loader-logo/loader-logo.vue";
 import { Overlay } from "./overlay/overlay.vue";
 import { Padded } from "./padded/padded.vue";
 import { Paragraph } from "./paragraph/paragraph.vue";
@@ -47,6 +48,7 @@ const install = Vue => {
     Vue.component("label-ripe", Label);
     Vue.component("link-ripe", Link);
     Vue.component("loader", Loader);
+    Vue.component("loader-logo", LoaderLogo);
     Vue.component("overlay", Overlay);
     Vue.component("padded", Padded);
     Vue.component("paragraph", Paragraph);
@@ -79,6 +81,7 @@ export {
     Label,
     Link,
     Loader,
+    LoaderLogo,
     Overlay,
     Padded,
     Paragraph,

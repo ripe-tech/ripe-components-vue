@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, number, select } from "@storybook/addon-knobs";
+import { withKnobs, number, text, select } from "@storybook/addon-knobs";
 
 storiesOf("Components/Molecules/Image List", module)
     .addDecorator(withKnobs)
@@ -59,12 +59,13 @@ storiesOf("Components/Molecules/Image List", module)
                 default: number("Item Width", null)
             },
             highlightIndex: {
-                type: Number,
                 default: number("Highlight Index", undefined)
             },
+            highlightColor: {
+                default: text("Highlight Color", "#aeffe2")
+            },
             animationDuration: {
-                type: Number,
-                default: number("Animation Duration", 3000)
+                default: number("Animation Duration", 2000)
             },
             textAlign: {
                 default: select(
@@ -100,6 +101,7 @@ storiesOf("Components/Molecules/Image List", module)
                 v-bind:item-width="itemWidth"
                 v-bind:text-align="textAlign"
                 v-bind:highlight-index="highlightIndex"
+                v-bind:highlight-color="highlightColor"
                 v-bind:animation-duration="animationDuration"
                 v-bind:options-items="optionsItems"
                 v-on:click:option:item_1="onItemClick"
