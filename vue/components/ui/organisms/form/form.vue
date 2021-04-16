@@ -40,7 +40,7 @@
                                             v-bind:type="inputType(field)"
                                             v-bind="field.props"
                                             v-bind:value="fromValue(field)"
-                                            v-on:update:value="value => onValue(field.value, value)"
+                                            v-on:update:value="value => onValue(field, value)"
                                         />
                                         <image-ripe
                                             class="text-image"
@@ -54,20 +54,20 @@
                                         v-else-if="
                                             field.type === 'text' && field.meta === 'longtext'
                                         "
-                                        v-on:update:value="value => onValue(field.value, value)"
+                                        v-on:update:value="value => onValue(field, value)"
                                     />
                                     <input-ripe
                                         v-bind:type="inputType(field)"
                                         v-bind="field.props"
                                         v-bind:value="fromValue(field)"
                                         v-else-if="field.type === 'text'"
-                                        v-on:update:value="value => onValue(field.value, value)"
+                                        v-on:update:value="value => onValue(field, value)"
                                     />
                                     <select-ripe
                                         v-bind="field.props"
                                         v-bind:value="fromValue(field)"
                                         v-else-if="field.type === 'enum'"
-                                        v-on:update:value="value => onValue(field.value, value)"
+                                        v-on:update:value="value => onValue(field, value)"
                                     >
                                         <template v-slot:selected="{ item }">
                                             <slot
@@ -93,13 +93,13 @@
                                         v-bind="field.props"
                                         v-bind:checked="fromValue(field)"
                                         v-else-if="field.type === 'boolean'"
-                                        v-on:update:checked="value => onValue(field.value, value)"
+                                        v-on:update:checked="value => onValue(field, value)"
                                     />
                                     <files-uploader
                                         v-bind="field.props"
                                         v-bind:files="fromValue(field)"
                                         v-else-if="field.type === 'file'"
-                                        v-on:update:files="value => onValue(field.value, value)"
+                                        v-on:update:files="value => onValue(field, value)"
                                     />
                                 </slot>
                             </form-input>
@@ -301,7 +301,6 @@ export const Form = {
         },
         fromValue(field) {
             const transform = field.fromValue || (v => v);
-            if (field.fromValue) debugger;
             return transform(this.values[field.value]);
         },
         toValue(field, value) {
@@ -358,7 +357,12 @@ export const Form = {
         },
         onValue(field, value) {
             const _value = this.toValue(field, value);
-            this.$set(this.valuesData, field, _value);
+
+            // if 'undefined' is returned then no change
+            // should be applied
+            if (_value === undefined) return;
+
+            this.$set(this.valuesData, field.value, _value);
         },
         async onReject() {
             await this.discard();
