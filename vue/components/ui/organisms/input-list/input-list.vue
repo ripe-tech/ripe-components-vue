@@ -62,6 +62,7 @@
 <style lang="scss" scoped>
 .input-list {
     display: block;
+    font-size: 12px;
     position: relative;
 }
 
