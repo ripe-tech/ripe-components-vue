@@ -68,6 +68,7 @@
 .input-list .list-header {
     align-items: center;
     display: flex;
+    font-size: 12px;
     height: 40px;
 }
 
