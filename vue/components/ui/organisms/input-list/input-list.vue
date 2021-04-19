@@ -62,13 +62,13 @@
 <style lang="scss" scoped>
 .input-list {
     display: block;
-    font-size: 12px;
     position: relative;
 }
 
 .input-list .list-header {
     align-items: center;
     display: flex;
+    font-size: 12px;
     height: 40px;
 }
 
