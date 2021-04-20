@@ -30,7 +30,7 @@
                                     v-bind:name="field.value"
                                     v-bind:field="field"
                                     v-bind:props="field.props"
-                                    v-bind:value="values[field.value]"
+                                    v-bind:value="fromValue(field)"
                                     v-bind:on-value="onValue"
                                 >
                                     <template
@@ -39,35 +39,35 @@
                                         <input-ripe
                                             v-bind:type="inputType(field)"
                                             v-bind="field.props"
-                                            v-bind:value="values[field.value]"
-                                            v-on:update:value="value => onValue(field.value, value)"
+                                            v-bind:value="fromValue(field)"
+                                            v-on:update:value="value => onValue(field, value)"
                                         />
                                         <image-ripe
                                             class="text-image"
-                                            v-bind:src="values[field.value] || field.imageSrc"
-                                            v-if="values[field.value] || field.imageSrc"
+                                            v-bind:src="fromValue(field) || field.imageSrc"
+                                            v-if="fromValue(field) || field.imageSrc"
                                         />
                                     </template>
                                     <textarea-ripe
                                         v-bind="field.props"
-                                        v-bind:value="values[field.value]"
+                                        v-bind:value="fromValue(field)"
                                         v-else-if="
                                             field.type === 'text' && field.meta === 'longtext'
                                         "
-                                        v-on:update:value="value => onValue(field.value, value)"
+                                        v-on:update:value="value => onValue(field, value)"
                                     />
                                     <input-ripe
                                         v-bind:type="inputType(field)"
                                         v-bind="field.props"
-                                        v-bind:value="values[field.value]"
+                                        v-bind:value="fromValue(field)"
                                         v-else-if="field.type === 'text'"
-                                        v-on:update:value="value => onValue(field.value, value)"
+                                        v-on:update:value="value => onValue(field, value)"
                                     />
                                     <select-ripe
                                         v-bind="field.props"
-                                        v-bind:value="values[field.value]"
+                                        v-bind:value="fromValue(field)"
                                         v-else-if="field.type === 'enum'"
-                                        v-on:update:value="value => onValue(field.value, value)"
+                                        v-on:update:value="value => onValue(field, value)"
                                     >
                                         <template v-slot:selected="{ item }">
                                             <slot
@@ -91,15 +91,15 @@
                                     </select-ripe>
                                     <switcher
                                         v-bind="field.props"
-                                        v-bind:checked="values[field.value]"
+                                        v-bind:checked="fromValue(field)"
                                         v-else-if="field.type === 'boolean'"
-                                        v-on:update:checked="value => onValue(field.value, value)"
+                                        v-on:update:checked="value => onValue(field, value)"
                                     />
                                     <files-uploader
                                         v-bind="field.props"
-                                        v-bind:files="values[field.value]"
+                                        v-bind:files="fromValue(field)"
                                         v-else-if="field.type === 'file'"
-                                        v-on:update:files="value => onValue(field.value, value)"
+                                        v-on:update:files="value => onValue(field, value)"
                                     />
                                 </slot>
                             </form-input>
@@ -299,6 +299,14 @@ export const Form = {
             base[`field-${field.meta}`] = Boolean(field.meta);
             return base;
         },
+        fromValue(field) {
+            const transform = field.fromValue || (v => v);
+            return transform(this.values[field.value]);
+        },
+        toValue(field, value) {
+            const transform = field.toValue || (v => v);
+            return transform(value);
+        },
         inputType(field) {
             return field.meta;
         },
@@ -348,7 +356,13 @@ export const Form = {
             }
         },
         onValue(field, value) {
-            this.$set(this.valuesData, field, value);
+            const _value = this.toValue(field, value);
+
+            // if 'undefined' is returned then no change
+            // should be applied
+            if (_value === undefined) return;
+
+            this.$set(this.valuesData, field.value, _value);
         },
         async onReject() {
             await this.discard();
