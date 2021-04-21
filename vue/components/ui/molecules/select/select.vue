@@ -169,7 +169,7 @@ export const Select = {
         },
         placeholder: {
             type: String,
-            default: "None"
+            default: ""
         },
         autoScroll: {
             type: Boolean,
