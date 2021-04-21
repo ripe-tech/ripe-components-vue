@@ -1,8 +1,11 @@
 const features = { "*": true };
 const listeners = [];
 
-export const hasFeature = name =>
-    Boolean(features[name] === undefined ? features["*"] : features[name]);
+export const hasFeature = (name, fallback = false, source = null) => {
+    source = source || features;
+    fallback = source["*"] === undefined ? fallback : source["*"];
+    return Boolean(source[name] === undefined ? fallback : source[name]);
+};
 
 export const setFeature = (name, value) => {
     features[name] = value;
