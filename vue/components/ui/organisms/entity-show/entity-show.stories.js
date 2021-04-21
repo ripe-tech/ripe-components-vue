@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text } from "@storybook/addon-knobs";
 
-storiesOf("Organisms", module)
+storiesOf("Components/Organisms/Entity Show", module)
     .addDecorator(withKnobs)
     .add("Entity Show", () => ({
         props: {
