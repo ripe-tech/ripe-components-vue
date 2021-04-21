@@ -59,9 +59,7 @@
                                     <input-list
                                         v-bind="field.props"
                                         v-bind:value="fromValue(field)"
-                                        v-else-if="
-                                            field.type === 'text' && field.meta === 'list'
-                                        "
+                                        v-else-if="field.type === 'list'"
                                         v-on:update:values="value => onValue(field, value)"
                                     />
                                     <input-ripe
