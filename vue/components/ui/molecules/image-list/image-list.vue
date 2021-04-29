@@ -6,6 +6,7 @@
             v-bind:description="item.description"
             v-bind:highlight="highlightIndex === index"
             v-bind:highlight-color="highlightColor"
+            v-bind:image-object-fit="item.objectFit"
             v-bind:animation-duration="animationDuration"
             v-bind="options(item)"
             v-for="(item, index) in items"

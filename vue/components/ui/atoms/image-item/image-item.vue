@@ -170,6 +170,14 @@ export const ImageItem = {
             default: null
         },
         /**
+         * The object fit of the image. Sets how the content
+         * should be resized to fit its container.
+         */
+        imageObjectFit: {
+            type: String,
+            default: "contain"
+        },
+        /**
          * The name text alignment.
          */
         textAlign: {
@@ -225,6 +233,7 @@ export const ImageItem = {
             const base = {};
             if (this.height) base.height = `${this.height}px`;
             if (this.width) base.width = `${this.width}px`;
+            if (this.imageObjectFit) base.objectFit = this.imageObjectFit;
             return base;
         },
         nameStyle() {
