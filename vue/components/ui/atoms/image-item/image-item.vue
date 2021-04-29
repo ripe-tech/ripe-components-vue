@@ -108,6 +108,7 @@
 
 .image-item > .item-image > .image {
     height: 200px;
+    object-fit: contain;
     width: 200px;
 }
 
