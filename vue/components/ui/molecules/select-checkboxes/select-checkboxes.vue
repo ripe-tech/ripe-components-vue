@@ -43,11 +43,27 @@ export const SelectCheckboxes = {
     name: "select-checkboxes",
     props: {
         /**
+         * Placeholder shown in the select button
+         * when no options are selected.
+         */
+        placeholder: {
+            type: String,
+            default: null
+        },
+        /**
          * Label shown in the select button.
          */
         label: {
             type: String,
-            required: true
+            default: null
+        },
+        /**
+         * The separator to use when building the label
+         * consisting of the selected values.
+         */
+        labelSeparator: {
+            type: String,
+            default: " / "
         },
         /**
          * Checkbox group items.
@@ -110,7 +126,16 @@ export const SelectCheckboxes = {
     },
     computed: {
         selectOptions() {
-            return [{ label: this.label, value: "checkbox-group" }];
+            return [{ label: this._label, value: "checkbox-group" }];
+        },
+        _label() {
+            if (this.label) return this.label;
+            if (this.allSelected) return this.allLabel;
+            const selectedLabels = this.items
+                .filter(item => this.valuesData[item.value])
+                .map(item => item.label || item.value);
+            if (selectedLabels.length === 0) return this.placeholder;
+            return selectedLabels.join(this.labelSeparator);
         },
         _items() {
             if (!this.showAll) return this.items;
