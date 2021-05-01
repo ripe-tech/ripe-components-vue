@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text } from "@storybook/addon-knobs";
+import { withKnobs, boolean, text } from "@storybook/addon-knobs";
 
 storiesOf("Components/Molecules/Select Checkboxes", module)
     .addDecorator(withKnobs)
@@ -7,6 +7,15 @@ storiesOf("Components/Molecules/Select Checkboxes", module)
         props: {
             label: {
                 default: text("Label", "Label Example")
+            },
+            showAll: {
+                default: boolean("Show All", false)
+            },
+            allLabel: {
+                default: text("All Label", "All")
+            },
+            allValue: {
+                default: text("All Value", "$ALL")
             },
             items: {
                 type: Array,
@@ -63,6 +72,9 @@ storiesOf("Components/Molecules/Select Checkboxes", module)
             <div>
                 <select-checkboxes
                     v-bind:label="label"
+                    v-bind:show-all="showAll"
+                    v-bind:all-label="allLabel"
+                    v-bind:all-value="allValue"
                     v-bind:items="items"
                     v-bind:values.sync="valuesData"
                 />

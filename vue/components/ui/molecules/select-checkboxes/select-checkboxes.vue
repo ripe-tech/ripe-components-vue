@@ -12,7 +12,7 @@
     >
         <template v-slot:checkbox-group>
             <div class="checkboxes" v-on:click.stop>
-                <checkbox-group v-bind:items="items" v-bind:values.sync="valuesData" />
+                <checkbox-group v-bind:items="_items" v-bind:values.sync="valuesData" />
             </div>
         </template>
     </select-ripe>
@@ -77,6 +77,30 @@ export const SelectCheckboxes = {
         selectProps: {
             type: Object,
             default: () => ({})
+        },
+        /**
+         * Whether to show an option that represents a global
+         * select that checks all options.
+         */
+        showAll: {
+            type: Boolean,
+            default: false
+        },
+        /**
+         * The label to be used to the global select that
+         * checks all options.
+         */
+        allLabel: {
+            type: String,
+            default: "All"
+        },
+        /**
+         * The internal value to be used to represent the
+         * global select that checks all options.
+         */
+        allValue: {
+            type: String,
+            default: "$ALL"
         }
     },
     data: function() {
@@ -87,6 +111,19 @@ export const SelectCheckboxes = {
     computed: {
         selectOptions() {
             return [{ label: this.label, value: "checkbox-group" }];
+        },
+        _items() {
+            if (!this.showAll) return this.items;
+            return [
+                { label: this.allLabel, value: this.allValue },
+                ...this.items.map(item => ({
+                    ...item,
+                    disabled: this.allSelected ? true : item.disabled
+                }))
+            ];
+        },
+        allSelected() {
+            return Boolean(this.valuesData[this.allValue]);
         }
     },
     watch: {
@@ -95,11 +132,18 @@ export const SelectCheckboxes = {
                 this.valuesData = value;
             }
         },
+        allSelected: {
+            handler: function(value) {
+                const valuesData = {};
+                this._items.forEach(item => (valuesData[item.value] = value));
+                this.valuesData = valuesData;
+            }
+        },
         valuesData: {
-            deep: true,
             handler: function(value) {
                 this.$emit("update:values", value);
-            }
+            },
+            deep: true
         }
     }
 };
