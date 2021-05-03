@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Global state object exposed
 * `All` options in `select-checkboxes`
 * Better default label in `select-checkboxes`
+* Support for slot pass through in `image-list`
+* Add slot for name label in `image-item`
 
 ### Changed
 
