@@ -5,8 +5,14 @@ storiesOf("Components/Molecules/Select Checkboxes", module)
     .addDecorator(withKnobs)
     .add("Select Checkboxes", () => ({
         props: {
+            placeholder: {
+                default: text("Placeholder", null)
+            },
             label: {
-                default: text("Label", "Label Example")
+                default: text("Label", "Label")
+            },
+            labelSeparator: {
+                default: text("Label Separator", " / ")
             },
             showAll: {
                 default: boolean("Show All", false)
@@ -71,7 +77,9 @@ storiesOf("Components/Molecules/Select Checkboxes", module)
         template: `
             <div>
                 <select-checkboxes
+                    v-bind:placeholder="placeholder"
                     v-bind:label="label"
+                    v-bind:label-separator="labelSeparator"
                     v-bind:show-all="showAll"
                     v-bind:all-label="allLabel"
                     v-bind:all-value="allValue"
