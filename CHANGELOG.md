@@ -9,12 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-* Support for `debug` widget
-* Global state object exposed
-* `All` options in `select-checkboxes`
-* Better default label in `select-checkboxes`
-* Support for slot pass through in `image-list`
-* Add slot for name label in `image-item`
+*
 
 ### Changed
 
@@ -23,6 +18,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 *
+
+## [0.9.1] - 2021-05-03
+
+* Support for `debug` widget
+* Global state object exposed
+* `All` options in `select-checkboxes`
+* Better default label in `select-checkboxes`
+* Support for slot pass through in `image-list`
+* Add slot for name label in `image-item`
 
 ## [0.9.0] - 2021-04-28
 
