@@ -46,9 +46,11 @@
             <image-ripe v-bind:style="imageStyle" v-bind:src="imageUrl" v-bind:alt="name" />
         </div>
         <div class="item-text" v-bind:style="nameStyle" v-if="name">
-            <div class="name">
-                {{ name }}
-            </div>
+            <slot name="name">
+                <div class="name">
+                    {{ name }}
+                </div>
+            </slot>
             <slot name="description">
                 <div class="description">
                     {{ description }}
