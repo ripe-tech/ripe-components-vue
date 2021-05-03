@@ -15,7 +15,16 @@
             v-on:click:button="event => onButtonClick(event, item, index)"
             v-on:update:highlight="value => onUpdateHighlight(item, index, value)"
             v-on="listeners"
-        />
+        >
+            <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
+            <template
+                v-for="slot in Object.keys($scopedSlots)"
+                v-bind:slot="slot"
+                slot-scope="scope"
+            >
+                <slot v-bind:name="slot" v-bind="scope" v-bind:item="item" />
+            </template>
+        </image-item>
     </div>
 </template>
 
