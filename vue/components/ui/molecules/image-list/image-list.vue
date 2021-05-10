@@ -10,7 +10,7 @@
             v-bind:animation-duration="animationDuration"
             v-bind="options(item)"
             v-for="(item, index) in items"
-            v-bind:key="index"
+            v-bind:key="item.key || index"
             v-on:click="event => onClick(event, item, index)"
             v-on:click:button="event => onButtonClick(event, item, index)"
             v-on:update:highlight="value => onUpdateHighlight(item, index, value)"
