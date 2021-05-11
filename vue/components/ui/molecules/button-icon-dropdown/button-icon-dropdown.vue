@@ -1,6 +1,7 @@
 <template>
     <div class="button-icon-dropdown">
         <button-icon
+            v-bind="buttonIconProps"
             v-bind:icon="'options'"
             v-bind:size="32"
             v-bind:active="dropdownVisible"
@@ -9,10 +10,11 @@
         />
         <dropdown
             class="options-dropdown"
+            v-bind="dropdownProps"
             v-bind:items="items"
             v-bind:visible.sync="dropdownVisible"
             v-bind:owners="$refs['button-icon']"
-            v-on:item-clicked="onOptionsItemClick"
+            v-on:item-clicked="onDropdownItemClick"
         >
             <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
             <template
@@ -35,6 +37,14 @@ export const ButtonIconDropdown = {
         items: {
             type: Array,
             default: () => []
+        },
+        buttonIconProps: {
+            type: Object,
+            default: () => ({})
+        },
+        dropdownProps: {
+            type: Object,
+            default: () => ({})
         }
     },
     data: function() {
@@ -45,6 +55,9 @@ export const ButtonIconDropdown = {
     methods: {
         onButtonIconClick() {
             this.dropdownVisible = !this.dropdownVisible;
+        },
+        onDropdownItemClick(item, index) {
+            this.$emit(`click:item:${item.event}`, item, index);
         }
     }
 };
