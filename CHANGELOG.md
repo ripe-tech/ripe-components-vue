@@ -9,8 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-* Optionally using `item.id` as item key in `image-list`
-* Support for the `button-icon-dropdown`
+*
 
 ### Changed
 
@@ -20,7 +19,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *
 
+## [0.9.2] - 2021-05-11
+
+### Added
+
+* Optionally using `item.id` as item key in `image-list`
+* Support for the `button-icon-dropdown`
+
 ## [0.9.1] - 2021-05-03
+
+### Added
 
 * Support for `debug` widget
 * Global state object exposed
