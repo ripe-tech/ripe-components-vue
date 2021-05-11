@@ -4,23 +4,20 @@
             v-bind:icon="'options'"
             v-bind:size="32"
             v-bind:active="dropdownVisible"
+            ref="button-icon"
             v-on:click.stop="onButtonIconClick"
         />
         <dropdown
             class="options-dropdown"
             v-bind:items="items"
             v-bind:visible.sync="dropdownVisible"
-            v-bind:owners="$refs['button-options-loading']"
+            v-bind:owners="$refs['button-icon']"
             v-on:item-clicked="onOptionsItemClick"
         >
-            <slot
-                v-bind:name="slot"
-                v-for="slot in optionsSlots"
-                v-bind:slot="slot.replace('options-', '')"
-            />
+            <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
             <template
-                v-for="slot in optionsScopedSlots"
-                v-bind:slot="slot.replace('options-', '')"
+                v-for="slot in Object.keys($scopedSlots)"
+                v-bind:slot="slot"
                 slot-scope="scope"
             >
                 <slot v-bind:name="slot" v-bind="scope" />
