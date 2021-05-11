@@ -10,6 +10,7 @@
         />
         <dropdown
             v-bind="dropdownProps"
+            v-bind:vertical-padding="4"
             v-bind:items="items"
             v-bind:visible.sync="dropdownVisible"
             v-bind:owners="$refs['button-icon']"

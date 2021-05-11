@@ -98,6 +98,7 @@
 }
 
 .dropdown-container .dropdown {
+    background-color: $white;
     border: 1px solid #dddddd;
     border-radius: 5px 5px 5px 5px;
     box-shadow: 1px 2px 5px rgba(20, 20, 20, 0.1);
@@ -228,6 +229,10 @@ export const Dropdown = {
             type: Number,
             default: null
         },
+        verticalPadding: {
+            type: Number,
+            default: 0
+        },
         overflow: {
             type: String,
             default: "auto"
@@ -294,6 +299,10 @@ export const Dropdown = {
             }
             if (this.maxHeight) {
                 base["max-height"] = `${this.maxHeight}px`;
+            }
+            if (this.verticalPadding) {
+                base["padding-top"] = `${this.verticalPadding}px`;
+                base["padding-bottom"] = `${this.verticalPadding}px`;
             }
             if (this.overflow) base.overflow = this.overflow;
             return base;
