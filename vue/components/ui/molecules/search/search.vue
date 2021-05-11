@@ -35,7 +35,7 @@
             v-bind:autofocus="autofocus"
             v-bind:width="width"
             v-bind:height="height"
-            v-bind:font-weight="600"
+            v-bind:font-weight="500"
             ref="input"
             v-on:focus="focused = true"
             v-on:blur="focused = false"
@@ -159,7 +159,7 @@
     border-bottom: none;
     color: #4d4d4d;
     display: block;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .search > .suggestions > .suggestion:hover > a,
