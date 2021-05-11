@@ -9,7 +9,6 @@
             v-on:click.stop="onButtonIconClick"
         />
         <dropdown
-            class="options-dropdown"
             v-bind="dropdownProps"
             v-bind:items="items"
             v-bind:visible.sync="dropdownVisible"
@@ -28,7 +27,11 @@
     </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.button-icon-dropdown > .dropdown-container {
+    margin-top: 5px;
+}
+</style>
 
 <script>
 export const ButtonIconDropdown = {

@@ -80,6 +80,18 @@
     transform: translateY(10px);
 }
 
+.dropdown-container.alignment-left {
+    text-align: left;
+}
+
+.dropdown-container.alignment-right {
+    text-align: right;
+}
+
+.dropdown-container.alignment-center {
+    text-align: center;
+}
+
 .dropdown-container .slide-enter-to,
 .dropdown-container .slide-leave {
     opacity: 1;
@@ -158,6 +170,10 @@
 .dropdown-container .dropdown > .dropdown-item.highlighted > a {
     color: $blacker;
 }
+
+.dropdown-container .dropdown > .dropdown-item.icon > a {
+    padding-left: 12px;
+}
 </style>
 
 <script>
@@ -184,6 +200,10 @@ export const Dropdown = {
             type: String,
             default: null
         },
+        alignment: {
+            type: String,
+            default: "left"
+        },
         managed: {
             type: Boolean,
             default: false
@@ -197,6 +217,10 @@ export const Dropdown = {
             default: false
         },
         width: {
+            type: Number,
+            default: null
+        },
+        minWidth: {
             type: Number,
             default: null
         },
@@ -252,16 +276,22 @@ export const Dropdown = {
         classes() {
             const base = {};
             if (this.direction) {
-                base[`direction-${this.direction}`] = this.direction;
+                base[`direction-${this.direction}`] = true;
             }
             if (this.variant) {
-                base[`${this.variant}`] = this.variant;
+                base[`${this.variant}`] = true;
+            }
+            if (this.alignment) {
+                base[`alignment-${this.alignment}`] = true;
             }
             return base;
         },
         dropdownStyle() {
             const base = {};
             if (this.width) base.width = `${this.width}px`;
+            if (this.minWidth) {
+                base["min-width"] = `${this.minWidth}px`;
+            }
             if (this.maxHeight) {
                 base["max-height"] = `${this.maxHeight}px`;
             }
@@ -341,6 +371,7 @@ export const Dropdown = {
         _getItemClasses(item, index) {
             return {
                 separator: item.separator,
+                icon: Boolean(item.icon),
                 highlighted: this.highlightedData[index],
                 selected: this.selectedData[index]
             };
