@@ -33,6 +33,7 @@
             v-bind:value.sync="valueData"
             v-bind:placeholder="placeholder"
             v-bind:autofocus="autofocus"
+            v-bind:disabled="disabled"
             v-bind:width="width"
             v-bind:height="height"
             v-bind:font-weight="500"
@@ -201,6 +202,10 @@ export const Search = {
             default: false
         },
         autofocus: {
+            type: Boolean,
+            default: false
+        },
+        disabled: {
             type: Boolean,
             default: false
         },
