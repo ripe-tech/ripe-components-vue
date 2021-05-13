@@ -92,10 +92,6 @@
     min-width: 30px;
 }
 
-.list-content.add-row-button-top .list-row:last-child {
-    border-bottom: none;
-}
-
 .input-list .list-content {
     display: block;
     padding: 0px 0px 5px 0px;
@@ -109,6 +105,10 @@
 
 .input-list .list-content .list-row:hover {
     background-color: #f8f8f8;
+}
+
+.input-list .list-content.add-row-button-top .list-row:last-child {
+    border-bottom: none;
 }
 
 .input-list .list-content .list-row .field {
