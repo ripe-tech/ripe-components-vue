@@ -71,7 +71,7 @@
         "jsdom": "^16.5.3",
         "jsdom-global": "^3.0.2",
         "mocha": "^8.4.0",
-        "mochapack": "^2.0.6",
+        "mochapack": "^2.1.0",
         "node-fetch": "^2.6.1",
         "null-loader": "^4.0.1",
         "svgo": "^2.3.0",
