@@ -63,7 +63,7 @@
     border-width: 2px;
 }
 
-.input:hover {
+.input:hover:not(:disabled) {
     border-color: #dfe1e5;
 }
 
