@@ -9,11 +9,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-* Support for `disabled` in search
+*
 
 ### Changed
 
 *
+
+### Fixed
+
+*
+
+## [0.9.4] - 2021-05-13
+
+### Added
+
+* Support for `disabled` in search
 
 ### Fixed
 
