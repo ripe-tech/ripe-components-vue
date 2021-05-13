@@ -1,9 +1,10 @@
 <template>
     <div class="input-list">
-        <div class="list-header" v-if="header">
+        <div class="list-header" v-if="headerVisibility">
             <div
                 v-bind:class="`label ${field.value}`"
                 v-for="field in fieldLabels"
+                v-show="header"
                 v-bind:key="field.value"
             >
                 {{ field.label === undefined ? field.value : field.label }}
@@ -157,9 +158,12 @@ export const InputList = {
         };
     },
     computed: {
+        headerVisibility() {
+            return this.buttonAddRow === "top" || this.header;
+        },
         buttonContainerStyle() {
             const base = {};
-            if (this.buttonAddRow === "top" && this.header) {
+            if (this.buttonAddRow === "top") {
                 base.position = "absolute";
                 base.top = "7px";
                 base.right = "0px";
