@@ -10,7 +10,7 @@
                 {{ field.label === undefined ? field.value : field.label }}
             </div>
         </div>
-        <div class="list-content">
+        <div class="list-content" v-bind:class="listContentClasses">
             <div class="list-row" v-for="(row, index) in valuesData" v-bind:key="row.value">
                 <div
                     v-bind:class="`field ${field.value}`"
@@ -68,6 +68,7 @@
 
 .input-list .list-header {
     align-items: center;
+    border-bottom: 1px solid #e4e8f0;
     display: flex;
     font-size: 12px;
     height: 40px;
@@ -91,8 +92,11 @@
     min-width: 30px;
 }
 
+.list-content.add-row-button-top .list-row:last-child {
+    border-bottom: none;
+}
+
 .input-list .list-content {
-    border-top: 1px solid #e4e8f0;
     display: block;
     padding: 0px 0px 5px 0px;
 }
@@ -158,8 +162,10 @@ export const InputList = {
         };
     },
     computed: {
-        headerVisibility() {
-            return this.buttonAddRow === "top" || this.header;
+        listContentClasses() {
+            const base = {};
+            if (this.buttonAddRow === "top") base["add-row-button-top"] = true;
+            return base;
         },
         buttonContainerStyle() {
             const base = {};
@@ -172,6 +178,9 @@ export const InputList = {
         },
         fieldLabels() {
             return [...this.fields, { value: "action-buttons", label: null }];
+        },
+        headerVisibility() {
+            return this.buttonAddRow === "top" || this.header;
         }
     },
     watch: {
