@@ -1,6 +1,6 @@
 <template>
     <div class="input-list">
-        <div class="list-header">
+        <div class="list-header" v-if="header">
             <div
                 v-bind:class="`label ${field.value}`"
                 v-for="field in fieldLabels"
@@ -145,6 +145,10 @@ export const InputList = {
         buttonAddRow: {
             type: String,
             default: "top"
+        },
+        header: {
+            type: Boolean,
+            default: true
         }
     },
     data: function() {
@@ -155,7 +159,7 @@ export const InputList = {
     computed: {
         buttonContainerStyle() {
             const base = {};
-            if (this.buttonAddRow === "top") {
+            if (this.buttonAddRow === "top" && this.header) {
                 base.position = "absolute";
                 base.top = "7px";
                 base.right = "0px";

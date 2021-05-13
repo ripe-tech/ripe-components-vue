@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { select } from "@storybook/addon-knobs";
+import { boolean, select } from "@storybook/addon-knobs";
 
 storiesOf("Components/Organisms/Input List", module).add("Input List", () => ({
     props: {
@@ -42,6 +42,9 @@ storiesOf("Components/Organisms/Input List", module).add("Input List", () => ({
                 },
                 "top"
             )
+        },
+        header: {
+            default: boolean("Header", true)
         }
     },
     data: function() {
@@ -55,6 +58,7 @@ storiesOf("Components/Organisms/Input List", module).add("Input List", () => ({
                 v-bind:fields="fields"
                 v-bind:values.sync="values"
                 v-bind:button-add-row="buttonAddRow"
+                v-bind:header="header"
             />
             <p> Values: {{ values }} </p>
         </div>
