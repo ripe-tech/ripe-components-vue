@@ -1,4 +1,4 @@
 module.exports = {
-    stories: ["../**/*.stories.js"],
+    stories: ["../vue/**/*.stories.js"],
     addons: ["@storybook/addon-knobs", "@storybook/addon-storysource"]
 };
