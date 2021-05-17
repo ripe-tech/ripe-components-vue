@@ -114,8 +114,8 @@
 }
 
 .dropdown-container .dropdown > .dropdown-item-empty {
-    padding: 5px 5px 5px 5px;
-    text-align: center;
+    padding: 8px 14px 8px 14px;
+    line-height: 18px;
 }
 
 .dropdown-container .dropdown > .dropdown-item {
