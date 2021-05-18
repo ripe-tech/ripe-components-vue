@@ -59,12 +59,14 @@
                 </div>
             </div>
         </div>
-        <button-icon
-            class="button-add-row"
-            v-bind:icon="'plus'"
-            v-if="buttonAddRow === 'bottom'"
-            v-on:click="onAddClick"
-        />
+        <div class="list-footer">
+            <button-icon
+                class="button-add-row"
+                v-bind:icon="'plus'"
+                v-if="buttonAddRow === 'bottom'"
+                v-on:click="onAddClick"
+            />
+        </div>
     </div>
 </template>
 
@@ -79,6 +81,7 @@
     display: flex;
     font-size: 12px;
     height: 40px;
+    padding-right: 5px;
 }
 
 .input-list .list-header .label {
@@ -126,15 +129,14 @@
 
 .input-list .list-content .list-row .field.action-buttons {
     flex-grow: 0;
-    min-width: 30px;
 }
 
 .input-list .list-content .list-row .field .select {
     width: 100%;
 }
 
-.input-list .button-container {
-    margin: 0px 7px 0px 0px;
+.input-list .list-footer {
+    padding-right: 5px;
     text-align: right;
 }
 </style>
