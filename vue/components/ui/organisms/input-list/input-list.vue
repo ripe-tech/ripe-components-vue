@@ -1,6 +1,6 @@
 <template>
     <div class="input-list">
-        <div class="list-header">
+        <div class="list-header" v-if="header">
             <div
                 v-bind:class="`label ${field.value}`"
                 v-for="field in fieldLabels"
@@ -8,6 +8,12 @@
             >
                 {{ field.label === undefined ? field.value : field.label }}
             </div>
+            <button-icon
+                class="button-add-row"
+                v-bind:icon="'plus'"
+                v-if="buttonAddRow === 'top'"
+                v-on:click="onAddClick"
+            />
         </div>
         <div class="list-content">
             <div class="list-row" v-for="(row, index) in valuesData" v-bind:key="row.value">
@@ -53,9 +59,12 @@
                 </div>
             </div>
         </div>
-        <div class="button-container" v-bind:style="buttonContainerStyle" v-if="buttonAddRow">
-            <button-icon class="button-add-row" v-bind:icon="'plus'" v-on:click="onAddClick" />
-        </div>
+        <button-icon
+            class="button-add-row"
+            v-bind:icon="'plus'"
+            v-if="buttonAddRow === 'bottom'"
+            v-on:click="onAddClick"
+        />
     </div>
 </template>
 
@@ -145,6 +154,10 @@ export const InputList = {
         buttonAddRow: {
             type: String,
             default: "top"
+        },
+        header: {
+            type: Boolean,
+            default: true
         }
     },
     data: function() {
@@ -153,15 +166,6 @@ export const InputList = {
         };
     },
     computed: {
-        buttonContainerStyle() {
-            const base = {};
-            if (this.buttonAddRow === "top") {
-                base.position = "absolute";
-                base.top = "7px";
-                base.right = "0px";
-            }
-            return base;
-        },
         fieldLabels() {
             return [...this.fields, { value: "action-buttons", label: null }];
         }
