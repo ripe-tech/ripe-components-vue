@@ -15,9 +15,10 @@ import { Filter } from "./filter/filter.vue";
 import { Footer } from "./footer/footer.vue";
 import { FormInput } from "./form-input/form-input.vue";
 import { ImageList } from "./image-list/image-list.vue";
-import { InputImage } from "./input-image/input-image.vue";
 import { InputColor } from "./input-color/input-color.vue";
 import { InputCurrency } from "./input-currency/input-currency.vue";
+import { InputDate } from "./input-date/input-date.vue";
+import { InputImage } from "./input-image/input-image.vue";
 import { InputSlider } from "./input-slider/input-slider.vue";
 import { InputSymbol } from "./input-symbol/input-symbol.vue";
 import { Lightbox } from "./lightbox/lightbox.vue";
@@ -59,9 +60,10 @@ const install = Vue => {
     Vue.component("footer-ripe", Footer);
     Vue.component("form-input", FormInput);
     Vue.component("image-list", ImageList);
-    Vue.component("input-image", InputImage);
     Vue.component("input-color", InputColor);
     Vue.component("input-currency", InputCurrency);
+    Vue.component("input-date", InputDate);
+    Vue.component("input-image", InputImage);
     Vue.component("input-slider", InputSlider);
     Vue.component("input-symbol", InputSymbol);
     Vue.component("lightbox", Lightbox);
@@ -104,9 +106,10 @@ export {
     Footer,
     FormInput,
     ImageList,
-    InputImage,
     InputColor,
     InputCurrency,
+    InputDate,
+    InputImage,
     InputSlider,
     InputSymbol,
     Lightbox,
