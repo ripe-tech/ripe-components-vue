@@ -182,6 +182,17 @@ export const InputDate = {
                 weeks[weeks.length - 1][formatedDayOfWeek] = day;
             }
             return weeks;
+        },
+        weeksFilled() {
+            const weeks = JSON.parse(JSON.stringify(this.weeks));
+            while (weeks.length < 6) weeks.push({});
+            let lastMonthDays = new Date(this.year, this.monthIndex, 0).getDate();
+            for (let i = 6; i >= 0; i--) {
+                if (weeks[0][i] !== undefined) continue;
+                weeks[0][i] = lastMonthDays;
+                lastMonthDays -= 1;
+            }
+            return weeks;
         }
     },
     watch: {
