@@ -4,16 +4,21 @@
         <input-ripe
             class="input-date"
             type="date"
-            v-on:click.prevent
+            v-bind:value="valueDataFormated"
+            v-on:update:value="onInputValue"
+            v-on:click.prevent.stop="onClick"
             v-on:focus.prevent="onFocus"
-            v-on:blur.prevent="onBlur"
             v-on:keyup.prevent="onKeyup"
         />
-        <div class="calendar-container" v-bind:class="calendarClasses">
+        <div class="calendar-container" v-bind:class="calendarClasses" ref="calendarContainer">
             <div class="calendar-header">
-                <icon icon="chevron-left" v-bind:width="20" v-on:click="onLeftClick" />
+                <button-icon icon="chevron-left" v-bind:icon-opacity="1" v-on:click="onLeftClick" />
                 <div class="header-center">
-                    <select-ripe v-bind:options="monthOptions" v-bind:value.sync="monthIndex" v-bind:width="120" />
+                    <select-ripe
+                        v-bind:options="monthOptions"
+                        v-bind:value.sync="month"
+                        v-bind:width="120"
+                    />
                     <input-ripe
                         v-bind:placeholder="'Year'"
                         v-bind:value="year"
@@ -24,22 +29,38 @@
                         v-on:update:value="onYear"
                     />
                 </div>
-                <icon icon="chevron-right" v-bind:width="20" v-on:click="onRightClick" />
+                <button-icon
+                    icon="chevron-right"
+                    v-bind:icon-opacity="1"
+                    v-on:click="onRightClick"
+                />
             </div>
             <div class="calendar-content">
                 <table class="calendar-table">
                     <thead class="table-header">
                         <tr class="row">
-                            <th scope="col" v-for="weekLabel in weekLabels" v-bind:key="weekLabel">
+                            <th
+                                class="heading"
+                                v-for="weekLabel in weekLabelsComputed"
+                                v-bind:key="weekLabel"
+                            >
                                 {{ weekLabel }}
                             </th>
                         </tr>
                     </thead>
                     <tbody class="table-body">
                         <tr class="row" v-for="(week, index) in weeks" v-bind:key="index">
-                            <td class="cell" v-for="index in 7" v-bind:key="index - 1">
+                            <td
+                                class="cell"
+                                tabindex="0"
+                                v-bind:class="circleClass(week[d - 1].day, week[d - 1].month)"
+                                v-for="d in 7"
+                                v-bind:key="d - 1"
+                                v-on:click="onCellClick(week[d - 1])"
+                                v-on:keydown.enter.exact="onCellClick(week[d - 1])"
+                            >
                                 <div class="circle">
-                                    {{ week[index - 1] }}
+                                    {{ week[d - 1].day }}
                                 </div>
                             </td>
                         </tr>
@@ -62,8 +83,8 @@
     box-shadow: 0px 0px 30px rgba(21, 21, 21, 0.1);
     display: flex;
     flex-direction: column;
+    opacity: 0;
     position: absolute;
-    // opacity: 0;
     transition: opacity 0.35s ease-in-out;
     width: 350px;
 }
@@ -76,7 +97,7 @@
     align-items: center;
     display: flex;
     justify-content: space-between;
-    padding: 0px 10px 0px 10px;
+    padding: 10px 10px 10px 10px;
 }
 
 .input-date-container > .calendar-container > .calendar-header > .header-center {
@@ -87,18 +108,59 @@
 
 .input-date-container > .calendar-container > .calendar-content {
     display: flex;
+    font-weight: 400;
     height: 100%;
+    padding: 0px 20px 10px 20px;
 }
 
 .input-date-container > .calendar-container > .calendar-content .calendar-table {
     width: 100%;
 }
 
+.input-date-container > .calendar-container > .calendar-content .calendar-table .table-header {
+    height: 40px;
+}
+
+.input-date-container > .calendar-container > .calendar-content .calendar-table .table-header .row .heading {
+    font-weight: 400;
+}
+
 .input-date-container > .calendar-container > .calendar-content .calendar-table .table-body .row .cell {
+    cursor: pointer;
     height: 40px;
     padding: 0px;
     text-align: center;
     width: 40px;
+}
+
+.input-date-container > .calendar-container > .calendar-content .calendar-table .table-body .row .cell .circle {
+    border-radius: 50%;
+    color: #1d2631;
+    height: 40px;
+    line-height: 40px;
+    user-select: none;
+    width: 40px;
+}
+
+.input-date-container > .calendar-container > .calendar-content .calendar-table .table-body .row .cell:not(.selected):hover,
+.input-date-container > .calendar-container > .calendar-content .calendar-table .table-body .row .cell:not(.selected):focus,
+.input-date-container > .calendar-container > .calendar-content .calendar-table .table-body .row .cell:not(.selected):focus-visible {
+    outline: none !important;
+}
+
+.input-date-container > .calendar-container > .calendar-content .calendar-table .table-body .row .cell:not(.selected):hover .circle,
+.input-date-container > .calendar-container > .calendar-content .calendar-table .table-body .row .cell:not(.selected):focus .circle,
+.input-date-container > .calendar-container > .calendar-content .calendar-table .table-body .row .cell:not(.selected):focus-visible .circle {
+    background-color: #ecf0f3;
+}
+
+.input-date-container > .calendar-container > .calendar-content .calendar-table .table-body .row .cell.subtle .circle {
+    color: #bac2cb;
+}
+
+.input-date-container > .calendar-container > .calendar-content .calendar-table .table-body .row .cell.selected .circle {
+    background-color: #1d2631;
+    color: #ffffff;
 }
 </style>
 
@@ -122,20 +184,12 @@ export const InputDate = {
                 "September",
                 "October",
                 "November",
-                "Decembeer"
+                "December"
             ]
         },
         weekLabels: {
             type: Array,
-            default: () => ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
-        },
-        /**
-         * First day of week in numeric format.
-         * Starts at 0 (Sunday) and ends at 6 (Saturday)
-         */
-        firstWeekDayIndex: {
-            type: Number,
-            default: 1
+            default: () => ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
         },
         multiDate: {
             type: Boolean,
@@ -146,8 +200,9 @@ export const InputDate = {
         return {
             valueData: this.value,
             calendarVisibility: true,
-            monthIndex: 4,
-            year: 2021
+            day: 1,
+            month: 10,
+            year: 2020
         };
     },
     computed: {
@@ -162,37 +217,50 @@ export const InputDate = {
             if (this.calendarVisibility) base.visible = true;
             return base;
         },
-        style() {
-            const base = {
-                "background-color": this.valueData === null ? null : this.inputValue,
-                height: this.height === null ? null : this.height + "px"
-            };
-            return base;
+        circleClass() {
+            return (day, month) => ({
+                subtle: this.month !== month,
+                selected:
+                    this.selectedDay === day &&
+                    this.selectedMonth === month &&
+                    this.selectedYear === this.year
+            });
+        },
+        weekLabelsComputed() {
+            const weekLabels = [...this.weekLabels];
+            const lastDays = weekLabels.splice(0, 1);
+            weekLabels.push(...lastDays);
+            return weekLabels;
         },
         monthOptions() {
             return this.monthLabels.map((month, index) => ({ value: index, label: month }));
         },
         weeks() {
-            const weeks = [];
-            const monthDays = new Date(this.year, this.monthIndex + 1, 0).getDate();
-            let dayOfWeekIndex = new Date(this.year, this.monthIndex, 1).getDay();
-            for (let day = 1; day <= monthDays; day++, dayOfWeekIndex++) {
-                if (dayOfWeekIndex % 7 === this.firstWeekDayIndex || weeks.length === 0) weeks.push({});
-                const formatedDayOfWeek = dayOfWeekIndex === 0 ? 6 : (dayOfWeekIndex - this.firstWeekDayIndex) % 7;
-                weeks[weeks.length - 1][formatedDayOfWeek] = day;
-            }
+            const date = new Date(this.year, this.month, 1);
+            const firstMonday = date.getDay() === 0 ? -5 : date.getDate() - date.getDay() + 1;
+            date.setDate(firstMonday);
+            const weeks = new Array(6).fill(0).map(() =>
+                new Array(7).fill(0).map(day => {
+                    day = new Date(date);
+                    date.setDate(date.getDate() + 1);
+                    return { day: day.getDate(), month: day.getMonth() };
+                })
+            );
             return weeks;
         },
-        weeksFilled() {
-            const weeks = JSON.parse(JSON.stringify(this.weeks));
-            while (weeks.length < 6) weeks.push({});
-            let lastMonthDays = new Date(this.year, this.monthIndex, 0).getDate();
-            for (let i = 6; i >= 0; i--) {
-                if (weeks[0][i] !== undefined) continue;
-                weeks[0][i] = lastMonthDays;
-                lastMonthDays -= 1;
-            }
-            return weeks;
+        selectedDay() {
+            return this.valueData?.getDate();
+        },
+        selectedMonth() {
+            return this.valueData?.getMonth();
+        },
+        selectedYear() {
+            return this.valueData?.getFullYear();
+        },
+        valueDataFormated() {
+            return `${this.selectedYear}-${("0" + (this.selectedMonth + 1)).slice(-2)}-${(
+                "0" + this.selectedDay
+            ).slice(-2)}`;
         }
     },
     watch: {
@@ -209,32 +277,43 @@ export const InputDate = {
             this.year = parseInt(value);
         },
         onGlobalClick() {
-            this.calendarVisibility = 0;
+            const owners = [this.$refs.calendarContainer];
+            const insideOwners = owners.some(owner => {
+                owner = owner.$el ? owner.$el : owner;
+                return owner.contains(event.target);
+            });
+            if (insideOwners) return;
+            this.calendarVisibility = false;
+        },
+        onCellClick(date) {
+            this.valueData = new Date(this.year, date.month, date.day);
+            this.day = date.day;
         },
         onLeftClick() {
-            if (this.monthIndex === 0) {
-                this.monthIndex = 11;
+            if (this.month === 0) {
+                this.month = 11;
                 this.year -= 1;
             } else {
-                this.monthIndex -= 1;
+                this.month -= 1;
             }
         },
         onRightClick() {
-            if (this.monthIndex === 11) {
-                this.monthIndex = 0;
+            if (this.month === 11) {
+                this.month = 0;
                 this.year += 1;
             } else {
-                this.monthIndex += 1;
+                this.month += 1;
             }
         },
-        onKeyup() {
-            console.log("keyup");
+        onKeyup() {},
+        onClick(event) {
+            this.calendarVisibility = true;
+        },
+        onInputValue(value) {
+            this.valueData = new Date(value);
         },
         onFocus() {
             this.calendarVisibility = true;
-        },
-        onBlur() {
-            this.calendarVisibility = false;
         }
     }
 };
