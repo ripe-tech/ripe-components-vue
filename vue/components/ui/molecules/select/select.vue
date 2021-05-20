@@ -69,6 +69,10 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
+.select.inline {
+    display: inline-block;
+}
+
 .select .dropdown-select,
 .select .select-container {
     position: relative;
@@ -176,6 +180,10 @@ export const Select = {
             default: true
         },
         disabled: {
+            type: Boolean,
+            default: false
+        },
+        inline: {
             type: Boolean,
             default: false
         },
@@ -444,9 +452,10 @@ export const Select = {
         },
         classes() {
             const base = {};
-            if (this.align) base[`select-align-${this.align}`] = this.align;
-            if (this.direction) base[`direction-${this.direction}`] = this.direction;
-            if (this.disabled) base.disabled = this.disabled;
+            if (this.align) base[`select-align-${this.align}`] = true;
+            if (this.direction) base[`direction-${this.direction}`] = true;
+            if (this.inline) base.inline = true;
+            if (this.disabled) base.disabled = true;
             return base;
         },
         style() {
