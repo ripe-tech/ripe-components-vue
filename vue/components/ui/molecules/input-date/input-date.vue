@@ -9,11 +9,11 @@
             v-on:blur.prevent="onBlur"
             v-on:keyup.prevent="onKeyup"
         />
-        <div class="calendar-container" v-bind-classes="calendarClasses">
+        <div class="calendar-container" v-bind:class="calendarClasses">
             <div class="calendar-header">
                 <icon icon="chevron-left" v-bind:width="20" v-on:click="onLeftClick" />
                 <div class="header-center">
-                    <select-ripe v-bind:options="monthOptions" v-bind:value.sync="monthIndex" />
+                    <select-ripe v-bind:options="monthOptions" v-bind:value.sync="monthIndex" v-bind:width="120" />
                     <input-ripe
                         v-bind:placeholder="'Year'"
                         v-bind:value="year"
