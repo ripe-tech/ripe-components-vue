@@ -178,7 +178,6 @@ export const InputDate = {
             let dayOfWeekIndex = new Date(this.year, this.monthIndex, 1).getDay();
             for (let day = 1; day <= monthDays; day++, dayOfWeekIndex++) {
                 if (dayOfWeekIndex % 7 === this.firstWeekDayIndex || weeks.length === 0) weeks.push({});
-                if (!weeks[weeks.length - 1]) weeks[weeks.length - 1] = {};
                 const formatedDayOfWeek = dayOfWeekIndex === 0 ? 6 : (dayOfWeekIndex - this.firstWeekDayIndex) % 7;
                 weeks[weeks.length - 1][formatedDayOfWeek] = day;
             }
