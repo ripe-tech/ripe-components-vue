@@ -62,7 +62,6 @@
     box-shadow: 0px 0px 30px rgba(21, 21, 21, 0.1);
     display: flex;
     flex-direction: column;
-    height: 330px;
     position: absolute;
     // opacity: 0;
     transition: opacity 0.35s ease-in-out;
