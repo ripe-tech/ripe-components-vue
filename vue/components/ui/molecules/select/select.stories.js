@@ -53,6 +53,9 @@ storiesOf("Components/Molecules/Select", module)
             disabled: {
                 default: boolean("Disabled", false)
             },
+            inline: {
+                default: boolean("Inline", false)
+            },
             align: {
                 default: select(
                     "Align",
