@@ -48,7 +48,8 @@ storiesOf("Components/Organisms/Listing", module)
                     "Mode",
                     {
                         Default: "default",
-                        Expanded: "expanded"
+                        Expanded: "expanded",
+                        Inline: "inline"
                     },
                     "default"
                 )

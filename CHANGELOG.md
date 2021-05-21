@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 * `select` new `inline` prop
+* `inline` mode for `container-ripe` and `listing`
 
 ### Changed
 
