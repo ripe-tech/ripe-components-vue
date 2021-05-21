@@ -52,7 +52,6 @@
                         <tr class="row" v-for="(week, index) in weeks" v-bind:key="index">
                             <td
                                 class="cell"
-                                tabindex="0"
                                 v-bind:class="circleClass(week[d - 1].day, week[d - 1].month)"
                                 v-for="d in 7"
                                 v-bind:key="d - 1"
@@ -117,7 +116,7 @@
     width: 100%;
 }
 
-.input-date-container > .calendar-container > .calendar-content .calendar-table .table-header {
+.input-date-container > .calendar-container > .calendar-content .calendar-table .table-header .row {
     height: 40px;
 }
 
