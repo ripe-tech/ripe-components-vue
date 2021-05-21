@@ -1,5 +1,5 @@
 <template>
-    <div class="input-date-container">
+    <div class="input-date">
         <global-events v-on:click="onGlobalClick" />
         <input-ripe
             class="input-date"
@@ -73,12 +73,12 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.input-date-container {
+.input-date {
     display: inline-block;
     position: relative;
 }
 
-.input-date-container > .calendar-container {
+.input-date > .calendar-container {
     box-shadow: 0px 0px 30px rgba(21, 21, 21, 0.1);
     display: flex;
     flex-direction: column;
@@ -88,43 +88,43 @@
     width: 350px;
 }
 
-.input-date-container > .calendar-container.visible {
+.input-date > .calendar-container.visible {
     opacity: 1;
 }
 
-.input-date-container > .calendar-container > .calendar-header {
+.input-date > .calendar-container > .calendar-header {
     align-items: center;
     display: flex;
     justify-content: space-between;
     padding: 10px 10px 10px 10px;
 }
 
-.input-date-container > .calendar-container > .calendar-header > .header-center {
+.input-date > .calendar-container > .calendar-header > .header-center {
     align-items: center;
     display: inline-block;
     display: flex;
 }
 
-.input-date-container > .calendar-container > .calendar-content {
+.input-date > .calendar-container > .calendar-content {
     display: flex;
     font-weight: 400;
     height: 100%;
     padding: 0px 20px 10px 20px;
 }
 
-.input-date-container > .calendar-container > .calendar-content .calendar-table {
+.input-date > .calendar-container > .calendar-content .calendar-table {
     width: 100%;
 }
 
-.input-date-container > .calendar-container > .calendar-content .calendar-table .table-header .row {
+.input-date > .calendar-container > .calendar-content .calendar-table .table-header .row {
     height: 40px;
 }
 
-.input-date-container > .calendar-container > .calendar-content .calendar-table .table-header .row .heading {
+.input-date > .calendar-container > .calendar-content .calendar-table .table-header .row .heading {
     font-weight: 400;
 }
 
-.input-date-container > .calendar-container > .calendar-content .calendar-table .table-body .row .cell {
+.input-date > .calendar-container > .calendar-content .calendar-table .table-body .row .cell {
     cursor: pointer;
     height: 40px;
     padding: 0px;
@@ -132,7 +132,7 @@
     width: 40px;
 }
 
-.input-date-container > .calendar-container > .calendar-content .calendar-table .table-body .row .cell .circle {
+.input-date > .calendar-container > .calendar-content .calendar-table .table-body .row .cell .circle {
     border-radius: 50%;
     color: #1d2631;
     height: 40px;
@@ -141,23 +141,23 @@
     width: 40px;
 }
 
-.input-date-container > .calendar-container > .calendar-content .calendar-table .table-body .row .cell:not(.selected):hover,
-.input-date-container > .calendar-container > .calendar-content .calendar-table .table-body .row .cell:not(.selected):focus,
-.input-date-container > .calendar-container > .calendar-content .calendar-table .table-body .row .cell:not(.selected):focus-visible {
+.input-date > .calendar-container > .calendar-content .calendar-table .table-body .row .cell:not(.selected):hover,
+.input-date > .calendar-container > .calendar-content .calendar-table .table-body .row .cell:not(.selected):focus,
+.input-date > .calendar-container > .calendar-content .calendar-table .table-body .row .cell:not(.selected):focus-visible {
     outline: none !important;
 }
 
-.input-date-container > .calendar-container > .calendar-content .calendar-table .table-body .row .cell:not(.selected):hover .circle,
-.input-date-container > .calendar-container > .calendar-content .calendar-table .table-body .row .cell:not(.selected):focus .circle,
-.input-date-container > .calendar-container > .calendar-content .calendar-table .table-body .row .cell:not(.selected):focus-visible .circle {
+.input-date > .calendar-container > .calendar-content .calendar-table .table-body .row .cell:not(.selected):hover .circle,
+.input-date > .calendar-container > .calendar-content .calendar-table .table-body .row .cell:not(.selected):focus .circle,
+.input-date > .calendar-container > .calendar-content .calendar-table .table-body .row .cell:not(.selected):focus-visible .circle {
     background-color: #ecf0f3;
 }
 
-.input-date-container > .calendar-container > .calendar-content .calendar-table .table-body .row .cell.subtle .circle {
+.input-date > .calendar-container > .calendar-content .calendar-table .table-body .row .cell.subtle .circle {
     color: #bac2cb;
 }
 
-.input-date-container > .calendar-container > .calendar-content .calendar-table .table-body .row .cell.selected .circle {
+.input-date- > .calendar-container > .calendar-content .calendar-table .table-body .row .cell.selected .circle {
     background-color: #1d2631;
     color: #ffffff;
 }
