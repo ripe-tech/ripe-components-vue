@@ -54,6 +54,12 @@ storiesOf("Components/Atoms/Container", module)
                         hide: true
                     }
                 ]
+            },
+            overflowX: {
+                default: text("Overflow X", null)
+            },
+            overflowY: {
+                default: text("Overflow Y", null)
             }
         },
         methods: {
@@ -69,6 +75,8 @@ storiesOf("Components/Atoms/Container", module)
                     v-bind:mode="mode"
                     v-bind:title="title"
                     v-bind:headerButtons="headerButtons"
+                    v-bind:overflow-x="overflowX"
+                    v-bind:overflow-Y="overflowY"
                     v-on:header-button:click="(event, id) => onHeaderButtonClick(event, id)"
                 />
             </div>

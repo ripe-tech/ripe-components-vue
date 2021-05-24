@@ -160,6 +160,14 @@ export const Container = {
         maxWidthMobile: {
             type: Number | String,
             default: "100%"
+        },
+        overflowX: {
+            type: String,
+            default: null
+        },
+        overflowY: {
+            type: String,
+            default: null
         }
     },
     computed: {
@@ -203,6 +211,8 @@ export const Container = {
             if (maxWidth && typeof maxWidth === "string") {
                 base["max-width"] = maxWidth;
             }
+            if (this.overflowX) base["overflow-x"] = this.overflowX;
+            if (this.overflowY) base["overflow-y"] = this.overflowY;
             return base;
         },
         classes() {
