@@ -120,7 +120,7 @@
 
 .image-item > .item-text > .name {
     color: #1d2631;
-    font-size: 18px;
+    font-size: 13px;
     font-weight: 600;
     text-transform: capitalize;
 }
