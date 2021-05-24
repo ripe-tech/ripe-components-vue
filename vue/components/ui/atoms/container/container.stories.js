@@ -10,7 +10,8 @@ storiesOf("Components/Atoms/Container", module)
                     "Mode",
                     {
                         Default: "default",
-                        Expanded: "expanded"
+                        Expanded: "expanded",
+                        Inline: "inline"
                     },
                     "default"
                 )
