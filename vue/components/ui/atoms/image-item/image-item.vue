@@ -61,6 +61,8 @@
 </template>
 
 <style lang="scss" scoped>
+@import "css/variables.scss";
+
 .image-item {
     cursor: pointer;
     display: inline-block;
@@ -90,18 +92,24 @@
 
 .image-item > .item-image {
     align-items: center;
-    background-color: #f9fafd;
-    border: 1.5px solid #e4e8f0;
+    background-color: $soft-blue;
+    border: 1.5px solid $light-white;
     border-radius: 10px;
     display: flex;
     height: 260px;
     justify-content: center;
     user-select: none;
     width: 214px;
+    transition: border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
 }
 
-.image-item > .item-image:hover > .image {
-    opacity: 0.6;
+.image-item:hover > .item-image {
+    border-color: #b6b9bf;
+    box-shadow: 1px 2px 5px rgba(182, 185, 191, 0.4);
+}
+
+.image-item:active > .item-image {
+    box-shadow: none;
 }
 
 .image-item > .item-image.dropdown-open:hover > .image {
@@ -126,7 +134,7 @@
 }
 
 .image-item > .item-text > .description {
-    font-size: 14px;
+    font-size: 11px;
     font-weight: 400;
     margin-top: 5px;
 }
