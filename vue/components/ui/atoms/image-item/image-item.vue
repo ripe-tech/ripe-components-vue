@@ -98,9 +98,9 @@
     display: flex;
     height: 260px;
     justify-content: center;
+    transition: border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
     user-select: none;
     width: 214px;
-    transition: border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
 }
 
 .image-item:hover > .item-image {
