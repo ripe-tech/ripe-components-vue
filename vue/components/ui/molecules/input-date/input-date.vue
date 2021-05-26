@@ -5,15 +5,18 @@
             class="input-date"
             type="date"
             v-bind:value="valueDataFormated"
+            max="2500-1-1"
+            min="1000-1-1"
             v-on:update:value="onInputValue"
             v-on:click.prevent.stop="onClick"
             v-on:focus.prevent="onFocus"
-            v-on:keyup.prevent="onKeyup"
+            v-on:keyup.prevent
+            v-on:keydown="onKeydown"
         />
         <div class="calendar-container" v-bind:class="calendarClasses" ref="calendarContainer">
             <div class="calendar-header">
                 <button-icon icon="chevron-left" v-bind:icon-opacity="1" v-on:click="onLeftClick" />
-                <div class="header-center">
+                <div class="header-center" v-if="header">
                     <select-ripe
                         v-bind:options="monthOptions"
                         v-bind:value.sync="month"
@@ -23,11 +26,13 @@
                         v-bind:placeholder="'Year'"
                         v-bind:value="year"
                         type="number"
-                        variant="dark"
                         v-bind:min-width="0"
                         v-bind:width="80"
                         v-on:update:value="onYear"
                     />
+                </div>
+                <div class="header-center" v-else>
+                    {{ monthName }} {{ year }}
                 </div>
                 <button-icon
                     icon="chevron-right"
@@ -157,9 +162,13 @@
     color: #bac2cb;
 }
 
-.input-date- > .calendar-container > .calendar-content .calendar-table .table-body .row .cell.selected .circle {
+.input-date > .calendar-container > .calendar-content .calendar-table .table-body .row .cell.selected .circle {
     background-color: #1d2631;
     color: #ffffff;
+}
+
+.input-date ::v-deep .select .select-container .select-button {
+    background-color: #ffffff;
 }
 </style>
 
@@ -193,6 +202,10 @@ export const InputDate = {
         multiDate: {
             type: Boolean,
             default: false
+        },
+        header: {
+            type: Boolean,
+            default: false
         }
     },
     data: function() {
@@ -200,8 +213,8 @@ export const InputDate = {
             valueData: this.value,
             calendarVisibility: true,
             day: 1,
-            month: 10,
-            year: 2020
+            month: new Date().getMonth(),
+            year: new Date().getFullYear()
         };
     },
     computed: {
@@ -233,6 +246,9 @@ export const InputDate = {
         },
         monthOptions() {
             return this.monthLabels.map((month, index) => ({ value: index, label: month }));
+        },
+        monthName() {
+            return this.monthOptions[this.month]?.label;
         },
         weeks() {
             const date = new Date(this.year, this.month, 1);
@@ -270,7 +286,22 @@ export const InputDate = {
             this.$emit("update:value", value);
         }
     },
+    created: function() {
+        this.setDate(this.value);
+    },
     methods: {
+        isValidDate(date) {
+            if (!date) return;
+            if (isNaN(date.getTime())) return false;
+            if (date.getFullYear().toString().length !== 4) return false;
+            return true;
+        },
+        setDate(date) {
+            if (!this.isValidDate(date)) return;
+            this.valueData = date;
+            this.year = date.getFullYear();
+            this.month = date.getMonth();
+        },
         onYear(value) {
             if (isNaN(value)) return;
             this.year = parseInt(value);
@@ -286,7 +317,6 @@ export const InputDate = {
         },
         onCellClick(date) {
             this.valueData = new Date(this.year, date.month, date.day);
-            this.day = date.day;
         },
         onLeftClick() {
             if (this.month === 0) {
@@ -304,15 +334,20 @@ export const InputDate = {
                 this.month += 1;
             }
         },
-        onKeyup() {},
         onClick(event) {
             this.calendarVisibility = true;
         },
         onInputValue(value) {
-            this.valueData = new Date(value);
+            const date = new Date(value);
+            this.setDate(date);
         },
-        onFocus() {
+        onFocus(event) {
             this.calendarVisibility = true;
+        },
+        onKeydown(event) {
+            if (event?.key !== "Enter") return;
+            event.preventDefault();
+            this.calendarVisibility = !this.calendarVisibility;
         }
     }
 };
