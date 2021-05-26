@@ -77,6 +77,14 @@
     margin: 0px 0px 0px 0px;
 }
 
+.container-ripe.container-ripe-inline {
+    background: none;
+    border: none;
+    box-shadow: none;
+    margin: 0px 0px 0px 0px;
+    transition: none;
+}
+
 body.mobile .container-ripe {
     border-radius: 0px 0px 0px 0px;
     box-shadow: none;
@@ -152,6 +160,14 @@ export const Container = {
         maxWidthMobile: {
             type: Number | String,
             default: "100%"
+        },
+        overflowX: {
+            type: String,
+            default: null
+        },
+        overflowY: {
+            type: String,
+            default: null
         }
     },
     computed: {
@@ -186,6 +202,7 @@ export const Container = {
             const base = {};
             let maxWidth = this.maxWidth;
             if (this.mode === "expanded") maxWidth = "100%";
+            if (this.mode === "inline") maxWidth = null;
             if (this.isTabletWidth() && this.maxWidthTable) maxWidth = this.maxWidthTablet;
             if (this.isMobileWidth() && this.maxWidthMobile) maxWidth = this.maxWidthMobile;
             if (maxWidth && typeof maxWidth === "number") {
@@ -194,6 +211,8 @@ export const Container = {
             if (maxWidth && typeof maxWidth === "string") {
                 base["max-width"] = maxWidth;
             }
+            if (this.overflowX) base["overflow-x"] = this.overflowX;
+            if (this.overflowY) base["overflow-y"] = this.overflowY;
             return base;
         },
         classes() {

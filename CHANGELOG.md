@@ -9,15 +9,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-* Support for `Number` type values in `radio`, `radio-group` and `select`
+* `select` new `inline` prop
+* `inline` mode for `container-ripe` and `listing`
+* `container-ripe` new `overflow` props
 
 ### Changed
 
-*
+* Improved `image-item` layout and style
 
 ### Fixed
 
 *
+
+## [0.9.5] - 2021-05-19
+
+### Added
+
+* Support for `Number` type values in `radio`, `radio-group` and `select`
+
+### Fixed
+
+* No items in select fix
 
 ## [0.9.4] - 2021-05-13
 
