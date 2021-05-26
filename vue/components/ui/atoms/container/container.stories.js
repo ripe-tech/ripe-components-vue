@@ -46,6 +46,12 @@ storiesOf("Components/Atoms/Container", module)
                         loading: true
                     },
                     {
+                        id: "create",
+                        text: "Create",
+                        icon: "add",
+                        type: "color"
+                    },
+                    {
                         id: "notshow",
                         text: "Not showing",
                         icon: "eye",

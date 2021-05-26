@@ -16,30 +16,27 @@
                 <slot name="header-buttons" v-if="hasHeaderButtons">
                     <div class="header-buttons">
                         <slot name="header-buttons-inside-before" />
-                        <button-icon
-                            class="header-button"
-                            v-bind:text="button.text"
-                            v-bind:icon="button.icon"
-                            v-bind:color="button.color"
-                            v-bind:size="button.size"
-                            v-bind:icon-opacity="button.iconOpacity"
-                            v-bind:icon-fill="button.iconFill"
-                            v-bind:icon-stroke-width="button.iconStrokeWidth"
-                            v-bind:padding="button.padding"
-                            v-bind:padding-top="button.paddingTop"
-                            v-bind:padding-bottom="button.paddingBottom"
-                            v-bind:padding-left="button.paddingLeft"
-                            v-bind:padding-right="button.paddingRight"
-                            v-bind:padding-factor="button.paddingFactor"
-                            v-bind:padding-text-factor="button.paddingTextFactor"
-                            v-bind:disabled="button.disabled"
-                            v-bind:selectable="button.selectable"
-                            v-bind:loading="button.loading"
-                            v-for="button in headerButtons"
-                            v-show="!button.hide"
-                            v-bind:key="button.id"
-                            v-on:click="event => onButtonIconClick(event, button.id)"
-                        />
+                        <template v-for="button in headerButtons">
+                            <button-icon
+                                class="header-button"
+                                v-bind="button"
+                                v-show="!button.hide"
+                                v-if="button.type === undefined || button.type === 'icon'"
+                                v-bind:key="button.id"
+                                v-on:click="event => onHeaderButtonClick(event, button.id)"
+                            />
+                            <button-color
+                                class="header-button"
+                                v-bind:size="'small'"
+                                v-bind:alignment="'left'"
+                                v-bind:min-width="0"
+                                v-bind="button"
+                                v-show="!button.hide"
+                                v-else-if="button.type === 'color'"
+                                v-bind:key="button.id"
+                                v-on:click="event => onHeaderButtonClick(event, button.id)"
+                            />
+                        </template>
                         <slot name="header-buttons-inside-after" />
                     </div>
                 </slot>
@@ -222,7 +219,7 @@ export const Container = {
         }
     },
     methods: {
-        onButtonIconClick(event, buttonId) {
+        onHeaderButtonClick(event, buttonId) {
             this.$emit("header-button:click", event, buttonId);
             this.$emit(`header-button:click:${buttonId}`, event);
         }
