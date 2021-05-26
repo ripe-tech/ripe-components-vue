@@ -21,8 +21,8 @@
                                 class="header-button"
                                 v-bind="button"
                                 v-show="!button.hide"
-                                v-bind:key="button.id"
                                 v-if="button.type === undefined || button.type === 'icon'"
+                                v-bind:key="button.id"
                                 v-on:click="event => onHeaderButtonClick(event, button.id)"
                             />
                             <button-color
@@ -32,8 +32,8 @@
                                 v-bind:min-width="0"
                                 v-bind="button"
                                 v-show="!button.hide"
-                                v-bind:key="button.id"
                                 v-else-if="button.type === 'color'"
+                                v-bind:key="button.id"
                                 v-on:click="event => onHeaderButtonClick(event, button.id)"
                             />
                         </template>
