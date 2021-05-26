@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * `select` new `inline` prop
 * `inline` mode for `container-ripe` and `listing`
 * `container-ripe` new `overflow` props
+* `type` for `container-ripe` header buttons
 
 ### Changed
 
