@@ -25,7 +25,6 @@
                 v-show="filter && visibleData"
                 ref="input"
                 v-on:click="onClickDropdownButton"
-                v-on:keydown.exact="event => onKey(event.key)"
                 v-on:keydown.esc.exact="onEscKey"
                 v-on:keydown.up.exact="onUpKey"
                 v-on:keydown.down.exact="onDownKey"
@@ -419,7 +418,7 @@ export const Select = {
             this.toggleDropdown();
         },
         onKey(key) {
-            if (!key || this.filter) return;
+            if (!key) return;
             if (Date.now() - this.keyTimestamp > this.keyTimeout) {
                 this.keyBuffer = "";
             }
