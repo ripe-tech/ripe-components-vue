@@ -19,18 +19,19 @@ storiesOf("Components/Molecules/Select", module)
                     { value: "option_3", label: "Carlos" },
                     { value: "option_4", label: "Cristiano" },
                     { value: "option_5", label: "Daniel" },
+                    { value: "option_6", label: "Gabriel" },
                     { value: "option_61", label: "Gabriel11" },
                     { value: "option_62", label: "Gabriel12" },
-                    { value: "option_6", label: "Gabriel" },
-                    { value: "option_63", label: "Gabriel13" },
+                    { value: "option_63", label: "Gabriel3" },
                     { value: "option_7", label: "Geraldo" },
-                    { value: "option_8", label: "Mauro" },
-                    { value: "option_9", label: "Mário" },
-                    { value: "option_10", label: "Márcio" },
-                    { value: "option_11", label: "Narciso" },
-                    { value: "option_12", label: "Nataniel" },
-                    { value: "option_13", label: "Paulo" },
-                    { value: "option_14", label: "Paulino" }
+                    { value: "option_8", label: "João" },
+                    { value: "option_81", label: "João 1" },
+                    { value: "option_82", label: "João 2" },
+                    { value: "option_83", label: "João 3" },
+                    { value: "option_9", label: "Margarida" },
+                    { value: "option_10", label: "Mauro" },
+                    { value: "option_11", label: "Nuno" },
+                    { value: "option_12", label: "Pedro" }
                 ]
             },
             value: {
@@ -43,16 +44,13 @@ storiesOf("Components/Molecules/Select", module)
                         Carlos: "option_3",
                         Cristiano: "option_4",
                         Daniel: "option_5",
-                        Gabriel11: "option_61",
-                        Gabriel12: "option_62",
-                        Geraldo: "option_6",
-                        Mauro: "option_63",
-                        Mário: "option_7",
-                        Márcio: "option_8",
-                        Narciso: "option_9",
-                        Nataniel: "option_10",
-                        Paulo: "option_11",
-                        Paulino: "option_12"
+                        Gabriel: "option_6",
+                        Geraldo: "option_7",
+                        Joao: "option_10",
+                        Margarida: "option_9",
+                        Mauro: "option_10",
+                        Nuno: "option_11",
+                        Pedro: "option_12"
                     },
                     null
                 )
