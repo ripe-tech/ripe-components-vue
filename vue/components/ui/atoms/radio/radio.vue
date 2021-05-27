@@ -106,7 +106,6 @@ export const Radio = {
             default: null
         },
         value: {
-            type: String | Number,
             default: null
         },
         checked: {
