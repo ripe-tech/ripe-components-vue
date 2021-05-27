@@ -316,6 +316,7 @@ export const Select = {
         openDropdown() {
             if (this.disabled || this.visibleData) return;
             this.visibleData = true;
+            // focus input and with blank text after dropdown is opened
             if (this.filter) {
                 this.filterText = "";
                 this.$nextTick(() => this.$refs.input.focus());
