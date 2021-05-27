@@ -326,6 +326,7 @@ export const Select = {
             if (!this.visibleData) return;
             this.dehighlight();
             this.visibleData = false;
+            // focus the select button after dropdown is closed
             if (this.filter) this.$nextTick(() => this.$refs.selectButton.focus());
         },
         toggleDropdown() {
@@ -410,6 +411,7 @@ export const Select = {
             this.toggleDropdown();
         },
         onSelectButtonEnterKey() {
+            // if there's no options for current filter, do nothing
             if (!this.filteredOptions[this.highlighted]) return;
             this.toggleDropdown();
         },
@@ -463,6 +465,7 @@ export const Select = {
                 return;
             }
 
+            // if there's no options for current filter, do nothing
             if (!this.filteredOptions[this.highlighted]) {
                 return;
             }
@@ -481,6 +484,7 @@ export const Select = {
                 return;
             }
 
+            // if there's no options for current filter, do nothing
             if (!this.filteredOptions[this.highlighted]) {
                 return;
             }
