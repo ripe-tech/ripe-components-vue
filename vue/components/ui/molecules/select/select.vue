@@ -19,9 +19,28 @@
             </option>
         </select>
         <div class="select-container" v-bind:style="style" v-else>
+            <input-ripe
+                class="select-input"
+                v-bind:value.sync="filterText"
+                v-show="filter && visibleData"
+                ref="input"
+                v-on:click="onClickDropdownButton"
+                v-on:keydown.exact="event => onKey(event.key)"
+                v-on:keydown.esc.exact="onEscKey"
+                v-on:keydown.up.exact="onUpKey"
+                v-on:keydown.down.exact="onDownKey"
+                v-on:keydown.left.exact="onLeftKey"
+                v-on:keydown.right.exact="onRightKey"
+                v-on:keydown.alt.down="onAltDownKey"
+                v-on:keydown.alt.up="onAltUpKey"
+                v-on:keydown.enter.exact="onEnterKey"
+                v-on:keydown.space.exact="onSpaceKey"
+            />
             <div
                 class="select-button"
                 tabindex="0"
+                v-show="!filter || !visibleData"
+                ref="selectButton"
                 v-on:click="onClickDropdownButton"
                 v-on:keydown.exact="event => onKey(event.key)"
                 v-on:keydown.esc.exact="onEscKey"
@@ -39,7 +58,7 @@
                 </slot>
             </div>
             <dropdown
-                v-bind:items="options"
+                v-bind:items="filteredOptions"
                 v-bind:max-height="maxHeight"
                 v-bind:visible.sync="visibleData"
                 v-bind:global-events="true"
@@ -47,7 +66,7 @@
                 v-bind:style="dropdownStyle"
                 v-bind:selected="selected"
                 v-bind:direction="direction"
-                v-bind:owners="$refs.select ? [$refs.select] : []"
+                v-bind:owners="$refs.select ? [$refs.select, $refs.selectButton] : []"
                 ref="dropdown"
                 v-on:update:highlighted="onDropdownHighlighted"
                 v-on:item-clicked="value => onDropdownItemClicked(value.value)"
@@ -79,7 +98,16 @@
     width: 100%;
 }
 
+.select .select-container .select-input {
+    background-color: $soft-blue;
+    background-image: url("~./assets/chevron-down.svg");
+    background-position: right 12px center;
+    background-repeat: no-repeat;
+    background-size: 14px 14px;
+}
+
 .select .dropdown-select,
+.select .select-container .select-input,
 .select .select-container .select-button {
     background-color: $soft-blue;
     background-image: url("~./assets/chevron-down.svg");
@@ -110,6 +138,7 @@
     background-image: unset;
 }
 
+.select.direction-top .select-container .select-input,
 .select.direction-top .select-container .select-button {
     background-image: url("~./assets/chevron-up.svg");
 }
@@ -122,7 +151,16 @@
     border-color: #dfe1e5;
 }
 
+.select .select-container .select-input:focus,
 .select .select-container .select-button:focus {
+    border-color: $aqcua-blue;
+}
+
+.select.select-filter .select-container .select-button {
+    transition: width 0.2s ease, background-color 0.2s ease;
+}
+
+.select.select-filter .select-container .select-input {
     border-color: $aqcua-blue;
 }
 
@@ -191,6 +229,15 @@ export const Select = {
             type: String,
             default: "right"
         },
+        filter: {
+            type: Boolean,
+            default: false
+        },
+        filterFunction: {
+            type: Function,
+            default: (option, filter) =>
+                option.label && option.label.toUpperCase().startsWith(filter.toUpperCase())
+        },
         direction: {
             type: String,
             default: "bottom"
@@ -226,7 +273,8 @@ export const Select = {
             valueData: this.value,
             visibleData: this.visible,
             keyBuffer: "",
-            keyTimestamp: 0
+            keyTimestamp: 0,
+            filterText: ""
         };
     },
     watch: {
@@ -254,6 +302,11 @@ export const Select = {
         },
         valueData(value) {
             this.$emit("update:value", value);
+        },
+        filterText(value) {
+            if (this.filteredOptions.length > 0) {
+                this.highlight(0);
+            }
         }
     },
     methods: {
@@ -264,11 +317,16 @@ export const Select = {
         openDropdown() {
             if (this.disabled || this.visibleData) return;
             this.visibleData = true;
+            if (this.filter) {
+                this.filterText = "";
+                this.$nextTick(() => this.$refs.input.focus());
+            }
         },
         closeDropdown() {
             if (!this.visibleData) return;
             this.dehighlight();
             this.visibleData = false;
+            if (this.filter) this.$nextTick(() => this.$refs.selectButton.focus());
         },
         toggleDropdown() {
             if (this.visibleData) {
@@ -296,7 +354,10 @@ export const Select = {
             if (this.highlighted === null) {
                 this.highlight(0, scroll);
             } else {
-                this.highlight(Math.min(this.options.length - 1, this.highlighted + 1), scroll);
+                this.highlight(
+                    Math.min(this.filteredOptions.length - 1, this.highlighted + 1),
+                    scroll
+                );
             }
         },
         highlightBestMatchOption(scroll = true) {
@@ -311,7 +372,10 @@ export const Select = {
         },
         scrollTo(index) {
             const dropdown = this.$refs.dropdown.$refs.dropdown;
+            if (!dropdown) return;
+
             const dropdownElements = dropdown.getElementsByClassName("dropdown-item");
+            if (dropdownElements.length === 0) return;
 
             const visibleStart = dropdown.scrollTop;
             const visibleEnd = visibleStart + dropdown.clientHeight;
@@ -333,11 +397,11 @@ export const Select = {
         },
         onGlobalClick(event) {
             const owners = Array.isArray(this.owners)
-                ? this.owners.concat(this.$refs.select)
-                : [this.owners, this.$refs.select];
+                ? this.owners.concat(this.$refs.select, this.$refs.selectButton)
+                : [this.owners, this.$refs.select, this.$refs.selectButton];
             const insideOwners = owners.some(owner => {
-                owner = owner.$el ? owner.$el : owner;
-                return owner.contains(event.target);
+                owner = owner?.$el ? owner?.$el : owner;
+                return owner?.contains(event.target);
             });
             if (insideOwners) return;
             this.closeDropdown();
@@ -346,13 +410,14 @@ export const Select = {
             this.toggleDropdown();
         },
         onSelectButtonEnterKey() {
+            if (!this.filteredOptions[this.highlighted]) return;
             this.toggleDropdown();
         },
         onSelectButtonSpaceKey() {
             this.toggleDropdown();
         },
         onKey(key) {
-            if (!key) return;
+            if (!key || this.filter) return;
             if (Date.now() - this.keyTimestamp > this.keyTimeout) {
                 this.keyBuffer = "";
             }
@@ -381,11 +446,11 @@ export const Select = {
         },
         onAltUpKey() {
             this.openDropdown();
-            this.highlight(0);
+            this.highlight(0, true);
         },
         onAltDownKey() {
             this.openDropdown();
-            this.highlight(this.options.length - 1);
+            this.highlight(this.filteredOptions.length - 1, true);
         },
         onEnterKey() {
             if (!this.visibleData) {
@@ -398,7 +463,11 @@ export const Select = {
                 return;
             }
 
-            this.setValue(this.options[this.highlighted].value);
+            if (!this.filteredOptions[this.highlighted]) {
+                return;
+            }
+
+            this.setValue(this.filteredOptions[this.highlighted].value);
             this.closeDropdown();
         },
         onSpaceKey() {
@@ -412,7 +481,11 @@ export const Select = {
                 return;
             }
 
-            this.setValue(this.options[this.highlighted].value);
+            if (!this.filteredOptions[this.highlighted]) {
+                return;
+            }
+
+            this.setValue(this.filteredOptions[this.highlighted].value);
             this.closeDropdown();
         },
         onSelectChange(value) {
@@ -436,11 +509,21 @@ export const Select = {
         }
     },
     computed: {
+        filteredOptions() {
+            if (!this.filter || !this.filterText) return this.options;
+            return this.options.filter(option => this.filterFunction(option, this.filterText));
+        },
         selectedOption() {
             return this.options ? this.options[this.valueIndex] : null;
         },
         buttonText() {
             return this.selectedOption ? this.selectedOption.label : this.placeholder;
+        },
+        dropdownOwners() {
+            const owners = [];
+            if (this.$refs.select) owners.push(this.$refs.select);
+            if (this.$refs.selectButton) owners.push(this.$refs.selectButton);
+            return owners;
         },
         selected() {
             const selected = {};
@@ -451,7 +534,11 @@ export const Select = {
             return this.options.findIndex(option => option.value === this.valueData);
         },
         classes() {
-            const base = {};
+            const base = {
+                disabled: this.disabled,
+                "select-filter": this.filter
+            };
+            if (this.visibleData) base["select-visible"] = true;
             if (this.align) base[`select-align-${this.align}`] = true;
             if (this.direction) base[`direction-${this.direction}`] = true;
             if (this.inline) base.inline = true;

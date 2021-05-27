@@ -9,10 +9,12 @@
         v-bind:disabled="disabled"
         v-bind:maxLength="maxLength"
         ref="input"
+        v-on:click="onClick"
         v-on:input="event => onInput(event.target.value)"
         v-on:focus="onFocus"
         v-on:blur="onBlur"
         v-on:keyup="onKeyup"
+        v-on:keydown="onKeyDown"
     />
 </template>
 
@@ -171,6 +173,9 @@ export const Input = {
         setValidationMessage(value) {
             this.$refs.input.setCustomValidity(value || "");
         },
+        onClick(event) {
+            this.$emit("click", event);
+        },
         onInput(value) {
             this.setValue(value);
         },
@@ -182,6 +187,9 @@ export const Input = {
         },
         onKeyup(event) {
             this.$emit("keyup", event);
+        },
+        onKeyDown(event) {
+            this.$emit("keydown", event);
         }
     },
     computed: {

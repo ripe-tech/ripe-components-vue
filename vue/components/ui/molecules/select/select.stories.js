@@ -14,25 +14,23 @@ storiesOf("Components/Molecules/Select", module)
             options: {
                 type: Array,
                 default: () => [
-                    { value: "option_1", label: "A" },
-                    { value: "option_2", label: "B" },
-                    { value: "option_3", label: "C" },
-                    { value: "option_4", label: "D" },
-                    { value: "option_5", label: "E" },
-                    { value: "option_6", label: "F" },
-                    { value: "option_7", label: "G" },
-                    { value: "option_8", label: "H" },
-                    { value: "option_9", label: "I" },
-                    { value: "option_10", label: "J" },
-                    { value: "option_11", label: "K" },
-                    { value: "option_12", label: "L" },
-                    { value: "option_13", label: "M" },
-                    { value: "option_14", label: "N" },
-                    { value: "option_15", label: "O" },
-                    { value: "option_16", label: "P" },
-                    { value: "option_17", label: "Q" },
-                    { value: "option_18", label: "R" },
-                    { value: "option_19", label: "S" }
+                    { value: "option_1", label: "Aureo" },
+                    { value: "option_2", label: "Bernardo" },
+                    { value: "option_3", label: "Carlos" },
+                    { value: "option_4", label: "Cristiano" },
+                    { value: "option_5", label: "Daniel" },
+                    { value: "option_61", label: "Gabriel11" },
+                    { value: "option_62", label: "Gabriel12" },
+                    { value: "option_6", label: "Gabriel" },
+                    { value: "option_63", label: "Gabriel13" },
+                    { value: "option_7", label: "Geraldo" },
+                    { value: "option_8", label: "Mauro" },
+                    { value: "option_9", label: "Mário" },
+                    { value: "option_10", label: "Márcio" },
+                    { value: "option_11", label: "Narciso" },
+                    { value: "option_12", label: "Nataniel" },
+                    { value: "option_13", label: "Paulo" },
+                    { value: "option_14", label: "Paulino" }
                 ]
             },
             value: {
@@ -40,12 +38,27 @@ storiesOf("Components/Molecules/Select", module)
                     "Value",
                     {
                         None: null,
-                        A: "option_1",
-                        B: "option_2",
-                        C: "option_3"
+                        Aureo: "option_1",
+                        Bernardo: "option_2",
+                        Carlos: "option_3",
+                        Cristiano: "option_4",
+                        Daniel: "option_5",
+                        Gabriel11: "option_61",
+                        Gabriel12: "option_62",
+                        Geraldo: "option_6",
+                        Mauro: "option_63",
+                        Mário: "option_7",
+                        Márcio: "option_8",
+                        Narciso: "option_9",
+                        Nataniel: "option_10",
+                        Paulo: "option_11",
+                        Paulino: "option_12"
                     },
                     null
                 )
+            },
+            filter: {
+                default: boolean("Filter", false)
             },
             visible: {
                 default: boolean("Visible", false)
@@ -116,6 +129,7 @@ storiesOf("Components/Molecules/Select", module)
                     v-bind:disabled="disabled"
                     v-bind:visible.sync="visibleData"
                     v-bind:align="align"
+                    v-bind:filter="filter"
                     v-bind:direction="direction"
                     v-bind:width="width"
                     v-bind:max-height="maxHeight"
