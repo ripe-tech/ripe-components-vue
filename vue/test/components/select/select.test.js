@@ -300,4 +300,63 @@ describe("Select", () => {
         assert.strictEqual(component.emitted("update:visible").length, 2);
         assert.strictEqual(component.emitted("update:visible")[1][0], true);
     });
+
+    it("should show an input when select is opened in filter mode", async () => {
+        const component = base.getComponent("Select", {
+            props: {
+                options: [
+                    { value: "option_1", label: "A" },
+                    { value: "option_2", label: "B" },
+                    { value: "option_3", label: "C" }
+                ],
+                value: "option_1",
+                visible: true,
+                filter: true
+            }
+        });
+        const selectInput = component.get(".select-input").find("input");
+        assert.strictEqual(selectInput.exists(), true);
+    });
+
+    it("should properly filter the labels based on input filter value", async () => {
+        const component = base.getComponent("Select", {
+            props: {
+                options: [
+                    { value: "option_1", label: "A" },
+                    { value: "option_2", label: "AB" },
+                    { value: "option_2", label: "aB" },
+                    { value: "option_2", label: "a" },
+                    { value: "option_3", label: "CA" }
+                ],
+                value: "option_1",
+                visible: true,
+                filter: true
+            }
+        });
+        const selectInput = component.get(".select-input");
+
+        selectInput.setValue("a");
+        await component.vm.$nextTick();
+        assert.strictEqual(component.findAll(".dropdown-item").length, 4);
+
+        selectInput.setValue("A");
+        await component.vm.$nextTick();
+        assert.strictEqual(component.findAll(".dropdown-item").length, 4);
+
+        selectInput.setValue("c");
+        await component.vm.$nextTick();
+        assert.strictEqual(component.findAll(".dropdown-item").length, 1);
+
+        selectInput.setValue("NOT_THERE");
+        await component.vm.$nextTick();
+        assert.strictEqual(component.findAll(".dropdown-item").length, 0);
+
+        selectInput.setValue(" A ");
+        await component.vm.$nextTick();
+        assert.strictEqual(component.findAll(".dropdown-item").length, 0);
+
+        selectInput.setValue("");
+        await component.vm.$nextTick();
+        assert.strictEqual(component.findAll(".dropdown-item").length, 5);
+    });
 });
