@@ -519,12 +519,6 @@ export const Select = {
         buttonText() {
             return this.selectedOption ? this.selectedOption.label : this.placeholder;
         },
-        dropdownOwners() {
-            const owners = [];
-            if (this.$refs.select) owners.push(this.$refs.select);
-            if (this.$refs.selectButton) owners.push(this.$refs.selectButton);
-            return owners;
-        },
         selected() {
             const selected = {};
             selected[this.valueIndex] = true;
