@@ -21,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-*
+* Clear the value of the input on when 'files' prop is null or empty
 
 ## [0.9.5] - 2021-05-19
 

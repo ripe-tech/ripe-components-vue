@@ -161,6 +161,7 @@ export const UploadArea = {
     },
     watch: {
         files(value) {
+            if (!value || value.length === 0) this.clear();
             this.filesData = value;
         },
         dragging(value) {
@@ -171,6 +172,9 @@ export const UploadArea = {
         setFiles(filesList) {
             this.filesData = [...filesList];
             this.$emit("update:files", this.filesData);
+        },
+        clear() {
+            this.$refs.filesInput.value = null;
         },
         openModal() {
             this.$refs.filesInput.click();
