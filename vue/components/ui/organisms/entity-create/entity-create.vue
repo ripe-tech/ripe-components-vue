@@ -91,7 +91,7 @@ export const EntityCreate = {
             default: () => ({})
         },
         /**
-         * Props that can be used to customize the container-form.
+         * Props that can be used to customize the container form.
          */
         containerFormProps: {
             type: Object,
