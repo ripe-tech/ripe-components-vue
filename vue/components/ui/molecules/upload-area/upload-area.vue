@@ -12,6 +12,7 @@
             hidden
             v-bind:multiple="multiple"
             v-bind:accept="accept"
+            v-bind:value="value"
             ref="filesInput"
             v-on:change="onFilesInputChange"
         />
@@ -155,6 +156,7 @@ export const UploadArea = {
         return {
             filesData: this.files,
             dragging: false,
+            value: null,
             draggingDisabled: false,
             dragEnterTarget: null
         };
@@ -169,7 +171,7 @@ export const UploadArea = {
     },
     methods: {
         clear() {
-            this.$refs.filesInput.value = null;
+            this.value = null;
         },
         setFiles(filesList) {
             this.filesData = [...filesList];
@@ -204,6 +206,7 @@ export const UploadArea = {
         },
         onUploadButtonClick() {
             this.clear();
+            console.log("this.$refs.filesInput.value", this.$refs.filesInput.value)
             this.$refs.filesInput.click();
         }
     }
