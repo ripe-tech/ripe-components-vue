@@ -301,7 +301,23 @@ describe("Select", () => {
         assert.strictEqual(component.emitted("update:visible")[1][0], true);
     });
 
-    it("should show an input when select is opened in filter mode", async () => {
+    it("should not display an input when select is opened in non filter mode", async () => {
+        const component = base.getComponent("Select", {
+            props: {
+                options: [
+                    { value: "option_1", label: "A" },
+                    { value: "option_2", label: "B" },
+                    { value: "option_3", label: "C" }
+                ],
+                value: "option_1",
+                visible: true
+            }
+        });
+        const selectInput = component.get(".select-input");
+        assert.strictEqual(selectInput.isVisible(), false);
+    });
+
+    it("should display an input when select is opened in filter mode", async () => {
         const component = base.getComponent("Select", {
             props: {
                 options: [
@@ -314,8 +330,8 @@ describe("Select", () => {
                 filter: true
             }
         });
-        const selectInput = component.get(".select-input").find("input");
-        assert.strictEqual(selectInput.exists(), true);
+        const selectInput = component.get(".select-input");
+        assert.strictEqual(selectInput.isVisible(), true);
     });
 
     it("should properly filter the labels based on input filter value", async () => {
@@ -358,5 +374,32 @@ describe("Select", () => {
         selectInput.setValue("");
         await component.vm.$nextTick();
         assert.strictEqual(component.findAll(".dropdown-item").length, 5);
+    });
+
+    it("should update proper value on enter keydown when in filter mode", async () => {
+        const component = base.getComponent("Select", {
+            props: {
+                options: [
+                    { value: "option_1", label: "A" },
+                    { value: "option_2", label: "AB" },
+                    { value: "option_2", label: "aB" },
+                    { value: "option_2", label: "a" },
+                    { value: "option_3", label: "CA" }
+                ],
+                value: "option_1",
+                visible: true,
+                filter: true
+            }
+        });
+        const selectButton = component.get(".select-button");
+        const selectInput = component.get(".select-input");
+
+        selectInput.setValue("c");
+        await component.vm.$nextTick();
+        await selectInput.trigger("keydown.down");
+        await selectInput.trigger("keydown.enter");
+        assert.strictEqual(selectButton.text(), "CA");
+        assert.strictEqual(component.vm.$data.valueData, "option_3");
+        assert.strictEqual(component.emitted("update:value")[0][0], "option_3");
     });
 });
