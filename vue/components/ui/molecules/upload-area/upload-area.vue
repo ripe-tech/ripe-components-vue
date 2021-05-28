@@ -161,6 +161,7 @@ export const UploadArea = {
     },
     watch: {
         files(value) {
+            if (!value) this._clearInput();
             this.filesData = value;
         },
         dragging(value) {
@@ -168,9 +169,6 @@ export const UploadArea = {
         }
     },
     methods: {
-        clear() {
-            this.$refs.filesInput.value = null;
-        },
         setFiles(filesList) {
             this.filesData = [...filesList];
             this.$emit("update:files", this.filesData);
@@ -203,8 +201,10 @@ export const UploadArea = {
             this.setFiles(this.$refs.filesInput.files);
         },
         onUploadButtonClick() {
-            this.clear();
             this.$refs.filesInput.click();
+        },
+        _clearInput() {
+            this.$refs.filesInput.value = null;
         }
     }
 };
