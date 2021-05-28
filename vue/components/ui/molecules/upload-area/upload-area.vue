@@ -173,6 +173,9 @@ export const UploadArea = {
             this.filesData = [...filesList];
             this.$emit("update:files", this.filesData);
         },
+        _clearInput() {
+            this.$refs.filesInput.value = null;
+        },
         openModal() {
             this.$refs.filesInput.click();
         },
@@ -202,9 +205,6 @@ export const UploadArea = {
         },
         onUploadButtonClick() {
             this.$refs.filesInput.click();
-        },
-        _clearInput() {
-            this.$refs.filesInput.value = null;
         }
     }
 };
