@@ -52,7 +52,6 @@ export const RadioGroup = {
             default: () => []
         },
         value: {
-            type: String | Number,
             default: null
         },
         disabled: {

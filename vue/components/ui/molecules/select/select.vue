@@ -201,7 +201,6 @@ export const Select = {
             default: () => []
         },
         value: {
-            type: String | Number,
             default: null
         },
         visible: {
