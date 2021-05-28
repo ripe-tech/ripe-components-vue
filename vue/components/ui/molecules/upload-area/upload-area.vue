@@ -161,7 +161,7 @@ export const UploadArea = {
     },
     watch: {
         files(value) {
-            if (!value) this._clearInput();
+            if (!value || value.length === 0) this._clearInput();
             this.filesData = value;
         },
         dragging(value) {
