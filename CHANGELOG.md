@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * `container-ripe` new `overflow` props
 * `type` for `container-ripe` header buttons
 * Support for any type values in `radio`, `radio-group` and `select`
+* Allow overriding `container-form` props on `entity-create` and `entity-edit` for greater flexibility
 
 ### Changed
 
