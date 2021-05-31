@@ -2,7 +2,8 @@
     <div class="lightbox">
         <global-events v-on:keydown.esc="close" />
         <image-ripe
-            v-bind:src="image || ''"
+            v-if="image"
+            v-bind:src="image"
             v-bind:style="imageStyle"
             v-bind:alt="alt || ''"
             v-on:click="event => $emit('click', event)"

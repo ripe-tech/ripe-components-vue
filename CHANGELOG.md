@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 * Improved `image-item` layout and style
+* Made image invisible in lightbox in case it's not set
 
 ### Fixed
 
