@@ -87,11 +87,13 @@
     opacity: 0;
     position: absolute;
     transition: opacity 0.35s ease-in-out;
+    pointer-events: none;
     width: 350px;
 }
 
 .input-date > .calendar-container.visible {
     opacity: 1;
+    pointer-events: initial;
 }
 
 .input-date > .calendar-container > .calendar-header {
