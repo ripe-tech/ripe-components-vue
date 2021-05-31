@@ -169,10 +169,17 @@
 <script>
 export const InputDate = {
     props: {
+        /**
+         * The value of input date in String or Date format.
+         * Example: "2020/12/31"
+         */
         value: {
             type: Date | String,
             default: null
         },
+        /**
+         * Month labels to be used directly starting from January.
+         */
         monthLabels: {
             type: Array,
             default: () => [
@@ -190,6 +197,9 @@ export const InputDate = {
                 "December"
             ]
         },
+        /**
+         * Week labels to be used directly starting from Sunday.
+         */
         weekLabels: {
             type: Array,
             default: () => ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
@@ -198,6 +208,10 @@ export const InputDate = {
             type: Boolean,
             default: false
         },
+        /**
+         * If weather or not an interactable header should be used
+         * to select the month and year from input.
+         */
         header: {
             type: Boolean,
             default: false
