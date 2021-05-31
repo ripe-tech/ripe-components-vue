@@ -146,9 +146,9 @@
     width: 40px;
 }
 
-.input-date > .calendar-container > .calendar-content .calendar-table .table-body .row .cell:not(.selected):hover .circle,
-.input-date > .calendar-container > .calendar-content .calendar-table .table-body .row .cell:not(.selected):focus .circle,
-.input-date > .calendar-container > .calendar-content .calendar-table .table-body .row .cell:not(.selected):focus-visible .circle {
+.input-date > .calendar-container > .calendar-content .calendar-table .table-body .row .cell.clickable:not(.selected):hover .circle,
+.input-date > .calendar-container > .calendar-content .calendar-table .table-body .row .cell.clickable:not(.selected):focus .circle,
+.input-date > .calendar-container > .calendar-content .calendar-table .table-body .row .cell.clickable:not(.selected):focus-visible .circle {
     background-color: #ecf0f3;
 }
 
