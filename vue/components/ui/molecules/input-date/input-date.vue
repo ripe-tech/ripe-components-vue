@@ -59,7 +59,6 @@
                                 v-for="d in 7"
                                 v-bind:key="d - 1"
                                 v-on:click="onCellClick(week[d - 1])"
-                                v-on:keydown.enter.exact="onCellClick(week[d - 1])"
                             >
                                 <div class="circle">
                                     {{ week[d - 1].day }}
@@ -128,11 +127,14 @@
 }
 
 .input-date > .calendar-container > .calendar-content .calendar-table .table-body .row .cell {
-    cursor: pointer;
     height: 40px;
     padding: 0px;
     text-align: center;
     width: 40px;
+}
+
+.input-date > .calendar-container > .calendar-content .calendar-table .table-body .row .cell.clickable {
+    cursor: pointer;
 }
 
 .input-date > .calendar-container > .calendar-content .calendar-table .table-body .row .cell .circle {
@@ -144,19 +146,13 @@
     width: 40px;
 }
 
-.input-date > .calendar-container > .calendar-content .calendar-table .table-body .row .cell:not(.selected):hover,
-.input-date > .calendar-container > .calendar-content .calendar-table .table-body .row .cell:not(.selected):focus,
-.input-date > .calendar-container > .calendar-content .calendar-table .table-body .row .cell:not(.selected):focus-visible {
-    outline: none !important;
-}
-
 .input-date > .calendar-container > .calendar-content .calendar-table .table-body .row .cell:not(.selected):hover .circle,
 .input-date > .calendar-container > .calendar-content .calendar-table .table-body .row .cell:not(.selected):focus .circle,
 .input-date > .calendar-container > .calendar-content .calendar-table .table-body .row .cell:not(.selected):focus-visible .circle {
     background-color: #ecf0f3;
 }
 
-.input-date > .calendar-container > .calendar-content .calendar-table .table-body .row .cell.subtle .circle {
+.input-date > .calendar-container > .calendar-content .calendar-table .table-body .row .cell:not(.clickable) .circle {
     color: #bac2cb;
 }
 
@@ -230,7 +226,7 @@ export const InputDate = {
         },
         circleClass() {
             return (day, month) => ({
-                subtle: this.month !== month,
+                clickable: this.month === month,
                 selected:
                     this.selectedDay === day &&
                     this.selectedMonth === month &&
@@ -315,6 +311,7 @@ export const InputDate = {
             this.calendarVisibility = false;
         },
         onCellClick(date) {
+            if (date.month !== this.month) return;
             this.valueData = new Date(this.year, date.month, date.day);
         },
         onLeftClick() {
