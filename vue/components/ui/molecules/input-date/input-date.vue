@@ -2,11 +2,8 @@
     <div class="input-date">
         <global-events v-on:click="onGlobalClick" />
         <input-ripe
-            class="input-date"
             type="date"
             v-bind:value="valueDataFormated"
-            max="2500-1-1"
-            min="1000-1-1"
             v-on:update:value="onInputValue"
             v-on:click.prevent.stop="onClick"
             v-on:focus.prevent="onFocus"
@@ -21,6 +18,7 @@
                         v-bind:options="monthOptions"
                         v-bind:value.sync="month"
                         v-bind:width="120"
+                        v-bind:max-height="300"
                     />
                     <input-ripe
                         v-bind:placeholder="'Year'"
@@ -176,6 +174,7 @@
 export const InputDate = {
     props: {
         value: {
+            type: Date | String,
             default: null
         },
         monthLabels: {
@@ -291,7 +290,7 @@ export const InputDate = {
     },
     methods: {
         isValidDate(date) {
-            if (!date) return;
+            if (!date) return false;
             if (isNaN(date.getTime())) return false;
             if (date.getFullYear().toString().length !== 4) return false;
             return true;
@@ -306,7 +305,7 @@ export const InputDate = {
             if (isNaN(value)) return;
             this.year = parseInt(value);
         },
-        onGlobalClick() {
+        onGlobalClick(event) {
             const owners = [this.$refs.calendarContainer];
             const insideOwners = owners.some(owner => {
                 owner = owner.$el ? owner.$el : owner;
