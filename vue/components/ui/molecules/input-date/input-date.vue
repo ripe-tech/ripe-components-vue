@@ -204,10 +204,6 @@ export const InputDate = {
             type: Array,
             default: () => ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
         },
-        multiDate: {
-            type: Boolean,
-            default: false
-        },
         /**
          * If weather or not an interactable header should be used
          * to select the month and year from input.
