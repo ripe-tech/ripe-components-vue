@@ -9,6 +9,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+*
+
+### Changed
+
+*
+
+### Fixed
+
+*
+
+## [0.10.0] - 2021-05-31
+
+### Added
+
 * `select` new `inline` prop
 * `inline` mode for `container-ripe` and `listing`
 * `container-ripe` new `overflow` props
