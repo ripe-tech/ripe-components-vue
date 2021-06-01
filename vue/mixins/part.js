@@ -1,3 +1,5 @@
+import { OperationalError } from "yonius";
+
 export const partMixin = {
     methods: {
         /**
@@ -16,11 +18,11 @@ export const partMixin = {
          * at the console, exposing the error "in depth" (includes stacktrace).
          */
         handleError(error, message, code, log = true) {
+            if (log) console.error(error);
             if (!this.$root.$router) return;
             code = code || error.code;
             const query = { message: message || error.message };
             if (code) query.code = code;
-            if (log) console.error(error);
             this.$root.$router.push({
                 name: "error",
                 query: query
@@ -29,9 +31,10 @@ export const partMixin = {
         hasPermission(token) {
             return this.$root.hasPermission(token);
         },
-        ensurePermission(token) {
+        ensurePermission(token, raiseE = true) {
             if (!this.hasPermission(token)) {
                 this.handleError(null, "Not enough permissions", 403);
+                if (raiseE) throw new OperationalError("Not enough permissions", 403);
                 return false;
             }
             return true;
