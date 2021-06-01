@@ -21,11 +21,7 @@
             <div class="header-center" v-else>
                 {{ monthName }} {{ year }}
             </div>
-            <button-icon
-                icon="chevron-right"
-                v-bind:icon-opacity="1"
-                v-on:click="onRightClick"
-            />
+            <button-icon icon="chevron-right" v-bind:icon-opacity="1" v-on:click="onRightClick" />
         </div>
         <div class="calendar-content">
             <table class="calendar-table">
@@ -64,15 +60,15 @@
 @import "css/variables.scss";
 
 .calendar {
+    border: 1px solid #e4e8f0;
     border-radius: 6px 6px 6px 6px;
     box-shadow: 0px 0px 30px rgba(21, 21, 21, 0.1);
-    border: 1px solid #E4E8F0;
     display: flex;
     flex-direction: column;
     opacity: 0;
+    pointer-events: none;
     position: absolute;
     transition: opacity 0.35s ease-in-out;
-    pointer-events: none;
     width: 350px;
 }
 
