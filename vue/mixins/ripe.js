@@ -6,6 +6,7 @@ export const ripeMixin = {
             return toTokensM(tokens);
         },
         hasPermission(token, tokensM) {
+            tokensM = tokensM || this.tokens || {};
             return hasPermission(token, tokensM);
         }
     }
