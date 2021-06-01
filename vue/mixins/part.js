@@ -10,12 +10,17 @@ export const partMixin = {
          * @param {String} message The message to be used in for the
          * error handling if not provided the default one extracted
          * from the error is used.
+         * @param {Number} code The error code to be used in the handling of
+         * the error, used as a override value against the error object.
+         * @param {Boolean} log If logging of the error should be performed
+         * at the console, exposing the error "in depth" (includes stacktrace).
          */
-        handleError(error, message, code) {
+        handleError(error, message, code, log = true) {
             if (!this.$root.$router) return;
             code = code || error.code;
             const query = { message: message || error.message };
             if (code) query.code = code;
+            if (log) console.error(error);
             this.$root.$router.push({
                 name: "error",
                 query: query
