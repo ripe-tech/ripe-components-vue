@@ -13,11 +13,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-* Move some functions to `ripe-commons`
+*
 
 ### Fixed
 
 *
+
+## [0.11.0] - 2021-06-01
+
+### Changed
+
+* Move some functions to `ripe-commons`
 
 ## [0.10.1] - 2021-05-31
 
