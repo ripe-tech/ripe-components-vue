@@ -58,6 +58,7 @@
     },
     "dependencies": {
         "loaders.css": "^0.1.2",
+        "ripe-commons": "^0.3.6",
         "vue": "^2.6.12",
         "vue-global-events": "^1.2.1",
         "yonius": "^0.7.6"
