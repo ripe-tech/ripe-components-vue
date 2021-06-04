@@ -93,7 +93,7 @@
 .image-item > .item-image {
     align-items: center;
     background-color: $soft-blue;
-    border: 1.5px solid $light-white;
+    border: 1px solid $light-white;
     border-radius: 10px;
     display: flex;
     height: 260px;
@@ -104,8 +104,8 @@
 }
 
 .image-item:hover > .item-image {
-    border-color: #b6b9bf;
-    box-shadow: 1px 3px 7px rgba(182, 185, 191, 0.3);
+    border-color: $lower-grey;
+    box-shadow: 1px 2px 5px rgb(20 20 20 / 10%);
     transform: scale(1.025, 1.025);
 }
 
