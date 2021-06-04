@@ -98,22 +98,19 @@
     display: flex;
     height: 260px;
     justify-content: center;
-    transition: border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+    transition: border-color 0.15s ease-out, box-shadow 0.15s ease-out, transform 0.15s ease-out;
     user-select: none;
     width: 214px;
 }
 
 .image-item:hover > .item-image {
     border-color: #b6b9bf;
-    box-shadow: 1px 2px 5px rgba(182, 185, 191, 0.4);
+    box-shadow: 1px 3px 7px rgba(182, 185, 191, 0.3);
+    transform: scale(1.025, 1.025);
 }
 
 .image-item:active > .item-image {
     box-shadow: none;
-}
-
-.image-item > .item-image.dropdown-open:hover > .image {
-    opacity: 1;
 }
 
 .image-item > .item-image > .image {
