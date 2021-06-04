@@ -13,11 +13,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-* More interactive hover effect in the `image-item` component
+*
 
 ### Fixed
 
 *
+
+## [0.11.1] - 2021-06-04
+
+### Changed
+
+* More interactive hover effect in the `image-item` component
 
 ## [0.11.0] - 2021-06-01
 
