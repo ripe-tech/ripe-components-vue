@@ -51,7 +51,7 @@
                     {{ name }}
                 </div>
             </slot>
-            <slot name="description">
+            <slot name="description" v-if="description">
                 <div class="description">
                     {{ description }}
                 </div>
@@ -119,7 +119,7 @@
 }
 
 .image-item > .item-text {
-    margin-top: 10px;
+    margin-top: 12px;
     width: 214px;
 }
 
