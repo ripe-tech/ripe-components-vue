@@ -21,8 +21,8 @@ export const utilsMixin = {
         timeStringUTC(timestamp, separator, options) {
             return timeStringUTC(timestamp, separator, options);
         },
-        normalize(value) {
-            return normalize(value);
+        normalize(value, options) {
+            return normalize(value, options);
         },
         buildSlug(value) {
             return buildSlug(value);
