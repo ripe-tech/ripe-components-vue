@@ -2,8 +2,8 @@ import { hasFeature, setFeature, setFeatures, bindFeature, unbindFeature } from 
 
 export const configMixin = {
     methods: {
-        hasFeature(name) {
-            return hasFeature(name);
+        hasFeature(name, fallback, source) {
+            return hasFeature(name, fallback, source);
         },
         setFeature(name, value) {
             return setFeature(name, value);
