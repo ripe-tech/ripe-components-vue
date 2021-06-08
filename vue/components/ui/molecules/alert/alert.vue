@@ -172,7 +172,7 @@ export const Alert = {
                     this.loading = true;
                     await this.task(this, this.getComponentRef());
                 } catch (err) {
-                    console.err(err);
+                    console.error(err);
                 }
             }
             this.markDone("alert:confirm");
@@ -183,7 +183,7 @@ export const Alert = {
                     this.loading = true;
                     await this.cancelTask(this, this.getComponentRef());
                 } catch (err) {
-                    console.err(err);
+                    console.error(err);
                 }
             }
             this.markDone("alert:cancel");
