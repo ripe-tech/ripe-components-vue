@@ -22,7 +22,7 @@
             <input-ripe
                 class="select-input"
                 v-bind:value.sync="filterText"
-                v-show="filter && visibleData"
+                v-show="filterSelectVisible"
                 ref="input"
                 v-on:click="onClickDropdownButton"
                 v-on:keydown.esc.exact="onEscKey"
@@ -38,7 +38,7 @@
             <div
                 class="select-button"
                 tabindex="0"
-                v-show="!filter || !visibleData"
+                v-show="!filterSelectVisible"
                 ref="selectButton"
                 v-on:click="onClickDropdownButton"
                 v-on:keydown.exact="event => onKey(event.key)"
@@ -518,6 +518,9 @@ export const Select = {
         },
         selectedOption() {
             return this.options ? this.options[this.valueIndex] : null;
+        },
+        filterSelectVisible() {
+            return this.filter && this.visibleData;
         },
         buttonText() {
             return this.selectedOption ? this.selectedOption.label : this.placeholder;
