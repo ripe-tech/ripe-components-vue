@@ -19,7 +19,7 @@
                 />
             </div>
             <div class="header-center" v-else>
-                {{ monthName }} {{ year }}
+                {{ headerText }}
             </div>
             <button-icon icon="chevron-right" v-bind:icon-opacity="1" v-on:click="onRightClick" />
         </div>
@@ -207,6 +207,9 @@ export const Calendar = {
                     this.selectedMonth === month &&
                     this.selectedYear === this.year
             });
+        },
+        headerText() {
+            return `${this.monthName} ${this.year}`;
         },
         weekLabelsComputed() {
             const weekLabels = [...this.weekLabels];
