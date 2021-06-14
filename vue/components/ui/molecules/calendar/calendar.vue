@@ -65,16 +65,9 @@
     box-shadow: 0px 0px 30px rgba(21, 21, 21, 0.1);
     display: flex;
     flex-direction: column;
-    opacity: 0;
-    pointer-events: none;
     position: absolute;
     transition: opacity 0.35s ease-in-out;
     width: 350px;
-}
-
-.calendar.visible {
-    opacity: 1;
-    pointer-events: initial;
 }
 
 .calendar > .calendar-header {

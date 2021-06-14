@@ -21,6 +21,16 @@
     display: inline-block;
     position: relative;
 }
+
+.input-date .calendar {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.input-date .calendar.visible {
+    opacity: 1;
+    pointer-events: initial;
+}
 </style>
 
 <script>
