@@ -134,9 +134,20 @@
 
 .calendar > .calendar-header > .header-center {
     align-items: center;
+    border: 3px solid transparent;
+    border-radius: 20px;
     display: inline-block;
     display: flex;
+    height: 26px;
+    justify-content: center;
     user-select: none;
+    width: 100%;
+}
+
+.calendar > .calendar-header.dark > .header-center {
+    background-color: $dark-blue;
+    border-color: #ecf0f3;
+    color: $white;
 }
 
 .calendar > .calendar-content {
@@ -174,7 +185,7 @@
 .calendar > .calendar-content .calendar-table .table-body .row .cell .circle {
     border-radius: 50%;
     box-sizing: border-box;
-    color: #1d2631;
+    color: $dark-blue;
     height: 40px;
     line-height: 40px;
     margin: auto;
@@ -202,14 +213,14 @@
 }
 
 .calendar > .calendar-content .calendar-table .table-body .row .cell.selected .circle {
-    background-color: #1d2631;
+    background-color: $dark-blue;
     border: 3px solid #ecf0f3;
-    color: #ffffff;
+    color: $white;
     line-height: 35px;
 }
 
 .calendar .select ::v-deep .select-container .select-button {
-    background-color: #ffffff;
+    background-color: $white;
 }
 </style>
 
@@ -283,7 +294,8 @@ export const Calendar = {
     computed: {
         headerClasses() {
             const base = {
-                clickable: this.header
+                clickable: this.header,
+                dark: this.layerIndex === 0
             };
             return base;
         },
