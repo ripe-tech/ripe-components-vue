@@ -118,6 +118,7 @@
     color: #1d2631;
     height: 40px;
     line-height: 40px;
+    margin: auto;
     user-select: none;
     width: 40px;
 }
