@@ -140,6 +140,7 @@
     display: flex;
     height: 26px;
     justify-content: center;
+    transition: all 0.5s ease-in-out;
     user-select: none;
     width: 100%;
 }
