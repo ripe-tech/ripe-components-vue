@@ -2,23 +2,7 @@
     <div class="calendar">
         <div class="calendar-header">
             <button-icon icon="chevron-left" v-bind:icon-opacity="1" v-on:click="onLeftClick" />
-            <div class="header-center" v-if="header">
-                <select-ripe
-                    v-bind:options="monthOptions"
-                    v-bind:value.sync="month"
-                    v-bind:width="120"
-                    v-bind:max-height="300"
-                />
-                <input-ripe
-                    v-bind:placeholder="'Year'"
-                    v-bind:value="year"
-                    type="number"
-                    v-bind:min-width="0"
-                    v-bind:width="80"
-                    v-on:update:value="onYear"
-                />
-            </div>
-            <div class="header-center" v-else>
+            <div class="header-center">
                 {{ headerText }}
             </div>
             <button-icon icon="chevron-right" v-bind:icon-opacity="1" v-on:click="onRightClick" />
@@ -180,14 +164,6 @@ export const Calendar = {
         weekLabels: {
             type: Array,
             default: () => ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
-        },
-        /**
-         * If weather or not an interactable header should be used
-         * to select the month and year from input.
-         */
-        header: {
-            type: Boolean,
-            default: false
         }
     },
     data: function() {
