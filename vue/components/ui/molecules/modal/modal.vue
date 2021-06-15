@@ -23,7 +23,7 @@
                 </div>
                 <div class="modal-body">
                     <slot name="body">
-                        <h1 class="title" v-if="title">{{ title }}</h1>
+                        <h1 class="title" v-bind:class="titleClasses" v-if="title">{{ title }}</h1>
                         <h2 class="sub-title" v-if="subTitle">{{ subTitle }}</h2>
                         <div class="modal-content" ref="content">
                             <slot />
@@ -159,6 +159,9 @@ body.mobile .modal > .modal-container {
     letter-spacing: 0.5px;
     margin: 0px 0px 12px 0px;
     text-align: left;
+}
+
+.modal > .modal-container > .modal-body > .title.compact {
     width: calc(100% - 18px);
 }
 
@@ -279,6 +282,12 @@ export const Modal = {
         }
     },
     computed: {
+        titleClasses() {
+            const base = {
+                compact: this.buttonClose
+            };
+            return base;
+        },
         className() {
             return this.name ? `modal-${this.name}` : null;
         },
