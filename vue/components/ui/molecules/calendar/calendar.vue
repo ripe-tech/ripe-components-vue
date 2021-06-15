@@ -1,36 +1,24 @@
 <template>
     <div class="calendar">
-        <div class="calendar-header">
+        <div class="calendar-header" v-bind:class="headerClasses" v-on:click="onHeaderClick">
             <button-icon
                 icon="chevron-left"
+                icon-color="#1d2631"
                 v-bind:icon-opacity="1"
+                v-bind:icon-stroke-width="3"
                 v-bind:disabled="arrowsDisabled"
-                v-on:click="onLeftClick"
+                v-on:click.stop="onLeftClick"
             />
-            <div class="header-center" v-if="header">
-                <select-ripe
-                    v-bind:options="monthOptions"
-                    v-bind:value.sync="month"
-                    v-bind:width="120"
-                    v-bind:max-height="300"
-                />
-                <input-ripe
-                    v-bind:placeholder="'Year'"
-                    v-bind:value="year"
-                    type="number"
-                    v-bind:min-width="0"
-                    v-bind:width="80"
-                    v-on:update:value="onYear"
-                />
-            </div>
-            <div class="header-center" v-else v-on:click="onHeaderClick">
+            <div class="header-center">
                 {{ headerText }}
             </div>
             <button-icon
                 icon="chevron-right"
+                icon-color="#1d2631"
+                v-bind:icon-stroke-width="3"
                 v-bind:icon-opacity="1"
                 v-bind:disabled="arrowsDisabled"
-                v-on:click="onRightClick"
+                v-on:click.stop="onRightClick"
             />
         </div>
         <div class="calendar-content">
@@ -90,7 +78,7 @@
                                 v-bind:key="i - 1"
                                 v-on:click="onYearClick($event, year[i - 1])"
                             >
-                                <div class="circle year">
+                                <div class="circle years">
                                     {{ year[i - 1] }}
                                 </div>
                             </td>
@@ -140,9 +128,12 @@
     padding: 10px 10px 10px 10px;
 }
 
+.calendar > .calendar-header.clickable {
+    cursor: pointer;
+}
+
 .calendar > .calendar-header > .header-center {
     align-items: center;
-    cursor: pointer;
     display: inline-block;
     display: flex;
     user-select: none;
@@ -151,7 +142,7 @@
 .calendar > .calendar-content {
     display: flex;
     font-weight: 400;
-    height: 100%;
+    height: 300px;
     padding: 0px 20px 10px 20px;
 }
 
@@ -182,6 +173,7 @@
 
 .calendar > .calendar-content .calendar-table .table-body .row .cell .circle {
     border-radius: 50%;
+    box-sizing: border-box;
     color: #1d2631;
     height: 40px;
     line-height: 40px;
@@ -191,10 +183,12 @@
 }
 
 .calendar > .calendar-content .calendar-table .table-body .row .cell .circle.months,
+.calendar > .calendar-content .calendar-table .table-body .row .cell .circle.years,
 .calendar > .calendar-content .calendar-table .table-body .row .cell .circle.decade {
+    border-radius: 20px;
+    font-weight: bold;
     height: 100%;
     width: 100%;
-    border-radius: 20px;
 }
 
 .calendar > .calendar-content .calendar-table .table-body .row .cell.clickable:not(.selected):hover .circle,
@@ -209,7 +203,9 @@
 
 .calendar > .calendar-content .calendar-table .table-body .row .cell.selected .circle {
     background-color: #1d2631;
+    border: 3px solid #ecf0f3;
     color: #ffffff;
+    line-height: 35px;
 }
 
 .calendar .select ::v-deep .select-container .select-button {
@@ -234,18 +230,18 @@ export const Calendar = {
         monthLabels: {
             type: Array,
             default: () => [
-                "January",
-                "February",
-                "March",
-                "April",
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
                 "May",
-                "June",
-                "July",
-                "August",
-                "September",
-                "October",
-                "November",
-                "December"
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec"
             ]
         },
         /**
@@ -266,11 +262,11 @@ export const Calendar = {
         },
         /**
          * If weather or not an interactable header should be used
-         * to select the month and year from input.
+         * to select the month, year and decade.
          */
         header: {
             type: Boolean,
-            default: false
+            default: true
         }
     },
     data: function() {
@@ -285,6 +281,12 @@ export const Calendar = {
         };
     },
     computed: {
+        headerClasses() {
+            const base = {
+                clickable: this.header
+            };
+            return base;
+        },
         circleDayClass() {
             return (day, month) => ({
                 clickable: this.month === month,
@@ -328,12 +330,12 @@ export const Calendar = {
         yearsTable() {
             const startYear = this.year - (this.year % 10);
             const years = Array.from({ length: 10 }, (_, i) => startYear + i);
-            return this._splitArray(years, 7);
+            return this._splitArray(years, 4);
         },
         decadesTable() {
             const startYear = this.year - (this.year % 10);
-            const decades = Array.from({ length: 10 }, (_, i) => startYear + (i * 10));
-            return this._splitArray(decades, 4);
+            const decades = Array.from({ length: 10 }, (_, i) => startYear + i * 10);
+            return this._splitArray(decades, 3);
         },
         monthOptions() {
             return this.monthLabels.map((month, index) => ({ value: index, label: month }));
@@ -430,6 +432,7 @@ export const Calendar = {
             this.setYear(value);
         },
         onHeaderClick(event) {
+            if (!this.header) return;
             const index = this.layerIndex + 1;
             this.setLayerIndex(index);
         },
