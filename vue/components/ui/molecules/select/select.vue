@@ -301,10 +301,8 @@ export const Select = {
         valueData(value) {
             this.$emit("update:value", value);
         },
-        filterText(value) {
-            if (this.filteredOptions.length > 0) {
-                this.highlight(0);
-            }
+        filteredOptions(value) {
+            if (value.length > 0) this.highlight(0);
         }
     },
     methods: {
@@ -315,18 +313,19 @@ export const Select = {
         openDropdown() {
             if (this.disabled || this.visibleData) return;
             this.visibleData = true;
+
             // focus input and with blank text after dropdown is opened
             if (this.filter) {
                 this.filterText = "";
                 this.$nextTick(() => this.$refs.input.focus());
             }
         },
-        closeDropdown() {
+        closeDropdown(blur = false) {
             if (!this.visibleData) return;
             this.dehighlight();
             this.visibleData = false;
             // focus the select button after dropdown is closed
-            if (this.filter) this.$nextTick(() => this.$refs.selectButton.focus());
+            if (this.filter && !blur) this.$nextTick(() => this.$refs.selectButton.focus());
         },
         toggleDropdown() {
             if (this.visibleData) {
@@ -404,17 +403,9 @@ export const Select = {
                 return owner?.contains(event.target);
             });
             if (insideOwners) return;
-            this.closeDropdown();
+            this.closeDropdown(true);
         },
         onClickDropdownButton() {
-            this.toggleDropdown();
-        },
-        onSelectButtonEnterKey() {
-            // if there's no options for current filter, do nothing
-            if (!this.filteredOptions[this.highlighted]) return;
-            this.toggleDropdown();
-        },
-        onSelectButtonSpaceKey() {
             this.toggleDropdown();
         },
         onKey(key) {
