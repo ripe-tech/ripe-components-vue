@@ -306,7 +306,7 @@ export const Calendar = {
         },
         circleDecadeClass() {
             return year => ({
-                selected: this.selectedYear < year + 9 && this.selectedYear >= year
+                selected: this.selectedYear < year + 10 && this.selectedYear >= year
             });
         },
         arrowsDisabled() {
