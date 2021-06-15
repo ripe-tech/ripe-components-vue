@@ -159,6 +159,7 @@ body.mobile .modal > .modal-container {
     letter-spacing: 0.5px;
     margin: 0px 0px 12px 0px;
     text-align: left;
+    width: calc(100% - 18px);
 }
 
 .modal > .modal-container > .modal-body > .sub-title {
