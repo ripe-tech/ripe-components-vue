@@ -1,6 +1,6 @@
 <template>
     <transition name="fade">
-        <div v-bind:class="['modal', className]" v-show="isVisible" v-bind:id="className">
+        <div class="modal" v-bind:class="classes" v-show="isVisible" v-bind:id="className">
             <global-events v-on:keydown.esc="handleGlobal" />
             <overlay
                 v-bind:class="{ clickable: overlayLeave }"
@@ -23,7 +23,7 @@
                 </div>
                 <div class="modal-body">
                     <slot name="body">
-                        <h1 class="title" v-if="title">{{ title }}</h1>
+                        <h1 class="title" v-bind:class="titleClasses" v-if="title">{{ title }}</h1>
                         <h2 class="sub-title" v-if="subTitle">{{ subTitle }}</h2>
                         <div class="modal-content" ref="content">
                             <slot />
@@ -161,6 +161,10 @@ body.mobile .modal > .modal-container {
     text-align: left;
 }
 
+.modal.close-button > .modal-container > .modal-body > .title {
+    width: calc(100% - 18px);
+}
+
 .modal > .modal-container > .modal-body > .sub-title {
     font-size: 14px;
     font-weight: 500;
@@ -278,6 +282,13 @@ export const Modal = {
         }
     },
     computed: {
+        classes() {
+            const base = {
+                "close-button": this.buttonClose
+            };
+            if (this.className) base[this.className] = true;
+            return base;
+        },
         className() {
             return this.name ? `modal-${this.name}` : null;
         },
