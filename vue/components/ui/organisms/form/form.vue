@@ -58,7 +58,7 @@
                                     />
                                     <input-list
                                         v-bind="field.props"
-                                        v-bind:value="fromValue(field)"
+                                        v-bind:values="fromValue(field)"
                                         v-else-if="field.type === 'list'"
                                         v-on:update:values="value => onValue(field, value)"
                                     />
