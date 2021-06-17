@@ -430,7 +430,7 @@ export const Calendar = {
             this.month = date.getMonth();
         },
         setLayerIndex(index) {
-            if (index > 3) return;
+            if (index < 0 || index > 3) return;
             this.layerIndex = index;
         },
         setMonth(month) {
