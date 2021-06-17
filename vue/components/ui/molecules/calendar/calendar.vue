@@ -1,11 +1,23 @@
 <template>
     <div class="calendar">
         <div class="calendar-header">
-            <button-icon icon="chevron-left" v-bind:icon-opacity="1" v-on:click="onLeftClick" />
+            <button-icon
+                icon="chevron-left"
+                icon-color="#1d2631"
+                v-bind:icon-opacity="1"
+                v-bind:icon-stroke-width="3"
+                v-on:click.stop="onLeftClick"
+            />
             <div class="header-center">
                 {{ headerText }}
             </div>
-            <button-icon icon="chevron-right" v-bind:icon-opacity="1" v-on:click="onRightClick" />
+            <button-icon
+                icon="chevron-right"
+                icon-color="#1d2631"
+                v-bind:icon-opacity="1"
+                v-bind:icon-stroke-width="3"
+                v-on:click.stop="onRightClick"
+            />
         </div>
         <div class="calendar-content">
             <table class="calendar-table">
@@ -98,18 +110,18 @@
 }
 
 .calendar > .calendar-content .calendar-table .table-body .row .cell .circle {
+    border: 3px solid transparent;
     border-radius: 50%;
+    box-sizing: border-box;
     color: #1d2631;
     height: 40px;
-    line-height: 40px;
+    line-height: 35px;
     margin: auto;
     user-select: none;
     width: 40px;
 }
 
-.calendar > .calendar-content .calendar-table .table-body .row .cell.clickable:not(.selected):hover .circle,
-.calendar > .calendar-content .calendar-table .table-body .row .cell.clickable:not(.selected):focus .circle,
-.calendar > .calendar-content .calendar-table .table-body .row .cell.clickable:not(.selected):focus-visible .circle {
+.calendar > .calendar-content .calendar-table .table-body .row .cell.clickable:not(.selected):hover .circle {
     background-color: #ecf0f3;
 }
 
@@ -119,6 +131,7 @@
 
 .calendar > .calendar-content .calendar-table .table-body .row .cell.selected .circle {
     background-color: #1d2631;
+    border: 3px solid #ecf0f3;
     color: #ffffff;
 }
 
