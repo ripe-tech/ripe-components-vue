@@ -320,12 +320,12 @@ export const Select = {
                 this.$nextTick(() => this.$refs.input.focus());
             }
         },
-        closeDropdown(blur = false) {
+        closeDropdown(focus = true) {
             if (!this.visibleData) return;
             this.dehighlight();
             this.visibleData = false;
             // focus the select button after dropdown is closed
-            if (this.filter && !blur) this.$nextTick(() => this.$refs.selectButton.focus());
+            if (this.filter && focus) this.$nextTick(() => this.$refs.selectButton.focus());
         },
         toggleDropdown() {
             if (this.visibleData) {
@@ -403,7 +403,7 @@ export const Select = {
                 return owner?.contains(event.target);
             });
             if (insideOwners) return;
-            this.closeDropdown(true);
+            this.closeDropdown(false);
         },
         onClickDropdownButton() {
             this.toggleDropdown();
