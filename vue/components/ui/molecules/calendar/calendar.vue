@@ -219,6 +219,7 @@
     border: 3px solid #ecf0f3;
     color: $white;
     line-height: 35px;
+    transition: background-color 0.25s ease-in-out;
 }
 
 .calendar .select ::v-deep .select-container .select-button {
