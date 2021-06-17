@@ -44,7 +44,7 @@
                                 v-bind:key="d - 1"
                                 v-on:click="onDayClick($event, week[d - 1])"
                             >
-                                <div class="circle">
+                                <div class="circle days">
                                     {{ week[d - 1].day }}
                                 </div>
                             </td>
@@ -85,7 +85,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <table class="calendar-table decade" v-if="layerIndex === 3" v-bind:key="3">
+                <table class="calendar-table decades" v-if="layerIndex === 3" v-bind:key="3">
                     <tbody class="table-body">
                         <tr class="row" v-for="(decade, index) in decadesTable" v-bind:key="index">
                             <td
@@ -95,7 +95,7 @@
                                 v-bind:key="i - 1"
                                 v-on:click="onDecadeClick($event, decade[i - 1])"
                             >
-                                <div class="circle decade">
+                                <div class="circle decades">
                                     {{ `${decade[i - 1]} - ${decade[i - 1] + 9}` }}
                                 </div>
                             </td>
@@ -141,6 +141,7 @@
     height: 26px;
     justify-content: center;
     transition: all 0.5s ease-in-out;
+    -webkit-user-select: none;
     user-select: none;
     width: 100%;
 }
@@ -159,6 +160,7 @@
 }
 
 .calendar > .calendar-content .calendar-table {
+    height: 100%;
     position: relative;
     width: 100%;
 }
@@ -184,11 +186,13 @@
 }
 
 .calendar > .calendar-content .calendar-table .table-body .row .cell .circle {
+    align-items: center;
     border-radius: 50%;
     box-sizing: border-box;
     color: $dark-blue;
+    display: flex;
     height: 40px;
-    line-height: 40px;
+    justify-content: center;
     margin: auto;
     user-select: none;
     width: 40px;
@@ -196,16 +200,13 @@
 
 .calendar > .calendar-content .calendar-table .table-body .row .cell .circle.months,
 .calendar > .calendar-content .calendar-table .table-body .row .cell .circle.years,
-.calendar > .calendar-content .calendar-table .table-body .row .cell .circle.decade {
+.calendar > .calendar-content .calendar-table .table-body .row .cell .circle.decades {
     border-radius: 20px;
     font-weight: bold;
-    height: 100%;
     width: 100%;
 }
 
-.calendar > .calendar-content .calendar-table .table-body .row .cell.clickable:not(.selected):hover .circle,
-.calendar > .calendar-content .calendar-table .table-body .row .cell.clickable:not(.selected):focus .circle,
-.calendar > .calendar-content .calendar-table .table-body .row .cell.clickable:not(.selected):focus-visible .circle {
+.calendar > .calendar-content .calendar-table .table-body .row .cell.clickable:not(.selected):hover .circle {
     background-color: #ecf0f3;
 }
 
