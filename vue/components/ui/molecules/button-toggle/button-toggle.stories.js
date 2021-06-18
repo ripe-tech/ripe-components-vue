@@ -76,6 +76,11 @@ storiesOf("Components/Molecules/Button Toggle", module)
                 this.valueData = value;
             }
         },
+        methods: {
+            onClick(event) {
+                this.valueData = !this.valueData;
+            }
+        },
         template: `
             <div>
                 <button-toggle
@@ -86,6 +91,7 @@ storiesOf("Components/Molecules/Button Toggle", module)
                     v-bind:color-secondary="colorSecondary"
                     v-bind:orientation="orientation"
                     v-bind:value.sync="valueData"
+                    v-on:click="onClick"
                 />
             </div>
             `

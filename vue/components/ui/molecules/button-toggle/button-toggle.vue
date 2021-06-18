@@ -102,45 +102,28 @@ export const ButtonToggle = {
             default: () => ({})
         }
     },
-    data: function() {
-        return {
-            valueData: this.value
-        };
-    },
-    watch: {
-        value(value) {
-            this.valueData = value;
-        },
-        valueData(value) {
-            this.$emit("update:value", value);
-        }
-    },
     computed: {
         iconComputed() {
-            return this.valueData ? this.iconSecondaryComputed : this.icon;
+            return this.value ? this.iconSecondaryComputed : this.icon;
         },
         iconSecondaryComputed() {
             return this.iconSecondary ? this.iconSecondary : this.icon;
         },
         colorComputed() {
-            return this.valueData ? this.colorSecondary : this.color;
+            return this.value ? this.colorSecondary : this.color;
         },
         textComputed() {
             // shows text if no icon is provided
             return this.icon ? null : this.text;
         },
         classes() {
-            const base = { active: this.valueData };
+            const base = { active: this.value };
             base[this.orientation] = true;
             return base;
         }
     },
     methods: {
-        toggleValue() {
-            this.valueData = !this.valueData;
-        },
         onClick(event) {
-            this.toggleValue();
             this.$emit("click", event);
         }
     }

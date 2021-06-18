@@ -58,7 +58,9 @@ export const ButtonGroup = {
             return "middle";
         },
         onClick(event, item) {
-            this.valueData = item.value;
+            this.$set(this, "valueData", item.value);
+            console.log("val", this.valueData);
+            // this.valueData = item.value;
         }
     }
 };
