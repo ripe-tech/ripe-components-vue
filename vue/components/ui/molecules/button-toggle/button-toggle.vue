@@ -80,7 +80,7 @@ export const ButtonToggle = {
             default: false
         },
         /**
-         * The orientation of the button that modefied its borders
+         * The orientation of the button that modified its borders
          * ("default", "left", "center" and "right").
          */
         orientation: {
@@ -99,7 +99,7 @@ export const ButtonToggle = {
          */
         buttonProps: {
             type: Object,
-            default: () => {}
+            default: () => ({})
         }
     },
     data: function() {
