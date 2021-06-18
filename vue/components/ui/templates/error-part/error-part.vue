@@ -1,11 +1,18 @@
 <template>
     <div class="error-part">
         <button-icon
-            class="button-icon-back"
+            class="button-icon back"
             v-bind:icon="'arrow-left'"
             v-bind:size="60"
             v-if="navigation"
             v-on:click="goBack"
+        />
+        <button-icon
+            class="button-icon home"
+            v-bind:icon="'home'"
+            v-bind:size="60"
+            v-if="navigation"
+            v-on:click="goHome"
         />
         <div class="error-message">
             <image-ripe
@@ -99,10 +106,17 @@
     margin: 24px auto 0px auto;
 }
 
-.button-icon-back {
-    left: 20px;
+.button-icon {
     position: absolute;
     top: 20px;
+}
+
+.button-icon.back {
+    left: 20px;
+}
+
+.button-icon.home {
+    left: 90px;
 }
 </style>
 
