@@ -152,6 +152,7 @@ export const ErrorPart = {
     methods: {
         goHome() {
             if (!this.navigation) return;
+            if (window) window.location = "/";
             this.$router.push({ name: "home" });
         },
         goBack() {
