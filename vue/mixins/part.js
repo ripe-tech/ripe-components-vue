@@ -6,7 +6,6 @@ export const partMixin = {
          * Handles the error in the UI so that the user is
          * properly notified about the problem.
          * Typical handling involves router redirection.
-         * If an error router doesn't exist shows simple alert.
          *
          * @param {Error} error The error object to be used in the
          * handling of the error.
@@ -24,16 +23,10 @@ export const partMixin = {
             code = code || error.code;
             const query = { message: message || error.message };
             if (code) query.code = code;
-
-            const hasErrorPage = this.$root.$router.resolve({ name: "error" }).href !== "/";
-            if (hasErrorPage) {
-                this.$root.$router.push({
-                    name: "error",
-                    query: query
-                });
-            } else {
-                this.alertSimple(error.message);
-            }
+            this.$root.$router.push({
+                name: "error",
+                query: query
+            });
         },
         hasPermission(token) {
             return this.$root.hasPermission(token);
