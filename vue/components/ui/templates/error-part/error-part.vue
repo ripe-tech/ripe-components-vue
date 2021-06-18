@@ -116,7 +116,7 @@
 }
 
 .button-icon.home {
-    left: 90px;
+    right: 20px;
 }
 </style>
 
