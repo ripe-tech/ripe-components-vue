@@ -9,7 +9,7 @@
         />
         <button-icon
             class="button-icon home"
-            v-bind:icon="'home'"
+            v-bind:icon="homeIcon"
             v-bind:size="60"
             v-if="navigation"
             v-on:click="goHome"
@@ -139,6 +139,9 @@ export const ErrorPart = {
         image: {
             type: String,
             default: null
+        },
+        homeIcon: {
+            default: "home"
         },
         navigation: {
             type: Boolean,
