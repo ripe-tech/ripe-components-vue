@@ -1,6 +1,11 @@
 import { OperationalError } from "yonius";
 
 export const partMixin = {
+    data: function() {
+        return {
+            errorHandler: this.handleErrorDefault
+        };
+    },
     methods: {
         /**
          * Handles the error in the UI so that the user is
@@ -19,6 +24,9 @@ export const partMixin = {
          */
         handleError(error, message, code, log = true) {
             if (log) console.error(error);
+            return this.errorHandler(error, message, code);
+        },
+        handleErrorDefault(error, message, code) {
             if (!this.$root.$router) return;
             code = code || error.code;
             const query = { message: message || error.message };
