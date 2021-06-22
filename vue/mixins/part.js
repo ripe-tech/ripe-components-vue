@@ -22,14 +22,15 @@ export const partMixin = {
          * @param {Boolean} log If logging of the error should be performed
          * at the console, exposing the error "in depth" (includes stacktrace).
          */
-        handleError(error, message, code, log = true) {
+        async handleError(error, message, code, log = true) {
             if (log) console.error(error);
-            return this.errorHandler(error, message, code);
+            message = message || error.message;
+            await this.errorHandler(error, message, code);
         },
-        handleErrorDefault(error, message, code) {
+        async handleErrorDefault(error, message, code) {
             if (!this.$root.$router) return;
             code = code || error.code;
-            const query = { message: message || error.message };
+            const query = { message: message };
             if (code) query.code = code;
             this.$root.$router.push({
                 name: "error",
