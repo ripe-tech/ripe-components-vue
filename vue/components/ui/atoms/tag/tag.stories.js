@@ -13,8 +13,9 @@ storiesOf("Components/Atoms/Tag", module)
                     "Size",
                     {
                         Medium: "medium",
+                        Large: "large",
                         Small: "small",
-                        Large: "large"
+                        Tiny: "tiny"
                     },
                     "medium"
                 )
