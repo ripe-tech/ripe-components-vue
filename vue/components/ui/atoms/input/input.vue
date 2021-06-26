@@ -63,8 +63,8 @@
     border-width: 2px;
 }
 
-.input:hover:not(:disabled) {
-    border-color: #dfe1e5;
+.input:hover:not(:disabled):not(:focus) {
+    border-color: $aqcua-blue;
 }
 
 .input:focus {
