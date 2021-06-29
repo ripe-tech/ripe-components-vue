@@ -181,7 +181,6 @@ export const Calendar = {
     data: function() {
         return {
             valueData: this.value,
-            calendarVisibility: true,
             day: 1,
             month: new Date().getMonth(),
             year: new Date().getFullYear()
