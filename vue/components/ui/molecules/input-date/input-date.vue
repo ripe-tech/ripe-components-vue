@@ -22,19 +22,23 @@
     position: relative;
 }
 
-.input-date .calendar {
+.input-date > .calendar {
     opacity: 0;
     pointer-events: none;
+    position: absolute;
 }
 
-.input-date .calendar.visible {
+.input-date > .calendar.visible {
     opacity: 1;
     pointer-events: initial;
 }
 </style>
 
 <script>
+import { utilsMixin } from "../../../../mixins";
+
 export const InputDate = {
+    mixins: [utilsMixin],
     props: {
         /**
          * If weather or not an interactable header should be used

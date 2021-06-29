@@ -36,13 +36,13 @@
                     <tr class="row" v-for="(week, index) in weeks" v-bind:key="index">
                         <td
                             class="cell"
-                            v-bind:class="circleClass(week[d - 1].day, week[d - 1].month)"
-                            v-for="d in 7"
-                            v-bind:key="d - 1"
-                            v-on:click="onCellClick(week[d - 1])"
+                            v-bind:class="circleClass(week[day - 1].day, week[day - 1].month)"
+                            v-for="day in 7"
+                            v-bind:key="day"
+                            v-on:click="onCellClick(week[day - 1])"
                         >
                             <div class="circle">
-                                {{ week[d - 1].day }}
+                                {{ week[day - 1].day }}
                             </div>
                         </td>
                     </tr>
@@ -61,7 +61,6 @@
     box-shadow: 0px 0px 30px rgba(21, 21, 21, 0.1);
     display: flex;
     flex-direction: column;
-    position: absolute;
     transition: opacity 0.35s ease-in-out;
     width: 350px;
 }
