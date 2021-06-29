@@ -147,7 +147,7 @@ export const Calendar = {
          * Example: "2020/12/31"
          */
         value: {
-            type: Date | String,
+            type: String,
             default: null
         },
         /**
