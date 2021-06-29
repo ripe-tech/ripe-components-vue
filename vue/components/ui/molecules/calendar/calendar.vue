@@ -207,8 +207,8 @@ export const Calendar = {
             const firstMonday = date.getDay() === 0 ? -5 : date.getDate() - date.getDay() + 1;
             date.setDate(firstMonday);
             const weeks = new Array(6).fill(0).map(() =>
-                new Array(7).fill(0).map(day => {
-                    day = new Date(date);
+                new Array(7).fill(0).map(_ => {
+                    const day = new Date(date);
                     date.setDate(date.getDate() + 1);
                     return { day: day.getDate(), month: day.getMonth() };
                 })
