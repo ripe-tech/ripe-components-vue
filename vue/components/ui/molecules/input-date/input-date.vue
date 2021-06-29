@@ -4,7 +4,7 @@
         <input-ripe
             type="date"
             v-bind:value="valueDataFormated"
-            v-bind="$attrs"
+            v-bind="calendarProps"
             v-on:update:value="onInputValue"
             v-on:click.prevent.stop="onClick"
             v-on:focus.prevent="onFocus"
@@ -56,6 +56,13 @@ export const InputDate = {
         value: {
             type: String,
             default: null
+        },
+        /**
+         * The props to be passed to calendar
+         */
+        calendarProps: {
+            type: Object,
+            default: () => ({})
         }
     },
     data: function() {
