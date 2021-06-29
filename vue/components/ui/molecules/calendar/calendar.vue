@@ -223,11 +223,6 @@ export const Calendar = {
         },
         selectedYear() {
             return this.valueData?.getFullYear();
-        },
-        valueDataFormated() {
-            return `${this.selectedYear}-${("0" + (this.selectedMonth + 1)).slice(-2)}-${(
-                "0" + this.selectedDay
-            ).slice(-2)}`;
         }
     },
     watch: {
