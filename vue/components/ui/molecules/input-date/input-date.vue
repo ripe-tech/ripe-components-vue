@@ -48,6 +48,14 @@ export const InputDate = {
         header: {
             type: Boolean,
             default: false
+        },
+        /**
+         * The value of input date in String or Date format.
+         * Example: "2020/12/31"
+         */
+        value: {
+            type: String,
+            default: null
         }
     },
     data: function() {
