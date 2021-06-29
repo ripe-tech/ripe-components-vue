@@ -61,7 +61,7 @@
     box-shadow: 0px 0px 30px rgba(21, 21, 21, 0.1);
     display: flex;
     flex-direction: column;
-    transition: opacity 0.35s ease-in-out;
+    transition: opacity 0.125s ease-in-out;
     width: 350px;
 }
 
