@@ -187,15 +187,6 @@ export const Calendar = {
         };
     },
     computed: {
-        circleClass() {
-            return (day, month) => ({
-                clickable: this.month === month,
-                selected:
-                    this.selectedDay === day &&
-                    this.selectedMonth === month &&
-                    this.selectedYear === this.year
-            });
-        },
         headerText() {
             return `${this.monthName} ${this.year}`;
         },
@@ -251,6 +242,15 @@ export const Calendar = {
         this.setDate(this.value);
     },
     methods: {
+        circleClass(day, month) {
+            return {
+                clickable: this.month === month,
+                selected:
+                    this.selectedDay === day &&
+                    this.selectedMonth === month &&
+                    this.selectedYear === this.year
+            };
+        },
         isValidDate(date) {
             if (!date) return false;
             if (isNaN(date.getTime())) return false;
