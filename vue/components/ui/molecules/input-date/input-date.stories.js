@@ -10,6 +10,6 @@ storiesOf("Components/Molecules/Date Input", module)
             }
         },
         template: `
-            <input-date v-bind:header="header" v-bind:date="date" />
+            <input-date v-bind:header="header" />
         `
     }));
