@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 * Support for `Number` type values in `radio`, `radio-group` and `select`
+* Support for text filtering input mode in `select`
 
 ### Fixed
 
