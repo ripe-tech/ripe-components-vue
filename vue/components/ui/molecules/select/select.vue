@@ -320,12 +320,12 @@ export const Select = {
                 this.$nextTick(() => this.$refs.input.focus());
             }
         },
-        closeDropdown(focus = true) {
+        closeDropdown(maintainFocus = true) {
             if (!this.visibleData) return;
             this.dehighlight();
             this.visibleData = false;
             // focus the select button after dropdown is closed
-            if (this.filter && focus) this.$nextTick(() => this.$refs.selectButton.focus());
+            if (this.filter && maintainFocus) this.$nextTick(() => this.$refs.selectButton.focus());
         },
         toggleDropdown() {
             if (this.visibleData) {
