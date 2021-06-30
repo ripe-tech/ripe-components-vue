@@ -128,7 +128,7 @@
     color: #bac2cb;
 }
 
-.calendar > .calendar-content .calendar-table .table-body .row .cell.selected .circle {
+.calendar > .calendar-content .calendar-table .table-body .row .cell.selected.clickable .circle {
     background-color: #1d2631;
     border: 3px solid #ecf0f3;
     color: #ffffff;
