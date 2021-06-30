@@ -233,7 +233,7 @@ export const Calendar = {
             const date = new Date(parseInt(value) * 1000);
             this.setDate(date);
         },
-        valueData(value) {
+        valueEpoch(value) {
             this.$emit("update:value", this.valueEpoch);
         }
     },

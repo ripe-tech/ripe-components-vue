@@ -90,8 +90,8 @@ export const InputDate = {
         value(value) {
             this.valueData = value;
         },
-        valueData(value) {
-            this.$emit("update:value", value);
+        valueDataFormated(value) {
+            this.$emit("update:value", this.valueDataFormated);
         }
     },
     methods: {
