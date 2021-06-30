@@ -143,11 +143,10 @@
 export const Calendar = {
     props: {
         /**
-         * The value of input date in String or Date format.
-         * Example: "2020/12/31"
+         * The value of input date in epoch format.
          */
         value: {
-            type: String | Number,
+            type: Number,
             default: null
         },
         /**

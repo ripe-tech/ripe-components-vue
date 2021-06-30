@@ -49,10 +49,9 @@ export const InputDate = {
         },
         /**
          * The value of input date in String or Date format.
-         * Example: "2020/12/31"
          */
         value: {
-            type: Number | String,
+            type: Number,
             default: null
         },
         /**
