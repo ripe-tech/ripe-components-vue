@@ -225,6 +225,7 @@ export const Calendar = {
             return this.valueData?.getFullYear();
         },
         valueEpoch() {
+            if (!this.valueData) return;
             return Math.round(this.valueData.getTime() / 1000);
         }
     },
@@ -234,7 +235,7 @@ export const Calendar = {
             this.setDate(date);
         },
         valueEpoch(value) {
-            this.$emit("update:value", this.valueEpoch);
+            this.$emit("update:value", value);
         }
     },
     created: function() {
