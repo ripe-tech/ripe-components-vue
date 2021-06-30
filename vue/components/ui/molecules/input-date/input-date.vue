@@ -3,7 +3,7 @@
         <global-events v-on:click="onGlobalClick" />
         <input-ripe
             type="date"
-            v-bind:value="valueDataFormated"
+            v-bind:value.sync="valueDataFormated"
             v-bind="calendarProps"
             v-on:update:value="onInputValue"
             v-on:click.prevent.stop="onClick"
@@ -54,7 +54,7 @@ export const InputDate = {
          * Example: "2020/12/31"
          */
         value: {
-            type: String,
+            type: Number | String,
             default: null
         },
         /**
@@ -79,9 +79,10 @@ export const InputDate = {
         },
         valueDataFormated() {
             if (!this.valueData) return;
-            const year = this.valueData.getFullYear();
-            const month = this.valueData.getMonth();
-            const day = this.valueData.getDate();
+            const date = new Date(this.valueData * 1000);
+            const year = date.getFullYear();
+            const month = date.getMonth();
+            const day = date.getDate();
             return `${year}-${("0" + (month + 1)).slice(-2)}-${("0" + day).slice(-2)}`;
         }
     },
@@ -93,19 +94,12 @@ export const InputDate = {
             this.$emit("update:value", value);
         }
     },
-    created: function() {
-        this.setDate(this.value);
-    },
     methods: {
         isValidDate(date) {
             if (!date) return false;
             if (isNaN(date.getTime())) return false;
             if (date.getFullYear().toString().length !== 4) return false;
             return true;
-        },
-        setDate(date) {
-            if (!this.isValidDate(date)) return;
-            this.valueData = date;
         },
         onGlobalClick(event) {
             const owners = [this.$refs.calendar];
@@ -118,10 +112,6 @@ export const InputDate = {
         },
         onClick(event) {
             this.calendarVisibility = true;
-        },
-        onInputValue(value) {
-            const date = new Date(value);
-            this.setDate(date);
         },
         onFocus(event) {
             this.calendarVisibility = true;

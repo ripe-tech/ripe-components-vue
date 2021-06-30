@@ -147,7 +147,7 @@ export const Calendar = {
          * Example: "2020/12/31"
          */
         value: {
-            type: String,
+            type: String | Number,
             default: null
         },
         /**
@@ -223,14 +223,18 @@ export const Calendar = {
         },
         selectedYear() {
             return this.valueData?.getFullYear();
+        },
+        valueEpoch() {
+            return Math.round(this.valueData.getTime() / 1000);
         }
     },
     watch: {
         value(value) {
-            this.setDate(value);
+            const date = new Date(parseInt(value) * 1000);
+            this.setDate(date);
         },
         valueData(value) {
-            this.$emit("update:value", value);
+            this.$emit("update:value", this.valueEpoch);
         }
     },
     created: function() {
