@@ -2,10 +2,8 @@
     <div class="input-date">
         <global-events v-on:click="onGlobalClick" />
         <input-ripe
-            type="date"
-            v-bind:value.sync="valueDataFormated"
+            v-bind:value.sync="valueData"
             v-bind="calendarProps"
-            v-on:update:value="onInputValue"
             v-on:click.prevent.stop="onClick"
             v-on:focus.prevent="onFocus"
             v-on:keyup.prevent
