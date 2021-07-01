@@ -23,7 +23,7 @@
                 </div>
                 <div class="modal-body">
                     <slot name="body">
-                        <h1 class="title" v-bind:class="titleClasses" v-if="title">{{ title }}</h1>
+                        <h1 class="title" v-if="title">{{ title }}</h1>
                         <h2 class="sub-title" v-if="subTitle">{{ subTitle }}</h2>
                         <div class="modal-content" ref="content">
                             <slot />
