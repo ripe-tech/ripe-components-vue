@@ -58,7 +58,7 @@
 .calendar {
     border: 1px solid #e4e8f0;
     border-radius: 6px 6px 6px 6px;
-    box-shadow: 0px 0px 30px rgba(21, 21, 21, 0.1);
+    box-shadow: 0px 0px 12px rgba(21, 21, 21, 0.1);
     display: flex;
     flex-direction: column;
     transition: opacity 0.125s ease-in-out;
@@ -74,13 +74,12 @@
 
 .calendar > .calendar-header > .header-center {
     align-items: center;
-    display: inline-block;
     display: flex;
+    font-weight: 600;
 }
 
 .calendar > .calendar-content {
     display: flex;
-    font-weight: 400;
     height: 100%;
     padding: 0px 20px 10px 20px;
 }
@@ -91,10 +90,6 @@
 
 .calendar > .calendar-content .calendar-table .table-header .row {
     height: 40px;
-}
-
-.calendar > .calendar-content .calendar-table .table-header .row .heading {
-    font-weight: 400;
 }
 
 .calendar > .calendar-content .calendar-table .table-body .row .cell {
