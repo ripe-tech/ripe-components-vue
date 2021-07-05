@@ -372,6 +372,11 @@ export const Filter = {
             }
 
             if (auto) {
+                /**
+                 * @param {Array} oldItems list of id's of the current items already being displayed (if any)
+                 * @param {Array} newItems list of id's of the items fetched recentely
+                 * @param {Array} freshItems number of fresh items (present in 'newItems' and not in 'oldItems')
+                 */
                 const oldItems = this.items.map(item => item.id);
                 const newItems = items.map(item => item.id);
                 const freshItems = newItems.reduce((a = 0, b) => a + !oldItems.includes(b), 0);
