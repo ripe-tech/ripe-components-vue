@@ -31,7 +31,7 @@
                                 v-bind:variant="'dark'"
                                 v-bind:placeholder="filterText ? filterText : `Search ${name}`"
                                 v-bind:value.sync="filter"
-                                v-bind:loading="loading"
+                                v-bind:loading="loading || autoRefreshing"
                             />
                         </tooltip>
                     </slot>
@@ -83,7 +83,7 @@
                             v-bind:width="searchWidth"
                             v-bind:placeholder="filterText ? filterText : `Search ${name}`"
                             v-bind:value.sync="filter"
-                            v-bind:loading="loading"
+                            v-bind:loading="loading || autoRefreshing"
                         />
                     </tooltip>
                 </slot>
@@ -105,12 +105,16 @@
                 v-bind:default-sort="defaultSort"
                 v-bind:filter="filter"
                 v-bind:use-query="useQuery"
+                v-bind:auto-refresh="autoRefresh"
+                v-bind:auto-refresh-time="autoRefreshTime"
                 v-bind:loading.sync="loading"
                 v-bind:items.sync="items"
                 v-bind:options.sync="filterOptions"
                 v-bind:checkboxes="checkboxes"
                 v-bind:checked-items.sync="checkedItemsData"
                 ref="filter"
+                v-on:auto:refresh:start="onAutoRefreshStart"
+                v-on:auto:refresh:stop="onAutoRefreshStop"
                 v-on:update:options="filterUpdated"
                 v-on:click:table="onTableClick"
                 v-on:click:lineup="onLineupClick"
@@ -357,6 +361,14 @@ export const Listing = {
             type: Boolean,
             default: true
         },
+        autoRefresh: {
+            type: Boolean,
+            default: false
+        },
+        autoRefreshTime: {
+            type: Number,
+            default: 60000
+        },
         searchWidth: {
             type: Number,
             default: 304
@@ -389,6 +401,7 @@ export const Listing = {
             filter: this.context && this.context.filter ? this.context.filter : "",
             filterOptions: null,
             loading: false,
+            autoRefreshing: false,
             visibleLightbox: null
         };
     },
@@ -429,6 +442,14 @@ export const Listing = {
         },
         onLineupClick(item, index) {
             this.$emit("click:lineup", item, index);
+        },
+        onAutoRefreshStart() {
+            this.$emit("auto:refresh:start");
+            this.autoRefreshing = true;
+        },
+        onAutoRefreshStop() {
+            this.$emit("auto:refresh:stop");
+            this.autoRefreshing = false;
         }
     },
     computed: {

@@ -157,6 +157,14 @@ export const Filter = {
             type: Number,
             default: 25
         },
+        autoRefresh: {
+            type: Boolean,
+            default: false
+        },
+        autoRefreshTime: {
+            type: Number,
+            default: 60000
+        },
         defaultReverse: {
             type: Boolean,
             default: false
@@ -236,7 +244,7 @@ export const Filter = {
                 // trigger underlying remote operations (async call)
                 // in case no effective refresh was performed there's
                 // nothing remaining to be done (returns control flow)
-                const refreshed = await this.refresh();
+                const refreshed = await this.refresh({});
                 if (!refreshed) return;
 
                 // updates the top level query for the current page
@@ -257,6 +265,12 @@ export const Filter = {
             },
             immediate: true
         }
+    },
+    mounted: function() {
+        if (this.autoRefresh) this.setAutoRefresh();
+    },
+    destroyed: async function() {
+        clearInterval(this.refreshTimeInterval);
     },
     methods: {
         onSort(items, column, reverse) {
@@ -296,13 +310,19 @@ export const Filter = {
 
             this.$router.replace({ query: next });
         },
+        setAutoRefresh() {
+            this.refreshTimeInterval = setInterval(
+                () => this.refresh({ auto: true }),
+                this.autoRefreshTime
+            );
+        },
         setItem(index, item) {
             this.items.$set(index, item);
         },
         removeItem(index) {
             this.items.splice(index, 1);
         },
-        async refresh(force = true) {
+        async refresh({ force = true, auto = false }) {
             // in case there's a request already being handled and
             // the force flag is not set returns immediately, not
             // going to override the request
@@ -312,13 +332,22 @@ export const Filter = {
             // marks the current component as loading
             const options = this.options;
             const signature = this.signature;
-            this.loading = true;
+            this.loading = true && !auto;
 
             // waits for a short time for new get items requests
             // which would make this request unnecessary
             await new Promise(resolve => setTimeout(resolve, this.filterTimeout));
             if (this.signature !== signature) {
                 return false;
+            }
+
+            // in case of an autorefresh you want to get at least
+            // the same amount of items that are currently being shown
+            if (auto) {
+                this.$emit("auto:refresh:start");
+
+                options.limit = this.items.length;
+                options.start = 0;
             }
 
             // makes the items request and checks if it is still
@@ -334,6 +363,30 @@ export const Filter = {
                 return false;
             }
 
+            if (auto) {
+                const oldItems = this.items.map(item => item.id);
+                const newItems = items.map(item => item.id);
+                const freshItems = newItems.reduce((a = 0, b) => a + !oldItems.includes(b), 0);
+
+                // checks if there's any new item and appends to the list
+                if (freshItems) {
+                    options.start = this.items.length - 1;
+                    options.limit = freshItems;
+                    const refreshedItems = await this.getItems(options);
+                    this.tableTransition = "fade";
+                    this.items = [...items, ...refreshedItems];
+                    this.itemsToLoad = true;
+
+                    return true;
+                }
+
+                this.tableTransition = "";
+                this.items = [...items];
+                this.itemsToLoad = items.length === this.limit;
+
+                this.$emit("auto:refresh:stop");
+                return true;
+            }
             // if this request was triggered for pagination then
             // appends the new items to the current items, otherwise
             // replaces the current items
