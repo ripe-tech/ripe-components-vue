@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 * Support for ellipsis in `tag` component
+* Support for auto refresh in filter component
 
 ### Changed
 
