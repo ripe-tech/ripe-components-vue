@@ -31,7 +31,7 @@
                                 v-bind:variant="'dark'"
                                 v-bind:placeholder="filterText ? filterText : `Search ${name}`"
                                 v-bind:value.sync="filter"
-                                v-bind:loading="loading || autoRefreshing"
+                                v-bind:loading="searchLoading"
                             />
                         </tooltip>
                     </slot>
@@ -83,7 +83,7 @@
                             v-bind:width="searchWidth"
                             v-bind:placeholder="filterText ? filterText : `Search ${name}`"
                             v-bind:value.sync="filter"
-                            v-bind:loading="loading || autoRefreshing"
+                            v-bind:loading="searchLoading"
                         />
                     </tooltip>
                 </slot>
@@ -113,8 +113,7 @@
                 v-bind:checkboxes="checkboxes"
                 v-bind:checked-items.sync="checkedItemsData"
                 ref="filter"
-                v-on:auto:refresh:start="onAutoRefreshStart"
-                v-on:auto:refresh:stop="onAutoRefreshStop"
+                v-on:update:loading="onUpdateLoading"
                 v-on:update:options="filterUpdated"
                 v-on:click:table="onTableClick"
                 v-on:click:lineup="onLineupClick"
@@ -443,9 +442,9 @@ export const Listing = {
         onLineupClick(item, index) {
             this.$emit("click:lineup", item, index);
         },
-        onAutoRefreshStart() {
+        onUpdateLoading(value) {
             this.$emit("auto:refresh:start");
-            this.autoRefreshing = true;
+            this.autoRefreshing = value;
         },
         onAutoRefreshStop() {
             this.$emit("auto:refresh:stop");
@@ -468,6 +467,9 @@ export const Listing = {
             }
 
             return base;
+        },
+        searchLoading() {
+            return this.loading || this.autoRefreshing;
         }
     },
     beforeRouteUpdate: function(to, from, next) {

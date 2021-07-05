@@ -193,6 +193,7 @@ export const Filter = {
             start: 0,
             itemsToLoad: true,
             loading: false,
+            autoRefreshing: false,
             tableTransition: ""
         };
     },
@@ -244,7 +245,7 @@ export const Filter = {
                 // trigger underlying remote operations (async call)
                 // in case no effective refresh was performed there's
                 // nothing remaining to be done (returns control flow)
-                const refreshed = await this.refresh({});
+                const refreshed = await this.refresh();
                 if (!refreshed) return;
 
                 // updates the top level query for the current page
@@ -259,6 +260,12 @@ export const Filter = {
             },
             immediate: true
         },
+        autoRefreshing: {
+            handler: function(value) {
+                this.$emit("update:loading", value);
+            },
+            immediate: true
+        },
         items: {
             handler: function(value) {
                 this.$emit("update:items", value);
@@ -267,7 +274,7 @@ export const Filter = {
         }
     },
     mounted: function() {
-        if (this.autoRefresh) this.setAutoRefresh();
+        this.initAutoRefresh();
     },
     destroyed: async function() {
         clearInterval(this.refreshTimeInterval);
@@ -310,7 +317,8 @@ export const Filter = {
 
             this.$router.replace({ query: next });
         },
-        setAutoRefresh() {
+        initAutoRefresh() {
+            if (!this.autoRefresh) return;
             this.refreshTimeInterval = setInterval(
                 () => this.refresh({ auto: true }),
                 this.autoRefreshTime
@@ -322,7 +330,7 @@ export const Filter = {
         removeItem(index) {
             this.items.splice(index, 1);
         },
-        async refresh({ force = true, auto = false }) {
+        async refresh({ force = true, auto = false } = {}) {
             // in case there's a request already being handled and
             // the force flag is not set returns immediately, not
             // going to override the request
@@ -332,7 +340,7 @@ export const Filter = {
             // marks the current component as loading
             const options = this.options;
             const signature = this.signature;
-            this.loading = true && !auto;
+            this.loading = !auto;
 
             // waits for a short time for new get items requests
             // which would make this request unnecessary
@@ -344,7 +352,7 @@ export const Filter = {
             // in case of an autorefresh you want to get at least
             // the same amount of items that are currently being shown
             if (auto) {
-                this.$emit("auto:refresh:start");
+                this.autoRefreshing = true;
 
                 options.limit = this.items.length;
                 options.start = 0;
@@ -384,7 +392,7 @@ export const Filter = {
                 this.items = [...items];
                 this.itemsToLoad = items.length === this.limit;
 
-                this.$emit("auto:refresh:stop");
+                this.autoRefreshing = false;
                 return true;
             }
             // if this request was triggered for pagination then
