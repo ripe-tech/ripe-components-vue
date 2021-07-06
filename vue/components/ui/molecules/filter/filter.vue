@@ -105,9 +105,11 @@ body.mobile .filter-ripe .lineup {
 
 <script>
 import { equal } from "yonius";
+import { refreshMixin } from "../../../../mixins";
 
 export const Filter = {
     name: "filter-ripe",
+    mixins: [refreshMixin],
     props: {
         filter: {
             type: String,
@@ -273,12 +275,6 @@ export const Filter = {
             immediate: true
         }
     },
-    mounted: function() {
-        this.initAutoRefresh();
-    },
-    destroyed: async function() {
-        clearInterval(this.refreshTimeInterval);
-    },
     methods: {
         onSort(items, column, reverse) {
             this.sort = column;
@@ -317,13 +313,6 @@ export const Filter = {
 
             this.$router.replace({ query: next });
         },
-        initAutoRefresh() {
-            if (!this.autoRefresh) return;
-            this.refreshTimeInterval = setInterval(
-                () => this.refresh({ auto: true }),
-                this.autoRefreshTime
-            );
-        },
         setItem(index, item) {
             this.items.$set(index, item);
         },
@@ -349,15 +338,6 @@ export const Filter = {
                 return false;
             }
 
-            // in case of an autorefresh you want to get at least
-            // the same amount of items that are currently being shown
-            if (auto) {
-                this.autoRefreshing = true;
-
-                options.limit = this.items.length;
-                options.start = 0;
-            }
-
             // makes the items request and checks if it is still
             // to be used when the result is retrieved
             const items = await this.getItems(options);
@@ -371,35 +351,6 @@ export const Filter = {
                 return false;
             }
 
-            if (auto) {
-                /**
-                 * @param {Array} oldItems list of id's of the current items already being displayed (if any)
-                 * @param {Array} newItems list of id's of the items fetched recentely
-                 * @param {Array} freshItems number of fresh items (present in 'newItems' and not in 'oldItems')
-                 */
-                const oldItems = this.items.map(item => item.id);
-                const newItems = items.map(item => item.id);
-                const freshItems = newItems.reduce((a = 0, b) => a + !oldItems.includes(b), 0);
-
-                // checks if there's any new item and appends to the list
-                if (freshItems) {
-                    options.start = this.items.length - 1;
-                    options.limit = freshItems;
-                    const refreshedItems = await this.getItems(options);
-                    this.tableTransition = "fade";
-                    this.items = [...items, ...refreshedItems];
-                    this.itemsToLoad = true;
-
-                    return true;
-                }
-
-                this.tableTransition = "";
-                this.items = [...items];
-                this.itemsToLoad = items.length === this.limit;
-
-                this.autoRefreshing = false;
-                return true;
-            }
             // if this request was triggered for pagination then
             // appends the new items to the current items, otherwise
             // replaces the current items
