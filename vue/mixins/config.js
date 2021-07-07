@@ -1,9 +1,9 @@
-import { hasFeature, setFeature, setFeatures, bindFeature, unbindFeature } from "../../js";
+import { hasFeature, setFeature, setFeatures, bindFeature, unbindFeature } from "ripe-commons";
 
 export const configMixin = {
     methods: {
-        hasFeature(name) {
-            return hasFeature(name);
+        hasFeature(name, fallback, source) {
+            return hasFeature(name, fallback, source);
         },
         setFeature(name, value) {
             return setFeature(name, value);

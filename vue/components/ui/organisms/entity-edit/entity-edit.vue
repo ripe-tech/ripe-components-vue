@@ -10,6 +10,7 @@
                 onSave: onSave,
                 ...formProps
             }"
+            v-bind="containerFormProps"
             v-if="!loading"
             v-on:header-button:click="onHeaderButtonClick"
         >
@@ -119,6 +120,13 @@ export const EntityEdit = {
          * Props that can be used to customize the form.
          */
         formProps: {
+            type: Object,
+            default: () => ({})
+        },
+        /**
+         * Props that can be used to customize the container form.
+         */
+        containerFormProps: {
             type: Object,
             default: () => ({})
         }

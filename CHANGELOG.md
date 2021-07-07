@@ -9,17 +9,59 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-* `select` new `inline` prop
-* `inline` mode for `container-ripe` and `listing`
-* `container-ripe` new `overflow` props
+*
 
 ### Changed
 
-* Improved `image-item` layout and style
+*
 
 ### Fixed
 
 *
+
+## [0.12.0] - 2021-06-22
+
+### Added
+
+* Support for the `errorHandler` data attribute to create indirection in error handling
+
+## [0.11.1] - 2021-06-04
+
+### Changed
+
+* More interactive hover effect in the `image-item` component
+
+## [0.11.0] - 2021-06-01
+
+### Changed
+
+* Move some functions to `ripe-commons`
+
+## [0.10.1] - 2021-05-31
+
+### Fixed
+
+* Order in params for `lightbox`
+
+## [0.10.0] - 2021-05-31
+
+### Added
+
+* `select` new `inline` prop
+* `inline` mode for `container-ripe` and `listing`
+* `container-ripe` new `overflow` props
+* `type` for `container-ripe` header buttons
+* Support for any type values in `radio`, `radio-group` and `select`
+* Allow overriding `container-form` props on `entity-create` and `entity-edit` for greater flexibility
+
+### Changed
+
+* Improved `image-item` layout and style
+* Made image invisible in lightbox in case it's not set
+
+### Fixed
+
+* Clear the value of the input on when 'files' prop is null or empty
 
 ## [0.9.5] - 2021-05-19
 

@@ -11,6 +11,7 @@
                 ...formProps,
                 acceptButtonProps: { text: `Create ${name}`, ...formProps.acceptButtonProps }
             }"
+            v-bind="containerFormProps"
             v-on:header-button:click="onHeaderButtonClick"
         >
             <slot v-bind:name="slot" v-for="slot in Object.keys($slots)" v-bind:slot="slot" />
@@ -86,6 +87,13 @@ export const EntityCreate = {
          * Props that can be used to customize the form.
          */
         formProps: {
+            type: Object,
+            default: () => ({})
+        },
+        /**
+         * Props that can be used to customize the container form.
+         */
+        containerFormProps: {
             type: Object,
             default: () => ({})
         }

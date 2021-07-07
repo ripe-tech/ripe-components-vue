@@ -2,9 +2,10 @@
     <div class="lightbox">
         <global-events v-on:keydown.esc="close" />
         <image-ripe
-            v-bind:src="image || ''"
+            v-bind:src="image"
             v-bind:style="imageStyle"
             v-bind:alt="alt || ''"
+            v-if="image"
             v-on:click="event => $emit('click', event)"
         />
         <transition name="fade">
