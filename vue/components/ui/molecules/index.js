@@ -8,6 +8,7 @@ import { ButtonIconAnimated } from "./button-icon-animated/button-icon-animated.
 import { ButtonIconDropdown } from "./button-icon-dropdown/button-icon-dropdown.vue";
 import { ButtonIconToggle } from "./button-icon-toggle/button-icon-toggle.vue";
 import { ButtonToggle } from "./button-toggle/button-toggle.vue";
+import { Calendar } from "./calendar/calendar.vue";
 import { Carousel } from "./carousel/carousel.vue";
 import { ChatMessage } from "./chat-message/chat-message.vue";
 import { CheckboxGroup } from "./checkbox-group/checkbox-group.vue";
@@ -16,9 +17,10 @@ import { Filter } from "./filter/filter.vue";
 import { Footer } from "./footer/footer.vue";
 import { FormInput } from "./form-input/form-input.vue";
 import { ImageList } from "./image-list/image-list.vue";
-import { InputImage } from "./input-image/input-image.vue";
 import { InputColor } from "./input-color/input-color.vue";
 import { InputCurrency } from "./input-currency/input-currency.vue";
+import { InputDate } from "./input-date/input-date.vue";
+import { InputImage } from "./input-image/input-image.vue";
 import { InputSlider } from "./input-slider/input-slider.vue";
 import { InputSymbol } from "./input-symbol/input-symbol.vue";
 import { Lightbox } from "./lightbox/lightbox.vue";
@@ -53,6 +55,7 @@ const install = Vue => {
     Vue.component("button-icon-dropdown", ButtonIconDropdown);
     Vue.component("button-icon-toggle", ButtonIconToggle);
     Vue.component("button-toggle", ButtonToggle);
+    Vue.component("calendar", Calendar);
     Vue.component("carousel", Carousel);
     Vue.component("chat-message", ChatMessage);
     Vue.component("checkbox-group", CheckboxGroup);
@@ -61,9 +64,10 @@ const install = Vue => {
     Vue.component("footer-ripe", Footer);
     Vue.component("form-input", FormInput);
     Vue.component("image-list", ImageList);
-    Vue.component("input-image", InputImage);
     Vue.component("input-color", InputColor);
     Vue.component("input-currency", InputCurrency);
+    Vue.component("input-date", InputDate);
+    Vue.component("input-image", InputImage);
     Vue.component("input-slider", InputSlider);
     Vue.component("input-symbol", InputSymbol);
     Vue.component("lightbox", Lightbox);
@@ -98,7 +102,7 @@ export {
     ButtonIconAnimated,
     ButtonIconDropdown,
     ButtonIconToggle,
-    ButtonToggle,
+    Calendar,
     Carousel,
     ChatMessage,
     CheckboxGroup,
@@ -107,9 +111,10 @@ export {
     Footer,
     FormInput,
     ImageList,
-    InputImage,
     InputColor,
     InputCurrency,
+    InputDate,
+    InputImage,
     InputSlider,
     InputSymbol,
     Lightbox,

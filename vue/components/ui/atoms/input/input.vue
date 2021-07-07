@@ -10,9 +10,11 @@
         v-bind:maxLength="maxLength"
         ref="input"
         v-on:input="event => onInput(event.target.value)"
+        v-on:click="onClick"
         v-on:focus="onFocus"
         v-on:blur="onBlur"
         v-on:keyup="onKeyup"
+        v-on:keydown="onKeydown"
     />
 </template>
 
@@ -174,14 +176,20 @@ export const Input = {
         onInput(value) {
             this.setValue(value);
         },
-        onFocus() {
-            this.$emit("focus");
+        onClick(event) {
+            this.$emit("click", event);
         },
-        onBlur() {
-            this.$emit("blur");
+        onFocus(event) {
+            this.$emit("focus", event);
+        },
+        onBlur(event) {
+            this.$emit("blur", event);
         },
         onKeyup(event) {
             this.$emit("keyup", event);
+        },
+        onKeydown(event) {
+            this.$emit("keydown", event);
         }
     },
     computed: {
