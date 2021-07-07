@@ -19,6 +19,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *
 
+## [0.13.0] - 2021-07-05
+
+### Added
+
+* Support for ellipsis in `tag` component
+
+### Fixed
+
+* Issue with hover color in `input` and `text-area`
+
 ## [0.12.0] - 2021-06-22
 
 ### Added

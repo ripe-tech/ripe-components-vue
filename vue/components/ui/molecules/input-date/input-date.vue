@@ -2,9 +2,8 @@
     <div class="input-date">
         <global-events v-on:click="onGlobalClick" />
         <input-ripe
-            type="date"
-            v-bind:value="valueDataFormated"
-            v-on:update:value="onInputValue"
+            v-bind:value.sync="valueData"
+            v-bind="calendarProps"
             v-on:click.prevent.stop="onClick"
             v-on:focus.prevent="onFocus"
             v-on:keyup.prevent
@@ -22,19 +21,23 @@
     position: relative;
 }
 
-.input-date .calendar {
+.input-date > .calendar {
     opacity: 0;
     pointer-events: none;
+    position: absolute;
 }
 
-.input-date .calendar.visible {
+.input-date > .calendar.visible {
     opacity: 1;
     pointer-events: initial;
 }
 </style>
 
 <script>
+import { utilsMixin } from "../../../../mixins";
+
 export const InputDate = {
+    mixins: [utilsMixin],
     props: {
         /**
          * If weather or not an interactable header should be used
@@ -43,6 +46,20 @@ export const InputDate = {
         header: {
             type: Boolean,
             default: false
+        },
+        /**
+         * The value of input date in String or Date format.
+         */
+        value: {
+            type: Number,
+            default: null
+        },
+        /**
+         * The props to be passed to calendar
+         */
+        calendarProps: {
+            type: Object,
+            default: () => ({})
         }
     },
     data: function() {
@@ -59,9 +76,10 @@ export const InputDate = {
         },
         valueDataFormated() {
             if (!this.valueData) return;
-            const year = this.valueData.getFullYear();
-            const month = this.valueData.getMonth();
-            const day = this.valueData.getDate();
+            const date = new Date(this.valueData * 1000);
+            const year = date.getFullYear();
+            const month = date.getMonth();
+            const day = date.getDate();
             return `${year}-${("0" + (month + 1)).slice(-2)}-${("0" + day).slice(-2)}`;
         }
     },
@@ -69,12 +87,9 @@ export const InputDate = {
         value(value) {
             this.valueData = value;
         },
-        valueData(value) {
+        valueDataFormated(value) {
             this.$emit("update:value", value);
         }
-    },
-    created: function() {
-        this.setDate(this.value);
     },
     methods: {
         isValidDate(date) {
@@ -82,10 +97,6 @@ export const InputDate = {
             if (isNaN(date.getTime())) return false;
             if (date.getFullYear().toString().length !== 4) return false;
             return true;
-        },
-        setDate(date) {
-            if (!this.isValidDate(date)) return;
-            this.valueData = date;
         },
         onGlobalClick(event) {
             const owners = [this.$refs.calendar];
@@ -98,10 +109,6 @@ export const InputDate = {
         },
         onClick(event) {
             this.calendarVisibility = true;
-        },
-        onInputValue(value) {
-            const date = new Date(value);
-            this.setDate(date);
         },
         onFocus(event) {
             this.calendarVisibility = true;

@@ -9,12 +9,14 @@
 
 .tag {
     border-radius: 4px 4px 4px 4px;
+    box-sizing: border-box;
     display: inline-block;
     font-size: 12px;
     font-weight: 600;
-    height: 15px;
+    height: 25px;
     letter-spacing: 0.45px;
     line-height: 15px;
+    max-width: 100%;
     overflow: hidden;
     padding: 5px 12px 5px 12px;
     text-overflow: ellipsis;
@@ -24,7 +26,7 @@
 
 .tag.tag-large {
     font-size: 14px;
-    height: 17px;
+    height: 29px;
     letter-spacing: 0.65px;
     line-height: 17px;
     padding: 6px 14px 6px 14px;
@@ -32,7 +34,7 @@
 
 .tag.tag-small {
     font-size: 10px;
-    height: 12px;
+    height: 20px;
     letter-spacing: 0.35px;
     line-height: 12px;
     padding: 4px 10px 4px 10px;
@@ -40,7 +42,7 @@
 
 .tag.tag-tiny {
     font-size: 8px;
-    height: 10px;
+    height: 18px;
     letter-spacing: 0.25px;
     line-height: 10px;
     padding: 4px 8px 4px 8px;

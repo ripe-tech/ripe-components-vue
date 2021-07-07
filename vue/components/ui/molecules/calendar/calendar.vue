@@ -39,13 +39,13 @@
                         <tr class="row" v-for="(week, index) in weeks" v-bind:key="index">
                             <td
                                 class="cell"
-                                v-bind:class="circleDayClass(week[d - 1].day, week[d - 1].month)"
-                                v-for="d in 7"
-                                v-bind:key="d - 1"
-                                v-on:click="onDayClick($event, week[d - 1])"
+                                v-bind:class="circleDayClass(week[dayIndex - 1].day, week[dayIndex - 1].month)"
+                                v-for="dayIndex in 7"
+                                v-bind:key="dayIndex"
+                                v-on:click="onDayClick($event, week[dayIndex - 1])"
                             >
                                 <div class="circle days">
-                                    {{ week[d - 1].day }}
+                                    {{ week[dayIndex - 1].day }}
                                 </div>
                             </td>
                         </tr>
@@ -56,13 +56,13 @@
                         <tr class="row" v-for="(month, index) in monthsTable" v-bind:key="index">
                             <td
                                 class="cell clickable"
-                                v-bind:class="circleMonthClass(month[i - 1])"
-                                v-for="i in month.length"
-                                v-bind:key="month[i - 1]"
-                                v-on:click="onMonthClick($event, month[i - 1])"
+                                v-bind:class="circleMonthClass(month[monthIndex - 1])"
+                                v-for="monthIndex in month.length"
+                                v-bind:key="monthIndex"
+                                v-on:click="onMonthClick($event, month[monthIndex - 1])"
                             >
                                 <div class="circle months">
-                                    {{ month[i - 1] }}
+                                    {{ month[monthIndex - 1] }}
                                 </div>
                             </td>
                         </tr>
@@ -73,13 +73,13 @@
                         <tr class="row" v-for="(year, index) in yearsTable" v-bind:key="index">
                             <td
                                 class="cell clickable"
-                                v-bind:class="circleYearClass(year[i - 1])"
-                                v-for="i in year.length"
-                                v-bind:key="i - 1"
-                                v-on:click="onYearClick($event, year[i - 1])"
+                                v-bind:class="circleYearClass(year[yearIndex - 1])"
+                                v-for="yearIndex in year.length"
+                                v-bind:key="yearIndex"
+                                v-on:click="onYearClick($event, year[yearIndex - 1])"
                             >
                                 <div class="circle years">
-                                    {{ year[i - 1] }}
+                                    {{ year[yearIndex - 1] }}
                                 </div>
                             </td>
                         </tr>
@@ -90,13 +90,13 @@
                         <tr class="row" v-for="(decade, index) in decadesTable" v-bind:key="index">
                             <td
                                 class="cell clickable"
-                                v-bind:class="circleDecadeClass(decade[i - 1])"
-                                v-for="i in decade.length"
-                                v-bind:key="i - 1"
-                                v-on:click="onDecadeClick($event, decade[i - 1])"
+                                v-bind:class="circleDecadeClass(decade[decadeIndex - 1])"
+                                v-for="decadeIndex in decade.length"
+                                v-bind:key="decadeIndex"
+                                v-on:click="onDecadeClick($event, decade[decadeIndex - 1])"
                             >
                                 <div class="circle decades">
-                                    {{ `${decade[i - 1]} - ${decade[i - 1] + 9}` }}
+                                    {{ `${decade[decadeIndex - 1]} - ${decade[decadeIndex - 1] + 9}` }}
                                 </div>
                             </td>
                         </tr>
@@ -113,11 +113,10 @@
 .calendar {
     border: 1px solid #e4e8f0;
     border-radius: 6px 6px 6px 6px;
-    box-shadow: 0px 0px 30px rgba(21, 21, 21, 0.1);
+    box-shadow: 0px 0px 12px rgba(21, 21, 21, 0.1);
     display: flex;
     flex-direction: column;
-    position: absolute;
-    transition: opacity 0.35s ease-in-out;
+    transition: opacity 0.125s ease-in-out;
     width: 350px;
 }
 
@@ -136,8 +135,8 @@
     align-items: center;
     border: 3px solid transparent;
     border-radius: 20px;
-    display: inline-block;
     display: flex;
+    font-weight: 400;
     height: 26px;
     justify-content: center;
     transition: all 0.5s ease-in-out;
@@ -154,7 +153,6 @@
 
 .calendar > .calendar-content {
     display: flex;
-    font-weight: 400;
     height: 300px;
     padding: 0px 20px 10px 20px;
 }
@@ -167,10 +165,6 @@
 
 .calendar > .calendar-content .calendar-table .table-header .row {
     height: 40px;
-}
-
-.calendar > .calendar-content .calendar-table .table-header .row .heading {
-    font-weight: 400;
 }
 
 .calendar > .calendar-content .calendar-table .table-body .row .cell {
@@ -231,11 +225,10 @@
 export const Calendar = {
     props: {
         /**
-         * The value of input date in String or Date format.
-         * Example: "2020/12/31"
+         * The value of input date in epoch format.
          */
         value: {
-            type: Date | String,
+            type: Number,
             default: null
         },
         /**
@@ -286,7 +279,6 @@ export const Calendar = {
     data: function() {
         return {
             valueData: this.value,
-            calendarVisibility: true,
             day: 1,
             month: new Date().getMonth(),
             year: new Date().getFullYear(),
@@ -363,8 +355,8 @@ export const Calendar = {
             const firstMonday = date.getDay() === 0 ? -5 : date.getDate() - date.getDay() + 1;
             date.setDate(firstMonday);
             const weeks = new Array(6).fill(0).map(() =>
-                new Array(7).fill(0).map(day => {
-                    day = new Date(date);
+                new Array(7).fill(0).map(_ => {
+                    const day = new Date(date);
                     date.setDate(date.getDate() + 1);
                     return { day: day.getDate(), month: day.getMonth() };
                 })
@@ -380,17 +372,17 @@ export const Calendar = {
         selectedYear() {
             return this.valueData?.getFullYear();
         },
-        valueDataFormated() {
-            return `${this.selectedYear}-${("0" + (this.selectedMonth + 1)).slice(-2)}-${(
-                "0" + this.selectedDay
-            ).slice(-2)}`;
+        valueEpoch() {
+            if (!this.valueData) return;
+            return Math.round(this.valueData.getTime() / 1000);
         }
     },
     watch: {
         value(value) {
-            this.setDate(value);
+            const date = new Date(parseInt(value) * 1000);
+            this.setDate(date);
         },
-        valueData(value) {
+        valueEpoch(value) {
             this.$emit("update:value", value);
         }
     },
