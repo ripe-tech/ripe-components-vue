@@ -2,7 +2,7 @@ export const refreshMixin = {
     mounted: function() {
         this.refreshTimeInterval = setInterval(
             () => this.refresh({ auto: true }),
-            60000
+            this.autoRefreshTime || 6000
         );
     },
     destroyed: async function() {
