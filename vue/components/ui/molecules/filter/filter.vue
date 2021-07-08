@@ -159,10 +159,6 @@ export const Filter = {
             type: Number,
             default: 25
         },
-        autoRefresh: {
-            type: Boolean,
-            default: false
-        },
         autoRefreshTime: {
             type: Number,
             default: 60000
