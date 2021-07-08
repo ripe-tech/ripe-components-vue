@@ -445,10 +445,6 @@ export const Listing = {
         onUpdateLoading(value) {
             this.$emit("auto:refresh:start");
             this.autoRefreshing = value;
-        },
-        onAutoRefreshStop() {
-            this.$emit("auto:refresh:stop");
-            this.autoRefreshing = false;
         }
     },
     computed: {
