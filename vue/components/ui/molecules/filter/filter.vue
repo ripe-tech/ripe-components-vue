@@ -264,7 +264,7 @@ export const Filter = {
         },
         autoRefreshing: {
             handler: function(value) {
-                this.$emit("update:loading", value);
+                this.$emit("update:auto:refreshing", value);
             },
             immediate: true
         },

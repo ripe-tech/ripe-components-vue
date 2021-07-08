@@ -113,7 +113,7 @@
                 v-bind:checkboxes="checkboxes"
                 v-bind:checked-items.sync="checkedItemsData"
                 ref="filter"
-                v-on:update:loading="onUpdateLoading"
+                v-on:update:auto:refreshing="onUpdateAutoRefreshing"
                 v-on:update:options="filterUpdated"
                 v-on:click:table="onTableClick"
                 v-on:click:lineup="onLineupClick"
@@ -442,9 +442,9 @@ export const Listing = {
         onLineupClick(item, index) {
             this.$emit("click:lineup", item, index);
         },
-        onUpdateLoading(value) {
-            this.$emit("auto:refresh:start");
+        onUpdateAutoRefreshing(value) {
             this.autoRefreshing = value;
+            this.$emit("update:auto:refreshing", value);
         }
     },
     computed: {
