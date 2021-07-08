@@ -7,6 +7,7 @@ export const refreshMixin = {
     },
     methods: {
         _autoRefresh() {
+            if (!this.autoRefresh) return;
             this.refreshTimeInterval = setInterval(async () => {
                 this.autoRefreshing = true;
                 await this.refresh({ auto: true });

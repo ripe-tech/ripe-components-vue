@@ -163,6 +163,10 @@ export const Filter = {
             type: Number,
             default: 60000
         },
+        autoRefresh: {
+            type: Boolean,
+            default: false
+        },
         defaultReverse: {
             type: Boolean,
             default: false
