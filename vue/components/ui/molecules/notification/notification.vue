@@ -93,6 +93,10 @@ export const Notification = {
             type: String,
             default: null
         },
+        link: {
+            type: String,
+            default: null
+        },
         iconColor: {
             type: String,
             default: null
@@ -134,6 +138,7 @@ export const Notification = {
             visibleData: this.visible,
             globalEventsData: this.globalEvents,
             textData: this.text,
+            linkData: this.link,
             iconData: this.icon,
             iconColorData: this.iconColor,
             timeoutData: this.timeoutData,
@@ -169,11 +174,12 @@ export const Notification = {
         show(options) {
             // unpacks the complete set of options for the new notification
             // that is going to be displayed
-            const { text, timeout, icon, iconColor, globalEvents, reset = true } = options;
+            const { text, link, timeout, icon, iconColor, globalEvents, reset = true } = options;
 
             // updates the current local values taking into account
             // the provided set of options
             this.textData = text;
+            this.linkData = link;
             this.iconData = icon;
             this.iconColorData = iconColor;
             this.timeoutData = timeout || this.timeout;
@@ -198,6 +204,10 @@ export const Notification = {
                 this.reset();
             }, this.timeoutData);
         },
+        openLink() {
+            const newWindow = window.open(this.linkData, "_blank");
+            newWindow.focus();
+        },
         hide() {
             if (!this.visibleData) return;
             this.visibleData = false;
@@ -214,6 +224,7 @@ export const Notification = {
             this.hide();
         },
         onClick() {
+            if (this.linkData) this.openLink();
             this.hide();
         }
     }
