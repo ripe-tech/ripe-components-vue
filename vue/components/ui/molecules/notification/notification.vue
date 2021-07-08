@@ -205,8 +205,8 @@ export const Notification = {
             }, this.timeoutData);
         },
         openLink() {
-            const newWindow = window.open(this.linkData, "_blank");
-            newWindow.focus();
+            const _window = window.open(this.linkData, "_blank");
+            _window.focus();
         },
         hide() {
             if (!this.visibleData) return;
