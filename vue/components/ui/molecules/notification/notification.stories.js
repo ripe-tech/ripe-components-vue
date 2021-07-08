@@ -33,6 +33,9 @@ storiesOf("Components/Molecules/Notification", module)
             text: {
                 default: text("Text", "Copied to Clipboard")
             },
+            link: {
+                default: text("Link", "https://www.platforme.com/")
+            },
             visible: {
                 default: boolean("Visible", true)
             },
@@ -51,6 +54,7 @@ storiesOf("Components/Molecules/Notification", module)
             <div>
                 <notification
                     v-bind:text="text"
+                    v-bind:link="link"
                     v-bind:variant="variant"
                     v-bind:icon="icon"
                     v-bind:icon-color="iconColor"
