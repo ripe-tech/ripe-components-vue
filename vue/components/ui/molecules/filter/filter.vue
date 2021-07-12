@@ -159,14 +159,6 @@ export const Filter = {
             type: Number,
             default: 25
         },
-        autoRefreshTime: {
-            type: Number,
-            default: 60000
-        },
-        autoRefresh: {
-            type: Boolean,
-            default: false
-        },
         defaultReverse: {
             type: Boolean,
             default: false
@@ -195,7 +187,6 @@ export const Filter = {
             start: 0,
             itemsToLoad: true,
             loading: false,
-            autoRefreshing: false,
             tableTransition: ""
         };
     },
@@ -262,12 +253,6 @@ export const Filter = {
             },
             immediate: true
         },
-        autoRefreshing: {
-            handler: function(value) {
-                this.$emit("update:auto:refreshing", value);
-            },
-            immediate: true
-        },
         items: {
             handler: function(value) {
                 this.$emit("update:items", value);
@@ -319,7 +304,7 @@ export const Filter = {
         removeItem(index) {
             this.items.splice(index, 1);
         },
-        async refresh({ force = true, auto = false } = {}) {
+        async refresh({ force = true, loading = true } = {}) {
             // in case there's a request already being handled and
             // the force flag is not set returns immediately, not
             // going to override the request
@@ -329,7 +314,7 @@ export const Filter = {
             // marks the current component as loading
             const options = this.options;
             const signature = this.signature;
-            this.loading = !auto;
+            this.loading = loading;
 
             // waits for a short time for new get items requests
             // which would make this request unnecessary
