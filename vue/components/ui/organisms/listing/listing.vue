@@ -105,8 +105,6 @@
                 v-bind:default-sort="defaultSort"
                 v-bind:filter="filter"
                 v-bind:use-query="useQuery"
-                v-bind:auto-refresh="autoRefresh"
-                v-bind:auto-refresh-time="autoRefreshTime"
                 v-bind:loading.sync="loading"
                 v-bind:items.sync="items"
                 v-bind:options.sync="filterOptions"
@@ -278,11 +276,11 @@ input[type="text"]:focus {
 </style>
 
 <script>
-import { partMixin, utilsMixin, scrollMixin } from "../../../../mixins";
+import { partMixin, utilsMixin, refreshMixin, scrollMixin } from "../../../../mixins";
 
 export const Listing = {
     name: "listing",
-    mixins: [partMixin, utilsMixin, scrollMixin],
+    mixins: [partMixin, utilsMixin, refreshMixin, scrollMixin],
     props: {
         context: {
             type: Object,
@@ -360,14 +358,6 @@ export const Listing = {
             type: Boolean,
             default: true
         },
-        autoRefresh: {
-            type: Boolean,
-            default: false
-        },
-        autoRefreshTime: {
-            type: Number,
-            default: 60000
-        },
         searchWidth: {
             type: Number,
             default: 304
@@ -400,7 +390,6 @@ export const Listing = {
             filter: this.context && this.context.filter ? this.context.filter : "",
             filterOptions: null,
             loading: false,
-            autoRefreshing: false,
             visibleLightbox: null
         };
     },
@@ -427,8 +416,8 @@ export const Listing = {
         removeItem(index) {
             this.getFilter().removeItem(index);
         },
-        async refresh() {
-            await this.getFilter().refresh();
+        async refresh({ force = true, loading = true } = {}) {
+            await this.getFilter().refresh({ force: force, loading: loading });
         },
         getFilter() {
             return this.$refs.filter;
