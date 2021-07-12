@@ -432,7 +432,6 @@ export const Listing = {
             this.$emit("click:lineup", item, index);
         },
         onUpdateAutoRefreshing(value) {
-            this.autoRefreshing = value;
             this.$emit("update:auto:refreshing", value);
         }
     },
