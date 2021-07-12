@@ -1,6 +1,6 @@
 export const refreshMixin = {
     props: {
-        autoRefreshTime: {
+        autoRefreshInterval: {
             type: Number,
             default: 60000
         },
@@ -35,7 +35,7 @@ export const refreshMixin = {
                 this.autoRefreshing = true;
                 await this.refresh({ loading: false });
                 this.autoRefreshing = false;
-            }, this.autoRefreshTime || 6000);
+            }, this.autoRefreshInterval || 6000);
         }
     }
 };
