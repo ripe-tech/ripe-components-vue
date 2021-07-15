@@ -229,30 +229,40 @@ export const Select = {
         };
     },
     watch: {
-        disabled(value) {
-            if (value) this.closeDropdown();
-        },
-        visible(value) {
-            this.visibleData = value;
-        },
-        visibleData(value) {
-            if (value && this.valueData) {
-                const highlightIndex = this.options.findIndex(
-                    option => option.value === this.valueData
-                );
-                this.highlight(highlightIndex);
-                if (this.autoScroll) {
-                    this.$nextTick(() => this.scrollTo(highlightIndex));
-                }
+        disabled: {
+            handler: function(value) {
+                if (value) this.closeDropdown();
             }
-            if (!value) this.dehighlight();
-            this.$emit("update:visible", value);
         },
-        value(value) {
-            this.valueData = value;
+        visible: {
+            handler: function(value) {
+                this.visibleData = value;
+            }
         },
-        valueData(value) {
-            this.$emit("update:value", value);
+        visibleData: {
+            handler: function(value) {
+                if (value && this.valueData) {
+                    const highlightIndex = this.options.findIndex(
+                        option => option.value === this.valueData
+                    );
+                    this.highlight(highlightIndex);
+                    if (this.autoScroll) {
+                        this.$nextTick(() => this.scrollTo(highlightIndex));
+                    }
+                }
+                if (!value) this.dehighlight();
+                this.$emit("update:visible", value);
+            }
+        },
+        value: {
+            handler: function(value) {
+                this.valueData = value;
+            }
+        },
+        valueData: {
+            handler: function(value) {
+                this.$emit("update:value", value);
+            }
         }
     },
     methods: {
