@@ -254,6 +254,12 @@ export const Select = {
                 this.$emit("update:visible", value);
             }
         },
+        options: {
+            handler: function(value) {
+                if (value?.length === 1) this.valueData = value[0].value;
+            },
+            immediate: true
+        },
         value: {
             handler: function(value) {
                 this.valueData = value;
