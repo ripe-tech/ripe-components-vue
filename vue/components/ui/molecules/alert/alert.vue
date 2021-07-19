@@ -59,6 +59,12 @@
     </modal>
 </template>
 
+<style scoped>
+.text {
+    word-break: break-all;
+}
+</style>
+
 <script>
 export const Alert = {
     name: "alert",
