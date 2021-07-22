@@ -125,10 +125,10 @@ export const SelectCheckboxes = {
     },
     data: function() {
         return {
-            highlighted: null,
-            valuesData: this.values,
+            highlighted: null,            
             keyBuffer: "",
-            keyTimestamp: 0
+            keyTimestamp: 0,
+            valuesData: this.values
         };
     },
     computed: {
