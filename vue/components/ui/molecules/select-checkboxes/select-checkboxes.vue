@@ -1,21 +1,18 @@
 <template>
-    <select-ripe
-        class="select-checkboxes"
-        v-bind:options="selectOptions"
-        v-bind:value="'checkbox-group'"
-        v-bind:disabled="disabled"
-        v-bind="{
-            autoScroll: false,
-            maxHeight: 210,
-            ...selectProps
-        }"
-    >
-        <template v-slot:checkbox-group>
-            <div class="checkboxes" v-on:click.stop>
-                <checkbox-group v-bind:items="_items" v-bind:values.sync="valuesData" />
-            </div>
-        </template>
-    </select-ripe>
+    <div v-on:keydown.exact.stop="event => onKey(event.key)">
+        <select-ripe
+            class="select-checkboxes"
+            v-bind:options="selectOptions"
+            v-bind:value="'checkbox-group'"
+            ref="select"
+        >
+            <template v-slot:checkbox-group>
+                <div class="checkboxes" ref="checkboxes">
+                    <checkbox-group v-bind:items="_items" v-bind:values.sync="valuesData" />
+                </div>
+            </template>
+        </select-ripe>
+    </div>
 </template>
 
 <style lang="scss" scoped>
@@ -117,11 +114,21 @@ export const SelectCheckboxes = {
         allValue: {
             type: String,
             default: "$ALL"
+        },
+        /**
+         * Amount of time before current keybuffer is discarded.
+         */
+        keyTimeout: {
+            type: Number,
+            default: 500
         }
     },
     data: function() {
         return {
-            valuesData: this.values
+            highlighted: null,
+            valuesData: this.values,
+            keyBuffer: "",
+            keyTimestamp: 0
         };
     },
     computed: {
@@ -169,6 +176,45 @@ export const SelectCheckboxes = {
                 this.$emit("update:values", value);
             },
             deep: true
+        }
+    },
+    methods: {
+        onKey(key) {
+            if (!key) return;
+            if (Date.now() - this.keyTimestamp > this.keyTimeout) {
+                this.keyBuffer = "";
+            }
+            this.keyBuffer += key.toUpperCase();
+            this.keyTimestamp = Date.now();
+            this.scrollToBestOption();
+        },
+        scrollToBestOption() {
+            const index = this._items.findIndex(option =>
+                option.label?.toUpperCase().startsWith(this.keyBuffer)
+            );
+
+            if (index === null || index < 0 || index >= this._items.length) return;
+
+            const dropdown = this.$refs.select.$refs.dropdown.$refs.dropdown;
+            const dropdownElement = dropdown.getElementsByClassName("dropdown-item")[0];
+            const elements = dropdownElement.getElementsByClassName("checkbox-item");
+
+            const visibleStart = dropdown.scrollTop;
+            const visibleEnd = visibleStart + dropdown.clientHeight;
+
+            let indexStart = 0;
+            for (let i = 0; i < index; i++) {
+                indexStart += elements[i].offsetHeight;
+            }
+
+            const indexHeight = elements[index].offsetHeight;
+            const indexEnd = indexStart + indexHeight;
+
+            if (indexStart < visibleStart) {
+                dropdown.scrollTop = indexStart;
+            } else if (indexEnd > visibleEnd) {
+                dropdown.scrollTop = indexEnd - dropdown.clientHeight;
+            }
         }
     }
 };
