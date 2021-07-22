@@ -26,6 +26,24 @@ export const utilsMixin = {
         },
         buildSlug(value) {
             return buildSlug(value);
+        },
+        scrollToIndexDropdown(dropdown, elements, index) {
+            const visibleStart = dropdown.scrollTop;
+            const visibleEnd = visibleStart + dropdown.clientHeight;
+
+            let indexStart = 0;
+            for (let i = 0; i < index; i++) {
+                indexStart += elements[i].offsetHeight;
+            }
+
+            const indexHeight = elements[index].offsetHeight;
+            const indexEnd = indexStart + indexHeight;
+
+            if (indexStart < visibleStart) {
+                dropdown.scrollTop = indexStart;
+            } else if (indexEnd > visibleEnd) {
+                dropdown.scrollTop = indexEnd - dropdown.clientHeight;
+            }
         }
     }
 };

@@ -1,18 +1,17 @@
 <template>
-    <div v-on:keydown.exact.stop="event => onKey(event.key)">
-        <select-ripe
-            class="select-checkboxes"
-            v-bind:options="selectOptions"
-            v-bind:value="'checkbox-group'"
-            ref="select"
-        >
-            <template v-slot:checkbox-group>
-                <div class="checkboxes" ref="checkboxes">
-                    <checkbox-group v-bind:items="_items" v-bind:values.sync="valuesData" />
-                </div>
-            </template>
-        </select-ripe>
-    </div>
+    <select-ripe
+        class="select-checkboxes"
+        v-bind:options="selectOptions"
+        v-bind:value="'checkbox-group'"
+        ref="select"
+        v-on:select:keydown="scrollToInput"
+    >
+        <template v-slot:checkbox-group>
+            <div class="checkboxes" ref="checkboxes">
+                <checkbox-group v-bind:items="_items" v-bind:values.sync="valuesData" />
+            </div>
+        </template>
+    </select-ripe>
 </template>
 
 <style lang="scss" scoped>
@@ -36,8 +35,11 @@
 </style>
 
 <script>
+import { utilsMixin } from "../../../../mixins";
+
 export const SelectCheckboxes = {
     name: "select-checkboxes",
+    mixins: [utilsMixin],
     props: {
         /**
          * Placeholder shown in the select button
@@ -114,20 +116,10 @@ export const SelectCheckboxes = {
         allValue: {
             type: String,
             default: "$ALL"
-        },
-        /**
-         * Amount of time before current keybuffer is discarded.
-         */
-        keyTimeout: {
-            type: Number,
-            default: 500
         }
     },
     data: function() {
         return {
-            highlighted: null,            
-            keyBuffer: "",
-            keyTimestamp: 0,
             valuesData: this.values
         };
     },
@@ -179,42 +171,18 @@ export const SelectCheckboxes = {
         }
     },
     methods: {
-        onKey(key) {
-            if (!key) return;
-            if (Date.now() - this.keyTimestamp > this.keyTimeout) {
-                this.keyBuffer = "";
-            }
-            this.keyBuffer += key.toUpperCase();
-            this.keyTimestamp = Date.now();
-            this.scrollToBestOption();
-        },
-        scrollToBestOption() {
+        scrollToInput(keyBuffer) {
             const index = this._items.findIndex(option =>
-                option.label?.toUpperCase().startsWith(this.keyBuffer)
+                option.label?.toUpperCase().startsWith(keyBuffer)
             );
 
-            if (index === null || index < 0 || index >= this._items.length) return;
+            if (index === -1) return;
 
             const dropdown = this.$refs.select.$refs.dropdown.$refs.dropdown;
             const dropdownElement = dropdown.getElementsByClassName("dropdown-item")[0];
             const elements = dropdownElement.getElementsByClassName("checkbox-item");
 
-            const visibleStart = dropdown.scrollTop;
-            const visibleEnd = visibleStart + dropdown.clientHeight;
-
-            let indexStart = 0;
-            for (let i = 0; i < index; i++) {
-                indexStart += elements[i].offsetHeight;
-            }
-
-            const indexHeight = elements[index].offsetHeight;
-            const indexEnd = indexStart + indexHeight;
-
-            if (indexStart < visibleStart) {
-                dropdown.scrollTop = indexStart;
-            } else if (indexEnd > visibleEnd) {
-                dropdown.scrollTop = indexEnd - dropdown.clientHeight;
-            }
+            this.scrollToIndexDropdown(dropdown, elements, index);
         }
     }
 };
