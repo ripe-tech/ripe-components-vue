@@ -177,7 +177,7 @@ export const SelectCheckboxes = {
         }
     },
     methods: {
-        scrollToCheckbox(_key, keyBuffer) {
+        scrollToCheckbox(key, keyBuffer) {
             const index = this._items.findIndex(option =>
                 option.label?.toUpperCase().startsWith(keyBuffer)
             );
