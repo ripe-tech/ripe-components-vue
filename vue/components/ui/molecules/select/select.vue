@@ -328,7 +328,7 @@ export const Select = {
             const dropdown = this.$refs.dropdown.$refs.dropdown;
             const dropdownElements = dropdown.getElementsByClassName("dropdown-item");
 
-            this.scrollToIndexDropdown(dropdown, dropdownElements, index);
+            this.scrollToIndex(dropdown, dropdownElements, index);
         },
         onGlobalClick(event) {
             const owners = Array.isArray(this.owners)
@@ -357,7 +357,7 @@ export const Select = {
             }
             this.keyBuffer += key.toUpperCase();
             this.keyTimestamp = Date.now();
-            this.$emit("select:keydown", this.keyBuffer);
+            this.$emit("select:keydown", key, this.keyBuffer);
             this.highlightBestMatchOption();
         },
         onEscKey() {

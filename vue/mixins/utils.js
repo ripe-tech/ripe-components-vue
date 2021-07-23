@@ -27,9 +27,16 @@ export const utilsMixin = {
         buildSlug(value) {
             return buildSlug(value);
         },
-        scrollToIndexDropdown(dropdown, elements, index) {
-            const visibleStart = dropdown.scrollTop;
-            const visibleEnd = visibleStart + dropdown.clientHeight;
+        /**
+         * Scrolls to the right element for a container,
+         * given the index of the element to scroll to.
+         * @param {*} container The parent container;
+         * @param {*} elements List of elements to iterate over;
+         * @param {*} index The index of the target element;
+         */
+        scrollToIndex(container, elements, index) {
+            const visibleStart = container.scrollTop;
+            const visibleEnd = visibleStart + container.clientHeight;
 
             let indexStart = 0;
             for (let i = 0; i < index; i++) {
@@ -40,9 +47,9 @@ export const utilsMixin = {
             const indexEnd = indexStart + indexHeight;
 
             if (indexStart < visibleStart) {
-                dropdown.scrollTop = indexStart;
+                container.scrollTop = indexStart;
             } else if (indexEnd > visibleEnd) {
-                dropdown.scrollTop = indexEnd - dropdown.clientHeight;
+                container.scrollTop = indexEnd - container.clientHeight;
             }
         }
     }

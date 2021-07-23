@@ -3,11 +3,17 @@
         class="select-checkboxes"
         v-bind:options="selectOptions"
         v-bind:value="'checkbox-group'"
+        v-bind:disabled="disabled"
+        v-bind="{
+            autoScroll: false,
+            maxHeight: 210,
+            ...selectProps
+        }"
         ref="select"
-        v-on:select:keydown="scrollToInput"
+        v-on:select:keydown="scrollToCheckbox"
     >
         <template v-slot:checkbox-group>
-            <div class="checkboxes" ref="checkboxes">
+            <div class="checkboxes" ref="checkboxes" v-on:click.stop>
                 <checkbox-group v-bind:items="_items" v-bind:values.sync="valuesData" />
             </div>
         </template>
@@ -171,7 +177,7 @@ export const SelectCheckboxes = {
         }
     },
     methods: {
-        scrollToInput(keyBuffer) {
+        scrollToCheckbox(_key, keyBuffer) {
             const index = this._items.findIndex(option =>
                 option.label?.toUpperCase().startsWith(keyBuffer)
             );
@@ -182,7 +188,7 @@ export const SelectCheckboxes = {
             const dropdownElement = dropdown.getElementsByClassName("dropdown-item")[0];
             const elements = dropdownElement.getElementsByClassName("checkbox-item");
 
-            this.scrollToIndexDropdown(dropdown, elements, index);
+            this.scrollToIndex(dropdown, elements, index);
         }
     }
 };
