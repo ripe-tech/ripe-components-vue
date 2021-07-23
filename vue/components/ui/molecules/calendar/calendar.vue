@@ -21,94 +21,100 @@
                 v-on:click.stop="onRightClick"
             />
         </div>
-        <div class="calendar-content">
-            <transition name="fade" mode="out-in">
-                <table class="calendar-table day" v-if="layerIndex === 0" v-bind:key="0">
-                    <thead class="table-header">
-                        <tr class="row">
-                            <th
-                                class="heading"
-                                v-for="weekLabel in weekLabelsComputed"
-                                v-bind:key="weekLabel"
-                            >
-                                {{ weekLabel }}
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody class="table-body">
-                        <tr class="row" v-for="(week, index) in weeks" v-bind:key="index">
-                            <td
-                                class="cell"
-                                v-bind:class="circleDayClass(week[dayIndex - 1].day, week[dayIndex - 1].month)"
-                                v-for="dayIndex in 7"
-                                v-bind:key="dayIndex"
-                                v-on:click="onDayClick($event, week[dayIndex - 1])"
-                            >
-                                <div class="circle days">
-                                    {{ week[dayIndex - 1].day }}
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <table class="calendar-table month" v-if="layerIndex === 1" v-bind:key="1">
-                    <tbody class="table-body">
-                        <tr class="row" v-for="(month, index) in monthsTable" v-bind:key="index">
-                            <td
-                                class="cell clickable"
-                                v-bind:class="circleMonthClass(month[monthIndex - 1])"
-                                v-for="monthIndex in month.length"
-                                v-bind:key="monthIndex"
-                                v-on:click="onMonthClick($event, month[monthIndex - 1])"
-                            >
-                                <div class="circle months">
-                                    {{ month[monthIndex - 1] }}
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <table class="calendar-table year" v-if="layerIndex === 2" v-bind:key="2">
-                    <tbody class="table-body">
-                        <tr class="row" v-for="(year, index) in yearsTable" v-bind:key="index">
-                            <td
-                                class="cell clickable"
-                                v-bind:class="circleYearClass(year[yearIndex - 1])"
-                                v-for="yearIndex in year.length"
-                                v-bind:key="yearIndex"
-                                v-on:click="onYearClick($event, year[yearIndex - 1])"
-                            >
-                                <div class="circle years">
-                                    {{ year[yearIndex - 1] }}
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <table class="calendar-table decades" v-if="layerIndex === 3" v-bind:key="3">
-                    <tbody class="table-body">
-                        <tr class="row" v-for="(decade, index) in decadesTable" v-bind:key="index">
-                            <td
-                                class="cell clickable"
-                                v-bind:class="circleDecadeClass(decade[decadeIndex - 1])"
-                                v-for="decadeIndex in decade.length"
-                                v-bind:key="decadeIndex"
-                                v-on:click="onDecadeClick($event, decade[decadeIndex - 1])"
-                            >
-                                <div class="circle decades">
-                                    {{ `${decade[decadeIndex - 1]} - ${decade[decadeIndex - 1] + 9}` }}
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </transition>
-        </div>
+        <transition-group
+            class="calendar-content"
+            v-bind:class="calendarContentClasses"
+            tag="div"
+            name="fade"
+            mode="out-in"
+        >
+            <table class="calendar-table day" v-show="layerIndex === 0" v-bind:key="0">
+                <thead class="table-header">
+                    <tr class="row">
+                        <th
+                            class="heading"
+                            v-for="weekLabel in weekLabelsComputed"
+                            v-bind:key="weekLabel"
+                        >
+                            {{ weekLabel }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="table-body">
+                    <tr class="row" v-for="(week, index) in weeks" v-bind:key="index">
+                        <td
+                            class="cell"
+                            v-bind:class="
+                                circleDayClass(week[dayIndex - 1].day, week[dayIndex - 1].month)
+                            "
+                            v-for="dayIndex in 7"
+                            v-bind:key="dayIndex"
+                            v-on:click="onDayClick($event, week[dayIndex - 1])"
+                        >
+                            <div class="circle days">
+                                {{ week[dayIndex - 1].day }}
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="calendar-table month" v-show="layerIndex === 1" v-bind:key="1">
+                <tbody class="table-body">
+                    <tr class="row" v-for="(month, index) in monthsTable" v-bind:key="index">
+                        <td
+                            class="cell clickable"
+                            v-bind:class="circleMonthClass(month[monthIndex - 1])"
+                            v-for="monthIndex in month.length"
+                            v-bind:key="monthIndex"
+                            v-on:click="onMonthClick($event, month[monthIndex - 1])"
+                        >
+                            <div class="circle months">
+                                {{ month[monthIndex - 1] }}
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="calendar-table year" v-show="layerIndex === 2" v-bind:key="2">
+                <tbody class="table-body">
+                    <tr class="row" v-for="(year, index) in yearsTable" v-bind:key="index">
+                        <td
+                            class="cell clickable"
+                            v-bind:class="circleYearClass(year[yearIndex - 1])"
+                            v-for="yearIndex in year.length"
+                            v-bind:key="yearIndex"
+                            v-on:click="onYearClick($event, year[yearIndex - 1])"
+                        >
+                            <div class="circle years">
+                                {{ year[yearIndex - 1] }}
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="calendar-table decades" v-show="layerIndex === 3" v-bind:key="3">
+                <tbody class="table-body">
+                    <tr class="row" v-for="(decade, index) in decadesTable" v-bind:key="index">
+                        <td
+                            class="cell clickable"
+                            v-bind:class="circleDecadeClass(decade[decadeIndex - 1])"
+                            v-for="decadeIndex in decade.length"
+                            v-bind:key="decadeIndex"
+                            v-on:click="onDecadeClick($event, decade[decadeIndex - 1])"
+                        >
+                            <div class="circle decades">
+                                {{ `${decade[decadeIndex - 1]} - ${decade[decadeIndex - 1] + 9}` }}
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </transition-group>
     </div>
 </template>
 
 <style lang="scss" scoped>
-@import "css/all.scss";
+@import "css/variables.scss";
 
 .calendar {
     border: 1px solid #e4e8f0;
@@ -139,7 +145,7 @@
     font-weight: 400;
     height: 26px;
     justify-content: center;
-    transition: all 0.5s ease-in-out;
+    transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out, opacity 0.125s;
     -webkit-user-select: none;
     user-select: none;
     width: 100%;
@@ -151,15 +157,22 @@
     color: $white;
 }
 
+.calendar > .calendar-header > .header-center:hover {
+    opacity: 0.6;
+}
+
 .calendar > .calendar-content {
-    display: flex;
+    display: grid;
+    grid-column: 1 / 1;
+    grid-row: 1 / 1;
     height: 300px;
     padding: 0px 20px 10px 20px;
 }
 
 .calendar > .calendar-content .calendar-table {
+    grid-column: 1 / 1;
+    grid-row: 1 / 1;
     height: 100%;
-    position: relative;
     width: 100%;
 }
 
@@ -213,11 +226,28 @@
     border: 3px solid #ecf0f3;
     color: $white;
     line-height: 35px;
-    transition: background-color 0.25s ease-in-out;
+    transition: background-color 0.35s ease-in-out;
 }
 
 .calendar .select ::v-deep .select-container .select-button {
     background-color: $white;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.35s, transform 0.35s;
+}
+
+.calendar-content.expand .fade-leave-to,
+.calendar-content.collapse .fade-enter {
+    opacity: 0;
+    transform: scale(1.2);
+}
+
+.calendar-content.expand .fade-enter,
+.calendar-content.collapse .fade-leave-to {
+    opacity: 0;
+    transform: scale(0.8);
 }
 </style>
 
@@ -283,10 +313,18 @@ export const Calendar = {
             month: new Date().getMonth(),
             year: new Date().getFullYear(),
             layerIndex: 0,
-            decade: new Date().getFullYear() - (new Date().getFullYear() % 10)
+            decade: new Date().getFullYear() - (new Date().getFullYear() % 10),
+            layerIndexOperation: null
         };
     },
     computed: {
+        calendarContentClasses() {
+            const base = {
+                collapse: this.layerIndexOperation === "collapse",
+                expand: this.layerIndexOperation === "expand"
+            };
+            return base;
+        },
         headerClasses() {
             const base = {
                 clickable: this.header,
@@ -424,6 +462,9 @@ export const Calendar = {
         },
         setLayerIndex(index) {
             if (index < 0 || index > 3) return;
+
+            if (this.layerIndex > index) this.layerIndexOperation = "expand";
+            else if (this.layerIndex < index) this.layerIndexOperation = "collapse";
             this.layerIndex = index;
         },
         setMonth(month) {
