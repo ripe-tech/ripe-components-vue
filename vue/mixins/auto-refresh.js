@@ -1,4 +1,4 @@
-export const refreshMixin = {
+export const autoRefreshMixin = {
     props: {
         autoRefreshInterval: {
             type: Number,

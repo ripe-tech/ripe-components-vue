@@ -275,11 +275,11 @@ input[type="text"]:focus {
 </style>
 
 <script>
-import { partMixin, utilsMixin, refreshMixin, scrollMixin } from "../../../../mixins";
+import { autoRefreshMixin, partMixin, utilsMixin, scrollMixin } from "../../../../mixins";
 
 export const Listing = {
     name: "listing",
-    mixins: [partMixin, utilsMixin, refreshMixin, scrollMixin],
+    mixins: [autoRefreshMixin, partMixin, utilsMixin, scrollMixin],
     props: {
         context: {
             type: Object,

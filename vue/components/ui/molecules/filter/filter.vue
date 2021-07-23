@@ -105,11 +105,11 @@ body.mobile .filter-ripe .lineup {
 
 <script>
 import { equal } from "yonius";
-import { refreshMixin } from "../../../../mixins";
+import { autoRefreshMixin } from "../../../../mixins";
 
 export const Filter = {
     name: "filter-ripe",
-    mixins: [refreshMixin],
+    mixins: [autoRefreshMixin],
     props: {
         filter: {
             type: String,
