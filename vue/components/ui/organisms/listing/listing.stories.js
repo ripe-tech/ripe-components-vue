@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, select, boolean } from "@storybook/addon-knobs";
+import { withKnobs, boolean, number, select, text } from "@storybook/addon-knobs";
 
 storiesOf("Components/Organisms/Listing", module)
     .addDecorator(withKnobs)
@@ -56,6 +56,15 @@ storiesOf("Components/Organisms/Listing", module)
             },
             checkboxes: {
                 default: () => boolean("Checkboxes", false)
+            },
+            autoRefresh: {
+                default: () => boolean("Auto Refresh", true)
+            },
+            autoRefreshButton: {
+                default: () => boolean("Auto Refresh Button", true)
+            },
+            autoRefreshInterval: {
+                default: () => number("Auto Refresh Interval", 6000)
             },
             checkedItems: {
                 type: Object,
@@ -117,6 +126,8 @@ storiesOf("Components/Organisms/Listing", module)
                     v-bind:container-mode="containerMode"
                     v-bind:checkboxes="checkboxes"
                     v-bind:checked-items.sync="checkedItemsData"
+                    v-bind:auto-refresh="autoRefresh"
+                    v-bind:auto-refresh-button="autoRefreshButton"
                     v-bind:create-url="createUrl"
                     v-bind:tooltip-search-text="tooltipSearchText"
                 >
