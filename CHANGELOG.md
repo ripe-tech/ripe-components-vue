@@ -20,14 +20,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 *
 ## [0.13.1] - 2021-07-26
 
-### Added
-
-*
-
-### Changed
-
-*
-
 ### Fixed
 
 * Added word breaking to the alert component, so that the entire text is always visible
