@@ -50,7 +50,6 @@ export const autoRefreshMixin = {
                 await this.refresh({ loading: false });
                 this.autoRefreshing = false;
             }, this.autoRefreshInterval);
-            console.log(this.refreshTimeInterval);
         }
     }
 };
