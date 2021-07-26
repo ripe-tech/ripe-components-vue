@@ -69,6 +69,15 @@
                         />
                     </router-link>
                 </slot>
+                <slot v-bind:name="'header-autorefresh-button'" v-if="showAutoRefreshButton">
+                    <switcher
+                        v-bind:checked="autoRefreshData"
+                        v-bind:variant="'grey'"
+                        v-bind:checked-text="'Auto refresh'"
+                        v-bind:unchecked-text="'Auto refresh'"
+                        v-on:update:checked="onAutoRefreshUpdated"
+                    />
+                </slot>
                 <slot name="header-search">
                     <tooltip
                         v-bind:text="tooltipSearchText"
@@ -220,6 +229,12 @@ body.mobile .listing {
 
 .listing .container-ripe .button-create {
     display: inline-block;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.listing .container-ripe .switcher {
+    min-width: 156px;
     vertical-align: middle;
 }
 
@@ -421,6 +436,9 @@ export const Listing = {
         getFilter() {
             return this.$refs.filter;
         },
+        onAutoRefreshUpdated(value) {
+            this.autoRefreshData = value;
+        },
         onHeaderButtonClick(event, buttonId) {
             this.$emit("header-button:click", event, buttonId);
         },
@@ -450,6 +468,9 @@ export const Listing = {
         },
         searchLoading() {
             return this.loading || this.autoRefreshing;
+        },
+        showAutoRefreshButton() {
+            return this.autoRefreshButton && this.autoRefresh;
         }
     },
     beforeRouteUpdate: function(to, from, next) {

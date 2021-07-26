@@ -1,16 +1,21 @@
 export const autoRefreshMixin = {
     props: {
-        autoRefreshInterval: {
-            type: Number,
-            default: 60000
-        },
         autoRefresh: {
             type: Boolean,
             default: false
+        },
+        autoRefreshButton: {
+            type: Boolean,
+            default: false
+        },
+        autoRefreshInterval: {
+            type: Number,
+            default: 60000
         }
     },
     data: function() {
         return {
+            autoRefreshData: this.autoRefresh,
             autoRefreshing: false
         };
     },
@@ -20,6 +25,15 @@ export const autoRefreshMixin = {
                 this.$emit("update:auto:refreshing", value);
             },
             immediate: true
+        },
+        autoRefreshData: {
+            handler: function(value) {
+                if (!value && Boolean(this.refreshTimeInterval)) {
+                    clearInterval(this.refreshTimeInterval);
+                } else if (value) {
+                    this._autoRefresh();
+                }
+            }
         }
     },
     mounted: function() {
@@ -30,12 +44,13 @@ export const autoRefreshMixin = {
     },
     methods: {
         _autoRefresh() {
-            if (!this.autoRefresh) return;
+            if (!this.autoRefreshData) return;
             this.refreshTimeInterval = setInterval(async () => {
                 this.autoRefreshing = true;
                 await this.refresh({ loading: false });
                 this.autoRefreshing = false;
-            }, this.autoRefreshInterval || 6000);
+            }, this.autoRefreshInterval);
+            console.log(this.refreshTimeInterval);
         }
     }
 };
