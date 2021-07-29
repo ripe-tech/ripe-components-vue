@@ -11,7 +11,7 @@
             class="button-icon-home"
             v-bind:icon="homeIcon"
             v-bind:size="60"
-            v-if="navigation"
+            v-if="navigation && homeIcon"
             v-on:click="goHome"
         />
         <div class="error-message">
