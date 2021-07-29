@@ -107,8 +107,8 @@
 }
 
 .button-icon-back {
-    position: absolute;
     left: 20px;
+    position: absolute;
     top: 20px;
 }
 
