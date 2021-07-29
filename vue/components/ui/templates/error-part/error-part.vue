@@ -141,7 +141,7 @@ export const ErrorPart = {
         },
         homeIcon: {
             type: String,
-            default: "home"
+            default: null
         },
         navigation: {
             type: Boolean,
