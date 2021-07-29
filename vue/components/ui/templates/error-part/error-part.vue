@@ -1,14 +1,14 @@
 <template>
     <div class="error-part">
         <button-icon
-            class="button-icon back"
+            class="button-icon-back"
             v-bind:icon="'arrow-left'"
             v-bind:size="60"
             v-if="navigation"
             v-on:click="goBack"
         />
         <button-icon
-            class="button-icon home"
+            class="button-icon-home"
             v-bind:icon="homeIcon"
             v-bind:size="60"
             v-if="navigation"
@@ -106,17 +106,16 @@
     margin: 24px auto 0px auto;
 }
 
-.button-icon {
+.button-icon-back {
     position: absolute;
+    left: 20px;
     top: 20px;
 }
 
-.button-icon.back {
-    left: 20px;
-}
-
-.button-icon.home {
+.button-icon-home {
+    position: absolute;
     right: 20px;
+    top: 20px;
 }
 </style>
 
