@@ -143,6 +143,10 @@ export const ErrorPart = {
             type: String,
             default: null
         },
+        homeLocation: {
+            type: String,
+            default: "/"
+        },
         navigation: {
             type: Boolean,
             default: true
@@ -155,8 +159,7 @@ export const ErrorPart = {
     methods: {
         goHome() {
             if (!this.navigation) return;
-            if (window) window.location = "/";
-            this.$router.push({ name: "home" });
+            this.$router.push(this.homeLocation);
         },
         goBack() {
             if (!this.navigation) return;
