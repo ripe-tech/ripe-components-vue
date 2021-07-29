@@ -157,7 +157,7 @@
     color: $white;
 }
 
-.calendar > .calendar-header > .header-center:hover {
+.calendar > .calendar-header.clickable > .header-center:hover {
     opacity: 0.6;
 }
 
