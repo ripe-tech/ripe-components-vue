@@ -7,6 +7,13 @@
             v-if="navigation"
             v-on:click="goBack"
         />
+        <button-icon
+            class="button-icon-home"
+            v-bind:icon="homeIcon"
+            v-bind:size="60"
+            v-if="navigation && homeIcon"
+            v-on:click="goHome"
+        />
         <div class="error-message">
             <image-ripe
                 v-bind:src="image"
@@ -104,6 +111,12 @@
     position: absolute;
     top: 20px;
 }
+
+.button-icon-home {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
 </style>
 
 <script>
@@ -126,6 +139,14 @@ export const ErrorPart = {
             type: String,
             default: null
         },
+        homeIcon: {
+            type: String,
+            default: null
+        },
+        homeLocation: {
+            type: String,
+            default: "/"
+        },
         navigation: {
             type: Boolean,
             default: true
@@ -138,7 +159,7 @@ export const ErrorPart = {
     methods: {
         goHome() {
             if (!this.navigation) return;
-            this.$router.push({ name: "home" });
+            this.$router.push(this.homeLocation);
         },
         goBack() {
             if (!this.navigation) return;
