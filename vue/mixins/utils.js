@@ -30,10 +30,12 @@ export const utilsMixin = {
         /**
          * Scrolls to the right element for a container,
          * given the index of the element to scroll to.
-         * @param {*} container The parent container;
-         * @param {*} elements List of elements to iterate over;
-         * @param {*} index The index of the target element;
+         *
+         * @param {HTMLElement} container The parent container;
+         * @param {HTMLCollection} elements List of elements to iterate over;
+         * @param {Number} index The index of the target element;
          */
+
         scrollToIndex(container, elements, index) {
             const visibleStart = container.scrollTop;
             const visibleEnd = visibleStart + container.clientHeight;
