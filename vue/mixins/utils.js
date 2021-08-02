@@ -35,7 +35,6 @@ export const utilsMixin = {
          * @param {HTMLCollection} elements List of elements to iterate over;
          * @param {Number} index The index of the target element;
          */
-
         scrollToIndex(container, elements, index) {
             const visibleStart = container.scrollTop;
             const visibleEnd = visibleStart + container.clientHeight;
