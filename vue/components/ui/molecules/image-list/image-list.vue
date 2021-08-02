@@ -1,6 +1,7 @@
 <template>
     <div class="image-list">
         <image-item
+            v-bind:style="style(index)"
             v-bind:image-url="item.imageUrl"
             v-bind:name="item.name"
             v-bind:description="item.description"
@@ -105,7 +106,19 @@ export const ImageList = {
         animationDuration: {
             type: Number,
             default: 2000
+        },
+        /**
+         * The value the opacity for the unselected images.
+         */
+        opacityUnselected: {
+            type: Number,
+            default: 1
         }
+    },
+    data: function() {
+        return {
+            selectedItemIndex: 0
+        };
     },
     computed: {
         listeners() {
@@ -131,10 +144,18 @@ export const ImageList = {
             this.$emit("update:highlight", item, index, value);
         },
         onClick(event, item, index) {
+            this.selectedItemIndex = index;
             this.$emit("click", event, item, index);
         },
         onButtonClick(event, item, index) {
+            this.selectedItemIndex = index;
             this.$emit("click:button", event, item, index);
+        },
+        style(index) {
+            const base = {
+                opacity: index === this.selectedItemIndex ? "1" : this.opacityUnselected
+            };
+            return base;
         }
     }
 };
