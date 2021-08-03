@@ -28,6 +28,14 @@
 .button-toggle.right {
     border-radius: 0px 5px 5px 0px;
 }
+
+.button-toggle.top {
+    border-radius: 5px 5px 0px 0px;
+}
+
+.button-toggle.bottom {
+    border-radius: 0px 0px 5px 5px;
+}
 </style>
 
 <script>
@@ -81,7 +89,7 @@ export const ButtonToggle = {
         },
         /**
          * The orientation of the button that modified its borders
-         * ("default", "left", "center" and "right").
+         * ("default", "left", "center", "right", "top" and "bottom").
          */
         orientation: {
             type: String,

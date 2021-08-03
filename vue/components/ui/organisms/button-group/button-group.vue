@@ -1,6 +1,7 @@
 <template>
     <div class="button-group">
         <button-toggle
+            v-bind:class="direction"
             v-bind:disabled="item.disabled === undefined ? disabled : item.disabled"
             v-bind:text="item.label || item.value"
             v-bind:value="valueData === item.value"
@@ -19,6 +20,12 @@
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
+
+.button-group > .button-toggle.vertical {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
 </style>
 
 <script>
@@ -36,6 +43,10 @@ export const ButtonGroup = {
         disabled: {
             type: Boolean,
             default: false
+        },
+        direction: {
+            type: String,
+            default: "horizontal"
         }
     },
     data: function() {
@@ -53,8 +64,15 @@ export const ButtonGroup = {
     },
     methods: {
         calculateOrientation(index) {
+            if (this.direction === "vertical") {
+                if (index === 0) return "top";
+                if (index === this.items.length - 1) return "bottom";
+
+                return "middle";
+            }
             if (index === 0) return "left";
             if (index === this.items.length - 1) return "right";
+
             return "middle";
         },
         onClick(event, item) {
