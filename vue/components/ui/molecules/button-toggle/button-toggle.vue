@@ -81,6 +81,13 @@ export const ButtonToggle = {
             default: null
         },
         /**
+         * Whether it is able to be toggled or not.
+         */
+        toggle: {
+            type: Boolean,
+            default: true
+        },
+        /**
          * The value of the button.
          */
         value: {
@@ -132,6 +139,7 @@ export const ButtonToggle = {
     },
     methods: {
         onClick(event) {
+            if (!this.toggle) return;
             this.$emit("click", event);
         }
     }

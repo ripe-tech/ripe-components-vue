@@ -5,6 +5,7 @@
             v-bind:disabled="item.disabled === undefined ? disabled : item.disabled"
             v-bind:text="item.label || item.value"
             v-bind:value="valueData === item.value"
+            v-bind:toggle="toggle"
             v-bind:button-icon-props="item.buttonProps"
             v-bind:orientation="calculateOrientation(index)"
             v-bind="{
@@ -47,6 +48,10 @@ export const ButtonGroup = {
         direction: {
             type: String,
             default: "horizontal"
+        },
+        toggle: {
+            type: Boolean,
+            default: true
         }
     },
     data: function() {
@@ -60,6 +65,13 @@ export const ButtonGroup = {
         },
         valueData(value) {
             this.$emit("update:value", value);
+        },
+        toggle(value) {
+            this.toggle = value;
+
+            if (!this.toggle) {
+                this.valueData = null;
+            }
         }
     },
     methods: {
@@ -76,6 +88,7 @@ export const ButtonGroup = {
             return "middle";
         },
         onClick(event, item) {
+            if (!this.toggle) return;
             this.valueData = item.value;
         }
     }

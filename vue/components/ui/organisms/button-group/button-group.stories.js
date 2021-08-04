@@ -38,7 +38,7 @@ storiesOf("Components/Organisms/Button Group", module)
                 )
             },
             direction: {
-                type: Array,
+                type: String,
                 default: select(
                     "Direction",
                     {
@@ -47,6 +47,10 @@ storiesOf("Components/Organisms/Button Group", module)
                     },
                     "horizontal"
                 )
+            },
+            toggle: {
+                type: Boolean,
+                default: boolean("Toggle", true)
             },
             disabled: {
                 type: Boolean,
@@ -70,6 +74,7 @@ storiesOf("Components/Organisms/Button Group", module)
                     v-bind:disabled="disabled"
                     v-bind:value.sync="valueData"
                     v-bind:direction="direction"
+                    v-bind:toggle="toggle"
                 />
             </div>
             `
