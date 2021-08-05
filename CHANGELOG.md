@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Button toggle component
 * Button group component
+* Added home navigation button `error-part`
 
 ### Changed
 
@@ -20,11 +21,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *
 
+## [0.14.0] - 2021-07-30
+
+### Added
+
+* `refreshMixin`, which will allow certain pages to be refreshed from time to time
+
+## [0.13.1] - 2021-07-26
+
+### Fixed
+
+* Added word breaking to the alert component, so that the entire text is always visible
+
 ## [0.13.0] - 2021-07-05
 
 ### Added
 
 * Support for ellipsis in `tag` component
+* Support for links in `notification` component
 
 ### Fixed
 
