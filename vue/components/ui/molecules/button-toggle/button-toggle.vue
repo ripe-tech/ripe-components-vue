@@ -139,7 +139,6 @@ export const ButtonToggle = {
     },
     methods: {
         onClick(event) {
-            if (!this.toggle) return;
             this.$emit("click", event);
         }
     }
