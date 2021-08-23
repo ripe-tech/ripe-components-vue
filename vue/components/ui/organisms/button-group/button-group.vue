@@ -88,6 +88,7 @@ export const ButtonGroup = {
             return "middle";
         },
         onClick(event, item) {
+            this.$emit("click", item.value);
             if (!this.toggle) return;
             this.valueData = item.value;
         }
