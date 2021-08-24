@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* Button toggle component
+* Button group component
 * Added home navigation button `error-part`
 
 ### Changed

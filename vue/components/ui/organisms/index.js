@@ -1,3 +1,4 @@
+import { ButtonGroup } from "./button-group/button-group.vue";
 import { Chat } from "./chat/chat.vue";
 import { ContainerForm } from "./container-form/container-form.vue";
 import { Details } from "./details/details.vue";
@@ -12,6 +13,7 @@ import { Listing } from "./listing/listing.vue";
 import { TableMenu } from "./table-menu/table-menu.vue";
 
 const install = Vue => {
+    Vue.component("button-group", ButtonGroup);
     Vue.component("chat", Chat);
     Vue.component("container-form", ContainerForm);
     Vue.component("details-ripe", Details);
@@ -27,6 +29,7 @@ const install = Vue => {
 };
 
 export {
+    ButtonGroup,
     Chat,
     ContainerForm,
     Details,

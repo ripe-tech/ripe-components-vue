@@ -7,6 +7,7 @@ import { ButtonDropdown } from "./button-dropdown/button-dropdown.vue";
 import { ButtonIconAnimated } from "./button-icon-animated/button-icon-animated.vue";
 import { ButtonIconDropdown } from "./button-icon-dropdown/button-icon-dropdown.vue";
 import { ButtonIconToggle } from "./button-icon-toggle/button-icon-toggle.vue";
+import { ButtonToggle } from "./button-toggle/button-toggle.vue";
 import { Calendar } from "./calendar/calendar.vue";
 import { Carousel } from "./carousel/carousel.vue";
 import { ChatMessage } from "./chat-message/chat-message.vue";
@@ -53,6 +54,7 @@ const install = Vue => {
     Vue.component("button-icon-animated", ButtonIconAnimated);
     Vue.component("button-icon-dropdown", ButtonIconDropdown);
     Vue.component("button-icon-toggle", ButtonIconToggle);
+    Vue.component("button-toggle", ButtonToggle);
     Vue.component("calendar", Calendar);
     Vue.component("carousel", Carousel);
     Vue.component("chat-message", ChatMessage);
