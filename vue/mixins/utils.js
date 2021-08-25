@@ -26,32 +26,6 @@ export const utilsMixin = {
         },
         buildSlug(value) {
             return buildSlug(value);
-        },
-        /**
-         * Scrolls to the right element for a container,
-         * given the index of the element to scroll to.
-         *
-         * @param {HTMLElement} container The parent container;
-         * @param {HTMLCollection} elements List of elements to iterate over;
-         * @param {Number} index The index of the target element;
-         */
-        scrollToIndex(container, elements, index) {
-            const visibleStart = container.scrollTop;
-            const visibleEnd = visibleStart + container.clientHeight;
-
-            let indexStart = 0;
-            for (let i = 0; i < index; i++) {
-                indexStart += elements[i].offsetHeight;
-            }
-
-            const indexHeight = elements[index].offsetHeight;
-            const indexEnd = indexStart + indexHeight;
-
-            if (indexStart < visibleStart) {
-                container.scrollTop = indexStart;
-            } else if (indexEnd > visibleEnd) {
-                container.scrollTop = indexEnd - container.clientHeight;
-            }
         }
     }
 };

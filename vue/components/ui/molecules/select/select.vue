@@ -153,11 +153,11 @@
 </style>
 
 <script>
-import { partMixin, utilsMixin } from "../../../../mixins";
+import { partMixin, scrollMixin } from "../../../../mixins";
 
 export const Select = {
     name: "select-ripe",
-    mixins: [partMixin, utilsMixin],
+    mixins: [partMixin, scrollMixin],
     props: {
         options: {
             type: Array,
@@ -327,7 +327,6 @@ export const Select = {
         scrollTo(index) {
             const dropdown = this.$refs.dropdown.$refs.dropdown;
             const dropdownElements = dropdown.getElementsByClassName("dropdown-item");
-
             this.scrollToIndex(dropdown, dropdownElements, index);
         },
         onGlobalClick(event) {

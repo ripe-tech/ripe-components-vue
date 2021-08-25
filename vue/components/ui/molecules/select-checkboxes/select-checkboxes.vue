@@ -41,11 +41,11 @@
 </style>
 
 <script>
-import { utilsMixin } from "../../../../mixins";
+import { scrollMixin } from "../../../../mixins";
 
 export const SelectCheckboxes = {
     name: "select-checkboxes",
-    mixins: [utilsMixin],
+    mixins: [scrollMixin],
     props: {
         /**
          * Placeholder shown in the select button
@@ -181,13 +181,9 @@ export const SelectCheckboxes = {
             const index = this._items.findIndex(option =>
                 option.label?.toUpperCase().startsWith(keyBuffer)
             );
-
-            if (index === -1) return;
-
             const dropdown = this.$refs.select.$refs.dropdown.$refs.dropdown;
             const dropdownElement = dropdown.getElementsByClassName("dropdown-item")[0];
             const elements = dropdownElement.getElementsByClassName("checkbox-item");
-
             this.scrollToIndex(dropdown, elements, index);
         }
     }
