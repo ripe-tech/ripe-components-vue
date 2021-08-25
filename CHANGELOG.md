@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Button toggle component
 * Button group component
 * Added home navigation button `error-part`
+* Selected images can now be more evident on `image-list`, by lowering the opacity of the unselected ones
 
 ### Changed
 

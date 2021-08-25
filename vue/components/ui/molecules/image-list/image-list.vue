@@ -1,6 +1,7 @@
 <template>
     <div class="image-list">
         <image-item
+            v-bind:style="itemStyle(index)"
             v-bind:image-url="item.imageUrl"
             v-bind:name="item.name"
             v-bind:description="item.description"
@@ -8,7 +9,7 @@
             v-bind:highlight-color="highlightColor"
             v-bind:image-object-fit="item.objectFit"
             v-bind:animation-duration="animationDuration"
-            v-bind="options(item)"
+            v-bind="itemOptions(item)"
             v-for="(item, index) in items"
             v-bind:key="item.id || index"
             v-on:click="event => onClick(event, item, index)"
@@ -105,7 +106,20 @@ export const ImageList = {
         animationDuration: {
             type: Number,
             default: 2000
+        },
+        /**
+         * The values for the opacity CSS value to be used in
+         * images that are currently not selected.
+         */
+        opacityUnselected: {
+            type: Number,
+            default: 1
         }
+    },
+    data: function() {
+        return {
+            selectedIndex: 0
+        };
     },
     computed: {
         listeners() {
@@ -117,7 +131,7 @@ export const ImageList = {
         }
     },
     methods: {
-        options(item) {
+        itemOptions(item) {
             const base = {
                 height: this.itemHeight,
                 width: this.itemWidth,
@@ -127,13 +141,21 @@ export const ImageList = {
             };
             return base;
         },
+        itemStyle(index) {
+            const base = {
+                opacity: index === this.selectedIndex ? "1" : this.opacityUnselected
+            };
+            return base;
+        },
         onUpdateHighlight(item, index, value) {
             this.$emit("update:highlight", item, index, value);
         },
         onClick(event, item, index) {
+            this.selectedIndex = index;
             this.$emit("click", event, item, index);
         },
         onButtonClick(event, item, index) {
+            this.selectedIndex = index;
             this.$emit("click:button", event, item, index);
         }
     }
