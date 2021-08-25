@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 * Added home navigation button `error-part`
-* Selected images can now be more evident on `image-list`, by lowering the opacity of the unselected ones.
+* Selected images can now be more evident on `image-list`, by lowering the opacity of the unselected ones
 
 ### Changed
 
