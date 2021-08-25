@@ -153,11 +153,11 @@
 </style>
 
 <script>
-import { partMixin } from "../../../../mixins";
+import { partMixin, scrollMixin } from "../../../../mixins";
 
 export const Select = {
     name: "select-ripe",
-    mixins: [partMixin],
+    mixins: [partMixin, scrollMixin],
     props: {
         options: {
             type: Array,
@@ -327,24 +327,7 @@ export const Select = {
         scrollTo(index) {
             const dropdown = this.$refs.dropdown.$refs.dropdown;
             const dropdownElements = dropdown.getElementsByClassName("dropdown-item");
-
-            const visibleStart = dropdown.scrollTop;
-            const visibleEnd = visibleStart + dropdown.clientHeight;
-
-            let indexStart = 0;
-            for (let i = 0; i < index; i++) {
-                const dropdownElement = dropdownElements[i];
-                indexStart += dropdownElement.offsetHeight;
-            }
-
-            const indexHeight = dropdownElements[index].offsetHeight;
-            const indexEnd = indexStart + indexHeight;
-
-            if (indexStart < visibleStart) {
-                dropdown.scrollTop = indexStart;
-            } else if (indexEnd > visibleEnd) {
-                dropdown.scrollTop = indexEnd - dropdown.clientHeight;
-            }
+            this.scrollToIndex(dropdown, dropdownElements, index);
         },
         onGlobalClick(event) {
             const owners = Array.isArray(this.owners)
@@ -373,6 +356,7 @@ export const Select = {
             }
             this.keyBuffer += key.toUpperCase();
             this.keyTimestamp = Date.now();
+            this.$emit("select:keydown", key, this.keyBuffer);
             this.highlightBestMatchOption();
         },
         onEscKey() {

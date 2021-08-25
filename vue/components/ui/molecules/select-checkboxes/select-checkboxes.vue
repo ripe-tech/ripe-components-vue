@@ -9,9 +9,11 @@
             maxHeight: 210,
             ...selectProps
         }"
+        ref="select"
+        v-on:select:keydown="scrollToCheckbox"
     >
         <template v-slot:checkbox-group>
-            <div class="checkboxes" v-on:click.stop>
+            <div class="checkboxes" ref="checkboxes" v-on:click.stop>
                 <checkbox-group v-bind:items="_items" v-bind:values.sync="valuesData" />
             </div>
         </template>
@@ -39,8 +41,11 @@
 </style>
 
 <script>
+import { scrollMixin } from "../../../../mixins";
+
 export const SelectCheckboxes = {
     name: "select-checkboxes",
+    mixins: [scrollMixin],
     props: {
         /**
          * Placeholder shown in the select button
@@ -169,6 +174,17 @@ export const SelectCheckboxes = {
                 this.$emit("update:values", value);
             },
             deep: true
+        }
+    },
+    methods: {
+        scrollToCheckbox(key, keyBuffer) {
+            const index = this._items.findIndex(option =>
+                option.label?.toUpperCase().startsWith(keyBuffer)
+            );
+            const dropdown = this.$refs.select.$refs.dropdown.$refs.dropdown;
+            const dropdownElement = dropdown.getElementsByClassName("dropdown-item")[0];
+            const elements = dropdownElement.getElementsByClassName("checkbox-item");
+            this.scrollToIndex(dropdown, elements, index);
         }
     }
 };
