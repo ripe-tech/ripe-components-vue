@@ -19,7 +19,7 @@ RIPE Component for Vue.js Javascript is currently licensed under the [Apache Lic
 
 ## Build Automation
 
-[![Build Status](https://travis-ci.com/ripe-tech/ripe-components-vue.svg?branch=master)](https://travis-ci.com/ripe-tech/ripe-components-vue)
+[![Build Status](https://app.travis-ci.com/ripe-tech/ripe-components-vue.svg?branch=master)](https://travis-ci.com/github/ripe-tech/ripe-components-vue)
 [![Build Status GitHub](https://github.com/ripe-tech/ripe-components-vue/workflows/Main%20Workflow/badge.svg)](https://github.com/ripe-tech/ripe-components-vue/actions)
 [![npm Status](https://img.shields.io/npm/v/ripe-components-vue.svg)](https://www.npmjs.com/package/ripe-components-vue)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://www.apache.org/licenses/)
