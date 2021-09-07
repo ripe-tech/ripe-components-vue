@@ -6,7 +6,7 @@ storiesOf("Components/Molecules/Upload Button", module)
     .add("Upload Button", () => ({
         props: {
             disabled: {
-                default: boolean("Disabled", true)
+                default: boolean("Disabled", false)
             },
             buttonText: {
                 default: text("Button Text", "Upload Files")
