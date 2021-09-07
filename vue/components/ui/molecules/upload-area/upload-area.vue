@@ -22,10 +22,10 @@
                         {{ descriptionText }}
                     </div>
                 </transition>
-                <button-icon v-bind:icon="icon" v-bind:size="110" v-if="areaContainer" />
+                <button-icon v-bind:icon="icon" v-bind:size="110" />
                 <button-color
                     class="button-upload"
-                    v-bind:text="buttonText"
+                    v-bind:text="'Upload File'"
                     v-bind:icon="'cloud-upload'"
                     v-bind:alignment="'center'"
                     v-bind:disabled="disabled"
@@ -39,10 +39,6 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 @import "css/animations.scss";
-
-.upload-area.hidden-area-container {
-    display: inline-block;
-}
 
 .upload-area > .upload-area-container {
     align-items: center;
@@ -68,21 +64,12 @@
     cursor: not-allowed;
 }
 
-.upload-area.hidden-area-container > .upload-area-container {
-    border: none;
-    height: initial;
-}
-
 .upload-area > .upload-area-container > .description {
     color: $dark;
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0.5px;
     margin-bottom: 22px;
-}
-
-.upload-area.hidden-area-container .upload-area-container > .description {
-    display: none;
 }
 
 .upload-area > .upload-area-container > .description.fade-in-enter-active,
@@ -117,10 +104,6 @@
 .upload-area.dragging > .upload-area-container > .button-upload {
     opacity: 0;
 }
-
-.upload-area.dragging.hidden-area-container > .upload-area-container > .button-upload {
-    opacity: 0.6;
-}
 </style>
 
 <script>
@@ -134,14 +117,6 @@ export const UploadArea = {
         descriptionDragging: {
             type: String,
             default: "Drop your files to upload"
-        },
-        buttonText: {
-            type: String,
-            default: "Upload Files"
-        },
-        areaContainer: {
-            type: Boolean,
-            default: true
         },
         disabled: {
             type: Boolean,
@@ -172,11 +147,7 @@ export const UploadArea = {
             return this.draggingIcon ? this.draggingIcon : "cloud-upload";
         },
         classes() {
-            const base = {
-                dragging: this.dragging,
-                disabled: this.draggingDisabled,
-                "hidden-area-container": !this.areaContainer
-            };
+            const base = { dragging: this.dragging, disabled: this.draggingDisabled };
             return base;
         }
     },
