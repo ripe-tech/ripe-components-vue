@@ -14,6 +14,9 @@ storiesOf("Components/Molecules/Upload Area", module)
             disabled: {
                 default: boolean("Disabled", true)
             },
+            areaContainer: {
+                default: boolean("Upload Area", true)
+            },
             draggingIcon: {
                 default: select(
                     "Icon",
@@ -42,6 +45,7 @@ storiesOf("Components/Molecules/Upload Area", module)
                 <upload-area 
                     v-bind:files.sync="filesData" 
                     v-bind:description="description"
+                    v-bind:area-container="areaContainer"
                     v-bind:description-dragging="descriptionDragging"
                     v-bind:dragging-icon="draggingIcon"
                     v-bind:disabled="disabled"
