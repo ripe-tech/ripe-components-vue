@@ -73,8 +73,16 @@ export const UploadButton = {
         },
         draggable: {
             type: Boolean,
-            default: false
+            default: true
         }
+    },
+    data: function() {
+        return {
+            fileInputRef: this.$refs.filesInput
+        };
+    },
+    mounted: function() {
+        this.fileInputRef = this.$refs.filesInput;
     },
     computed: {
         classes() {
@@ -84,11 +92,6 @@ export const UploadButton = {
             };
             return base;
         }
-    },
-    data: function() {
-        return {
-            fileInputRef: this.$refs.filesInput
-        };
     },
     watch: {
         files(value) {

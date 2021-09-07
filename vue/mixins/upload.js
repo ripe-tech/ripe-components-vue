@@ -27,10 +27,10 @@ export const uploadMixin = {
             this.$emit("update:files", this.filesData);
         },
         clear() {
-            this.$refs.filesInput.value = null;
+            this.fileInputRef.value = null;
         },
         openModal() {
-            this.$refs.filesInput.click();
+            this.fileInputRef.click();
         },
         onDragOver(event) {
             if (this.disabled || !this.draggable) return;
@@ -54,10 +54,10 @@ export const uploadMixin = {
             this.dragging = false;
         },
         onFilesInputChange() {
-            this.setFiles(this.$refs.filesInput.files);
+            this.setFiles(this.fileInputRef.files);
         },
         onUploadButtonClick() {
-            this.$refs.filesInput.click();
+            this.fileInputRef.click();
         }
     }
 };

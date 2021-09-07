@@ -7,22 +7,24 @@
         v-on:dragenter="onDragEnter"
         v-on:dragleave="onDragLeave"
     >
-        <slot v-bind:open-modal="openModal">
+        <slot>
             <transition name="fade-in" mode="out-in">
                 <div class="description" v-bind:key="dragging">
                     {{ descriptionText }}
                 </div>
             </transition>
             <icon v-bind:icon="icon" v-bind:size="110" v-bind:color="'gray'" />
-            <upload-button
-                v-bind="$attrs"
-                v-bind:dragging.sync="dragging"
-                v-bind:draggable="false"
-                v-bind:class="classes"
-                ref="uploadButton"
-                v-on="$listeners"
-            />
         </slot>
+        <upload-button
+            v-bind="$attrs"
+            v-bind:disabled="disabled"
+            v-bind:dragging.sync="dragging"
+            v-bind:draggable="false"
+            v-bind:class="classes"
+            v-show="emptySlots"
+            ref="uploadButton"
+            v-on="$listeners"
+        />
     </div>
 </template>
 
@@ -51,6 +53,8 @@
 
 .upload-area.disabled {
     cursor: not-allowed;
+    user-select: none;
+    opacity: 0.4;
 }
 
 .upload-area > .upload-button {
@@ -122,6 +126,10 @@ export const UploadArea = {
         descriptionDragging: {
             type: String,
             default: "Drop your files to upload"
+        },
+        disabled: {
+            type: Boolean,
+            default: false
         }
     },
     data: function() {
@@ -137,7 +145,7 @@ export const UploadArea = {
         classes() {
             const base = {
                 dragging: this.dragging,
-                disabled: this.draggingDisabled
+                disabled: this.disabled
             };
             return base;
         },
