@@ -26,9 +26,6 @@ storiesOf("Components/Molecules/Upload Area", module)
                     },
                     "cloud-upload"
                 )
-            },
-            uploadButton: {
-                default: boolean("Upload Button", true)
             }
         },
         data: function() {
@@ -44,7 +41,6 @@ storiesOf("Components/Molecules/Upload Area", module)
                     v-bind:description="description"
                     v-bind:description-dragging="descriptionDragging"
                     v-bind:dragging-icon="draggingIcon"
-                    v-bind:upload-button="uploadButton"
                     v-bind:dragging.sync="draggingData"
                 />
                 <p>Dragging: {{ draggingData }}</p>
