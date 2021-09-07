@@ -40,6 +40,7 @@
 
 .upload-button > .button-upload {
     transition: opacity 0.125s ease-in;
+    z-index: 1;
 }
 
 .upload-button.dragging > .button-upload {
