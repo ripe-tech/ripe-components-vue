@@ -53,8 +53,8 @@
 
 .upload-area.disabled {
     cursor: not-allowed;
-    user-select: none;
     opacity: 0.4;
+    user-select: none;
 }
 
 .upload-area > .upload-button {
