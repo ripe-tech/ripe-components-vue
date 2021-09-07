@@ -12,7 +12,7 @@ storiesOf("Components/Molecules/Upload Area", module)
                 default: text("Description Dragging", "Drop your files to upload")
             },
             disabled: {
-                default: boolean("Disabled", true)
+                default: boolean("Disabled", false)
             },
             draggingIcon: {
                 default: select(

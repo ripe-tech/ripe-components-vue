@@ -1,44 +1,25 @@
 <template>
-    <div
-        class="upload-area"
-        v-bind:class="classes"
-        v-on:dragover.prevent="event => onDragOver(event)"
-        v-on:drop.prevent="event => onDrop(event)"
-        v-on:dragenter="event => onDragEnter(event)"
-        v-on:dragleave="event => onDragLeave(event)"
-    >
-        <input
-            type="file"
-            hidden
-            v-bind:multiple="multiple"
-            v-bind:accept="accept"
-            ref="filesInput"
-            v-on:change="onFilesInputChange"
-        />
-        <slot v-bind:open-modal="openModal">
-            <div class="upload-area-container">
+    <div class="upload-area">
+        <upload-button class="upload-area-container" v-bind="$attrs" v-on="$listeners">
+            <slot>
                 <transition name="fade-in" mode="out-in">
                     <div class="description" v-bind:key="dragging">
                         {{ descriptionText }}
                     </div>
                 </transition>
-                <button-icon v-bind:icon="icon" v-bind:size="110" />
-                <button-color
-                    class="button-upload"
-                    v-bind:text="'Upload File'"
-                    v-bind:icon="'cloud-upload'"
-                    v-bind:alignment="'center'"
-                    v-bind:disabled="disabled"
-                    v-on:click="onUploadButtonClick"
-                />
-            </div>
-        </slot>
+                <icon v-bind:icon="icon" v-bind:size="110" v-bind:color="'gray'" />
+            </slot>
+        </upload-button>
     </div>
 </template>
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
 @import "css/animations.scss";
+
+.upload-button.upload-area {
+    display: block;
+}
 
 .upload-area > .upload-area-container {
     align-items: center;
@@ -54,13 +35,12 @@
     white-space: nowrap;
 }
 
-.upload-area.dragging > .upload-area-container {
+.upload-area > .upload-area-container.dragging {
     background-color: $lighter-grey;
     border-color: $medium-grey;
-    pointer-events: none;
 }
 
-.upload-area.disabled > .upload-area-container {
+.upload-area > .upload-area-container.disabled {
     cursor: not-allowed;
 }
 
@@ -83,25 +63,24 @@
     transform: translateY(-10px);
 }
 
-.upload-area > .upload-area-container > .button-icon {
+.upload-area > .upload-area-container > .icon {
     opacity: 0;
-    pointer-events: none;
     position: absolute;
-    top: 40px;
+    top: 70px;
     transition: opacity 0.125s ease-in;
 }
 
-.upload-area.dragging > .upload-area-container > .button-icon {
+.upload-area > .upload-area-container.dragging > .icon {
     animation: zoom 2.5s ease-in-out infinite;
-    height: 40px;
+    height: 50px;
     opacity: 1;
 }
 
-.upload-area > .upload-area-container > .button-upload {
+.upload-area ::v-deep .button-upload {
     transition: opacity 0.125s ease-in;
 }
 
-.upload-area.dragging > .upload-area-container > .button-upload {
+.upload-area > .upload-area-container.dragging ::v-deep .button.button-color.button-upload {
     opacity: 0;
 }
 </style>
@@ -117,26 +96,6 @@ export const UploadArea = {
         descriptionDragging: {
             type: String,
             default: "Drop your files to upload"
-        },
-        disabled: {
-            type: Boolean,
-            default: false
-        },
-        draggingIcon: {
-            type: String,
-            default: null
-        },
-        files: {
-            type: Array,
-            default: () => []
-        },
-        multiple: {
-            type: Boolean,
-            default: true
-        },
-        accept: {
-            type: String,
-            default: null
         }
     },
     computed: {
@@ -145,66 +104,6 @@ export const UploadArea = {
         },
         icon() {
             return this.draggingIcon ? this.draggingIcon : "cloud-upload";
-        },
-        classes() {
-            const base = { dragging: this.dragging, disabled: this.draggingDisabled };
-            return base;
-        }
-    },
-    data: function() {
-        return {
-            filesData: this.files,
-            dragging: false,
-            draggingDisabled: false,
-            dragEnterTarget: null
-        };
-    },
-    watch: {
-        files(value) {
-            if (!value || value.length === 0) this.clear();
-            this.filesData = value;
-        },
-        dragging(value) {
-            this.$emit("update:dragging", value);
-        }
-    },
-    methods: {
-        setFiles(filesList) {
-            this.filesData = [...filesList];
-            this.$emit("update:files", this.filesData);
-        },
-        clear() {
-            this.$refs.filesInput.value = null;
-        },
-        openModal() {
-            this.$refs.filesInput.click();
-        },
-        onDragOver(event) {
-            if (this.disabled) return;
-            event.dataTransfer.dropEffect = "copy";
-        },
-        onDrop(event) {
-            if (this.disabled) return;
-            this.setFiles(event.dataTransfer.files);
-            this.dragging = false;
-        },
-        onDragEnter(event) {
-            if (this.disabled) {
-                this.draggingDisabled = true;
-                return;
-            }
-            this.dragging = true;
-        },
-        onDragLeave(event) {
-            if (event.currentTarget.contains(event.relatedTarget)) return false;
-            if (this.disabled) this.draggingDisabled = false;
-            this.dragging = false;
-        },
-        onFilesInputChange() {
-            this.setFiles(this.$refs.filesInput.files);
-        },
-        onUploadButtonClick() {
-            this.$refs.filesInput.click();
         }
     }
 };

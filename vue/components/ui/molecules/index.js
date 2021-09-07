@@ -43,6 +43,7 @@ import { Tabs } from "./tabs/tabs.vue";
 import { Tooltip } from "./tooltip/tooltip.vue";
 import { TransferList } from "./transfer-list/transfer-list.vue";
 import { UploadArea } from "./upload-area/upload-area.vue";
+import { UploadButton } from "./upload-button/upload-button.vue";
 
 const install = Vue => {
     Vue.component("alert", Alert);
@@ -90,6 +91,7 @@ const install = Vue => {
     Vue.component("tooltip", Tooltip);
     Vue.component("transfer-list", TransferList);
     Vue.component("upload-area", UploadArea);
+    Vue.component("upload-button", UploadButton);
 };
 
 export {
@@ -136,7 +138,8 @@ export {
     Tabs,
     Tooltip,
     TransferList,
-    UploadArea
+    UploadArea,
+    UploadButton
 };
 
 export default install;
