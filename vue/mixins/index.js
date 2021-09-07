@@ -8,4 +8,5 @@ export * from "./part";
 export * from "./refresh";
 export * from "./ripe";
 export * from "./scroll";
+export * from "./upload";
 export * from "./utils";

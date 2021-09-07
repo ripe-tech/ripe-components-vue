@@ -1,11 +1,11 @@
 <template>
-    <upload-button
+    <div
         class="upload-area"
-        v-bind="$attrs"
-        v-bind:dragging.sync="dragging"
         v-bind:class="classes"
-        ref="upload-button"
-        v-on="$listeners"
+        v-on:dragover.prevent="onDragOver"
+        v-on:drop.prevent="onDrop"
+        v-on:dragenter="onDragEnter"
+        v-on:dragleave="onDragLeave"
     >
         <slot v-bind:open-modal="openModal">
             <transition name="fade-in" mode="out-in">
@@ -14,8 +14,16 @@
                 </div>
             </transition>
             <icon v-bind:icon="icon" v-bind:size="110" v-bind:color="'gray'" />
+            <upload-button
+                v-bind="$attrs"
+                v-bind:dragging.sync="dragging"
+                v-bind:draggable="false"
+                v-bind:class="classes"
+                ref="uploadButton"
+                v-on="$listeners"
+            />
         </slot>
-    </upload-button>
+    </div>
 </template>
 
 <style lang="scss" scoped>
@@ -26,6 +34,7 @@
     align-items: center;
     border: 2px dashed $light-white;
     border-radius: 8px 8px 8px 8px;
+    display: flex;
     flex-direction: column;
     height: 150px;
     justify-content: center;
@@ -35,10 +44,6 @@
     white-space: nowrap;
 }
 
-.upload-area.upload-button {
-    display: flex;
-}
-
 .upload-area.dragging {
     background-color: $lighter-grey;
     border-color: $medium-grey;
@@ -46,6 +51,10 @@
 
 .upload-area.disabled {
     cursor: not-allowed;
+}
+
+.upload-area > .upload-button {
+    z-index: 1;
 }
 
 .upload-area > .description {
@@ -100,8 +109,11 @@
 </style>
 
 <script>
+import { uploadMixin } from "../../../../mixins/upload";
+
 export const UploadArea = {
     name: "upload-area",
+    mixins: [uploadMixin],
     props: {
         description: {
             type: String,
@@ -114,10 +126,21 @@ export const UploadArea = {
     },
     data: function() {
         return {
-            dragging: false
+            dragging: false,
+            fileInputRef: null
         };
     },
+    mounted: function() {
+        this.fileInputRef = this.$refs.uploadButton?.$refs?.filesInput;
+    },
     computed: {
+        classes() {
+            const base = {
+                dragging: this.dragging,
+                disabled: this.draggingDisabled
+            };
+            return base;
+        },
         descriptionText() {
             return this.dragging ? this.descriptionDragging : this.description;
         },
@@ -126,15 +149,6 @@ export const UploadArea = {
         },
         emptySlots() {
             return Object.entries(this.$slots).length === 0;
-        },
-        classes() {
-            const base = { "hidden-upload-button": !this.emptySlots };
-            return base;
-        }
-    },
-    methods: {
-        openModal() {
-            this.$refs["upload-button"].openModal();
         }
     }
 };

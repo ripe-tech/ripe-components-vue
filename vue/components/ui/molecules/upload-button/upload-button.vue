@@ -2,10 +2,10 @@
     <div
         class="upload-button"
         v-bind:class="classes"
-        v-on:dragover.prevent="event => onDragOver(event)"
-        v-on:drop.prevent="event => onDrop(event)"
-        v-on:dragenter="event => onDragEnter(event)"
-        v-on:dragleave="event => onDragLeave(event)"
+        v-on:dragover.prevent="onDragOver"
+        v-on:drop.prevent="onDrop"
+        v-on:dragenter="onDragEnter"
+        v-on:dragleave="onDragLeave"
     >
         <input
             type="file"
@@ -34,7 +34,7 @@
     display: inline-block;
 }
 
-.upload-button.disabled > .button-upload {
+.upload-button.disabled.dragging > .button-upload {
     cursor: not-allowed;
 }
 
@@ -49,8 +49,11 @@
 </style>
 
 <script>
+import { uploadMixin } from "../../../../mixins/upload";
+
 export const UploadButton = {
     name: "upload-button",
+    mixins: [uploadMixin],
     props: {
         buttonText: {
             type: String,
@@ -60,10 +63,6 @@ export const UploadButton = {
             type: Boolean,
             default: false
         },
-        files: {
-            type: Array,
-            default: () => []
-        },
         multiple: {
             type: Boolean,
             default: true
@@ -71,6 +70,10 @@ export const UploadButton = {
         accept: {
             type: String,
             default: null
+        },
+        draggable: {
+            type: Boolean,
+            default: false
         }
     },
     computed: {
@@ -84,10 +87,7 @@ export const UploadButton = {
     },
     data: function() {
         return {
-            filesData: this.files,
-            dragging: false,
-            draggingDisabled: false,
-            dragEnterTarget: null
+            fileInputRef: this.$refs.filesInput
         };
     },
     watch: {
@@ -97,45 +97,6 @@ export const UploadButton = {
         },
         dragging(value) {
             this.$emit("update:dragging", value);
-        }
-    },
-    methods: {
-        setFiles(filesList) {
-            this.filesData = [...filesList];
-            this.$emit("update:files", this.filesData);
-        },
-        clear() {
-            this.$refs.filesInput.value = null;
-        },
-        openModal() {
-            this.$refs.filesInput.click();
-        },
-        onDragOver(event) {
-            if (this.disabled) return;
-            event.dataTransfer.dropEffect = "copy";
-        },
-        onDrop(event) {
-            if (this.disabled) return;
-            this.setFiles(event.dataTransfer.files);
-            this.dragging = false;
-        },
-        onDragEnter(event) {
-            if (this.disabled) {
-                this.draggingDisabled = true;
-                return;
-            }
-            this.dragging = true;
-        },
-        onDragLeave(event) {
-            if (event.currentTarget.contains(event.relatedTarget)) return false;
-            if (this.disabled) this.draggingDisabled = false;
-            this.dragging = false;
-        },
-        onFilesInputChange() {
-            this.setFiles(this.$refs.filesInput.files);
-        },
-        onUploadButtonClick() {
-            this.$refs.filesInput.click();
         }
     }
 };

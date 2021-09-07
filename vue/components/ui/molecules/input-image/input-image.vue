@@ -66,10 +66,6 @@
     opacity: 0.3;
 }
 
-.input-image ::v-deep .button-upload {
-    display: none;
-}
-
 .input-image > .input-image-content {
     box-sizing: border-box;
     cursor: pointer;
