@@ -43,8 +43,8 @@ storiesOf("Components/Molecules/Upload Area", module)
                     v-bind:files.sync="filesData" 
                     v-bind:description="description"
                     v-bind:description-dragging="descriptionDragging"
-                    v-bind:disabled="disabled"
                     v-bind:dragging-icon="draggingIcon"
+                    v-bind:disabled="disabled"
                     v-bind:dragging.sync="draggingData"
                 />
                 <p>Dragging: {{ draggingData }}</p>
