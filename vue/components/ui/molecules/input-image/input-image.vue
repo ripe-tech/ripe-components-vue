@@ -1,7 +1,8 @@
 <template>
-    <upload-area
+    <upload-button
         class="input-image"
         v-bind:multiple="multiple"
+        v-bind:upload-button="false"
         v-bind:accept="accept"
         v-on:update:files="loadFiles"
     >
@@ -43,7 +44,7 @@
                 </div>
             </div>
         </template>
-    </upload-area>
+    </upload-button>
 </template>
 
 <style lang="scss" scoped>
@@ -56,12 +57,20 @@
     cursor: pointer;
 }
 
+.input-image.upload-button {
+    display: flex;
+}
+
 .input-image:hover {
     border-color: #1d1d1d;
 }
 
 .input-image.dragging {
     opacity: 0.3;
+}
+
+.input-image ::v-deep .button-upload {
+    display: none;
 }
 
 .input-image > .input-image-content {
