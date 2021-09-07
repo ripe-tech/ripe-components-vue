@@ -11,9 +11,6 @@ storiesOf("Components/Molecules/Upload Area", module)
             descriptionDragging: {
                 default: text("Description Dragging", "Drop your files to upload")
             },
-            disabled: {
-                default: boolean("Disabled", false)
-            },
             draggingIcon: {
                 default: select(
                     "Icon",
@@ -29,6 +26,9 @@ storiesOf("Components/Molecules/Upload Area", module)
                     },
                     "cloud-upload"
                 )
+            },
+            uploadButton: {
+                default: boolean("Upload Button", true)
             }
         },
         data: function() {
@@ -44,7 +44,7 @@ storiesOf("Components/Molecules/Upload Area", module)
                     v-bind:description="description"
                     v-bind:description-dragging="descriptionDragging"
                     v-bind:dragging-icon="draggingIcon"
-                    v-bind:disabled="disabled"
+                    v-bind:upload-button="uploadButton"
                     v-bind:dragging.sync="draggingData"
                 />
                 <p>Dragging: {{ draggingData }}</p>

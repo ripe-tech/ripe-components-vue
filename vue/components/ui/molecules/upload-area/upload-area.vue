@@ -1,7 +1,13 @@
 <template>
-    <div class="upload-area">
-        <upload-button class="upload-area-container" v-bind="$attrs" v-on="$listeners">
-            <slot>
+    <div class="upload-area" v-bind:class="classes">
+        <upload-button
+            class="upload-area-container"
+            v-bind="$attrs"
+            v-bind:dragging.sync="dragging"
+            ref="upload-button"
+            v-on="$listeners"
+        >
+            <slot v-bind:open-modal="openModal">
                 <transition name="fade-in" mode="out-in">
                     <div class="description" v-bind:key="dragging">
                         {{ descriptionText }}
@@ -70,18 +76,29 @@
     transition: opacity 0.125s ease-in;
 }
 
-.upload-area > .upload-area-container.dragging > .icon {
+.upload-area.no-upload-button > .upload-area-container > .icon {
     animation: zoom 2.5s ease-in-out infinite;
+    opacity: 1;
+}
+
+.upload-area > .upload-area-container.dragging > .icon {
     height: 50px;
+    animation: zoom 2.5s ease-in-out infinite;
     opacity: 1;
 }
 
 .upload-area ::v-deep .button-upload {
     transition: opacity 0.125s ease-in;
+    z-index: 1;
 }
 
 .upload-area > .upload-area-container.dragging ::v-deep .button.button-color.button-upload {
     opacity: 0;
+}
+
+.upload-area.no-upload-button > .upload-area-container ::v-deep .button.button-color.button-upload {
+    opacity: 0;
+    pointer-events: none;
 }
 </style>
 
@@ -96,7 +113,16 @@ export const UploadArea = {
         descriptionDragging: {
             type: String,
             default: "Drop your files to upload"
+        },
+        uploadButton: {
+            type: Boolean,
+            default: true
         }
+    },
+    data: function() {
+        return {
+            dragging: false
+        };
     },
     computed: {
         descriptionText() {
@@ -104,6 +130,15 @@ export const UploadArea = {
         },
         icon() {
             return this.draggingIcon ? this.draggingIcon : "cloud-upload";
+        },
+        classes() {
+            const base = { "no-upload-button": !this.uploadButton };
+            return base;
+        }
+    },
+    methods: {
+        openModal() {
+            this.$refs["upload-button"].openModal();
         }
     }
 };
