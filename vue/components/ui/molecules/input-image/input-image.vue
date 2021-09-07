@@ -52,10 +52,10 @@
 .input-image.upload-area {
     background-color: #f9fafd;
     border: 1px solid #e4e8f0;
-    height: initial;
-    display: block;
     border-radius: 6px;
     cursor: pointer;
+    display: block;
+    height: initial;
 }
 
 .input-image:hover {

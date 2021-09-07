@@ -80,8 +80,8 @@
 }
 
 .upload-area.dragging > .icon {
-    height: 50px;
     animation: zoom 2.5s ease-in-out infinite;
+    height: 50px;
     opacity: 1;
 }
 
