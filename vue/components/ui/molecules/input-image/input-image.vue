@@ -181,7 +181,6 @@ export const InputImage = {
             });
         },
         onInputImageContentClick() {
-            console.log(this.$refs.uploadArea);
             this.$refs.uploadArea.openModal();
         },
         onClickFileRemove(index) {
