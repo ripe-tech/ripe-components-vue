@@ -7,7 +7,7 @@
         v-on:dragenter="onDragEnter"
         v-on:dragleave="onDragLeave"
     >
-        <slot>
+        <slot v-bind:open-modal="openModal">
             <transition name="fade-in" mode="out-in">
                 <div class="description" v-bind:key="dragging">
                     {{ descriptionText }}

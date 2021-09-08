@@ -3,45 +3,46 @@
         class="input-image"
         v-bind:multiple="multiple"
         v-bind:accept="accept"
-        ref="uploadArea"
         v-on:update:files="loadFiles"
     >
-        <div class="input-image-content" v-on:click="onInputImageContentClick">
-            <icon
-                class="upload-icon"
-                v-bind:icon="'add-camera'"
-                v-bind:height="24"
-                v-bind:width="24"
-                v-show="!hasImages"
-            />
-            <div
-                class="image-container"
-                v-for="(image, index) in imagesData"
-                v-bind:key="image.name"
-                v-on:click.stop
-            >
-                <lightbox
-                    class="image-preview"
-                    v-bind:image="image.data"
-                    v-bind:visible="visibleLightbox === index"
-                    v-bind:object-fit="'contain'"
-                    v-on:close="onCloseLightbox"
-                    v-on:click="onClickLightbox(index)"
+        <template v-slot="{ openModal }">
+            <div class="input-image-content" v-on:click="openModal">
+                <icon
+                    class="upload-icon"
+                    v-bind:icon="'add-camera'"
+                    v-bind:height="24"
+                    v-bind:width="24"
+                    v-show="!hasImages"
                 />
-                <div class="name">
-                    {{ image.name }}
+                <div
+                    class="image-container"
+                    v-for="(image, index) in imagesData"
+                    v-bind:key="image.name"
+                    v-on:click.stop
+                >
+                    <lightbox
+                        class="image-preview"
+                        v-bind:image="image.data"
+                        v-bind:visible="visibleLightbox === index"
+                        v-bind:object-fit="'contain'"
+                        v-on:close="onCloseLightbox"
+                        v-on:click="onClickLightbox(index)"
+                    />
+                    <div class="name">
+                        {{ image.name }}
+                    </div>
+                    <button-icon
+                        class="button-remove"
+                        title="Remove"
+                        v-bind:icon="'remove'"
+                        v-bind:width="20"
+                        v-bind:height="20"
+                        v-bind:color="'grey'"
+                        v-on:click="onClickFileRemove(index)"
+                    />
                 </div>
-                <button-icon
-                    class="button-remove"
-                    title="Remove"
-                    v-bind:icon="'remove'"
-                    v-bind:width="20"
-                    v-bind:height="20"
-                    v-bind:color="'grey'"
-                    v-on:click="onClickFileRemove(index)"
-                />
             </div>
-        </div>
+        </template>
     </upload-area>
 </template>
 
@@ -179,9 +180,6 @@ export const InputImage = {
                 lastModified: file.lastModified,
                 data: data
             });
-        },
-        onInputImageContentClick() {
-            this.$refs.uploadArea.openModal();
         },
         onClickFileRemove(index) {
             this.imagesData.splice(index, 1);
