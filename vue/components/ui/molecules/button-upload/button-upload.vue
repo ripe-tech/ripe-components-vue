@@ -76,13 +76,8 @@ export const ButtonUpload = {
             default: true
         }
     },
-    data: function() {
-        return {
-            fileInputRef: this.$refs.filesInput
-        };
-    },
     mounted: function() {
-        this.fileInputRef = this.$refs.filesInput;
+        this.initUploadArea(this.$refs.filesInput);
     },
     computed: {
         classes() {

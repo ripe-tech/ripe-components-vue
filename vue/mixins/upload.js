@@ -18,10 +18,13 @@ export const uploadMixin = {
             dragging: false,
             draggingDisabled: false,
             filesData: this.files,
-            fileInputRef: this.files
+            fileInputRef: null
         };
     },
     methods: {
+        initUploadArea(filesInputRef) {
+            this.fileInputRef = filesInputRef;
+        },
         setFiles(filesList) {
             this.filesData = [...filesList];
             this.$emit("update:files", this.filesData);

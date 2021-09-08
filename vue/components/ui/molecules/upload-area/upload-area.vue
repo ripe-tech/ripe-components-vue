@@ -132,14 +132,8 @@ export const UploadArea = {
             default: false
         }
     },
-    data: function() {
-        return {
-            dragging: false,
-            fileInputRef: null
-        };
-    },
     mounted: function() {
-        this.fileInputRef = this.$refs.buttonUpload?.$refs?.filesInput;
+        this.initUploadArea(this.$refs.buttonUpload?.$refs?.filesInput);
     },
     computed: {
         classes() {
