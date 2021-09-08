@@ -1,6 +1,6 @@
 <template>
     <div
-        class="upload-button"
+        class="button-upload"
         v-bind:class="classes"
         v-on:dragover.prevent="onDragOver"
         v-on:drop.prevent="onDrop"
@@ -30,20 +30,20 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.upload-button {
+.button-upload {
     display: inline-block;
 }
 
-.upload-button.disabled.dragging > .button-upload {
+.button-upload.disabled.dragging > .button-upload {
     cursor: not-allowed;
 }
 
-.upload-button > .button-upload {
+.button-upload > .button-upload {
     transition: opacity 0.125s ease-in;
     z-index: 1;
 }
 
-.upload-button.dragging > .button-upload {
+.button-upload.dragging > .button-upload {
     opacity: 0.6;
 }
 </style>
@@ -51,8 +51,8 @@
 <script>
 import { uploadMixin } from "../../../../mixins/upload";
 
-export const UploadButton = {
-    name: "upload-button",
+export const ButtonUpload = {
+    name: "button-upload",
     mixins: [uploadMixin],
     props: {
         buttonText: {
@@ -103,5 +103,5 @@ export const UploadButton = {
         }
     }
 };
-export default UploadButton;
+export default ButtonUpload;
 </script>

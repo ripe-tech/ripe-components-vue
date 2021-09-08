@@ -15,14 +15,14 @@
             </transition>
             <icon v-bind:icon="icon" v-bind:size="110" v-bind:color="'gray'" />
         </slot>
-        <upload-button
+        <button-upload
             v-bind="$attrs"
             v-bind:disabled="disabled"
             v-bind:dragging.sync="dragging"
             v-bind:draggable="false"
             v-bind:class="classes"
             v-show="emptySlots"
-            ref="uploadButton"
+            ref="buttonUpload"
             v-on="$listeners"
         />
     </div>
@@ -57,7 +57,7 @@
     user-select: none;
 }
 
-.upload-area > .upload-button {
+.upload-area > .button-upload {
     z-index: 1;
 }
 
@@ -87,7 +87,7 @@
     transition: opacity 0.125s ease-in;
 }
 
-.upload-area.hidden-upload-button > .upload-area > .icon {
+.upload-area.hidden-button-upload > .upload-area > .icon {
     animation: zoom 2.5s ease-in-out infinite;
     opacity: 1;
 }
@@ -106,7 +106,7 @@
     opacity: 0;
 }
 
-.upload-area.hidden-upload-button ::v-deep .button.button-color.button-upload {
+.upload-area.hidden-button-upload ::v-deep .button.button-color.button-upload {
     opacity: 0;
     pointer-events: none;
 }
@@ -139,7 +139,7 @@ export const UploadArea = {
         };
     },
     mounted: function() {
-        this.fileInputRef = this.$refs.uploadButton?.$refs?.filesInput;
+        this.fileInputRef = this.$refs.buttonUpload?.$refs?.filesInput;
     },
     computed: {
         classes() {

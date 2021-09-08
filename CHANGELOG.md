@@ -9,12 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-* New `upload-button` component
+* New `button-upload` component
 
 
 ### Changed
 
-* Adapt upload-area structure to use upload-button
+* Adapt upload-area structure to use button-upload
 * Adapt chat and input-image to upload-area new structure
 
 ### Fixed

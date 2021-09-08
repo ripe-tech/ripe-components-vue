@@ -1,9 +1,9 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, boolean, text } from "@storybook/addon-knobs";
 
-storiesOf("Components/Molecules/Upload Button", module)
+storiesOf("Components/Molecules/Button Upload", module)
     .addDecorator(withKnobs)
-    .add("Upload Button", () => ({
+    .add("Button Upload", () => ({
         props: {
             disabled: {
                 default: boolean("Disabled", false)
@@ -20,7 +20,7 @@ storiesOf("Components/Molecules/Upload Button", module)
         },
         template: `
             <div>
-                <upload-button 
+                <button-upload 
                     v-bind:files.sync="filesData" 
                     v-bind:button-text="buttonText"
                     v-bind:disabled="disabled"
