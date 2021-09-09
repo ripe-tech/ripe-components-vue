@@ -402,8 +402,8 @@ export const Listing = {
     },
     methods: {
         addFilter(key, value) {
-            const base = `${key}=`;
-            const tuple = `${key}=${value}`;
+            const base = value ? `${key}=` : `${key}`;
+            const tuple = value ? `${key}=${value}` : `${key}`;
             if (this.filter && this.filter.search(base) !== -1) return;
             this.filter += this.filter ? ` and ${tuple}` : tuple;
             this.showScrollTop = true;
