@@ -63,10 +63,6 @@ export const ButtonUpload = {
             type: Boolean,
             default: false
         },
-        multiple: {
-            type: Boolean,
-            default: true
-        },
         accept: {
             type: String,
             default: null

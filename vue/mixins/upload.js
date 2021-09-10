@@ -11,6 +11,10 @@ export const uploadMixin = {
         draggable: {
             type: Boolean,
             default: true
+        },
+        multiple: {
+            type: Boolean,
+            default: true
         }
     },
     data: function() {
@@ -26,7 +30,11 @@ export const uploadMixin = {
             this.fileInputRef = filesInputRef;
         },
         setFiles(filesList) {
-            this.filesData = [...filesList];
+            if (!this.multiple) {
+                this.filesData = [filesList[0]];
+            } else {
+                this.filesData = [...filesList];
+            }
             this.$emit("update:files", this.filesData);
         },
         clear() {
