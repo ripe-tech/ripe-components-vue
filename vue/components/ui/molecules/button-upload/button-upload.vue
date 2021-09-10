@@ -18,7 +18,7 @@
         <slot v-bind:open-modal="openModal" />
         <button-color
             class="button-upload"
-            v-bind:text="buttonText"
+            v-bind:text="buttonText || buttonTextComputed"
             v-bind:icon="'cloud-upload'"
             v-bind:alignment="'center'"
             v-bind:disabled="disabled"
@@ -57,7 +57,7 @@ export const ButtonUpload = {
     props: {
         buttonText: {
             type: String,
-            default: "Upload Files"
+            default: null
         },
         disabled: {
             type: Boolean,
@@ -82,6 +82,10 @@ export const ButtonUpload = {
                 disabled: this.draggingDisabled
             };
             return base;
+        },
+        buttonTextComputed() {
+            if (this.multiple) return "Upload Files";
+            return "Upload File";
         }
     },
     watch: {
