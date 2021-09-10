@@ -30,11 +30,7 @@ export const uploadMixin = {
             this.fileInputRef = filesInputRef;
         },
         setFiles(filesList) {
-            if (!this.multiple) {
-                this.filesData = [filesList[0]];
-            } else {
-                this.filesData = [...filesList];
-            }
+            this.filesData = this.multiple ? [...filesList] : [filesList[0]];
             this.$emit("update:files", this.filesData);
         },
         clear() {
