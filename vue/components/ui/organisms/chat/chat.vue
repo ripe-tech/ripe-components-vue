@@ -39,13 +39,17 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.chat > .upload-area {
+.chat > div.upload-area {
+    border: none;
     box-sizing: border-box;
+    display: block;
+    height: initial;
     padding: 20px 20px 20px 20px;
     transition: opacity 0.125s ease-in;
+    white-space: initial;
 }
 
-.chat > .upload-area.dragging {
+.chat > div.upload-area.dragging {
     opacity: 0.3;
 }
 

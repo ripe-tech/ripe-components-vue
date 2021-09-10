@@ -49,11 +49,12 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.input-image {
+.input-image.upload-area {
     background-color: #f9fafd;
     border: 1px solid #e4e8f0;
     border-radius: 6px;
     cursor: pointer;
+    height: initial;
 }
 
 .input-image:hover {

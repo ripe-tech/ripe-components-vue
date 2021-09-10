@@ -2,37 +2,29 @@
     <div
         class="upload-area"
         v-bind:class="classes"
-        v-on:dragover.prevent="event => onDragOver(event)"
-        v-on:drop.prevent="event => onDrop(event)"
-        v-on:dragenter="event => onDragEnter(event)"
-        v-on:dragleave="event => onDragLeave(event)"
+        v-on:dragover.prevent="onDragOver"
+        v-on:drop.prevent="onDrop"
+        v-on:dragenter="onDragEnter"
+        v-on:dragleave="onDragLeave"
     >
-        <input
-            type="file"
-            hidden
-            v-bind:multiple="multiple"
-            v-bind:accept="accept"
-            ref="filesInput"
-            v-on:change="onFilesInputChange"
-        />
         <slot v-bind:open-modal="openModal">
-            <div class="upload-area-container">
-                <transition name="fade-in" mode="out-in">
-                    <div class="description" v-bind:key="dragging">
-                        {{ descriptionText }}
-                    </div>
-                </transition>
-                <button-icon v-bind:icon="icon" v-bind:size="110" />
-                <button-color
-                    class="button-upload"
-                    v-bind:text="'Upload File'"
-                    v-bind:icon="'cloud-upload'"
-                    v-bind:alignment="'center'"
-                    v-bind:disabled="disabled"
-                    v-on:click="onUploadButtonClick"
-                />
-            </div>
+            <transition name="fade-in" mode="out-in">
+                <div class="description" v-bind:key="dragging">
+                    {{ descriptionText }}
+                </div>
+            </transition>
+            <icon v-bind:icon="icon" v-bind:size="110" v-bind:color="'gray'" />
         </slot>
+        <button-upload
+            v-bind="$attrs"
+            v-bind:disabled="disabled"
+            v-bind:dragging.sync="dragging"
+            v-bind:draggable="false"
+            v-bind:class="classes"
+            v-show="emptySlots"
+            ref="buttonUpload"
+            v-on="$listeners"
+        />
     </div>
 </template>
 
@@ -40,7 +32,7 @@
 @import "css/variables.scss";
 @import "css/animations.scss";
 
-.upload-area > .upload-area-container {
+.upload-area {
     align-items: center;
     border: 2px dashed $light-white;
     border-radius: 8px 8px 8px 8px;
@@ -54,17 +46,22 @@
     white-space: nowrap;
 }
 
-.upload-area.dragging > .upload-area-container {
+.upload-area.dragging {
     background-color: $lighter-grey;
     border-color: $medium-grey;
-    pointer-events: none;
 }
 
-.upload-area.disabled > .upload-area-container {
+.upload-area.disabled {
     cursor: not-allowed;
+    opacity: 0.4;
+    user-select: none;
 }
 
-.upload-area > .upload-area-container > .description {
+.upload-area > .button-upload {
+    z-index: 1;
+}
+
+.upload-area > .description {
     color: $dark;
     font-size: 14px;
     font-weight: 600;
@@ -72,43 +69,55 @@
     margin-bottom: 22px;
 }
 
-.upload-area > .upload-area-container > .description.fade-in-enter-active,
-.upload-area > .upload-area-container > .description.fade-in-leave-active {
+.upload-area > .description.fade-in-enter-active,
+.upload-area > .description.fade-in-leave-active {
     transition: opacity 0.125s ease-in-out, transform 0.125s ease-in-out;
 }
 
-.upload-area .upload-area-container > .description.fade-in-enter,
-.upload-area .upload-area-container > .description.fade-in-leave-to {
+.upload-area > .description.fade-in-enter,
+.upload-area > .description.fade-in-leave-to {
     opacity: 0;
     transform: translateY(-10px);
 }
 
-.upload-area > .upload-area-container > .button-icon {
+.upload-area > .icon {
     opacity: 0;
-    pointer-events: none;
     position: absolute;
-    top: 40px;
+    top: 70px;
     transition: opacity 0.125s ease-in;
 }
 
-.upload-area.dragging > .upload-area-container > .button-icon {
+.upload-area.hidden-button-upload > .upload-area > .icon {
     animation: zoom 2.5s ease-in-out infinite;
-    height: 40px;
     opacity: 1;
 }
 
-.upload-area > .upload-area-container > .button-upload {
+.upload-area.dragging > .icon {
+    animation: zoom 2.5s ease-in-out infinite;
+    height: 50px;
+    opacity: 1;
+}
+
+.upload-area ::v-deep .button-upload {
     transition: opacity 0.125s ease-in;
 }
 
-.upload-area.dragging > .upload-area-container > .button-upload {
+.upload-area.dragging ::v-deep .button.button-color.button-upload {
     opacity: 0;
+}
+
+.upload-area.hidden-button-upload ::v-deep .button.button-color.button-upload {
+    opacity: 0;
+    pointer-events: none;
 }
 </style>
 
 <script>
+import { uploadMixin } from "../../../../mixins/upload";
+
 export const UploadArea = {
     name: "upload-area",
+    mixins: [uploadMixin],
     props: {
         description: {
             type: String,
@@ -121,90 +130,27 @@ export const UploadArea = {
         disabled: {
             type: Boolean,
             default: false
-        },
-        draggingIcon: {
-            type: String,
-            default: null
-        },
-        files: {
-            type: Array,
-            default: () => []
-        },
-        multiple: {
-            type: Boolean,
-            default: true
-        },
-        accept: {
-            type: String,
-            default: null
         }
     },
+    mounted: function() {
+        this.initUploadArea(this.$refs.buttonUpload?.$refs?.filesInput);
+    },
     computed: {
+        classes() {
+            const base = {
+                dragging: this.dragging,
+                disabled: this.disabled
+            };
+            return base;
+        },
         descriptionText() {
             return this.dragging ? this.descriptionDragging : this.description;
         },
         icon() {
             return this.draggingIcon ? this.draggingIcon : "cloud-upload";
         },
-        classes() {
-            const base = { dragging: this.dragging, disabled: this.draggingDisabled };
-            return base;
-        }
-    },
-    data: function() {
-        return {
-            filesData: this.files,
-            dragging: false,
-            draggingDisabled: false,
-            dragEnterTarget: null
-        };
-    },
-    watch: {
-        files(value) {
-            if (!value || value.length === 0) this.clear();
-            this.filesData = value;
-        },
-        dragging(value) {
-            this.$emit("update:dragging", value);
-        }
-    },
-    methods: {
-        setFiles(filesList) {
-            this.filesData = [...filesList];
-            this.$emit("update:files", this.filesData);
-        },
-        clear() {
-            this.$refs.filesInput.value = null;
-        },
-        openModal() {
-            this.$refs.filesInput.click();
-        },
-        onDragOver(event) {
-            if (this.disabled) return;
-            event.dataTransfer.dropEffect = "copy";
-        },
-        onDrop(event) {
-            if (this.disabled) return;
-            this.setFiles(event.dataTransfer.files);
-            this.dragging = false;
-        },
-        onDragEnter(event) {
-            if (this.disabled) {
-                this.draggingDisabled = true;
-                return;
-            }
-            this.dragging = true;
-        },
-        onDragLeave(event) {
-            if (event.currentTarget.contains(event.relatedTarget)) return false;
-            if (this.disabled) this.draggingDisabled = false;
-            this.dragging = false;
-        },
-        onFilesInputChange() {
-            this.setFiles(this.$refs.filesInput.files);
-        },
-        onUploadButtonClick() {
-            this.$refs.filesInput.click();
+        emptySlots() {
+            return Object.entries(this.$slots).length === 0 && !this.$scopedSlots?.default;
         }
     }
 };
