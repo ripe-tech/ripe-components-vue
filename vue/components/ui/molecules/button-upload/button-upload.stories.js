@@ -8,6 +8,9 @@ storiesOf("Components/Molecules/Button Upload", module)
             disabled: {
                 default: boolean("Disabled", false)
             },
+            multiple: {
+                default: boolean("Multiple", true)
+            },
             buttonText: {
                 default: text("Button Text", "Upload Files")
             }
@@ -22,6 +25,7 @@ storiesOf("Components/Molecules/Button Upload", module)
             <div>
                 <button-upload 
                     v-bind:files.sync="filesData" 
+                    v-bind:multiple="multiple" 
                     v-bind:button-text="buttonText"
                     v-bind:disabled="disabled"
                 />

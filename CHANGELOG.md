@@ -16,10 +16,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Adapt upload-area structure to use button-upload
 * Adapt chat and input-image to upload-area new structure
+* Display non plural text when multiple is false in button-upload
 
 ### Fixed
 
-*
+* Only setting the first file when multiple files dragged with prop `multiple: false` in button-upload
 
 ## [0.15.0] - 2021-08-30
 
