@@ -83,6 +83,7 @@
                             v-bind:width="searchWidth"
                             v-bind:placeholder="filterText ? filterText : `Search ${name}`"
                             v-bind:value.sync="filter"
+                            v-bind:clear-visible="searchClear"
                             v-bind:loading="loading"
                         />
                     </tooltip>
@@ -360,6 +361,10 @@ export const Listing = {
         searchWidth: {
             type: Number,
             default: 304
+        },
+        searchClear: {
+            type: Boolean,
+            default: true
         },
         containerMode: {
             type: String,
