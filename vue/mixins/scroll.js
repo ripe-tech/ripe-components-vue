@@ -35,7 +35,10 @@ export const scrollMixin = {
             return this.scrollPositionY > this.scrollTopThreshold;
         },
         shouldLoadMore() {
-            return this.scrollSizeY - this.loadingScrollOffset < window.innerHeight + this.scrollPositionY;
+            return (
+                this.scrollSizeY - this.loadingScrollOffset <
+                window.innerHeight + this.scrollPositionY
+            );
         }
     },
     watch: {
