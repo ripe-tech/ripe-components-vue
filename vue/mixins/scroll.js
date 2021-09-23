@@ -58,12 +58,14 @@ export const scrollMixin = {
     mounted: function() {
         window.addEventListener("resize", this.updateScrollState);
         window.addEventListener("scroll", this.updateScrollState);
-        this.resizeObserver = new ResizeObserver(this.updateScrollState);
-        this.resizeObserver.observe(document.body);
+        if (window.ResizeObserver) {
+            this.resizeObserver = new window.ResizeObserver(this.updateScrollState);
+            this.resizeObserver.observe(document.body);
+        }
         this.updateScrollState();
     },
     destroyed: function() {
-        this.resizeObserver.unobserve(document.body);
+        this.resizeObserver?.unobserve(document.body);
         window.removeEventListener("scroll", this.updateScrollState);
         window.removeEventListener("resize", this.updateScrollState);
     },
