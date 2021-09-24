@@ -111,8 +111,10 @@
                 v-bind:options.sync="filterOptions"
                 v-bind:checkboxes="checkboxes"
                 v-bind:checked-items.sync="checkedItemsData"
+                v-bind:force-items-to-load="forceItemsToLoad"
                 ref="filter"
                 v-on:update:options="filterUpdated"
+                v-on:update:items="onUpdateItems"
                 v-on:click:table="onTableClick"
                 v-on:click:lineup="onLineupClick"
             >
@@ -385,6 +387,10 @@ export const Listing = {
         createUrl: {
             type: String | Object,
             default: null
+        },
+        forceItemsToLoad: {
+            type: Boolean,
+            default: false
         }
     },
     data: function() {

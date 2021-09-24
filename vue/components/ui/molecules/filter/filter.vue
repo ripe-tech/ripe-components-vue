@@ -169,6 +169,10 @@ export const Filter = {
             type: Number,
             default: 200
         },
+        forceItemsToLoad: {
+            type: Boolean,
+            default: false
+        },
         useQuery: {
             type: Boolean,
             default: false
@@ -341,7 +345,7 @@ export const Filter = {
             this.tableTransition = pagination || this.items.length === 0 ? "fade" : "";
             this.items = !pagination ? items : [...this.items, ...items];
             this.loading = false;
-            this.itemsToLoad = items.length === this.limit;
+            this.itemsToLoad = this.forceItemsToLoad || items.length === this.limit;
 
             // returns a valid value as an "effective" refresh operation
             // has just been performed (all tests passed)
