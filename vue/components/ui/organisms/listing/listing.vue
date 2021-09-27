@@ -111,7 +111,7 @@
                 v-bind:options.sync="filterOptions"
                 v-bind:checkboxes="checkboxes"
                 v-bind:checked-items.sync="checkedItemsData"
-                v-bind:force-items-to-load="forceItemsToLoad"
+                v-bind:force-items-load="forceItemsLoad"
                 ref="filter"
                 v-on:update:options="filterUpdated"
                 v-on:update:items="onUpdateItems"
@@ -388,7 +388,7 @@ export const Listing = {
             type: String | Object,
             default: null
         },
-        forceItemsToLoad: {
+        forceItemsLoad: {
             type: Boolean,
             default: false
         }
