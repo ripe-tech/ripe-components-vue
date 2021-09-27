@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * New `button-upload` component
 * Search clear prop on `listing`
 * Scrolling sync events like `isScrollAtBottom` on `listing`
+* Add `forceItemsLoad` to listing and filter
+* Add auto load after update items to listing
 
 ### Changed
 
