@@ -42,16 +42,9 @@ export const scrollMixin = {
         }
     },
     watch: {
-        isScrollAtTop(value) {
-            this.$emit("scroll-at-top", value);
-        },
-        isScrollAtBottom(value) {
-            this.$emit("scroll-at-bottom", value);
-        },
         shouldLoadMore(value) {
-            this.$emit("load-more", value);
-            if (value) {
-                this.getFilter().loadMore();
+            if (value && this.getFilter) {
+                this.getFilter()?.loadMore();
             }
         }
     },
