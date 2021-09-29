@@ -15,6 +15,15 @@ export const scrollMixin = {
         scrollTopThreshold: {
             type: Number,
             default: 200
+        },
+        /**
+         * The animation scroll behavior.
+         *
+         * @values "smooth", undefined
+         */
+        scrollBehavior: {
+            type: String,
+            default: "smooth"
         }
     },
     data: function() {
@@ -80,7 +89,7 @@ export const scrollMixin = {
             window.scroll({
                 top: 0,
                 left: 0,
-                behavior: "smooth"
+                behavior: this.scrollBehavior
             });
         },
         /**
