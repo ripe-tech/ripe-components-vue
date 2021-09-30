@@ -15,15 +15,6 @@ export const scrollMixin = {
         scrollTopThreshold: {
             type: Number,
             default: 200
-        },
-        /**
-         * The animation scroll behavior.
-         *
-         * @values "smooth", undefined
-         */
-        scrollBehavior: {
-            type: String,
-            default: "smooth"
         }
     },
     data: function() {
@@ -84,12 +75,15 @@ export const scrollMixin = {
          * Scrolls the page to the top by moving the main
          * window scroll position to the original top and
          * left positions.
+         *
+         * @param {Object} options Set of options to configure
+         * the way the scrolling is performed.
          */
-        scrollToTop() {
+        scrollToTop({ behavior = "smooth" } = {}) {
             window.scroll({
                 top: 0,
                 left: 0,
-                behavior: this.scrollBehavior
+                behavior: behavior
             });
         },
         /**
