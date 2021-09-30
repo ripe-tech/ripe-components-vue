@@ -113,6 +113,7 @@
                 v-bind:checked-items.sync="checkedItemsData"
                 ref="filter"
                 v-on:update:options="filterUpdated"
+                v-on:update:items="onUpdateItems"
                 v-on:click:table="onTableClick"
                 v-on:click:lineup="onLineupClick"
             >
@@ -434,6 +435,9 @@ export const Listing = {
         },
         onLineupClick(item, index) {
             this.$emit("click:lineup", item, index);
+        },
+        onUpdateItems() {
+            if (this.shouldLoadMore) this?.getFilter()?.loadMore();
         }
     },
     computed: {
