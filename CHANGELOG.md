@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * New `button-upload` component
 * Search clear prop on `listing`
+* Auto load more after each update of items in `listing`
 * scrollMixin reactive with body changes and using a smooth scroll behavior by default in `scrollToTop` method
 
 ### Changed
