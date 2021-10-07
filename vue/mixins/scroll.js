@@ -20,27 +20,52 @@ export const scrollMixin = {
     data: function() {
         return {
             scrollTop: false,
-            showScrollTop: false
+            scrollPositionY: 0,
+            scrollSizeY: 0
         };
     },
+    computed: {
+        isScrollAtTop() {
+            return this.scrollPositionY === 0;
+        },
+        isScrollAtBottom() {
+            return window.innerHeight + this.scrollPositionY >= this.scrollSizeY;
+        },
+        showScrollTop() {
+            return this.scrollPositionY > this.scrollTopThreshold;
+        },
+        hasAvailableSpace() {
+            return (
+                this.scrollSizeY - this.loadingScrollOffset <
+                window.innerHeight + this.scrollPositionY
+            );
+        }
+    },
+    watch: {
+        hasAvailableSpace(value) {
+            if (value && this.getFilter) {
+                this.getFilter()?.loadMore();
+            }
+        }
+    },
     mounted: function() {
-        window.addEventListener("resize", this.handleScroll);
-        window.addEventListener("scroll", this.handleScroll);
+        window.addEventListener("resize", this.updateScrollState);
+        window.addEventListener("scroll", this.updateScrollState);
+        if (window.ResizeObserver) {
+            this.resizeObserver = new window.ResizeObserver(this.updateScrollState);
+            this.resizeObserver.observe(document.body);
+        }
+        this.updateScrollState();
     },
     destroyed: function() {
-        window.removeEventListener("resize", this.handleScroll);
-        window.removeEventListener("scroll", this.handleScroll);
+        this.resizeObserver?.unobserve(document.body);
+        window.removeEventListener("scroll", this.updateScrollState);
+        window.removeEventListener("resize", this.updateScrollState);
     },
     methods: {
-        handleScroll(event) {
-            this.showScrollTop = window.pageYOffset > this.scrollTopThreshold;
-            const bottomScroll =
-                window.innerHeight + window.pageYOffset <
-                document.body.offsetHeight - this.loadingScrollOffset;
-            if (bottomScroll) {
-                return;
-            }
-            this.getFilter().loadMore();
+        updateScrollState(event) {
+            this.scrollPositionY = window.scrollY;
+            this.scrollSizeY = document.body.offsetHeight;
         },
         filterUpdated() {
             this.scrollTop && this.scrollToTop();
@@ -50,11 +75,15 @@ export const scrollMixin = {
          * Scrolls the page to the top by moving the main
          * window scroll position to the original top and
          * left positions.
+         *
+         * @param {Object} options Set of options to configure
+         * the way the scrolling is performed.
          */
-        scrollToTop() {
+        scrollToTop({ behavior = "smooth" } = {}) {
             window.scroll({
                 top: 0,
-                left: 0
+                left: 0,
+                behavior: behavior
             });
         },
         /**
