@@ -437,7 +437,7 @@ export const Listing = {
             this.$emit("click:lineup", item, index);
         },
         onUpdateItems() {
-            if (this.shouldLoadMore) this?.getFilter()?.loadMore();
+            if (this.hasAvailableSpace) this?.getFilter()?.loadMore();
         }
     },
     computed: {
