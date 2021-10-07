@@ -34,7 +34,7 @@ export const scrollMixin = {
         showScrollTop() {
             return this.scrollPositionY > this.scrollTopThreshold;
         },
-        shouldLoadMore() {
+        hasAvailableSpace() {
             return (
                 this.scrollSizeY - this.loadingScrollOffset <
                 window.innerHeight + this.scrollPositionY
@@ -42,7 +42,7 @@ export const scrollMixin = {
         }
     },
     watch: {
-        shouldLoadMore(value) {
+        hasAvailableSpace(value) {
             if (value && this.getFilter) {
                 this.getFilter()?.loadMore();
             }
