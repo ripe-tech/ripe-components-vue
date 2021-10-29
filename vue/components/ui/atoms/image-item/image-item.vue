@@ -38,7 +38,7 @@
         </div>
         <div
             class="item-image"
-            v-bind:style="imageStyle"
+            v-bind:style="itemImageStyle"
             v-bind:class="{ 'dropdown-open': optionsVisible }"
             ref="image"
             v-on:animationend="onAnimationEnd"
@@ -216,6 +216,20 @@ export const ImageItem = {
             default: "#aeffe2"
         },
         /**
+         * If the item displays the selected border.
+         */
+        selected: {
+            type: Boolean,
+            default: false
+        },
+        /**
+         * The border color of the selected style.
+         */
+        selectedColor: {
+            type: String,
+            default: "#4078c0"
+        },
+        /**
          * The duration of the highlight animation.
          */
         animationDuration: {
@@ -235,6 +249,14 @@ export const ImageItem = {
         },
         optionsScopedSlots() {
             return Object.keys(this.$scopedSlots).filter(slot => slot.startsWith("options-"));
+        },
+        itemImageStyle() {
+            const base = {};
+            if (this.height) base.height = `${this.height}px`;
+            if (this.width) base.width = `${this.width}px`;
+            if (this.imageObjectFit) base.objectFit = this.imageObjectFit;
+            if (this.selected) base.border = `1px solid ${this.selectedColor}`;
+            return base;
         },
         imageStyle() {
             const base = {};
