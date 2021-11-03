@@ -48,6 +48,23 @@
                                             v-if="fromValue(field) || field.imageSrc"
                                         />
                                     </template>
+                                    <template
+                                        v-else-if="
+                                            field.type === 'text' && field.meta === 'svg-url'
+                                        "
+                                    >
+                                        <input-ripe
+                                            v-bind:type="inputType(field)"
+                                            v-bind="field.props"
+                                            v-bind:value="fromValue(field)"
+                                            v-on:update:value="value => onValue(field, value)"
+                                        />
+                                        <svg-viewer
+                                            class="text-image"
+                                            v-bind:src="fromValue(field) || field.imageSrc"
+                                            v-if="fromValue(field) || field.imageSrc"
+                                        />
+                                    </template>
                                     <textarea-ripe
                                         v-bind="field.props"
                                         v-bind:value="fromValue(field)"
