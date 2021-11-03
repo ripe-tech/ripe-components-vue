@@ -1,5 +1,5 @@
 <template>
-    <object class="svg-viewer" type="image/svg+xml" v-bind:data="svgData" v-if="src" />
+    <object class="svg-viewer" type="image/svg+xml" v-bind:data="svgData" />
 </template>
 
 <style scoped></style>
