@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-*
+* Created `svg-viewer` component - [#921](https://github.com/ripe-tech/ripe-white/issues/921)
+* Support for SVG url field in `form-ripe` component, given that the field meta is `svg-url` - [#921](https://github.com/ripe-tech/ripe-white/issues/921)
 
 ### Changed
 
