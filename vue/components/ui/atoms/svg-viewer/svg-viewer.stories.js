@@ -5,13 +5,13 @@ storiesOf("Components/Atoms/SVG Viewer", module)
     .addDecorator(withKnobs)
     .add("SVG Viewer", () => ({
         props: {
-            url: {
-                default: text("Url", "")
+            src: {
+                default: text("Src", "")
             }
         },
         template: `
             <svg-viewer
-                v-bind:url="url"
+                v-bind:src="src"
             />
         `
     }));
