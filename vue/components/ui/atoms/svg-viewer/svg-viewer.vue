@@ -27,9 +27,6 @@ export const SVGViewer = {
             immediate: true
         }
     },
-    created: async function() {
-        await this.loadSVGData(this.src);
-    },
     methods: {
         async loadSVGData(src) {
             if (!src) {
