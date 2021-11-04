@@ -24,8 +24,8 @@ import { Radio } from "./radio/radio.vue";
 import { Reaction } from "./reaction/reaction.vue";
 import { RichTextarea } from "./rich-textarea/rich-textarea.vue";
 import { Side } from "./side/side.vue";
-import { Switcher } from "./switcher/switcher.vue";
 import { SVGViewer } from "./svg-viewer/svg-viewer.vue";
+import { Switcher } from "./switcher/switcher.vue";
 import { Tag } from "./tag/tag.vue";
 import { Textarea } from "./textarea/textarea.vue";
 import { Title } from "./title/title.vue";
@@ -57,8 +57,8 @@ const install = Vue => {
     Vue.component("reaction", Reaction);
     Vue.component("rich-textarea", RichTextarea);
     Vue.component("side", Side);
-    Vue.component("switcher", Switcher);
     Vue.component("svg-viewer", SVGViewer);
+    Vue.component("switcher", Switcher);
     Vue.component("tag", Tag);
     Vue.component("textarea-ripe", Textarea);
     Vue.component("title-ripe", Title);
@@ -91,8 +91,8 @@ export {
     Reaction,
     RichTextarea,
     Side,
-    Switcher,
     SVGViewer,
+    Switcher,
     Tag,
     Textarea,
     Title

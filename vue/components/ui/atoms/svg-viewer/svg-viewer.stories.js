@@ -6,7 +6,10 @@ storiesOf("Components/Atoms/SVG Viewer", module)
     .add("SVG Viewer", () => ({
         props: {
             src: {
-                default: text("Src", "")
+                default: text(
+                    "Source",
+                    "https://cdn.platforme.com/ripe/ripe_pulse/prod/illustration.svg"
+                )
             }
         },
         template: `

@@ -1,5 +1,5 @@
 <template>
-    <object class="svg-viewer" type="image/svg+xml" v-bind:data="svgData" />
+    <object class="svg-viewer" type="image/svg+xml" v-bind:data="svgData" v-if="svgData" />
 </template>
 
 <style scoped></style>
@@ -18,9 +18,13 @@ export const SVGViewer = {
             svgData: null
         };
     },
+
     watch: {
-        async src(value) {
-            await this.loadSVGData(value);
+        src: {
+            handler: async function(value) {
+                await this.loadSVGData(value);
+            },
+            immediate: true
         }
     },
     created: async function() {
@@ -28,7 +32,11 @@ export const SVGViewer = {
     },
     methods: {
         async loadSVGData(src) {
-            if (!src) return;
+            if (!src) {
+                this.svgData = null;
+                return;
+            }
+
             const response = await fetch(src);
             const data = await response.text();
             const encoded = window.btoa(data);

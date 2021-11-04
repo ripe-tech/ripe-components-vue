@@ -61,8 +61,8 @@
                                         />
                                         <svg-viewer
                                             class="text-image"
-                                            v-bind:src="fromValue(field) || field.imageSrc"
-                                            v-show="fromValue(field) || field.imageSrc"
+                                            v-bind:src="fromValue(field) || field.svgSrc"
+                                            v-show="fromValue(field) || field.svgSrc"
                                         />
                                     </template>
                                     <textarea-ripe
