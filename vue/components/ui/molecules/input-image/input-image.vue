@@ -1,6 +1,7 @@
 <template>
     <upload-area
         class="input-image"
+        v-bind:class="classes"
         v-bind:multiple="multiple"
         v-bind:accept="accept"
         v-on:update:files="loadFiles"
@@ -57,6 +58,11 @@
     height: initial;
 }
 
+.input-image.upload-area.white {
+    background-color: $white;
+    border-color: $light-white;
+}
+
 .input-image:hover {
     border-color: #1d1d1d;
 }
@@ -87,6 +93,7 @@
 .input-image > .input-image-content > .image-container > .button-remove {
     cursor: pointer;
     display: none;
+    flex-shrink: 0;
     margin-right: 10px;
 }
 
@@ -102,8 +109,13 @@
 
 .input-image > .input-image-content > .image-container > .name {
     display: inline-block;
+    flex-shrink: 1;
+    font-size: 12px;
     line-height: 30px;
     margin: 0px 10px;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
     width: 100%;
 }
 </style>
@@ -136,9 +148,23 @@ export const InputImage = {
         accept: {
             type: String,
             default: "image/*"
+        },
+        /**
+         * The background color variant
+         *
+         * @values dark, white
+         */
+        variant: {
+            type: String,
+            default: "dark"
         }
     },
     computed: {
+        classes() {
+            const base = {};
+            if (this.variant) base[this.variant] = true;
+            return base;
+        },
         hasImages() {
             return this.imagesData.length > 0;
         }
