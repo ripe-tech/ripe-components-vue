@@ -67,6 +67,10 @@
     border-color: #1d1d1d;
 }
 
+.input-image.upload-area.white:hover {
+    border-color: $aqcua-blue;
+}
+
 .input-image.dragging {
     opacity: 0.3;
 }
