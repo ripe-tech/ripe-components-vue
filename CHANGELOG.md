@@ -9,9 +9,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+*
+### Changed
+
+*
+
+### Fixed
+
+*
+
+## [0.17.0] - 2021-11-15
+
+### Added
+
 * Created `svg-viewer` component - [#921](https://github.com/ripe-tech/ripe-white/issues/921)
 * Support for SVG url field in `form-ripe` component, given that the field meta is `svg-url` - [#921](https://github.com/ripe-tech/ripe-white/issues/921)
-* Support for selected style (show border in selected item in the list)
+* Support for selected style (show border in selected item in the list) in `image-item` and `image-list`
 
 ### Changed
 
@@ -19,7 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-* Overflow cut in the left side of the image list (GIF below)
+* Overflow cut in the left side of the `image-list` component
 
 ## [0.16.0] - 2021-09-28
 
