@@ -6,7 +6,9 @@
             v-bind:name="item.name"
             v-bind:description="item.description"
             v-bind:highlight="highlightIndex === index"
+            v-bind:selected="selectedIndexData === index"
             v-bind:highlight-color="highlightColor"
+            v-bind:selected-color="selectedColor"
             v-bind:image-object-fit="item.objectFit"
             v-bind:animation-duration="animationDuration"
             v-bind="itemOptions(item)"
@@ -101,6 +103,21 @@ export const ImageList = {
             default: "#aeffe2"
         },
         /**
+         * The index of the image that is selected (will show
+         * a border around it).
+         */
+        selectedIndex: {
+            type: Number,
+            default: null
+        },
+        /**
+         * The border color of the select style.
+         */
+        selectedColor: {
+            type: String,
+            default: "#4078c0"
+        },
+        /**
          * The duration of the highlight animation.
          */
         animationDuration: {
@@ -118,7 +135,7 @@ export const ImageList = {
     },
     data: function() {
         return {
-            selectedIndex: 0
+            selectedIndexData: 0
         };
     },
     computed: {
@@ -128,6 +145,14 @@ export const ImageList = {
             delete listeners["click:button"];
             delete listeners["update:highlight"];
             return listeners;
+        }
+    },
+    watch: {
+        selectedIndex(value) {
+            this.selectedIndexData = value;
+        },
+        selectedIndexData(value) {
+            this.$emit("update:selected-index", value);
         }
     },
     methods: {
@@ -143,7 +168,7 @@ export const ImageList = {
         },
         itemStyle(index) {
             const base = {
-                opacity: index === this.selectedIndex ? "1" : this.opacityUnselected
+                opacity: index === this.selectedIndexData ? "1" : this.opacityUnselected
             };
             return base;
         },
@@ -151,11 +176,11 @@ export const ImageList = {
             this.$emit("update:highlight", item, index, value);
         },
         onClick(event, item, index) {
-            this.selectedIndex = index;
+            this.selectedIndexData = index;
             this.$emit("click", event, item, index);
         },
         onButtonClick(event, item, index) {
-            this.selectedIndex = index;
+            this.selectedIndexData = index;
             this.$emit("click:button", event, item, index);
         }
     }
