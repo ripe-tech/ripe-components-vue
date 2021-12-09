@@ -297,7 +297,7 @@ export const Filter = {
             this.$router.replace({ query: next });
         },
         setItem(index, item) {
-            this.items.$set(index, item);
+            this.$set(this.items, index, item);
         },
         removeItem(index) {
             this.items.splice(index, 1);
