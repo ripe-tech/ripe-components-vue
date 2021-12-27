@@ -17,6 +17,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+*
+
+## [0.17.3] - 2021-12-27
+
+### Fixed
+
 * Node environments of the build
 
 ## [0.17.2] - 2021-12-27
