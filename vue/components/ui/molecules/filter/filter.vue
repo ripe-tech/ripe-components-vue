@@ -10,6 +10,7 @@
                 v-bind:reverse="reverse"
                 v-bind:alignment="tableAlignment"
                 v-bind:variant="tableVariant"
+                v-bind:clickable-rows="clickableRows"
                 v-bind:checkboxes="checkboxes"
                 v-bind:checked-items="checkedItems"
                 v-on:update:checked-items="value => $emit('update:checked-items', value)"
@@ -140,6 +141,10 @@ export const Filter = {
         tableVariant: {
             type: String,
             default: null
+        },
+        clickableRows: {
+            type: Boolean,
+            default: true
         },
         lineupFields: {
             type: Array,

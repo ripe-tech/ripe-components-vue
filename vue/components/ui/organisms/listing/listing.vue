@@ -101,6 +101,7 @@
                 v-bind:lineup-fields="lineupFields"
                 v-bind:lineup-columns="lineupColumns"
                 v-bind:lineup-variant="lineupVariant"
+                v-bind:clickable-rows="clickableRows"
                 v-bind:limit="limit"
                 v-bind:default-reverse="defaultReverse"
                 v-bind:default-sort="defaultSort"
@@ -310,6 +311,10 @@ export const Listing = {
         lineupVariant: {
             type: String,
             default: null
+        },
+        clickableRows: {
+            type: Boolean,
+            default: true
         },
         limit: {
             type: Number,
