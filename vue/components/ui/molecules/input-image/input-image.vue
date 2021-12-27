@@ -154,7 +154,8 @@ export const InputImage = {
             default: "image/*"
         },
         /**
-         * The background color variant
+         * The background color variant, that controls the visual
+         * style to be applied to the image input.
          *
          * @values dark, white
          */
