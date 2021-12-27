@@ -160,6 +160,10 @@
     color: $link-hover-color;
 }
 
+::v-deep .clickable {
+    cursor: pointer;
+}
+
 .scroll-button {
     background: $white url("~./assets/arrow-up.svg") no-repeat center;
     border: none;
