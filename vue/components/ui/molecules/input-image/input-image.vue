@@ -116,8 +116,8 @@
     flex-shrink: 1;
     font-size: 12px;
     line-height: 30px;
-    margin: 0px 10px;
-    min-width: 0;
+    margin: 0px 10px 0px 10px;
+    min-width: 0px;
     overflow: hidden;
     text-overflow: ellipsis;
     width: 100%;
