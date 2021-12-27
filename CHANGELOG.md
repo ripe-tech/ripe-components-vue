@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-* Support for `clickable-rows` in list
+*
 
 ### Changed
 
@@ -18,6 +18,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 *
+
+## [0.17.2] - 2021-12-27
+
+### Added
+
+* Support for `clickable-rows` in list
 
 ## [0.17.1] - 2021-12-09
 
