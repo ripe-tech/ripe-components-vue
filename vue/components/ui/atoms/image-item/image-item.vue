@@ -105,7 +105,7 @@
 
 .image-item:hover > .item-image {
     border-color: $lower-grey;
-    box-shadow: 1px 2px 5px rgb(20 20 20 / 10%);
+    box-shadow: 1px 2px 5px rgb(20, 20, 20, 0.1);
     transform: scale(1.025, 1.025);
 }
 
