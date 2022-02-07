@@ -142,6 +142,10 @@ export const Tag = {
         subtle: {
             type: Boolean,
             default: true
+        },
+        textColor: {
+            type: String,
+            default: null
         }
     },
     computed: {
@@ -155,6 +159,7 @@ export const Tag = {
         style() {
             const base = {};
             if (this.colorHex) base["background-color"] = this.colorHex;
+            if (this.textColor) base.color = this.textColor;
             return base;
         }
     },
