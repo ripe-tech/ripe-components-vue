@@ -3,7 +3,7 @@
         <p class="label" v-bind:style="labelStyle" v-if="label">
             {{ label }}
         </p>
-        <div class="progress-bar">
+        <div class="progress-bar" v-bind:style="progressBarStyle">
             <div class="fill" v-bind:style="fillStyle" />
         </div>
     </div>
@@ -44,6 +44,10 @@ export const ProgressBar = {
             type: String,
             default: null
         },
+        backgroundColor: {
+            type: String,
+            default: null
+        },
         steps: {
             type: Number,
             default: 3
@@ -75,6 +79,11 @@ export const ProgressBar = {
                 color: this.color,
                 "text-align": this.labelAlignment
             };
+            return base;
+        },
+        progressBarStyle() {
+            const base = {};
+            if (this.backgroundColor) base["background-color"] = this.backgroundColor;
             return base;
         },
         fillStyle() {
