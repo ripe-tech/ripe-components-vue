@@ -139,13 +139,13 @@ export const Tag = {
             type: String,
             default: null
         },
-        subtle: {
-            type: Boolean,
-            default: true
-        },
         textColor: {
             type: String,
             default: null
+        },
+        subtle: {
+            type: Boolean,
+            default: true
         }
     },
     computed: {
