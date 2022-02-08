@@ -1,6 +1,6 @@
 {
     "name": "ripe-components-vue",
-    "version": "0.17.3",
+    "version": "0.18.0",
     "description": "RIPE Components for Vue.js",
     "keywords": [
         "components",
@@ -58,24 +58,24 @@
     },
     "dependencies": {
         "loaders.css": "^0.1.2",
-        "ripe-commons": "^0.6.0",
+        "ripe-commons": "^0.8.1",
         "vue": "^2.6.14",
         "vue-global-events": "^1.2.1",
-        "yonius": "^0.8.2"
+        "yonius": "^0.11.3"
     },
     "devDependencies": {
-        "@storybook/addon-knobs": "^6.3.0",
-        "@storybook/addon-storysource": "^6.3.7",
-        "@storybook/source-loader": "^6.3.7",
-        "@storybook/vue": "^6.3.7",
+        "@storybook/addon-knobs": "^6.4.0",
+        "@storybook/addon-storysource": "^6.4.18",
+        "@storybook/source-loader": "^6.4.18",
+        "@storybook/vue": "^6.4.18",
         "@vue/test-utils": "^1.2.2",
         "jsdom": "^16.6.0",
         "jsdom-global": "^3.0.2",
         "mocha": "^8.4.0",
-        "mochapack": "^2.1.2",
+        "mochapack": "^2.1.4",
         "node-fetch": "^2.6.1",
         "null-loader": "^4.0.1",
-        "svgo": "^2.5.0",
+        "svgo": "^2.8.0",
         "url-loader": "^4.1.1",
         "uxf-webpack": "^0.10.0",
         "vue-loader": "^15.9.8"

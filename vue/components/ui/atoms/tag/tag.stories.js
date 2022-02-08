@@ -37,8 +37,22 @@ storiesOf("Components/Atoms/Tag", module)
                     },
                     "black"
                 )
+            },
+            colorHex: {
+                default: text("Color Hex", "")
+            },
+            textColor: {
+                default: text("Text Color", "")
             }
         },
-        template:
-            '<tag v-bind:size="size" v-bind:subtle="subtle" v-bind:color="color" v-bind:text="text" />'
+        template: `
+            <tag
+                v-bind:size="size"
+                v-bind:subtle="subtle"
+                v-bind:color="color"
+                v-bind:color-hex="colorHex"
+                v-bind:text-color="textColor"
+                v-bind:text="text"
+            />
+        `
     }));
