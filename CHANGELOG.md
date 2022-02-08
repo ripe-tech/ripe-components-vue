@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 * Added variant "white" to `input-image`
+* Added prop `textColor` to `tag` component to allow customizing the text color - [#296](https://github.com/ripe-tech/ripe-pulse/issues/296)
 
 ### Changed
 
