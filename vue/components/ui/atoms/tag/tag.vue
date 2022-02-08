@@ -158,7 +158,7 @@ export const Tag = {
         },
         style() {
             const base = {};
-            if (this.colorHex) base["background-color"] = this.colorHex;
+            if (this.colorHex) base.backgroundColor = this.colorHex;
             if (this.textColor) base.color = this.textColor;
             return base;
         }
