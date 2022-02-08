@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-* Added prop `backgroundColor` to `progress-bar` component to allow customizing the progress bar background color - [#296](https://github.com/ripe-tech/ripe-pulse/issues/296)
+*
 
 ### Changed
 
@@ -18,6 +18,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 *
+
+## [0.18.1] - 2022-02-08
+
+* Added prop `backgroundColor` to `progress-bar` component to allow customizing the progress bar background color - [#296](https://github.com/ripe-tech/ripe-pulse/issues/296)
 
 ## [0.18.0] - 2022-02-08
 
