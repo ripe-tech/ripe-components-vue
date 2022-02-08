@@ -19,6 +19,9 @@ storiesOf("Components/Molecules/Progress Bar", module)
             color: {
                 default: color("Color", "#4071f2")
             },
+            backgroundColor: {
+                default: color("Background Color", "")
+            },
             label: {
                 default: text("Label", "")
             },
@@ -81,6 +84,7 @@ storiesOf("Components/Molecules/Progress Bar", module)
                     v-bind:steps="steps"
                     v-bind:current-step="currentStep"
                     v-bind:color="color"
+                    v-bind:background-color="backgroundColor"
                     v-bind:label="label"
                     v-bind:label-alignment="labelAlignment"
                     v-bind:style="style"
