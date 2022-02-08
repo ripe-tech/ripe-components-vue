@@ -83,7 +83,7 @@ export const ProgressBar = {
         },
         progressBarStyle() {
             const base = {};
-            if (this.backgroundColor) base["background-color"] = this.backgroundColor;
+            if (this.backgroundColor) base.backgroundColor = this.backgroundColor;
             return base;
         },
         fillStyle() {
