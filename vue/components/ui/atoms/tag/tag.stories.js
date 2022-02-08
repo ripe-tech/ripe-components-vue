@@ -53,5 +53,6 @@ storiesOf("Components/Atoms/Tag", module)
                 v-bind:color-hex="colorHex"
                 v-bind:text-color="textColor"
                 v-bind:text="text"
-            />`
+            />
+        `
     }));
