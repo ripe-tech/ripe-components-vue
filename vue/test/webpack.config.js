@@ -66,35 +66,15 @@ module.exports = {
             },
             {
                 test: /\.(png|jpg|gif|svg|ico)$/,
-                loader: "file-loader",
-                options: {
-                    name: (path, query) => {
-                        if (process.env.NODE_ENV === "development") {
-                            return "[path][name].[ext]?[hash]";
-                        }
-                        return "[contenthash].[ext]";
-                    },
-                    esModule: false
-                }
+                type: "asset/inline"
             },
             {
                 test: /\.svga$/,
-                loader: "file-loader",
-                options: {
-                    name: (path, query) => {
-                        if (process.env.NODE_ENV === "development") {
-                            return "[path][name].svg?[hash]";
-                        }
-                        return "[contenthash].svg";
-                    },
-                    esModule: false
-                }
-            },
-            {
-                test: /\.(woff|woff2|eot|ttf|otf)$/,
-                loader: "file-loader",
-                options: {
-                    esModule: false
+                type: "asset/inline",
+                generator: {
+                    dataUrl: {
+                        mimetype: "image/svg+xml"
+                    }
                 }
             }
         ]

@@ -85,22 +85,22 @@ const config = {
                             presets: [
                                 process.env.NODE_ENV === "development"
                                     ? [
-                                        "@babel/preset-env",
-                                        {
-                                            targets: {
-                                                browsers: ["last 2 years"]
-                                            },
-                                            useBuiltIns: "entry",
-                                            corejs: "3"
-                                        }
-                                    ]
+                                          "@babel/preset-env",
+                                          {
+                                              targets: {
+                                                  browsers: ["last 2 years"]
+                                              },
+                                              useBuiltIns: "entry",
+                                              corejs: "3"
+                                          }
+                                      ]
                                     : [
-                                        "@babel/preset-env",
-                                        {
-                                            useBuiltIns: "entry",
-                                            corejs: "3"
-                                        }
-                                    ]
+                                          "@babel/preset-env",
+                                          {
+                                              useBuiltIns: "entry",
+                                              corejs: "3"
+                                          }
+                                      ]
                             ],
                             plugins: [
                                 [

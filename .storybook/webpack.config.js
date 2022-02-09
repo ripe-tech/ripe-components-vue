@@ -14,10 +14,11 @@ module.exports = async ({ config, mode }) => {
         },
         {
             test: /\.svga$/,
-            loader: "url-loader",
-            options: {
-                mimetype: "image/svg+xml",
-                esModule: false
+            type: "asset/inline",
+            generator: {
+                dataUrl: {
+                    mimetype: "image/svg+xml"
+                }
             }
         }
     );
