@@ -1,6 +1,12 @@
 const path = require("path");
 
 module.exports = async ({ config, mode }) => {
+    config.resolve.fallback = {
+        fs: false,
+        http: false,
+        https: false,
+        path: false
+    }
     config.module.rules.push(
         {
             test: /\.scss$/,

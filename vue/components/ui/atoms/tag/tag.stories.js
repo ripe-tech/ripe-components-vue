@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, text, select, boolean } from "@storybook/addon-knobs";
+import { withKnobs, text, select, boolean, color } from "@storybook/addon-knobs";
 
 storiesOf("Components/Atoms/Tag", module)
     .addDecorator(withKnobs)
@@ -37,8 +37,22 @@ storiesOf("Components/Atoms/Tag", module)
                     },
                     "black"
                 )
+            },
+            colorHex: {
+                default: color("Color Hex", "")
+            },
+            textColor: {
+                default: color("Text Color", "")
             }
         },
-        template:
-            '<tag v-bind:size="size" v-bind:subtle="subtle" v-bind:color="color" v-bind:text="text" />'
+        template: `
+            <tag
+                v-bind:size="size"
+                v-bind:subtle="subtle"
+                v-bind:color="color"
+                v-bind:color-hex="colorHex"
+                v-bind:text-color="textColor"
+                v-bind:text="text"
+            />
+        `
     }));

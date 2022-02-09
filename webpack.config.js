@@ -137,7 +137,8 @@ const config = {
         fallback: {
             fs: false,
             http: false,
-            https: false
+            https: false,
+            path: false
         }
     },
     externals: {
