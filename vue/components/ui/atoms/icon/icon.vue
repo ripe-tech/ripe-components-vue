@@ -101,9 +101,9 @@ export const Icon = {
                     // of icons, using the `try` and `catch` strategy
                     else {
                         try {
-                            resource = require(`!!raw-loader!./../../../../assets/icons/${this.icon}.svg`);
+                            resource = require(`./../../../../assets/icons/${this.icon}.svg`);
                         } catch (err) {
-                            resource = require(`!!raw-loader!./../../../../assets/icons/extra/${this.icon}.svg`);
+                            resource = require(`./../../../../assets/icons/extra/${this.icon}.svg`);
                         }
                     }
                 }
