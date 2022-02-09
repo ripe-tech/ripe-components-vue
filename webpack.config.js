@@ -115,23 +115,12 @@ const config = {
                 ]
             },
             {
-                // TODO check these ones since we should use file-loader or get a workaround for this https://github.com/webpack/webpack/issues/7353
                 test: /\.(png|jpg|gif|svg|ico)$/,
-                loader: "url-loader",
-                type: "javascript/auto",
-                options: {
-                    esModule: false
-                }
+                type: "asset/inline"
             },
             {
-                // TODO check these ones since we should use file-loader or get a workaround for this https://github.com/webpack/webpack/issues/7353
                 test: /\.svga$/,
-                loader: "url-loader",
-                type: "javascript/auto",
-                options: {
-                    mimetype: "image/svg+xml",
-                    esModule: false
-                }
+                type: "asset/inline"
             }
         ]
     },
