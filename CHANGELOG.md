@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-*
+* Webpack configuration for using source "raw" contents of some files 
 
 ## [0.18.1] - 2022-02-08
 
