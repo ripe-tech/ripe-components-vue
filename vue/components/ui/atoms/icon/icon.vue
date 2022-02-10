@@ -82,7 +82,7 @@ export const Icon = {
         svgFile() {
             try {
                 let resource = this.icon;
-                const isSvgString = this.icon.startsWith("<svg");
+                const isSvgString = typeof this.icon === "string" && this.icon.startsWith("<svg");
 
                 if (typeof this.icon === "string" && !isSvgString) {
                     // "gathers" the complete set of icon contexts and
