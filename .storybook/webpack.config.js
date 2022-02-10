@@ -6,7 +6,7 @@ module.exports = async ({ config, mode }) => {
         http: false,
         https: false,
         path: false
-    }
+    };
     config.module.rules.push(
         {
             test: /\.scss$/,
@@ -17,6 +17,10 @@ module.exports = async ({ config, mode }) => {
             test: /\.stories\.jsx?$/,
             use: [require.resolve("@storybook/source-loader")],
             enforce: "pre"
+        },
+        {
+            resourceQuery: /raw/,
+            type: "asset/source"
         },
         {
             test: /\.svga$/,

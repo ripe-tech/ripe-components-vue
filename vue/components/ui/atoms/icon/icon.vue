@@ -95,19 +95,19 @@ export const Icon = {
                     // if there is a custom context defined at the root that
                     // contains the item, then uses it
                     if (iconContext) {
-                        resource = iconContext(`./${this.icon}.svg`);
+                        resource = iconContext(`./${this.icon}.svg?raw`);
                     }
                     // otherwise fallback to default strategy for the retrieval
                     // of icons, using the `try` and `catch` strategy
                     else {
                         try {
-                            resource = require(`./../../../../assets/icons/${this.icon}.svg`);
+                            resource = require(`./../../../../assets/icons/${this.icon}.svg?raw`);
                         } catch (err) {
-                            resource = require(`./../../../../assets/icons/extra/${this.icon}.svg`);
+                            resource = require(`./../../../../assets/icons/extra/${this.icon}.svg?raw`);
                         }
                     }
                 }
-                return resource.default;
+                return resource;
             } catch (error) {
                 console.error(`Error loading icon '${this.icon}'.`, error);
             }
