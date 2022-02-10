@@ -33,75 +33,21 @@ describe("Select Checkboxes", () => {
         const dropdown = component.find(".select > .select-container > .dropdown-container");
         const checkboxes = dropdown.findAll(".checkboxes > .checkbox-group > .checkbox-item");
         assert.strictEqual(checkboxes.length, 7);
-        assert.strictEqual(
-            checkboxes
-                .at(0)
-                .find(".checkbox.checked")
-                .exists(),
-            false
-        );
+        assert.strictEqual(checkboxes.at(0).find(".checkbox.checked").exists(), false);
         assert.strictEqual(checkboxes.at(0).text(), "Japan");
-        assert.strictEqual(
-            checkboxes
-                .at(1)
-                .find(".checkbox.checked")
-                .exists(),
-            true
-        );
+        assert.strictEqual(checkboxes.at(1).find(".checkbox.checked").exists(), true);
         assert.strictEqual(checkboxes.at(1).text(), "Morocco");
-        assert.strictEqual(
-            checkboxes
-                .at(2)
-                .find(".checkbox.checked")
-                .exists(),
-            false
-        );
+        assert.strictEqual(checkboxes.at(2).find(".checkbox.checked").exists(), false);
         assert.strictEqual(checkboxes.at(2).text(), "canada");
-        assert.strictEqual(
-            checkboxes
-                .at(3)
-                .find(".checkbox.checked")
-                .exists(),
-            false
-        );
+        assert.strictEqual(checkboxes.at(3).find(".checkbox.checked").exists(), false);
         assert.strictEqual(checkboxes.at(3).text(), "China");
-        assert.strictEqual(
-            checkboxes
-                .at(4)
-                .find(".checkbox.checked")
-                .exists(),
-            false
-        );
+        assert.strictEqual(checkboxes.at(4).find(".checkbox.checked").exists(), false);
         assert.strictEqual(checkboxes.at(4).text(), "Dubai");
-        assert.strictEqual(
-            checkboxes
-                .at(5)
-                .find(".checkbox.checked")
-                .exists(),
-            true
-        );
-        assert.strictEqual(
-            checkboxes
-                .at(5)
-                .find(".checkbox.disabled")
-                .exists(),
-            true
-        );
+        assert.strictEqual(checkboxes.at(5).find(".checkbox.checked").exists(), true);
+        assert.strictEqual(checkboxes.at(5).find(".checkbox.disabled").exists(), true);
         assert.strictEqual(checkboxes.at(5).text(), "Bali");
-        assert.strictEqual(
-            checkboxes
-                .at(6)
-                .find(".checkbox.checked")
-                .exists(),
-            false
-        );
-        assert.strictEqual(
-            checkboxes
-                .at(6)
-                .find(".checkbox.error")
-                .exists(),
-            true
-        );
+        assert.strictEqual(checkboxes.at(6).find(".checkbox.checked").exists(), false);
+        assert.strictEqual(checkboxes.at(6).find(".checkbox.error").exists(), true);
         assert.strictEqual(checkboxes.at(6).text(), "Tibet");
     });
 
@@ -149,131 +95,32 @@ describe("Select Checkboxes", () => {
         const dropdown = component.find(".select > .select-container > .dropdown-container");
         const checkboxes = dropdown.findAll(".checkboxes > .checkbox-group > .checkbox-item");
         assert.strictEqual(checkboxes.length, 7);
-        assert.strictEqual(
-            checkboxes
-                .at(0)
-                .find(".checkbox.checked")
-                .exists(),
-            false
-        );
+        assert.strictEqual(checkboxes.at(0).find(".checkbox.checked").exists(), false);
         assert.strictEqual(checkboxes.at(0).text(), "Japan");
-        assert.strictEqual(
-            checkboxes
-                .at(1)
-                .find(".checkbox.checked")
-                .exists(),
-            true
-        );
+        assert.strictEqual(checkboxes.at(1).find(".checkbox.checked").exists(), true);
         assert.strictEqual(checkboxes.at(1).text(), "Morocco");
-        assert.strictEqual(
-            checkboxes
-                .at(2)
-                .find(".checkbox.checked")
-                .exists(),
-            false
-        );
+        assert.strictEqual(checkboxes.at(2).find(".checkbox.checked").exists(), false);
         assert.strictEqual(checkboxes.at(2).text(), "canada");
-        assert.strictEqual(
-            checkboxes
-                .at(3)
-                .find(".checkbox.checked")
-                .exists(),
-            false
-        );
+        assert.strictEqual(checkboxes.at(3).find(".checkbox.checked").exists(), false);
         assert.strictEqual(checkboxes.at(3).text(), "China");
-        assert.strictEqual(
-            checkboxes
-                .at(4)
-                .find(".checkbox.checked")
-                .exists(),
-            false
-        );
+        assert.strictEqual(checkboxes.at(4).find(".checkbox.checked").exists(), false);
         assert.strictEqual(checkboxes.at(4).text(), "Dubai");
-        assert.strictEqual(
-            checkboxes
-                .at(5)
-                .find(".checkbox.checked")
-                .exists(),
-            true
-        );
-        assert.strictEqual(
-            checkboxes
-                .at(5)
-                .find(".checkbox.disabled")
-                .exists(),
-            true
-        );
+        assert.strictEqual(checkboxes.at(5).find(".checkbox.checked").exists(), true);
+        assert.strictEqual(checkboxes.at(5).find(".checkbox.disabled").exists(), true);
         assert.strictEqual(checkboxes.at(5).text(), "Bali");
-        assert.strictEqual(
-            checkboxes
-                .at(6)
-                .find(".checkbox.checked")
-                .exists(),
-            false
-        );
-        assert.strictEqual(
-            checkboxes
-                .at(6)
-                .find(".checkbox.error")
-                .exists(),
-            true
-        );
+        assert.strictEqual(checkboxes.at(6).find(".checkbox.checked").exists(), false);
+        assert.strictEqual(checkboxes.at(6).find(".checkbox.error").exists(), true);
         assert.strictEqual(checkboxes.at(6).text(), "Tibet");
 
-        await checkboxes
-            .at(0)
-            .find(".checkbox")
-            .trigger("click");
-        assert.strictEqual(
-            checkboxes
-                .at(0)
-                .find(".checkbox.checked")
-                .exists(),
-            true
-        );
-        await checkboxes
-            .at(1)
-            .find(".checkbox")
-            .trigger("click");
-        assert.strictEqual(
-            checkboxes
-                .at(1)
-                .find(".checkbox.checked")
-                .exists(),
-            false
-        );
-        await checkboxes
-            .at(3)
-            .find(".checkbox")
-            .trigger("click");
-        assert.strictEqual(
-            checkboxes
-                .at(3)
-                .find(".checkbox.checked")
-                .exists(),
-            true
-        );
-        await checkboxes
-            .at(5)
-            .find(".checkbox")
-            .trigger("click");
-        assert.strictEqual(
-            checkboxes
-                .at(5)
-                .find(".checkbox.checked")
-                .exists(),
-            true
-        );
-        await checkboxes
-            .at(6)
-            .find(".checkbox")
-            .trigger("click");
-        assert.strictEqual(
-            checkboxes
-                .at(6)
-                .find(".checkbox.checked")
-                .exists(),
-            true
-        );
+        await checkboxes.at(0).find(".checkbox").trigger("click");
+        assert.strictEqual(checkboxes.at(0).find(".checkbox.checked").exists(), true);
+        await checkboxes.at(1).find(".checkbox").trigger("click");
+        assert.strictEqual(checkboxes.at(1).find(".checkbox.checked").exists(), false);
+        await checkboxes.at(3).find(".checkbox").trigger("click");
+        assert.strictEqual(checkboxes.at(3).find(".checkbox.checked").exists(), true);
+        await checkboxes.at(5).find(".checkbox").trigger("click");
+        assert.strictEqual(checkboxes.at(5).find(".checkbox.checked").exists(), true);
+        await checkboxes.at(6).find(".checkbox").trigger("click");
+        assert.strictEqual(checkboxes.at(6).find(".checkbox.checked").exists(), true);
     });
 });

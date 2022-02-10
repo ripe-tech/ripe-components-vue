@@ -20,8 +20,7 @@ storiesOf("Components/Atoms/Attachments", module)
                     },
                     {
                         name: "lorem-ipsum.pdf",
-                        path:
-                            "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                        path: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
                     },
                     {
                         name: "img-153133.jpeg",
@@ -33,8 +32,7 @@ storiesOf("Components/Atoms/Attachments", module)
                     },
                     {
                         name: "dummy.pdf",
-                        path:
-                            "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                        path: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
                     },
                     {
                         name: "img-533122019.jpg",

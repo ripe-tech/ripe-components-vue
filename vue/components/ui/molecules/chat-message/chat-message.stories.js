@@ -28,13 +28,11 @@ storiesOf("Components/Molecules/Chat Message", module)
                 default: () => [
                     {
                         name: "lorem-ipsum.pdf",
-                        path:
-                            "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                        path: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
                     },
                     {
                         name: "lorem-ipsum2.pdf",
-                        path:
-                            "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                        path: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
                     }
                 ]
             },
