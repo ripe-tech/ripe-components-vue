@@ -119,6 +119,10 @@ const config = {
                 type: "asset/inline"
             },
             {
+                resourceQuery: /raw/,
+                type: "asset/source"
+            },
+            {
                 test: /\.svga$/,
                 type: "asset/inline",
                 generator: {
