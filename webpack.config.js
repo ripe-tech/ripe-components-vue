@@ -38,10 +38,7 @@ const config = {
         new ESLintPlugin({
             extensions: ["js", "jsx", "vue"]
         }),
-        new webpack.BannerPlugin(banner),
-        new webpack.ProvidePlugin({
-            process: "process/browser"
-        })
+        new webpack.BannerPlugin(banner)
     ],
     module: {
         rules: [
@@ -136,7 +133,8 @@ const config = {
     resolve: {
         alias: {
             base$: "../../../js",
-            vue$: "vue/dist/vue.esm.js"
+            vue$: "vue/dist/vue.esm.js",
+            process: "process/browser"
         },
         fallback: {
             fs: false,
