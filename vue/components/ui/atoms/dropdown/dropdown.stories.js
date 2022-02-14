@@ -56,7 +56,7 @@ storiesOf("Components/Atoms/Dropdown", module)
                     },
                     {
                         value: "text_platforme",
-                        href: "https://www.platforme.com"
+                        href: "#"
                     },
                     {
                         value: "text_platforme_blank",
