@@ -95,9 +95,11 @@
     background-color: $soft-blue;
     border: 1px solid $light-white;
     border-radius: 10px;
+    box-sizing: border-box;
     display: flex;
     height: 260px;
     justify-content: center;
+    overflow: hidden;
     transition: border-color 0.15s ease-out, box-shadow 0.15s ease-out, transform 0.15s ease-out;
     user-select: none;
     width: 214px;
@@ -254,14 +256,13 @@ export const ImageItem = {
             const base = {};
             if (this.height) base.height = `${this.height}px`;
             if (this.width) base.width = `${this.width}px`;
-            if (this.imageObjectFit) base.objectFit = this.imageObjectFit;
             if (this.selected) base.border = `1px solid ${this.selectedColor}`;
             return base;
         },
         imageStyle() {
             const base = {};
-            if (this.height) base.height = `${this.height}px`;
-            if (this.width) base.width = `${this.width}px`;
+            if (this.height) base.height = `${this.height - 1}px`;
+            if (this.width) base.width = `${this.width - 1}px`;
             if (this.imageObjectFit) base.objectFit = this.imageObjectFit;
             return base;
         },
