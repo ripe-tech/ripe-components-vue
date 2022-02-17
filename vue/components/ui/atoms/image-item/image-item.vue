@@ -254,15 +254,15 @@ export const ImageItem = {
         },
         itemImageStyle() {
             const base = {};
-            if (this.height) base.height = `${this.height}px`;
-            if (this.width) base.width = `${this.width}px`;
+            if (this.height) base.height = `${this.height + 2}px`;
+            if (this.width) base.width = `${this.width + 2}px`;
             if (this.selected) base.border = `1px solid ${this.selectedColor}`;
             return base;
         },
         imageStyle() {
             const base = {};
-            if (this.height) base.height = `${this.height - 1}px`;
-            if (this.width) base.width = `${this.width - 1}px`;
+            if (this.height) base.height = `${this.height}px`;
+            if (this.width) base.width = `${this.width}px`;
             if (this.imageObjectFit) base.objectFit = this.imageObjectFit;
             return base;
         },
