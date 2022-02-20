@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Webpack configuration for using source "raw" contents of some files 
 * Remove `href` from `dropdown` stories that caused the site to open inside the storybook and break navigation
 * Fixed `process/browser` alias webpack configuration for webpack@5
+* Apply correctly the border radius in `image-item`
 
 ## [0.18.1] - 2022-02-08
 
