@@ -14,11 +14,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-*
+* Bumped dependencies and upgrade webpack configuration
 
 ### Fixed
 
-* No longer hidding remove button when `input-image` is shrinked
+* Webpack configuration for using source "raw" contents of some files 
+* Remove `href` from `dropdown` stories that caused the site to open inside the storybook and break navigation
+* Fixed `process/browser` alias webpack configuration for webpack@5
+* Apply correctly the border radius in `image-item`
+
+## [0.18.1] - 2022-02-08
+
+* Added prop `backgroundColor` to `progress-bar` component to allow customizing the progress bar background color - [#296](https://github.com/ripe-tech/ripe-pulse/issues/296)
+
+## [0.18.0] - 2022-02-08
+
+### Added
+
+* Added variant "white" to `input-image`
+* Added prop `textColor` to `tag` component to allow customizing the text color - [#296](https://github.com/ripe-tech/ripe-pulse/issues/296)
+
+### Fixed
+
+* No longer hiding remove button when `input-image` is "shrinked"
 
 ## [0.17.3] - 2021-12-27
 

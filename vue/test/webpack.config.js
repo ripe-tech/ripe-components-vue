@@ -1,54 +1,97 @@
-const config = require("uxf-webpack/config/webpack.config.full");
+const path = require("path");
+const vueLoader = require("vue-loader");
 
-config.mode = "development";
-config.output.devtoolModuleFilenameTemplate = "[absolute-resource-path]";
-config.output.devtoolFallbackModuleFilenameTemplate = "[absolute-resource-path]?[hash]";
-config.target = "node";
-config.output.filename = "ripe-components-vue-test.min.js";
+const VueLoaderPlugin = vueLoader.VueLoaderPlugin;
 
-config.module.rules = config.module.rules.filter(
-    rule =>
-        !rule.use ||
-        rule.use.every(loader => {
-            const name = typeof loader === "object" ? loader.loader : loader;
-            return name !== "babel-loader";
-        })
-);
-config.module.rules.push({
-    test: /\.js$/,
-    exclude: /node_modules/,
-    use: [
-        {
-            loader: "babel-loader",
-            query: {
-                sourceType: "unambiguous",
-                presets: [
-                    [
-                        "@babel/preset-env",
-                        {
-                            targets: { node: "10" },
-                            useBuiltIns: "entry",
-                            corejs: "3"
+module.exports = {
+    entry: "./vue",
+    target: "node",
+    mode: "development",
+    output: {
+        path: path.join(__dirname, "dist"),
+        filename: "ripe-components-vue-test.min.js",
+        library: "RipeComponentsVueTest",
+        libraryTarget: "umd",
+        devtoolModuleFilenameTemplate: "[absolute-resource-path]",
+        devtoolFallbackModuleFilenameTemplate: "[absolute-resource-path]?[hash]"
+    },
+    plugins: [new VueLoaderPlugin({})],
+    module: {
+        rules: [
+            {
+                test: /\.vue$/,
+                loader: "vue-loader",
+                options: {
+                    loaders: {
+                        js: "babel-loader",
+                        scss: "vue-style-loader!css-loader!sass-loader",
+                        sass: "vue-style-loader!css-loader!sass-loader?indentedSyntax"
+                    },
+                    optimizeSSR: false
+                }
+            },
+            {
+                test: /\.(css|scss|sass)$/,
+                use: ["null-loader"]
+            },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: "babel-loader",
+                        options: {
+                            sourceType: "unambiguous",
+                            presets: [
+                                [
+                                    "@babel/preset-env",
+                                    {
+                                        targets: { node: "10" },
+                                        useBuiltIns: "entry",
+                                        corejs: "3"
+                                    }
+                                ]
+                            ],
+                            plugins: [
+                                [
+                                    "@babel/plugin-transform-runtime",
+                                    {
+                                        regenerator: true
+                                    }
+                                ]
+                            ]
                         }
-                    ]
-                ],
-                plugins: [
-                    [
-                        "@babel/plugin-transform-runtime",
-                        {
-                            regenerator: true
-                        }
-                    ]
+                    }
                 ]
+            },
+            {
+                test: /\.(png|jpg|gif|svg|ico)$/,
+                type: "asset/inline"
+            },
+            {
+                test: /\.svga$/,
+                type: "asset/inline",
+                generator: {
+                    dataUrl: {
+                        mimetype: "image/svg+xml"
+                    }
+                }
             }
+        ]
+    },
+    resolve: {
+        alias: {
+            base$: "../../../js",
+            vue$: "vue/dist/vue.esm.js"
+        },
+        fallback: {
+            fs: false,
+            http: false,
+            https: false
         }
-    ]
-});
-config.module.rules.push({
-    test: /\.(css|scss|sass)$/,
-    use: ["null-loader"]
-});
-
-config.module.rules.find(rule => rule.loader === "vue-loader").options.optimizeSSR = false;
-
-module.exports = config;
+    },
+    performance: {
+        hints: false
+    },
+    devtool: "inline-source-map"
+};

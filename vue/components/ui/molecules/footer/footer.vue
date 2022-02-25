@@ -39,9 +39,7 @@
                 </ul>
             </div>
             <div class="links-logo">
-                <span class="copy">
-                    © 2019 Platforme International
-                </span>
+                <span class="copy"> © 2019 Platforme International </span>
                 <span class="footer-logo">
                     <a href="https://www.platforme.com" target="_blank" class="no-style">
                         <img src="~./assets/platforme.svg" />

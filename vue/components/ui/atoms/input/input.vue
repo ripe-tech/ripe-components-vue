@@ -49,7 +49,7 @@
 }
 
 .input.monospaced {
-    font-family: consolas, monospace;
+    font-family: "consolas", monospace;
     letter-spacing: 0px;
 }
 

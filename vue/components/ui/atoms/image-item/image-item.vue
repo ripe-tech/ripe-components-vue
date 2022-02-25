@@ -95,9 +95,11 @@
     background-color: $soft-blue;
     border: 1px solid $light-white;
     border-radius: 10px;
+    box-sizing: border-box;
     display: flex;
     height: 260px;
     justify-content: center;
+    overflow: hidden;
     transition: border-color 0.15s ease-out, box-shadow 0.15s ease-out, transform 0.15s ease-out;
     user-select: none;
     width: 214px;
@@ -105,7 +107,7 @@
 
 .image-item:hover > .item-image {
     border-color: $lower-grey;
-    box-shadow: 1px 2px 5px rgb(20 20 20 / 10%);
+    box-shadow: 1px 2px 5px rgb(20, 20, 20, 0.1);
     transform: scale(1.025, 1.025);
 }
 
@@ -252,9 +254,8 @@ export const ImageItem = {
         },
         itemImageStyle() {
             const base = {};
-            if (this.height) base.height = `${this.height}px`;
-            if (this.width) base.width = `${this.width}px`;
-            if (this.imageObjectFit) base.objectFit = this.imageObjectFit;
+            if (this.height) base.height = `${this.height + 2}px`;
+            if (this.width) base.width = `${this.width + 2}px`;
             if (this.selected) base.border = `1px solid ${this.selectedColor}`;
             return base;
         },

@@ -191,7 +191,7 @@ body.mobile .home-color-part > .top > .links > .link {
     display: inline-block;
     font-size: 16px;
     margin-left: 4px;
-    opacity: 50%;
+    opacity: 0.5;
 }
 </style>
 

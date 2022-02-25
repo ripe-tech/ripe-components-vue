@@ -82,7 +82,9 @@ export const Icon = {
         svgFile() {
             try {
                 let resource = this.icon;
-                if (typeof this.icon === "string") {
+                const isSvgString = typeof this.icon === "string" && this.icon.startsWith("<svg");
+
+                if (typeof this.icon === "string" && !isSvgString) {
                     // "gathers" the complete set of icon contexts and
                     // determines if at least one includes the provided
                     // icon as part of its source
@@ -95,19 +97,22 @@ export const Icon = {
                     // if there is a custom context defined at the root that
                     // contains the item, then uses it
                     if (iconContext) {
-                        resource = iconContext(`./${this.icon}.svg`);
+                        resource = iconContext(`./${this.icon}.svg?raw`);
                     }
                     // otherwise fallback to default strategy for the retrieval
                     // of icons, using the `try` and `catch` strategy
                     else {
                         try {
-                            resource = require(`!!raw-loader!./../../../../assets/icons/${this.icon}.svg`);
+                            resource = require(`./../../../../assets/icons/${this.icon}.svg?raw`);
                         } catch (err) {
-                            resource = require(`!!raw-loader!./../../../../assets/icons/extra/${this.icon}.svg`);
+                            resource = require(`./../../../../assets/icons/extra/${this.icon}.svg?raw`);
                         }
                     }
                 }
-                return resource.default;
+                if (typeof this.icon === "object") {
+                    resource = resource.default;
+                }
+                return resource;
             } catch (error) {
                 console.error(`Error loading icon '${this.icon}'.`, error);
             }

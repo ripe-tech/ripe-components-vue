@@ -1,23 +1,34 @@
 const path = require("path");
 
 module.exports = async ({ config, mode }) => {
+    config.resolve.fallback = {
+        fs: false,
+        http: false,
+        https: false,
+        path: false
+    };
     config.module.rules.push(
         {
             test: /\.scss$/,
-            loaders: ["style-loader", "css-loader", "sass-loader"],
+            use: ["style-loader", "css-loader", "sass-loader"],
             include: path.resolve(__dirname, "../")
         },
         {
             test: /\.stories\.jsx?$/,
-            loaders: [require.resolve("@storybook/source-loader")],
+            use: [require.resolve("@storybook/source-loader")],
             enforce: "pre"
         },
         {
+            resourceQuery: /raw/,
+            type: "asset/source"
+        },
+        {
             test: /\.svga$/,
-            loader: "url-loader",
-            options: {
-                mimetype: "image/svg+xml",
-                esModule: false
+            type: "asset/inline",
+            generator: {
+                dataUrl: {
+                    mimetype: "image/svg+xml"
+                }
             }
         }
     );
