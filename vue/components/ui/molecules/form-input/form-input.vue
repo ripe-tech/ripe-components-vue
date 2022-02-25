@@ -1,7 +1,14 @@
 <template>
     <div class="form-input" v-bind:class="classes">
         <slot name="header">
-            <tooltip v-bind="tooltipProps" v-if="tooltip">
+            <tooltip
+                v-bind="{
+                    text: tooltipText,
+                    orientation: 'top',
+                    ...tooltipProps
+                }"
+                v-if="tooltipText"
+            >
                 <label-ripe class="header" v-bind="headerProps" v-if="header" />
             </tooltip>
             <label-ripe class="header" v-bind="headerProps" v-else-if="header" />
@@ -66,6 +73,11 @@
 .form-input .header.success,
 .form-input .footer.success {
     color: $success;
+}
+
+.form-input .tooltip > .header {
+    text-decoration: underline #57626e dashed;
+    text-underline-offset: 3px;
 }
 
 .form-input .header {
@@ -144,13 +156,13 @@ export const FormInput = {
             type: Number,
             default: null
         },
-        tooltip: {
-            type: Boolean,
-            default: false
+        tooltipText: {
+            type: String,
+            default: "example"
         },
         tooltipProps: {
             type: Object,
-            default: {}
+            default: () => ({})
         }
     },
     computed: {
@@ -173,6 +185,11 @@ export const FormInput = {
             if (this.headerVariant) base[`${this.headerVariant}`] = true;
             return base;
         },
+        footerClasses() {
+            const base = {};
+            if (this.footerVariant) base[`${this.footerVariant}`] = true;
+            return base;
+        },
         headerProps() {
             return {
                 style: this.headerStyle,
@@ -181,11 +198,6 @@ export const FormInput = {
                 text: this.header,
                 for: this.id
             };
-        },
-        footerClasses() {
-            const base = {};
-            if (this.footerVariant) base[`${this.footerVariant}`] = true;
-            return base;
         }
     }
 };
