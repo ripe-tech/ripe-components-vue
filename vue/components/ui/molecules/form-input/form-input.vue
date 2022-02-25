@@ -1,15 +1,10 @@
 <template>
     <div class="form-input" v-bind:class="classes">
         <slot name="header">
-            <label-ripe
-                class="header"
-                v-bind:style="headerStyle"
-                v-bind:class="headerClasses"
-                v-bind:size="headerSize"
-                v-bind:text="header"
-                v-bind:for="id"
-                v-if="header"
-            />
+            <tooltip v-bind="tooltipProps" v-if="tooltip">
+                <label-ripe class="header" v-bind="headerProps" v-if="header" />
+            </tooltip>
+            <label-ripe class="header" v-bind="headerProps" v-else-if="header" />
         </slot>
         <div class="flex-container">
             <div class="content">
@@ -148,6 +143,14 @@ export const FormInput = {
         footerMinWidth: {
             type: Number,
             default: null
+        },
+        tooltip: {
+            type: Boolean,
+            default: false
+        },
+        tooltipProps: {
+            type: Object,
+            default: {}
         }
     },
     computed: {
@@ -169,6 +172,15 @@ export const FormInput = {
             const base = {};
             if (this.headerVariant) base[`${this.headerVariant}`] = true;
             return base;
+        },
+        headerProps() {
+            return {
+                style: this.headerStyle,
+                class: this.headerClasses,
+                size: this.headerSize,
+                text: this.header,
+                for: this.id
+            };
         },
         footerClasses() {
             const base = {};
