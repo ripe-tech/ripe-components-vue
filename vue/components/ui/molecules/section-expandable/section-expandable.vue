@@ -1,9 +1,9 @@
 <template>
-    <div
-        class="section-expandable"
-        v-on:click="onSectionClick"
-    >
-        <div class="header">
+    <div class="section-expandable">
+        <div 
+            class="header"
+            v-on:click="onSectionClick"
+        >
             <div class="title" v-if="title">
                 <slot name="title">
                     {{ title }}
