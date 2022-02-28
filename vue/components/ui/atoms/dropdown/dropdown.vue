@@ -105,7 +105,7 @@
     box-sizing: border-box;
     color: $dark-grey;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: normal;
     list-style: none;
     margin: 0px 0px 0px 0px;
     overflow: hidden;
@@ -148,6 +148,15 @@
 .dropdown-container .dropdown > .dropdown-item.selected,
 .dropdown-container .dropdown > .dropdown-item.highlighted {
     background-color: $soft-blue;
+    font-weight: bold;
+}
+
+.dropdown-container .dropdown > .dropdown-item.disabled {
+    background-color: transparent;
+    color: #9da5af;
+    cursor: not-allowed;
+    font-style: normal;
+    font-weight: 400;
 }
 
 .dropdown-container .dropdown > .dropdown-item.separator {
@@ -190,6 +199,10 @@ export const Dropdown = {
             default: () => ({})
         },
         highlighted: {
+            type: Object,
+            default: () => ({})
+        },
+        disabled: {
             type: Object,
             default: () => ({})
         },
@@ -254,7 +267,8 @@ export const Dropdown = {
         return {
             visibleData: this.visible,
             highlightedData: this.highlighted,
-            selectedData: this.selected
+            selectedData: this.selected,
+            disabledData: this.disabled
         };
     },
     watch: {
@@ -381,8 +395,9 @@ export const Dropdown = {
             return {
                 separator: item.separator,
                 icon: Boolean(item.icon),
-                highlighted: this.highlightedData[index],
-                selected: this.selectedData[index]
+                highlighted: this.highlightedData[index] || item.highlighted,
+                selected: this.selectedData[index] || item.selected,
+                disabled: this.disabledData[index] || item.disabled
             };
         }
     }
