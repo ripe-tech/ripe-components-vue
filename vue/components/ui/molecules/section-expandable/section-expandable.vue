@@ -50,17 +50,14 @@
     margin-left: auto;
 }
 
-.section-expandable > .content > .description {
-    margin-bottom: 24px;
+.section-expandable > .content > .description:first-child,
+.section-expandable > .content > .form-input:first-child {
     margin-top: 30px;
 }
 
-.section-expandable > .content > .form-input {
-    margin-bottom: 24px;
-}
-
-.section-expandable > .content > .form-input:last-child,
-.section-expandable > .description:last-child {
+.section-expandable > .content > .form-input,
+.section-expandable > .content > .description {
+    margin-top: 24px;
     margin-bottom: 0px;
 }
 
