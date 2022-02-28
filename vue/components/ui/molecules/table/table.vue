@@ -329,8 +329,9 @@ export const Table = {
             default: (items, column, reverse) => {
                 return items.sort((first, second) => {
                     const order = reverse ? -1 : 1;
-                    const sort = first[column] >= second[column];
-                    return order * (sort ? 1 : -1);
+                    if (first[column] > second[column]) return 1 * order;
+                    else if (first[column] < second[column]) return -1 * order;
+                    return 0;
                 });
             }
         },
