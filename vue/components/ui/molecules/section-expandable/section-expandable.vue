@@ -1,19 +1,25 @@
 <template>
-    <div class="section-expandable">
-        <p>mequie</p>
-        <div class="title" v-if="title">
-            <slot name="title">
-                {{ title }}
-            </slot>
+    <div
+        class="section-expandable"
+        v-on:click="onSectionClick"
+    >
+        <div class="header">
+            <div class="title" v-if="title">
+                <slot name="title">
+                    {{ title }}
+                </slot>
+            </div>
+            <icon
+                v-bind:icon="expanded ? 'chevron-up' : 'chevron-down'"
+                v-bind:color="'#c2c7cc'"
+                v-bind:width="20"
+                v-bind:height="20"
+            />
         </div>
-        <p>vivvas</p>
-        <icon
-            v-bind:icon="isExpanded ? 'chevron-up' : 'chevron-down'"
-            v-bind:color="'#c2c7cc'"
-            v-bind:width="20"
-            v-bind:height="20"
-        />
-        <div class="content" v-if="isExpanded">
+        <div
+            class="content"
+            ref="content"
+        >
             <slot />
         </div>
     </div>
@@ -28,24 +34,40 @@
     padding-top: 24px;
 }
 
-.section-expandable > .title {
+.section-expandable > .header {
+    display: flex;
+}
+
+.section-expandable > .header > .title {
     color: $black;
     font-size: 16px;
     font-weight: 600;
     letter-spacing: 0.35px;
-    margin-bottom: 30px;
     text-transform: uppercase;
 }
 
-.section-expandable > .content > .form-input,
-.section-expandable > .description {
+.section-expandable > .header > .icon {
+    margin-left: auto;
+}
+
+.section-expandable > .content > .description {
     margin-bottom: 24px;
-    margin-top: 0px;
+    margin-top: 30px;
+}
+
+.section-expandable > .content > .form-input {
+    margin-bottom: 24px;
 }
 
 .section-expandable > .content > .form-input:last-child,
 .section-expandable > .description:last-child {
     margin-bottom: 0px;
+}
+
+.section-expandable > .content {
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 </style>
 
@@ -54,7 +76,8 @@ export const SectionExpandable = {
     name: "section-expandable-ripe",
     data: function() {
         return {
-            isExpanded: false
+            expanded: false,
+            expandedHeight: null
         };
     },
     props: {
@@ -65,6 +88,30 @@ export const SectionExpandable = {
         items: {
             type: Array,
             default: () => []
+        }
+    },
+    methods: {
+        onSectionClick() {
+            this.expanded = !this.expanded;
+            const content = this.$refs.content;
+
+            if (content && this.expanded) {
+                content.style.maxHeight = `${this.expandedHeight}px`;
+            } else if (content) {
+                content.style.maxHeight = "0px";
+            }
+        }
+    },
+    mounted() {
+        // gets the expanded height of the content
+        const content = this.$refs.content;
+        if (content && this.expandedHeight === null) {
+            content.style.maxHeight = "none";
+            try {
+                this.expandedHeight = content.offsetHeight;
+            } finally {
+                content.style.maxHeight = "0px";
+            }
         }
     }
 };
