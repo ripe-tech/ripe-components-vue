@@ -1,6 +1,6 @@
 <template>
     <div class="section-expandable">
-        <div 
+        <div
             class="header"
             v-on:click="onSectionClick"
         >
@@ -57,8 +57,8 @@
 
 .section-expandable > .content > .form-input,
 .section-expandable > .content > .description {
-    margin-top: 24px;
     margin-bottom: 0px;
+    margin-top: 24px;
 }
 
 .section-expandable > .content {
@@ -99,7 +99,7 @@ export const SectionExpandable = {
             }
         }
     },
-    mounted() {
+    mounted: function() {
         // gets the expanded height of the content
         const content = this.$refs.content;
         if (content && this.expandedHeight === null) {
