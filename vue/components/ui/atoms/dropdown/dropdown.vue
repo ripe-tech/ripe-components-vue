@@ -18,7 +18,7 @@
                     v-else
                     v-bind:key="item.value"
                     v-on:click="() => click(item, index)"
-                    v-on:mouseenter="() => onMouseenter(index)"
+                    v-on:mouseenter="() => onMouseenter(index, item)"
                     v-on:mouseleave="() => onMouseleave(index)"
                 >
                     <slot v-bind:item="item" v-bind:index="index" v-bind:name="item.value">
@@ -152,8 +152,8 @@
 }
 
 .dropdown-container .dropdown > .dropdown-item.disabled {
-    opacity: 0.5;
     cursor: not-allowed;
+    opacity: 0.5;
 }
 
 .dropdown-container .dropdown > .dropdown-item.separator {
@@ -379,7 +379,8 @@ export const Dropdown = {
             if (insideOwners) return;
             this.handleGlobal();
         },
-        onMouseenter(index) {
+        onMouseenter(index, item) {
+            if (this.disabledData[index] || item.disabled) return;
             this.highlight(index);
         },
         onMouseleave(index) {
