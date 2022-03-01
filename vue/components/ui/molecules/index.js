@@ -83,7 +83,7 @@ const install = Vue => {
     Vue.component("progress-list-item", ProgressListItem);
     Vue.component("radio-group", RadioGroup);
     Vue.component("search", Search);
-    Vue.component("section-expandable-ripe", SectionExpandable);
+    Vue.component("section-expandable", SectionExpandable);
     Vue.component("section-ripe", Section);
     Vue.component("select-ripe", Select);
     Vue.component("select-checkboxes", SelectCheckboxes);
