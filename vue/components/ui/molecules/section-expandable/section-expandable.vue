@@ -83,6 +83,7 @@ export const SectionExpandable = {
     methods: {
         calculateOffsetHeight() {
             const content = this.$refs.content;
+
             if (content && this.expandedHeight === null) {
                 content.style.maxHeight = "none";
                 try {
