@@ -69,7 +69,7 @@
 
 <script>
 export const SectionExpandable = {
-    name: "section-expandable-ripe",
+    name: "section-expandable",
     data: function() {
         return {
             expanded: false,

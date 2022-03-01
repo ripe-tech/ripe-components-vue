@@ -13,9 +13,9 @@ storiesOf("Components/Molecules/Section Expandable", module)
             }
         },
         template: `
-            <section-expandable-ripe v-bind:title="title" v-bind:animated="animated">
+            <section-expandable v-bind:title="title" v-bind:animated="animated">
                 <h3> This is some text inside the expandable section. </h3>
                 <p> And some smaller text. </p>
-            </section-expandable-ripe>
+            </section-expandable>
         `
     }));
