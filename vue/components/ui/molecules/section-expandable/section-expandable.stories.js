@@ -6,7 +6,7 @@ storiesOf("Components/Molecules/Section Expandable", module)
     .add("Section Expandable", () => ({
         props: {
             title: {
-                default: text("Title", "Expandable Section Title")
+                default: text("Title", "Section expandable title")
             },
             animated: {
                 default: boolean("Animated", false)
