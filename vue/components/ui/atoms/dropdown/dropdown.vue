@@ -105,7 +105,7 @@
     box-sizing: border-box;
     color: $dark-grey;
     font-size: 13px;
-    font-weight: 400;
+    font-weight: 600;
     list-style: none;
     margin: 0px 0px 0px 0px;
     overflow: hidden;
