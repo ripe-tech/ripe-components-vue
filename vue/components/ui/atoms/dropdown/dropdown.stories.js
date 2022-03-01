@@ -59,6 +59,10 @@ storiesOf("Components/Atoms/Dropdown", module)
                         href: "#"
                     },
                     {
+                        value: "disabled",
+                        disabled: true
+                    },
+                    {
                         value: "text_platforme_blank",
                         label: "Text Platforme Blank",
                         href: "https://www.platforme.com",
