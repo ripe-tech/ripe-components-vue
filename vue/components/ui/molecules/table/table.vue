@@ -328,6 +328,7 @@ export const Table = {
             type: Function,
             default: (items, column, reverse) => {
                 return items.sort((first, second) => {
+                    if (first[column] === second[column]) return 0;
                     const order = reverse ? -1 : 1;
                     const sort = first[column] > second[column];
                     return order * (sort ? 1 : -1);
