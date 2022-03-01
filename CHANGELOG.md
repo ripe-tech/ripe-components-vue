@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Added variant "white" to `input-image`
 * Added `section-ripe` component - [#281](https://github.com/ripe-tech/ripe-pulse/issues/281)
-* Possibility of defining disabled items for dropdown component - [#281](https://github.com/ripe-tech/ripe-pulse/issues/281)
+* Possibility of defining disabled items for dropdown component - [ripe-pulse/#281](https://github.com/ripe-tech/ripe-pulse/issues/281)
 
 ### Changed
 
