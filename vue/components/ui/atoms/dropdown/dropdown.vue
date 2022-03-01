@@ -105,7 +105,7 @@
     box-sizing: border-box;
     color: $dark-grey;
     font-size: 13px;
-    font-weight: normal;
+    font-weight: 400;
     list-style: none;
     margin: 0px 0px 0px 0px;
     overflow: hidden;
@@ -148,7 +148,7 @@
 .dropdown-container .dropdown > .dropdown-item.selected,
 .dropdown-container .dropdown > .dropdown-item.highlighted {
     background-color: $soft-blue;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 .dropdown-container .dropdown > .dropdown-item.disabled {
@@ -156,7 +156,7 @@
     color: #9da5af;
     cursor: not-allowed;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 200;
 }
 
 .dropdown-container .dropdown > .dropdown-item.separator {
