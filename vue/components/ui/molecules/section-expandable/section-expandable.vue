@@ -1,5 +1,5 @@
 <template>
-    <div class="section-expandable">
+    <div class="section-expandable" v-bind:class="classes">
         <div class="header" v-on:click="onSectionClick">
             <div class="title" v-if="title">
                 <slot name="title">
@@ -29,7 +29,9 @@
 }
 
 .section-expandable > .header {
+    cursor: pointer;
     display: flex;
+    user-select: none;
 }
 
 .section-expandable > .header > .title {
@@ -58,6 +60,9 @@
 .section-expandable > .content {
     max-height: 0px;
     overflow: hidden;
+}
+
+.section-expandable.animated > .content {
     transition: max-height 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 </style>
@@ -75,6 +80,10 @@ export const SectionExpandable = {
         title: {
             type: String,
             default: null
+        },
+        animated: {
+            type: Boolean,
+            default: false
         }
     },
     mounted: function() {
@@ -83,7 +92,6 @@ export const SectionExpandable = {
     methods: {
         calculateOffsetHeight() {
             const content = this.$refs.content;
-
             if (content && this.expandedHeight === null) {
                 content.style.maxHeight = "none";
                 try {
@@ -96,12 +104,18 @@ export const SectionExpandable = {
         onSectionClick() {
             this.expanded = !this.expanded;
             const content = this.$refs.content;
-
             if (content && this.expanded) {
                 content.style.maxHeight = `${this.expandedHeight}px`;
             } else if (content) {
                 content.style.maxHeight = "0px";
             }
+        }
+    },
+    computed: {
+        classes() {
+            const base = {};
+            if (this.animated) base.animated = true;
+            return base;
         }
     }
 };
