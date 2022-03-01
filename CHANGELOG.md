@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* Added `section-expandable-ripe` component - [#247](https://github.com/ripe-tech/ripe-util-vue/issues/247)
 * Added variant "white" to `input-image`
 * Added `section-ripe` component - [#281](https://github.com/ripe-tech/ripe-pulse/issues/281)
 
