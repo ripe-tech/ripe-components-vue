@@ -1,9 +1,6 @@
 <template>
     <div class="section-expandable">
-        <div
-            class="header"
-            v-on:click="onSectionClick"
-        >
+        <div class="header" v-on:click="onSectionClick">
             <div class="title" v-if="title">
                 <slot name="title">
                     {{ title }}
@@ -16,10 +13,7 @@
                 v-bind:height="20"
             />
         </div>
-        <div
-            class="content"
-            ref="content"
-        >
+        <div class="content" ref="content">
             <slot />
         </div>
     </div>
@@ -81,13 +75,23 @@ export const SectionExpandable = {
         title: {
             type: String,
             default: null
-        },
-        items: {
-            type: Array,
-            default: () => []
         }
     },
+    mounted: function() {
+        this.calculateOffsetHeight();
+    },
     methods: {
+        calculateOffsetHeight() {
+            const content = this.$refs.content;
+            if (content && this.expandedHeight === null) {
+                content.style.maxHeight = "none";
+                try {
+                    this.expandedHeight = content.offsetHeight;
+                } finally {
+                    content.style.maxHeight = "0px";
+                }
+            }
+        },
         onSectionClick() {
             this.expanded = !this.expanded;
             const content = this.$refs.content;
@@ -95,18 +99,6 @@ export const SectionExpandable = {
             if (content && this.expanded) {
                 content.style.maxHeight = `${this.expandedHeight}px`;
             } else if (content) {
-                content.style.maxHeight = "0px";
-            }
-        }
-    },
-    mounted: function() {
-        // gets the expanded height of the content
-        const content = this.$refs.content;
-        if (content && this.expandedHeight === null) {
-            content.style.maxHeight = "none";
-            try {
-                this.expandedHeight = content.offsetHeight;
-            } finally {
                 content.style.maxHeight = "0px";
             }
         }
