@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Remove `href` from `dropdown` stories that caused the site to open inside the storybook and break navigation
 * Fixed `process/browser` alias webpack configuration for webpack@5
 * Apply correctly the border radius in `image-item`
+* Sorting two table elements with same value returns 0 for cross browser compatibility
 
 ## [0.18.1] - 2022-02-08
 
