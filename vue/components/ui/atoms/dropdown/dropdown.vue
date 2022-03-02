@@ -152,7 +152,7 @@
 }
 
 .dropdown-container .dropdown > .dropdown-item.disabled {
-    cursor: not-allowed;
+    cursor: auto;
     opacity: 0.5;
 }
 
