@@ -143,9 +143,9 @@
     width: auto;
 }
 
+.dropdown-container .dropdown > .dropdown-item.selected,
 .dropdown-container .dropdown > .dropdown-item:not(.disabled):hover,
 .dropdown-container .dropdown > .dropdown-item:not(.disabled):active,
-.dropdown-container .dropdown > .dropdown-item:not(.disabled).selected,
 .dropdown-container .dropdown > .dropdown-item:not(.disabled).highlighted {
     background-color: $soft-blue;
     font-weight: 700;
