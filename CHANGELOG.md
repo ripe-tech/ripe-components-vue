@@ -9,8 +9,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+*
+
+### Changed
+
+*
+
+### Fixed
+
+*
+
+## [0.19.0] - 2022-03-02
+
+### Added
+
+* Added `section-expandable` component - [#247](https://github.com/ripe-tech/ripe-util-vue/issues/247)
 * Added variant "white" to `input-image`
 * Added `section-ripe` component - [#281](https://github.com/ripe-tech/ripe-pulse/issues/281)
+* Possibility of defining disabled items for dropdown component - [ripe-pulse/#281](https://github.com/ripe-tech/ripe-pulse/issues/281)
 
 ### Changed
 
@@ -22,6 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Remove `href` from `dropdown` stories that caused the site to open inside the storybook and break navigation
 * Fixed `process/browser` alias webpack configuration for webpack@5
 * Apply correctly the border radius in `image-item`
+* Sorting two table elements with same value returns 0 for cross browser compatibility
 
 ## [0.18.1] - 2022-02-08
 

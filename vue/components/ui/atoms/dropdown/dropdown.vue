@@ -18,7 +18,7 @@
                     v-else
                     v-bind:key="item.value"
                     v-on:click="() => click(item, index)"
-                    v-on:mouseenter="() => onMouseenter(index)"
+                    v-on:mouseenter="() => onMouseenter(index, item)"
                     v-on:mouseleave="() => onMouseleave(index)"
                 >
                     <slot v-bind:item="item" v-bind:index="index" v-bind:name="item.value">
@@ -143,11 +143,17 @@
     width: auto;
 }
 
-.dropdown-container .dropdown > .dropdown-item:hover,
-.dropdown-container .dropdown > .dropdown-item:active,
 .dropdown-container .dropdown > .dropdown-item.selected,
-.dropdown-container .dropdown > .dropdown-item.highlighted {
+.dropdown-container .dropdown > .dropdown-item:not(.disabled):hover,
+.dropdown-container .dropdown > .dropdown-item:not(.disabled):active,
+.dropdown-container .dropdown > .dropdown-item:not(.disabled).highlighted {
     background-color: $soft-blue;
+    font-weight: 700;
+}
+
+.dropdown-container .dropdown > .dropdown-item.disabled {
+    cursor: auto;
+    opacity: 0.5;
 }
 
 .dropdown-container .dropdown > .dropdown-item.separator {
@@ -190,6 +196,10 @@ export const Dropdown = {
             default: () => ({})
         },
         highlighted: {
+            type: Object,
+            default: () => ({})
+        },
+        disabled: {
             type: Object,
             default: () => ({})
         },
@@ -254,7 +264,8 @@ export const Dropdown = {
         return {
             visibleData: this.visible,
             highlightedData: this.highlighted,
-            selectedData: this.selected
+            selectedData: this.selected,
+            disabledData: this.disabled
         };
     },
     watch: {
@@ -368,7 +379,8 @@ export const Dropdown = {
             if (insideOwners) return;
             this.handleGlobal();
         },
-        onMouseenter(index) {
+        onMouseenter(index, item) {
+            if (this.disabledData[index] || item.disabled) return;
             this.highlight(index);
         },
         onMouseleave(index) {
@@ -381,8 +393,9 @@ export const Dropdown = {
             return {
                 separator: item.separator,
                 icon: Boolean(item.icon),
-                highlighted: this.highlightedData[index],
-                selected: this.selectedData[index]
+                highlighted: this.highlightedData[index] || item.highlighted,
+                selected: this.selectedData[index] || item.selected,
+                disabled: this.disabledData[index] || item.disabled
             };
         }
     }
