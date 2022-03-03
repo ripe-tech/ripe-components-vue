@@ -18,6 +18,9 @@ storiesOf("Components/Molecules/Form Input", module)
             header: {
                 default: text("Header", "Header")
             },
+            tooltipText: {
+                default: text("Tooltip Text", "Tooltip Text")
+            },
             alignment: {
                 default: select(
                     "Alignment",
@@ -92,6 +95,7 @@ storiesOf("Components/Molecules/Form Input", module)
                 v-bind:variant="variant"
                 v-bind:alignment="alignment"
                 v-bind:header="header"
+                v-bind:tooltip-text="tooltipText"
                 v-bind:footer="footer"
                 v-bind:header-variant="headerVariant"
                 v-bind:header-size="headerSize"

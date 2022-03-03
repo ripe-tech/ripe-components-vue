@@ -158,7 +158,7 @@ export const FormInput = {
         },
         tooltipText: {
             type: String,
-            default: "example"
+            default: null
         },
         tooltipProps: {
             type: Object,

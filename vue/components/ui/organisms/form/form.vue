@@ -23,6 +23,8 @@
                                 v-bind:header="
                                     field.label !== undefined ? field.label : field.value
                                 "
+                                v-bind:tooltip-text="field.tooltipText"
+                                v-bind:tooltip-props="field.tooltipProps"
                                 v-bind="field.formInputProps"
                                 v-bind:key="field.value"
                             >
