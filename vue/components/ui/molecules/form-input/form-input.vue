@@ -3,11 +3,11 @@
         <slot name="header">
             <tooltip
                 v-bind="{
-                    text: tooltipText,
+                    text: tooltipProps.text,
                     orientation: 'top',
                     ...tooltipProps
                 }"
-                v-if="tooltipText"
+                v-if="tooltipText || tooltipProps"
             >
                 <label-ripe class="header" v-bind="headerProps" v-if="header" />
             </tooltip>
