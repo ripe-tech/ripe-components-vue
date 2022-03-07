@@ -54,6 +54,10 @@
     z-index: 1;
 }
 
+.tooltip-custom.clickable > .tooltip-inner {
+    pointer-events: auto;
+}
+
 body.round .tooltip-custom > .tooltip-inner {
     border-radius: 4px 4px 4px 4px;
 }
@@ -233,28 +237,6 @@ export const Tooltip = {
         }
     },
     computed: {
-        richText() {
-            let parsed = "";
-            const italicStrings = this.text.split("__");
-            for (let i = 0; i < italicStrings.length; i++) {
-                // only affect even pairs
-                if (i % 2 !== 0) parsed += italicStrings[i] + " ";
-
-                parsed += "<i>" + italicStrings[i] + "</i> ";
-            }
-
-            const boldStrings = parsed.split("**");
-            for (let i = 0; i < boldStrings.length; i++) {
-                // only affect even pairs
-                if (i % 2 !== 0) parsed += boldStrings[i] + " ";
-
-                parsed += "<b>" + boldStrings[i] + "</b> ";
-            }
-
-            console.log("parsed text", parsed);
-
-            return parsed;
-        },
         tooltipInnerStyle() {
             const base = {};
             if (this.width) base.width = `${this.width}px`;
@@ -276,6 +258,8 @@ export const Tooltip = {
             if (this.orientation) {
                 base["tooltip-orientation-" + this.orientation] = this.orientation;
             }
+            if (this.clickable) base["clickable"] = true;
+
             return base;
         }
     },
