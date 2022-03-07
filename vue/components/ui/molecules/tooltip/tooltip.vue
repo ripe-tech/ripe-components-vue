@@ -46,6 +46,11 @@
     position: relative;
 }
 
+.tooltip-custom.clickable {
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+}
+
 .tooltip-custom > .tooltip-inner {
     background-color: $dark;
     box-shadow: 0px 0px 16px rgba(45, 58, 70, 0.25);
