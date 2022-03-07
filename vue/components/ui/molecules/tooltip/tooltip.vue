@@ -6,15 +6,21 @@
         class="tooltip tooltip-custom"
         v-bind:class="classes"
         v-else-if="text"
-        v-on:mouseenter="onMouseenter"
-        v-on:mouseleave="onMouseleave"
+        v-on:mouseenter="onMouseenter('base')"
+        v-on:mouseleave="onMouseleave('base')"
     >
         <slot />
         <transition v-bind:name="animationData">
-            <div class="tooltip-inner" v-bind:style="tooltipInnerStyle" v-show="visibleData">
+            <div
+                class="tooltip-inner"
+                v-bind:style="tooltipInnerStyle"
+                v-show="visibleData"
+                v-on:mouseenter="onMouseenter('tooltip')"
+                v-on:mouseleave="onMouseleave('tooltip')"
+            >
                 <slot name="tooltip-content">
-                    <div v-bind:style="tooltipTextStyle" class="tooltip-text" v-html="richText">
-                        {{ richText }}
+                    <div v-bind:style="tooltipTextStyle" class="tooltip-text" v-html="text">
+                        {{ text }}
                     </div>
                 </slot>
                 <div class="tip" />
@@ -199,6 +205,10 @@ export const Tooltip = {
             type: Number,
             default: 1000
         },
+        changeContextTime: {
+            type: Number,
+            default: 50
+        },
         duration: {
             type: Number,
             default: 250
@@ -215,7 +225,9 @@ export const Tooltip = {
             durationData: null,
             visibleData: false,
             lastEnter: null,
-            lastLeave: null
+            lastLeave: null,
+            isInTooltip: false,
+            isInBase: false
         };
     },
     watch: {
@@ -258,7 +270,7 @@ export const Tooltip = {
             if (this.orientation) {
                 base["tooltip-orientation-" + this.orientation] = this.orientation;
             }
-            if (this.clickable) base["clickable"] = true;
+            if (this.clickable) base.clickable = true;
 
             return base;
         }
@@ -289,8 +301,12 @@ export const Tooltip = {
         scheduleShow() {
             this.show(true);
         },
-        onMouseenter() {
+        onMouseenter(value) {
             if (this.disabled) return;
+
+            if (value === "tooltip") this.isInTooltip = true;
+            if (value === "base") this.isInBase = true;
+
             // verifies if the current tooltip should be immediately shown
             // because a tooltip in the group was currently shown
             const wasVisible =
@@ -302,6 +318,7 @@ export const Tooltip = {
                 this.show(false);
                 return;
             }
+
             // schedules a show operation to be performed after the
             // delay amount of time has passed
             this.scheduleShow();
@@ -309,8 +326,23 @@ export const Tooltip = {
             // a certain tooltip target area
             this.$bus.$emit("tooltip:enter", this._uid);
         },
-        onMouseleave() {
+        onMouseleave(value) {
             if (this.disabled) return;
+
+            if (value === "tooltip") this.isInTooltip = false;
+            if (value === "base") this.isInBase = false;
+
+            // it the user can click, wait some time for the user to hover
+            // over the tooltip or the base element
+            if (this.clickable) {
+                const self = this;
+
+                setTimeout(function() {
+                    if (!self.isInTooltip && !self.isInBase) self._hideTooltip();
+                }, this.changeContextTime);
+            } else this._hideTooltip();
+        },
+        _hideTooltip() {
             // makes sure that the tooltip is hidden
             this.hide(false);
             // triggers the leave event indicating that we've left
