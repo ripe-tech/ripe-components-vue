@@ -269,9 +269,8 @@ export const Tooltip = {
             if (this.whiteSpace) base["white-space"] = this.whiteSpace;
             if (this.delayData) base["transition-delay"] = `${this.delayData}ms`;
             if (this.durationData) base["transition-duration"] = `${this.durationData}ms`;
-            if (this.alignment)
+            if (!this.alignment) return base;
 
-            { if (!this.alignment) return base; }
             const offset = this.alignment === "top" || this.alignment === "bottom" ? this.baseHeight : this.baseWidth;
             base[this.alignment] = "calc(100% - " + offset + "px)";
 
