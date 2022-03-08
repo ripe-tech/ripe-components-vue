@@ -9,11 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-*
+* 
 
 ### Changed
 
-*
+* Improve tooltips, can now be clicked, features `alignment` propertiy, and can inject rich text via HTML into the text [#73](https://github.com/ripe-tech/ripe-white-admin-ui/issues/73)
 
 ### Fixed
 
