@@ -6,6 +6,7 @@
         class="tooltip tooltip-custom"
         v-bind:class="classes"
         v-else-if="text"
+        ref="baseElement"
         v-on:mouseenter="onMouseenter('base')"
         v-on:mouseleave="onMouseleave('base')"
     >
@@ -23,7 +24,7 @@
                         {{ text }}
                     </div>
                 </slot>
-                <div class="tip" />
+                <div v-bind:style="tipStyle" class="tip" />
             </div>
         </transition>
     </div>
@@ -48,7 +49,8 @@
 
 .tooltip-custom.clickable {
     text-decoration-line: underline;
-    text-decoration-style: dotted;
+    text-decoration-style: dashed;
+    text-underline-offset: 3px;
 }
 
 .tooltip-custom > .tooltip-inner {
@@ -162,6 +164,10 @@ export const Tooltip = {
             type: Boolean,
             default: false
         },
+        alignment: {
+            type: String,
+            default: "center"
+        },
         clickable: {
             type: Boolean,
             default: false
@@ -232,7 +238,9 @@ export const Tooltip = {
             lastEnter: null,
             lastLeave: null,
             isInTooltip: false,
-            isInBase: false
+            isInBase: false,
+            baseWidth: null,
+            baseHeight: null
         };
     },
     watch: {
@@ -261,12 +269,30 @@ export const Tooltip = {
             if (this.whiteSpace) base["white-space"] = this.whiteSpace;
             if (this.delayData) base["transition-delay"] = `${this.delayData}ms`;
             if (this.durationData) base["transition-duration"] = `${this.durationData}ms`;
+            if (this.alignment)
+
+            { if (!this.alignment) return base; }
+            const offset = this.alignment === "top" || this.alignment === "bottom" ? this.baseHeight : this.baseWidth;
+            base[this.alignment] = "calc(100% - " + offset + "px)";
+
             return base;
         },
         tooltipTextStyle() {
             const base = {};
             if (this.whiteSpace) base["white-space"] = this.whiteSpace;
             if (this.fontSize) base["font-size"] = `${this.fontSize}px`;
+            return base;
+        },
+        tipStyle() {
+            const base = {};
+            if (!this.alignment || !this.baseHeight) return base;
+
+            if (this.alignment === "top" || this.alignment === "bottom") base.top = base.bottom = "unset";
+            if (this.alignment === "left" || this.alignment === "right") base.left = base.right = "unset";
+
+            const offset = this.alignment === "top" || this.alignment === "bottom" ? this.baseHeight : this.baseWidth;
+            base[this.alignment] = Math.max(parseInt(offset / 2 - 17 / 2), 4) + "px";
+
             return base;
         },
         classes() {
@@ -291,6 +317,12 @@ export const Tooltip = {
     destroyed: function() {
         if (this.onTooltipEnter) this.$bus.$off("tooltip:enter", this.onTooltipEnter);
         if (this.onTooltipLeave) this.$bus.$off("tooltip:leave", this.onTooltipLeave);
+    },
+    mounted: function() {
+        if (this.$refs.baseElement) {
+            this.baseWidth = this.$el.offsetWidth;
+            this.baseHeight = this.$el.offsetHeight;
+        }
     },
     methods: {
         show(animated = true) {

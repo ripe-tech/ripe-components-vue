@@ -75,11 +75,6 @@
     color: $success;
 }
 
-.form-input .tooltip > .header {
-    text-decoration: underline #57626e dashed;
-    text-underline-offset: 3px;
-}
-
 .form-input .header {
     margin-bottom: 6px;
 }
