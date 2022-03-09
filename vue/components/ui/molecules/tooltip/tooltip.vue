@@ -117,6 +117,7 @@ body.round .tooltip-custom > .tooltip-inner {
     font-size: 14px;
     overflow: hidden;
     text-overflow: ellipsis;
+    padding-bottom: 1px;
 }
 
 .tooltip-custom.tooltip-variant-dark > .tooltip-inner > .tip {
@@ -166,7 +167,7 @@ export const Tooltip = {
         },
         alignment: {
             type: String,
-            default: "center"
+            default: null
         },
         clickable: {
             type: Boolean,
@@ -218,7 +219,7 @@ export const Tooltip = {
         },
         changeContextTime: {
             type: Number,
-            default: 50
+            default: 80
         },
         duration: {
             type: Number,
@@ -271,6 +272,11 @@ export const Tooltip = {
             if (this.durationData) base["transition-duration"] = `${this.durationData}ms`;
             if (!this.alignment) return base;
 
+            // orientation and alignment can't be in the same direction
+            const vertical = ["top", "bottom"];
+            const horizontal = ["left", "right"];
+            if ((vertical.includes(this.alignment) && vertical.includes(this.orientation)) || (horizontal.includes(this.alignment) && horizontal.includes(this.orientation))) return base;
+
             const offset = this.alignment === "top" || this.alignment === "bottom" ? this.baseHeight : this.baseWidth;
             base[this.alignment] = "calc(100% - " + offset + "px)";
 
@@ -285,6 +291,11 @@ export const Tooltip = {
         tipStyle() {
             const base = {};
             if (!this.alignment || !this.baseHeight) return base;
+
+            // orientation and alignment can't be in the same direction
+            const vertical = ["top", "bottom"];
+            const horizontal = ["left", "right"];
+            if ((vertical.includes(this.alignment) && vertical.includes(this.orientation)) || (horizontal.includes(this.alignment) && horizontal.includes(this.orientation))) return base;
 
             if (this.alignment === "top" || this.alignment === "bottom") base.top = base.bottom = "unset";
             if (this.alignment === "left" || this.alignment === "right") base.left = base.right = "unset";
