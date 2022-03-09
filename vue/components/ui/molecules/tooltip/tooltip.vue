@@ -277,8 +277,13 @@ export const Tooltip = {
             const horizontal = ["left", "right"];
             if ((vertical.includes(this.alignment) && vertical.includes(this.orientation)) || (horizontal.includes(this.alignment) && horizontal.includes(this.orientation))) return base;
 
-            const offset = this.alignment === "top" || this.alignment === "bottom" ? this.baseHeight : this.baseWidth;
-            base[this.alignment] = "calc(100% - " + offset + "px)";
+            // left and right alignment is more intuitive if inverted
+            let alignment = this.alignment;
+            if (this.alignment == "right") alignment = "left";
+            if (this.alignment == "left") alignment = "right";
+
+            const offset = alignment === "top" || alignment === "bottom" ? this.baseHeight : this.baseWidth;
+            base[alignment] = "calc(100% - " + offset + "px)";
 
             return base;
         },
@@ -300,8 +305,13 @@ export const Tooltip = {
             if (this.alignment === "top" || this.alignment === "bottom") base.top = base.bottom = "unset";
             if (this.alignment === "left" || this.alignment === "right") base.left = base.right = "unset";
 
-            const offset = this.alignment === "top" || this.alignment === "bottom" ? this.baseHeight : this.baseWidth;
-            base[this.alignment] = Math.max(parseInt(offset / 2 - 17 / 2), 4) + "px";
+            // left and right alignment is more intuitive if inverted
+            let alignment = this.alignment;
+            if (this.alignment == "right") alignment = "left";
+            if (this.alignment == "left") alignment = "right";
+
+            const offset = alignment === "top" || alignment === "bottom" ? this.baseHeight : this.baseWidth;
+            base[alignment] = Math.max(parseInt(offset / 2 - 17 / 2), 4) + "px";
 
             return base;
         },

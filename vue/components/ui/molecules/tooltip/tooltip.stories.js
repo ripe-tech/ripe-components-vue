@@ -2,17 +2,23 @@ import { storiesOf } from "@storybook/vue";
 import { withKnobs, text, select, number, boolean } from "@storybook/addon-knobs";
 
 storiesOf("Components/Molecules/Tooltip", module)
-    .addDecorator(withKnobs)
+    .addDecorator(withKnobs({
+        escapeHTML: false,
+    }))
     .add("Tooltip", () => ({
         props: {
             native: {
                 default: boolean("Native", false)
             },
             text: {
-                default: text("Text", "I think therefore I am")
+                default: text("Text", "I <b>think</b>, <i>therefore</i> I <b><i style='color: white; text-decoration:underline;'>am</i></b>.")
+                // default: text("Text", "I think therefore I am")
             },
             visible: {
                 default: boolean("Visible", false)
+            },
+            clickable: {
+                default: boolean("Clickable", false)
             },
             variant: {
                 default: select(
@@ -36,11 +42,24 @@ storiesOf("Components/Molecules/Tooltip", module)
                         Bottom: "bottom",
                         Left: "left"
                     },
-                    undefined
+                    "top"
+                )
+            },
+            alignment: {
+                default: select(
+                    "Tooltip Alignment",
+                    {
+                        Unset: undefined,
+                        Top: "top",
+                        Right: "right",
+                        Bottom: "bottom",
+                        Left: "left"
+                    },
+                    "right"
                 )
             },
             width: {
-                default: number("Width", null)
+                default: number("Width", 200)
             },
             borderRadius: {
                 default: text("Border Radius", "4px")
@@ -70,6 +89,8 @@ storiesOf("Components/Molecules/Tooltip", module)
                     v-bind:visible="visible"
                     v-bind:variant="variant"
                     v-bind:orientation="orientation"
+                    v-bind:alignment="alignment"
+                    v-bind:clickable="clickable"
                     v-bind:width="width"
                     v-bind:borderRadius="borderRadius"
                     v-bind:animation="animation"
@@ -83,6 +104,8 @@ storiesOf("Components/Molecules/Tooltip", module)
                     v-bind:visible="visible"
                     v-bind:variant="variant"
                     v-bind:orientation="orientation"
+                    v-bind:alignment="alignment"
+                    v-bind:clickable="clickable"
                     v-bind:width="width"
                     v-bind:border-radius="borderRadius"
                     v-bind:animation="animation"
