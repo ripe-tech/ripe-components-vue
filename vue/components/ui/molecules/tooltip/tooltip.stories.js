@@ -12,7 +12,6 @@ storiesOf("Components/Molecules/Tooltip", module)
             },
             text: {
                 default: text("Text", "I <b>think</b>, <i>therefore</i> I <b><i style='color: white; text-decoration:underline;'>am</i></b>.")
-                // default: text("Text", "I think therefore I am")
             },
             visible: {
                 default: boolean("Visible", false)
