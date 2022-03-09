@@ -116,8 +116,8 @@ body.round .tooltip-custom > .tooltip-inner {
 .tooltip-custom > .tooltip-inner > .tooltip-text {
     font-size: 14px;
     overflow: hidden;
-    text-overflow: ellipsis;
     padding-bottom: 1px;
+    text-overflow: ellipsis;
 }
 
 .tooltip-custom.tooltip-variant-dark > .tooltip-inner > .tip {
