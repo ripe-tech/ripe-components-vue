@@ -20,9 +20,7 @@
                 v-on:mouseleave="onMouseleave('tooltip')"
             >
                 <slot name="tooltip-content">
-                    <div v-bind:style="tooltipTextStyle" class="tooltip-text" v-html="text">
-                        {{ text }}
-                    </div>
+                    <div v-bind:style="tooltipTextStyle" class="tooltip-text" v-html="text" />
                 </slot>
                 <div v-bind:style="tipStyle" class="tip" />
             </div>
@@ -275,14 +273,19 @@ export const Tooltip = {
             // orientation and alignment can't be in the same direction
             const vertical = ["top", "bottom"];
             const horizontal = ["left", "right"];
-            if ((vertical.includes(this.alignment) && vertical.includes(this.orientation)) || (horizontal.includes(this.alignment) && horizontal.includes(this.orientation))) return base;
+            if (
+                (vertical.includes(this.alignment) && vertical.includes(this.orientation)) ||
+                (horizontal.includes(this.alignment) && horizontal.includes(this.orientation))
+            )
+                { return base; }
 
             // left and right alignment is more intuitive if inverted
             let alignment = this.alignment;
             if (this.alignment === "right") alignment = "left";
             if (this.alignment === "left") alignment = "right";
 
-            const offset = alignment === "top" || alignment === "bottom" ? this.baseHeight : this.baseWidth;
+            const offset =
+                alignment === "top" || alignment === "bottom" ? this.baseHeight : this.baseWidth;
             base[alignment] = "calc(100% - " + offset + "px)";
 
             return base;
@@ -300,17 +303,27 @@ export const Tooltip = {
             // orientation and alignment can't be in the same direction
             const vertical = ["top", "bottom"];
             const horizontal = ["left", "right"];
-            if ((vertical.includes(this.alignment) && vertical.includes(this.orientation)) || (horizontal.includes(this.alignment) && horizontal.includes(this.orientation))) return base;
+            if (
+                (vertical.includes(this.alignment) && vertical.includes(this.orientation)) ||
+                (horizontal.includes(this.alignment) && horizontal.includes(this.orientation))
+            ) {
+                return base;
+            }
 
-            if (this.alignment === "top" || this.alignment === "bottom") base.top = base.bottom = "unset";
-            if (this.alignment === "left" || this.alignment === "right") base.left = base.right = "unset";
+            if (this.alignment === "top" || this.alignment === "bottom") {
+                base.top = base.bottom = "unset";
+            }
+            if (this.alignment === "left" || this.alignment === "right") {
+                base.left = base.right = "unset";
+            }
 
             // left and right alignment is more intuitive if inverted
             let alignment = this.alignment;
             if (this.alignment === "right") alignment = "left";
             if (this.alignment === "left") alignment = "right";
 
-            const offset = alignment === "top" || alignment === "bottom" ? this.baseHeight : this.baseWidth;
+            const offset =
+                alignment === "top" || alignment === "bottom" ? this.baseHeight : this.baseWidth;
             base[alignment] = Math.max(parseInt(offset / 2 - 17 / 2), 4) + "px";
 
             return base;
@@ -392,10 +405,8 @@ export const Tooltip = {
             // it the user can click, wait some time for the user to hover
             // over the tooltip or the base element
             if (this.clickable) {
-                const self = this;
-
-                setTimeout(function() {
-                    if (!self.isInTooltip && !self.isInBase) self._hideTooltip();
+                setTimeout(() => {
+                    if (!this.isInTooltip && !this.isInBase) this._hideTooltip();
                 }, this.changeContextTime);
             } else this._hideTooltip();
         },

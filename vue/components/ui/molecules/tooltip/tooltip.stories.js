@@ -2,16 +2,21 @@ import { storiesOf } from "@storybook/vue";
 import { withKnobs, text, select, number, boolean } from "@storybook/addon-knobs";
 
 storiesOf("Components/Molecules/Tooltip", module)
-    .addDecorator(withKnobs({
-        escapeHTML: false
-    }))
+    .addDecorator(
+        withKnobs({
+            escapeHTML: false
+        })
+    )
     .add("Tooltip", () => ({
         props: {
             native: {
                 default: boolean("Native", false)
             },
             text: {
-                default: text("Text", "I <b>think</b>, <i>therefore</i> I <b><i style='color: white; text-decoration:underline;'>am</i></b>.")
+                default: text(
+                    "Text",
+                    "I <b>think</b>, <i>therefore</i> I <b><i style='color: white; text-decoration:underline;'>am</i></b>."
+                )
             },
             visible: {
                 default: boolean("Visible", false)
