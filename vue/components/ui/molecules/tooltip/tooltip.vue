@@ -279,8 +279,8 @@ export const Tooltip = {
 
             // left and right alignment is more intuitive if inverted
             let alignment = this.alignment;
-            if (this.alignment == "right") alignment = "left";
-            if (this.alignment == "left") alignment = "right";
+            if (this.alignment === "right") alignment = "left";
+            if (this.alignment === "left") alignment = "right";
 
             const offset = alignment === "top" || alignment === "bottom" ? this.baseHeight : this.baseWidth;
             base[alignment] = "calc(100% - " + offset + "px)";
@@ -307,8 +307,8 @@ export const Tooltip = {
 
             // left and right alignment is more intuitive if inverted
             let alignment = this.alignment;
-            if (this.alignment == "right") alignment = "left";
-            if (this.alignment == "left") alignment = "right";
+            if (this.alignment === "right") alignment = "left";
+            if (this.alignment === "left") alignment = "right";
 
             const offset = alignment === "top" || alignment === "bottom" ? this.baseHeight : this.baseWidth;
             base[alignment] = Math.max(parseInt(offset / 2 - 17 / 2), 4) + "px";

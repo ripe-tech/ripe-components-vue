@@ -3,7 +3,7 @@ import { withKnobs, text, select, number, boolean } from "@storybook/addon-knobs
 
 storiesOf("Components/Molecules/Tooltip", module)
     .addDecorator(withKnobs({
-        escapeHTML: false,
+        escapeHTML: false
     }))
     .add("Tooltip", () => ({
         props: {
