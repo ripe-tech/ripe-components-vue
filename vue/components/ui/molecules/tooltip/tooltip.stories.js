@@ -26,6 +26,9 @@ storiesOf("Components/Molecules/Tooltip", module)
                     undefined
                 )
             },
+            fontSize: {
+                default: number("Font Size", null)
+            },
             orientation: {
                 default: select(
                     "Tooltip Orientation",
@@ -59,6 +62,9 @@ storiesOf("Components/Molecules/Tooltip", module)
             delay: {
                 default: number("Delay", 1000)
             },
+            hideDelay: {
+                default: number("Hide Delay", 0)
+            },
             duration: {
                 default: number("Duration", 250)
             }
@@ -69,15 +75,36 @@ storiesOf("Components/Molecules/Tooltip", module)
                     v-bind:text="text"
                     v-bind:visible="visible"
                     v-bind:variant="variant"
+                    v-bind:font-size="fontSize"
                     v-bind:orientation="orientation"
                     v-bind:width="width"
                     v-bind:borderRadius="borderRadius"
                     v-bind:animation="animation"
                     v-bind:delay="delay"
+                    v-bind:hide-delay="hideDelay"
                     v-bind:duration="duration"
                     v-bind:native="native"
                 >
-                    <div style="height:50px;width:50px;background-color:Gold;">Hello, I am a Div.</div>
+                    <div style="text-decoration:underline;cursor:pointer;">Hello, I am a underscored text.</div>
+                    <template v-slot:tooltip-text>
+                        This is custom text with HTML a <a href="#">link</a>
+                    </template>
+                </tooltip>
+                <tooltip
+                    v-bind:text="text"
+                    v-bind:visible="visible"
+                    v-bind:variant="variant"
+                    v-bind:font-size="fontSize"
+                    v-bind:orientation="orientation"
+                    v-bind:width="width"
+                    v-bind:borderRadius="borderRadius"
+                    v-bind:animation="animation"
+                    v-bind:delay="delay"
+                    v-bind:hide-delay="hideDelay"
+                    v-bind:duration="duration"
+                    v-bind:native="native"
+                >
+                    <div style="height:50px;width:50px;background-color:Gold;cursor:pointer;">Hello, I am a Div.</div>
                 </tooltip>
                 <tooltip
                     v-bind:visible="visible"
@@ -87,11 +114,12 @@ storiesOf("Components/Molecules/Tooltip", module)
                     v-bind:border-radius="borderRadius"
                     v-bind:animation="animation"
                     v-bind:delay="delay"
+                    v-bind:hide-delay="hideDelay"
                     v-bind:duration="duration"
                     v-bind:native="native"
                     v-if="!native"
                 >
-                    <div style="height:50px;width:50px;background-color:MediumSpringGreen;">Hello, I am also a Div.</div>
+                    <div style="height:50px;width:50px;background-color:MediumSpringGreen;cursor:pointer;">Hello, I am also a Div.</div>
                     <template v-slot:tooltip-content>
                         The only thing I know is that I know nothing
                         <image-ripe v-bind:width="200" v-bind:src="'https://cdn.platforme.com/images/platforme.png'" />

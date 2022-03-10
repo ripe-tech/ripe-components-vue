@@ -11,13 +11,21 @@
     >
         <slot />
         <transition v-bind:name="animationData">
-            <div class="tooltip-inner" v-bind:style="tooltipInnerStyle" v-show="visibleData">
+            <div
+                class="tooltip-inner"
+                v-bind:style="tooltipInnerStyle"
+                v-show="visibleData"
+            >
                 <slot name="tooltip-content">
                     <div class="tooltip-text" v-bind:style="tooltipTextStyle">
-                        {{ text }}
+                        <slot name="tooltip-text">
+                            {{ text }}
+                        </slot>
                     </div>
                 </slot>
-                <div class="tip" />
+                <div class="tip-container">
+                    <div class="tip" />
+                </div>
             </div>
         </transition>
     </div>
@@ -45,12 +53,10 @@
     box-shadow: 0px 0px 16px rgba(45, 58, 70, 0.25);
     box-sizing: border-box;
     color: $white;
-    font-size: 14px;
+    font-size: 11px;
     padding: 10px 10px 10px 10px;
-    pointer-events: none;
     position: absolute;
     text-align: center;
-    user-select: none;
     z-index: 1;
 }
 
@@ -89,52 +95,63 @@ body.round .tooltip-custom > .tooltip-inner {
     right: calc(100% + 10px);
 }
 
-.tooltip-custom > .tooltip-inner > .tip {
-    height: 17px;
-    position: absolute;
-    transform: rotate(-135deg);
-    width: 17px;
-}
-
 .tooltip-custom > .tooltip-inner > .tooltip-text {
-    font-size: 14px;
+    font-size: 11px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.tooltip-custom.tooltip-variant-dark > .tooltip-inner > .tip {
+.tooltip-custom > .tooltip-inner > .tip-container {
+    width: 100%;
+    height: 21px;
+    position: absolute;
+    left: 0px;
+}
+
+.tooltip-custom.tooltip-orientation-right > .tooltip-inner > .tip-container {
+    height: 100%;
+    left: -21px;
+    top: 0px;
+    width: 21px;
+}
+
+.tooltip-custom > .tooltip-inner > .tip-container > .tip {
+    height: 17px;
+    transform: rotate(-135deg);
+    width: 17px;
+}
+
+.tooltip-custom.tooltip-variant-dark > .tooltip-inner > .tip-container > .tip {
     background: linear-gradient(-45deg, $dark 50%, transparent 50%);
 }
 
-.tooltip-custom.tooltip-variant-grey > .tooltip-inner > .tip {
+.tooltip-custom.tooltip-variant-grey > .tooltip-inner > .tip-container > .tip {
     background: linear-gradient(-45deg, $grey 50%, transparent 50%);
 }
 
-.tooltip-custom.tooltip-variant-white > .tooltip-inner > .tip {
+.tooltip-custom.tooltip-variant-white > .tooltip-inner > .tip-container > .tip {
     background: linear-gradient(-45deg, $white 50%, transparent 50%);
 }
 
-.tooltip-custom.tooltip-orientation-top > .tooltip-inner > .tip {
-    left: calc(50% - 9px);
-    top: calc(100% - 12px);
+.tooltip-custom.tooltip-orientation-top > .tooltip-inner > .tip-container > .tip {
+    margin-left: calc(50% - 9px);
     transform: rotate(45deg);
 }
 
-.tooltip-custom.tooltip-orientation-right > .tooltip-inner > .tip {
-    right: calc(100% - 12px);
-    top: calc(50% - 9px);
+.tooltip-custom.tooltip-orientation-right > .tooltip-inner > .tip-container > .tip {
+    margin-left: 13px;
+    margin-top: calc(100vh - 11px);
     transform: rotate(135deg);
 }
 
-.tooltip-custom.tooltip-orientation-bottom > .tooltip-inner > .tip {
-    bottom: calc(100% - 12px);
-    left: calc(50% - 9px);
+.tooltip-custom.tooltip-orientation-bottom > .tooltip-inner > .tip-container > .tip {
+    margin-bottom: calc(100% - 12px);
+    margin-left: calc(50% - 9px);
     transform: rotate(-135deg);
 }
 
-.tooltip-custom.tooltip-orientation-left > .tooltip-inner > .tip {
-    left: calc(100% - 12px);
-    top: calc(50% - 9px);
+.tooltip-custom.tooltip-orientation-left > .tooltip-inner > .tip-container > .tip {
+    margin-left: calc(100% - 12px);
     transform: rotate(-45deg);
 }
 </style>
@@ -191,6 +208,10 @@ export const Tooltip = {
             type: Number,
             default: 1000
         },
+        hideDelay: {
+            type: Number,
+            default: 0
+        },
         duration: {
             type: Number,
             default: 250
@@ -207,7 +228,8 @@ export const Tooltip = {
             durationData: null,
             visibleData: false,
             lastEnter: null,
-            lastLeave: null
+            lastLeave: null,
+            timeout: null
         };
     },
     watch: {
@@ -280,7 +302,17 @@ export const Tooltip = {
             this.show(true);
         },
         onMouseenter() {
+            // in case the current tooltip is disabled then
+            // nothing has to be done on mouse enter
             if (this.disabled) return;
+
+            // in case there's a pending hide timeout then clears
+            // it as the tooltip should remain visible
+            if (this.timeout) {
+                clearTimeout(this.timeout);
+                this.timeout = null;
+            }
+
             // verifies if the current tooltip should be immediately shown
             // because a tooltip in the group was currently shown
             const wasVisible =
@@ -292,20 +324,30 @@ export const Tooltip = {
                 this.show(false);
                 return;
             }
+
             // schedules a show operation to be performed after the
             // delay amount of time has passed
             this.scheduleShow();
+
             // triggers the enter event indicating that we've entered
             // a certain tooltip target area
             this.$bus.$emit("tooltip:enter", this._uid);
         },
         onMouseleave() {
+            // in case the current tooltip is disabled then
+            // nothing has to be done on mouse leave
             if (this.disabled) return;
-            // makes sure that the tooltip is hidden
-            this.hide(false);
-            // triggers the leave event indicating that we've left
-            // a certain tooltip target area
-            this.$bus.$emit("tooltip:leave", this._uid);
+
+            // schedules a timeout for the hide operation of
+            // the tooltip according to the hide delay
+            this.timeout = setTimeout(() => {
+                // makes sure that the tooltip is hidden
+                this.hide(false);
+
+                // triggers the leave event indicating that we've left
+                // a certain tooltip target area
+                this.$bus.$emit("tooltip:leave", this._uid);
+            }, this.hideDelay);
         },
         _setVisibility(visible, animated) {
             if (visible && animated) {
