@@ -25,6 +25,18 @@ storiesOf("Components/Molecules/Modal", module)
             cancelText: {
                 default: text("Cancel Text", "Cancel")
             },
+            buttonsSize: {
+                default: select(
+                    "Buttons Size",
+                    {
+                        Default: null,
+                        Tiny: "tiny",
+                        Small: "small",
+                        Medium: "medium"
+                    },
+                    null
+                )
+            },
             globalEvents: {
                 default: boolean("Global Events", true)
             },
@@ -66,6 +78,7 @@ storiesOf("Components/Molecules/Modal", module)
                     v-bind:confirm-text="confirmText"
                     v-bind:buttons-alignment="buttonsAlignment"
                     v-bind:button-close="buttonClose"
+                    v-bind:buttons-size="buttonsSize"
                     v-bind:cancel-text="cancelText"
                     v-bind:global-events="globalEvents"
                     v-bind:name="name"
