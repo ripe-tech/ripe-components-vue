@@ -41,7 +41,8 @@
                                 <button-color
                                     v-bind:class="'button-cancel'"
                                     v-bind:secondary="true"
-                                    v-bind:small="buttonsSmall"
+                                    v-bind:small="buttonsSize ? false : buttonsSmall"
+                                    v-bind:size="buttonsSize"
                                     v-bind:text="cancelText"
                                     v-bind:color="cancelColor"
                                     v-bind:icon="cancelIcon"
@@ -51,7 +52,8 @@
                                 />
                                 <button-color
                                     v-bind:class="'button-confirm'"
-                                    v-bind:small="buttonsSmall"
+                                    v-bind:small="buttonsSize ? false : buttonsSmall"
+                                    v-bind:size="buttonsSize"
                                     v-bind:text="confirmText"
                                     v-bind:color="confirmColor"
                                     v-bind:icon="confirmIcon"
@@ -175,7 +177,7 @@ body.mobile .modal > .modal-container {
 
 .modal > .modal-container > .modal-body > .modal-content {
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 400;
     letter-spacing: 0.25px;
     line-height: 22px;
     margin: 22px 0px 26px 0px;
@@ -243,6 +245,10 @@ export const Modal = {
         buttonsSmall: {
             type: Boolean,
             default: true
+        },
+        buttonsSize: {
+            type: String,
+            default: null
         },
         globalEvents: {
             type: Boolean,
