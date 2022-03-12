@@ -11,11 +11,7 @@
     >
         <slot />
         <transition v-bind:name="animationData">
-            <div
-                class="tooltip-inner"
-                v-bind:style="tooltipInnerStyle"
-                v-show="visibleData"
-            >
+            <div class="tooltip-inner" v-bind:style="tooltipInnerStyle" v-show="visibleData">
                 <slot name="tooltip-content">
                     <div class="tooltip-text" v-bind:style="tooltipTextStyle">
                         <slot name="tooltip-text">
@@ -102,10 +98,10 @@ body.round .tooltip-custom > .tooltip-inner {
 }
 
 .tooltip-custom > .tooltip-inner > .tip-container {
-    width: 100%;
     height: 21px;
-    position: absolute;
     left: 0px;
+    position: absolute;
+    width: 100%;
 }
 
 .tooltip-custom.tooltip-orientation-right > .tooltip-inner > .tip-container {
