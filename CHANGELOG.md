@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-* Add Spreadsheet icon - [#302](https://github.com/ripe-tech/ripe-pulse/issues/302)
+*
 
 ### Changed
 
@@ -18,6 +18,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 *
+
+## [0.20.0] - 2022-03-02
+
+### Added
+
+* Add Spreadsheet icon - [#302](https://github.com/ripe-tech/ripe-pulse/issues/302)
 
 ## [0.19.0] - 2022-03-02
 
