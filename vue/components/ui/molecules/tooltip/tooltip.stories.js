@@ -90,6 +90,24 @@ storiesOf("Components/Molecules/Tooltip", module)
                         This is custom text with HTML a <a href="#">link</a>
                     </template>
                 </tooltip>
+                <br/>
+                <tooltip
+                    v-bind:text-html="'This is custom text with HTML a link &lt;a href=&quot;#&quot;&gt;link&lt;/a&gt;'"
+                    v-bind:visible="visible"
+                    v-bind:variant="variant"
+                    v-bind:font-size="fontSize"
+                    v-bind:orientation="orientation"
+                    v-bind:width="width"
+                    v-bind:borderRadius="borderRadius"
+                    v-bind:animation="animation"
+                    v-bind:delay="delay"
+                    v-bind:hide-delay="hideDelay"
+                    v-bind:duration="duration"
+                    v-bind:native="native"
+                >
+                    <div style="text-decoration:underline;cursor:pointer;">Hello, I am a underscored text with HTML tooltip.</div>
+                </tooltip>
+                <br/>
                 <tooltip
                     v-bind:text="text"
                     v-bind:visible="visible"

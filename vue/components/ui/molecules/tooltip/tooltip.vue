@@ -1,11 +1,11 @@
 <template>
-    <abbr class="tooltip tooltip-native" v-bind:title="text" v-if="native && text">
+    <abbr class="tooltip tooltip-native" v-bind:title="text" v-if="native && hasText">
         <slot />
     </abbr>
     <div
         class="tooltip tooltip-custom"
         v-bind:class="classes"
-        v-else-if="text"
+        v-else-if="hasText"
         v-on:mouseenter="onMouseenter"
         v-on:mouseleave="onMouseleave"
     >
@@ -15,7 +15,8 @@
                 <slot name="tooltip-content">
                     <div class="tooltip-text" v-bind:style="tooltipTextStyle">
                         <slot name="tooltip-text">
-                            {{ text }}
+                            <span v-if="textHtml" v-html="textHtml" />
+                            <span v-else>{{ text }}</span>
                         </slot>
                     </div>
                 </slot>
@@ -151,6 +152,10 @@ export const Tooltip = {
             type: String,
             default: null
         },
+        textHtml: {
+            type: String,
+            default: null
+        },
         visible: {
             type: Boolean,
             default: false
@@ -248,6 +253,9 @@ export const Tooltip = {
             if (this.whiteSpace) base["white-space"] = this.whiteSpace;
             if (this.fontSize) base["font-size"] = `${this.fontSize}px`;
             return base;
+        },
+        hasText() {
+            return Boolean(this.text || this.textHtml);
         },
         classes() {
             const base = {};
