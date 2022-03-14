@@ -95,6 +95,13 @@ body.round .tooltip-custom > .tooltip-inner {
     text-overflow: ellipsis;
 }
 
+.tooltip-custom > .tooltip-inner > .tip {
+    height: 17px;
+    position: absolute;
+    transform: rotate(-135deg);
+    width: 17px;
+}
+
 .tooltip-custom.tooltip-variant-dark > .tooltip-inner > .tip {
     background: linear-gradient(-45deg, $dark 50%, transparent 50%);
 }
@@ -126,7 +133,8 @@ body.round .tooltip-custom > .tooltip-inner {
 }
 
 .tooltip-custom.tooltip-orientation-left > .tooltip-inner > .tip {
-    margin-left: calc(100% - 12px);
+    left: calc(100% - 12px);
+    top: calc(50% - 9px);
     transform: rotate(-45deg);
 }
 </style>
