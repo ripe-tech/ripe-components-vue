@@ -90,6 +90,14 @@ body.round .tooltip-custom > .tooltip-inner {
     right: calc(100% + 10px);
 }
 
+.tooltip-custom.tooltip-alignment-left > .tooltip-inner {
+    left: 0px;
+}
+
+.tooltip-custom.tooltip-alignment-right > .tooltip-inner {
+    right: 0px;
+}
+
 .tooltip-custom > .tooltip-inner > .tooltip-text {
     font-size: 11px;
     overflow: hidden;
@@ -138,6 +146,18 @@ body.round .tooltip-custom > .tooltip-inner {
     top: calc(50% - 9px);
     transform: rotate(-45deg);
 }
+
+.tooltip-custom.tooltip-orientation-top.tooltip-custom.tooltip-alignment-left > .tooltip-inner > .tip,
+.tooltip-custom.tooltip-orientation-bottom.tooltip-custom.tooltip-alignment-left > .tooltip-inner > .tip {
+    left: 16px;
+    right: unset;
+}
+
+.tooltip-custom.tooltip-orientation-top.tooltip-custom.tooltip-alignment-right > .tooltip-inner > .tip,
+.tooltip-custom.tooltip-orientation-bottom.tooltip-custom.tooltip-alignment-right > .tooltip-inner > .tip {
+    left: unset;
+    right: 16px;
+}
 </style>
 
 <script>
@@ -179,6 +199,10 @@ export const Tooltip = {
         orientation: {
             type: String,
             default: "bottom"
+        },
+        alignment: {
+            type: String,
+            default: "center"
         },
         width: {
             type: Number,
@@ -262,6 +286,9 @@ export const Tooltip = {
             if (this.variant) base["tooltip-variant-" + this.variant] = this.variant;
             if (this.orientation) {
                 base["tooltip-orientation-" + this.orientation] = this.orientation;
+            }
+            if (this.alignment) {
+                base["tooltip-alignment-" + this.alignment] = this.alignment;
             }
             return base;
         }

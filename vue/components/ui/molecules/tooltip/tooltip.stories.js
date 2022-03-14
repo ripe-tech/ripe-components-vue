@@ -31,13 +31,25 @@ storiesOf("Components/Molecules/Tooltip", module)
             },
             orientation: {
                 default: select(
-                    "Tooltip Orientation",
+                    "Orientation",
                     {
                         Unset: undefined,
                         Top: "top",
                         Right: "right",
                         Bottom: "bottom",
                         Left: "left"
+                    },
+                    undefined
+                )
+            },
+            alignment: {
+                default: select(
+                    "Alignment",
+                    {
+                        Unset: undefined,
+                        Center: "center",
+                        Left: "left",
+                        Right: "right"
                     },
                     undefined
                 )
@@ -77,6 +89,7 @@ storiesOf("Components/Molecules/Tooltip", module)
                     v-bind:variant="variant"
                     v-bind:font-size="fontSize"
                     v-bind:orientation="orientation"
+                    v-bind:alignment="alignment"
                     v-bind:width="width"
                     v-bind:borderRadius="borderRadius"
                     v-bind:animation="animation"
@@ -97,6 +110,7 @@ storiesOf("Components/Molecules/Tooltip", module)
                     v-bind:variant="variant"
                     v-bind:font-size="fontSize"
                     v-bind:orientation="orientation"
+                    v-bind:alignment="alignment"
                     v-bind:width="width"
                     v-bind:borderRadius="borderRadius"
                     v-bind:animation="animation"
@@ -114,6 +128,7 @@ storiesOf("Components/Molecules/Tooltip", module)
                     v-bind:variant="variant"
                     v-bind:font-size="fontSize"
                     v-bind:orientation="orientation"
+                    v-bind:alignment="alignment"
                     v-bind:width="width"
                     v-bind:borderRadius="borderRadius"
                     v-bind:animation="animation"
@@ -128,6 +143,7 @@ storiesOf("Components/Molecules/Tooltip", module)
                     v-bind:visible="visible"
                     v-bind:variant="variant"
                     v-bind:orientation="orientation"
+                    v-bind:alignment="alignment"
                     v-bind:width="width"
                     v-bind:border-radius="borderRadius"
                     v-bind:animation="animation"
