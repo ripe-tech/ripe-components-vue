@@ -19,9 +19,7 @@
                         </slot>
                     </div>
                 </slot>
-                <div class="tip-container">
-                    <div class="tip" />
-                </div>
+                <div class="tip" />
             </div>
         </transition>
     </div>
@@ -97,50 +95,36 @@ body.round .tooltip-custom > .tooltip-inner {
     text-overflow: ellipsis;
 }
 
-.tooltip-custom > .tooltip-inner > .tip-container {
-    height: 21px;
-    left: 0px;
-    position: absolute;
-    width: 100%;
-}
-
-.tooltip-custom.tooltip-orientation-right > .tooltip-inner > .tip-container {
-    height: 100%;
-    left: -21px;
-    top: 0px;
-    width: 21px;
-}
-
 .tooltip-custom > .tooltip-inner > .tip-container > .tip {
     height: 17px;
     transform: rotate(-135deg);
     width: 17px;
 }
 
-.tooltip-custom.tooltip-variant-dark > .tooltip-inner > .tip-container > .tip {
+.tooltip-custom.tooltip-variant-dark > .tooltip-inner > .tip {
     background: linear-gradient(-45deg, $dark 50%, transparent 50%);
 }
 
-.tooltip-custom.tooltip-variant-grey > .tooltip-inner > .tip-container > .tip {
+.tooltip-custom.tooltip-variant-grey > .tooltip-inner > .tip {
     background: linear-gradient(-45deg, $grey 50%, transparent 50%);
 }
 
-.tooltip-custom.tooltip-variant-white > .tooltip-inner > .tip-container > .tip {
+.tooltip-custom.tooltip-variant-white > .tooltip-inner > .tip {
     background: linear-gradient(-45deg, $white 50%, transparent 50%);
 }
 
-.tooltip-custom.tooltip-orientation-top > .tooltip-inner > .tip-container > .tip {
+.tooltip-custom.tooltip-orientation-top > .tooltip-inner > .tip {
     margin-left: calc(50% - 9px);
     transform: rotate(45deg);
 }
 
-.tooltip-custom.tooltip-orientation-right > .tooltip-inner > .tip-container > .tip {
+.tooltip-custom.tooltip-orientation-right > .tooltip-inner > .tip {
     margin-left: 13px;
     margin-top: calc(100vh - 11px);
     transform: rotate(135deg);
 }
 
-.tooltip-custom.tooltip-orientation-bottom > .tooltip-inner > .tip-container > .tip {
+.tooltip-custom.tooltip-orientation-bottom > .tooltip-inner > .tip {
     margin-bottom: calc(100% - 12px);
     margin-left: calc(50% - 9px);
     transform: rotate(-135deg);
