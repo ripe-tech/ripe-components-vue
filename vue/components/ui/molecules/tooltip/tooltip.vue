@@ -1,11 +1,11 @@
 <template>
-    <abbr class="tooltip tooltip-native" v-bind:title="text" v-if="native && text">
+    <abbr class="tooltip tooltip-native" v-bind:title="text" v-if="native && hasText">
         <slot />
     </abbr>
     <div
         class="tooltip tooltip-custom"
         v-bind:class="classes"
-        v-else-if="text"
+        v-else-if="hasText"
         v-on:mouseenter="onMouseenter"
         v-on:mouseleave="onMouseleave"
     >
@@ -14,7 +14,10 @@
             <div class="tooltip-inner" v-bind:style="tooltipInnerStyle" v-show="visibleData">
                 <slot name="tooltip-content">
                     <div class="tooltip-text" v-bind:style="tooltipTextStyle">
-                        {{ text }}
+                        <slot name="tooltip-text">
+                            <span v-if="textHtml" v-html="textHtml" />
+                            <span v-else>{{ text }}</span>
+                        </slot>
                     </div>
                 </slot>
                 <div class="tip" />
@@ -45,12 +48,10 @@
     box-shadow: 0px 0px 16px rgba(45, 58, 70, 0.25);
     box-sizing: border-box;
     color: $white;
-    font-size: 14px;
+    font-size: 11px;
     padding: 10px 10px 10px 10px;
-    pointer-events: none;
     position: absolute;
     text-align: center;
-    user-select: none;
     z-index: 1;
 }
 
@@ -89,17 +90,17 @@ body.round .tooltip-custom > .tooltip-inner {
     right: calc(100% + 10px);
 }
 
+.tooltip-custom > .tooltip-inner > .tooltip-text {
+    font-size: 11px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .tooltip-custom > .tooltip-inner > .tip {
     height: 17px;
     position: absolute;
     transform: rotate(-135deg);
     width: 17px;
-}
-
-.tooltip-custom > .tooltip-inner > .tooltip-text {
-    font-size: 14px;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .tooltip-custom.tooltip-variant-dark > .tooltip-inner > .tip {
@@ -151,6 +152,10 @@ export const Tooltip = {
             type: String,
             default: null
         },
+        textHtml: {
+            type: String,
+            default: null
+        },
         visible: {
             type: Boolean,
             default: false
@@ -191,6 +196,10 @@ export const Tooltip = {
             type: Number,
             default: 1000
         },
+        hideDelay: {
+            type: Number,
+            default: 0
+        },
         duration: {
             type: Number,
             default: 250
@@ -207,7 +216,8 @@ export const Tooltip = {
             durationData: null,
             visibleData: false,
             lastEnter: null,
-            lastLeave: null
+            lastLeave: null,
+            timeout: null
         };
     },
     watch: {
@@ -243,6 +253,9 @@ export const Tooltip = {
             if (this.whiteSpace) base["white-space"] = this.whiteSpace;
             if (this.fontSize) base["font-size"] = `${this.fontSize}px`;
             return base;
+        },
+        hasText() {
+            return Boolean(this.text || this.textHtml);
         },
         classes() {
             const base = {};
@@ -280,7 +293,17 @@ export const Tooltip = {
             this.show(true);
         },
         onMouseenter() {
+            // in case the current tooltip is disabled then
+            // nothing has to be done on mouse enter
             if (this.disabled) return;
+
+            // in case there's a pending hide timeout then clears
+            // it as the tooltip should remain visible
+            if (this.timeout) {
+                clearTimeout(this.timeout);
+                this.timeout = null;
+            }
+
             // verifies if the current tooltip should be immediately shown
             // because a tooltip in the group was currently shown
             const wasVisible =
@@ -292,20 +315,30 @@ export const Tooltip = {
                 this.show(false);
                 return;
             }
+
             // schedules a show operation to be performed after the
             // delay amount of time has passed
             this.scheduleShow();
+
             // triggers the enter event indicating that we've entered
             // a certain tooltip target area
             this.$bus.$emit("tooltip:enter", this._uid);
         },
         onMouseleave() {
+            // in case the current tooltip is disabled then
+            // nothing has to be done on mouse leave
             if (this.disabled) return;
-            // makes sure that the tooltip is hidden
-            this.hide(false);
-            // triggers the leave event indicating that we've left
-            // a certain tooltip target area
-            this.$bus.$emit("tooltip:leave", this._uid);
+
+            // schedules a timeout for the hide operation of
+            // the tooltip according to the hide delay
+            this.timeout = setTimeout(() => {
+                // makes sure that the tooltip is hidden
+                this.hide(false);
+
+                // triggers the leave event indicating that we've left
+                // a certain tooltip target area
+                this.$bus.$emit("tooltip:leave", this._uid);
+            }, this.hideDelay);
         },
         _setVisibility(visible, animated) {
             if (visible && animated) {
