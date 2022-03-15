@@ -1,17 +1,10 @@
 <template>
     <div class="form-input" v-bind:class="classes">
         <slot name="header">
-            <tooltip v-bind="{ ...tooltipProps }">
-                <label-ripe
-                    class="header"
-                    v-bind:style="headerStyle"
-                    v-bind:class="headerClasses"
-                    v-bind:size="headerSize"
-                    v-bind:text="header"
-                    v-bind:for="id"
-                    v-if="header"
-                />
+            <tooltip v-bind="tooltipProps" v-if="hasTooltip">
+                <label-ripe class="header" v-bind="headerProps" v-if="header" />
             </tooltip>
+            <label-ripe class="header" v-bind="headerProps" v-else />
         </slot>
         <div class="flex-container">
             <div class="content">
@@ -55,8 +48,9 @@
     flex: 1;
 }
 
-.form-input .header.tooltip {
+.form-input .header.header-underline {
     text-decoration-line: underline;
+    text-decoration-color: #57626e;
     text-decoration-style: dashed;
     text-underline-offset: 3px;
 }
@@ -159,13 +153,25 @@ export const FormInput = {
         },
         tooltipProps: {
             type: Object,
-            default: null
+            default: () => ({})
         }
     },
     computed: {
         headerStyle() {
             const base = { "min-width": `${this.headerMinWidth}px` };
             return base;
+        },
+        hasTooltip() {
+            return Object.keys(this.tooltipProps).length !== 0;
+        },
+        headerProps() {
+            return {
+                style: this.headerStyle,
+                class: this.headerClasses,
+                size: this.headerSize,
+                text: this.header,
+                for: this.id
+            };
         },
         footerStyle() {
             const base = { "min-width": `${this.footerMinWidth}px` };
@@ -180,7 +186,7 @@ export const FormInput = {
         headerClasses() {
             const base = {};
             if (this.headerVariant) base[`${this.headerVariant}`] = true;
-            if (this.tooltipProps) base.tooltip = true;
+            if (this.hasTooltip) base["header-underline"] = true;
             return base;
         },
         footerClasses() {
