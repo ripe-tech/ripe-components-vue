@@ -49,9 +49,8 @@
 }
 
 .form-input .header.header-underline {
-    text-decoration-line: underline;
-    text-decoration-color: #57626e;
-    text-decoration-style: dashed;
+    text-decoration: underline #57626e dashed;
+    -webkit-text-decoration: underline #57626e dashed;
     text-underline-offset: 3px;
 }
 
