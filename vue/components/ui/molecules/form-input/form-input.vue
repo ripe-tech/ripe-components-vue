@@ -4,7 +4,7 @@
             <tooltip v-bind="tooltipProps" v-if="hasTooltip">
                 <label-ripe class="header" v-bind="headerProps" v-if="header" />
             </tooltip>
-            <label-ripe class="header" v-bind="headerProps" v-else />
+            <label-ripe class="header" v-bind="headerProps" v-else-if="header" />
         </slot>
         <div class="flex-container">
             <div class="content">
@@ -48,7 +48,7 @@
     flex: 1;
 }
 
-.form-input .header.header-underline {
+.form-input .tooltip .header {
     -webkit-text-decoration: underline #57626e dashed;
     text-decoration: underline #57626e dashed;
     text-underline-offset: 3px;
@@ -185,7 +185,6 @@ export const FormInput = {
         headerClasses() {
             const base = {};
             if (this.headerVariant) base[`${this.headerVariant}`] = true;
-            if (this.hasTooltip) base["header-underline"] = true;
             return base;
         },
         footerClasses() {
