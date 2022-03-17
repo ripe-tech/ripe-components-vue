@@ -124,6 +124,10 @@
     border-color: #2d2d2d;
 }
 
+.button-color.button-color.button-color-medium {
+    max-height: 34px;
+}
+
 .button-color.button-color-secondary,
 .button-color.button-color-white {
     background-color: $white;
@@ -228,6 +232,11 @@
     color: $pale-grey;
 }
 
+.button-color.button-color-medium > span {
+    line-height: 34px;
+    vertical-align: baseline;
+}
+
 .button-color.button-color-transparent:hover > span {
     text-decoration: underline;
 }
@@ -249,6 +258,12 @@
     width: 32px;
 }
 
+.button-color.button-color-medium ::v-deep .loader > div {
+    height: 28px;
+    margin-left: 2px;
+    width: 28px;
+}
+
 .button-color.button-color-secondary ::v-deep .loader > div {
     background-color: #2d2d2d;
 }
@@ -267,6 +282,10 @@
     height: 18px;
     margin-top: 6px;
     width: 18px;
+}
+
+.button-color.button-color-medium .icon {
+    margin-top: 5px;
 }
 
 .button-color.button-color-tiny .icon,
