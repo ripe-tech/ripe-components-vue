@@ -163,10 +163,6 @@ export const Select = {
             type: Array,
             default: () => []
         },
-        resetValue: {
-            type: Boolean,
-            default: false
-        },
         value: {
             default: null
         },
@@ -261,7 +257,6 @@ export const Select = {
         options: {
             handler: function(value) {
                 if (value?.length === 1) this.valueData = value[0].value;
-                else if (this.resetValue) this.valueData = null;
             },
             immediate: true,
             deep: true
@@ -274,7 +269,8 @@ export const Select = {
         valueData: {
             handler: function(value) {
                 this.$emit("update:value", value);
-            }
+            },
+            immediate: true
         }
     },
     methods: {
