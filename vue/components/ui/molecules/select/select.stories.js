@@ -50,6 +50,9 @@ storiesOf("Components/Molecules/Select", module)
             visible: {
                 default: boolean("Visible", false)
             },
+            resetValue: {
+                default: boolean("Reset value", false)
+            },
             disabled: {
                 default: boolean("Disabled", false)
             },
@@ -112,6 +115,7 @@ storiesOf("Components/Molecules/Select", module)
                     v-bind:placeholder="placeholder"
                     v-bind:auto-scroll="autoScroll"
                     v-bind:options="options"
+                    v-bind:reset-value="resetValue"
                     v-bind:value.sync="valueData"
                     v-bind:disabled="disabled"
                     v-bind:visible.sync="visibleData"

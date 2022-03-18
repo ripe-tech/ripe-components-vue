@@ -163,7 +163,7 @@ export const Select = {
             type: Array,
             default: () => []
         },
-        resetValueOnOptionsChange: {
+        resetValue: {
             type: Boolean,
             default: false
         },
@@ -261,7 +261,7 @@ export const Select = {
         options: {
             handler: function(value) {
                 if (value?.length === 1) this.valueData = value[0].value;
-                else if (this.resetValueOnOptionsChange) this.valueData = null;
+                else if (this.resetValue) this.valueData = null;
             },
             immediate: true,
             deep: true
