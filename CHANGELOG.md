@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-*
+* Fix Spreadsheet icon stroke width - [#302](https://github.com/ripe-tech/ripe-pulse/issues/302)
 
 ## [0.20.0] - 2022-03-02
 
