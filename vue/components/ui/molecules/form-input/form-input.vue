@@ -2,24 +2,24 @@
     <div class="form-input" v-bind:class="classes">
         <slot name="header">
             <tooltip v-bind="tooltipProps" v-if="hasTooltip">
-                <label-ripe 
-                    class="header" 
+                <label-ripe
+                    class="header"
                     v-bind:style="headerStyle"
                     v-bind:class="headerClasses"
                     v-bind:size="headerSize"
                     v-bind:text="header"
                     v-bind:for="id"
-                    v-if="header" 
+                    v-if="header"
                 />
             </tooltip>
-            <label-ripe 
-                class="header" 
+            <label-ripe
+                class="header"
                 v-bind:style="headerStyle"
                 v-bind:class="headerClasses"
                 v-bind:size="headerSize"
                 v-bind:text="header"
                 v-bind:for="id"
-                v-else-if="header" 
+                v-else-if="header"
             />
         </slot>
         <div class="flex-container">
