@@ -20,6 +20,7 @@
                             <form-input
                                 class="section-field"
                                 v-bind:classes="formInputClasses(field)"
+                                v-bind:tooltip-props="field.tooltipProps"
                                 v-bind:header="
                                     field.label !== undefined ? field.label : field.value
                                 "
