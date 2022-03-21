@@ -64,12 +64,6 @@
     flex: 1;
 }
 
-.form-input .tooltip > .header {
-    -webkit-text-decoration: underline #57626e dashed;
-    text-decoration: underline #57626e dashed;
-    text-underline-offset: 3px;
-}
-
 .form-input .header,
 .form-input .footer {
     display: block;
@@ -115,6 +109,12 @@
 .form-input .footer {
     color: $medium-grey;
     margin-top: 6px;
+}
+
+.form-input .tooltip > .header {
+    -webkit-text-decoration: underline #57626e dashed;
+    text-decoration: underline #57626e dashed;
+    text-underline-offset: 3px;
 }
 </style>
 
