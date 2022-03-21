@@ -2,9 +2,25 @@
     <div class="form-input" v-bind:class="classes">
         <slot name="header">
             <tooltip v-bind="tooltipProps" v-if="hasTooltip">
-                <label-ripe class="header" v-bind="headerProps" v-if="header" />
+                <label-ripe 
+                    class="header" 
+                    v-bind:style="headerStyle"
+                    v-bind:class="headerClasses"
+                    v-bind:size="headerSize"
+                    v-bind:text="header"
+                    v-bind:for="id"
+                    v-if="header" 
+                />
             </tooltip>
-            <label-ripe class="header" v-bind="headerProps" v-else-if="header" />
+            <label-ripe 
+                class="header" 
+                v-bind:style="headerStyle"
+                v-bind:class="headerClasses"
+                v-bind:size="headerSize"
+                v-bind:text="header"
+                v-bind:for="id"
+                v-else-if="header" 
+            />
         </slot>
         <div class="flex-container">
             <div class="content">
@@ -162,15 +178,6 @@ export const FormInput = {
         },
         hasTooltip() {
             return Object.keys(this.tooltipProps).length !== 0;
-        },
-        headerProps() {
-            return {
-                style: this.headerStyle,
-                class: this.headerClasses,
-                size: this.headerSize,
-                text: this.header,
-                for: this.id
-            };
         },
         footerStyle() {
             const base = { "min-width": `${this.footerMinWidth}px` };
