@@ -17,7 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-* Immediately emmit `update:value` event in `select` component. [#254](https://github.com/ripe-tech/ripe-util-vue/issues/254)
+* Immediately emmit `update:value` event in `select` component - [#254](https://github.com/ripe-tech/ripe-util-vue/issues/254)
+* Fix Spreadsheet icon stroke width - [#302](https://github.com/ripe-tech/ripe-pulse/issues/302)
 
 ## [0.20.0] - 2022-03-02
 
