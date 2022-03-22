@@ -70,6 +70,10 @@
     vertical-align: middle;
 }
 
+.button-color.button-color-medium {
+    max-height: 34px;
+}
+
 .button-color.button-color-small {
     height: 32px;
     line-height: 30px;
@@ -122,10 +126,6 @@
 .button-color:active {
     background-color: #2d2d2d;
     border-color: #2d2d2d;
-}
-
-.button-color.button-color.button-color-medium {
-    max-height: 34px;
 }
 
 .button-color.button-color-secondary,
