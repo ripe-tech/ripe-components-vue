@@ -112,6 +112,7 @@
 }
 
 .form-input .tooltip > .header {
+    cursor: help;
     -webkit-text-decoration: underline #57626e dashed;
     text-decoration: underline #57626e dashed;
     text-underline-offset: 3px;
