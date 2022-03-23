@@ -3,6 +3,7 @@
         <div
             class="bars"
             v-bind:style="getBarHeight(index)"
+            v-bind:title="'Showing on left'"
             v-for="(value, index) in values"
             v-bind:key="index"
         />
@@ -25,6 +26,11 @@
     height: 1px;
     width: 15px;
 }
+
+[data-tooltip] {
+	position: relative;
+	cursor: help;
+	text-decoration: underline;
 </style>
 
 <script>
