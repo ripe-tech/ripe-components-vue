@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-* Support for text alignment in tooltip
+*
 
 ### Changed
 
@@ -18,6 +18,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 *
+
+## [0.20.2] - 2022-03-23
+
+### Added
+
+* Support for text alignment in tooltip
 
 ## [0.20.1] - 2022-03-23
 
