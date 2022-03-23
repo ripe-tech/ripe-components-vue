@@ -17,6 +17,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+*
+
+## [0.20.1] - 2022-03-23
+
+### Fixed
+
 * Add support for `tooltip` in `form-input` - [#73](https://github.com/ripe-tech/ripe-white-admin-ui/issues/73)
 * Fix Spreadsheet icon stroke width - [#302](https://github.com/ripe-tech/ripe-pulse/issues/302)
 
