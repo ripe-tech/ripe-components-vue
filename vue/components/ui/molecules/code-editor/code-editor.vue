@@ -1,6 +1,6 @@
 <template>
     <div class="code-editor">
-        <textarea-ripe v-bind:value="value" v-bind:monospaced="true" v-bind:resize="true" />
+        <textarea-ripe v-bind:value.sync="valueData" v-bind:monospaced="true" v-bind:resize="true" />
         <div class="overlay">
             <div class="lines">
                 <div class="line" v-for="(line, index) in lines" v-bind:key="index">
@@ -80,10 +80,22 @@ export const CodeEditor = {
             default: null
         }
     },
+    data: function() {
+        return {
+            valueData: this.value
+        };
+    },
+    watch: {
+        value(value) {
+            this.valueData = value;
+        },
+        valueData(value) {
+            this.$emit("value", value);
+        }
+    },
     computed: {
         lines() {
-            console.log("value", this.value);
-            return this.value ? this.value.split("\n") : [];
+            return this.valueData ? this.valueData.split("\n") : [];
         }
     }
 };
