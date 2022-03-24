@@ -25,6 +25,7 @@
 @import "css/variables.scss";
 
 // TODO scroll, adicionar overflow e sincronizar scroll da textarea com o overlay
+// TODO remover cor das letras
 
 .code-editor {
     position: relative;
@@ -36,11 +37,11 @@
     border-radius: 6px 6px 6px 6px;
     box-sizing: border-box;
     outline: none;
-    padding: 8px 12px 8px 12px;
+    padding: 8px 12px 8px 0px;
 }
 
 .code-editor > .textarea {
-    padding-left: 52px;
+    padding-left: 44px;
 }
 
 .code-editor > .overlay {
@@ -71,13 +72,17 @@
 }
 
 .code-editor > .overlay > .lines > .line > .number {
+    border-right: transparent solid 2px;
+    box-sizing: border-box;
+    margin: 0px 4px 0px 0px;
+    padding: 0px 2px 0px 0px;
     pointer-events: all;
+    text-align: right;
     width: 40px;
 }
 
 .code-editor > .overlay > .lines > .line.error > .number {
     border-right: #ae2929 solid 2px;
-    box-sizing: border-box;
 }
 </style>
 
