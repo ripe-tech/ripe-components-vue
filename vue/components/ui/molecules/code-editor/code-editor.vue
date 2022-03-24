@@ -3,12 +3,10 @@
         <textarea-ripe v-bind:value="value" v-bind:monospaced="true" v-bind:resize="true" />
         <div class="overlay">
             <div class="lines">
-                <div class="line" v-for="(line, index) in lines" v-bind:key="index">{{ line }}</div>
-                <!-- <div class="line" v-for="(line, index) in lines" v-bind:key="index"><pre>{{ line }}</pre></div> -->
-                <!-- <div class="line" v-for="(line, index) in lines" v-bind:key="index"> -->
-                    <!-- <div class="number">{{ index }}</div> -->
-                   <!--  <pre><div class="text">{{ line }}</div></pre> -->
-                <!-- </div> -->
+                <div class="line" v-for="(line, index) in lines" v-bind:key="index">
+                    <div class="number">{{ index + 1 }}</div>
+                    <div class="text">{{ line }}</div>
+                </div>
             </div>
         </div>
     </div>
@@ -29,12 +27,6 @@
     border: 1px solid $light-white;
     border-radius: 6px 6px 6px 6px;
     box-sizing: border-box;
-
-    font-family: "consolas", monospace;
-    letter-spacing: 0px;
-    line-height: 18px;
-    font-size: 13px;
-    font-weight: 500;
     outline: none;
 }
 
@@ -46,33 +38,34 @@
     height: 100%;
     white-space: pre;
 
+    font-size: 0px;
     padding-top: 9px;
-
-    // need to adjust
-    // padding: 8px 12px 8px 12px;
 
     // debug
     background-color: #ff00ff40;
 
-    // display: none;
-    // margin: 0px 0px 0px 0px;
-    // width: 100%;
-    // height: 100%;
     // pointer-events: none;
 }
 
-/*
-.lines-number > .line {
+.code-editor > textarea,
+.code-editor > .overlay > .lines > .line > .number,
+.code-editor > .overlay > .lines > .line > .text {
+    font-family: "consolas", monospace;
+    letter-spacing: 0px;
+    line-height: 18px;
     font-size: 13px;
-    height: 13px;
-    line-height: 13px;
+    font-weight: 500;
 }
 
-.lines-number > .line > .number {
-    display: none;
-    // margin: 0px -20px 0px 0px;
+.code-editor > .overlay > .lines > .line > .number,
+.code-editor > .overlay > .lines > .line > .text {
+    display: inline-block;
 }
-*/
+
+.code-editor > .overlay > .lines > .line > .number {
+    width: 40px;
+    margin-left: -40px;
+}
 </style>
 
 <script>
