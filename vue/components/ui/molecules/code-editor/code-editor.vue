@@ -44,11 +44,10 @@
 
     font-size: 0px;
     padding-top: 9px;
+    pointer-events: none;
 
     // debug
     background-color: #ff00ff40;
-
-    // pointer-events: none;
 }
 
 .code-editor > textarea,
@@ -68,6 +67,7 @@
 
 .code-editor > .overlay > .lines > .line > .number {
     width: 40px;
+    pointer-events: all;
 }
 </style>
 
