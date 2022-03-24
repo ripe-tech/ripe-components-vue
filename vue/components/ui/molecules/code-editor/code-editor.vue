@@ -86,11 +86,17 @@ export const CodeEditor = {
         validate: {
             type: Function,
             default: null
+        },
+        debounceTime: {
+            type: Number,
+            default: 250
         }
     },
     data: function() {
         return {
-            valueData: this.value
+            valueData: this.value,
+            errors: [],
+            timeout: null
         };
     },
     watch: {
@@ -98,7 +104,7 @@ export const CodeEditor = {
             this.valueData = value;
         },
         valueData(value) {
-            console.log(this.errors);
+            this.checkForErrors();
             this.$emit("value", value);
         }
     },
@@ -115,12 +121,15 @@ export const CodeEditor = {
         },
         lines() {
             return this.valueData ? this.valueData.split("\n") : [];
-        },
-        errors() {
-            return this._validate(this.valueData);
         }
     },
     methods: {
+        checkForErrors() {
+            clearTimeout(this.timeout);
+            this.timeout = setTimeout(() => {
+                this.errors = this._validate(this.valueData);
+            }, this.debounceTime);
+        },
         validateJson(code) {
             const errors = [];
             try {
