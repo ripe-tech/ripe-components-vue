@@ -78,6 +78,14 @@ export const CodeEditor = {
         value: {
             type: String,
             default: null
+        },
+        type: {
+            type: String,
+            default: "json"
+        },
+        validate: {
+            type: Function,
+            default: null
         }
     },
     data: function() {
@@ -90,12 +98,46 @@ export const CodeEditor = {
             this.valueData = value;
         },
         valueData(value) {
+            console.log(this.errors);
             this.$emit("value", value);
         }
     },
     computed: {
+        _validate() {
+            if (this.validate) return this.validate;
+
+            switch (this.type) {
+                case "json":
+                    return this.validateJson;
+                default:
+                    throw new Error(`Unsupported type: ${this.type}`);
+            }
+        },
         lines() {
             return this.valueData ? this.valueData.split("\n") : [];
+        },
+        errors() {
+            return this._validate(this.valueData);
+        }
+    },
+    methods: {
+        validateJson(code) {
+            const errors = [];
+            try {
+                JSON.parse(code);
+            } catch (error) {
+                if (!(error instanceof SyntaxError)) return;
+
+                const errorMsg = error.message.match(/JSON.parse: ([\s\S]*?) at line/)[1];
+                const line = error.message.match(/ at line (\d+)/)[1];
+                const column = error.message.match(/ at line [0-9] column (\d+)/)[1];
+                errors.push({
+                    error: errorMsg,
+                    line: line,
+                    column: column
+                });
+            }
+            return errors;
         }
     }
 };
