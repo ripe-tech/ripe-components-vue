@@ -30,6 +30,10 @@
     outline: none;
 }
 
+.code-editor > .textarea {
+    padding-left: 52px
+}
+
 .code-editor > .overlay {
     position: absolute;
     top: 0;
@@ -64,7 +68,6 @@
 
 .code-editor > .overlay > .lines > .line > .number {
     width: 40px;
-    margin-left: -40px;
 }
 </style>
 
