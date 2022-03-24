@@ -4,8 +4,7 @@ import { withKnobs } from "@storybook/addon-knobs";
 storiesOf("Components/Molecules/Code Editor", module)
     .addDecorator(withKnobs)
     .add("Code Editor", () => ({
-        props: {
-        },
+        props: {},
         template: `
             <code-editor />
         `

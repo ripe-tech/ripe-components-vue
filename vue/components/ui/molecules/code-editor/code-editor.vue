@@ -1,11 +1,24 @@
 <template>
     <div class="code-editor">
-        <textarea-ripe v-bind:value.sync="valueData" v-bind:monospaced="true" v-bind:resize="true" />
+        <textarea-ripe
+            v-bind:value.sync="valueData"
+            v-bind:monospaced="true"
+            v-bind:resize="true"
+        />
         <div class="overlay">
             <div class="lines">
-                <div class="line" v-bind:class="lineClasses(line)" v-for="line in linesInfo" v-bind:key="line.number">
-                    <div class="number">{{ line.number }}</div>
-                    <div class="text">{{ line.line }}</div>
+                <div
+                    class="line"
+                    v-bind:class="lineClasses(line)"
+                    v-for="line in linesInfo"
+                    v-bind:key="line.number"
+                >
+                    <div class="number">
+                        {{ line.number }}
+                    </div>
+                    <div class="text">
+                        {{ line.line }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -23,41 +36,37 @@
 
 .code-editor > textarea,
 .code-editor > .overlay {
-    padding: 8px 12px 8px 12px;
     border: 1px solid $light-white;
     border-radius: 6px 6px 6px 6px;
     box-sizing: border-box;
     outline: none;
+    padding: 8px 12px 8px 12px;
 }
 
 .code-editor > .textarea {
-    padding-left: 52px
+    padding-left: 52px;
 }
 
 .code-editor > .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    white-space: pre;
-
     font-size: 0px;
+    height: 100%;
+    left: 0;
     padding-top: 9px;
     pointer-events: none;
-
-    // debug
-    background-color: #ff00ff40;
+    position: absolute;
+    top: 0;
+    white-space: pre;
+    width: 100%;
 }
 
 .code-editor > textarea,
 .code-editor > .overlay > .lines > .line > .number,
 .code-editor > .overlay > .lines > .line > .text {
     font-family: "consolas", monospace;
-    letter-spacing: 0px;
-    line-height: 18px;
     font-size: 13px;
     font-weight: 500;
+    letter-spacing: 0px;
+    line-height: 18px;
 }
 
 .code-editor > .overlay > .lines > .line > .number,
@@ -66,8 +75,8 @@
 }
 
 .code-editor > .overlay > .lines > .line > .number {
-    width: 40px;
     pointer-events: all;
+    width: 40px;
 }
 
 .code-editor > .overlay > .lines > .line.error > .number {
