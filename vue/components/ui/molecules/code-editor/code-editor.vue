@@ -3,9 +3,9 @@
         <textarea-ripe v-bind:value.sync="valueData" v-bind:monospaced="true" v-bind:resize="true" />
         <div class="overlay">
             <div class="lines">
-                <div class="line" v-for="(line, index) in lines" v-bind:key="index">
-                    <div class="number">{{ index + 1 }}</div>
-                    <div class="text">{{ line }}</div>
+                <div class="line" v-bind:class="lineClasses(line)" v-for="line in linesInfo" v-bind:key="line.number">
+                    <div class="number">{{ line.number }}</div>
+                    <div class="text">{{ line.line }}</div>
                 </div>
             </div>
         </div>
@@ -69,6 +69,11 @@
     width: 40px;
     pointer-events: all;
 }
+
+.code-editor > .overlay > .lines > .line.error > .number {
+    border-right: #ae2929 solid 2px;
+    box-sizing: border-box;
+}
 </style>
 
 <script>
@@ -121,9 +126,25 @@ export const CodeEditor = {
         },
         lines() {
             return this.valueData ? this.valueData.split("\n") : [];
+        },
+        linesInfo() {
+            return this.lines.map((line, index) => {
+                const number = index + 1;
+                const error = this.errors.find(e => e.line === number);
+                return {
+                    line: line,
+                    number: number,
+                    error: error
+                };
+            });
         }
     },
     methods: {
+        lineClasses(line) {
+            const base = {};
+            if (line.error) base.error = true;
+            return base;
+        },
         checkForErrors() {
             clearTimeout(this.timeout);
             this.timeout = setTimeout(() => {
@@ -142,8 +163,8 @@ export const CodeEditor = {
                 const column = error.message.match(/ at line [0-9] column (\d+)/)[1];
                 errors.push({
                     error: errorMsg,
-                    line: line,
-                    column: column
+                    line: parseInt(line),
+                    column: parseInt(column)
                 });
             }
             return errors;
