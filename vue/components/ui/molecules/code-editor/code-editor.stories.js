@@ -1,12 +1,12 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs } from "@storybook/addon-knobs";
 
-storiesOf("Components/Molecules/Textarea Code", module)
+storiesOf("Components/Molecules/Code Editor", module)
     .addDecorator(withKnobs)
-    .add("Textarea Code", () => ({
+    .add("Code Editor", () => ({
         props: {
         },
         template: `
-            <textarea-code />
+            <code-editor />
         `
     }));

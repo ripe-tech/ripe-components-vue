@@ -13,6 +13,7 @@ import { Calendar } from "./calendar/calendar.vue";
 import { Carousel } from "./carousel/carousel.vue";
 import { ChatMessage } from "./chat-message/chat-message.vue";
 import { CheckboxGroup } from "./checkbox-group/checkbox-group.vue";
+import { CodeEditor } from "./code-editor/code-editor.vue";
 import { ContainerMenu } from "./container-menu/container-menu.vue";
 import { Filter } from "./filter/filter.vue";
 import { Footer } from "./footer/footer.vue";
@@ -43,7 +44,6 @@ import { Steps } from "./steps/steps.vue";
 import { Table } from "./table/table.vue";
 import { TableExpandable } from "./table-expandable/table-expandable.vue";
 import { Tabs } from "./tabs/tabs.vue";
-import { TextareaCode } from "./textarea-code/textarea-code.vue";
 import { Tooltip } from "./tooltip/tooltip.vue";
 import { TransferList } from "./transfer-list/transfer-list.vue";
 import { UploadArea } from "./upload-area/upload-area.vue";
@@ -64,6 +64,7 @@ const install = Vue => {
     Vue.component("carousel", Carousel);
     Vue.component("chat-message", ChatMessage);
     Vue.component("checkbox-group", CheckboxGroup);
+    Vue.component("code-editor", CodeEditor);
     Vue.component("container-menu", ContainerMenu);
     Vue.component("filter-ripe", Filter);
     Vue.component("footer-ripe", Footer);
@@ -94,7 +95,6 @@ const install = Vue => {
     Vue.component("table-ripe", Table);
     Vue.component("table-expandable", TableExpandable);
     Vue.component("tabs", Tabs);
-    Vue.component("textarea-code", TextareaCode);
     Vue.component("tooltip", Tooltip);
     Vue.component("transfer-list", TransferList);
     Vue.component("upload-area", UploadArea);
@@ -115,6 +115,7 @@ export {
     Carousel,
     ChatMessage,
     CheckboxGroup,
+    CodeEditor,
     ContainerMenu,
     Filter,
     Footer,
@@ -145,7 +146,6 @@ export {
     Table,
     TableExpandable,
     Tabs,
-    TextareaCode,
     Tooltip,
     TransferList,
     UploadArea

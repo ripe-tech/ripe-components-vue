@@ -1,5 +1,5 @@
 <template>
-    <div class="textarea-code">
+    <div class="code-editor">
         <textarea-ripe v-bind:value="value" v-bind:monospaced="true" v-bind:resize="true" />
         <div class="overlay">
             <div class="lines-number">
@@ -13,7 +13,7 @@
 </template>
 
 <style lang="scss" scoped>
-.textarea-code {
+.code-editor {
     position: relative;
     font-size: 13px;
     font-weight: 500;
@@ -22,7 +22,7 @@
     line-height: 18px;
 }
 
-.textarea-code .overlay {
+.code-editor .overlay {
     top: 0;
     left: 0;
     margin: 0px 0px 0px 0px;
@@ -46,8 +46,8 @@
 </style>
 
 <script>
-export const TextareaCode = {
-    name: "textarea-code",
+export const CodeEditor = {
+    name: "code-editor",
     props: {
         value: {
             type: String,
@@ -62,5 +62,5 @@ export const TextareaCode = {
     }
 };
 
-export default TextareaCode;
+export default CodeEditor;
 </script>
