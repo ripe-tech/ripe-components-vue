@@ -1,24 +1,11 @@
 <template>
     <div class="code-editor">
-        <textarea-ripe
-            v-bind:value.sync="valueData"
-            v-bind:monospaced="true"
-            v-bind:resize="true"
-        />
+        <textarea-ripe v-bind:value.sync="valueData" v-bind:monospaced="true" v-bind:resize="true" />
         <div class="overlay">
             <div class="lines">
-                <div
-                    class="line"
-                    v-bind:class="lineClasses(line)"
-                    v-for="line in linesInfo"
-                    v-bind:key="line.number"
-                >
-                    <div class="number">
-                        {{ line.number }}
-                    </div>
-                    <div class="text">
-                        {{ line.line }}
-                    </div>
+                <div class="line" v-bind:class="lineClasses(line)" v-for="line in linesInfo" v-bind:key="line.number">
+                    <div class="number">{{ line.number }}</div>
+                    <div class="text">{{ line.line }}</div>
                 </div>
             </div>
         </div>
@@ -57,6 +44,9 @@
     top: 0;
     white-space: pre;
     width: 100%;
+
+    // debug
+    background-color: #ff00ff40;
 }
 
 .code-editor > textarea,
