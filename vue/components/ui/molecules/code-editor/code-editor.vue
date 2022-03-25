@@ -13,7 +13,21 @@
                     v-for="line in linesInfo"
                     v-bind:key="line.number"
                 >
-                    <span class="number">{{ line.number }}</span>
+                    <tooltip
+                        v-bind:text="line.error.error"
+                        v-bind:variant="'red'"
+                        v-bind:orientation="'top'"
+                        v-bind:alignment="'left'"
+                        v-bind:text-alignment="'left'"
+                        v-bind:width="250"
+                        v-bind:visible="true"
+                        v-bind:border-radius="'6px'"
+                        v-bind:delay="100"
+                        v-if="line.error"
+                    >
+                        <span class="number">{{ line.number }}</span>
+                    </tooltip>
+                    <span class="number" v-else>{{ line.number }}</span>
                     <span class="text">{{ line.line }}</span>
                 </div>
             </div>
@@ -52,12 +66,11 @@
     pointer-events: none;
     position: absolute;
     top: 0;
-    white-space: pre;
     width: 100%;
 }
 
 .code-editor > textarea,
-.code-editor > .overlay > .lines > .line > .number,
+.code-editor > .overlay > .lines > .line .number,
 .code-editor > .overlay > .lines > .line > .text {
     font-family: "consolas", monospace;
     font-size: 13px;
@@ -66,12 +79,12 @@
     line-height: 18px;
 }
 
-.code-editor > .overlay > .lines > .line > .number,
+.code-editor > .overlay > .lines > .line .number,
 .code-editor > .overlay > .lines > .line > .text {
     display: inline-block;
 }
 
-.code-editor > .overlay > .lines > .line > .number {
+.code-editor > .overlay > .lines > .line .number {
     border-right: transparent solid 2px;
     box-sizing: border-box;
     margin: 0px 4px 0px 0px;
@@ -81,12 +94,18 @@
     width: 40px;
 }
 
-.code-editor > .overlay > .lines > .line.error > .number {
+.code-editor > .overlay > .lines > .line.error .number {
     border-right: #ae2929 solid 2px;
+}
+
+.code-editor > .overlay > .lines > .line > .text {
+    white-space: pre;
 }
 </style>
 
 <script>
+import { normalize } from "ripe-commons";
+
 export const CodeEditor = {
     name: "code-editor",
     props: {
@@ -172,7 +191,7 @@ export const CodeEditor = {
                 const line = error.message.match(/ at line (\d+)/)[1];
                 const column = error.message.match(/ at line [0-9] column (\d+)/)[1];
                 errors.push({
-                    error: errorMsg,
+                    error: normalize(errorMsg, { capitalize: true }),
                     line: parseInt(line),
                     column: parseInt(column)
                 });
