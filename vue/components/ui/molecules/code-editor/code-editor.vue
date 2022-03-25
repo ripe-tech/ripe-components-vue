@@ -92,6 +92,7 @@
     pointer-events: all;
     text-align: right;
     width: 40px;
+    color: #979797;
 }
 
 .code-editor > .overlay > .lines > .line.error .number {
@@ -100,6 +101,7 @@
 
 .code-editor > .overlay > .lines > .line > .text {
     white-space: pre;
+    color: transparent;
 }
 </style>
 
