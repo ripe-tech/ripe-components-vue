@@ -2,6 +2,7 @@
     <div class="code-editor">
         <textarea-ripe
             v-bind:value.sync="valueData"
+            v-bind:disabled="disabled"
             v-bind:monospaced="true"
             v-bind:resize="true"
         />
@@ -111,6 +112,10 @@ export const CodeEditor = {
         value: {
             type: String,
             default: null
+        },
+        disabled: {
+            type: Boolean,
+            default: false
         },
         type: {
             type: String,
