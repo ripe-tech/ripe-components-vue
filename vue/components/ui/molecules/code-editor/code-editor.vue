@@ -13,8 +13,27 @@
                     v-for="line in linesInfo"
                     v-bind:key="line.number"
                 >
-                    <span class="number">{{ line.number }}</span>
-                    <span class="text">{{ line.line }}</span>
+                    <div class="line-number">
+                        <div class="number">
+                            {{ line.number }}
+                        </div>
+                        <tooltip
+                            v-bind:text="'test exemplo e tail'"
+                            v-bind:variant="'red'"
+                            v-bind:orientation="'top'"
+                            v-bind:alignment="'left'"
+                            v-bind:width="150"
+                            v-bind:visible="true"
+                            v-bind:border-radius="'6px'"
+                            v-bind:delay="100"
+                        >
+                            <div class="highlight">
+                                <div class="color" />
+                                <div class="hover-area" />
+                            </div>
+                        </tooltip>
+                    </div>
+                    <span class="line-text">{{ line.line }}</span>
                 </div>
             </div>
         </div>
@@ -52,13 +71,16 @@
     pointer-events: none;
     position: absolute;
     top: 0;
-    white-space: pre;
     width: 100%;
 }
 
+.lines > .line > .line-text {
+    white-space: pre;
+}
+
 .code-editor > textarea,
-.code-editor > .overlay > .lines > .line > .number,
-.code-editor > .overlay > .lines > .line > .text {
+.code-editor > .overlay > .lines > .line > .line-number > .number,
+.code-editor > .overlay > .lines > .line > .line-text {
     font-family: "consolas", monospace;
     font-size: 13px;
     font-weight: 500;
@@ -66,24 +88,54 @@
     line-height: 18px;
 }
 
-.code-editor > .overlay > .lines > .line > .number,
-.code-editor > .overlay > .lines > .line > .text {
+.code-editor > .overlay > .lines > .line > .line-number,
+.code-editor > .overlay > .lines > .line > .line-text {
     display: inline-block;
 }
 
-.code-editor > .overlay > .lines > .line > .number {
-    border-right: transparent solid 2px;
+.code-editor > .overlay > .lines > .line > .line-number {
     box-sizing: border-box;
     margin: 0px 4px 0px 0px;
-    padding: 0px 2px 0px 0px;
     pointer-events: all;
+    position: relative;
     text-align: right;
     width: 40px;
 }
 
-.code-editor > .overlay > .lines > .line.error > .number {
-    border-right: #ae2929 solid 2px;
+.code-editor > .overlay > .lines > .line > .line-number > .number,
+.code-editor > .overlay > .lines > .line > .line-number .highlight {
+    display: inline-block;
 }
+
+.code-editor > .overlay > .lines > .line > .line-number > .number {
+    box-sizing: border-box;
+    padding: 0px 2px 0px 2px;
+}
+
+.code-editor > .overlay > .lines > .line > .line-number .highlight {
+    height: 18px;
+    position: relative;
+    vertical-align: bottom;
+    width: 2px;
+}
+
+.code-editor > .overlay > .lines > .line > .line-number .highlight > .color {
+    height: 100%;
+    width: 100%;
+}
+
+.code-editor > .overlay > .lines > .line > .line-number .highlight.error > .color {
+    background: #ae2929
+}
+
+.code-editor > .overlay > .lines > .line > .line-number .highlight > .hover-area {
+    height: 100%;
+    left: -5px;
+    padding: 0px 5px 0px 8px;
+    position: absolute;
+    top: 0px;
+}
+
 </style>
 
 <script>
