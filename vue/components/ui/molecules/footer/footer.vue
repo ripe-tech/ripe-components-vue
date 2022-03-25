@@ -4,7 +4,7 @@
             <div class="links-left">
                 <ul>
                     <li class="copy">
-                        © 2021 Platforme International
+                        © 2022 Platforme International
                     </li>
                     <li><link-ripe text="Terms" href="https://www.platforme.com/terms" /></li>
                     <li><link-ripe text="Privacy" href="https://www.platforme.com/privacy" /></li>
