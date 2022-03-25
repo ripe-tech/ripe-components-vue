@@ -85,12 +85,12 @@
 .code-editor > .overlay > .lines > .line .number {
     border-right: transparent solid 2px;
     box-sizing: border-box;
+    color: #979797;
     margin: 0px 4px 0px 0px;
     padding: 0px 2px 0px 0px;
     pointer-events: all;
     text-align: right;
     width: 40px;
-    color: #979797;
 }
 
 .code-editor > .overlay > .lines > .line.error .number {
@@ -98,8 +98,8 @@
 }
 
 .code-editor > .overlay > .lines > .line > .text {
-    white-space: pre;
     color: transparent;
+    white-space: pre;
 }
 </style>
 
