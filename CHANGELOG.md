@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-*
+* Add variant `red` to tooltip - [ripe-util-vue/#257](https://github.com/ripe-tech/ripe-util-vue/issues/257)
 
 ### Changed
 
