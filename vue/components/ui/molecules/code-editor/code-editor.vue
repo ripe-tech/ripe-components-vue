@@ -38,9 +38,6 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-// TODO scroll, adicionar overflow e sincronizar scroll da textarea com o overlay
-// TODO remover cor das letras
-
 .code-editor {
     position: relative;
 }
