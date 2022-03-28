@@ -186,20 +186,61 @@ export const CodeEditor = {
         },
         validateJson(code) {
             const errors = [];
-            try {
-                JSON.parse(code);
-            } catch (error) {
-                if (!(error instanceof SyntaxError)) return;
 
-                const errorMsg = error.message.match(/JSON.parse: ([\s\S]*?) at line/)[1];
-                const line = error.message.match(/ at line (\d+)/)[1];
-                const column = error.message.match(/ at line [0-9] column (\d+)/)[1];
-                errors.push({
-                    error: normalize(errorMsg, { capitalize: true }),
-                    line: parseInt(line),
-                    column: parseInt(column)
-                });
+            // gets content inside JSON brackets
+            code = code.trim();
+            const contentMatch = code.match(/{([^}]+)}/);
+
+            if (!contentMatch) return errors;
+
+            const content = contentMatch[1];
+            const contentLines = content.split("\n");
+
+            // gets line number of last not empty line
+            let lastNotEmptyLineIdx = null;
+            for (let i = contentLines.length - 1; i >= 0; i--) {
+                const line = contentLines[i].trim();
+                if (line.length !== 0) {
+                    lastNotEmptyLineIdx = i;
+                    break;
+                }
             }
+
+            // as not every browser handles JSON.parse() SyntaxError the same way, we
+            // can't have a consistent way to obtain the line number of the error. This
+            // approach tries to validate with JSON.parse() line by line instead of doing
+            // a full parse thus allowing to pinpoint the error location.
+            for (let i = 0; i < contentLines.length; i++) {
+                let line = contentLines[i].trim();
+
+                // skips verification of empty lines
+                if (line.length === 0) continue;
+
+                try {
+                    if (i < lastNotEmptyLineIdx) {
+                        if (!line.endsWith(",")) {
+                            throw new SyntaxError("Missing comma at end of line");
+                        }
+
+                        // remove last "," from line if isn't the last line with content
+                        line = line.replace(/,$/, "");
+                    }
+
+                    JSON.parse(`{${line}}`);
+                } catch (error) {
+                    let errorMsg = error.message;
+                    errorMsg = errorMsg.replace(/^JSON.parse: /, "");
+                    errorMsg = errorMsg.replace(/ at line [0-9] column (\d+)/, "");
+                    errorMsg = errorMsg.replace(/^JSON Parse error: /, "");
+                    errors.push({
+                        error: normalize(errorMsg, { capitalize: true }),
+                        line: i + 1,
+                        column: null
+                    });
+                    return errors;
+                }
+            }
+
             return errors;
         }
     }
