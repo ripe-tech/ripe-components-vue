@@ -83,7 +83,7 @@
 }
 
 .code-editor > .overlay > .lines > .line .number {
-    border-right: transparent solid 2px;
+    border-right: 2px solid transparent;
     box-sizing: border-box;
     color: #979797;
     margin: 0px 4px 0px 0px;
@@ -94,7 +94,7 @@
 }
 
 .code-editor > .overlay > .lines > .line.error .number {
-    border-right: #ae2929 solid 2px;
+    border-right: 2px solid #ae2929;
 }
 
 .code-editor > .overlay > .lines > .line > .text {
