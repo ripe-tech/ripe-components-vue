@@ -98,8 +98,21 @@ body.round .tooltip-custom > .tooltip-inner {
     right: 0px;
 }
 
+.tooltip-custom.tooltip-text-alignment-center > .tooltip-inner {
+    text-align: center;
+}
+
+.tooltip-custom.tooltip-text-alignment-left > .tooltip-inner {
+    text-align: left;
+}
+
+.tooltip-custom.tooltip-text-alignment-right > .tooltip-inner {
+    text-align: right;
+}
+
 .tooltip-custom > .tooltip-inner > .tooltip-text {
     font-size: 11px;
+    line-height: 16px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -204,6 +217,10 @@ export const Tooltip = {
             type: String,
             default: "center"
         },
+        textAlignment: {
+            type: String,
+            default: "center"
+        },
         width: {
             type: Number,
             default: null
@@ -289,6 +306,9 @@ export const Tooltip = {
             }
             if (this.alignment) {
                 base["tooltip-alignment-" + this.alignment] = this.alignment;
+            }
+            if (this.textAlignment) {
+                base["tooltip-text-alignment-" + this.textAlignment] = this.textAlignment;
             }
             return base;
         }
