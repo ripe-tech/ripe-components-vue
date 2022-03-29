@@ -70,12 +70,6 @@
 <script>
 export const SectionExpandable = {
     name: "section-expandable",
-    data: function() {
-        return {
-            expanded: false,
-            expandedHeight: null
-        };
-    },
     props: {
         title: {
             type: String,
@@ -85,6 +79,12 @@ export const SectionExpandable = {
             type: Boolean,
             default: false
         }
+    },
+    data: function() {
+        return {
+            expanded: false,
+            expandedHeight: null
+        };
     },
     mounted: function() {
         this.calculateOffsetHeight();
