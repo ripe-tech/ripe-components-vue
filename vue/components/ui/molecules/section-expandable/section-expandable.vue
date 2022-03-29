@@ -100,6 +100,7 @@ export const SectionExpandable = {
     },
     mounted: function() {
         this.calculateOffsetHeight();
+        this.updateExpanded();
     },
     methods: {
         calculateOffsetHeight() {
@@ -113,11 +114,14 @@ export const SectionExpandable = {
                 }
             }
         },
-        onSectionClick() {
-            this.expandedData = !this.expandedData;
+        updateExpanded() {
             const content = this.$refs.content;
             if (!content) return;
             content.style.maxHeight = this.expandedData ? `${this.expandedHeight}px` : "0px";
+        },
+        onSectionClick() {
+            this.expandedData = !this.expandedData;
+            this.updateExpanded();
         }
     },
     computed: {
