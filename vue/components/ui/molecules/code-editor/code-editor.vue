@@ -230,7 +230,7 @@ export const CodeEditor = {
                 } catch (error) {
                     let errorMsg = error.message;
                     errorMsg = errorMsg.replace(/^JSON.parse: /, "");
-                    errorMsg = errorMsg.replace(/ at line [0-9] column (\d+)/, "");
+                    errorMsg = errorMsg.replace(/ at line (\d+) column (\d+)/, "");
                     errorMsg = errorMsg.replace(/^JSON Parse error: /, "");
                     errors.push({
                         error: normalize(errorMsg, { capitalize: true }),
