@@ -7,7 +7,7 @@
                 </slot>
             </div>
             <icon
-                v-bind:icon="expanded ? 'chevron-up' : 'chevron-down'"
+                v-bind:icon="expandedData ? 'chevron-up' : 'chevron-down'"
                 v-bind:color="'#c2c7cc'"
                 v-bind:width="20"
                 v-bind:height="20"
@@ -75,6 +75,10 @@ export const SectionExpandable = {
             type: String,
             default: null
         },
+        expanded: {
+            type: Boolean,
+            default: false
+        },
         animated: {
             type: Boolean,
             default: false
@@ -82,9 +86,17 @@ export const SectionExpandable = {
     },
     data: function() {
         return {
-            expanded: false,
+            expandedData: this.expanded,
             expandedHeight: null
         };
+    },
+    watch: {
+        expanded(value) {
+            this.expandedData = value;
+        },
+        expandedData(value) {
+            this.$emit("update:expanded", value);
+        }
     },
     mounted: function() {
         this.calculateOffsetHeight();
@@ -102,13 +114,10 @@ export const SectionExpandable = {
             }
         },
         onSectionClick() {
-            this.expanded = !this.expanded;
+            this.expandedData = !this.expandedData;
             const content = this.$refs.content;
-            if (content && this.expanded) {
-                content.style.maxHeight = `${this.expandedHeight}px`;
-            } else if (content) {
-                content.style.maxHeight = "0px";
-            }
+            if (!content) return;
+            content.style.maxHeight = this.expandedData ? `${this.expandedHeight}px`: "0px";
         }
     },
     computed: {
