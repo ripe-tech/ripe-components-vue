@@ -91,7 +91,7 @@ export const SectionExpandable = {
         };
     },
     watch: {
-        expanded(value) {
+        expanded(value) {
             this.expandedData = value;
         },
         expandedData(value) {
@@ -117,7 +117,7 @@ export const SectionExpandable = {
             this.expandedData = !this.expandedData;
             const content = this.$refs.content;
             if (!content) return;
-            content.style.maxHeight = this.expandedData ? `${this.expandedHeight}px`: "0px";
+            content.style.maxHeight = this.expandedData ? `${this.expandedHeight}px` : "0px";
         }
     },
     computed: {
