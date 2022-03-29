@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-* Immediately watch `valueData` event in `select` component - [#254](https://github.com/ripe-tech/ripe-util-vue/issues/254)
+* Immediately watch `valueData` event in `select` component - [ripe-util-vue/#254](https://github.com/ripe-tech/ripe-util-vue/issues/254)
 
 ## [0.20.2] - 2022-03-23
 
