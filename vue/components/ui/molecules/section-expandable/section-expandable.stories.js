@@ -8,12 +8,19 @@ storiesOf("Components/Molecules/Section Expandable", module)
             title: {
                 default: text("Title", "Section expandable title")
             },
+            expanded: {
+                default: boolean("Expanded", false)
+            },
             animated: {
                 default: boolean("Animated", false)
             }
         },
         template: `
-            <section-expandable v-bind:title="title" v-bind:animated="animated">
+            <section-expandable
+                v-bind:title="title"
+                v-bind:expanded="expanded"
+                v-bind:animated="animated"
+            >
                 <h3> This is some text inside the expandable section. </h3>
                 <p> And some smaller text. </p>
             </section-expandable>
