@@ -77,6 +77,11 @@
     line-height: 18px;
 }
 
+.code-editor > .overlay > .lines > .line > .tooltip {
+    font-family: "consolas", monospace;
+    white-space: pre;
+}
+
 .code-editor > .overlay > .lines > .line .number,
 .code-editor > .overlay > .lines > .line > .text {
     display: inline-block;
