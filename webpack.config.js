@@ -40,6 +40,9 @@ const config = {
         }),
         new webpack.BannerPlugin(banner)
     ],
+    node: {
+        fs: "empty"
+    },
     module: {
         rules: [
             {
