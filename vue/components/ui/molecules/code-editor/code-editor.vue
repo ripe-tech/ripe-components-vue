@@ -109,7 +109,7 @@
 </style>
 
 <script>
-import jsonlint from "jsonlint";
+import jsonlint from "jsonlint/lib/jsonlint.js";
 import { normalize } from "ripe-commons";
 
 
