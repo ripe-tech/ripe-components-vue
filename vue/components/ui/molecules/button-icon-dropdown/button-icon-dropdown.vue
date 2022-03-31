@@ -2,6 +2,8 @@
     <div class="button-icon-dropdown">
         <button-icon
             v-bind="buttonIconProps"
+            v-bind:icon-opacity="disabled ? 0.5 : 1"
+            v-bind:selectable="!disabled"
             v-bind:icon="'options'"
             v-bind:size="32"
             v-bind:active="dropdownVisible"
@@ -10,6 +12,7 @@
         />
         <dropdown
             v-bind="dropdownProps"
+            v-bind:disabled="disabled"
             v-bind:vertical-padding="4"
             v-bind:items="items"
             v-bind:visible.sync="dropdownVisible"
@@ -49,6 +52,10 @@ export const ButtonIconDropdown = {
         dropdownProps: {
             type: Object,
             default: () => ({})
+        },
+        disabled: {
+            type: Boolean,
+            default: false
         }
     },
     data: function() {
@@ -58,9 +65,11 @@ export const ButtonIconDropdown = {
     },
     methods: {
         onButtonIconClick() {
+            if (this.disabled) return;
             this.dropdownVisible = !this.dropdownVisible;
         },
         onDropdownItemClick(item, index) {
+            if (this.disabled) return;
             this.$emit(`click:item:${item.event}`, item, index);
         }
     }
