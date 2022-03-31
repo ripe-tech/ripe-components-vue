@@ -6,7 +6,7 @@ storiesOf("Components/Molecules/Code Editor", module)
     .add("Code Editor", () => ({
         props: {
             value: {
-                default: JSON.stringify({ example: "exemple text", "example number": 123 }, null, 4)
+                default: JSON.stringify({ example: "example text", "example number": 123 }, null, 4)
             },
             disabled: {
                 default: boolean("Disabled", false)
