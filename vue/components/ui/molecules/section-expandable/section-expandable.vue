@@ -94,6 +94,7 @@ export const SectionExpandable = {
         classes() {
             const base = {};
             if (this.animated) base.animated = true;
+            if (this.expandedData) base.expanded = true;
             return base;
         }
     },
