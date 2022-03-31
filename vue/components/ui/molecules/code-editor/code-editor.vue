@@ -196,7 +196,7 @@ export const CodeEditor = {
                 jsonlint.parse(code);
             } catch (error) {
                 let errorMsg = error.message;
-                const lineMatch = errorMsg.match(/ on line (\d+)/)[1];
+                const lineMatch = errorMsg.match(/ on line (\d+)/);
                 const line = lineMatch ? lineMatch[1] : 0;
                 errorMsg = errorMsg.replace(/^Parse error/, "");
                 errorMsg = errorMsg.replace(/on line (\d+)/, "");
