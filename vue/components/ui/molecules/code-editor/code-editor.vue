@@ -109,9 +109,8 @@
 </style>
 
 <script>
-import jsonlint from "jsonlint/lib/jsonlint.js";
+import jsonlint from "jsonlint-mod";
 import { normalize } from "ripe-commons";
-
 
 export const CodeEditor = {
     name: "code-editor",
