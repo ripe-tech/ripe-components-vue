@@ -21,7 +21,8 @@ storiesOf("Components/Molecules/Tooltip", module)
                         Unset: undefined,
                         Dark: "dark",
                         Grey: "grey",
-                        White: "white"
+                        White: "white",
+                        Red: "red"
                     },
                     undefined
                 )

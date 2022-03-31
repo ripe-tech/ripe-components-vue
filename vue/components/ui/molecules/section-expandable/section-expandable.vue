@@ -7,7 +7,7 @@
                 </slot>
             </div>
             <icon
-                v-bind:icon="expanded ? 'chevron-up' : 'chevron-down'"
+                v-bind:icon="expandedData ? 'chevron-up' : 'chevron-down'"
                 v-bind:color="'#c2c7cc'"
                 v-bind:width="20"
                 v-bind:height="20"
@@ -70,24 +70,37 @@
 <script>
 export const SectionExpandable = {
     name: "section-expandable",
-    data: function() {
-        return {
-            expanded: false,
-            expandedHeight: null
-        };
-    },
     props: {
         title: {
             type: String,
             default: null
+        },
+        expanded: {
+            type: Boolean,
+            default: false
         },
         animated: {
             type: Boolean,
             default: false
         }
     },
+    data: function() {
+        return {
+            expandedData: this.expanded,
+            expandedHeight: null
+        };
+    },
+    watch: {
+        expanded(value) {
+            this.expandedData = value;
+        },
+        expandedData(value) {
+            this.$emit("update:expanded", value);
+        }
+    },
     mounted: function() {
         this.calculateOffsetHeight();
+        this.updateExpanded();
     },
     methods: {
         calculateOffsetHeight() {
@@ -101,14 +114,14 @@ export const SectionExpandable = {
                 }
             }
         },
-        onSectionClick() {
-            this.expanded = !this.expanded;
+        updateExpanded() {
             const content = this.$refs.content;
-            if (content && this.expanded) {
-                content.style.maxHeight = `${this.expandedHeight}px`;
-            } else if (content) {
-                content.style.maxHeight = "0px";
-            }
+            if (!content) return;
+            content.style.maxHeight = this.expandedData ? `${this.expandedHeight}px` : "0px";
+        },
+        onSectionClick() {
+            this.expandedData = !this.expandedData;
+            this.updateExpanded();
         }
     },
     computed: {

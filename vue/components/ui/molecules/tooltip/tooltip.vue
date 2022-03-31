@@ -74,6 +74,11 @@ body.round .tooltip-custom > .tooltip-inner {
     color: $dark;
 }
 
+.tooltip-custom.tooltip-variant-red > .tooltip-inner {
+    background-color: #ae2929;
+    color: $white;
+}
+
 .tooltip-custom.tooltip-orientation-top > .tooltip-inner {
     bottom: calc(100% + 10px);
 }
@@ -98,8 +103,21 @@ body.round .tooltip-custom > .tooltip-inner {
     right: 0px;
 }
 
+.tooltip-custom.tooltip-text-alignment-center > .tooltip-inner {
+    text-align: center;
+}
+
+.tooltip-custom.tooltip-text-alignment-left > .tooltip-inner {
+    text-align: left;
+}
+
+.tooltip-custom.tooltip-text-alignment-right > .tooltip-inner {
+    text-align: right;
+}
+
 .tooltip-custom > .tooltip-inner > .tooltip-text {
     font-size: 11px;
+    line-height: 16px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -121,6 +139,10 @@ body.round .tooltip-custom > .tooltip-inner {
 
 .tooltip-custom.tooltip-variant-white > .tooltip-inner > .tip {
     background: linear-gradient(-45deg, $white 50%, transparent 50%);
+}
+
+.tooltip-custom.tooltip-variant-red > .tooltip-inner > .tip {
+    background: linear-gradient(-45deg, #ae2929 50%, transparent 50%);
 }
 
 .tooltip-custom.tooltip-orientation-top > .tooltip-inner > .tip {
@@ -201,6 +223,10 @@ export const Tooltip = {
             default: "bottom"
         },
         alignment: {
+            type: String,
+            default: "center"
+        },
+        textAlignment: {
             type: String,
             default: "center"
         },
@@ -289,6 +315,9 @@ export const Tooltip = {
             }
             if (this.alignment) {
                 base["tooltip-alignment-" + this.alignment] = this.alignment;
+            }
+            if (this.textAlignment) {
+                base["tooltip-text-alignment-" + this.textAlignment] = this.textAlignment;
             }
             return base;
         }

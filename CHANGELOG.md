@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-*
+* Add variant `red` to tooltip - [ripe-util-vue/#257](https://github.com/ripe-tech/ripe-util-vue/issues/257)
+* Support `expanded` prop in `section-expandable` component - [ripe-util-vue/#265](https://github.com/ripe-tech/ripe-util-vue/issues/265)
 
 ### Changed
 
@@ -18,6 +19,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 * Better `medium` values for `button-color` component - [#302](https://github.com/ripe-tech/ripe-pulse/issues/302)
+
+## [0.20.2] - 2022-03-23
+
+### Added
+
+* Support for text alignment in tooltip
+
+## [0.20.1] - 2022-03-23
+
+### Fixed
+
 * Add support for `tooltip` in `form-input` - [#73](https://github.com/ripe-tech/ripe-white-admin-ui/issues/73)
 * Fix Spreadsheet icon stroke width - [#302](https://github.com/ripe-tech/ripe-pulse/issues/302)
 
