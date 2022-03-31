@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-*
+* Fix `section-expandable` not handling dynamic content height changes - [ripe-util-vue/#265](https://github.com/ripe-tech/ripe-util-vue/issues/265)
 
 ## [0.20.2] - 2022-03-23
 
