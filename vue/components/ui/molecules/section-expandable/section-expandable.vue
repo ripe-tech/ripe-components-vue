@@ -99,25 +99,22 @@ export const SectionExpandable = {
         }
     },
     mounted: function() {
-        this.calculateOffsetHeight();
+        this.updateExpanded();
+    },
+    updated: function() {
         this.updateExpanded();
     },
     methods: {
-        calculateOffsetHeight() {
-            const content = this.$refs.content;
-            if (content && this.expandedHeight === null) {
-                content.style.maxHeight = "none";
-                try {
-                    this.expandedHeight = content.offsetHeight;
-                } finally {
-                    content.style.maxHeight = "0px";
-                }
-            }
-        },
         updateExpanded() {
             const content = this.$refs.content;
             if (!content) return;
-            content.style.maxHeight = this.expandedData ? `${this.expandedHeight}px` : "0px";
+
+            content.style.maxHeight = "none";
+            try {
+                this.expandedHeight = content.offsetHeight;
+            } finally {
+                content.style.maxHeight = this.expandedData ? `${this.expandedHeight}px` : "0px";
+            }
         },
         onSectionClick() {
             this.expandedData = !this.expandedData;
