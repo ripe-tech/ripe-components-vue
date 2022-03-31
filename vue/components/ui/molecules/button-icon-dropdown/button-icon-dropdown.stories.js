@@ -30,11 +30,12 @@ storiesOf("Components/Molecules/Button Icon Dropdown", module)
                         target: "_blank"
                     }
                 ]
-            }
+            },
+            disabled: false
         },
         template: `
             <div>
-                <button-icon-dropdown v-bind:items="items" />
+                <button-icon-dropdown v-bind:items="items" v-bind:disabled="disabled" />
             </div>
         `
     }));
