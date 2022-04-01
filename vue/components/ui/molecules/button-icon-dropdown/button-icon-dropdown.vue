@@ -2,7 +2,7 @@
     <div class="button-icon-dropdown">
         <button-icon
             v-bind="buttonIconProps"
-            v-bind:icon-opacity="disabled ? 0.5 : 1"
+            v-bind:icon-opacity="disabled ? 0.4 : 1"
             v-bind:selectable="!disabled"
             v-bind:icon="'options'"
             v-bind:size="32"
