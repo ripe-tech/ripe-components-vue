@@ -74,6 +74,11 @@ body.round .tooltip-custom > .tooltip-inner {
     color: $dark;
 }
 
+.tooltip-custom.tooltip-variant-red > .tooltip-inner {
+    background-color: #ae2929;
+    color: $white;
+}
+
 .tooltip-custom.tooltip-orientation-top > .tooltip-inner {
     bottom: calc(100% + 10px);
 }
@@ -134,6 +139,10 @@ body.round .tooltip-custom > .tooltip-inner {
 
 .tooltip-custom.tooltip-variant-white > .tooltip-inner > .tip {
     background: linear-gradient(-45deg, $white 50%, transparent 50%);
+}
+
+.tooltip-custom.tooltip-variant-red > .tooltip-inner > .tip {
+    background: linear-gradient(-45deg, #ae2929 50%, transparent 50%);
 }
 
 .tooltip-custom.tooltip-orientation-top > .tooltip-inner > .tip {
