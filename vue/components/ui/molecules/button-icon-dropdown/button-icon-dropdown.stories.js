@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs } from "@storybook/addon-knobs";
+import { withKnobs, boolean } from "@storybook/addon-knobs";
 
 storiesOf("Components/Molecules/Button Icon Dropdown", module)
     .addDecorator(withKnobs)
@@ -30,11 +30,14 @@ storiesOf("Components/Molecules/Button Icon Dropdown", module)
                         target: "_blank"
                     }
                 ]
+            },
+            disabled: {
+                default: boolean("Disabled", false)
             }
         },
         template: `
             <div>
-                <button-icon-dropdown v-bind:items="items" />
+                <button-icon-dropdown v-bind:items="items" v-bind:disabled="disabled" />
             </div>
         `
     }));
