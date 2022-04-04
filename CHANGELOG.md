@@ -9,14 +9,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-* Add variant `red` to tooltip - [ripe-util-vue/#257](https://github.com/ripe-tech/ripe-util-vue/issues/257)
-* Support `expanded` prop in `section-expandable` component - [ripe-util-vue/#265](https://github.com/ripe-tech/ripe-util-vue/issues/265)
-* Create `code-editor` component - [ripe-util-vue/#257](https://github.com/ripe-tech/ripe-util-vue/issues/257)
-* Prop to disable the button icon dropdown component - [ripe-pulse/#281](https://github.com/ripe-tech/ripe-pulse/issues/281)
+*
 
 ### Changed
 
 *
+
+### Fixed
+
+*
+
+## [0.21.0] - 2022-04-04
+
+### Added
+
+* Add variant `red` to tooltip - [ripe-util-vue/#257](https://github.com/ripe-tech/ripe-util-vue/issues/257)
+* Support `expanded` prop in `section-expandable` component - [ripe-util-vue/#265](https://github.com/ripe-tech/ripe-util-vue/issues/265)
+* Create `code-editor` component - [ripe-util-vue/#257](https://github.com/ripe-tech/ripe-util-vue/issues/257)
+* Prop to disable the button icon dropdown component - [ripe-pulse/#281](https://github.com/ripe-tech/ripe-pulse/issues/281)
 
 ### Fixed
 
