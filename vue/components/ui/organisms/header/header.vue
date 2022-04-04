@@ -436,15 +436,12 @@ export const Header = {
             searchFilter: null,
             appsDropdownVisible: false,
             accountDropdownVisible: false,
-            announcementsModalVisible: false
+            extraPanelVisible: false
         };
     },
     computed: {
         hasExtraPanel() {
             return Boolean(this.$slots["extra-panel"]) || (this.announcements && this.announcements.items);
-        },
-        extraPanelVisible() {
-            return this.announcementsModalVisible;
         },
         account() {
             return this.platformeAccount || this.$root.account;
@@ -517,7 +514,7 @@ export const Header = {
             this.appsDropdownVisible = !this.appsDropdownVisible;
         },
         showAnnouncements() {
-            this.announcementsModalVisible = true;
+            this.extraPanelVisible = true;
         },
         onAccountClick() {
             this.toggleAccount();
