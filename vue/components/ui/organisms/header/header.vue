@@ -88,40 +88,44 @@
             </div>
         </div>
         <div class="header-globals">
-            <template v-if="announcements && announcements.items">
+            <template v-if="hasExtraPanel">
                 <bubble
-                    v-bind:visible.sync="announcementsModalVisible"
+                    v-bind:visible.sync="extraPanelVisible"
                     v-if="isMobileWidth()"
                     v-slot="{ hide }"
                 >
-                    <announcements
-                        v-bind:title="announcements.title"
-                        v-bind:description="announcements.description"
-                        v-bind:new-threshold="announcements.new_threshold"
-                        v-bind:show-subscribe="announcements.show_subscribe"
-                        v-bind:show-links="announcements.show_links"
-                        v-bind:show-reactions="announcements.show_reactions"
-                        v-bind:announcements="announcements.items"
-                        v-on:click:close="hide"
-                    />
+                    <slot name="extra-panel">
+                        <announcements
+                            v-bind:title="announcements.title"
+                            v-bind:description="announcements.description"
+                            v-bind:new-threshold="announcements.new_threshold"
+                            v-bind:show-subscribe="announcements.show_subscribe"
+                            v-bind:show-links="announcements.show_links"
+                            v-bind:show-reactions="announcements.show_reactions"
+                            v-bind:announcements="announcements.items"
+                            v-on:click:close="hide"
+                        />
+                    </slot>
                 </bubble>
                 <side
-                    v-bind:visible.sync="announcementsModalVisible"
+                    v-bind:visible.sync="extraPanelVisible"
                     v-bind:width="370"
                     v-bind:position="'right'"
                     v-else
                     v-slot="{ hide }"
                 >
-                    <announcements
-                        v-bind:title="announcements.title"
-                        v-bind:description="announcements.description"
-                        v-bind:new-threshold="announcements.new_threshold"
-                        v-bind:show-subscribe="announcements.show_subscribe"
-                        v-bind:show-links="announcements.show_links"
-                        v-bind:show-reactions="announcements.show_reactions"
-                        v-bind:announcements="announcements.items"
-                        v-on:click:close="hide"
-                    />
+                    <slot name="extra-panel">
+                        <announcements
+                            v-bind:title="announcements.title"
+                            v-bind:description="announcements.description"
+                            v-bind:new-threshold="announcements.new_threshold"
+                            v-bind:show-subscribe="announcements.show_subscribe"
+                            v-bind:show-links="announcements.show_links"
+                            v-bind:show-reactions="announcements.show_reactions"
+                            v-bind:announcements="announcements.items"
+                            v-on:click:close="hide"
+                        />
+                    </slot>
                 </side>
             </template>
         </div>
@@ -436,6 +440,12 @@ export const Header = {
         };
     },
     computed: {
+        hasExtraPanel() {
+            return Boolean(this.$slots["extra-panel"]) || (this.announcements && this.announcements.items);
+        },
+        extraPanelVisible() {
+            return this.announcementsModalVisible;
+        },
         account() {
             return this.platformeAccount || this.$root.account;
         },
