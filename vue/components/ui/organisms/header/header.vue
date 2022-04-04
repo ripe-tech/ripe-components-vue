@@ -378,6 +378,10 @@ export const Header = {
             type: Boolean,
             default: true
         },
+        developer: {
+            type: Boolean,
+            default: true
+        },
         settings: {
             type: Boolean,
             default: true
@@ -440,11 +444,18 @@ export const Header = {
             const { name, email } = this.account.meta;
             items.push({ value: "name", label: name || email || this.account.email });
             if (this.announcements) items.push({ value: "announcements", label: "What's new?" });
+            if (this.developer) {
+                items.push({
+                    value: "developer",
+                    label: "Developer techincal ",
+                    separator: true
+                });
+            }
             if (this.settings) {
                 items.push({
                     value: "settings",
                     label: "Account settings",
-                    separator: true
+                    separator: !this.developer
                 });
             }
             if (this.signout) {
