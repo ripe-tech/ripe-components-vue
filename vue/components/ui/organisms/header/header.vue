@@ -525,8 +525,11 @@ export const Header = {
             this.toggleAccount();
         },
         onAccountDropdownItemClick(event, item, index) {
-            this.extraPanel = `extra-panel-${item.value}`;
-            this.extraPanelVisible = true;
+            const extraPanelName = `extra-panel-${item.value}`;
+            if (this.extraPanelScopedSlots.includes(extraPanelName) || extraPanelName === "extra-panel-announcements") {
+                this.extraPanel = extraPanelName;
+                this.extraPanelVisible = true;
+            }
             this.$emit("click:account-dropdown-item", event, item, index);
         },
         onAppsClick() {
