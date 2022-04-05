@@ -17,7 +17,7 @@
                     v-for="(item, index) in items.filter(v => v !== null && v !== undefined)"
                     v-else
                     v-bind:key="item.value"
-                    v-on:click="() => click(item, index)"
+                    v-on:click="event => click(event, item, index)"
                     v-on:mouseenter="() => onMouseenter(index, item)"
                     v-on:mouseleave="() => onMouseleave(index)"
                 >
@@ -328,7 +328,7 @@ export const Dropdown = {
         if (this.onHideGlobal) this.$bus.$off("hide-global", this.onHideGlobal);
     },
     methods: {
-        click(item, index) {
+        click(event, item, index) {
             if (this.managed) {
                 // invalidates all of the selected data (only one item can
                 // be selected at a time) and then updates the currently
@@ -338,7 +338,12 @@ export const Dropdown = {
                 });
                 this.$set(this.selectedData, index, true);
             }
+
+            // legacy event for backwards compatibility, this shouldn't
+            // be updated as it's missing the "event" as the first argument
             this.$emit("item-clicked", item, index);
+
+            this.$emit("click:item", event, item, index);
             this.hide();
         },
         highlight(index) {

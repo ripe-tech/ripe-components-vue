@@ -47,16 +47,14 @@
                         v-bind:notify="announcementsToRead"
                     />
                     <dropdown
-                        v-bind:items="accountDropdownItems"
+                        v-bind:items="_accountDropdownItems"
                         v-bind:visible.sync="accountDropdownVisible"
                         v-bind:global-hide="true"
                         v-bind:owners="$refs.headerAccount"
+                        v-on:click:item.stop="onAccountDropdownItemClick"
                     >
                         <template v-slot:announcements="{ item }">
-                            <div
-                                class="dropdown-item-announcements"
-                                v-on:click.stop="onAnnouncementsClick"
-                            >
+                            <div class="dropdown-item-announcements">
                                 <span class="announcements-dropdown-text">{{ item.label }}</span>
                                 <div class="dot" v-if="announcementsToRead" />
                             </div>
@@ -94,18 +92,18 @@
                     v-if="isMobileWidth()"
                     v-slot="{ hide }"
                 >
-                    <slot name="extra-panel">
-                        <announcements
-                            v-bind:title="announcements.title"
-                            v-bind:description="announcements.description"
-                            v-bind:new-threshold="announcements.new_threshold"
-                            v-bind:show-subscribe="announcements.show_subscribe"
-                            v-bind:show-links="announcements.show_links"
-                            v-bind:show-reactions="announcements.show_reactions"
-                            v-bind:announcements="announcements.items"
-                            v-on:click:close="hide"
-                        />
-                    </slot>
+                    <announcements
+                        v-bind:title="announcements.title"
+                        v-bind:description="announcements.description"
+                        v-bind:new-threshold="announcements.new_threshold"
+                        v-bind:show-subscribe="announcements.show_subscribe"
+                        v-bind:show-links="announcements.show_links"
+                        v-bind:show-reactions="announcements.show_reactions"
+                        v-bind:announcements="announcements.items"
+                        v-if="announcementsModalVisible"
+                        v-on:click:close="hide"
+                    />
+                    <slot name="extra-panel" v-bind:hide="hide" v-else />
                 </bubble>
                 <side
                     v-bind:visible.sync="extraPanelVisible"
@@ -114,18 +112,18 @@
                     v-else
                     v-slot="{ hide }"
                 >
-                    <slot name="extra-panel">
-                        <announcements
-                            v-bind:title="announcements.title"
-                            v-bind:description="announcements.description"
-                            v-bind:new-threshold="announcements.new_threshold"
-                            v-bind:show-subscribe="announcements.show_subscribe"
-                            v-bind:show-links="announcements.show_links"
-                            v-bind:show-reactions="announcements.show_reactions"
-                            v-bind:announcements="announcements.items"
-                            v-on:click:close="hide"
-                        />
-                    </slot>
+                    <announcements
+                        v-bind:title="announcements.title"
+                        v-bind:description="announcements.description"
+                        v-bind:new-threshold="announcements.new_threshold"
+                        v-bind:show-subscribe="announcements.show_subscribe"
+                        v-bind:show-links="announcements.show_links"
+                        v-bind:show-reactions="announcements.show_reactions"
+                        v-bind:announcements="announcements.items"
+                        v-if="announcementsModalVisible"
+                        v-on:click:close="hide"
+                    />
+                    <slot name="extra-panel" v-bind:hide="hide" v-else />
                 </side>
             </template>
         </div>
@@ -382,9 +380,9 @@ export const Header = {
             type: Boolean,
             default: true
         },
-        developer: {
-            type: Boolean,
-            default: true
+        accountDropdownItems: {
+            type: Array,
+            default: []
         },
         settings: {
             type: Boolean,
@@ -436,6 +434,7 @@ export const Header = {
             searchFilter: null,
             appsDropdownVisible: false,
             accountDropdownVisible: false,
+            announcementsModalVisible: false,
             extraPanelVisible: false
         };
     },
@@ -446,32 +445,23 @@ export const Header = {
         account() {
             return this.platformeAccount || this.$root.account;
         },
-        accountDropdownItems() {
+        _accountDropdownItems() {
             const items = [];
             const { name, email } = this.account.meta;
             items.push({ value: "name", label: name || email || this.account.email });
+
             if (this.announcements) items.push({ value: "announcements", label: "What's new?" });
-            if (this.developer) {
-                items.push({
-                    value: "developer",
-                    label: "Developer techincal ",
-                    separator: true
-                });
+
+            items.push(...this.accountDropdownItems);
+
+            const settingsItem = this.accountDropdownItems.find(item => item.value === "settings");
+            if (!settingsItem && this.settings) {
+                items.push({ value: "settings", label: "Account settings", separator: true });
             }
-            if (this.settings) {
-                items.push({
-                    value: "settings",
-                    label: "Account settings",
-                    separator: !this.developer
-                });
-            }
-            if (this.signout) {
-                items.push({
-                    value: "signout",
-                    label: "Sign out",
-                    link: "/signout",
-                    separator: !this.settings
-                });
+
+            const signoutItem = this.accountDropdownItems.find(item => item.value === "signout");
+            if (!signoutItem && this.signout) {
+                items.push({ value: "signout", label: "Sign out", link: "/signout", separator: !this.settings });
             }
             return items;
         },
@@ -501,6 +491,11 @@ export const Header = {
     watch: {
         searchFilter(value) {
             this.$emit("search-filter", value);
+        },
+        extraPanelVisible(value) {
+            if (!value) {
+                this.announcementsModalVisible = false;
+            }
         }
     },
     methods: {
@@ -513,18 +508,19 @@ export const Header = {
         toggleApps() {
             this.appsDropdownVisible = !this.appsDropdownVisible;
         },
-        showAnnouncements() {
-            this.extraPanelVisible = true;
-        },
         onAccountClick() {
             this.toggleAccount();
         },
+        onAccountDropdownItemClick(event, item, index) {
+            this.extraPanelVisible = item.extraPanel;
+            if (item.value === "announcements") {
+                this.announcementsModalVisible = true;
+                this.extraPanelVisible = true;
+            }
+            this.$emit("click:account-dropdown-item", event, item, index);
+        },
         onAppsClick() {
             this.toggleApps();
-        },
-        onAnnouncementsClick() {
-            this.showAnnouncements();
-            this.toggleAccount();
         }
     }
 };
