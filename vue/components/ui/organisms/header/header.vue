@@ -100,10 +100,12 @@
                         v-bind:show-links="announcements.show_links"
                         v-bind:show-reactions="announcements.show_reactions"
                         v-bind:announcements="announcements.items"
-                        v-if="announcementsModalVisible"
+                        v-if="extraPanel === 'extra-panel-announcements'"
                         v-on:click:close="hide"
                     />
-                    <slot name="extra-panel" v-bind:hide="hide" v-else />
+                    <template v-for="slot in extraPanelScopedSlots" v-else>
+                        <slot v-bind:name="slot" v-bind:hide="hide" v-if="slot === extraPanel" />
+                    </template>
                 </bubble>
                 <side
                     v-bind:visible.sync="extraPanelVisible"
@@ -120,10 +122,12 @@
                         v-bind:show-links="announcements.show_links"
                         v-bind:show-reactions="announcements.show_reactions"
                         v-bind:announcements="announcements.items"
-                        v-if="announcementsModalVisible"
+                        v-if="extraPanel === 'extra-panel-announcements'"
                         v-on:click:close="hide"
                     />
-                    <slot name="extra-panel" v-bind:hide="hide" v-else />
+                    <template v-for="slot in extraPanelScopedSlots" v-else>
+                        <slot v-bind:name="slot" v-bind:hide="hide" v-if="slot === extraPanel" />
+                    </template>
                 </side>
             </template>
         </div>
@@ -434,11 +438,14 @@ export const Header = {
             searchFilter: null,
             appsDropdownVisible: false,
             accountDropdownVisible: false,
-            announcementsModalVisible: false,
+            extraPanel: null,
             extraPanelVisible: false
         };
     },
     computed: {
+        extraPanelScopedSlots() {
+            return Object.keys(this.$scopedSlots).filter(key => key.startsWith("extra-panel-"));
+        },
         hasExtraPanel() {
             return Boolean(this.$slots["extra-panel"]) || (this.announcements && this.announcements.items);
         },
@@ -493,9 +500,7 @@ export const Header = {
             this.$emit("search-filter", value);
         },
         extraPanelVisible(value) {
-            if (!value) {
-                this.announcementsModalVisible = false;
-            }
+            if (!value) this.extraPanel = null;
         }
     },
     methods: {
@@ -512,11 +517,8 @@ export const Header = {
             this.toggleAccount();
         },
         onAccountDropdownItemClick(event, item, index) {
-            this.extraPanelVisible = item.extraPanel;
-            if (item.value === "announcements") {
-                this.announcementsModalVisible = true;
-                this.extraPanelVisible = true;
-            }
+            this.extraPanel = `extra-panel-${item.value}`;
+            this.extraPanelVisible = true;
             this.$emit("click:account-dropdown-item", event, item, index);
         },
         onAppsClick() {
