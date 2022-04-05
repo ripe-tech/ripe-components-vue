@@ -447,7 +447,10 @@ export const Header = {
             return Object.keys(this.$scopedSlots).filter(key => key.startsWith("extra-panel-"));
         },
         hasExtraPanel() {
-            return Boolean(this.$slots["extra-panel"]) || (this.announcements && this.announcements.items);
+            return (
+                Boolean(this.$slots["extra-panel"]) ||
+                (this.announcements && this.announcements.items)
+            );
         },
         account() {
             return this.platformeAccount || this.$root.account;
@@ -468,7 +471,12 @@ export const Header = {
 
             const signoutItem = this.accountDropdownItems.find(item => item.value === "signout");
             if (!signoutItem && this.signout) {
-                items.push({ value: "signout", label: "Sign out", link: "/signout", separator: !this.settings });
+                items.push({
+                    value: "signout",
+                    label: "Sign out",
+                    link: "/signout",
+                    separator: !this.settings
+                });
             }
             return items;
         },
