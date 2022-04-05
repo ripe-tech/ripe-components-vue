@@ -2,7 +2,6 @@ import { Alert } from "./alert/alert.vue";
 import { Announcements } from "./announcements/announcements.vue";
 import { AvatarName } from "./avatar-name/avatar-name.vue";
 import { AvatarNameEmail } from "./avatar-name-email/avatar-name-email.vue";
-import { BarChart } from "./bar-chart/bar-chart.vue";
 import { BezierCurve } from "./bezier-curve/bezier-curve.vue";
 import { ButtonDropdown } from "./button-dropdown/button-dropdown.vue";
 import { ButtonIconAnimated } from "./button-icon-animated/button-icon-animated.vue";
@@ -47,13 +46,13 @@ import { Tabs } from "./tabs/tabs.vue";
 import { Tooltip } from "./tooltip/tooltip.vue";
 import { TransferList } from "./transfer-list/transfer-list.vue";
 import { UploadArea } from "./upload-area/upload-area.vue";
+import { UploadInput } from "./upload-input/upload-input.vue";
 
 const install = Vue => {
     Vue.component("alert", Alert);
     Vue.component("announcements", Announcements);
     Vue.component("avatar-name", AvatarName);
     Vue.component("avatar-name-email", AvatarNameEmail);
-    Vue.component("bar-chart", BarChart);
     Vue.component("bezier-curve", BezierCurve);
     Vue.component("button-dropdown", ButtonDropdown);
     Vue.component("button-icon-animated", ButtonIconAnimated);
@@ -98,6 +97,7 @@ const install = Vue => {
     Vue.component("tooltip", Tooltip);
     Vue.component("transfer-list", TransferList);
     Vue.component("upload-area", UploadArea);
+    Vue.component("upload-input", UploadInput);
 };
 
 export {
@@ -147,7 +147,8 @@ export {
     Tabs,
     Tooltip,
     TransferList,
-    UploadArea
+    UploadArea,
+    UploadInput
 };
 
 export default install;
