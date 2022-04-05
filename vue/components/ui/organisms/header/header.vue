@@ -448,7 +448,7 @@ export const Header = {
         },
         hasExtraPanel() {
             return (
-                Boolean(this.$slots["extra-panel"]) ||
+                this.extraPanelScopedSlots.length > 0 ||
                 (this.announcements && this.announcements.items)
             );
         },
