@@ -526,7 +526,10 @@ export const Header = {
         },
         onAccountDropdownItemClick(event, item, index) {
             const extraPanelName = `extra-panel-${item.value}`;
-            if (this.extraPanelScopedSlots.includes(extraPanelName) || extraPanelName === "extra-panel-announcements") {
+            if (
+                this.extraPanelScopedSlots.includes(extraPanelName) ||
+                extraPanelName === "extra-panel-announcements"
+            ) {
                 this.extraPanel = extraPanelName;
                 this.extraPanelVisible = true;
             }
