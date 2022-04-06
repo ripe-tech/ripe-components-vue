@@ -48,8 +48,8 @@
 <script>
 import { uploadMixin } from "../../../../mixins/upload";
 
-export const UploadInput = {
-    name: "upload-input",
+export const InputFile = {
+    name: "input-file",
     mixins: [uploadMixin],
     props: {
         text: {
@@ -99,5 +99,5 @@ export const UploadInput = {
     }
 };
 
-export default UploadInput;
+export default InputFile;
 </script>

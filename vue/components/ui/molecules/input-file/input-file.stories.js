@@ -1,9 +1,9 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text } from "@storybook/addon-knobs";
 
-storiesOf("Components/Molecules/Bar Chart", module)
+storiesOf("Components/Molecules/Input File", module)
     .addDecorator(withKnobs)
-    .add("Bar Chart", () => ({
+    .add("Input File", () => ({
         props: {
             text: {
                 default: text("Name", "Upload Waybill")
@@ -11,7 +11,7 @@ storiesOf("Components/Molecules/Bar Chart", module)
         },
         template: `
         <div style="height: 100px; max-width: 300px" >
-            <upload-input
+            <input-file
                 v-bind:text="text"
             />
         </div>
