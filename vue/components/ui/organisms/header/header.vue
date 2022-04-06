@@ -386,7 +386,7 @@ export const Header = {
         },
         accountDropdownItems: {
             type: Array,
-            default: []
+            default: () => []
         },
         settings: {
             type: Boolean,
