@@ -139,6 +139,10 @@
     background-color: $selected-dark-color;
 }
 
+.table tbody tr.checked {
+    background-color: $selected-dark-color;
+}
+
 .table th {
     color: $label-color;
     font-size: 11px;
@@ -519,6 +523,7 @@ export const Table = {
         },
         rowClasses(item) {
             const base = {
+                checked: this.checkedItemsData[item.id],
                 selected: this.isRowSelected(item.id),
                 clickable: item.clickable === undefined ? this.clickableRows : item.clickable,
                 hoverable: item.hoverable === undefined ? this.hoverableRows : item.hoverable
