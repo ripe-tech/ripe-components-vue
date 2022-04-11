@@ -61,12 +61,6 @@ export const InputFile = {
             default: null
         }
     },
-    data: function() {
-        return {
-            height: null,
-            greaterValue: null
-        };
-    },
     mounted: function() {
         this.initUploadArea(this.$refs.filesInput);
     },
@@ -90,7 +84,7 @@ export const InputFile = {
             this.filesData = [];
         },
         onIconClick() {
-            if (this.filesData.length === 0) {
+            if (this.noFileSelected === 0) {
                 this.onUploadButtonClick();
                 return;
             }
