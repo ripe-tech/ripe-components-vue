@@ -10,6 +10,7 @@
                 v-bind:reverse="reverse"
                 v-bind:alignment="tableAlignment"
                 v-bind:variant="tableVariant"
+                v-bind:row-selection="rowSelection"
                 v-bind:clickable-rows="clickableRows"
                 v-bind:checkboxes="checkboxes"
                 v-bind:checked-items="checkedItems"
@@ -141,6 +142,10 @@ export const Filter = {
         tableVariant: {
             type: String,
             default: null
+        },
+        rowSelection: {
+            type: Boolean,
+            default: false
         },
         clickableRows: {
             type: Boolean,

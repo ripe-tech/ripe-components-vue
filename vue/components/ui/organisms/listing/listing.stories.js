@@ -17,6 +17,9 @@ storiesOf("Components/Organisms/Listing", module)
                     { value: "device", label: "Device" }
                 ]
             },
+            rowSelection: {
+                default: () => boolean("Row Selection", false)
+            },
             lineupFields: {
                 type: Array,
                 default: () => [
@@ -109,6 +112,7 @@ storiesOf("Components/Organisms/Listing", module)
                 <listing
                     v-bind:context="context"
                     v-bind:table-columns="tableColumns"
+                    v-bind:row-selection="rowSelection"
                     v-bind:lineup-fields="lineupFields"
                     v-bind:get-items="getItems"
                     v-bind:name="'devices'"
