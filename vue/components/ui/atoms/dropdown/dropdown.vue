@@ -343,7 +343,12 @@ export const Dropdown = {
             // be updated as it's missing the "event" as the first argument
             this.$emit("item-clicked", item, index);
 
+            // triggers the click item event with the proper event argument
+            // ready to be manipulated by any listener
             this.$emit("click:item", event, item, index);
+
+            // hides the dropdown as an item has been clicked, this is considered
+            // to be the default and expected behaviour
             this.hide();
         },
         highlight(index) {

@@ -460,7 +460,12 @@ export const Header = {
             const { name, email } = this.account.meta;
             items.push({ value: "name", label: name || email || this.account.email });
 
-            if (this.announcements) items.push({ value: "announcements", label: "What's new?" });
+            const announcementsItem = this.accountDropdownItems.find(
+                item => item.value === "announcements"
+            );
+            if (!announcementsItem && this.announcements) {
+                items.push({ value: "announcements", label: "What's new?" });
+            }
 
             items.push(...this.accountDropdownItems);
 
@@ -478,6 +483,7 @@ export const Header = {
                     separator: !this.settings
                 });
             }
+
             return items;
         },
         appsDropdownItems() {
@@ -527,7 +533,7 @@ export const Header = {
         onAccountDropdownItemClick(event, item, index) {
             const extraPanelName = `extra-panel-${item.value}`;
             if (
-                this.extraPanelScopedSlots.includes(extraPanelName) ||
+                this.extraPanelScopedSlots.slice("extra-panel-".length) === extraPanelName ||
                 extraPanelName === "extra-panel-announcements"
             ) {
                 this.extraPanel = extraPanelName;
