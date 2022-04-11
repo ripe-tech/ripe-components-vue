@@ -21,8 +21,6 @@
     color: #0d0d0d;
     font-size: 14px;
     letter-spacing: 0.7px;
-    padding: 16px 22px 16px 22px;
-    text-align: left;
 }
 
 .entry > .title {
