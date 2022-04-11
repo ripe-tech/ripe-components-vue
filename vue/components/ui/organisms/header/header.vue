@@ -47,16 +47,14 @@
                         v-bind:notify="announcementsToRead"
                     />
                     <dropdown
-                        v-bind:items="accountDropdownItems"
+                        v-bind:items="_accountDropdownItems"
                         v-bind:visible.sync="accountDropdownVisible"
                         v-bind:global-hide="true"
                         v-bind:owners="$refs.headerAccount"
+                        v-on:click:item.stop="onAccountDropdownItemClick"
                     >
                         <template v-slot:announcements="{ item }">
-                            <div
-                                class="dropdown-item-announcements"
-                                v-on:click.stop="onAnnouncementsClick"
-                            >
+                            <div class="dropdown-item-announcements">
                                 <span class="announcements-dropdown-text">{{ item.label }}</span>
                                 <div class="dot" v-if="announcementsToRead" />
                             </div>
@@ -88,9 +86,9 @@
             </div>
         </div>
         <div class="header-globals">
-            <template v-if="announcements && announcements.items">
+            <template v-if="hasExtraPanel">
                 <bubble
-                    v-bind:visible.sync="announcementsModalVisible"
+                    v-bind:visible.sync="extraPanelVisible"
                     v-if="isMobileWidth()"
                     v-slot="{ hide }"
                 >
@@ -102,11 +100,15 @@
                         v-bind:show-links="announcements.show_links"
                         v-bind:show-reactions="announcements.show_reactions"
                         v-bind:announcements="announcements.items"
+                        v-if="extraPanel === 'extra-panel-announcements'"
                         v-on:click:close="hide"
                     />
+                    <template v-for="slot in extraPanelScopedSlots" v-else>
+                        <slot v-bind:name="slot" v-bind:hide="hide" v-if="slot === extraPanel" />
+                    </template>
                 </bubble>
                 <side
-                    v-bind:visible.sync="announcementsModalVisible"
+                    v-bind:visible.sync="extraPanelVisible"
                     v-bind:width="370"
                     v-bind:position="'right'"
                     v-else
@@ -120,8 +122,12 @@
                         v-bind:show-links="announcements.show_links"
                         v-bind:show-reactions="announcements.show_reactions"
                         v-bind:announcements="announcements.items"
+                        v-if="extraPanel === 'extra-panel-announcements'"
                         v-on:click:close="hide"
                     />
+                    <template v-for="slot in extraPanelScopedSlots" v-else>
+                        <slot v-bind:name="slot" v-bind:hide="hide" v-if="slot === extraPanel" />
+                    </template>
                 </side>
             </template>
         </div>
@@ -378,6 +384,10 @@ export const Header = {
             type: Boolean,
             default: true
         },
+        accountDropdownItems: {
+            type: Array,
+            default: () => []
+        },
         settings: {
             type: Boolean,
             default: true
@@ -428,26 +438,44 @@ export const Header = {
             searchFilter: null,
             appsDropdownVisible: false,
             accountDropdownVisible: false,
-            announcementsModalVisible: false
+            extraPanel: null,
+            extraPanelVisible: false
         };
     },
     computed: {
+        extraPanelScopedSlots() {
+            return Object.keys(this.$scopedSlots).filter(key => key.startsWith("extra-panel-"));
+        },
+        hasExtraPanel() {
+            return (
+                this.extraPanelScopedSlots.length > 0 ||
+                (this.announcements && this.announcements.items)
+            );
+        },
         account() {
             return this.platformeAccount || this.$root.account;
         },
-        accountDropdownItems() {
+        _accountDropdownItems() {
             const items = [];
             const { name, email } = this.account.meta;
             items.push({ value: "name", label: name || email || this.account.email });
-            if (this.announcements) items.push({ value: "announcements", label: "What's new?" });
-            if (this.settings) {
-                items.push({
-                    value: "settings",
-                    label: "Account settings",
-                    separator: true
-                });
+
+            const announcementsItem = this.accountDropdownItems.find(
+                item => item.value === "announcements"
+            );
+            if (!announcementsItem && this.announcements) {
+                items.push({ value: "announcements", label: "What's new?" });
             }
-            if (this.signout) {
+
+            items.push(...this.accountDropdownItems);
+
+            const settingsItem = this.accountDropdownItems.find(item => item.value === "settings");
+            if (!settingsItem && this.settings) {
+                items.push({ value: "settings", label: "Account settings", separator: true });
+            }
+
+            const signoutItem = this.accountDropdownItems.find(item => item.value === "signout");
+            if (!signoutItem && this.signout) {
                 items.push({
                     value: "signout",
                     label: "Sign out",
@@ -455,6 +483,7 @@ export const Header = {
                     separator: !this.settings
                 });
             }
+
             return items;
         },
         appsDropdownItems() {
@@ -483,6 +512,9 @@ export const Header = {
     watch: {
         searchFilter(value) {
             this.$emit("search-filter", value);
+        },
+        extraPanelVisible(value) {
+            if (!value) this.extraPanel = null;
         }
     },
     methods: {
@@ -495,18 +527,22 @@ export const Header = {
         toggleApps() {
             this.appsDropdownVisible = !this.appsDropdownVisible;
         },
-        showAnnouncements() {
-            this.announcementsModalVisible = true;
-        },
         onAccountClick() {
             this.toggleAccount();
         },
+        onAccountDropdownItemClick(event, item, index) {
+            const extraPanelName = `extra-panel-${item.value}`;
+            if (
+                this.extraPanelScopedSlots.slice("extra-panel-".length) === extraPanelName ||
+                extraPanelName === "extra-panel-announcements"
+            ) {
+                this.extraPanel = extraPanelName;
+                this.extraPanelVisible = true;
+            }
+            this.$emit("click:account-dropdown-item", event, item, index);
+        },
         onAppsClick() {
             this.toggleApps();
-        },
-        onAnnouncementsClick() {
-            this.showAnnouncements();
-            this.toggleAccount();
         }
     }
 };
