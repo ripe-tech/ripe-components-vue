@@ -24,6 +24,9 @@ storiesOf("Components/Molecules/Filter", module)
                     { value: "car", label: "Car" }
                 ]
             },
+            rowSelection: {
+                default: () => boolean("Row Selection", false)
+            },
             checkedItems: {
                 type: Object,
                 default: () => {
@@ -64,6 +67,7 @@ storiesOf("Components/Molecules/Filter", module)
                     v-bind:getItems="getItems"
                     v-bind:table-columns="tableColumns" 
                     v-bind:lineup-fields="lineupFields"
+                    v-bind:row-selection="rowSelection"
                     v-bind:checkboxes="checkboxes"
                     v-bind:checked-items.sync="checkedItemsData"
                 >

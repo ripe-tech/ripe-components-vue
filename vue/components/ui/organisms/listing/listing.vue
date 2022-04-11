@@ -98,6 +98,7 @@
                 v-bind:table-columns="tableColumns"
                 v-bind:table-alignment="tableAlignment"
                 v-bind:table-variant="tableVariant"
+                v-bind:row-selection="rowSelection"
                 v-bind:lineup-fields="lineupFields"
                 v-bind:lineup-columns="lineupColumns"
                 v-bind:lineup-variant="lineupVariant"
@@ -303,6 +304,10 @@ export const Listing = {
         tableVariant: {
             type: String,
             default: null
+        },
+        rowSelection: {
+            type: Boolean,
+            default: false
         },
         lineupFields: {
             type: Array,
