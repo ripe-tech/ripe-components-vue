@@ -535,10 +535,7 @@ export const Table = {
         },
         onClick(item, index) {
             if (this.rowSelection) {
-                this.selectedRowData =
-                    this.selectedIdData === null || this.selectedRowData !== item.id
-                        ? item.id
-                        : null;
+                this.selectedRowData = this.selectedRowData !== item.id ? item.id : null;
             }
 
             this.$emit("click", item, item._originalIndex, index, this.selectedRowData);

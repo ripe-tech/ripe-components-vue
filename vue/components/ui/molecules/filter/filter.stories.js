@@ -24,6 +24,9 @@ storiesOf("Components/Molecules/Filter", module)
                     { value: "car", label: "Car" }
                 ]
             },
+            rowSelection: {
+                default: () => boolean("Row Selection", false)
+            },
             checkedItems: {
                 type: Object,
                 default: () => {

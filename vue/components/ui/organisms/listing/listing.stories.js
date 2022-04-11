@@ -17,6 +17,9 @@ storiesOf("Components/Organisms/Listing", module)
                     { value: "device", label: "Device" }
                 ]
             },
+            rowSelection: {
+                default: () => boolean("Row Selection", false)
+            },
             lineupFields: {
                 type: Array,
                 default: () => [
