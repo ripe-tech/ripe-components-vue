@@ -12,6 +12,7 @@
             v-on:change="onFilesInputChange"
         />
         <icon
+            v-bind:class="classes"
             v-bind:icon="icon"
             v-bind:width="15"
             v-bind:height="14"
@@ -29,8 +30,7 @@
     display: flex;
     height: 34px;
     line-height: 34px;
-    padding-left: 12px;
-    padding-right: 12px;
+    padding: 0px 12px 0px 12px;
 }
 
 .upload-input > .text {
@@ -41,8 +41,13 @@
     align-self: center;
     cursor: pointer;
     margin-left: auto;
+    padding: 1px;
 }
 
+.upload-input > .icon.remove:hover {
+    background-color: #e6e6e6;
+    border-radius: 100px;
+}
 </style>
 
 <script>
@@ -65,11 +70,20 @@ export const InputFile = {
         this.initUploadArea(this.$refs.filesInput);
     },
     computed: {
+        classes() {
+            const base = {
+                remove: !this.noFileSelected
+            };
+            return base;
+        },
+        noFileSelected() {
+            return this.filesData.length === 0;
+        },
         buttonText() {
-            return this.filesData.length === 0 ? this.text : this.filesData[0].name;
+            return this.noFileSelected ? this.text : this.filesData[0].name;
         },
         icon() {
-            return this.filesData.length === 0 ? "upload" : "close";
+            return this.noFileSelected ? "upload" : "close";
         }
     },
     watch: {
@@ -84,7 +98,7 @@ export const InputFile = {
             this.filesData = [];
         },
         onIconClick() {
-            if (this.noFileSelected === 0) {
+            if (this.noFileSelected) {
                 this.onUploadButtonClick();
                 return;
             }
