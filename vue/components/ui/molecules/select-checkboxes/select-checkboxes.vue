@@ -58,13 +58,13 @@
     margin: 0px 0px 0px 0px;
 }
 
-.select-checkboxes.search .checkboxes-search {
+.select-checkboxes.search .checkboxes > .checkboxes-search {
     border-bottom: 1px solid #e4e8f0;
     padding: 20px 14px 12px 14px;
     width: unset;
 }
 
-.select-checkboxes.search .checkbox-group {
+.select-checkboxes.search .checkboxes > .checkbox-group {
     padding: 18px 22px 18px 22px;
 }
 
