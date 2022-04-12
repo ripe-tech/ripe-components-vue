@@ -225,9 +225,9 @@ export const SelectCheckboxes = {
             if (this.filterCheckboxes) return this.filterCheckboxes;
             return (items, filter) => {
                 return items.filter(item => {
-                    const label = item.label.toLowerCase();
-                    const searchValue = this.searchValue.toLowerCase();
-                    return label.includes(searchValue);
+                    const itemValue = `${item.label || item.value}`.toLowerCase();
+                    filter = filter.toLowerCase();
+                    return itemValue.includes(filter);
                 });
             };
         },
