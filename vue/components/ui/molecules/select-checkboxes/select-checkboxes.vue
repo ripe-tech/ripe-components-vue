@@ -1,6 +1,7 @@
 <template>
     <select-ripe
         class="select-checkboxes"
+        v-bind:class="classes"
         v-bind:options="selectOptions"
         v-bind:value="'checkbox-group'"
         v-bind:disabled="disabled"
@@ -14,6 +15,16 @@
     >
         <template v-slot:checkbox-group>
             <div class="checkboxes" ref="checkboxes" v-on:click.stop>
+                <search
+                    class="checkboxes-search"
+                    v-bind="{
+                        iconVisible: true,
+                        clearVisible: true,
+                        ...searchProps
+                    }"
+                    v-bind:value.sync="searchValue"
+                    v-if="search"
+                />
                 <checkbox-group v-bind:items="_items" v-bind:values.sync="valuesData" />
             </div>
         </template>
@@ -25,6 +36,22 @@
     box-sizing: border-box;
     margin: 5px 15px 5px 15px;
     width: 100%;
+}
+
+.select-checkboxes.search .checkboxes {
+    display: flex;
+    flex-direction: column;
+    margin: 0px 0px 0px 0px;
+}
+
+.select-checkboxes.search .checkboxes-search {
+    padding: 20px 14px 12px 14px;
+    border-bottom: 1px solid #e4e8f0;
+    width: unset;
+}
+
+.select-checkboxes.search .checkbox-group {
+    padding: 18px 22px 18px 22px;
 }
 
 .select-checkboxes .checkboxes ::v-deep .checkbox-item {
@@ -122,14 +149,34 @@ export const SelectCheckboxes = {
         allValue: {
             type: String,
             default: "$ALL"
+        },
+        /**
+         * Whether to show the search bar.
+         */
+        search: {
+            type: Boolean,
+            default: false
+        },
+        /**
+         * Set of props passed on to search.
+         */
+        searchProps: {
+            type: Object,
+            default: () => ({})
         }
     },
-    data: function() {
+    data: function () {
         return {
-            valuesData: this.values
+            valuesData: this.values,
+            searchValue: null
         };
     },
     computed: {
+        classes() {
+            const base = {};
+            if (this.search) base.search = true;
+            return base;
+        },
         selectOptions() {
             return [{ label: this._label, value: "checkbox-group" }];
         },
@@ -158,19 +205,19 @@ export const SelectCheckboxes = {
     },
     watch: {
         values: {
-            handler: function(value) {
+            handler: function (value) {
                 this.valuesData = value;
             }
         },
         allSelected: {
-            handler: function(value) {
+            handler: function (value) {
                 const valuesData = {};
                 this._items.forEach(item => (valuesData[item.value] = value));
                 this.valuesData = valuesData;
             }
         },
         valuesData: {
-            handler: function(value) {
+            handler: function (value) {
                 this.$emit("update:values", value);
             },
             deep: true
