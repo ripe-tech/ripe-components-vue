@@ -20,6 +20,7 @@
                     v-bind="{
                         iconVisible: true,
                         clearVisible: true,
+                        variant: 'dark',
                         ...searchProps
                     }"
                     v-bind:value.sync="searchValue"
@@ -32,6 +33,15 @@
 </template>
 
 <style lang="scss" scoped>
+@import "css/variables.scss";
+
+.select-checkboxes.search ::v-deep .dropdown > .dropdown-item,
+.select-checkboxes.search ::v-deep .dropdown > .dropdown-item.selected,
+.select-checkboxes.search ::v-deep .dropdown > .dropdown-item.highlighted,
+.select-checkboxes.search ::v-deep .dropdown > .dropdown-item:hover {
+    background-color: $white;
+}
+
 .select-checkboxes .checkboxes {
     box-sizing: border-box;
     margin: 5px 15px 5px 15px;
