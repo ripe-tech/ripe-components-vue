@@ -165,7 +165,7 @@ export const SelectCheckboxes = {
             default: "$ALL"
         },
         /**
-         * Whether to show the search bar.
+         * Whether or not to show the search bar.
          */
         search: {
             type: Boolean,
