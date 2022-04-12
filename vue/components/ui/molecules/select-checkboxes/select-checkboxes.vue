@@ -26,7 +26,7 @@
                     v-bind:value.sync="searchValue"
                     v-if="search"
                 />
-                <checkbox-group v-bind:items="_items" v-bind:values.sync="valuesData" />
+                <checkbox-group v-bind:items="filteredItems" v-bind:values.sync="valuesData" />
             </div>
         </template>
     </select-ripe>
@@ -177,6 +177,14 @@ export const SelectCheckboxes = {
         searchProps: {
             type: Object,
             default: () => ({})
+        },
+        /**
+         * Method that handles the filter logic for the
+         * search bar.
+         */
+        filterCheckboxes: {
+            type: Function,
+            default: null
         }
     },
     data: function () {
@@ -212,6 +220,19 @@ export const SelectCheckboxes = {
                     disabled: this.allSelected ? true : item.disabled
                 }))
             ];
+        },
+        _filterCheckboxes() {
+            if (this.filterCheckboxes) return this.filterCheckboxes;
+            return (items, filter) => {
+                return items.filter(item => {
+                    const label = item.label.toLowerCase();
+                const searchValue = this.searchValue.toLowerCase();
+                return label.includes(searchValue);
+                });
+            };
+        },
+        filteredItems() {
+            return !this.search || !this.searchValue ? this._items : this._filterCheckboxes(this._items, this.searchValue);
         },
         allSelected() {
             return Boolean(this.valuesData[this.allValue]);
