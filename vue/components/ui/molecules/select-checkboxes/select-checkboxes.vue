@@ -42,7 +42,7 @@
 .select-checkboxes ::v-deep .dropdown-container .dropdown > .dropdown-item:not(.disabled):hover,
 .select-checkboxes ::v-deep .dropdown-container .dropdown > .dropdown-item:not(.disabled):active,
 .select-checkboxes ::v-deep .dropdown-container .dropdown > .dropdown-item:not(.disabled).selected,
-.select-checkboxes ::v-deep .dropdown-container .dropdown > .dropdown-item:not(.disabled).highlighted  {
+.select-checkboxes ::v-deep .dropdown-container .dropdown > .dropdown-item:not(.disabled).highlighted {
     background-color: $white;
 }
 
@@ -59,8 +59,8 @@
 }
 
 .select-checkboxes.search .checkboxes-search {
-    padding: 20px 14px 12px 14px;
     border-bottom: 1px solid #e4e8f0;
+    padding: 20px 14px 12px 14px;
     width: unset;
 }
 
@@ -187,7 +187,7 @@ export const SelectCheckboxes = {
             default: null
         }
     },
-    data: function () {
+    data: function() {
         return {
             valuesData: this.values,
             searchValue: null
@@ -226,13 +226,15 @@ export const SelectCheckboxes = {
             return (items, filter) => {
                 return items.filter(item => {
                     const label = item.label.toLowerCase();
-                const searchValue = this.searchValue.toLowerCase();
-                return label.includes(searchValue);
+                    const searchValue = this.searchValue.toLowerCase();
+                    return label.includes(searchValue);
                 });
             };
         },
         filteredItems() {
-            return !this.search || !this.searchValue ? this._items : this._filterCheckboxes(this._items, this.searchValue);
+            return !this.search || !this.searchValue
+                ? this._items
+                : this._filterCheckboxes(this._items, this.searchValue);
         },
         allSelected() {
             return Boolean(this.valuesData[this.allValue]);
@@ -240,19 +242,19 @@ export const SelectCheckboxes = {
     },
     watch: {
         values: {
-            handler: function (value) {
+            handler: function(value) {
                 this.valuesData = value;
             }
         },
         allSelected: {
-            handler: function (value) {
+            handler: function(value) {
                 const valuesData = {};
                 this._items.forEach(item => (valuesData[item.value] = value));
                 this.valuesData = valuesData;
             }
         },
         valuesData: {
-            handler: function (value) {
+            handler: function(value) {
                 this.$emit("update:values", value);
             },
             deep: true
