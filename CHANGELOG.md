@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 * Add CSV mixin to wrap `ripe-commons-js` functions - [ripe-pulse/#302](https://github.com/ripe-tech/ripe-pulse/issues/302)
+* Support custom panel in `header` component - [ripe-pulse/#316](https://github.com/ripe-tech/ripe-pulse/issues/316)
+* Add `entry` component - [ripe-pulse/#316](https://github.com/ripe-tech/ripe-pulse/issues/316)
+* Background color for checked rows in table component - [ripe-pulse/#281](https://github.com/ripe-tech/ripe-pulse/issues/281)
+* Add prop `rowSelection` to listing and filter components and pass it to table - [ripe-pulse/#281](https://github.com/ripe-tech/ripe-pulse/issues/281)
 
 ### Changed
 
@@ -17,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-*
+* Revert `header-ripe` refactor change related to `extra-panel` - [ripe-pulse/#316](https://github.com/ripe-tech/ripe-pulse/issues/316)
 
 ## [0.21.0] - 2022-04-04
 
