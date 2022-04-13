@@ -66,9 +66,6 @@ export const InputFile = {
             default: null
         }
     },
-    mounted: function() {
-        this.initUploadArea(this.$refs.filesInput);
-    },
     computed: {
         classes() {
             const base = {
@@ -86,11 +83,8 @@ export const InputFile = {
             return this.noFileSelected ? "upload" : "close";
         }
     },
-    watch: {
-        files(value) {
-            if (!value || value.length === 0) this.clear();
-            this.filesData = value;
-        }
+    mounted: function() {
+        this.initUploadArea(this.$refs.filesInput);
     },
     methods: {
         reset() {
