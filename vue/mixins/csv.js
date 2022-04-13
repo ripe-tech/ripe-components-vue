@@ -1,4 +1,4 @@
-import { buildCsv, parseCsv, parseCsvComplex, readCsv } from "ripe-commons";
+import { buildCsv, parseCsv, parseCsvComplex, parseCsvFile } from "ripe-commons";
 
 export const csvMixin = {
     methods: {
