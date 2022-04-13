@@ -61,6 +61,7 @@ export const uploadMixin = {
             this.dragging = false;
         },
         onFilesInputChange() {
+            if (this.fileInputRef.files.length === 0) return;
             this.setFiles(this.fileInputRef.files);
         },
         onUploadButtonClick() {

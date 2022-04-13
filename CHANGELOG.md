@@ -9,7 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-* Ripe-Copper Update have shipping information - [ripe-copper/#48](https://github.com/ripe-tech/ripe-copper/issues/48)
+* Support custom panel in `header` component - [ripe-pulse/#316](https://github.com/ripe-tech/ripe-pulse/issues/316)
+* Add `entry` component - [ripe-pulse/#316](https://github.com/ripe-tech/ripe-pulse/issues/316)
+* Background color for checked rows in table component - [ripe-pulse/#281](https://github.com/ripe-tech/ripe-pulse/issues/281)
+* Add prop `rowSelection` to listing and filter components and pass it to table - [ripe-pulse/#281](https://github.com/ripe-tech/ripe-pulse/issues/281)
+* Add `input-file` component - [ripe-copper/#48](https://github.com/ripe-tech/ripe-copper/issues/48)
 
 ### Changed
 
@@ -17,7 +21,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-*
+* Revert `header-ripe` refactor change related to `extra-panel` - [ripe-pulse/#316](https://github.com/ripe-tech/ripe-pulse/issues/316)
+* Fix upload mixin removing previous file when closing file browser dialog without selecting a file - [#580](https://github.com/ripe-tech/ripe-components-vue/issues/580)
+
+## [0.21.0] - 2022-04-04
+
+### Added
+
+* Add variant `red` to tooltip - [ripe-util-vue/#257](https://github.com/ripe-tech/ripe-util-vue/issues/257)
+* Support `expanded` prop in `section-expandable` component - [ripe-util-vue/#265](https://github.com/ripe-tech/ripe-util-vue/issues/265)
+* Create `code-editor` component - [ripe-util-vue/#257](https://github.com/ripe-tech/ripe-util-vue/issues/257)
+* Prop to disable the button icon dropdown component - [ripe-pulse/#281](https://github.com/ripe-tech/ripe-pulse/issues/281)
+
+### Fixed
+
+* Immediately watch `valueData` event in `select` component - [ripe-util-vue/#254](https://github.com/ripe-tech/ripe-util-vue/issues/254)
+* Fix `section-expandable` not handling dynamic content height changes - [ripe-util-vue/#265](https://github.com/ripe-tech/ripe-util-vue/issues/265)
 
 ## [0.20.2] - 2022-03-23
 

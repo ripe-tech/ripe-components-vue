@@ -1,6 +1,6 @@
 {
     "name": "ripe-components-vue",
-    "version": "0.20.2",
+    "version": "0.21.0",
     "description": "RIPE Components for Vue.js",
     "keywords": [
         "components",
@@ -57,6 +57,7 @@
         "webpack": "webpack --config webpack.config.js"
     },
     "dependencies": {
+        "jsonlint-mod": "^1.7.6",
         "loaders.css": "^0.1.2",
         "ripe-commons": "^0.8.1",
         "vue": "^2.6.14",

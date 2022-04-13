@@ -258,7 +258,8 @@ export const Select = {
             handler: function(value) {
                 if (value?.length === 1) this.valueData = value[0].value;
             },
-            immediate: true
+            immediate: true,
+            deep: true
         },
         value: {
             handler: function(value) {
@@ -268,7 +269,8 @@ export const Select = {
         valueData: {
             handler: function(value) {
                 this.$emit("update:value", value);
-            }
+            },
+            immediate: true
         }
     },
     methods: {

@@ -7,7 +7,7 @@
                 </slot>
             </div>
             <icon
-                v-bind:icon="expanded ? 'chevron-up' : 'chevron-down'"
+                v-bind:icon="expandedData ? 'chevron-up' : 'chevron-down'"
                 v-bind:color="'#c2c7cc'"
                 v-bind:width="20"
                 v-bind:height="20"
@@ -70,52 +70,65 @@
 <script>
 export const SectionExpandable = {
     name: "section-expandable",
-    data: function() {
-        return {
-            expanded: false,
-            expandedHeight: null
-        };
-    },
     props: {
         title: {
             type: String,
             default: null
+        },
+        expanded: {
+            type: Boolean,
+            default: false
         },
         animated: {
             type: Boolean,
             default: false
         }
     },
-    mounted: function() {
-        this.calculateOffsetHeight();
-    },
-    methods: {
-        calculateOffsetHeight() {
-            const content = this.$refs.content;
-            if (content && this.expandedHeight === null) {
-                content.style.maxHeight = "none";
-                try {
-                    this.expandedHeight = content.offsetHeight;
-                } finally {
-                    content.style.maxHeight = "0px";
-                }
-            }
-        },
-        onSectionClick() {
-            this.expanded = !this.expanded;
-            const content = this.$refs.content;
-            if (content && this.expanded) {
-                content.style.maxHeight = `${this.expandedHeight}px`;
-            } else if (content) {
-                content.style.maxHeight = "0px";
-            }
-        }
+    data: function() {
+        return {
+            expandedData: this.expanded,
+            contentHeight: null
+        };
     },
     computed: {
         classes() {
             const base = {};
             if (this.animated) base.animated = true;
+            if (this.expandedData) base.expanded = true;
             return base;
+        }
+    },
+    watch: {
+        expanded(value) {
+            this.expandedData = value;
+        },
+        expandedData(value) {
+            this.updateExpanded();
+            this.$emit("update:expanded", value);
+        },
+        contentHeight(value) {
+            this.updateExpanded();
+        }
+    },
+    mounted: function() {
+        this.calculateContentHeight();
+    },
+    updated: function() {
+        this.calculateContentHeight();
+    },
+    methods: {
+        calculateContentHeight() {
+            const content = this.$refs.content;
+            if (!content) return;
+            this.contentHeight = content.scrollHeight;
+        },
+        updateExpanded() {
+            const content = this.$refs.content;
+            if (!content) return;
+            content.style.maxHeight = this.expandedData ? `${this.contentHeight}px` : "0px";
+        },
+        onSectionClick() {
+            this.expandedData = !this.expandedData;
         }
     }
 };
