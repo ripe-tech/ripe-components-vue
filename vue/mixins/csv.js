@@ -11,8 +11,8 @@ export const csvMixin = {
         parseCsvComplex(dataS, object = false, sanitize = true, delimiter = ",") {
             return parseCsvComplex(dataS, object, sanitize, delimiter);
         },
-        readCsv(file, parser = null) {
-            return readCsv(file, parser);
+        parseCsvFile(file, parser = null) {
+            return parseCsvFile(file, parser);
         }
     }
 };
