@@ -141,6 +141,13 @@ export const SelectCheckboxes = {
             default: () => ({})
         },
         /**
+         * Set of props passed on to search.
+         */
+        searchProps: {
+            type: Object,
+            default: () => ({})
+        },
+        /**
          * Whether to show an option that represents a global
          * select that checks all options.
          */
@@ -171,13 +178,7 @@ export const SelectCheckboxes = {
             type: Boolean,
             default: false
         },
-        /**
-         * Set of props passed on to search.
-         */
-        searchProps: {
-            type: Object,
-            default: () => ({})
-        },
+
         /**
          * Method that handles the filter logic for the
          * search bar.
