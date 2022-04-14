@@ -194,13 +194,19 @@ export const SelectCheckboxes = {
         };
     },
     computed: {
+        selectOptions() {
+            return [{ label: this._label, value: "checkbox-group" }];
+        },
+        filteredItems() {
+            return this.searchValue ? this._filterCheckboxes(this._items, this.searchValue) : this._items;
+        },
+        allSelected() {
+            return Boolean(this.valuesData[this.allValue]);
+        },
         classes() {
             const base = {};
             if (this.search) base.search = true;
             return base;
-        },
-        selectOptions() {
-            return [{ label: this._label, value: "checkbox-group" }];
         },
         _label() {
             if (this.label) return this.label;
@@ -230,12 +236,6 @@ export const SelectCheckboxes = {
                     return itemValue.includes(filter);
                 });
             };
-        },
-        filteredItems() {
-            return this.searchValue ? this._filterCheckboxes(this._items, this.searchValue) : this._items;
-        },
-        allSelected() {
-            return Boolean(this.valuesData[this.allValue]);
         }
     },
     watch: {
