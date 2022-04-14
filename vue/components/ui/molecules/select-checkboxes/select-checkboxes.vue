@@ -178,7 +178,6 @@ export const SelectCheckboxes = {
             type: Boolean,
             default: false
         },
-
         /**
          * Method that handles the filter logic for the
          * search bar.
@@ -233,9 +232,7 @@ export const SelectCheckboxes = {
             };
         },
         filteredItems() {
-            return !this.search || !this.searchValue
-                ? this._items
-                : this._filterCheckboxes(this._items, this.searchValue);
+            return this.searchValue ? this._filterCheckboxes(this._items, this.searchValue) : this._items;
         },
         allSelected() {
             return Boolean(this.valuesData[this.allValue]);
