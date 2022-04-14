@@ -198,7 +198,9 @@ export const SelectCheckboxes = {
             return [{ label: this._label, value: "checkbox-group" }];
         },
         filteredItems() {
-            return this.searchValue ? this._filterCheckboxes(this._items, this.searchValue) : this._items;
+            return this.searchValue
+                ? this._filterCheckboxes(this._items, this.searchValue)
+                : this._items;
         },
         allSelected() {
             return Boolean(this.valuesData[this.allValue]);
