@@ -6,6 +6,7 @@
         v-bind:value="'checkbox-group'"
         v-bind:disabled="disabled"
         v-bind="{
+            highlightable: false,
             autoScroll: false,
             maxHeight: 210,
             ...selectProps
@@ -34,17 +35,6 @@
 
 <style lang="scss" scoped>
 @import "css/variables.scss";
-
-.select-checkboxes ::v-deep .dropdown-container .dropdown > .dropdown-item.selected,
-.select-checkboxes ::v-deep .dropdown-container .dropdown > .dropdown-item.highlighted,
-.select-checkboxes ::v-deep .dropdown-container .dropdown > .dropdown-item.hover,
-.select-checkboxes ::v-deep .dropdown-container .dropdown > .dropdown-item.active,
-.select-checkboxes ::v-deep .dropdown-container .dropdown > .dropdown-item:not(.disabled):hover,
-.select-checkboxes ::v-deep .dropdown-container .dropdown > .dropdown-item:not(.disabled):active,
-.select-checkboxes ::v-deep .dropdown-container .dropdown > .dropdown-item:not(.disabled).selected,
-.select-checkboxes ::v-deep .dropdown-container .dropdown > .dropdown-item:not(.disabled).highlighted {
-    background-color: $white;
-}
 
 .select-checkboxes .checkboxes {
     box-sizing: border-box;
