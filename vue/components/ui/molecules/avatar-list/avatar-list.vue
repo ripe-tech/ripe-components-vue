@@ -9,10 +9,7 @@
             <div v-if="index == maxElems">
                 + {{ avatarList.length - maxElems }}
             </div>
-            <avatar v-bind="{ size: size, ...avatar }" v-else-if="index < maxElems">
-                {{ index }}
-                {{ avatar.src }}
-            </avatar>
+            <avatar v-bind="{ size: size, ...avatar }" v-else-if="index < maxElems"/>
         </div>
     </div>
 </template>
