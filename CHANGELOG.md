@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Add `entry` component - [ripe-pulse/#316](https://github.com/ripe-tech/ripe-pulse/issues/316)
 * Background color for checked rows in table component - [ripe-pulse/#281](https://github.com/ripe-tech/ripe-pulse/issues/281)
 * Add prop `rowSelection` to listing and filter components and pass it to table - [ripe-pulse/#281](https://github.com/ripe-tech/ripe-pulse/issues/281)
+* Add `avatar-list` component - [#571](https://github.com/ripe-tech/ripe-components-vue/issues/571)
 
 ### Changed
 
