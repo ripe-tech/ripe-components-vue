@@ -24,10 +24,6 @@
     border: 2px solid #ffffff;
 }
 
-.avatar-list {
-    margin-left: 0px !important;
-}
-
 .avatar-list > .avatar-container:not(:first-child) {
     transition: margin 0.3s;
 }
