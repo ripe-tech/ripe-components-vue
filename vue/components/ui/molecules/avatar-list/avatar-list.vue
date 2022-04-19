@@ -2,14 +2,15 @@
     <div class="avatar-list">
         <div
             class="avatar-container"
-            v-bind:class="size"
+            v-bind:class="classes"
+            v-bind:style="{ 'z-index': index }"
             v-for="(avatar, index) in avatarList"
             v-bind:key="index"
         >
             <div v-if="index == maxElems">
                 + {{ avatarList.length - maxElems }}
             </div>
-            <avatar v-bind="{ size: size, ...avatar }" v-else-if="index < maxElems"/>
+            <avatar v-bind="{ size: size, ...avatar }" v-else-if="index < maxElems" />
         </div>
     </div>
 </template>
@@ -19,37 +20,64 @@
     display: flex;
 }
 
-.avatar-list > .avatar-container {
-    position: relative;
-}
-
 .avatar-list > .avatar-container > * {
     border: 2px solid #ffffff;
-    position: absolute;
+}
+
+.avatar-list {
+    margin-left: 0px !important;
+}
+
+.avatar-list > .avatar-container:not(:first-child) {
+    transition: margin 0.3s;
 }
 
 .avatar-list > .avatar-container:not(:first-child).very-tiny {
-    margin-left: 12px;
+    margin-left: -10px;
 }
 
 .avatar-list > .avatar-container:not(:first-child).tiny {
-    margin-left: 16px;
+    margin-left: -12px;
 }
 
 .avatar-list > .avatar-container:not(:first-child).small {
-    margin-left: 20px;
+    margin-left: -16px;
 }
 
 .avatar-list > .avatar-container:not(:first-child).medium {
-    margin-left: 24px;
+    margin-left: -18px;
 }
 
 .avatar-list > .avatar-container:not(:first-child).large {
-    margin-left: 32px;
+    margin-left: -26px;
 }
 
 .avatar-list > .avatar-container:not(:first-child).very-large {
-    margin-left: 54px;
+    margin-left: -50px;
+}
+
+.avatar-list:hover > .avatar-container.expandable:not(:first-child).very-tiny {
+    margin-left: 2px;
+}
+
+.avatar-list:hover > .avatar-container.expandable:not(:first-child).tiny {
+    margin-left: 2px;
+}
+
+.avatar-list:hover > .avatar-container.expandable:not(:first-child).small {
+    margin-left: 4px;
+}
+
+.avatar-list:hover > .avatar-container.expandable:not(:first-child).medium {
+    margin-left: 6px;
+}
+
+.avatar-list:hover > .avatar-container.expandable:not(:first-child).large {
+    margin-left: 8px;
+}
+
+.avatar-list:hover > .avatar-container.expandable:not(:first-child).very-large {
+    margin-left: 10px;
 }
 
 .avatar-list > .avatar-container > div {
@@ -91,9 +119,9 @@
 
 .avatar-list > .avatar-container.large > div {
     font-size: 24px;
-    height: 54px;
-    line-height: 54px;
-    width: 54px;
+    height: 56px;
+    line-height: 56px;
+    width: 56px;
 }
 
 .avatar-list > .avatar-container.very-large > div {
@@ -112,6 +140,10 @@ export const AvatarList = {
             type: Array,
             default: () => []
         },
+        expandable: {
+            type: Boolean,
+            default: false
+        },
         maxElems: {
             type: Number,
             default: 3
@@ -119,6 +151,14 @@ export const AvatarList = {
         size: {
             type: String,
             default: "medium"
+        }
+    },
+    computed: {
+        classes() {
+            const base = {};
+            if (this.expandable) base.expandable = true;
+            base[`${this.size}`] = true;
+            return base;
         }
     }
 };

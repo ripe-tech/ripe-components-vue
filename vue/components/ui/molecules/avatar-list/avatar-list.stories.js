@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, number, select } from "@storybook/addon-knobs";
+import { boolean, number, select, withKnobs } from "@storybook/addon-knobs";
 
 storiesOf("Components/Molecules/Avatar List", module)
     .addDecorator(withKnobs)
@@ -32,6 +32,9 @@ storiesOf("Components/Molecules/Avatar List", module)
                     },
                     "medium"
                 )
+            },
+            expandable: {
+                default: boolean("Expandable", true)
             }
         },
         template: `
@@ -39,6 +42,7 @@ storiesOf("Components/Molecules/Avatar List", module)
                 v-bind:avatar-list="list"
                 v-bind:max-elems="maxElems"
                 v-bind:size="size"
+                v-bind:expandable="expandable"
             />
         `
     }));
