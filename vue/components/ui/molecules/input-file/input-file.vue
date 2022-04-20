@@ -1,5 +1,5 @@
 <template>
-    <div class="upload-input" v-on:click="onUploadButtonClick">
+    <div class="upload-input" v-bind:class="classes" v-on:click="onUploadButtonClick">
         <div class="text">
             {{ buttonText }}
         </div>
@@ -12,7 +12,6 @@
             v-on:change="onFilesInputChange"
         />
         <icon
-            v-bind:class="classes"
             v-bind:icon="icon"
             v-bind:width="15"
             v-bind:height="14"
@@ -35,6 +34,11 @@
 
 .upload-input > .text {
     font-size: 13px;
+    font-weight: 400;
+}
+
+.upload-input.remove > .text {
+    font-weight: 500;
 }
 
 .upload-input > .icon {
@@ -42,9 +46,10 @@
     cursor: pointer;
     margin-left: auto;
     padding: 1px;
+    transition: 0.2s;
 }
 
-.upload-input > .icon.remove:hover {
+.upload-input.remove > .icon:hover {
     background-color: #e6e6e6;
     border-radius: 100px;
 }
