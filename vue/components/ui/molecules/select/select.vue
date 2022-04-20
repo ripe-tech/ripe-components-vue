@@ -44,6 +44,7 @@
                 v-bind:visible.sync="visibleData"
                 v-bind:global-events="true"
                 v-bind:highlighted="highlightedObject"
+                v-bind:highlightable="highlightable"
                 v-bind:style="dropdownStyle"
                 v-bind:selected="selected"
                 v-bind:direction="direction"
@@ -169,6 +170,10 @@ export const Select = {
         visible: {
             type: Boolean,
             default: false
+        },
+        highlightable: {
+            type: Boolean,
+            default: true
         },
         placeholder: {
             type: String,
@@ -472,7 +477,7 @@ export const Select = {
         },
         highlightedObject() {
             const base = {};
-            if (this.highlighted !== null) base[this.highlighted] = true;
+            if (this.highlightable && this.highlighted !== null) base[this.highlighted] = true;
             return base;
         }
     }

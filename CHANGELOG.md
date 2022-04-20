@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Background color for checked rows in table component - [ripe-pulse/#281](https://github.com/ripe-tech/ripe-pulse/issues/281)
 * Add prop `rowSelection` to listing and filter components and pass it to table - [ripe-pulse/#281](https://github.com/ripe-tech/ripe-pulse/issues/281)
 * Add `input-file` component - [ripe-copper/#48](https://github.com/ripe-tech/ripe-copper/issues/48)
+* Support search bar in `select-checkboxes`[ripe-util-vue/#270](https://github.com/ripe-tech/ripe-util-vue/issues/270)
+* Add prop `highlightable` to allow to turn off ability to highlight `dropdown` items[ripe-util-vue/#270](https://github.com/ripe-tech/ripe-util-vue/issues/270)
 
 ### Changed
 
