@@ -143,10 +143,10 @@
     width: auto;
 }
 
-.dropdown-container .dropdown > .dropdown-item.selected,
-.dropdown-container .dropdown > .dropdown-item:not(.disabled):hover,
-.dropdown-container .dropdown > .dropdown-item:not(.disabled):active,
-.dropdown-container .dropdown > .dropdown-item:not(.disabled).highlighted {
+.dropdown-container .dropdown > .dropdown-item.highlightable.selected,
+.dropdown-container .dropdown > .dropdown-item.highlightable:not(.disabled):hover,
+.dropdown-container .dropdown > .dropdown-item.highlightable:not(.disabled):active,
+.dropdown-container .dropdown > .dropdown-item.highlightable:not(.disabled).highlighted {
     background-color: $soft-blue;
     font-weight: 700;
 }
@@ -204,6 +204,10 @@ export const Dropdown = {
             default: () => ({})
         },
         visible: {
+            type: Boolean,
+            default: true
+        },
+        highlightable: {
             type: Boolean,
             default: true
         },
@@ -403,8 +407,9 @@ export const Dropdown = {
             return {
                 separator: item.separator,
                 icon: Boolean(item.icon),
-                highlighted: this.highlightedData[index] || item.highlighted,
-                selected: this.selectedData[index] || item.selected,
+                highlightable: this.highlightable,
+                highlighted: this.highlightable && (this.highlightedData[index] || item.highlighted),
+                selected: this.highlightable && (this.selectedData[index] || item.selected),
                 disabled: this.disabledData[index] || item.disabled
             };
         }

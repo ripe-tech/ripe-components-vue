@@ -23,6 +23,9 @@ storiesOf("Components/Molecules/Select Checkboxes", module)
             allValue: {
                 default: text("All Value", "$ALL")
             },
+            search: {
+                default: boolean("Search", false)
+            },
             items: {
                 type: Array,
                 default: () => [
@@ -83,6 +86,7 @@ storiesOf("Components/Molecules/Select Checkboxes", module)
                     v-bind:show-all="showAll"
                     v-bind:all-label="allLabel"
                     v-bind:all-value="allValue"
+                    v-bind:search="search"
                     v-bind:items="items"
                     v-bind:values.sync="valuesData"
                 />
