@@ -14,6 +14,7 @@ import { Icon } from "./icon/icon.vue";
 import { Image } from "./image/image.vue";
 import { ImageItem } from "./image-item/image-item.vue";
 import { Input } from "./input/input.vue";
+import { InputIcon } from "./input-icon/input-icon.vue";
 import { Label } from "./label/label.vue";
 import { Link } from "./link/link.vue";
 import { Loader } from "./loader/loader.vue";
@@ -48,6 +49,7 @@ const install = Vue => {
     Vue.component("image-ripe", Image);
     Vue.component("image-item", ImageItem);
     Vue.component("input-ripe", Input);
+    Vue.component("input-icon", InputIcon);
     Vue.component("label-ripe", Label);
     Vue.component("link-ripe", Link);
     Vue.component("loader", Loader);
@@ -83,6 +85,7 @@ export {
     Image,
     ImageItem,
     Input,
+    InputIcon,
     Label,
     Link,
     Loader,
