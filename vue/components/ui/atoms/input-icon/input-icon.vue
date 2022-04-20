@@ -47,7 +47,8 @@
     width: 100%;
 }
 
-.input-icon > .input {
+.input-icon > .input,
+.input-icon > .input.focus {
     border: none;
     width: 100%;
 }
@@ -77,7 +78,7 @@
     border-color: $aqcua-blue;
 }
 
-.input-icon.focused {
+.input-icon.focus {
     background-color: $white;
     border-color: $aqcua-blue;
 }
