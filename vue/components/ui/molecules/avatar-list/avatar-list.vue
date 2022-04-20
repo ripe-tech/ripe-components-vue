@@ -8,7 +8,7 @@
             v-bind:key="index"
         >
             <div v-if="index == maxElems">
-                + {{ avatarList.length - maxElems }}
+                {{ remainingElements }}
             </div>
             <avatar v-bind="{ size: size, ...avatar }" v-else-if="index < maxElems" />
         </div>
@@ -155,6 +155,9 @@ export const AvatarList = {
             if (this.expandable) base.expandable = true;
             base[`${this.size}`] = true;
             return base;
+        },
+        remainingElements() {
+            return `+ ${this.avatarList.length - this.maxElems}`;
         }
     }
 };
