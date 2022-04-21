@@ -62,6 +62,16 @@ storiesOf("Components/Atoms/Button Color", module)
                     "add"
                 )
             },
+            iconPosition: {
+                default: select(
+                    "Icon Position",
+                    {
+                        Left: "left",
+                        Right: "right"
+                    },
+                    "left"
+                )
+            },
             disabled: {
                 default: boolean("Disabled", false)
             },
@@ -79,9 +89,10 @@ storiesOf("Components/Atoms/Button Color", module)
                 <button-color v-bind:text="'Small Button'" v-bind:secondary="secondary" v-bind:size="size" v-bind:color="color" v-bind:alignment="alignment"
                     v-bind:disabled="disabled" v-bind:loading="loading" v-bind:small="true" v-bind:min-width="minWidth" ></button-color>
                 <button-color v-bind:text="'Normal Button'" v-bind:secondary="secondary" v-bind:size="size" v-bind:color="color" v-bind:alignment="alignment"
-                    v-bind:disabled="disabled" v-bind:loading="loading" v-bind:icon="icon" v-bind:min-width="minWidth" ></button-color>
+                    v-bind:disabled="disabled" v-bind:loading="loading" v-bind:icon="icon" v-bind:icon-position="iconPosition" v-bind:min-width="minWidth"></button-color>
                 <button-color v-bind:text="'Small Button'" v-bind:secondary="secondary" v-bind:size="size" v-bind:color="color" v-bind:alignment="alignment"
-                    v-bind:disabled="disabled" v-bind:loading="loading" v-bind:small="true" v-bind:icon="icon" v-bind:min-width="minWidth" ></button-color>
+                    v-bind:disabled="disabled" v-bind:loading="loading" v-bind:small="true" v-bind:icon="icon" v-bind:icon-position="iconPosition"
+                    v-bind:min-width="minWidth"></button-color>
             </div>
         `
     }));
