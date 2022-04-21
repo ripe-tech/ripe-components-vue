@@ -1,6 +1,5 @@
 <template>
-    <div 
-        v-bind:class="classes" >
+    <div v-bind:class="classes">
         <input
             v-bind:style="style"
             v-bind:type="type"
@@ -24,20 +23,14 @@
 @import "css/variables.scss";
 
 .input-icon {
-    display: flex;
+    background-color: $white;
     border: 1px solid $light-white;
     border-radius: 6px 6px 6px 6px;
     box-sizing: border-box;
-    font-size: 13px;
-    font-weight: 500;
+    display: flex;
     height: 34px;
-    appearance: none;
-    background-color: $white;
-    color: $black;
-    font-family: $font-family;
     letter-spacing: 0.25px;
     line-height: 34px;
-    outline: none;
     padding-left: 12px;
     padding-right: 12px;
     transition: width 0.2s ease,
@@ -47,9 +40,15 @@
     width: 100%;
 }
 
-.input-icon > .input,
-.input-icon > .input.focus {
+.input-icon > input {
+    appearance: none;
     border: none;
+    color: $black;
+    display: flex;
+    font-family: $font-family;
+    font-size: 13px;
+    font-weight: 500;
+    outline: none;
     width: 100%;
 }
 
@@ -228,7 +227,7 @@ export const InputIcon = {
             if (this.validationMessage) base.validation = true;
             if (this.focused) base.focus = true;
             if (this.disabled) base.disabled = true;
-            base['input-icon'] = true;
+            base["input-icon"] = true;
             return base;
         }
     },
