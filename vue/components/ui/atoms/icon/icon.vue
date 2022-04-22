@@ -97,7 +97,7 @@ export const Icon = {
                     // if there is a custom context defined at the root that
                     // contains the item, then uses it
                     if (iconContext) {
-                        resource = this.loadFromContext(iconContext, this.icon);
+                        resource = this.loadIconContext(iconContext, this.icon);
                     }
                     // otherwise fallback to default strategy for the retrieval
                     // of icons, using the `try` and `catch` strategy
@@ -141,15 +141,16 @@ export const Icon = {
                 attrs.forEach(attr => this.setSvgAttribute(attr.key, attr.value));
             });
         },
-        loadFromContext(context, icon) {
-            // supports both webpack 5 and webpack 4 assets bundling logic
+        loadIconContext(context, icon, suffix = "svg") {
             try {
-                return context(`./${icon}.svg?raw`);
+                // tries to use the new webpack 5 strategy for the loading
+                // of the icon using the context strategy
+                return context(`./${icon}.${suffix}?raw`);
             } catch {
                 // defaults to webpack 4 asset bundling logic if v5
                 // retrieval resulted in an error, making it possible
                 // to use external assets loaded by raw-loader
-                return context(`./${icon}.svg`).default;
+                return context(`./${icon}.${suffix}`).default;
             }
         }
     },
