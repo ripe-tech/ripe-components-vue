@@ -44,6 +44,7 @@
                 v-bind:visible.sync="visibleData"
                 v-bind:global-events="true"
                 v-bind:highlighted="highlightedObject"
+                v-bind:highlightable="highlightable"
                 v-bind:style="dropdownStyle"
                 v-bind:selected="selected"
                 v-bind:direction="direction"
@@ -170,6 +171,10 @@ export const Select = {
             type: Boolean,
             default: false
         },
+        highlightable: {
+            type: Boolean,
+            default: true
+        },
         placeholder: {
             type: String,
             default: ""
@@ -258,7 +263,8 @@ export const Select = {
             handler: function(value) {
                 if (value?.length === 1) this.valueData = value[0].value;
             },
-            immediate: true
+            immediate: true,
+            deep: true
         },
         value: {
             handler: function(value) {
@@ -268,7 +274,8 @@ export const Select = {
         valueData: {
             handler: function(value) {
                 this.$emit("update:value", value);
-            }
+            },
+            immediate: true
         }
     },
     methods: {
@@ -470,7 +477,7 @@ export const Select = {
         },
         highlightedObject() {
             const base = {};
-            if (this.highlighted !== null) base[this.highlighted] = true;
+            if (this.highlightable && this.highlighted !== null) base[this.highlighted] = true;
             return base;
         }
     }

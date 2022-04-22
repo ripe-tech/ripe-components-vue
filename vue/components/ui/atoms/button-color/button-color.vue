@@ -6,6 +6,9 @@
         v-bind:type="type"
         v-on:click="handleClick"
     >
+        <span v-show="!loading" v-if="iconPosition === 'right'">
+            <slot>{{ text }}</slot>
+        </span>
         <loader
             loader="ball-scale-multiple"
             class="loader"
@@ -28,7 +31,7 @@
             v-bind:height="iconSize"
             v-if="icon && !loading"
         />
-        <span v-show="!loading">
+        <span v-show="!loading" v-if="iconPosition === 'left'">
             <slot>{{ text }}</slot>
         </span>
     </button>
@@ -270,10 +273,8 @@
 
 .button-color .icon,
 .button-color .icon-hover {
-    float: left;
     height: 22px;
     margin-top: 8px;
-    padding-right: 12px;
     width: 22px;
 }
 
@@ -314,6 +315,18 @@
 
 .button-color:hover .icon-hover {
     display: inline-block;
+}
+
+.button-color.icon-position-left .icon,
+.button-color.icon-position-left .icon-hover {
+    float: left;
+    padding-right: 12px;
+}
+
+.button-color.icon-position-right .icon,
+.button-color.icon-position-right .icon-hover {
+    margin-top: 0px;
+    padding-left: 12px;
 }
 </style>
 
@@ -368,6 +381,10 @@ export const ButtonColor = {
         icon: {
             type: String,
             default: null
+        },
+        iconPosition: {
+            type: String,
+            default: "left"
         },
         href: {
             type: String,
@@ -436,6 +453,7 @@ export const ButtonColor = {
             };
 
             base["button-color-" + this.sizeMode] = true;
+            base["icon-position-" + this.iconPosition] = true;
 
             if (this.color) {
                 base["button-color-" + this.color] = this.color;

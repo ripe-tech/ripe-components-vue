@@ -87,48 +87,48 @@ export const SectionExpandable = {
     data: function() {
         return {
             expandedData: this.expanded,
-            expandedHeight: null
+            contentHeight: null
         };
+    },
+    computed: {
+        classes() {
+            const base = {};
+            if (this.animated) base.animated = true;
+            if (this.expandedData) base.expanded = true;
+            return base;
+        }
     },
     watch: {
         expanded(value) {
             this.expandedData = value;
         },
         expandedData(value) {
+            this.updateExpanded();
             this.$emit("update:expanded", value);
+        },
+        contentHeight(value) {
+            this.updateExpanded();
         }
     },
     mounted: function() {
-        this.calculateOffsetHeight();
-        this.updateExpanded();
+        this.calculateContentHeight();
+    },
+    updated: function() {
+        this.calculateContentHeight();
     },
     methods: {
-        calculateOffsetHeight() {
+        calculateContentHeight() {
             const content = this.$refs.content;
-            if (content && this.expandedHeight === null) {
-                content.style.maxHeight = "none";
-                try {
-                    this.expandedHeight = content.offsetHeight;
-                } finally {
-                    content.style.maxHeight = "0px";
-                }
-            }
+            if (!content) return;
+            this.contentHeight = content.scrollHeight;
         },
         updateExpanded() {
             const content = this.$refs.content;
             if (!content) return;
-            content.style.maxHeight = this.expandedData ? `${this.expandedHeight}px` : "0px";
+            content.style.maxHeight = this.expandedData ? `${this.contentHeight}px` : "0px";
         },
         onSectionClick() {
             this.expandedData = !this.expandedData;
-            this.updateExpanded();
-        }
-    },
-    computed: {
-        classes() {
-            const base = {};
-            if (this.animated) base.animated = true;
-            return base;
         }
     }
 };

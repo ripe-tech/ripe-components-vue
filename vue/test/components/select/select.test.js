@@ -50,31 +50,31 @@ describe("Select", () => {
         const selectButton = component.get(".select-button");
         assert.strictEqual(selectButton.text(), "A");
         assert.strictEqual(component.vm.$data.valueData, "option_1");
-        assert.strictEqual(component.emitted("update:value"), undefined);
+        assert.deepEqual(component.emitted("update:value"), [["option_1"]]);
 
         await component.setProps({ value: "option_2" });
         assert.strictEqual(selectButton.text(), "B");
         assert.strictEqual(component.vm.$data.valueData, "option_2");
-        assert.strictEqual(component.emitted("update:value")[0][0], "option_2");
+        assert.strictEqual(component.emitted("update:value")[1][0], "option_2");
 
         await component.setProps({ value: "option_3" });
         assert.strictEqual(selectButton.text(), "C");
         assert.strictEqual(component.vm.$data.valueData, "option_3");
-        assert.strictEqual(component.emitted("update:value")[1][0], "option_3");
+        assert.strictEqual(component.emitted("update:value")[2][0], "option_3");
 
         await component.setProps({ value: "option_1" });
         assert.strictEqual(selectButton.text(), "A");
         assert.strictEqual(component.vm.$data.valueData, "option_1");
-        assert.strictEqual(component.emitted("update:value")[2][0], "option_1");
+        assert.strictEqual(component.emitted("update:value")[3][0], "option_1");
 
         await component.setProps({ value: null });
         assert.strictEqual(component.vm.$data.valueData, null);
-        assert.strictEqual(component.emitted("update:value")[3][0], null);
+        assert.strictEqual(component.emitted("update:value")[4][0], null);
 
         await component.setProps({ value: "option_2" });
         assert.strictEqual(selectButton.text(), "B");
         assert.strictEqual(component.vm.$data.valueData, "option_2");
-        assert.strictEqual(component.emitted("update:value")[4][0], "option_2");
+        assert.strictEqual(component.emitted("update:value")[5][0], "option_2");
     });
 
     it("should update visibility according to prop", async () => {
@@ -169,7 +169,7 @@ describe("Select", () => {
         await dropdownSecondItem.trigger("click");
         assert.strictEqual(selectButton.text(), "C");
         assert.strictEqual(component.vm.$data.valueData, "option_3");
-        assert.strictEqual(component.emitted("update:value")[0][0], "option_3");
+        assert.strictEqual(component.emitted("update:value")[1][0], "option_3");
     });
 
     it("should update value on arrow and enter keydown", async () => {
@@ -192,7 +192,8 @@ describe("Select", () => {
         await selectButton.trigger("keydown.enter");
         assert.strictEqual(selectButton.text(), "B");
         assert.strictEqual(component.vm.$data.valueData, "option_2");
-        assert.strictEqual(component.emitted("update:value")[0][0], "option_2");
+        assert.strictEqual(component.emitted("update:value")[0][0], "option_1");
+        assert.strictEqual(component.emitted("update:value")[1][0], "option_2");
     });
 
     it("should display placeholder text according to prop", async () => {

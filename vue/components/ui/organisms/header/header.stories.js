@@ -113,6 +113,10 @@ storiesOf("Components/Organisms/Header", module)
                 v-bind:search="search"
                 v-bind:logo="logo"
                 v-bind:announcements="announcements"
-            ></header-ripe>
+            >
+                <template v-slot:extra-panel-settings="{ hide }">
+                    <span v-on:click="hide">Settings panel example</span>
+                </template>
+            </header-ripe>
         </div>`
     }));

@@ -13,6 +13,7 @@ import { Calendar } from "./calendar/calendar.vue";
 import { Carousel } from "./carousel/carousel.vue";
 import { ChatMessage } from "./chat-message/chat-message.vue";
 import { CheckboxGroup } from "./checkbox-group/checkbox-group.vue";
+import { CodeEditor } from "./code-editor/code-editor.vue";
 import { ContainerMenu } from "./container-menu/container-menu.vue";
 import { Filter } from "./filter/filter.vue";
 import { Footer } from "./footer/footer.vue";
@@ -63,6 +64,7 @@ const install = Vue => {
     Vue.component("carousel", Carousel);
     Vue.component("chat-message", ChatMessage);
     Vue.component("checkbox-group", CheckboxGroup);
+    Vue.component("code-editor", CodeEditor);
     Vue.component("container-menu", ContainerMenu);
     Vue.component("filter-ripe", Filter);
     Vue.component("footer-ripe", Footer);
@@ -113,6 +115,7 @@ export {
     Carousel,
     ChatMessage,
     CheckboxGroup,
+    CodeEditor,
     ContainerMenu,
     Filter,
     Footer,

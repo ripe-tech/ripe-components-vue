@@ -1,10 +1,12 @@
 <template>
     <select-ripe
         class="select-checkboxes"
+        v-bind:class="classes"
         v-bind:options="selectOptions"
         v-bind:value="'checkbox-group'"
         v-bind:disabled="disabled"
         v-bind="{
+            highlightable: false,
             autoScroll: false,
             maxHeight: 210,
             ...selectProps
@@ -14,17 +16,46 @@
     >
         <template v-slot:checkbox-group>
             <div class="checkboxes" ref="checkboxes" v-on:click.stop>
-                <checkbox-group v-bind:items="_items" v-bind:values.sync="valuesData" />
+                <search
+                    class="checkboxes-search"
+                    v-bind="{
+                        iconVisible: true,
+                        clearVisible: true,
+                        variant: 'dark',
+                        ...searchProps
+                    }"
+                    v-bind:value.sync="searchValue"
+                    v-if="search"
+                />
+                <checkbox-group v-bind:items="filteredItems" v-bind:values.sync="valuesData" />
             </div>
         </template>
     </select-ripe>
 </template>
 
 <style lang="scss" scoped>
+@import "css/variables.scss";
+
 .select-checkboxes .checkboxes {
     box-sizing: border-box;
     margin: 5px 15px 5px 15px;
     width: 100%;
+}
+
+.select-checkboxes.search .checkboxes {
+    display: flex;
+    flex-direction: column;
+    margin: 0px 0px 0px 0px;
+}
+
+.select-checkboxes.search .checkboxes > .checkboxes-search {
+    border-bottom: 1px solid #e4e8f0;
+    padding: 20px 14px 12px 14px;
+    width: unset;
+}
+
+.select-checkboxes.search .checkboxes > .checkbox-group {
+    padding: 18px 22px 18px 22px;
 }
 
 .select-checkboxes .checkboxes ::v-deep .checkbox-item {
@@ -100,6 +131,13 @@ export const SelectCheckboxes = {
             default: () => ({})
         },
         /**
+         * Set of props passed on to search.
+         */
+        searchProps: {
+            type: Object,
+            default: () => ({})
+        },
+        /**
          * Whether to show an option that represents a global
          * select that checks all options.
          */
@@ -122,16 +160,45 @@ export const SelectCheckboxes = {
         allValue: {
             type: String,
             default: "$ALL"
+        },
+        /**
+         * Whether or not to show the search bar.
+         */
+        search: {
+            type: Boolean,
+            default: false
+        },
+        /**
+         * Method that handles the filter logic for the
+         * search bar.
+         */
+        filterCheckboxes: {
+            type: Function,
+            default: null
         }
     },
     data: function() {
         return {
-            valuesData: this.values
+            valuesData: this.values,
+            searchValue: null
         };
     },
     computed: {
         selectOptions() {
             return [{ label: this._label, value: "checkbox-group" }];
+        },
+        filteredItems() {
+            return this.searchValue
+                ? this._filterCheckboxes(this._items, this.searchValue)
+                : this._items;
+        },
+        allSelected() {
+            return Boolean(this.valuesData[this.allValue]);
+        },
+        classes() {
+            const base = {};
+            if (this.search) base.search = true;
+            return base;
         },
         _label() {
             if (this.label) return this.label;
@@ -152,8 +219,15 @@ export const SelectCheckboxes = {
                 }))
             ];
         },
-        allSelected() {
-            return Boolean(this.valuesData[this.allValue]);
+        _filterCheckboxes() {
+            if (this.filterCheckboxes) return this.filterCheckboxes;
+            return (items, filter) => {
+                return items.filter(item => {
+                    const itemValue = `${item.label || item.value}`.toLowerCase();
+                    filter = filter.toLowerCase();
+                    return itemValue.includes(filter);
+                });
+            };
         }
     },
     watch: {
