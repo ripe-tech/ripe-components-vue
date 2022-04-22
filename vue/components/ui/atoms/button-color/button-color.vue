@@ -263,18 +263,6 @@
     width: 22px;
 }
 
-.button-color.icon-position-left .icon,
-.button-color.icon-position-left .icon-hover {
-    float: left;
-    padding-right: 12px;
-}
-
-.button-color.icon-position-right .icon,
-.button-color.icon-position-right .icon-hover {
-    float: right;
-    padding-left: 12px;
-}
-
 .button-color.button-color-small .icon,
 .button-color.button-color-small .icon-hover {
     height: 18px;
@@ -308,6 +296,18 @@
 
 .button-color:hover .icon-hover {
     display: inline-block;
+}
+
+.button-color.icon-position-left .icon,
+.button-color.icon-position-left .icon-hover {
+    float: left;
+    padding-right: 12px;
+}
+
+.button-color.icon-position-right .icon,
+.button-color.icon-position-right .icon-hover {
+    margin-top: 0px;
+    padding-left: 12px;
 }
 </style>
 
