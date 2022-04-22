@@ -98,7 +98,14 @@ storiesOf("Components/Atoms/Input Icon", module)
                         v-bind:width="width"
                         v-bind:min-width="minWidth"
                         v-bind:height="height"
-                        v-bind:maxLength="maxLength" />
+                        v-bind:maxLength="maxLength">
+                        <template v-slot:slot-before>
+                            <icon class="arrow arrow-previous" v-bind:icon="'chevron-left'" />
+                        </template>
+                        <template v-slot:slot-after>
+                            <icon class="upload-icon" v-bind:icon="'add-camera'" />
+                        </template>
+                    </input-icon>
                 </form-input>
                 <p>Text: {{ valueData }}</p>
             </div>

@@ -1,7 +1,9 @@
 <template>
-    <div v-bind:class="classes">
+    <div v-bind:class="classes" v-bind:style="style">
+        <div class="before-input">
+            <slot name="slot-before" />
+        </div>
         <input
-            v-bind:style="style"
             v-bind:type="type"
             class="input"
             v-bind:value="value"
@@ -16,6 +18,9 @@
             v-on:keyup="onKeyup"
             v-on:keydown="onKeydown"
         />
+        <div class="after-input">
+            <slot name="slot-after" />
+        </div>
     </div>
 </template>
 
@@ -31,13 +36,27 @@
     height: 34px;
     letter-spacing: 0.25px;
     line-height: 34px;
-    padding-left: 12px;
-    padding-right: 12px;
     transition: width 0.2s ease,
         border-color 0.2s ease,
         background-color 0.2s ease,
         box-shadow 0.2s ease;
     width: 100%;
+}
+
+.input-icon > .before-input,
+.input-icon > .after-input {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    margin: auto;
+    margin: 0px 8px 0px 8px;
+    width: 24px;
+}
+
+.input-icon > .before-input > *,
+.input-icon > .after-input > * {
+    height: 24px;
+    width: 24px;
 }
 
 .input-icon > input {
