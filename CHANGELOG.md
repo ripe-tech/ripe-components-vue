@@ -9,6 +9,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+*
+
+### Changed
+
+*
+
+### Fixed
+
+*
+
+## [0.22.0] - 2022-04-22
+
+### Added
+
 * Support custom panel in `header` component - [ripe-pulse/#316](https://github.com/ripe-tech/ripe-pulse/issues/316)
 * Add `entry` component - [ripe-pulse/#316](https://github.com/ripe-tech/ripe-pulse/issues/316)
 * Background color for checked rows in table component - [ripe-pulse/#281](https://github.com/ripe-tech/ripe-pulse/issues/281)
@@ -16,10 +30,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Support search bar in `select-checkboxes` - [ripe-util-vue/#270](https://github.com/ripe-tech/ripe-util-vue/issues/270)
 * Add prop `highlightable` to allow to turn off ability to highlight `dropdown` items - [ripe-util-vue/#270](https://github.com/ripe-tech/ripe-util-vue/issues/270)
 * Add prop `iconPosition` to `button-color` allowing to change the icon position - [ripe-util-vue/#270](https://github.com/ripe-tech/ripe-util-vue/issues/270)
-
-### Changed
-
-*
 
 ### Fixed
 
