@@ -39,6 +39,9 @@
 
 .upload-input.remove > .text {
     font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .upload-input > .icon {
