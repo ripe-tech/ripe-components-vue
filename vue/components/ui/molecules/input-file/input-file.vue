@@ -48,7 +48,7 @@
     align-self: center;
     cursor: pointer;
     margin-left: auto;
-    padding: 2px;
+    padding: 2px 2px 2px 2px;
     transition: 0.2s;
 }
 
