@@ -1,9 +1,9 @@
 <template>
     <div class="home-color-part" v-bind:class="classes" v-bind:style="style" v-if="visible">
         <div class="top">
-            <router-link class="logo-container" v-bind:to="homeRoute">
+            <div class="logo-container" v-on:click="onLogoClick">
                 <image-ripe class="logo" v-bind:src="logo" />
-            </router-link>
+            </div>
             <div class="links">
                 <router-link
                     class="link"
@@ -78,6 +78,7 @@ body.mobile .home-color-part > .top {
 }
 
 .home-color-part > .top > .logo-container {
+    cursor: pointer;
     display: block;
     height: 60px;
 }
@@ -288,6 +289,9 @@ export const HomeColorPart = {
             } catch (err) {
                 this.handleError(err);
             }
+        },
+        onLogoClick() {
+            this.$emit("click:logo");
         },
         _linksColor(color) {
             switch (color) {

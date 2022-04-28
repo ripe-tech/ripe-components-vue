@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-*
+* `router-link` removed from `home-color-part` component for it to be compatible with nuxt projects too
 
 ### Fixed
 
