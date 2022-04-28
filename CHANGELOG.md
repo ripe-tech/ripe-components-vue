@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 * Prop issue in `button-icon-dropdown` when propagating `disabled`
+* `target` prop for `link-ripe` component used in `home-color-part` component
 
 ## [0.22.0] - 2022-04-22
 
