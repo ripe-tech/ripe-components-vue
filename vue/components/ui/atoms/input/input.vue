@@ -151,6 +151,10 @@ export const Input = {
             type: String,
             default: null
         },
+        debounceDelay: {
+            type: Number,
+            default: null
+        },
         maxLength: {
             type: Number,
             default: null
@@ -160,9 +164,24 @@ export const Input = {
         if (this.autofocus) this.focus();
         this.setValidationMessage(this.validationMessage);
     },
+    data: function() {
+        return {
+            debounceTimeout: null
+        };
+    },
     methods: {
         setValue(value) {
-            this.$emit("update:value", value);
+            if (this.debounceDelay) {
+                this.setValueDebounced(value);
+            } else {
+                this.$emit("update:value", value);
+            }
+        },
+        setValueDebounced(value, delay = this.debounceDelay) {
+            if (this.debounceTimeout) clearTimeout(this.debounceTimeout);
+            this.debounceTimeout = setTimeout(() => {
+                this.$emit("update:value", value);
+            }, delay);
         },
         focus() {
             this.$refs.input.focus();

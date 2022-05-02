@@ -67,6 +67,9 @@ storiesOf("Components/Atoms/Input", module)
             height: {
                 default: number("Height", null)
             },
+            debounceDelay: {
+                default: number("Debounce Delay", 0)
+            },
             maxLength: {
                 default: number("Max Length", null)
             }
@@ -98,7 +101,8 @@ storiesOf("Components/Atoms/Input", module)
                         v-bind:width="width"
                         v-bind:min-width="minWidth"
                         v-bind:height="height"
-                        v-bind:maxLength="maxLength" />
+                        v-bind:debounce-delay="debounceDelay"
+                        v-bind:max-length="maxLength" />
                 </form-input>
                 <p>Text: {{ valueData }}</p>
             </div>
