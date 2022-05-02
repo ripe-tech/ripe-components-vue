@@ -173,11 +173,11 @@ export const Input = {
             }
         },
         setValueDebounced(value, time = this.debounceTime) {
-            if(this.debounceTimeout) clearTimeout(this.debounceTimeout);
+            if (this.debounceTimeout) clearTimeout(this.debounceTimeout);
 
             this.debounceTimeout = setTimeout(() => {
                 this.$emit("update:value", value);
-            }, time)
+            }, time);
         },
         focus() {
             this.$refs.input.focus();
