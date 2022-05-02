@@ -151,6 +151,10 @@ export const Input = {
             type: String,
             default: null
         },
+        debounceTime: {
+            type: Number,
+            default: 0
+        },
         maxLength: {
             type: Number,
             default: null
@@ -162,7 +166,18 @@ export const Input = {
     },
     methods: {
         setValue(value) {
-            this.$emit("update:value", value);
+            if (this.debounceTime) {
+                this.setValueDebounced(value);
+            } else {
+                this.$emit("update:value", value);
+            }
+        },
+        setValueDebounced(value, time = this.debounceTime) {
+            if(this.debounceTimeout) clearTimeout(this.debounceTimeout);
+
+            this.debounceTimeout = setTimeout(() => {
+                this.$emit("update:value", value);
+            }, time)
         },
         focus() {
             this.$refs.input.focus();

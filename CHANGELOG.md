@@ -101,6 +101,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Added variant "white" to `input-image`
 * Added prop `textColor` to `tag` component to allow customizing the text color - [#296](https://github.com/ripe-tech/ripe-pulse/issues/296)
+* Added prop `debounceTime` to component `input-ripe` allowing a delay between the input events and the actual `setValue`
 
 ### Fixed
 
