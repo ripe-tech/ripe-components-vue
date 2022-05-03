@@ -9,12 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-* Support custom panel in `header` component - [ripe-pulse/#316](https://github.com/ripe-tech/ripe-pulse/issues/316)
-* Add `entry` component - [ripe-pulse/#316](https://github.com/ripe-tech/ripe-pulse/issues/316)
-* Background color for checked rows in table component - [ripe-pulse/#281](https://github.com/ripe-tech/ripe-pulse/issues/281)
-* Add prop `rowSelection` to listing and filter components and pass it to table - [ripe-pulse/#281](https://github.com/ripe-tech/ripe-pulse/issues/281)
-* Support search bar in `select-checkboxes`[ripe-util-vue/#270](https://github.com/ripe-tech/ripe-util-vue/issues/270)
-* Add prop `highlightable` to allow to turn off ability to highlight `dropdown` items[ripe-util-vue/#270](https://github.com/ripe-tech/ripe-util-vue/issues/270)
+* Add `input-file` component - [ripe-copper/#48](https://github.com/ripe-tech/ripe-copper/issues/48)
 
 ### Changed
 
@@ -22,8 +17,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+* Prop issue in `button-icon-dropdown` when propagating `disabled`
+
+## [0.22.0] - 2022-04-22
+
+### Added
+
+* Support custom panel in `header` component - [ripe-pulse/#316](https://github.com/ripe-tech/ripe-pulse/issues/316)
+* Add `entry` component - [ripe-pulse/#316](https://github.com/ripe-tech/ripe-pulse/issues/316)
+* Background color for checked rows in table component - [ripe-pulse/#281](https://github.com/ripe-tech/ripe-pulse/issues/281)
+* Add prop `rowSelection` to listing and filter components and pass it to table - [ripe-pulse/#281](https://github.com/ripe-tech/ripe-pulse/issues/281)
+* Support search bar in `select-checkboxes` - [ripe-util-vue/#270](https://github.com/ripe-tech/ripe-util-vue/issues/270)
+* Add prop `highlightable` to allow to turn off ability to highlight `dropdown` items - [ripe-util-vue/#270](https://github.com/ripe-tech/ripe-util-vue/issues/270)
+* Add prop `iconPosition` to `button-color` allowing to change the icon position - [ripe-util-vue/#270](https://github.com/ripe-tech/ripe-util-vue/issues/270)
+
+### Fixed
+
 * Revert `header-ripe` refactor change related to `extra-panel` - [ripe-pulse/#316](https://github.com/ripe-tech/ripe-pulse/issues/316)
 * Fix upload mixin removing previous file when closing file browser dialog without selecting a file - [#580](https://github.com/ripe-tech/ripe-components-vue/issues/580)
+* Support webpack@4 `raw-loader` logic for icons provided by external sources (from the project using this as a library) - [ripe-util-vue/#270](https://github.com/ripe-tech/ripe-util-vue/issues/270)
 
 ## [0.21.0] - 2022-04-04
 
@@ -89,6 +101,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Added variant "white" to `input-image`
 * Added prop `textColor` to `tag` component to allow customizing the text color - [#296](https://github.com/ripe-tech/ripe-pulse/issues/296)
+* Added prop `debounceDelay` to component `input-ripe` allowing a delay between the input events and the actual `setValue`
 
 ### Fixed
 
