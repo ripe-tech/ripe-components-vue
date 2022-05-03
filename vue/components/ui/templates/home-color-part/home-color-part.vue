@@ -212,10 +212,6 @@ export const HomeColorPart = {
             type: String | Object,
             default: null
         },
-        homeRoute: {
-            type: String | Object,
-            default: null
-        },
         nextRoute: {
             type: String | Object,
             default: null
