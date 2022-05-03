@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-* `router-link` removed from `home-color-part` component for it to be compatible with nuxt projects too [ripe-components-vue/#275](https://github.com/ripe-tech/ripe-util-vue/issues/275)
+* `router-link` removed from `home-color-part` component for it to be compatible with nuxt projects too - [ripe-util-vue/#275](https://github.com/ripe-tech/ripe-util-vue/issues/275)
 
 ### Fixed
 
