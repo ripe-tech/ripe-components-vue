@@ -1,5 +1,5 @@
 <template>
-    <div v-bind:class="classes" v-bind:style="style">
+    <div v-bind:class="classes" class="input-icon" v-bind:style="style">
         <div class="before-input">
             <slot name="slot-before" />
         </div>
@@ -50,7 +50,6 @@
     height: 100%;
     margin: auto;
     margin: 0px 8px 0px 8px;
-    width: 24px;
 }
 
 .input-icon > .before-input > *,
@@ -246,7 +245,6 @@ export const InputIcon = {
             if (this.validationMessage) base.validation = true;
             if (this.focused) base.focus = true;
             if (this.disabled) base.disabled = true;
-            base["input-icon"] = true;
             return base;
         }
     },
