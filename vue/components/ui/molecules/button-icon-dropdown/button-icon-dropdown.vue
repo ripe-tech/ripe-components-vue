@@ -68,16 +68,9 @@ export const ButtonIconDropdown = {
         };
     },
     methods: {
-        open() {
-            this.dropdownVisible = true;
-        },
-        close() {
-            this.dropdownVisible = false;
-        },
         onButtonIconClick() {
             if (this.disabled) return;
             this.dropdownVisible = !this.dropdownVisible;
-            this.$emit(`click:${this.dropdownVisible ? "open" : "close"}`, this);
         },
         onDropdownItemClick(item, index) {
             if (this.disabled) return;
