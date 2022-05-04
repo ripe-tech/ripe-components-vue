@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 * Add `input-file` component - [ripe-copper/#48](https://github.com/ripe-tech/ripe-copper/issues/48)
+* Add `input-icon` component - [ripe-util-vue/#259](https://github.com/ripe-tech/ripe-util-vue/issues/259)
 
 ### Changed
 
