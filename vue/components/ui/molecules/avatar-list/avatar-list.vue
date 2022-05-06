@@ -166,7 +166,7 @@ export const AvatarList = {
     },
     methods: {
         style(index) {
-            return {'z-index': index};
+            return { "z-index": index };
         }
     }
 };
