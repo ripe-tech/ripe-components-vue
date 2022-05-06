@@ -3,14 +3,14 @@
         <div
             class="avatar-container"
             v-bind:class="classes"
-            v-bind:style="{ 'z-index': index }"
-            v-for="(avatar, index) in avatarList"
+            v-bind:style="style(index)"
+            v-for="(avatar, index) in filteredAvatarList"
             v-bind:key="index"
         >
-            <div v-if="index == maxElems">
+            <div class="remaining-elements" v-if="index == maxElems">
                 {{ remainingElements }}
             </div>
-            <avatar v-bind="{ size: size, ...avatar }" v-else-if="index < maxElems" />
+            <avatar v-bind="{ size: size, ...avatar }" v-else />
         </div>
     </div>
 </template>
@@ -20,7 +20,8 @@
     display: flex;
 }
 
-.avatar-list > .avatar-container > * {
+.avatar-list > .avatar-container > .remaining-elements,
+.avatar-list > .avatar-container > .avatar {
     border: 2px solid #ffffff;
 }
 
@@ -76,7 +77,7 @@
     margin-left: 10px;
 }
 
-.avatar-list > .avatar-container > div {
+.avatar-list > .avatar-container > .remaining-elements {
     align-content: center;
     background: #e1e1e1;
     border-radius: 50%;
@@ -85,42 +86,42 @@
     justify-content: center;
 }
 
-.avatar-list > .avatar-container.very-tiny > div {
+.avatar-list > .avatar-container.very-tiny > .remaining-elements {
     font-size: 8px;
     height: 18px;
     line-height: 18px;
     width: 18px;
 }
 
-.avatar-list > .avatar-container.tiny > div {
+.avatar-list > .avatar-container.tiny > .remaining-elements {
     font-size: 12px;
     height: 24px;
     line-height: 24px;
     width: 24px;
 }
 
-.avatar-list > .avatar-container.small > div {
+.avatar-list > .avatar-container.small > .remaining-elements {
     font-size: 16px;
     height: 34px;
     line-height: 34px;
     width: 34px;
 }
 
-.avatar-list > .avatar-container.medium > div {
+.avatar-list > .avatar-container.medium > .remaining-elements {
     font-size: 18px;
     height: 40px;
     line-height: 40px;
     width: 40px;
 }
 
-.avatar-list > .avatar-container.large > div {
+.avatar-list > .avatar-container.large > .remaining-elements {
     font-size: 24px;
     height: 56px;
     line-height: 56px;
     width: 56px;
 }
 
-.avatar-list > .avatar-container.very-large > div {
+.avatar-list > .avatar-container.very-large > .remaining-elements {
     font-size: 40px;
     height: 96px;
     line-height: 96px;
@@ -150,6 +151,9 @@ export const AvatarList = {
         }
     },
     computed: {
+        filteredAvatarList() {
+            return this.avatarList.filter((value, index) => index <= this.maxElems);
+        },
         classes() {
             const base = {};
             if (this.expandable) base.expandable = true;
@@ -158,6 +162,11 @@ export const AvatarList = {
         },
         remainingElements() {
             return `+ ${this.avatarList.length - this.maxElems}`;
+        }
+    },
+    methods: {
+        style(index) {
+            return {'z-index': index};
         }
     }
 };
