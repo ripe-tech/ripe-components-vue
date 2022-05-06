@@ -23,6 +23,7 @@ import { ImageList } from "./image-list/image-list.vue";
 import { InputColor } from "./input-color/input-color.vue";
 import { InputCurrency } from "./input-currency/input-currency.vue";
 import { InputDate } from "./input-date/input-date.vue";
+import { InputFile } from "./input-file/input-file.vue";
 import { InputImage } from "./input-image/input-image.vue";
 import { InputSlider } from "./input-slider/input-slider.vue";
 import { InputSymbol } from "./input-symbol/input-symbol.vue";
@@ -100,6 +101,7 @@ const install = Vue => {
     Vue.component("tooltip", Tooltip);
     Vue.component("transfer-list", TransferList);
     Vue.component("upload-area", UploadArea);
+    Vue.component("input-file", InputFile);
 };
 
 export {
@@ -127,6 +129,7 @@ export {
     InputColor,
     InputCurrency,
     InputDate,
+    InputFile,
     InputImage,
     InputSlider,
     InputSymbol,

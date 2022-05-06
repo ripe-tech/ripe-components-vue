@@ -12,10 +12,10 @@
         />
         <dropdown
             v-bind="dropdownProps"
-            v-bind:disabled="disabled"
             v-bind:vertical-padding="4"
             v-bind:items="items"
             v-bind:visible.sync="dropdownVisible"
+            v-bind:global-hide="globalHide"
             v-bind:owners="$refs['button-icon']"
             v-on:item-clicked="onDropdownItemClick"
         >
@@ -54,6 +54,10 @@ export const ButtonIconDropdown = {
             default: () => ({})
         },
         disabled: {
+            type: Boolean,
+            default: false
+        },
+        globalHide: {
             type: Boolean,
             default: false
         }
