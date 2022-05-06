@@ -408,7 +408,8 @@ export const Dropdown = {
                 separator: item.separator,
                 icon: Boolean(item.icon),
                 highlightable: this.highlightable,
-                highlighted: this.highlightable && (this.highlightedData[index] || item.highlighted),
+                highlighted:
+                    this.highlightable && (this.highlightedData[index] || item.highlighted),
                 selected: this.highlightable && (this.selectedData[index] || item.selected),
                 disabled: this.disabledData[index] || item.disabled
             };
