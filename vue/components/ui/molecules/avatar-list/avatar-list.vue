@@ -3,7 +3,7 @@
         <div
             class="avatar-container"
             v-bind:class="classes"
-            v-bind:style="style(index)"
+            v-bind:style="containerStyle(index)"
             v-for="(avatar, index) in filteredAvatarList"
             v-bind:key="index"
         >
@@ -154,18 +154,18 @@ export const AvatarList = {
         filteredAvatarList() {
             return this.avatarList.filter((value, index) => index <= this.maxElems);
         },
+        remainingElements() {
+            return `+ ${this.avatarList.length - this.maxElems}`;
+        },
         classes() {
             const base = {};
             if (this.expandable) base.expandable = true;
             base[`${this.size}`] = true;
             return base;
-        },
-        remainingElements() {
-            return `+ ${this.avatarList.length - this.maxElems}`;
         }
     },
     methods: {
-        style(index) {
+        containerStyle(index) {
             return { "z-index": index };
         }
     }
