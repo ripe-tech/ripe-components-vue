@@ -1,13 +1,12 @@
 <template>
-    <div class="avatar-list">
+    <div class="avatar-list" v-bind:class="classes">
         <div
             class="avatar-container"
-            v-bind:class="classes"
             v-bind:style="containerStyle(index)"
-            v-for="(avatar, index) in filteredAvatarList"
+            v-for="(avatar, index) in filteredAvatars"
             v-bind:key="index"
         >
-            <div class="remaining-elements" v-if="index == maxElems">
+            <div class="remaining-elements" v-if="index == maxElements">
                 {{ remainingElements }}
             </div>
             <avatar v-bind="{ size: size, ...avatar }" v-else />
@@ -20,61 +19,65 @@
     display: flex;
 }
 
-.avatar-list > .avatar-container > .remaining-elements,
-.avatar-list > .avatar-container > .avatar {
-    border: 2px solid #ffffff;
+.avatar-list.expandable {
+    cursor: pointer;
 }
 
 .avatar-list > .avatar-container:not(:first-child) {
     transition: margin 0.3s;
 }
 
-.avatar-list > .avatar-container:not(:first-child).very-tiny {
+.avatar-list.very-tiny > .avatar-container:not(:first-child) {
     margin-left: -10px;
 }
 
-.avatar-list > .avatar-container:not(:first-child).tiny {
+.avatar-list.tiny > .avatar-container:not(:first-child) {
     margin-left: -12px;
 }
 
-.avatar-list > .avatar-container:not(:first-child).small {
+.avatar-list.small > .avatar-container:not(:first-child) {
     margin-left: -16px;
 }
 
-.avatar-list > .avatar-container:not(:first-child).medium {
+.avatar-list.medium > .avatar-container:not(:first-child) {
     margin-left: -18px;
 }
 
-.avatar-list > .avatar-container:not(:first-child).large {
+.avatar-list.large > .avatar-container:not(:first-child) {
     margin-left: -26px;
 }
 
-.avatar-list > .avatar-container:not(:first-child).very-large {
+.avatar-list.very-large > .avatar-container:not(:first-child) {
     margin-left: -50px;
 }
 
-.avatar-list:hover > .avatar-container.expandable:not(:first-child).very-tiny {
+.avatar-list.expandable.very-tiny:hover > .avatar-container:not(:first-child) {
     margin-left: 2px;
 }
 
-.avatar-list:hover > .avatar-container.expandable:not(:first-child).tiny {
+.avatar-list.expandable.tiny:hover > .avatar-container:not(:first-child) {
     margin-left: 2px;
 }
 
-.avatar-list:hover > .avatar-container.expandable:not(:first-child).small {
+.avatar-list.expandable.small:hover > .avatar-container:not(:first-child) {
     margin-left: 4px;
 }
 
-.avatar-list:hover > .avatar-container.expandable:not(:first-child).medium {
+.avatar-list.expandable.medium:hover > .avatar-container:not(:first-child) {
     margin-left: 6px;
 }
 
-.avatar-list:hover > .avatar-container.expandable:not(:first-child).large {
+.avatar-list.expandable.large:hover > .avatar-container:not(:first-child) {
     margin-left: 8px;
 }
 
-.avatar-list:hover > .avatar-container.expandable:not(:first-child).very-large {
+.avatar-list.expandable.very-large:hover > .avatar-container:not(:first-child) {
     margin-left: 10px;
+}
+
+.avatar-list > .avatar-container > .remaining-elements,
+.avatar-list > .avatar-container > .avatar {
+    border: 2px solid #ffffff;
 }
 
 .avatar-list > .avatar-container > .remaining-elements {
@@ -86,42 +89,42 @@
     justify-content: center;
 }
 
-.avatar-list > .avatar-container.very-tiny > .remaining-elements {
+.avatar-list.very-tiny > .avatar-container > .remaining-elements {
     font-size: 8px;
     height: 18px;
     line-height: 18px;
     width: 18px;
 }
 
-.avatar-list > .avatar-container.tiny > .remaining-elements {
+.avatar-list.tiny > .avatar-container > .remaining-elements {
     font-size: 12px;
     height: 24px;
     line-height: 24px;
     width: 24px;
 }
 
-.avatar-list > .avatar-container.small > .remaining-elements {
+.avatar-list.small > .avatar-container > .remaining-elements {
     font-size: 16px;
     height: 34px;
     line-height: 34px;
     width: 34px;
 }
 
-.avatar-list > .avatar-container.medium > .remaining-elements {
+.avatar-list.medium > .avatar-container > .remaining-elements {
     font-size: 18px;
     height: 40px;
     line-height: 40px;
     width: 40px;
 }
 
-.avatar-list > .avatar-container.large > .remaining-elements {
+.avatar-list.large > .avatar-container > .remaining-elements {
     font-size: 24px;
     height: 56px;
     line-height: 56px;
     width: 56px;
 }
 
-.avatar-list > .avatar-container.very-large > .remaining-elements {
+.avatar-list.very-large > .avatar-container > .remaining-elements {
     font-size: 40px;
     height: 96px;
     line-height: 96px;
@@ -133,7 +136,7 @@
 export const AvatarList = {
     name: "avatar-list",
     props: {
-        avatarList: {
+        avatars: {
             type: Array,
             default: () => []
         },
@@ -141,7 +144,7 @@ export const AvatarList = {
             type: Boolean,
             default: false
         },
-        maxElems: {
+        maxElements: {
             type: Number,
             default: 3
         },
@@ -151,11 +154,11 @@ export const AvatarList = {
         }
     },
     computed: {
-        filteredAvatarList() {
-            return this.avatarList.filter((value, index) => index <= this.maxElems);
+        filteredAvatars() {
+            return this.avatars.filter((value, index) => index <= this.maxElements);
         },
         remainingElements() {
-            return `+ ${this.avatarList.length - this.maxElems}`;
+            return `+ ${this.avatars.length - this.maxElements}`;
         },
         classes() {
             const base = {};
