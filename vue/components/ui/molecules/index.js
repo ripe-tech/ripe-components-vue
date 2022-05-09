@@ -1,5 +1,6 @@
 import { Alert } from "./alert/alert.vue";
 import { Announcements } from "./announcements/announcements.vue";
+import { AvatarList } from "./avatar-list/avatar-list.vue";
 import { AvatarName } from "./avatar-name/avatar-name.vue";
 import { AvatarNameEmail } from "./avatar-name-email/avatar-name-email.vue";
 import { BezierCurve } from "./bezier-curve/bezier-curve.vue";
@@ -22,6 +23,7 @@ import { ImageList } from "./image-list/image-list.vue";
 import { InputColor } from "./input-color/input-color.vue";
 import { InputCurrency } from "./input-currency/input-currency.vue";
 import { InputDate } from "./input-date/input-date.vue";
+import { InputFile } from "./input-file/input-file.vue";
 import { InputImage } from "./input-image/input-image.vue";
 import { InputSlider } from "./input-slider/input-slider.vue";
 import { InputSymbol } from "./input-symbol/input-symbol.vue";
@@ -51,6 +53,7 @@ import { UploadArea } from "./upload-area/upload-area.vue";
 const install = Vue => {
     Vue.component("alert", Alert);
     Vue.component("announcements", Announcements);
+    Vue.component("avatar-list", AvatarList);
     Vue.component("avatar-name", AvatarName);
     Vue.component("avatar-name-email", AvatarNameEmail);
     Vue.component("bezier-curve", BezierCurve);
@@ -98,11 +101,13 @@ const install = Vue => {
     Vue.component("tooltip", Tooltip);
     Vue.component("transfer-list", TransferList);
     Vue.component("upload-area", UploadArea);
+    Vue.component("input-file", InputFile);
 };
 
 export {
     Alert,
     Announcements,
+    AvatarList,
     AvatarName,
     AvatarNameEmail,
     BezierCurve,
@@ -124,6 +129,7 @@ export {
     InputColor,
     InputCurrency,
     InputDate,
+    InputFile,
     InputImage,
     InputSlider,
     InputSymbol,

@@ -9,6 +9,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* Add `input-file` component - [ripe-copper/#48](https://github.com/ripe-tech/ripe-copper/issues/48)
+* Button icon dropdown global hide prop - [ripe-pulse/#281](https://github.com/ripe-tech/ripe-pulse/issues/281)
+* Add `avatar-list` component - [#571](https://github.com/ripe-tech/ripe-components-vue/issues/571)
+
+### Changed
+
+*
+
+### Fixed
+
+* Prop issue in `button-icon-dropdown` when propagating `disabled`
+
+## [0.22.0] - 2022-04-22
+
+### Added
+
 * Support custom panel in `header` component - [ripe-pulse/#316](https://github.com/ripe-tech/ripe-pulse/issues/316)
 * Add `entry` component - [ripe-pulse/#316](https://github.com/ripe-tech/ripe-pulse/issues/316)
 * Background color for checked rows in table component - [ripe-pulse/#281](https://github.com/ripe-tech/ripe-pulse/issues/281)
@@ -16,10 +32,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Support search bar in `select-checkboxes` - [ripe-util-vue/#270](https://github.com/ripe-tech/ripe-util-vue/issues/270)
 * Add prop `highlightable` to allow to turn off ability to highlight `dropdown` items - [ripe-util-vue/#270](https://github.com/ripe-tech/ripe-util-vue/issues/270)
 * Add prop `iconPosition` to `button-color` allowing to change the icon position - [ripe-util-vue/#270](https://github.com/ripe-tech/ripe-util-vue/issues/270)
-
-### Changed
-
-*
 
 ### Fixed
 
@@ -92,6 +104,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Added variant "white" to `input-image`
 * Added prop `textColor` to `tag` component to allow customizing the text color - [#296](https://github.com/ripe-tech/ripe-pulse/issues/296)
+* Added prop `debounceDelay` to component `input-ripe` allowing a delay between the input events and the actual `setValue`
 
 ### Fixed
 
