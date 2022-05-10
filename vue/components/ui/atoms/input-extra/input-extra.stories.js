@@ -1,9 +1,9 @@
 import { storiesOf } from "@storybook/vue";
 import { withKnobs, text, boolean, number, select } from "@storybook/addon-knobs";
 
-storiesOf("Components/Atoms/Input Icon", module)
+storiesOf("Components/Atoms/Input Extra", module)
     .addDecorator(withKnobs)
-    .add("Input Icon", () => ({
+    .add("Input Extra", () => ({
         props: {
             variant: {
                 default: select(
@@ -87,7 +87,7 @@ storiesOf("Components/Atoms/Input Icon", module)
                     v-bind:header="header"
                     v-bind:footer="footer"
                 >
-                    <input-icon
+                    <input-extra
                         v-bind:variant="variant"
                         v-bind:border="border"
                         v-bind:value.sync="valueData"
@@ -105,7 +105,7 @@ storiesOf("Components/Atoms/Input Icon", module)
                         <template v-slot:slot-after>
                             <icon class="upload-icon" v-bind:icon="'add-camera'" />
                         </template>
-                    </input-icon>
+                    </input-extra>
                 </form-input>
                 <p>Text: {{ valueData }}</p>
             </div>

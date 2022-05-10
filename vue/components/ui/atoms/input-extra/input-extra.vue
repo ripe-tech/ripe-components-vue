@@ -1,5 +1,5 @@
 <template>
-    <div v-bind:class="classes" class="input-icon" v-bind:style="style">
+    <div v-bind:class="classes" class="input-extra" v-bind:style="style">
         <div class="before-input">
             <slot name="slot-before" />
         </div>
@@ -27,7 +27,7 @@
 <style lang="scss" scoped>
 @import "css/variables.scss";
 
-.input-icon {
+.input-extra {
     background-color: $white;
     border: 1px solid $light-white;
     border-radius: 6px 6px 6px 6px;
@@ -43,8 +43,8 @@
     width: 100%;
 }
 
-.input-icon > .before-input,
-.input-icon > .after-input {
+.input-extra > .before-input,
+.input-extra > .after-input {
     align-items: center;
     display: flex;
     height: 100%;
@@ -52,13 +52,13 @@
     margin: 0px 8px 0px 8px;
 }
 
-.input-icon > .before-input > *,
-.input-icon > .after-input > * {
+.input-extra > .before-input > *,
+.input-extra > .after-input > * {
     height: 24px;
     width: 24px;
 }
 
-.input-icon > input {
+.input-extra > input {
     appearance: none;
     border: none;
     color: $black;
@@ -70,48 +70,48 @@
     width: 100%;
 }
 
-.input-icon > .input::-webkit-input-placeholder {
+.input-extra > .input::-webkit-input-placeholder {
     color: $upper-grey;
 }
 
-.input-icon > .input.monospaced {
+.input-extra > .input.monospaced {
     font-family: "consolas", monospace;
     letter-spacing: 0px;
 }
 
-.input-icon > .input.ellipsis {
+.input-extra > .input.ellipsis {
     text-overflow: ellipsis;
 }
 
-.input-icon > .input.dark {
+.input-extra > .input.dark {
     background-color: $soft-blue;
 }
 
-.input-icon > .input.border-strong {
+.input-extra > .input.border-strong {
     border-width: 2px;
 }
 
-.input-icon:hover:not(.disabled):not(:focus) {
+.input-extra:hover:not(.disabled):not(:focus) {
     border-color: $aqcua-blue;
 }
 
-.input-icon.focus {
+.input-extra.focus {
     background-color: $white;
     border-color: $aqcua-blue;
 }
 
-.input-icon > .input.dark:focus {
+.input-extra > .input.dark:focus {
     box-shadow: 0px 1px 8px 0px rgba(32, 33, 36, 0.14);
 }
 
-.input-icon.disabled {
+.input-extra.disabled {
     opacity: 0.4;
 }
 </style>
 
 <script>
-export const InputIcon = {
-    name: "input-icon",
+export const InputExtra = {
+    name: "input-extra",
     props: {
         variant: {
             type: String,
@@ -255,5 +255,5 @@ export const InputIcon = {
     }
 };
 
-export default InputIcon;
+export default InputExtra;
 </script>
