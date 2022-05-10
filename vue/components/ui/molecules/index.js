@@ -1,5 +1,6 @@
 import { Alert } from "./alert/alert.vue";
 import { Announcements } from "./announcements/announcements.vue";
+import { AvatarList } from "./avatar-list/avatar-list.vue";
 import { AvatarName } from "./avatar-name/avatar-name.vue";
 import { AvatarNameEmail } from "./avatar-name-email/avatar-name-email.vue";
 import { BezierCurve } from "./bezier-curve/bezier-curve.vue";
@@ -52,6 +53,7 @@ import { UploadArea } from "./upload-area/upload-area.vue";
 const install = Vue => {
     Vue.component("alert", Alert);
     Vue.component("announcements", Announcements);
+    Vue.component("avatar-list", AvatarList);
     Vue.component("avatar-name", AvatarName);
     Vue.component("avatar-name-email", AvatarNameEmail);
     Vue.component("bezier-curve", BezierCurve);
@@ -105,6 +107,7 @@ const install = Vue => {
 export {
     Alert,
     Announcements,
+    AvatarList,
     AvatarName,
     AvatarNameEmail,
     BezierCurve,
