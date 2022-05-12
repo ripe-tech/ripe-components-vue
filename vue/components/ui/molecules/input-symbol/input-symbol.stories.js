@@ -41,9 +41,6 @@ storiesOf("Components/Molecules/Input Symbol", module)
             value: {
                 default: text("Value", "This is a text")
             },
-            usesSlots: {
-                default: boolean("Uses Slots", false)
-            },
             type: {
                 default: select(
                     "Type",
@@ -106,11 +103,25 @@ storiesOf("Components/Molecules/Input Symbol", module)
                     v-bind:disabled="disabled"
                     v-bind:placeholder="placeholder"
                     v-bind:symbol="symbol"
+                    v-bind:symbol-position="symbolPosition" />
+                <p>Text: {{ valueData }}</p>
+                <h3>Using Slots</h3>
+                <input-symbol
+                    v-bind:value.sync="valueData"
+                    v-bind:height="height"
+                    v-bind:width="width"
+                    v-bind:align="align"
+                    v-bind:border="border"
+                    v-bind:variant="variant"
+                    v-bind:type="type"
+                    v-bind:disabled="disabled"
+                    v-bind:placeholder="placeholder"
+                    v-bind:symbol="symbol"
                     v-bind:symbol-position="symbolPosition">
-                        <template v-slot:symbol-left v-if="usesSlots">
+                        <template v-slot:symbol-left>
                             <icon class="arrow arrow-previous" style="height: 34px; width: 34px;" v-bind:icon="'chevron-left'" />
                         </template>
-                        <template v-slot:symbol-right v-if="usesSlots">
+                        <template v-slot:symbol-right>
                             <icon class="arrow arrow-next" style="height: 34px; width: 34px;" v-bind:icon="'chevron-right'" />
                         </template>
                 </input-symbol>
