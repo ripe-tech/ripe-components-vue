@@ -105,7 +105,7 @@ storiesOf("Components/Molecules/Input Symbol", module)
                     v-bind:symbol="symbol"
                     v-bind:symbol-position="symbolPosition" />
                 <p>Text: {{ valueData }}</p>
-                <h3>Using Slots</h3>
+                <p>Using Slots:</p>
                 <input-symbol
                     v-bind:value.sync="valueData"
                     v-bind:height="height"
