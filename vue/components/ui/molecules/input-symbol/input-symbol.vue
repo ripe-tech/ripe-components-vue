@@ -1,14 +1,16 @@
 <template>
     <div class="input-symbol" v-bind:class="classes" v-bind:style="style">
-        <div
-            class="symbol symbol-left"
-            v-bind:style="symbolStyle"
-            v-show="symbolPosition === 'left'"
-        >
-            <slot name="symbol">
-                {{ symbol }}
-            </slot>
-        </div>
+        <slot name="symbol-left">
+            <div
+                class="symbol symbol-left"
+                v-bind:style="symbolStyle"
+                v-show="symbolPosition === 'left'"
+            >
+                <slot name="symbol">
+                    {{ symbol }}
+                </slot>
+            </div>
+        </slot>
         <input-ripe
             v-bind:value.sync="valueData"
             v-bind:variant="variant"
@@ -24,15 +26,17 @@
             v-on:blur="onBlur"
             v-on:focus="onFocus"
         />
-        <div
-            class="symbol symbol-right"
-            v-bind:style="symbolStyle"
-            v-show="symbolPosition === 'right'"
-        >
-            <slot name="symbol">
-                {{ symbol }}
-            </slot>
-        </div>
+        <slot name="symbol-right">
+            <div
+                class="symbol symbol-right"
+                v-bind:style="symbolStyle"
+                v-show="symbolPosition === 'right'"
+            >
+                <slot name="symbol">
+                    {{ symbol }}
+                </slot>
+            </div>
+        </slot>
     </div>
 </template>
 
