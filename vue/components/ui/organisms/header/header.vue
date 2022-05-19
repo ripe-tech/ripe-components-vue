@@ -44,7 +44,7 @@
                         v-bind:src="account.avatar_url"
                         v-bind:clickable="true"
                         v-bind:active="accountDropdownVisible"
-                        v-bind:notify="announcementsToRead"
+                        v-bind:notify="notify"
                     />
                     <dropdown
                         v-bind:items="_accountDropdownItems"
@@ -56,7 +56,7 @@
                         <template v-slot:announcements="{ item }">
                             <div class="dropdown-item-announcements">
                                 <span class="announcements-dropdown-text">{{ item.label }}</span>
-                                <div class="dot" v-if="announcementsToRead" />
+                                <div class="dot" v-if="notify" />
                             </div>
                         </template>
                     </dropdown>
@@ -92,18 +92,7 @@
                     v-if="isMobileWidth()"
                     v-slot="{ hide }"
                 >
-                    <announcements
-                        v-bind:title="announcements.title"
-                        v-bind:description="announcements.description"
-                        v-bind:new-threshold="announcements.new_threshold"
-                        v-bind:show-subscribe="announcements.show_subscribe"
-                        v-bind:show-links="announcements.show_links"
-                        v-bind:show-reactions="announcements.show_reactions"
-                        v-bind:announcements="announcements.items"
-                        v-if="extraPanel === 'extra-panel-announcements'"
-                        v-on:click:close="hide"
-                    />
-                    <template v-for="slot in extraPanelScopedSlots" v-else>
+                    <template v-for="slot in extraPanelScopedSlots">
                         <slot v-bind:name="slot" v-bind:hide="hide" v-if="slot === extraPanel" />
                     </template>
                 </bubble>
@@ -114,18 +103,7 @@
                     v-else
                     v-slot="{ hide }"
                 >
-                    <announcements
-                        v-bind:title="announcements.title"
-                        v-bind:description="announcements.description"
-                        v-bind:new-threshold="announcements.new_threshold"
-                        v-bind:show-subscribe="announcements.show_subscribe"
-                        v-bind:show-links="announcements.show_links"
-                        v-bind:show-reactions="announcements.show_reactions"
-                        v-bind:announcements="announcements.items"
-                        v-if="extraPanel === 'extra-panel-announcements'"
-                        v-on:click:close="hide"
-                    />
-                    <template v-for="slot in extraPanelScopedSlots" v-else>
+                    <template v-for="slot in extraPanelScopedSlots">
                         <slot v-bind:name="slot" v-bind:hide="hide" v-if="slot === extraPanel" />
                     </template>
                 </side>
@@ -428,9 +406,9 @@ export const Header = {
             type: Object,
             default: () => ({})
         },
-        announcements: {
-            type: Object,
-            default: null
+        notify: {
+            type: Boolean,
+            default: false
         }
     },
     data: function() {
@@ -447,10 +425,7 @@ export const Header = {
             return Object.keys(this.$scopedSlots).filter(key => key.startsWith("extra-panel-"));
         },
         hasExtraPanel() {
-            return (
-                this.extraPanelScopedSlots.length > 0 ||
-                (this.announcements && this.announcements.items)
-            );
+            return this.extraPanelScopedSlots.length > 0;
         },
         account() {
             return this.platformeAccount || this.$root.account;
@@ -459,13 +434,6 @@ export const Header = {
             const items = [];
             const { name, email } = this.account.meta;
             items.push({ value: "name", label: name || email || this.account.email });
-
-            const announcementsItem = this.accountDropdownItems.find(
-                item => item.value === "announcements"
-            );
-            if (!announcementsItem && this.announcements) {
-                items.push({ value: "announcements", label: "What's new?" });
-            }
 
             items.push(...this.accountDropdownItems);
 
@@ -500,13 +468,6 @@ export const Header = {
                 });
             }
             return items;
-        },
-        announcementsToRead() {
-            if (!this.announcements) return false;
-            if (!this.announcements.items) return false;
-            const reference =
-                this.announcements.items.length > 0 ? this.announcements.items[0].timestamp : 0;
-            return reference * 1000 > Date.now() - this.announcements.new_threshold * 1000;
         }
     },
     watch: {
@@ -532,10 +493,7 @@ export const Header = {
         },
         onAccountDropdownItemClick(event, item, index) {
             const extraPanelName = `extra-panel-${item.value}`;
-            if (
-                this.extraPanelScopedSlots.includes(extraPanelName) ||
-                extraPanelName === "extra-panel-announcements"
-            ) {
+            if (this.extraPanelScopedSlots.includes(extraPanelName)) {
                 this.extraPanel = extraPanelName;
                 this.extraPanelVisible = true;
             }
