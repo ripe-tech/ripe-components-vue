@@ -202,7 +202,7 @@ export const ButtonDropdown = {
             this.$emit("click", event);
         },
         onDropdownItemClicked(event, item) {
-            this.$emit(`click:item`, event, item);
+            this.$emit("click:item", event, item);
         }
     }
 };
