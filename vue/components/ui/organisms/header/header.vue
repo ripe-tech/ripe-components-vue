@@ -53,8 +53,14 @@
                         v-bind:owners="$refs.headerAccount"
                         v-on:click:item.stop="onAccountDropdownItemClick"
                     >
-                        <template v-bind:slot="item.value" v-for="item in accountDropdownNotificationItems">
-                            <div v-bind:class="`dropdown-item-${item.value} notify`" v-bind:key="item.value">
+                        <template
+                            v-bind:slot="item.value"
+                            v-for="item in accountDropdownNotificationItems"
+                        >
+                            <div
+                                v-bind:class="`notify dropdown-item-${item.value}`"
+                                v-bind:key="item.value"
+                            >
                                 <span class="label">{{ item.label }}</span>
                                 <div class="dot" />
                             </div>
