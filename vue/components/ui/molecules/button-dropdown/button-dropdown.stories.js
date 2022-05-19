@@ -22,7 +22,7 @@ storiesOf("Components/Molecules/Button Dropdown", module)
                     "Primary Icon",
                     {
                         Unset: null,
-                        Edit: "edit",
+                        Edit: "Edit dropdown",
                         Drop: "drop"
                     },
                     null
@@ -39,7 +39,7 @@ storiesOf("Components/Molecules/Button Dropdown", module)
                 )
             },
             label: {
-                default: text("Label", "Edit")
+                default: text("Label", "Edit dropdown")
             },
             mockItems: {
                 type: Array,
