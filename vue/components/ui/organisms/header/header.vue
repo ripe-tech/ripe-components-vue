@@ -44,7 +44,7 @@
                         v-bind:src="account.avatar_url"
                         v-bind:clickable="true"
                         v-bind:active="accountDropdownVisible"
-                        v-bind:notify="notify"
+                        v-bind:notify="avatarNotify"
                     />
                     <dropdown
                         v-bind:items="_accountDropdownItems"
@@ -53,10 +53,10 @@
                         v-bind:owners="$refs.headerAccount"
                         v-on:click:item.stop="onAccountDropdownItemClick"
                     >
-                        <template v-slot:announcements="{ item }">
-                            <div class="dropdown-item-announcements">
-                                <span class="announcements-dropdown-text">{{ item.label }}</span>
-                                <div class="dot" v-if="notify" />
+                        <template v-bind:slot="item.value" v-for="item in accountDropdownNotificationItems">
+                            <div v-bind:class="`dropdown-item-${item.value} notify`" v-bind:key="item.value">
+                                <span class="label">{{ item.label }}</span>
+                                <div class="dot" />
                             </div>
                         </template>
                     </dropdown>
@@ -318,11 +318,11 @@ body.mobile .header-ripe > .header-bar > .header-container > .header-apps > .dro
     margin: 6px 0px 0px 0px;
 }
 
-.header-ripe > .header-bar .dropdown-item-announcements .announcements-dropdown-text {
+.header-ripe > .header-bar .dropdown-item .notify > .label {
     width: auto;
 }
 
-.header-ripe > .header-bar .dropdown-item-announcements .dot {
+.header-ripe > .header-bar .dropdown-item .notify > .dot {
     background-color: #4b8dd7;
     border: 1px solid #ffffff;
     border-radius: 50% 50% 50% 50%;
@@ -405,10 +405,6 @@ export const Header = {
         apps: {
             type: Object,
             default: () => ({})
-        },
-        notify: {
-            type: Boolean,
-            default: false
         }
     },
     data: function() {
@@ -453,6 +449,12 @@ export const Header = {
             }
 
             return items;
+        },
+        accountDropdownNotificationItems() {
+            return this._accountDropdownItems.filter(item => item.notification);
+        },
+        avatarNotify() {
+            return this.accountDropdownNotificationItems.length > 0;
         },
         appsDropdownItems() {
             const items = [];
