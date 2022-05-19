@@ -15,6 +15,7 @@
             v-bind:value.sync="valueData"
             v-bind:variant="variant"
             v-bind:border="border"
+            v-bind:debounce-delay="debounceDelay"
             v-bind:type="type"
             v-bind:placeholder="placeholder"
             v-bind:disabled="disabled"
@@ -155,6 +156,10 @@ export const InputSymbol = {
         align: {
             type: String,
             default: "right"
+        },
+        debounceDelay: {
+            type: Number,
+            default: 0
         }
     },
     data: function() {
