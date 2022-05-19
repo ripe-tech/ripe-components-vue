@@ -58,7 +58,7 @@
                             v-for="item in accountDropdownNotificationItems"
                         >
                             <div
-                                v-bind:class="`notify dropdown-item-${item.value}`"
+                                v-bind:class="`notification dropdown-item-${item.value}`"
                                 v-bind:key="item.value"
                             >
                                 <span class="label">{{ item.label }}</span>
@@ -324,11 +324,11 @@ body.mobile .header-ripe > .header-bar > .header-container > .header-apps > .dro
     margin: 6px 0px 0px 0px;
 }
 
-.header-ripe > .header-bar .dropdown-item .notify > .label {
+.header-ripe > .header-bar .dropdown-item .notification > .label {
     width: auto;
 }
 
-.header-ripe > .header-bar .dropdown-item .notify > .dot {
+.header-ripe > .header-bar .dropdown-item .notification > .dot {
     background-color: #4b8dd7;
     border: 1px solid #ffffff;
     border-radius: 50% 50% 50% 50%;
