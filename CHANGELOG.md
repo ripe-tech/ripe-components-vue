@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 * Prop issue in `button-icon-dropdown` when propagating `disabled`
+* Fix `button-dropdown` events not being propagated correctly - [ripe-util-vue/#288](https://github.com/ripe-tech/ripe-util-vue/issues/288)
 
 ## [0.22.0] - 2022-04-22
 
