@@ -159,7 +159,7 @@ export const InputSymbol = {
         },
         debounceDelay: {
             type: Number,
-            default: 0
+            default: null
         }
     },
     data: function() {
