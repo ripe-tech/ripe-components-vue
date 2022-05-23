@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 * Prop issue in `button-icon-dropdown` when propagating `disabled`
+* Fix storybook dependency problem after minor bump, lock versions to minor - [ripe-welcome/PR#187](https://github.com/ripe-tech/ripe-welcome/pull/187)
 
 ## [0.22.0] - 2022-04-22
 
