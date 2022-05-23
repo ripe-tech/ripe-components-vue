@@ -22,7 +22,7 @@ storiesOf("Components/Molecules/Button Dropdown", module)
                     "Primary Icon",
                     {
                         Unset: null,
-                        Edit: "Edit dropdown",
+                        Edit: "edit",
                         Drop: "drop"
                     },
                     null
