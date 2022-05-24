@@ -105,6 +105,27 @@ storiesOf("Components/Molecules/Input Symbol", module)
                     v-bind:symbol="symbol"
                     v-bind:symbol-position="symbolPosition" />
                 <p>Text: {{ valueData }}</p>
+                <p>Using Slots:</p>
+                <input-symbol
+                    v-bind:value.sync="valueData"
+                    v-bind:height="height"
+                    v-bind:width="width"
+                    v-bind:align="align"
+                    v-bind:border="border"
+                    v-bind:variant="variant"
+                    v-bind:type="type"
+                    v-bind:disabled="disabled"
+                    v-bind:placeholder="placeholder"
+                    v-bind:symbol="symbol"
+                    v-bind:symbol-position="symbolPosition">
+                        <template v-slot:symbol-left>
+                            <icon class="arrow arrow-previous" style="height: 34px; width: 34px;" v-bind:icon="'chevron-left'" />
+                        </template>
+                        <template v-slot:symbol-right>
+                            <icon class="arrow arrow-next" style="height: 34px; width: 34px;" v-bind:icon="'chevron-right'" />
+                        </template>
+                </input-symbol>
+                <p>Text: {{ valueData }}</p>
             </div>
         `
     }));

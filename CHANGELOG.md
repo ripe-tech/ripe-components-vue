@@ -10,8 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 * Add `input-file` component - [ripe-copper/#48](https://github.com/ripe-tech/ripe-copper/issues/48)
+* Add slots to `input-symbol` component - [ripe-util-vue/#259](https://github.com/ripe-tech/ripe-util-vue/issues/259)
 * Button icon dropdown global hide prop - [ripe-pulse/#281](https://github.com/ripe-tech/ripe-pulse/issues/281)
 * Add `avatar-list` component - [#571](https://github.com/ripe-tech/ripe-components-vue/issues/571)
+* Add node `16`, `17` and `18` support
 
 ### Changed
 
@@ -20,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 * Prop issue in `button-icon-dropdown` when propagating `disabled`
+* Fix storybook dependency problem after minor bump, lock versions to minor - [ripe-welcome/PR#187](https://github.com/ripe-tech/ripe-welcome/pull/187)
 
 ## [0.22.0] - 2022-04-22
 
@@ -53,6 +56,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Immediately watch `valueData` event in `select` component - [ripe-util-vue/#254](https://github.com/ripe-tech/ripe-util-vue/issues/254)
 * Fix `section-expandable` not handling dynamic content height changes - [ripe-util-vue/#265](https://github.com/ripe-tech/ripe-util-vue/issues/265)
+* Fixed spreadsheet icon stroke width - [ripe-pulse/#302](https://github.com/ripe-tech/ripe-pulse/issues/302)
 
 ## [0.20.2] - 2022-03-23
 
