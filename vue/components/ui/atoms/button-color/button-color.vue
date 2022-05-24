@@ -74,7 +74,7 @@
 }
 
 .button-color.button-color-medium {
-    max-height: 34px;
+    height: 34px;
 }
 
 .button-color.button-color-small {
@@ -263,7 +263,6 @@
 
 .button-color.button-color-medium ::v-deep .loader > div {
     height: 28px;
-    margin-left: 2px;
     width: 28px;
 }
 
