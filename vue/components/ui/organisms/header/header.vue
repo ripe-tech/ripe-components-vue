@@ -411,6 +411,10 @@ export const Header = {
         apps: {
             type: Object,
             default: () => ({})
+        },
+        announcements: {
+            type: Object,
+            default: null
         }
     },
     data: function() {
@@ -427,7 +431,10 @@ export const Header = {
             return Object.keys(this.$scopedSlots).filter(key => key.startsWith("extra-panel-"));
         },
         hasExtraPanel() {
-            return this.extraPanelScopedSlots.length > 0;
+            return (
+                this.extraPanelScopedSlots.length > 0 ||
+                (this.announcements && this.announcements.items)
+            );
         },
         account() {
             return this.platformeAccount || this.$root.account;
@@ -445,7 +452,11 @@ export const Header = {
                 item => item.value === "announcements"
             );
             if (!announcementsItem && this.announcements) {
-                items.push({ value: "announcements", label: "What's new?", notification: true });
+                items.push({
+                    value: "announcements",
+                    label: "What's new?",
+                    notification: this.announcementsToRead
+                });
             }
 
             items.push(...this.accountDropdownItems);
@@ -487,6 +498,13 @@ export const Header = {
                 });
             }
             return items;
+        },
+        announcementsToRead() {
+            if (!this.announcements) return false;
+            if (!this.announcements.items) return false;
+            const reference =
+                this.announcements.items.length > 0 ? this.announcements.items[0].timestamp : 0;
+            return reference * 1000 > Date.now() - this.announcements.new_threshold * 1000;
         }
     },
     watch: {
@@ -512,7 +530,10 @@ export const Header = {
         },
         onAccountDropdownItemClick(event, item, index) {
             const extraPanelName = `extra-panel-${item.value}`;
-            if (this.extraPanelScopedSlots.includes(extraPanelName)) {
+            if (
+                this.extraPanelScopedSlots.includes(extraPanelName) ||
+                extraPanelName === "extra-panel-announcements"
+            ) {
                 this.extraPanel = extraPanelName;
                 this.extraPanelVisible = true;
             }
