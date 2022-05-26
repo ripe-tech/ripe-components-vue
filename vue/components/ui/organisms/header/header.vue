@@ -98,6 +98,17 @@
                     v-if="isMobileWidth()"
                     v-slot="{ hide }"
                 >
+                    <announcements
+                        v-bind:title="announcements.title"
+                        v-bind:description="announcements.description"
+                        v-bind:new-threshold="announcements.new_threshold"
+                        v-bind:show-subscribe="announcements.show_subscribe"
+                        v-bind:show-links="announcements.show_links"
+                        v-bind:show-reactions="announcements.show_reactions"
+                        v-bind:announcements="announcements.items"
+                        v-if="extraPanel === 'extra-panel-announcements'"
+                        v-on:click:close="hide"
+                    />
                     <template v-for="slot in extraPanelScopedSlots">
                         <slot v-bind:name="slot" v-bind:hide="hide" v-if="slot === extraPanel" />
                     </template>
@@ -109,6 +120,17 @@
                     v-else
                     v-slot="{ hide }"
                 >
+                    <announcements
+                        v-bind:title="announcements.title"
+                        v-bind:description="announcements.description"
+                        v-bind:new-threshold="announcements.new_threshold"
+                        v-bind:show-subscribe="announcements.show_subscribe"
+                        v-bind:show-links="announcements.show_links"
+                        v-bind:show-reactions="announcements.show_reactions"
+                        v-bind:announcements="announcements.items"
+                        v-if="extraPanel === 'extra-panel-announcements'"
+                        v-on:click:close="hide"
+                    />
                     <template v-for="slot in extraPanelScopedSlots">
                         <slot v-bind:name="slot" v-bind:hide="hide" v-if="slot === extraPanel" />
                     </template>
