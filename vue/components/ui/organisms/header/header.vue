@@ -457,14 +457,18 @@ export const Header = {
         },
         _accountDropdownItems() {
             const items = [];
-            const { name, email } = this.account.meta;
-            items.push({ value: "name", label: name || email || this.account.email });
+
+            const nameItem = this.accountDropdownItems.find(item => item.value === "name");
+            if (!nameItem && this.account) {
+                const { name, email } = this.account.meta;
+                items.push({ value: "name", label: name || email || this.account.email });
+            }
 
             const announcementsItem = this.accountDropdownItems.find(
                 item => item.value === "announcements"
             );
             if (!announcementsItem && this.announcements) {
-                items.push({ value: "announcements", label: "What's new?" });
+                items.push({ value: "announcements", label: "What's new?", notification: true });
             }
 
             items.push(...this.accountDropdownItems);
