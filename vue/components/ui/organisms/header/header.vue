@@ -98,7 +98,11 @@
                     v-if="isMobileWidth()"
                     v-slot="{ hide }"
                 >
-                    <slot name="extra-panel-announcements" v-bind:hide="hide" v-if="extraPanel === 'extra-panel-announcements'">
+                    <slot
+                        name="extra-panel-announcements"
+                        v-bind:hide="hide"
+                        v-if="extraPanel === 'extra-panel-announcements'"
+                    >
                         <announcements
                             v-bind:title="announcements.title"
                             v-bind:description="announcements.description"
@@ -121,7 +125,11 @@
                     v-else
                     v-slot="{ hide }"
                 >
-                    <slot name="extra-panel-announcements" v-bind:hide="hide" v-if="extraPanel === 'extra-panel-announcements'">
+                    <slot
+                        name="extra-panel-announcements"
+                        v-bind:hide="hide"
+                        v-if="extraPanel === 'extra-panel-announcements'"
+                    >
                         <announcements
                             v-bind:title="announcements.title"
                             v-bind:description="announcements.description"
