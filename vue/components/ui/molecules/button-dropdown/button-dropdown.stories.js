@@ -39,7 +39,7 @@ storiesOf("Components/Molecules/Button Dropdown", module)
                 )
             },
             label: {
-                default: text("Label", "Edit")
+                default: text("Label", "Edit dropdown")
             },
             mockItems: {
                 type: Array,

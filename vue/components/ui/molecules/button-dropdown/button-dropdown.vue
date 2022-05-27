@@ -15,7 +15,7 @@
             v-bind:items="items"
             v-bind:visible.sync="dropdownVisibleData"
             v-bind:owners="$refs['button-secondary']"
-            v-on:item-clicked="onDropdownItemClicked"
+            v-on:click:item="onDropdownItemClicked"
         />
     </div>
 </template>
@@ -201,8 +201,8 @@ export const ButtonDropdown = {
         onPrimaryClick(event) {
             this.$emit("click", event);
         },
-        onDropdownItemClicked(item) {
-            this.$emit(`click:${item.event}`);
+        onDropdownItemClicked(event, item) {
+            this.$emit("click:item", event, item);
         }
     }
 };
