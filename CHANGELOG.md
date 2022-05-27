@@ -13,15 +13,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Add slots to `input-symbol` component - [ripe-util-vue/#259](https://github.com/ripe-tech/ripe-util-vue/issues/259)
 * Button icon dropdown global hide prop - [ripe-pulse/#281](https://github.com/ripe-tech/ripe-pulse/issues/281)
 * Add `avatar-list` component - [#571](https://github.com/ripe-tech/ripe-components-vue/issues/571)
+* Add node `16`, `17` and `18` support
 
 ### Changed
 
-*
+* Removed `announcements` component and it's related logic from `header-ripe` component
 
 ### Fixed
 
 * Prop issue in `button-icon-dropdown` when propagating `disabled`
 * Fix `button-dropdown` events not being propagated correctly - [ripe-util-vue/#288](https://github.com/ripe-tech/ripe-util-vue/issues/288)
+* Fix storybook dependency problem after minor bump, lock versions to minor - [ripe-welcome/PR#187](https://github.com/ripe-tech/ripe-welcome/pull/187)
+* Fix eslint dependencies problems
 
 ## [0.22.0] - 2022-04-22
 
