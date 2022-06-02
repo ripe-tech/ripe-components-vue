@@ -149,7 +149,7 @@ export const CodeEditor = {
         },
         valueData(value) {
             this.checkForErrors();
-            this.$emit("value", value);
+            this.$emit("update:value", value);
         }
     },
     computed: {
