@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Fix `button-dropdown` events not being propagated correctly - [ripe-util-vue/#288](https://github.com/ripe-tech/ripe-util-vue/issues/288)
 * Fix storybook dependency problem after minor bump, lock versions to minor - [ripe-welcome/PR#187](https://github.com/ripe-tech/ripe-welcome/pull/187)
 * Fix eslint dependencies problems
+* Fix `code-editor` `value` emit event - [ripe-util-vue/#305](https://github.com/ripe-tech/ripe-util-vue/issues/305)
 
 ## [0.22.0] - 2022-04-22
 
