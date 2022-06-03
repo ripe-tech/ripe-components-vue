@@ -430,7 +430,9 @@ export const Table = {
             }
 
             const items = [...this.itemsWithIndex];
-            return this.sortMethod(items, this.sortData, this.reverseData);
+            const sortedItems = this.sortMethod(items, this.sortData, this.reverseData);
+            this.$emit("update:sorted-items", sortedItems);
+            return sortedItems;
         },
         theadClasses() {
             return {
