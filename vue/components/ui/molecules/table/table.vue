@@ -399,6 +399,9 @@ export const Table = {
         items(value) {
             this.collectCheckedItems();
         },
+        sortedItems(value) {
+            this.$emit("update:sorted-items", value);
+        },
         reverse(value) {
             this.reverseData = value;
         },
@@ -430,9 +433,7 @@ export const Table = {
             }
 
             const items = [...this.itemsWithIndex];
-            const sortedItems = this.sortMethod(items, this.sortData, this.reverseData);
-            this.$emit("update:sorted-items", sortedItems);
-            return sortedItems;
+            return this.sortMethod(items, this.sortData, this.reverseData);
         },
         theadClasses() {
             return {
