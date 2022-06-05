@@ -399,6 +399,9 @@ export const Table = {
         items(value) {
             this.collectCheckedItems();
         },
+        sortedItems(value) {
+            this.$emit("update:sorted-items", value);
+        },
         reverse(value) {
             this.reverseData = value;
         },
