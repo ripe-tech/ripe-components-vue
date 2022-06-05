@@ -30,6 +30,12 @@
     position: relative;
 }
 
+.button-dropdown.disabled {
+    cursor: default;
+    opacity: 0.4;
+    pointer-events: none;
+}
+
 .button-dropdown.button-dropdown-small {
     line-height: 30px;
 }
@@ -165,6 +171,10 @@ export const ButtonDropdown = {
             type: Array,
             default: null
         },
+        disabled: {
+            type: Boolean,
+            default: false
+        },
         dropdownVisible: {
             type: Boolean,
             default: false
@@ -178,7 +188,9 @@ export const ButtonDropdown = {
     },
     computed: {
         classes() {
-            const base = {};
+            const base = {
+                disabled: this.disabled
+            };
             base["button-dropdown-" + this.size] = true;
             return base;
         }
@@ -196,9 +208,11 @@ export const ButtonDropdown = {
             this.dropdownVisibleData = !this.dropdownVisibleData;
         },
         onSecondaryClick() {
+            if (this.disabled) return;
             this.toggleDropdown();
         },
         onPrimaryClick(event) {
+            if (this.disabled) return;
             this.$emit("click", event);
         },
         onDropdownItemClicked(event, item) {
