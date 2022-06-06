@@ -1,5 +1,5 @@
 import { storiesOf } from "@storybook/vue";
-import { withKnobs, select, text } from "@storybook/addon-knobs";
+import { withKnobs, select, text, boolean } from "@storybook/addon-knobs";
 
 storiesOf("Components/Molecules/Button Dropdown", module)
     .addDecorator(withKnobs)
@@ -39,7 +39,11 @@ storiesOf("Components/Molecules/Button Dropdown", module)
                 )
             },
             label: {
-                default: text("Label", "Edit")
+                default: text("Label", "Edit dropdown")
+            },
+            disabled: {
+                type: Boolean,
+                default: boolean("Disabled", false)
             },
             mockItems: {
                 type: Array,
@@ -53,6 +57,7 @@ storiesOf("Components/Molecules/Button Dropdown", module)
             <button-dropdown
                 v-bind:size="size"
                 v-bind:label="label"
+                v-bind:disabled="disabled"
                 v-bind:primary-icon="primaryIcon"
                 v-bind:secondary-icon="secondaryIcon"
                 v-bind:items="mockItems"

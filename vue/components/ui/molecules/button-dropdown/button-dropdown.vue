@@ -15,7 +15,7 @@
             v-bind:items="items"
             v-bind:visible.sync="dropdownVisibleData"
             v-bind:owners="$refs['button-secondary']"
-            v-on:item-clicked="onDropdownItemClicked"
+            v-on:click:item="onDropdownItemClicked"
         />
     </div>
 </template>
@@ -28,6 +28,12 @@
     font-size: 0px;
     line-height: 38px;
     position: relative;
+}
+
+.button-dropdown.disabled {
+    cursor: default;
+    opacity: 0.4;
+    pointer-events: none;
 }
 
 .button-dropdown.button-dropdown-small {
@@ -165,6 +171,10 @@ export const ButtonDropdown = {
             type: Array,
             default: null
         },
+        disabled: {
+            type: Boolean,
+            default: false
+        },
         dropdownVisible: {
             type: Boolean,
             default: false
@@ -178,7 +188,9 @@ export const ButtonDropdown = {
     },
     computed: {
         classes() {
-            const base = {};
+            const base = {
+                disabled: this.disabled
+            };
             base["button-dropdown-" + this.size] = true;
             return base;
         }
@@ -196,13 +208,15 @@ export const ButtonDropdown = {
             this.dropdownVisibleData = !this.dropdownVisibleData;
         },
         onSecondaryClick() {
+            if (this.disabled) return;
             this.toggleDropdown();
         },
         onPrimaryClick(event) {
+            if (this.disabled) return;
             this.$emit("click", event);
         },
-        onDropdownItemClicked(item) {
-            this.$emit(`click:${item.event}`);
+        onDropdownItemClicked(event, item) {
+            this.$emit("click:item", event, item);
         }
     }
 };

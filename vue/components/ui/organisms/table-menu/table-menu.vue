@@ -68,7 +68,7 @@
                 </slot>
                 <slot name="menu-content">
                     <slot
-                        v-bind:selectedItem="selectedItem"
+                        v-bind:selected-item="selectedItem"
                         v-bind:name="`arg-${column.value}`"
                         v-for="column in editColumns"
                     >
