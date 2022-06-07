@@ -9,7 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-*
+* Add `input-file` component - [ripe-copper/#48](https://github.com/ripe-tech/ripe-copper/issues/48)
+* Add slots to `input-symbol` component - [ripe-util-vue/#259](https://github.com/ripe-tech/ripe-util-vue/issues/259)
+* Button icon dropdown global hide prop - [ripe-pulse/#281](https://github.com/ripe-tech/ripe-pulse/issues/281)
+* Add `avatar-list` component - [#571](https://github.com/ripe-tech/ripe-components-vue/issues/571)
+* Added prop `debounceDelay` to component `input-symbol` - [#259](https://github.com/ripe-tech/ripe-util-vue/issues/259)
+* Add node `16`, `17` and `18` support
 
 ### Changed
 
