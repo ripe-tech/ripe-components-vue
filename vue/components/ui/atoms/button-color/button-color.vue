@@ -117,7 +117,7 @@
     pointer-events: none;
 }
 
-.button-color:hover {
+.button-color:hover:not(.loading) {
     background-color: #5d5d5d;
     border-color: #5d5d5d;
 }
@@ -135,8 +135,8 @@
     transition: opacity 0.15s ease-in-out;
 }
 
-.button-color.button-color-secondary:hover,
-.button-color.button-color-white:hover {
+.button-color.button-color-secondary:hover:not(.loading),
+.button-color.button-color-white:hover:not(.loading) {
     background-color: $blacker;
     border: 1px solid $blacker;
     color: $white;
@@ -155,7 +155,7 @@
     color: $white;
 }
 
-.button-color.button-color-red:hover {
+.button-color.button-color-red:hover:not(.loading) {
     background-color: $medium-red;
     border-color: $medium-red;
 }
@@ -170,7 +170,7 @@
     border-color: $blue;
 }
 
-.button-color.button-color-blue:hover {
+.button-color.button-color-blue:hover:not(.loading) {
     background-color: $lighter-blue;
     border-color: $lighter-blue;
 }
@@ -185,7 +185,7 @@
     border-color: $green;
 }
 
-.button-color.button-color-green:hover {
+.button-color.button-color-green:hover:not(.loading) {
     background-color: $lighter-green;
     border-color: $lighter-green;
 }
@@ -200,7 +200,7 @@
     border-color: $yellow;
 }
 
-.button-color.button-color-yellow:hover {
+.button-color.button-color-yellow:hover:not(.loading) {
     background-color: $light-yellow;
     border-color: $light-yellow;
 }
@@ -215,7 +215,7 @@
     border-color: $orange;
 }
 
-.button-color.button-color-orange:hover {
+.button-color.button-color-orange:hover:not(.loading) {
     background-color: $dark-orange;
     border-color: $dark-orange;
 }
@@ -231,7 +231,7 @@
     color: $pale-grey;
 }
 
-.button-color.button-color-transparent:hover > span {
+.button-color.button-color-transparent:hover:not(.loading) > span {
     text-decoration: underline;
 }
 
@@ -286,7 +286,7 @@
     display: inline-block;
 }
 
-.button-color:hover .icon {
+.button-color:hover:not(.loading) .icon {
     display: none;
 }
 
@@ -294,7 +294,7 @@
     display: none;
 }
 
-.button-color:hover .icon-hover {
+.button-color:hover:not(.loading) .icon-hover {
     display: inline-block;
 }
 
