@@ -357,6 +357,10 @@ export const ButtonColor = {
             type: Boolean,
             default: false
         },
+        loaderStyle: {
+            type: Object,
+            default: () => ({})
+        },
         icon: {
             type: String,
             default: null
@@ -444,9 +448,10 @@ export const ButtonColor = {
 
             return base;
         },
-        loaderStyle() {
+        _loaderStyle() {
             const base = {};
             base["background-color"] = this.color === "white" ? "#2d2d2d" : "#e4e8f0";
+            base = { ...base, ...this.loaderstyle };
             return base;
         }
     }
