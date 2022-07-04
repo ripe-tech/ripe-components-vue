@@ -13,8 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-*
-
+* Add better loading style for other colors - [302](https://github.com/ripe-tech/ripe-util-vue/pull/302)
+* Remove hover and interaction while loading - [302](https://github.com/ripe-tech/ripe-util-vue/pull/302)
+ 
 ### Fixed
 
 *
