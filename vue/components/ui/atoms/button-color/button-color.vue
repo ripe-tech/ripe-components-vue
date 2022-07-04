@@ -110,9 +110,10 @@
 .button-color.loading {
     text-align: center;
     cursor: default;
+    pointer-events: none;
 }
 
-.button-color.disabled {
+.button-color.disabled:not(.loading) {
     cursor: default;
     opacity: 0.4;
     pointer-events: none;
