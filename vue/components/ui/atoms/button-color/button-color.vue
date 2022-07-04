@@ -451,8 +451,7 @@ export const ButtonColor = {
         _loaderStyle() {
             const base = {};
             base["background-color"] = this.color === "white" ? "#2d2d2d" : "#e4e8f0";
-            base = { ...base, ...this.loaderstyle };
-            return base;
+            return { ...base, ...this.loaderstyle };
         }
     }
 };
