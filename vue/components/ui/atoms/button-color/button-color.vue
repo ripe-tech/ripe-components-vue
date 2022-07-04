@@ -108,9 +108,9 @@
 }
 
 .button-color.loading {
-    text-align: center;
     cursor: default;
     pointer-events: none;
+    text-align: center;
 }
 
 .button-color.disabled:not(.loading) {
@@ -448,7 +448,7 @@ export const ButtonColor = {
             const base = {};
             base["background-color"] = this.color === "white" ? "#2d2d2d" : "#e4e8f0";
             return base;
-        },
+        }
     }
 };
 
