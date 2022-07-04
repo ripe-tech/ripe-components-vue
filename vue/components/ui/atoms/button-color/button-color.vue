@@ -109,6 +109,7 @@
 
 .button-color.loading {
     text-align: center;
+    cursor: default;
 }
 
 .button-color.disabled {
