@@ -34,14 +34,13 @@
 </template>
 
 <style scoped>
-
 .pagination {
     display: block;
 }
 
 .pagination > .page-number {
-    border-radius: 4px 4px 4px 4px;
     border: 1px solid transparent;
+    border-radius: 4px 4px 4px 4px;
     cursor: pointer;
     display: inline-block;
     height: 25px;
