@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-*
+* Add `table-footer` slot to `table` component - [ripe-util-vue/#307](https://github.com/ripe-tech/ripe-util-vue/issues/307)
 
 ### Fixed
 
