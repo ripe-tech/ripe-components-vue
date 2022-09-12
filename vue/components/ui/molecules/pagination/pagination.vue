@@ -16,7 +16,7 @@
             v-bind:disabled="pageNumber === '...'"
             v-for="(pageNumber, index) in pagesNumbers"
             v-bind:key="`${pageNumber}-${index}`"
-            v-on:click="event => onPage(event, pageNumber)"
+            v-on:click="event => onPageCick(event, pageNumber)"
         >
             {{ pageNumber }}
         </div>
@@ -97,8 +97,12 @@ export const Pagination = {
         }
     },
     methods: {
-        onPage(event, page) {
-            this.$emit("update:page", event, page);
+        onPageCick(event, page) {
+            this.onPage(page);
+            this.$emit("click", event);
+        },
+        onPage(page) {
+            this.$emit("update:page", page);
         },
         onPrevious() {
             this.$emit("previous:click");
