@@ -1,15 +1,12 @@
 <template>
     <div class="section-expandable" v-bind:class="classes">
         <div class="header" v-on:click="onSectionClick">
-            <div class="title" v-if="title" v-bind:style="style" v-bind:class="titleClasses">
+            <div class="title" v-bind:style="style" v-bind:class="titleClasses" v-if="title">
                 <slot name="title">
                     {{ title }}
                 </slot>
             </div>
-            <icon
-                v-bind="iconProps"
-                v-bind:icon="expandedData ? 'chevron-up' : 'chevron-down'"
-            />
+            <icon v-bind="iconProps" v-bind:icon="expandedData ? 'chevron-up' : 'chevron-down'" />
         </div>
         <div class="content" ref="content">
             <slot />

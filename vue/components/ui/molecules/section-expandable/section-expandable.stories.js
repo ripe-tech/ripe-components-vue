@@ -27,7 +27,7 @@ storiesOf("Components/Molecules/Section Expandable", module)
                     },
                     "medium"
                 )
-            },
+            }
         },
         data: function() {
             return {
