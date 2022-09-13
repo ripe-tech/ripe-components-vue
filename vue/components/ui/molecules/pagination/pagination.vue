@@ -39,16 +39,16 @@
 }
 
 .pagination > .page-number {
+    align-items: center;
     border: 1px solid transparent;
     border-radius: 4px 4px 4px 4px;
     cursor: pointer;
-    display: inline-block;
+    display: inline-flex;
     height: 25px;
-    line-height: 25px;
+    justify-content: center;
     margin: 0px 5px 0px 5px;
-    padding: 0px 0px 0px 0px;
-    text-align: center;
-    width: 25px;
+    min-width: 15px;
+    padding: 0px 5px 0px 5px;
 }
 
 .pagination > .page-number.active {
