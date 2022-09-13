@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-*
+* Added `iconProps`, `uppercase` and `size` to `section-expandable`'s props - [ripe-util-vue/#288](https://github.com/ripe-tech/ripe-util-vue/issues/288)
 
 ### Changed
 
