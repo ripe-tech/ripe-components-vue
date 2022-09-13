@@ -7,10 +7,8 @@
                 </slot>
             </div>
             <icon
+                v-bind="iconProps"
                 v-bind:icon="expandedData ? 'chevron-up' : 'chevron-down'"
-                v-bind:color="'#c2c7cc'"
-                v-bind:width="20"
-                v-bind:height="20"
             />
         </div>
         <div class="content" ref="content">
@@ -101,6 +99,13 @@ export const SectionExpandable = {
             type: String,
             default: true
         },
+        iconProps: {
+            type: Object,
+            default: () => ({
+                color: "#c2c7cc",
+                width: 20,
+                height: 20
+            })
         }
     },
     data: function() {
@@ -115,6 +120,12 @@ export const SectionExpandable = {
             if (this.animated) base.animated = true;
             if (this.expandedData) base.expanded = true;
             return base;
+        },
+        titleClasses() {
+            const base = {};
+            if (this.size) base[`title-${this.size}`] = true;
+            return base;
+        },
         style() {
             const base = {};
             if (this.uppercase) base["text-transform"] = "uppercase";
