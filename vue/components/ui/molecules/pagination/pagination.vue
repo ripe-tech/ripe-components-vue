@@ -105,10 +105,10 @@ export const Pagination = {
             this.$emit("update:page", page);
         },
         onPrevious() {
-            this.$emit("previous:click");
+            this.$emit("click:previous");
         },
         onNext() {
-            this.$emit("next:click");
+            this.$emit("click:next");
         }
     }
 };
