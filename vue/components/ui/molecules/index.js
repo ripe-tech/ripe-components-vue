@@ -31,6 +31,7 @@ import { Lightbox } from "./lightbox/lightbox.vue";
 import { Lineup } from "./lineup/lineup.vue";
 import { Modal } from "./modal/modal.vue";
 import { Notification } from "./notification/notification.vue";
+import { Pagination } from "./pagination/pagination.vue";
 import { ProgressBar } from "./progress-bar/progress-bar.vue";
 import { ProgressList } from "./progress-list/progress-list.vue";
 import { ProgressListItem } from "./progress-list-item/progress-list-item.vue";
@@ -83,6 +84,7 @@ const install = Vue => {
     Vue.component("lineup", Lineup);
     Vue.component("modal", Modal);
     Vue.component("notification", Notification);
+    Vue.component("pagination", Pagination);
     Vue.component("progress-bar", ProgressBar);
     Vue.component("progress-list", ProgressList);
     Vue.component("progress-list-item", ProgressListItem);
@@ -137,6 +139,7 @@ export {
     Lineup,
     Modal,
     Notification,
+    Pagination,
     ProgressBar,
     ProgressList,
     ProgressListItem,
