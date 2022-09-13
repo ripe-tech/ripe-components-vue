@@ -98,7 +98,7 @@ export const SectionExpandable = {
         },
         size: {
             type: String,
-            default: true
+            default: "medium"
         },
         iconProps: {
             type: Object,
