@@ -82,6 +82,11 @@ export const SectionExpandable = {
         animated: {
             type: Boolean,
             default: false
+        },
+        uppercase: {
+            type: Boolean,
+            default: true
+        },
         }
     },
     data: function() {
@@ -95,6 +100,10 @@ export const SectionExpandable = {
             const base = {};
             if (this.animated) base.animated = true;
             if (this.expandedData) base.expanded = true;
+            return base;
+        style() {
+            const base = {};
+            if (this.uppercase) base["text-transform"] = "uppercase";
             return base;
         }
     },
