@@ -1,7 +1,7 @@
 <template>
     <div class="section-expandable" v-bind:class="classes">
         <div class="header" v-on:click="onSectionClick">
-            <div class="title" v-bind:style="style" v-bind:class="titleClasses" v-if="title">
+            <div class="title" v-bind:class="titleClasses" v-if="title">
                 <slot name="title">
                     {{ title }}
                 </slot>
@@ -35,16 +35,20 @@
     letter-spacing: 0.35px;
 }
 
-.section-expandable > .header > .title-small {
+.section-expandable > .header > .title.title-small {
     font-size: 14px;
 }
 
-.section-expandable > .header > .title-medium {
+.section-expandable > .header > .title.title-medium {
     font-size: 16px;
 }
 
-.section-expandable > .header > .title-large {
+.section-expandable > .header > .title.title-large {
     font-size: 20px;
+}
+
+.section-expandable > .header > .title.uppercase {
+    text-transform: uppercase;
 }
 
 .section-expandable > .header > .icon {
@@ -121,11 +125,7 @@ export const SectionExpandable = {
         titleClasses() {
             const base = {};
             if (this.size) base[`title-${this.size}`] = true;
-            return base;
-        },
-        style() {
-            const base = {};
-            if (this.uppercase) base["text-transform"] = "uppercase";
+            if (this.uppercase) base.uppercase = true;
             return base;
         }
     },
