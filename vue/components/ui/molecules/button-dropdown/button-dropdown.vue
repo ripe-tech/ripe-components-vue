@@ -1,27 +1,15 @@
 <template>
     <div class="button-dropdown" v-bind:class="classes">
-        <div
-            class="button button-primary"
-            v-on:click="onPrimaryClick"
-            v-on:mouseover="primaryActive = true"
-            v-on:mouseout="primaryActive = false"
-        >
-            <icon
-                class="icon"
-                v-bind:icon="primaryIcon"
-                v-bind:color="buttonColorPrimary"
-                v-if="primaryIcon"
-            />
+        <div class="button button-primary" v-on:click="onPrimaryClick">
+            <template v-if="primaryIcon">
+                <icon class="icon icon-front" v-bind:icon="primaryIcon" v-bind:color="'#000000'" />
+                <icon class="icon icon-back" v-bind:icon="primaryIcon" v-bind:color="'#ffffff'" />
+            </template>
             <span class="label">{{ label }} </span>
         </div>
-        <div
-            class="button button-secondary"
-            ref="button-secondary"
-            v-on:click="onSecondaryClick"
-            v-on:mouseover="secondaryActive = true"
-            v-on:mouseout="secondaryActive = false"
-        >
-            <icon class="icon" v-bind:icon="secondaryIcon" v-bind:color="buttonColorSecondary" />
+        <div class="button button-secondary" ref="button-secondary" v-on:click="onSecondaryClick">
+            <icon class="icon icon-front" v-bind:icon="secondaryIcon" v-bind:color="'#000000'" />
+            <icon class="icon icon-back" v-bind:icon="secondaryIcon" v-bind:color="'#ffffff'" />
         </div>
         <dropdown
             v-bind:items="items"
@@ -138,15 +126,16 @@
     width: 16px;
 }
 
-.button-dropdown.button-dropdown-black > .button {
-    background-color: #2d2d2d;
-    color: $white;
+.button-dropdown > .button > .icon.icon-back {
+    display: none;
 }
 
-.button-dropdown.button-dropdown-black > .button:hover,
-.button-dropdown.button-dropdown-black > .button:active {
-    background-color: #ffffff;
-    color: #2d2d2d;
+.button-dropdown > .button:hover > .icon.icon-back {
+    display: inline-block;
+}
+
+.button-dropdown > .button:hover > .icon.icon-front {
+    display: none;
 }
 
 .button-dropdown > .dropdown-container {
@@ -165,10 +154,6 @@ export const ButtonDropdown = {
         size: {
             type: String,
             default: "medium"
-        },
-        color: {
-            type: String,
-            default: "white"
         },
         primaryIcon: {
             type: String,
@@ -197,8 +182,7 @@ export const ButtonDropdown = {
     },
     data: function() {
         return {
-            primaryActive: false,
-            secondaryActive: false,
+            color: "white",
             dropdownVisibleData: this.dropdownVisible
         };
     },
@@ -208,20 +192,7 @@ export const ButtonDropdown = {
                 disabled: this.disabled
             };
             base["button-dropdown-" + this.size] = true;
-            base["button-dropdown-" + this.color] = true;
             return base;
-        },
-        buttonColorPrimary() {
-            if (this.color === "black" && !this.primaryActive) return "#ffffff";
-            if (this.color === "black" && this.primaryActive) return "#000000";
-            if (this.primaryActive) return "#ffffff";
-            return "#000000";
-        },
-        buttonColorSecondary() {
-            if (this.color === "black" && !this.secondaryActive) return "#ffffff";
-            if (this.color === "black" && this.secondaryActive) return "#000000";
-            if (this.secondaryActive) return "#ffffff";
-            return "#000000";
         }
     },
     watch: {
