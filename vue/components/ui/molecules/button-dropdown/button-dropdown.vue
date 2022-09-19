@@ -57,7 +57,7 @@
 }
 
 .button-dropdown > .button {
-    background-color: #000000;
+    background-color: #ffffff;
     border: 1px solid #e4e8f0;
     box-sizing: border-box;
     color: $pale-grey;
@@ -95,7 +95,7 @@
 .button-dropdown > .button:hover {
     background-color: $black;
     border-color: $black;
-    color: #000000;
+    color: #ffffff;
 }
 
 .button-dropdown > .button:active {
@@ -140,7 +140,7 @@
 
 .button-dropdown.button-dropdown-black > .button {
     background-color: #2d2d2d;
-    color: #000000;
+    color: #ffffff;
 }
 
 .button-dropdown.button-dropdown-black > .button:hover,
