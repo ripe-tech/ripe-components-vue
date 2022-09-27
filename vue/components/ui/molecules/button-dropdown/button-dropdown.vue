@@ -8,6 +8,7 @@
         >
             <icon
                 class="icon"
+                v-bind:class="classesPrimary"
                 v-bind:icon="primaryIcon"
                 v-bind:color="buttonColorPrimary"
                 v-if="primaryIcon"
@@ -16,6 +17,7 @@
         </div>
         <div
             class="button button-secondary"
+            v-bind:class="classesSecondary"
             ref="button-secondary"
             v-on:click="onSecondaryClick"
             v-on:mouseover="onMouseOverSecondary"
@@ -222,6 +224,18 @@ export const ButtonDropdown = {
             if (this.color === "black" && this.secondaryActive) return "#000000";
             if (this.secondaryActive) return "#ffffff";
             return "#000000";
+        },
+        classesPrimary() {
+            return {
+                "icon-front": !this.primaryActive,
+                "icon-back": this.primaryActive
+            };
+        },
+        classesSecondary() {
+            return {
+                "icon-front": !this.secondaryActive,
+                "icon-back": this.secondaryActive
+            };
         }
     },
     watch: {
