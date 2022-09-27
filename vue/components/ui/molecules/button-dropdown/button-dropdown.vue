@@ -214,16 +214,12 @@ export const ButtonDropdown = {
             return base;
         },
         buttonColorPrimary() {
-            if (this.color === "black" && !this.primaryActive) return "#ffffff";
-            if (this.color === "black" && this.primaryActive) return "#000000";
-            if (this.primaryActive) return "#ffffff";
-            return "#000000";
+            if (this.primaryActive) return this.color === "black" ? "#000000" : "#ffffff";
+            return this.color === "black" ? "#ffffff" : "#000000";
         },
         buttonColorSecondary() {
-            if (this.color === "black" && !this.secondaryActive) return "#ffffff";
-            if (this.color === "black" && this.secondaryActive) return "#000000";
-            if (this.secondaryActive) return "#ffffff";
-            return "#000000";
+            if (this.secondaryActive) return this.color === "black" ? "#000000" : "#ffffff";
+            return this.color === "black" ? "#ffffff" : "#000000";
         },
         classesPrimary() {
             return {
