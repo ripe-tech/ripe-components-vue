@@ -3,8 +3,8 @@
         <div
             class="button button-primary"
             v-on:click="onPrimaryClick"
-            v-on:mouseover="primaryActive = true"
-            v-on:mouseout="primaryActive = false"
+            v-on:mouseover="onMouseOverPrimary"
+            v-on:mouseout="onMouseOutPrimary"
         >
             <icon
                 class="icon"
@@ -18,8 +18,8 @@
             class="button button-secondary"
             ref="button-secondary"
             v-on:click="onSecondaryClick"
-            v-on:mouseover="secondaryActive = true"
-            v-on:mouseout="secondaryActive = false"
+            v-on:mouseover="onMouseOverSecondary"
+            v-on:mouseout="onMouseOutSecondary"
         >
             <icon class="icon" v-bind:icon="secondaryIcon" v-bind:color="buttonColorSecondary" />
         </div>
@@ -246,6 +246,18 @@ export const ButtonDropdown = {
         },
         onDropdownItemClicked(event, item) {
             this.$emit("click:item", event, item);
+        },
+        onMouseOverPrimary() {
+            this.primaryActive = true;
+        },
+        onMouseOutPrimary() {
+            this.primaryActive = false;
+        },
+        onMouseOverSecondary() {
+            this.secondaryActive = true;
+        },
+        onMouseOutSecondary() {
+            this.secondaryActive = false;
         }
     }
 };
