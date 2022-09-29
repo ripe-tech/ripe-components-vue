@@ -168,7 +168,7 @@ export const ButtonDropdown = {
             type: String,
             default: "medium"
         },
-        color: {
+        colorVariant: {
             type: String,
             default: "white"
         },
@@ -210,16 +210,16 @@ export const ButtonDropdown = {
                 disabled: this.disabled
             };
             base["button-dropdown-" + this.size] = true;
-            base["button-dropdown-" + this.color] = true;
+            base["button-dropdown-" + this.colorVariant] = true;
             return base;
         },
         buttonColorPrimary() {
-            if (this.primaryActive) return this.color === "black" ? "#000000" : "#ffffff";
-            return this.color === "black" ? "#ffffff" : "#000000";
+            if (this.primaryActive) return this.colorVariant === "black" ? "#000000" : "#ffffff";
+            return this.colorVariant === "black" ? "#ffffff" : "#000000";
         },
         buttonColorSecondary() {
-            if (this.secondaryActive) return this.color === "black" ? "#000000" : "#ffffff";
-            return this.color === "black" ? "#ffffff" : "#000000";
+            if (this.secondaryActive) return this.colorVariant === "black" ? "#000000" : "#ffffff";
+            return this.colorVariant === "black" ? "#ffffff" : "#000000";
         },
         classesPrimary() {
             return {

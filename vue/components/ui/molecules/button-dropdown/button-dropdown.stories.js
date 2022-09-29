@@ -17,9 +17,9 @@ storiesOf("Components/Molecules/Button Dropdown", module)
                     null
                 )
             },
-            color: {
+            colorVariant: {
                 default: select(
-                    "Color",
+                    "Color Variant",
                     {
                         White: "white",
                         Black: "black"
@@ -66,7 +66,7 @@ storiesOf("Components/Molecules/Button Dropdown", module)
         template: `
             <button-dropdown
                 v-bind:size="size"
-                v-bind:color="color"
+                v-bind:color-variant="colorVariant"
                 v-bind:label="label"
                 v-bind:disabled="disabled"
                 v-bind:primary-icon="primaryIcon"
