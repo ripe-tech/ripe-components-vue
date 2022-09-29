@@ -17,15 +17,11 @@ storiesOf("Components/Molecules/Button Dropdown", module)
                     null
                 )
             },
-            colorVariant: {
-                default: select(
-                    "Color Variant",
-                    {
-                        White: "white",
-                        Black: "black"
-                    },
-                    "white"
-                )
+            colorPrimary: {
+                default: text("Color Primary", "#2d2d2d")
+            },
+            colorSecondary: {
+                default: text("Color Secondary", "#ffffff")
             },
             primaryIcon: {
                 default: select(
@@ -66,7 +62,8 @@ storiesOf("Components/Molecules/Button Dropdown", module)
         template: `
             <button-dropdown
                 v-bind:size="size"
-                v-bind:color-variant="colorVariant"
+                v-bind:color-primary="colorPrimary"
+                v-bind:color-secondary="colorSecondary"
                 v-bind:label="label"
                 v-bind:disabled="disabled"
                 v-bind:primary-icon="primaryIcon"

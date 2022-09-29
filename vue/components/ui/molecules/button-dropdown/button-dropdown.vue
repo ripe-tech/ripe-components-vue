@@ -2,13 +2,13 @@
     <div class="button-dropdown" v-bind:class="classes">
         <div
             class="button button-primary"
+            v-bind:style="styleButtonPrimary"
             v-on:click="onPrimaryClick"
             v-on:mouseover="onMouseOverPrimary"
             v-on:mouseout="onMouseOutPrimary"
         >
             <icon
                 class="icon"
-                v-bind:class="classesPrimary"
                 v-bind:icon="primaryIcon"
                 v-bind:color="buttonColorPrimary"
                 v-if="primaryIcon"
@@ -17,13 +17,13 @@
         </div>
         <div
             class="button button-secondary"
-            v-bind:class="classesSecondary"
+            v-bind:style="styleButtonSecondary"
             ref="button-secondary"
             v-on:click="onSecondaryClick"
             v-on:mouseover="onMouseOverSecondary"
             v-on:mouseout="onMouseOutSecondary"
         >
-            <icon class="icon" v-bind:icon="secondaryIcon" v-bind:color="buttonColorSecondary" />
+            <icon class="icon" v-bind:icon="secondaryIcon" v-bind:color="buttonColorSecondary"/>
         </div>
         <dropdown
             v-bind:items="items"
@@ -94,17 +94,6 @@
     font-size: 10px;
 }
 
-.button-dropdown > .button:hover {
-    background-color: $black;
-    border-color: $black;
-    color: #ffffff;
-}
-
-.button-dropdown > .button:active {
-    background-color: #2d2d2d;
-    border-color: #2d2d2d;
-}
-
 .button-dropdown > .button.button-primary {
     border-radius: 6px 0px 0px 6px;
     padding: 0px 8px 0px 6px;
@@ -140,17 +129,6 @@
     width: 16px;
 }
 
-.button-dropdown.button-dropdown-black > .button {
-    background-color: #2d2d2d;
-    color: #ffffff;
-}
-
-.button-dropdown.button-dropdown-black > .button:hover,
-.button-dropdown.button-dropdown-black > .button:active {
-    background-color: #ffffff;
-    color: #2d2d2d;
-}
-
 .button-dropdown > .dropdown-container {
     margin-top: 3px;
     min-width: 120px;
@@ -168,9 +146,13 @@ export const ButtonDropdown = {
             type: String,
             default: "medium"
         },
-        colorVariant: {
+        colorPrimary: {
             type: String,
-            default: "white"
+            default: "#2d2d2d"
+        },
+        colorSecondary: {
+            type: String,
+            default: "#ffffff"
         },
         primaryIcon: {
             type: String,
@@ -210,29 +192,26 @@ export const ButtonDropdown = {
                 disabled: this.disabled
             };
             base["button-dropdown-" + this.size] = true;
-            base["button-dropdown-" + this.colorVariant] = true;
             return base;
         },
         buttonColorPrimary() {
-            if (this.primaryActive) return this.colorVariant === "black" ? "#000000" : "#ffffff";
-            return this.colorVariant === "black" ? "#ffffff" : "#000000";
+            return this.primaryActive ? this.colorSecondary : this.colorPrimary;
         },
         buttonColorSecondary() {
-            if (this.secondaryActive) return this.colorVariant === "black" ? "#000000" : "#ffffff";
-            return this.colorVariant === "black" ? "#ffffff" : "#000000";
+            return this.secondaryActive ? this.colorSecondary : this.colorPrimary;
         },
-        classesPrimary() {
-            return {
-                "icon-front": !this.primaryActive,
-                "icon-back": this.primaryActive
-            };
+        styleButtonPrimary() {
+            const base = {};
+            base.color = this.primaryActive ? this.colorSecondary : this.colorPrimary;
+            base["background-color"] = this.primaryActive ? this.colorPrimary : this.colorSecondary;
+            return base;
         },
-        classesSecondary() {
-            return {
-                "icon-front": !this.secondaryActive,
-                "icon-back": this.secondaryActive
-            };
-        }
+        styleButtonSecondary() {
+            const base = {};
+            base.color = this.secondaryActive ? this.colorSecondary : this.colorPrimary;
+            base["background-color"] = this.secondaryActive ? this.colorPrimary : this.colorSecondary;
+            return base;
+        },
     },
     watch: {
         dropdownVisible(value) {
