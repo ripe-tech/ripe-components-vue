@@ -202,13 +202,13 @@ export const ButtonDropdown = {
         },
         styleButtonPrimary() {
             const base = {};
-            base.color = this.primaryActive ? this.colorSecondary : this.colorPrimary;
+            base["color"] = this.primaryActive ? this.colorSecondary : this.colorPrimary;
             base["background-color"] = this.primaryActive ? this.colorPrimary : this.colorSecondary;
             return base;
         },
         styleButtonSecondary() {
             const base = {};
-            base.color = this.secondaryActive ? this.colorSecondary : this.colorPrimary;
+            base["color"] = this.secondaryActive ? this.colorSecondary : this.colorPrimary;
             base["background-color"] = this.secondaryActive
                 ? this.colorPrimary
                 : this.colorSecondary;
