@@ -201,16 +201,18 @@ export const ButtonDropdown = {
             return this.secondaryActive ? this.colorSecondary : this.colorPrimary;
         },
         styleButtonPrimary() {
-            return {
+            const base = {
                 color: this.primaryActive ? this.colorSecondary : this.colorPrimary,
                 "background-color": this.primaryActive ? this.colorPrimary : this.colorSecondary
             };
+            return base;
         },
         styleButtonSecondary() {
-            return {
+            const base = {
                 color: this.secondaryActive ? this.colorSecondary : this.colorPrimary,
                 "background-color": this.secondaryActive ? this.colorPrimary : this.colorSecondary
             };
+            return base;
         }
     },
     watch: {
