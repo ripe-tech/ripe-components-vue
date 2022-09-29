@@ -201,18 +201,16 @@ export const ButtonDropdown = {
             return this.secondaryActive ? this.colorSecondary : this.colorPrimary;
         },
         styleButtonPrimary() {
-            const base = {};
-            base["color"] = this.primaryActive ? this.colorSecondary : this.colorPrimary;
-            base["background-color"] = this.primaryActive ? this.colorPrimary : this.colorSecondary;
-            return base;
+            return {
+                color: this.primaryActive ? this.colorSecondary : this.colorPrimary,
+                "background-color": this.primaryActive ? this.colorPrimary : this.colorSecondary
+            };
         },
         styleButtonSecondary() {
-            const base = {};
-            base["color"] = this.secondaryActive ? this.colorSecondary : this.colorPrimary;
-            base["background-color"] = this.secondaryActive
-                ? this.colorPrimary
-                : this.colorSecondary;
-            return base;
+            return {
+                color: this.secondaryActive ? this.colorSecondary : this.colorPrimary,
+                "background-color": this.secondaryActive ? this.colorPrimary : this.colorSecondary
+            };
         }
     },
     watch: {
