@@ -23,7 +23,7 @@
             v-on:mouseover="onMouseOverSecondary"
             v-on:mouseout="onMouseOutSecondary"
         >
-            <icon class="icon" v-bind:icon="secondaryIcon" v-bind:color="buttonColorSecondary"/>
+            <icon class="icon" v-bind:icon="secondaryIcon" v-bind:color="buttonColorSecondary" />
         </div>
         <dropdown
             v-bind:items="items"
@@ -209,9 +209,11 @@ export const ButtonDropdown = {
         styleButtonSecondary() {
             const base = {};
             base.color = this.secondaryActive ? this.colorSecondary : this.colorPrimary;
-            base["background-color"] = this.secondaryActive ? this.colorPrimary : this.colorSecondary;
+            base["background-color"] = this.secondaryActive
+                ? this.colorPrimary
+                : this.colorSecondary;
             return base;
-        },
+        }
     },
     watch: {
         dropdownVisible(value) {
