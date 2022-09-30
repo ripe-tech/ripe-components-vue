@@ -1,15 +1,29 @@
 <template>
     <div class="button-dropdown" v-bind:class="classes">
-        <div class="button button-primary" v-on:click="onPrimaryClick">
-            <template v-if="primaryIcon">
-                <icon class="icon icon-front" v-bind:icon="primaryIcon" v-bind:color="'#000000'" />
-                <icon class="icon icon-back" v-bind:icon="primaryIcon" v-bind:color="'#ffffff'" />
-            </template>
+        <div
+            class="button button-primary"
+            v-bind:style="styleButtonPrimary"
+            v-on:click="onPrimaryClick"
+            v-on:mouseover="onMouseOverPrimary"
+            v-on:mouseout="onMouseOutPrimary"
+        >
+            <icon
+                class="icon"
+                v-bind:icon="primaryIcon"
+                v-bind:color="buttonColorPrimary"
+                v-if="primaryIcon"
+            />
             <span class="label">{{ label }} </span>
         </div>
-        <div class="button button-secondary" ref="button-secondary" v-on:click="onSecondaryClick">
-            <icon class="icon icon-front" v-bind:icon="secondaryIcon" v-bind:color="'#000000'" />
-            <icon class="icon icon-back" v-bind:icon="secondaryIcon" v-bind:color="'#ffffff'" />
+        <div
+            class="button button-secondary"
+            v-bind:style="styleButtonSecondary"
+            ref="button-secondary"
+            v-on:click="onSecondaryClick"
+            v-on:mouseover="onMouseOverSecondary"
+            v-on:mouseout="onMouseOutSecondary"
+        >
+            <icon class="icon" v-bind:icon="secondaryIcon" v-bind:color="buttonColorSecondary" />
         </div>
         <dropdown
             v-bind:items="items"
@@ -45,7 +59,7 @@
 }
 
 .button-dropdown > .button {
-    background-color: $white;
+    background-color: #ffffff;
     border: 1px solid #e4e8f0;
     box-sizing: border-box;
     color: $pale-grey;
@@ -78,17 +92,6 @@
 
 .button-dropdown.button-dropdown-tiny > .button > .label {
     font-size: 10px;
-}
-
-.button-dropdown > .button:hover {
-    background-color: $black;
-    border-color: $black;
-    color: $white;
-}
-
-.button-dropdown > .button:active {
-    background-color: #2d2d2d;
-    border-color: #2d2d2d;
 }
 
 .button-dropdown > .button.button-primary {
@@ -126,18 +129,6 @@
     width: 16px;
 }
 
-.button-dropdown > .button > .icon.icon-back {
-    display: none;
-}
-
-.button-dropdown > .button:hover > .icon.icon-back {
-    display: inline-block;
-}
-
-.button-dropdown > .button:hover > .icon.icon-front {
-    display: none;
-}
-
 .button-dropdown > .dropdown-container {
     margin-top: 3px;
     min-width: 120px;
@@ -154,6 +145,14 @@ export const ButtonDropdown = {
         size: {
             type: String,
             default: "medium"
+        },
+        colorPrimary: {
+            type: String,
+            default: "#2d2d2d"
+        },
+        colorSecondary: {
+            type: String,
+            default: "#ffffff"
         },
         primaryIcon: {
             type: String,
@@ -182,7 +181,8 @@ export const ButtonDropdown = {
     },
     data: function() {
         return {
-            color: "white",
+            primaryActive: false,
+            secondaryActive: false,
             dropdownVisibleData: this.dropdownVisible
         };
     },
@@ -192,6 +192,26 @@ export const ButtonDropdown = {
                 disabled: this.disabled
             };
             base["button-dropdown-" + this.size] = true;
+            return base;
+        },
+        buttonColorPrimary() {
+            return this.primaryActive ? this.colorSecondary : this.colorPrimary;
+        },
+        buttonColorSecondary() {
+            return this.secondaryActive ? this.colorSecondary : this.colorPrimary;
+        },
+        styleButtonPrimary() {
+            const base = {
+                color: this.primaryActive ? this.colorSecondary : this.colorPrimary,
+                "background-color": this.primaryActive ? this.colorPrimary : this.colorSecondary
+            };
+            return base;
+        },
+        styleButtonSecondary() {
+            const base = {
+                color: this.secondaryActive ? this.colorSecondary : this.colorPrimary,
+                "background-color": this.secondaryActive ? this.colorPrimary : this.colorSecondary
+            };
             return base;
         }
     },
@@ -217,6 +237,18 @@ export const ButtonDropdown = {
         },
         onDropdownItemClicked(event, item) {
             this.$emit("click:item", event, item);
+        },
+        onMouseOverPrimary() {
+            this.primaryActive = true;
+        },
+        onMouseOutPrimary() {
+            this.primaryActive = false;
+        },
+        onMouseOverSecondary() {
+            this.secondaryActive = true;
+        },
+        onMouseOutSecondary() {
+            this.secondaryActive = false;
         }
     }
 };
