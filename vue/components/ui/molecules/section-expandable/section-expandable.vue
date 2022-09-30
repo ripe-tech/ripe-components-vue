@@ -1,17 +1,12 @@
 <template>
     <div class="section-expandable" v-bind:class="classes">
         <div class="header" v-on:click="onSectionClick">
-            <div class="title" v-if="title">
+            <div class="title" v-bind:class="titleClasses" v-if="title">
                 <slot name="title">
                     {{ title }}
                 </slot>
             </div>
-            <icon
-                v-bind:icon="expandedData ? 'chevron-up' : 'chevron-down'"
-                v-bind:color="'#c2c7cc'"
-                v-bind:width="20"
-                v-bind:height="20"
-            />
+            <icon v-bind="iconProps" v-bind:icon="expandedData ? 'chevron-up' : 'chevron-down'" />
         </div>
         <div class="content" ref="content">
             <slot />
@@ -36,9 +31,23 @@
 
 .section-expandable > .header > .title {
     color: $black;
-    font-size: 16px;
     font-weight: 600;
     letter-spacing: 0.35px;
+}
+
+.section-expandable > .header > .title.title-small {
+    font-size: 14px;
+}
+
+.section-expandable > .header > .title.title-medium {
+    font-size: 16px;
+}
+
+.section-expandable > .header > .title.title-large {
+    font-size: 20px;
+}
+
+.section-expandable > .header > .title.uppercase {
     text-transform: uppercase;
 }
 
@@ -82,6 +91,22 @@ export const SectionExpandable = {
         animated: {
             type: Boolean,
             default: false
+        },
+        uppercase: {
+            type: Boolean,
+            default: true
+        },
+        size: {
+            type: String,
+            default: "medium"
+        },
+        iconProps: {
+            type: Object,
+            default: () => ({
+                color: "#c2c7cc",
+                width: 20,
+                height: 20
+            })
         }
     },
     data: function() {
@@ -95,6 +120,12 @@ export const SectionExpandable = {
             const base = {};
             if (this.animated) base.animated = true;
             if (this.expandedData) base.expanded = true;
+            return base;
+        },
+        titleClasses() {
+            const base = {};
+            if (this.size) base[`title-${this.size}`] = true;
+            if (this.uppercase) base.uppercase = true;
             return base;
         }
     },
