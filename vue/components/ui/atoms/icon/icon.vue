@@ -145,7 +145,7 @@ export const Icon = {
             try {
                 // tries to use the new webpack 5 strategy for the loading
                 // of the icon using the context strategy
-                return context(`./${icon}.${suffix}?raw`);
+                return context(`./${icon}.${suffix}`);
             } catch {
                 // defaults to webpack 4 asset bundling logic if v5
                 // retrieval resulted in an error, making it possible
