@@ -21,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-*
+* Fix Icon contexts path for Webpack 5 - [ripe-pulse/#348](https://github.com/ripe-tech/ripe-pulse/issues/348)
 
 ## [0.23.1] - 2022-06-23
 
