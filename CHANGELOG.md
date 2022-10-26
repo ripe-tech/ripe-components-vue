@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-* `upload-area` component not clearing data - [#612](https://github.com/ripe-tech/ripe-util-vue/issues/612)
+* `upload-area` component not clearing data - [#612](https://github.com/ripe-tech/ripe-components-vue/issues/612)
 
 ## [0.23.2] - 2022-10-22
 
