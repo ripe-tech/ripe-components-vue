@@ -150,7 +150,14 @@ export const UploadArea = {
             return this.draggingIcon ? this.draggingIcon : "cloud-upload";
         },
         emptySlots() {
-            return Object.entries(this.$slots).length === 0 && !this.$scopedSlots?.default;
+            // forces this property to refresh on data change
+            const bindRefresh = Boolean(this.filesData) || !this.filesData;
+
+            return (
+                Object.entries(this.$slots).length === 0 &&
+                !this.$scopedSlots?.default &&
+                bindRefresh
+            );
         }
     }
 };
