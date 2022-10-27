@@ -87,15 +87,6 @@ export const ButtonUpload = {
             if (this.multiple) return "Upload Files";
             return "Upload File";
         }
-    },
-    watch: {
-        files(value) {
-            if (!value || value.length === 0) this.clear();
-            this.filesData = value;
-        },
-        dragging(value) {
-            this.$emit("update:dragging", value);
-        }
     }
 };
 export default ButtonUpload;

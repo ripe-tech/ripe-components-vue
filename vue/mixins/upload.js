@@ -25,6 +25,15 @@ export const uploadMixin = {
             fileInputRef: null
         };
     },
+    watch: {
+        files(value) {
+            if (!value || value.length === 0) this.clear();
+            this.filesData = value;
+        },
+        dragging(value) {
+            this.$emit("update:dragging", value);
+        }
+    },
     methods: {
         initUploadArea(filesInputRef) {
             this.fileInputRef = filesInputRef;
