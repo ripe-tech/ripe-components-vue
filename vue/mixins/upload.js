@@ -34,6 +34,11 @@ export const uploadMixin = {
             this.$emit("update:dragging", value);
         }
     },
+    computed: {
+        noFileSelected() {
+            return this.filesData?.length === 0;
+        }
+    },
     methods: {
         initUploadArea(filesInputRef) {
             this.fileInputRef = filesInputRef;
