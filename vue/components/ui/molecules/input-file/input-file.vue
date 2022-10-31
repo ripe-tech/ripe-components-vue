@@ -81,9 +81,6 @@ export const InputFile = {
             };
             return base;
         },
-        noFileSelected() {
-            return this.filesData.length === 0;
-        },
         buttonText() {
             return this.noFileSelected ? this.text : this.filesData[0].name;
         },
