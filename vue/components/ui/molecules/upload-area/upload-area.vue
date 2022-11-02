@@ -150,7 +150,11 @@ export const UploadArea = {
             return this.draggingIcon ? this.draggingIcon : "cloud-upload";
         },
         emptySlots() {
-            return Object.entries(this.$slots).length === 0 && !this.$scopedSlots?.default;
+            return (
+                !this.noFileSelected &&
+                Object.entries(this.$slots).length === 0 &&
+                !this.$scopedSlots?.default
+            );
         }
     }
 };
