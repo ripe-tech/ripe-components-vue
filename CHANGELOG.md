@@ -9,6 +9,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+*
+
+### Changed
+
+*
+
+### Fixed
+
+*
+
+## [0.23.3] - 2022-11-04
+
+### Added
+
 * Reactivity to `emptySlots()` computed property in `molecules/upload-area.vue` 
 
 ### Changed
