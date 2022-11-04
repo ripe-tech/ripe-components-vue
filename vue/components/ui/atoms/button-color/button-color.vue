@@ -119,7 +119,7 @@
     pointer-events: none;
 }
 
-.button-color:hover:not(.loading) {
+.button-color:hover {
     background-color: #5d5d5d;
     border-color: #5d5d5d;
 }
