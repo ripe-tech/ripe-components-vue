@@ -12,7 +12,7 @@
         <loader
             loader="ball-scale-multiple"
             class="loader"
-            v-bind:loader-style="loaderStyle"
+            v-bind:loader-style="_loaderStyle"
             v-show="loading"
         />
         <icon
@@ -119,7 +119,7 @@
     pointer-events: none;
 }
 
-.button-color:hover:not(.loading) {
+.button-color:hover {
     background-color: #5d5d5d;
     border-color: #5d5d5d;
 }

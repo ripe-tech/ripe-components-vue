@@ -30,7 +30,8 @@ storiesOf("Components/Atoms/Button Color", module)
                         Blue: "blue",
                         Yellow: "yellow",
                         Orange: "orange",
-                        White: "white"
+                        White: "white",
+                        Transparent: "transparent"
                     },
                     "default"
                 )

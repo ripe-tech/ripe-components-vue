@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-*
+* Fixed some interactions for `button-color` in `white` and `transparent` colors
 
 ## [0.23.3] - 2022-11-04
 
