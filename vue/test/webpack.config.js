@@ -31,10 +31,6 @@ module.exports = {
                 }
             },
             {
-                test: /\.(css|scss|sass)$/,
-                use: ["null-loader"]
-            },
-            {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: [
@@ -76,6 +72,10 @@ module.exports = {
                         mimetype: "image/svg+xml"
                     }
                 }
+            },
+            {
+                test: /\.(css|scss|sass)$/,
+                use: ["null-loader"]
             }
         ]
     },
