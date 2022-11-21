@@ -50,12 +50,12 @@
     opacity: 1;
 }
 
-.button-icon:hover:not(.disabled):not(.unselectable) {
+.button-icon:hover:not(.disabled, .unselectable) {
     background-color: $lighter-grey;
 }
 
-.button-icon.active:not(.disabled):not(.unselectable),
-.button-icon:active:not(.disabled):not(.unselectable) {
+.button-icon.active:not(.disabled, .unselectable),
+.button-icon:active:not(.disabled, .unselectable) {
     background-color: $light-grey;
 }
 
@@ -63,12 +63,12 @@
     background-color: $lighter-grey;
 }
 
-.button-icon.button-icon-grey:hover:not(.disabled):not(.unselectable) {
+.button-icon.button-icon-grey:hover:not(.disabled, .unselectable) {
     background-color: #dedede;
 }
 
-.button-icon.button-icon-grey.active:not(.disabled):not(.unselectable),
-.button-icon.button-icon-grey:active:not(.disabled):not(.unselectable) {
+.button-icon.button-icon-grey.active:not(.disabled, .unselectable),
+.button-icon.button-icon-grey:active:not(.disabled, .unselectable) {
     background-color: #cecece;
 }
 
@@ -76,12 +76,12 @@
     background-color: $white;
 }
 
-.button-icon.button-icon-white:hover:not(.disabled):not(.unselectable) {
+.button-icon.button-icon-white:hover:not(.disabled, .unselectable) {
     background-color: $lighter-grey;
 }
 
-.button-icon.button-icon-white.active:not(.disabled):not(.unselectable),
-.button-icon.button-icon-white:active:not(.disabled):not(.unselectable) {
+.button-icon.button-icon-white.active:not(.disabled, .unselectable),
+.button-icon.button-icon-white:active:not(.disabled, .unselectable) {
     background-color: $light-grey;
 }
 
@@ -89,12 +89,12 @@
     background-color: $dark;
 }
 
-.button-icon.button-icon-black:hover:not(.disabled):not(.unselectable) {
+.button-icon.button-icon-black:hover:not(.disabled, .unselectable) {
     background-color: #41566f;
 }
 
-.button-icon.button-icon-black.active:not(.disabled):not(.unselectable),
-.button-icon.button-icon-black:active:not(.disabled):not(.unselectable) {
+.button-icon.button-icon-black.active:not(.disabled, .unselectable),
+.button-icon.button-icon-black:active:not(.disabled, .unselectable) {
     background-color: $dark;
 }
 
@@ -120,7 +120,7 @@
     vertical-align: middle;
 }
 
-.button-icon:hover:not(.disabled):not(.unselectable) > .icon {
+.button-icon:hover:not(.disabled, .unselectable) > .icon {
     opacity: 1;
 }
 
@@ -138,7 +138,7 @@
     opacity: 1;
 }
 
-.button-icon:hover:not(.disabled):not(.unselectable) > span {
+.button-icon:hover:not(.disabled, .unselectable) > span {
     opacity: 1;
 }
 </style>

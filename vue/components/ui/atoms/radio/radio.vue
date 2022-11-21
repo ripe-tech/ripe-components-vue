@@ -47,7 +47,7 @@
     width: 4px;
 }
 
-.radio:not(.disabled):not(.error):active > .radio-input > .radio-circle {
+.radio:not(.disabled, .error):active > .radio-input > .radio-circle {
     background: url("~./assets/check-dark.svg") center / 4px no-repeat #f4f5f7;
 }
 

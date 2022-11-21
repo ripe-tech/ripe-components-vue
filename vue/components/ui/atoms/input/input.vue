@@ -65,7 +65,7 @@
     border-width: 2px;
 }
 
-.input:hover:not(:disabled):not(:focus) {
+.input:hover:not(:disabled, :focus) {
     border-color: $aqcua-blue;
 }
 

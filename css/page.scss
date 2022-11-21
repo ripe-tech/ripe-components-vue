@@ -69,11 +69,11 @@ body.desktop .page.page-show.slide-right-enter .container-ripe {
     transform: translateX(70%);
 }
 
-body:not(.tablet):not(.mobile) .page.page-show.slide-left-fake .container-ripe {
+body:not(.tablet, .mobile) .page.page-show.slide-left-fake .container-ripe {
     animation: slide-left-fake 0.25s ease;
 }
 
-body:not(.tablet):not(.mobile) .page.page-show.slide-right-fake .container-ripe {
+body:not(.tablet, .mobile) .page.page-show.slide-right-fake .container-ripe {
     animation: slide-right-fake 0.25s ease;
 }
 
