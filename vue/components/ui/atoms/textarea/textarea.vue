@@ -62,7 +62,7 @@
     font-family: $font-family;
 }
 
-.textarea:hover:not(:disabled):not(:focus) {
+.textarea:hover:not(:disabled, :focus) {
     border-color: $aqcua-blue;
 }
 
