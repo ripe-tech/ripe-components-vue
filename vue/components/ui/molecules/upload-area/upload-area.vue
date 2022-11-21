@@ -151,7 +151,7 @@ export const UploadArea = {
         },
         emptySlots() {
             return (
-                !this.noFileSelected &&
+                this.noFileSelected &&
                 Object.entries(this.$slots).length === 0 &&
                 !this.$scopedSlots?.default
             );

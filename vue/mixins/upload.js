@@ -36,7 +36,7 @@ export const uploadMixin = {
     },
     computed: {
         noFileSelected() {
-            return this.filesData?.length === 0;
+            return !this.filesData?.length;
         }
     },
     methods: {
