@@ -17,6 +17,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+*
+
+## [0.23.4] - 2022-11-22
+
+### Added
+
+*
+
+### Changed
+
+*
+
+### Fixed
+
 * Fixed some interactions for `button-color` in `white` and `transparent` colors
 * Fixed `noFileSelected()` computed property to handle `null` values and consequently adapt `emptySlots()` computed property
 
