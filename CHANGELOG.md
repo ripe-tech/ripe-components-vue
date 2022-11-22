@@ -21,14 +21,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.23.4] - 2022-11-22
 
-### Added
-
-*
-
-### Changed
-
-*
-
 ### Fixed
 
 * Fixed some interactions for `button-color` in `white` and `transparent` colors
@@ -39,10 +31,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 * Reactivity to `emptySlots()` computed property in `molecules/upload-area.vue` 
-
-### Changed
-
-*
 
 ### Fixed
 
