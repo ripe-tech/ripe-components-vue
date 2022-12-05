@@ -279,11 +279,6 @@
     width: 15px;
 }
 
-.button-color.button-color-no-text .icon,
-.button-color.button-color-no-text .icon-hover {
-    padding-right: 0px;
-}
-
 .button-color .icon {
     display: inline-block;
 }
@@ -310,6 +305,12 @@
 .button-color.icon-position-right .icon-hover {
     margin-top: 0px;
     padding-left: 12px;
+}
+
+.button-color.button-color-no-text .icon,
+.button-color.button-color-no-text .icon-hover {
+    padding-left: 0px;
+    padding-right: 0px;
 }
 </style>
 
