@@ -421,10 +421,14 @@ export const Listing = {
         }
     },
     methods: {
-        addFilter(key, value = undefined) {
+        addFilter(key, value = undefined, replace = false) {
             const base = value === undefined ? `${key}` : `${key}=`;
             const tuple = value === undefined ? `${key}` : `${key}=${value}`;
-            if (this.filter && this.filter.search(base) !== -1) return;
+            if (this.filter && this.filter.search(base) !== -1) {
+                if (!replace) return;
+                const filters = this.filter.split(" and ").filter(v => !v.includes(`${key}=`));
+                this.filter = filters.join(" and ");
+            }
             this.filter += this.filter ? ` and ${tuple}` : tuple;
             this.showScrollTop = true;
             this.scrollTop = true;
