@@ -433,6 +433,12 @@ export const Listing = {
             this.showScrollTop = true;
             this.scrollTop = true;
         },
+        removeFilter(key, operator = "=") {
+            const filters = this.filter.split(" and ").filter(v => !v.includes(`${key}${operator}`));
+            this.filter = filters.join(" and ");
+            this.showScrollTop = true;
+            this.scrollTop = true;
+        },
         setItem(index, item) {
             this.getFilter().setItem(index, item);
         },
