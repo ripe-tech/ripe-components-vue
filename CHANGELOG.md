@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-* Regression on view on white button - [ripe-pulse/#612](https://github.com/ripe-tech/ripe-pulse/issues/357)
+* Regression on view on white button - [ripe-pulse/#357](https://github.com/ripe-tech/ripe-pulse/issues/357)
 
 ## [0.23.4] - 2022-11-22
 
