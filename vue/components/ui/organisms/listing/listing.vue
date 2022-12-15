@@ -426,7 +426,9 @@ export const Listing = {
             const tuple = value === undefined ? `${key}` : `${key}${operator}${value}`;
             if (this.filter && this.filter.search(base) !== -1) {
                 if (!replace) return;
-                const filters = this.filter.split(" and ").filter(v => !v.includes(`${key}${operator}`));
+                const filters = this.filter
+                    .split(" and ")
+                    .filter(v => !v.includes(`${key}${operator}`));
                 this.filter = filters.join(" and ");
             }
             this.filter += this.filter ? ` and ${tuple}` : tuple;
@@ -434,7 +436,9 @@ export const Listing = {
             this.scrollTop = true;
         },
         removeFilter(key, operator = "=") {
-            const filters = this.filter.split(" and ").filter(v => !v.includes(`${key}${operator}`));
+            const filters = this.filter
+                .split(" and ")
+                .filter(v => !v.includes(`${key}${operator}`));
             this.filter = filters.join(" and ");
             this.showScrollTop = true;
             this.scrollTop = true;
