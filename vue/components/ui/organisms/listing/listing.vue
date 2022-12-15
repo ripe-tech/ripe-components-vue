@@ -421,11 +421,25 @@ export const Listing = {
         }
     },
     methods: {
-        addFilter(key, value = undefined) {
-            const base = value === undefined ? `${key}` : `${key}=`;
-            const tuple = value === undefined ? `${key}` : `${key}=${value}`;
-            if (this.filter && this.filter.search(base) !== -1) return;
+        addFilter(key, value = undefined, replace = false, operator = "=") {
+            const base = value === undefined ? `${key}` : `${key}${operator}`;
+            const tuple = value === undefined ? `${key}` : `${key}${operator}${value}`;
+            if (this.filter && this.filter.search(base) !== -1) {
+                if (!replace) return;
+                const filters = this.filter
+                    .split(" and ")
+                    .filter(v => !v.includes(`${key}${operator}`));
+                this.filter = filters.join(" and ");
+            }
             this.filter += this.filter ? ` and ${tuple}` : tuple;
+            this.showScrollTop = true;
+            this.scrollTop = true;
+        },
+        removeFilter(key, operator = "=") {
+            const filters = this.filter
+                .split(" and ")
+                .filter(v => !v.includes(`${key}${operator}`));
+            this.filter = filters.join(" and ");
             this.showScrollTop = true;
             this.scrollTop = true;
         },
