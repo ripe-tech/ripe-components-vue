@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-*
+* Add `setSearchFilter` method - [ripe-pulse/#240](https://github.com/ripe-tech/ripe-pulse/issues/240)
 
 ### Changed
 
