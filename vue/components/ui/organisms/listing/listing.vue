@@ -455,6 +455,9 @@ export const Listing = {
         getFilter() {
             return this.$refs.filter;
         },
+        setSearchFilter(filter) {
+            this.filter = filter;
+        },
         onHeaderButtonClick(event, buttonId) {
             this.$emit("header-button:click", event, buttonId);
         },
