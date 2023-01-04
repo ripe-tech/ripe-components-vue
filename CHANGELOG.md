@@ -17,7 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-*
+* Fix `addFilter` for when the filter is empty - [ripe-pulse/#240](https://github.com/ripe-tech/ripe-pulse/issues/240)
+
 ## [0.23.5] - 2022-12-19
 
 ### Added
