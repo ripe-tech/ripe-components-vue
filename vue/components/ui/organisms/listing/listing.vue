@@ -424,18 +424,20 @@ export const Listing = {
         addFilter(key, value = undefined, replace = false, operator = "=") {
             const base = value === undefined ? `${key}` : `${key}${operator}`;
             const tuple = value === undefined ? `${key}` : `${key}${operator}${value}`;
+
+            let filters = this.filter ? this.filter.split(" and ") : [];
             if (this.filter && this.filter.search(base) !== -1) {
                 if (!replace) return;
-                const filters = this.filter
-                    .split(" and ")
-                    .filter(v => !v.includes(`${key}${operator}`));
-                this.filter = filters.join(" and ");
+                filters = filters.filter(v => !v.includes(`${key}${operator}`));
             }
-            this.filter += this.filter ? ` and ${tuple}` : tuple;
+            filters.push(tuple);
+            this.filter = filters.join(" and ");
+
             this.showScrollTop = true;
             this.scrollTop = true;
         },
         removeFilter(key, operator = "=") {
+            if (!this.filter) return;
             const filters = this.filter
                 .split(" and ")
                 .filter(v => !v.includes(`${key}${operator}`));
