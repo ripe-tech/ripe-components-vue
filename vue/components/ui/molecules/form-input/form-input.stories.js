@@ -98,7 +98,7 @@ storiesOf("Components/Molecules/Form Input", module)
                 v-bind:footer-variant="footerVariant"
                 v-bind:footer-size="footerSize"
                 v-bind:header-min-width="headerMinWidth"
-                v-bind:footer-min-width="footerMinWidth"    
+                v-bind:footer-min-width="footerMinWidth"
             >
                 <input-ripe />
             </form-input>

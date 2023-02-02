@@ -27,7 +27,7 @@ storiesOf("Components/Molecules/Input Image", module)
         },
         template: `
             <div>
-                <input-image 
+                <input-image
                     v-bind:images.sync="images"
                     v-bind:multiple="multiple"
                     v-bind:variant="variant"

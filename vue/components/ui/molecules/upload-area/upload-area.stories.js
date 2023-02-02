@@ -39,8 +39,8 @@ storiesOf("Components/Molecules/Upload Area", module)
         },
         template: `
             <div>
-                <upload-area 
-                    v-bind:files.sync="filesData" 
+                <upload-area
+                    v-bind:files.sync="filesData"
                     v-bind:description="description"
                     v-bind:description-dragging="descriptionDragging"
                     v-bind:dragging-icon="draggingIcon"

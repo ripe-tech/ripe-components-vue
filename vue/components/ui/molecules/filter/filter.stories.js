@@ -63,9 +63,9 @@ storiesOf("Components/Molecules/Filter", module)
         template: `
             <div>
                 <global />
-                <filter-ripe 
+                <filter-ripe
                     v-bind:getItems="getItems"
-                    v-bind:table-columns="tableColumns" 
+                    v-bind:table-columns="tableColumns"
                     v-bind:lineup-fields="lineupFields"
                     v-bind:row-selection="rowSelection"
                     v-bind:checkboxes="checkboxes"

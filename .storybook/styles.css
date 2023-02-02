@@ -6,6 +6,7 @@ body {
     color: #4d4d4d;
     font-family: "Roboto", "Lato", sans-serif;
     font-size: 14px;
+    font-smoothing: antialiased;
     -o-font-smoothing: antialiased;
     -ms-font-smoothing: antialiased;
     -moz-font-smoothing: antialiased;

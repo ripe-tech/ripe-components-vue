@@ -23,9 +23,9 @@ storiesOf("Components/Molecules/Button Upload", module)
         },
         template: `
             <div>
-                <button-upload 
-                    v-bind:files.sync="filesData" 
-                    v-bind:multiple="multiple" 
+                <button-upload
+                    v-bind:files.sync="filesData"
+                    v-bind:multiple="multiple"
                     v-bind:button-text="buttonText"
                     v-bind:disabled="disabled"
                 />

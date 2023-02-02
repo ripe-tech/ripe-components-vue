@@ -62,7 +62,7 @@ storiesOf("Components/Atoms/Reaction", module)
         template: `
             <div>
                 <reaction
-                    v-bind:icon="icon" 
+                    v-bind:icon="icon"
                     v-bind:imgUrl="imgUrl"
                     v-bind:emoji="emoji"
                     v-bind:count.sync="countData"

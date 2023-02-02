@@ -54,10 +54,10 @@ storiesOf("Components/Molecules/Button Icon Animated", module)
         },
         template: `
             <button-icon-animated
-                v-bind:icon="icon" 
-                v-bind:animation-icon="animationIcon" 
-                v-bind:color="color" 
-                v-bind:size="size" 
+                v-bind:icon="icon"
+                v-bind:animation-icon="animationIcon"
+                v-bind:color="color"
+                v-bind:size="size"
                 v-bind:disabled="disabled"
                 v-bind:animation-timeout="animationTimeout" />
         `

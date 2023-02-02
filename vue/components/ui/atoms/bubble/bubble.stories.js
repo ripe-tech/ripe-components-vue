@@ -37,12 +37,12 @@ storiesOf("Components/Atoms/Bubble", module)
         template: `
             <div>
                 <bubble
-                    v-bind:visible.sync="visibleData" 
-                    v-bind:width="width" 
+                    v-bind:visible.sync="visibleData"
+                    v-bind:width="width"
                     v-bind:top="top"
                     v-bind:right="right"
                     v-bind:bottom="bottom"
-                    v-bind:left="left" 
+                    v-bind:left="left"
                 >
                     <div>
                         <h1>This is a title</h1>
