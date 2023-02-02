@@ -28,7 +28,7 @@ storiesOf("Components/Animations/Animations List", module)
                     v-bind:animation-duration="animationDuration"
                     v-bind:animation-iteration-count="'infinite'"
                 />
-                <animation-visualizer 
+                <animation-visualizer
                     v-bind:style="style"
                     v-bind:title="'fade-into'"
                     v-bind:animation-name="'fade-into'"
@@ -37,15 +37,15 @@ storiesOf("Components/Animations/Animations List", module)
                 />
                 <animation-visualizer
                     v-bind:style="style"
-                    v-bind:title="'fade-into-drop'" 
-                    v-bind:animation-name="'fade-into-drop'" 
+                    v-bind:title="'fade-into-drop'"
+                    v-bind:animation-name="'fade-into-drop'"
                     v-bind:animation-duration="animationDuration"
                     v-bind:animation-iteration-count="'infinite'"
                 />
                 <animation-visualizer
                     v-bind:style="style"
-                    v-bind:title="'fade-into-rise'" 
-                    v-bind:animation-name="'fade-into-rise'" 
+                    v-bind:title="'fade-into-rise'"
+                    v-bind:animation-name="'fade-into-rise'"
                     v-bind:animation-duration="animationDuration"
                     v-bind:animation-iteration-count="'infinite'"
                 />
@@ -58,21 +58,21 @@ storiesOf("Components/Animations/Animations List", module)
                 />
                 <animation-visualizer
                     v-bind:style="style"
-                    v-bind:title="'fade-grow-rise'" 
+                    v-bind:title="'fade-grow-rise'"
                     v-bind:animation-name="'fade-grow-rise'"
                     v-bind:animation-duration="animationDuration"
                     v-bind:animation-iteration-count="'infinite'"
                 />
                 <animation-visualizer
                     v-bind:style="style"
-                    v-bind:title="'fade-shrink-visibility'" 
+                    v-bind:title="'fade-shrink-visibility'"
                     v-bind:animation-name="'fade-shrink-visibility'"
                     v-bind:animation-duration="animationDuration"
                     v-bind:animation-iteration-count="'infinite'"
                 />
                 <animation-visualizer
                     v-bind:style="style"
-                    v-bind:title="'slide-left-fake'" 
+                    v-bind:title="'slide-left-fake'"
                     v-bind:animation-name="'slide-left-fake'"
                     v-bind:animation-duration="animationDuration"
                     v-bind:animation-iteration-count="'infinite'"

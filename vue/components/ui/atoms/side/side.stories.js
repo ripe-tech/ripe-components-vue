@@ -67,9 +67,9 @@ storiesOf("Components/Atoms/Side", module)
         },
         template: `
             <div>
-                <side 
-                    v-bind:links="links" 
-                    v-bind:width="width" 
+                <side
+                    v-bind:links="links"
+                    v-bind:width="width"
                     v-bind:visible.sync="visibleData"
                     v-bind:padded="padded"
                     v-bind:position="position"

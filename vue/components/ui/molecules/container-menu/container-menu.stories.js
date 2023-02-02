@@ -56,9 +56,9 @@ storiesOf("Components/Molecules/Container Menu", module)
         },
         template: `
             <container-menu
-                v-bind:alignment="alignment" 
-                v-bind:mode="mode" 
-                v-bind:menu-visible.sync="menuVisibleData" 
+                v-bind:alignment="alignment"
+                v-bind:mode="mode"
+                v-bind:menu-visible.sync="menuVisibleData"
                 v-bind:menu-width="menuWidth"
                 v-bind:animation-duration="animationDuration"
                 v-bind:animation-function="animationFunction"
@@ -76,7 +76,7 @@ storiesOf("Components/Molecules/Container Menu", module)
                 </template>
                 <template v-slot:menu>
                     <div style='background-color: LightSalmon; height: 100%;'>
-                        <p>This is a contextual menu</p>           
+                        <p>This is a contextual menu</p>
                     </div>
                 </template>
             </container-menu>

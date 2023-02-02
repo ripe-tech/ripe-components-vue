@@ -111,11 +111,11 @@ storiesOf("Components/Organisms/Table Menu", module)
                     v-bind:columns="columns"
                     v-bind:selected-index.sync="selectedIndexData"
                     v-bind:table-title="tableTitle"
-                    v-bind:menu-title="menuTitle" 
-                    v-bind:menu-mode="menuMode" 
+                    v-bind:menu-title="menuTitle"
+                    v-bind:menu-mode="menuMode"
                     v-bind:menu-visible.sync="menuVisibleData"
                     v-bind:menu-width="menuWidth"
-                    v-bind:menu-alignment="menuAlignment" 
+                    v-bind:menu-alignment="menuAlignment"
                     v-bind:menu-background-color="menuBackgroundColor"
                     v-bind:animation-duration="animationDuration">
                     <template v-slot:item-alive="{ item }">
