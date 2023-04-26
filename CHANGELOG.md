@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Remove Travis CI - [products/#97](https://github.com/ripe-tech/products/issues/97)
 
 ### Fixed
-****
+
 *
 
 ## [0.23.6] - 2023-01-05
