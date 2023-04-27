@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 * Only support Node.js LTS versions (`14`, `16`, `18`)
-* Update `deploy.yml` node version to `18`
+* Update `deploy.yml` Node.js version to `18`
 
 ### Fixed
 
