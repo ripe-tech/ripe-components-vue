@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Only support Node.js LTS versions (`14`, `16`, `18`)
 * Update `deploy.yml` Node.js version to `18`
+* Remove Travis CI - [products/#97](https://github.com/ripe-tech/products/issues/97)
 
 ### Fixed
 
