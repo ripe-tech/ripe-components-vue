@@ -21,6 +21,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *
 
+## [0.23.7] - 2023-10-23
+
+### Changed
+
+* Change `titlePrefix` prop - [ripe-pulse/#634](https://github.com/ripe-tech/ripe-components-vue/pull/634)
+
 ## [0.23.6] - 2023-01-05
 
 ### Added
