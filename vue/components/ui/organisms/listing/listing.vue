@@ -351,7 +351,7 @@ export const Listing = {
         },
         titlePrefix: {
             type: String,
-            default: "Your"
+            default: ""
         },
         filterText: {
             type: String,
