@@ -18,6 +18,8 @@ storiesOf("Components/Molecules/Lightbox", module)
                 <lightbox
                     v-bind:image="image"
                     v-bind:visible="visible"
+                    v-bind:title="'brand'"
+                    v-bind:sub-title="'8 items'"
                     style="max-width: 200px">
                 </lightbox>
             `
