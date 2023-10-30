@@ -11,13 +11,15 @@ storiesOf("Components/Molecules/Lightbox", module)
         },
         data: function() {
             return {
-                image: "https://sandbox.platforme.com/api/compose?brand=dummy&model=dummy"
+                image: "https://sandbox.platforme.com/api/brands/swear/logo.png?"
             };
         },
         template: `
                 <lightbox
                     v-bind:image="image"
                     v-bind:visible="visible"
+                    v-bind:title="'brand'"
+                    v-bind:sub-title="'8 items'"
                     style="max-width: 200px">
                 </lightbox>
             `

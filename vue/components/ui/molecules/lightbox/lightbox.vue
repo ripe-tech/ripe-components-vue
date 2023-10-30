@@ -1,6 +1,9 @@
 <template>
     <div class="lightbox">
         <global-events v-on:keydown.esc="close" />
+        <div class="lightbox-title" v-if="title">
+            {{ title }}
+        </div>
         <image-ripe
             v-bind:src="image"
             v-bind:style="imageStyle"
@@ -8,6 +11,9 @@
             v-if="image"
             v-on:click="event => $emit('click', event)"
         />
+        <div class="lightbox-subtitle" v-if="subTitle">
+            {{ subTitle }}
+        </div>
         <transition name="fade">
             <div
                 class="lightbox-container"
@@ -32,6 +38,26 @@
 
 .lightbox {
     display: inline-block;
+}
+
+.lightbox-title {
+    color: #a4adb5;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    margin-bottom: 6.5px;
+    text-transform: uppercase;
+}
+
+.lightbox-subtitle {
+    background-color: #e1e2ff;
+    border-radius: 4px;
+    color: #5f60c2;
+    font-size: 10px;
+    margin-top: 12.5px;
+    padding: 4px 6px;
+    text-align: center;
+    width: 55px;
 }
 
 .lightbox > img {
@@ -89,6 +115,14 @@
 export const Lightbox = {
     name: "lightbox",
     props: {
+        title: {
+            type: String,
+            default: null
+        },
+        subTitle: {
+            type: String,
+            default: null
+        },
         image: {
             type: String,
             default: null
