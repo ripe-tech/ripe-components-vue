@@ -11,7 +11,7 @@ storiesOf("Components/Molecules/Lightbox", module)
         },
         data: function() {
             return {
-                image: "https://sandbox.platforme.com/api/brands/swear/logo.png?"
+                image: "https://sandbox.platforme.com/api/compose?brand=dummy&model=dummy"
             };
         },
         template: `
