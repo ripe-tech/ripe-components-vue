@@ -102,7 +102,8 @@ storiesOf("Components/Atoms/Input", module)
                         v-bind:min-width="minWidth"
                         v-bind:height="height"
                         v-bind:debounce-delay="debounceDelay"
-                        v-bind:max-length="maxLength" />
+                        v-bind:max-length="maxLength"
+                        v-bind:background-color="'#f9fAfd'" />
                 </form-input>
                 <p>Text: {{ valueData }}</p>
             </div>
