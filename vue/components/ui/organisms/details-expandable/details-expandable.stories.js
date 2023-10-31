@@ -31,19 +31,24 @@ storiesOf("Components/Organisms/Details Expandable", module)
                         }
                     }
                 })
+            },
+            fontSize: {
+                type: Number,
+                default: 14
             }
         },
         template: `
             <details-expandable-ripe
                 v-bind:data="data"
+                v-bind:label-font-size="fontSize"
             >
             <template v-slot="slotProps">
-            <label-ripe v-bind:text='slotProps.fieldName'></label-ripe>
                 <input-ripe v-bind:value=slotProps.fieldValue></input-ripe>
             </template>
             </details-expandable-ripe>
         `
     }));
+
 
 
 
