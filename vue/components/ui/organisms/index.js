@@ -2,6 +2,7 @@ import { ButtonGroup } from "./button-group/button-group.vue";
 import { Chat } from "./chat/chat.vue";
 import { ContainerForm } from "./container-form/container-form.vue";
 import { Details } from "./details/details.vue";
+import { DetailsExpandable } from "./details-expandable/details-expandable.vue";
 import { EntityCreate } from "./entity-create/entity-create.vue";
 import { EntityEdit } from "./entity-edit/entity-edit.vue";
 import { EntityList } from "./entity-list/entity-list.vue";
@@ -17,6 +18,7 @@ const install = Vue => {
     Vue.component("chat", Chat);
     Vue.component("container-form", ContainerForm);
     Vue.component("details-ripe", Details);
+    Vue.component("details-expandable-ripe", DetailsExpandable);
     Vue.component("entity-create", EntityCreate);
     Vue.component("entity-edit", EntityEdit);
     Vue.component("entity-list", EntityList);
