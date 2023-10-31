@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-* `title` and `subtitle` optional props to Lightbox component - [#635](https://github.com/ripe-tech/ripe-components-vue/issues/635)
+* `title` and `subTitle` optional props to Lightbox component - [#635](https://github.com/ripe-tech/ripe-components-vue/issues/635)
+* `backgroundColor` optional prop to Input component - [[#638](https://github.com/ripe-tech/ripe-components-vue/issues/638)]
 
 ### Changed
 
