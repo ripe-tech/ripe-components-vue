@@ -41,6 +41,7 @@ storiesOf("Components/Organisms/Details Expandable", module)
             <details-expandable-ripe
                 v-bind:data="data"
                 v-bind:label-font-size="fontSize"
+                v-bind:style="'margin-top: 25px'"
             >
             <template v-slot:customer-address>
                 <input-ripe v-bind:style="'width: 50%'" v-bind:value="data.customer.address.city"></input-ripe>

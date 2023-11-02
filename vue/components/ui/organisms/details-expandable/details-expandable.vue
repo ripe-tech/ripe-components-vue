@@ -12,6 +12,23 @@
             </div>
             <icon class="details-expandable-caret" v-bind:icon="isExpanded[sectionName] ? 'chevron-up' : 'chevron-down'" />
         </div>
+        <div class="details-expandable-btn-container">
+            <button-color
+                class="details-expandable-btn-discard"
+                v-bind:size="'small'"
+                v-bind:text="'Discard changes'"
+                v-bind:secondary="true"
+                v-bind:icon="'close'"
+                v-on:click="event => onDiscardHandler(event)"
+            />
+            <button-color
+                class="details-expandable-btn-save"
+                v-bind:size="'small'"
+                v-bind:text="'Save changes'"
+                v-bind:icon="'save'"
+                v-on:click="event => onSaveHandler(event)"
+            />
+        </div>
     </div>
 </template>
 
@@ -28,16 +45,34 @@
     width: 24px;
 }
 
+.details-expandable-btn-container {
+    height: 25px;
+    float: right;
+    margin-top: 50px;
+}
+
+.details-expandable-btn-discard {
+    margin-right: 6px;
+}
+
+.button-color.button-color-small {
+    min-width: 125px;
+}
+
 .details-expandable-section-hide {
     height: 25px;
     overflow: hidden;
     position: relative;
+    padding-bottom: 25px;
+    border-top: 1px solid var(--dividers-border-bottom-header, #E4E8F0);
 }
 
 .details-expandable-section-show {
     height: auto;
     overflow: visible;
     position: relative;
+    margin-bottom: 35px;
+    transition: opacity 0.1s ease-in-out;
 }
 
 .details-expandable-header {
@@ -91,6 +126,12 @@ export const DetailsExpandable = {
         },
         toggleSection(sectionName) {
             this.isExpanded[sectionName] = !this.isExpanded[sectionName];
+        },
+        onSaveHandler(event) {
+            this.$emit("save-button:click", event);
+        },
+        onDiscardHandler(event) {
+            this.$emit("discard-button:click", event);
         }
     }
 };
