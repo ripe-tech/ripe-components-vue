@@ -78,8 +78,8 @@
     height: auto;
     overflow: visible;
     position: relative;
-    margin-bottom: 35px;
-    transition: opacity 0.1s ease-in-out;
+    margin-top: 25px;
+    padding-bottom: 25px;
 }
 
 .details-expandable-header {
