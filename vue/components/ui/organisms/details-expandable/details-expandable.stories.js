@@ -48,13 +48,3 @@ storiesOf("Components/Organisms/Details Expandable", module)
             </details-expandable-ripe>
         `
     }));
-
-
-
-
-
-
-
-
-
-
