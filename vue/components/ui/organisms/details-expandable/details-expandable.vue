@@ -1,6 +1,6 @@
 <template>
     <div class="details-expandable">
-        <div v-bind:class="isExpanded[index] ? 'details-expandable-section-show' : 'details-expandable-section-hide'" v-for="(section, sectionName, index) in data" v-bind:key="index" v-on:click="toggleSection(index)">
+        <div v-bind:class="isExpanded[sectionName] ? 'details-expandable-section-show' : 'details-expandable-section-hide'" v-for="(section, sectionName, index) in data" v-bind:key="index" v-on:click="toggleSection(sectionName)">
             <h2 class="details-expandable-header">{{ sectionName }}</h2>
             <div class="details-expandable-row" v-for="(value, name, subIndex) in section" v-bind:key="subIndex">
                 <label-ripe class="details-expandable-title" v-bind:text="capitalizeName(name)" v-bind:font-size="labelFontSize" />
@@ -8,7 +8,7 @@
                     <slot v-bind:field-value="value" />
                 </div>
             </div>
-            <icon class="details-expandable-caret" v-bind:icon="isExpanded[index] ? 'chevron-up' : 'chevron-down'" />
+            <icon class="details-expandable-caret" v-bind:icon="isExpanded[sectionName] ? 'chevron-up' : 'chevron-down'" />
         </div>
     </div>
 </template>
@@ -29,7 +29,6 @@
 .details-expandable-section-hide {
     cursor: pointer;
     height: 25px;
-    margin-top: 35px;
     overflow: hidden;
     position: relative;
 }
@@ -38,6 +37,7 @@
     cursor: pointer;
     height: auto;
     overflow: visible;
+    position: relative;
 }
 
 .details-expandable-header {
@@ -75,20 +75,21 @@ export const DetailsExpandable = {
         }
     },
     data: function() {
-        return {
-            isExpanded: []
-        };
-    },
+        const initialIsExpanded = {};
+        for (const sectionName in this.data) {
+            initialIsExpanded[sectionName] = false;
+        }
 
-    mounted: function() {
-        this.isExpanded = new Array(Object.keys(this.data).length).fill(false);
+        return {
+            isExpanded: initialIsExpanded
+        };
     },
     methods: {
         capitalizeName(name) {
             return name.charAt(0).toUpperCase() + name.slice(1);
         },
-        toggleSection(index) {
-            this.isExpanded[index] = !this.isExpanded[index];
+        toggleSection(sectionName) {
+            this.isExpanded[sectionName] = !this.isExpanded[sectionName];
         }
     }
 };
