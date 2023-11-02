@@ -5,7 +5,8 @@
             <div class="details-expandable-row" v-for="(value, name, subIndex) in section" v-bind:key="subIndex">
                 <label-ripe class="details-expandable-title" v-bind:text="capitalizeName(name)" v-bind:font-size="labelFontSize" />
                 <div class="details-expandable-value">
-                    <slot v-bind:name="sectionName + '-' + name" v-bind:field-value="value"><input-ripe v-bind:value="value" />
+                    <slot v-bind:name="sectionName + '-' + name" v-bind:field-value="value">
+                        <input-ripe v-bind:value="value" />
                     </slot>
                 </div>
             </div>
@@ -41,11 +42,11 @@
 
 .details-expandable-header {
     color: #0d0d0d;
+    cursor: pointer;
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.6px;
     text-transform: uppercase;
-    cursor: pointer;
 }
 
 .details-expandable-title {
