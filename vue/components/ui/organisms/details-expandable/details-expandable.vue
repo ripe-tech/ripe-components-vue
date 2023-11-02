@@ -1,7 +1,10 @@
 <template>
     <div class="details-expandable">
         <div v-bind:class="isExpanded[sectionName] ? 'details-expandable-section-show' : 'details-expandable-section-hide'" v-for="(section, sectionName, index) in data" v-bind:key="index">
-            <h2 class="details-expandable-header" v-on:click="toggleSection(sectionName)">{{ sectionName }}</h2>
+            <div class="details-expandable-section" v-on:click="toggleSection(sectionName)">
+                <h2 class="details-expandable-header">{{ sectionName }}</h2>
+                <icon class="details-expandable-caret" v-bind:icon="isExpanded[sectionName] ? 'chevron-up' : 'chevron-down'" />
+            </div>
             <div class="details-expandable-row" v-for="(value, name, subIndex) in section" v-bind:key="subIndex">
                 <label-ripe class="details-expandable-title" v-bind:text="capitalizeName(name)" v-bind:font-size="labelFontSize" />
                 <div class="details-expandable-value">
@@ -10,7 +13,6 @@
                     </slot>
                 </div>
             </div>
-            <icon class="details-expandable-caret" v-bind:icon="isExpanded[sectionName] ? 'chevron-up' : 'chevron-down'" />
         </div>
         <div class="details-expandable-btn-container">
             <button-color
@@ -53,18 +55,23 @@
 
 .details-expandable-btn-discard {
     margin-right: 6px;
+    min-width: 125px;
 }
 
 .button-color.button-color-small {
     min-width: 125px;
 }
 
+.details-expandable-section {
+    cursor: pointer;
+}
 .details-expandable-section-hide {
     height: 25px;
     overflow: hidden;
     position: relative;
     padding-bottom: 25px;
-    border-top: 1px solid var(--dividers-border-bottom-header, #E4E8F0);
+    margin-top: 25px;
+    border-bottom: 1px solid var(--dividers-border-bottom-header, #E4E8F0);
 }
 
 .details-expandable-section-show {
@@ -77,7 +84,6 @@
 
 .details-expandable-header {
     color: #0d0d0d;
-    cursor: pointer;
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.6px;
@@ -128,10 +134,10 @@ export const DetailsExpandable = {
             this.isExpanded[sectionName] = !this.isExpanded[sectionName];
         },
         onSaveHandler(event) {
-            this.$emit("save-button:click", event);
+            this.$emit("save:click", event);
         },
         onDiscardHandler(event) {
-            this.$emit("discard-button:click", event);
+            this.$emit("discard:click", event);
         }
     }
 };

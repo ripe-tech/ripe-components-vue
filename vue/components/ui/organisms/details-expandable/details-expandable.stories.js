@@ -37,11 +37,21 @@ storiesOf("Components/Organisms/Details Expandable", module)
                 default: 14
             }
         },
+        methods: {
+            onDiscardClick() {
+                console.log("onDiscardClick");
+            },
+            onSaveClick() {
+                console.log("onSaveClick");
+            }
+        },
         template: `
             <details-expandable-ripe
                 v-bind:data="data"
                 v-bind:label-font-size="fontSize"
                 v-bind:style="'margin-top: 25px'"
+                v-on:discard:click="onDiscardClick"
+                v-on:save:click="onSaveClick"
             >
             <template v-slot:customer-address>
                 <input-ripe v-bind:style="'width: 50%'" v-bind:value="data.customer.address.city"></input-ripe>
@@ -52,3 +62,7 @@ storiesOf("Components/Organisms/Details Expandable", module)
             </details-expandable-ripe>
         `
     }));
+
+
+
+
