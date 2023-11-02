@@ -1,11 +1,11 @@
 <template>
     <div class="details-expandable">
-        <div v-bind:class="isExpanded[sectionName] ? 'details-expandable-section-show' : 'details-expandable-section-hide'" v-for="(section, sectionName, index) in data" v-bind:key="index" v-on:click="toggleSection(sectionName)">
-            <h2 class="details-expandable-header">{{ sectionName }}</h2>
+        <div v-bind:class="isExpanded[sectionName] ? 'details-expandable-section-show' : 'details-expandable-section-hide'" v-for="(section, sectionName, index) in data" v-bind:key="index">
+            <h2 class="details-expandable-header" v-on:click="toggleSection(sectionName)">{{ sectionName }}</h2>
             <div class="details-expandable-row" v-for="(value, name, subIndex) in section" v-bind:key="subIndex">
                 <label-ripe class="details-expandable-title" v-bind:text="capitalizeName(name)" v-bind:font-size="labelFontSize" />
                 <div class="details-expandable-value">
-                    <slot v-bind:field-value="value" />
+                    <slot v-bind:name="sectionName + '-' + name" v-bind:field-value="value" />
                 </div>
             </div>
             <icon class="details-expandable-caret" v-bind:icon="isExpanded[sectionName] ? 'chevron-up' : 'chevron-down'" />
@@ -27,14 +27,12 @@
 }
 
 .details-expandable-section-hide {
-    cursor: pointer;
     height: 25px;
     overflow: hidden;
     position: relative;
 }
 
 .details-expandable-section-show {
-    cursor: pointer;
     height: auto;
     overflow: visible;
     position: relative;
@@ -46,6 +44,7 @@
     font-weight: 700;
     letter-spacing: 0.6px;
     text-transform: uppercase;
+    cursor: pointer;
 }
 
 .details-expandable-title {
