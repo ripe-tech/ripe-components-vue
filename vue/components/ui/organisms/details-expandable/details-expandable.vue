@@ -18,7 +18,7 @@
             <button-color
                 class="details-expandable-btn-discard"
                 v-bind:size="'small'"
-                v-bind:text="'Discard changes'"
+                v-bind:text="discardButtonText"
                 v-bind:secondary="true"
                 v-bind:icon="'close'"
                 v-on:click="event => onDiscardHandler(event)"
@@ -26,7 +26,7 @@
             <button-color
                 class="details-expandable-btn-save"
                 v-bind:size="'small'"
-                v-bind:text="'Save changes'"
+                v-bind:text="saveButtonText"
                 v-bind:icon="'save'"
                 v-on:click="event => onSaveHandler(event)"
             />
@@ -48,8 +48,8 @@
 }
 
 .details-expandable-btn-container {
-    height: 25px;
     float: right;
+    height: 25px;
     margin-top: 50px;
 }
 
@@ -64,22 +64,24 @@
 
 .details-expandable-section {
     cursor: pointer;
+    display: flex;
 }
+
 .details-expandable-section-hide {
+    border-bottom: 1px solid #e4e8f0;
     height: 25px;
-    overflow: hidden;
-    position: relative;
-    padding-bottom: 25px;
     margin-top: 25px;
-    border-bottom: 1px solid var(--dividers-border-bottom-header, #E4E8F0);
+    overflow: hidden;
+    padding-bottom: 25px;
+    position: relative;
 }
 
 .details-expandable-section-show {
     height: auto;
-    overflow: visible;
-    position: relative;
     margin-top: 25px;
+    overflow: visible;
     padding-bottom: 25px;
+    position: relative;
 }
 
 .details-expandable-header {
@@ -114,6 +116,14 @@ export const DetailsExpandable = {
         labelFontSize: {
             type: Number,
             default: null
+        },
+        discardButtonText: {
+            type: String,
+            default: "Discard changes"
+        },
+        saveButtonText: {
+            type: String,
+            default: "Save changes"
         }
     },
     data: function() {
