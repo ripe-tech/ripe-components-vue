@@ -42,9 +42,6 @@ storiesOf("Components/Organisms/Details Expandable", module)
                 v-bind:data="data"
                 v-bind:label-font-size="fontSize"
             >
-            <template v-slot="slotProps">
-                <input-ripe v-bind:value=slotProps.fieldValue></input-ripe>
-            </template>
             <template v-slot:customer-address>
                 <input-ripe v-bind:style="'width: 50%'" v-bind:value="data.customer.address.city"></input-ripe>
             </template>
@@ -54,8 +51,3 @@ storiesOf("Components/Organisms/Details Expandable", module)
             </details-expandable-ripe>
         `
     }));
-
-
-
-
-
