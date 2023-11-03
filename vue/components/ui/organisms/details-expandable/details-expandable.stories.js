@@ -8,26 +8,20 @@ storiesOf("Components/Organisms/Details Expandable", module)
             data: {
                 type: Object,
                 default: () => ({
-                    customer: {
-                        name: "John Doe",
-                        phone: "351999999999",
-                        email: "john_doe@platforme.com",
-                        address: {
-                            line: "2540 Shore Blvd Apt LF",
-                            city: "Astoria",
-                            postal_code: "11102-3954",
-                            country_code: "US",
-                            state_code: "NY"
+                    first_row: {
+                        field_a: "something",
+                        field_b: "something else",
+                        field_object: {
+                            property_a: "property a",
+                            property_b: "property b"
                         }
                     },
-                    shipper: {
-                        name: "Coolstuffz Porto",
-                        phone: "222333444",
-                        address: {
-                            line: "Rua de Santa Catarina 4",
-                            city: "Porto",
-                            postal_code: "4000542",
-                            country_code: "PT"
+                    second_row: {
+                        field_c: "yet something",
+                        field_d: "yet something else",
+                        field_object: {
+                            property_a: "property c",
+                            property_b: "property d"
                         }
                     }
                 })

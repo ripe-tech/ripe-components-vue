@@ -1,13 +1,34 @@
 <template>
     <div class="details-expandable">
-        <div v-bind:class="isExpanded[sectionName] ? 'details-expandable-section-show' : 'details-expandable-section-hide'" v-for="(section, sectionName, index) in data" v-bind:key="index">
+        <div
+            v-bind:class="
+                isExpanded[sectionName]
+                    ? 'details-expandable-section-show'
+                    : 'details-expandable-section-hide'
+            "
+            v-for="(section, sectionName, index) in data"
+            v-bind:key="index"
+        >
             <div class="details-expandable-section" v-on:click="toggleSection(sectionName)">
-                <h2 class="details-expandable-header"><slot v-bind:name="sectionName">{{ sectionName }}</slot></h2>
-                <icon class="details-expandable-caret" v-bind:icon="isExpanded[sectionName] ? 'chevron-up' : 'chevron-down'" />
+                <h2 class="details-expandable-header">
+                    <slot v-bind:name="sectionName">{{ sectionName }}</slot>
+                </h2>
+                <icon
+                    class="details-expandable-caret"
+                    v-bind:icon="isExpanded[sectionName] ? 'chevron-up' : 'chevron-down'"
+                />
             </div>
-            <div class="details-expandable-row" v-for="(value, name, subIndex) in section" v-bind:key="subIndex">
+            <div
+                class="details-expandable-row"
+                v-for="(value, name, subIndex) in section"
+                v-bind:key="subIndex"
+            >
                 <slot v-bind:name="sectionName + '-label-' + name">
-                    <label-ripe class="details-expandable-title" v-bind:text="capitalizeName(name)" v-bind:font-size="labelFontSize" />
+                    <label-ripe
+                        class="details-expandable-title"
+                        v-bind:text="capitalizeName(name)"
+                        v-bind:font-size="labelFontSize"
+                    />
                 </slot>
                 <div class="details-expandable-value">
                     <slot v-bind:name="sectionName + '-' + name" v-bind:field-value="value">
@@ -105,7 +126,6 @@
 .details-expandable-row {
     margin-top: 25px;
 }
-
 </style>
 <script>
 export const DetailsExpandable = {
@@ -130,7 +150,9 @@ export const DetailsExpandable = {
     },
     data: function() {
         const isExpanded = {};
-        Object.keys(this.data).forEach(k => { isExpanded[k] = false; });
+        Object.keys(this.data).forEach(k => {
+            isExpanded[k] = false;
+        });
 
         return {
             isExpanded
