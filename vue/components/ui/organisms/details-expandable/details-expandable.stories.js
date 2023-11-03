@@ -32,9 +32,14 @@ storiesOf("Components/Organisms/Details Expandable", module)
                     }
                 })
             },
-            fontSize: {
-                type: Number,
+            labelFontSize: {
                 default: 14
+            },
+            discardButtonText: {
+                default: "Discard changes or not..."
+            },
+            saveButtonText: {
+                default: "Save changes now!"
             }
         },
         methods: {
@@ -48,11 +53,15 @@ storiesOf("Components/Organisms/Details Expandable", module)
         template: `
             <details-expandable-ripe
                 v-bind:data="data"
-                v-bind:label-font-size="fontSize"
+                v-bind:label-font-size="labelFontSize"
                 v-bind:style="'margin-top: 25px'"
+                v-bind:discard-button-text="discardButtonText"
+                v-bind:save-button-text="saveButtonText"
                 v-on:discard:click="onDiscardClick"
                 v-on:save:click="onSaveClick"
             >
+            <template v-slot:customer>Customized Customer</template>
+            <template v-slot:customer-label-name>name</template>
             <template v-slot:customer-address>
                 <input-ripe v-bind:style="'width: 50%'" v-bind:value="data.customer.address.city"></input-ripe>
             </template>

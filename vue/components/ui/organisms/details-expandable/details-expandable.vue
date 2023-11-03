@@ -2,11 +2,13 @@
     <div class="details-expandable">
         <div v-bind:class="isExpanded[sectionName] ? 'details-expandable-section-show' : 'details-expandable-section-hide'" v-for="(section, sectionName, index) in data" v-bind:key="index">
             <div class="details-expandable-section" v-on:click="toggleSection(sectionName)">
-                <h2 class="details-expandable-header">{{ sectionName }}</h2>
+                <h2 class="details-expandable-header"><slot v-bind:name="sectionName">{{ sectionName }}</slot></h2>
                 <icon class="details-expandable-caret" v-bind:icon="isExpanded[sectionName] ? 'chevron-up' : 'chevron-down'" />
             </div>
             <div class="details-expandable-row" v-for="(value, name, subIndex) in section" v-bind:key="subIndex">
-                <label-ripe class="details-expandable-title" v-bind:text="capitalizeName(name)" v-bind:font-size="labelFontSize" />
+                <slot v-bind:name="sectionName + '-label-' + name">
+                    <label-ripe class="details-expandable-title" v-bind:text="capitalizeName(name)" v-bind:font-size="labelFontSize" />
+                </slot>
                 <div class="details-expandable-value">
                     <slot v-bind:name="sectionName + '-' + name" v-bind:field-value="value">
                         <input-ripe v-bind:value="value" />
@@ -21,14 +23,14 @@
                 v-bind:text="discardButtonText"
                 v-bind:secondary="true"
                 v-bind:icon="'close'"
-                v-on:click="event => onDiscardHandler(event)"
+                v-on:click="onDiscardHandler"
             />
             <button-color
                 class="details-expandable-btn-save"
                 v-bind:size="'small'"
                 v-bind:text="saveButtonText"
                 v-bind:icon="'save'"
-                v-on:click="event => onSaveHandler(event)"
+                v-on:click="onSaveHandler"
             />
         </div>
     </div>
@@ -127,13 +129,11 @@ export const DetailsExpandable = {
         }
     },
     data: function() {
-        const initialIsExpanded = {};
-        for (const sectionName in this.data) {
-            initialIsExpanded[sectionName] = false;
-        }
+        const isExpanded = {};
+        Object.keys(this.data).forEach(k => { isExpanded[k] = false; });
 
         return {
-            isExpanded: initialIsExpanded
+            isExpanded
         };
     },
     methods: {
