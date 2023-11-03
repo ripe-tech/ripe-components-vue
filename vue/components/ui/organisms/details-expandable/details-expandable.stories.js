@@ -20,8 +20,8 @@ storiesOf("Components/Organisms/Details Expandable", module)
                         field_c: "yet something",
                         field_d: "yet something else",
                         field_object: {
-                            property_a: "property c",
-                            property_b: "property d"
+                            property_c: "property c",
+                            property_d: "property d"
                         }
                     }
                 })
@@ -54,13 +54,13 @@ storiesOf("Components/Organisms/Details Expandable", module)
                 v-on:discard:click="onDiscardClick"
                 v-on:save:click="onSaveClick"
             >
-            <template v-slot:customer>Customized Customer</template>
-            <template v-slot:customer-label-name>name</template>
-            <template v-slot:customer-address>
-                <input-ripe v-bind:style="'width: 50%'" v-bind:value="data.customer.address.city"></input-ripe>
+            <template v-slot:first_row>Customized Customer</template>
+            <template v-slot:first_row-label-field_name>name</template>
+            <template v-slot:first_row-field_object>
+                <input-ripe v-bind:style="'width: 50%'" v-bind:value="data.first_row.field_object.property_a"></input-ripe>
             </template>
-            <template v-slot:shipper-address>
-                <input-ripe v-bind:style="'width: 50%'" v-bind:value="data.shipper.address.city"></input-ripe>
+            <template v-slot:second_row-field_object>
+                <input-ripe v-bind:style="'width: 50%'" v-bind:value="data.second_row.field_object.property_c"></input-ripe>
             </template>
             </details-expandable-ripe>
         `
