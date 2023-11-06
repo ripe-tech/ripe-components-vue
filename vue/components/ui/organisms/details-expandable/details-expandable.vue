@@ -1,57 +1,47 @@
 <template>
     <div class="details-expandable">
-        <div
-            v-bind:class="
-                isExpanded[sectionName]
-                    ? 'details-expandable-section-show'
-                    : 'details-expandable-section-hide'
-            "
-            v-for="(section, sectionName, index) in data"
-            v-bind:key="index"
+        <section-expandable
+            v-bind:title="sectionName"
+            v-bind:size="sectionSize"
+            v-bind:animated="sectionAnimated"
+            v-bind:uppercase="sectionUppercase"
+            v-for="(section, sectionName) in data"
+            v-bind:key="sectionName"
         >
-            <div class="details-expandable-section" v-on:click="toggleSection(sectionName)">
-                <h2 class="details-expandable-header">
-                    <slot v-bind:name="sectionName">{{ sectionName }}</slot>
-                </h2>
-                <icon
-                    class="details-expandable-caret"
-                    v-bind:icon="isExpanded[sectionName] ? 'chevron-up' : 'chevron-down'"
-                />
-            </div>
             <div
-                class="details-expandable-row"
+                class="row"
                 v-for="(value, name, subIndex) in section"
                 v-bind:key="subIndex"
             >
                 <slot v-bind:name="sectionName + '-label-' + name">
                     <label-ripe
-                        class="details-expandable-title"
+                        class="title"
                         v-bind:text="capitalizeName(name)"
                         v-bind:font-size="labelFontSize"
                     />
                 </slot>
-                <div class="details-expandable-value">
+                <div class="value">
                     <slot v-bind:name="sectionName + '-' + name" v-bind:field-value="value">
                         <input-ripe v-bind:value="value" />
                     </slot>
                 </div>
             </div>
-        </div>
-        <div class="details-expandable-btn-container">
+        </section-expandable>
+        <div class="btn-container">
             <button-color
-                class="details-expandable-btn-discard"
+                class="btn-discard"
                 v-bind:size="'small'"
                 v-bind:text="discardButtonText"
                 v-bind:secondary="true"
                 v-bind:icon="'close'"
-                v-on:click="onDiscardHandler"
+                v-on:click="onDiscardClick"
             />
             <button-color
-                class="details-expandable-btn-save"
+                class="btn-save"
                 v-bind:size="'small'"
                 v-bind:text="saveButtonText"
                 v-bind:icon="'save'"
-                v-on:click="onSaveHandler"
+                v-on:click="onSaveClick"
             />
         </div>
     </div>
@@ -62,21 +52,13 @@
     padding: 0px 16px 0px 16px;
 }
 
-.details-expandable-caret {
-    height: 24px;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 24px;
-}
-
-.details-expandable-btn-container {
+.btn-container {
     float: right;
     height: 25px;
     margin-top: 50px;
 }
 
-.details-expandable-btn-discard {
+.btn-discard {
     margin-right: 6px;
     min-width: 125px;
 }
@@ -85,55 +67,38 @@
     min-width: 125px;
 }
 
-.details-expandable-section {
-    cursor: pointer;
-    display: flex;
-}
-
-.details-expandable-section-hide {
-    border-bottom: 1px solid #e4e8f0;
-    height: 25px;
-    margin-top: 25px;
-    overflow: hidden;
-    padding-bottom: 25px;
-    position: relative;
-}
-
-.details-expandable-section-show {
-    height: auto;
-    margin-top: 25px;
-    overflow: visible;
-    padding-bottom: 25px;
-    position: relative;
-}
-
-.details-expandable-header {
-    color: #0d0d0d;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.6px;
-    text-transform: uppercase;
-}
-
-.details-expandable-title {
+.title {
     color: #57626e;
 }
 
-.details-expandable-value {
+.value {
     margin-top: 10px;
 }
 
-.details-expandable-row {
+.row {
     margin-top: 25px;
 }
 </style>
 <script>
+import { normalize } from "ripe-commons";
 export const DetailsExpandable = {
     name: "details-expandable-ripe",
     props: {
         data: {
             type: Object,
             required: true
+        },
+        sectionSize: {
+            type: String,
+            default: "small"
+        },
+        sectionAnimated: {
+            type: Boolean,
+            default: false
+        },
+        sectionUppercase: {
+            type: Boolean,
+            default: true
         },
         labelFontSize: {
             type: Number,
@@ -149,26 +114,26 @@ export const DetailsExpandable = {
         }
     },
     data: function() {
-        const isExpanded = {};
-        Object.keys(this.data).forEach(k => {
-            isExpanded[k] = false;
-        });
-
         return {
-            isExpanded
+            isExpanded: {}
         };
+    },
+    mounted: function() {
+        Object.keys(this.data).forEach(k => {
+            this.isExpanded[k] = false;
+        });
     },
     methods: {
         capitalizeName(name) {
-            return name.charAt(0).toUpperCase() + name.slice(1);
+            return normalize(name, { capitalize: true });
         },
         toggleSection(sectionName) {
             this.isExpanded[sectionName] = !this.isExpanded[sectionName];
         },
-        onSaveHandler(event) {
+        onSaveClick(event) {
             this.$emit("save:click", event);
         },
-        onDiscardHandler(event) {
+        onDiscardClick(event) {
             this.$emit("discard:click", event);
         }
     }

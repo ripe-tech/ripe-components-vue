@@ -8,23 +8,32 @@ storiesOf("Components/Organisms/Details Expandable", module)
             data: {
                 type: Object,
                 default: () => ({
-                    first_row: {
-                        field_a: "something",
-                        field_b: "something else",
-                        field_object: {
-                            property_a: "property a",
-                            property_b: "property b"
+                    firstRow: {
+                        fieldA: "something",
+                        fieldB: "something else",
+                        fieldObject: {
+                            propertyA: "property a",
+                            propertyB: "property b"
                         }
                     },
-                    second_row: {
-                        field_c: "yet something",
-                        field_d: "yet something else",
-                        field_object: {
-                            property_c: "property c",
-                            property_d: "property d"
+                    secondRow: {
+                        fieldC: "yet something",
+                        fieldD: "yet something else",
+                        fieldObject: {
+                            propertyC: "property c",
+                            propertyD: "property d"
                         }
                     }
                 })
+            },
+            sectionSize: {
+                default: "small"
+            },
+            sectionAnimated: {
+                default: true
+            },
+            sectionUppercase: {
+                default: true
             },
             labelFontSize: {
                 default: 14
@@ -47,6 +56,9 @@ storiesOf("Components/Organisms/Details Expandable", module)
         template: `
             <details-expandable-ripe
                 v-bind:data="data"
+                v-bind:section-size="sectionSize"
+                v-bind:animated="sectionAnimated"
+                v-bind:uppercase-section="sectionUppercase"
                 v-bind:label-font-size="labelFontSize"
                 v-bind:style="'margin-top: 25px'"
                 v-bind:discard-button-text="discardButtonText"
@@ -54,17 +66,14 @@ storiesOf("Components/Organisms/Details Expandable", module)
                 v-on:discard:click="onDiscardClick"
                 v-on:save:click="onSaveClick"
             >
-                <template v-slot:first_row>
-                    Customized Customer
-                </template>
-                <template v-slot:first_row-label-field_name>
+                <template v-slot:firstRow-label-fieldA>
                     name
                 </template>
-                <template v-slot:first_row-field_object>
-                    <input-ripe v-bind:style="'width: 50%'" v-bind:value="data.first_row.field_object.property_a" />
+                <template v-slot:firstRow-fieldObject>
+                    <input-ripe v-bind:style="'width: 50%'" v-bind:value="data.firstRow.fieldObject.propertyA" />
                 </template>
-                <template v-slot:second_row-field_object>
-                    <input-ripe v-bind:style="'width: 50%'" v-bind:value="data.second_row.field_object.property_c" />
+                <template v-slot:second_row-fieldObject>
+                    <input-ripe v-bind:style="'width: 50%'" v-bind:value="data.secondRow.fieldObject.propertyC" />
                 </template>
             </details-expandable-ripe>
         `
