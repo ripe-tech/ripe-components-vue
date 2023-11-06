@@ -10,8 +10,8 @@
         >
             <div
                 class="row"
-                v-for="(value, name, subIndex) in section"
-                v-bind:key="subIndex"
+                v-for="(value, name) in section"
+                v-bind:key="sectionName + '-' + name"
             >
                 <slot v-bind:name="sectionName + '-label-' + name">
                     <label-ripe
