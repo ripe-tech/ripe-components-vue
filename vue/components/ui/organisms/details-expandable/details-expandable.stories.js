@@ -54,14 +54,18 @@ storiesOf("Components/Organisms/Details Expandable", module)
                 v-on:discard:click="onDiscardClick"
                 v-on:save:click="onSaveClick"
             >
-            <template v-slot:first_row>Customized Customer</template>
-            <template v-slot:first_row-label-field_name>name</template>
-            <template v-slot:first_row-field_object>
-                <input-ripe v-bind:style="'width: 50%'" v-bind:value="data.first_row.field_object.property_a"></input-ripe>
-            </template>
-            <template v-slot:second_row-field_object>
-                <input-ripe v-bind:style="'width: 50%'" v-bind:value="data.second_row.field_object.property_c"></input-ripe>
-            </template>
+                <template v-slot:first_row>
+                    Customized Customer
+                </template>
+                <template v-slot:first_row-label-field_name>
+                    name
+                </template>
+                <template v-slot:first_row-field_object>
+                    <input-ripe v-bind:style="'width: 50%'" v-bind:value="data.first_row.field_object.property_a" />
+                </template>
+                <template v-slot:second_row-field_object>
+                    <input-ripe v-bind:style="'width: 50%'" v-bind:value="data.second_row.field_object.property_c" />
+                </template>
             </details-expandable-ripe>
         `
     }));
