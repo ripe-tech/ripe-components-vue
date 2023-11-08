@@ -21,6 +21,7 @@ storiesOf("Components/Molecules/Section Expandable", module)
                 default: select(
                     "Size",
                     {
+                        Tiny: "tiny",
                         Small: "small",
                         Medium: "medium",
                         Large: "large"
