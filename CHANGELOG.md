@@ -9,8 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-* `title` and `subTitle` optional props to Lightbox component - [#635](https://github.com/ripe-tech/ripe-components-vue/issues/635)
-* `tiny` as an option to the size prop in the Section Expandable component- [#641](https://github.com/ripe-tech/ripe-components-vue/issues/641)
+*
 
 ### Changed
 
@@ -19,6 +18,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 *
+
+## [0.24.0] - 2023-11-09
+
+### Added
+
+* `title` and `subTitle` optional props to Lightbox component - [#635](https://github.com/ripe-tech/ripe-components-vue/issues/635)
+* `tiny` as an option to the size prop in the Section Expandable component- [#641](https://github.com/ripe-tech/ripe-components-vue/issues/641)
 
 ## [0.23.7] - 2023-10-23
 
