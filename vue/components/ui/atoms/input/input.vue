@@ -158,10 +158,6 @@ export const Input = {
         maxLength: {
             type: Number,
             default: null
-        },
-        backgroundColor: {
-            type: String,
-            default: null
         }
     },
     mounted: function() {
@@ -223,8 +219,7 @@ export const Input = {
                 "min-width": this.minWidth === null ? null : `${this.minWidth}px`,
                 "font-size": this.fontSize === null ? null : `${this.fontSize}px`,
                 "font-weight": this.fontWeight === null ? null : `${this.fontWeight}`,
-                "text-align": this.align,
-                "background-color": this.backgroundColor === null ? null : this.backgroundColor
+                "text-align": this.align
             };
             return base;
         },
