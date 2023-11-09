@@ -35,6 +35,10 @@
     letter-spacing: 0.35px;
 }
 
+.section-expandable > .header > .title.title-tiny {
+    font-size: 12px;
+}
+
 .section-expandable > .header > .title.title-small {
     font-size: 14px;
 }
