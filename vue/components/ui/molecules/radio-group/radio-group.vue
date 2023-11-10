@@ -37,7 +37,7 @@
     font-size: 0px;
     line-height: 13px;
     outline: none;
-    padding: 10px 0px 10px 0px;
+    padding: 10px 6px 10px 6px;
     user-select: none;
     width: fit-content;
 }

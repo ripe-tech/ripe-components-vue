@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-*
+* Changed radio group `padding-left` and `padding-right` to 6px instead of 0px - [#644](https://github.com/ripe-tech/ripe-components-vue/issues/644)
 
 ### Fixed
 
