@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-*
+* `onChange` event to input component - [#646](https://github.com/ripe-tech/ripe-components-vue/issues/646)
 
 ### Changed
 

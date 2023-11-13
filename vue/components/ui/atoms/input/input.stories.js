@@ -74,10 +74,15 @@ storiesOf("Components/Atoms/Input", module)
                 default: number("Max Length", null)
             }
         },
-        data: function() {
+        data: function () {
             return {
                 valueData: this.value
             };
+        },
+        methods: {
+            onChange(value) {
+                console.log(value);
+            }
         },
         watch: {
             value(value) {
@@ -102,6 +107,7 @@ storiesOf("Components/Atoms/Input", module)
                         v-bind:min-width="minWidth"
                         v-bind:height="height"
                         v-bind:debounce-delay="debounceDelay"
+                        v-on:change="onChange"
                         v-bind:max-length="maxLength" />
                 </form-input>
                 <p>Text: {{ valueData }}</p>
