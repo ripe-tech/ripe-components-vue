@@ -79,11 +79,6 @@ storiesOf("Components/Atoms/Input", module)
                 valueData: this.value
             };
         },
-        methods: {
-            onChange(value) {
-                console.log(value);
-            }
-        },
         watch: {
             value(value) {
                 this.valueData = value;
@@ -107,7 +102,6 @@ storiesOf("Components/Atoms/Input", module)
                         v-bind:min-width="minWidth"
                         v-bind:height="height"
                         v-bind:debounce-delay="debounceDelay"
-                        v-on:change="onChange"
                         v-bind:max-length="maxLength" />
                 </form-input>
                 <p>Text: {{ valueData }}</p>
